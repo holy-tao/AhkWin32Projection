@@ -59,6 +59,10 @@ export default struct MI_ProviderFT_ReferenceInstances {
             this.value := CallbackCreate(fn, , ["ptr", MI_Context.Ptr, "ushort*", "ushort*", MI_Instance.Ptr, "ushort*", MI_PropertySet.Ptr, Int8, MI_Filter.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

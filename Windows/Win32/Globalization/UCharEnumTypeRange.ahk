@@ -49,6 +49,10 @@ export default struct UCharEnumTypeRange {
             this.value := CallbackCreate(fn, "cdecl", ["ptr", Int32, Int32, UCharCategory, Int8])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

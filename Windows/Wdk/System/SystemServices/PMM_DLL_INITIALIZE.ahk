@@ -26,7 +26,7 @@ export default struct PMM_DLL_INITIALIZE {
      */
     Call(RegistryPath) {
         result := DllCall(this.value, UNICODE_STRING.Ptr, RegistryPath, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -46,6 +46,10 @@ export default struct PMM_DLL_INITIALIZE {
             this.value := CallbackCreate(fn, , [UNICODE_STRING.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

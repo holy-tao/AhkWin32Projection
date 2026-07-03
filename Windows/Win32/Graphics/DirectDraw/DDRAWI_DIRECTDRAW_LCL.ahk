@@ -3,6 +3,7 @@
 #Import ".\DDHAL_CALLBACKS.ahk" { DDHAL_CALLBACKS }
 #Import ".\DDRAWI_DDRAWSURFACE_INT.ahk" { DDRAWI_DDRAWSURFACE_INT }
 #Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
+#Import ".\LPDDGAMMACALIBRATORPROC.ahk" { LPDDGAMMACALIBRATORPROC }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
@@ -73,6 +74,6 @@ export default struct DDRAWI_DIRECTDRAW_LCL {
 
     hGammaCalibrator : IntPtr
 
-    lpGammaCalibrator : IntPtr
+    lpGammaCalibrator : LPDDGAMMACALIBRATORPROC
 
 }

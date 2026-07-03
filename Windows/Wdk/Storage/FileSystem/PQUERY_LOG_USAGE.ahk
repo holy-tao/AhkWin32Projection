@@ -46,6 +46,10 @@ export default struct PQUERY_LOG_USAGE {
             this.value := CallbackCreate(fn, , ["ptr", "ushort*", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

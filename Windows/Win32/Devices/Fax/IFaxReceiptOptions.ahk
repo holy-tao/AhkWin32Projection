@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\FAX_RECEIPT_TYPE_ENUM.ahk" { FAX_RECEIPT_TYPE_ENUM }
 #Import ".\FAX_SMTP_AUTHENTICATION_TYPE_ENUM.ahk" { FAX_SMTP_AUTHENTICATION_TYPE_ENUM }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }

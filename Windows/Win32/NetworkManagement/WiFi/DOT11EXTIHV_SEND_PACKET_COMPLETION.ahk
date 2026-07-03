@@ -44,6 +44,10 @@ export default struct DOT11EXTIHV_SEND_PACKET_COMPLETION {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

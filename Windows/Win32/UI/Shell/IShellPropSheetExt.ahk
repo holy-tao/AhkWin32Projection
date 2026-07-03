@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Controls\LPFNSVADDPROPSHEETPAGE.ahk" { LPFNSVADDPROPSHEETPAGE }
 
 /**
  * Exposes methods that allow a property sheet handler to add or replace pages in the property sheet displayed for a file object.
@@ -66,7 +67,7 @@ export default struct IShellPropSheetExt extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellpropsheetext-addpages
      */
     AddPages(pfnAddPage, _lParam) {
-        result := ComCall(3, this, "ptr", pfnAddPage, LPARAM, _lParam, "HRESULT")
+        result := ComCall(3, this, LPFNSVADDPROPSHEETPAGE, pfnAddPage, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -91,7 +92,7 @@ export default struct IShellPropSheetExt extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellpropsheetext-replacepage
      */
     ReplacePage(uPageID, pfnReplaceWith, _lParam) {
-        result := ComCall(4, this, UInt32, uPageID, "ptr", pfnReplaceWith, LPARAM, _lParam, "HRESULT")
+        result := ComCall(4, this, UInt32, uPageID, LPFNSVADDPROPSHEETPAGE, pfnReplaceWith, LPARAM, _lParam, "HRESULT")
         return result
     }
 

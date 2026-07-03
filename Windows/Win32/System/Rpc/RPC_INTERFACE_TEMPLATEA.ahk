@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\RPC_IF_CALLBACK_FN.ahk" { RPC_IF_CALLBACK_FN }
 #Import ".\UUID_VECTOR.ahk" { UUID_VECTOR }
 
 /**
@@ -84,7 +85,7 @@ export default struct RPC_INTERFACE_TEMPLATEA {
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nc-rpcdce-rpc_interface_group_idle_callback_fn">RPC_INTERFACE_GROUP_IDLE_CALLBACK_FN</a> security-callback function, or <b>NULL</b> for no callback. Each registered interface can have a different callback function.
      */
-    IfCallback : IntPtr
+    IfCallback : RPC_IF_CALLBACK_FN
 
     /**
      * Pointer to a vector of object <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUIDs</a> offered by the server to be registered with the RPC endpoint mapper. The server application constructs this vector.  <b>NULL</b> indicates there are no object <b>UUIDs</b> to register.

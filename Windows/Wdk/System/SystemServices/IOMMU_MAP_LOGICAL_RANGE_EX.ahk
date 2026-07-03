@@ -39,7 +39,7 @@ export default struct IOMMU_MAP_LOGICAL_RANGE_EX {
         LogicalAddressOutMarshal := LogicalAddressOut is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, DomainMarshal, Domain, UInt32, Permissions, IOMMU_MAP_PHYSICAL_ADDRESS.Ptr, PhysicalAddressToMap, ExplicitLogicalAddressMarshal, ExplicitLogicalAddress, MinLogicalAddressMarshal, MinLogicalAddress, MaxLogicalAddressMarshal, MaxLogicalAddress, LogicalAddressOutMarshal, LogicalAddressOut, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -59,6 +59,10 @@ export default struct IOMMU_MAP_LOGICAL_RANGE_EX {
             this.value := CallbackCreate(fn, , [IOMMU_DMA_DOMAIN.Ptr, UInt32, IOMMU_MAP_PHYSICAL_ADDRESS.Ptr, "uint*", "uint*", "uint*", "uint*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -48,6 +48,10 @@ export default struct PFN_Direct3DCreate9On12Ex {
             this.value := CallbackCreate(fn, , [UInt32, D3D9ON12_ARGS.Ptr, UInt32, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

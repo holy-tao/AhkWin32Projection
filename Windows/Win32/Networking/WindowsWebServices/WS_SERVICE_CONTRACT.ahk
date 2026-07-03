@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\WS_CONTRACT_DESCRIPTION.ahk" { WS_CONTRACT_DESCRIPTION }
+#Import ".\WS_SERVICE_MESSAGE_RECEIVE_CALLBACK.ahk" { WS_SERVICE_MESSAGE_RECEIVE_CALLBACK }
 
 /**
  * Specifies a service contract on an endpoint.
@@ -17,7 +18,7 @@ export default struct WS_SERVICE_CONTRACT {
     /**
      * Callback for processing unhandled messages. Optional if contractDescription is given.
      */
-    defaultMessageHandlerCallback : IntPtr
+    defaultMessageHandlerCallback : WS_SERVICE_MESSAGE_RECEIVE_CALLBACK
 
     /**
      * The function table. Mandatory, if <b>contractDescription</b> is given.

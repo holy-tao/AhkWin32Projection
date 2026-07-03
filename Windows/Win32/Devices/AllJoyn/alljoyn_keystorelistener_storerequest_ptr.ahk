@@ -50,6 +50,10 @@ export default struct alljoyn_keystorelistener_storerequest_ptr {
             this.value := CallbackCreate(fn, , ["ptr", alljoyn_keystorelistener, alljoyn_keystore, QStatus])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

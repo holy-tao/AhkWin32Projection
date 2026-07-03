@@ -50,6 +50,10 @@ export default struct PCLUSAPI_CLUSTER_RESOURCE_ENUM_EX {
             this.value := CallbackCreate(fn, , [HRESENUMEX, UInt32, CLUSTER_RESOURCE_ENUM_ITEM.Ptr, "uint*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

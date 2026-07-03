@@ -34,7 +34,7 @@ export default struct PSHED_PI_READ_ERROR_RECORD {
         RecordLengthMarshal := RecordLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, PluginContextMarshal, PluginContext, UInt32, Flags, Int64, ErrorRecordId, NextErrorRecordIdMarshal, NextErrorRecordId, RecordLengthMarshal, RecordLength, IntPtr, ErrorRecord, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -54,6 +54,10 @@ export default struct PSHED_PI_READ_ERROR_RECORD {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, Int64, "uint*", "uint*", IntPtr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

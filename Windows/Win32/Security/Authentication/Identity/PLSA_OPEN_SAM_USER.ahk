@@ -35,7 +35,7 @@ export default struct PLSA_OPEN_SAM_USER {
         UserHandleMarshal := UserHandle is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, SECURITY_STRING.Ptr, Name, SECPKG_NAME_TYPE, NameType, SECURITY_STRING.Ptr, Prefix, BOOLEAN, AllowGuest, UInt32, Reserved, UserHandleMarshal, UserHandle, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -55,6 +55,10 @@ export default struct PLSA_OPEN_SAM_USER {
             this.value := CallbackCreate(fn, , [SECURITY_STRING.Ptr, SECPKG_NAME_TYPE, SECURITY_STRING.Ptr, BOOLEAN, UInt32, "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

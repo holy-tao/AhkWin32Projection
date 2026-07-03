@@ -47,6 +47,10 @@ export default struct PGET_PNP_TRIAGE_INFO {
             this.value := CallbackCreate(fn, , ["ptr", DEBUG_PNP_TRIAGE_INFO.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

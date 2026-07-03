@@ -45,6 +45,10 @@ export default struct PFREE_CLUSTER_CRYPT {
             this.value := CallbackCreate(fn, , ["ptr", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

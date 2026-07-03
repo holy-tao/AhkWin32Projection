@@ -57,6 +57,10 @@ export default struct SslGetProviderPropertyFn {
             this.value := CallbackCreate(fn, , [NCRYPT_PROV_HANDLE, PWSTR, "ptr*", "uint*", "ptr*", UInt32, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

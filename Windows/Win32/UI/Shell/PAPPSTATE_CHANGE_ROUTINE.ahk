@@ -52,6 +52,10 @@ export default struct PAPPSTATE_CHANGE_ROUTINE {
             this.value := CallbackCreate(fn, , [BOOLEAN, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -63,6 +63,10 @@ export default struct EVT_SUBSCRIBE_CALLBACK {
             this.value := CallbackCreate(fn, , [EVT_SUBSCRIBE_NOTIFY_ACTION, "ptr", EVT_HANDLE, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

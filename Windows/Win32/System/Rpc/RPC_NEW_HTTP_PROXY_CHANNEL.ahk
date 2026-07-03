@@ -69,6 +69,10 @@ export default struct RPC_NEW_HTTP_PROXY_CHANNEL {
             this.value := CallbackCreate(fn, , [RPC_HTTP_REDIRECTOR_STAGE, PWSTR, PWSTR, PWSTR, PWSTR, "ptr", "ptr", "ptr", "ptr", UInt32, PWSTR.Ptr, PWSTR.Ptr, RPC_STATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

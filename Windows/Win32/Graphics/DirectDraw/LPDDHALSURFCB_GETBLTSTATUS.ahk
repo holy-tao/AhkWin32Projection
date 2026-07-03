@@ -44,6 +44,10 @@ export default struct LPDDHALSURFCB_GETBLTSTATUS {
             this.value := CallbackCreate(fn, , [DDHAL_GETBLTSTATUSDATA.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

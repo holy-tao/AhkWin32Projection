@@ -1,4 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LPDDHAL_SETINFO.ahk" { LPDDHAL_SETINFO }
+#Import ".\LPDDHAL_VIDMEMALLOC.ahk" { LPDDHAL_VIDMEMALLOC }
+#Import ".\LPDDHAL_VIDMEMFREE.ahk" { LPDDHAL_VIDMEMFREE }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -8,10 +11,10 @@ export default struct DDHALDDRAWFNS {
 
     dwSize : UInt32
 
-    lpSetInfo : IntPtr
+    lpSetInfo : LPDDHAL_SETINFO
 
-    lpVidMemAlloc : IntPtr
+    lpVidMemAlloc : LPDDHAL_VIDMEMALLOC
 
-    lpVidMemFree : IntPtr
+    lpVidMemFree : LPDDHAL_VIDMEMFREE
 
 }

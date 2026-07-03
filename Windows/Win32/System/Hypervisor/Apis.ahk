@@ -1,14 +1,16 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\HostComputeSystem\HCS_SYSTEM.ahk" { HCS_SYSTEM }
+#Import ".\FOUND_IMAGE_CALLBACK.ahk" { FOUND_IMAGE_CALLBACK }
 #Import ".\GPA_MEMORY_CHUNK.ahk" { GPA_MEMORY_CHUNK }
 #Import ".\GUEST_OS_INFO.ahk" { GUEST_OS_INFO }
+#Import ".\GUEST_SYMBOLS_PROVIDER_DEBUG_INFO_CALLBACK.ahk" { GUEST_SYMBOLS_PROVIDER_DEBUG_INFO_CALLBACK }
 #Import ".\HDV_DEVICE_HOST_FLAGS.ahk" { HDV_DEVICE_HOST_FLAGS }
 #Import ".\HDV_DEVICE_TYPE.ahk" { HDV_DEVICE_TYPE }
 #Import ".\HDV_MMIO_MAPPING_FLAGS.ahk" { HDV_MMIO_MAPPING_FLAGS }
@@ -1674,7 +1676,7 @@ export GetSavedStateSymbolProviderHandle(vmSavedStateDumpHandle) {
 export SetSavedStateSymbolProviderDebugInfoCallback(vmSavedStateDumpHandle, Callback) {
     vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\SetSavedStateSymbolProviderDebugInfoCallback", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "ptr", Callback, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\SetSavedStateSymbolProviderDebugInfoCallback", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, GUEST_SYMBOLS_PROVIDER_DEBUG_INFO_CALLBACK, Callback, "HRESULT")
     return result
 }
 
@@ -1827,7 +1829,7 @@ export ScanMemoryForDosImages(vmSavedStateDumpHandle, vpId, startAddress, endAdd
     callbackContextMarshal := callbackContext is VarRef ? "ptr" : "ptr"
     standaloneAddressMarshal := standaloneAddress is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\ScanMemoryForDosImages", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, UInt32, vpId, Int64, startAddress, Int64, endAddress, callbackContextMarshal, callbackContext, "ptr", foundImageCallback, standaloneAddressMarshal, standaloneAddress, UInt32, standaloneAddressCount, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\ScanMemoryForDosImages", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, UInt32, vpId, Int64, startAddress, Int64, endAddress, callbackContextMarshal, callbackContext, FOUND_IMAGE_CALLBACK, foundImageCallback, standaloneAddressMarshal, standaloneAddress, UInt32, standaloneAddressCount, "HRESULT")
     return result
 }
 

@@ -47,6 +47,10 @@ export default struct NCryptFreeSecretFn {
             this.value := CallbackCreate(fn, , [NCRYPT_PROV_HANDLE, NCRYPT_SECRET_HANDLE, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

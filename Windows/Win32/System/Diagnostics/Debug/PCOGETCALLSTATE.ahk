@@ -47,6 +47,10 @@ export default struct PCOGETCALLSTATE {
             this.value := CallbackCreate(fn, , [Int32, "uint*", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

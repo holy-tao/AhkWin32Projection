@@ -39,7 +39,7 @@ export default struct SpFormatCredentialsFn {
      */
     Call(Credentials, FormattedCredentials) {
         result := DllCall(this.value, SecBuffer.Ptr, Credentials, SecBuffer.Ptr, FormattedCredentials, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -59,6 +59,10 @@ export default struct SpFormatCredentialsFn {
             this.value := CallbackCreate(fn, , [SecBuffer.Ptr, SecBuffer.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

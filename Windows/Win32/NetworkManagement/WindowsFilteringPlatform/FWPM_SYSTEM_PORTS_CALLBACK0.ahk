@@ -56,6 +56,10 @@ export default struct FWPM_SYSTEM_PORTS_CALLBACK0 {
             this.value := CallbackCreate(fn, , ["ptr", FWPM_SYSTEM_PORTS0.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

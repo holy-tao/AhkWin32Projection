@@ -47,6 +47,10 @@ export default struct PGET_CPU_MICROCODE_VERSION {
             this.value := CallbackCreate(fn, , ["ptr", DEBUG_CPU_MICROCODE_VERSION.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

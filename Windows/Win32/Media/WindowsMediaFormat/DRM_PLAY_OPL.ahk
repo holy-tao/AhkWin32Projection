@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\DRM_MINIMUM_OUTPUT_PROTECTION_LEVELS.ahk" { DRM_MINIMUM_OUTPUT_PROTECTION_LEVELS }
 #Import ".\DRM_OPL_OUTPUT_IDS.ahk" { DRM_OPL_OUTPUT_IDS }
 #Import ".\DRM_OUTPUT_PROTECTION.ahk" { DRM_OUTPUT_PROTECTION }

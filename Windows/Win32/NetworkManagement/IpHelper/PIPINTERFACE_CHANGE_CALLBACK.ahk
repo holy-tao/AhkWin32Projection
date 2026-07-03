@@ -48,6 +48,10 @@ export default struct PIPINTERFACE_CHANGE_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", MIB_IPINTERFACE_ROW.Ptr, MIB_NOTIFICATION_TYPE, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

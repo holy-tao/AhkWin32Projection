@@ -46,6 +46,10 @@ export default struct RPCLT_PDU_FILTER_FUNC {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, Int32, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\VDS_CONTROLLER_STATUS.ahk" { VDS_CONTROLLER_STATUS }
 #Import ".\VDS_HEALTH.ahk" { VDS_HEALTH }

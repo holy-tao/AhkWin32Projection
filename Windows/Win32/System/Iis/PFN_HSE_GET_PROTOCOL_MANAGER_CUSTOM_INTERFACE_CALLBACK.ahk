@@ -53,6 +53,10 @@ export default struct PFN_HSE_GET_PROTOCOL_MANAGER_CUSTOM_INTERFACE_CALLBACK {
             this.value := CallbackCreate(fn, , [PWSTR, PWSTR, UInt32, "ptr*", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

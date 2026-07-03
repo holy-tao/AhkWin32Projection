@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PFN.ahk" { PFN }
 
 /**
  * The DRVFN structure is used by graphics drivers to provide GDI with pointers to the graphics DDI functions defined by the driver.
@@ -25,6 +26,6 @@ export default struct DRVFN {
      * LONG_PTR  (APIENTRY * PFN) ();
      * ```
      */
-    pfn : IntPtr
+    pfn : PFN
 
 }

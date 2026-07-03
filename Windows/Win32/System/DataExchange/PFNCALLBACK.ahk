@@ -73,6 +73,10 @@ export default struct PFNCALLBACK {
             this.value := CallbackCreate(fn, , [UInt32, UInt32, HCONV, HSZ, HSZ, HDDEDATA, IntPtr, IntPtr, HDDEDATA])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

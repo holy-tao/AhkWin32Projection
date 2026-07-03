@@ -30,7 +30,7 @@ export default struct PFLUSH_DMA_BUFFER {
      */
     Call(DmaAdapter, _Mdl, ReadOperation) {
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, MDL.Ptr, _Mdl, BOOLEAN, ReadOperation, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -50,6 +50,10 @@ export default struct PFLUSH_DMA_BUFFER {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, MDL.Ptr, BOOLEAN, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

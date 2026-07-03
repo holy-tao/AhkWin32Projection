@@ -63,6 +63,10 @@ export default struct SENDASYNCPROC {
             this.value := CallbackCreate(fn, , [HWND, UInt32, IntPtr, LRESULT, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

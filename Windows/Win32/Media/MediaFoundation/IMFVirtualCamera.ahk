@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Devices\Properties\DEVPROPTYPE.ahk" { DEVPROPTYPE }
 #Import "..\..\Foundation\DEVPROPKEY.ahk" { DEVPROPKEY }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }

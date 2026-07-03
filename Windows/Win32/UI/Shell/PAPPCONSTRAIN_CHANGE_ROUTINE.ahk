@@ -46,6 +46,10 @@ export default struct PAPPCONSTRAIN_CHANGE_ROUTINE {
             this.value := CallbackCreate(fn, , [BOOLEAN, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

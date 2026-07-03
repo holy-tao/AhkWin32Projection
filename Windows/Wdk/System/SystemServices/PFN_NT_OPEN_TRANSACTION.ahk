@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\OBJECT_ATTRIBUTES.ahk" { OBJECT_ATTRIBUTES }
 #Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
@@ -32,7 +32,7 @@ export default struct PFN_NT_OPEN_TRANSACTION {
      */
     Call(TransactionHandle, DesiredAccess, ObjectAttributes, Uow, TmHandle) {
         result := DllCall(this.value, HANDLE.Ptr, TransactionHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, Guid.Ptr, Uow, HANDLE, TmHandle, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -52,6 +52,10 @@ export default struct PFN_NT_OPEN_TRANSACTION {
             this.value := CallbackCreate(fn, , [HANDLE.Ptr, UInt32, OBJECT_ATTRIBUTES.Ptr, Guid.Ptr, HANDLE, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

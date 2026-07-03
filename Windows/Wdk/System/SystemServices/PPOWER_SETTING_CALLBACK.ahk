@@ -24,7 +24,7 @@ export default struct PPOWER_SETTING_CALLBACK {
      */
     Call() {
         result := DllCall(this.value, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -44,6 +44,10 @@ export default struct PPOWER_SETTING_CALLBACK {
             this.value := CallbackCreate(fn, , [NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

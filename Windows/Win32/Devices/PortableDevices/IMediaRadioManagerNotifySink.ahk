@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\DEVICE_RADIO_STATE.ahk" { DEVICE_RADIO_STATE }
 #Import ".\IRadioInstance.ahk" { IRadioInstance }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }

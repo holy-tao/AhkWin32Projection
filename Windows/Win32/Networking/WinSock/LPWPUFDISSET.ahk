@@ -46,6 +46,10 @@ export default struct LPWPUFDISSET {
             this.value := CallbackCreate(fn, , [SOCKET, FD_SET.Ptr, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

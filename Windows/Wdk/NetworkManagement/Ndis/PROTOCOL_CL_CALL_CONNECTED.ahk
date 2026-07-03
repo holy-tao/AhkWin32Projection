@@ -44,6 +44,10 @@ export default struct PROTOCOL_CL_CALL_CONNECTED {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -54,6 +54,10 @@ export default struct PDXVAHDSW_GetVideoProcessorCaps {
             this.value := CallbackCreate(fn, , [HANDLE, DXVAHD_CONTENT_DESC.Ptr, DXVAHD_DEVICE_USAGE, UInt32, DXVAHD_VPCAPS.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

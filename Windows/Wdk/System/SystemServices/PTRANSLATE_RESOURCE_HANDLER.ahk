@@ -37,7 +37,7 @@ export default struct PTRANSLATE_RESOURCE_HANDLER {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, CM_PARTIAL_RESOURCE_DESCRIPTOR.Ptr, Source, RESOURCE_TRANSLATION_DIRECTION, _Direction, UInt32, AlternativesCount, IO_RESOURCE_DESCRIPTOR.Ptr, Alternatives, DEVICE_OBJECT.Ptr, PhysicalDeviceObject, CM_PARTIAL_RESOURCE_DESCRIPTOR.Ptr, Target, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -57,6 +57,10 @@ export default struct PTRANSLATE_RESOURCE_HANDLER {
             this.value := CallbackCreate(fn, , ["ptr", CM_PARTIAL_RESOURCE_DESCRIPTOR.Ptr, RESOURCE_TRANSLATION_DIRECTION, UInt32, IO_RESOURCE_DESCRIPTOR.Ptr, DEVICE_OBJECT.Ptr, CM_PARTIAL_RESOURCE_DESCRIPTOR.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -48,6 +48,10 @@ export default struct LPFNCCSTYLEA {
             this.value := CallbackCreate(fn, , [HWND, CCSTYLEA.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

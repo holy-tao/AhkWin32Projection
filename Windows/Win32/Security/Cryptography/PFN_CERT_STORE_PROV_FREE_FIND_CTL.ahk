@@ -51,6 +51,10 @@ export default struct PFN_CERT_STORE_PROV_FREE_FIND_CTL {
             this.value := CallbackCreate(fn, , [HCERTSTOREPROV, CTL_CONTEXT.Ptr, "ptr", UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

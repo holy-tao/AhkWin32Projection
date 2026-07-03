@@ -50,6 +50,10 @@ export default struct PCLFS_CLIENT_LFF_HANDLER_COMPLETE_CALLBACK {
             this.value := CallbackCreate(fn, , [FILE_OBJECT.Ptr, NTSTATUS, BOOLEAN, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

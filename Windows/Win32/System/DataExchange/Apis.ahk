@@ -20,6 +20,7 @@
 #Import ".\HDDEDATA.ahk" { HDDEDATA }
 #Import ".\HSZ.ahk" { HSZ }
 #Import ".\METAFILEPICT.ahk" { METAFILEPICT }
+#Import ".\PFNCALLBACK.ahk" { PFNCALLBACK }
 
 /**
  * @namespace Windows.Win32.System.DataExchange
@@ -297,7 +298,7 @@ export DdeInitializeA(pidInst, _pfnCallback, afCmd) {
 
     pidInstMarshal := pidInst is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("USER32.dll\DdeInitializeA", pidInstMarshal, pidInst, "ptr", _pfnCallback, DDE_INITIALIZE_COMMAND, afCmd, UInt32, ulRes, UInt32)
+    result := DllCall("USER32.dll\DdeInitializeA", pidInstMarshal, pidInst, PFNCALLBACK, _pfnCallback, DDE_INITIALIZE_COMMAND, afCmd, UInt32, ulRes, UInt32)
     return result
 }
 
@@ -349,7 +350,7 @@ export DdeInitializeW(pidInst, _pfnCallback, afCmd) {
 
     pidInstMarshal := pidInst is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("USER32.dll\DdeInitializeW", pidInstMarshal, pidInst, "ptr", _pfnCallback, DDE_INITIALIZE_COMMAND, afCmd, UInt32, ulRes, UInt32)
+    result := DllCall("USER32.dll\DdeInitializeW", pidInstMarshal, pidInst, PFNCALLBACK, _pfnCallback, DDE_INITIALIZE_COMMAND, afCmd, UInt32, ulRes, UInt32)
     return result
 }
 

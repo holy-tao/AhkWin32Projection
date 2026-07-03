@@ -117,7 +117,7 @@ export default struct CredReadDomainCredentialsFn {
         CredentialMarshal := Credential is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, LUID.Ptr, LogonId, UInt32, CredFlags, CREDENTIAL_TARGET_INFORMATIONW.Ptr, TargetInfo, UInt32, Flags, CountMarshal, Count, CredentialMarshal, Credential, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -137,6 +137,10 @@ export default struct CredReadDomainCredentialsFn {
             this.value := CallbackCreate(fn, , [LUID.Ptr, UInt32, CREDENTIAL_TARGET_INFORMATIONW.Ptr, UInt32, "uint*", "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

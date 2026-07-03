@@ -49,6 +49,10 @@ export default struct PFN_DrvDitherColor {
             this.value := CallbackCreate(fn, , [DHPDEV, UInt32, UInt32, "uint*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

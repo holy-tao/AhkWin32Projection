@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Guid.ahk" { Guid }
 #Import ".\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
 #Import ".\FILE_OBJECT.ahk" { FILE_OBJECT }
 #Import ".\IO_SECURITY_CONTEXT.ahk" { IO_SECURITY_CONTEXT }
+#Import ".\PIO_COMPLETION_ROUTINE.ahk" { PIO_COMPLETION_ROUTINE }
 #Import ".\VPB.ahk" { VPB }
 #Import ".\_SCSI_REQUEST_BLOCK.ahk" { _SCSI_REQUEST_BLOCK }
 #Import "..\Storage\FileSystem\FILE_GET_QUOTA_INFORMATION.ahk" { FILE_GET_QUOTA_INFORMATION }
@@ -463,7 +464,7 @@ export default struct IO_STACK_LOCATION {
         set => this.__FileObject_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    CompletionRoutine : IntPtr
+    CompletionRoutine : PIO_COMPLETION_ROUTINE
 
     Context : IntPtr
 

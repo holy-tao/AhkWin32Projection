@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
 #Import "..\..\Foundation\PKINTERRUPT.ahk" { PKINTERRUPT }
+#Import ".\PKSERVICE_ROUTINE.ahk" { PKSERVICE_ROUTINE }
 #Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
@@ -13,7 +14,7 @@ export default struct IO_CONNECT_INTERRUPT_LINE_BASED_PARAMETERS {
 
     InterruptObject : PKINTERRUPT.Ptr
 
-    ServiceRoutine : IntPtr
+    ServiceRoutine : PKSERVICE_ROUTINE
 
     ServiceContext : IntPtr
 

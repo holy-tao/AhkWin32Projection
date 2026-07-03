@@ -43,6 +43,10 @@ export default struct SSL_FREE_CERTIFICATE_FN {
             this.value := CallbackCreate(fn, , [X509Certificate.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -57,6 +57,10 @@ export default struct PCLUSAPI_CLUS_WORKER_TERMINATE {
             this.value := CallbackCreate(fn, , [CLUS_WORKER.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

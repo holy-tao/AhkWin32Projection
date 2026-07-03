@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import ".\HTREEITEM.ahk" { HTREEITEM }
+#Import ".\PFNTVCOMPARE.ahk" { PFNTVCOMPARE }
 
 /**
  * Contains information used to sort child items in a tree-view control. This structure is used with the TVM_SORTCHILDRENCB message. This structure is identical to the TV_SORTCB structure, but it has been renamed to follow current naming conventions.
@@ -36,7 +37,7 @@ export default struct TVSORTCB {
      * 
      * Address of an application-defined callback function, which is called during a sort operation each time the relative order of two list items needs to be compared.
      */
-    lpfnCompare : IntPtr
+    lpfnCompare : PFNTVCOMPARE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>

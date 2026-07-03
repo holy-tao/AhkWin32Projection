@@ -60,7 +60,7 @@ export default struct PLSA_AP_LOGON_USER_EX3 {
         SupplementalCredentialsMarshal := SupplementalCredentials is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, ClientRequestMarshal, ClientRequest, SECURITY_LOGON_TYPE, LogonType, IntPtr, ProtocolSubmitBuffer, ClientBufferBaseMarshal, ClientBufferBase, UInt32, SubmitBufferSize, SECPKG_SURROGATE_LOGON.Ptr, SurrogateLogon, ProfileBufferMarshal, ProfileBuffer, ProfileBufferSizeMarshal, ProfileBufferSize, LUID.Ptr, LogonId, SubStatusMarshal, SubStatus, TokenInformationTypeMarshal, TokenInformationType, TokenInformationMarshal, TokenInformation, AccountNameMarshal, AccountName, AuthenticatingAuthorityMarshal, AuthenticatingAuthority, MachineNameMarshal, MachineName, SECPKG_PRIMARY_CRED.Ptr, PrimaryCredentials, SupplementalCredentialsMarshal, SupplementalCredentials, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -80,6 +80,10 @@ export default struct PLSA_AP_LOGON_USER_EX3 {
             this.value := CallbackCreate(fn, , ["ptr*", SECURITY_LOGON_TYPE, IntPtr, "ptr", UInt32, SECPKG_SURROGATE_LOGON.Ptr, "ptr*", "uint*", LUID.Ptr, "int*", "int*", "ptr*", "ptr*", "ptr*", "ptr*", SECPKG_PRIMARY_CRED.Ptr, "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

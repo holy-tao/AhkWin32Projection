@@ -42,7 +42,7 @@ export default struct SpMarshallSupplementalCredsFn {
         MarshalledCredsMarshal := MarshalledCreds is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, UInt32, CredentialSize, IntPtr, Credentials, MarshalledCredSizeMarshal, MarshalledCredSize, MarshalledCredsMarshal, MarshalledCreds, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -62,6 +62,10 @@ export default struct SpMarshallSupplementalCredsFn {
             this.value := CallbackCreate(fn, , [UInt32, IntPtr, "uint*", "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

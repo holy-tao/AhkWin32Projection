@@ -57,6 +57,10 @@ export default struct PWLX_CLOSE_USER_DESKTOP {
             this.value := CallbackCreate(fn, , [HANDLE, WLX_DESKTOP.Ptr, HANDLE, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

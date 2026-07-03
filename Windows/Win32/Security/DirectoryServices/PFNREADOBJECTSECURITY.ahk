@@ -52,6 +52,10 @@ export default struct PFNREADOBJECTSECURITY {
             this.value := CallbackCreate(fn, , [PWSTR, UInt32, PSECURITY_DESCRIPTOR.Ptr, LPARAM, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

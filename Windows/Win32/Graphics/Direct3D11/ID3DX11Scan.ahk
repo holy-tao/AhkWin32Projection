@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3DX11_SCAN_DATA_TYPE.ahk" { D3DX11_SCAN_DATA_TYPE }
 #Import ".\D3DX11_SCAN_DIRECTION.ahk" { D3DX11_SCAN_DIRECTION }

@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\Gdi\HMONITOR.ahk" { HMONITOR }
@@ -70,6 +70,10 @@ export default struct LPDDENUMCALLBACKEXA {
             this.value := CallbackCreate(fn, , [Guid.Ptr, PSTR, PSTR, "ptr", HMONITOR, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

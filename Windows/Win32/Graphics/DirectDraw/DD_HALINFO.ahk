@@ -3,6 +3,7 @@
 #Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
 #Import ".\DDSCAPS.ahk" { DDSCAPS }
 #Import ".\DD_D3DBUFCALLBACKS.ahk" { DD_D3DBUFCALLBACKS }
+#Import ".\PDD_GETDRIVERINFO.ahk" { PDD_GETDRIVERINFO }
 #Import ".\VIDEOMEMORYINFO.ahk" { VIDEOMEMORYINFO }
 
 /**
@@ -33,7 +34,7 @@ export default struct DD_HALINFO {
     /**
      * Points to the driver's <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_getdriverinfo">DdGetDriverInfo</a> function. This function is called to get further Microsoft DirectDraw driver information. This member can be <b>NULL</b>.
      */
-    GetDriverInfo : IntPtr
+    GetDriverInfo : PDD_GETDRIVERINFO
 
     dwFlags : UInt32
 

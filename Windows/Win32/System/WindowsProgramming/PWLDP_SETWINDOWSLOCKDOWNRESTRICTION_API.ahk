@@ -45,6 +45,10 @@ export default struct PWLDP_SETWINDOWSLOCKDOWNRESTRICTION_API {
             this.value := CallbackCreate(fn, , [WLDP_WINDOWS_LOCKDOWN_RESTRICTION, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

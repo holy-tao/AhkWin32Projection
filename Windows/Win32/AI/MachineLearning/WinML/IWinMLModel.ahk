@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\WINML_MODEL_DESC.ahk" { WINML_MODEL_DESC }
 #Import ".\WINML_VARIABLE_DESC.ahk" { WINML_VARIABLE_DESC }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }

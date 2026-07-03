@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\DIJOYCONFIG.ahk" { DIJOYCONFIG }
 #Import ".\DIJOYTYPEINFO.ahk" { DIJOYTYPEINFO }
 #Import ".\DIJOYUSERVALUES.ahk" { DIJOYUSERVALUES }
+#Import ".\LPDIJOYTYPECALLBACK.ahk" { LPDIJOYTYPECALLBACK }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
@@ -103,7 +104,7 @@ export default struct IDirectInputJoyConfig extends IUnknown {
     EnumTypes(param0, param1) {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, "ptr", param0, param1Marshal, param1, "HRESULT")
+        result := ComCall(7, this, LPDIJOYTYPECALLBACK, param0, param1Marshal, param1, "HRESULT")
         return result
     }
 

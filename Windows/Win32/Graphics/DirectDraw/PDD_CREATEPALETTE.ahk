@@ -46,6 +46,10 @@ export default struct PDD_CREATEPALETTE {
             this.value := CallbackCreate(fn, , [DD_CREATEPALETTEDATA.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

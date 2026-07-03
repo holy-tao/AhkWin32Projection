@@ -2,6 +2,7 @@
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\CERT_PUBLIC_KEY_INFO.ahk" { CERT_PUBLIC_KEY_INFO }
 #Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
+#Import ".\PFN_CMSG_ALLOC.ahk" { PFN_CMSG_ALLOC }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -39,7 +40,7 @@ export default struct PFN_CMSG_GEN_ENCRYPT_KEY {
         ppbEncryptParametersMarshal := ppbEncryptParameters is VarRef ? "ptr*" : "ptr"
         pcbEncryptParametersMarshal := pcbEncryptParameters is VarRef ? "uint*" : "ptr"
 
-        result := DllCall(this.value, phCryptProvMarshal, phCryptProv, CRYPT_ALGORITHM_IDENTIFIER.Ptr, paiEncrypt, pvEncryptAuxInfoMarshal, pvEncryptAuxInfo, CERT_PUBLIC_KEY_INFO.Ptr, pPublicKeyInfo, "ptr", _pfnAlloc, phEncryptKeyMarshal, phEncryptKey, ppbEncryptParametersMarshal, ppbEncryptParameters, pcbEncryptParametersMarshal, pcbEncryptParameters, BOOL)
+        result := DllCall(this.value, phCryptProvMarshal, phCryptProv, CRYPT_ALGORITHM_IDENTIFIER.Ptr, paiEncrypt, pvEncryptAuxInfoMarshal, pvEncryptAuxInfo, CERT_PUBLIC_KEY_INFO.Ptr, pPublicKeyInfo, PFN_CMSG_ALLOC, _pfnAlloc, phEncryptKeyMarshal, phEncryptKey, ppbEncryptParametersMarshal, ppbEncryptParameters, pcbEncryptParametersMarshal, pcbEncryptParameters, BOOL)
         return result
     }
 
@@ -50,15 +51,19 @@ export default struct PFN_CMSG_GEN_ENCRYPT_KEY {
     struct From extends PFN_CMSG_GEN_ENCRYPT_KEY {
         /**
          * Creates a PFN_CMSG_GEN_ENCRYPT_KEY pointer that invokes the given AHK function when called.
-         * @param {Func("ptr*", CRYPT_ALGORITHM_IDENTIFIER, "ptr", CERT_PUBLIC_KEY_INFO, "ptr", "ptr*", "ptr*", "uint*") => BOOL} fn the function to invoke.
+         * @param {Func("ptr*", CRYPT_ALGORITHM_IDENTIFIER, "ptr", CERT_PUBLIC_KEY_INFO, PFN_CMSG_ALLOC, "ptr*", "ptr*", "uint*") => BOOL} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 8)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 8 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , ["ptr*", CRYPT_ALGORITHM_IDENTIFIER.Ptr, "ptr", CERT_PUBLIC_KEY_INFO.Ptr, "ptr", "ptr*", "ptr*", "uint*", BOOL])
+            this.value := CallbackCreate(fn, , ["ptr*", CRYPT_ALGORITHM_IDENTIFIER.Ptr, "ptr", CERT_PUBLIC_KEY_INFO.Ptr, PFN_CMSG_ALLOC, "ptr*", "ptr*", "uint*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

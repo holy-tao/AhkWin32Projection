@@ -47,6 +47,10 @@ export default struct PPUT_SCATTER_GATHER_LIST {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, SCATTER_GATHER_LIST.Ptr, BOOLEAN, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -47,6 +47,10 @@ export default struct LPFNSVADDPROPSHEETPAGE {
             this.value := CallbackCreate(fn, , [HPROPSHEETPAGE, LPARAM, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

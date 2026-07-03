@@ -58,6 +58,10 @@ export default struct PFIND_EXE_FILE_CALLBACKW {
             this.value := CallbackCreate(fn, , [HANDLE, PWSTR, "ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

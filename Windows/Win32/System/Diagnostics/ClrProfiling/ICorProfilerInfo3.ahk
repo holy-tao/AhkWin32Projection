@@ -1,11 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\COR_PRF_FUNCTION_ARGUMENT_INFO.ahk" { COR_PRF_FUNCTION_ARGUMENT_INFO }
 #Import ".\COR_PRF_FUNCTION_ARGUMENT_RANGE.ahk" { COR_PRF_FUNCTION_ARGUMENT_RANGE }
 #Import ".\COR_PRF_RUNTIME_TYPE.ahk" { COR_PRF_RUNTIME_TYPE }
+#Import ".\FunctionEnter3.ahk" { FunctionEnter3 }
+#Import ".\FunctionEnter3WithInfo.ahk" { FunctionEnter3WithInfo }
+#Import ".\FunctionIDMapper2.ahk" { FunctionIDMapper2 }
+#Import ".\FunctionLeave3.ahk" { FunctionLeave3 }
+#Import ".\FunctionLeave3WithInfo.ahk" { FunctionLeave3WithInfo }
+#Import ".\FunctionTailcall3.ahk" { FunctionTailcall3 }
+#Import ".\FunctionTailcall3WithInfo.ahk" { FunctionTailcall3WithInfo }
 #Import ".\ICorProfilerFunctionEnum.ahk" { ICorProfilerFunctionEnum }
 #Import ".\ICorProfilerInfo2.ahk" { ICorProfilerInfo2 }
 #Import ".\ICorProfilerModuleEnum.ahk" { ICorProfilerModuleEnum }

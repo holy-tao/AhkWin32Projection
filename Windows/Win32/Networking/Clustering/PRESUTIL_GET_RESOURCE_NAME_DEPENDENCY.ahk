@@ -49,6 +49,10 @@ export default struct PRESUTIL_GET_RESOURCE_NAME_DEPENDENCY {
             this.value := CallbackCreate(fn, , [PWSTR, PWSTR, HRESOURCE])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

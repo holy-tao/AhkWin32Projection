@@ -52,6 +52,10 @@ export default struct CryptXmlDllCreateDigest {
             this.value := CallbackCreate(fn, , [CRYPT_XML_ALGORITHM.Ptr, "uint*", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

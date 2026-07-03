@@ -3,6 +3,7 @@
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\MESSAGEBOX_STYLE.ahk" { MESSAGEBOX_STYLE }
+#Import ".\MSGBOXCALLBACK.ahk" { MSGBOXCALLBACK }
 
 /**
  * Contains information used to display a message box. The MessageBoxIndirect function uses this structure. (ANSI)
@@ -96,7 +97,7 @@ export default struct MSGBOXPARAMSA {
      * 
      * If this member is <b>NULL</b>, then the message box sends <a href="https://docs.microsoft.com/windows/win32/shell/wm-help">WM_HELP</a> messages to the owner window when help events occur.
      */
-    lpfnMsgBoxCallback : IntPtr
+    lpfnMsgBoxCallback : MSGBOXCALLBACK
 
     /**
      * Type: <b>DWORD</b>

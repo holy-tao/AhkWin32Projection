@@ -50,6 +50,10 @@ export default struct PFN_DrvSetPalette {
             this.value := CallbackCreate(fn, , [DHPDEV, PALOBJ.Ptr, UInt32, UInt32, UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -44,6 +44,10 @@ export default struct alljoyn_permissionconfigurationlistener_startmanagement_pt
             this.value := CallbackCreate(fn, , ["ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

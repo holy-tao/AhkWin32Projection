@@ -31,7 +31,7 @@ export default struct EX_CALLBACK_FUNCTION {
         Argument2Marshal := Argument2 is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, CallbackContextMarshal, CallbackContext, Argument1Marshal, Argument1, Argument2Marshal, Argument2, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -51,6 +51,10 @@ export default struct EX_CALLBACK_FUNCTION {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", "ptr", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

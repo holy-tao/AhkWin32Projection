@@ -50,6 +50,10 @@ export default struct PSIGNAL_FAILURE_ROUTINE {
             this.value := CallbackCreate(fn, , [IntPtr, FAILURE_TYPE, UInt32, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

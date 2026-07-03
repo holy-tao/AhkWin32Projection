@@ -6,9 +6,14 @@
 #Import "..\Diagnostics\Debug\ActiveScript\IActiveScriptProfilerHeapEnum.ahk" { IActiveScriptProfilerHeapEnum }
 #Import "..\Diagnostics\Debug\ActiveScript\IDebugApplication64.ahk" { IDebugApplication64 }
 #Import "..\Diagnostics\Debug\ActiveScript\PROFILER_EVENT_MASK.ahk" { PROFILER_EVENT_MASK }
+#Import ".\JsBeforeCollectCallback.ahk" { JsBeforeCollectCallback }
 #Import ".\JsErrorCode.ahk" { JsErrorCode }
+#Import ".\JsFinalizeCallback.ahk" { JsFinalizeCallback }
+#Import ".\JsMemoryAllocationCallback.ahk" { JsMemoryAllocationCallback }
+#Import ".\JsNativeFunction.ahk" { JsNativeFunction }
 #Import ".\JsRuntimeAttributes.ahk" { JsRuntimeAttributes }
 #Import ".\JsRuntimeVersion.ahk" { JsRuntimeVersion }
+#Import ".\JsThreadServiceCallback.ahk" { JsThreadServiceCallback }
 #Import ".\JsValueType.ahk" { JsValueType }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
 
@@ -53,7 +58,7 @@ export JsStartDebugging(debugApplication) {
 export JsCreateRuntime(attributes, runtimeVersion, threadService, runtime) {
     runtimeMarshal := runtime is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("chakra.dll\JsCreateRuntime", JsRuntimeAttributes, attributes, JsRuntimeVersion, runtimeVersion, "ptr", threadService, runtimeMarshal, runtime, JsErrorCode)
+    result := DllCall("chakra.dll\JsCreateRuntime", JsRuntimeAttributes, attributes, JsRuntimeVersion, runtimeVersion, JsThreadServiceCallback, threadService, runtimeMarshal, runtime, JsErrorCode)
     return result
 }
 
@@ -133,7 +138,7 @@ export JsSetRuntimeMemoryAllocationCallback(runtime, callbackState, allocationCa
     runtimeMarshal := runtime is VarRef ? "ptr" : "ptr"
     callbackStateMarshal := callbackState is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("chakra.dll\JsSetRuntimeMemoryAllocationCallback", runtimeMarshal, runtime, callbackStateMarshal, callbackState, "ptr", allocationCallback, JsErrorCode)
+    result := DllCall("chakra.dll\JsSetRuntimeMemoryAllocationCallback", runtimeMarshal, runtime, callbackStateMarshal, callbackState, JsMemoryAllocationCallback, allocationCallback, JsErrorCode)
     return result
 }
 
@@ -148,7 +153,7 @@ export JsSetRuntimeBeforeCollectCallback(runtime, callbackState, beforeCollectCa
     runtimeMarshal := runtime is VarRef ? "ptr" : "ptr"
     callbackStateMarshal := callbackState is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("chakra.dll\JsSetRuntimeBeforeCollectCallback", runtimeMarshal, runtime, callbackStateMarshal, callbackState, "ptr", beforeCollectCallback, JsErrorCode)
+    result := DllCall("chakra.dll\JsSetRuntimeBeforeCollectCallback", runtimeMarshal, runtime, callbackStateMarshal, callbackState, JsBeforeCollectCallback, beforeCollectCallback, JsErrorCode)
     return result
 }
 
@@ -630,7 +635,7 @@ export JsCreateExternalObject(data, finalizeCallback, _object) {
     dataMarshal := data is VarRef ? "ptr" : "ptr"
     _objectMarshal := _object is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("chakra.dll\JsCreateExternalObject", dataMarshal, data, "ptr", finalizeCallback, _objectMarshal, _object, JsErrorCode)
+    result := DllCall("chakra.dll\JsCreateExternalObject", dataMarshal, data, JsFinalizeCallback, finalizeCallback, _objectMarshal, _object, JsErrorCode)
     return result
 }
 
@@ -1010,7 +1015,7 @@ export JsCreateFunction(nativeFunction, callbackState, function) {
     callbackStateMarshal := callbackState is VarRef ? "ptr" : "ptr"
     functionMarshal := function is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("chakra.dll\JsCreateFunction", "ptr", nativeFunction, callbackStateMarshal, callbackState, functionMarshal, function, JsErrorCode)
+    result := DllCall("chakra.dll\JsCreateFunction", JsNativeFunction, nativeFunction, callbackStateMarshal, callbackState, functionMarshal, function, JsErrorCode)
     return result
 }
 

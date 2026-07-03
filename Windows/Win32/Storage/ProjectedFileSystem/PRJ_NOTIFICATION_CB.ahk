@@ -153,6 +153,10 @@ export default struct PRJ_NOTIFICATION_CB {
             this.value := CallbackCreate(fn, , [PRJ_CALLBACK_DATA.Ptr, BOOLEAN, PRJ_NOTIFICATION, PWSTR, PRJ_NOTIFICATION_PARAMETERS.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

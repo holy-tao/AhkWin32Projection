@@ -50,6 +50,10 @@ export default struct PCLUSAPI_SET_GROUP_DEPENDENCY_EXPRESSION_EX {
             this.value := CallbackCreate(fn, , [HGROUP, PWSTR, PWSTR, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

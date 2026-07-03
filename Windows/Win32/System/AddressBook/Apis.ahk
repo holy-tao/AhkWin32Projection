@@ -1,6 +1,6 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
@@ -14,8 +14,13 @@
 #Import ".\IMessage.ahk" { IMessage }
 #Import ".\IPropData.ahk" { IPropData }
 #Import ".\ITableData.ahk" { ITableData }
+#Import ".\LPALLOCATEBUFFER.ahk" { LPALLOCATEBUFFER }
+#Import ".\LPALLOCATEMORE.ahk" { LPALLOCATEMORE }
+#Import ".\LPFREEBUFFER.ahk" { LPFREEBUFFER }
+#Import ".\LPNOTIFCALLBACK.ahk" { LPNOTIFCALLBACK }
 #Import ".\MAPINAMEID.ahk" { MAPINAMEID }
 #Import ".\NOTIFICATION.ahk" { NOTIFICATION }
+#Import ".\PFNIDLE.ahk" { PFNIDLE }
 #Import ".\SPropTagArray.ahk" { SPropTagArray }
 #Import ".\SPropValue.ahk" { SPropValue }
 #Import ".\SRestriction.ahk" { SRestriction }
@@ -64,7 +69,7 @@
 export CreateTable(lpInterface, _lpAllocateBuffer, _lpAllocateMore, _lpFreeBuffer, lpvReserved, ulTableType, ulPropTagIndexColumn, lpSPropTagArrayColumns, lppTableData) {
     lpvReservedMarshal := lpvReserved is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("rtm.dll\CreateTable", Guid.Ptr, lpInterface, "ptr", _lpAllocateBuffer, "ptr", _lpAllocateMore, "ptr", _lpFreeBuffer, lpvReservedMarshal, lpvReserved, UInt32, ulTableType, UInt32, ulPropTagIndexColumn, SPropTagArray.Ptr, lpSPropTagArrayColumns, ITableData.Ptr, lppTableData, Int32)
+    result := DllCall("rtm.dll\CreateTable", Guid.Ptr, lpInterface, LPALLOCATEBUFFER, _lpAllocateBuffer, LPALLOCATEMORE, _lpAllocateMore, LPFREEBUFFER, _lpFreeBuffer, lpvReservedMarshal, lpvReserved, UInt32, ulTableType, UInt32, ulPropTagIndexColumn, SPropTagArray.Ptr, lpSPropTagArrayColumns, ITableData.Ptr, lppTableData, Int32)
     return result
 }
 
@@ -90,7 +95,7 @@ export CreateTable(lpInterface, _lpAllocateBuffer, _lpAllocateMore, _lpFreeBuffe
 export CreateIProp(lpInterface, _lpAllocateBuffer, _lpAllocateMore, _lpFreeBuffer, lpvReserved, lppPropData) {
     lpvReservedMarshal := lpvReserved is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MAPI32.dll\CreateIProp", Guid.Ptr, lpInterface, "ptr", _lpAllocateBuffer, "ptr", _lpAllocateMore, "ptr", _lpFreeBuffer, lpvReservedMarshal, lpvReserved, IPropData.Ptr, lppPropData, Int32)
+    result := DllCall("MAPI32.dll\CreateIProp", Guid.Ptr, lpInterface, LPALLOCATEBUFFER, _lpAllocateBuffer, LPALLOCATEMORE, _lpAllocateMore, LPFREEBUFFER, _lpFreeBuffer, lpvReservedMarshal, lpvReserved, IPropData.Ptr, lppPropData, Int32)
     return result
 }
 
@@ -198,7 +203,7 @@ export MAPIDeinitIdle() {
 export FtgRegisterIdleRoutine(lpfnIdle, lpvIdleParam, priIdle, csecIdle, iroIdle) {
     lpvIdleParamMarshal := lpvIdleParam is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MAPI32.dll\FtgRegisterIdleRoutine", "ptr", lpfnIdle, lpvIdleParamMarshal, lpvIdleParam, Int16, priIdle, UInt32, csecIdle, UInt16, iroIdle, IntPtr)
+    result := DllCall("MAPI32.dll\FtgRegisterIdleRoutine", PFNIDLE, lpfnIdle, lpvIdleParamMarshal, lpvIdleParam, Int16, priIdle, UInt32, csecIdle, UInt16, iroIdle, IntPtr)
     return result
 }
 
@@ -314,7 +319,7 @@ export ChangeIdleRoutine(ftg, lpfnIdle, lpvIdleParam, priIdle, csecIdle, iroIdle
     ftgMarshal := ftg is VarRef ? "ptr" : "ptr"
     lpvIdleParamMarshal := lpvIdleParam is VarRef ? "ptr" : "ptr"
 
-    DllCall("MAPI32.dll\ChangeIdleRoutine", ftgMarshal, ftg, "ptr", lpfnIdle, lpvIdleParamMarshal, lpvIdleParam, Int16, priIdle, UInt32, csecIdle, UInt16, iroIdle, UInt16, ircIdle)
+    DllCall("MAPI32.dll\ChangeIdleRoutine", ftgMarshal, ftg, PFNIDLE, lpfnIdle, lpvIdleParamMarshal, lpvIdleParam, Int16, priIdle, UInt32, csecIdle, UInt16, iroIdle, UInt16, ircIdle)
 }
 
 /**
@@ -372,7 +377,7 @@ export OpenStreamOnFile(_lpAllocateBuffer, _lpFreeBuffer, ulFlags, lpszFileName,
     lpszFileNameMarshal := lpszFileName is VarRef ? "char*" : "ptr"
     lpszPrefixMarshal := lpszPrefix is VarRef ? "char*" : "ptr"
 
-    result := DllCall("MAPI32.dll\OpenStreamOnFile", "ptr", _lpAllocateBuffer, "ptr", _lpFreeBuffer, UInt32, ulFlags, lpszFileNameMarshal, lpszFileName, lpszPrefixMarshal, lpszPrefix, "ptr*", &lppStream := 0, "HRESULT")
+    result := DllCall("MAPI32.dll\OpenStreamOnFile", LPALLOCATEBUFFER, _lpAllocateBuffer, LPFREEBUFFER, _lpFreeBuffer, UInt32, ulFlags, lpszFileNameMarshal, lpszFileName, lpszPrefixMarshal, lpszPrefix, "ptr*", &lppStream := 0, "HRESULT")
     return IStream(lppStream)
 }
 
@@ -400,7 +405,7 @@ export OpenStreamOnFile(_lpAllocateBuffer, _lpFreeBuffer, ulFlags, lpszFileName,
 export PropCopyMore(lpSPropValueDest, lpSPropValueSrc, lpfAllocMore, lpvObject) {
     lpvObjectMarshal := lpvObject is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MAPI32.dll\PropCopyMore", SPropValue.Ptr, lpSPropValueDest, SPropValue.Ptr, lpSPropValueSrc, "ptr", lpfAllocMore, lpvObjectMarshal, lpvObject, Int32)
+    result := DllCall("MAPI32.dll\PropCopyMore", SPropValue.Ptr, lpSPropValueDest, SPropValue.Ptr, lpSPropValueSrc, LPALLOCATEMORE, lpfAllocMore, lpvObjectMarshal, lpvObject, Int32)
     return result
 }
 
@@ -547,7 +552,7 @@ export LPropCompareProp(lpSPropValueA, lpSPropValueB) {
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hraddcolumns
  */
 export HrAddColumns(lptbl, lpproptagColumnsNew, _lpAllocateBuffer, _lpFreeBuffer) {
-    result := DllCall("MAPI32.dll\HrAddColumns", "ptr", lptbl, SPropTagArray.Ptr, lpproptagColumnsNew, "ptr", _lpAllocateBuffer, "ptr", _lpFreeBuffer, "HRESULT")
+    result := DllCall("MAPI32.dll\HrAddColumns", "ptr", lptbl, SPropTagArray.Ptr, lpproptagColumnsNew, LPALLOCATEBUFFER, _lpAllocateBuffer, LPFREEBUFFER, _lpFreeBuffer, "HRESULT")
     return result
 }
 
@@ -568,7 +573,7 @@ export HrAddColumns(lptbl, lpproptagColumnsNew, _lpAllocateBuffer, _lpFreeBuffer
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hraddcolumnsex
  */
 export HrAddColumnsEx(lptbl, lpproptagColumnsNew, _lpAllocateBuffer, _lpFreeBuffer, lpfnFilterColumns) {
-    result := DllCall("MAPI32.dll\HrAddColumnsEx", "ptr", lptbl, SPropTagArray.Ptr, lpproptagColumnsNew, "ptr", _lpAllocateBuffer, "ptr", _lpFreeBuffer, IntPtr, lpfnFilterColumns, "HRESULT")
+    result := DllCall("MAPI32.dll\HrAddColumnsEx", "ptr", lptbl, SPropTagArray.Ptr, lpproptagColumnsNew, LPALLOCATEBUFFER, _lpAllocateBuffer, LPFREEBUFFER, _lpFreeBuffer, IntPtr, lpfnFilterColumns, "HRESULT")
     return result
 }
 
@@ -589,7 +594,7 @@ export HrAddColumnsEx(lptbl, lpproptagColumnsNew, _lpAllocateBuffer, _lpFreeBuff
 export HrAllocAdviseSink(lpfnCallback, lpvContext) {
     lpvContextMarshal := lpvContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MAPI32.dll\HrAllocAdviseSink", "ptr", lpfnCallback, lpvContextMarshal, lpvContext, "ptr*", &lppAdviseSink := 0, "HRESULT")
+    result := DllCall("MAPI32.dll\HrAllocAdviseSink", LPNOTIFCALLBACK, lpfnCallback, lpvContextMarshal, lpvContext, "ptr*", &lppAdviseSink := 0, "HRESULT")
     return IMAPIAdviseSink(lppAdviseSink)
 }
 
@@ -663,7 +668,7 @@ export HrDispatchNotifications(ulFlags) {
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/builddisplaytable
  */
 export BuildDisplayTable(_lpAllocateBuffer, _lpAllocateMore, _lpFreeBuffer, lpMalloc, _hInstance, cPages, lpPage, ulFlags, lppTable, lppTblData) {
-    result := DllCall("MAPI32.dll\BuildDisplayTable", "ptr", _lpAllocateBuffer, "ptr", _lpAllocateMore, "ptr", _lpFreeBuffer, "ptr", lpMalloc, HINSTANCE, _hInstance, UInt32, cPages, DTPAGE.Ptr, lpPage, UInt32, ulFlags, IMAPITable.Ptr, lppTable, ITableData.Ptr, lppTblData, "HRESULT")
+    result := DllCall("MAPI32.dll\BuildDisplayTable", LPALLOCATEBUFFER, _lpAllocateBuffer, LPALLOCATEMORE, _lpAllocateMore, LPFREEBUFFER, _lpFreeBuffer, "ptr", lpMalloc, HINSTANCE, _hInstance, UInt32, cPages, DTPAGE.Ptr, lpPage, UInt32, ulFlags, IMAPITable.Ptr, lppTable, ITableData.Ptr, lppTblData, "HRESULT")
     return result
 }
 
@@ -860,7 +865,7 @@ export ScRelocProps(cValues, lpPropArray, lpvBaseOld, lpvBaseNew, lpcb) {
 export ScDupPropset(cValues, lpPropArray, _lpAllocateBuffer, lppPropArray) {
     lppPropArrayMarshal := lppPropArray is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MAPI32.dll\ScDupPropset", Int32, cValues, SPropValue.Ptr, lpPropArray, "ptr", _lpAllocateBuffer, lppPropArrayMarshal, lppPropArray, Int32)
+    result := DllCall("MAPI32.dll\ScDupPropset", Int32, cValues, SPropValue.Ptr, lpPropArray, LPALLOCATEBUFFER, _lpAllocateBuffer, lppPropArrayMarshal, lppPropArray, Int32)
     return result
 }
 

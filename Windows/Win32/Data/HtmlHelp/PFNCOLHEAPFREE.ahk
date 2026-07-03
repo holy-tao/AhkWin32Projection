@@ -45,6 +45,10 @@ export default struct PFNCOLHEAPFREE {
             this.value := CallbackCreate(fn, , ["ptr", Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

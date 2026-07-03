@@ -56,7 +56,7 @@ export default struct SpCompleteAuthTokenFn {
      */
     Call(ContextHandle, InputBuffer) {
         result := DllCall(this.value, IntPtr, ContextHandle, SecBufferDesc.Ptr, InputBuffer, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -76,6 +76,10 @@ export default struct SpCompleteAuthTokenFn {
             this.value := CallbackCreate(fn, , [IntPtr, SecBufferDesc.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -212,7 +212,7 @@ export default struct SpAcceptLsaModeContextFn {
         MappedContextMarshal := MappedContext is VarRef ? "char*" : "ptr"
 
         result := DllCall(this.value, IntPtr, CredentialHandle, IntPtr, ContextHandle, SecBufferDesc.Ptr, InputBuffer, UInt32, ContextRequirements, UInt32, TargetDataRep, NewContextHandleMarshal, NewContextHandle, SecBufferDesc.Ptr, OutputBuffer, ContextAttributesMarshal, ContextAttributes, ExpirationTimeMarshal, ExpirationTime, MappedContextMarshal, MappedContext, SecBuffer.Ptr, ContextData, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -232,6 +232,10 @@ export default struct SpAcceptLsaModeContextFn {
             this.value := CallbackCreate(fn, , [IntPtr, IntPtr, SecBufferDesc.Ptr, UInt32, UInt32, "ptr*", SecBufferDesc.Ptr, "uint*", "int64*", BOOLEAN.Ptr, SecBuffer.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

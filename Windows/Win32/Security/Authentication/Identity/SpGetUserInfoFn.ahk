@@ -45,7 +45,7 @@ export default struct SpGetUserInfoFn {
         _UserDataMarshal := _UserData is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, LUID.Ptr, LogonId, UInt32, Flags, _UserDataMarshal, _UserData, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -65,6 +65,10 @@ export default struct SpGetUserInfoFn {
             this.value := CallbackCreate(fn, , [LUID.Ptr, UInt32, "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

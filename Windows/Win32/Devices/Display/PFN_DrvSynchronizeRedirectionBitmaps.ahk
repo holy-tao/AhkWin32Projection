@@ -29,7 +29,7 @@ export default struct PFN_DrvSynchronizeRedirectionBitmaps {
         param1Marshal := param1 is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, DHPDEV, param0, param1Marshal, param1, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -49,6 +49,10 @@ export default struct PFN_DrvSynchronizeRedirectionBitmaps {
             this.value := CallbackCreate(fn, , [DHPDEV, "uint*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

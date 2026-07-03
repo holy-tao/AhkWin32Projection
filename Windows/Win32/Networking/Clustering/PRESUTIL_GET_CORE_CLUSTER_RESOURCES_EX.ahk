@@ -53,6 +53,10 @@ export default struct PRESUTIL_GET_CORE_CLUSTER_RESOURCES_EX {
             this.value := CallbackCreate(fn, , [HCLUSTER, HRESOURCE.Ptr, HRESOURCE.Ptr, HRESOURCE.Ptr, UInt32, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

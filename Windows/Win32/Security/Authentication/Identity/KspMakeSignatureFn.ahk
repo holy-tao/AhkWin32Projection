@@ -61,7 +61,7 @@ export default struct KspMakeSignatureFn {
      */
     Call(ContextId, fQOP, Message, MessageSeqNo) {
         result := DllCall(this.value, IntPtr, ContextId, UInt32, fQOP, SecBufferDesc.Ptr, Message, UInt32, MessageSeqNo, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -81,6 +81,10 @@ export default struct KspMakeSignatureFn {
             this.value := CallbackCreate(fn, , [IntPtr, UInt32, SecBufferDesc.Ptr, UInt32, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

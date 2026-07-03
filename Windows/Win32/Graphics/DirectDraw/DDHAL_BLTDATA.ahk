@@ -8,6 +8,7 @@
 #Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
 #Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
 #Import ".\IDirectDrawSurface.ahk" { IDirectDrawSurface }
+#Import ".\LPDDHALSURFCB_BLT.ahk" { LPDDHALSURFCB_BLT }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -33,7 +34,7 @@ export default struct DDHAL_BLTDATA {
 
     ddRVal : HRESULT
 
-    Blt : IntPtr
+    Blt : LPDDHALSURFCB_BLT
 
     IsClipped : BOOL
 

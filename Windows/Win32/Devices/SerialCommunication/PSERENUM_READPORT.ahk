@@ -45,6 +45,10 @@ export default struct PSERENUM_READPORT {
             this.value := CallbackCreate(fn, , ["ptr", Int8])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -51,6 +51,10 @@ export default struct PF_NPAddConnection4 {
             this.value := CallbackCreate(fn, , [HWND, NETRESOURCEW.Ptr, IntPtr, UInt32, UInt32, IntPtr, UInt32, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

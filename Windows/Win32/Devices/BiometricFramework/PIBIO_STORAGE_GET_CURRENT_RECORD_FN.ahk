@@ -122,6 +122,10 @@ export default struct PIBIO_STORAGE_GET_CURRENT_RECORD_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, WINBIO_STORAGE_RECORD.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

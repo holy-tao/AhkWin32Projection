@@ -53,6 +53,10 @@ export default struct PCLUSTER_REG_BATCH_ADD_COMMAND {
             this.value := CallbackCreate(fn, , [HREGBATCH, CLUSTER_REG_COMMAND, PWSTR, UInt32, IntPtr, UInt32, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

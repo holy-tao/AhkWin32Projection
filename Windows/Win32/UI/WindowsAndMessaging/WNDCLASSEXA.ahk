@@ -5,6 +5,7 @@
 #Import ".\HCURSOR.ahk" { HCURSOR }
 #Import ".\HICON.ahk" { HICON }
 #Import ".\WNDCLASS_STYLES.ahk" { WNDCLASS_STYLES }
+#Import ".\WNDPROC.ahk" { WNDPROC }
 
 /**
  * Contains window class information. (ANSI)
@@ -37,7 +38,7 @@ export default struct WNDCLASSEXA {
      * 
      * A pointer to the window procedure. You must use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-callwindowproca">CallWindowProc</a> function to call the window procedure. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms633573(v=vs.85)">WindowProc</a>.
      */
-    lpfnWndProc : IntPtr
+    lpfnWndProc : WNDPROC
 
     /**
      * Type: <b>int</b>

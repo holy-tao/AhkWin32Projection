@@ -104,6 +104,10 @@ export default struct WS_SET_LISTENER_PROPERTY_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", WS_LISTENER_PROPERTY_ID, IntPtr, UInt32, WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -51,6 +51,10 @@ export default struct PDEBUG_EXTENSION_QUERY_VALUE_NAMES {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, PWSTR, UInt32, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

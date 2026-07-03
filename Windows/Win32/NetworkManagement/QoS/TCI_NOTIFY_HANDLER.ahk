@@ -102,6 +102,10 @@ export default struct TCI_NOTIFY_HANDLER {
             this.value := CallbackCreate(fn, , [HANDLE, HANDLE, UInt32, HANDLE, UInt32, IntPtr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

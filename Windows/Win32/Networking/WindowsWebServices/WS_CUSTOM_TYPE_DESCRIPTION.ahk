@@ -1,4 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_IS_DEFAULT_VALUE_CALLBACK.ahk" { WS_IS_DEFAULT_VALUE_CALLBACK }
+#Import ".\WS_READ_TYPE_CALLBACK.ahk" { WS_READ_TYPE_CALLBACK }
+#Import ".\WS_WRITE_TYPE_CALLBACK.ahk" { WS_WRITE_TYPE_CALLBACK }
 
 /**
  * Represents a custom mapping between a C data type and an XML element.
@@ -22,12 +25,12 @@ export default struct WS_CUSTOM_TYPE_DESCRIPTION {
     /**
      * A pointer to a callback which is invoked to read the type.
      */
-    readCallback : IntPtr
+    readCallback : WS_READ_TYPE_CALLBACK
 
     /**
      * A pointer to a callback which is invoked to write the type.
      */
-    writeCallback : IntPtr
+    writeCallback : WS_WRITE_TYPE_CALLBACK
 
     /**
      * This can be used to point to additional user-defined data
@@ -42,6 +45,6 @@ export default struct WS_CUSTOM_TYPE_DESCRIPTION {
      */
     descriptionData : IntPtr
 
-    isDefaultValueCallback : IntPtr
+    isDefaultValueCallback : WS_IS_DEFAULT_VALUE_CALLBACK
 
 }

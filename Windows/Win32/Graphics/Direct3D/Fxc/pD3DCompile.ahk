@@ -64,6 +64,10 @@ export default struct pD3DCompile {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr, PSTR, D3D_SHADER_MACRO.Ptr, "ptr", PSTR, PSTR, UInt32, UInt32, ID3DBlob.Ptr, ID3DBlob.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

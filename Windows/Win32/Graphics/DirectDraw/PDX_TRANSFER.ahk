@@ -90,6 +90,10 @@ export default struct PDX_TRANSFER {
             this.value := CallbackCreate(fn, , ["ptr", DDTRANSFERININFO.Ptr, DDTRANSFEROUTINFO.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

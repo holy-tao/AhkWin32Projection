@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DML_BINDING_TABLE_DESC.ahk" { DML_BINDING_TABLE_DESC }
 #Import ".\DML_EXECUTION_FLAGS.ahk" { DML_EXECUTION_FLAGS }
 #Import ".\DML_FEATURE.ahk" { DML_FEATURE }

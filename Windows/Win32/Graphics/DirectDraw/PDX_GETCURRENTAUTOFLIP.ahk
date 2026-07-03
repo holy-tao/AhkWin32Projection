@@ -53,6 +53,10 @@ export default struct PDX_GETCURRENTAUTOFLIP {
             this.value := CallbackCreate(fn, , ["ptr", DDGETCURRENTAUTOFLIPININFO.Ptr, DDGETCURRENTAUTOFLIPOUTINFO.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\SECURE_ELEMENT_AID_ROUTING_INFO.ahk" { SECURE_ELEMENT_AID_ROUTING_INFO }
 #Import ".\SECURE_ELEMENT_PROTO_ROUTING_INFO.ahk" { SECURE_ELEMENT_PROTO_ROUTING_INFO }
 #Import ".\SECURE_ELEMENT_ROUTING_TABLE_ENTRY.ahk" { SECURE_ELEMENT_ROUTING_TABLE_ENTRY }

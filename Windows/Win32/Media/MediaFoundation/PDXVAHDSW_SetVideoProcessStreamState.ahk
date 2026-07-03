@@ -52,6 +52,10 @@ export default struct PDXVAHDSW_SetVideoProcessStreamState {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, DXVAHD_STREAM_STATE, UInt32, IntPtr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

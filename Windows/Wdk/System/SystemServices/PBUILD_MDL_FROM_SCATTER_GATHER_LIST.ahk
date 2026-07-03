@@ -33,7 +33,7 @@ export default struct PBUILD_MDL_FROM_SCATTER_GATHER_LIST {
         TargetMdlMarshal := TargetMdl is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, SCATTER_GATHER_LIST.Ptr, ScatterGather, MDL.Ptr, OriginalMdl, TargetMdlMarshal, TargetMdl, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -53,6 +53,10 @@ export default struct PBUILD_MDL_FROM_SCATTER_GATHER_LIST {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, SCATTER_GATHER_LIST.Ptr, MDL.Ptr, "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

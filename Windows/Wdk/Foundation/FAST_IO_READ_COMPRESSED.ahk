@@ -61,6 +61,10 @@ export default struct FAST_IO_READ_COMPRESSED {
             this.value := CallbackCreate(fn, , [FILE_OBJECT.Ptr, "int64*", UInt32, UInt32, "ptr", "ptr*", IO_STATUS_BLOCK.Ptr, IntPtr, UInt32, DEVICE_OBJECT.Ptr, BOOLEAN])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -35,7 +35,7 @@ export default struct pHalGetInterruptTranslator {
         BridgeBusNumberMarshal := BridgeBusNumber is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, INTERFACE_TYPE, ParentInterfaceType, UInt32, ParentBusNumber, INTERFACE_TYPE, BridgeInterfaceType, UInt16, _Size, UInt16, _Version, TRANSLATOR_INTERFACE.Ptr, Translator, BridgeBusNumberMarshal, BridgeBusNumber, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -55,6 +55,10 @@ export default struct pHalGetInterruptTranslator {
             this.value := CallbackCreate(fn, , [INTERFACE_TYPE, UInt32, INTERFACE_TYPE, UInt16, UInt16, TRANSLATOR_INTERFACE.Ptr, "uint*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

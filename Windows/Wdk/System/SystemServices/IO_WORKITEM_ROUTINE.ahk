@@ -46,6 +46,10 @@ export default struct IO_WORKITEM_ROUTINE {
             this.value := CallbackCreate(fn, , [DEVICE_OBJECT.Ptr, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

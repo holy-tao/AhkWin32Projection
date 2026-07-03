@@ -48,6 +48,10 @@ export default struct PCI_IS_DEVICE_PRESENT_EX {
             this.value := CallbackCreate(fn, , ["ptr", PCI_DEVICE_PRESENCE_PARAMETERS.Ptr, BOOLEAN])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

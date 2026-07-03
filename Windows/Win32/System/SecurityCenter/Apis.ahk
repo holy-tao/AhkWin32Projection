@@ -4,6 +4,7 @@
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\WSC_SECURITY_PROVIDER_HEALTH.ahk" { WSC_SECURITY_PROVIDER_HEALTH }
+#Import "..\Threading\LPTHREAD_START_ROUTINE.ahk" { LPTHREAD_START_ROUTINE }
 
 /**
  * @namespace Windows.Win32.System.SecurityCenter
@@ -26,7 +27,7 @@ export WscRegisterForChanges(Reserved, phCallbackRegistration, lpCallbackAddress
     ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
     pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WSCAPI.dll\WscRegisterForChanges", ReservedMarshal, Reserved, HANDLE.Ptr, phCallbackRegistration, "ptr", lpCallbackAddress, pContextMarshal, pContext, "HRESULT")
+    result := DllCall("WSCAPI.dll\WscRegisterForChanges", ReservedMarshal, Reserved, HANDLE.Ptr, phCallbackRegistration, LPTHREAD_START_ROUTINE, lpCallbackAddress, pContextMarshal, pContext, "HRESULT")
     return result
 }
 

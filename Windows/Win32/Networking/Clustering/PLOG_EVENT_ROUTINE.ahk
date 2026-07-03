@@ -79,6 +79,10 @@ export default struct PLOG_EVENT_ROUTINE {
             this.value := CallbackCreate(fn, "cdecl", [IntPtr, LOG_LEVEL, PWSTR, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

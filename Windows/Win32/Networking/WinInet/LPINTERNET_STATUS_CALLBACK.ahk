@@ -49,6 +49,10 @@ export default struct LPINTERNET_STATUS_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr, UInt32, "ptr", UInt32, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

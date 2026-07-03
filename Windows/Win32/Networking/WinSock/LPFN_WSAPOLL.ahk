@@ -46,6 +46,10 @@ export default struct LPFN_WSAPOLL {
             this.value := CallbackCreate(fn, , [WSAPOLLFD.Ptr, UInt32, Int32, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

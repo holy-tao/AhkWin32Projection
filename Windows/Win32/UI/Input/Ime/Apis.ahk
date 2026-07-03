@@ -16,6 +16,7 @@
 #Import ".\GET_GUIDE_LINE_TYPE.ahk" { GET_GUIDE_LINE_TYPE }
 #Import ".\HIMC.ahk" { HIMC }
 #Import ".\HIMCC.ahk" { HIMCC }
+#Import ".\IMCENUMPROC.ahk" { IMCENUMPROC }
 #Import ".\IMEMENUITEMINFOA.ahk" { IMEMENUITEMINFOA }
 #Import ".\IMEMENUITEMINFOW.ahk" { IMEMENUITEMINFOW }
 #Import ".\IME_COMPOSITION_STRING.ahk" { IME_COMPOSITION_STRING }
@@ -26,6 +27,8 @@
 #Import ".\INPUTCONTEXT.ahk" { INPUTCONTEXT }
 #Import ".\NOTIFY_IME_ACTION.ahk" { NOTIFY_IME_ACTION }
 #Import ".\NOTIFY_IME_INDEX.ahk" { NOTIFY_IME_INDEX }
+#Import ".\REGISTERWORDENUMPROCA.ahk" { REGISTERWORDENUMPROCA }
+#Import ".\REGISTERWORDENUMPROCW.ahk" { REGISTERWORDENUMPROCW }
 #Import ".\SET_COMPOSITION_STRING_TYPE.ahk" { SET_COMPOSITION_STRING_TYPE }
 #Import ".\STYLEBUFA.ahk" { STYLEBUFA }
 #Import ".\STYLEBUFW.ahk" { STYLEBUFW }
@@ -1521,7 +1524,7 @@ export ImmEnumRegisterWordA(param0, param1, lpszReading, param3, lpszRegister, p
 
     param5Marshal := param5 is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IMM32.dll\ImmEnumRegisterWordA", HKL, param0, "ptr", param1, "ptr", lpszReading, UInt32, param3, "ptr", lpszRegister, param5Marshal, param5, UInt32)
+    result := DllCall("IMM32.dll\ImmEnumRegisterWordA", HKL, param0, REGISTERWORDENUMPROCA, param1, "ptr", lpszReading, UInt32, param3, "ptr", lpszRegister, param5Marshal, param5, UInt32)
     return result
 }
 
@@ -1548,7 +1551,7 @@ export ImmEnumRegisterWordW(param0, param1, lpszReading, param3, lpszRegister, p
 
     param5Marshal := param5 is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IMM32.dll\ImmEnumRegisterWordW", HKL, param0, "ptr", param1, "ptr", lpszReading, UInt32, param3, "ptr", lpszRegister, param5Marshal, param5, UInt32)
+    result := DllCall("IMM32.dll\ImmEnumRegisterWordW", HKL, param0, REGISTERWORDENUMPROCW, param1, "ptr", lpszReading, UInt32, param3, "ptr", lpszRegister, param5Marshal, param5, UInt32)
     return result
 }
 
@@ -1583,7 +1586,7 @@ export ImmDisableIME(param0) {
  * @since windows5.1.2600
  */
 export ImmEnumInputContext(idThread, lpfn, _lParam) {
-    result := DllCall("IMM32.dll\ImmEnumInputContext", UInt32, idThread, "ptr", lpfn, LPARAM, _lParam, BOOL)
+    result := DllCall("IMM32.dll\ImmEnumInputContext", UInt32, idThread, IMCENUMPROC, lpfn, LPARAM, _lParam, BOOL)
     return result
 }
 

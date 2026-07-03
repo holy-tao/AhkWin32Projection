@@ -2,6 +2,7 @@
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\IO\OVERLAPPED.ahk" { OVERLAPPED }
+#Import ".\PFN_RPCNOTIFICATION_ROUTINE.ahk" { PFN_RPCNOTIFICATION_ROUTINE }
 
 /**
  * Contains notification information for asynchronous remote procedure calls. This notification information can be configured for I/O completion ports (IOC), Windows asynchronous procedure calls (APC), Windows messaging, and Windows event notification.
@@ -15,7 +16,7 @@ export default struct RPC_ASYNC_NOTIFICATION_INFO {
 
 
     struct _APC {
-        NotificationRoutine : IntPtr
+        NotificationRoutine : PFN_RPCNOTIFICATION_ROUTINE
 
         hThread : HANDLE
 
@@ -48,7 +49,7 @@ export default struct RPC_ASYNC_NOTIFICATION_INFO {
         DefineProp(this.Prototype, 'IOC', { type: RPC_ASYNC_NOTIFICATION_INFO._IOC, offset: 0 })
         DefineProp(this.Prototype, 'IntPtr', { type: RPC_ASYNC_NOTIFICATION_INFO._IntPtr, offset: 0 })
         DefineProp(this.Prototype, 'hEvent', { type: HANDLE, offset: 0 })
-        DefineProp(this.Prototype, 'NotificationRoutine', { type: IntPtr, offset: 0 })
+        DefineProp(this.Prototype, 'NotificationRoutine', { type: PFN_RPCNOTIFICATION_ROUTINE, offset: 0 })
         this.DeleteProp("__New")
     }
 }

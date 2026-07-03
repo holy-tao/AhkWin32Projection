@@ -33,7 +33,7 @@ export default struct pHalIoReadPartitionTable {
         PartitionBufferMarshal := PartitionBuffer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, DEVICE_OBJECT.Ptr, DeviceObject, UInt32, SectorSize, BOOLEAN, ReturnRecognizedPartitions, PartitionBufferMarshal, PartitionBuffer, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -53,6 +53,10 @@ export default struct pHalIoReadPartitionTable {
             this.value := CallbackCreate(fn, , [DEVICE_OBJECT.Ptr, UInt32, BOOLEAN, "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -48,6 +48,10 @@ export default struct PFAXPRINTCOVERPAGEA {
             this.value := CallbackCreate(fn, , [FAX_CONTEXT_INFOA.Ptr, FAX_COVERPAGE_INFOA.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

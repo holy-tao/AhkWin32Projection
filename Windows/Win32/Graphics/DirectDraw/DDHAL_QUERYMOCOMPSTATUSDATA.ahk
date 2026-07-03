@@ -3,6 +3,7 @@
 #Import ".\DDRAWI_DDMOTIONCOMP_LCL.ahk" { DDRAWI_DDMOTIONCOMP_LCL }
 #Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
 #Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
+#Import ".\LPDDHALMOCOMPCB_QUERYSTATUS.ahk" { LPDDHALMOCOMPCB_QUERYSTATUS }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -20,6 +21,6 @@ export default struct DDHAL_QUERYMOCOMPSTATUSDATA {
 
     ddRVal : HRESULT
 
-    QueryMoCompStatus : IntPtr
+    QueryMoCompStatus : LPDDHALMOCOMPCB_QUERYSTATUS
 
 }

@@ -48,6 +48,10 @@ export default struct EXTS_JOB_PROCESS_CALLBACK {
             this.value := CallbackCreate(fn, , [Int64, Int64, "ptr", BOOLEAN])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

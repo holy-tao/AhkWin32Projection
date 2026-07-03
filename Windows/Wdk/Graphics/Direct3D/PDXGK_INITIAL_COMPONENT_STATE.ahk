@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
@@ -53,6 +53,10 @@ export default struct PDXGK_INITIAL_COMPONENT_STATE {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", UInt32, BOOLEAN, UInt32, Guid, UInt32, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

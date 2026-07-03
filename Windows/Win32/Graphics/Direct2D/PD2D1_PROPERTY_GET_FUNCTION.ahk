@@ -55,6 +55,10 @@ export default struct PD2D1_PROPERTY_GET_FUNCTION {
             this.value := CallbackCreate(fn, , ["ptr", "char*", UInt32, "uint*", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

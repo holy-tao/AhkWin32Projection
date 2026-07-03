@@ -2,6 +2,7 @@
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDRAWI_DDVIDEOPORT_LCL.ahk" { DDRAWI_DDVIDEOPORT_LCL }
 #Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
+#Import ".\LPDDHALVPORTCB_GETSIGNALSTATUS.ahk" { LPDDHALVPORTCB_GETSIGNALSTATUS }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -17,6 +18,6 @@ export default struct DDHAL_GETVPORTSIGNALDATA {
 
     ddRVal : HRESULT
 
-    GetVideoSignalStatus : IntPtr
+    GetVideoSignalStatus : LPDDHALVPORTCB_GETSIGNALSTATUS
 
 }

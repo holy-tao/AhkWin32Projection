@@ -47,6 +47,10 @@ export default struct PDETECT_PROGRESS_NOTIFY {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

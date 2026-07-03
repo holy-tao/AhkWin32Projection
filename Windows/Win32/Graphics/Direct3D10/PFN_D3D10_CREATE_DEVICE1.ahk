@@ -54,6 +54,10 @@ export default struct PFN_D3D10_CREATE_DEVICE1 {
             this.value := CallbackCreate(fn, , ["ptr", D3D10_DRIVER_TYPE, HMODULE, UInt32, D3D10_FEATURE_LEVEL1, UInt32, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

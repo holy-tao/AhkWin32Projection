@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\PFN_HSE_IO_COMPLETION.ahk" { PFN_HSE_IO_COMPLETION }
 
 /**
  * @namespace Windows.Win32.System.Iis
@@ -8,7 +9,7 @@
 export default struct HSE_TF_INFO {
     #StructPack 8
 
-    pfnHseIO : IntPtr
+    pfnHseIO : PFN_HSE_IO_COMPLETION
 
     pContext : IntPtr
 

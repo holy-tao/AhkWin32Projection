@@ -2,6 +2,7 @@
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import ".\DLGPAGE.ahk" { DLGPAGE }
 #Import ".\OPTITEM.ahk" { OPTITEM }
+#Import ".\_CPSUICALLBACK.ahk" { _CPSUICALLBACK }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -21,7 +22,7 @@ export default struct COMPROPSHEETUI {
 
     pHelpFile : IntPtr
 
-    pfnCallBack : IntPtr
+    pfnCallBack : _CPSUICALLBACK
 
     pOptItem : OPTITEM.Ptr
 

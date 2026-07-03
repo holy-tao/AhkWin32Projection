@@ -51,6 +51,10 @@ export default struct SHOWMODELESSHTMLDIALOGFN {
             this.value := CallbackCreate(fn, , [HWND, "ptr", VARIANT.Ptr, VARIANT.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

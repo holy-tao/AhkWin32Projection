@@ -44,6 +44,10 @@ export default struct PCLUSAPI_SET_REASON_HANDLER {
             this.value := CallbackCreate(fn, , [CLUSAPI_REASON_HANDLER.Ptr, CLUSAPI_REASON_HANDLER.Ptr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

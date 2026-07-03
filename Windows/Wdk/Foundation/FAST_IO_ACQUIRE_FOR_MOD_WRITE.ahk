@@ -34,7 +34,7 @@ export default struct FAST_IO_ACQUIRE_FOR_MOD_WRITE {
         ResourceToReleaseMarshal := ResourceToRelease is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, FILE_OBJECT.Ptr, FileObject, EndingOffsetMarshal, EndingOffset, ResourceToReleaseMarshal, ResourceToRelease, DEVICE_OBJECT.Ptr, DeviceObject, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -54,6 +54,10 @@ export default struct FAST_IO_ACQUIRE_FOR_MOD_WRITE {
             this.value := CallbackCreate(fn, , [FILE_OBJECT.Ptr, "int64*", "ptr*", DEVICE_OBJECT.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

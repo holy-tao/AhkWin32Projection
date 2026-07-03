@@ -78,6 +78,10 @@ export default struct PFN_CRYPT_ENUM_OID_FUNC {
             this.value := CallbackCreate(fn, , [UInt32, PSTR, PSTR, UInt32, "uint*", PWSTR.Ptr, "ptr*", "uint*", "ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

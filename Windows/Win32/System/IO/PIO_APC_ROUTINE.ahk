@@ -47,6 +47,10 @@ export default struct PIO_APC_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", IO_STATUS_BLOCK.Ptr, UInt32, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

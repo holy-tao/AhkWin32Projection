@@ -59,6 +59,10 @@ export default struct CACHE_ACCESS_CHECK {
             this.value := CallbackCreate(fn, , [PSECURITY_DESCRIPTOR, HANDLE, UInt32, GENERIC_MAPPING.Ptr, PRIVILEGE_SET.Ptr, "uint*", "uint*", BOOL.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

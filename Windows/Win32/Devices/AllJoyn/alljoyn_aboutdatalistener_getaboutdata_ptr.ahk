@@ -52,6 +52,10 @@ export default struct alljoyn_aboutdatalistener_getaboutdata_ptr {
             this.value := CallbackCreate(fn, , ["ptr", alljoyn_msgarg, PSTR, QStatus])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

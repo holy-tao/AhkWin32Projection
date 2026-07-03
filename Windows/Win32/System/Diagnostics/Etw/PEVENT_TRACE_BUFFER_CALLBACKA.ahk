@@ -57,6 +57,10 @@ export default struct PEVENT_TRACE_BUFFER_CALLBACKA {
             this.value := CallbackCreate(fn, , [EVENT_TRACE_LOGFILEA.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

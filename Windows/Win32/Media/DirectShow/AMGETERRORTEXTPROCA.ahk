@@ -51,6 +51,10 @@ export default struct AMGETERRORTEXTPROCA {
             this.value := CallbackCreate(fn, , ["int", PSTR, UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

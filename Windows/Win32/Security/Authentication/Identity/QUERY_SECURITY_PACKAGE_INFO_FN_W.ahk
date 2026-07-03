@@ -50,6 +50,10 @@ export default struct QUERY_SECURITY_PACKAGE_INFO_FN_W {
             this.value := CallbackCreate(fn, , ["ushort*", "ptr*", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -21,6 +21,8 @@
 #Import ".\alljoyn_authlistenerasync_callbacks.ahk" { alljoyn_authlistenerasync_callbacks }
 #Import ".\alljoyn_autopinger.ahk" { alljoyn_autopinger }
 #Import ".\alljoyn_busattachment.ahk" { alljoyn_busattachment }
+#Import ".\alljoyn_busattachment_joinsessioncb_ptr.ahk" { alljoyn_busattachment_joinsessioncb_ptr }
+#Import ".\alljoyn_busattachment_setlinktimeoutcb_ptr.ahk" { alljoyn_busattachment_setlinktimeoutcb_ptr }
 #Import ".\alljoyn_buslistener.ahk" { alljoyn_buslistener }
 #Import ".\alljoyn_buslistener_callbacks.ahk" { alljoyn_buslistener_callbacks }
 #Import ".\alljoyn_busobject.ahk" { alljoyn_busobject }
@@ -33,12 +35,16 @@
 #Import ".\alljoyn_interfacedescription_member.ahk" { alljoyn_interfacedescription_member }
 #Import ".\alljoyn_interfacedescription_property.ahk" { alljoyn_interfacedescription_property }
 #Import ".\alljoyn_interfacedescription_securitypolicy.ahk" { alljoyn_interfacedescription_securitypolicy }
+#Import ".\alljoyn_interfacedescription_translation_callback_ptr.ahk" { alljoyn_interfacedescription_translation_callback_ptr }
 #Import ".\alljoyn_keystore.ahk" { alljoyn_keystore }
 #Import ".\alljoyn_keystorelistener.ahk" { alljoyn_keystorelistener }
 #Import ".\alljoyn_keystorelistener_callbacks.ahk" { alljoyn_keystorelistener_callbacks }
 #Import ".\alljoyn_keystorelistener_with_synchronization_callbacks.ahk" { alljoyn_keystorelistener_with_synchronization_callbacks }
 #Import ".\alljoyn_manifestarray.ahk" { alljoyn_manifestarray }
 #Import ".\alljoyn_message.ahk" { alljoyn_message }
+#Import ".\alljoyn_messagereceiver_methodhandler_ptr.ahk" { alljoyn_messagereceiver_methodhandler_ptr }
+#Import ".\alljoyn_messagereceiver_replyhandler_ptr.ahk" { alljoyn_messagereceiver_replyhandler_ptr }
+#Import ".\alljoyn_messagereceiver_signalhandler_ptr.ahk" { alljoyn_messagereceiver_signalhandler_ptr }
 #Import ".\alljoyn_messagetype.ahk" { alljoyn_messagetype }
 #Import ".\alljoyn_msgarg.ahk" { alljoyn_msgarg }
 #Import ".\alljoyn_observer.ahk" { alljoyn_observer }
@@ -50,6 +56,11 @@
 #Import ".\alljoyn_pinglistener.ahk" { alljoyn_pinglistener }
 #Import ".\alljoyn_pinglistener_callback.ahk" { alljoyn_pinglistener_callback }
 #Import ".\alljoyn_proxybusobject.ahk" { alljoyn_proxybusobject }
+#Import ".\alljoyn_proxybusobject_listener_getallpropertiescb_ptr.ahk" { alljoyn_proxybusobject_listener_getallpropertiescb_ptr }
+#Import ".\alljoyn_proxybusobject_listener_getpropertycb_ptr.ahk" { alljoyn_proxybusobject_listener_getpropertycb_ptr }
+#Import ".\alljoyn_proxybusobject_listener_introspectcb_ptr.ahk" { alljoyn_proxybusobject_listener_introspectcb_ptr }
+#Import ".\alljoyn_proxybusobject_listener_propertieschanged_ptr.ahk" { alljoyn_proxybusobject_listener_propertieschanged_ptr }
+#Import ".\alljoyn_proxybusobject_listener_setpropertycb_ptr.ahk" { alljoyn_proxybusobject_listener_setpropertycb_ptr }
 #Import ".\alljoyn_proxybusobject_ref.ahk" { alljoyn_proxybusobject_ref }
 #Import ".\alljoyn_securityapplicationproxy.ahk" { alljoyn_securityapplicationproxy }
 #Import ".\alljoyn_sessionlistener.ahk" { alljoyn_sessionlistener }
@@ -4035,7 +4046,7 @@ export alljoyn_interfacedescription_getpropertydescriptionforlanguage(iface, _pr
  * @returns {String} Nothing - always returns an empty string
  */
 export alljoyn_interfacedescription_setdescriptiontranslationcallback(iface, translationCallback) {
-    DllCall("MSAJApi.dll\alljoyn_interfacedescription_setdescriptiontranslationcallback", alljoyn_interfacedescription, iface, "ptr", translationCallback)
+    DllCall("MSAJApi.dll\alljoyn_interfacedescription_setdescriptiontranslationcallback", alljoyn_interfacedescription, iface, alljoyn_interfacedescription_translation_callback_ptr, translationCallback)
 }
 
 /**
@@ -4044,7 +4055,7 @@ export alljoyn_interfacedescription_setdescriptiontranslationcallback(iface, tra
  * @returns {Pointer<alljoyn_interfacedescription_translation_callback_ptr>} 
  */
 export alljoyn_interfacedescription_getdescriptiontranslationcallback(iface) {
-    result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_getdescriptiontranslationcallback", alljoyn_interfacedescription, iface, IntPtr)
+    result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_getdescriptiontranslationcallback", alljoyn_interfacedescription, iface, alljoyn_interfacedescription_translation_callback_ptr)
     return result
 }
 
@@ -4237,7 +4248,7 @@ export alljoyn_busobject_addinterface(bus, iface) {
 export alljoyn_busobject_addmethodhandler(bus, member, handler, _context) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_busobject_addmethodhandler", alljoyn_busobject, bus, alljoyn_interfacedescription_member, member, "ptr", handler, _contextMarshal, _context, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busobject_addmethodhandler", alljoyn_busobject, bus, alljoyn_interfacedescription_member, member, alljoyn_messagereceiver_methodhandler_ptr, handler, _contextMarshal, _context, QStatus)
     return result
 }
 
@@ -4529,7 +4540,7 @@ export alljoyn_proxybusobject_introspectremoteobject(proxyObj) {
 export alljoyn_proxybusobject_introspectremoteobjectasync(proxyObj, callback, _context) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_introspectremoteobjectasync", alljoyn_proxybusobject, proxyObj, "ptr", callback, _contextMarshal, _context, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_introspectremoteobjectasync", alljoyn_proxybusobject, proxyObj, alljoyn_proxybusobject_listener_introspectcb_ptr, callback, _contextMarshal, _context, QStatus)
     return result
 }
 
@@ -4565,7 +4576,7 @@ export alljoyn_proxybusobject_getpropertyasync(proxyObj, iface, _property, callb
 
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_getpropertyasync", alljoyn_proxybusobject, proxyObj, "ptr", iface, "ptr", _property, "ptr", callback, UInt32, timeout, _contextMarshal, _context, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_getpropertyasync", alljoyn_proxybusobject, proxyObj, "ptr", iface, "ptr", _property, alljoyn_proxybusobject_listener_getpropertycb_ptr, callback, UInt32, timeout, _contextMarshal, _context, QStatus)
     return result
 }
 
@@ -4597,7 +4608,7 @@ export alljoyn_proxybusobject_getallpropertiesasync(proxyObj, iface, callback, t
 
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_getallpropertiesasync", alljoyn_proxybusobject, proxyObj, "ptr", iface, "ptr", callback, UInt32, timeout, _contextMarshal, _context, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_getallpropertiesasync", alljoyn_proxybusobject, proxyObj, "ptr", iface, alljoyn_proxybusobject_listener_getallpropertiescb_ptr, callback, UInt32, timeout, _contextMarshal, _context, QStatus)
     return result
 }
 
@@ -4633,7 +4644,7 @@ export alljoyn_proxybusobject_registerpropertieschangedlistener(proxyObj, iface,
     _propertiesMarshal := _properties is VarRef ? "ptr*" : "ptr"
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_registerpropertieschangedlistener", alljoyn_proxybusobject, proxyObj, "ptr", iface, _propertiesMarshal, _properties, IntPtr, numProperties, "ptr", callback, _contextMarshal, _context, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_registerpropertieschangedlistener", alljoyn_proxybusobject, proxyObj, "ptr", iface, _propertiesMarshal, _properties, IntPtr, numProperties, alljoyn_proxybusobject_listener_propertieschanged_ptr, callback, _contextMarshal, _context, QStatus)
     return result
 }
 
@@ -4647,7 +4658,7 @@ export alljoyn_proxybusobject_registerpropertieschangedlistener(proxyObj, iface,
 export alljoyn_proxybusobject_unregisterpropertieschangedlistener(proxyObj, iface, callback) {
     iface := iface is String ? StrPtr(iface) : iface
 
-    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_unregisterpropertieschangedlistener", alljoyn_proxybusobject, proxyObj, "ptr", iface, "ptr", callback, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_unregisterpropertieschangedlistener", alljoyn_proxybusobject, proxyObj, "ptr", iface, alljoyn_proxybusobject_listener_propertieschanged_ptr, callback, QStatus)
     return result
 }
 
@@ -4668,7 +4679,7 @@ export alljoyn_proxybusobject_setpropertyasync(proxyObj, iface, _property, value
 
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_setpropertyasync", alljoyn_proxybusobject, proxyObj, "ptr", iface, "ptr", _property, alljoyn_msgarg, value, "ptr", callback, UInt32, timeout, _contextMarshal, _context, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_setpropertyasync", alljoyn_proxybusobject, proxyObj, "ptr", iface, "ptr", _property, alljoyn_msgarg, value, alljoyn_proxybusobject_listener_setpropertycb_ptr, callback, UInt32, timeout, _contextMarshal, _context, QStatus)
     return result
 }
 
@@ -4759,7 +4770,7 @@ export alljoyn_proxybusobject_methodcallasync(proxyObj, ifaceName, methodName, r
 
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_methodcallasync", alljoyn_proxybusobject, proxyObj, "ptr", ifaceName, "ptr", methodName, "ptr", replyFunc, alljoyn_msgarg, args, IntPtr, numArgs, _contextMarshal, _context, UInt32, timeout, Int8, flags, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_methodcallasync", alljoyn_proxybusobject, proxyObj, "ptr", ifaceName, "ptr", methodName, alljoyn_messagereceiver_replyhandler_ptr, replyFunc, alljoyn_msgarg, args, IntPtr, numArgs, _contextMarshal, _context, UInt32, timeout, Int8, flags, QStatus)
     return result
 }
 
@@ -4778,7 +4789,7 @@ export alljoyn_proxybusobject_methodcallasync(proxyObj, ifaceName, methodName, r
 export alljoyn_proxybusobject_methodcallasync_member(proxyObj, method, replyFunc, args, numArgs, _context, timeout, flags) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_methodcallasync_member", alljoyn_proxybusobject, proxyObj, alljoyn_interfacedescription_member, method, "ptr", replyFunc, alljoyn_msgarg, args, IntPtr, numArgs, _contextMarshal, _context, UInt32, timeout, Int8, flags, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_methodcallasync_member", alljoyn_proxybusobject, proxyObj, alljoyn_interfacedescription_member, method, alljoyn_messagereceiver_replyhandler_ptr, replyFunc, alljoyn_msgarg, args, IntPtr, numArgs, _contextMarshal, _context, UInt32, timeout, Int8, flags, QStatus)
     return result
 }
 
@@ -5317,7 +5328,7 @@ export alljoyn_busattachment_joinsessionasync(bus, sessionHost, sessionPort, lis
 
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_joinsessionasync", alljoyn_busattachment, bus, "ptr", sessionHost, UInt16, sessionPort, alljoyn_sessionlistener, listener, alljoyn_sessionopts, opts, "ptr", callback, _contextMarshal, _context, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_joinsessionasync", alljoyn_busattachment, bus, "ptr", sessionHost, UInt16, sessionPort, alljoyn_sessionlistener, listener, alljoyn_sessionopts, opts, alljoyn_busattachment_joinsessioncb_ptr, callback, _contextMarshal, _context, QStatus)
     return result
 }
 
@@ -5593,7 +5604,7 @@ export alljoyn_busattachment_getglobalguidstring(bus) {
 export alljoyn_busattachment_registersignalhandler(bus, signal_handler, member, srcPath) {
     srcPath := srcPath is String ? StrPtr(srcPath) : srcPath
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_registersignalhandler", alljoyn_busattachment, bus, "ptr", signal_handler, alljoyn_interfacedescription_member, member, "ptr", srcPath, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_registersignalhandler", alljoyn_busattachment, bus, alljoyn_messagereceiver_signalhandler_ptr, signal_handler, alljoyn_interfacedescription_member, member, "ptr", srcPath, QStatus)
     return result
 }
 
@@ -5608,7 +5619,7 @@ export alljoyn_busattachment_registersignalhandler(bus, signal_handler, member, 
 export alljoyn_busattachment_registersignalhandlerwithrule(bus, signal_handler, member, matchRule) {
     matchRule := matchRule is String ? StrPtr(matchRule) : matchRule
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_registersignalhandlerwithrule", alljoyn_busattachment, bus, "ptr", signal_handler, alljoyn_interfacedescription_member, member, "ptr", matchRule, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_registersignalhandlerwithrule", alljoyn_busattachment, bus, alljoyn_messagereceiver_signalhandler_ptr, signal_handler, alljoyn_interfacedescription_member, member, "ptr", matchRule, QStatus)
     return result
 }
 
@@ -5623,7 +5634,7 @@ export alljoyn_busattachment_registersignalhandlerwithrule(bus, signal_handler, 
 export alljoyn_busattachment_unregistersignalhandler(bus, signal_handler, member, srcPath) {
     srcPath := srcPath is String ? StrPtr(srcPath) : srcPath
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_unregistersignalhandler", alljoyn_busattachment, bus, "ptr", signal_handler, alljoyn_interfacedescription_member, member, "ptr", srcPath, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_unregistersignalhandler", alljoyn_busattachment, bus, alljoyn_messagereceiver_signalhandler_ptr, signal_handler, alljoyn_interfacedescription_member, member, "ptr", srcPath, QStatus)
     return result
 }
 
@@ -5638,7 +5649,7 @@ export alljoyn_busattachment_unregistersignalhandler(bus, signal_handler, member
 export alljoyn_busattachment_unregistersignalhandlerwithrule(bus, signal_handler, member, matchRule) {
     matchRule := matchRule is String ? StrPtr(matchRule) : matchRule
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_unregistersignalhandlerwithrule", alljoyn_busattachment, bus, "ptr", signal_handler, alljoyn_interfacedescription_member, member, "ptr", matchRule, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_unregistersignalhandlerwithrule", alljoyn_busattachment, bus, alljoyn_messagereceiver_signalhandler_ptr, signal_handler, alljoyn_interfacedescription_member, member, "ptr", matchRule, QStatus)
     return result
 }
 
@@ -5859,7 +5870,7 @@ export alljoyn_busattachment_setlinktimeout(bus, sessionid, linkTimeout) {
 export alljoyn_busattachment_setlinktimeoutasync(bus, sessionid, linkTimeout, callback, _context) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_setlinktimeoutasync", alljoyn_busattachment, bus, UInt32, sessionid, UInt32, linkTimeout, "ptr", callback, _contextMarshal, _context, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_setlinktimeoutasync", alljoyn_busattachment, bus, UInt32, sessionid, UInt32, linkTimeout, alljoyn_busattachment_setlinktimeoutcb_ptr, callback, _contextMarshal, _context, QStatus)
     return result
 }
 

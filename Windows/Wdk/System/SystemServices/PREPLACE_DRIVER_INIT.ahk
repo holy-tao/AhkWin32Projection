@@ -29,7 +29,7 @@ export default struct PREPLACE_DRIVER_INIT {
         UnusedMarshal := Unused is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, PNP_REPLACE_DRIVER_INTERFACE.Ptr, _Interface, UnusedMarshal, Unused, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -49,6 +49,10 @@ export default struct PREPLACE_DRIVER_INIT {
             this.value := CallbackCreate(fn, , [PNP_REPLACE_DRIVER_INTERFACE.Ptr, "ptr", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

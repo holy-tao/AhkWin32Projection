@@ -50,6 +50,10 @@ export default struct QUERY_CONTEXT_ATTRIBUTES_FN_W {
             this.value := CallbackCreate(fn, , [SecHandle.Ptr, UInt32, "ptr", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

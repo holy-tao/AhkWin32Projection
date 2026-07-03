@@ -54,6 +54,10 @@ export default struct PFN_PRINTING_STARTDOCPORT {
             this.value := CallbackCreate(fn, , [HANDLE, PWSTR, UInt32, UInt32, "char*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

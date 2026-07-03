@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\ACTIVE_LATENCY_CONFIGURATION.ahk" { ACTIVE_LATENCY_CONFIGURATION }
 #Import ".\BUCKET_COUNTER.ahk" { BUCKET_COUNTER }
 #Import ".\DEBUG_BIT_FIELD.ahk" { DEBUG_BIT_FIELD }

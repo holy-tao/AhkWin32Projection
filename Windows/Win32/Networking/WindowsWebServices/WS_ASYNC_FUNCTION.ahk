@@ -66,6 +66,10 @@ export default struct WS_ASYNC_FUNCTION {
             this.value := CallbackCreate(fn, , ["int", WS_CALLBACK_MODEL, "ptr", WS_ASYNC_OPERATION.Ptr, WS_ASYNC_CONTEXT.Ptr, WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

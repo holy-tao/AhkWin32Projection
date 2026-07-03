@@ -52,6 +52,10 @@ export default struct PFNWRITEOBJECTSECURITY {
             this.value := CallbackCreate(fn, , [PWSTR, UInt32, PSECURITY_DESCRIPTOR, LPARAM, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -53,6 +53,10 @@ export default struct PIMAGEHLP_STATUS_ROUTINE64 {
             this.value := CallbackCreate(fn, , [IMAGEHLP_STATUS_REASON, PSTR, PSTR, Int64, IntPtr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

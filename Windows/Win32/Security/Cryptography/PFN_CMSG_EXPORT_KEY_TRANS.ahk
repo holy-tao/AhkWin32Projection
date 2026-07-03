@@ -80,6 +80,10 @@ export default struct PFN_CMSG_EXPORT_KEY_TRANS {
             this.value := CallbackCreate(fn, , [CMSG_CONTENT_ENCRYPT_INFO.Ptr, CMSG_KEY_TRANS_RECIPIENT_ENCODE_INFO.Ptr, CMSG_KEY_TRANS_ENCRYPT_INFO.Ptr, UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

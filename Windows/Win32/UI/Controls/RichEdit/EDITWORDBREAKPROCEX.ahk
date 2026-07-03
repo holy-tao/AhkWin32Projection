@@ -125,6 +125,10 @@ export default struct EDITWORDBREAKPROCEX {
             this.value := CallbackCreate(fn, , [PSTR, Int32, Int8, Int32, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -46,6 +46,10 @@ export default struct RTL_AVL_FREE_ROUTINE {
             this.value := CallbackCreate(fn, , [RTL_AVL_TABLE.Ptr, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

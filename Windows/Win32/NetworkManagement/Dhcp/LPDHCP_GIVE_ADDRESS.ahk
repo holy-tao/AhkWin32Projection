@@ -88,6 +88,10 @@ export default struct LPDHCP_GIVE_ADDRESS {
             this.value := CallbackCreate(fn, , ["char*", UInt32, UInt32, UInt32, UInt32, UInt32, UInt32, "ptr", "ptr", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

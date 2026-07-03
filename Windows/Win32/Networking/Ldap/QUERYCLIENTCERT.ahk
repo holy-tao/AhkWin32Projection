@@ -62,6 +62,10 @@ export default struct QUERYCLIENTCERT {
             this.value := CallbackCreate(fn, "cdecl", [LDAP.Ptr, SecPkgContext_IssuerListInfoEx.Ptr, "ptr*", BOOLEAN])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

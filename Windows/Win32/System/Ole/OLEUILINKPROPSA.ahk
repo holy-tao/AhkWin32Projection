@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\LPFNOLEUIHOOK.ahk" { LPFNOLEUIHOOK }
 #Import ".\OLEUIOBJECTPROPSA.ahk" { OLEUIOBJECTPROPSA }
 
 /**
@@ -32,7 +33,7 @@ export default struct OLEUILINKPROPSA {
     /**
      * Pointer to the hook callback (not used in this dialog box).
      */
-    lpfnHook : IntPtr
+    lpfnHook : LPFNOLEUIHOOK
 
     /**
      * Custom data to pass to hook (not used in this dialog box).

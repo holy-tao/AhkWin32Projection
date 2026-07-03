@@ -48,6 +48,10 @@ export default struct LPDDENUMVIDEOCALLBACK {
             this.value := CallbackCreate(fn, , [DDVIDEOPORTCAPS.Ptr, "ptr", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

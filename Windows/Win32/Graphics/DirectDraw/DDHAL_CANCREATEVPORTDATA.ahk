@@ -2,6 +2,7 @@
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
 #Import ".\DDVIDEOPORTDESC.ahk" { DDVIDEOPORTDESC }
+#Import ".\LPDDHALVPORTCB_CANCREATEVIDEOPORT.ahk" { LPDDHALVPORTCB_CANCREATEVIDEOPORT }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -15,6 +16,6 @@ export default struct DDHAL_CANCREATEVPORTDATA {
 
     ddRVal : HRESULT
 
-    CanCreateVideoPort : IntPtr
+    CanCreateVideoPort : LPDDHALVPORTCB_CANCREATEVIDEOPORT
 
 }

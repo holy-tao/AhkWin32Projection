@@ -1,5 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\BCRYPT_INTERFACE_VERSION.ahk" { BCRYPT_INTERFACE_VERSION }
+#Import ".\BCryptCloseAlgorithmProviderFn.ahk" { BCryptCloseAlgorithmProviderFn }
+#Import ".\BCryptDecryptFn.ahk" { BCryptDecryptFn }
+#Import ".\BCryptDestroyKeyFn.ahk" { BCryptDestroyKeyFn }
+#Import ".\BCryptDuplicateKeyFn.ahk" { BCryptDuplicateKeyFn }
+#Import ".\BCryptEncryptFn.ahk" { BCryptEncryptFn }
+#Import ".\BCryptExportKeyFn.ahk" { BCryptExportKeyFn }
+#Import ".\BCryptGenerateSymmetricKeyFn.ahk" { BCryptGenerateSymmetricKeyFn }
+#Import ".\BCryptGetPropertyFn.ahk" { BCryptGetPropertyFn }
+#Import ".\BCryptImportKeyFn.ahk" { BCryptImportKeyFn }
+#Import ".\BCryptOpenAlgorithmProviderFn.ahk" { BCryptOpenAlgorithmProviderFn }
+#Import ".\BCryptSetPropertyFn.ahk" { BCryptSetPropertyFn }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -9,26 +20,26 @@ export default struct BCRYPT_CIPHER_FUNCTION_TABLE {
 
     Version : BCRYPT_INTERFACE_VERSION
 
-    OpenAlgorithmProvider : IntPtr
+    OpenAlgorithmProvider : BCryptOpenAlgorithmProviderFn
 
-    GetProperty : IntPtr
+    GetProperty : BCryptGetPropertyFn
 
-    SetProperty : IntPtr
+    SetProperty : BCryptSetPropertyFn
 
-    CloseAlgorithmProvider : IntPtr
+    CloseAlgorithmProvider : BCryptCloseAlgorithmProviderFn
 
-    GenerateKey : IntPtr
+    GenerateKey : BCryptGenerateSymmetricKeyFn
 
-    Encrypt : IntPtr
+    Encrypt : BCryptEncryptFn
 
-    Decrypt : IntPtr
+    Decrypt : BCryptDecryptFn
 
-    ImportKey : IntPtr
+    ImportKey : BCryptImportKeyFn
 
-    ExportKey : IntPtr
+    ExportKey : BCryptExportKeyFn
 
-    DuplicateKey : IntPtr
+    DuplicateKey : BCryptDuplicateKeyFn
 
-    DestroyKey : IntPtr
+    DestroyKey : BCryptDestroyKeyFn
 
 }

@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Direct3D\D3D_FEATURE_LEVEL.ahk" { D3D_FEATURE_LEVEL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
@@ -49,6 +49,10 @@ export default struct PFN_D3D12_CREATE_DEVICE {
             this.value := CallbackCreate(fn, , ["ptr", D3D_FEATURE_LEVEL, Guid.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -48,6 +48,10 @@ export default struct PFS_FILTER_COMPLETION_CALLBACK {
             this.value := CallbackCreate(fn, , [FS_FILTER_CALLBACK_DATA.Ptr, NTSTATUS, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

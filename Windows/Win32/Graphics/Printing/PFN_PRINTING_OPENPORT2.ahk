@@ -50,6 +50,10 @@ export default struct PFN_PRINTING_OPENPORT2 {
             this.value := CallbackCreate(fn, , [HANDLE, PWSTR, HANDLE.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ENTRY_CALLBACK.ahk" { ENTRY_CALLBACK }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -28,7 +29,7 @@ export default struct EXTDLL_ITERATERTLBALANCEDNODES {
     Call(RootNode, EntryOffset, Callback, CallbackContext) {
         CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
-        DllCall(this.value, Int64, RootNode, UInt32, EntryOffset, "ptr", Callback, CallbackContextMarshal, CallbackContext)
+        DllCall(this.value, Int64, RootNode, UInt32, EntryOffset, ENTRY_CALLBACK, Callback, CallbackContextMarshal, CallbackContext)
     }
 
     /**
@@ -38,15 +39,19 @@ export default struct EXTDLL_ITERATERTLBALANCEDNODES {
     struct From extends EXTDLL_ITERATERTLBALANCEDNODES {
         /**
          * Creates a EXTDLL_ITERATERTLBALANCEDNODES pointer that invokes the given AHK function when called.
-         * @param {Func(Int64, UInt32, "ptr", "ptr") => IntPtr} fn the function to invoke.
+         * @param {Func(Int64, UInt32, ENTRY_CALLBACK, "ptr") => IntPtr} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 4)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 4 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [Int64, UInt32, "ptr", "ptr", IntPtr])
+            this.value := CallbackCreate(fn, , [Int64, UInt32, ENTRY_CALLBACK, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

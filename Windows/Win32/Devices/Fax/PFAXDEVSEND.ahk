@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\FAX_SEND.ahk" { FAX_SEND }
+#Import ".\PFAX_SEND_CALLBACK.ahk" { PFAX_SEND_CALLBACK }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
@@ -28,7 +29,7 @@ export default struct PFAXDEVSEND {
      * @returns {BOOL} 
      */
     Call(param0, param1, param2) {
-        result := DllCall(this.value, HANDLE, param0, FAX_SEND.Ptr, param1, "ptr", param2, BOOL)
+        result := DllCall(this.value, HANDLE, param0, FAX_SEND.Ptr, param1, PFAX_SEND_CALLBACK, param2, BOOL)
         return result
     }
 
@@ -39,15 +40,19 @@ export default struct PFAXDEVSEND {
     struct From extends PFAXDEVSEND {
         /**
          * Creates a PFAXDEVSEND pointer that invokes the given AHK function when called.
-         * @param {Func(HANDLE, FAX_SEND, "ptr") => BOOL} fn the function to invoke.
+         * @param {Func(HANDLE, FAX_SEND, PFAX_SEND_CALLBACK) => BOOL} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 3)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 3 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [HANDLE, FAX_SEND.Ptr, "ptr", BOOL])
+            this.value := CallbackCreate(fn, , [HANDLE, FAX_SEND.Ptr, PFAX_SEND_CALLBACK, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

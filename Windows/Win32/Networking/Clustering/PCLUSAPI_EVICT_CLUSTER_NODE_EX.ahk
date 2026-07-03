@@ -49,6 +49,10 @@ export default struct PCLUSAPI_EVICT_CLUSTER_NODE_EX {
             this.value := CallbackCreate(fn, , [HNODE, UInt32, "int*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

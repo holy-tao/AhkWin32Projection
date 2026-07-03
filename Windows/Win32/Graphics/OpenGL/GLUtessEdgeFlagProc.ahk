@@ -42,6 +42,10 @@ export default struct GLUtessEdgeFlagProc {
             this.value := CallbackCreate(fn, , [Int8, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -46,6 +46,10 @@ export default struct D3COLD_REQUEST_CORE_POWER_RAIL {
             this.value := CallbackCreate(fn, , ["ptr", BOOLEAN, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

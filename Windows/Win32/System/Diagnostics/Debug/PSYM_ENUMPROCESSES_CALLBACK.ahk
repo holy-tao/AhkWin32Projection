@@ -54,6 +54,10 @@ export default struct PSYM_ENUMPROCESSES_CALLBACK {
             this.value := CallbackCreate(fn, , [HANDLE, "ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

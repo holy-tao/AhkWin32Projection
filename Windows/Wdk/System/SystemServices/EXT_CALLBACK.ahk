@@ -46,6 +46,10 @@ export default struct EXT_CALLBACK {
             this.value := CallbackCreate(fn, , [PEX_TIMER, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

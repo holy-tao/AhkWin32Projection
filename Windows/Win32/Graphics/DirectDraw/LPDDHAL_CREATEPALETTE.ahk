@@ -44,6 +44,10 @@ export default struct LPDDHAL_CREATEPALETTE {
             this.value := CallbackCreate(fn, , [DDHAL_CREATEPALETTEDATA.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

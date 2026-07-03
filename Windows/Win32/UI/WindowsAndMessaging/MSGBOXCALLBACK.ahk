@@ -47,6 +47,10 @@ export default struct MSGBOXCALLBACK {
             this.value := CallbackCreate(fn, , [HELPINFO.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

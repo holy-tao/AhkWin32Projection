@@ -4,6 +4,7 @@
 #Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\CHOOSECOLOR_FLAGS.ahk" { CHOOSECOLOR_FLAGS }
+#Import ".\LPCCHOOKPROC.ahk" { LPCCHOOKPROC }
 
 /**
  * The CHOOSECOLORA (ANSI) structure (commdlg.h) contains information the ChooseColor function uses to initialize the Color dialog box.
@@ -175,7 +176,7 @@ export default struct CHOOSECOLORA {
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nc-commdlg-lpcchookproc">CCHookProc</a> hook procedure that can process messages intended for the dialog box. This member is ignored unless the <b>CC_ENABLEHOOK</b> flag is set in the <b>Flags</b> member.
      */
-    lpfnHook : IntPtr
+    lpfnHook : LPCCHOOKPROC
 
     /**
      * Type: <b>LPCTSTR</b>

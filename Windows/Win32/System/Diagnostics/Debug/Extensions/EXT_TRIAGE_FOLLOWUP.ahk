@@ -50,6 +50,10 @@ export default struct EXT_TRIAGE_FOLLOWUP {
             this.value := CallbackCreate(fn, , ["ptr", PSTR, DEBUG_TRIAGE_FOLLOWUP_INFO.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

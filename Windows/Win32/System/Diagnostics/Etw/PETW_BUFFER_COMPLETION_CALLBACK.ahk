@@ -48,6 +48,10 @@ export default struct PETW_BUFFER_COMPLETION_CALLBACK {
             this.value := CallbackCreate(fn, , [ETW_BUFFER_HEADER.Ptr, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

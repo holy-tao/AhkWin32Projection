@@ -63,6 +63,10 @@ export default struct PFN_DrvStretchBltROP {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, SURFOBJ.Ptr, SURFOBJ.Ptr, CLIPOBJ.Ptr, XLATEOBJ.Ptr, COLORADJUSTMENT.Ptr, POINTL.Ptr, RECTL.Ptr, RECTL.Ptr, POINTL.Ptr, UInt32, BRUSHOBJ.Ptr, UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

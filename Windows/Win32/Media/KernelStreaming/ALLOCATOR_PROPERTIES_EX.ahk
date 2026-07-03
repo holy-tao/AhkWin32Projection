@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\IKsAllocatorEx.ahk" { IKsAllocatorEx }
 #Import ".\KS_COMPRESSION.ahk" { KS_COMPRESSION }
 #Import ".\KS_FRAMING_RANGE.ahk" { KS_FRAMING_RANGE }

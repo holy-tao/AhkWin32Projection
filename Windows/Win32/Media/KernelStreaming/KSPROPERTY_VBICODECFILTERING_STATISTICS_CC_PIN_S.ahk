@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
 #Import ".\VBICODECFILTERING_STATISTICS_CC_PIN.ahk" { VBICODECFILTERING_STATISTICS_CC_PIN }
 #Import ".\VBICODECFILTERING_STATISTICS_COMMON_PIN.ahk" { VBICODECFILTERING_STATISTICS_COMMON_PIN }

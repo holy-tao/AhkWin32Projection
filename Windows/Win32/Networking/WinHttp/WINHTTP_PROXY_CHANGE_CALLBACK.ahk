@@ -51,6 +51,10 @@ export default struct WINHTTP_PROXY_CHANGE_CALLBACK {
             this.value := CallbackCreate(fn, , [Int64, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

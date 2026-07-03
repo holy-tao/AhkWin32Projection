@@ -89,6 +89,10 @@ export default struct PWLX_SET_OPTION {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, IntPtr, "ptr*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

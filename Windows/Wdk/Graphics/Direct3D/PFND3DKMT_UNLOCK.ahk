@@ -26,7 +26,7 @@ export default struct PFND3DKMT_UNLOCK {
      */
     Call(param0) {
         result := DllCall(this.value, D3DKMT_UNLOCK.Ptr, param0, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -46,6 +46,10 @@ export default struct PFND3DKMT_UNLOCK {
             this.value := CallbackCreate(fn, , [D3DKMT_UNLOCK.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

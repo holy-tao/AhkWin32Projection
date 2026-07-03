@@ -47,6 +47,10 @@ export default struct PFNLOG {
             this.value := CallbackCreate(fn, , [IMEDP.Ptr, "int", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

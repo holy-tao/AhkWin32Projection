@@ -52,6 +52,10 @@ export default struct PROTOCOL_CM_MAKE_CALL {
             this.value := CallbackCreate(fn, , ["ptr", CO_CALL_PARAMETERS.Ptr, "ptr", "ptr*", Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

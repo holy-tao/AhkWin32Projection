@@ -1,6 +1,6 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
@@ -34,6 +34,7 @@
 #Import ".\PDH_SELECT_DATA_SOURCE_FLAGS.ahk" { PDH_SELECT_DATA_SOURCE_FLAGS }
 #Import ".\PDH_STATISTICS.ahk" { PDH_STATISTICS }
 #Import ".\PDH_TIME_INFO.ahk" { PDH_TIME_INFO }
+#Import ".\PERFLIBREQUEST.ahk" { PERFLIBREQUEST }
 #Import ".\PERF_COUNTERSET_INSTANCE.ahk" { PERF_COUNTERSET_INSTANCE }
 #Import ".\PERF_DETAIL.ahk" { PERF_DETAIL }
 #Import ".\PERF_PROVIDER_CONTEXT.ahk" { PERF_PROVIDER_CONTEXT }
@@ -367,7 +368,7 @@ export RestorePerfRegistryFromFileW(szFileName, szLangId) {
  * @since windows6.0.6000
  */
 export PerfStartProvider(ProviderGuid, ControlCallback, phProvider) {
-    result := DllCall("ADVAPI32.dll\PerfStartProvider", Guid.Ptr, ProviderGuid, "ptr", ControlCallback, HANDLE.Ptr, phProvider, UInt32)
+    result := DllCall("ADVAPI32.dll\PerfStartProvider", Guid.Ptr, ProviderGuid, PERFLIBREQUEST, ControlCallback, HANDLE.Ptr, phProvider, UInt32)
     return result
 }
 

@@ -35,7 +35,7 @@ export default struct PCI_SET_ACS {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, PCI_ACS_BIT, EnableSourceValidation, PCI_ACS_BIT, EnableTranslationBlocking, PCI_ACS_BIT, EnableP2PRequestRedirect, PCI_ACS_BIT, EnableCompletionRedirect, PCI_ACS_BIT, EnableUpstreamForwarding, PCI_ACS_BIT, EnableEgressControl, PCI_ACS_BIT, EnableDirectTranslatedP2P, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -55,6 +55,10 @@ export default struct PCI_SET_ACS {
             this.value := CallbackCreate(fn, , ["ptr", PCI_ACS_BIT, PCI_ACS_BIT, PCI_ACS_BIT, PCI_ACS_BIT, PCI_ACS_BIT, PCI_ACS_BIT, PCI_ACS_BIT, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

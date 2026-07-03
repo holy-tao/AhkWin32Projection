@@ -1,4 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MI_Module_Load.ahk" { MI_Module_Load }
+#Import ".\MI_Module_Unload.ahk" { MI_Module_Unload }
 #Import ".\MI_ProviderFT.ahk" { MI_ProviderFT }
 #Import ".\MI_SchemaDecl.ahk" { MI_SchemaDecl }
 
@@ -38,12 +40,12 @@ export default struct MI_Module {
     /**
      * Function pointer that points to the provider's Load function where initialization takes place.
      */
-    Load : IntPtr
+    Load : MI_Module_Load
 
     /**
      * Function pointer that points to the provider's Unload function where cleanup takes place.
      */
-    Unload : IntPtr
+    Unload : MI_Module_Unload
 
     /**
      * The module may implement a single 'dynamic provider' (one that provides CIM instances, CIM classes and CIM 

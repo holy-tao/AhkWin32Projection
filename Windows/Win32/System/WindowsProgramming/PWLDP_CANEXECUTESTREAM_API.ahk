@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Com\IStream.ahk" { IStream }
@@ -54,6 +54,10 @@ export default struct PWLDP_CANEXECUTESTREAM_API {
             this.value := CallbackCreate(fn, , [Guid.Ptr, WLDP_EXECUTION_EVALUATION_OPTIONS, "ptr", PWSTR, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

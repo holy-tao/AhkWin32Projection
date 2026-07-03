@@ -46,7 +46,7 @@ export default struct SpValidateTargetInfoFn {
         ClientBufferBaseMarshal := ClientBufferBase is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, ClientRequestMarshal, ClientRequest, IntPtr, ProtocolSubmitBuffer, ClientBufferBaseMarshal, ClientBufferBase, UInt32, SubmitBufferLength, SECPKG_TARGETINFO.Ptr, TargetInfo, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -66,6 +66,10 @@ export default struct SpValidateTargetInfoFn {
             this.value := CallbackCreate(fn, , ["ptr*", IntPtr, "ptr", UInt32, SECPKG_TARGETINFO.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

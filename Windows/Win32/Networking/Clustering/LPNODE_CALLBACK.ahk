@@ -51,6 +51,10 @@ export default struct LPNODE_CALLBACK {
             this.value := CallbackCreate(fn, , [HCLUSTER, HNODE, CLUSTER_NODE_STATE, "ptr", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

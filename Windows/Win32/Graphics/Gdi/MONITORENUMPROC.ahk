@@ -71,6 +71,10 @@ export default struct MONITORENUMPROC {
             this.value := CallbackCreate(fn, , [HMONITOR, HDC, RECT.Ptr, LPARAM, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

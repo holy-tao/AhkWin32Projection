@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 
 /**
  * The TRANSPORT_SETTING_ID structure (mstcpip.h) specifies the transport setting ID used by specific IOCTLs to apply or query the transport setting for a socket.

@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import ".\WRDS_CONNECTION_SETTING.ahk" { WRDS_CONNECTION_SETTING }
 #Import ".\WRDS_CONNECTION_SETTINGS_1.ahk" { WRDS_CONNECTION_SETTINGS_1 }

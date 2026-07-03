@@ -7,6 +7,8 @@
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ENUM_PROCESS_MODULES_EX_FLAGS.ahk" { ENUM_PROCESS_MODULES_EX_FLAGS }
 #Import ".\MODULEINFO.ahk" { MODULEINFO }
+#Import ".\PENUM_PAGE_FILE_CALLBACKA.ahk" { PENUM_PAGE_FILE_CALLBACKA }
+#Import ".\PENUM_PAGE_FILE_CALLBACKW.ahk" { PENUM_PAGE_FILE_CALLBACKW }
 #Import ".\PERFORMANCE_INFORMATION.ahk" { PERFORMANCE_INFORMATION }
 
 /**
@@ -1252,7 +1254,7 @@ export EnumPageFilesW(pCallBackRoutine, pContext) {
 
     A_LastError := 0
 
-    result := DllCall("PSAPI.dll\EnumPageFilesW", "ptr", pCallBackRoutine, pContextMarshal, pContext, BOOL)
+    result := DllCall("PSAPI.dll\EnumPageFilesW", PENUM_PAGE_FILE_CALLBACKW, pCallBackRoutine, pContextMarshal, pContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1300,7 +1302,7 @@ export EnumPageFilesA(pCallBackRoutine, pContext) {
 
     A_LastError := 0
 
-    result := DllCall("PSAPI.dll\EnumPageFilesA", "ptr", pCallBackRoutine, pContextMarshal, pContext, BOOL)
+    result := DllCall("PSAPI.dll\EnumPageFilesA", PENUM_PAGE_FILE_CALLBACKA, pCallBackRoutine, pContextMarshal, pContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2508,7 +2510,7 @@ export K32GetPerformanceInfo(pPerformanceInformation, cb) {
 export K32EnumPageFilesW(pCallBackRoutine, pContext) {
     pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("KERNEL32.dll\K32EnumPageFilesW", "ptr", pCallBackRoutine, pContextMarshal, pContext, BOOL)
+    result := DllCall("KERNEL32.dll\K32EnumPageFilesW", PENUM_PAGE_FILE_CALLBACKW, pCallBackRoutine, pContextMarshal, pContext, BOOL)
     return result
 }
 
@@ -2549,7 +2551,7 @@ export K32EnumPageFilesW(pCallBackRoutine, pContext) {
 export K32EnumPageFilesA(pCallBackRoutine, pContext) {
     pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("KERNEL32.dll\K32EnumPageFilesA", "ptr", pCallBackRoutine, pContextMarshal, pContext, BOOL)
+    result := DllCall("KERNEL32.dll\K32EnumPageFilesA", PENUM_PAGE_FILE_CALLBACKA, pCallBackRoutine, pContextMarshal, pContext, BOOL)
     return result
 }
 

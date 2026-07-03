@@ -1,6 +1,6 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
 #Import "..\..\..\Foundation\DRIVER_OBJECT.ahk" { DRIVER_OBJECT }
 #Import "..\..\..\Foundation\ECP_LIST.ahk" { ECP_LIST }
@@ -31,14 +31,36 @@
 #Import ".\FLT_RELATED_CONTEXTS_EX.ahk" { FLT_RELATED_CONTEXTS_EX }
 #Import ".\FLT_RELATED_OBJECTS.ahk" { FLT_RELATED_OBJECTS }
 #Import ".\FLT_SET_CONTEXT_OPERATION.ahk" { FLT_SET_CONTEXT_OPERATION }
+#Import ".\PFLTOPLOCK_PREPOST_CALLBACKDATA_ROUTINE.ahk" { PFLTOPLOCK_PREPOST_CALLBACKDATA_ROUTINE }
+#Import ".\PFLTOPLOCK_WAIT_COMPLETE_ROUTINE.ahk" { PFLTOPLOCK_WAIT_COMPLETE_ROUTINE }
+#Import ".\PFLT_CALLBACK_DATA_QUEUE_ACQUIRE.ahk" { PFLT_CALLBACK_DATA_QUEUE_ACQUIRE }
+#Import ".\PFLT_CALLBACK_DATA_QUEUE_COMPLETE_CANCELED_IO.ahk" { PFLT_CALLBACK_DATA_QUEUE_COMPLETE_CANCELED_IO }
+#Import ".\PFLT_CALLBACK_DATA_QUEUE_INSERT_IO.ahk" { PFLT_CALLBACK_DATA_QUEUE_INSERT_IO }
+#Import ".\PFLT_CALLBACK_DATA_QUEUE_PEEK_NEXT_IO.ahk" { PFLT_CALLBACK_DATA_QUEUE_PEEK_NEXT_IO }
+#Import ".\PFLT_CALLBACK_DATA_QUEUE_RELEASE.ahk" { PFLT_CALLBACK_DATA_QUEUE_RELEASE }
+#Import ".\PFLT_CALLBACK_DATA_QUEUE_REMOVE_IO.ahk" { PFLT_CALLBACK_DATA_QUEUE_REMOVE_IO }
+#Import ".\PFLT_COMPLETED_ASYNC_IO_CALLBACK.ahk" { PFLT_COMPLETED_ASYNC_IO_CALLBACK }
+#Import ".\PFLT_COMPLETE_CANCELED_CALLBACK.ahk" { PFLT_COMPLETE_CANCELED_CALLBACK }
+#Import ".\PFLT_COMPLETE_LOCK_CALLBACK_DATA_ROUTINE.ahk" { PFLT_COMPLETE_LOCK_CALLBACK_DATA_ROUTINE }
+#Import ".\PFLT_CONNECT_NOTIFY.ahk" { PFLT_CONNECT_NOTIFY }
 #Import ".\PFLT_CONTEXT.ahk" { PFLT_CONTEXT }
 #Import ".\PFLT_DEFERRED_IO_WORKITEM.ahk" { PFLT_DEFERRED_IO_WORKITEM }
+#Import ".\PFLT_DEFERRED_IO_WORKITEM_ROUTINE.ahk" { PFLT_DEFERRED_IO_WORKITEM_ROUTINE }
+#Import ".\PFLT_DISCONNECT_NOTIFY.ahk" { PFLT_DISCONNECT_NOTIFY }
 #Import ".\PFLT_FILTER.ahk" { PFLT_FILTER }
 #Import ".\PFLT_GENERIC_WORKITEM.ahk" { PFLT_GENERIC_WORKITEM }
+#Import ".\PFLT_GENERIC_WORKITEM_ROUTINE.ahk" { PFLT_GENERIC_WORKITEM_ROUTINE }
+#Import ".\PFLT_GET_OPERATION_STATUS_CALLBACK.ahk" { PFLT_GET_OPERATION_STATUS_CALLBACK }
 #Import ".\PFLT_INSTANCE.ahk" { PFLT_INSTANCE }
+#Import ".\PFLT_MESSAGE_NOTIFY.ahk" { PFLT_MESSAGE_NOTIFY }
 #Import ".\PFLT_PORT.ahk" { PFLT_PORT }
+#Import ".\PFLT_POST_OPERATION_CALLBACK.ahk" { PFLT_POST_OPERATION_CALLBACK }
 #Import ".\PFLT_VOLUME.ahk" { PFLT_VOLUME }
 #Import "..\OPEN_REPARSE_LIST_ENTRY.ahk" { OPEN_REPARSE_LIST_ENTRY }
+#Import "..\PCHECK_FOR_TRAVERSE_ACCESS.ahk" { PCHECK_FOR_TRAVERSE_ACCESS }
+#Import "..\PFILTER_REPORT_CHANGE.ahk" { PFILTER_REPORT_CHANGE }
+#Import "..\PFSRTL_EXTRA_CREATE_PARAMETER_CLEANUP_CALLBACK.ahk" { PFSRTL_EXTRA_CREATE_PARAMETER_CLEANUP_CALLBACK }
+#Import "..\PUNLOCK_ROUTINE.ahk" { PUNLOCK_ROUTINE }
 #Import "..\..\..\System\SystemServices\IO_CSQ_IRP_CONTEXT.ahk" { IO_CSQ_IRP_CONTEXT }
 #Import "..\..\..\System\SystemServices\IO_DRIVER_CREATE_CONTEXT.ahk" { IO_DRIVER_CREATE_CONTEXT }
 #Import "..\..\..\System\SystemServices\LOCK_OPERATION.ahk" { LOCK_OPERATION }
@@ -105,7 +127,7 @@ export FltDoCompletionProcessingWhenSafe(Data, FltObjects, CompletionContext, Fl
     CompletionContextMarshal := CompletionContext is VarRef ? "ptr" : "ptr"
     RetPostOperationStatusMarshal := RetPostOperationStatus is VarRef ? "int*" : "ptr"
 
-    result := DllCall("FLTMGR.SYS\FltDoCompletionProcessingWhenSafe", FLT_CALLBACK_DATA.Ptr, Data, FLT_RELATED_OBJECTS.Ptr, FltObjects, CompletionContextMarshal, CompletionContext, UInt32, Flags, "ptr", SafePostCallback, RetPostOperationStatusMarshal, RetPostOperationStatus, BOOLEAN)
+    result := DllCall("FLTMGR.SYS\FltDoCompletionProcessingWhenSafe", FLT_CALLBACK_DATA.Ptr, Data, FLT_RELATED_OBJECTS.Ptr, FltObjects, CompletionContextMarshal, CompletionContext, UInt32, Flags, PFLT_POST_OPERATION_CALLBACK, SafePostCallback, RetPostOperationStatusMarshal, RetPostOperationStatus, BOOLEAN)
     return result
 }
 
@@ -117,7 +139,7 @@ export FltDoCompletionProcessingWhenSafe(Data, FltObjects, CompletionContext, Fl
  */
 export FltCheckAndGrowNameControl(NameCtrl, NewSize) {
     result := DllCall("FLTMGR.SYS\FltCheckAndGrowNameControl", FLT_NAME_CONTROL.Ptr, NameCtrl, UInt16, NewSize, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -129,7 +151,7 @@ export FltCheckAndGrowNameControl(NameCtrl, NewSize) {
  */
 export FltPurgeFileNameInformationCache(Instance, FileObject) {
     result := DllCall("FLTMGR.SYS\FltPurgeFileNameInformationCache", PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -140,7 +162,7 @@ export FltPurgeFileNameInformationCache(Instance, FileObject) {
  */
 export FltRegisterForDataScan(Instance) {
     result := DllCall("FLTMGR.SYS\FltRegisterForDataScan", PFLT_INSTANCE, Instance, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -166,7 +188,7 @@ export FltCreateSectionForDataScan(Instance, FileObject, SectionContext, Desired
     SectionFileSizeMarshal := SectionFileSize is VarRef ? "int64*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltCreateSectionForDataScan", PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, PFLT_CONTEXT, SectionContext, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, MaximumSizeMarshal, MaximumSize, UInt32, SectionPageProtection, UInt32, AllocationAttributes, UInt32, Flags, HANDLE.Ptr, SectionHandle, SectionObjectMarshal, SectionObject, SectionFileSizeMarshal, SectionFileSize, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -177,7 +199,7 @@ export FltCreateSectionForDataScan(Instance, FileObject, SectionContext, Desired
  */
 export FltCloseSectionForDataScan(SectionContext) {
     result := DllCall("FLTMGR.SYS\FltCloseSectionForDataScan", PFLT_CONTEXT, SectionContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -192,7 +214,7 @@ export FltRegisterFilter(Driver, Registration, RetFilter) {
     RetFilterMarshal := RetFilter is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltRegisterFilter", DRIVER_OBJECT.Ptr, Driver, FLT_REGISTRATION.Ptr, Registration, RetFilterMarshal, RetFilter, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -212,7 +234,7 @@ export FltUnregisterFilter(Filter) {
  */
 export FltStartFiltering(Filter) {
     result := DllCall("FLTMGR.SYS\FltStartFiltering", PFLT_FILTER, Filter, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -260,8 +282,8 @@ export FltCompletePendedPostOperation(CallbackData) {
 export FltRequestOperationStatusCallback(Data, CallbackRoutine, RequesterContext) {
     RequesterContextMarshal := RequesterContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("FLTMGR.SYS\FltRequestOperationStatusCallback", FLT_CALLBACK_DATA.Ptr, Data, "ptr", CallbackRoutine, RequesterContextMarshal, RequesterContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("FLTMGR.SYS\FltRequestOperationStatusCallback", FLT_CALLBACK_DATA.Ptr, Data, PFLT_GET_OPERATION_STATUS_CALLBACK, CallbackRoutine, RequesterContextMarshal, RequesterContext, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -302,7 +324,7 @@ export FltGetFileNameInformation(CallbackData, NameOptions, FileNameInformation)
     FileNameInformationMarshal := FileNameInformation is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetFileNameInformation", FLT_CALLBACK_DATA.Ptr, CallbackData, UInt32, NameOptions, FileNameInformationMarshal, FileNameInformation, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -318,7 +340,7 @@ export FltGetFileNameInformationUnsafe(FileObject, Instance, NameOptions, FileNa
     FileNameInformationMarshal := FileNameInformation is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetFileNameInformationUnsafe", FILE_OBJECT.Ptr, FileObject, PFLT_INSTANCE, Instance, UInt32, NameOptions, FileNameInformationMarshal, FileNameInformation, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -350,7 +372,7 @@ export FltReferenceFileNameInformation(FileNameInformation) {
  */
 export FltParseFileName(FileName, _Extension, Stream, FinalComponent) {
     result := DllCall("FLTMGR.SYS\FltParseFileName", UNICODE_STRING.Ptr, FileName, UNICODE_STRING.Ptr, _Extension, UNICODE_STRING.Ptr, Stream, UNICODE_STRING.Ptr, FinalComponent, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -361,7 +383,7 @@ export FltParseFileName(FileName, _Extension, Stream, FinalComponent) {
  */
 export FltParseFileNameInformation(FileNameInformation) {
     result := DllCall("FLTMGR.SYS\FltParseFileNameInformation", FLT_FILE_NAME_INFORMATION.Ptr, FileNameInformation, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -376,7 +398,7 @@ export FltGetTunneledName(CallbackData, FileNameInformation, RetTunneledFileName
     RetTunneledFileNameInformationMarshal := RetTunneledFileNameInformation is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetTunneledName", FLT_CALLBACK_DATA.Ptr, CallbackData, FLT_FILE_NAME_INFORMATION.Ptr, FileNameInformation, RetTunneledFileNameInformationMarshal, RetTunneledFileNameInformation, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -391,7 +413,7 @@ export FltGetVolumeName(Volume, VolumeName, BufferSizeNeeded) {
     BufferSizeNeededMarshal := BufferSizeNeeded is VarRef ? "uint*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetVolumeName", PFLT_VOLUME, Volume, UNICODE_STRING.Ptr, VolumeName, BufferSizeNeededMarshal, BufferSizeNeeded, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -410,7 +432,7 @@ export FltGetDestinationFileNameInformation(Instance, FileObject, RootDirectory,
     RetFileNameInformationMarshal := RetFileNameInformation is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetDestinationFileNameInformation", PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, HANDLE, RootDirectory, IntPtr, FileName, UInt32, FileNameLength, UInt32, NameOptions, RetFileNameInformationMarshal, RetFileNameInformation, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -425,7 +447,7 @@ export FltIsDirectory(FileObject, Instance, IsDirectory) {
     IsDirectoryMarshal := IsDirectory is VarRef ? "char*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltIsDirectory", FILE_OBJECT.Ptr, FileObject, PFLT_INSTANCE, Instance, IsDirectoryMarshal, IsDirectory, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -436,7 +458,7 @@ export FltIsDirectory(FileObject, Instance, IsDirectory) {
  */
 export FltLoadFilter(FilterName) {
     result := DllCall("FLTMGR.SYS\FltLoadFilter", UNICODE_STRING.Ptr, FilterName, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -447,7 +469,7 @@ export FltLoadFilter(FilterName) {
  */
 export FltUnloadFilter(FilterName) {
     result := DllCall("FLTMGR.SYS\FltUnloadFilter", UNICODE_STRING.Ptr, FilterName, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -463,7 +485,7 @@ export FltAttachVolume(Filter, Volume, InstanceName, RetInstance) {
     RetInstanceMarshal := RetInstance is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltAttachVolume", PFLT_FILTER, Filter, PFLT_VOLUME, Volume, UNICODE_STRING.Ptr, InstanceName, RetInstanceMarshal, RetInstance, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -480,7 +502,7 @@ export FltAttachVolumeAtAltitude(Filter, Volume, Altitude, InstanceName, RetInst
     RetInstanceMarshal := RetInstance is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltAttachVolumeAtAltitude", PFLT_FILTER, Filter, PFLT_VOLUME, Volume, UNICODE_STRING.Ptr, Altitude, UNICODE_STRING.Ptr, InstanceName, RetInstanceMarshal, RetInstance, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -493,7 +515,7 @@ export FltAttachVolumeAtAltitude(Filter, Volume, Altitude, InstanceName, RetInst
  */
 export FltDetachVolume(Filter, Volume, InstanceName) {
     result := DllCall("FLTMGR.SYS\FltDetachVolume", PFLT_FILTER, Filter, PFLT_VOLUME, Volume, UNICODE_STRING.Ptr, InstanceName, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -508,7 +530,7 @@ export FltAllocateCallbackData(Instance, FileObject, RetNewCallbackData) {
     RetNewCallbackDataMarshal := RetNewCallbackData is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltAllocateCallbackData", PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, RetNewCallbackDataMarshal, RetNewCallbackData, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -524,7 +546,7 @@ export FltAllocateCallbackDataEx(Instance, FileObject, Flags, RetNewCallbackData
     RetNewCallbackDataMarshal := RetNewCallbackData is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltAllocateCallbackDataEx", PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, UInt32, Flags, RetNewCallbackDataMarshal, RetNewCallbackData, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -565,8 +587,8 @@ export FltPerformSynchronousIo(CallbackData) {
 export FltPerformAsynchronousIo(CallbackData, CallbackRoutine, CallbackContext) {
     CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("FLTMGR.SYS\FltPerformAsynchronousIo", FLT_CALLBACK_DATA.Ptr, CallbackData, "ptr", CallbackRoutine, CallbackContextMarshal, CallbackContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("FLTMGR.SYS\FltPerformAsynchronousIo", FLT_CALLBACK_DATA.Ptr, CallbackData, PFLT_COMPLETED_ASYNC_IO_CALLBACK, CallbackRoutine, CallbackContextMarshal, CallbackContext, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -578,7 +600,7 @@ export FltPerformAsynchronousIo(CallbackData, CallbackRoutine, CallbackContext) 
  */
 export FltpTraceRedirectedFileIo(OriginatingFileObject, ChildCallbackData) {
     result := DllCall("FLTMGR.SYS\FltpTraceRedirectedFileIo", FILE_OBJECT.Ptr, OriginatingFileObject, FLT_CALLBACK_DATA.Ptr, ChildCallbackData, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -609,7 +631,7 @@ export FltCreateNamedPipeFile(Filter, Instance, FileHandle, FileObject, DesiredA
     DefaultTimeoutMarshal := DefaultTimeout is VarRef ? "int64*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltCreateNamedPipeFile", PFLT_FILTER, Filter, PFLT_INSTANCE, Instance, HANDLE.Ptr, FileHandle, FileObjectMarshal, FileObject, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, IO_STATUS_BLOCK.Ptr, IoStatusBlock, UInt32, ShareAccess, UInt32, CreateDisposition, UInt32, CreateOptions, UInt32, NamedPipeType, UInt32, ReadMode, UInt32, CompletionMode, UInt32, MaximumInstances, UInt32, InboundQuota, UInt32, OutboundQuota, DefaultTimeoutMarshal, DefaultTimeout, IO_DRIVER_CREATE_CONTEXT.Ptr, DriverContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -634,7 +656,7 @@ export FltCreateMailslotFile(Filter, Instance, FileHandle, FileObject, DesiredAc
     ReadTimeoutMarshal := ReadTimeout is VarRef ? "int64*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltCreateMailslotFile", PFLT_FILTER, Filter, PFLT_INSTANCE, Instance, HANDLE.Ptr, FileHandle, FileObjectMarshal, FileObject, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, IO_STATUS_BLOCK.Ptr, IoStatusBlock, UInt32, CreateOptions, UInt32, MailslotQuota, UInt32, MaximumMessageSize, ReadTimeoutMarshal, ReadTimeout, IO_DRIVER_CREATE_CONTEXT.Ptr, DriverContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -663,7 +685,7 @@ export FltCreateFileEx2(Filter, Instance, FileHandle, FileObject, DesiredAccess,
     AllocationSizeMarshal := AllocationSize is VarRef ? "int64*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltCreateFileEx2", PFLT_FILTER, Filter, PFLT_INSTANCE, Instance, HANDLE.Ptr, FileHandle, FileObjectMarshal, FileObject, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, IO_STATUS_BLOCK.Ptr, IoStatusBlock, AllocationSizeMarshal, AllocationSize, UInt32, FileAttributes, UInt32, ShareAccess, UInt32, CreateDisposition, UInt32, CreateOptions, IntPtr, EaBuffer, UInt32, EaLength, UInt32, Flags, IO_DRIVER_CREATE_CONTEXT.Ptr, DriverContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -691,7 +713,7 @@ export FltCreateFileEx(Filter, Instance, FileHandle, FileObject, DesiredAccess, 
     AllocationSizeMarshal := AllocationSize is VarRef ? "int64*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltCreateFileEx", PFLT_FILTER, Filter, PFLT_INSTANCE, Instance, HANDLE.Ptr, FileHandle, FileObjectMarshal, FileObject, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, IO_STATUS_BLOCK.Ptr, IoStatusBlock, AllocationSizeMarshal, AllocationSize, UInt32, FileAttributes, UInt32, ShareAccess, UInt32, CreateDisposition, UInt32, CreateOptions, IntPtr, EaBuffer, UInt32, EaLength, UInt32, Flags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -717,7 +739,7 @@ export FltCreateFile(Filter, Instance, FileHandle, DesiredAccess, ObjectAttribut
     AllocationSizeMarshal := AllocationSize is VarRef ? "int64*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltCreateFile", PFLT_FILTER, Filter, PFLT_INSTANCE, Instance, HANDLE.Ptr, FileHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, IO_STATUS_BLOCK.Ptr, IoStatusBlock, AllocationSizeMarshal, AllocationSize, UInt32, FileAttributes, UInt32, ShareAccess, UInt32, CreateDisposition, UInt32, CreateOptions, IntPtr, EaBuffer, UInt32, EaLength, UInt32, Flags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -732,7 +754,7 @@ export FltOpenVolume(Instance, VolumeHandle, VolumeFileObject) {
     VolumeFileObjectMarshal := VolumeFileObject is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltOpenVolume", PFLT_INSTANCE, Instance, HANDLE.Ptr, VolumeHandle, VolumeFileObjectMarshal, VolumeFileObject, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -754,8 +776,8 @@ export FltReadFile(InitiatingInstance, FileObject, ByteOffset, Length, _Buffer, 
     BytesReadMarshal := BytesRead is VarRef ? "uint*" : "ptr"
     CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("FLTMGR.SYS\FltReadFile", PFLT_INSTANCE, InitiatingInstance, FILE_OBJECT.Ptr, FileObject, ByteOffsetMarshal, ByteOffset, UInt32, Length, IntPtr, _Buffer, UInt32, Flags, BytesReadMarshal, BytesRead, "ptr", CallbackRoutine, CallbackContextMarshal, CallbackContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("FLTMGR.SYS\FltReadFile", PFLT_INSTANCE, InitiatingInstance, FILE_OBJECT.Ptr, FileObject, ByteOffsetMarshal, ByteOffset, UInt32, Length, IntPtr, _Buffer, UInt32, Flags, BytesReadMarshal, BytesRead, PFLT_COMPLETED_ASYNC_IO_CALLBACK, CallbackRoutine, CallbackContextMarshal, CallbackContext, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -780,8 +802,8 @@ export FltReadFileEx(InitiatingInstance, FileObject, ByteOffset, Length, _Buffer
     CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
     KeyMarshal := Key is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("FLTMGR.SYS\FltReadFileEx", PFLT_INSTANCE, InitiatingInstance, FILE_OBJECT.Ptr, FileObject, ByteOffsetMarshal, ByteOffset, UInt32, Length, IntPtr, _Buffer, UInt32, Flags, BytesReadMarshal, BytesRead, "ptr", CallbackRoutine, CallbackContextMarshal, CallbackContext, KeyMarshal, Key, MDL.Ptr, _Mdl, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("FLTMGR.SYS\FltReadFileEx", PFLT_INSTANCE, InitiatingInstance, FILE_OBJECT.Ptr, FileObject, ByteOffsetMarshal, ByteOffset, UInt32, Length, IntPtr, _Buffer, UInt32, Flags, BytesReadMarshal, BytesRead, PFLT_COMPLETED_ASYNC_IO_CALLBACK, CallbackRoutine, CallbackContextMarshal, CallbackContext, KeyMarshal, Key, MDL.Ptr, _Mdl, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -797,7 +819,7 @@ export FltReadFileEx(InitiatingInstance, FileObject, ByteOffset, Length, _Buffer
  */
 export FltTagFile(InitiatingInstance, FileObject, FileTag, Guid, DataBuffer, DataBufferLength) {
     result := DllCall("FLTMGR.SYS\FltTagFile", PFLT_INSTANCE, InitiatingInstance, FILE_OBJECT.Ptr, FileObject, UInt32, FileTag, Guid.Ptr, Guid, IntPtr, DataBuffer, UInt16, DataBufferLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -816,7 +838,7 @@ export FltTagFile(InitiatingInstance, FileObject, FileTag, Guid, DataBuffer, Dat
  */
 export FltTagFileEx(InitiatingInstance, FileObject, FileTag, Guid, DataBuffer, DataBufferLength, ExistingFileTag, ExistingGuid, Flags) {
     result := DllCall("FLTMGR.SYS\FltTagFileEx", PFLT_INSTANCE, InitiatingInstance, FILE_OBJECT.Ptr, FileObject, UInt32, FileTag, Guid.Ptr, Guid, IntPtr, DataBuffer, UInt16, DataBufferLength, UInt32, ExistingFileTag, Guid.Ptr, ExistingGuid, UInt32, Flags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -830,7 +852,7 @@ export FltTagFileEx(InitiatingInstance, FileObject, FileTag, Guid, DataBuffer, D
  */
 export FltUntagFile(InitiatingInstance, FileObject, FileTag, Guid) {
     result := DllCall("FLTMGR.SYS\FltUntagFile", PFLT_INSTANCE, InitiatingInstance, FILE_OBJECT.Ptr, FileObject, UInt32, FileTag, Guid.Ptr, Guid, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -852,8 +874,8 @@ export FltWriteFile(InitiatingInstance, FileObject, ByteOffset, Length, _Buffer,
     BytesWrittenMarshal := BytesWritten is VarRef ? "uint*" : "ptr"
     CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("FLTMGR.SYS\FltWriteFile", PFLT_INSTANCE, InitiatingInstance, FILE_OBJECT.Ptr, FileObject, ByteOffsetMarshal, ByteOffset, UInt32, Length, IntPtr, _Buffer, UInt32, Flags, BytesWrittenMarshal, BytesWritten, "ptr", CallbackRoutine, CallbackContextMarshal, CallbackContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("FLTMGR.SYS\FltWriteFile", PFLT_INSTANCE, InitiatingInstance, FILE_OBJECT.Ptr, FileObject, ByteOffsetMarshal, ByteOffset, UInt32, Length, IntPtr, _Buffer, UInt32, Flags, BytesWrittenMarshal, BytesWritten, PFLT_COMPLETED_ASYNC_IO_CALLBACK, CallbackRoutine, CallbackContextMarshal, CallbackContext, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -878,8 +900,8 @@ export FltWriteFileEx(InitiatingInstance, FileObject, ByteOffset, Length, _Buffe
     CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
     KeyMarshal := Key is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("FLTMGR.SYS\FltWriteFileEx", PFLT_INSTANCE, InitiatingInstance, FILE_OBJECT.Ptr, FileObject, ByteOffsetMarshal, ByteOffset, UInt32, Length, IntPtr, _Buffer, UInt32, Flags, BytesWrittenMarshal, BytesWritten, "ptr", CallbackRoutine, CallbackContextMarshal, CallbackContext, KeyMarshal, Key, MDL.Ptr, _Mdl, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("FLTMGR.SYS\FltWriteFileEx", PFLT_INSTANCE, InitiatingInstance, FILE_OBJECT.Ptr, FileObject, ByteOffsetMarshal, ByteOffset, UInt32, Length, IntPtr, _Buffer, UInt32, Flags, BytesWrittenMarshal, BytesWritten, PFLT_COMPLETED_ASYNC_IO_CALLBACK, CallbackRoutine, CallbackContextMarshal, CallbackContext, KeyMarshal, Key, MDL.Ptr, _Mdl, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -962,7 +984,7 @@ export FltFastIoMdlWriteComplete(InitiatingInstance, FileObject, FileOffset, Mdl
  */
 export FltQueryInformationByName(Filter, Instance, ObjectAttributes, IoStatusBlock, FileInformation, Length, FileInformationClass, DriverContext) {
     result := DllCall("FLTMGR.SYS\FltQueryInformationByName", PFLT_FILTER, Filter, PFLT_INSTANCE, Instance, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, IO_STATUS_BLOCK.Ptr, IoStatusBlock, IntPtr, FileInformation, UInt32, Length, FILE_INFORMATION_CLASS, FileInformationClass, IO_DRIVER_CREATE_CONTEXT.Ptr, DriverContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -980,7 +1002,7 @@ export FltQueryInformationFile(Instance, FileObject, FileInformation, Length, Fi
     LengthReturnedMarshal := LengthReturned is VarRef ? "uint*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltQueryInformationFile", PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, IntPtr, FileInformation, UInt32, Length, FILE_INFORMATION_CLASS, FileInformationClass, LengthReturnedMarshal, LengthReturned, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -995,7 +1017,7 @@ export FltQueryInformationFile(Instance, FileObject, FileInformation, Length, Fi
  */
 export FltSetInformationFile(Instance, FileObject, FileInformation, Length, FileInformationClass) {
     result := DllCall("FLTMGR.SYS\FltSetInformationFile", PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, IntPtr, FileInformation, UInt32, Length, FILE_INFORMATION_CLASS, FileInformationClass, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1016,7 +1038,7 @@ export FltQueryDirectoryFile(Instance, FileObject, FileInformation, Length, File
     LengthReturnedMarshal := LengthReturned is VarRef ? "uint*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltQueryDirectoryFile", PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, IntPtr, FileInformation, UInt32, Length, FILE_INFORMATION_CLASS, FileInformationClass, BOOLEAN, ReturnSingleEntry, UNICODE_STRING.Ptr, FileName, BOOLEAN, RestartScan, LengthReturnedMarshal, LengthReturned, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1036,7 +1058,7 @@ export FltQueryDirectoryFileEx(Instance, FileObject, FileInformation, Length, Fi
     LengthReturnedMarshal := LengthReturned is VarRef ? "uint*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltQueryDirectoryFileEx", PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, IntPtr, FileInformation, UInt32, Length, FILE_INFORMATION_CLASS, FileInformationClass, UInt32, QueryFlags, UNICODE_STRING.Ptr, FileName, LengthReturnedMarshal, LengthReturned, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1060,7 +1082,7 @@ export FltQueryQuotaInformationFile(Instance, FileObject, IoStatusBlock, _Buffer
     LengthReturnedMarshal := LengthReturned is VarRef ? "uint*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltQueryQuotaInformationFile", PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, IO_STATUS_BLOCK.Ptr, IoStatusBlock, IntPtr, _Buffer, UInt32, Length, BOOLEAN, ReturnSingleEntry, IntPtr, SidList, UInt32, SidListLength, StartSidMarshal, StartSid, BOOLEAN, RestartScan, LengthReturnedMarshal, LengthReturned, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1074,7 +1096,7 @@ export FltQueryQuotaInformationFile(Instance, FileObject, IoStatusBlock, _Buffer
  */
 export FltSetQuotaInformationFile(Instance, FileObject, _Buffer, Length) {
     result := DllCall("FLTMGR.SYS\FltSetQuotaInformationFile", PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, IntPtr, _Buffer, UInt32, Length, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1097,7 +1119,7 @@ export FltQueryEaFile(Instance, FileObject, ReturnedEaData, Length, ReturnSingle
     LengthReturnedMarshal := LengthReturned is VarRef ? "uint*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltQueryEaFile", PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, IntPtr, ReturnedEaData, UInt32, Length, BOOLEAN, ReturnSingleEntry, IntPtr, EaList, UInt32, EaListLength, EaIndexMarshal, EaIndex, BOOLEAN, RestartScan, LengthReturnedMarshal, LengthReturned, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1111,7 +1133,7 @@ export FltQueryEaFile(Instance, FileObject, ReturnedEaData, Length, ReturnSingle
  */
 export FltSetEaFile(Instance, FileObject, EaBuffer, Length) {
     result := DllCall("FLTMGR.SYS\FltSetEaFile", PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, IntPtr, EaBuffer, UInt32, Length, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1129,7 +1151,7 @@ export FltQueryVolumeInformationFile(Instance, FileObject, FsInformation, Length
     LengthReturnedMarshal := LengthReturned is VarRef ? "uint*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltQueryVolumeInformationFile", PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, IntPtr, FsInformation, UInt32, Length, FS_INFORMATION_CLASS, FsInformationClass, LengthReturnedMarshal, LengthReturned, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1147,7 +1169,7 @@ export FltQuerySecurityObject(Instance, FileObject, SecurityInformation, _Securi
     LengthNeededMarshal := LengthNeeded is VarRef ? "uint*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltQuerySecurityObject", PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, UInt32, SecurityInformation, IntPtr, _SecurityDescriptor, UInt32, Length, LengthNeededMarshal, LengthNeeded, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1161,7 +1183,7 @@ export FltQuerySecurityObject(Instance, FileObject, SecurityInformation, _Securi
  */
 export FltSetSecurityObject(Instance, FileObject, SecurityInformation, _SecurityDescriptor) {
     result := DllCall("FLTMGR.SYS\FltSetSecurityObject", PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, UInt32, SecurityInformation, PSECURITY_DESCRIPTOR, _SecurityDescriptor, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1173,7 +1195,7 @@ export FltSetSecurityObject(Instance, FileObject, SecurityInformation, _Security
  */
 export FltFlushBuffers(Instance, FileObject) {
     result := DllCall("FLTMGR.SYS\FltFlushBuffers", PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1187,7 +1209,7 @@ export FltFlushBuffers(Instance, FileObject) {
  */
 export FltFlushBuffers2(Instance, FileObject, FlushType, CallbackData) {
     result := DllCall("FLTMGR.SYS\FltFlushBuffers2", PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, UInt32, FlushType, FLT_CALLBACK_DATA.Ptr, CallbackData, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1207,7 +1229,7 @@ export FltFsControlFile(Instance, FileObject, FsControlCode, InputBuffer, InputB
     LengthReturnedMarshal := LengthReturned is VarRef ? "uint*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltFsControlFile", PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, UInt32, FsControlCode, IntPtr, InputBuffer, UInt32, InputBufferLength, IntPtr, OutputBuffer, UInt32, OutputBufferLength, LengthReturnedMarshal, LengthReturned, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1227,7 +1249,7 @@ export FltDeviceIoControlFile(Instance, FileObject, IoControlCode, InputBuffer, 
     LengthReturnedMarshal := LengthReturned is VarRef ? "uint*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltDeviceIoControlFile", PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, UInt32, IoControlCode, IntPtr, InputBuffer, UInt32, InputBufferLength, IntPtr, OutputBuffer, UInt32, OutputBufferLength, LengthReturnedMarshal, LengthReturned, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1248,7 +1270,7 @@ export FltReissueSynchronousIo(InitiatingInstance, CallbackData) {
  */
 export FltClose(FileHandle) {
     result := DllCall("FLTMGR.SYS\FltClose", HANDLE, FileHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1269,7 +1291,7 @@ export FltCancelFileOpen(Instance, FileObject) {
  */
 export FltCreateSystemVolumeInformationFolder(Instance) {
     result := DllCall("FLTMGR.SYS\FltCreateSystemVolumeInformationFolder", PFLT_INSTANCE, Instance, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1327,7 +1349,7 @@ export FltAllocateContext(Filter, ContextType, ContextSize, PoolType, ReturnedCo
     ReturnedContextMarshal := ReturnedContext is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltAllocateContext", PFLT_FILTER, Filter, UInt16, ContextType, IntPtr, ContextSize, POOL_TYPE, PoolType, ReturnedContextMarshal, ReturnedContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1361,7 +1383,7 @@ export FltReleaseContexts(Contexts) {
  */
 export FltGetContextsEx(FltObjects, DesiredContexts, ContextsSize, Contexts) {
     result := DllCall("FLTMGR.SYS\FltGetContextsEx", FLT_RELATED_OBJECTS.Ptr, FltObjects, UInt16, DesiredContexts, IntPtr, ContextsSize, FLT_RELATED_CONTEXTS_EX.Ptr, Contexts, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1387,7 +1409,7 @@ export FltSetVolumeContext(Volume, Operation, NewContext, OldContext) {
     OldContextMarshal := OldContext is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltSetVolumeContext", PFLT_VOLUME, Volume, FLT_SET_CONTEXT_OPERATION, Operation, PFLT_CONTEXT, NewContext, OldContextMarshal, OldContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1403,7 +1425,7 @@ export FltSetInstanceContext(Instance, Operation, NewContext, OldContext) {
     OldContextMarshal := OldContext is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltSetInstanceContext", PFLT_INSTANCE, Instance, FLT_SET_CONTEXT_OPERATION, Operation, PFLT_CONTEXT, NewContext, OldContextMarshal, OldContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1420,7 +1442,7 @@ export FltSetFileContext(Instance, FileObject, Operation, NewContext, OldContext
     OldContextMarshal := OldContext is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltSetFileContext", PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, FLT_SET_CONTEXT_OPERATION, Operation, PFLT_CONTEXT, NewContext, OldContextMarshal, OldContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1437,7 +1459,7 @@ export FltSetStreamContext(Instance, FileObject, Operation, NewContext, OldConte
     OldContextMarshal := OldContext is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltSetStreamContext", PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, FLT_SET_CONTEXT_OPERATION, Operation, PFLT_CONTEXT, NewContext, OldContextMarshal, OldContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1454,7 +1476,7 @@ export FltSetStreamHandleContext(Instance, FileObject, Operation, NewContext, Ol
     OldContextMarshal := OldContext is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltSetStreamHandleContext", PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, FLT_SET_CONTEXT_OPERATION, Operation, PFLT_CONTEXT, NewContext, OldContextMarshal, OldContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1472,7 +1494,7 @@ export FltSetTransactionContext(Instance, Transaction, Operation, NewContext, Ol
     OldContextMarshal := OldContext is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltSetTransactionContext", PFLT_INSTANCE, Instance, TransactionMarshal, Transaction, FLT_SET_CONTEXT_OPERATION, Operation, PFLT_CONTEXT, NewContext, OldContextMarshal, OldContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1496,7 +1518,7 @@ export FltDeleteVolumeContext(Filter, Volume, OldContext) {
     OldContextMarshal := OldContext is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltDeleteVolumeContext", PFLT_FILTER, Filter, PFLT_VOLUME, Volume, OldContextMarshal, OldContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1510,7 +1532,7 @@ export FltDeleteInstanceContext(Instance, OldContext) {
     OldContextMarshal := OldContext is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltDeleteInstanceContext", PFLT_INSTANCE, Instance, OldContextMarshal, OldContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1525,7 +1547,7 @@ export FltDeleteFileContext(Instance, FileObject, OldContext) {
     OldContextMarshal := OldContext is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltDeleteFileContext", PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, OldContextMarshal, OldContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1540,7 +1562,7 @@ export FltDeleteStreamContext(Instance, FileObject, OldContext) {
     OldContextMarshal := OldContext is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltDeleteStreamContext", PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, OldContextMarshal, OldContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1555,7 +1577,7 @@ export FltDeleteStreamHandleContext(Instance, FileObject, OldContext) {
     OldContextMarshal := OldContext is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltDeleteStreamHandleContext", PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, OldContextMarshal, OldContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1571,7 +1593,7 @@ export FltDeleteTransactionContext(Instance, Transaction, OldContext) {
     OldContextMarshal := OldContext is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltDeleteTransactionContext", PFLT_INSTANCE, Instance, TransactionMarshal, Transaction, OldContextMarshal, OldContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1586,7 +1608,7 @@ export FltGetVolumeContext(Filter, Volume, _Context) {
     _ContextMarshal := _Context is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetVolumeContext", PFLT_FILTER, Filter, PFLT_VOLUME, Volume, _ContextMarshal, _Context, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1600,7 +1622,7 @@ export FltGetInstanceContext(Instance, _Context) {
     _ContextMarshal := _Context is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetInstanceContext", PFLT_INSTANCE, Instance, _ContextMarshal, _Context, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1615,7 +1637,7 @@ export FltGetFileContext(Instance, FileObject, _Context) {
     _ContextMarshal := _Context is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetFileContext", PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, _ContextMarshal, _Context, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1630,7 +1652,7 @@ export FltGetStreamContext(Instance, FileObject, _Context) {
     _ContextMarshal := _Context is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetStreamContext", PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, _ContextMarshal, _Context, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1645,7 +1667,7 @@ export FltGetStreamHandleContext(Instance, FileObject, _Context) {
     _ContextMarshal := _Context is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetStreamHandleContext", PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, _ContextMarshal, _Context, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1661,7 +1683,7 @@ export FltGetTransactionContext(Instance, Transaction, _Context) {
     _ContextMarshal := _Context is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetTransactionContext", PFLT_INSTANCE, Instance, TransactionMarshal, Transaction, _ContextMarshal, _Context, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1676,7 +1698,7 @@ export FltGetSectionContext(Instance, FileObject, _Context) {
     _ContextMarshal := _Context is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetSectionContext", PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, _ContextMarshal, _Context, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1708,7 +1730,7 @@ export FltGetFilterFromName(FilterName, RetFilter) {
     RetFilterMarshal := RetFilter is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetFilterFromName", UNICODE_STRING.Ptr, FilterName, RetFilterMarshal, RetFilter, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1723,7 +1745,7 @@ export FltGetVolumeFromName(Filter, VolumeName, RetVolume) {
     RetVolumeMarshal := RetVolume is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetVolumeFromName", PFLT_FILTER, Filter, UNICODE_STRING.Ptr, VolumeName, RetVolumeMarshal, RetVolume, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1739,7 +1761,7 @@ export FltGetVolumeInstanceFromName(Filter, Volume, InstanceName, RetInstance) {
     RetInstanceMarshal := RetInstance is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetVolumeInstanceFromName", PFLT_FILTER, Filter, PFLT_VOLUME, Volume, UNICODE_STRING.Ptr, InstanceName, RetInstanceMarshal, RetInstance, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1753,7 +1775,7 @@ export FltGetVolumeFromInstance(Instance, RetVolume) {
     RetVolumeMarshal := RetVolume is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetVolumeFromInstance", PFLT_INSTANCE, Instance, RetVolumeMarshal, RetVolume, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1767,7 +1789,7 @@ export FltGetFilterFromInstance(Instance, RetFilter) {
     RetFilterMarshal := RetFilter is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetFilterFromInstance", PFLT_INSTANCE, Instance, RetFilterMarshal, RetFilter, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1782,7 +1804,7 @@ export FltGetVolumeFromFileObject(Filter, FileObject, RetVolume) {
     RetVolumeMarshal := RetVolume is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetVolumeFromFileObject", PFLT_FILTER, Filter, FILE_OBJECT.Ptr, FileObject, RetVolumeMarshal, RetVolume, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1797,7 +1819,7 @@ export FltGetVolumeFromDeviceObject(Filter, DeviceObject, RetVolume) {
     RetVolumeMarshal := RetVolume is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetVolumeFromDeviceObject", PFLT_FILTER, Filter, DEVICE_OBJECT.Ptr, DeviceObject, RetVolumeMarshal, RetVolume, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1821,7 +1843,7 @@ export FltGetDeviceObject(Volume, DeviceObject) {
     DeviceObjectMarshal := DeviceObject is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetDeviceObject", PFLT_VOLUME, Volume, DeviceObjectMarshal, DeviceObject, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1835,7 +1857,7 @@ export FltGetDiskDeviceObject(Volume, DiskDeviceObject) {
     DiskDeviceObjectMarshal := DiskDeviceObject is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetDiskDeviceObject", PFLT_VOLUME, Volume, DiskDeviceObjectMarshal, DiskDeviceObject, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1849,7 +1871,7 @@ export FltGetLowerInstance(CurrentInstance, LowerInstance) {
     LowerInstanceMarshal := LowerInstance is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetLowerInstance", PFLT_INSTANCE, CurrentInstance, LowerInstanceMarshal, LowerInstance, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1863,7 +1885,7 @@ export FltGetUpperInstance(CurrentInstance, UpperInstance) {
     UpperInstanceMarshal := UpperInstance is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetUpperInstance", PFLT_INSTANCE, CurrentInstance, UpperInstanceMarshal, UpperInstance, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1877,7 +1899,7 @@ export FltGetTopInstance(Volume, Instance) {
     InstanceMarshal := Instance is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetTopInstance", PFLT_VOLUME, Volume, InstanceMarshal, Instance, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1891,7 +1913,7 @@ export FltGetBottomInstance(Volume, Instance) {
     InstanceMarshal := Instance is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetBottomInstance", PFLT_VOLUME, Volume, InstanceMarshal, Instance, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1919,7 +1941,7 @@ export FltGetFilterInformation(Filter, InformationClass, _Buffer, BufferSize, By
     BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetFilterInformation", PFLT_FILTER, Filter, FILTER_INFORMATION_CLASS, InformationClass, IntPtr, _Buffer, UInt32, BufferSize, BytesReturnedMarshal, BytesReturned, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1936,7 +1958,7 @@ export FltGetInstanceInformation(Instance, InformationClass, _Buffer, BufferSize
     BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetInstanceInformation", PFLT_INSTANCE, Instance, INSTANCE_INFORMATION_CLASS, InformationClass, IntPtr, _Buffer, UInt32, BufferSize, BytesReturnedMarshal, BytesReturned, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1953,7 +1975,7 @@ export FltGetVolumeInformation(Volume, InformationClass, _Buffer, BufferSize, By
     BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetVolumeInformation", PFLT_VOLUME, Volume, FILTER_VOLUME_INFORMATION_CLASS, InformationClass, IntPtr, _Buffer, UInt32, BufferSize, BytesReturnedMarshal, BytesReturned, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1969,7 +1991,7 @@ export FltGetVolumeProperties(Volume, VolumeProperties, VolumePropertiesLength, 
     LengthReturnedMarshal := LengthReturned is VarRef ? "uint*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetVolumeProperties", PFLT_VOLUME, Volume, IntPtr, VolumeProperties, UInt32, VolumePropertiesLength, LengthReturnedMarshal, LengthReturned, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1984,7 +2006,7 @@ export FltIsVolumeWritable(FltObject, IsWritable) {
     IsWritableMarshal := IsWritable is VarRef ? "char*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltIsVolumeWritable", FltObjectMarshal, FltObject, IsWritableMarshal, IsWritable, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1999,7 +2021,7 @@ export FltGetFileSystemType(FltObject, FileSystemType) {
     FileSystemTypeMarshal := FileSystemType is VarRef ? "int*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetFileSystemType", FltObjectMarshal, FltObject, FileSystemTypeMarshal, FileSystemType, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2014,7 +2036,7 @@ export FltIsVolumeSnapshot(FltObject, IsSnapshotVolume) {
     IsSnapshotVolumeMarshal := IsSnapshotVolume is VarRef ? "char*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltIsVolumeSnapshot", FltObjectMarshal, FltObject, IsSnapshotVolumeMarshal, IsSnapshotVolume, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2029,7 +2051,7 @@ export FltGetVolumeGuidName(Volume, VolumeGuidName, BufferSizeNeeded) {
     BufferSizeNeededMarshal := BufferSizeNeeded is VarRef ? "uint*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetVolumeGuidName", PFLT_VOLUME, Volume, UNICODE_STRING.Ptr, VolumeGuidName, BufferSizeNeededMarshal, BufferSizeNeeded, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2044,7 +2066,7 @@ export FltGetVolumeGuidName(Volume, VolumeGuidName, BufferSizeNeeded) {
  */
 export FltQueryVolumeInformation(Instance, Iosb, FsInformation, Length, FsInformationClass) {
     result := DllCall("FLTMGR.SYS\FltQueryVolumeInformation", PFLT_INSTANCE, Instance, IO_STATUS_BLOCK.Ptr, Iosb, IntPtr, FsInformation, UInt32, Length, FS_INFORMATION_CLASS, FsInformationClass, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2059,7 +2081,7 @@ export FltQueryVolumeInformation(Instance, Iosb, FsInformation, Length, FsInform
  */
 export FltSetVolumeInformation(Instance, Iosb, FsInformation, Length, FsInformationClass) {
     result := DllCall("FLTMGR.SYS\FltSetVolumeInformation", PFLT_INSTANCE, Instance, IO_STATUS_BLOCK.Ptr, Iosb, IntPtr, FsInformation, UInt32, Length, FS_INFORMATION_CLASS, FsInformationClass, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2075,7 +2097,7 @@ export FltEnumerateFilters(FilterList, FilterListSize, NumberFiltersReturned) {
     NumberFiltersReturnedMarshal := NumberFiltersReturned is VarRef ? "uint*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltEnumerateFilters", FilterListMarshal, FilterList, UInt32, FilterListSize, NumberFiltersReturnedMarshal, NumberFiltersReturned, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2092,7 +2114,7 @@ export FltEnumerateVolumes(Filter, VolumeList, VolumeListSize, NumberVolumesRetu
     NumberVolumesReturnedMarshal := NumberVolumesReturned is VarRef ? "uint*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltEnumerateVolumes", PFLT_FILTER, Filter, VolumeListMarshal, VolumeList, UInt32, VolumeListSize, NumberVolumesReturnedMarshal, NumberVolumesReturned, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2110,7 +2132,7 @@ export FltEnumerateInstances(Volume, Filter, InstanceList, InstanceListSize, Num
     NumberInstancesReturnedMarshal := NumberInstancesReturned is VarRef ? "uint*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltEnumerateInstances", PFLT_VOLUME, Volume, PFLT_FILTER, Filter, InstanceListMarshal, InstanceList, UInt32, InstanceListSize, NumberInstancesReturnedMarshal, NumberInstancesReturned, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2127,7 +2149,7 @@ export FltEnumerateFilterInformation(Index, InformationClass, _Buffer, BufferSiz
     BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltEnumerateFilterInformation", UInt32, Index, FILTER_INFORMATION_CLASS, InformationClass, IntPtr, _Buffer, UInt32, BufferSize, BytesReturnedMarshal, BytesReturned, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2145,7 +2167,7 @@ export FltEnumerateInstanceInformationByFilter(Filter, Index, InformationClass, 
     BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltEnumerateInstanceInformationByFilter", PFLT_FILTER, Filter, UInt32, Index, INSTANCE_INFORMATION_CLASS, InformationClass, IntPtr, _Buffer, UInt32, BufferSize, BytesReturnedMarshal, BytesReturned, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2163,7 +2185,7 @@ export FltEnumerateInstanceInformationByVolume(Volume, Index, InformationClass, 
     BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltEnumerateInstanceInformationByVolume", PFLT_VOLUME, Volume, UInt32, Index, INSTANCE_INFORMATION_CLASS, InformationClass, IntPtr, _Buffer, UInt32, BufferSize, BytesReturnedMarshal, BytesReturned, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2181,7 +2203,7 @@ export FltEnumerateInstanceInformationByVolumeName(VolumeName, Index, Informatio
     BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltEnumerateInstanceInformationByVolumeName", UNICODE_STRING.Ptr, VolumeName, UInt32, Index, INSTANCE_INFORMATION_CLASS, InformationClass, IntPtr, _Buffer, UInt32, BufferSize, BytesReturnedMarshal, BytesReturned, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2199,7 +2221,7 @@ export FltEnumerateInstanceInformationByDeviceObject(DeviceObject, Index, Inform
     BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltEnumerateInstanceInformationByDeviceObject", DEVICE_OBJECT.Ptr, DeviceObject, UInt32, Index, INSTANCE_INFORMATION_CLASS, InformationClass, IntPtr, _Buffer, UInt32, BufferSize, BytesReturnedMarshal, BytesReturned, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2217,7 +2239,7 @@ export FltEnumerateVolumeInformation(Filter, Index, InformationClass, _Buffer, B
     BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltEnumerateVolumeInformation", PFLT_FILTER, Filter, UInt32, Index, FILTER_VOLUME_INFORMATION_CLASS, InformationClass, IntPtr, _Buffer, UInt32, BufferSize, BytesReturnedMarshal, BytesReturned, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2230,7 +2252,7 @@ export FltObjectReference(FltObject) {
     FltObjectMarshal := FltObject is VarRef ? "ptr" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltObjectReference", FltObjectMarshal, FltObject, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2261,8 +2283,8 @@ export FltCreateCommunicationPort(Filter, ServerPort, ObjectAttributes, ServerPo
     ServerPortMarshal := ServerPort is VarRef ? "ptr*" : "ptr"
     ServerPortCookieMarshal := ServerPortCookie is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("FLTMGR.SYS\FltCreateCommunicationPort", PFLT_FILTER, Filter, ServerPortMarshal, ServerPort, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, ServerPortCookieMarshal, ServerPortCookie, "ptr", ConnectNotifyCallback, "ptr", DisconnectNotifyCallback, "ptr", MessageNotifyCallback, Int32, MaxConnections, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("FLTMGR.SYS\FltCreateCommunicationPort", PFLT_FILTER, Filter, ServerPortMarshal, ServerPort, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, ServerPortCookieMarshal, ServerPortCookie, PFLT_CONNECT_NOTIFY, ConnectNotifyCallback, PFLT_DISCONNECT_NOTIFY, DisconnectNotifyCallback, PFLT_MESSAGE_NOTIFY, MessageNotifyCallback, Int32, MaxConnections, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2304,7 +2326,7 @@ export FltSendMessage(Filter, ClientPort, SenderBuffer, SenderBufferLength, Repl
     TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltSendMessage", PFLT_FILTER, Filter, ClientPortMarshal, ClientPort, IntPtr, SenderBuffer, UInt32, SenderBufferLength, IntPtr, ReplyBuffer, ReplyLengthMarshal, ReplyLength, TimeoutMarshal, Timeout, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2316,7 +2338,7 @@ export FltSendMessage(Filter, ClientPort, SenderBuffer, SenderBufferLength, Repl
  */
 export FltBuildDefaultSecurityDescriptor(_SecurityDescriptor, DesiredAccess) {
     result := DllCall("FLTMGR.SYS\FltBuildDefaultSecurityDescriptor", PSECURITY_DESCRIPTOR.Ptr, _SecurityDescriptor, UInt32, DesiredAccess, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2346,8 +2368,8 @@ export FltCancelIo(CallbackData) {
  * @returns {NTSTATUS} 
  */
 export FltSetCancelCompletion(CallbackData, CanceledCallback) {
-    result := DllCall("FLTMGR.SYS\FltSetCancelCompletion", FLT_CALLBACK_DATA.Ptr, CallbackData, "ptr", CanceledCallback, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("FLTMGR.SYS\FltSetCancelCompletion", FLT_CALLBACK_DATA.Ptr, CallbackData, PFLT_COMPLETE_CANCELED_CALLBACK, CanceledCallback, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2358,7 +2380,7 @@ export FltSetCancelCompletion(CallbackData, CanceledCallback) {
  */
 export FltClearCancelCompletion(CallbackData) {
     result := DllCall("FLTMGR.SYS\FltClearCancelCompletion", FLT_CALLBACK_DATA.Ptr, CallbackData, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2420,8 +2442,8 @@ export FltFreeGenericWorkItem(FltWorkItem) {
 export FltQueueDeferredIoWorkItem(FltWorkItem, Data, WorkerRoutine, QueueType, _Context) {
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("FLTMGR.SYS\FltQueueDeferredIoWorkItem", PFLT_DEFERRED_IO_WORKITEM, FltWorkItem, FLT_CALLBACK_DATA.Ptr, Data, "ptr", WorkerRoutine, WORK_QUEUE_TYPE, QueueType, _ContextMarshal, _Context, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("FLTMGR.SYS\FltQueueDeferredIoWorkItem", PFLT_DEFERRED_IO_WORKITEM, FltWorkItem, FLT_CALLBACK_DATA.Ptr, Data, PFLT_DEFERRED_IO_WORKITEM_ROUTINE, WorkerRoutine, WORK_QUEUE_TYPE, QueueType, _ContextMarshal, _Context, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2438,8 +2460,8 @@ export FltQueueGenericWorkItem(FltWorkItem, FltObject, WorkerRoutine, QueueType,
     FltObjectMarshal := FltObject is VarRef ? "ptr" : "ptr"
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("FLTMGR.SYS\FltQueueGenericWorkItem", PFLT_GENERIC_WORKITEM, FltWorkItem, FltObjectMarshal, FltObject, "ptr", WorkerRoutine, WORK_QUEUE_TYPE, QueueType, _ContextMarshal, _Context, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("FLTMGR.SYS\FltQueueGenericWorkItem", PFLT_GENERIC_WORKITEM, FltWorkItem, FltObjectMarshal, FltObject, PFLT_GENERIC_WORKITEM_ROUTINE, WorkerRoutine, WORK_QUEUE_TYPE, QueueType, _ContextMarshal, _Context, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2450,7 +2472,7 @@ export FltQueueGenericWorkItem(FltWorkItem, FltObject, WorkerRoutine, QueueType,
  */
 export FltLockUserBuffer(CallbackData) {
     result := DllCall("FLTMGR.SYS\FltLockUserBuffer", FLT_CALLBACK_DATA.Ptr, CallbackData, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2470,7 +2492,7 @@ export FltDecodeParameters(CallbackData, MdlAddressPointer, _Buffer, Length, Des
     DesiredAccessMarshal := DesiredAccess is VarRef ? "int*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltDecodeParameters", FLT_CALLBACK_DATA.Ptr, CallbackData, MdlAddressPointerMarshal, MdlAddressPointer, _BufferMarshal, _Buffer, LengthMarshal, Length, DesiredAccessMarshal, DesiredAccess, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2516,8 +2538,8 @@ export FltGetNewSystemBufferAddress(CallbackData) {
  * @returns {NTSTATUS} 
  */
 export FltCbdqInitialize(Instance, Cbdq, CbdqInsertIo, CbdqRemoveIo, CbdqPeekNextIo, CbdqAcquire, CbdqRelease, CbdqCompleteCanceledIo) {
-    result := DllCall("FLTMGR.SYS\FltCbdqInitialize", PFLT_INSTANCE, Instance, FLT_CALLBACK_DATA_QUEUE.Ptr, Cbdq, "ptr", CbdqInsertIo, "ptr", CbdqRemoveIo, "ptr", CbdqPeekNextIo, "ptr", CbdqAcquire, "ptr", CbdqRelease, "ptr", CbdqCompleteCanceledIo, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("FLTMGR.SYS\FltCbdqInitialize", PFLT_INSTANCE, Instance, FLT_CALLBACK_DATA_QUEUE.Ptr, Cbdq, PFLT_CALLBACK_DATA_QUEUE_INSERT_IO, CbdqInsertIo, PFLT_CALLBACK_DATA_QUEUE_REMOVE_IO, CbdqRemoveIo, PFLT_CALLBACK_DATA_QUEUE_PEEK_NEXT_IO, CbdqPeekNextIo, PFLT_CALLBACK_DATA_QUEUE_ACQUIRE, CbdqAcquire, PFLT_CALLBACK_DATA_QUEUE_RELEASE, CbdqRelease, PFLT_CALLBACK_DATA_QUEUE_COMPLETE_CANCELED_IO, CbdqCompleteCanceledIo, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2551,7 +2573,7 @@ export FltCbdqInsertIo(Cbdq, Cbd, _Context, InsertContext) {
     InsertContextMarshal := InsertContext is VarRef ? "ptr" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltCbdqInsertIo", FLT_CALLBACK_DATA_QUEUE.Ptr, Cbdq, FLT_CALLBACK_DATA.Ptr, Cbd, IO_CSQ_IRP_CONTEXT.Ptr, _Context, InsertContextMarshal, InsertContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2628,7 +2650,7 @@ export FltCheckOplock(Oplock, CallbackData, _Context, WaitCompletionRoutine, Pre
     OplockMarshal := Oplock is VarRef ? "ptr*" : "ptr"
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("FLTMGR.SYS\FltCheckOplock", OplockMarshal, Oplock, FLT_CALLBACK_DATA.Ptr, CallbackData, _ContextMarshal, _Context, "ptr", WaitCompletionRoutine, "ptr", PrePostCallbackDataRoutine, FLT_PREOP_CALLBACK_STATUS)
+    result := DllCall("FLTMGR.SYS\FltCheckOplock", OplockMarshal, Oplock, FLT_CALLBACK_DATA.Ptr, CallbackData, _ContextMarshal, _Context, PFLTOPLOCK_WAIT_COMPLETE_ROUTINE, WaitCompletionRoutine, PFLTOPLOCK_PREPOST_CALLBACKDATA_ROUTINE, PrePostCallbackDataRoutine, FLT_PREOP_CALLBACK_STATUS)
     return result
 }
 
@@ -2670,7 +2692,7 @@ export FltCheckOplockEx(Oplock, CallbackData, Flags, _Context, WaitCompletionRou
     OplockMarshal := Oplock is VarRef ? "ptr*" : "ptr"
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("FLTMGR.SYS\FltCheckOplockEx", OplockMarshal, Oplock, FLT_CALLBACK_DATA.Ptr, CallbackData, UInt32, Flags, _ContextMarshal, _Context, "ptr", WaitCompletionRoutine, "ptr", PrePostCallbackDataRoutine, FLT_PREOP_CALLBACK_STATUS)
+    result := DllCall("FLTMGR.SYS\FltCheckOplockEx", OplockMarshal, Oplock, FLT_CALLBACK_DATA.Ptr, CallbackData, UInt32, Flags, _ContextMarshal, _Context, PFLTOPLOCK_WAIT_COMPLETE_ROUTINE, WaitCompletionRoutine, PFLTOPLOCK_PREPOST_CALLBACKDATA_ROUTINE, PrePostCallbackDataRoutine, FLT_PREOP_CALLBACK_STATUS)
     return result
 }
 
@@ -2712,7 +2734,7 @@ export FltOplockBreakH(Oplock, CallbackData, Flags, _Context, WaitCompletionRout
     OplockMarshal := Oplock is VarRef ? "ptr*" : "ptr"
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("FLTMGR.SYS\FltOplockBreakH", OplockMarshal, Oplock, FLT_CALLBACK_DATA.Ptr, CallbackData, UInt32, Flags, _ContextMarshal, _Context, "ptr", WaitCompletionRoutine, "ptr", PrePostCallbackDataRoutine, FLT_PREOP_CALLBACK_STATUS)
+    result := DllCall("FLTMGR.SYS\FltOplockBreakH", OplockMarshal, Oplock, FLT_CALLBACK_DATA.Ptr, CallbackData, UInt32, Flags, _ContextMarshal, _Context, PFLTOPLOCK_WAIT_COMPLETE_ROUTINE, WaitCompletionRoutine, PFLTOPLOCK_PREPOST_CALLBACKDATA_ROUTINE, PrePostCallbackDataRoutine, FLT_PREOP_CALLBACK_STATUS)
     return result
 }
 
@@ -2729,7 +2751,7 @@ export FltOplockBreakToNone(Oplock, CallbackData, _Context, WaitCompletionRoutin
     OplockMarshal := Oplock is VarRef ? "ptr*" : "ptr"
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("FLTMGR.SYS\FltOplockBreakToNone", OplockMarshal, Oplock, FLT_CALLBACK_DATA.Ptr, CallbackData, _ContextMarshal, _Context, "ptr", WaitCompletionRoutine, "ptr", PrePostCallbackDataRoutine, FLT_PREOP_CALLBACK_STATUS)
+    result := DllCall("FLTMGR.SYS\FltOplockBreakToNone", OplockMarshal, Oplock, FLT_CALLBACK_DATA.Ptr, CallbackData, _ContextMarshal, _Context, PFLTOPLOCK_WAIT_COMPLETE_ROUTINE, WaitCompletionRoutine, PFLTOPLOCK_PREPOST_CALLBACKDATA_ROUTINE, PrePostCallbackDataRoutine, FLT_PREOP_CALLBACK_STATUS)
     return result
 }
 
@@ -2747,7 +2769,7 @@ export FltOplockBreakToNoneEx(Oplock, CallbackData, Flags, _Context, WaitComplet
     OplockMarshal := Oplock is VarRef ? "ptr*" : "ptr"
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("FLTMGR.SYS\FltOplockBreakToNoneEx", OplockMarshal, Oplock, FLT_CALLBACK_DATA.Ptr, CallbackData, UInt32, Flags, _ContextMarshal, _Context, "ptr", WaitCompletionRoutine, "ptr", PrePostCallbackDataRoutine, FLT_PREOP_CALLBACK_STATUS)
+    result := DllCall("FLTMGR.SYS\FltOplockBreakToNoneEx", OplockMarshal, Oplock, FLT_CALLBACK_DATA.Ptr, CallbackData, UInt32, Flags, _ContextMarshal, _Context, PFLTOPLOCK_WAIT_COMPLETE_ROUTINE, WaitCompletionRoutine, PFLTOPLOCK_PREPOST_CALLBACKDATA_ROUTINE, PrePostCallbackDataRoutine, FLT_PREOP_CALLBACK_STATUS)
     return result
 }
 
@@ -2812,7 +2834,7 @@ export FltUninitializeFileLock(FileLock) {
  * @returns {Pointer<FILE_LOCK>} 
  */
 export FltAllocateFileLock(CompleteLockCallbackDataRoutine, UnlockRoutine) {
-    result := DllCall("FLTMGR.SYS\FltAllocateFileLock", "ptr", CompleteLockCallbackDataRoutine, "ptr", UnlockRoutine, FILE_LOCK.Ptr)
+    result := DllCall("FLTMGR.SYS\FltAllocateFileLock", PFLT_COMPLETE_LOCK_CALLBACK_DATA_ROUTINE, CompleteLockCallbackDataRoutine, PUNLOCK_ROUTINE, UnlockRoutine, FILE_LOCK.Ptr)
     return result
 }
 
@@ -2991,7 +3013,7 @@ export FltCancellableWaitForSingleObject(_Object, Timeout, CallbackData) {
     TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltCancellableWaitForSingleObject", _ObjectMarshal, _Object, TimeoutMarshal, Timeout, FLT_CALLBACK_DATA.Ptr, CallbackData, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3010,7 +3032,7 @@ export FltCancellableWaitForMultipleObjects(Count, ObjectArray, WaitType, Timeou
     TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltCancellableWaitForMultipleObjects", UInt32, Count, ObjectArrayMarshal, ObjectArray, WAIT_TYPE, WaitType, TimeoutMarshal, Timeout, KWAIT_BLOCK.Ptr, WaitBlockArray, FLT_CALLBACK_DATA.Ptr, CallbackData, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3082,7 +3104,7 @@ export FltGetRequestorProcessIdEx(CallbackData) {
 export FltNotifyFilterChangeDirectory(NotifySync, NotifyList, FsContext, FullDirectoryName, WatchTree, IgnoreBuffer, CompletionFilter, NotifyCallbackData, TraverseCallback, SubjectContext, FilterCallback) {
     FsContextMarshal := FsContext is VarRef ? "ptr" : "ptr"
 
-    DllCall("FLTMGR.SYS\FltNotifyFilterChangeDirectory", PNOTIFY_SYNC, NotifySync, LIST_ENTRY.Ptr, NotifyList, FsContextMarshal, FsContext, STRING.Ptr, FullDirectoryName, BOOLEAN, WatchTree, BOOLEAN, IgnoreBuffer, UInt32, CompletionFilter, FLT_CALLBACK_DATA.Ptr, NotifyCallbackData, "ptr", TraverseCallback, SECURITY_SUBJECT_CONTEXT.Ptr, SubjectContext, "ptr", FilterCallback)
+    DllCall("FLTMGR.SYS\FltNotifyFilterChangeDirectory", PNOTIFY_SYNC, NotifySync, LIST_ENTRY.Ptr, NotifyList, FsContextMarshal, FsContext, STRING.Ptr, FullDirectoryName, BOOLEAN, WatchTree, BOOLEAN, IgnoreBuffer, UInt32, CompletionFilter, FLT_CALLBACK_DATA.Ptr, NotifyCallbackData, PCHECK_FOR_TRAVERSE_ACCESS, TraverseCallback, SECURITY_SUBJECT_CONTEXT.Ptr, SubjectContext, PFILTER_REPORT_CHANGE, FilterCallback)
 }
 
 /**
@@ -3095,7 +3117,7 @@ export FltGetRequestorSessionId(CallbackData, SessionId) {
     SessionIdMarshal := SessionId is VarRef ? "uint*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetRequestorSessionId", FLT_CALLBACK_DATA.Ptr, CallbackData, SessionIdMarshal, SessionId, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3110,7 +3132,7 @@ export FltAdjustDeviceStackSizeForIoRedirection(SourceInstance, TargetInstance, 
     SourceDeviceStackSizeModifiedMarshal := SourceDeviceStackSizeModified is VarRef ? "char*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltAdjustDeviceStackSizeForIoRedirection", PFLT_INSTANCE, SourceInstance, PFLT_INSTANCE, TargetInstance, SourceDeviceStackSizeModifiedMarshal, SourceDeviceStackSizeModified, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3125,7 +3147,7 @@ export FltIsIoRedirectionAllowed(SourceInstance, TargetInstance, RedirectionAllo
     RedirectionAllowedMarshal := RedirectionAllowed is VarRef ? "char*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltIsIoRedirectionAllowed", PFLT_INSTANCE, SourceInstance, PFLT_INSTANCE, TargetInstance, RedirectionAllowedMarshal, RedirectionAllowed, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3142,7 +3164,7 @@ export FltIsIoRedirectionAllowedForOperation(Data, TargetInstance, RedirectionAl
     RedirectionAllowedAllIoMarshal := RedirectionAllowedAllIo is VarRef ? "char*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltIsIoRedirectionAllowedForOperation", FLT_CALLBACK_DATA.Ptr, Data, PFLT_INSTANCE, TargetInstance, RedirectionAllowedThisIoMarshal, RedirectionAllowedThisIo, RedirectionAllowedAllIoMarshal, RedirectionAllowedAllIo, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3156,7 +3178,7 @@ export FltIsIoRedirectionAllowedForOperation(Data, TargetInstance, RedirectionAl
  */
 export FltVetoBypassIo(CallbackData, FltObjects, OperationStatus, FailureReason) {
     result := DllCall("FLTMGR.SYS\FltVetoBypassIo", FLT_CALLBACK_DATA.Ptr, CallbackData, FLT_RELATED_OBJECTS.Ptr, FltObjects, NTSTATUS, OperationStatus, UNICODE_STRING.Ptr, FailureReason, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3172,7 +3194,7 @@ export FltEnlistInTransaction(Instance, Transaction, _TransactionContext, Notifi
     TransactionMarshal := Transaction is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltEnlistInTransaction", PFLT_INSTANCE, Instance, TransactionMarshal, Transaction, PFLT_CONTEXT, _TransactionContext, UInt32, NotificationMask, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3187,7 +3209,7 @@ export FltRollbackEnlistment(Instance, Transaction, _TransactionContext) {
     TransactionMarshal := Transaction is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltRollbackEnlistment", PFLT_INSTANCE, Instance, TransactionMarshal, Transaction, PFLT_CONTEXT, _TransactionContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3202,7 +3224,7 @@ export FltPrePrepareComplete(Instance, Transaction, _TransactionContext) {
     TransactionMarshal := Transaction is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltPrePrepareComplete", PFLT_INSTANCE, Instance, TransactionMarshal, Transaction, PFLT_CONTEXT, _TransactionContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3217,7 +3239,7 @@ export FltPrepareComplete(Instance, Transaction, _TransactionContext) {
     TransactionMarshal := Transaction is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltPrepareComplete", PFLT_INSTANCE, Instance, TransactionMarshal, Transaction, PFLT_CONTEXT, _TransactionContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3232,7 +3254,7 @@ export FltCommitComplete(Instance, Transaction, _TransactionContext) {
     TransactionMarshal := Transaction is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltCommitComplete", PFLT_INSTANCE, Instance, TransactionMarshal, Transaction, PFLT_CONTEXT, _TransactionContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3247,7 +3269,7 @@ export FltCommitFinalizeComplete(Instance, Transaction, _TransactionContext) {
     TransactionMarshal := Transaction is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltCommitFinalizeComplete", PFLT_INSTANCE, Instance, TransactionMarshal, Transaction, PFLT_CONTEXT, _TransactionContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3262,7 +3284,7 @@ export FltRollbackComplete(Instance, Transaction, _TransactionContext) {
     TransactionMarshal := Transaction is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltRollbackComplete", PFLT_INSTANCE, Instance, TransactionMarshal, Transaction, PFLT_CONTEXT, _TransactionContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3277,7 +3299,7 @@ export FltAllocateExtraCreateParameterList(Filter, Flags, EcpList) {
     EcpListMarshal := EcpList is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltAllocateExtraCreateParameterList", PFLT_FILTER, Filter, UInt32, Flags, EcpListMarshal, EcpList, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3295,8 +3317,8 @@ export FltAllocateExtraCreateParameterList(Filter, Flags, EcpList) {
 export FltAllocateExtraCreateParameter(Filter, EcpType, SizeOfContext, Flags, CleanupCallback, PoolTag, EcpContext) {
     EcpContextMarshal := EcpContext is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("FLTMGR.SYS\FltAllocateExtraCreateParameter", PFLT_FILTER, Filter, Guid.Ptr, EcpType, UInt32, SizeOfContext, UInt32, Flags, "ptr", CleanupCallback, UInt32, PoolTag, EcpContextMarshal, EcpContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("FLTMGR.SYS\FltAllocateExtraCreateParameter", PFLT_FILTER, Filter, Guid.Ptr, EcpType, UInt32, SizeOfContext, UInt32, Flags, PFSRTL_EXTRA_CREATE_PARAMETER_CLEANUP_CALLBACK, CleanupCallback, UInt32, PoolTag, EcpContextMarshal, EcpContext, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3343,8 +3365,8 @@ export FltAllocateExtraCreateParameterFromLookasideList(Filter, EcpType, SizeOfC
     LookasideListMarshal := LookasideList is VarRef ? "ptr" : "ptr"
     EcpContextMarshal := EcpContext is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("FLTMGR.SYS\FltAllocateExtraCreateParameterFromLookasideList", PFLT_FILTER, Filter, Guid.Ptr, EcpType, UInt32, SizeOfContext, UInt32, Flags, "ptr", CleanupCallback, LookasideListMarshal, LookasideList, EcpContextMarshal, EcpContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("FLTMGR.SYS\FltAllocateExtraCreateParameterFromLookasideList", PFLT_FILTER, Filter, Guid.Ptr, EcpType, UInt32, SizeOfContext, UInt32, Flags, PFSRTL_EXTRA_CREATE_PARAMETER_CLEANUP_CALLBACK, CleanupCallback, LookasideListMarshal, LookasideList, EcpContextMarshal, EcpContext, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3360,7 +3382,7 @@ export FltInsertExtraCreateParameter(Filter, EcpList, EcpContext) {
     EcpContextMarshal := EcpContext is VarRef ? "ptr" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltInsertExtraCreateParameter", PFLT_FILTER, Filter, EcpListMarshal, EcpList, EcpContextMarshal, EcpContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3379,7 +3401,7 @@ export FltFindExtraCreateParameter(Filter, EcpList, EcpType, EcpContext, EcpCont
     EcpContextSizeMarshal := EcpContextSize is VarRef ? "uint*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltFindExtraCreateParameter", PFLT_FILTER, Filter, EcpListMarshal, EcpList, Guid.Ptr, EcpType, EcpContextMarshal, EcpContext, EcpContextSizeMarshal, EcpContextSize, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3398,7 +3420,7 @@ export FltRemoveExtraCreateParameter(Filter, EcpList, EcpType, EcpContext, EcpCo
     EcpContextSizeMarshal := EcpContextSize is VarRef ? "uint*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltRemoveExtraCreateParameter", PFLT_FILTER, Filter, EcpListMarshal, EcpList, Guid.Ptr, EcpType, EcpContextMarshal, EcpContext, EcpContextSizeMarshal, EcpContextSize, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3437,7 +3459,7 @@ export FltGetEcpListFromCallbackData(Filter, CallbackData, EcpList) {
     EcpListMarshal := EcpList is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetEcpListFromCallbackData", PFLT_FILTER, Filter, FLT_CALLBACK_DATA.Ptr, CallbackData, EcpListMarshal, EcpList, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3452,7 +3474,7 @@ export FltSetEcpListIntoCallbackData(Filter, CallbackData, EcpList) {
     EcpListMarshal := EcpList is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltSetEcpListIntoCallbackData", PFLT_FILTER, Filter, FLT_CALLBACK_DATA.Ptr, CallbackData, EcpListMarshal, EcpList, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3473,7 +3495,7 @@ export FltGetNextExtraCreateParameter(Filter, EcpList, CurrentEcpContext, NextEc
     NextEcpContextSizeMarshal := NextEcpContextSize is VarRef ? "uint*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetNextExtraCreateParameter", PFLT_FILTER, Filter, EcpListMarshal, EcpList, CurrentEcpContextMarshal, CurrentEcpContext, Guid.Ptr, NextEcpType, NextEcpContextMarshal, NextEcpContext, NextEcpContextSizeMarshal, NextEcpContextSize, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3536,7 +3558,7 @@ export FltPrepareToReuseEcp(Filter, EcpContext) {
  */
 export FltAddOpenReparseEntry(Filter, Data, OpenReparseEntry) {
     result := DllCall("FLTMGR.SYS\FltAddOpenReparseEntry", PFLT_FILTER, Filter, FLT_CALLBACK_DATA.Ptr, Data, OPEN_REPARSE_LIST_ENTRY.Ptr, OpenReparseEntry, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3562,7 +3584,7 @@ export FltCopyOpenReparseList(Filter, Data, EcpList) {
     EcpListMarshal := EcpList is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltCopyOpenReparseList", PFLT_FILTER, Filter, FLT_CALLBACK_DATA.Ptr, Data, EcpListMarshal, EcpList, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3587,7 +3609,7 @@ export FltFreeOpenReparseList(Filter, EcpList) {
  */
 export FltRequestFileInfoOnCreateCompletion(Filter, Data, InfoClassFlags) {
     result := DllCall("FLTMGR.SYS\FltRequestFileInfoOnCreateCompletion", PFLT_FILTER, Filter, FLT_CALLBACK_DATA.Ptr, Data, UInt32, InfoClassFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3620,7 +3642,7 @@ export FltRetrieveFileInfoOnCreateCompletionEx(Filter, Data, InfoClass, RetInfoS
     RetInfoBufferMarshal := RetInfoBuffer is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltRetrieveFileInfoOnCreateCompletionEx", PFLT_FILTER, Filter, FLT_CALLBACK_DATA.Ptr, Data, UInt32, InfoClass, RetInfoSizeMarshal, RetInfoSize, RetInfoBufferMarshal, RetInfoBuffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3634,7 +3656,7 @@ export FltRetrieveFileInfoOnCreateCompletionEx(Filter, Data, InfoClass, RetInfoS
  */
 export FltRetrieveIoPriorityInfo(Data, FileObject, Thread, PriorityInfo) {
     result := DllCall("FLTMGR.SYS\FltRetrieveIoPriorityInfo", FLT_CALLBACK_DATA.Ptr, Data, FILE_OBJECT.Ptr, FileObject, PETHREAD, Thread, IO_PRIORITY_INFO.Ptr, PriorityInfo, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3647,7 +3669,7 @@ export FltRetrieveIoPriorityInfo(Data, FileObject, Thread, PriorityInfo) {
  */
 export FltApplyPriorityInfoThread(InputPriorityInfo, OutputPriorityInfo, Thread) {
     result := DllCall("FLTMGR.SYS\FltApplyPriorityInfoThread", IO_PRIORITY_INFO.Ptr, InputPriorityInfo, IO_PRIORITY_INFO.Ptr, OutputPriorityInfo, PETHREAD, Thread, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3679,7 +3701,7 @@ export FltGetIoPriorityHintFromCallbackData(Data) {
  */
 export FltSetIoPriorityHintIntoCallbackData(Data, PriorityHint) {
     result := DllCall("FLTMGR.SYS\FltSetIoPriorityHintIntoCallbackData", FLT_CALLBACK_DATA.Ptr, Data, IO_PRIORITY_HINT, PriorityHint, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3701,7 +3723,7 @@ export FltGetIoPriorityHintFromFileObject(FileObject) {
  */
 export FltSetIoPriorityHintIntoFileObject(FileObject, PriorityHint) {
     result := DllCall("FLTMGR.SYS\FltSetIoPriorityHintIntoFileObject", FILE_OBJECT.Ptr, FileObject, IO_PRIORITY_HINT, PriorityHint, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3723,7 +3745,7 @@ export FltGetIoPriorityHintFromThread(Thread) {
  */
 export FltSetIoPriorityHintIntoThread(Thread, PriorityHint) {
     result := DllCall("FLTMGR.SYS\FltSetIoPriorityHintIntoThread", PETHREAD, Thread, IO_PRIORITY_HINT, PriorityHint, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3735,7 +3757,7 @@ export FltSetIoPriorityHintIntoThread(Thread, PriorityHint) {
  */
 export FltGetActivityIdCallbackData(CallbackData, Guid) {
     result := DllCall("FLTMGR.SYS\FltGetActivityIdCallbackData", FLT_CALLBACK_DATA.Ptr, CallbackData, Guid.Ptr, Guid, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3747,7 +3769,7 @@ export FltGetActivityIdCallbackData(CallbackData, Guid) {
  */
 export FltSetActivityIdCallbackData(CallbackData, Guid) {
     result := DllCall("FLTMGR.SYS\FltSetActivityIdCallbackData", FLT_CALLBACK_DATA.Ptr, CallbackData, Guid.Ptr, Guid, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3762,7 +3784,7 @@ export FltPropagateActivityIdToThread(CallbackData, PropagateId, OriginalId) {
     OriginalIdMarshal := OriginalId is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltPropagateActivityIdToThread", FLT_CALLBACK_DATA.Ptr, CallbackData, Guid.Ptr, PropagateId, OriginalIdMarshal, OriginalId, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3776,7 +3798,7 @@ export FltGetFsZeroingOffset(Data, ZeroingOffset) {
     ZeroingOffsetMarshal := ZeroingOffset is VarRef ? "uint*" : "ptr"
 
     result := DllCall("FLTMGR.SYS\FltGetFsZeroingOffset", FLT_CALLBACK_DATA.Ptr, Data, ZeroingOffsetMarshal, ZeroingOffset, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3787,7 +3809,7 @@ export FltGetFsZeroingOffset(Data, ZeroingOffset) {
  */
 export FltSetFsZeroingOffsetRequired(Data) {
     result := DllCall("FLTMGR.SYS\FltSetFsZeroingOffsetRequired", FLT_CALLBACK_DATA.Ptr, Data, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3799,7 +3821,7 @@ export FltSetFsZeroingOffsetRequired(Data) {
  */
 export FltSetFsZeroingOffset(Data, ZeroingOffset) {
     result := DllCall("FLTMGR.SYS\FltSetFsZeroingOffset", FLT_CALLBACK_DATA.Ptr, Data, UInt32, ZeroingOffset, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3822,7 +3844,7 @@ export FltGetIoAttributionHandleFromCallbackData(Data) {
  */
 export FltPropagateIrpExtension(SourceData, TargetData, Flags) {
     result := DllCall("FLTMGR.SYS\FltPropagateIrpExtension", FLT_CALLBACK_DATA.Ptr, SourceData, FLT_CALLBACK_DATA.Ptr, TargetData, UInt32, Flags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 

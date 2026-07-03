@@ -1,7 +1,8 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\FARPROC.ahk" { FARPROC }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
@@ -18,10 +19,12 @@
 #Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
 #Import "..\..\Graphics\Gdi\PALETTEENTRY.ahk" { PALETTEENTRY }
 #Import ".\AVICOMPRESSOPTIONS.ahk" { AVICOMPRESSOPTIONS }
+#Import ".\AVISAVECALLBACK.ahk" { AVISAVECALLBACK }
 #Import ".\AVISTREAMINFOA.ahk" { AVISTREAMINFOA as AVISTREAMINFOA_struct }
 #Import ".\AVISTREAMINFOW.ahk" { AVISTREAMINFOW as AVISTREAMINFOW_struct }
 #Import ".\COMPVARS.ahk" { COMPVARS }
 #Import ".\DRAWDIBTIME.ahk" { DRAWDIBTIME as DRAWDIBTIME_struct }
+#Import ".\DRIVERMSGPROC.ahk" { DRIVERMSGPROC }
 #Import ".\HDRVR.ahk" { HDRVR }
 #Import ".\HIC.ahk" { HIC }
 #Import ".\HMMIO.ahk" { HMMIO }
@@ -31,8 +34,11 @@
 #Import ".\IGetFrame.ahk" { IGetFrame }
 #Import ".\JOYINFO.ahk" { JOYINFO }
 #Import ".\JOYINFOEX.ahk" { JOYINFOEX }
+#Import ".\LPMMIOPROC.ahk" { LPMMIOPROC }
+#Import ".\LPTASKCALLBACK.ahk" { LPTASKCALLBACK }
 #Import ".\MMCKINFO.ahk" { MMCKINFO }
 #Import ".\MMIOINFO.ahk" { MMIOINFO }
+#Import ".\YIELDPROC.ahk" { YIELDPROC }
 #Import "..\..\UI\Controls\Dialogs\OPENFILENAMEA.ahk" { OPENFILENAMEA }
 #Import "..\..\UI\Controls\Dialogs\OPENFILENAMEW.ahk" { OPENFILENAMEW }
 
@@ -185,7 +191,7 @@ export mciGetErrorStringW(mcierr, pszText, cchText) {
  * @returns {BOOL} 
  */
 export mciSetYieldProc(mciId, fpYieldProc, dwYieldData) {
-    result := DllCall("WINMM.dll\mciSetYieldProc", UInt32, mciId, "ptr", fpYieldProc, UInt32, dwYieldData, BOOL)
+    result := DllCall("WINMM.dll\mciSetYieldProc", UInt32, mciId, YIELDPROC, fpYieldProc, UInt32, dwYieldData, BOOL)
     return result
 }
 
@@ -208,7 +214,7 @@ export mciGetCreatorTask(mciId) {
 export mciGetYieldProc(mciId, pdwYieldData) {
     pdwYieldDataMarshal := pdwYieldData is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WINMM.dll\mciGetYieldProc", UInt32, mciId, pdwYieldDataMarshal, pdwYieldData, IntPtr)
+    result := DllCall("WINMM.dll\mciGetYieldProc", UInt32, mciId, pdwYieldDataMarshal, pdwYieldData, YIELDPROC)
     return result
 }
 
@@ -512,7 +518,7 @@ export sndOpenSound(EventName, AppName, Flags, FileHandle) {
 export mmDrvInstall(hDriver, wszDrvEntry, drvMessage, wFlags) {
     wszDrvEntry := wszDrvEntry is String ? StrPtr(wszDrvEntry) : wszDrvEntry
 
-    result := DllCall("WINMM.dll\mmDrvInstall", HDRVR, hDriver, "ptr", wszDrvEntry, "ptr", drvMessage, UInt32, wFlags, UInt32)
+    result := DllCall("WINMM.dll\mmDrvInstall", HDRVR, hDriver, "ptr", wszDrvEntry, DRIVERMSGPROC, drvMessage, UInt32, wFlags, UInt32)
     return result
 }
 
@@ -626,7 +632,7 @@ export mmioStringToFOURCCW(sz, uFlags) {
  * @since windows5.0
  */
 export mmioInstallIOProcA(fccIOProc, pIOProc, dwFlags) {
-    result := DllCall("WINMM.dll\mmioInstallIOProcA", UInt32, fccIOProc, "ptr", pIOProc, UInt32, dwFlags, IntPtr)
+    result := DllCall("WINMM.dll\mmioInstallIOProcA", UInt32, fccIOProc, LPMMIOPROC, pIOProc, UInt32, dwFlags, LPMMIOPROC)
     return result
 }
 
@@ -668,7 +674,7 @@ export mmioInstallIOProcA(fccIOProc, pIOProc, dwFlags) {
  * @since windows5.0
  */
 export mmioInstallIOProcW(fccIOProc, pIOProc, dwFlags) {
-    result := DllCall("WINMM.dll\mmioInstallIOProcW", UInt32, fccIOProc, "ptr", pIOProc, UInt32, dwFlags, IntPtr)
+    result := DllCall("WINMM.dll\mmioInstallIOProcW", UInt32, fccIOProc, LPMMIOPROC, pIOProc, UInt32, dwFlags, LPMMIOPROC)
     return result
 }
 
@@ -2221,7 +2227,7 @@ export ICOpen(fccType, fccHandler, wMode) {
  * @since windows5.0
  */
 export ICOpenFunction(fccType, fccHandler, wMode, lpfnHandler) {
-    result := DllCall("MSVFW32.dll\ICOpenFunction", UInt32, fccType, UInt32, fccHandler, UInt32, wMode, "ptr", lpfnHandler, HIC.Owned)
+    result := DllCall("MSVFW32.dll\ICOpenFunction", UInt32, fccType, UInt32, fccHandler, UInt32, wMode, FARPROC, lpfnHandler, HIC.Owned)
     return result
 }
 
@@ -4112,7 +4118,7 @@ export AVISaveA(szFile, pclsidHandler, lpfnCallback, nStreams, pfile, lpOptions,
     varArgs := [args*]
     varArgs.Push("HRESULT")
 
-    result := DllCall("AVIFIL32.dll\AVISaveA", "ptr", szFile, Guid.Ptr, pclsidHandler, "ptr", lpfnCallback, Int32, nStreams, "ptr", pfile, AVICOMPRESSOPTIONS.Ptr, lpOptions, varArgs*)
+    result := DllCall("AVIFIL32.dll\AVISaveA", "ptr", szFile, Guid.Ptr, pclsidHandler, AVISAVECALLBACK, lpfnCallback, Int32, nStreams, "ptr", pfile, AVICOMPRESSOPTIONS.Ptr, lpOptions, varArgs*)
     return result
 }
 
@@ -4148,7 +4154,7 @@ export AVISaveVA(szFile, pclsidHandler, lpfnCallback, nStreams, ppavi, plpOption
 
     plpOptionsMarshal := plpOptions is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("AVIFIL32.dll\AVISaveVA", "ptr", szFile, Guid.Ptr, pclsidHandler, "ptr", lpfnCallback, Int32, nStreams, IAVIStream.Ptr, ppavi, plpOptionsMarshal, plpOptions, "HRESULT")
+    result := DllCall("AVIFIL32.dll\AVISaveVA", "ptr", szFile, Guid.Ptr, pclsidHandler, AVISAVECALLBACK, lpfnCallback, Int32, nStreams, IAVIStream.Ptr, ppavi, plpOptionsMarshal, plpOptions, "HRESULT")
     return result
 }
 
@@ -4196,7 +4202,7 @@ export AVISaveW(szFile, pclsidHandler, lpfnCallback, nStreams, pfile, lpOptions,
     varArgs := [args*]
     varArgs.Push("HRESULT")
 
-    result := DllCall("AVIFIL32.dll\AVISaveW", "ptr", szFile, Guid.Ptr, pclsidHandler, "ptr", lpfnCallback, Int32, nStreams, "ptr", pfile, AVICOMPRESSOPTIONS.Ptr, lpOptions, varArgs*)
+    result := DllCall("AVIFIL32.dll\AVISaveW", "ptr", szFile, Guid.Ptr, pclsidHandler, AVISAVECALLBACK, lpfnCallback, Int32, nStreams, "ptr", pfile, AVICOMPRESSOPTIONS.Ptr, lpOptions, varArgs*)
     return result
 }
 
@@ -4232,7 +4238,7 @@ export AVISaveVW(szFile, pclsidHandler, lpfnCallback, nStreams, ppavi, plpOption
 
     plpOptionsMarshal := plpOptions is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("AVIFIL32.dll\AVISaveVW", "ptr", szFile, Guid.Ptr, pclsidHandler, "ptr", lpfnCallback, Int32, nStreams, IAVIStream.Ptr, ppavi, plpOptionsMarshal, plpOptions, "HRESULT")
+    result := DllCall("AVIFIL32.dll\AVISaveVW", "ptr", szFile, Guid.Ptr, pclsidHandler, AVISAVECALLBACK, lpfnCallback, Int32, nStreams, IAVIStream.Ptr, ppavi, plpOptionsMarshal, plpOptions, "HRESULT")
     return result
 }
 
@@ -5136,7 +5142,7 @@ export GetSaveFileNamePreviewW(lpofn) {
  * @see https://learn.microsoft.com/windows/win32/api/mmddk/nf-mmddk-mmtaskcreate
  */
 export mmTaskCreate(lpfn, lph, dwInst) {
-    result := DllCall("WINMM.dll\mmTaskCreate", "ptr", lpfn, HANDLE.Ptr, lph, IntPtr, dwInst, UInt32)
+    result := DllCall("WINMM.dll\mmTaskCreate", LPTASKCALLBACK, lpfn, HANDLE.Ptr, lph, IntPtr, dwInst, UInt32)
     return result
 }
 

@@ -28,7 +28,7 @@ export default struct PLSA_UPDATE_PRIMARY_CREDENTIALS {
      */
     Call(PrimaryCredentials, Credentials) {
         result := DllCall(this.value, SECPKG_PRIMARY_CRED.Ptr, PrimaryCredentials, SECPKG_SUPPLEMENTAL_CRED_ARRAY.Ptr, Credentials, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -48,6 +48,10 @@ export default struct PLSA_UPDATE_PRIMARY_CREDENTIALS {
             this.value := CallbackCreate(fn, , [SECPKG_PRIMARY_CRED.Ptr, SECPKG_SUPPLEMENTAL_CRED_ARRAY.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\AUDIOLOOPBACK_TAPPOINT_TYPE.ahk" { AUDIOLOOPBACK_TAPPOINT_TYPE }
 #Import ".\KSATTRIBUTE.ahk" { KSATTRIBUTE }
 

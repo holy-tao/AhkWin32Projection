@@ -53,6 +53,10 @@ export default struct LANGUAGEGROUP_ENUMPROCW {
             this.value := CallbackCreate(fn, , [UInt32, PWSTR, PWSTR, UInt32, IntPtr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

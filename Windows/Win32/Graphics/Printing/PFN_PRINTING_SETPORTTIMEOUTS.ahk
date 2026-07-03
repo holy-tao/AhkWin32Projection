@@ -49,6 +49,10 @@ export default struct PFN_PRINTING_SETPORTTIMEOUTS {
             this.value := CallbackCreate(fn, , [HANDLE, COMMTIMEOUTS.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

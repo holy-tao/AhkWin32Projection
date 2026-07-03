@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\WSAESETSERVICEOP.ahk" { WSAESETSERVICEOP }
 #Import ".\WSAQUERYSET2W.ahk" { WSAQUERYSET2W }
@@ -289,6 +289,10 @@ export default struct LPNSPV2SETSERVICEEX {
             this.value := CallbackCreate(fn, , [HANDLE, Guid.Ptr, WSAQUERYSET2W.Ptr, WSAESETSERVICEOP, UInt32, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

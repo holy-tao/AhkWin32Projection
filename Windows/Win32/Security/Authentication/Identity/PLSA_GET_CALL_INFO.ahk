@@ -45,6 +45,10 @@ export default struct PLSA_GET_CALL_INFO {
             this.value := CallbackCreate(fn, , [SECPKG_CALL_INFO.Ptr, BOOLEAN])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

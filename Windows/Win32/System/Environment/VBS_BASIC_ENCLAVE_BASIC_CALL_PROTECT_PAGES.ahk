@@ -47,6 +47,10 @@ export default struct VBS_BASIC_ENCLAVE_BASIC_CALL_PROTECT_PAGES {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr, UInt32, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

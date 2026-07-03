@@ -53,6 +53,10 @@ export default struct CS_TAG_GETTING_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", Int32, "uint*", "uint*", "uint*", "uint*", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

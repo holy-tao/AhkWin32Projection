@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\D2D1_DRAWING_STATE_DESCRIPTION.ahk" { D2D1_DRAWING_STATE_DESCRIPTION }
 #Import ".\ID2D1Resource.ahk" { ID2D1Resource }
 #Import "..\DirectWrite\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }

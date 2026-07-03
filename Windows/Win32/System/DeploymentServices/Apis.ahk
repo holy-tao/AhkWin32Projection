@@ -6,6 +6,8 @@
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 #Import ".\CPU_ARCHITECTURE.ahk" { CPU_ARCHITECTURE }
+#Import ".\PFN_WdsCliCallback.ahk" { PFN_WdsCliCallback }
+#Import ".\PFN_WdsCliTraceFunction.ahk" { PFN_WdsCliTraceFunction }
 #Import ".\PXE_ADDRESS.ahk" { PXE_ADDRESS }
 #Import ".\PXE_DHCPV6_NESTED_RELAY_MESSAGE.ahk" { PXE_DHCPV6_NESTED_RELAY_MESSAGE }
 #Import ".\PXE_PROVIDER.ahk" { PXE_PROVIDER }
@@ -44,7 +46,7 @@ export WdsCliClose(_Handle) {
  * @since windows6.0.6000
  */
 export WdsCliRegisterTrace(_pfn) {
-    result := DllCall("WDSCLIENTAPI.dll\WdsCliRegisterTrace", "ptr", _pfn, "HRESULT")
+    result := DllCall("WDSCLIENTAPI.dll\WdsCliRegisterTrace", PFN_WdsCliTraceFunction, _pfn, "HRESULT")
     return result
 }
 
@@ -705,7 +707,7 @@ export WdsCliTransferImage(hImage, pwszLocalPath, dwFlags, dwReserved, pfnWdsCli
     pvUserDataMarshal := pvUserData is VarRef ? "ptr" : "ptr"
 
     phTransfer := HANDLE.Owned()
-    result := DllCall("WDSCLIENTAPI.dll\WdsCliTransferImage", HANDLE, hImage, "ptr", pwszLocalPath, UInt32, dwFlags, UInt32, dwReserved, "ptr", pfnWdsCliCallback, pvUserDataMarshal, pvUserData, HANDLE.Ptr, phTransfer, "HRESULT")
+    result := DllCall("WDSCLIENTAPI.dll\WdsCliTransferImage", HANDLE, hImage, "ptr", pwszLocalPath, UInt32, dwFlags, UInt32, dwReserved, PFN_WdsCliCallback, pfnWdsCliCallback, pvUserDataMarshal, pvUserData, HANDLE.Ptr, phTransfer, "HRESULT")
     return phTransfer
 }
 
@@ -751,7 +753,7 @@ export WdsCliTransferFile(pwszServer, pwszNamespace, pwszRemoteFilePath, pwszLoc
     pvUserDataMarshal := pvUserData is VarRef ? "ptr" : "ptr"
 
     phTransfer := HANDLE.Owned()
-    result := DllCall("WDSCLIENTAPI.dll\WdsCliTransferFile", "ptr", pwszServer, "ptr", pwszNamespace, "ptr", pwszRemoteFilePath, "ptr", pwszLocalFilePath, UInt32, dwFlags, UInt32, dwReserved, "ptr", pfnWdsCliCallback, pvUserDataMarshal, pvUserData, HANDLE.Ptr, phTransfer, "HRESULT")
+    result := DllCall("WDSCLIENTAPI.dll\WdsCliTransferFile", "ptr", pwszServer, "ptr", pwszNamespace, "ptr", pwszRemoteFilePath, "ptr", pwszLocalFilePath, UInt32, dwFlags, UInt32, dwReserved, PFN_WdsCliCallback, pfnWdsCliCallback, pvUserDataMarshal, pvUserData, HANDLE.Ptr, phTransfer, "HRESULT")
     return phTransfer
 }
 

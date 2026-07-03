@@ -57,6 +57,10 @@ export default struct PFN_AUTHZ_COMPUTE_DYNAMIC_GROUPS {
             this.value := CallbackCreate(fn, , [AUTHZ_CLIENT_CONTEXT_HANDLE, "ptr", "ptr*", "uint*", "ptr*", "uint*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

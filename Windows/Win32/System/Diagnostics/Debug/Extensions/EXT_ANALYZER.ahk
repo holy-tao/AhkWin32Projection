@@ -54,6 +54,10 @@ export default struct EXT_ANALYZER {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr, UInt32, IntPtr, UInt32, "uint*", "ptr", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

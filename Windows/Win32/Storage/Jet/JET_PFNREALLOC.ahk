@@ -50,6 +50,10 @@ export default struct JET_PFNREALLOC {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", UInt32, "ptr"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -44,6 +44,10 @@ export default struct EVT_VHF_READY_FOR_NEXT_READ_REPORT {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -54,6 +54,10 @@ export default struct DIGEST_FUNCTION {
             this.value := CallbackCreate(fn, , ["ptr", "char*", UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

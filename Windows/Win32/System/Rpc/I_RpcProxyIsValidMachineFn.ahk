@@ -50,6 +50,10 @@ export default struct I_RpcProxyIsValidMachineFn {
             this.value := CallbackCreate(fn, , [PWSTR, PWSTR, UInt32, RPC_STATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

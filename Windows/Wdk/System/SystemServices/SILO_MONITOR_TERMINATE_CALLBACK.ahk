@@ -43,6 +43,10 @@ export default struct SILO_MONITOR_TERMINATE_CALLBACK {
             this.value := CallbackCreate(fn, , [PESILO, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

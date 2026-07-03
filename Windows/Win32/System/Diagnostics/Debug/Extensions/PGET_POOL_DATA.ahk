@@ -48,6 +48,10 @@ export default struct PGET_POOL_DATA {
             this.value := CallbackCreate(fn, , ["ptr", Int64, DEBUG_POOL_DATA.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

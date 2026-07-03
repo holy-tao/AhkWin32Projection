@@ -47,6 +47,10 @@ export default struct EXT_XML_DATA {
             this.value := CallbackCreate(fn, , ["ptr", EXT_CAB_XML_DATA.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

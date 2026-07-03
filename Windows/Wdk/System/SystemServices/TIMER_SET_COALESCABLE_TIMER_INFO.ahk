@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\COUNTED_REASON_CONTEXT.ahk" { COUNTED_REASON_CONTEXT }
+#Import ".\PTIMER_APC_ROUTINE.ahk" { PTIMER_APC_ROUTINE }
 #Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
@@ -10,7 +11,7 @@ export default struct TIMER_SET_COALESCABLE_TIMER_INFO {
 
     DueTime : Int64
 
-    TimerApcRoutine : IntPtr
+    TimerApcRoutine : PTIMER_APC_ROUTINE
 
     TimerContext : IntPtr
 

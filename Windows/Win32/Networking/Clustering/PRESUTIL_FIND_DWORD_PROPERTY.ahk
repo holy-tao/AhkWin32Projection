@@ -51,6 +51,10 @@ export default struct PRESUTIL_FIND_DWORD_PROPERTY {
             this.value := CallbackCreate(fn, , [IntPtr, UInt32, PWSTR, "uint*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

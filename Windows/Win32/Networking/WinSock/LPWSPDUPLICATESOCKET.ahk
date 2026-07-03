@@ -313,6 +313,10 @@ export default struct LPWSPDUPLICATESOCKET {
             this.value := CallbackCreate(fn, , [SOCKET, UInt32, WSAPROTOCOL_INFOW.Ptr, "int*", Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

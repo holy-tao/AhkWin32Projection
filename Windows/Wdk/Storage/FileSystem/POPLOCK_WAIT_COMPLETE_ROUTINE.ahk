@@ -46,6 +46,10 @@ export default struct POPLOCK_WAIT_COMPLETE_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", IRP.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

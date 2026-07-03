@@ -56,6 +56,10 @@ export default struct PETW_BUFFER_CALLBACK {
             this.value := CallbackCreate(fn, , [IntPtr, UInt32, ETW_BUFFER_CALLBACK_INFORMATION.Ptr, "ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

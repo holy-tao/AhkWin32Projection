@@ -53,6 +53,10 @@ export default struct alljoyn_about_announced_ptr {
             this.value := CallbackCreate(fn, , ["ptr", PSTR, UInt16, UInt16, alljoyn_msgarg, alljoyn_msgarg, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

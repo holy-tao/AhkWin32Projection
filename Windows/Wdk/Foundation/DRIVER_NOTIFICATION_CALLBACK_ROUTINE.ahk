@@ -29,7 +29,7 @@ export default struct DRIVER_NOTIFICATION_CALLBACK_ROUTINE {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, NotificationStructureMarshal, NotificationStructure, _ContextMarshal, _Context, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -49,6 +49,10 @@ export default struct DRIVER_NOTIFICATION_CALLBACK_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -50,6 +50,10 @@ export default struct PFN_PRINTING_XCVOPENPORT {
             this.value := CallbackCreate(fn, , [PWSTR, UInt32, HANDLE.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

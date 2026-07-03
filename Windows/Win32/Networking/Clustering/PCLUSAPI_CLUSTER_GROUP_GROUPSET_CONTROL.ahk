@@ -54,6 +54,10 @@ export default struct PCLUSAPI_CLUSTER_GROUP_GROUPSET_CONTROL {
             this.value := CallbackCreate(fn, , [HGROUPSET, HNODE, UInt32, IntPtr, UInt32, IntPtr, UInt32, "uint*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

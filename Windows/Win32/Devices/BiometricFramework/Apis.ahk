@@ -1,6 +1,13 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
+#Import ".\PWINBIO_ASYNC_COMPLETION_CALLBACK.ahk" { PWINBIO_ASYNC_COMPLETION_CALLBACK }
+#Import ".\PWINBIO_CAPTURE_CALLBACK.ahk" { PWINBIO_CAPTURE_CALLBACK }
+#Import ".\PWINBIO_ENROLL_CAPTURE_CALLBACK.ahk" { PWINBIO_ENROLL_CAPTURE_CALLBACK }
+#Import ".\PWINBIO_EVENT_CALLBACK.ahk" { PWINBIO_EVENT_CALLBACK }
+#Import ".\PWINBIO_IDENTIFY_CALLBACK.ahk" { PWINBIO_IDENTIFY_CALLBACK }
+#Import ".\PWINBIO_LOCATE_SENSOR_CALLBACK.ahk" { PWINBIO_LOCATE_SENSOR_CALLBACK }
+#Import ".\PWINBIO_VERIFY_CALLBACK.ahk" { PWINBIO_VERIFY_CALLBACK }
 #Import ".\WINBIO_ASYNC_NOTIFICATION_METHOD.ahk" { WINBIO_ASYNC_NOTIFICATION_METHOD }
 #Import ".\WINBIO_BIR.ahk" { WINBIO_BIR }
 #Import ".\WINBIO_BSP_SCHEMA.ahk" { WINBIO_BSP_SCHEMA }
@@ -269,7 +276,7 @@ export WinBioEnumDatabases(Factor, StorageSchemaArray, StorageCount) {
 export WinBioAsyncOpenFramework(NotificationMethod, TargetWindow, MessageCode, CallbackRoutine, _UserData, AsynchronousOpen) {
     _UserDataMarshal := _UserData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("winbio.dll\WinBioAsyncOpenFramework", WINBIO_ASYNC_NOTIFICATION_METHOD, NotificationMethod, HWND, TargetWindow, UInt32, MessageCode, "ptr", CallbackRoutine, _UserDataMarshal, _UserData, BOOL, AsynchronousOpen, "uint*", &FrameworkHandle := 0, "HRESULT")
+    result := DllCall("winbio.dll\WinBioAsyncOpenFramework", WINBIO_ASYNC_NOTIFICATION_METHOD, NotificationMethod, HWND, TargetWindow, UInt32, MessageCode, PWINBIO_ASYNC_COMPLETION_CALLBACK, CallbackRoutine, _UserDataMarshal, _UserData, BOOL, AsynchronousOpen, "uint*", &FrameworkHandle := 0, "HRESULT")
     return FrameworkHandle
 }
 
@@ -987,7 +994,7 @@ export WinBioAsyncOpenSession(Factor, PoolType, Flags, UnitArray, UnitCount, Dat
     UnitArrayMarshal := UnitArray is VarRef ? "uint*" : "ptr"
     _UserDataMarshal := _UserData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("winbio.dll\WinBioAsyncOpenSession", UInt32, Factor, WINBIO_POOL, PoolType, UInt32, Flags, UnitArrayMarshal, UnitArray, IntPtr, UnitCount, Guid.Ptr, DatabaseId, WINBIO_ASYNC_NOTIFICATION_METHOD, NotificationMethod, HWND, TargetWindow, UInt32, MessageCode, "ptr", CallbackRoutine, _UserDataMarshal, _UserData, BOOL, AsynchronousOpen, "uint*", &SessionHandle := 0, "HRESULT")
+    result := DllCall("winbio.dll\WinBioAsyncOpenSession", UInt32, Factor, WINBIO_POOL, PoolType, UInt32, Flags, UnitArrayMarshal, UnitArray, IntPtr, UnitCount, Guid.Ptr, DatabaseId, WINBIO_ASYNC_NOTIFICATION_METHOD, NotificationMethod, HWND, TargetWindow, UInt32, MessageCode, PWINBIO_ASYNC_COMPLETION_CALLBACK, CallbackRoutine, _UserDataMarshal, _UserData, BOOL, AsynchronousOpen, "uint*", &SessionHandle := 0, "HRESULT")
     return SessionHandle
 }
 
@@ -1260,7 +1267,7 @@ export WinBioVerify(SessionHandle, Identity, SubFactor, UnitId, Match, RejectDet
 export WinBioVerifyWithCallback(SessionHandle, Identity, SubFactor, VerifyCallback, VerifyCallbackContext) {
     VerifyCallbackContextMarshal := VerifyCallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("winbio.dll\WinBioVerifyWithCallback", UInt32, SessionHandle, WINBIO_IDENTITY.Ptr, Identity, Int8, SubFactor, "ptr", VerifyCallback, VerifyCallbackContextMarshal, VerifyCallbackContext, "HRESULT")
+    result := DllCall("winbio.dll\WinBioVerifyWithCallback", UInt32, SessionHandle, WINBIO_IDENTITY.Ptr, Identity, Int8, SubFactor, PWINBIO_VERIFY_CALLBACK, VerifyCallback, VerifyCallbackContextMarshal, VerifyCallbackContext, "HRESULT")
     return result
 }
 
@@ -1444,7 +1451,7 @@ export WinBioIdentify(SessionHandle, UnitId, Identity, SubFactor, RejectDetail) 
 export WinBioIdentifyWithCallback(SessionHandle, IdentifyCallback, IdentifyCallbackContext) {
     IdentifyCallbackContextMarshal := IdentifyCallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("winbio.dll\WinBioIdentifyWithCallback", UInt32, SessionHandle, "ptr", IdentifyCallback, IdentifyCallbackContextMarshal, IdentifyCallbackContext, "HRESULT")
+    result := DllCall("winbio.dll\WinBioIdentifyWithCallback", UInt32, SessionHandle, PWINBIO_IDENTIFY_CALLBACK, IdentifyCallback, IdentifyCallbackContextMarshal, IdentifyCallbackContext, "HRESULT")
     return result
 }
 
@@ -1624,7 +1631,7 @@ export WinBioLocateSensor(SessionHandle) {
 export WinBioLocateSensorWithCallback(SessionHandle, LocateCallback, LocateCallbackContext) {
     LocateCallbackContextMarshal := LocateCallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("winbio.dll\WinBioLocateSensorWithCallback", UInt32, SessionHandle, "ptr", LocateCallback, LocateCallbackContextMarshal, LocateCallbackContext, "HRESULT")
+    result := DllCall("winbio.dll\WinBioLocateSensorWithCallback", UInt32, SessionHandle, PWINBIO_LOCATE_SENSOR_CALLBACK, LocateCallback, LocateCallbackContextMarshal, LocateCallbackContext, "HRESULT")
     return result
 }
 
@@ -1882,7 +1889,7 @@ export WinBioEnrollCapture(SessionHandle) {
 export WinBioEnrollCaptureWithCallback(SessionHandle, EnrollCallback, EnrollCallbackContext) {
     EnrollCallbackContextMarshal := EnrollCallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("winbio.dll\WinBioEnrollCaptureWithCallback", UInt32, SessionHandle, "ptr", EnrollCallback, EnrollCallbackContextMarshal, EnrollCallbackContext, "HRESULT")
+    result := DllCall("winbio.dll\WinBioEnrollCaptureWithCallback", UInt32, SessionHandle, PWINBIO_ENROLL_CAPTURE_CALLBACK, EnrollCallback, EnrollCallbackContextMarshal, EnrollCallbackContext, "HRESULT")
     return result
 }
 
@@ -2214,7 +2221,7 @@ export WinBioImproveEnd(SessionHandle) {
 export WinBioRegisterEventMonitor(SessionHandle, _EventMask, EventCallback, EventCallbackContext) {
     EventCallbackContextMarshal := EventCallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("winbio.dll\WinBioRegisterEventMonitor", UInt32, SessionHandle, UInt32, _EventMask, "ptr", EventCallback, EventCallbackContextMarshal, EventCallbackContext, "HRESULT")
+    result := DllCall("winbio.dll\WinBioRegisterEventMonitor", UInt32, SessionHandle, UInt32, _EventMask, PWINBIO_EVENT_CALLBACK, EventCallback, EventCallbackContextMarshal, EventCallbackContext, "HRESULT")
     return result
 }
 
@@ -2586,7 +2593,7 @@ export WinBioCaptureSample(SessionHandle, Purpose, Flags, UnitId, Sample, Sample
 export WinBioCaptureSampleWithCallback(SessionHandle, Purpose, Flags, CaptureCallback, CaptureCallbackContext) {
     CaptureCallbackContextMarshal := CaptureCallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("winbio.dll\WinBioCaptureSampleWithCallback", UInt32, SessionHandle, Int8, Purpose, Int8, Flags, "ptr", CaptureCallback, CaptureCallbackContextMarshal, CaptureCallbackContext, "HRESULT")
+    result := DllCall("winbio.dll\WinBioCaptureSampleWithCallback", UInt32, SessionHandle, Int8, Purpose, Int8, Flags, PWINBIO_CAPTURE_CALLBACK, CaptureCallback, CaptureCallbackContextMarshal, CaptureCallbackContext, "HRESULT")
     return result
 }
 

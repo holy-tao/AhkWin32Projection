@@ -62,6 +62,10 @@ export default struct CryptXmlDllSignData {
             this.value := CallbackCreate(fn, , [CRYPT_XML_ALGORITHM.Ptr, HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, UInt32, IntPtr, UInt32, IntPtr, UInt32, "uint*", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

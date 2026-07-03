@@ -31,7 +31,7 @@ export default struct BCryptOpenAlgorithmProviderFn {
         pszAlgId := pszAlgId is String ? StrPtr(pszAlgId) : pszAlgId
 
         result := DllCall(this.value, BCRYPT_ALG_HANDLE.Ptr, phAlgorithm, "ptr", pszAlgId, UInt32, dwFlags, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -51,6 +51,10 @@ export default struct BCryptOpenAlgorithmProviderFn {
             this.value := CallbackCreate(fn, , [BCRYPT_ALG_HANDLE.Ptr, PWSTR, UInt32, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

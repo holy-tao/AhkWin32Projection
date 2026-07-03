@@ -44,6 +44,10 @@ export default struct VBS_BASIC_ENCLAVE_BASIC_CALL_VERIFY_REPORT {
             this.value := CallbackCreate(fn, , [IntPtr, UInt32, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

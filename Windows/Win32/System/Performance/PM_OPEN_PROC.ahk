@@ -46,6 +46,10 @@ export default struct PM_OPEN_PROC {
             this.value := CallbackCreate(fn, , [PWSTR, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

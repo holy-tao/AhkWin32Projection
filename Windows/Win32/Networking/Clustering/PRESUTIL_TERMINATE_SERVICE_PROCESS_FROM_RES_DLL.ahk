@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\PLOG_EVENT_ROUTINE.ahk" { PLOG_EVENT_ROUTINE }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -30,7 +31,7 @@ export default struct PRESUTIL_TERMINATE_SERVICE_PROCESS_FROM_RES_DLL {
     Call(dwServicePid, bOffline, pdwResourceState, pfnLogEvent, hResourceHandle) {
         pdwResourceStateMarshal := pdwResourceState is VarRef ? "uint*" : "ptr"
 
-        result := DllCall(this.value, UInt32, dwServicePid, BOOL, bOffline, pdwResourceStateMarshal, pdwResourceState, "ptr", pfnLogEvent, IntPtr, hResourceHandle, UInt32)
+        result := DllCall(this.value, UInt32, dwServicePid, BOOL, bOffline, pdwResourceStateMarshal, pdwResourceState, PLOG_EVENT_ROUTINE, pfnLogEvent, IntPtr, hResourceHandle, UInt32)
         return result
     }
 
@@ -41,15 +42,19 @@ export default struct PRESUTIL_TERMINATE_SERVICE_PROCESS_FROM_RES_DLL {
     struct From extends PRESUTIL_TERMINATE_SERVICE_PROCESS_FROM_RES_DLL {
         /**
          * Creates a PRESUTIL_TERMINATE_SERVICE_PROCESS_FROM_RES_DLL pointer that invokes the given AHK function when called.
-         * @param {Func(UInt32, BOOL, "uint*", "ptr", IntPtr) => UInt32} fn the function to invoke.
+         * @param {Func(UInt32, BOOL, "uint*", PLOG_EVENT_ROUTINE, IntPtr) => UInt32} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 5)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 5 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [UInt32, BOOL, "uint*", "ptr", IntPtr, UInt32])
+            this.value := CallbackCreate(fn, , [UInt32, BOOL, "uint*", PLOG_EVENT_ROUTINE, IntPtr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

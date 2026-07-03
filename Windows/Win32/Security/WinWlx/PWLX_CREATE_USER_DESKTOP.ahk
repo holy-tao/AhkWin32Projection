@@ -119,6 +119,10 @@ export default struct PWLX_CREATE_USER_DESKTOP {
             this.value := CallbackCreate(fn, , [HANDLE, HANDLE, UInt32, PWSTR, "ptr*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -79,6 +79,10 @@ export default struct EDITWORDBREAKPROCW {
             this.value := CallbackCreate(fn, , [PWSTR, Int32, Int32, WORD_BREAK_ACTION, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

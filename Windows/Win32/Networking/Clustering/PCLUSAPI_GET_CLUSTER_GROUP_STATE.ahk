@@ -52,6 +52,10 @@ export default struct PCLUSAPI_GET_CLUSTER_GROUP_STATE {
             this.value := CallbackCreate(fn, , [HGROUP, PWSTR, "uint*", CLUSTER_GROUP_STATE])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

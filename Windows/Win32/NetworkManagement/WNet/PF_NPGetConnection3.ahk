@@ -51,6 +51,10 @@ export default struct PF_NPGetConnection3 {
             this.value := CallbackCreate(fn, , [PWSTR, UInt32, IntPtr, "uint*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

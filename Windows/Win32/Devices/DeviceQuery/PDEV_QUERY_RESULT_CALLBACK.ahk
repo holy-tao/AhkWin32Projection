@@ -48,6 +48,10 @@ export default struct PDEV_QUERY_RESULT_CALLBACK {
             this.value := CallbackCreate(fn, , [HDEVQUERY, "ptr", DEV_QUERY_RESULT_ACTION_DATA.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

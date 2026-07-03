@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CMD_ENTRY.ahk" { CMD_ENTRY }
+#Import ".\PNS_OSVERSIONCHECK.ahk" { PNS_OSVERSIONCHECK }
 
 /**
  * Defines a group of helper commands.
@@ -46,6 +47,6 @@ export default struct CMD_GROUP_ENTRY {
      * An operating system version check function. This is the function used to determine whether the command can be run on the operating system running on the local and/or remote context before invoking or displaying commands. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netsh/nc-netsh-ns_osversioncheck">NS_OSVERSIONCHECK</a>.
      */
-    pOsVersionCheck : IntPtr
+    pOsVersionCheck : PNS_OSVERSIONCHECK
 
 }

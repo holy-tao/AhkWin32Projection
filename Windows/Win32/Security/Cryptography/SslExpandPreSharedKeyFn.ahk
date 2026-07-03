@@ -53,6 +53,10 @@ export default struct SslExpandPreSharedKeyFn {
             this.value := CallbackCreate(fn, , [NCRYPT_PROV_HANDLE, NCRYPT_KEY_HANDLE, IntPtr, UInt32, BCryptBufferDesc.Ptr, UInt32, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

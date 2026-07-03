@@ -37,7 +37,7 @@ export default struct PLSA_GET_CREDENTIALS {
         PrimaryKeyLengthMarshal := PrimaryKeyLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, LUID.Ptr, LogonId, UInt32, AuthenticationPackage, _QueryContextMarshal, _QueryContext, BOOLEAN, RetrieveAllCredentials, LSA_STRING.Ptr, PrimaryKeyValue, PrimaryKeyLengthMarshal, PrimaryKeyLength, LSA_STRING.Ptr, Credentials, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -57,6 +57,10 @@ export default struct PLSA_GET_CREDENTIALS {
             this.value := CallbackCreate(fn, , [LUID.Ptr, UInt32, "uint*", BOOLEAN, LSA_STRING.Ptr, "uint*", LSA_STRING.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

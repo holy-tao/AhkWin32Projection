@@ -48,6 +48,10 @@ export default struct JsMemoryAllocationCallback {
             this.value := CallbackCreate(fn, , ["ptr", JsMemoryEventType, IntPtr, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

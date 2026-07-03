@@ -89,6 +89,10 @@ export default struct PFN_CRYPT_SIGN_AND_ENCODE_HASH_FUNC {
             this.value := CallbackCreate(fn, , [NCRYPT_KEY_HANDLE, CERT_QUERY_ENCODING_TYPE, CRYPT_ALGORITHM_IDENTIFIER.Ptr, "ptr", PWSTR, PWSTR, IntPtr, UInt32, IntPtr, "uint*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

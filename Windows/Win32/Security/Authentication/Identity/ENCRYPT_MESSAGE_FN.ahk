@@ -49,6 +49,10 @@ export default struct ENCRYPT_MESSAGE_FN {
             this.value := CallbackCreate(fn, , [SecHandle.Ptr, UInt32, SecBufferDesc.Ptr, UInt32, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

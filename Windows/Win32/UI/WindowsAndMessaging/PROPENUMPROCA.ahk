@@ -77,6 +77,10 @@ export default struct PROPENUMPROCA {
             this.value := CallbackCreate(fn, , [HWND, PSTR, HANDLE, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

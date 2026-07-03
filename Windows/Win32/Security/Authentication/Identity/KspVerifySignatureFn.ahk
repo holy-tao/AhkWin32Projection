@@ -63,7 +63,7 @@ export default struct KspVerifySignatureFn {
         pfQOPMarshal := pfQOP is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, IntPtr, ContextId, SecBufferDesc.Ptr, Message, UInt32, MessageSeqNo, pfQOPMarshal, pfQOP, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -83,6 +83,10 @@ export default struct KspVerifySignatureFn {
             this.value := CallbackCreate(fn, , [IntPtr, SecBufferDesc.Ptr, UInt32, "uint*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

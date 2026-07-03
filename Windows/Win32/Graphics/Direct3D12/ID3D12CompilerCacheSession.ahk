@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12CompilerCacheSessionAllocationFunc.ahk" { D3D12CompilerCacheSessionAllocationFunc }
+#Import ".\D3D12CompilerCacheSessionGroupValueKeysFunc.ahk" { D3D12CompilerCacheSessionGroupValueKeysFunc }
+#Import ".\D3D12CompilerCacheSessionGroupValuesFunc.ahk" { D3D12CompilerCacheSessionGroupValuesFunc }
 #Import ".\D3D12_APPLICATION_DESC.ahk" { D3D12_APPLICATION_DESC }
 #Import ".\D3D12_COMPILER_CACHE_GROUP_KEY.ahk" { D3D12_COMPILER_CACHE_GROUP_KEY }
 #Import ".\D3D12_COMPILER_CACHE_TYPED_CONST_VALUE.ahk" { D3D12_COMPILER_CACHE_TYPED_CONST_VALUE }
@@ -72,7 +75,7 @@ export default struct ID3D12CompilerCacheSession extends ID3D12CompilerFactoryCh
         pExpectedGroupVersionMarshal := pExpectedGroupVersion is VarRef ? "uint*" : "ptr"
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, D3D12_COMPILER_CACHE_GROUP_KEY.Ptr, pGroupKey, pExpectedGroupVersionMarshal, pExpectedGroupVersion, "ptr", CallbackFunc, pContextMarshal, pContext, "HRESULT")
+        result := ComCall(5, this, D3D12_COMPILER_CACHE_GROUP_KEY.Ptr, pGroupKey, pExpectedGroupVersionMarshal, pExpectedGroupVersion, D3D12CompilerCacheSessionGroupValueKeysFunc, CallbackFunc, pContextMarshal, pContext, "HRESULT")
         return result
     }
 
@@ -89,7 +92,7 @@ export default struct ID3D12CompilerCacheSession extends ID3D12CompilerFactoryCh
         pExpectedGroupVersionMarshal := pExpectedGroupVersion is VarRef ? "uint*" : "ptr"
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, D3D12_COMPILER_CACHE_GROUP_KEY.Ptr, pGroupKey, pExpectedGroupVersionMarshal, pExpectedGroupVersion, D3D12_COMPILER_VALUE_TYPE_FLAGS, ValueTypeFlags, "ptr", CallbackFunc, pContextMarshal, pContext, "HRESULT")
+        result := ComCall(6, this, D3D12_COMPILER_CACHE_GROUP_KEY.Ptr, pGroupKey, pExpectedGroupVersionMarshal, pExpectedGroupVersion, D3D12_COMPILER_VALUE_TYPE_FLAGS, ValueTypeFlags, D3D12CompilerCacheSessionGroupValuesFunc, CallbackFunc, pContextMarshal, pContext, "HRESULT")
         return result
     }
 
@@ -105,7 +108,7 @@ export default struct ID3D12CompilerCacheSession extends ID3D12CompilerFactoryCh
     FindValue(pValueKey, pTypedValues, NumTypedValues, pCallbackFunc, pContext) {
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, D3D12_COMPILER_CACHE_VALUE_KEY.Ptr, pValueKey, D3D12_COMPILER_CACHE_TYPED_VALUE.Ptr, pTypedValues, UInt32, NumTypedValues, "ptr", pCallbackFunc, pContextMarshal, pContext, "HRESULT")
+        result := ComCall(7, this, D3D12_COMPILER_CACHE_VALUE_KEY.Ptr, pValueKey, D3D12_COMPILER_CACHE_TYPED_VALUE.Ptr, pTypedValues, UInt32, NumTypedValues, D3D12CompilerCacheSessionAllocationFunc, pCallbackFunc, pContextMarshal, pContext, "HRESULT")
         return result
     }
 

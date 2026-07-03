@@ -7,6 +7,7 @@
 #Import ".\AsnAny.ahk" { AsnAny }
 #Import ".\AsnObjectIdentifier.ahk" { AsnObjectIdentifier }
 #Import ".\AsnOctetString.ahk" { AsnOctetString }
+#Import ".\SNMPAPI_CALLBACK.ahk" { SNMPAPI_CALLBACK }
 #Import ".\SNMP_API_TRANSLATE_MODE.ahk" { SNMP_API_TRANSLATE_MODE }
 #Import ".\SNMP_ERROR.ahk" { SNMP_ERROR }
 #Import ".\SNMP_ERROR_STATUS.ahk" { SNMP_ERROR_STATUS }
@@ -2933,7 +2934,7 @@ export SnmpRegister(session, srcEntity, dstEntity, _context, _notification, stat
 export SnmpCreateSession(_hWnd, wMsg, fCallBack, lpClientData) {
     lpClientDataMarshal := lpClientData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("wsnmp32.dll\SnmpCreateSession", HWND, _hWnd, UInt32, wMsg, "ptr", fCallBack, lpClientDataMarshal, lpClientData, IntPtr)
+    result := DllCall("wsnmp32.dll\SnmpCreateSession", HWND, _hWnd, UInt32, wMsg, SNMPAPI_CALLBACK, fCallBack, lpClientDataMarshal, lpClientData, IntPtr)
     return result
 }
 

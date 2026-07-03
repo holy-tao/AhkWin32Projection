@@ -47,6 +47,10 @@ export default struct PO_FX_COMPONENT_CRITICAL_TRANSITION_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, BOOLEAN, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -53,6 +53,10 @@ export default struct UTextExtract {
             this.value := CallbackCreate(fn, "cdecl", [UText.Ptr, Int64, Int64, "ushort*", Int32, "int*", Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -36,7 +36,7 @@ export default struct PLSA_GET_APP_MODE_INFO {
         ReturnToLsaMarshal := ReturnToLsa is VarRef ? "char*" : "ptr"
 
         result := DllCall(this.value, UserFunctionMarshal, UserFunction, Argument1Marshal, Argument1, Argument2Marshal, Argument2, SecBuffer.Ptr, _UserData, ReturnToLsaMarshal, ReturnToLsa, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -56,6 +56,10 @@ export default struct PLSA_GET_APP_MODE_INFO {
             this.value := CallbackCreate(fn, , ["uint*", "ptr*", "ptr*", SecBuffer.Ptr, BOOLEAN.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

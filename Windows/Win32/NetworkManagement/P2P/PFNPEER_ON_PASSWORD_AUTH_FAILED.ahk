@@ -49,6 +49,10 @@ export default struct PFNPEER_ON_PASSWORD_AUTH_FAILED {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

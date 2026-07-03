@@ -44,7 +44,7 @@ export default struct PIO_QUERY_DEVICE_ROUTINE {
         PeripheralInformationMarshal := PeripheralInformation is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, UNICODE_STRING.Ptr, _PathName, INTERFACE_TYPE, BusType, UInt32, BusNumber, BusInformationMarshal, BusInformation, CONFIGURATION_TYPE, ControllerType, UInt32, ControllerNumber, ControllerInformationMarshal, ControllerInformation, CONFIGURATION_TYPE, PeripheralType, UInt32, PeripheralNumber, PeripheralInformationMarshal, PeripheralInformation, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -64,6 +64,10 @@ export default struct PIO_QUERY_DEVICE_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", UNICODE_STRING.Ptr, INTERFACE_TYPE, UInt32, "ptr*", CONFIGURATION_TYPE, UInt32, "ptr*", CONFIGURATION_TYPE, UInt32, "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -58,6 +58,10 @@ export default struct LPFNEXTDEVIO {
             this.value := CallbackCreate(fn, , [LPARAM, UInt32, UInt32, "ptr", UInt32, "ptr", UInt32, "uint*", OVERLAPPED.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -46,6 +46,10 @@ export default struct PFNGLGETCOLORTABLEPARAMETERFVEXTPROC {
             this.value := CallbackCreate(fn, , [UInt32, UInt32, "float*", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

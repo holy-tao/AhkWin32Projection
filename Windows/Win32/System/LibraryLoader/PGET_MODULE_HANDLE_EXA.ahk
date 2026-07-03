@@ -51,6 +51,10 @@ export default struct PGET_MODULE_HANDLE_EXA {
             this.value := CallbackCreate(fn, , [UInt32, PSTR, HMODULE.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

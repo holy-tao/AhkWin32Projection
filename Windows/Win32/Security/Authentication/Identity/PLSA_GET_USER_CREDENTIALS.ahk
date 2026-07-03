@@ -35,7 +35,7 @@ export default struct PLSA_GET_USER_CREDENTIALS {
         SupplementalCredsSizeMarshal := SupplementalCredsSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, UserHandleMarshal, UserHandle, PrimaryCredsMarshal, PrimaryCreds, PrimaryCredsSizeMarshal, PrimaryCredsSize, SupplementalCredsMarshal, SupplementalCreds, SupplementalCredsSizeMarshal, SupplementalCredsSize, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -55,6 +55,10 @@ export default struct PLSA_GET_USER_CREDENTIALS {
             this.value := CallbackCreate(fn, , ["ptr", "ptr*", "uint*", "ptr*", "uint*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -47,6 +47,10 @@ export default struct PFN_DrvSwapBuffers {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, WNDOBJ.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

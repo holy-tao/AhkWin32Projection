@@ -50,6 +50,10 @@ export default struct PFAXCONNECTFAXSERVERW {
             this.value := CallbackCreate(fn, , [PWSTR, HANDLE.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

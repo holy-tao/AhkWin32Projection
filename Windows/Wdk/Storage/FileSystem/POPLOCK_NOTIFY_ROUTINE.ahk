@@ -26,7 +26,7 @@ export default struct POPLOCK_NOTIFY_ROUTINE {
      */
     Call(NotifyParams) {
         result := DllCall(this.value, OPLOCK_NOTIFY_PARAMS.Ptr, NotifyParams, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -46,6 +46,10 @@ export default struct POPLOCK_NOTIFY_ROUTINE {
             this.value := CallbackCreate(fn, , [OPLOCK_NOTIFY_PARAMS.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

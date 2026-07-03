@@ -54,6 +54,10 @@ export default struct PFN_DrvQueryTrueTypeOutline {
             this.value := CallbackCreate(fn, , [DHPDEV, FONTOBJ.Ptr, UInt32, BOOL, GLYPHDATA.Ptr, UInt32, TTPOLYGONHEADER.Ptr, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -52,6 +52,10 @@ export default struct PFNBLUETOOTH_GATT_EVENT_CALLBACK {
             this.value := CallbackCreate(fn, , [BTH_LE_GATT_EVENT_TYPE, "ptr", "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

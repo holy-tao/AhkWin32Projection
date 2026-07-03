@@ -46,6 +46,10 @@ export default struct PCLUSTER_REG_BATCH_READ_COMMAND {
             this.value := CallbackCreate(fn, , [HREGBATCHNOTIFICATION, CLUSTER_BATCH_COMMAND.Ptr, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

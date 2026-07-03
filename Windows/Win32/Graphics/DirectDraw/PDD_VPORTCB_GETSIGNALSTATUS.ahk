@@ -50,6 +50,10 @@ export default struct PDD_VPORTCB_GETSIGNALSTATUS {
             this.value := CallbackCreate(fn, , [DD_GETVPORTSIGNALDATA.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

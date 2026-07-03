@@ -54,6 +54,10 @@ export default struct ICMENUMPROCA {
             this.value := CallbackCreate(fn, , [PSTR, LPARAM, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
@@ -25,6 +25,7 @@
 #Import ".\FINDPRINTERCHANGENOTIFICATION_HANDLE.ahk" { FINDPRINTERCHANGENOTIFICATION_HANDLE }
 #Import ".\IPrintAsyncNotifyCallback.ahk" { IPrintAsyncNotifyCallback }
 #Import ".\IPrintAsyncNotifyChannel.ahk" { IPrintAsyncNotifyChannel }
+#Import ".\PFNPROPSHEETUI.ahk" { PFNPROPSHEETUI }
 #Import ".\PRINTER_DEFAULTSA.ahk" { PRINTER_DEFAULTSA }
 #Import ".\PRINTER_DEFAULTSW.ahk" { PRINTER_DEFAULTSW }
 #Import ".\PRINTER_HANDLE.ahk" { PRINTER_HANDLE }
@@ -57,7 +58,7 @@
 export CommonPropertySheetUIA(hWndOwner, _pfnPropSheetUI, _lParam, pResult) {
     pResultMarshal := pResult is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("COMPSTUI.dll\CommonPropertySheetUIA", HWND, hWndOwner, "ptr", _pfnPropSheetUI, LPARAM, _lParam, pResultMarshal, pResult, Int32)
+    result := DllCall("COMPSTUI.dll\CommonPropertySheetUIA", HWND, hWndOwner, PFNPROPSHEETUI, _pfnPropSheetUI, LPARAM, _lParam, pResultMarshal, pResult, Int32)
     return result
 }
 
@@ -72,7 +73,7 @@ export CommonPropertySheetUIA(hWndOwner, _pfnPropSheetUI, _lParam, pResult) {
 export CommonPropertySheetUIW(hWndOwner, _pfnPropSheetUI, _lParam, pResult) {
     pResultMarshal := pResult is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("COMPSTUI.dll\CommonPropertySheetUIW", HWND, hWndOwner, "ptr", _pfnPropSheetUI, LPARAM, _lParam, pResultMarshal, pResult, Int32)
+    result := DllCall("COMPSTUI.dll\CommonPropertySheetUIW", HWND, hWndOwner, PFNPROPSHEETUI, _pfnPropSheetUI, LPARAM, _lParam, pResultMarshal, pResult, Int32)
     return result
 }
 

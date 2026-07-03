@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\IStiDeviceControl.ahk" { IStiDeviceControl }
 #Import ".\STINOTIFY.ahk" { STINOTIFY }
 #Import ".\STI_DEVICE_STATUS.ahk" { STI_DEVICE_STATUS }

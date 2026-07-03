@@ -63,6 +63,10 @@ export default struct PREAD_PROCESS_MEMORY_ROUTINE64 {
             this.value := CallbackCreate(fn, , [HANDLE, Int64, IntPtr, UInt32, "uint*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -42,6 +42,10 @@ export default struct LPCALL_BACK_USER_INTERRUPT_ROUTINE {
             this.value := CallbackCreate(fn, , [UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

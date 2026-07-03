@@ -67,6 +67,10 @@ export default struct PFN_CRYPT_XML_DATA_PROVIDER_READ {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr, UInt32, "uint*", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

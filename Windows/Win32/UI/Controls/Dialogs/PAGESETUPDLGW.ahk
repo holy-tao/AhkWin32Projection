@@ -6,6 +6,8 @@
 #Import "..\..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\LPPAGEPAINTHOOK.ahk" { LPPAGEPAINTHOOK }
+#Import ".\LPPAGESETUPHOOK.ahk" { LPPAGESETUPHOOK }
 #Import ".\PAGESETUPDLG_FLAGS.ahk" { PAGESETUPDLG_FLAGS }
 
 /**
@@ -104,14 +106,14 @@ export default struct PAGESETUPDLGW {
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nc-commdlg-lppagesetuphook">PageSetupHook</a> hook procedure that can process messages intended for the dialog box. This member is ignored unless the <b>PSD_ENABLEPAGESETUPHOOK</b> flag is set in the <b>Flags</b> member.
      */
-    lpfnPageSetupHook : IntPtr
+    lpfnPageSetupHook : LPPAGESETUPHOOK
 
     /**
      * Type: <b>LPPAGEPAINTHOOK</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nc-commdlg-lppagepainthook">PagePaintHook</a> hook procedure that receives <b>WM_PSD_*</b> messages from the dialog box whenever the sample page is redrawn. By processing the messages, the hook procedure can customize the appearance of the sample page. This member is ignored unless the <b>PSD_ENABLEPAGEPAINTHOOK</b> flag is set in the <b>Flags</b> member.
      */
-    lpfnPagePaintHook : IntPtr
+    lpfnPagePaintHook : LPPAGEPAINTHOOK
 
     /**
      * Type: <b>LPCTSTR</b>

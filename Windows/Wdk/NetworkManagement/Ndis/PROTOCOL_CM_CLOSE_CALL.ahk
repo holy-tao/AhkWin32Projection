@@ -50,6 +50,10 @@ export default struct PROTOCOL_CM_CLOSE_CALL {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", "ptr", UInt32, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

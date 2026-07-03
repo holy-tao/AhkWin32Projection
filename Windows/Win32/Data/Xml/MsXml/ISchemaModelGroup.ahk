@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ISchemaItemCollection.ahk" { ISchemaItemCollection }
 #Import ".\ISchemaParticle.ahk" { ISchemaParticle }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }

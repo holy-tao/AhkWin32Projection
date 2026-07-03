@@ -49,6 +49,10 @@ export default struct CAPYIELDCALLBACK {
             this.value := CallbackCreate(fn, , [HWND, LRESULT])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

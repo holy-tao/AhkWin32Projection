@@ -48,6 +48,10 @@ export default struct PFN_DrvSetPixelFormat {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, Int32, HWND, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

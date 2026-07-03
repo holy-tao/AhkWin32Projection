@@ -30,7 +30,7 @@ export default struct PLSA_REDIRECTED_LOGON_GET_SUPP_CREDS {
         SupplementalCredentialsMarshal := SupplementalCredentials is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, HANDLE, RedirectedLogonHandle, SupplementalCredentialsMarshal, SupplementalCredentials, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -50,6 +50,10 @@ export default struct PLSA_REDIRECTED_LOGON_GET_SUPP_CREDS {
             this.value := CallbackCreate(fn, , [HANDLE, "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

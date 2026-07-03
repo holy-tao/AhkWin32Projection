@@ -1,6 +1,6 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\ITnef.ahk" { ITnef }
 #Import ".\LINEADDRESSCAPS.ahk" { LINEADDRESSCAPS }
 #Import ".\LINEADDRESSSTATUS.ahk" { LINEADDRESSSTATUS }
@@ -11,6 +11,7 @@
 #Import ".\LINEAGENTSESSIONINFO.ahk" { LINEAGENTSESSIONINFO }
 #Import ".\LINEAGENTSESSIONLIST.ahk" { LINEAGENTSESSIONLIST }
 #Import ".\LINEAGENTSTATUS.ahk" { LINEAGENTSTATUS }
+#Import ".\LINECALLBACK.ahk" { LINECALLBACK }
 #Import ".\LINECALLINFO.ahk" { LINECALLINFO }
 #Import ".\LINECALLLIST.ahk" { LINECALLLIST }
 #Import ".\LINECALLPARAMS.ahk" { LINECALLPARAMS }
@@ -37,6 +38,7 @@
 #Import ".\LINETRANSLATECAPS.ahk" { LINETRANSLATECAPS }
 #Import ".\LINETRANSLATEOUTPUT.ahk" { LINETRANSLATEOUTPUT }
 #Import ".\PHONEBUTTONINFO.ahk" { PHONEBUTTONINFO }
+#Import ".\PHONECALLBACK.ahk" { PHONECALLBACK }
 #Import ".\PHONECAPS.ahk" { PHONECAPS }
 #Import ".\PHONEEXTENSIONID.ahk" { PHONEEXTENSIONID }
 #Import ".\PHONEINITIALIZEEXPARAMS.ahk" { PHONEINITIALIZEEXPARAMS }
@@ -3940,7 +3942,7 @@ export lineInitialize(lphLineApp, _hInstance, lpfnCallback, lpszAppName, lpdwNum
     lphLineAppMarshal := lphLineApp is VarRef ? "uint*" : "ptr"
     lpdwNumDevsMarshal := lpdwNumDevs is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineInitialize", lphLineAppMarshal, lphLineApp, HINSTANCE, _hInstance, "ptr", lpfnCallback, "ptr", lpszAppName, lpdwNumDevsMarshal, lpdwNumDevs, Int32)
+    result := DllCall("TAPI32.dll\lineInitialize", lphLineAppMarshal, lphLineApp, HINSTANCE, _hInstance, LINECALLBACK, lpfnCallback, "ptr", lpszAppName, lpdwNumDevsMarshal, lpdwNumDevs, Int32)
     return result
 }
 
@@ -4025,7 +4027,7 @@ export lineInitializeExA(lphLineApp, _hInstance, lpfnCallback, lpszFriendlyAppNa
     lpdwNumDevsMarshal := lpdwNumDevs is VarRef ? "uint*" : "ptr"
     lpdwAPIVersionMarshal := lpdwAPIVersion is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineInitializeExA", lphLineAppMarshal, lphLineApp, HINSTANCE, _hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, LINEINITIALIZEEXPARAMS.Ptr, lpLineInitializeExParams, Int32)
+    result := DllCall("TAPI32.dll\lineInitializeExA", lphLineAppMarshal, lphLineApp, HINSTANCE, _hInstance, LINECALLBACK, lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, LINEINITIALIZEEXPARAMS.Ptr, lpLineInitializeExParams, Int32)
     return result
 }
 
@@ -4110,7 +4112,7 @@ export lineInitializeExW(lphLineApp, _hInstance, lpfnCallback, lpszFriendlyAppNa
     lpdwNumDevsMarshal := lpdwNumDevs is VarRef ? "uint*" : "ptr"
     lpdwAPIVersionMarshal := lpdwAPIVersion is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineInitializeExW", lphLineAppMarshal, lphLineApp, HINSTANCE, _hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, LINEINITIALIZEEXPARAMS.Ptr, lpLineInitializeExParams, Int32)
+    result := DllCall("TAPI32.dll\lineInitializeExW", lphLineAppMarshal, lphLineApp, HINSTANCE, _hInstance, LINECALLBACK, lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, LINEINITIALIZEEXPARAMS.Ptr, lpLineInitializeExParams, Int32)
     return result
 }
 
@@ -7602,7 +7604,7 @@ export phoneInitialize(lphPhoneApp, _hInstance, lpfnCallback, lpszAppName, lpdwN
     lphPhoneAppMarshal := lphPhoneApp is VarRef ? "uint*" : "ptr"
     lpdwNumDevsMarshal := lpdwNumDevs is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\phoneInitialize", lphPhoneAppMarshal, lphPhoneApp, HINSTANCE, _hInstance, "ptr", lpfnCallback, "ptr", lpszAppName, lpdwNumDevsMarshal, lpdwNumDevs, Int32)
+    result := DllCall("TAPI32.dll\phoneInitialize", lphPhoneAppMarshal, lphPhoneApp, HINSTANCE, _hInstance, PHONECALLBACK, lpfnCallback, "ptr", lpszAppName, lpdwNumDevsMarshal, lpdwNumDevs, Int32)
     return result
 }
 
@@ -7685,7 +7687,7 @@ export phoneInitializeExA(lphPhoneApp, _hInstance, lpfnCallback, lpszFriendlyApp
     lpdwNumDevsMarshal := lpdwNumDevs is VarRef ? "uint*" : "ptr"
     lpdwAPIVersionMarshal := lpdwAPIVersion is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\phoneInitializeExA", lphPhoneAppMarshal, lphPhoneApp, HINSTANCE, _hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, PHONEINITIALIZEEXPARAMS.Ptr, lpPhoneInitializeExParams, Int32)
+    result := DllCall("TAPI32.dll\phoneInitializeExA", lphPhoneAppMarshal, lphPhoneApp, HINSTANCE, _hInstance, PHONECALLBACK, lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, PHONEINITIALIZEEXPARAMS.Ptr, lpPhoneInitializeExParams, Int32)
     return result
 }
 
@@ -7768,7 +7770,7 @@ export phoneInitializeExW(lphPhoneApp, _hInstance, lpfnCallback, lpszFriendlyApp
     lpdwNumDevsMarshal := lpdwNumDevs is VarRef ? "uint*" : "ptr"
     lpdwAPIVersionMarshal := lpdwAPIVersion is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\phoneInitializeExW", lphPhoneAppMarshal, lphPhoneApp, HINSTANCE, _hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, PHONEINITIALIZEEXPARAMS.Ptr, lpPhoneInitializeExParams, Int32)
+    result := DllCall("TAPI32.dll\phoneInitializeExW", lphPhoneAppMarshal, lphPhoneApp, HINSTANCE, _hInstance, PHONECALLBACK, lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, PHONEINITIALIZEEXPARAMS.Ptr, lpPhoneInitializeExParams, Int32)
     return result
 }
 

@@ -63,6 +63,10 @@ export default struct SNMPAPI_CALLBACK {
             this.value := CallbackCreate(fn, , [IntPtr, HWND, UInt32, WPARAM, LPARAM, "ptr", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -50,6 +50,10 @@ export default struct PFAXSETJOBA {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, UInt32, FAX_JOB_ENTRYA.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

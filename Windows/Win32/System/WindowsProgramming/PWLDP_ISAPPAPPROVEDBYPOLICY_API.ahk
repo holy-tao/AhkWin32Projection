@@ -48,6 +48,10 @@ export default struct PWLDP_ISAPPAPPROVEDBYPOLICY_API {
             this.value := CallbackCreate(fn, , [PWSTR, Int64, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

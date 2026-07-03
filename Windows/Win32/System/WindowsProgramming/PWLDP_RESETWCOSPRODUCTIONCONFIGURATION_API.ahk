@@ -43,6 +43,10 @@ export default struct PWLDP_RESETWCOSPRODUCTIONCONFIGURATION_API {
             this.value := CallbackCreate(fn, , ["int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

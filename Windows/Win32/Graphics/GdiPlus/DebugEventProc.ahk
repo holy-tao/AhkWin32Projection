@@ -47,6 +47,10 @@ export default struct DebugEventProc {
             this.value := CallbackCreate(fn, , [DebugEventLevel, PSTR, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

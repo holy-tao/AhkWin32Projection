@@ -51,6 +51,10 @@ export default struct PCLUSAPI_CREATE_CLUSTER_AVAILABILITY_SET {
             this.value := CallbackCreate(fn, , [HCLUSTER, PWSTR, CLUSTER_AVAILABILITY_SET_CONFIG.Ptr, HGROUPSET])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -3,6 +3,8 @@
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Authorization\UI\ISecurityInformation.ahk" { ISecurityInformation }
+#Import ".\PFNREADOBJECTSECURITY.ahk" { PFNREADOBJECTSECURITY }
+#Import ".\PFNWRITEOBJECTSECURITY.ahk" { PFNWRITEOBJECTSECURITY }
 
 /**
  * @namespace Windows.Win32.Security.DirectoryServices
@@ -41,7 +43,7 @@ export default struct PFNDSCREATEISECINFOEX {
         param3 := param3 is String ? StrPtr(param3) : param3
         param4 := param4 is String ? StrPtr(param4) : param4
 
-        result := DllCall(this.value, "ptr", param0, "ptr", param1, "ptr", param2, "ptr", param3, "ptr", param4, UInt32, param5, "ptr*", &param6 := 0, "ptr", param7, "ptr", param8, LPARAM, param9, "HRESULT")
+        result := DllCall(this.value, "ptr", param0, "ptr", param1, "ptr", param2, "ptr", param3, "ptr", param4, UInt32, param5, "ptr*", &param6 := 0, PFNREADOBJECTSECURITY, param7, PFNWRITEOBJECTSECURITY, param8, LPARAM, param9, "HRESULT")
         return ISecurityInformation(param6)
     }
 
@@ -52,15 +54,19 @@ export default struct PFNDSCREATEISECINFOEX {
     struct From extends PFNDSCREATEISECINFOEX {
         /**
          * Creates a PFNDSCREATEISECINFOEX pointer that invokes the given AHK function when called.
-         * @param {Func(PWSTR, PWSTR, PWSTR, PWSTR, PWSTR, UInt32, "ptr", "ptr", LPARAM) => "int"} fn the function to invoke.
+         * @param {Func(PWSTR, PWSTR, PWSTR, PWSTR, PWSTR, UInt32, PFNREADOBJECTSECURITY, PFNWRITEOBJECTSECURITY, LPARAM) => "int"} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 9)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 9 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [PWSTR, PWSTR, PWSTR, PWSTR, PWSTR, UInt32, "ptr", "ptr", LPARAM, "int"])
+            this.value := CallbackCreate(fn, , [PWSTR, PWSTR, PWSTR, PWSTR, PWSTR, UInt32, PFNREADOBJECTSECURITY, PFNWRITEOBJECTSECURITY, LPARAM, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

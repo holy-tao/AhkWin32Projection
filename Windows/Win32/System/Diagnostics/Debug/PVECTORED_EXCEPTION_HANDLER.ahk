@@ -49,6 +49,10 @@ export default struct PVECTORED_EXCEPTION_HANDLER {
             this.value := CallbackCreate(fn, , [EXCEPTION_POINTERS.Ptr, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

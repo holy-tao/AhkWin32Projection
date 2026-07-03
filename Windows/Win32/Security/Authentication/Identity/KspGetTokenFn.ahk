@@ -30,7 +30,7 @@ export default struct KspGetTokenFn {
         RawTokenMarshal := RawToken is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, IntPtr, ContextId, HANDLE.Ptr, ImpersonationToken, RawTokenMarshal, RawToken, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -50,6 +50,10 @@ export default struct KspGetTokenFn {
             this.value := CallbackCreate(fn, , [IntPtr, HANDLE.Ptr, "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

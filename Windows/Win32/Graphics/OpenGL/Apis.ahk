@@ -2,6 +2,7 @@
 
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\PROC.ahk" { PROC }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Gdi\HDC.ahk" { HDC }
@@ -420,7 +421,7 @@ export wglGetProcAddress(param0) {
 
     A_LastError := 0
 
-    result := DllCall("OPENGL32.dll\wglGetProcAddress", "ptr", param0, IntPtr)
+    result := DllCall("OPENGL32.dll\wglGetProcAddress", "ptr", param0, PROC)
     if(A_LastError) {
         throw OSError(A_LastError)
     }

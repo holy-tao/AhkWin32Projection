@@ -51,6 +51,10 @@ export default struct FNCERTSRVISSERVERONLINEW {
             this.value := CallbackCreate(fn, , [PWSTR, BOOL.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

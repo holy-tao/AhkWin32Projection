@@ -82,6 +82,10 @@ export default struct PSECURE_MEMORY_CACHE_CALLBACK {
             this.value := CallbackCreate(fn, , [IntPtr, IntPtr, BOOLEAN])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

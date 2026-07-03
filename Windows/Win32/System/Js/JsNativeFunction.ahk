@@ -51,6 +51,10 @@ export default struct JsNativeFunction {
             this.value := CallbackCreate(fn, , ["ptr", Int32, "ptr*", UInt16, "ptr", "ptr"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

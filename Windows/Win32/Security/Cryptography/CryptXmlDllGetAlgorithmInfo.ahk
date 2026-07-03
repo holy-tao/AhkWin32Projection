@@ -50,6 +50,10 @@ export default struct CryptXmlDllGetAlgorithmInfo {
             this.value := CallbackCreate(fn, , [CRYPT_XML_ALGORITHM.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

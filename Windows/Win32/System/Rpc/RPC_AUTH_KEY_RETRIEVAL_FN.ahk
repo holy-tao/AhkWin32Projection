@@ -60,6 +60,10 @@ export default struct RPC_AUTH_KEY_RETRIEVAL_FN {
             this.value := CallbackCreate(fn, , ["ptr", PWSTR, UInt32, "ptr*", "int*", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

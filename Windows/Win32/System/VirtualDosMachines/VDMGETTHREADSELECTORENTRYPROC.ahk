@@ -50,6 +50,10 @@ export default struct VDMGETTHREADSELECTORENTRYPROC {
             this.value := CallbackCreate(fn, , [HANDLE, HANDLE, UInt32, VDMLDT_ENTRY.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

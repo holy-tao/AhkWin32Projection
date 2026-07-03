@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
 #Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
@@ -49,6 +49,10 @@ export default struct LPFNLRESULTFROMOBJECT {
             this.value := CallbackCreate(fn, , [Guid.Ptr, WPARAM, "ptr", LRESULT])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -55,6 +55,10 @@ export default struct PFN_CERT_IS_WEAK_HASH {
             this.value := CallbackCreate(fn, , [UInt32, PWSTR, UInt32, CERT_CHAIN_CONTEXT.Ptr, FILETIME.Ptr, PWSTR, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

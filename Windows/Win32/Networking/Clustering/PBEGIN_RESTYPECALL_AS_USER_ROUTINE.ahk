@@ -62,6 +62,10 @@ export default struct PBEGIN_RESTYPECALL_AS_USER_ROUTINE {
             this.value := CallbackCreate(fn, , [PWSTR, HANDLE, UInt32, "ptr", UInt32, "ptr", UInt32, "uint*", Int64, BOOL.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

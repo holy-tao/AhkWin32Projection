@@ -52,6 +52,10 @@ export default struct FAST_IO_QUERY_BASIC_INFO {
             this.value := CallbackCreate(fn, , [FILE_OBJECT.Ptr, BOOLEAN, FILE_BASIC_INFORMATION.Ptr, IO_STATUS_BLOCK.Ptr, DEVICE_OBJECT.Ptr, BOOLEAN])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

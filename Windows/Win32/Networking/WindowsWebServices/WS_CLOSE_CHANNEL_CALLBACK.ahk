@@ -208,6 +208,10 @@ export default struct WS_CLOSE_CHANNEL_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", WS_ASYNC_CONTEXT.Ptr, WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

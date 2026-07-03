@@ -48,6 +48,10 @@ export default struct UCharIteratorSetState {
             this.value := CallbackCreate(fn, "cdecl", [UCharIterator.Ptr, UInt32, "int*", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

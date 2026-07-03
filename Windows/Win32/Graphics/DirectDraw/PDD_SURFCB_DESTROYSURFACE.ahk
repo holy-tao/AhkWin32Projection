@@ -54,6 +54,10 @@ export default struct PDD_SURFCB_DESTROYSURFACE {
             this.value := CallbackCreate(fn, , [DD_DESTROYSURFACEDATA.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

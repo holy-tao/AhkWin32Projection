@@ -43,6 +43,10 @@ export default struct PFN_NCRYPT_ALLOC {
             this.value := CallbackCreate(fn, , [IntPtr, "ptr"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

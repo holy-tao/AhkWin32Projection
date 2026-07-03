@@ -51,6 +51,10 @@ export default struct PRESUTIL_GET_RESOURCE_NAME {
             this.value := CallbackCreate(fn, , [HRESOURCE, PWSTR, "uint*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

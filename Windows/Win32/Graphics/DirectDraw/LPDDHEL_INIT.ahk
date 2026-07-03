@@ -46,6 +46,10 @@ export default struct LPDDHEL_INIT {
             this.value := CallbackCreate(fn, , [DDRAWI_DIRECTDRAW_GBL.Ptr, BOOL, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

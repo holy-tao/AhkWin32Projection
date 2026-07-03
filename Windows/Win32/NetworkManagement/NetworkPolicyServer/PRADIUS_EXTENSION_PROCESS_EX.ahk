@@ -76,6 +76,10 @@ export default struct PRADIUS_EXTENSION_PROCESS_EX {
             this.value := CallbackCreate(fn, , [RADIUS_ATTRIBUTE.Ptr, "ptr*", "int*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

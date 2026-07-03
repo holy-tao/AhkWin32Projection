@@ -82,6 +82,10 @@ export default struct WS_READ_TYPE_CALLBACK {
             this.value := CallbackCreate(fn, , [WS_XML_READER.Ptr, WS_TYPE_MAPPING, "ptr", WS_HEAP.Ptr, IntPtr, UInt32, WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

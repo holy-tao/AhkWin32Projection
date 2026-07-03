@@ -48,6 +48,10 @@ export default struct PDD_MOCOMPCB_DESTROY {
             this.value := CallbackCreate(fn, , [DD_DESTROYMOCOMPDATA.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

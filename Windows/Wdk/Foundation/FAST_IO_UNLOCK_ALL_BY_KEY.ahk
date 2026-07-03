@@ -53,6 +53,10 @@ export default struct FAST_IO_UNLOCK_ALL_BY_KEY {
             this.value := CallbackCreate(fn, , [FILE_OBJECT.Ptr, "ptr", UInt32, IO_STATUS_BLOCK.Ptr, DEVICE_OBJECT.Ptr, BOOLEAN])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

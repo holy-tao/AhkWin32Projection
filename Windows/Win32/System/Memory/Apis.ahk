@@ -2,6 +2,7 @@
 
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\FARPROC.ahk" { FARPROC }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
 #Import "..\..\Foundation\HLOCAL.ahk" { HLOCAL }
@@ -20,7 +21,9 @@
 #Import ".\MEM_EXTENDED_PARAMETER.ahk" { MEM_EXTENDED_PARAMETER }
 #Import ".\OFFER_PRIORITY.ahk" { OFFER_PRIORITY }
 #Import ".\PAGE_PROTECTION_FLAGS.ahk" { PAGE_PROTECTION_FLAGS }
+#Import ".\PBAD_MEMORY_CALLBACK_ROUTINE.ahk" { PBAD_MEMORY_CALLBACK_ROUTINE }
 #Import ".\PROCESS_HEAP_ENTRY.ahk" { PROCESS_HEAP_ENTRY }
+#Import ".\PSECURE_MEMORY_CACHE_CALLBACK.ahk" { PSECURE_MEMORY_CACHE_CALLBACK }
 #Import ".\SETPROCESSWORKINGSETSIZEEX_FLAGS.ahk" { SETPROCESSWORKINGSETSIZEEX_FLAGS }
 #Import ".\UNMAP_VIEW_OF_FILE_FLAGS.ahk" { UNMAP_VIEW_OF_FILE_FLAGS }
 #Import ".\VIRTUAL_ALLOCATION_TYPE.ahk" { VIRTUAL_ALLOCATION_TYPE }
@@ -3682,7 +3685,7 @@ export GetMemoryErrorHandlingCapabilities(Capabilities) {
  * @since windows8.0
  */
 export RegisterBadMemoryNotification(Callback) {
-    result := DllCall("KERNEL32.dll\RegisterBadMemoryNotification", "ptr", Callback, IntPtr)
+    result := DllCall("KERNEL32.dll\RegisterBadMemoryNotification", PBAD_MEMORY_CALLBACK_ROUTINE, Callback, IntPtr)
     return result
 }
 
@@ -6231,7 +6234,7 @@ export IsBadWritePtr(lp, ucb) {
 export IsBadCodePtr(lpfn) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\IsBadCodePtr", "ptr", lpfn, BOOL)
+    result := DllCall("KERNEL32.dll\IsBadCodePtr", FARPROC, lpfn, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6413,7 +6416,7 @@ export MapUserPhysicalPagesScatter(VirtualAddresses, NumberOfPages, PageArray) {
 export AddSecureMemoryCacheCallback(_pfnCallBack) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\AddSecureMemoryCacheCallback", "ptr", _pfnCallBack, BOOL)
+    result := DllCall("KERNEL32.dll\AddSecureMemoryCacheCallback", PSECURE_MEMORY_CACHE_CALLBACK, _pfnCallBack, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6433,7 +6436,7 @@ export AddSecureMemoryCacheCallback(_pfnCallBack) {
  * @since windows6.0.6000
  */
 export RemoveSecureMemoryCacheCallback(_pfnCallBack) {
-    result := DllCall("KERNEL32.dll\RemoveSecureMemoryCacheCallback", "ptr", _pfnCallBack, BOOL)
+    result := DllCall("KERNEL32.dll\RemoveSecureMemoryCacheCallback", PSECURE_MEMORY_CACHE_CALLBACK, _pfnCallBack, BOOL)
     return result
 }
 

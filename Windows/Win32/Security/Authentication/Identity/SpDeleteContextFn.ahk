@@ -25,7 +25,7 @@ export default struct SpDeleteContextFn {
      */
     Call(ContextHandle) {
         result := DllCall(this.value, IntPtr, ContextHandle, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -45,6 +45,10 @@ export default struct SpDeleteContextFn {
             this.value := CallbackCreate(fn, , [IntPtr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -41,6 +41,10 @@ export default struct PPCI_ROOT_BUS_CAPABILITY {
             this.value := CallbackCreate(fn, , [IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

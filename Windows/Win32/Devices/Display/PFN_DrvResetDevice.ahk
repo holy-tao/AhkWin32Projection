@@ -47,6 +47,10 @@ export default struct PFN_DrvResetDevice {
             this.value := CallbackCreate(fn, , [DHPDEV, "ptr", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

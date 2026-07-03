@@ -26,7 +26,7 @@ export default struct PFND3DKMT_SETSTEREOENABLED {
      */
     Call(param0) {
         result := DllCall(this.value, BOOL, param0, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -46,6 +46,10 @@ export default struct PFND3DKMT_SETSTEREOENABLED {
             this.value := CallbackCreate(fn, , [BOOL, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

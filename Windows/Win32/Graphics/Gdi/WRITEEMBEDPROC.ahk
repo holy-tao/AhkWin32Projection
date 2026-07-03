@@ -48,6 +48,10 @@ export default struct WRITEEMBEDPROC {
             this.value := CallbackCreate(fn, "cdecl", ["ptr", "ptr", UInt32, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

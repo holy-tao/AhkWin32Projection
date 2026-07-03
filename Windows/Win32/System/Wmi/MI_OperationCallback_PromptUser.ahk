@@ -51,6 +51,10 @@ export default struct MI_OperationCallback_PromptUser {
             this.value := CallbackCreate(fn, , [MI_Operation.Ptr, "ptr", "ushort*", MI_PromptType, IntPtr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

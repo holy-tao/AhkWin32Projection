@@ -70,6 +70,10 @@ export default struct PSYMBOL_FUNCENTRY_CALLBACK {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, "ptr", "ptr"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

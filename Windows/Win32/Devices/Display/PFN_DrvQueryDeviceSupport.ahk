@@ -57,6 +57,10 @@ export default struct PFN_DrvQueryDeviceSupport {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, XLATEOBJ.Ptr, XFORMOBJ.Ptr, UInt32, UInt32, "ptr", UInt32, "ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

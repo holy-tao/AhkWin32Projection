@@ -46,6 +46,10 @@ export default struct NTFS_DEREF_EXPORTED_SECURITY_DESCRIPTOR {
             this.value := CallbackCreate(fn, , ["ptr", PSECURITY_DESCRIPTOR, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

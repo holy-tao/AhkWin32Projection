@@ -26,7 +26,7 @@ export default struct pHalMirrorVerify {
      */
     Call(PhysicalAddress, NumberOfBytes) {
         result := DllCall(this.value, Int64, PhysicalAddress, Int64, NumberOfBytes, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -46,6 +46,10 @@ export default struct pHalMirrorVerify {
             this.value := CallbackCreate(fn, , [Int64, Int64, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

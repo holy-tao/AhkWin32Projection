@@ -47,6 +47,10 @@ export default struct pCryptSIPVerifyIndirectData {
             this.value := CallbackCreate(fn, , [SIP_SUBJECTINFO.Ptr, SIP_INDIRECT_DATA.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

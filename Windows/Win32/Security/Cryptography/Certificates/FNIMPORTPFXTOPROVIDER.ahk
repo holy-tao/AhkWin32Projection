@@ -69,6 +69,10 @@ export default struct FNIMPORTPFXTOPROVIDER {
             this.value := CallbackCreate(fn, , [HWND, IntPtr, UInt32, ImportPFXFlags, PWSTR, PWSTR, PWSTR, PWSTR, PWSTR, PWSTR, "uint*", "ptr*", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

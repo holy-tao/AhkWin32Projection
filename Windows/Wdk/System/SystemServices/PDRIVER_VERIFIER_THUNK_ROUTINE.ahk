@@ -45,6 +45,10 @@ export default struct PDRIVER_VERIFIER_THUNK_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

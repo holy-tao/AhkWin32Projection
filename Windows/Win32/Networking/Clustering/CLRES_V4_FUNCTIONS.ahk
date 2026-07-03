@@ -1,4 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PARBITRATE_ROUTINE.ahk" { PARBITRATE_ROUTINE }
+#Import ".\PBEGIN_RESCALL_AS_USER_ROUTINE.ahk" { PBEGIN_RESCALL_AS_USER_ROUTINE }
+#Import ".\PBEGIN_RESCALL_ROUTINE.ahk" { PBEGIN_RESCALL_ROUTINE }
+#Import ".\PBEGIN_RESTYPECALL_AS_USER_ROUTINE.ahk" { PBEGIN_RESTYPECALL_AS_USER_ROUTINE }
+#Import ".\PBEGIN_RESTYPECALL_ROUTINE.ahk" { PBEGIN_RESTYPECALL_ROUTINE }
+#Import ".\PCANCEL_ROUTINE.ahk" { PCANCEL_ROUTINE }
+#Import ".\PCLOSE_ROUTINE.ahk" { PCLOSE_ROUTINE }
+#Import ".\PIS_ALIVE_ROUTINE.ahk" { PIS_ALIVE_ROUTINE }
+#Import ".\PLOOKS_ALIVE_ROUTINE.ahk" { PLOOKS_ALIVE_ROUTINE }
+#Import ".\POFFLINE_V2_ROUTINE.ahk" { POFFLINE_V2_ROUTINE }
+#Import ".\PONLINE_V2_ROUTINE.ahk" { PONLINE_V2_ROUTINE }
+#Import ".\POPEN_V2_ROUTINE.ahk" { POPEN_V2_ROUTINE }
+#Import ".\PRELEASE_ROUTINE.ahk" { PRELEASE_ROUTINE }
+#Import ".\PTERMINATE_ROUTINE.ahk" { PTERMINATE_ROUTINE }
 
 /**
  * Contains pointers to all Resource API version 4.0 entry points, except StartupEx.
@@ -11,73 +25,73 @@ export default struct CLRES_V4_FUNCTIONS {
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-popen_v2_routine">OpenV2</a> entry point.
      */
-    Open : IntPtr
+    Open : POPEN_V2_ROUTINE
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pclose_routine">Close</a> entry point.
      */
-    Close : IntPtr
+    Close : PCLOSE_ROUTINE
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-ponline_v2_routine">OnlineV2</a> entry point.
      */
-    Online : IntPtr
+    Online : PONLINE_V2_ROUTINE
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-poffline_v2_routine">OfflineV2</a> entry point.
      */
-    Offline : IntPtr
+    Offline : POFFLINE_V2_ROUTINE
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pterminate_routine">Terminate</a> entry point.
      */
-    Terminate : IntPtr
+    Terminate : PTERMINATE_ROUTINE
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-plooks_alive_routine">LooksAlive</a> entry point.
      */
-    LooksAlive : IntPtr
+    LooksAlive : PLOOKS_ALIVE_ROUTINE
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pis_alive_routine">IsAlive</a> entry point.
      */
-    IsAlive : IntPtr
+    IsAlive : PIS_ALIVE_ROUTINE
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-parbitrate_routine">Arbitrate</a> entry point.
      */
-    Arbitrate : IntPtr
+    Arbitrate : PARBITRATE_ROUTINE
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-prelease_routine">Release</a> entry point.
      */
-    Release : IntPtr
+    Release : PRELEASE_ROUTINE
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pbegin_rescall_routine">BeginResourceControl</a> entry 
      *       point.
      */
-    BeginResourceControl : IntPtr
+    BeginResourceControl : PBEGIN_RESCALL_ROUTINE
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pbegin_restypecall_routine">BeginResourceTypeControl</a> entry 
      *       point.
      */
-    BeginResourceTypeControl : IntPtr
+    BeginResourceTypeControl : PBEGIN_RESTYPECALL_ROUTINE
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pcancel_routine">Cancel</a> entry point.
      */
-    Cancel : IntPtr
+    Cancel : PCANCEL_ROUTINE
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pbegin_rescall_as_user_routine">BeginResourceControlAsUser</a> entry point.
      */
-    BeginResourceControlAsUser : IntPtr
+    BeginResourceControlAsUser : PBEGIN_RESCALL_AS_USER_ROUTINE
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pbegin_restypecall_as_user_routine">BeginResourceTypeControlAsUser</a> entry point.
      */
-    BeginResourceTypeControlAsUser : IntPtr
+    BeginResourceTypeControlAsUser : PBEGIN_RESTYPECALL_AS_USER_ROUTINE
 
 }

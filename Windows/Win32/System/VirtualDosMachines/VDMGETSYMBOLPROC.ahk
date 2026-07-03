@@ -56,6 +56,10 @@ export default struct VDMGETSYMBOLPROC {
             this.value := CallbackCreate(fn, , [PSTR, UInt16, UInt32, BOOL, BOOL, PSTR, "uint*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\FW_DYNAMIC_KEYWORD_ADDRESS0.ahk" { FW_DYNAMIC_KEYWORD_ADDRESS0 }
 #Import ".\FW_DYNAMIC_KEYWORD_ORIGIN_TYPE.ahk" { FW_DYNAMIC_KEYWORD_ORIGIN_TYPE }

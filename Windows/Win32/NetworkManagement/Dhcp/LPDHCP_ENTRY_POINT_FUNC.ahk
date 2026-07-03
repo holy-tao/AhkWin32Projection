@@ -67,6 +67,10 @@ export default struct LPDHCP_ENTRY_POINT_FUNC {
             this.value := CallbackCreate(fn, , [PWSTR, UInt32, DHCP_CALLOUT_TABLE.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

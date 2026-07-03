@@ -59,6 +59,10 @@ export default struct FNCERTSRVRESTOREREGISTERW {
             this.value := CallbackCreate(fn, , ["ptr", PWSTR, PWSTR, CSEDB_RSTMAPW.Ptr, Int32, PWSTR, UInt32, UInt32, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -48,6 +48,10 @@ export default struct pfn_ADDEREXCLUDEDAPPLICATIONA {
             this.value := CallbackCreate(fn, , [PSTR, EFaultRepRetVal])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

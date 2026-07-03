@@ -45,6 +45,10 @@ export default struct I_RpcProxyUpdatePerfCounterBackendServerFn {
             this.value := CallbackCreate(fn, , ["ushort*", Int32, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

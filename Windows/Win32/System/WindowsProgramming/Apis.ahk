@@ -1,6 +1,6 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
@@ -40,8 +40,10 @@
 #Import ".\IMEPROW.ahk" { IMEPROW }
 #Import ".\PERUSERSECTIONA.ahk" { PERUSERSECTIONA }
 #Import ".\PERUSERSECTIONW.ahk" { PERUSERSECTIONW }
+#Import ".\PFEATURE_STATE_CHANGE_CALLBACK.ahk" { PFEATURE_STATE_CHANGE_CALLBACK }
 #Import ".\STRTABLEA.ahk" { STRTABLEA }
 #Import ".\STRTABLEW.ahk" { STRTABLEW }
+#Import ".\WINWATCHNOTIFYPROC.ahk" { WINWATCHNOTIFYPROC }
 #Import ".\WLDP_DEVICE_SECURITY_INFORMATION.ahk" { WLDP_DEVICE_SECURITY_INFORMATION }
 #Import ".\WLDP_EXECUTION_EVALUATION_OPTIONS.ahk" { WLDP_EXECUTION_EVALUATION_OPTIONS }
 #Import ".\WLDP_EXECUTION_POLICY.ahk" { WLDP_EXECUTION_POLICY }
@@ -4099,7 +4101,7 @@ export RtlLocalTimeToSystemTime(LocalTime, _SystemTime) {
     _SystemTimeMarshal := _SystemTime is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntdll.dll\RtlLocalTimeToSystemTime", LocalTimeMarshal, LocalTime, _SystemTimeMarshal, _SystemTime, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -4211,7 +4213,7 @@ export RtlInitStringEx(DestinationString, SourceString) {
     SourceStringMarshal := SourceString is VarRef ? "char*" : "ptr"
 
     result := DllCall("ntdll.dll\RtlInitStringEx", STRING.Ptr, DestinationString, SourceStringMarshal, SourceString, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -4237,7 +4239,7 @@ export RtlInitAnsiStringEx(DestinationString, SourceString) {
     SourceStringMarshal := SourceString is VarRef ? "char*" : "ptr"
 
     result := DllCall("ntdll.dll\RtlInitAnsiStringEx", STRING.Ptr, DestinationString, SourceStringMarshal, SourceString, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -4294,7 +4296,7 @@ export RtlInitUnicodeString(DestinationString, SourceString) {
  */
 export RtlAnsiStringToUnicodeString(DestinationString, SourceString, AllocateDestinationString) {
     result := DllCall("ntdll.dll\RtlAnsiStringToUnicodeString", UNICODE_STRING.Ptr, DestinationString, STRING.Ptr, SourceString, BOOLEAN, AllocateDestinationString, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -4333,7 +4335,7 @@ export RtlAnsiStringToUnicodeString(DestinationString, SourceString, AllocateDes
  */
 export RtlUnicodeStringToAnsiString(DestinationString, SourceString, AllocateDestinationString) {
     result := DllCall("ntdll.dll\RtlUnicodeStringToAnsiString", STRING.Ptr, DestinationString, UNICODE_STRING.Ptr, SourceString, BOOLEAN, AllocateDestinationString, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -4370,7 +4372,7 @@ export RtlUnicodeStringToAnsiString(DestinationString, SourceString, AllocateDes
  */
 export RtlUnicodeStringToOemString(DestinationString, SourceString, AllocateDestinationString) {
     result := DllCall("ntdll.dll\RtlUnicodeStringToOemString", STRING.Ptr, DestinationString, UNICODE_STRING.Ptr, SourceString, BOOLEAN, AllocateDestinationString, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -4406,7 +4408,7 @@ export RtlUnicodeToMultiByteSize(BytesInMultiByteString, UnicodeString, BytesInU
     BytesInMultiByteStringMarshal := BytesInMultiByteString is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntdll.dll\RtlUnicodeToMultiByteSize", BytesInMultiByteStringMarshal, BytesInMultiByteString, IntPtr, UnicodeString, UInt32, BytesInUnicodeString, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -4430,7 +4432,7 @@ export RtlCharToInteger(_String, Base, Value) {
     ValueMarshal := Value is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntdll.dll\RtlCharToInteger", _StringMarshal, _String, UInt32, Base, ValueMarshal, Value, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -4498,7 +4500,7 @@ export RecordFeatureError(featureId, _error) {
 export SubscribeFeatureStateChangeNotification(subscription, callback, _context) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\SubscribeFeatureStateChangeNotification", FEATURE_STATE_CHANGE_SUBSCRIPTION.Ptr, subscription, "ptr", callback, _contextMarshal, _context)
+    DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\SubscribeFeatureStateChangeNotification", FEATURE_STATE_CHANGE_SUBSCRIPTION.Ptr, subscription, PFEATURE_STATE_CHANGE_CALLBACK, callback, _contextMarshal, _context)
 }
 
 /**
@@ -4705,7 +4707,7 @@ export GetDCRegionData(_hdc, _size, prd) {
  * @returns {BOOL} 
  */
 export WinWatchNotify(hWW, NotifyCallback, NotifyParam) {
-    result := DllCall("DCIMAN32.dll\WinWatchNotify", HWINWATCH, hWW, "ptr", NotifyCallback, LPARAM, NotifyParam, BOOL)
+    result := DllCall("DCIMAN32.dll\WinWatchNotify", HWINWATCH, hWW, WINWATCHNOTIFYPROC, NotifyCallback, LPARAM, NotifyParam, BOOL)
     return result
 }
 

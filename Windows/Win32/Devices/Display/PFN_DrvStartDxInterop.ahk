@@ -49,6 +49,10 @@ export default struct PFN_DrvStartDxInterop {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, BOOL, "ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

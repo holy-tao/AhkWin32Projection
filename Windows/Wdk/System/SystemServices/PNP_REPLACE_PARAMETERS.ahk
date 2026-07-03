@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\PNP_REPLACE_MEMORY_LIST.ahk" { PNP_REPLACE_MEMORY_LIST }
 #Import ".\PNP_REPLACE_PROCESSOR_LIST.ahk" { PNP_REPLACE_PROCESSOR_LIST }
+#Import ".\PREPLACE_MAP_MEMORY.ahk" { PREPLACE_MAP_MEMORY }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -24,6 +25,6 @@ export default struct PNP_REPLACE_PARAMETERS {
 
     SpareMemory : PNP_REPLACE_MEMORY_LIST.Ptr
 
-    MapMemory : IntPtr
+    MapMemory : PREPLACE_MAP_MEMORY
 
 }

@@ -52,6 +52,10 @@ export default struct FAST_IO_MDL_WRITE_COMPLETE {
             this.value := CallbackCreate(fn, , [FILE_OBJECT.Ptr, "int64*", MDL.Ptr, DEVICE_OBJECT.Ptr, BOOLEAN])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

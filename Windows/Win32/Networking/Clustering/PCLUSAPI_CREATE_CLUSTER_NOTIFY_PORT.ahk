@@ -48,6 +48,10 @@ export default struct PCLUSAPI_CREATE_CLUSTER_NOTIFY_PORT {
             this.value := CallbackCreate(fn, , [HCHANGE, HCLUSTER, UInt32, IntPtr, HCHANGE])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

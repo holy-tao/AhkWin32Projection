@@ -33,7 +33,7 @@ export default struct PLSA_AP_INITIALIZE_PACKAGE {
         AuthenticationPackageNameMarshal := AuthenticationPackageName is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, UInt32, AuthenticationPackageId, LSA_DISPATCH_TABLE.Ptr, LsaDispatchTable, LSA_STRING.Ptr, Database, LSA_STRING.Ptr, Confidentiality, AuthenticationPackageNameMarshal, AuthenticationPackageName, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -53,6 +53,10 @@ export default struct PLSA_AP_INITIALIZE_PACKAGE {
             this.value := CallbackCreate(fn, , [UInt32, LSA_DISPATCH_TABLE.Ptr, LSA_STRING.Ptr, LSA_STRING.Ptr, "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
@@ -56,6 +56,10 @@
 #Import ".\INTLIST.ahk" { INTLIST }
 #Import ".\MARGINS.ahk" { MARGINS }
 #Import ".\OPEN_THEME_DATA_FLAGS.ahk" { OPEN_THEME_DATA_FLAGS }
+#Import ".\PFNDACOMPARE.ahk" { PFNDACOMPARE }
+#Import ".\PFNDAENUMCALLBACK.ahk" { PFNDAENUMCALLBACK }
+#Import ".\PFNDPAMERGE.ahk" { PFNDPAMERGE }
+#Import ".\PFNDPASTREAM.ahk" { PFNDPASTREAM }
 #Import ".\PROPERTYORIGIN.ahk" { PROPERTYORIGIN }
 #Import ".\PROPSHEETHEADERA_V2.ahk" { PROPSHEETHEADERA_V2 }
 #Import ".\PROPSHEETHEADERW_V2.ahk" { PROPSHEETHEADERW_V2 }
@@ -2354,7 +2358,7 @@ export DSA_Destroy(_hdsa) {
 export DSA_DestroyCallback(_hdsa, pfnCB, pData) {
     pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-    DllCall("COMCTL32.dll\DSA_DestroyCallback", HDSA, _hdsa, "ptr", pfnCB, pDataMarshal, pData)
+    DllCall("COMCTL32.dll\DSA_DestroyCallback", HDSA, _hdsa, PFNDAENUMCALLBACK, pfnCB, pDataMarshal, pData)
 }
 
 /**
@@ -2412,7 +2416,7 @@ export DSA_DeleteAllItems(_hdsa) {
 export DSA_EnumCallback(_hdsa, pfnCB, pData) {
     pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-    DllCall("COMCTL32.dll\DSA_EnumCallback", HDSA, _hdsa, "ptr", pfnCB, pDataMarshal, pData)
+    DllCall("COMCTL32.dll\DSA_EnumCallback", HDSA, _hdsa, PFNDAENUMCALLBACK, pfnCB, pDataMarshal, pData)
 }
 
 /**
@@ -2566,7 +2570,7 @@ export DSA_GetSize(_hdsa) {
  * @since windows6.0.6000
  */
 export DSA_Sort(pdsa, pfnCompare, _lParam) {
-    result := DllCall("COMCTL32.dll\DSA_Sort", HDSA, pdsa, "ptr", pfnCompare, LPARAM, _lParam, BOOL)
+    result := DllCall("COMCTL32.dll\DSA_Sort", HDSA, pdsa, PFNDACOMPARE, pfnCompare, LPARAM, _lParam, BOOL)
     return result
 }
 
@@ -2666,7 +2670,7 @@ export DPA_Destroy(_hdpa) {
 export DPA_DestroyCallback(_hdpa, pfnCB, pData) {
     pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-    DllCall("COMCTL32.dll\DPA_DestroyCallback", HDPA, _hdpa, "ptr", pfnCB, pDataMarshal, pData)
+    DllCall("COMCTL32.dll\DPA_DestroyCallback", HDPA, _hdpa, PFNDAENUMCALLBACK, pfnCB, pDataMarshal, pData)
 }
 
 /**
@@ -2720,7 +2724,7 @@ export DPA_DeleteAllPtrs(_hdpa) {
 export DPA_EnumCallback(_hdpa, pfnCB, pData) {
     pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-    DllCall("COMCTL32.dll\DPA_EnumCallback", HDPA, _hdpa, "ptr", pfnCB, pDataMarshal, pData)
+    DllCall("COMCTL32.dll\DPA_EnumCallback", HDPA, _hdpa, PFNDAENUMCALLBACK, pfnCB, pDataMarshal, pData)
 }
 
 /**
@@ -2869,7 +2873,7 @@ export DPA_GetSize(_hdpa) {
  * @since windows6.0.6000
  */
 export DPA_Sort(_hdpa, pfnCompare, _lParam) {
-    result := DllCall("COMCTL32.dll\DPA_Sort", HDPA, _hdpa, "ptr", pfnCompare, LPARAM, _lParam, BOOL)
+    result := DllCall("COMCTL32.dll\DPA_Sort", HDPA, _hdpa, PFNDACOMPARE, pfnCompare, LPARAM, _lParam, BOOL)
     return result
 }
 
@@ -2898,7 +2902,7 @@ export DPA_LoadStream(_pfn, pstream, pvInstData) {
     pvInstDataMarshal := pvInstData is VarRef ? "ptr" : "ptr"
 
     phdpa := HDPA.Owned()
-    result := DllCall("COMCTL32.dll\DPA_LoadStream", HDPA.Ptr, phdpa, "ptr", _pfn, "ptr", pstream, pvInstDataMarshal, pvInstData, "HRESULT")
+    result := DllCall("COMCTL32.dll\DPA_LoadStream", HDPA.Ptr, phdpa, PFNDPASTREAM, _pfn, "ptr", pstream, pvInstDataMarshal, pvInstData, "HRESULT")
     return phdpa
 }
 
@@ -2969,7 +2973,7 @@ export DPA_LoadStream(_pfn, pstream, pvInstData) {
 export DPA_SaveStream(_hdpa, _pfn, pstream, pvInstData) {
     pvInstDataMarshal := pvInstData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("COMCTL32.dll\DPA_SaveStream", HDPA, _hdpa, "ptr", _pfn, "ptr", pstream, pvInstDataMarshal, pvInstData, "HRESULT")
+    result := DllCall("COMCTL32.dll\DPA_SaveStream", HDPA, _hdpa, PFNDPASTREAM, _pfn, "ptr", pstream, pvInstDataMarshal, pvInstData, "HRESULT")
     return result
 }
 
@@ -3065,7 +3069,7 @@ export DPA_SaveStream(_hdpa, _pfn, pstream, pvInstData) {
  * @since windows6.0.6000
  */
 export DPA_Merge(hdpaDest, hdpaSrc, dwFlags, pfnCompare, pfnMerge, _lParam) {
-    result := DllCall("COMCTL32.dll\DPA_Merge", HDPA, hdpaDest, HDPA, hdpaSrc, UInt32, dwFlags, "ptr", pfnCompare, "ptr", pfnMerge, LPARAM, _lParam, BOOL)
+    result := DllCall("COMCTL32.dll\DPA_Merge", HDPA, hdpaDest, HDPA, hdpaSrc, UInt32, dwFlags, PFNDACOMPARE, pfnCompare, PFNDPAMERGE, pfnMerge, LPARAM, _lParam, BOOL)
     return result
 }
 
@@ -3135,7 +3139,7 @@ export DPA_Merge(hdpaDest, hdpaSrc, dwFlags, pfnCompare, pfnMerge, _lParam) {
 export DPA_Search(_hdpa, pFind, iStart, pfnCompare, _lParam, options) {
     pFindMarshal := pFind is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("COMCTL32.dll\DPA_Search", HDPA, _hdpa, pFindMarshal, pFind, Int32, iStart, "ptr", pfnCompare, LPARAM, _lParam, UInt32, options, Int32)
+    result := DllCall("COMCTL32.dll\DPA_Search", HDPA, _hdpa, pFindMarshal, pFind, Int32, iStart, PFNDACOMPARE, pfnCompare, LPARAM, _lParam, UInt32, options, Int32)
     return result
 }
 

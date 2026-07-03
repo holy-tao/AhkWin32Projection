@@ -30,7 +30,7 @@ export default struct PLSA_REDIRECTED_LOGON_GET_SID {
         _SidMarshal := _Sid is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, HANDLE, RedirectedLogonHandle, _SidMarshal, _Sid, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -50,6 +50,10 @@ export default struct PLSA_REDIRECTED_LOGON_GET_SID {
             this.value := CallbackCreate(fn, , [HANDLE, PSID.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -30,7 +30,7 @@ export default struct PFND3DKMT_GETPROCESSSCHEDULINGPRIORITYCLASS {
         param1Marshal := param1 is VarRef ? "int*" : "ptr"
 
         result := DllCall(this.value, HANDLE, param0, param1Marshal, param1, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -50,6 +50,10 @@ export default struct PFND3DKMT_GETPROCESSSCHEDULINGPRIORITYCLASS {
             this.value := CallbackCreate(fn, , [HANDLE, "int*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

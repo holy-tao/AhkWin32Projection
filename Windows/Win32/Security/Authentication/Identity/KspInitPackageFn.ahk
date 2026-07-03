@@ -26,7 +26,7 @@ export default struct KspInitPackageFn {
      */
     Call(FunctionTable) {
         result := DllCall(this.value, SECPKG_KERNEL_FUNCTIONS.Ptr, FunctionTable, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -46,6 +46,10 @@ export default struct KspInitPackageFn {
             this.value := CallbackCreate(fn, , [SECPKG_KERNEL_FUNCTIONS.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

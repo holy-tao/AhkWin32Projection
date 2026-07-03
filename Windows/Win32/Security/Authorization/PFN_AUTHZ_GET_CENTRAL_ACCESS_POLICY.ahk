@@ -54,6 +54,10 @@ export default struct PFN_AUTHZ_GET_CENTRAL_ACCESS_POLICY {
             this.value := CallbackCreate(fn, , [AUTHZ_CLIENT_CONTEXT_HANDLE, PSID, "ptr", BOOL.Ptr, "ptr*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

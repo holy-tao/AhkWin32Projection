@@ -55,6 +55,10 @@ export default struct SHOWHTMLDIALOGEXFN {
             this.value := CallbackCreate(fn, , [HWND, "ptr", UInt32, VARIANT.Ptr, PWSTR, VARIANT.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LPWSAOVERLAPPED_COMPLETION_ROUTINE.ahk" { LPWSAOVERLAPPED_COMPLETION_ROUTINE }
 #Import ".\SOCKET.ahk" { SOCKET }
 #Import ".\WSAMSG.ahk" { WSAMSG }
 #Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
@@ -170,7 +171,7 @@ export default struct LPFN_WSARECVMSG {
     Call(s, lpMsg, lpdwNumberOfBytesRecvd, lpOverlapped, lpCompletionRoutine) {
         lpdwNumberOfBytesRecvdMarshal := lpdwNumberOfBytesRecvd is VarRef ? "uint*" : "ptr"
 
-        result := DllCall(this.value, SOCKET, s, WSAMSG.Ptr, lpMsg, lpdwNumberOfBytesRecvdMarshal, lpdwNumberOfBytesRecvd, OVERLAPPED.Ptr, lpOverlapped, "ptr", lpCompletionRoutine, Int32)
+        result := DllCall(this.value, SOCKET, s, WSAMSG.Ptr, lpMsg, lpdwNumberOfBytesRecvdMarshal, lpdwNumberOfBytesRecvd, OVERLAPPED.Ptr, lpOverlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, Int32)
         return result
     }
 
@@ -181,15 +182,19 @@ export default struct LPFN_WSARECVMSG {
     struct From extends LPFN_WSARECVMSG {
         /**
          * Creates a LPFN_WSARECVMSG pointer that invokes the given AHK function when called.
-         * @param {Func(SOCKET, WSAMSG, "uint*", OVERLAPPED, "ptr") => Int32} fn the function to invoke.
+         * @param {Func(SOCKET, WSAMSG, "uint*", OVERLAPPED, LPWSAOVERLAPPED_COMPLETION_ROUTINE) => Int32} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 5)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 5 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [SOCKET, WSAMSG.Ptr, "uint*", OVERLAPPED.Ptr, "ptr", Int32])
+            this.value := CallbackCreate(fn, , [SOCKET, WSAMSG.Ptr, "uint*", OVERLAPPED.Ptr, LPWSAOVERLAPPED_COMPLETION_ROUTINE, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

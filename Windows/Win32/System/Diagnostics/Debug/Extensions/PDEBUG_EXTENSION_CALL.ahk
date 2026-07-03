@@ -49,6 +49,10 @@ export default struct PDEBUG_EXTENSION_CALL {
             this.value := CallbackCreate(fn, , ["ptr", PSTR, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

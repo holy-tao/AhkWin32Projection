@@ -48,6 +48,10 @@ export default struct FNAPONOTIFICATIONCALLBACK {
             this.value := CallbackCreate(fn, , [APO_REG_PROPERTIES.Ptr, "ptr", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

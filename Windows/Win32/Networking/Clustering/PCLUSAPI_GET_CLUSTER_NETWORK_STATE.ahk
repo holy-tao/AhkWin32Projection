@@ -45,6 +45,10 @@ export default struct PCLUSAPI_GET_CLUSTER_NETWORK_STATE {
             this.value := CallbackCreate(fn, , [HNETWORK, CLUSTER_NETWORK_STATE])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

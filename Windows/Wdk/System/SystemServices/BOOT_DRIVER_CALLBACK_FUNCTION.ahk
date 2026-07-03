@@ -48,6 +48,10 @@ export default struct BOOT_DRIVER_CALLBACK_FUNCTION {
             this.value := CallbackCreate(fn, , ["ptr", BDCB_CALLBACK_TYPE, BDCB_IMAGE_INFORMATION.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

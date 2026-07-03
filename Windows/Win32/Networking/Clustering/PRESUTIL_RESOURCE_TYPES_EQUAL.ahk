@@ -49,6 +49,10 @@ export default struct PRESUTIL_RESOURCE_TYPES_EQUAL {
             this.value := CallbackCreate(fn, , [PWSTR, HRESOURCE, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

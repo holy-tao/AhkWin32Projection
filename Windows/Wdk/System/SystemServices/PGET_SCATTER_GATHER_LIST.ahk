@@ -2,6 +2,7 @@
 #Import "..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
 #Import "..\..\Foundation\MDL.ahk" { MDL }
 #Import ".\DMA_ADAPTER.ahk" { DMA_ADAPTER }
+#Import ".\DRIVER_LIST_CONTROL.ahk" { DRIVER_LIST_CONTROL }
 #Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
@@ -38,8 +39,8 @@ export default struct PGET_SCATTER_GATHER_LIST {
         CurrentVaMarshal := CurrentVa is VarRef ? "ptr" : "ptr"
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, DEVICE_OBJECT.Ptr, DeviceObject, MDL.Ptr, _Mdl, CurrentVaMarshal, CurrentVa, UInt32, Length, "ptr", ExecutionRoutine, _ContextMarshal, _Context, BOOLEAN, WriteToDevice, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, DEVICE_OBJECT.Ptr, DeviceObject, MDL.Ptr, _Mdl, CurrentVaMarshal, CurrentVa, UInt32, Length, DRIVER_LIST_CONTROL, ExecutionRoutine, _ContextMarshal, _Context, BOOLEAN, WriteToDevice, NTSTATUS)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -50,15 +51,19 @@ export default struct PGET_SCATTER_GATHER_LIST {
     struct From extends PGET_SCATTER_GATHER_LIST {
         /**
          * Creates a PGET_SCATTER_GATHER_LIST pointer that invokes the given AHK function when called.
-         * @param {Func(DMA_ADAPTER, DEVICE_OBJECT, MDL, "ptr", UInt32, "ptr", "ptr", BOOLEAN) => NTSTATUS} fn the function to invoke.
+         * @param {Func(DMA_ADAPTER, DEVICE_OBJECT, MDL, "ptr", UInt32, DRIVER_LIST_CONTROL, "ptr", BOOLEAN) => NTSTATUS} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 8)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 8 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, DEVICE_OBJECT.Ptr, MDL.Ptr, "ptr", UInt32, "ptr", "ptr", BOOLEAN, NTSTATUS])
+            this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, DEVICE_OBJECT.Ptr, MDL.Ptr, "ptr", UInt32, DRIVER_LIST_CONTROL, "ptr", BOOLEAN, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

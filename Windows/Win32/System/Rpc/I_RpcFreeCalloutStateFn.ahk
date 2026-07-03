@@ -43,6 +43,10 @@ export default struct I_RpcFreeCalloutStateFn {
             this.value := CallbackCreate(fn, , [RDR_CALLOUT_STATE.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

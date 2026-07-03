@@ -206,6 +206,10 @@ export default struct PFSCE_SET_INFO {
             this.value := CallbackCreate(fn, , ["ptr", SCESVC_INFO_TYPE, "char*", BOOL, "ptr", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

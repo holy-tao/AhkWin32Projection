@@ -61,6 +61,10 @@ export default struct PFNDPAMERGECONST {
             this.value := CallbackCreate(fn, , [DPAMM_MESSAGE, "ptr", "ptr", LPARAM, "ptr"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

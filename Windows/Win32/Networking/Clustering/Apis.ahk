@@ -1,6 +1,6 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
@@ -67,7 +67,15 @@
 #Import ".\HRESENUMEX.ahk" { HRESENUMEX }
 #Import ".\HRESOURCE.ahk" { HRESOURCE }
 #Import ".\HRESTYPEENUM.ahk" { HRESTYPEENUM }
+#Import ".\LPGROUP_CALLBACK_EX.ahk" { LPGROUP_CALLBACK_EX }
+#Import ".\LPNODE_CALLBACK.ahk" { LPNODE_CALLBACK }
+#Import ".\LPRESOURCE_CALLBACK.ahk" { LPRESOURCE_CALLBACK }
+#Import ".\LPRESOURCE_CALLBACK_EX.ahk" { LPRESOURCE_CALLBACK_EX }
 #Import ".\NOTIFY_FILTER_AND_TYPE.ahk" { NOTIFY_FILTER_AND_TYPE }
+#Import ".\PCLUSTER_SETUP_PROGRESS_CALLBACK.ahk" { PCLUSTER_SETUP_PROGRESS_CALLBACK }
+#Import ".\PCLUSTER_UPGRADE_PROGRESS_CALLBACK.ahk" { PCLUSTER_UPGRADE_PROGRESS_CALLBACK }
+#Import ".\PLOG_EVENT_ROUTINE.ahk" { PLOG_EVENT_ROUTINE }
+#Import ".\PWORKER_START_ROUTINE.ahk" { PWORKER_START_ROUTINE }
 #Import ".\PaxosTagCStruct.ahk" { PaxosTagCStruct }
 #Import ".\REPAIR_CLUSTER_NAME_ACCOUNT_CONFIG.ahk" { REPAIR_CLUSTER_NAME_ACCOUNT_CONFIG }
 #Import ".\RESUTIL_PROPERTY_ITEM.ahk" { RESUTIL_PROPERTY_ITEM }
@@ -1055,7 +1063,7 @@ export ClusterControlEx(_hCluster, hHostNode, dwControlCode, lpInBuffer, nInBuff
 export ClusterUpgradeFunctionalLevel(_hCluster, perform, pfnProgressCallback, pvCallbackArg) {
     pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CLUSAPI.dll\ClusterUpgradeFunctionalLevel", HCLUSTER, _hCluster, BOOL, perform, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, UInt32)
+    result := DllCall("CLUSAPI.dll\ClusterUpgradeFunctionalLevel", HCLUSTER, _hCluster, BOOL, perform, PCLUSTER_UPGRADE_PROGRESS_CALLBACK, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, UInt32)
     return result
 }
 
@@ -10460,7 +10468,7 @@ export CreateCluster(pConfig, pfnProgressCallback, pvCallbackArg) {
 
     A_LastError := 0
 
-    result := DllCall("CLUSAPI.dll\CreateCluster", CREATE_CLUSTER_CONFIG.Ptr, pConfig, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, HCLUSTER)
+    result := DllCall("CLUSAPI.dll\CreateCluster", CREATE_CLUSTER_CONFIG.Ptr, pConfig, PCLUSTER_SETUP_PROGRESS_CALLBACK, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, HCLUSTER)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10481,7 +10489,7 @@ export CreateCluster(pConfig, pfnProgressCallback, pvCallbackArg) {
 export CreateClusterNameAccount(_hCluster, pConfig, pfnProgressCallback, pvCallbackArg) {
     pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CLUSAPI.dll\CreateClusterNameAccount", HCLUSTER, _hCluster, CREATE_CLUSTER_NAME_ACCOUNT.Ptr, pConfig, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, UInt32)
+    result := DllCall("CLUSAPI.dll\CreateClusterNameAccount", HCLUSTER, _hCluster, CREATE_CLUSTER_NAME_ACCOUNT.Ptr, pConfig, PCLUSTER_SETUP_PROGRESS_CALLBACK, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, UInt32)
     return result
 }
 
@@ -10507,7 +10515,7 @@ export RemoveClusterNameAccount(_hCluster, bDeleteComputerObjects) {
 export RepairClusterNameAccount(_hCluster, pConfig, pfnProgressCallback, pvCallbackArg) {
     pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CLUSAPI.dll\RepairClusterNameAccount", HCLUSTER, _hCluster, REPAIR_CLUSTER_NAME_ACCOUNT_CONFIG.Ptr, pConfig, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, UInt32)
+    result := DllCall("CLUSAPI.dll\RepairClusterNameAccount", HCLUSTER, _hCluster, REPAIR_CLUSTER_NAME_ACCOUNT_CONFIG.Ptr, pConfig, PCLUSTER_SETUP_PROGRESS_CALLBACK, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, UInt32)
     return result
 }
 
@@ -10627,7 +10635,7 @@ export AddClusterNode(_hCluster, lpszNodeName, pfnProgressCallback, pvCallbackAr
 
     A_LastError := 0
 
-    result := DllCall("CLUSAPI.dll\AddClusterNode", HCLUSTER, _hCluster, "ptr", lpszNodeName, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, HNODE)
+    result := DllCall("CLUSAPI.dll\AddClusterNode", HCLUSTER, _hCluster, "ptr", lpszNodeName, PCLUSTER_SETUP_PROGRESS_CALLBACK, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, HNODE)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10652,7 +10660,7 @@ export AddClusterStorageNode(_hCluster, lpszNodeName, pfnProgressCallback, pvCal
 
     pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CLUSAPI.dll\AddClusterStorageNode", HCLUSTER, _hCluster, "ptr", lpszNodeName, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, "ptr", lpszClusterStorageNodeDescription, "ptr", lpszClusterStorageNodeLocation, UInt32)
+    result := DllCall("CLUSAPI.dll\AddClusterStorageNode", HCLUSTER, _hCluster, "ptr", lpszNodeName, PCLUSTER_SETUP_PROGRESS_CALLBACK, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, "ptr", lpszClusterStorageNodeDescription, "ptr", lpszClusterStorageNodeLocation, UInt32)
     return result
 }
 
@@ -10670,7 +10678,7 @@ export AddClusterNodeEx(_hCluster, lpszNodeName, dwFlags, pfnProgressCallback, p
 
     pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CLUSAPI.dll\AddClusterNodeEx", HCLUSTER, _hCluster, "ptr", lpszNodeName, UInt32, dwFlags, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, HNODE)
+    result := DllCall("CLUSAPI.dll\AddClusterNodeEx", HCLUSTER, _hCluster, "ptr", lpszNodeName, UInt32, dwFlags, PCLUSTER_SETUP_PROGRESS_CALLBACK, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, HNODE)
     return result
 }
 
@@ -10711,7 +10719,7 @@ export RemoveClusterStorageNode(_hCluster, lpszClusterStorageEnclosureName, dwTi
 export DestroyCluster(_hCluster, pfnProgressCallback, pvCallbackArg, fdeleteVirtualComputerObjects) {
     pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CLUSAPI.dll\DestroyCluster", HCLUSTER, _hCluster, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, BOOL, fdeleteVirtualComputerObjects, UInt32)
+    result := DllCall("CLUSAPI.dll\DestroyCluster", HCLUSTER, _hCluster, PCLUSTER_SETUP_PROGRESS_CALLBACK, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, BOOL, fdeleteVirtualComputerObjects, UInt32)
     return result
 }
 
@@ -13051,7 +13059,7 @@ export ResUtilExpandEnvironmentStrings(pszSrc) {
 export ResUtilSetResourceServiceEnvironment(pszServiceName, _hResource, pfnLogEvent, hResourceHandle) {
     pszServiceName := pszServiceName is String ? StrPtr(pszServiceName) : pszServiceName
 
-    result := DllCall("RESUTILS.dll\ResUtilSetResourceServiceEnvironment", "ptr", pszServiceName, HRESOURCE, _hResource, "ptr", pfnLogEvent, IntPtr, hResourceHandle, UInt32)
+    result := DllCall("RESUTILS.dll\ResUtilSetResourceServiceEnvironment", "ptr", pszServiceName, HRESOURCE, _hResource, PLOG_EVENT_ROUTINE, pfnLogEvent, IntPtr, hResourceHandle, UInt32)
     return result
 }
 
@@ -13070,7 +13078,7 @@ export ResUtilSetResourceServiceEnvironment(pszServiceName, _hResource, pfnLogEv
 export ResUtilRemoveResourceServiceEnvironment(pszServiceName, pfnLogEvent, hResourceHandle) {
     pszServiceName := pszServiceName is String ? StrPtr(pszServiceName) : pszServiceName
 
-    result := DllCall("RESUTILS.dll\ResUtilRemoveResourceServiceEnvironment", "ptr", pszServiceName, "ptr", pfnLogEvent, IntPtr, hResourceHandle, UInt32)
+    result := DllCall("RESUTILS.dll\ResUtilRemoveResourceServiceEnvironment", "ptr", pszServiceName, PLOG_EVENT_ROUTINE, pfnLogEvent, IntPtr, hResourceHandle, UInt32)
     return result
 }
 
@@ -13095,7 +13103,7 @@ export ResUtilRemoveResourceServiceEnvironment(pszServiceName, pfnLogEvent, hRes
 export ResUtilSetResourceServiceStartParameters(pszServiceName, schSCMHandle, phService, pfnLogEvent, hResourceHandle) {
     pszServiceName := pszServiceName is String ? StrPtr(pszServiceName) : pszServiceName
 
-    result := DllCall("RESUTILS.dll\ResUtilSetResourceServiceStartParameters", "ptr", pszServiceName, SC_HANDLE, schSCMHandle, SC_HANDLE.Ptr, phService, "ptr", pfnLogEvent, IntPtr, hResourceHandle, UInt32)
+    result := DllCall("RESUTILS.dll\ResUtilSetResourceServiceStartParameters", "ptr", pszServiceName, SC_HANDLE, schSCMHandle, SC_HANDLE.Ptr, phService, PLOG_EVENT_ROUTINE, pfnLogEvent, IntPtr, hResourceHandle, UInt32)
     return result
 }
 
@@ -13585,7 +13593,7 @@ export ResUtilFindFileTimeProperty(pPropertyList, cbPropertyListSize, pszPropert
 export ClusWorkerCreate(lpWorker, lpStartAddress, lpParameter) {
     lpParameterMarshal := lpParameter is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RESUTILS.dll\ClusWorkerCreate", CLUS_WORKER.Ptr, lpWorker, "ptr", lpStartAddress, lpParameterMarshal, lpParameter, UInt32)
+    result := DllCall("RESUTILS.dll\ClusWorkerCreate", CLUS_WORKER.Ptr, lpWorker, PWORKER_START_ROUTINE, lpStartAddress, lpParameterMarshal, lpParameter, UInt32)
     return result
 }
 
@@ -13867,7 +13875,7 @@ export ResUtilEnumResources(hSelf, lpszResTypeName, pResCallBack, pParameter) {
 
     pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RESUTILS.dll\ResUtilEnumResources", HRESOURCE, hSelf, "ptr", lpszResTypeName, "ptr", pResCallBack, pParameterMarshal, pParameter, UInt32)
+    result := DllCall("RESUTILS.dll\ResUtilEnumResources", HRESOURCE, hSelf, "ptr", lpszResTypeName, LPRESOURCE_CALLBACK, pResCallBack, pParameterMarshal, pParameter, UInt32)
     return result
 }
 
@@ -13913,7 +13921,7 @@ export ResUtilEnumResourcesEx(_hCluster, hSelf, lpszResTypeName, pResCallBack, p
 
     pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RESUTILS.dll\ResUtilEnumResourcesEx", HCLUSTER, _hCluster, HRESOURCE, hSelf, "ptr", lpszResTypeName, "ptr", pResCallBack, pParameterMarshal, pParameter, UInt32)
+    result := DllCall("RESUTILS.dll\ResUtilEnumResourcesEx", HCLUSTER, _hCluster, HRESOURCE, hSelf, "ptr", lpszResTypeName, LPRESOURCE_CALLBACK_EX, pResCallBack, pParameterMarshal, pParameter, UInt32)
     return result
 }
 
@@ -14376,7 +14384,7 @@ export ResUtilFindDependentDiskResourceDriveLetter(_hCluster, _hResource, pszDri
 export ResUtilTerminateServiceProcessFromResDll(dwServicePid, bOffline, pdwResourceState, pfnLogEvent, hResourceHandle) {
     pdwResourceStateMarshal := pdwResourceState is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("RESUTILS.dll\ResUtilTerminateServiceProcessFromResDll", UInt32, dwServicePid, BOOL, bOffline, pdwResourceStateMarshal, pdwResourceState, "ptr", pfnLogEvent, IntPtr, hResourceHandle, UInt32)
+    result := DllCall("RESUTILS.dll\ResUtilTerminateServiceProcessFromResDll", UInt32, dwServicePid, BOOL, bOffline, pdwResourceStateMarshal, pdwResourceState, PLOG_EVENT_ROUTINE, pfnLogEvent, IntPtr, hResourceHandle, UInt32)
     return result
 }
 
@@ -14858,7 +14866,7 @@ export ClusterClearBackupStateForSharedVolume(lpszVolumePathName) {
 export ResUtilSetResourceServiceStartParametersEx(pszServiceName, schSCMHandle, phService, dwDesiredAccess, pfnLogEvent, hResourceHandle) {
     pszServiceName := pszServiceName is String ? StrPtr(pszServiceName) : pszServiceName
 
-    result := DllCall("RESUTILS.dll\ResUtilSetResourceServiceStartParametersEx", "ptr", pszServiceName, SC_HANDLE, schSCMHandle, SC_HANDLE.Ptr, phService, UInt32, dwDesiredAccess, "ptr", pfnLogEvent, IntPtr, hResourceHandle, UInt32)
+    result := DllCall("RESUTILS.dll\ResUtilSetResourceServiceStartParametersEx", "ptr", pszServiceName, SC_HANDLE, schSCMHandle, SC_HANDLE.Ptr, phService, UInt32, dwDesiredAccess, PLOG_EVENT_ROUTINE, pfnLogEvent, IntPtr, hResourceHandle, UInt32)
     return result
 }
 
@@ -14901,7 +14909,7 @@ export ResUtilEnumResourcesEx2(_hCluster, hSelf, lpszResTypeName, pResCallBack, 
 
     pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RESUTILS.dll\ResUtilEnumResourcesEx2", HCLUSTER, _hCluster, HRESOURCE, hSelf, "ptr", lpszResTypeName, "ptr", pResCallBack, pParameterMarshal, pParameter, UInt32, dwDesiredAccess, UInt32)
+    result := DllCall("RESUTILS.dll\ResUtilEnumResourcesEx2", HCLUSTER, _hCluster, HRESOURCE, hSelf, "ptr", lpszResTypeName, LPRESOURCE_CALLBACK_EX, pResCallBack, pParameterMarshal, pParameter, UInt32, dwDesiredAccess, UInt32)
     return result
 }
 
@@ -15240,7 +15248,7 @@ export ResUtilGroupsEqual(hSelf, _hGroup, pEqual) {
 export ResUtilEnumGroups(_hCluster, hSelf, pResCallBack, pParameter) {
     pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RESUTILS.dll\ResUtilEnumGroups", HCLUSTER, _hCluster, HGROUP, hSelf, "ptr", pResCallBack, pParameterMarshal, pParameter, UInt32)
+    result := DllCall("RESUTILS.dll\ResUtilEnumGroups", HCLUSTER, _hCluster, HGROUP, hSelf, LPGROUP_CALLBACK_EX, pResCallBack, pParameterMarshal, pParameter, UInt32)
     return result
 }
 
@@ -15256,7 +15264,7 @@ export ResUtilEnumGroups(_hCluster, hSelf, pResCallBack, pParameter) {
 export ResUtilEnumGroupsEx(_hCluster, hSelf, groupType, pResCallBack, pParameter) {
     pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RESUTILS.dll\ResUtilEnumGroupsEx", HCLUSTER, _hCluster, HGROUP, hSelf, CLUSGROUP_TYPE, groupType, "ptr", pResCallBack, pParameterMarshal, pParameter, UInt32)
+    result := DllCall("RESUTILS.dll\ResUtilEnumGroupsEx", HCLUSTER, _hCluster, HGROUP, hSelf, CLUSGROUP_TYPE, groupType, LPGROUP_CALLBACK_EX, pResCallBack, pParameterMarshal, pParameter, UInt32)
     return result
 }
 
@@ -15307,7 +15315,7 @@ export ResUtilGetCoreGroup(_hCluster) {
 export ResUtilResourceDepEnum(hSelf, _enumType, pResCallBack, pParameter) {
     pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RESUTILS.dll\ResUtilResourceDepEnum", HRESOURCE, hSelf, UInt32, _enumType, "ptr", pResCallBack, pParameterMarshal, pParameter, UInt32)
+    result := DllCall("RESUTILS.dll\ResUtilResourceDepEnum", HRESOURCE, hSelf, UInt32, _enumType, LPRESOURCE_CALLBACK_EX, pResCallBack, pParameterMarshal, pParameter, UInt32)
     return result
 }
 
@@ -15345,7 +15353,7 @@ export ResUtilGetClusterId(_hCluster, guid) {
 export ResUtilNodeEnum(_hCluster, pNodeCallBack, pParameter) {
     pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RESUTILS.dll\ResUtilNodeEnum", HCLUSTER, _hCluster, "ptr", pNodeCallBack, pParameterMarshal, pParameter, UInt32)
+    result := DllCall("RESUTILS.dll\ResUtilNodeEnum", HCLUSTER, _hCluster, LPNODE_CALLBACK, pNodeCallBack, pParameterMarshal, pParameter, UInt32)
     return result
 }
 

@@ -40,7 +40,7 @@ export default struct SpGetInfoFn {
      */
     Call(PackageInfo) {
         result := DllCall(this.value, SecPkgInfoA.Ptr, PackageInfo, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -60,6 +60,10 @@ export default struct SpGetInfoFn {
             this.value := CallbackCreate(fn, , [SecPkgInfoA.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -51,6 +51,10 @@ export default struct PCLUSAPI_CREATE_CLUSTER_GROUPEX {
             this.value := CallbackCreate(fn, , [HCLUSTER, PWSTR, CLUSTER_CREATE_GROUP_INFO.Ptr, HGROUP])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

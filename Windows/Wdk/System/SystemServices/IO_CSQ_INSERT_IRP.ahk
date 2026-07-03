@@ -45,6 +45,10 @@ export default struct IO_CSQ_INSERT_IRP {
             this.value := CallbackCreate(fn, , [IO_CSQ.Ptr, IRP.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

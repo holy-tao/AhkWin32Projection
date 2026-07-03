@@ -48,6 +48,10 @@ export default struct LPD3DENUMPIXELFORMATSCALLBACK {
             this.value := CallbackCreate(fn, , [DDPIXELFORMAT.Ptr, "ptr", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -31,7 +31,7 @@ export default struct NPEM_CONTROL_SET_STANDARD_CONTROL {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, NPEM_CONTROL_STANDARD_CONTROL_BIT, StandardControl, BOOLEAN, Set, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -51,6 +51,10 @@ export default struct NPEM_CONTROL_SET_STANDARD_CONTROL {
             this.value := CallbackCreate(fn, , ["ptr", NPEM_CONTROL_STANDARD_CONTROL_BIT, BOOLEAN, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

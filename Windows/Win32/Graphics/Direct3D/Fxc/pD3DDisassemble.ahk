@@ -51,6 +51,10 @@ export default struct pD3DDisassemble {
             this.value := CallbackCreate(fn, , [IntPtr, IntPtr, UInt32, PSTR, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

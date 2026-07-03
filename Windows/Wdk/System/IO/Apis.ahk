@@ -3,6 +3,7 @@
 #Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import "..\..\..\Win32\System\IO\IO_STATUS_BLOCK.ahk" { IO_STATUS_BLOCK }
+#Import "..\..\..\Win32\System\IO\PIO_APC_ROUTINE.ahk" { PIO_APC_ROUTINE }
 
 /**
  * @namespace Windows.Wdk.System.IO
@@ -54,8 +55,8 @@
 export NtDeviceIoControlFile(FileHandle, Event, ApcRoutine, ApcContext, IoStatusBlock, IoControlCode, InputBuffer, InputBufferLength, OutputBuffer, OutputBufferLength) {
     ApcContextMarshal := ApcContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntdll.dll\NtDeviceIoControlFile", HANDLE, FileHandle, HANDLE, Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, IO_STATUS_BLOCK.Ptr, IoStatusBlock, UInt32, IoControlCode, IntPtr, InputBuffer, UInt32, InputBufferLength, IntPtr, OutputBuffer, UInt32, OutputBufferLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\NtDeviceIoControlFile", HANDLE, FileHandle, HANDLE, Event, PIO_APC_ROUTINE, ApcRoutine, ApcContextMarshal, ApcContext, IO_STATUS_BLOCK.Ptr, IoStatusBlock, UInt32, IoControlCode, IntPtr, InputBuffer, UInt32, InputBufferLength, IntPtr, OutputBuffer, UInt32, OutputBufferLength, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 

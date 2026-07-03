@@ -50,6 +50,10 @@ export default struct LPWSCENUMPROTOCOLS {
             this.value := CallbackCreate(fn, , ["int*", IntPtr, "uint*", "int*", Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

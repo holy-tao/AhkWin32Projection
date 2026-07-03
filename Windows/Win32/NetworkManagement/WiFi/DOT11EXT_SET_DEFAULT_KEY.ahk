@@ -48,6 +48,10 @@ export default struct DOT11EXT_SET_DEFAULT_KEY {
             this.value := CallbackCreate(fn, , [HANDLE, DOT11_CIPHER_DEFAULT_KEY_VALUE.Ptr, DOT11_DIRECTION, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

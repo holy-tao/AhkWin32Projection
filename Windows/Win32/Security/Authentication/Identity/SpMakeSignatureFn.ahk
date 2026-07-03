@@ -29,7 +29,7 @@ export default struct SpMakeSignatureFn {
      */
     Call(ContextHandle, QualityOfProtection, MessageBuffers, MessageSequenceNumber) {
         result := DllCall(this.value, IntPtr, ContextHandle, UInt32, QualityOfProtection, SecBufferDesc.Ptr, MessageBuffers, UInt32, MessageSequenceNumber, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -49,6 +49,10 @@ export default struct SpMakeSignatureFn {
             this.value := CallbackCreate(fn, , [IntPtr, UInt32, SecBufferDesc.Ptr, UInt32, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

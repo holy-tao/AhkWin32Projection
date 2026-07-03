@@ -36,7 +36,7 @@ export default struct PFLT_NORMALIZE_NAME_COMPONENT {
         NormalizationContextMarshal := NormalizationContext is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, PFLT_INSTANCE, Instance, UNICODE_STRING.Ptr, ParentDirectory, UInt16, VolumeNameLength, UNICODE_STRING.Ptr, _Component, IntPtr, ExpandComponentName, UInt32, ExpandComponentNameLength, UInt32, Flags, NormalizationContextMarshal, NormalizationContext, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -56,6 +56,10 @@ export default struct PFLT_NORMALIZE_NAME_COMPONENT {
             this.value := CallbackCreate(fn, , [PFLT_INSTANCE, UNICODE_STRING.Ptr, UInt16, UNICODE_STRING.Ptr, IntPtr, UInt32, UInt32, "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

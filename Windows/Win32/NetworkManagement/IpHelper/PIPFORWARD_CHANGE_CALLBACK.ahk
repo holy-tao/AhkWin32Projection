@@ -48,6 +48,10 @@ export default struct PIPFORWARD_CHANGE_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", MIB_IPFORWARD_ROW2.Ptr, MIB_NOTIFICATION_TYPE, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

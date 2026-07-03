@@ -50,6 +50,10 @@ export default struct PCLUSAPI_IS_FILE_ON_CLUSTER_SHARED_VOLUME {
             this.value := CallbackCreate(fn, , [PWSTR, BOOL.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

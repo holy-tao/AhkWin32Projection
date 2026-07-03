@@ -50,6 +50,10 @@ export default struct LPACMDRIVERPROC {
             this.value := CallbackCreate(fn, , [IntPtr, HACMDRIVERID, UInt32, LPARAM, LPARAM, LRESULT])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

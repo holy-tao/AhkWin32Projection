@@ -33,7 +33,7 @@ export default struct PLSA_CLIENT_CALLBACK {
         Callback := Callback is String ? StrPtr(Callback) : Callback
 
         result := DllCall(this.value, "ptr", Callback, IntPtr, Argument1, IntPtr, Argument2, SecBuffer.Ptr, _Input, SecBuffer.Ptr, Output, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -53,6 +53,10 @@ export default struct PLSA_CLIENT_CALLBACK {
             this.value := CallbackCreate(fn, , [PSTR, IntPtr, IntPtr, SecBuffer.Ptr, SecBuffer.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

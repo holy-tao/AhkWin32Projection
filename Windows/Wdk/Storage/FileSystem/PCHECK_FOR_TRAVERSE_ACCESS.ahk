@@ -50,6 +50,10 @@ export default struct PCHECK_FOR_TRAVERSE_ACCESS {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", SECURITY_SUBJECT_CONTEXT.Ptr, BOOLEAN])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

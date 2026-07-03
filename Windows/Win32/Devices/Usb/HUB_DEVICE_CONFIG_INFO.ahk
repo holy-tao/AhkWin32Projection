@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\USB_HUB_CAP_FLAGS.ahk" { USB_HUB_CAP_FLAGS }
 #Import ".\USB_HUB_DEVICE_UXD_SETTINGS.ahk" { USB_HUB_DEVICE_UXD_SETTINGS }
 #Import ".\USB_ID_STRING.ahk" { USB_ID_STRING }

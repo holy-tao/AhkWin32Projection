@@ -1,4 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PHALMCAINTERFACELOCK.ahk" { PHALMCAINTERFACELOCK }
+#Import ".\PHALMCAINTERFACEREADREGISTER.ahk" { PHALMCAINTERFACEREADREGISTER }
+#Import ".\PHALMCAINTERFACEUNLOCK.ahk" { PHALMCAINTERFACEUNLOCK }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -6,10 +9,10 @@
 export default struct HAL_MCA_INTERFACE {
     #StructPack 8
 
-    Lock : IntPtr
+    Lock : PHALMCAINTERFACELOCK
 
-    Unlock : IntPtr
+    Unlock : PHALMCAINTERFACEUNLOCK
 
-    ReadRegister : IntPtr
+    ReadRegister : PHALMCAINTERFACEREADREGISTER
 
 }

@@ -76,6 +76,10 @@ export default struct PIBIO_ENGINE_SET_ACCOUNT_POLICY_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, WINBIO_ACCOUNT_POLICY.Ptr, IntPtr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

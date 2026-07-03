@@ -105,6 +105,10 @@ export default struct PSAM_INIT_NOTIFICATION_ROUTINE {
             this.value := CallbackCreate(fn, , [BOOLEAN])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -46,6 +46,10 @@ export default struct DOT11EXT_PROCESS_ONEX_PACKET {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, IntPtr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

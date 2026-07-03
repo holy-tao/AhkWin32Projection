@@ -32,7 +32,7 @@ export default struct pHalQueryBusSlots {
         ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, PBUS_HANDLER, BusHandler, UInt32, BufferSize, SlotNumbersMarshal, SlotNumbers, ReturnedLengthMarshal, ReturnedLength, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -52,6 +52,10 @@ export default struct pHalQueryBusSlots {
             this.value := CallbackCreate(fn, , [PBUS_HANDLER, UInt32, "uint*", "uint*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -46,6 +46,10 @@ export default struct DOT11EXTIHV_PROCESS_UI_RESPONSE {
             this.value := CallbackCreate(fn, , [Guid, UInt32, IntPtr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

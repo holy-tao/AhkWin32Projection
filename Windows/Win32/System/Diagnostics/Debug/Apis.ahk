@@ -1,6 +1,6 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
@@ -17,6 +17,7 @@
 #Import ".\CONTEXT_FLAGS.ahk" { CONTEXT_FLAGS }
 #Import ".\DBGHELP_DATA_REPORT_STRUCT.ahk" { DBGHELP_DATA_REPORT_STRUCT }
 #Import ".\DEBUG_EVENT.ahk" { DEBUG_EVENT }
+#Import ".\DIGEST_FUNCTION.ahk" { DIGEST_FUNCTION }
 #Import ".\EXCEPTION_POINTERS.ahk" { EXCEPTION_POINTERS }
 #Import ".\EXCEPTION_RECORD.ahk" { EXCEPTION_RECORD }
 #Import ".\FORMAT_MESSAGE_OPTIONS.ahk" { FORMAT_MESSAGE_OPTIONS }
@@ -36,6 +37,8 @@
 #Import ".\IMAGE_SECTION_HEADER.ahk" { IMAGE_SECTION_HEADER }
 #Import ".\LDT_ENTRY.ahk" { LDT_ENTRY }
 #Import ".\LOADED_IMAGE.ahk" { LOADED_IMAGE }
+#Import ".\LPCALL_BACK_USER_INTERRUPT_ROUTINE.ahk" { LPCALL_BACK_USER_INTERRUPT_ROUTINE }
+#Import ".\LPTOP_LEVEL_EXCEPTION_FILTER.ahk" { LPTOP_LEVEL_EXCEPTION_FILTER }
 #Import ".\MINIDUMP_CALLBACK_INFORMATION.ahk" { MINIDUMP_CALLBACK_INFORMATION }
 #Import ".\MINIDUMP_DIRECTORY.ahk" { MINIDUMP_DIRECTORY }
 #Import ".\MINIDUMP_EXCEPTION_INFORMATION.ahk" { MINIDUMP_EXCEPTION_INFORMATION }
@@ -44,6 +47,41 @@
 #Import ".\MODLOAD_DATA.ahk" { MODLOAD_DATA }
 #Import ".\OMAP.ahk" { OMAP }
 #Import ".\OPEN_THREAD_WAIT_CHAIN_SESSION_FLAGS.ahk" { OPEN_THREAD_WAIT_CHAIN_SESSION_FLAGS }
+#Import ".\PCOGETACTIVATIONSTATE.ahk" { PCOGETACTIVATIONSTATE }
+#Import ".\PCOGETCALLSTATE.ahk" { PCOGETCALLSTATE }
+#Import ".\PDBGHELP_CREATE_USER_DUMP_CALLBACK.ahk" { PDBGHELP_CREATE_USER_DUMP_CALLBACK }
+#Import ".\PENUMDIRTREE_CALLBACK.ahk" { PENUMDIRTREE_CALLBACK }
+#Import ".\PENUMDIRTREE_CALLBACKW.ahk" { PENUMDIRTREE_CALLBACKW }
+#Import ".\PENUMLOADED_MODULES_CALLBACK64.ahk" { PENUMLOADED_MODULES_CALLBACK64 }
+#Import ".\PENUMLOADED_MODULES_CALLBACKW64.ahk" { PENUMLOADED_MODULES_CALLBACKW64 }
+#Import ".\PENUMSOURCEFILETOKENSCALLBACK.ahk" { PENUMSOURCEFILETOKENSCALLBACK }
+#Import ".\PFINDFILEINPATHCALLBACK.ahk" { PFINDFILEINPATHCALLBACK }
+#Import ".\PFINDFILEINPATHCALLBACKW.ahk" { PFINDFILEINPATHCALLBACKW }
+#Import ".\PFIND_DEBUG_FILE_CALLBACK.ahk" { PFIND_DEBUG_FILE_CALLBACK }
+#Import ".\PFIND_DEBUG_FILE_CALLBACKW.ahk" { PFIND_DEBUG_FILE_CALLBACKW }
+#Import ".\PFIND_EXE_FILE_CALLBACK.ahk" { PFIND_EXE_FILE_CALLBACK }
+#Import ".\PFIND_EXE_FILE_CALLBACKW.ahk" { PFIND_EXE_FILE_CALLBACKW }
+#Import ".\PFUNCTION_TABLE_ACCESS_ROUTINE64.ahk" { PFUNCTION_TABLE_ACCESS_ROUTINE64 }
+#Import ".\PGET_MODULE_BASE_ROUTINE64.ahk" { PGET_MODULE_BASE_ROUTINE64 }
+#Import ".\PGET_TARGET_ATTRIBUTE_VALUE64.ahk" { PGET_TARGET_ATTRIBUTE_VALUE64 }
+#Import ".\PIMAGEHLP_STATUS_ROUTINE.ahk" { PIMAGEHLP_STATUS_ROUTINE }
+#Import ".\PREAD_PROCESS_MEMORY_ROUTINE64.ahk" { PREAD_PROCESS_MEMORY_ROUTINE64 }
+#Import ".\PSYMBOL_FUNCENTRY_CALLBACK64.ahk" { PSYMBOL_FUNCENTRY_CALLBACK64 }
+#Import ".\PSYMBOL_REGISTERED_CALLBACK64.ahk" { PSYMBOL_REGISTERED_CALLBACK64 }
+#Import ".\PSYM_ENUMERATESYMBOLS_CALLBACK.ahk" { PSYM_ENUMERATESYMBOLS_CALLBACK }
+#Import ".\PSYM_ENUMERATESYMBOLS_CALLBACKW.ahk" { PSYM_ENUMERATESYMBOLS_CALLBACKW }
+#Import ".\PSYM_ENUMLINES_CALLBACK.ahk" { PSYM_ENUMLINES_CALLBACK }
+#Import ".\PSYM_ENUMLINES_CALLBACKW.ahk" { PSYM_ENUMLINES_CALLBACKW }
+#Import ".\PSYM_ENUMMODULES_CALLBACK64.ahk" { PSYM_ENUMMODULES_CALLBACK64 }
+#Import ".\PSYM_ENUMMODULES_CALLBACKW64.ahk" { PSYM_ENUMMODULES_CALLBACKW64 }
+#Import ".\PSYM_ENUMPROCESSES_CALLBACK.ahk" { PSYM_ENUMPROCESSES_CALLBACK }
+#Import ".\PSYM_ENUMSOURCEFILES_CALLBACK.ahk" { PSYM_ENUMSOURCEFILES_CALLBACK }
+#Import ".\PSYM_ENUMSOURCEFILES_CALLBACKW.ahk" { PSYM_ENUMSOURCEFILES_CALLBACKW }
+#Import ".\PSYM_ENUMSYMBOLS_CALLBACK64.ahk" { PSYM_ENUMSYMBOLS_CALLBACK64 }
+#Import ".\PSYM_ENUMSYMBOLS_CALLBACK64W.ahk" { PSYM_ENUMSYMBOLS_CALLBACK64W }
+#Import ".\PTRANSLATE_ADDRESS_ROUTINE64.ahk" { PTRANSLATE_ADDRESS_ROUTINE64 }
+#Import ".\PVECTORED_EXCEPTION_HANDLER.ahk" { PVECTORED_EXCEPTION_HANDLER }
+#Import ".\PWAITCHAINCALLBACK.ahk" { PWAITCHAINCALLBACK }
 #Import ".\STACKFRAME64.ahk" { STACKFRAME64 }
 #Import ".\STACKFRAME_EX.ahk" { STACKFRAME_EX }
 #Import ".\SYMBOL_INFO.ahk" { SYMBOL_INFO }
@@ -1249,7 +1287,7 @@ export UnhandledExceptionFilter(ExceptionInfo) {
  * @since windows5.1.2600
  */
 export SetUnhandledExceptionFilter(lpTopLevelExceptionFilter) {
-    result := DllCall("KERNEL32.dll\SetUnhandledExceptionFilter", "ptr", lpTopLevelExceptionFilter, IntPtr)
+    result := DllCall("KERNEL32.dll\SetUnhandledExceptionFilter", LPTOP_LEVEL_EXCEPTION_FILTER, lpTopLevelExceptionFilter, LPTOP_LEVEL_EXCEPTION_FILTER)
     return result
 }
 
@@ -1391,7 +1429,7 @@ export SetErrorMode(uMode) {
  * @since windows5.1.2600
  */
 export AddVectoredExceptionHandler(First, Handler) {
-    result := DllCall("KERNEL32.dll\AddVectoredExceptionHandler", UInt32, First, "ptr", Handler, IntPtr)
+    result := DllCall("KERNEL32.dll\AddVectoredExceptionHandler", UInt32, First, PVECTORED_EXCEPTION_HANDLER, Handler, IntPtr)
     return result
 }
 
@@ -1432,7 +1470,7 @@ export RemoveVectoredExceptionHandler(_Handle) {
  * @since windows6.0.6000
  */
 export AddVectoredContinueHandler(First, Handler) {
-    result := DllCall("KERNEL32.dll\AddVectoredContinueHandler", UInt32, First, "ptr", Handler, IntPtr)
+    result := DllCall("KERNEL32.dll\AddVectoredContinueHandler", UInt32, First, PVECTORED_EXCEPTION_HANDLER, Handler, IntPtr)
     return result
 }
 
@@ -1651,7 +1689,7 @@ export TerminateProcessOnMemoryExhaustion(FailedAllocationSize) {
 export OpenThreadWaitChainSession(Flags, callback) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\OpenThreadWaitChainSession", OPEN_THREAD_WAIT_CHAIN_SESSION_FLAGS, Flags, "ptr", callback, IntPtr)
+    result := DllCall("ADVAPI32.dll\OpenThreadWaitChainSession", OPEN_THREAD_WAIT_CHAIN_SESSION_FLAGS, Flags, PWAITCHAINCALLBACK, callback, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1816,7 +1854,7 @@ export GetThreadWaitChain(WctHandle, _Context, Flags, ThreadId, NodeCount, NodeI
  * @since windows6.0.6000
  */
 export RegisterWaitChainCOMCallback(CallStateCallback, ActivationStateCallback) {
-    DllCall("ADVAPI32.dll\RegisterWaitChainCOMCallback", "ptr", CallStateCallback, "ptr", ActivationStateCallback)
+    DllCall("ADVAPI32.dll\RegisterWaitChainCOMCallback", PCOGETCALLSTATE, CallStateCallback, PCOGETACTIVATIONSTATE, ActivationStateCallback)
 }
 
 /**
@@ -1979,7 +2017,7 @@ export BindImageEx(Flags, ImageName, DllPath, SymbolPath, StatusRoutine) {
 
     A_LastError := 0
 
-    result := DllCall("imagehlp.dll\BindImageEx", UInt32, Flags, "ptr", ImageName, "ptr", DllPath, "ptr", SymbolPath, "ptr", StatusRoutine, BOOL)
+    result := DllCall("imagehlp.dll\BindImageEx", UInt32, Flags, "ptr", ImageName, "ptr", DllPath, "ptr", SymbolPath, PIMAGEHLP_STATUS_ROUTINE, StatusRoutine, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2340,7 +2378,7 @@ export ImageGetDigestStream(FileHandle, DigestLevel, DigestFunction, DigestHandl
 
     A_LastError := 0
 
-    result := DllCall("imagehlp.dll\ImageGetDigestStream", HANDLE, FileHandle, UInt32, DigestLevel, "ptr", DigestFunction, DigestHandleMarshal, DigestHandle, BOOL)
+    result := DllCall("imagehlp.dll\ImageGetDigestStream", HANDLE, FileHandle, UInt32, DigestLevel, DIGEST_FUNCTION, DigestFunction, DigestHandleMarshal, DigestHandle, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2763,7 +2801,7 @@ export SymFindDebugInfoFile(hProcess, FileName, DebugFilePath, Callback, CallerD
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymFindDebugInfoFile", HANDLE, hProcess, "ptr", FileName, "ptr", DebugFilePath, "ptr", Callback, CallerDataMarshal, CallerData, HANDLE.Owned)
+    result := DllCall("dbghelp.dll\SymFindDebugInfoFile", HANDLE, hProcess, "ptr", FileName, "ptr", DebugFilePath, PFIND_DEBUG_FILE_CALLBACK, Callback, CallerDataMarshal, CallerData, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2813,7 +2851,7 @@ export SymFindDebugInfoFileW(hProcess, FileName, DebugFilePath, Callback, Caller
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymFindDebugInfoFileW", HANDLE, hProcess, "ptr", FileName, "ptr", DebugFilePath, "ptr", Callback, CallerDataMarshal, CallerData, HANDLE.Owned)
+    result := DllCall("dbghelp.dll\SymFindDebugInfoFileW", HANDLE, hProcess, "ptr", FileName, "ptr", DebugFilePath, PFIND_DEBUG_FILE_CALLBACKW, Callback, CallerDataMarshal, CallerData, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2898,7 +2936,7 @@ export FindDebugInfoFileEx(FileName, SymbolPath, DebugFilePath, Callback, Caller
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\FindDebugInfoFileEx", "ptr", FileName, "ptr", SymbolPath, "ptr", DebugFilePath, "ptr", Callback, CallerDataMarshal, CallerData, HANDLE.Owned)
+    result := DllCall("dbghelp.dll\FindDebugInfoFileEx", "ptr", FileName, "ptr", SymbolPath, "ptr", DebugFilePath, PFIND_DEBUG_FILE_CALLBACK, Callback, CallerDataMarshal, CallerData, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2958,7 +2996,7 @@ export FindDebugInfoFileExW(FileName, SymbolPath, DebugFilePath, Callback, Calle
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\FindDebugInfoFileExW", "ptr", FileName, "ptr", SymbolPath, "ptr", DebugFilePath, "ptr", Callback, CallerDataMarshal, CallerData, HANDLE.Owned)
+    result := DllCall("dbghelp.dll\FindDebugInfoFileExW", "ptr", FileName, "ptr", SymbolPath, "ptr", DebugFilePath, PFIND_DEBUG_FILE_CALLBACKW, Callback, CallerDataMarshal, CallerData, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3013,7 +3051,7 @@ export SymFindFileInPath(hprocess, SearchPathA, FileName, id, two, three, flags,
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymFindFileInPath", HANDLE, hprocess, "ptr", SearchPathA, "ptr", FileName, idMarshal, id, UInt32, two, UInt32, three, SYM_FIND_ID_OPTION, flags, "ptr", FoundFile, "ptr", callback, _contextMarshal, _context, BOOL)
+    result := DllCall("dbghelp.dll\SymFindFileInPath", HANDLE, hprocess, "ptr", SearchPathA, "ptr", FileName, idMarshal, id, UInt32, two, UInt32, three, SYM_FIND_ID_OPTION, flags, "ptr", FoundFile, PFINDFILEINPATHCALLBACK, callback, _contextMarshal, _context, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3075,7 +3113,7 @@ export SymFindFileInPathW(hprocess, SearchPathA, FileName, id, two, three, flags
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymFindFileInPathW", HANDLE, hprocess, "ptr", SearchPathA, "ptr", FileName, idMarshal, id, UInt32, two, UInt32, three, SYM_FIND_ID_OPTION, flags, "ptr", FoundFile, "ptr", callback, _contextMarshal, _context, BOOL)
+    result := DllCall("dbghelp.dll\SymFindFileInPathW", HANDLE, hprocess, "ptr", SearchPathA, "ptr", FileName, idMarshal, id, UInt32, two, UInt32, three, SYM_FIND_ID_OPTION, flags, "ptr", FoundFile, PFINDFILEINPATHCALLBACKW, callback, _contextMarshal, _context, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3118,7 +3156,7 @@ export SymFindExecutableImage(hProcess, FileName, ImageFilePath, Callback, Calle
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymFindExecutableImage", HANDLE, hProcess, "ptr", FileName, "ptr", ImageFilePath, "ptr", Callback, CallerDataMarshal, CallerData, HANDLE.Owned)
+    result := DllCall("dbghelp.dll\SymFindExecutableImage", HANDLE, hProcess, "ptr", FileName, "ptr", ImageFilePath, PFIND_EXE_FILE_CALLBACK, Callback, CallerDataMarshal, CallerData, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3168,7 +3206,7 @@ export SymFindExecutableImageW(hProcess, FileName, ImageFilePath, Callback, Call
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymFindExecutableImageW", HANDLE, hProcess, "ptr", FileName, "ptr", ImageFilePath, "ptr", Callback, CallerDataMarshal, CallerData, HANDLE.Owned)
+    result := DllCall("dbghelp.dll\SymFindExecutableImageW", HANDLE, hProcess, "ptr", FileName, "ptr", ImageFilePath, PFIND_EXE_FILE_CALLBACKW, Callback, CallerDataMarshal, CallerData, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3244,7 +3282,7 @@ export FindExecutableImageEx(FileName, SymbolPath, ImageFilePath, Callback, Call
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\FindExecutableImageEx", "ptr", FileName, "ptr", SymbolPath, "ptr", ImageFilePath, "ptr", Callback, CallerDataMarshal, CallerData, HANDLE.Owned)
+    result := DllCall("dbghelp.dll\FindExecutableImageEx", "ptr", FileName, "ptr", SymbolPath, "ptr", ImageFilePath, PFIND_EXE_FILE_CALLBACK, Callback, CallerDataMarshal, CallerData, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3295,7 +3333,7 @@ export FindExecutableImageExW(FileName, SymbolPath, ImageFilePath, Callback, Cal
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\FindExecutableImageExW", "ptr", FileName, "ptr", SymbolPath, "ptr", ImageFilePath, "ptr", Callback, CallerDataMarshal, CallerData, HANDLE.Owned)
+    result := DllCall("dbghelp.dll\FindExecutableImageExW", "ptr", FileName, "ptr", SymbolPath, "ptr", ImageFilePath, PFIND_EXE_FILE_CALLBACKW, Callback, CallerDataMarshal, CallerData, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3488,7 +3526,7 @@ export EnumDirTree(hProcess, RootPath, InputPathName, OutputPathBuffer, cb, data
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\EnumDirTree", HANDLE, hProcess, "ptr", RootPath, "ptr", InputPathName, "ptr", OutputPathBuffer, "ptr", cb, dataMarshal, data, BOOL)
+    result := DllCall("dbghelp.dll\EnumDirTree", HANDLE, hProcess, "ptr", RootPath, "ptr", InputPathName, "ptr", OutputPathBuffer, PENUMDIRTREE_CALLBACK, cb, dataMarshal, data, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3539,7 +3577,7 @@ export EnumDirTreeW(hProcess, RootPath, InputPathName, OutputPathBuffer, cb, dat
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\EnumDirTreeW", HANDLE, hProcess, "ptr", RootPath, "ptr", InputPathName, "ptr", OutputPathBuffer, "ptr", cb, dataMarshal, data, BOOL)
+    result := DllCall("dbghelp.dll\EnumDirTreeW", HANDLE, hProcess, "ptr", RootPath, "ptr", InputPathName, "ptr", OutputPathBuffer, PENUMDIRTREE_CALLBACKW, cb, dataMarshal, data, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4184,7 +4222,7 @@ export UnDecorateSymbolNameW(name, outputString, maxStringLength, flags) {
 export StackWalk64(MachineType, hProcess, hThread, _StackFrame, ContextRecord, ReadMemoryRoutine, FunctionTableAccessRoutine, GetModuleBaseRoutine, TranslateAddress) {
     ContextRecordMarshal := ContextRecord is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("dbghelp.dll\StackWalk64", UInt32, MachineType, HANDLE, hProcess, HANDLE, hThread, STACKFRAME64.Ptr, _StackFrame, ContextRecordMarshal, ContextRecord, "ptr", ReadMemoryRoutine, "ptr", FunctionTableAccessRoutine, "ptr", GetModuleBaseRoutine, "ptr", TranslateAddress, BOOL)
+    result := DllCall("dbghelp.dll\StackWalk64", UInt32, MachineType, HANDLE, hProcess, HANDLE, hThread, STACKFRAME64.Ptr, _StackFrame, ContextRecordMarshal, ContextRecord, PREAD_PROCESS_MEMORY_ROUTINE64, ReadMemoryRoutine, PFUNCTION_TABLE_ACCESS_ROUTINE64, FunctionTableAccessRoutine, PGET_MODULE_BASE_ROUTINE64, GetModuleBaseRoutine, PTRANSLATE_ADDRESS_ROUTINE64, TranslateAddress, BOOL)
     return result
 }
 
@@ -4310,7 +4348,7 @@ export StackWalk64(MachineType, hProcess, hThread, _StackFrame, ContextRecord, R
 export StackWalkEx(MachineType, hProcess, hThread, _StackFrame, ContextRecord, ReadMemoryRoutine, FunctionTableAccessRoutine, GetModuleBaseRoutine, TranslateAddress, Flags) {
     ContextRecordMarshal := ContextRecord is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("dbghelp.dll\StackWalkEx", UInt32, MachineType, HANDLE, hProcess, HANDLE, hThread, STACKFRAME_EX.Ptr, _StackFrame, ContextRecordMarshal, ContextRecord, "ptr", ReadMemoryRoutine, "ptr", FunctionTableAccessRoutine, "ptr", GetModuleBaseRoutine, "ptr", TranslateAddress, UInt32, Flags, BOOL)
+    result := DllCall("dbghelp.dll\StackWalkEx", UInt32, MachineType, HANDLE, hProcess, HANDLE, hThread, STACKFRAME_EX.Ptr, _StackFrame, ContextRecordMarshal, ContextRecord, PREAD_PROCESS_MEMORY_ROUTINE64, ReadMemoryRoutine, PFUNCTION_TABLE_ACCESS_ROUTINE64, FunctionTableAccessRoutine, PGET_MODULE_BASE_ROUTINE64, GetModuleBaseRoutine, PTRANSLATE_ADDRESS_ROUTINE64, TranslateAddress, UInt32, Flags, BOOL)
     return result
 }
 
@@ -4332,7 +4370,7 @@ export StackWalkEx(MachineType, hProcess, hThread, _StackFrame, ContextRecord, R
 export StackWalk2(MachineType, hProcess, hThread, _StackFrame, ContextRecord, ReadMemoryRoutine, FunctionTableAccessRoutine, GetModuleBaseRoutine, TranslateAddress, GetTargetAttributeValue, Flags) {
     ContextRecordMarshal := ContextRecord is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("dbghelp.dll\StackWalk2", UInt32, MachineType, HANDLE, hProcess, HANDLE, hThread, STACKFRAME_EX.Ptr, _StackFrame, ContextRecordMarshal, ContextRecord, "ptr", ReadMemoryRoutine, "ptr", FunctionTableAccessRoutine, "ptr", GetModuleBaseRoutine, "ptr", TranslateAddress, "ptr", GetTargetAttributeValue, UInt32, Flags, BOOL)
+    result := DllCall("dbghelp.dll\StackWalk2", UInt32, MachineType, HANDLE, hProcess, HANDLE, hThread, STACKFRAME_EX.Ptr, _StackFrame, ContextRecordMarshal, ContextRecord, PREAD_PROCESS_MEMORY_ROUTINE64, ReadMemoryRoutine, PFUNCTION_TABLE_ACCESS_ROUTINE64, FunctionTableAccessRoutine, PGET_MODULE_BASE_ROUTINE64, GetModuleBaseRoutine, PTRANSLATE_ADDRESS_ROUTINE64, TranslateAddress, PGET_TARGET_ATTRIBUTE_VALUE64, GetTargetAttributeValue, UInt32, Flags, BOOL)
     return result
 }
 
@@ -5183,7 +5221,7 @@ export SymEnumSourceFiles(hProcess, ModBase, Mask, cbSrcFiles, UserContext) {
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymEnumSourceFiles", HANDLE, hProcess, Int64, ModBase, "ptr", Mask, "ptr", cbSrcFiles, UserContextMarshal, UserContext, BOOL)
+    result := DllCall("dbghelp.dll\SymEnumSourceFiles", HANDLE, hProcess, Int64, ModBase, "ptr", Mask, PSYM_ENUMSOURCEFILES_CALLBACK, cbSrcFiles, UserContextMarshal, UserContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5226,7 +5264,7 @@ export SymEnumSourceFilesW(hProcess, ModBase, Mask, cbSrcFiles, UserContext) {
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymEnumSourceFilesW", HANDLE, hProcess, Int64, ModBase, "ptr", Mask, "ptr", cbSrcFiles, UserContextMarshal, UserContext, BOOL)
+    result := DllCall("dbghelp.dll\SymEnumSourceFilesW", HANDLE, hProcess, Int64, ModBase, "ptr", Mask, PSYM_ENUMSOURCEFILES_CALLBACKW, cbSrcFiles, UserContextMarshal, UserContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5271,7 +5309,7 @@ export SymEnumerateModules64(hProcess, EnumModulesCallback, UserContext) {
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymEnumerateModules64", HANDLE, hProcess, "ptr", EnumModulesCallback, UserContextMarshal, UserContext, BOOL)
+    result := DllCall("dbghelp.dll\SymEnumerateModules64", HANDLE, hProcess, PSYM_ENUMMODULES_CALLBACK64, EnumModulesCallback, UserContextMarshal, UserContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5316,7 +5354,7 @@ export SymEnumerateModulesW64(hProcess, EnumModulesCallback, UserContext) {
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymEnumerateModulesW64", HANDLE, hProcess, "ptr", EnumModulesCallback, UserContextMarshal, UserContext, BOOL)
+    result := DllCall("dbghelp.dll\SymEnumerateModulesW64", HANDLE, hProcess, PSYM_ENUMMODULES_CALLBACKW64, EnumModulesCallback, UserContextMarshal, UserContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5345,7 +5383,7 @@ export EnumerateLoadedModulesEx(hProcess, EnumLoadedModulesCallback, UserContext
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\EnumerateLoadedModulesEx", HANDLE, hProcess, "ptr", EnumLoadedModulesCallback, UserContextMarshal, UserContext, BOOL)
+    result := DllCall("dbghelp.dll\EnumerateLoadedModulesEx", HANDLE, hProcess, PENUMLOADED_MODULES_CALLBACK64, EnumLoadedModulesCallback, UserContextMarshal, UserContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5381,7 +5419,7 @@ export EnumerateLoadedModulesExW(hProcess, EnumLoadedModulesCallback, UserContex
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\EnumerateLoadedModulesExW", HANDLE, hProcess, "ptr", EnumLoadedModulesCallback, UserContextMarshal, UserContext, BOOL)
+    result := DllCall("dbghelp.dll\EnumerateLoadedModulesExW", HANDLE, hProcess, PENUMLOADED_MODULES_CALLBACKW64, EnumLoadedModulesCallback, UserContextMarshal, UserContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5420,7 +5458,7 @@ export EnumerateLoadedModules64(hProcess, EnumLoadedModulesCallback, UserContext
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\EnumerateLoadedModules64", HANDLE, hProcess, "ptr", EnumLoadedModulesCallback, UserContextMarshal, UserContext, BOOL)
+    result := DllCall("dbghelp.dll\EnumerateLoadedModules64", HANDLE, hProcess, PENUMLOADED_MODULES_CALLBACK64, EnumLoadedModulesCallback, UserContextMarshal, UserContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5459,7 +5497,7 @@ export EnumerateLoadedModulesW64(hProcess, EnumLoadedModulesCallback, UserContex
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\EnumerateLoadedModulesW64", HANDLE, hProcess, "ptr", EnumLoadedModulesCallback, UserContextMarshal, UserContext, BOOL)
+    result := DllCall("dbghelp.dll\EnumerateLoadedModulesW64", HANDLE, hProcess, PENUMLOADED_MODULES_CALLBACKW64, EnumLoadedModulesCallback, UserContextMarshal, UserContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5515,7 +5553,7 @@ export SymFunctionTableAccess64(hProcess, AddrBase) {
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/nf-dbghelp-symfunctiontableaccess64accessroutines
  */
 export SymFunctionTableAccess64AccessRoutines(hProcess, AddrBase, ReadMemoryRoutine, GetModuleBaseRoutine) {
-    result := DllCall("dbghelp.dll\SymFunctionTableAccess64AccessRoutines", HANDLE, hProcess, Int64, AddrBase, "ptr", ReadMemoryRoutine, "ptr", GetModuleBaseRoutine, IntPtr)
+    result := DllCall("dbghelp.dll\SymFunctionTableAccess64AccessRoutines", HANDLE, hProcess, Int64, AddrBase, PREAD_PROCESS_MEMORY_ROUTINE64, ReadMemoryRoutine, PGET_MODULE_BASE_ROUTINE64, GetModuleBaseRoutine, IntPtr)
     return result
 }
 
@@ -5691,7 +5729,7 @@ export SymEnumLines(hProcess, Base, Obj, _File, EnumLinesCallback, UserContext) 
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymEnumLines", HANDLE, hProcess, Int64, Base, "ptr", Obj, "ptr", _File, "ptr", EnumLinesCallback, UserContextMarshal, UserContext, BOOL)
+    result := DllCall("dbghelp.dll\SymEnumLines", HANDLE, hProcess, Int64, Base, "ptr", Obj, "ptr", _File, PSYM_ENUMLINES_CALLBACK, EnumLinesCallback, UserContextMarshal, UserContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5736,7 +5774,7 @@ export SymEnumLinesW(hProcess, Base, Obj, _File, EnumLinesCallback, UserContext)
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymEnumLinesW", HANDLE, hProcess, Int64, Base, "ptr", Obj, "ptr", _File, "ptr", EnumLinesCallback, UserContextMarshal, UserContext, BOOL)
+    result := DllCall("dbghelp.dll\SymEnumLinesW", HANDLE, hProcess, Int64, Base, "ptr", Obj, "ptr", _File, PSYM_ENUMLINES_CALLBACKW, EnumLinesCallback, UserContextMarshal, UserContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6005,7 +6043,7 @@ export SymEnumSourceLines(hProcess, Base, Obj, _File, Line, Flags, EnumLinesCall
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymEnumSourceLines", HANDLE, hProcess, Int64, Base, "ptr", Obj, "ptr", _File, UInt32, Line, UInt32, Flags, "ptr", EnumLinesCallback, UserContextMarshal, UserContext, BOOL)
+    result := DllCall("dbghelp.dll\SymEnumSourceLines", HANDLE, hProcess, Int64, Base, "ptr", Obj, "ptr", _File, UInt32, Line, UInt32, Flags, PSYM_ENUMLINES_CALLBACK, EnumLinesCallback, UserContextMarshal, UserContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6049,7 +6087,7 @@ export SymEnumSourceLinesW(hProcess, Base, Obj, _File, Line, Flags, EnumLinesCal
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymEnumSourceLinesW", HANDLE, hProcess, Int64, Base, "ptr", Obj, "ptr", _File, UInt32, Line, UInt32, Flags, "ptr", EnumLinesCallback, UserContextMarshal, UserContext, BOOL)
+    result := DllCall("dbghelp.dll\SymEnumSourceLinesW", HANDLE, hProcess, Int64, Base, "ptr", Obj, "ptr", _File, UInt32, Line, UInt32, Flags, PSYM_ENUMLINES_CALLBACKW, EnumLinesCallback, UserContextMarshal, UserContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7107,7 +7145,7 @@ export SymGetSourceVarFromTokenW(hProcess, Token, Params, VarName, Value, _Size)
 export SymEnumSourceFileTokens(hProcess, Base, Callback) {
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymEnumSourceFileTokens", HANDLE, hProcess, Int64, Base, "ptr", Callback, BOOL)
+    result := DllCall("dbghelp.dll\SymEnumSourceFileTokens", HANDLE, hProcess, Int64, Base, PENUMSOURCEFILETOKENSCALLBACK, Callback, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7570,7 +7608,7 @@ export SymUnDName64(sym, UnDecName, UnDecNameLength) {
 export SymRegisterCallback64(hProcess, CallbackFunction, UserContext) {
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymRegisterCallback64", HANDLE, hProcess, "ptr", CallbackFunction, Int64, UserContext, BOOL)
+    result := DllCall("dbghelp.dll\SymRegisterCallback64", HANDLE, hProcess, PSYMBOL_REGISTERED_CALLBACK64, CallbackFunction, Int64, UserContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7610,7 +7648,7 @@ export SymRegisterCallback64(hProcess, CallbackFunction, UserContext) {
 export SymRegisterCallbackW64(hProcess, CallbackFunction, UserContext) {
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymRegisterCallbackW64", HANDLE, hProcess, "ptr", CallbackFunction, Int64, UserContext, BOOL)
+    result := DllCall("dbghelp.dll\SymRegisterCallbackW64", HANDLE, hProcess, PSYMBOL_REGISTERED_CALLBACK64, CallbackFunction, Int64, UserContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7644,7 +7682,7 @@ export SymRegisterCallbackW64(hProcess, CallbackFunction, UserContext) {
 export SymRegisterFunctionEntryCallback64(hProcess, CallbackFunction, UserContext) {
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymRegisterFunctionEntryCallback64", HANDLE, hProcess, "ptr", CallbackFunction, Int64, UserContext, BOOL)
+    result := DllCall("dbghelp.dll\SymRegisterFunctionEntryCallback64", HANDLE, hProcess, PSYMBOL_FUNCENTRY_CALLBACK64, CallbackFunction, Int64, UserContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7777,7 +7815,7 @@ export SymEnumProcesses(EnumProcessesCallback, UserContext) {
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymEnumProcesses", "ptr", EnumProcessesCallback, UserContextMarshal, UserContext, BOOL)
+    result := DllCall("dbghelp.dll\SymEnumProcesses", PSYM_ENUMPROCESSES_CALLBACK, EnumProcessesCallback, UserContextMarshal, UserContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8280,7 +8318,7 @@ export SymEnumSymbols(hProcess, BaseOfDll, Mask, EnumSymbolsCallback, UserContex
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymEnumSymbols", HANDLE, hProcess, Int64, BaseOfDll, "ptr", Mask, "ptr", EnumSymbolsCallback, UserContextMarshal, UserContext, BOOL)
+    result := DllCall("dbghelp.dll\SymEnumSymbols", HANDLE, hProcess, Int64, BaseOfDll, "ptr", Mask, PSYM_ENUMERATESYMBOLS_CALLBACK, EnumSymbolsCallback, UserContextMarshal, UserContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8418,7 +8456,7 @@ export SymEnumSymbolsEx(hProcess, BaseOfDll, Mask, EnumSymbolsCallback, UserCont
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymEnumSymbolsEx", HANDLE, hProcess, Int64, BaseOfDll, "ptr", Mask, "ptr", EnumSymbolsCallback, UserContextMarshal, UserContext, UInt32, Options, BOOL)
+    result := DllCall("dbghelp.dll\SymEnumSymbolsEx", HANDLE, hProcess, Int64, BaseOfDll, "ptr", Mask, PSYM_ENUMERATESYMBOLS_CALLBACK, EnumSymbolsCallback, UserContextMarshal, UserContext, UInt32, Options, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8531,7 +8569,7 @@ export SymEnumSymbolsW(hProcess, BaseOfDll, Mask, EnumSymbolsCallback, UserConte
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymEnumSymbolsW", HANDLE, hProcess, Int64, BaseOfDll, "ptr", Mask, "ptr", EnumSymbolsCallback, UserContextMarshal, UserContext, BOOL)
+    result := DllCall("dbghelp.dll\SymEnumSymbolsW", HANDLE, hProcess, Int64, BaseOfDll, "ptr", Mask, PSYM_ENUMERATESYMBOLS_CALLBACKW, EnumSymbolsCallback, UserContextMarshal, UserContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8672,7 +8710,7 @@ export SymEnumSymbolsExW(hProcess, BaseOfDll, Mask, EnumSymbolsCallback, UserCon
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymEnumSymbolsExW", HANDLE, hProcess, Int64, BaseOfDll, "ptr", Mask, "ptr", EnumSymbolsCallback, UserContextMarshal, UserContext, UInt32, Options, BOOL)
+    result := DllCall("dbghelp.dll\SymEnumSymbolsExW", HANDLE, hProcess, Int64, BaseOfDll, "ptr", Mask, PSYM_ENUMERATESYMBOLS_CALLBACKW, EnumSymbolsCallback, UserContextMarshal, UserContext, UInt32, Options, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8703,7 +8741,7 @@ export SymEnumSymbolsForAddr(hProcess, _Address, EnumSymbolsCallback, UserContex
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymEnumSymbolsForAddr", HANDLE, hProcess, Int64, _Address, "ptr", EnumSymbolsCallback, UserContextMarshal, UserContext, BOOL)
+    result := DllCall("dbghelp.dll\SymEnumSymbolsForAddr", HANDLE, hProcess, Int64, _Address, PSYM_ENUMERATESYMBOLS_CALLBACK, EnumSymbolsCallback, UserContextMarshal, UserContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8741,7 +8779,7 @@ export SymEnumSymbolsForAddrW(hProcess, _Address, EnumSymbolsCallback, UserConte
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymEnumSymbolsForAddrW", HANDLE, hProcess, Int64, _Address, "ptr", EnumSymbolsCallback, UserContextMarshal, UserContext, BOOL)
+    result := DllCall("dbghelp.dll\SymEnumSymbolsForAddrW", HANDLE, hProcess, Int64, _Address, PSYM_ENUMERATESYMBOLS_CALLBACKW, EnumSymbolsCallback, UserContextMarshal, UserContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8834,7 +8872,7 @@ export SymSearch(hProcess, BaseOfDll, Index, SymTag, Mask, _Address, EnumSymbols
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymSearch", HANDLE, hProcess, Int64, BaseOfDll, UInt32, Index, UInt32, SymTag, "ptr", Mask, Int64, _Address, "ptr", EnumSymbolsCallback, UserContextMarshal, UserContext, UInt32, Options, BOOL)
+    result := DllCall("dbghelp.dll\SymSearch", HANDLE, hProcess, Int64, BaseOfDll, UInt32, Index, UInt32, SymTag, "ptr", Mask, Int64, _Address, PSYM_ENUMERATESYMBOLS_CALLBACK, EnumSymbolsCallback, UserContextMarshal, UserContext, UInt32, Options, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8934,7 +8972,7 @@ export SymSearchW(hProcess, BaseOfDll, Index, SymTag, Mask, _Address, EnumSymbol
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymSearchW", HANDLE, hProcess, Int64, BaseOfDll, UInt32, Index, UInt32, SymTag, "ptr", Mask, Int64, _Address, "ptr", EnumSymbolsCallback, UserContextMarshal, UserContext, UInt32, Options, BOOL)
+    result := DllCall("dbghelp.dll\SymSearchW", HANDLE, hProcess, Int64, BaseOfDll, UInt32, Index, UInt32, SymTag, "ptr", Mask, Int64, _Address, PSYM_ENUMERATESYMBOLS_CALLBACKW, EnumSymbolsCallback, UserContextMarshal, UserContext, UInt32, Options, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9148,7 +9186,7 @@ export SymEnumTypes(hProcess, BaseOfDll, EnumSymbolsCallback, UserContext) {
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymEnumTypes", HANDLE, hProcess, Int64, BaseOfDll, "ptr", EnumSymbolsCallback, UserContextMarshal, UserContext, BOOL)
+    result := DllCall("dbghelp.dll\SymEnumTypes", HANDLE, hProcess, Int64, BaseOfDll, PSYM_ENUMERATESYMBOLS_CALLBACK, EnumSymbolsCallback, UserContextMarshal, UserContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9186,7 +9224,7 @@ export SymEnumTypesW(hProcess, BaseOfDll, EnumSymbolsCallback, UserContext) {
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymEnumTypesW", HANDLE, hProcess, Int64, BaseOfDll, "ptr", EnumSymbolsCallback, UserContextMarshal, UserContext, BOOL)
+    result := DllCall("dbghelp.dll\SymEnumTypesW", HANDLE, hProcess, Int64, BaseOfDll, PSYM_ENUMERATESYMBOLS_CALLBACKW, EnumSymbolsCallback, UserContextMarshal, UserContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9220,7 +9258,7 @@ export SymEnumTypesByName(hProcess, BaseOfDll, mask, EnumSymbolsCallback, UserCo
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymEnumTypesByName", HANDLE, hProcess, Int64, BaseOfDll, "ptr", mask, "ptr", EnumSymbolsCallback, UserContextMarshal, UserContext, BOOL)
+    result := DllCall("dbghelp.dll\SymEnumTypesByName", HANDLE, hProcess, Int64, BaseOfDll, "ptr", mask, PSYM_ENUMERATESYMBOLS_CALLBACK, EnumSymbolsCallback, UserContextMarshal, UserContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9261,7 +9299,7 @@ export SymEnumTypesByNameW(hProcess, BaseOfDll, mask, EnumSymbolsCallback, UserC
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymEnumTypesByNameW", HANDLE, hProcess, Int64, BaseOfDll, "ptr", mask, "ptr", EnumSymbolsCallback, UserContextMarshal, UserContext, BOOL)
+    result := DllCall("dbghelp.dll\SymEnumTypesByNameW", HANDLE, hProcess, Int64, BaseOfDll, "ptr", mask, PSYM_ENUMERATESYMBOLS_CALLBACKW, EnumSymbolsCallback, UserContextMarshal, UserContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10326,7 +10364,7 @@ export DbgHelpCreateUserDump(FileName, Callback, _UserData) {
 
     _UserDataMarshal := _UserData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("dbghelp.dll\DbgHelpCreateUserDump", "ptr", FileName, "ptr", Callback, _UserDataMarshal, _UserData, BOOL)
+    result := DllCall("dbghelp.dll\DbgHelpCreateUserDump", "ptr", FileName, PDBGHELP_CREATE_USER_DUMP_CALLBACK, Callback, _UserDataMarshal, _UserData, BOOL)
     return result
 }
 
@@ -10342,7 +10380,7 @@ export DbgHelpCreateUserDumpW(FileName, Callback, _UserData) {
 
     _UserDataMarshal := _UserData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("dbghelp.dll\DbgHelpCreateUserDumpW", "ptr", FileName, "ptr", Callback, _UserDataMarshal, _UserData, BOOL)
+    result := DllCall("dbghelp.dll\DbgHelpCreateUserDumpW", "ptr", FileName, PDBGHELP_CREATE_USER_DUMP_CALLBACK, Callback, _UserDataMarshal, _UserData, BOOL)
     return result
 }
 
@@ -10483,7 +10521,7 @@ export FindFileInSearchPath(hprocess, SearchPathA, FileName, one, two, three, Fi
 export SymEnumSym(hProcess, BaseOfDll, EnumSymbolsCallback, UserContext) {
     UserContextMarshal := UserContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("dbghelp.dll\SymEnumSym", HANDLE, hProcess, Int64, BaseOfDll, "ptr", EnumSymbolsCallback, UserContextMarshal, UserContext, BOOL)
+    result := DllCall("dbghelp.dll\SymEnumSym", HANDLE, hProcess, Int64, BaseOfDll, PSYM_ENUMERATESYMBOLS_CALLBACK, EnumSymbolsCallback, UserContextMarshal, UserContext, BOOL)
     return result
 }
 
@@ -10533,7 +10571,7 @@ export SymEnumerateSymbols64(hProcess, BaseOfDll, EnumSymbolsCallback, UserConte
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymEnumerateSymbols64", HANDLE, hProcess, Int64, BaseOfDll, "ptr", EnumSymbolsCallback, UserContextMarshal, UserContext, BOOL)
+    result := DllCall("dbghelp.dll\SymEnumerateSymbols64", HANDLE, hProcess, Int64, BaseOfDll, PSYM_ENUMSYMBOLS_CALLBACK64, EnumSymbolsCallback, UserContextMarshal, UserContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10587,7 +10625,7 @@ export SymEnumerateSymbolsW64(hProcess, BaseOfDll, EnumSymbolsCallback, UserCont
 
     A_LastError := 0
 
-    result := DllCall("dbghelp.dll\SymEnumerateSymbolsW64", HANDLE, hProcess, Int64, BaseOfDll, "ptr", EnumSymbolsCallback, UserContextMarshal, UserContext, BOOL)
+    result := DllCall("dbghelp.dll\SymEnumerateSymbolsW64", HANDLE, hProcess, Int64, BaseOfDll, PSYM_ENUMSYMBOLS_CALLBACK64W, EnumSymbolsCallback, UserContextMarshal, UserContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10748,7 +10786,7 @@ export SymGetSymPrev64(hProcess, Symbol) {
  * @returns {String} Nothing - always returns an empty string
  */
 export SetCheckUserInterruptShared(lpStartAddress) {
-    DllCall("dbghelp.dll\SetCheckUserInterruptShared", "ptr", lpStartAddress)
+    DllCall("dbghelp.dll\SetCheckUserInterruptShared", LPCALL_BACK_USER_INTERRUPT_ROUTINE, lpStartAddress)
 }
 
 /**

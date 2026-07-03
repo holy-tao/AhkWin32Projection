@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PFNFILLTEXTBUFFER.ahk" { PFNFILLTEXTBUFFER }
 
 /**
  * Contains information about text that the word breaker will process.
@@ -29,7 +30,7 @@ export default struct TEXT_SOURCE {
      * 
      * Pointer to a function, <b>PFNFILLTEXTBUFFER</b> that refills the <b>awcBuffer</b> with text from the source document.
      */
-    pfnFillTextBuffer : IntPtr
+    pfnFillTextBuffer : PFNFILLTEXTBUFFER
 
     /**
      * Type: <b>WCHAR*</b>

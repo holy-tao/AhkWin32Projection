@@ -49,6 +49,10 @@ export default struct PFN_IN_USE_PAGE_OFFLINE_NOTIFY {
             this.value := CallbackCreate(fn, , [UInt32, BOOLEAN, BOOLEAN, "ptr", BOOLEAN])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

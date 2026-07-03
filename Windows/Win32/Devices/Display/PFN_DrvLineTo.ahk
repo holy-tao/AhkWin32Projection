@@ -56,6 +56,10 @@ export default struct PFN_DrvLineTo {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, CLIPOBJ.Ptr, BRUSHOBJ.Ptr, Int32, Int32, Int32, Int32, RECTL.Ptr, UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

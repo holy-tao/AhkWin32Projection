@@ -77,6 +77,10 @@ export default struct PROPENUMPROCW {
             this.value := CallbackCreate(fn, , [HWND, PWSTR, HANDLE, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -48,6 +48,10 @@ export default struct PGET_SYSTEM_WOW64_DIRECTORY_W {
             this.value := CallbackCreate(fn, , [PWSTR, UInt32, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

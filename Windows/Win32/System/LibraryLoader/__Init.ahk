@@ -1,0 +1,16 @@
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+
+#Import export ".\Apis.ahk" {*}
+#Import export ".\Constants.ahk" {*}
+#Import export ".\ENUMRESLANGPROCA.ahk" {ENUMRESLANGPROCA}
+#Import export ".\ENUMRESLANGPROCW.ahk" {ENUMRESLANGPROCW}
+#Import export ".\ENUMRESNAMEPROCA.ahk" {ENUMRESNAMEPROCA}
+#Import export ".\ENUMRESNAMEPROCW.ahk" {ENUMRESNAMEPROCW}
+#Import export ".\ENUMRESTYPEPROCA.ahk" {ENUMRESTYPEPROCA}
+#Import export ".\ENUMRESTYPEPROCW.ahk" {ENUMRESTYPEPROCW}
+#Import export ".\ENUMUILANG.ahk" {ENUMUILANG}
+#Import export ".\LOAD_LIBRARY_FLAGS.ahk" {LOAD_LIBRARY_FLAGS}
+#Import export ".\PGET_MODULE_HANDLE_EXA.ahk" {PGET_MODULE_HANDLE_EXA}
+#Import export ".\PGET_MODULE_HANDLE_EXW.ahk" {PGET_MODULE_HANDLE_EXW}
+#Import export ".\REDIRECTION_DESCRIPTOR.ahk" {REDIRECTION_DESCRIPTOR}
+#Import export ".\REDIRECTION_FUNCTION_DESCRIPTOR.ahk" {REDIRECTION_FUNCTION_DESCRIPTOR}

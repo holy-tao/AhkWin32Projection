@@ -45,6 +45,10 @@ export default struct PFNFILLTEXTBUFFER {
             this.value := CallbackCreate(fn, , [TEXT_SOURCE.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -28,7 +28,7 @@ export default struct IOMMU_FLUSH_DOMAIN {
         DomainMarshal := Domain is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, DomainMarshal, Domain, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -48,6 +48,10 @@ export default struct IOMMU_FLUSH_DOMAIN {
             this.value := CallbackCreate(fn, , [IOMMU_DMA_DOMAIN.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

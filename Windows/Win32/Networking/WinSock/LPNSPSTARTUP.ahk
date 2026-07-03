@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\NSP_ROUTINE.ahk" { NSP_ROUTINE }
 
 /**
@@ -46,6 +46,10 @@ export default struct LPNSPSTARTUP {
             this.value := CallbackCreate(fn, , [Guid.Ptr, NSP_ROUTINE.Ptr, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -51,6 +51,10 @@ export default struct PciLine2Pin {
             this.value := CallbackCreate(fn, , ["ptr*", "ptr*", PCI_SLOT_NUMBER, PCI_COMMON_CONFIG.Ptr, PCI_COMMON_CONFIG.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

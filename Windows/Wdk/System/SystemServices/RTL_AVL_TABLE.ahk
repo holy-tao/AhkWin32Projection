@@ -1,4 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PRTL_AVL_ALLOCATE_ROUTINE.ahk" { PRTL_AVL_ALLOCATE_ROUTINE }
+#Import ".\PRTL_AVL_COMPARE_ROUTINE.ahk" { PRTL_AVL_COMPARE_ROUTINE }
+#Import ".\PRTL_AVL_FREE_ROUTINE.ahk" { PRTL_AVL_FREE_ROUTINE }
 #Import ".\RTL_BALANCED_LINKS.ahk" { RTL_BALANCED_LINKS }
 
 /**
@@ -21,11 +24,11 @@ export default struct RTL_AVL_TABLE {
 
     DeleteCount : UInt32
 
-    CompareRoutine : IntPtr
+    CompareRoutine : PRTL_AVL_COMPARE_ROUTINE
 
-    AllocateRoutine : IntPtr
+    AllocateRoutine : PRTL_AVL_ALLOCATE_ROUTINE
 
-    FreeRoutine : IntPtr
+    FreeRoutine : PRTL_AVL_FREE_ROUTINE
 
     TableContext : IntPtr
 

@@ -50,6 +50,10 @@ export default struct PMPRADMINRELEASEIPADRESS {
             this.value := CallbackCreate(fn, , [PWSTR, PWSTR, "uint*", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

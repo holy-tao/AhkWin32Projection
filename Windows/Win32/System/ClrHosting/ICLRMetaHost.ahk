@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\RuntimeLoadedCallbackFnPtr.ahk" { RuntimeLoadedCallbackFnPtr }
 #Import "..\Com\IEnumUnknown.ahk" { IEnumUnknown }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 
@@ -99,7 +100,7 @@ export default struct ICLRMetaHost extends IUnknown {
      * @returns {HRESULT} 
      */
     RequestRuntimeLoadedNotification(pCallbackFunction) {
-        result := ComCall(7, this, "ptr", pCallbackFunction, "HRESULT")
+        result := ComCall(7, this, RuntimeLoadedCallbackFnPtr, pCallbackFunction, "HRESULT")
         return result
     }
 

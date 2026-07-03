@@ -48,6 +48,10 @@ export default struct PCLUSAPI_CLUSTER_REMOVE_GROUP_FROM_GROUPSET_EX {
             this.value := CallbackCreate(fn, , [HGROUPSET, PWSTR, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -45,6 +45,10 @@ export default struct PFN_DrvEnableSurface {
             this.value := CallbackCreate(fn, , [DHPDEV, HSURF])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PAPCFUNC.ahk" { PAPCFUNC }
 #Import ".\IMediaStream.ahk" { IMediaStream }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
@@ -231,7 +232,7 @@ export default struct IStreamSample extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-istreamsample-update
      */
     Update(dwFlags, hEvent, pfnAPC, dwAPCData) {
-        result := ComCall(6, this, UInt32, dwFlags, HANDLE, hEvent, "ptr", pfnAPC, IntPtr, dwAPCData, "HRESULT")
+        result := ComCall(6, this, UInt32, dwFlags, HANDLE, hEvent, PAPCFUNC, pfnAPC, IntPtr, dwAPCData, "HRESULT")
         return result
     }
 

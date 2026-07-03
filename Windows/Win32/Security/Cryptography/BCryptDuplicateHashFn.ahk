@@ -30,7 +30,7 @@ export default struct BCryptDuplicateHashFn {
      */
     Call(hHash, phNewHash, pbHashObject, cbHashObject, dwFlags) {
         result := DllCall(this.value, BCRYPT_HASH_HANDLE, hHash, BCRYPT_HASH_HANDLE.Ptr, phNewHash, IntPtr, pbHashObject, UInt32, cbHashObject, UInt32, dwFlags, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -50,6 +50,10 @@ export default struct BCryptDuplicateHashFn {
             this.value := CallbackCreate(fn, , [BCRYPT_HASH_HANDLE, BCRYPT_HASH_HANDLE.Ptr, IntPtr, UInt32, UInt32, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

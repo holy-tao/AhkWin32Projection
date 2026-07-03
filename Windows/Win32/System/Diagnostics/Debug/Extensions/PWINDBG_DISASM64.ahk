@@ -50,6 +50,10 @@ export default struct PWINDBG_DISASM64 {
             this.value := CallbackCreate(fn, , ["uint*", PSTR, UInt32, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

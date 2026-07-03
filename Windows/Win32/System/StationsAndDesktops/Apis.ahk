@@ -12,11 +12,16 @@
 #Import ".\BROADCAST_SYSTEM_MESSAGE_FLAGS.ahk" { BROADCAST_SYSTEM_MESSAGE_FLAGS }
 #Import ".\BROADCAST_SYSTEM_MESSAGE_INFO.ahk" { BROADCAST_SYSTEM_MESSAGE_INFO }
 #Import ".\BSMINFO.ahk" { BSMINFO }
+#Import ".\DESKTOPENUMPROCA.ahk" { DESKTOPENUMPROCA }
+#Import ".\DESKTOPENUMPROCW.ahk" { DESKTOPENUMPROCW }
 #Import ".\DESKTOP_ACCESS_FLAGS.ahk" { DESKTOP_ACCESS_FLAGS }
 #Import ".\DESKTOP_CONTROL_FLAGS.ahk" { DESKTOP_CONTROL_FLAGS }
 #Import ".\HDESK.ahk" { HDESK }
 #Import ".\HWINSTA.ahk" { HWINSTA }
 #Import ".\USER_OBJECT_INFORMATION_INDEX.ahk" { USER_OBJECT_INFORMATION_INDEX }
+#Import ".\WINSTAENUMPROCA.ahk" { WINSTAENUMPROCA }
+#Import ".\WINSTAENUMPROCW.ahk" { WINSTAENUMPROCW }
+#Import "..\..\UI\WindowsAndMessaging\WNDENUMPROC.ahk" { WNDENUMPROC }
 
 /**
  * @namespace Windows.Win32.System.StationsAndDesktops
@@ -576,7 +581,7 @@ export OpenInputDesktop(dwFlags, fInherit, dwDesiredAccess) {
 export EnumDesktopsA(_hwinsta, lpEnumFunc, _lParam) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\EnumDesktopsA", HWINSTA, _hwinsta, "ptr", lpEnumFunc, LPARAM, _lParam, BOOL)
+    result := DllCall("USER32.dll\EnumDesktopsA", HWINSTA, _hwinsta, DESKTOPENUMPROCA, lpEnumFunc, LPARAM, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -622,7 +627,7 @@ export EnumDesktopsA(_hwinsta, lpEnumFunc, _lParam) {
 export EnumDesktopsW(_hwinsta, lpEnumFunc, _lParam) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\EnumDesktopsW", HWINSTA, _hwinsta, "ptr", lpEnumFunc, LPARAM, _lParam, BOOL)
+    result := DllCall("USER32.dll\EnumDesktopsW", HWINSTA, _hwinsta, DESKTOPENUMPROCW, lpEnumFunc, LPARAM, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -659,7 +664,7 @@ export EnumDesktopsW(_hwinsta, lpEnumFunc, _lParam) {
 export EnumDesktopWindows(hDesktop, lpfn, _lParam) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\EnumDesktopWindows", HDESK, hDesktop, "ptr", lpfn, LPARAM, _lParam, BOOL)
+    result := DllCall("USER32.dll\EnumDesktopWindows", HDESK, hDesktop, WNDENUMPROC, lpfn, LPARAM, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -984,7 +989,7 @@ export OpenWindowStationW(lpszWinSta, fInherit, dwDesiredAccess) {
 export EnumWindowStationsA(lpEnumFunc, _lParam) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\EnumWindowStationsA", "ptr", lpEnumFunc, LPARAM, _lParam, BOOL)
+    result := DllCall("USER32.dll\EnumWindowStationsA", WINSTAENUMPROCA, lpEnumFunc, LPARAM, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1022,7 +1027,7 @@ export EnumWindowStationsA(lpEnumFunc, _lParam) {
 export EnumWindowStationsW(lpEnumFunc, _lParam) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\EnumWindowStationsW", "ptr", lpEnumFunc, LPARAM, _lParam, BOOL)
+    result := DllCall("USER32.dll\EnumWindowStationsW", WINSTAENUMPROCW, lpEnumFunc, LPARAM, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }

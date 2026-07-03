@@ -76,6 +76,10 @@ export default struct PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_GET {
             this.value := CallbackCreate(fn, , ["ptr", CRYPT_INTEGER_BLOB.Ptr, UInt32, CRYPT_INTEGER_BLOB.Ptr, "ptr*", "uint*", PWSTR.Ptr, "ptr*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

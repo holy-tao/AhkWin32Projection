@@ -46,6 +46,10 @@ export default struct PCREATE_THREAD_NOTIFY_ROUTINE {
             this.value := CallbackCreate(fn, , [HANDLE, HANDLE, BOOLEAN, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

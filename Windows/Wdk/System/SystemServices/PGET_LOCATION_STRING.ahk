@@ -30,7 +30,7 @@ export default struct PGET_LOCATION_STRING {
         LocationStringsMarshal := LocationStrings is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, LocationStringsMarshal, LocationStrings, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -50,6 +50,10 @@ export default struct PGET_LOCATION_STRING {
             this.value := CallbackCreate(fn, , ["ptr", PWSTR.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

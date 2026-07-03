@@ -44,6 +44,10 @@ export default struct PDD_SURFCB_SETCLIPLIST {
             this.value := CallbackCreate(fn, , [DD_SETCLIPLISTDATA.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

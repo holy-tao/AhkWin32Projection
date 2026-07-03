@@ -109,6 +109,10 @@ export default struct LPWSPGETQOSBYNAME {
             this.value := CallbackCreate(fn, , [SOCKET, WSABUF.Ptr, QOS.Ptr, "int*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

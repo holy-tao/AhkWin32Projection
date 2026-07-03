@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\CERT_SIMPLE_CHAIN.ahk" { CERT_SIMPLE_CHAIN }
 #Import ".\CERT_TRUST_STATUS.ahk" { CERT_TRUST_STATUS }

@@ -1,4 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PDD_SURFCB_ADDATTACHEDSURFACE.ahk" { PDD_SURFCB_ADDATTACHEDSURFACE }
+#Import ".\PDD_SURFCB_BLT.ahk" { PDD_SURFCB_BLT }
+#Import ".\PDD_SURFCB_DESTROYSURFACE.ahk" { PDD_SURFCB_DESTROYSURFACE }
+#Import ".\PDD_SURFCB_FLIP.ahk" { PDD_SURFCB_FLIP }
+#Import ".\PDD_SURFCB_GETBLTSTATUS.ahk" { PDD_SURFCB_GETBLTSTATUS }
+#Import ".\PDD_SURFCB_GETFLIPSTATUS.ahk" { PDD_SURFCB_GETFLIPSTATUS }
+#Import ".\PDD_SURFCB_LOCK.ahk" { PDD_SURFCB_LOCK }
+#Import ".\PDD_SURFCB_SETCLIPLIST.ahk" { PDD_SURFCB_SETCLIPLIST }
+#Import ".\PDD_SURFCB_SETCOLORKEY.ahk" { PDD_SURFCB_SETCOLORKEY }
+#Import ".\PDD_SURFCB_SETOVERLAYPOSITION.ahk" { PDD_SURFCB_SETOVERLAYPOSITION }
+#Import ".\PDD_SURFCB_SETPALETTE.ahk" { PDD_SURFCB_SETPALETTE }
+#Import ".\PDD_SURFCB_UNLOCK.ahk" { PDD_SURFCB_UNLOCK }
+#Import ".\PDD_SURFCB_UPDATEOVERLAY.ahk" { PDD_SURFCB_UPDATEOVERLAY }
 
 /**
  * The DD_SURFACECALLBACKS structure contains entry pointers to the Microsoft DirectDraw surface callback functions that a device driver supports.
@@ -40,62 +53,62 @@ export default struct DD_SURFACECALLBACKS {
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_surfcb_destroysurface">DdDestroySurface</a> surface callback.
      */
-    DestroySurface : IntPtr
+    DestroySurface : PDD_SURFCB_DESTROYSURFACE
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_surfcb_flip">DdFlip</a> surface callback.
      */
-    Flip : IntPtr
+    Flip : PDD_SURFCB_FLIP
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows-hardware/drivers/display/windows-vista-display-driver-model-design-guide">DdSetClipList</a> surface callback.
      */
-    SetClipList : IntPtr
+    SetClipList : PDD_SURFCB_SETCLIPLIST
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_surfcb_lock">DdLock</a> surface callback.
      */
-    Lock : IntPtr
+    Lock : PDD_SURFCB_LOCK
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_surfcb_unlock">DdUnlock</a> surface callback.
      */
-    Unlock : IntPtr
+    Unlock : PDD_SURFCB_UNLOCK
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_surfcb_blt">DdBlt</a> surface callback.
      */
-    Blt : IntPtr
+    Blt : PDD_SURFCB_BLT
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_surfcb_setcolorkey">DdSetColorKey</a> surface callback.
      */
-    SetColorKey : IntPtr
+    SetColorKey : PDD_SURFCB_SETCOLORKEY
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_surfcb_addattachedsurface">DdAddAttachedSurface</a> surface callback.
      */
-    AddAttachedSurface : IntPtr
+    AddAttachedSurface : PDD_SURFCB_ADDATTACHEDSURFACE
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_surfcb_getbltstatus">DdGetBltStatus</a> surface callback.
      */
-    GetBltStatus : IntPtr
+    GetBltStatus : PDD_SURFCB_GETBLTSTATUS
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_surfcb_getflipstatus">DdGetFlipStatus</a> surface callback.
      */
-    GetFlipStatus : IntPtr
+    GetFlipStatus : PDD_SURFCB_GETFLIPSTATUS
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_surfcb_updateoverlay">DdUpdateOverlay</a> surface callback.
      */
-    UpdateOverlay : IntPtr
+    UpdateOverlay : PDD_SURFCB_UPDATEOVERLAY
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_surfcb_setoverlayposition">DdSetOverlayPosition</a> surface callback.
      */
-    SetOverlayPosition : IntPtr
+    SetOverlayPosition : PDD_SURFCB_SETOVERLAYPOSITION
 
     /**
      * Reserved for system use and should be ignored by the driver.
@@ -105,6 +118,6 @@ export default struct DD_SURFACECALLBACKS {
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_surfcb_setpalette">DdSetPalette</a> surface callback.
      */
-    SetPalette : IntPtr
+    SetPalette : PDD_SURFCB_SETPALETTE
 
 }

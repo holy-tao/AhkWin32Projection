@@ -45,6 +45,10 @@ export default struct PFNGLADDSWAPHINTRECTWINPROC {
             this.value := CallbackCreate(fn, , [Int32, Int32, Int32, Int32, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

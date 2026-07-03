@@ -2,6 +2,7 @@
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDRAWI_DDVIDEOPORT_LCL.ahk" { DDRAWI_DDVIDEOPORT_LCL }
 #Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
+#Import ".\LPDDHALVPORTCB_GETLINE.ahk" { LPDDHALVPORTCB_GETLINE }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -17,6 +18,6 @@ export default struct DDHAL_GETVPORTLINEDATA {
 
     ddRVal : HRESULT
 
-    GetVideoPortLine : IntPtr
+    GetVideoPortLine : LPDDHALVPORTCB_GETLINE
 
 }

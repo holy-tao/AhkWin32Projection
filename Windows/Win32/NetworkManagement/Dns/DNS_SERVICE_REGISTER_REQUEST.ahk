@@ -2,6 +2,7 @@
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\DNS_SERVICE_INSTANCE.ahk" { DNS_SERVICE_INSTANCE }
+#Import ".\PDNS_SERVICE_REGISTER_COMPLETE.ahk" { PDNS_SERVICE_REGISTER_COMPLETE }
 
 /**
  * Contains the information necessary to advertise a service using [DnsServiceRegister](../windns/nf-windns-dnsserviceregister.md), or to stop advertising it using [DnsServiceDeRegister](../windns/nf-windns-dnsservicederegister.md).
@@ -29,7 +30,7 @@ export default struct DNS_SERVICE_REGISTER_REQUEST {
     /**
      * A pointer to a function (of type [DNS_SERVICE_REGISTER_COMPLETE](nc-windns-dns_service_register_complete.md)) that represents the callback to be invoked asynchronously.
      */
-    pRegisterCompletionCallback : IntPtr
+    pRegisterCompletionCallback : PDNS_SERVICE_REGISTER_COMPLETE
 
     /**
      * A pointer to a user context.

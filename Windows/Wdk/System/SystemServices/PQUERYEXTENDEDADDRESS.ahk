@@ -46,6 +46,10 @@ export default struct PQUERYEXTENDEDADDRESS {
             this.value := CallbackCreate(fn, , ["ptr", "uint*", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

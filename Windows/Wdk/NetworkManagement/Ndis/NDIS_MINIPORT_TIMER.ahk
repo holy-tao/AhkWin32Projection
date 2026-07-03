@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\NDIS_MINIPORT_BLOCK.ahk" { NDIS_MINIPORT_BLOCK }
+#Import ".\PNDIS_TIMER_FUNCTION.ahk" { PNDIS_TIMER_FUNCTION }
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
@@ -11,7 +12,7 @@ export default struct NDIS_MINIPORT_TIMER {
 
     Dpc : IntPtr
 
-    MiniportTimerFunction : IntPtr
+    MiniportTimerFunction : PNDIS_TIMER_FUNCTION
 
     MiniportTimerContext : IntPtr
 

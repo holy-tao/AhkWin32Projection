@@ -55,6 +55,10 @@ export default struct PFN_MD_IMPORT_SESSION_KEY {
             this.value := CallbackCreate(fn, , [CARD_DATA.Ptr, PWSTR, PWSTR, "ptr*", IntPtr, UInt32, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

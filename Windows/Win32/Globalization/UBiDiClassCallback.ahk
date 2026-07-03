@@ -47,6 +47,10 @@ export default struct UBiDiClassCallback {
             this.value := CallbackCreate(fn, "cdecl", ["ptr", Int32, UCharDirection])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

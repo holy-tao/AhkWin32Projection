@@ -55,6 +55,10 @@ export default struct DRAWSTATEPROC {
             this.value := CallbackCreate(fn, , [HDC, LPARAM, WPARAM, Int32, Int32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

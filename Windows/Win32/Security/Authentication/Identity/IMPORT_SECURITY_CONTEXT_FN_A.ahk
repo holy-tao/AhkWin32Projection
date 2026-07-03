@@ -53,6 +53,10 @@ export default struct IMPORT_SECURITY_CONTEXT_FN_A {
             this.value := CallbackCreate(fn, , ["char*", SecBuffer.Ptr, "ptr", SecHandle.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

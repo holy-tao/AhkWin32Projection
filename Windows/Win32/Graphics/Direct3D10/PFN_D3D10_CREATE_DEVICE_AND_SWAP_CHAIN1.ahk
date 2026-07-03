@@ -59,6 +59,10 @@ export default struct PFN_D3D10_CREATE_DEVICE_AND_SWAP_CHAIN1 {
             this.value := CallbackCreate(fn, , ["ptr", D3D10_DRIVER_TYPE, HMODULE, UInt32, D3D10_FEATURE_LEVEL1, UInt32, DXGI_SWAP_CHAIN_DESC.Ptr, IDXGISwapChain.Ptr, ID3D10Device1.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

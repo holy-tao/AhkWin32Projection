@@ -48,6 +48,10 @@ export default struct PFNCOMPROPSHEET {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, LPARAM, LPARAM, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

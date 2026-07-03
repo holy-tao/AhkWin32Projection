@@ -49,6 +49,10 @@ export default struct PCLUSAPI_REMOVE_CLUSTER_GROUP_DEPENDENCY_EX {
             this.value := CallbackCreate(fn, , [HGROUP, HGROUP, PWSTR, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

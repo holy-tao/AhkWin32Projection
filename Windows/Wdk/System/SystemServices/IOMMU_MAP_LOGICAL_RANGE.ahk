@@ -32,7 +32,7 @@ export default struct IOMMU_MAP_LOGICAL_RANGE {
         DomainMarshal := Domain is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, DomainMarshal, Domain, UInt32, Permissions, MDL.Ptr, _Mdl, Int64, LogicalAddress, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -52,6 +52,10 @@ export default struct IOMMU_MAP_LOGICAL_RANGE {
             this.value := CallbackCreate(fn, , [IOMMU_DMA_DOMAIN.Ptr, UInt32, MDL.Ptr, Int64, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

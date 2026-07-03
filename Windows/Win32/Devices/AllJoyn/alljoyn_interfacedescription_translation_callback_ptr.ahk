@@ -50,6 +50,10 @@ export default struct alljoyn_interfacedescription_translation_callback_ptr {
             this.value := CallbackCreate(fn, , [PSTR, PSTR, PSTR, PSTR])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

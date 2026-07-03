@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\DEBUGEVENTPROC.ahk" { DEBUGEVENTPROC }
 #Import ".\MODULEENTRY.ahk" { MODULEENTRY }
 
 /**
@@ -32,7 +33,7 @@ export default struct VDMMODULEFIRSTPROC {
     Call(param0, param1, param2, param3, param4) {
         param4Marshal := param4 is VarRef ? "ptr" : "ptr"
 
-        result := DllCall(this.value, HANDLE, param0, HANDLE, param1, MODULEENTRY.Ptr, param2, "ptr", param3, param4Marshal, param4, BOOL)
+        result := DllCall(this.value, HANDLE, param0, HANDLE, param1, MODULEENTRY.Ptr, param2, DEBUGEVENTPROC, param3, param4Marshal, param4, BOOL)
         return result
     }
 
@@ -43,15 +44,19 @@ export default struct VDMMODULEFIRSTPROC {
     struct From extends VDMMODULEFIRSTPROC {
         /**
          * Creates a VDMMODULEFIRSTPROC pointer that invokes the given AHK function when called.
-         * @param {Func(HANDLE, HANDLE, MODULEENTRY, "ptr", "ptr") => BOOL} fn the function to invoke.
+         * @param {Func(HANDLE, HANDLE, MODULEENTRY, DEBUGEVENTPROC, "ptr") => BOOL} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 5)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 5 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [HANDLE, HANDLE, MODULEENTRY.Ptr, "ptr", "ptr", BOOL])
+            this.value := CallbackCreate(fn, , [HANDLE, HANDLE, MODULEENTRY.Ptr, DEBUGEVENTPROC, "ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

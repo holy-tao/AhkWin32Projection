@@ -47,6 +47,10 @@ export default struct PFN_DrvDeriveSurface {
             this.value := CallbackCreate(fn, , [DD_DIRECTDRAW_GLOBAL.Ptr, DD_SURFACE_LOCAL.Ptr, HBITMAP])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

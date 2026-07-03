@@ -60,6 +60,10 @@ export default struct WS_SERVICE_STUB_CALLBACK {
             this.value := CallbackCreate(fn, , [WS_OPERATION_CONTEXT.Ptr, "ptr", "ptr", WS_ASYNC_CONTEXT.Ptr, WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

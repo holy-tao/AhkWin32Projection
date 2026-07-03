@@ -59,6 +59,10 @@ export default struct PDD_SURFCB_GETBLTSTATUS {
             this.value := CallbackCreate(fn, , [DD_GETBLTSTATUSDATA.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

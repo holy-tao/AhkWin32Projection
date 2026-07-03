@@ -49,6 +49,10 @@ export default struct SET_VIRTUAL_DEVICE_DATA {
             this.value := CallbackCreate(fn, , ["ptr", UInt16, IntPtr, UInt32, UInt32, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

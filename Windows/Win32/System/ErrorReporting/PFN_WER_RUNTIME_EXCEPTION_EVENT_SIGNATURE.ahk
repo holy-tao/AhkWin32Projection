@@ -67,6 +67,10 @@ export default struct PFN_WER_RUNTIME_EXCEPTION_EVENT_SIGNATURE {
             this.value := CallbackCreate(fn, , ["ptr", WER_RUNTIME_EXCEPTION_INFORMATION.Ptr, UInt32, PWSTR, "uint*", PWSTR, "uint*", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

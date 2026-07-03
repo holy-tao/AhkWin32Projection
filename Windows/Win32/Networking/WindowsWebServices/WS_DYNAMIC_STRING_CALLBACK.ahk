@@ -58,6 +58,10 @@ export default struct WS_DYNAMIC_STRING_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", WS_XML_STRING.Ptr, BOOL.Ptr, "uint*", WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

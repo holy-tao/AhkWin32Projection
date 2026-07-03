@@ -49,6 +49,10 @@ export default struct alljoyn_messagereceiver_signalhandler_ptr {
             this.value := CallbackCreate(fn, , [alljoyn_interfacedescription_member.Ptr, PSTR, alljoyn_message, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -3,6 +3,7 @@
 #Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
 #Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
 #Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
+#Import ".\LPDDHALSURFCB_SETCOLORKEY.ahk" { LPDDHALSURFCB_SETCOLORKEY }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -20,6 +21,6 @@ export default struct DDHAL_SETCOLORKEYDATA {
 
     ddRVal : HRESULT
 
-    SetColorKey : IntPtr
+    SetColorKey : LPDDHALSURFCB_SETCOLORKEY
 
 }

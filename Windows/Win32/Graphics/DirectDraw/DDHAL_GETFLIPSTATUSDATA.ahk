@@ -2,6 +2,7 @@
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
 #Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
+#Import ".\LPDDHALSURFCB_GETFLIPSTATUS.ahk" { LPDDHALSURFCB_GETFLIPSTATUS }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -17,6 +18,6 @@ export default struct DDHAL_GETFLIPSTATUSDATA {
 
     ddRVal : HRESULT
 
-    GetFlipStatus : IntPtr
+    GetFlipStatus : LPDDHALSURFCB_GETFLIPSTATUS
 
 }

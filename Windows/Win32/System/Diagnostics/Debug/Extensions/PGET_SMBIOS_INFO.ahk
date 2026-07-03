@@ -47,6 +47,10 @@ export default struct PGET_SMBIOS_INFO {
             this.value := CallbackCreate(fn, , ["ptr", DEBUG_SMBIOS_INFO.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

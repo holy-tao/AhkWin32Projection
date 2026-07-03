@@ -47,6 +47,10 @@ export default struct PFIND_FILELOCK_OWNERINFO {
             this.value := CallbackCreate(fn, , ["ptr", KDEXT_FILELOCK_OWNER.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

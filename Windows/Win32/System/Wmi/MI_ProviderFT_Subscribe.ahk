@@ -57,6 +57,10 @@ export default struct MI_ProviderFT_Subscribe {
             this.value := CallbackCreate(fn, , ["ptr", MI_Context.Ptr, "ushort*", "ushort*", MI_Filter.Ptr, "ushort*", Int64, "ptr*", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

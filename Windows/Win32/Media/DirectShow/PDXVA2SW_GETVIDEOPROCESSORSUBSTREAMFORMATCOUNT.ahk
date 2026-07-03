@@ -47,6 +47,10 @@ export default struct PDXVA2SW_GETVIDEOPROCESSORSUBSTREAMFORMATCOUNT {
             this.value := CallbackCreate(fn, , [DXVA2_VideoDesc.Ptr, D3DFORMAT, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

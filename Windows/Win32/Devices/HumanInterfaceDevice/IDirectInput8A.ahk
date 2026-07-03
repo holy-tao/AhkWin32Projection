@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\DIACTIONFORMATA.ahk" { DIACTIONFORMATA }
 #Import ".\DICONFIGUREDEVICESPARAMSA.ahk" { DICONFIGUREDEVICESPARAMSA }
 #Import ".\IDirectInputDevice8A.ahk" { IDirectInputDevice8A }
+#Import ".\LPDICONFIGUREDEVICESCALLBACK.ahk" { LPDICONFIGUREDEVICESCALLBACK }
+#Import ".\LPDIENUMDEVICESBYSEMANTICSCBA.ahk" { LPDIENUMDEVICESBYSEMANTICSCBA }
+#Import ".\LPDIENUMDEVICESCALLBACKA.ahk" { LPDIENUMDEVICESCALLBACKA }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
@@ -71,7 +74,7 @@ export default struct IDirectInput8A extends IUnknown {
     EnumDevices(param0, param1, param2, param3) {
         param2Marshal := param2 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, UInt32, param0, "ptr", param1, param2Marshal, param2, UInt32, param3, "HRESULT")
+        result := ComCall(4, this, UInt32, param0, LPDIENUMDEVICESCALLBACKA, param1, param2Marshal, param2, UInt32, param3, "HRESULT")
         return result
     }
 
@@ -159,7 +162,7 @@ export default struct IDirectInput8A extends IUnknown {
 
         param3Marshal := param3 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, "ptr", param0, DIACTIONFORMATA.Ptr, param1, "ptr", param2, param3Marshal, param3, UInt32, param4, "HRESULT")
+        result := ComCall(9, this, "ptr", param0, DIACTIONFORMATA.Ptr, param1, LPDIENUMDEVICESBYSEMANTICSCBA, param2, param3Marshal, param3, UInt32, param4, "HRESULT")
         return result
     }
 
@@ -174,7 +177,7 @@ export default struct IDirectInput8A extends IUnknown {
     ConfigureDevices(param0, param1, param2, param3) {
         param3Marshal := param3 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, "ptr", param0, DICONFIGUREDEVICESPARAMSA.Ptr, param1, UInt32, param2, param3Marshal, param3, "HRESULT")
+        result := ComCall(10, this, LPDICONFIGUREDEVICESCALLBACK, param0, DICONFIGUREDEVICESPARAMSA.Ptr, param1, UInt32, param2, param3Marshal, param3, "HRESULT")
         return result
     }
 

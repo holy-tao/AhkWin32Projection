@@ -26,7 +26,7 @@ export default struct PLEAVE_DMA_DOMAIN {
      */
     Call(DmaAdapter) {
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -46,6 +46,10 @@ export default struct PLEAVE_DMA_DOMAIN {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

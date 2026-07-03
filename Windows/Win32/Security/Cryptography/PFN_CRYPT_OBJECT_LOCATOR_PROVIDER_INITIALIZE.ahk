@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\CRYPT_OBJECT_LOCATOR_PROVIDER_TABLE.ahk" { CRYPT_OBJECT_LOCATOR_PROVIDER_TABLE }
+#Import ".\PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FLUSH.ahk" { PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FLUSH }
 
 /**
  * Initializes the provider.
@@ -61,7 +62,7 @@ export default struct PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_INITIALIZE {
         ppFuncTableMarshal := ppFuncTable is VarRef ? "ptr*" : "ptr"
         ppPluginContextMarshal := ppPluginContext is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall(this.value, "ptr", pfnFlush, pContextMarshal, pContext, pdwExpectedObjectCountMarshal, pdwExpectedObjectCount, ppFuncTableMarshal, ppFuncTable, ppPluginContextMarshal, ppPluginContext, BOOL)
+        result := DllCall(this.value, PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FLUSH, pfnFlush, pContextMarshal, pContext, pdwExpectedObjectCountMarshal, pdwExpectedObjectCount, ppFuncTableMarshal, ppFuncTable, ppPluginContextMarshal, ppPluginContext, BOOL)
         return result
     }
 
@@ -72,15 +73,19 @@ export default struct PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_INITIALIZE {
     struct From extends PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_INITIALIZE {
         /**
          * Creates a PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_INITIALIZE pointer that invokes the given AHK function when called.
-         * @param {Func("ptr", "ptr", "uint*", "ptr*", "ptr*") => BOOL} fn the function to invoke.
+         * @param {Func(PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FLUSH, "ptr", "uint*", "ptr*", "ptr*") => BOOL} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 5)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 5 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , ["ptr", "ptr", "uint*", "ptr*", "ptr*", BOOL])
+            this.value := CallbackCreate(fn, , [PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FLUSH, "ptr", "uint*", "ptr*", "ptr*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

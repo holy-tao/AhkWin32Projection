@@ -53,7 +53,7 @@ export default struct PLSA_AP_POST_LOGON_USER_SURROGATE {
         TokenInformationMarshal := TokenInformation is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, ClientRequestMarshal, ClientRequest, SECURITY_LOGON_TYPE, LogonType, IntPtr, ProtocolSubmitBuffer, ClientBufferBaseMarshal, ClientBufferBase, UInt32, SubmitBufferSize, SECPKG_SURROGATE_LOGON.Ptr, SurrogateLogon, IntPtr, ProfileBuffer, UInt32, ProfileBufferSize, LUID.Ptr, LogonId, NTSTATUS, _Status, NTSTATUS, SubStatus, LSA_TOKEN_INFORMATION_TYPE, TokenInformationType, TokenInformationMarshal, TokenInformation, LSA_UNICODE_STRING.Ptr, AccountName, LSA_UNICODE_STRING.Ptr, AuthenticatingAuthority, LSA_UNICODE_STRING.Ptr, MachineName, SECPKG_PRIMARY_CRED.Ptr, PrimaryCredentials, SECPKG_SUPPLEMENTAL_CRED_ARRAY.Ptr, SupplementalCredentials, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -73,6 +73,10 @@ export default struct PLSA_AP_POST_LOGON_USER_SURROGATE {
             this.value := CallbackCreate(fn, , ["ptr*", SECURITY_LOGON_TYPE, IntPtr, "ptr", UInt32, SECPKG_SURROGATE_LOGON.Ptr, IntPtr, UInt32, LUID.Ptr, NTSTATUS, NTSTATUS, LSA_TOKEN_INFORMATION_TYPE, "ptr", LSA_UNICODE_STRING.Ptr, LSA_UNICODE_STRING.Ptr, LSA_UNICODE_STRING.Ptr, SECPKG_PRIMARY_CRED.Ptr, SECPKG_SUPPLEMENTAL_CRED_ARRAY.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

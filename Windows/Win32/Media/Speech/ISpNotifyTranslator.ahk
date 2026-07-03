@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
@@ -9,6 +9,7 @@
 #Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 #Import ".\ISpNotifyCallback.ahk" { ISpNotifyCallback }
 #Import ".\ISpNotifySink.ahk" { ISpNotifySink }
+#Import ".\SPNOTIFYCALLBACK.ahk" { SPNOTIFYCALLBACK }
 
 /**
  * @namespace Windows.Win32.Media.Speech

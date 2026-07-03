@@ -46,6 +46,10 @@ export default struct KSYNCHRONIZE_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", BOOLEAN])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

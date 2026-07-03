@@ -31,7 +31,7 @@ export default struct pHalIoWritePartitionTable {
      */
     Call(DeviceObject, SectorSize, SectorsPerTrack, NumberOfHeads, PartitionBuffer) {
         result := DllCall(this.value, DEVICE_OBJECT.Ptr, DeviceObject, UInt32, SectorSize, UInt32, SectorsPerTrack, UInt32, NumberOfHeads, DRIVE_LAYOUT_INFORMATION.Ptr, PartitionBuffer, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -51,6 +51,10 @@ export default struct pHalIoWritePartitionTable {
             this.value := CallbackCreate(fn, , [DEVICE_OBJECT.Ptr, UInt32, UInt32, UInt32, DRIVE_LAYOUT_INFORMATION.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

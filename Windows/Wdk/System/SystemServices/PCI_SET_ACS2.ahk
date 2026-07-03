@@ -29,7 +29,7 @@ export default struct PCI_SET_ACS2 {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, UInt32, ScenariosToModify, UInt32, ScenarioState, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -49,6 +49,10 @@ export default struct PCI_SET_ACS2 {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, UInt32, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

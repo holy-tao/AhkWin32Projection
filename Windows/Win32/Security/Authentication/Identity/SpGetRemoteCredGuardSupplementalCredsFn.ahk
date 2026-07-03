@@ -2,6 +2,8 @@
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import ".\PLSA_REDIRECTED_LOGON_CALLBACK.ahk" { PLSA_REDIRECTED_LOGON_CALLBACK }
+#Import ".\PLSA_REDIRECTED_LOGON_CLEANUP_CALLBACK.ahk" { PLSA_REDIRECTED_LOGON_CLEANUP_CALLBACK }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -38,7 +40,7 @@ export default struct SpGetRemoteCredGuardSupplementalCredsFn {
         SupplementalCredsMarshal := SupplementalCreds is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, IntPtr, CredHandle, LSA_UNICODE_STRING.Ptr, TargetName, HANDLE.Ptr, RedirectedLogonHandle, CallbackMarshal, Callback, CleanupCallbackMarshal, CleanupCallback, SupplementalCredsSizeMarshal, SupplementalCredsSize, SupplementalCredsMarshal, SupplementalCreds, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -58,6 +60,10 @@ export default struct SpGetRemoteCredGuardSupplementalCredsFn {
             this.value := CallbackCreate(fn, , [IntPtr, LSA_UNICODE_STRING.Ptr, HANDLE.Ptr, "ptr*", "ptr*", "uint*", "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

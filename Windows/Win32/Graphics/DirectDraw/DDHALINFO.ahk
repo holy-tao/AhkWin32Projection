@@ -7,6 +7,7 @@
 #Import ".\DDHAL_DDSURFACECALLBACKS.ahk" { DDHAL_DDSURFACECALLBACKS }
 #Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
 #Import ".\DDSCAPS.ahk" { DDSCAPS }
+#Import ".\LPDDHAL_GETDRIVERINFO.ahk" { LPDDHAL_GETDRIVERINFO }
 #Import ".\VIDMEM.ahk" { VIDMEM }
 #Import ".\VIDMEMINFO.ahk" { VIDMEMINFO }
 
@@ -30,7 +31,7 @@ export default struct DDHALINFO {
 
     dwMonitorFrequency : UInt32
 
-    GetDriverInfo : IntPtr
+    GetDriverInfo : LPDDHAL_GETDRIVERINFO
 
     dwModeIndex : UInt32
 

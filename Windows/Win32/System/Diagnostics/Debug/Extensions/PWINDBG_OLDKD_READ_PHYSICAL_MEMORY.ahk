@@ -49,6 +49,10 @@ export default struct PWINDBG_OLDKD_READ_PHYSICAL_MEMORY {
             this.value := CallbackCreate(fn, , [Int64, "ptr", UInt32, "uint*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

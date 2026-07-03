@@ -50,6 +50,10 @@ export default struct ENUMERATE_SECURITY_PACKAGES_FN_A {
             this.value := CallbackCreate(fn, , ["uint*", "ptr*", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\ENTRYID.ahk" { ENTRYID }
+#Import ".\LPFNABSDI.ahk" { LPFNABSDI }
+#Import ".\LPFNDISMISS.ahk" { LPFNDISMISS }
 #Import ".\SRestriction.ahk" { SRestriction }
 
 /**
@@ -101,12 +103,12 @@ export default struct ADRPARM {
     /**
      * > Pointer to a MAPI function based on the [ACCELERATEABSDI](accelerateabsdi.md) prototype or NULL. This member applies to the modeless version of the dialog box only, as indicated by the DIALOG_SDI flag being set. Clients building an **ADRPARM** structure to pass to [IAddrBook::Address](iaddrbook-address.md) must always set the **lpfnABSDI** member to NULL. If the DIALOG_SDI flag is set, MAPI will then set it to a valid function before returning. Clients call this function from in their message loop to make sure that accelerators in the address book dialog box work. When the dialog box is dismissed and MAPI calls the function pointed to by the **lpfnDismiss** member, clients should unhook the **ACCELERATEABSDI** function from their message loop.
      */
-    lpfnABSDI : IntPtr
+    lpfnABSDI : LPFNABSDI
 
     /**
      * > Pointer to a function based on the [DISMISSMODELESS](dismissmodeless.md) prototype or NULL. This member applies only to the modeless version of the dialog box only, as indicated by the DIALOG_SDI flag being set. MAPI calls the **DISMISSMODELESS** function when the user dismisses the modeless address dialog box, informing a client calling **IAddrBook::Address** that the dialog box is no longer active.
      */
-    lpfnDismiss : IntPtr
+    lpfnDismiss : LPFNDISMISS
 
     /**
      * > Pointer to context information to be passed to the **DISMISSMODELESS** function pointed to by the **lpfnDismiss** member. This member applies only to the modeless version of the dialog box, as indicated by the DIALOG_SDI flag being set.

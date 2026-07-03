@@ -5,6 +5,7 @@
 #Import ".\RM_FILTER_ACTION.ahk" { RM_FILTER_ACTION }
 #Import ".\RM_PROCESS_INFO.ahk" { RM_PROCESS_INFO }
 #Import ".\RM_UNIQUE_PROCESS.ahk" { RM_UNIQUE_PROCESS }
+#Import ".\RM_WRITE_STATUS_CALLBACK.ahk" { RM_WRITE_STATUS_CALLBACK }
 
 /**
  * @namespace Windows.Win32.System.RestartManager
@@ -689,7 +690,7 @@ export RmGetList(dwSessionHandle, pnProcInfoNeeded, pnProcInfo, rgAffectedApps, 
  * @since windows6.0.6000
  */
 export RmShutdown(dwSessionHandle, lActionFlags, fnStatus) {
-    result := DllCall("rstrtmgr.dll\RmShutdown", UInt32, dwSessionHandle, UInt32, lActionFlags, "ptr", fnStatus, WIN32_ERROR)
+    result := DllCall("rstrtmgr.dll\RmShutdown", UInt32, dwSessionHandle, UInt32, lActionFlags, RM_WRITE_STATUS_CALLBACK, fnStatus, WIN32_ERROR)
     return result
 }
 
@@ -832,7 +833,7 @@ export RmShutdown(dwSessionHandle, lActionFlags, fnStatus) {
 export RmRestart(dwSessionHandle, fnStatus) {
     static dwRestartFlags := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("rstrtmgr.dll\RmRestart", UInt32, dwSessionHandle, UInt32, dwRestartFlags, "ptr", fnStatus, WIN32_ERROR)
+    result := DllCall("rstrtmgr.dll\RmRestart", UInt32, dwSessionHandle, UInt32, dwRestartFlags, RM_WRITE_STATUS_CALLBACK, fnStatus, WIN32_ERROR)
     return result
 }
 

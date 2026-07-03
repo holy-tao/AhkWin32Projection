@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC.ahk" { D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC }
 #Import ".\D3D12_DISPATCH_RAYS_DESC.ahk" { D3D12_DISPATCH_RAYS_DESC }
 #Import ".\D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE.ahk" { D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE }

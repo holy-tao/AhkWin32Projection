@@ -50,6 +50,10 @@ export default struct CACHE_OPERATOR {
             this.value := CallbackCreate(fn, , [INTERNET_CACHE_ENTRY_INFOA.Ptr, "uint*", "ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

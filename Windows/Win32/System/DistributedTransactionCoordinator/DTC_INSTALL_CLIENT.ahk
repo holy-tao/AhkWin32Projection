@@ -48,6 +48,10 @@ export default struct DTC_INSTALL_CLIENT {
             this.value := CallbackCreate(fn, , ["char*", UInt32, UInt32, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

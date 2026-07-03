@@ -38,7 +38,7 @@ export default struct PALLOCATE_COMMON_BUFFER_VECTOR {
         VectorOutMarshal := VectorOut is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, Int64, LowAddress, Int64, HighAddress, MEMORY_CACHING_TYPE, CacheType, UInt32, IdealNode, UInt32, Flags, UInt32, NumberOfElements, Int64, SizeOfElements, VectorOutMarshal, VectorOut, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -58,6 +58,10 @@ export default struct PALLOCATE_COMMON_BUFFER_VECTOR {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, Int64, Int64, MEMORY_CACHING_TYPE, UInt32, UInt32, UInt32, Int64, "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

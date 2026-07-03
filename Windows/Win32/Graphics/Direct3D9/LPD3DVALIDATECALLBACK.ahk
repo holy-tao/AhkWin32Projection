@@ -47,6 +47,10 @@ export default struct LPD3DVALIDATECALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

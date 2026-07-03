@@ -31,7 +31,7 @@ export default struct PFLT_CALLBACK_DATA_QUEUE_INSERT_IO {
         InsertContextMarshal := InsertContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, FLT_CALLBACK_DATA_QUEUE.Ptr, Cbdq, FLT_CALLBACK_DATA.Ptr, Cbd, InsertContextMarshal, InsertContext, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -51,6 +51,10 @@ export default struct PFLT_CALLBACK_DATA_QUEUE_INSERT_IO {
             this.value := CallbackCreate(fn, , [FLT_CALLBACK_DATA_QUEUE.Ptr, FLT_CALLBACK_DATA.Ptr, "ptr", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

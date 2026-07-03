@@ -44,6 +44,10 @@ export default struct LPDDHAL_FLIPTOGDISURFACE {
             this.value := CallbackCreate(fn, , [DDHAL_FLIPTOGDISURFACEDATA.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

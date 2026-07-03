@@ -44,6 +44,10 @@ export default struct PCLUSAPI_REPAIR_CLUSTER_NAME_ACCOUNT {
             this.value := CallbackCreate(fn, , [HCLUSTER, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

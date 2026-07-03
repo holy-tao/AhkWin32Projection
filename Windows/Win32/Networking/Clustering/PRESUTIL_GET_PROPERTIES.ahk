@@ -53,6 +53,10 @@ export default struct PRESUTIL_GET_PROPERTIES {
             this.value := CallbackCreate(fn, , [HKEY, RESUTIL_PROPERTY_ITEM.Ptr, IntPtr, UInt32, "uint*", "uint*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

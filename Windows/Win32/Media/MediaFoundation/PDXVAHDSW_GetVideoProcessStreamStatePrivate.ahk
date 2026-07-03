@@ -50,6 +50,10 @@ export default struct PDXVAHDSW_GetVideoProcessStreamStatePrivate {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, DXVAHD_STREAM_STATE_PRIVATE_DATA.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

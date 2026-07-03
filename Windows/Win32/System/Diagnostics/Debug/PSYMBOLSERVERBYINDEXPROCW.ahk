@@ -54,6 +54,10 @@ export default struct PSYMBOLSERVERBYINDEXPROCW {
             this.value := CallbackCreate(fn, , [PWSTR, PWSTR, PWSTR, PWSTR, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

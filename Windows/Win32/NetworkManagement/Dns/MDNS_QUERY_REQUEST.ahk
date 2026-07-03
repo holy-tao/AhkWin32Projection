@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PMDNS_QUERY_CALLBACK.ahk" { PMDNS_QUERY_CALLBACK }
 
 /**
  * Contains the necessary information to perform an mDNS query.
@@ -43,7 +44,7 @@ export default struct MDNS_QUERY_REQUEST {
     /**
      * A pointer to a function (of type [MDNS_QUERY_CALLBACK](nc-windns-mdns_query_callback.md)) that represents the callback to be invoked asynchronously whenever mDNS results are available.
      */
-    pQueryCallback : IntPtr
+    pQueryCallback : PMDNS_QUERY_CALLBACK
 
     /**
      * A pointer to a user context.

@@ -28,7 +28,7 @@ export default struct PJOIN_DMA_DOMAIN {
      */
     Call(DmaAdapter, DomainHandle) {
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, HANDLE, DomainHandle, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -48,6 +48,10 @@ export default struct PJOIN_DMA_DOMAIN {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, HANDLE, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

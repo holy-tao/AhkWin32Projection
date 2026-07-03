@@ -30,7 +30,7 @@ export default struct PLSA_SAVE_SUPPLEMENTAL_CREDENTIALS {
      */
     Call(LogonId, SupplementalCredSize, SupplementalCreds, Synchronous) {
         result := DllCall(this.value, LUID.Ptr, LogonId, UInt32, SupplementalCredSize, IntPtr, SupplementalCreds, BOOLEAN, Synchronous, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -50,6 +50,10 @@ export default struct PLSA_SAVE_SUPPLEMENTAL_CREDENTIALS {
             this.value := CallbackCreate(fn, , [LUID.Ptr, UInt32, IntPtr, BOOLEAN, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

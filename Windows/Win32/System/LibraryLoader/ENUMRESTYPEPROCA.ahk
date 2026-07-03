@@ -72,6 +72,10 @@ export default struct ENUMRESTYPEPROCA {
             this.value := CallbackCreate(fn, , [HMODULE, PSTR, IntPtr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

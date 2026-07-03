@@ -34,7 +34,7 @@ export default struct BCryptDeriveKeyPBKDF2Fn {
      */
     Call(hPrf, pbPassword, cbPassword, pbSalt, cbSalt, cIterations, pbDerivedKey, cbDerivedKey, dwFlags) {
         result := DllCall(this.value, BCRYPT_ALG_HANDLE, hPrf, IntPtr, pbPassword, UInt32, cbPassword, IntPtr, pbSalt, UInt32, cbSalt, Int64, cIterations, IntPtr, pbDerivedKey, UInt32, cbDerivedKey, UInt32, dwFlags, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -54,6 +54,10 @@ export default struct BCryptDeriveKeyPBKDF2Fn {
             this.value := CallbackCreate(fn, , [BCRYPT_ALG_HANDLE, IntPtr, UInt32, IntPtr, UInt32, Int64, IntPtr, UInt32, UInt32, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -46,6 +46,10 @@ export default struct LPWPUCREATEEVENT {
             this.value := CallbackCreate(fn, , ["int*", WSAEVENT])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

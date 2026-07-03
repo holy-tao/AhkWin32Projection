@@ -6,6 +6,28 @@
 #Import ".\ERF.ahk" { ERF }
 #Import ".\FDICABINETINFO.ahk" { FDICABINETINFO }
 #Import ".\FDICREATE_CPU_TYPE.ahk" { FDICREATE_CPU_TYPE }
+#Import ".\PFNALLOC.ahk" { PFNALLOC }
+#Import ".\PFNCLOSE.ahk" { PFNCLOSE }
+#Import ".\PFNFCIALLOC.ahk" { PFNFCIALLOC }
+#Import ".\PFNFCICLOSE.ahk" { PFNFCICLOSE }
+#Import ".\PFNFCIDELETE.ahk" { PFNFCIDELETE }
+#Import ".\PFNFCIFILEPLACED.ahk" { PFNFCIFILEPLACED }
+#Import ".\PFNFCIFREE.ahk" { PFNFCIFREE }
+#Import ".\PFNFCIGETNEXTCABINET.ahk" { PFNFCIGETNEXTCABINET }
+#Import ".\PFNFCIGETOPENINFO.ahk" { PFNFCIGETOPENINFO }
+#Import ".\PFNFCIGETTEMPFILE.ahk" { PFNFCIGETTEMPFILE }
+#Import ".\PFNFCIOPEN.ahk" { PFNFCIOPEN }
+#Import ".\PFNFCIREAD.ahk" { PFNFCIREAD }
+#Import ".\PFNFCISEEK.ahk" { PFNFCISEEK }
+#Import ".\PFNFCISTATUS.ahk" { PFNFCISTATUS }
+#Import ".\PFNFCIWRITE.ahk" { PFNFCIWRITE }
+#Import ".\PFNFDIDECRYPT.ahk" { PFNFDIDECRYPT }
+#Import ".\PFNFDINOTIFY.ahk" { PFNFDINOTIFY }
+#Import ".\PFNFREE.ahk" { PFNFREE }
+#Import ".\PFNOPEN.ahk" { PFNOPEN }
+#Import ".\PFNREAD.ahk" { PFNREAD }
+#Import ".\PFNSEEK.ahk" { PFNSEEK }
+#Import ".\PFNWRITE.ahk" { PFNWRITE }
 
 /**
  * @namespace Windows.Win32.Storage.Cabinets
@@ -37,7 +59,7 @@
 export FCICreate(perf, pfnfcifp, pfna, pfnf, _pfnopen, _pfnread, _pfnwrite, _pfnclose, _pfnseek, pfndelete, pfnfcigtf, pccab, pv) {
     pvMarshal := pv is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("Cabinet.dll\FCICreate", ERF.Ptr, perf, "ptr", pfnfcifp, "ptr", pfna, "ptr", pfnf, "ptr", _pfnopen, "ptr", _pfnread, "ptr", _pfnwrite, "ptr", _pfnclose, "ptr", _pfnseek, "ptr", pfndelete, "ptr", pfnfcigtf, CCAB.Ptr, pccab, pvMarshal, pv, IntPtr)
+    result := DllCall("Cabinet.dll\FCICreate", ERF.Ptr, perf, PFNFCIFILEPLACED, pfnfcifp, PFNFCIALLOC, pfna, PFNFCIFREE, pfnf, PFNFCIOPEN, _pfnopen, PFNFCIREAD, _pfnread, PFNFCIWRITE, _pfnwrite, PFNFCICLOSE, _pfnclose, PFNFCISEEK, _pfnseek, PFNFCIDELETE, pfndelete, PFNFCIGETTEMPFILE, pfnfcigtf, CCAB.Ptr, pccab, pvMarshal, pv, IntPtr)
     return result
 }
 
@@ -95,7 +117,7 @@ export FCIAddFile(hfci, pszSourceFile, pszFileName, fExecute, pfnfcignc, pfnfcis
 
     hfciMarshal := hfci is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("Cabinet.dll\FCIAddFile", hfciMarshal, hfci, "ptr", pszSourceFile, "ptr", pszFileName, BOOL, fExecute, "ptr", pfnfcignc, "ptr", pfnfcis, "ptr", pfnfcigoi, UInt16, typeCompress, BOOL)
+    result := DllCall("Cabinet.dll\FCIAddFile", hfciMarshal, hfci, "ptr", pszSourceFile, "ptr", pszFileName, BOOL, fExecute, PFNFCIGETNEXTCABINET, pfnfcignc, PFNFCISTATUS, pfnfcis, PFNFCIGETOPENINFO, pfnfcigoi, UInt16, typeCompress, BOOL)
     return result
 }
 
@@ -119,7 +141,7 @@ export FCIAddFile(hfci, pszSourceFile, pszFileName, fExecute, pfnfcignc, pfnfcis
 export FCIFlushCabinet(hfci, fGetNextCab, pfnfcignc, pfnfcis) {
     hfciMarshal := hfci is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("Cabinet.dll\FCIFlushCabinet", hfciMarshal, hfci, BOOL, fGetNextCab, "ptr", pfnfcignc, "ptr", pfnfcis, BOOL)
+    result := DllCall("Cabinet.dll\FCIFlushCabinet", hfciMarshal, hfci, BOOL, fGetNextCab, PFNFCIGETNEXTCABINET, pfnfcignc, PFNFCISTATUS, pfnfcis, BOOL)
     return result
 }
 
@@ -140,7 +162,7 @@ export FCIFlushCabinet(hfci, fGetNextCab, pfnfcignc, pfnfcis) {
 export FCIFlushFolder(hfci, pfnfcignc, pfnfcis) {
     hfciMarshal := hfci is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("Cabinet.dll\FCIFlushFolder", hfciMarshal, hfci, "ptr", pfnfcignc, "ptr", pfnfcis, BOOL)
+    result := DllCall("Cabinet.dll\FCIFlushFolder", hfciMarshal, hfci, PFNFCIGETNEXTCABINET, pfnfcignc, PFNFCISTATUS, pfnfcis, BOOL)
     return result
 }
 
@@ -177,7 +199,7 @@ export FCIDestroy(hfci) {
  * @since windows5.0
  */
 export FDICreate(_pfnalloc, _pfnfree, _pfnopen, _pfnread, _pfnwrite, _pfnclose, _pfnseek, cpuType, perf) {
-    result := DllCall("Cabinet.dll\FDICreate", "ptr", _pfnalloc, "ptr", _pfnfree, "ptr", _pfnopen, "ptr", _pfnread, "ptr", _pfnwrite, "ptr", _pfnclose, "ptr", _pfnseek, FDICREATE_CPU_TYPE, cpuType, ERF.Ptr, perf, IntPtr)
+    result := DllCall("Cabinet.dll\FDICreate", PFNALLOC, _pfnalloc, PFNFREE, _pfnfree, PFNOPEN, _pfnopen, PFNREAD, _pfnread, PFNWRITE, _pfnwrite, PFNCLOSE, _pfnclose, PFNSEEK, _pfnseek, FDICREATE_CPU_TYPE, cpuType, ERF.Ptr, perf, IntPtr)
     return result
 }
 
@@ -223,7 +245,7 @@ export FDICopy(hfdi, pszCabinet, pszCabPath, flags, pfnfdin, pfnfdid, pvUser) {
     hfdiMarshal := hfdi is VarRef ? "ptr" : "ptr"
     pvUserMarshal := pvUser is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("Cabinet.dll\FDICopy", hfdiMarshal, hfdi, "ptr", pszCabinet, "ptr", pszCabPath, Int32, flags, "ptr", pfnfdin, "ptr", pfnfdid, pvUserMarshal, pvUser, BOOL)
+    result := DllCall("Cabinet.dll\FDICopy", hfdiMarshal, hfdi, "ptr", pszCabinet, "ptr", pszCabPath, Int32, flags, PFNFDINOTIFY, pfnfdin, PFNFDIDECRYPT, pfnfdid, pvUserMarshal, pvUser, BOOL)
     return result
 }
 

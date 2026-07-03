@@ -52,6 +52,10 @@ export default struct PWLDP_GETAPPLICATIONSETTINGSTRINGLIST_API {
             this.value := CallbackCreate(fn, , [PWSTR, PWSTR, IntPtr, PWSTR, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

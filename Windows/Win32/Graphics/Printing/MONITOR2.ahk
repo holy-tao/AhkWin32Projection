@@ -1,4 +1,26 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PFN_PRINTING_ADDPORT2.ahk" { PFN_PRINTING_ADDPORT2 }
+#Import ".\PFN_PRINTING_ADDPORTEX2.ahk" { PFN_PRINTING_ADDPORTEX2 }
+#Import ".\PFN_PRINTING_CLOSEPORT2.ahk" { PFN_PRINTING_CLOSEPORT2 }
+#Import ".\PFN_PRINTING_CONFIGUREPORT2.ahk" { PFN_PRINTING_CONFIGUREPORT2 }
+#Import ".\PFN_PRINTING_DELETEPORT2.ahk" { PFN_PRINTING_DELETEPORT2 }
+#Import ".\PFN_PRINTING_ENDDOCPORT2.ahk" { PFN_PRINTING_ENDDOCPORT2 }
+#Import ".\PFN_PRINTING_ENUMPORTS2.ahk" { PFN_PRINTING_ENUMPORTS2 }
+#Import ".\PFN_PRINTING_GETPRINTERDATAFROMPORT2.ahk" { PFN_PRINTING_GETPRINTERDATAFROMPORT2 }
+#Import ".\PFN_PRINTING_NOTIFYUNUSEDPORTS2.ahk" { PFN_PRINTING_NOTIFYUNUSEDPORTS2 }
+#Import ".\PFN_PRINTING_NOTIFYUSEDPORTS2.ahk" { PFN_PRINTING_NOTIFYUSEDPORTS2 }
+#Import ".\PFN_PRINTING_OPENPORT2.ahk" { PFN_PRINTING_OPENPORT2 }
+#Import ".\PFN_PRINTING_OPENPORTEX2.ahk" { PFN_PRINTING_OPENPORTEX2 }
+#Import ".\PFN_PRINTING_POWEREVENT2.ahk" { PFN_PRINTING_POWEREVENT2 }
+#Import ".\PFN_PRINTING_READPORT2.ahk" { PFN_PRINTING_READPORT2 }
+#Import ".\PFN_PRINTING_SENDRECVBIDIDATAFROMPORT2.ahk" { PFN_PRINTING_SENDRECVBIDIDATAFROMPORT2 }
+#Import ".\PFN_PRINTING_SETPORTTIMEOUTS2.ahk" { PFN_PRINTING_SETPORTTIMEOUTS2 }
+#Import ".\PFN_PRINTING_SHUTDOWN2.ahk" { PFN_PRINTING_SHUTDOWN2 }
+#Import ".\PFN_PRINTING_STARTDOCPORT2.ahk" { PFN_PRINTING_STARTDOCPORT2 }
+#Import ".\PFN_PRINTING_WRITEPORT2.ahk" { PFN_PRINTING_WRITEPORT2 }
+#Import ".\PFN_PRINTING_XCVCLOSEPORT2.ahk" { PFN_PRINTING_XCVCLOSEPORT2 }
+#Import ".\PFN_PRINTING_XCVDATAPORT2.ahk" { PFN_PRINTING_XCVDATAPORT2 }
+#Import ".\PFN_PRINTING_XCVOPENPORT2.ahk" { PFN_PRINTING_XCVOPENPORT2 }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -8,48 +30,48 @@ export default struct MONITOR2 {
 
     cbSize : UInt32 := this.Size
 
-    pfnEnumPorts : IntPtr
+    pfnEnumPorts : PFN_PRINTING_ENUMPORTS2
 
-    pfnOpenPort : IntPtr
+    pfnOpenPort : PFN_PRINTING_OPENPORT2
 
-    pfnOpenPortEx : IntPtr
+    pfnOpenPortEx : PFN_PRINTING_OPENPORTEX2
 
-    pfnStartDocPort : IntPtr
+    pfnStartDocPort : PFN_PRINTING_STARTDOCPORT2
 
-    pfnWritePort : IntPtr
+    pfnWritePort : PFN_PRINTING_WRITEPORT2
 
-    pfnReadPort : IntPtr
+    pfnReadPort : PFN_PRINTING_READPORT2
 
-    pfnEndDocPort : IntPtr
+    pfnEndDocPort : PFN_PRINTING_ENDDOCPORT2
 
-    pfnClosePort : IntPtr
+    pfnClosePort : PFN_PRINTING_CLOSEPORT2
 
-    pfnAddPort : IntPtr
+    pfnAddPort : PFN_PRINTING_ADDPORT2
 
-    pfnAddPortEx : IntPtr
+    pfnAddPortEx : PFN_PRINTING_ADDPORTEX2
 
-    pfnConfigurePort : IntPtr
+    pfnConfigurePort : PFN_PRINTING_CONFIGUREPORT2
 
-    pfnDeletePort : IntPtr
+    pfnDeletePort : PFN_PRINTING_DELETEPORT2
 
-    pfnGetPrinterDataFromPort : IntPtr
+    pfnGetPrinterDataFromPort : PFN_PRINTING_GETPRINTERDATAFROMPORT2
 
-    pfnSetPortTimeOuts : IntPtr
+    pfnSetPortTimeOuts : PFN_PRINTING_SETPORTTIMEOUTS2
 
-    pfnXcvOpenPort : IntPtr
+    pfnXcvOpenPort : PFN_PRINTING_XCVOPENPORT2
 
-    pfnXcvDataPort : IntPtr
+    pfnXcvDataPort : PFN_PRINTING_XCVDATAPORT2
 
-    pfnXcvClosePort : IntPtr
+    pfnXcvClosePort : PFN_PRINTING_XCVCLOSEPORT2
 
-    pfnShutdown : IntPtr
+    pfnShutdown : PFN_PRINTING_SHUTDOWN2
 
-    pfnSendRecvBidiDataFromPort : IntPtr
+    pfnSendRecvBidiDataFromPort : PFN_PRINTING_SENDRECVBIDIDATAFROMPORT2
 
-    pfnNotifyUsedPorts : IntPtr
+    pfnNotifyUsedPorts : PFN_PRINTING_NOTIFYUSEDPORTS2
 
-    pfnNotifyUnusedPorts : IntPtr
+    pfnNotifyUnusedPorts : PFN_PRINTING_NOTIFYUNUSEDPORTS2
 
-    pfnPowerEvent : IntPtr
+    pfnPowerEvent : PFN_PRINTING_POWEREVENT2
 
 }

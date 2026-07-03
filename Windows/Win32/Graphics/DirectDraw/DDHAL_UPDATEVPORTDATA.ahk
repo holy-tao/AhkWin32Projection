@@ -4,6 +4,7 @@
 #Import ".\DDRAWI_DDVIDEOPORT_LCL.ahk" { DDRAWI_DDVIDEOPORT_LCL }
 #Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
 #Import ".\DDVIDEOPORTINFO.ahk" { DDVIDEOPORTINFO }
+#Import ".\LPDDHALVPORTCB_UPDATE.ahk" { LPDDHALVPORTCB_UPDATE }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -29,6 +30,6 @@ export default struct DDHAL_UPDATEVPORTDATA {
 
     ddRVal : HRESULT
 
-    UpdateVideoPort : IntPtr
+    UpdateVideoPort : LPDDHALVPORTCB_UPDATE
 
 }

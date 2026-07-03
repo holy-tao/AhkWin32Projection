@@ -55,6 +55,10 @@ export default struct CryptXmlDllVerifySignature {
             this.value := CallbackCreate(fn, , [CRYPT_XML_ALGORITHM.Ptr, BCRYPT_KEY_HANDLE, IntPtr, UInt32, IntPtr, UInt32, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

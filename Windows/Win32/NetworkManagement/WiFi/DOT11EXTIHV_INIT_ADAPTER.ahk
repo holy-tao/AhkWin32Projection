@@ -47,6 +47,10 @@ export default struct DOT11EXTIHV_INIT_ADAPTER {
             this.value := CallbackCreate(fn, , [DOT11_ADAPTER.Ptr, HANDLE, HANDLE.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -50,6 +50,10 @@ export default struct EFFECTIVE_POWER_MODE_CALLBACK {
             this.value := CallbackCreate(fn, , [EFFECTIVE_POWER_MODE, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

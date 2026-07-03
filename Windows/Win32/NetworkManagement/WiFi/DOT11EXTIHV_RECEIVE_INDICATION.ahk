@@ -48,6 +48,10 @@ export default struct DOT11EXTIHV_RECEIVE_INDICATION {
             this.value := CallbackCreate(fn, , [HANDLE, DOT11EXT_IHV_INDICATION_TYPE, UInt32, IntPtr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

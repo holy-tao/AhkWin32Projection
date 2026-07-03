@@ -46,6 +46,10 @@ export default struct LPDDHAL_SETINFO {
             this.value := CallbackCreate(fn, , [DDHALINFO.Ptr, BOOL, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

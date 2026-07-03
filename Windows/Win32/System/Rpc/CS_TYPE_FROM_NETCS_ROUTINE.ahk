@@ -55,6 +55,10 @@ export default struct CS_TYPE_FROM_NETCS_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, "char*", UInt32, UInt32, "ptr", "uint*", "uint*", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

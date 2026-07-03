@@ -47,6 +47,10 @@ export default struct PCLUSAPI_RESUME_CLUSTER_NODE_EX {
             this.value := CallbackCreate(fn, , [HNODE, CLUSTER_NODE_RESUME_FAILBACK_TYPE, UInt32, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

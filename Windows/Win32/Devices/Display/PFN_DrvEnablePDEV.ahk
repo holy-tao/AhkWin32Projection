@@ -64,6 +64,10 @@ export default struct PFN_DrvEnablePDEV {
             this.value := CallbackCreate(fn, , [DEVMODEW.Ptr, PWSTR, UInt32, HSURF.Ptr, UInt32, GDIINFO.Ptr, UInt32, DEVINFO.Ptr, HDEV, PWSTR, HANDLE, DHPDEV])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

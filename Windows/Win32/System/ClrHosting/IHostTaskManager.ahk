@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ICLRTaskManager.ahk" { ICLRTaskManager }
 #Import ".\IHostTask.ahk" { IHostTask }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Threading\LPTHREAD_START_ROUTINE.ahk" { LPTHREAD_START_ROUTINE }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -74,7 +75,7 @@ export default struct IHostTaskManager extends IUnknown {
     CreateTask(dwStackSize, pStartAddress, pParameter) {
         pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, UInt32, dwStackSize, "ptr", pStartAddress, pParameterMarshal, pParameter, "ptr*", &ppTask := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwStackSize, LPTHREAD_START_ROUTINE, pStartAddress, pParameterMarshal, pParameter, "ptr*", &ppTask := 0, "HRESULT")
         return IHostTask(ppTask)
     }
 

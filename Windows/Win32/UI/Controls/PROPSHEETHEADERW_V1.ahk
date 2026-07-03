@@ -3,6 +3,7 @@
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\HPROPSHEETPAGE.ahk" { HPROPSHEETPAGE }
+#Import ".\PFNPROPSHEETCALLBACK.ahk" { PFNPROPSHEETCALLBACK }
 #Import ".\PROPSHEETPAGEW.ahk" { PROPSHEETPAGEW }
 #Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
 
@@ -30,7 +31,7 @@ export default struct PROPSHEETHEADERW_V1 {
 
     ppsp : PROPSHEETPAGEW.Ptr
 
-    pfnCallback : IntPtr
+    pfnCallback : PFNPROPSHEETCALLBACK
 
     static __New() {
         DefineProp(this.Prototype, 'pszIcon', { type: PWSTR, offset: 24 })

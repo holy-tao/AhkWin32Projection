@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\LPCQPAGEPROC.ahk" { LPCQPAGEPROC }
+#Import "..\..\UI\WindowsAndMessaging\DLGPROC.ahk" { DLGPROC }
 
 /**
  * Used to define a query page added to a form in the query dialog box with the CQAddPagesProc callback function.
@@ -23,7 +25,7 @@ export default struct CQPAGE {
     /**
      * Pointer to a query page callback function defined by the query form extension. This callback function is used to notify the extension of events in the page and takes  the form of the <a href="https://docs.microsoft.com/windows/desktop/api/cmnquery/nc-cmnquery-lpcqpageproc">CQPageProc</a> callback function.
      */
-    pPageProc : IntPtr
+    pPageProc : LPCQPAGEPROC
 
     /**
      * Contains the instance handle of the module that contains the resources identified by the <b>idPageName</b> and <b>idPageTemplate</b> members.
@@ -43,7 +45,7 @@ export default struct CQPAGE {
     /**
      * Pointer to the dialog box procedure. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-dlgproc">DialogProc</a>.
      */
-    pDlgProc : IntPtr
+    pDlgProc : DLGPROC
 
     /**
      * An extension-defined 32-bit value passed in the <b>lParam</b> member of the <b>CQPAGE</b> structure passed as the <i>pPage</i> parameter in  the <a href="https://docs.microsoft.com/windows/desktop/api/cmnquery/nc-cmnquery-lpcqpageproc">CQPageProc</a> callback function.

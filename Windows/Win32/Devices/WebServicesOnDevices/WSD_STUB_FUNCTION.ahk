@@ -69,6 +69,10 @@ export default struct WSD_STUB_FUNCTION {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", WSD_EVENT.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

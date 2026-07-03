@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PDD_GETAVAILDRIVERMEMORY.ahk" { PDD_GETAVAILDRIVERMEMORY }
 
 /**
  * The DD_MISCELLANEOUSCALLBACKS structure contains an entry pointer to the memory query callback that a device driver supports.
@@ -23,6 +24,6 @@ export default struct DD_MISCELLANEOUSCALLBACKS {
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_getavaildrivermemory">DdGetAvailDriverMemory</a> callback.
      */
-    GetAvailDriverMemory : IntPtr
+    GetAvailDriverMemory : PDD_GETAVAILDRIVERMEMORY
 
 }

@@ -31,7 +31,7 @@ export default struct BCryptProcessMultiOperationsFn {
      */
     Call(hObject, operationType, pOperations, cbOperations, dwFlags) {
         result := DllCall(this.value, BCRYPT_HANDLE, hObject, BCRYPT_MULTI_OPERATION_TYPE, operationType, IntPtr, pOperations, UInt32, cbOperations, UInt32, dwFlags, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -51,6 +51,10 @@ export default struct BCryptProcessMultiOperationsFn {
             this.value := CallbackCreate(fn, , [BCRYPT_HANDLE, BCRYPT_MULTI_OPERATION_TYPE, IntPtr, UInt32, UInt32, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

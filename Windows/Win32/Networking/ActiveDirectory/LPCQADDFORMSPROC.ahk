@@ -49,6 +49,10 @@ export default struct LPCQADDFORMSPROC {
             this.value := CallbackCreate(fn, , [LPARAM, CQFORM.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

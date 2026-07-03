@@ -46,6 +46,10 @@ export default struct RTL_REALLOCATE_STRING_ROUTINE {
             this.value := CallbackCreate(fn, , [IntPtr, "ptr", "ptr"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

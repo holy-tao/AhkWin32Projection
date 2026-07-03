@@ -52,6 +52,10 @@ export default struct StackSnapshotCallback {
             this.value := CallbackCreate(fn, , [IntPtr, IntPtr, IntPtr, UInt32, "char*", "ptr", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

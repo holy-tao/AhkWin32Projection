@@ -49,6 +49,10 @@ export default struct VDMGETPOINTERPROC {
             this.value := CallbackCreate(fn, , [HANDLE, HANDLE, UInt16, UInt32, BOOL, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

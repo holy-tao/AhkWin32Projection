@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PWSD_SOAP_MESSAGE_HANDLER.ahk" { PWSD_SOAP_MESSAGE_HANDLER }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
@@ -12,7 +13,7 @@ export default struct WSD_HANDLER_CONTEXT {
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/nc-wsdtypes-pwsd_soap_message_handler">PSWD_SOAP_MESSAGE_HANDLER</a> function that specifies the incoming message handler.
      */
-    Handler : IntPtr
+    Handler : PWSD_SOAP_MESSAGE_HANDLER
 
     /**
      * The value supplied by the <i>pVoidContext</i> parameter of the IWSDSession::AddPort, IWSDSession::RegisterForIncomingRequests, or IWSDSession::RegisterForIncomingResponse methods.

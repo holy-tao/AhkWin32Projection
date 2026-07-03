@@ -2,6 +2,7 @@
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\AUTHNEXTSTEP.ahk" { AUTHNEXTSTEP }
 #Import ".\DAV_CALLBACK_CRED.ahk" { DAV_CALLBACK_CRED }
+#Import ".\PFNDAVAUTHCALLBACK_FREECRED.ahk" { PFNDAVAUTHCALLBACK_FREECRED }
 
 /**
  * The WebDAV client calls the application-defined DavAuthCallback callback function to prompt the user for credentials.
@@ -156,6 +157,10 @@ export default struct PFNDAVAUTHCALLBACK {
             this.value := CallbackCreate(fn, , [PWSTR, PWSTR, UInt32, UInt32, DAV_CALLBACK_CRED.Ptr, "int*", "ptr*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

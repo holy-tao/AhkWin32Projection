@@ -1,6 +1,6 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
@@ -17,6 +17,7 @@
 #Import ".\MQQUEUEPROPS.ahk" { MQQUEUEPROPS }
 #Import ".\MQRESTRICTION.ahk" { MQRESTRICTION }
 #Import ".\MQSORTSET.ahk" { MQSORTSET }
+#Import ".\PMQRECEIVECALLBACK.ahk" { PMQRECEIVECALLBACK }
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
@@ -131,7 +132,7 @@ export MQSendMessage(hDestinationQueue, pMessageProps, pTransaction) {
  * @returns {HRESULT} 
  */
 export MQReceiveMessage(hSource, dwTimeout, dwAction, pMessageProps, lpOverlapped, fnReceiveCallback, _hCursor, pTransaction) {
-    result := DllCall("mqrt.dll\MQReceiveMessage", IntPtr, hSource, UInt32, dwTimeout, UInt32, dwAction, MQMSGPROPS.Ptr, pMessageProps, OVERLAPPED.Ptr, lpOverlapped, "ptr", fnReceiveCallback, HANDLE, _hCursor, "ptr", pTransaction, "HRESULT")
+    result := DllCall("mqrt.dll\MQReceiveMessage", IntPtr, hSource, UInt32, dwTimeout, UInt32, dwAction, MQMSGPROPS.Ptr, pMessageProps, OVERLAPPED.Ptr, lpOverlapped, PMQRECEIVECALLBACK, fnReceiveCallback, HANDLE, _hCursor, "ptr", pTransaction, "HRESULT")
     return result
 }
 
@@ -147,7 +148,7 @@ export MQReceiveMessage(hSource, dwTimeout, dwAction, pMessageProps, lpOverlappe
  * @returns {HRESULT} 
  */
 export MQReceiveMessageByLookupId(hSource, ullLookupId, dwLookupAction, pMessageProps, lpOverlapped, fnReceiveCallback, pTransaction) {
-    result := DllCall("mqrt.dll\MQReceiveMessageByLookupId", IntPtr, hSource, Int64, ullLookupId, UInt32, dwLookupAction, MQMSGPROPS.Ptr, pMessageProps, OVERLAPPED.Ptr, lpOverlapped, "ptr", fnReceiveCallback, "ptr", pTransaction, "HRESULT")
+    result := DllCall("mqrt.dll\MQReceiveMessageByLookupId", IntPtr, hSource, Int64, ullLookupId, UInt32, dwLookupAction, MQMSGPROPS.Ptr, pMessageProps, OVERLAPPED.Ptr, lpOverlapped, PMQRECEIVECALLBACK, fnReceiveCallback, "ptr", pTransaction, "HRESULT")
     return result
 }
 

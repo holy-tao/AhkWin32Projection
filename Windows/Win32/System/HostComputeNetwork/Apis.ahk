@@ -1,9 +1,10 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HCN_NOTIFICATION_CALLBACK.ahk" { HCN_NOTIFICATION_CALLBACK }
 #Import ".\HCN_PORT_ACCESS.ahk" { HCN_PORT_ACCESS }
 #Import ".\HCN_PORT_PROTOCOL.ahk" { HCN_PORT_PROTOCOL }
 #Import ".\HCN_PORT_RANGE_ENTRY.ahk" { HCN_PORT_RANGE_ENTRY }
@@ -478,7 +479,7 @@ export HcnCloseLoadBalancer(LoadBalancer) {
 export HcnRegisterServiceCallback(Callback, _Context) {
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("computenetwork.dll\HcnRegisterServiceCallback", "ptr", Callback, _ContextMarshal, _Context, "ptr*", &CallbackHandle := 0, "HRESULT")
+    result := DllCall("computenetwork.dll\HcnRegisterServiceCallback", HCN_NOTIFICATION_CALLBACK, Callback, _ContextMarshal, _Context, "ptr*", &CallbackHandle := 0, "HRESULT")
     return CallbackHandle
 }
 
@@ -507,7 +508,7 @@ export HcnRegisterGuestNetworkServiceCallback(GuestNetworkService, Callback, _Co
     GuestNetworkServiceMarshal := GuestNetworkService is VarRef ? "ptr" : "ptr"
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("computenetwork.dll\HcnRegisterGuestNetworkServiceCallback", GuestNetworkServiceMarshal, GuestNetworkService, "ptr", Callback, _ContextMarshal, _Context, "ptr*", &CallbackHandle := 0, "HRESULT")
+    result := DllCall("computenetwork.dll\HcnRegisterGuestNetworkServiceCallback", GuestNetworkServiceMarshal, GuestNetworkService, HCN_NOTIFICATION_CALLBACK, Callback, _ContextMarshal, _Context, "ptr*", &CallbackHandle := 0, "HRESULT")
     return CallbackHandle
 }
 

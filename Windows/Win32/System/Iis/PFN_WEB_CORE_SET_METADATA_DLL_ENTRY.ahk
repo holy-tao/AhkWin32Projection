@@ -49,6 +49,10 @@ export default struct PFN_WEB_CORE_SET_METADATA_DLL_ENTRY {
             this.value := CallbackCreate(fn, , [PWSTR, PWSTR, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

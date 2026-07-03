@@ -53,6 +53,10 @@ export default struct PCLUSAPI_GET_CLUSTER_INFORMATION {
             this.value := CallbackCreate(fn, , [HCLUSTER, PWSTR, "uint*", CLUSTERVERSIONINFO.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

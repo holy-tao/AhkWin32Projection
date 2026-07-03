@@ -1,6 +1,7 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\AVRF_RESOURCE_ENUMERATE_CALLBACK.ahk" { AVRF_RESOURCE_ENUMERATE_CALLBACK }
 #Import ".\VERIFIER_ENUM_RESOURCE_FLAGS.ahk" { VERIFIER_ENUM_RESOURCE_FLAGS }
 
 /**
@@ -29,7 +30,7 @@
 export VerifierEnumerateResource(Process, Flags, _ResourceType, ResourceCallback, EnumerationContext) {
     EnumerationContextMarshal := EnumerationContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("verifier.dll\VerifierEnumerateResource", HANDLE, Process, VERIFIER_ENUM_RESOURCE_FLAGS, Flags, UInt32, _ResourceType, "ptr", ResourceCallback, EnumerationContextMarshal, EnumerationContext, UInt32)
+    result := DllCall("verifier.dll\VerifierEnumerateResource", HANDLE, Process, VERIFIER_ENUM_RESOURCE_FLAGS, Flags, UInt32, _ResourceType, AVRF_RESOURCE_ENUMERATE_CALLBACK, ResourceCallback, EnumerationContextMarshal, EnumerationContext, UInt32)
     return result
 }
 

@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
+#Import ".\EVT_VHF_ASYNC_OPERATION.ahk" { EVT_VHF_ASYNC_OPERATION }
+#Import ".\EVT_VHF_CLEANUP.ahk" { EVT_VHF_CLEANUP }
+#Import ".\EVT_VHF_READY_FOR_NEXT_READ_REPORT.ahk" { EVT_VHF_READY_FOR_NEXT_READ_REPORT }
 #Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\Win32\Foundation\PWSTR.ahk" { PWSTR }
 
@@ -33,17 +36,17 @@ export default struct VHF_CONFIG {
 
     ReportDescriptor : IntPtr
 
-    EvtVhfReadyForNextReadReport : IntPtr
+    EvtVhfReadyForNextReadReport : EVT_VHF_READY_FOR_NEXT_READ_REPORT
 
-    EvtVhfAsyncOperationGetFeature : IntPtr
+    EvtVhfAsyncOperationGetFeature : EVT_VHF_ASYNC_OPERATION
 
-    EvtVhfAsyncOperationSetFeature : IntPtr
+    EvtVhfAsyncOperationSetFeature : EVT_VHF_ASYNC_OPERATION
 
-    EvtVhfAsyncOperationWriteReport : IntPtr
+    EvtVhfAsyncOperationWriteReport : EVT_VHF_ASYNC_OPERATION
 
-    EvtVhfAsyncOperationGetInputReport : IntPtr
+    EvtVhfAsyncOperationGetInputReport : EVT_VHF_ASYNC_OPERATION
 
-    EvtVhfCleanup : IntPtr
+    EvtVhfCleanup : EVT_VHF_CLEANUP
 
     HardwareIDsLength : UInt16
 

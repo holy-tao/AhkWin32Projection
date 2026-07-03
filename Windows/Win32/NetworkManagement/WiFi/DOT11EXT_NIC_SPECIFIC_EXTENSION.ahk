@@ -50,6 +50,10 @@ export default struct DOT11EXT_NIC_SPECIFIC_EXTENSION {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, IntPtr, "uint*", IntPtr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

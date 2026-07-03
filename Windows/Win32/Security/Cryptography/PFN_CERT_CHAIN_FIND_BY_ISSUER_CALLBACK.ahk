@@ -50,6 +50,10 @@ export default struct PFN_CERT_CHAIN_FIND_BY_ISSUER_CALLBACK {
             this.value := CallbackCreate(fn, , [CERT_CONTEXT.Ptr, "ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

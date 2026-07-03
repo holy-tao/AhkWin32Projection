@@ -49,6 +49,10 @@ export default struct JET_PFNDURABLECOMMITCALLBACK {
             this.value := CallbackCreate(fn, , [JET_INSTANCE, JET_COMMIT_ID.Ptr, UInt32, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

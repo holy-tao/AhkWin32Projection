@@ -26,7 +26,7 @@ export default struct PFNFTH {
      */
     Call(SystemFirmwareTableInfo) {
         result := DllCall(this.value, SYSTEM_FIRMWARE_TABLE_INFORMATION.Ptr, SystemFirmwareTableInfo, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -46,6 +46,10 @@ export default struct PFNFTH {
             this.value := CallbackCreate(fn, "cdecl", [SYSTEM_FIRMWARE_TABLE_INFORMATION.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

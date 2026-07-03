@@ -28,7 +28,7 @@ export default struct DRIVER_INITIALIZE {
      */
     Call(DriverObject, RegistryPath) {
         result := DllCall(this.value, DRIVER_OBJECT.Ptr, DriverObject, UNICODE_STRING.Ptr, RegistryPath, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -48,6 +48,10 @@ export default struct DRIVER_INITIALIZE {
             this.value := CallbackCreate(fn, , [DRIVER_OBJECT.Ptr, UNICODE_STRING.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

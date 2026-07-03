@@ -42,6 +42,10 @@ export default struct PWINDBG_CHECK_VERSION {
             this.value := CallbackCreate(fn, , [UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

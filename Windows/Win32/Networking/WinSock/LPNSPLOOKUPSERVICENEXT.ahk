@@ -265,6 +265,10 @@ export default struct LPNSPLOOKUPSERVICENEXT {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, "uint*", IntPtr, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

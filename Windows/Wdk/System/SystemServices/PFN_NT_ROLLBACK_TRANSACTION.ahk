@@ -28,7 +28,7 @@ export default struct PFN_NT_ROLLBACK_TRANSACTION {
      */
     Call(TransactionHandle, Wait) {
         result := DllCall(this.value, HANDLE, TransactionHandle, BOOLEAN, Wait, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -48,6 +48,10 @@ export default struct PFN_NT_ROLLBACK_TRANSACTION {
             this.value := CallbackCreate(fn, , [HANDLE, BOOLEAN, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

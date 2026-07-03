@@ -323,6 +323,10 @@ export default struct LPWSPEVENTSELECT {
             this.value := CallbackCreate(fn, , [SOCKET, WSAEVENT, Int32, "int*", Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

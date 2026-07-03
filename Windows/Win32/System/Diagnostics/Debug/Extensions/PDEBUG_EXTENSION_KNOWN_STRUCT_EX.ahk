@@ -56,6 +56,10 @@ export default struct PDEBUG_EXTENSION_KNOWN_STRUCT_EX {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, Int64, PSTR, PSTR, "uint*", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

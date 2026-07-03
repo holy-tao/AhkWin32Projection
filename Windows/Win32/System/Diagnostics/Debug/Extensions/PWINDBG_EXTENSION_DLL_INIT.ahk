@@ -45,6 +45,10 @@ export default struct PWINDBG_EXTENSION_DLL_INIT {
             this.value := CallbackCreate(fn, , [WINDBG_EXTENSION_APIS.Ptr, UInt16, UInt16, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

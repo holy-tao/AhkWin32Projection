@@ -41,6 +41,10 @@ export default struct PSET_D3COLD_SUPPORT {
             this.value := CallbackCreate(fn, , [IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

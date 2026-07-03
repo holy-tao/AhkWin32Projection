@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import "..\..\Foundation\HRSRC.ahk" { HRSRC }
@@ -10,6 +10,7 @@
 #Import "..\Com\StructuredStorage\IStorage.ahk" { IStorage }
 #Import ".\INSERT_OBJECT_FLAGS.ahk" { INSERT_OBJECT_FLAGS }
 #Import ".\IOleClientSite.ahk" { IOleClientSite }
+#Import ".\LPFNOLEUIHOOK.ahk" { LPFNOLEUIHOOK }
 
 /**
  * Contains information that the OLE User Interface Library uses to initialize the Insert Object dialog box, and space for the library to return information when the dialog box is dismissed. (ANSI)
@@ -198,7 +199,7 @@ export default struct OLEUIINSERTOBJECTA {
     /**
      * Pointer to a hook function that processes messages intended for the dialog box. The hook function must return zero to pass a message that it didn't process back to the dialog box procedure in the library. The hook function must return a nonzero value to prevent the library's dialog box procedure from processing a message it has already processed.
      */
-    lpfnHook : IntPtr
+    lpfnHook : LPFNOLEUIHOOK
 
     /**
      * Application-defined data that the library passes to the hook function pointed to by the <b>lpfnHook</b> member. The library passes a pointer to the <b>OLEUIINSERTOBJECT</b> structure in the <i>lParam</i> parameter of the WM_INITDIALOG message; this pointer can be used to retrieve the <b>lCustData</b> member.

@@ -29,7 +29,7 @@ export default struct PSHED_PI_SET_ERROR_SOURCE_INFO {
         PluginContextMarshal := PluginContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, PluginContextMarshal, PluginContext, WHEA_ERROR_SOURCE_DESCRIPTOR.Ptr, ErrorSource, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -49,6 +49,10 @@ export default struct PSHED_PI_SET_ERROR_SOURCE_INFO {
             this.value := CallbackCreate(fn, , ["ptr", WHEA_ERROR_SOURCE_DESCRIPTOR.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

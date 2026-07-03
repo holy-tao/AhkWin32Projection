@@ -55,6 +55,10 @@ export default struct PFN_PRINTING_SENDRECVBIDIDATAFROMPORT2 {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, PWSTR, BIDI_REQUEST_CONTAINER.Ptr, "ptr*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

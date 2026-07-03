@@ -50,6 +50,10 @@ export default struct PCI_READ_WRITE_CONFIG {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, UInt32, IntPtr, UInt32, UInt32, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

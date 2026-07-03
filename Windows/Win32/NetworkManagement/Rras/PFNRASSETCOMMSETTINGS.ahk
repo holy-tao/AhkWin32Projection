@@ -59,6 +59,10 @@ export default struct PFNRASSETCOMMSETTINGS {
             this.value := CallbackCreate(fn, , [HANDLE, RASCOMMSETTINGS.Ptr, "ptr", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

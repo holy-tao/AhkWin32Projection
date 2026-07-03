@@ -1,6 +1,6 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
@@ -9,6 +9,7 @@
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CLSID_RESOLUTION_FLAGS.ahk" { CLSID_RESOLUTION_FLAGS }
+#Import ".\FLockClrVersionCallback.ahk" { FLockClrVersionCallback }
 #Import ".\HOST_TYPE.ahk" { HOST_TYPE }
 #Import "..\Com\IStream.ahk" { IStream }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
@@ -380,7 +381,7 @@ export LockClrVersion(hostCallback, pBeginHostSetup, pEndHostSetup) {
     pBeginHostSetupMarshal := pBeginHostSetup is VarRef ? "ptr*" : "ptr"
     pEndHostSetupMarshal := pEndHostSetup is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MSCorEE.dll\LockClrVersion", "ptr", hostCallback, pBeginHostSetupMarshal, pBeginHostSetup, pEndHostSetupMarshal, pEndHostSetup, "HRESULT")
+    result := DllCall("MSCorEE.dll\LockClrVersion", FLockClrVersionCallback, hostCallback, pBeginHostSetupMarshal, pBeginHostSetup, pEndHostSetupMarshal, pEndHostSetup, "HRESULT")
     return result
 }
 

@@ -6,6 +6,7 @@
 #Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
 #Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
 #Import ".\IDirectDrawSurface.ahk" { IDirectDrawSurface }
+#Import ".\LPDDHALSURFCB_UPDATEOVERLAY.ahk" { LPDDHALSURFCB_UPDATEOVERLAY }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -29,6 +30,6 @@ export default struct DDHAL_UPDATEOVERLAYDATA {
 
     ddRVal : HRESULT
 
-    UpdateOverlay : IntPtr
+    UpdateOverlay : LPDDHALSURFCB_UPDATEOVERLAY
 
 }

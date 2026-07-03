@@ -45,6 +45,10 @@ export default struct PDXVA2SW_GETVIDEOPROCESSORRENDERTARGETCOUNT {
             this.value := CallbackCreate(fn, , [DXVA2_VideoDesc.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -48,6 +48,10 @@ export default struct LPOCNCHKPROC {
             this.value := CallbackCreate(fn, , [IntPtr, IntPtr, "ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

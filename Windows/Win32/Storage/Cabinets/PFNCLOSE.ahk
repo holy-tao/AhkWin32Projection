@@ -43,6 +43,10 @@ export default struct PFNCLOSE {
             this.value := CallbackCreate(fn, "cdecl", [IntPtr, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

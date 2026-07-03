@@ -45,6 +45,10 @@ export default struct SEC_THREAD_START {
             this.value := CallbackCreate(fn, , ["ptr", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

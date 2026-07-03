@@ -3,6 +3,7 @@
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PFNDAVAUTHCALLBACK.ahk" { PFNDAVAUTHCALLBACK }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WebDav
@@ -395,7 +396,7 @@ export DavCancelConnectionsToServer(lpName, fForce) {
  * @since windows6.0.6000
  */
 export DavRegisterAuthCallback(CallBack, _Version) {
-    result := DllCall("davclnt.dll\DavRegisterAuthCallback", "ptr", CallBack, UInt32, _Version, UInt32)
+    result := DllCall("davclnt.dll\DavRegisterAuthCallback", PFNDAVAUTHCALLBACK, CallBack, UInt32, _Version, UInt32)
     return result
 }
 

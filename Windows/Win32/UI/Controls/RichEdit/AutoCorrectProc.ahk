@@ -123,6 +123,10 @@ export default struct AutoCorrectProc {
             this.value := CallbackCreate(fn, , [UInt16, PWSTR, PWSTR, Int32, "int*", Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

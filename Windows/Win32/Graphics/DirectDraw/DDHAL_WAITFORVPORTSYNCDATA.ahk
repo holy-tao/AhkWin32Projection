@@ -2,6 +2,7 @@
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDRAWI_DDVIDEOPORT_LCL.ahk" { DDRAWI_DDVIDEOPORT_LCL }
 #Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
+#Import ".\LPDDHALVPORTCB_WAITFORSYNC.ahk" { LPDDHALVPORTCB_WAITFORSYNC }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -21,6 +22,6 @@ export default struct DDHAL_WAITFORVPORTSYNCDATA {
 
     ddRVal : HRESULT
 
-    WaitForVideoPortSync : IntPtr
+    WaitForVideoPortSync : LPDDHALVPORTCB_WAITFORSYNC
 
 }

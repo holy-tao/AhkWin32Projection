@@ -50,6 +50,10 @@ export default struct SslOpenPrivateKeyFn {
             this.value := CallbackCreate(fn, , [NCRYPT_PROV_HANDLE, CERT_CONTEXT.Ptr, UInt32, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

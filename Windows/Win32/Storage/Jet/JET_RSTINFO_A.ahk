@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\JET_LGPOS.ahk" { JET_LGPOS }
 #Import ".\JET_LOGTIME.ahk" { JET_LOGTIME }
+#Import ".\JET_PFNSTATUS.ahk" { JET_PFNSTATUS }
 #Import ".\JET_RSTMAP_A.ahk" { JET_RSTMAP_A }
 
 /**
@@ -20,6 +21,6 @@ export default struct JET_RSTINFO_A {
 
     logtimeStop : JET_LOGTIME
 
-    pfnStatus : IntPtr
+    pfnStatus : JET_PFNSTATUS
 
 }

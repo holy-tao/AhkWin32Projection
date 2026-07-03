@@ -47,6 +47,10 @@ export default struct PFN_CPD_ADD_PRIVDATA {
             this.value := CallbackCreate(fn, , [CRYPT_PROVIDER_DATA.Ptr, CRYPT_PROVIDER_PRIVDATA.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

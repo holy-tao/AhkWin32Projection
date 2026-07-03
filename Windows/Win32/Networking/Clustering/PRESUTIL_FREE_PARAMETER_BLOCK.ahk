@@ -48,6 +48,10 @@ export default struct PRESUTIL_FREE_PARAMETER_BLOCK {
             this.value := CallbackCreate(fn, , ["char*", "char*", RESUTIL_PROPERTY_ITEM.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

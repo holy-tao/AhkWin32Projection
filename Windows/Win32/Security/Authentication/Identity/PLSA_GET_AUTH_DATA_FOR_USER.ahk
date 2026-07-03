@@ -36,7 +36,7 @@ export default struct PLSA_GET_AUTH_DATA_FOR_USER {
         UserAuthDataSizeMarshal := UserAuthDataSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, SECURITY_STRING.Ptr, Name, SECPKG_NAME_TYPE, NameType, SECURITY_STRING.Ptr, Prefix, UserAuthDataMarshal, UserAuthData, UserAuthDataSizeMarshal, UserAuthDataSize, LSA_UNICODE_STRING.Ptr, UserFlatName, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -56,6 +56,10 @@ export default struct PLSA_GET_AUTH_DATA_FOR_USER {
             this.value := CallbackCreate(fn, , [SECURITY_STRING.Ptr, SECPKG_NAME_TYPE, SECURITY_STRING.Ptr, "ptr*", "uint*", LSA_UNICODE_STRING.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

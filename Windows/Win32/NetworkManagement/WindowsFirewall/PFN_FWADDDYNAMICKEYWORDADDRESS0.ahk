@@ -68,6 +68,10 @@ export default struct PFN_FWADDDYNAMICKEYWORDADDRESS0 {
             this.value := CallbackCreate(fn, , [FW_DYNAMIC_KEYWORD_ADDRESS0.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

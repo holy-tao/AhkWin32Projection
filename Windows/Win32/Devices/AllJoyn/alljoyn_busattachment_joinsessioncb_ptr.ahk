@@ -49,6 +49,10 @@ export default struct alljoyn_busattachment_joinsessioncb_ptr {
             this.value := CallbackCreate(fn, , [QStatus, UInt32, alljoyn_sessionopts, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

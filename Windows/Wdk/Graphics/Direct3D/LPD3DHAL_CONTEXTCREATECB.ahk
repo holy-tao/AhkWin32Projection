@@ -44,6 +44,10 @@ export default struct LPD3DHAL_CONTEXTCREATECB {
             this.value := CallbackCreate(fn, , [D3DHAL_CONTEXTCREATEDATA.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

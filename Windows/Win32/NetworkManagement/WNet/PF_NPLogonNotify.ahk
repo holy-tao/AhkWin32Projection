@@ -61,6 +61,10 @@ export default struct PF_NPLogonNotify {
             this.value := CallbackCreate(fn, , [LUID.Ptr, PWSTR, "ptr", PWSTR, "ptr", PWSTR, "ptr", PWSTR.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

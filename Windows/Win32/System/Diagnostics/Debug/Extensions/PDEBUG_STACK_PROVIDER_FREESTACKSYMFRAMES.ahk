@@ -45,6 +45,10 @@ export default struct PDEBUG_STACK_PROVIDER_FREESTACKSYMFRAMES {
             this.value := CallbackCreate(fn, , [STACK_SYM_FRAME_INFO.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

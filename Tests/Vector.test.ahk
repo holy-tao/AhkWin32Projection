@@ -3,7 +3,7 @@
 #Import "./Yunit/Yunit.ahk" { Yunit }
 #Import "./YunitExtensions/Assert.ahk" { Assert }
 
-#Import "../Vector.ahk" { Vector }
+#Import "../Windows/Vector.ahk" { Vector }
 #Import "../Windows/Win32/Foundation/RECT.ahk" { RECT }
 
 /**

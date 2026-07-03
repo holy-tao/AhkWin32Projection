@@ -62,6 +62,10 @@ export default struct PFN_CERT_ENUM_SYSTEM_STORE {
             this.value := CallbackCreate(fn, , ["ptr", CERT_SYSTEM_STORE_FLAGS, CERT_SYSTEM_STORE_INFO.Ptr, "ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

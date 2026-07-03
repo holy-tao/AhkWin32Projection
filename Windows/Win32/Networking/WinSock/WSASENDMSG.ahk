@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LPWSAOVERLAPPED_COMPLETION_ROUTINE.ahk" { LPWSAOVERLAPPED_COMPLETION_ROUTINE }
 #Import ".\WSAMSG.ahk" { WSAMSG }
 #Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
 
@@ -16,6 +17,6 @@ export default struct WSASENDMSG {
 
     lpOverlapped : OVERLAPPED.Ptr
 
-    lpCompletionRoutine : IntPtr
+    lpCompletionRoutine : LPWSAOVERLAPPED_COMPLETION_ROUTINE
 
 }

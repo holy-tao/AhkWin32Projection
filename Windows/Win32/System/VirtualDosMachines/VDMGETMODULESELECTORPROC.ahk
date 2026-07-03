@@ -54,6 +54,10 @@ export default struct VDMGETMODULESELECTORPROC {
             this.value := CallbackCreate(fn, , [HANDLE, HANDLE, UInt32, PSTR, "ushort*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

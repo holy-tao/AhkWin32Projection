@@ -60,6 +60,10 @@ export default struct PFN_DrvTextOut {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, STROBJ.Ptr, FONTOBJ.Ptr, CLIPOBJ.Ptr, RECTL.Ptr, RECTL.Ptr, BRUSHOBJ.Ptr, BRUSHOBJ.Ptr, POINTL.Ptr, UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

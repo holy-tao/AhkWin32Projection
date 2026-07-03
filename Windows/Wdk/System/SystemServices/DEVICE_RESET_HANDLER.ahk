@@ -32,7 +32,7 @@ export default struct DEVICE_RESET_HANDLER {
         ResetParametersMarshal := ResetParameters is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, InterfaceContextMarshal, InterfaceContext, DEVICE_RESET_TYPE, ResetType, UInt32, Flags, ResetParametersMarshal, ResetParameters, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -52,6 +52,10 @@ export default struct DEVICE_RESET_HANDLER {
             this.value := CallbackCreate(fn, , ["ptr", DEVICE_RESET_TYPE, UInt32, "ptr", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

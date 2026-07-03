@@ -31,7 +31,7 @@ export default struct FPGA_CONTROL_ERROR_REPORTING {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, UInt32, UncorrectableMask, UInt32, CorrectableMask, BOOLEAN, DisableErrorReporting, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -51,6 +51,10 @@ export default struct FPGA_CONTROL_ERROR_REPORTING {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, UInt32, BOOLEAN, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

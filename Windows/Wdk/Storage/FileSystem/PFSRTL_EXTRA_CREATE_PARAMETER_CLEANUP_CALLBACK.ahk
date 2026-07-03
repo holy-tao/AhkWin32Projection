@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
@@ -46,6 +46,10 @@ export default struct PFSRTL_EXTRA_CREATE_PARAMETER_CLEANUP_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", Guid.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

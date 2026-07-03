@@ -93,6 +93,10 @@ export default struct LPFN_RIORECEIVE {
             this.value := CallbackCreate(fn, , [RIO_RQ, RIO_BUF.Ptr, UInt32, UInt32, "ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

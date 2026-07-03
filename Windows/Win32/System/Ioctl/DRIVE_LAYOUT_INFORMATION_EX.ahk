@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import ".\DRIVE_LAYOUT_INFORMATION_GPT.ahk" { DRIVE_LAYOUT_INFORMATION_GPT }
 #Import ".\DRIVE_LAYOUT_INFORMATION_MBR.ahk" { DRIVE_LAYOUT_INFORMATION_MBR }

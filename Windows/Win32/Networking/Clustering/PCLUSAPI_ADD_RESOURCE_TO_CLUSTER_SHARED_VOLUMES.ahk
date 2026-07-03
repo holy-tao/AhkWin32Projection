@@ -44,6 +44,10 @@ export default struct PCLUSAPI_ADD_RESOURCE_TO_CLUSTER_SHARED_VOLUMES {
             this.value := CallbackCreate(fn, , [HRESOURCE, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

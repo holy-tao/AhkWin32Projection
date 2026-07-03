@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\WHEA_ERROR_PACKET_DATA_FORMAT.ahk" { WHEA_ERROR_PACKET_DATA_FORMAT }
 #Import ".\WHEA_ERROR_SEVERITY.ahk" { WHEA_ERROR_SEVERITY }
 #Import ".\WHEA_ERROR_TYPE.ahk" { WHEA_ERROR_TYPE }

@@ -26,7 +26,7 @@ export default struct IOMMU_FREE_RESERVED_LOGICAL_ADDRESS_RANGE {
      */
     Call(LogicalAddressToken) {
         result := DllCall(this.value, IOMMU_DMA_LOGICAL_ADDRESS_TOKEN.Ptr, LogicalAddressToken, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -46,6 +46,10 @@ export default struct IOMMU_FREE_RESERVED_LOGICAL_ADDRESS_RANGE {
             this.value := CallbackCreate(fn, , [IOMMU_DMA_LOGICAL_ADDRESS_TOKEN.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

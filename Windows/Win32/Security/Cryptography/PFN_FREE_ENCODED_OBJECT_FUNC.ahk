@@ -50,6 +50,10 @@ export default struct PFN_FREE_ENCODED_OBJECT_FUNC {
             this.value := CallbackCreate(fn, , [PSTR, CRYPT_BLOB_ARRAY.Ptr, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

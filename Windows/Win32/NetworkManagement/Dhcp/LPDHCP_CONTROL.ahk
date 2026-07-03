@@ -60,6 +60,10 @@ export default struct LPDHCP_CONTROL {
             this.value := CallbackCreate(fn, , [UInt32, "ptr", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

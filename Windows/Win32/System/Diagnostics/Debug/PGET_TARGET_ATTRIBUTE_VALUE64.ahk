@@ -50,6 +50,10 @@ export default struct PGET_TARGET_ATTRIBUTE_VALUE64 {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, Int64, "uint*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

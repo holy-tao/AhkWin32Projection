@@ -28,7 +28,7 @@ export default struct WHEA_ERROR_SOURCE_INITIALIZE_DEVICE_DRIVER {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, UInt32, ErrorSourceId, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -48,6 +48,10 @@ export default struct WHEA_ERROR_SOURCE_INITIALIZE_DEVICE_DRIVER {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

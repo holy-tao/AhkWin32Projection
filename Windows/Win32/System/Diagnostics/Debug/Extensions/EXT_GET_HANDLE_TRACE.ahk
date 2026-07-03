@@ -53,6 +53,10 @@ export default struct EXT_GET_HANDLE_TRACE {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, UInt32, "uint*", "uint*", UInt32, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

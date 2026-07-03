@@ -45,6 +45,10 @@ export default struct PIO_IRP_EXT_PROCESS_TRACKED_OFFSET_CALLBACK {
             this.value := CallbackCreate(fn, , [IO_IRP_EXT_TRACK_OFFSET_HEADER.Ptr, IO_IRP_EXT_TRACK_OFFSET_HEADER.Ptr, Int64, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

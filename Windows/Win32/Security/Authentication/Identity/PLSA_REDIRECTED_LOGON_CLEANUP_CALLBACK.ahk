@@ -43,6 +43,10 @@ export default struct PLSA_REDIRECTED_LOGON_CLEANUP_CALLBACK {
             this.value := CallbackCreate(fn, , [HANDLE, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

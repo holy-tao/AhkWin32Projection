@@ -46,6 +46,10 @@ export default struct I_RpcProxyGetConnectionTimeoutFn {
             this.value := CallbackCreate(fn, , ["uint*", RPC_STATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

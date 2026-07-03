@@ -26,7 +26,7 @@ export default struct PLSA_DELETE_LOGON_SESSION {
      */
     Call(LogonId) {
         result := DllCall(this.value, LUID.Ptr, LogonId, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -46,6 +46,10 @@ export default struct PLSA_DELETE_LOGON_SESSION {
             this.value := CallbackCreate(fn, , [LUID.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

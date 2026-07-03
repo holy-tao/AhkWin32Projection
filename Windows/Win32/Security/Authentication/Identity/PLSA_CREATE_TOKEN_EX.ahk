@@ -50,7 +50,7 @@ export default struct PLSA_CREATE_TOKEN_EX {
         SubStatusMarshal := SubStatus is VarRef ? "int*" : "ptr"
 
         result := DllCall(this.value, LUID.Ptr, LogonId, TOKEN_SOURCE.Ptr, TokenSource, SECURITY_LOGON_TYPE, LogonType, SECURITY_IMPERSONATION_LEVEL, ImpersonationLevel, LSA_TOKEN_INFORMATION_TYPE, TokenInformationType, TokenInformationMarshal, TokenInformation, TOKEN_GROUPS.Ptr, TokenGroups, LSA_UNICODE_STRING.Ptr, Workstation, LSA_UNICODE_STRING.Ptr, ProfilePath, SessionInformationMarshal, SessionInformation, SECPKG_SESSIONINFO_TYPE, SessionInformationType, HANDLE.Ptr, Token, SubStatusMarshal, SubStatus, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -70,6 +70,10 @@ export default struct PLSA_CREATE_TOKEN_EX {
             this.value := CallbackCreate(fn, , [LUID.Ptr, TOKEN_SOURCE.Ptr, SECURITY_LOGON_TYPE, SECURITY_IMPERSONATION_LEVEL, LSA_TOKEN_INFORMATION_TYPE, "ptr", TOKEN_GROUPS.Ptr, LSA_UNICODE_STRING.Ptr, LSA_UNICODE_STRING.Ptr, "ptr", SECPKG_SESSIONINFO_TYPE, HANDLE.Ptr, "int*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

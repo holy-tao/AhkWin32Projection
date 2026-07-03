@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\IOMMU_DMA_DEVICE.ahk" { IOMMU_DMA_DEVICE }
 #Import ".\IOMMU_INTERFACE_STATE_CHANGE_FIELDS.ahk" { IOMMU_INTERFACE_STATE_CHANGE_FIELDS }
+#Import ".\PIOMMU_INTERFACE_STATE_CHANGE_CALLBACK.ahk" { PIOMMU_INTERFACE_STATE_CHANGE_CALLBACK }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
@@ -32,8 +33,8 @@ export default struct IOMMU_REGISTER_INTERFACE_STATE_CHANGE_CALLBACK {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
         DmaDeviceMarshal := DmaDevice is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall(this.value, "ptr", StateChangeCallback, _ContextMarshal, _Context, DmaDeviceMarshal, DmaDevice, IOMMU_INTERFACE_STATE_CHANGE_FIELDS.Ptr, StateFields, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        result := DllCall(this.value, PIOMMU_INTERFACE_STATE_CHANGE_CALLBACK, StateChangeCallback, _ContextMarshal, _Context, DmaDeviceMarshal, DmaDevice, IOMMU_INTERFACE_STATE_CHANGE_FIELDS.Ptr, StateFields, NTSTATUS)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -44,15 +45,19 @@ export default struct IOMMU_REGISTER_INTERFACE_STATE_CHANGE_CALLBACK {
     struct From extends IOMMU_REGISTER_INTERFACE_STATE_CHANGE_CALLBACK {
         /**
          * Creates a IOMMU_REGISTER_INTERFACE_STATE_CHANGE_CALLBACK pointer that invokes the given AHK function when called.
-         * @param {Func("ptr", "ptr", IOMMU_DMA_DEVICE, IOMMU_INTERFACE_STATE_CHANGE_FIELDS) => NTSTATUS} fn the function to invoke.
+         * @param {Func(PIOMMU_INTERFACE_STATE_CHANGE_CALLBACK, "ptr", IOMMU_DMA_DEVICE, IOMMU_INTERFACE_STATE_CHANGE_FIELDS) => NTSTATUS} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 4)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 4 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , ["ptr", "ptr", IOMMU_DMA_DEVICE.Ptr, IOMMU_INTERFACE_STATE_CHANGE_FIELDS.Ptr, NTSTATUS])
+            this.value := CallbackCreate(fn, , [PIOMMU_INTERFACE_STATE_CHANGE_CALLBACK, "ptr", IOMMU_DMA_DEVICE.Ptr, IOMMU_INTERFACE_STATE_CHANGE_FIELDS.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -46,6 +46,10 @@ export default struct PSTABLE_UNICAST_IPADDRESS_TABLE_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", MIB_UNICASTIPADDRESS_TABLE.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

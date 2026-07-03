@@ -76,6 +76,10 @@ export default struct PFN_CMSG_CNG_IMPORT_CONTENT_ENCRYPT_KEY {
             this.value := CallbackCreate(fn, , [CMSG_CNG_CONTENT_DECRYPT_INFO.Ptr, UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

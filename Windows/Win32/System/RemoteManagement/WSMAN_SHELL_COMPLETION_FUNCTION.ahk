@@ -71,6 +71,10 @@ export default struct WSMAN_SHELL_COMPLETION_FUNCTION {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, WSMAN_ERROR.Ptr, WSMAN_SHELL_HANDLE, WSMAN_COMMAND_HANDLE, WSMAN_OPERATION_HANDLE, WSMAN_RESPONSE_DATA.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

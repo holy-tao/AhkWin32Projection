@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\AudioStateMonitorSoundLevel.ahk" { AudioStateMonitorSoundLevel }
+#Import ".\PAudioStateMonitorCallback.ahk" { PAudioStateMonitorCallback }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
@@ -47,7 +48,7 @@ export default struct IAudioStateMonitor extends IUnknown {
     RegisterCallback(callback, _context) {
         _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", callback, _contextMarshal, _context, "int64*", &registration := 0, "HRESULT")
+        result := ComCall(3, this, PAudioStateMonitorCallback, callback, _contextMarshal, _context, "int64*", &registration := 0, "HRESULT")
         return registration
     }
 

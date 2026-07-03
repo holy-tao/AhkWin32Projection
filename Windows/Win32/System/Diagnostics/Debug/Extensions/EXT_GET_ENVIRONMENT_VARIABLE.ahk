@@ -51,6 +51,10 @@ export default struct EXT_GET_ENVIRONMENT_VARIABLE {
             this.value := CallbackCreate(fn, , [Int64, PSTR, PSTR, UInt32, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

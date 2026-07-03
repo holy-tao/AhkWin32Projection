@@ -3,6 +3,7 @@
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\ACMFILTERCHOOSEHOOKPROCA.ahk" { ACMFILTERCHOOSEHOOKPROCA }
 #Import ".\WAVEFILTER.ahk" { WAVEFILTER }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
@@ -43,6 +44,6 @@ export default struct ACMFILTERCHOOSEA {
 
     lCustData : LPARAM
 
-    pfnHook : IntPtr
+    pfnHook : ACMFILTERCHOOSEHOOKPROCA
 
 }

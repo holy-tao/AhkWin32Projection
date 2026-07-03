@@ -47,6 +47,10 @@ export default struct VDMISMODULELOADEDPROC {
             this.value := CallbackCreate(fn, , [PSTR, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

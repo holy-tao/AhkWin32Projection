@@ -62,6 +62,10 @@ export default struct PWLX_CHANGE_PASSWORD_NOTIFY_EX {
             this.value := CallbackCreate(fn, , [HANDLE, WLX_MPR_NOTIFY_INFO.Ptr, UInt32, PWSTR, "ptr", Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

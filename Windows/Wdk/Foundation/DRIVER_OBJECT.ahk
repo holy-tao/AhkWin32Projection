@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
+#Import ".\DRIVER_DISPATCH.ahk" { DRIVER_DISPATCH }
 #Import ".\DRIVER_EXTENSION.ahk" { DRIVER_EXTENSION }
+#Import ".\DRIVER_INITIALIZE.ahk" { DRIVER_INITIALIZE }
+#Import ".\DRIVER_STARTIO.ahk" { DRIVER_STARTIO }
+#Import ".\DRIVER_UNLOAD.ahk" { DRIVER_UNLOAD }
 #Import ".\FAST_IO_DISPATCH.ahk" { FAST_IO_DISPATCH }
 #Import "..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 
@@ -40,12 +44,12 @@ export default struct DRIVER_OBJECT {
 
     FastIoDispatch : FAST_IO_DISPATCH.Ptr
 
-    DriverInit : IntPtr
+    DriverInit : DRIVER_INITIALIZE
 
-    DriverStartIo : IntPtr
+    DriverStartIo : DRIVER_STARTIO
 
-    DriverUnload : IntPtr
+    DriverUnload : DRIVER_UNLOAD
 
-    MajorFunction : IntPtr[28]
+    MajorFunction : DRIVER_DISPATCH[28]
 
 }

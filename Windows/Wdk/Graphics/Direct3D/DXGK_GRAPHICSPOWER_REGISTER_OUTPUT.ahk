@@ -1,4 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PDXGK_GRAPHICSPOWER_UNREGISTER.ahk" { PDXGK_GRAPHICSPOWER_UNREGISTER }
+#Import ".\PDXGK_SET_SHARED_POWER_COMPONENT_STATE.ahk" { PDXGK_SET_SHARED_POWER_COMPONENT_STATE }
 #Import "..\..\..\Win32\System\Power\DEVICE_POWER_STATE.ahk" { DEVICE_POWER_STATE }
 
 /**
@@ -11,8 +13,8 @@ export default struct DXGK_GRAPHICSPOWER_REGISTER_OUTPUT {
 
     InitialGrfxPowerState : DEVICE_POWER_STATE
 
-    SetSharedPowerComponentStateCb : IntPtr
+    SetSharedPowerComponentStateCb : PDXGK_SET_SHARED_POWER_COMPONENT_STATE
 
-    UnregisterCb : IntPtr
+    UnregisterCb : PDXGK_GRAPHICSPOWER_UNREGISTER
 
 }

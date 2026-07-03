@@ -55,6 +55,10 @@ export default struct LPOPENTNEFSTREAM {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", "char*", UInt32, "ptr", UInt16, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -52,6 +52,10 @@ export default struct PFN_CERT_SERVER_OCSP_RESPONSE_UPDATE_CALLBACK {
             this.value := CallbackCreate(fn, , [CERT_CHAIN_CONTEXT.Ptr, CERT_SERVER_OCSP_RESPONSE_CONTEXT.Ptr, CRL_CONTEXT.Ptr, CRL_CONTEXT.Ptr, "ptr", UInt32, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

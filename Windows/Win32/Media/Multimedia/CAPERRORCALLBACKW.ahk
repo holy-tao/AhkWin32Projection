@@ -62,6 +62,10 @@ export default struct CAPERRORCALLBACKW {
             this.value := CallbackCreate(fn, , [HWND, Int32, PWSTR, LRESULT])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

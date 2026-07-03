@@ -3,6 +3,7 @@
 #Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
 #Import ".\DDSCAPS.ahk" { DDSCAPS }
 #Import ".\DDSCAPSEX.ahk" { DDSCAPSEX }
+#Import ".\LPDDHAL_GETAVAILDRIVERMEMORY.ahk" { LPDDHAL_GETAVAILDRIVERMEMORY }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -20,7 +21,7 @@ export default struct DDHAL_GETAVAILDRIVERMEMORYDATA {
 
     ddRVal : HRESULT
 
-    GetAvailDriverMemory : IntPtr
+    GetAvailDriverMemory : LPDDHAL_GETAVAILDRIVERMEMORY
 
     ddsCapsEx : DDSCAPSEX
 

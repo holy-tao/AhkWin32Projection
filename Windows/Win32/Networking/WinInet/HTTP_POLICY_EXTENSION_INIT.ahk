@@ -50,6 +50,10 @@ export default struct HTTP_POLICY_EXTENSION_INIT {
             this.value := CallbackCreate(fn, , [HTTP_POLICY_EXTENSION_VERSION, HTTP_POLICY_EXTENSION_TYPE, "ptr", UInt32, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

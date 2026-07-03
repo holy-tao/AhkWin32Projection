@@ -89,6 +89,10 @@ export default struct WMIDPREQUEST {
             this.value := CallbackCreate(fn, , [WMIDPREQUESTCODE, "ptr", "uint*", "ptr", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

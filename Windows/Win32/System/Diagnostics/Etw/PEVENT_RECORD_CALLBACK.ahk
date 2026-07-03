@@ -169,6 +169,10 @@ export default struct PEVENT_RECORD_CALLBACK {
             this.value := CallbackCreate(fn, , [EVENT_RECORD.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

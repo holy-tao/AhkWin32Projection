@@ -66,6 +66,10 @@ export default struct PFNProgressNotification {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, WICProgressOperation, Float64, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

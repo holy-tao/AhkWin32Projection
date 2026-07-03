@@ -75,6 +75,10 @@ export default struct PWLX_SAS_NOTIFY {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

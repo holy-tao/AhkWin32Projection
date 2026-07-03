@@ -75,6 +75,10 @@ export default struct LPFN_RIONOTIFY {
             this.value := CallbackCreate(fn, , [RIO_CQ, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -53,6 +53,10 @@ export default struct PDX_SKIPNEXTFIELD {
             this.value := CallbackCreate(fn, , ["ptr", DDSKIPNEXTFIELDINFO.Ptr, "ptr", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Identifies the kernel event for which you want to enable call stack tracing.

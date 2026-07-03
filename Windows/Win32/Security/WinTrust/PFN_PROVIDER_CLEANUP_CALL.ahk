@@ -45,6 +45,10 @@ export default struct PFN_PROVIDER_CLEANUP_CALL {
             this.value := CallbackCreate(fn, , [CRYPT_PROVIDER_DATA.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

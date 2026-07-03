@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\D2D1_DRAWING_STATE_DESCRIPTION1.ahk" { D2D1_DRAWING_STATE_DESCRIPTION1 }
@@ -13,6 +13,7 @@
 #Import ".\ID2D1PathGeometry1.ahk" { ID2D1PathGeometry1 }
 #Import ".\ID2D1Properties.ahk" { ID2D1Properties }
 #Import ".\ID2D1StrokeStyle1.ahk" { ID2D1StrokeStyle1 }
+#Import ".\PD2D1_EFFECT_FACTORY.ahk" { PD2D1_EFFECT_FACTORY }
 #Import "..\DirectWrite\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
 #Import "..\Dxgi\IDXGIDevice.ahk" { IDXGIDevice }
 #Import "..\..\System\Com\IStream.ahk" { IStream }
@@ -212,7 +213,7 @@ export default struct ID2D1Factory1 extends ID2D1Factory {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1factory1-registereffectfromstream
      */
     RegisterEffectFromStream(classId, propertyXml, bindings, bindingsCount, effectFactory) {
-        result := ComCall(22, this, Guid.Ptr, classId, "ptr", propertyXml, D2D1_PROPERTY_BINDING.Ptr, bindings, UInt32, bindingsCount, "ptr", effectFactory, "HRESULT")
+        result := ComCall(22, this, Guid.Ptr, classId, "ptr", propertyXml, D2D1_PROPERTY_BINDING.Ptr, bindings, UInt32, bindingsCount, PD2D1_EFFECT_FACTORY, effectFactory, "HRESULT")
         return result
     }
 
@@ -281,7 +282,7 @@ export default struct ID2D1Factory1 extends ID2D1Factory {
     RegisterEffectFromString(classId, propertyXml, bindings, bindingsCount, effectFactory) {
         propertyXml := propertyXml is String ? StrPtr(propertyXml) : propertyXml
 
-        result := ComCall(23, this, Guid.Ptr, classId, "ptr", propertyXml, D2D1_PROPERTY_BINDING.Ptr, bindings, UInt32, bindingsCount, "ptr", effectFactory, "HRESULT")
+        result := ComCall(23, this, Guid.Ptr, classId, "ptr", propertyXml, D2D1_PROPERTY_BINDING.Ptr, bindings, UInt32, bindingsCount, PD2D1_EFFECT_FACTORY, effectFactory, "HRESULT")
         return result
     }
 

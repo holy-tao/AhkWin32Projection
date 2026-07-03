@@ -46,6 +46,10 @@ export default struct PCLUSAPI_CAN_RESOURCE_BE_DEPENDENT {
             this.value := CallbackCreate(fn, , [HRESOURCE, HRESOURCE, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

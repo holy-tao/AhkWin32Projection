@@ -3,6 +3,8 @@
 #Import ".\COPYFILE2_CREATE_OPLOCK_KEYS.ahk" { COPYFILE2_CREATE_OPLOCK_KEYS }
 #Import ".\COPYFILE2_V2_FLAGS.ahk" { COPYFILE2_V2_FLAGS }
 #Import ".\COPYFILE_FLAGS.ahk" { COPYFILE_FLAGS }
+#Import ".\LPPROGRESS_ROUTINE.ahk" { LPPROGRESS_ROUTINE }
+#Import ".\PCOPYFILE2_PROGRESS_ROUTINE.ahk" { PCOPYFILE2_PROGRESS_ROUTINE }
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
@@ -16,7 +18,7 @@ export default struct COPYFILE2_EXTENDED_PARAMETERS_V2 {
 
     pfCancel : BOOL.Ptr
 
-    pProgressRoutine : IntPtr
+    pProgressRoutine : PCOPYFILE2_PROGRESS_ROUTINE
 
     pvCallbackContext : IntPtr
 
@@ -26,7 +28,7 @@ export default struct COPYFILE2_EXTENDED_PARAMETERS_V2 {
 
     ioDesiredRate : UInt32
 
-    pProgressRoutineOld : IntPtr
+    pProgressRoutineOld : LPPROGRESS_ROUTINE
 
     SourceOplockKeys : COPYFILE2_CREATE_OPLOCK_KEYS.Ptr
 

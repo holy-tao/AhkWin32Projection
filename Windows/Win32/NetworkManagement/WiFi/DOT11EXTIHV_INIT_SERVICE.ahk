@@ -49,6 +49,10 @@ export default struct DOT11EXTIHV_INIT_SERVICE {
             this.value := CallbackCreate(fn, , [UInt32, DOT11EXT_APIS.Ptr, DOT11EXT_IHV_HANDLERS.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

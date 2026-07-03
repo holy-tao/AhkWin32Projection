@@ -46,6 +46,10 @@ export default struct alljoyn_permissionconfigurationlistener_factoryreset_ptr {
             this.value := CallbackCreate(fn, , ["ptr", QStatus])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

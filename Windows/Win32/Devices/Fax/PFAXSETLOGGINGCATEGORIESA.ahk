@@ -49,6 +49,10 @@ export default struct PFAXSETLOGGINGCATEGORIESA {
             this.value := CallbackCreate(fn, , [HANDLE, FAX_LOG_CATEGORYA.Ptr, UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

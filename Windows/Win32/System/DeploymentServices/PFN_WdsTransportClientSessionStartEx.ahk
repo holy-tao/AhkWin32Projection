@@ -50,6 +50,10 @@ export default struct PFN_WdsTransportClientSessionStartEx {
             this.value := CallbackCreate(fn, , [HANDLE, "ptr", TRANSPORTCLIENT_SESSION_INFO.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

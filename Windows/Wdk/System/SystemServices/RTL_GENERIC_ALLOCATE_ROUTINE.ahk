@@ -45,6 +45,10 @@ export default struct RTL_GENERIC_ALLOCATE_ROUTINE {
             this.value := CallbackCreate(fn, , [RTL_GENERIC_TABLE.Ptr, UInt32, "ptr"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

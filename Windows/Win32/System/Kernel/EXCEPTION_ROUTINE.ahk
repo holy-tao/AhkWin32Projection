@@ -52,6 +52,10 @@ export default struct EXCEPTION_ROUTINE {
             this.value := CallbackCreate(fn, , [EXCEPTION_RECORD.Ptr, "ptr", CONTEXT.Ptr, "ptr", EXCEPTION_DISPOSITION])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

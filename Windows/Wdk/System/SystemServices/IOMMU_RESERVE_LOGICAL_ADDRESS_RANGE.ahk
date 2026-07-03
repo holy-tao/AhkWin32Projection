@@ -38,7 +38,7 @@ export default struct IOMMU_RESERVE_LOGICAL_ADDRESS_RANGE {
         LogicalAddressTokenMarshal := LogicalAddressToken is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, DomainMarshal, Domain, IntPtr, _Size, ExplicitLogicalAddressMarshal, ExplicitLogicalAddress, MinLogicalAddressMarshal, MinLogicalAddress, MaxLogicalAddressMarshal, MaxLogicalAddress, LogicalAddressTokenMarshal, LogicalAddressToken, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -58,6 +58,10 @@ export default struct IOMMU_RESERVE_LOGICAL_ADDRESS_RANGE {
             this.value := CallbackCreate(fn, , [IOMMU_DMA_DOMAIN.Ptr, IntPtr, "uint*", "uint*", "uint*", "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

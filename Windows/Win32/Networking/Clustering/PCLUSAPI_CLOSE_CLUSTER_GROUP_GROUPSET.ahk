@@ -45,6 +45,10 @@ export default struct PCLUSAPI_CLOSE_CLUSTER_GROUP_GROUPSET {
             this.value := CallbackCreate(fn, , [HGROUPSET, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

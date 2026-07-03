@@ -56,6 +56,10 @@ export default struct PSYM_ENUMSOURCEFILES_CALLBACK {
             this.value := CallbackCreate(fn, , [SOURCEFILE.Ptr, "ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

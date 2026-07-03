@@ -28,7 +28,7 @@ export default struct PFND3DKMT_SETPROCESSSCHEDULINGPRIORITYCLASS {
      */
     Call(param0, param1) {
         result := DllCall(this.value, HANDLE, param0, D3DKMT_SCHEDULINGPRIORITYCLASS, param1, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -48,6 +48,10 @@ export default struct PFND3DKMT_SETPROCESSSCHEDULINGPRIORITYCLASS {
             this.value := CallbackCreate(fn, , [HANDLE, D3DKMT_SCHEDULINGPRIORITYCLASS, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

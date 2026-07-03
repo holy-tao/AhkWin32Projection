@@ -31,7 +31,7 @@ export default struct IO_COMPLETION_ROUTINE {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, DEVICE_OBJECT.Ptr, DeviceObject, IRP.Ptr, _Irp, _ContextMarshal, _Context, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -51,6 +51,10 @@ export default struct IO_COMPLETION_ROUTINE {
             this.value := CallbackCreate(fn, , [DEVICE_OBJECT.Ptr, IRP.Ptr, "ptr", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

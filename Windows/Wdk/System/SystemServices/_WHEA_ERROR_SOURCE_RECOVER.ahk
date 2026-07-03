@@ -30,7 +30,7 @@ export default struct _WHEA_ERROR_SOURCE_RECOVER {
         SeverityMarshal := Severity is VarRef ? "int*" : "ptr"
 
         result := DllCall(this.value, RecoveryContextMarshal, RecoveryContext, SeverityMarshal, Severity, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -50,6 +50,10 @@ export default struct _WHEA_ERROR_SOURCE_RECOVER {
             this.value := CallbackCreate(fn, , ["ptr", "int*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

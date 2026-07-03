@@ -2,8 +2,12 @@
 
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\LPMSGSESS.ahk" { LPMSGSESS }
+#Import ".\MSGCALLRELEASE.ahk" { MSGCALLRELEASE }
 #Import ".\SPropAttrArray.ahk" { SPropAttrArray }
 #Import "..\..\System\AddressBook\IMessage.ahk" { IMessage }
+#Import "..\..\System\AddressBook\LPALLOCATEBUFFER.ahk" { LPALLOCATEBUFFER }
+#Import "..\..\System\AddressBook\LPALLOCATEMORE.ahk" { LPALLOCATEMORE }
+#Import "..\..\System\AddressBook\LPFREEBUFFER.ahk" { LPFREEBUFFER }
 #Import "..\..\System\AddressBook\SPropProblemArray.ahk" { SPropProblemArray }
 #Import "..\..\System\AddressBook\SPropTagArray.ahk" { SPropTagArray }
 #Import "..\..\System\Com\IMalloc.ahk" { IMalloc }
@@ -100,7 +104,7 @@ export OpenIMsgOnIStg(_lpMsgSess, _lpAllocateBuffer, _lpAllocateMore, _lpFreeBuf
     lpMapiSupMarshal := lpMapiSup is VarRef ? "ptr" : "ptr"
     lpfMsgCallReleaseMarshal := lpfMsgCallRelease is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MAPI32.dll\OpenIMsgOnIStg", LPMSGSESS, _lpMsgSess, "ptr", _lpAllocateBuffer, "ptr", _lpAllocateMore, "ptr", _lpFreeBuffer, "ptr", lpMalloc, lpMapiSupMarshal, lpMapiSup, "ptr", lpStg, lpfMsgCallReleaseMarshal, lpfMsgCallRelease, UInt32, ulCallerData, UInt32, ulFlags, IMessage.Ptr, lppMsg, Int32)
+    result := DllCall("MAPI32.dll\OpenIMsgOnIStg", LPMSGSESS, _lpMsgSess, LPALLOCATEBUFFER, _lpAllocateBuffer, LPALLOCATEMORE, _lpAllocateMore, LPFREEBUFFER, _lpFreeBuffer, "ptr", lpMalloc, lpMapiSupMarshal, lpMapiSup, "ptr", lpStg, lpfMsgCallReleaseMarshal, lpfMsgCallRelease, UInt32, ulCallerData, UInt32, ulFlags, IMessage.Ptr, lppMsg, Int32)
     return result
 }
 

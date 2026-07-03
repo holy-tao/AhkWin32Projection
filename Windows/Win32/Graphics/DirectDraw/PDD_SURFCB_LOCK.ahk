@@ -101,6 +101,10 @@ export default struct PDD_SURFCB_LOCK {
             this.value := CallbackCreate(fn, , [DD_LOCKDATA.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -49,6 +49,10 @@ export default struct PFN_ALLOCANDFILLDEFUSAGE {
             this.value := CallbackCreate(fn, , [PSTR, CRYPT_PROVIDER_DEFUSAGE.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

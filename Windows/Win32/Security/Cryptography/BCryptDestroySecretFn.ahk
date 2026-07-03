@@ -26,7 +26,7 @@ export default struct BCryptDestroySecretFn {
      */
     Call(hSecret) {
         result := DllCall(this.value, BCRYPT_SECRET_HANDLE, hSecret, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -46,6 +46,10 @@ export default struct BCryptDestroySecretFn {
             this.value := CallbackCreate(fn, , [BCRYPT_SECRET_HANDLE, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

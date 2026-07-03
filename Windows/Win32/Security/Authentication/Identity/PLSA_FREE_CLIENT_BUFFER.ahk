@@ -29,7 +29,7 @@ export default struct PLSA_FREE_CLIENT_BUFFER {
         ClientBaseAddressMarshal := ClientBaseAddress is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, ClientRequestMarshal, ClientRequest, ClientBaseAddressMarshal, ClientBaseAddress, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -49,6 +49,10 @@ export default struct PLSA_FREE_CLIENT_BUFFER {
             this.value := CallbackCreate(fn, , ["ptr*", "ptr", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

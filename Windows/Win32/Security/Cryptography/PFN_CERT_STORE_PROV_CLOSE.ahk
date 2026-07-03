@@ -49,6 +49,10 @@ export default struct PFN_CERT_STORE_PROV_CLOSE {
             this.value := CallbackCreate(fn, , [HCERTSTOREPROV, UInt32, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

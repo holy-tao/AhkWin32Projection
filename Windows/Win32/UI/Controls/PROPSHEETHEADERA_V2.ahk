@@ -5,6 +5,7 @@
 #Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
 #Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
 #Import ".\HPROPSHEETPAGE.ahk" { HPROPSHEETPAGE }
+#Import ".\PFNPROPSHEETCALLBACK.ahk" { PFNPROPSHEETCALLBACK }
 #Import ".\PROPSHEETPAGEA.ahk" { PROPSHEETPAGEA }
 #Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
 
@@ -59,7 +60,7 @@ export default struct PROPSHEETHEADERA_V2 {
 
     ppsp : PROPSHEETPAGEA.Ptr
 
-    pfnCallback : IntPtr
+    pfnCallback : PFNPROPSHEETCALLBACK
 
     hbmWatermark : HBITMAP
 

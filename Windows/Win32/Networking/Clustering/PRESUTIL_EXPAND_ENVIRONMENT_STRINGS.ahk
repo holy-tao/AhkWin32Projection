@@ -46,6 +46,10 @@ export default struct PRESUTIL_EXPAND_ENVIRONMENT_STRINGS {
             this.value := CallbackCreate(fn, , [PWSTR, PWSTR])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

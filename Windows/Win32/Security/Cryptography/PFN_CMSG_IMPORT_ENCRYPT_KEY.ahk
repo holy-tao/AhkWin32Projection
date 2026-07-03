@@ -53,6 +53,10 @@ export default struct PFN_CMSG_IMPORT_ENCRYPT_KEY {
             this.value := CallbackCreate(fn, , [IntPtr, UInt32, CRYPT_ALGORITHM_IDENTIFIER.Ptr, CRYPT_ALGORITHM_IDENTIFIER.Ptr, IntPtr, UInt32, "ptr*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

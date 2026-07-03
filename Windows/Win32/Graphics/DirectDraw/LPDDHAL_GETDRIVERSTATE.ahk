@@ -44,6 +44,10 @@ export default struct LPDDHAL_GETDRIVERSTATE {
             this.value := CallbackCreate(fn, , [DDHAL_GETDRIVERSTATEDATA.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

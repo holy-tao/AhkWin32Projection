@@ -2,6 +2,8 @@
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\PCMSCALLBACKA.ahk" { PCMSCALLBACKA }
+#Import "..\WindowsAndMessaging\DLGPROC.ahk" { DLGPROC }
 
 /**
  * The **COLORMATCHSETUP** structure contains information that the [**SetupColorMatchingW**](/windows/win32/api/icm/nf-icm-setupcolormatchingw) function uses to initialize the **ColorManagement** dialog box. (ANSI)
@@ -132,7 +134,7 @@ export default struct COLORMATCHSETUPA {
      * 
      * The hook procedure may call the [EndDialog](https://msdn.microsoft.com/windows/desktop/925e8aa8-9d8d-4bec-a19e-ba24e78b2d10) function.
      */
-    lpfnHook : IntPtr
+    lpfnHook : DLGPROC
 
     /**
      * If the CMS\_USEHOOK flag is set, this member is passed to the application-provided hook procedure as the *lParam* parameter when the WM\_INITDIALOG message is processed.
@@ -142,7 +144,7 @@ export default struct COLORMATCHSETUPA {
     /**
      * Contains a pointer to a callback function that is invoked when the **Apply** button of the Color Management dialog box is selected. If no callback function is provided, this member should be set to **NULL**. See [**PCMSCALLBACKW**](/windows/win32/api/icm/nc-icm-pcmscallbackw).
      */
-    lpfnApplyCallback : IntPtr
+    lpfnApplyCallback : PCMSCALLBACKA
 
     /**
      * Contains a value that will be passed to the function **ApplyCallbackFunction** through its *lParam* parameter. The meaning and content of the value is specified by the application.

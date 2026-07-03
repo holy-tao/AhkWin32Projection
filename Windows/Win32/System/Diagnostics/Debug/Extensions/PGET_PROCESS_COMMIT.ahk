@@ -53,6 +53,10 @@ export default struct PGET_PROCESS_COMMIT {
             this.value := CallbackCreate(fn, , ["ptr", "uint*", "uint*", "ptr*", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

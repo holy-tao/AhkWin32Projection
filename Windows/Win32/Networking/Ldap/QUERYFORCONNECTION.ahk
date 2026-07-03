@@ -60,6 +60,10 @@ export default struct QUERYFORCONNECTION {
             this.value := CallbackCreate(fn, "cdecl", [LDAP.Ptr, LDAP.Ptr, PWSTR, PSTR, UInt32, "ptr", "ptr", "ptr*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

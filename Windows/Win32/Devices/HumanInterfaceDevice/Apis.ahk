@@ -1,6 +1,6 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\HIDD_ATTRIBUTES.ahk" { HIDD_ATTRIBUTES }
 #Import ".\HIDP_BUTTON_ARRAY_DATA.ahk" { HIDP_BUTTON_ARRAY_DATA }
 #Import ".\HIDP_BUTTON_CAPS.ahk" { HIDP_BUTTON_CAPS }
@@ -12,6 +12,7 @@
 #Import ".\HIDP_LINK_COLLECTION_NODE.ahk" { HIDP_LINK_COLLECTION_NODE }
 #Import ".\HIDP_REPORT_TYPE.ahk" { HIDP_REPORT_TYPE }
 #Import ".\HIDP_VALUE_CAPS.ahk" { HIDP_VALUE_CAPS }
+#Import ".\PHIDP_INSERT_SCANCODES.ahk" { PHIDP_INSERT_SCANCODES }
 #Import ".\PHIDP_PREPARSED_DATA.ahk" { PHIDP_PREPARSED_DATA }
 #Import ".\USAGE_AND_PAGE.ahk" { USAGE_AND_PAGE }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
@@ -67,7 +68,7 @@ export joyConfigChanged(dwFlags) {
  */
 export HidP_GetCaps(PreparsedData, Capabilities) {
     result := DllCall("HID.dll\HidP_GetCaps", PHIDP_PREPARSED_DATA, PreparsedData, HIDP_CAPS.Ptr, Capabilities, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -82,7 +83,7 @@ export HidP_GetLinkCollectionNodes(LinkCollectionNodes, LinkCollectionNodesLengt
     LinkCollectionNodesLengthMarshal := LinkCollectionNodesLength is VarRef ? "uint*" : "ptr"
 
     result := DllCall("HID.dll\HidP_GetLinkCollectionNodes", HIDP_LINK_COLLECTION_NODE.Ptr, LinkCollectionNodes, LinkCollectionNodesLengthMarshal, LinkCollectionNodesLength, PHIDP_PREPARSED_DATA, PreparsedData, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -101,7 +102,7 @@ export HidP_GetSpecificButtonCaps(ReportType, UsagePage, LinkCollection, Usage, 
     ButtonCapsLengthMarshal := ButtonCapsLength is VarRef ? "ushort*" : "ptr"
 
     result := DllCall("HID.dll\HidP_GetSpecificButtonCaps", HIDP_REPORT_TYPE, ReportType, UInt16, UsagePage, UInt16, LinkCollection, UInt16, Usage, HIDP_BUTTON_CAPS.Ptr, ButtonCaps, ButtonCapsLengthMarshal, ButtonCapsLength, PHIDP_PREPARSED_DATA, PreparsedData, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -117,7 +118,7 @@ export HidP_GetButtonCaps(ReportType, ButtonCaps, ButtonCapsLength, PreparsedDat
     ButtonCapsLengthMarshal := ButtonCapsLength is VarRef ? "ushort*" : "ptr"
 
     result := DllCall("HID.dll\HidP_GetButtonCaps", HIDP_REPORT_TYPE, ReportType, HIDP_BUTTON_CAPS.Ptr, ButtonCaps, ButtonCapsLengthMarshal, ButtonCapsLength, PHIDP_PREPARSED_DATA, PreparsedData, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -136,7 +137,7 @@ export HidP_GetSpecificValueCaps(ReportType, UsagePage, LinkCollection, Usage, V
     ValueCapsLengthMarshal := ValueCapsLength is VarRef ? "ushort*" : "ptr"
 
     result := DllCall("HID.dll\HidP_GetSpecificValueCaps", HIDP_REPORT_TYPE, ReportType, UInt16, UsagePage, UInt16, LinkCollection, UInt16, Usage, HIDP_VALUE_CAPS.Ptr, ValueCaps, ValueCapsLengthMarshal, ValueCapsLength, PHIDP_PREPARSED_DATA, PreparsedData, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -152,7 +153,7 @@ export HidP_GetValueCaps(ReportType, ValueCaps, ValueCapsLength, PreparsedData) 
     ValueCapsLengthMarshal := ValueCapsLength is VarRef ? "ushort*" : "ptr"
 
     result := DllCall("HID.dll\HidP_GetValueCaps", HIDP_REPORT_TYPE, ReportType, HIDP_VALUE_CAPS.Ptr, ValueCaps, ValueCapsLengthMarshal, ValueCapsLength, PHIDP_PREPARSED_DATA, PreparsedData, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -169,7 +170,7 @@ export HidP_GetExtendedAttributes(ReportType, DataIndex, PreparsedData, Attribut
     LengthAttributesMarshal := LengthAttributes is VarRef ? "uint*" : "ptr"
 
     result := DllCall("HID.dll\HidP_GetExtendedAttributes", HIDP_REPORT_TYPE, ReportType, UInt16, DataIndex, PHIDP_PREPARSED_DATA, PreparsedData, HIDP_EXTENDED_ATTRIBUTES.Ptr, Attributes, LengthAttributesMarshal, LengthAttributes, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -184,7 +185,7 @@ export HidP_GetExtendedAttributes(ReportType, DataIndex, PreparsedData, Attribut
  */
 export HidP_InitializeReportForID(ReportType, ReportID, PreparsedData, Report, ReportLength) {
     result := DllCall("HID.dll\HidP_InitializeReportForID", HIDP_REPORT_TYPE, ReportType, Int8, ReportID, PHIDP_PREPARSED_DATA, PreparsedData, IntPtr, Report, UInt32, ReportLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -202,7 +203,7 @@ export HidP_SetData(ReportType, DataList, DataLength, PreparsedData, Report, Rep
     DataLengthMarshal := DataLength is VarRef ? "uint*" : "ptr"
 
     result := DllCall("HID.dll\HidP_SetData", HIDP_REPORT_TYPE, ReportType, HIDP_DATA.Ptr, DataList, DataLengthMarshal, DataLength, PHIDP_PREPARSED_DATA, PreparsedData, IntPtr, Report, UInt32, ReportLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -220,7 +221,7 @@ export HidP_GetData(ReportType, DataList, DataLength, PreparsedData, Report, Rep
     DataLengthMarshal := DataLength is VarRef ? "uint*" : "ptr"
 
     result := DllCall("HID.dll\HidP_GetData", HIDP_REPORT_TYPE, ReportType, HIDP_DATA.Ptr, DataList, DataLengthMarshal, DataLength, PHIDP_PREPARSED_DATA, PreparsedData, IntPtr, Report, UInt32, ReportLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -252,7 +253,7 @@ export HidP_SetUsages(ReportType, UsagePage, LinkCollection, UsageList, UsageLen
     UsageLengthMarshal := UsageLength is VarRef ? "uint*" : "ptr"
 
     result := DllCall("HID.dll\HidP_SetUsages", HIDP_REPORT_TYPE, ReportType, UInt16, UsagePage, UInt16, LinkCollection, UsageListMarshal, UsageList, UsageLengthMarshal, UsageLength, PHIDP_PREPARSED_DATA, PreparsedData, IntPtr, Report, UInt32, ReportLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -273,7 +274,7 @@ export HidP_UnsetUsages(ReportType, UsagePage, LinkCollection, UsageList, UsageL
     UsageLengthMarshal := UsageLength is VarRef ? "uint*" : "ptr"
 
     result := DllCall("HID.dll\HidP_UnsetUsages", HIDP_REPORT_TYPE, ReportType, UInt16, UsagePage, UInt16, LinkCollection, UsageListMarshal, UsageList, UsageLengthMarshal, UsageLength, PHIDP_PREPARSED_DATA, PreparsedData, IntPtr, Report, UInt32, ReportLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -294,7 +295,7 @@ export HidP_GetUsages(ReportType, UsagePage, LinkCollection, UsageList, UsageLen
     UsageLengthMarshal := UsageLength is VarRef ? "uint*" : "ptr"
 
     result := DllCall("HID.dll\HidP_GetUsages", HIDP_REPORT_TYPE, ReportType, UInt16, UsagePage, UInt16, LinkCollection, UsageListMarshal, UsageList, UsageLengthMarshal, UsageLength, PHIDP_PREPARSED_DATA, PreparsedData, IntPtr, Report, UInt32, ReportLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -313,7 +314,7 @@ export HidP_GetUsagesEx(ReportType, LinkCollection, ButtonList, UsageLength, Pre
     UsageLengthMarshal := UsageLength is VarRef ? "uint*" : "ptr"
 
     result := DllCall("HID.dll\HidP_GetUsagesEx", HIDP_REPORT_TYPE, ReportType, UInt16, LinkCollection, USAGE_AND_PAGE.Ptr, ButtonList, UsageLengthMarshal, UsageLength, PHIDP_PREPARSED_DATA, PreparsedData, IntPtr, Report, UInt32, ReportLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -343,7 +344,7 @@ export HidP_MaxUsageListLength(ReportType, UsagePage, PreparsedData) {
  */
 export HidP_SetUsageValue(ReportType, UsagePage, LinkCollection, Usage, UsageValue, PreparsedData, Report, ReportLength) {
     result := DllCall("HID.dll\HidP_SetUsageValue", HIDP_REPORT_TYPE, ReportType, UInt16, UsagePage, UInt16, LinkCollection, UInt16, Usage, UInt32, UsageValue, PHIDP_PREPARSED_DATA, PreparsedData, IntPtr, Report, UInt32, ReportLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -361,7 +362,7 @@ export HidP_SetUsageValue(ReportType, UsagePage, LinkCollection, Usage, UsageVal
  */
 export HidP_SetScaledUsageValue(ReportType, UsagePage, LinkCollection, Usage, UsageValue, PreparsedData, Report, ReportLength) {
     result := DllCall("HID.dll\HidP_SetScaledUsageValue", HIDP_REPORT_TYPE, ReportType, UInt16, UsagePage, UInt16, LinkCollection, UInt16, Usage, Int32, UsageValue, PHIDP_PREPARSED_DATA, PreparsedData, IntPtr, Report, UInt32, ReportLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -380,7 +381,7 @@ export HidP_SetScaledUsageValue(ReportType, UsagePage, LinkCollection, Usage, Us
  */
 export HidP_SetUsageValueArray(ReportType, UsagePage, LinkCollection, Usage, UsageValue, UsageValueByteLength, PreparsedData, Report, ReportLength) {
     result := DllCall("HID.dll\HidP_SetUsageValueArray", HIDP_REPORT_TYPE, ReportType, UInt16, UsagePage, UInt16, LinkCollection, UInt16, Usage, IntPtr, UsageValue, UInt16, UsageValueByteLength, PHIDP_PREPARSED_DATA, PreparsedData, IntPtr, Report, UInt32, ReportLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -400,7 +401,7 @@ export HidP_GetUsageValue(ReportType, UsagePage, LinkCollection, Usage, UsageVal
     UsageValueMarshal := UsageValue is VarRef ? "uint*" : "ptr"
 
     result := DllCall("HID.dll\HidP_GetUsageValue", HIDP_REPORT_TYPE, ReportType, UInt16, UsagePage, UInt16, LinkCollection, UInt16, Usage, UsageValueMarshal, UsageValue, PHIDP_PREPARSED_DATA, PreparsedData, IntPtr, Report, UInt32, ReportLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -420,7 +421,7 @@ export HidP_GetScaledUsageValue(ReportType, UsagePage, LinkCollection, Usage, Us
     UsageValueMarshal := UsageValue is VarRef ? "int*" : "ptr"
 
     result := DllCall("HID.dll\HidP_GetScaledUsageValue", HIDP_REPORT_TYPE, ReportType, UInt16, UsagePage, UInt16, LinkCollection, UInt16, Usage, UsageValueMarshal, UsageValue, PHIDP_PREPARSED_DATA, PreparsedData, IntPtr, Report, UInt32, ReportLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -439,7 +440,7 @@ export HidP_GetScaledUsageValue(ReportType, UsagePage, LinkCollection, Usage, Us
  */
 export HidP_GetUsageValueArray(ReportType, UsagePage, LinkCollection, Usage, UsageValue, UsageValueByteLength, PreparsedData, Report, ReportLength) {
     result := DllCall("HID.dll\HidP_GetUsageValueArray", HIDP_REPORT_TYPE, ReportType, UInt16, UsagePage, UInt16, LinkCollection, UInt16, Usage, IntPtr, UsageValue, UInt16, UsageValueByteLength, PHIDP_PREPARSED_DATA, PreparsedData, IntPtr, Report, UInt32, ReportLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -459,7 +460,7 @@ export HidP_UsageListDifference(PreviousUsageList, CurrentUsageList, BreakUsageL
     MakeUsageListMarshal := MakeUsageList is VarRef ? "ushort*" : "ptr"
 
     result := DllCall("HID.dll\HidP_UsageListDifference", PreviousUsageListMarshal, PreviousUsageList, CurrentUsageListMarshal, CurrentUsageList, BreakUsageListMarshal, BreakUsageList, MakeUsageListMarshal, MakeUsageList, UInt32, UsageListLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -480,7 +481,7 @@ export HidP_GetButtonArray(ReportType, UsagePage, LinkCollection, Usage, ButtonD
     ButtonDataLengthMarshal := ButtonDataLength is VarRef ? "ushort*" : "ptr"
 
     result := DllCall("HID.dll\HidP_GetButtonArray", HIDP_REPORT_TYPE, ReportType, UInt16, UsagePage, UInt16, LinkCollection, UInt16, Usage, HIDP_BUTTON_ARRAY_DATA.Ptr, ButtonData, ButtonDataLengthMarshal, ButtonDataLength, PHIDP_PREPARSED_DATA, PreparsedData, IntPtr, Report, UInt32, ReportLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -499,7 +500,7 @@ export HidP_GetButtonArray(ReportType, UsagePage, LinkCollection, Usage, ButtonD
  */
 export HidP_SetButtonArray(ReportType, UsagePage, LinkCollection, Usage, ButtonData, ButtonDataLength, PreparsedData, Report, ReportLength) {
     result := DllCall("HID.dll\HidP_SetButtonArray", HIDP_REPORT_TYPE, ReportType, UInt16, UsagePage, UInt16, LinkCollection, UInt16, Usage, HIDP_BUTTON_ARRAY_DATA.Ptr, ButtonData, UInt16, ButtonDataLength, PHIDP_PREPARSED_DATA, PreparsedData, IntPtr, Report, UInt32, ReportLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -517,8 +518,8 @@ export HidP_TranslateUsagesToI8042ScanCodes(ChangedUsageList, UsageListLength, K
     ChangedUsageListMarshal := ChangedUsageList is VarRef ? "ushort*" : "ptr"
     InsertCodesContextMarshal := InsertCodesContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("HID.dll\HidP_TranslateUsagesToI8042ScanCodes", ChangedUsageListMarshal, ChangedUsageList, UInt32, UsageListLength, HIDP_KEYBOARD_DIRECTION, KeyAction, HIDP_KEYBOARD_MODIFIER_STATE.Ptr, ModifierState, "ptr", InsertCodesProcedure, InsertCodesContextMarshal, InsertCodesContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("HID.dll\HidP_TranslateUsagesToI8042ScanCodes", ChangedUsageListMarshal, ChangedUsageList, UInt32, UsageListLength, HIDP_KEYBOARD_DIRECTION, KeyAction, HIDP_KEYBOARD_MODIFIER_STATE.Ptr, ModifierState, PHIDP_INSERT_SCANCODES, InsertCodesProcedure, InsertCodesContextMarshal, InsertCodesContext, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 

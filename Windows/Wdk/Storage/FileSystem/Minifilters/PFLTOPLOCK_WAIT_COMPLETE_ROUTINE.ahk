@@ -46,6 +46,10 @@ export default struct PFLTOPLOCK_WAIT_COMPLETE_ROUTINE {
             this.value := CallbackCreate(fn, , [FLT_CALLBACK_DATA.Ptr, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

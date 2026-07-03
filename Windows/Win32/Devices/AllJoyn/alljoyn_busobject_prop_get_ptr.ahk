@@ -54,6 +54,10 @@ export default struct alljoyn_busobject_prop_get_ptr {
             this.value := CallbackCreate(fn, , ["ptr", PSTR, PSTR, alljoyn_msgarg, QStatus])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

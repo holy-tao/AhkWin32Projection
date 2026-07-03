@@ -29,7 +29,7 @@ export default struct PLSA_CALLBACK_FUNCTION {
      */
     Call(Argument1, Argument2, InputBuffer, OutputBuffer) {
         result := DllCall(this.value, IntPtr, Argument1, IntPtr, Argument2, SecBuffer.Ptr, InputBuffer, SecBuffer.Ptr, OutputBuffer, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -49,6 +49,10 @@ export default struct PLSA_CALLBACK_FUNCTION {
             this.value := CallbackCreate(fn, , [IntPtr, IntPtr, SecBuffer.Ptr, SecBuffer.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

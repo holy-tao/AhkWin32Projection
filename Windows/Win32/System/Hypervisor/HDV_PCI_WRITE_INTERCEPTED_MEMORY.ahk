@@ -68,6 +68,10 @@ export default struct HDV_PCI_WRITE_INTERCEPTED_MEMORY {
             this.value := CallbackCreate(fn, , ["ptr", HDV_PCI_BAR_SELECTOR, Int64, Int64, "char*", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

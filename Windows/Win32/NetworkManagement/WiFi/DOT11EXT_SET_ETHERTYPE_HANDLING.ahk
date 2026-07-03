@@ -52,6 +52,10 @@ export default struct DOT11EXT_SET_ETHERTYPE_HANDLING {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, UInt32, DOT11_PRIVACY_EXEMPTION.Ptr, UInt32, "ushort*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

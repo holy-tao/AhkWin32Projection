@@ -98,6 +98,10 @@ export default struct PRJ_GET_FILE_DATA_CB {
             this.value := CallbackCreate(fn, , [PRJ_CALLBACK_DATA.Ptr, Int64, UInt32, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

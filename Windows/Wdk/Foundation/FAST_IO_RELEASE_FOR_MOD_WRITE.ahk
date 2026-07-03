@@ -30,7 +30,7 @@ export default struct FAST_IO_RELEASE_FOR_MOD_WRITE {
      */
     Call(FileObject, ResourceToRelease, DeviceObject) {
         result := DllCall(this.value, FILE_OBJECT.Ptr, FileObject, ERESOURCE.Ptr, ResourceToRelease, DEVICE_OBJECT.Ptr, DeviceObject, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -50,6 +50,10 @@ export default struct FAST_IO_RELEASE_FOR_MOD_WRITE {
             this.value := CallbackCreate(fn, , [FILE_OBJECT.Ptr, ERESOURCE.Ptr, DEVICE_OBJECT.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -52,6 +52,10 @@ export default struct SslGetExtensionsFn {
             this.value := CallbackCreate(fn, , ["char*", UInt32, SCH_EXTENSION_DATA.Ptr, Int8, SchGetExtensionsOptions, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

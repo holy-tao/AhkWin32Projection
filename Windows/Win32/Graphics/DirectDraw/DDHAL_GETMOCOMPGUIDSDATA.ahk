@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
+#Import ".\LPDDHALMOCOMPCB_GETGUIDS.ahk" { LPDDHALMOCOMPCB_GETGUIDS }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -17,6 +18,6 @@ export default struct DDHAL_GETMOCOMPGUIDSDATA {
 
     ddRVal : HRESULT
 
-    GetMoCompGuids : IntPtr
+    GetMoCompGuids : LPDDHALMOCOMPCB_GETGUIDS
 
 }

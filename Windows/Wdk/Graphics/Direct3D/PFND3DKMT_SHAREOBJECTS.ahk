@@ -33,7 +33,7 @@ export default struct PFND3DKMT_SHAREOBJECTS {
         hObjectsMarshal := hObjects is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, UInt32, cObjects, hObjectsMarshal, hObjects, OBJECT_ATTRIBUTES.Ptr, pObjectAttributes, UInt32, dwDesiredAccess, HANDLE.Ptr, phSharedNtHandle, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -53,6 +53,10 @@ export default struct PFND3DKMT_SHAREOBJECTS {
             this.value := CallbackCreate(fn, , [UInt32, "uint*", OBJECT_ATTRIBUTES.Ptr, UInt32, HANDLE.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

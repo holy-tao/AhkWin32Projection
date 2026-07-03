@@ -48,6 +48,10 @@ export default struct PCLUSTER_REG_CREATE_BATCH_NOTIFY_PORT {
             this.value := CallbackCreate(fn, , [HKEY, HREGBATCHPORT.Ptr, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\PFN_CERT_CHAIN_FIND_BY_ISSUER_CALLBACK.ahk" { PFN_CERT_CHAIN_FIND_BY_ISSUER_CALLBACK }
 
 /**
  * Contains information used in the CertFindChainInStore function to build certificate chains.
@@ -48,7 +49,7 @@ export default struct CERT_CHAIN_FIND_BY_ISSUER_PARA {
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_cert_chain_find_by_issuer_callback">CertChainFindByIssuerCallback</a> callback function that allows the application to filter the certificates that chains are created for. If this member is <b>NULL</b>, a chain is built for every certificate found. If this member is not <b>NULL</b>, a chain will be built for the certificate found based on the return value of the callback function.
      */
-    pfnFindCallback : IntPtr
+    pfnFindCallback : PFN_CERT_CHAIN_FIND_BY_ISSUER_CALLBACK
 
     /**
      * An application-defined value that will be passed as the <i>pvFindArg</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_cert_chain_find_by_issuer_callback">CertChainFindByIssuerCallback</a> callback function pointed to by the <b>pfnFindCallback</b> member of this structure.

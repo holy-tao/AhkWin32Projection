@@ -46,6 +46,10 @@ export default struct PREQUEST_DUMP_ROUTINE {
             this.value := CallbackCreate(fn, , [IntPtr, BOOL, UInt32, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

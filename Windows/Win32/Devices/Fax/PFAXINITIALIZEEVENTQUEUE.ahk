@@ -135,6 +135,10 @@ export default struct PFAXINITIALIZEEVENTQUEUE {
             this.value := CallbackCreate(fn, , [HANDLE, HANDLE, IntPtr, HWND, UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

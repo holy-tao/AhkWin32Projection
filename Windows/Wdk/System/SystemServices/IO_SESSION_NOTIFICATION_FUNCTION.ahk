@@ -34,7 +34,7 @@ export default struct IO_SESSION_NOTIFICATION_FUNCTION {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, SessionObjectMarshal, SessionObject, IoObjectMarshal, IoObject, UInt32, Event, _ContextMarshal, _Context, IntPtr, NotificationPayload, UInt32, PayloadLength, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -54,6 +54,10 @@ export default struct IO_SESSION_NOTIFICATION_FUNCTION {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", UInt32, "ptr", IntPtr, UInt32, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

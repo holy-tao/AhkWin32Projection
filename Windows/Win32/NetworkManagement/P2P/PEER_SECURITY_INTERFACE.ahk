@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PFNPEER_FREE_SECURITY_DATA.ahk" { PFNPEER_FREE_SECURITY_DATA }
+#Import ".\PFNPEER_ON_PASSWORD_AUTH_FAILED.ahk" { PFNPEER_ON_PASSWORD_AUTH_FAILED }
+#Import ".\PFNPEER_SECURE_RECORD.ahk" { PFNPEER_SECURE_RECORD }
+#Import ".\PFNPEER_VALIDATE_RECORD.ahk" { PFNPEER_VALIDATE_RECORD }
 
 /**
  * The PEER_SECURITY_INTERFACE structure specifies the security interfaces that calls to Peer Graphing APIs use to validate, secure, and free records.
@@ -47,23 +51,23 @@ export default struct PEER_SECURITY_INTERFACE {
      * Pointer to a callback function that is called when a record requires validation. This member is optional and can be <b>NULL</b>. If <b>pfnSecureRecord</b> is <b>NULL</b>, this member must also be <b>NULL</b>.
      * @deprecated
      */
-    pfnValidateRecord : IntPtr
+    pfnValidateRecord : PFNPEER_VALIDATE_RECORD
 
     /**
      * Pointer to a callback function that is called when a record must be secured. This member is optional and can be <b>NULL</b>. If <b>pfnValidateRecord</b> is <b>NULL</b>, this member must also be <b>NULL</b>.
      * @deprecated
      */
-    pfnSecureRecord : IntPtr
+    pfnSecureRecord : PFNPEER_SECURE_RECORD
 
     /**
      * Pointer to a callback function used to free any data allocated by the callback pointed to by <b>pfnSecureRecord</b>. This member is optional and can be <b>NULL</b>.
      * @deprecated
      */
-    pfnFreeSecurityData : IntPtr
+    pfnFreeSecurityData : PFNPEER_FREE_SECURITY_DATA
 
     /**
      * @deprecated
      */
-    pfnAuthFailed : IntPtr
+    pfnAuthFailed : PFNPEER_ON_PASSWORD_AUTH_FAILED
 
 }

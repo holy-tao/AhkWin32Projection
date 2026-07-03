@@ -1,4 +1,25 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\pHalEndMirroring.ahk" { pHalEndMirroring }
+#Import ".\pHalEndOfBoot.ahk" { pHalEndOfBoot }
+#Import ".\pHalExamineMBR.ahk" { pHalExamineMBR }
+#Import ".\pHalGetAcpiTable.ahk" { pHalGetAcpiTable }
+#Import ".\pHalGetDmaAdapter.ahk" { pHalGetDmaAdapter }
+#Import ".\pHalGetInterruptTranslator.ahk" { pHalGetInterruptTranslator }
+#Import ".\pHalGetPrmCache.ahk" { pHalGetPrmCache }
+#Import ".\pHalHandlerForBus.ahk" { pHalHandlerForBus }
+#Import ".\pHalInitPnpDriver.ahk" { pHalInitPnpDriver }
+#Import ".\pHalInitPowerManagement.ahk" { pHalInitPowerManagement }
+#Import ".\pHalIoReadPartitionTable.ahk" { pHalIoReadPartitionTable }
+#Import ".\pHalIoSetPartitionInformation.ahk" { pHalIoSetPartitionInformation }
+#Import ".\pHalIoWritePartitionTable.ahk" { pHalIoWritePartitionTable }
+#Import ".\pHalMirrorPhysicalMemory.ahk" { pHalMirrorPhysicalMemory }
+#Import ".\pHalMirrorVerify.ahk" { pHalMirrorVerify }
+#Import ".\pHalQueryBusSlots.ahk" { pHalQueryBusSlots }
+#Import ".\pHalQuerySystemInformation.ahk" { pHalQuerySystemInformation }
+#Import ".\pHalReferenceBusHandler.ahk" { pHalReferenceBusHandler }
+#Import ".\pHalSetPciErrorHandlerCallback.ahk" { pHalSetPciErrorHandlerCallback }
+#Import ".\pHalSetSystemInformation.ahk" { pHalSetSystemInformation }
+#Import ".\pHalStartMirroring.ahk" { pHalStartMirroring }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -8,50 +29,50 @@ export default struct HAL_DISPATCH {
 
     Version : UInt32
 
-    HalQuerySystemInformation : IntPtr
+    HalQuerySystemInformation : pHalQuerySystemInformation
 
-    HalSetSystemInformation : IntPtr
+    HalSetSystemInformation : pHalSetSystemInformation
 
-    HalQueryBusSlots : IntPtr
+    HalQueryBusSlots : pHalQueryBusSlots
 
     Spare1 : UInt32
 
-    HalExamineMBR : IntPtr
+    HalExamineMBR : pHalExamineMBR
 
-    HalIoReadPartitionTable : IntPtr
+    HalIoReadPartitionTable : pHalIoReadPartitionTable
 
-    HalIoSetPartitionInformation : IntPtr
+    HalIoSetPartitionInformation : pHalIoSetPartitionInformation
 
-    HalIoWritePartitionTable : IntPtr
+    HalIoWritePartitionTable : pHalIoWritePartitionTable
 
-    HalReferenceHandlerForBus : IntPtr
+    HalReferenceHandlerForBus : pHalHandlerForBus
 
-    HalReferenceBusHandler : IntPtr
+    HalReferenceBusHandler : pHalReferenceBusHandler
 
-    HalDereferenceBusHandler : IntPtr
+    HalDereferenceBusHandler : pHalReferenceBusHandler
 
-    HalInitPnpDriver : IntPtr
+    HalInitPnpDriver : pHalInitPnpDriver
 
-    HalInitPowerManagement : IntPtr
+    HalInitPowerManagement : pHalInitPowerManagement
 
-    HalGetDmaAdapter : IntPtr
+    HalGetDmaAdapter : pHalGetDmaAdapter
 
-    HalGetInterruptTranslator : IntPtr
+    HalGetInterruptTranslator : pHalGetInterruptTranslator
 
-    HalStartMirroring : IntPtr
+    HalStartMirroring : pHalStartMirroring
 
-    HalEndMirroring : IntPtr
+    HalEndMirroring : pHalEndMirroring
 
-    HalMirrorPhysicalMemory : IntPtr
+    HalMirrorPhysicalMemory : pHalMirrorPhysicalMemory
 
-    HalEndOfBoot : IntPtr
+    HalEndOfBoot : pHalEndOfBoot
 
-    HalMirrorVerify : IntPtr
+    HalMirrorVerify : pHalMirrorVerify
 
-    HalGetCachedAcpiTable : IntPtr
+    HalGetCachedAcpiTable : pHalGetAcpiTable
 
-    HalSetPciErrorHandlerCallback : IntPtr
+    HalSetPciErrorHandlerCallback : pHalSetPciErrorHandlerCallback
 
-    HalGetPrmCache : IntPtr
+    HalGetPrmCache : pHalGetPrmCache
 
 }

@@ -62,6 +62,10 @@ export default struct PWLX_QUERY_TERMINAL_SERVICES_DATA {
             this.value := CallbackCreate(fn, , [HANDLE, WLX_TERMINAL_SERVICES_DATA.Ptr, PWSTR, PWSTR, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

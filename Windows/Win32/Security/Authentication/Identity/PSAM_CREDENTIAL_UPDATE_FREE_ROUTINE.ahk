@@ -44,6 +44,10 @@ export default struct PSAM_CREDENTIAL_UPDATE_FREE_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

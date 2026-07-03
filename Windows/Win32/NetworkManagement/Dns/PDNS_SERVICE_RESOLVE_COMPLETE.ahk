@@ -47,6 +47,10 @@ export default struct PDNS_SERVICE_RESOLVE_COMPLETE {
             this.value := CallbackCreate(fn, , [UInt32, "ptr", DNS_SERVICE_INSTANCE.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

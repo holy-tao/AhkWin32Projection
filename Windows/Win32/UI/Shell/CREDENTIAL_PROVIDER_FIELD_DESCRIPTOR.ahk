@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CREDENTIAL_PROVIDER_FIELD_TYPE.ahk" { CREDENTIAL_PROVIDER_FIELD_TYPE }
 

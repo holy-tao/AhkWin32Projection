@@ -69,6 +69,10 @@ export default struct MAXMEDIALABEL {
             this.value := CallbackCreate(fn, , ["uint*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

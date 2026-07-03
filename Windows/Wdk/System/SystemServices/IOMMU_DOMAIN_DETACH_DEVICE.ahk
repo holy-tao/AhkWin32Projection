@@ -31,7 +31,7 @@ export default struct IOMMU_DOMAIN_DETACH_DEVICE {
         DomainMarshal := Domain is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, DomainMarshal, Domain, DEVICE_OBJECT.Ptr, PhysicalDeviceObject, UInt32, InputMappingId, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -51,6 +51,10 @@ export default struct IOMMU_DOMAIN_DETACH_DEVICE {
             this.value := CallbackCreate(fn, , [IOMMU_DMA_DOMAIN.Ptr, DEVICE_OBJECT.Ptr, UInt32, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

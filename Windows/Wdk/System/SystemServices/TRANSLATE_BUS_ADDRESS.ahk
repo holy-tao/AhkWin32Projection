@@ -52,6 +52,10 @@ export default struct TRANSLATE_BUS_ADDRESS {
             this.value := CallbackCreate(fn, , ["ptr", Int64, UInt32, "uint*", "int64*", BOOLEAN])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

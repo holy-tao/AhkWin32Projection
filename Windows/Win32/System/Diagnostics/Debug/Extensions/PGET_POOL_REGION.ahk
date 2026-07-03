@@ -50,6 +50,10 @@ export default struct PGET_POOL_REGION {
             this.value := CallbackCreate(fn, , ["ptr", Int64, "int*", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

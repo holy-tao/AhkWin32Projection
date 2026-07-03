@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CRYPT_XML_TRANSFORM_FLAGS.ahk" { CRYPT_XML_TRANSFORM_FLAGS }
+#Import ".\PFN_CRYPT_XML_CREATE_TRANSFORM.ahk" { PFN_CRYPT_XML_CREATE_TRANSFORM }
 
 /**
  * Contains information that is used when applying the data transform.
@@ -36,6 +37,6 @@ export default struct CRYPT_XML_TRANSFORM_INFO {
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nc-cryptxml-pfn_crypt_xml_create_transform">PFN_CRYPT_XML_CREATE_TRANSFORM</a> callback function used to create the transform.
      */
-    pfnCreateTransform : IntPtr
+    pfnCreateTransform : PFN_CRYPT_XML_CREATE_TRANSFORM
 
 }

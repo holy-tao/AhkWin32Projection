@@ -3,6 +3,7 @@
 #Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
 #Import ".\DDRAWI_DDVIDEOPORT_LCL.ahk" { DDRAWI_DDVIDEOPORT_LCL }
 #Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
+#Import ".\LPDDHALVPORTCB_GETINPUTFORMATS.ahk" { LPDDHALVPORTCB_GETINPUTFORMATS }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -22,6 +23,6 @@ export default struct DDHAL_GETVPORTINPUTFORMATDATA {
 
     ddRVal : HRESULT
 
-    GetVideoPortInputFormats : IntPtr
+    GetVideoPortInputFormats : LPDDHALVPORTCB_GETINPUTFORMATS
 
 }

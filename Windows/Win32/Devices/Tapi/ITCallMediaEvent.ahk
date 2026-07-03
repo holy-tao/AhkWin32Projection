@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\CALL_MEDIA_EVENT.ahk" { CALL_MEDIA_EVENT }
 #Import ".\CALL_MEDIA_EVENT_CAUSE.ahk" { CALL_MEDIA_EVENT_CAUSE }
 #Import ".\ITCallInfo.ahk" { ITCallInfo }

@@ -53,6 +53,10 @@ export default struct PDX_GETTRANSFERSTATUS {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", DDGETTRANSFERSTATUSOUTINFO.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

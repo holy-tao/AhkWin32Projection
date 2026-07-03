@@ -54,6 +54,10 @@ export default struct LPCONDITIONPROC {
             this.value := CallbackCreate(fn, , [WSABUF.Ptr, WSABUF.Ptr, QOS.Ptr, QOS.Ptr, WSABUF.Ptr, WSABUF.Ptr, "uint*", IntPtr, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

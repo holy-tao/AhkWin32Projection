@@ -45,7 +45,7 @@ export default struct SpGetExtendedInformationFn {
         ppInformationMarshal := ppInformation is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, SECPKG_EXTENDED_INFORMATION_CLASS, _Class, ppInformationMarshal, ppInformation, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -65,6 +65,10 @@ export default struct SpGetExtendedInformationFn {
             this.value := CallbackCreate(fn, , [SECPKG_EXTENDED_INFORMATION_CLASS, "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

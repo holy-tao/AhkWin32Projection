@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\FW_DYNAMIC_KEYWORD_ADDRESS_DATA0.ahk" { FW_DYNAMIC_KEYWORD_ADDRESS_DATA0 }
 
 /**
@@ -60,6 +60,10 @@ export default struct PFN_FWENUMDYNAMICKEYWORDADDRESSBYID0 {
             this.value := CallbackCreate(fn, , [Guid, "ptr*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

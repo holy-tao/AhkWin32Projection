@@ -50,6 +50,10 @@ export default struct PFN_CARD_CREATE_DIRECTORY {
             this.value := CallbackCreate(fn, , [CARD_DATA.Ptr, PSTR, CARD_DIRECTORY_ACCESS_CONDITION, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

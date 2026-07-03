@@ -3,6 +3,7 @@
 #Import ".\DDRAWI_DDMOTIONCOMP_LCL.ahk" { DDRAWI_DDMOTIONCOMP_LCL }
 #Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
 #Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
+#Import ".\LPDDHALMOCOMPCB_BEGINFRAME.ahk" { LPDDHALMOCOMPCB_BEGINFRAME }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -26,6 +27,6 @@ export default struct DDHAL_BEGINMOCOMPFRAMEDATA {
 
     ddRVal : HRESULT
 
-    BeginMoCompFrame : IntPtr
+    BeginMoCompFrame : LPDDHALMOCOMPCB_BEGINFRAME
 
 }

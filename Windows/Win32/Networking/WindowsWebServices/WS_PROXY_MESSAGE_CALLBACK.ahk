@@ -60,6 +60,10 @@ export default struct WS_PROXY_MESSAGE_CALLBACK {
             this.value := CallbackCreate(fn, , [WS_MESSAGE.Ptr, WS_HEAP.Ptr, "ptr", WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

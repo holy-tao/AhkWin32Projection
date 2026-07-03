@@ -46,6 +46,10 @@ export default struct PCI_ROOT_BUS_CAPABILITY {
             this.value := CallbackCreate(fn, , ["ptr", PCI_ROOT_BUS_HARDWARE_CAPABILITY.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

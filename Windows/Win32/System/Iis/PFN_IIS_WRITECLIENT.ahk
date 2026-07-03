@@ -51,6 +51,10 @@ export default struct PFN_IIS_WRITECLIENT {
             this.value := CallbackCreate(fn, , [HCONN, "ptr", "uint*", UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

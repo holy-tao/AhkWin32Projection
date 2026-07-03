@@ -78,6 +78,10 @@ export default struct MagImageScalingCallback {
             this.value := CallbackCreate(fn, , [HWND, "ptr", MAGIMAGEHEADER, "ptr", MAGIMAGEHEADER, RECT, RECT, HRGN, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

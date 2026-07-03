@@ -44,6 +44,10 @@ export default struct LPD3DHAL_DRAWPRIMITIVESCB {
             this.value := CallbackCreate(fn, , [D3DHAL_DRAWPRIMITIVESDATA.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

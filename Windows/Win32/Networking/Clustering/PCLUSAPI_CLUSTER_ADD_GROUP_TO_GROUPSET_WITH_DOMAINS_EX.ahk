@@ -52,6 +52,10 @@ export default struct PCLUSAPI_CLUSTER_ADD_GROUP_TO_GROUPSET_WITH_DOMAINS_EX {
             this.value := CallbackCreate(fn, , [HGROUPSET, HGROUP, UInt32, UInt32, PWSTR, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

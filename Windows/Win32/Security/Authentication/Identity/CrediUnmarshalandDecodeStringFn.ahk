@@ -43,7 +43,7 @@ export default struct CrediUnmarshalandDecodeStringFn {
         IsFailureFatalMarshal := IsFailureFatal is VarRef ? "char*" : "ptr"
 
         result := DllCall(this.value, "ptr", MarshaledString, _BlobMarshal, _Blob, BlobSizeMarshal, BlobSize, IsFailureFatalMarshal, IsFailureFatal, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -63,6 +63,10 @@ export default struct CrediUnmarshalandDecodeStringFn {
             this.value := CallbackCreate(fn, , [PWSTR, "ptr*", "uint*", "char*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

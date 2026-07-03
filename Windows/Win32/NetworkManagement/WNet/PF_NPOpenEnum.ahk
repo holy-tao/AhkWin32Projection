@@ -49,6 +49,10 @@ export default struct PF_NPOpenEnum {
             this.value := CallbackCreate(fn, , [UInt32, UInt32, UInt32, NETRESOURCEW.Ptr, HANDLE.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

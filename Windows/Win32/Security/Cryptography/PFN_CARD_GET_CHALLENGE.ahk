@@ -49,6 +49,10 @@ export default struct PFN_CARD_GET_CHALLENGE {
             this.value := CallbackCreate(fn, , [CARD_DATA.Ptr, "ptr*", "uint*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

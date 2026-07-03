@@ -50,6 +50,10 @@ export default struct I_RpcPerformCalloutFn {
             this.value := CallbackCreate(fn, , ["ptr", RDR_CALLOUT_STATE.Ptr, RPC_HTTP_REDIRECTOR_STAGE, RPC_STATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

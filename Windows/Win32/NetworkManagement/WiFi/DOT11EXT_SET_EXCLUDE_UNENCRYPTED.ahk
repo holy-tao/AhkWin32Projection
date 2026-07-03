@@ -46,6 +46,10 @@ export default struct DOT11EXT_SET_EXCLUDE_UNENCRYPTED {
             this.value := CallbackCreate(fn, , [HANDLE, BOOL, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

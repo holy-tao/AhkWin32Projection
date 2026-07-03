@@ -33,7 +33,7 @@ export default struct SpChangeAccountPasswordFn {
      */
     Call(pDomainName, pAccountName, pOldPassword, pNewPassword, Impersonating, pOutput) {
         result := DllCall(this.value, LSA_UNICODE_STRING.Ptr, pDomainName, LSA_UNICODE_STRING.Ptr, pAccountName, LSA_UNICODE_STRING.Ptr, pOldPassword, LSA_UNICODE_STRING.Ptr, pNewPassword, BOOLEAN, Impersonating, SecBufferDesc.Ptr, pOutput, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -53,6 +53,10 @@ export default struct SpChangeAccountPasswordFn {
             this.value := CallbackCreate(fn, , [LSA_UNICODE_STRING.Ptr, LSA_UNICODE_STRING.Ptr, LSA_UNICODE_STRING.Ptr, LSA_UNICODE_STRING.Ptr, BOOLEAN, SecBufferDesc.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

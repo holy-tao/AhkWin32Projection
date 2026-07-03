@@ -50,6 +50,10 @@ export default struct pHalGetDmaAdapter {
             this.value := CallbackCreate(fn, , ["ptr", DEVICE_DESCRIPTION.Ptr, "uint*", DMA_ADAPTER.Ptr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

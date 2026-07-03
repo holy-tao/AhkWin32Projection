@@ -47,6 +47,10 @@ export default struct DEBUGEVENTPROC {
             this.value := CallbackCreate(fn, , [DEBUG_EVENT.Ptr, "ptr", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

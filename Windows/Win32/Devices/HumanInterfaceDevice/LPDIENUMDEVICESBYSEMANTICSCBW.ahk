@@ -53,6 +53,10 @@ export default struct LPDIENUMDEVICESBYSEMANTICSCBW {
             this.value := CallbackCreate(fn, , [DIDEVICEINSTANCEW.Ptr, "ptr", UInt32, UInt32, "ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

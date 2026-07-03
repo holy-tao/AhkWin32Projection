@@ -53,6 +53,10 @@ export default struct PCLUSAPI_SET_CLUSTER_GROUP_NODE_LIST_EX {
             this.value := CallbackCreate(fn, , [HGROUP, UInt32, HNODE.Ptr, PWSTR, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

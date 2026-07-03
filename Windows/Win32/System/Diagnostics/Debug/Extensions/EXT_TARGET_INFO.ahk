@@ -47,6 +47,10 @@ export default struct EXT_TARGET_INFO {
             this.value := CallbackCreate(fn, , ["ptr", TARGET_DEBUG_INFO.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -8,6 +8,7 @@
 #Import "..\..\..\Graphics\Gdi\LOGFONTW.ahk" { LOGFONTW }
 #Import ".\CHOOSEFONT_FLAGS.ahk" { CHOOSEFONT_FLAGS }
 #Import ".\CHOOSEFONT_FONT_TYPE.ahk" { CHOOSEFONT_FONT_TYPE }
+#Import ".\LPCFHOOKPROC.ahk" { LPCFHOOKPROC }
 
 /**
  * Contains information that the ChooseFont function uses to initialize the Font dialog box. After the user closes the dialog box, the system returns information about the user's selection in this structure. (Unicode)
@@ -83,7 +84,7 @@ export default struct CHOOSEFONTW {
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nc-commdlg-lpcfhookproc">CFHookProc</a> hook procedure that can process messages intended for the dialog box. This member is ignored unless the <b>CF_ENABLEHOOK</b> flag is set in the <b>Flags</b> member.
      */
-    lpfnHook : IntPtr
+    lpfnHook : LPCFHOOKPROC
 
     /**
      * Type: <b>LPCTSTR</b>

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LPWSAOVERLAPPED_COMPLETION_ROUTINE.ahk" { LPWSAOVERLAPPED_COMPLETION_ROUTINE }
 #Import ".\SOCKET.ahk" { SOCKET }
 #Import ".\WSAMSG.ahk" { WSAMSG }
 #Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
@@ -33,7 +34,7 @@ export default struct LPFN_WSASENDMSG {
     Call(s, lpMsg, dwFlags, lpNumberOfBytesSent, lpOverlapped, lpCompletionRoutine) {
         lpNumberOfBytesSentMarshal := lpNumberOfBytesSent is VarRef ? "uint*" : "ptr"
 
-        result := DllCall(this.value, SOCKET, s, WSAMSG.Ptr, lpMsg, UInt32, dwFlags, lpNumberOfBytesSentMarshal, lpNumberOfBytesSent, OVERLAPPED.Ptr, lpOverlapped, "ptr", lpCompletionRoutine, Int32)
+        result := DllCall(this.value, SOCKET, s, WSAMSG.Ptr, lpMsg, UInt32, dwFlags, lpNumberOfBytesSentMarshal, lpNumberOfBytesSent, OVERLAPPED.Ptr, lpOverlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, Int32)
         return result
     }
 
@@ -44,15 +45,19 @@ export default struct LPFN_WSASENDMSG {
     struct From extends LPFN_WSASENDMSG {
         /**
          * Creates a LPFN_WSASENDMSG pointer that invokes the given AHK function when called.
-         * @param {Func(SOCKET, WSAMSG, UInt32, "uint*", OVERLAPPED, "ptr") => Int32} fn the function to invoke.
+         * @param {Func(SOCKET, WSAMSG, UInt32, "uint*", OVERLAPPED, LPWSAOVERLAPPED_COMPLETION_ROUTINE) => Int32} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 6)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 6 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [SOCKET, WSAMSG.Ptr, UInt32, "uint*", OVERLAPPED.Ptr, "ptr", Int32])
+            this.value := CallbackCreate(fn, , [SOCKET, WSAMSG.Ptr, UInt32, "uint*", OVERLAPPED.Ptr, LPWSAOVERLAPPED_COMPLETION_ROUTINE, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

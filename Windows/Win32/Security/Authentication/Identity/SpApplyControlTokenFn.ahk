@@ -67,7 +67,7 @@ export default struct SpApplyControlTokenFn {
      */
     Call(ContextHandle, ControlToken) {
         result := DllCall(this.value, IntPtr, ContextHandle, SecBufferDesc.Ptr, ControlToken, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -87,6 +87,10 @@ export default struct SpApplyControlTokenFn {
             this.value := CallbackCreate(fn, , [IntPtr, SecBufferDesc.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

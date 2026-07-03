@@ -46,6 +46,10 @@ export default struct pKdMapPhysicalMemory64 {
             this.value := CallbackCreate(fn, , [Int64, UInt32, BOOLEAN, "ptr"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

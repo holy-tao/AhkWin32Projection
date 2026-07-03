@@ -2,6 +2,7 @@
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PFTASKDIALOGCALLBACK.ahk" { PFTASKDIALOGCALLBACK }
 #Import ".\TASKDIALOG_BUTTON.ahk" { TASKDIALOG_BUTTON }
 #Import ".\TASKDIALOG_COMMON_BUTTON_FLAGS.ahk" { TASKDIALOG_COMMON_BUTTON_FLAGS }
 #Import ".\TASKDIALOG_FLAGS.ahk" { TASKDIALOG_FLAGS }
@@ -463,7 +464,7 @@ export default struct TASKDIALOGCONFIG {
      * 
      * Pointer to an application-defined callback function. For more information see <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nc-commctrl-pftaskdialogcallback">TaskDialogCallbackProc</a>.
      */
-    pfCallback : IntPtr
+    pfCallback : PFTASKDIALOGCALLBACK
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG_PTR</a></b>

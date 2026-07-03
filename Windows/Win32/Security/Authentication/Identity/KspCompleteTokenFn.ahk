@@ -27,7 +27,7 @@ export default struct KspCompleteTokenFn {
      */
     Call(ContextId, Token) {
         result := DllCall(this.value, IntPtr, ContextId, SecBufferDesc.Ptr, Token, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -47,6 +47,10 @@ export default struct KspCompleteTokenFn {
             this.value := CallbackCreate(fn, , [IntPtr, SecBufferDesc.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

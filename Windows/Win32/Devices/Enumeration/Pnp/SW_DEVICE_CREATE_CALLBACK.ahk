@@ -67,6 +67,10 @@ export default struct SW_DEVICE_CREATE_CALLBACK {
             this.value := CallbackCreate(fn, , [HSWDEVICE, "int", "ptr", PWSTR, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

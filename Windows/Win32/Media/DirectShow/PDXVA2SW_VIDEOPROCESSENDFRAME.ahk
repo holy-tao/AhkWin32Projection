@@ -46,6 +46,10 @@ export default struct PDXVA2SW_VIDEOPROCESSENDFRAME {
             this.value := CallbackCreate(fn, , [HANDLE, HANDLE.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

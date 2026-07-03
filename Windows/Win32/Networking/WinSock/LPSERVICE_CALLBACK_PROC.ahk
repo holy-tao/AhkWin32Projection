@@ -45,6 +45,10 @@ export default struct LPSERVICE_CALLBACK_PROC {
             this.value := CallbackCreate(fn, , [LPARAM, HANDLE, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

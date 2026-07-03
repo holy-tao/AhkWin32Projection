@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\ISensor.ahk" { ISensor }
 #Import ".\ISensorCollection.ahk" { ISensorCollection }
 #Import ".\ISensorManagerEvents.ahk" { ISensorManagerEvents }

@@ -2,6 +2,7 @@
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\GROUP_POLICY_OBJECTA.ahk" { GROUP_POLICY_OBJECTA }
+#Import ".\PFNSTATUSMESSAGECALLBACK.ahk" { PFNSTATUSMESSAGECALLBACK }
 #Import "..\Registry\HKEY.ahk" { HKEY }
 
 /**
@@ -72,7 +73,7 @@ export default struct PFNPROCESSGROUPPOLICY {
     Call(dwFlags, hToken, hKeyRoot, pDeletedGPOList, pChangedGPOList, pHandle, pbAbort, pStatusCallback) {
         pbAbortMarshal := pbAbort is VarRef ? "int*" : "ptr"
 
-        result := DllCall(this.value, UInt32, dwFlags, HANDLE, hToken, HKEY, hKeyRoot, GROUP_POLICY_OBJECTA.Ptr, pDeletedGPOList, GROUP_POLICY_OBJECTA.Ptr, pChangedGPOList, IntPtr, pHandle, pbAbortMarshal, pbAbort, "ptr", pStatusCallback, UInt32)
+        result := DllCall(this.value, UInt32, dwFlags, HANDLE, hToken, HKEY, hKeyRoot, GROUP_POLICY_OBJECTA.Ptr, pDeletedGPOList, GROUP_POLICY_OBJECTA.Ptr, pChangedGPOList, IntPtr, pHandle, pbAbortMarshal, pbAbort, PFNSTATUSMESSAGECALLBACK, pStatusCallback, UInt32)
         return result
     }
 
@@ -83,15 +84,19 @@ export default struct PFNPROCESSGROUPPOLICY {
     struct From extends PFNPROCESSGROUPPOLICY {
         /**
          * Creates a PFNPROCESSGROUPPOLICY pointer that invokes the given AHK function when called.
-         * @param {Func(UInt32, HANDLE, HKEY, GROUP_POLICY_OBJECTA, GROUP_POLICY_OBJECTA, IntPtr, BOOL, "ptr") => UInt32} fn the function to invoke.
+         * @param {Func(UInt32, HANDLE, HKEY, GROUP_POLICY_OBJECTA, GROUP_POLICY_OBJECTA, IntPtr, BOOL, PFNSTATUSMESSAGECALLBACK) => UInt32} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 8)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 8 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [UInt32, HANDLE, HKEY, GROUP_POLICY_OBJECTA.Ptr, GROUP_POLICY_OBJECTA.Ptr, IntPtr, BOOL.Ptr, "ptr", UInt32])
+            this.value := CallbackCreate(fn, , [UInt32, HANDLE, HKEY, GROUP_POLICY_OBJECTA.Ptr, GROUP_POLICY_OBJECTA.Ptr, IntPtr, BOOL.Ptr, PFNSTATUSMESSAGECALLBACK, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

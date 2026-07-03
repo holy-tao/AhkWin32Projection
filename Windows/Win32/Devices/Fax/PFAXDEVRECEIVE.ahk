@@ -48,6 +48,10 @@ export default struct PFAXDEVRECEIVE {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, FAX_RECEIVE.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

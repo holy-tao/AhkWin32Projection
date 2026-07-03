@@ -61,6 +61,10 @@ export default struct LPMAPIADDRESS {
             this.value := CallbackCreate(fn, , [IntPtr, IntPtr, PSTR, UInt32, PSTR, UInt32, MapiRecipDesc.Ptr, UInt32, UInt32, "uint*", "ptr*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

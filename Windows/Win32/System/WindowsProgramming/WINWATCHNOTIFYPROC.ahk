@@ -48,6 +48,10 @@ export default struct WINWATCHNOTIFYPROC {
             this.value := CallbackCreate(fn, , [HWINWATCH, HWND, UInt32, LPARAM, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

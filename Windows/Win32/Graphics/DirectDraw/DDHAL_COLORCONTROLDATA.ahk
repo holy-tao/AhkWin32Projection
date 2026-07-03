@@ -3,6 +3,7 @@
 #Import ".\DDCOLORCONTROL.ahk" { DDCOLORCONTROL }
 #Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
 #Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
+#Import ".\LPDDHALCOLORCB_COLORCONTROL.ahk" { LPDDHALCOLORCB_COLORCONTROL }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -20,6 +21,6 @@ export default struct DDHAL_COLORCONTROLDATA {
 
     ddRVal : HRESULT
 
-    ColorControl : IntPtr
+    ColorControl : LPDDHALCOLORCB_COLORCONTROL
 
 }

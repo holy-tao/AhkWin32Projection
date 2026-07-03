@@ -50,6 +50,10 @@ export default struct POPEN_V2_ROUTINE {
             this.value := CallbackCreate(fn, , [PWSTR, HKEY, IntPtr, UInt32, "ptr"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

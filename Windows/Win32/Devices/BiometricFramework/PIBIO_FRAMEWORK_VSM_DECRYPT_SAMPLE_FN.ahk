@@ -51,6 +51,10 @@ export default struct PIBIO_FRAMEWORK_VSM_DECRYPT_SAMPLE_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, IntPtr, IntPtr, IntPtr, IntPtr, IntPtr, IntPtr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

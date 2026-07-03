@@ -26,7 +26,7 @@ export default struct PFND3DKMT_GETCONTEXTSCHEDULINGPRIORITY {
      */
     Call(param0) {
         result := DllCall(this.value, D3DKMT_GETCONTEXTSCHEDULINGPRIORITY.Ptr, param0, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -46,6 +46,10 @@ export default struct PFND3DKMT_GETCONTEXTSCHEDULINGPRIORITY {
             this.value := CallbackCreate(fn, , [D3DKMT_GETCONTEXTSCHEDULINGPRIORITY.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

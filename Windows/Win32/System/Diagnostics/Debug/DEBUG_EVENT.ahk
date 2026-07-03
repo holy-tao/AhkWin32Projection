@@ -14,6 +14,7 @@
 #Import ".\RIP_INFO.ahk" { RIP_INFO }
 #Import ".\RIP_INFO_TYPE.ahk" { RIP_INFO_TYPE }
 #Import ".\UNLOAD_DLL_DEBUG_INFO.ahk" { UNLOAD_DLL_DEBUG_INFO }
+#Import "..\..\Threading\LPTHREAD_START_ROUTINE.ahk" { LPTHREAD_START_ROUTINE }
 
 /**
  * Describes a debugging event.

@@ -56,6 +56,10 @@ export default struct PFN_EXPORT_PRIV_KEY_FUNC {
             this.value := CallbackCreate(fn, , [IntPtr, UInt32, PSTR, UInt32, "ptr", IntPtr, "uint*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

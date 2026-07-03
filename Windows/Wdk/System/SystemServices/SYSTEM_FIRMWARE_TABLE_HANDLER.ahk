@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PFNFTH.ahk" { PFNFTH }
 #Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
@@ -11,7 +12,7 @@ export default struct SYSTEM_FIRMWARE_TABLE_HANDLER {
 
     Register : BOOLEAN
 
-    FirmwareTableHandler : IntPtr
+    FirmwareTableHandler : PFNFTH
 
     DriverObject : IntPtr
 

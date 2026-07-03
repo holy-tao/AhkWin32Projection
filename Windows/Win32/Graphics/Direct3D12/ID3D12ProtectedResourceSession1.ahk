@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\D3D12_PROTECTED_RESOURCE_SESSION_DESC1.ahk" { D3D12_PROTECTED_RESOURCE_SESSION_DESC1 }
 #Import ".\ID3D12ProtectedResourceSession.ahk" { ID3D12ProtectedResourceSession }
 

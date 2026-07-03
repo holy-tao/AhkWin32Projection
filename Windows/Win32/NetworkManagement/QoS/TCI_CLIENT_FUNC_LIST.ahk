@@ -1,4 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TCI_ADD_FLOW_COMPLETE_HANDLER.ahk" { TCI_ADD_FLOW_COMPLETE_HANDLER }
+#Import ".\TCI_DEL_FLOW_COMPLETE_HANDLER.ahk" { TCI_DEL_FLOW_COMPLETE_HANDLER }
+#Import ".\TCI_MOD_FLOW_COMPLETE_HANDLER.ahk" { TCI_MOD_FLOW_COMPLETE_HANDLER }
+#Import ".\TCI_NOTIFY_HANDLER.ahk" { TCI_NOTIFY_HANDLER }
 
 /**
  * The TCI_CLIENT_FUNC_LIST structure is used by the traffic control interface to register and then access client-callback functions. Each member of TCI_CLIENT_FUNC_LIST is a pointer to the client provided�callback function.
@@ -15,21 +19,21 @@ export default struct TCI_CLIENT_FUNC_LIST {
      * Pointer to the client-callback function 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nc-traffic-tci_notify_handler">ClNotifyHandler</a>.
      */
-    ClNotifyHandler : IntPtr
+    ClNotifyHandler : TCI_NOTIFY_HANDLER
 
     /**
      * Pointer to the client-callback function <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nc-traffic-tci_add_flow_complete_handler">ClAddFlowComplete</a>.
      */
-    ClAddFlowCompleteHandler : IntPtr
+    ClAddFlowCompleteHandler : TCI_ADD_FLOW_COMPLETE_HANDLER
 
     /**
      * Pointer to the client-callback function <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nc-traffic-tci_mod_flow_complete_handler">ClModifyFlowComplete</a>.
      */
-    ClModifyFlowCompleteHandler : IntPtr
+    ClModifyFlowCompleteHandler : TCI_MOD_FLOW_COMPLETE_HANDLER
 
     /**
      * Pointer to the client-callback function <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nc-traffic-tci_del_flow_complete_handler">ClDeleteFlowComplete</a>.
      */
-    ClDeleteFlowCompleteHandler : IntPtr
+    ClDeleteFlowCompleteHandler : TCI_DEL_FLOW_COMPLETE_HANDLER
 
 }

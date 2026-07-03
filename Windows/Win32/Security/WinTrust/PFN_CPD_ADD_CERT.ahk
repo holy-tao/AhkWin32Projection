@@ -50,6 +50,10 @@ export default struct PFN_CPD_ADD_CERT {
             this.value := CallbackCreate(fn, , [CRYPT_PROVIDER_DATA.Ptr, UInt32, BOOL, UInt32, CERT_CONTEXT.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

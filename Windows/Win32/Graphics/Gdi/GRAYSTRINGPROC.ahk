@@ -54,6 +54,10 @@ export default struct GRAYSTRINGPROC {
             this.value := CallbackCreate(fn, , [HDC, LPARAM, Int32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

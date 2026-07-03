@@ -46,6 +46,10 @@ export default struct PRESUTIL_RESOURCES_EQUAL {
             this.value := CallbackCreate(fn, , [HRESOURCE, HRESOURCE, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

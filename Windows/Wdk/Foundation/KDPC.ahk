@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PKDEFERRED_ROUTINE.ahk" { PKDEFERRED_ROUTINE }
 
 /**
  * @namespace Windows.Wdk.Foundation
@@ -12,7 +13,7 @@ export default struct KDPC {
 
     ProcessorHistory : IntPtr
 
-    DeferredRoutine : IntPtr
+    DeferredRoutine : PKDEFERRED_ROUTINE
 
     DeferredContext : IntPtr
 

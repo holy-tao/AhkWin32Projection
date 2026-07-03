@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\DOT11EXT_IHV_PROFILE_PARAMS.ahk" { DOT11EXT_IHV_PROFILE_PARAMS }
 #Import ".\DOT11EXT_IHV_SSID_LIST.ahk" { DOT11EXT_IHV_SSID_LIST }
 #Import ".\DOT11_BSS_TYPE.ahk" { DOT11_BSS_TYPE }

@@ -49,6 +49,10 @@ export default struct PFNSHOWSHAREFOLDERUIW {
             this.value := CallbackCreate(fn, , [HWND, PWSTR, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\WS_SAML_AUTHENTICATOR.ahk" { WS_SAML_AUTHENTICATOR }
 #Import ".\WS_SAML_AUTHENTICATOR_TYPE.ahk" { WS_SAML_AUTHENTICATOR_TYPE }
+#Import ".\WS_VALIDATE_SAML_CALLBACK.ahk" { WS_VALIDATE_SAML_CALLBACK }
 #Import "..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 
 /**
@@ -49,7 +50,7 @@ export default struct WS_CERT_SIGNED_SAML_AUTHENTICATOR {
      * An optional callback to enable the application to additional
      * validation on the SAML assertion if the signature validation passes.
      */
-    samlValidator : IntPtr
+    samlValidator : WS_VALIDATE_SAML_CALLBACK
 
     /**
      * The state to be passed back when invoking the samlValidator callback.

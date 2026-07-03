@@ -43,6 +43,10 @@ export default struct PLSA_PROTECT_MEMORY {
             this.value := CallbackCreate(fn, , [IntPtr, UInt32, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

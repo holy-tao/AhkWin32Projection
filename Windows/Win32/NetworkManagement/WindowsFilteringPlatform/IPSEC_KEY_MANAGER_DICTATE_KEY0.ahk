@@ -102,6 +102,10 @@ export default struct IPSEC_KEY_MANAGER_DICTATE_KEY0 {
             this.value := CallbackCreate(fn, , [IPSEC_SA_DETAILS1.Ptr, IPSEC_SA_DETAILS1.Ptr, BOOL.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -66,6 +66,10 @@ export default struct PFAX_SEND_CALLBACK {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, UInt32, UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

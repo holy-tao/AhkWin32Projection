@@ -77,6 +77,10 @@ export default struct RASDIALFUNC1 {
             this.value := CallbackCreate(fn, , [HRASCONN, UInt32, RASCONNSTATE, UInt32, UInt32, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

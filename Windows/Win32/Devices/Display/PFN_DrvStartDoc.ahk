@@ -50,6 +50,10 @@ export default struct PFN_DrvStartDoc {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, PWSTR, UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

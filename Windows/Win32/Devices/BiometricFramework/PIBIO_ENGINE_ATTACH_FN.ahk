@@ -97,6 +97,10 @@ export default struct PIBIO_ENGINE_ATTACH_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

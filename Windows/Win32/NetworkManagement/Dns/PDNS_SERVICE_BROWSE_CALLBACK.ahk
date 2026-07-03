@@ -47,6 +47,10 @@ export default struct PDNS_SERVICE_BROWSE_CALLBACK {
             this.value := CallbackCreate(fn, , [UInt32, "ptr", DNS_RECORDW.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

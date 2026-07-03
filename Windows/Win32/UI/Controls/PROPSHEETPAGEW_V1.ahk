@@ -2,6 +2,8 @@
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\LPFNPSPCALLBACKW.ahk" { LPFNPSPCALLBACKW }
+#Import "..\WindowsAndMessaging\DLGPROC.ahk" { DLGPROC }
 #Import "..\WindowsAndMessaging\DLGTEMPLATE.ahk" { DLGTEMPLATE }
 #Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
 
@@ -23,11 +25,11 @@ export default struct PROPSHEETPAGEW_V1 {
 
     pszTitle : PWSTR
 
-    pfnDlgProc : IntPtr
+    pfnDlgProc : DLGPROC
 
     lParam : LPARAM
 
-    pfnCallback : IntPtr
+    pfnCallback : LPFNPSPCALLBACKW
 
     pcRefParent : IntPtr
 

@@ -1,4 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PDD_FLIPTOGDISURFACE.ahk" { PDD_FLIPTOGDISURFACE }
+#Import ".\PDD_FREEDRIVERMEMORY.ahk" { PDD_FREEDRIVERMEMORY }
+#Import ".\PDD_SETEXCLUSIVEMODE.ahk" { PDD_SETEXCLUSIVEMODE }
 
 /**
  * The DD_NTCALLBACKS structure contains entry pointers to Microsoft Windows 2000 and later Microsoft DirectDraw callback functions that a device driver supports.
@@ -30,16 +33,16 @@ export default struct DD_NTCALLBACKS {
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_freedrivermemory">DdFreeDriverMemory</a> callback.
      */
-    FreeDriverMemory : IntPtr
+    FreeDriverMemory : PDD_FREEDRIVERMEMORY
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_setexclusivemode">DdSetExclusiveMode</a> callback.
      */
-    SetExclusiveMode : IntPtr
+    SetExclusiveMode : PDD_SETEXCLUSIVEMODE
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_fliptogdisurface">DdFlipToGDISurface</a> callback.
      */
-    FlipToGDISurface : IntPtr
+    FlipToGDISurface : PDD_FLIPTOGDISURFACE
 
 }

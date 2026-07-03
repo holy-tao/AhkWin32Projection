@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\IOMMU_DMA_DEVICE.ahk" { IOMMU_DMA_DEVICE }
+#Import ".\PIOMMU_INTERFACE_STATE_CHANGE_CALLBACK.ahk" { PIOMMU_INTERFACE_STATE_CHANGE_CALLBACK }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
@@ -28,8 +29,8 @@ export default struct IOMMU_UNREGISTER_INTERFACE_STATE_CHANGE_CALLBACK {
     Call(StateChangeCallback, DmaDevice) {
         DmaDeviceMarshal := DmaDevice is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall(this.value, "ptr", StateChangeCallback, DmaDeviceMarshal, DmaDevice, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        result := DllCall(this.value, PIOMMU_INTERFACE_STATE_CHANGE_CALLBACK, StateChangeCallback, DmaDeviceMarshal, DmaDevice, NTSTATUS)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -40,15 +41,19 @@ export default struct IOMMU_UNREGISTER_INTERFACE_STATE_CHANGE_CALLBACK {
     struct From extends IOMMU_UNREGISTER_INTERFACE_STATE_CHANGE_CALLBACK {
         /**
          * Creates a IOMMU_UNREGISTER_INTERFACE_STATE_CHANGE_CALLBACK pointer that invokes the given AHK function when called.
-         * @param {Func("ptr", IOMMU_DMA_DEVICE) => NTSTATUS} fn the function to invoke.
+         * @param {Func(PIOMMU_INTERFACE_STATE_CHANGE_CALLBACK, IOMMU_DMA_DEVICE) => NTSTATUS} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 2)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 2 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , ["ptr", IOMMU_DMA_DEVICE.Ptr, NTSTATUS])
+            this.value := CallbackCreate(fn, , [PIOMMU_INTERFACE_STATE_CHANGE_CALLBACK, IOMMU_DMA_DEVICE.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

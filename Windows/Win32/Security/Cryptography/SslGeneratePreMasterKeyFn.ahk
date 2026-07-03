@@ -58,6 +58,10 @@ export default struct SslGeneratePreMasterKeyFn {
             this.value := CallbackCreate(fn, , [NCRYPT_PROV_HANDLE, NCRYPT_KEY_HANDLE, NCRYPT_KEY_HANDLE.Ptr, UInt32, UInt32, BCryptBufferDesc.Ptr, IntPtr, UInt32, "uint*", UInt32, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

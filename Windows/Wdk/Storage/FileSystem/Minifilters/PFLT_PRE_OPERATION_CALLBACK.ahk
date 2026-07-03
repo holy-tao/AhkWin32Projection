@@ -50,6 +50,10 @@ export default struct PFLT_PRE_OPERATION_CALLBACK {
             this.value := CallbackCreate(fn, , [FLT_CALLBACK_DATA.Ptr, FLT_RELATED_OBJECTS.Ptr, "ptr*", FLT_PREOP_CALLBACK_STATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

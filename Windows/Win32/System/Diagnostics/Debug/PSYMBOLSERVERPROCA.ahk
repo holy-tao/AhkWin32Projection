@@ -57,6 +57,10 @@ export default struct PSYMBOLSERVERPROCA {
             this.value := CallbackCreate(fn, , [PSTR, PSTR, "ptr", UInt32, UInt32, PSTR, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

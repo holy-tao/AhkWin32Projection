@@ -50,6 +50,10 @@ export default struct PFN_CSP_GET_DH_AGREEMENT {
             this.value := CallbackCreate(fn, , [CARD_DATA.Ptr, "ptr", "char*", UInt32, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

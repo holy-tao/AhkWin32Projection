@@ -36,7 +36,7 @@ export default struct RTL_QUERY_REGISTRY_ROUTINE {
         EntryContextMarshal := EntryContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, "ptr", _ValueName, UInt32, ValueType, IntPtr, ValueData, UInt32, ValueLength, _ContextMarshal, _Context, EntryContextMarshal, EntryContext, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -56,6 +56,10 @@ export default struct RTL_QUERY_REGISTRY_ROUTINE {
             this.value := CallbackCreate(fn, , [PWSTR, UInt32, IntPtr, UInt32, "ptr", "ptr", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

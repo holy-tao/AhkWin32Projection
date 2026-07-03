@@ -9,6 +9,7 @@
 #Import ".\WS_SECURITY_DESCRIPTION.ahk" { WS_SECURITY_DESCRIPTION }
 #Import ".\WS_SERVICE_CONTRACT.ahk" { WS_SERVICE_CONTRACT }
 #Import ".\WS_SERVICE_ENDPOINT_PROPERTY.ahk" { WS_SERVICE_ENDPOINT_PROPERTY }
+#Import ".\WS_SERVICE_SECURITY_CALLBACK.ahk" { WS_SERVICE_SECURITY_CALLBACK }
 #Import ".\WS_STRING.ahk" { WS_STRING }
 #Import ".\WS_XML_BUFFER.ahk" { WS_XML_BUFFER }
 
@@ -48,7 +49,7 @@ export default struct WS_SERVICE_ENDPOINT {
     /**
      * Authorization callback for the service endpoint.
      */
-    authorizationCallback : IntPtr
+    authorizationCallback : WS_SERVICE_SECURITY_CALLBACK
 
     /**
      * An array of properties to configure the service endpoint.

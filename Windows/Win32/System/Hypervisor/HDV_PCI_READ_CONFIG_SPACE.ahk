@@ -49,6 +49,10 @@ export default struct HDV_PCI_READ_CONFIG_SPACE {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

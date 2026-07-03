@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\VDS_HBAPORT_PROP.ahk" { VDS_HBAPORT_PROP }
 #Import ".\VDS_HWPROVIDER_TYPE.ahk" { VDS_HWPROVIDER_TYPE }
 #Import ".\VDS_IPADDRESS.ahk" { VDS_IPADDRESS }

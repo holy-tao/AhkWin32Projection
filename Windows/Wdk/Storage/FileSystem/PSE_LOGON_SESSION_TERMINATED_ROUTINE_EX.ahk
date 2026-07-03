@@ -24,7 +24,7 @@ export default struct PSE_LOGON_SESSION_TERMINATED_ROUTINE_EX {
      */
     Call() {
         result := DllCall(this.value, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -44,6 +44,10 @@ export default struct PSE_LOGON_SESSION_TERMINATED_ROUTINE_EX {
             this.value := CallbackCreate(fn, , [NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

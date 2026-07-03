@@ -2,6 +2,8 @@
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import ".\PLSA_REDIRECTED_LOGON_CALLBACK.ahk" { PLSA_REDIRECTED_LOGON_CALLBACK }
+#Import ".\PLSA_REDIRECTED_LOGON_CLEANUP_CALLBACK.ahk" { PLSA_REDIRECTED_LOGON_CLEANUP_CALLBACK }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -39,7 +41,7 @@ export default struct SpGetRemoteCredGuardLogonBufferFn {
         LogonBufferMarshal := LogonBuffer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, IntPtr, CredHandle, IntPtr, ContextHandle, LSA_UNICODE_STRING.Ptr, TargetName, HANDLE.Ptr, RedirectedLogonHandle, CallbackMarshal, Callback, CleanupCallbackMarshal, CleanupCallback, LogonBufferSizeMarshal, LogonBufferSize, LogonBufferMarshal, LogonBuffer, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -59,6 +61,10 @@ export default struct SpGetRemoteCredGuardLogonBufferFn {
             this.value := CallbackCreate(fn, , [IntPtr, IntPtr, LSA_UNICODE_STRING.Ptr, HANDLE.Ptr, "ptr*", "ptr*", "uint*", "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

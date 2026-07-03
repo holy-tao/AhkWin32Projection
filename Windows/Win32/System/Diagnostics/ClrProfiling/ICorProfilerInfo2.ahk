@@ -1,13 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\COR_PRF_CODE_INFO.ahk" { COR_PRF_CODE_INFO }
 #Import ".\COR_PRF_EX_CLAUSE_INFO.ahk" { COR_PRF_EX_CLAUSE_INFO }
 #Import ".\COR_PRF_GC_GENERATION_RANGE.ahk" { COR_PRF_GC_GENERATION_RANGE }
 #Import ".\COR_PRF_STATIC_TYPE.ahk" { COR_PRF_STATIC_TYPE }
+#Import ".\FunctionEnter2.ahk" { FunctionEnter2 }
+#Import ".\FunctionLeave2.ahk" { FunctionLeave2 }
+#Import ".\FunctionTailcall2.ahk" { FunctionTailcall2 }
 #Import ".\ICorProfilerInfo.ahk" { ICorProfilerInfo }
 #Import ".\ICorProfilerObjectEnum.ahk" { ICorProfilerObjectEnum }
+#Import ".\StackSnapshotCallback.ahk" { StackSnapshotCallback }
 #Import "..\..\WinRT\Metadata\COR_FIELD_OFFSET.ahk" { COR_FIELD_OFFSET }
 
 /**

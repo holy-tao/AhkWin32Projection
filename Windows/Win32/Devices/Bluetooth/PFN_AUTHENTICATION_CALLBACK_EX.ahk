@@ -50,6 +50,10 @@ export default struct PFN_AUTHENTICATION_CALLBACK_EX {
             this.value := CallbackCreate(fn, , ["ptr", BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

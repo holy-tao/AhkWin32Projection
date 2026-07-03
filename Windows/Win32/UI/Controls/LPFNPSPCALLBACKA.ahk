@@ -69,6 +69,10 @@ export default struct LPFNPSPCALLBACKA {
             this.value := CallbackCreate(fn, , [HWND, PSPCB_MESSAGE, PROPSHEETPAGEA.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

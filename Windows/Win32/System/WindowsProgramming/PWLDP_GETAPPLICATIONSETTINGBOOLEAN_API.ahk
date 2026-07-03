@@ -50,6 +50,10 @@ export default struct PWLDP_GETAPPLICATIONSETTINGBOOLEAN_API {
             this.value := CallbackCreate(fn, , [PWSTR, PWSTR, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

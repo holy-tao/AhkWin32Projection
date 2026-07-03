@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DRIVER_CANCEL.ahk" { DRIVER_CANCEL }
 #Import ".\FILE_OBJECT.ahk" { FILE_OBJECT }
 #Import ".\IO_STACK_LOCATION.ahk" { IO_STACK_LOCATION }
 #Import ".\KEVENT.ahk" { KEVENT }
@@ -9,6 +10,7 @@
 #Import "..\..\Win32\Foundation\CHAR.ahk" { CHAR }
 #Import "..\..\Win32\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Win32\System\IO\IO_STATUS_BLOCK.ahk" { IO_STATUS_BLOCK }
+#Import "..\..\Win32\System\IO\PIO_APC_ROUTINE.ahk" { PIO_APC_ROUTINE }
 
 /**
  * @namespace Windows.Wdk.Foundation
@@ -30,7 +32,7 @@ export default struct IRP {
     struct _Overlay {
 
         struct _AsynchronousParameters {
-            UserApcRoutine : IntPtr
+            UserApcRoutine : PIO_APC_ROUTINE
 
             UserApcContext : IntPtr
 
@@ -124,7 +126,7 @@ export default struct IRP {
 
     Overlay : IRP._Overlay
 
-    CancelRoutine : IntPtr
+    CancelRoutine : DRIVER_CANCEL
 
     UserBuffer : IntPtr
 

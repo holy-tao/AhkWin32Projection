@@ -50,6 +50,10 @@ export default struct PCLUSAPI_GET_CLUSTER_RESOURCE_TYPE_KEY {
             this.value := CallbackCreate(fn, , [HCLUSTER, PWSTR, UInt32, HKEY])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -45,6 +45,10 @@ export default struct PDEBUG_PRINT_CALLBACK {
             this.value := CallbackCreate(fn, , [STRING.Ptr, UInt32, UInt32, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

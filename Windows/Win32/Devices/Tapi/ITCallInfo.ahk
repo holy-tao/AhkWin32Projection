@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\CALLINFO_BUFFER.ahk" { CALLINFO_BUFFER }
 #Import ".\CALLINFO_LONG.ahk" { CALLINFO_LONG }
 #Import ".\CALLINFO_STRING.ahk" { CALLINFO_STRING }

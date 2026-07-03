@@ -52,6 +52,10 @@ export default struct EnumerateMetafileProc {
             this.value := CallbackCreate(fn, , [EmfPlusRecordType, UInt32, UInt32, "char*", "ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

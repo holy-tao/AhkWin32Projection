@@ -3,6 +3,7 @@
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\ACMFORMATCHOOSEHOOKPROCA.ahk" { ACMFORMATCHOOSEHOOKPROCA }
 #Import ".\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
@@ -43,6 +44,6 @@ export default struct ACMFORMATCHOOSEA {
 
     lCustData : LPARAM
 
-    pfnHook : IntPtr
+    pfnHook : ACMFORMATCHOOSEHOOKPROCA
 
 }

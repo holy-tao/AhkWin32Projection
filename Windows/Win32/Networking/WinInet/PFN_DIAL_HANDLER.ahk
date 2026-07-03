@@ -52,6 +52,10 @@ export default struct PFN_DIAL_HANDLER {
             this.value := CallbackCreate(fn, , [HWND, PSTR, UInt32, "uint*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

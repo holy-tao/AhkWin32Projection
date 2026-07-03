@@ -45,6 +45,10 @@ export default struct PHAL_RESET_DISPLAY_PARAMETERS {
             this.value := CallbackCreate(fn, , [UInt32, UInt32, BOOLEAN])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

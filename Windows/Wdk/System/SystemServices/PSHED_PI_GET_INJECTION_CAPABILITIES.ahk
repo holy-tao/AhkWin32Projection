@@ -29,7 +29,7 @@ export default struct PSHED_PI_GET_INJECTION_CAPABILITIES {
         PluginContextMarshal := PluginContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, PluginContextMarshal, PluginContext, WHEA_ERROR_INJECTION_CAPABILITIES.Ptr, Capabilities, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -49,6 +49,10 @@ export default struct PSHED_PI_GET_INJECTION_CAPABILITIES {
             this.value := CallbackCreate(fn, , ["ptr", WHEA_ERROR_INJECTION_CAPABILITIES.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

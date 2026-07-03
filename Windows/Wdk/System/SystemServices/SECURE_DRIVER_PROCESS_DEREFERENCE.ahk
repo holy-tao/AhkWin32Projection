@@ -46,6 +46,10 @@ export default struct SECURE_DRIVER_PROCESS_DEREFERENCE {
             this.value := CallbackCreate(fn, , ["ptr", PEPROCESS, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

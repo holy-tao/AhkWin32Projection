@@ -48,6 +48,10 @@ export default struct PFN_CARD_GET_CONTAINER_INFO {
             this.value := CallbackCreate(fn, , [CARD_DATA.Ptr, Int8, UInt32, CONTAINER_INFO.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

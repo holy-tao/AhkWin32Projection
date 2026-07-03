@@ -45,6 +45,10 @@ export default struct PSAM_CREDENTIAL_UPDATE_REGISTER_ROUTINE {
             this.value := CallbackCreate(fn, , [LSA_UNICODE_STRING.Ptr, BOOLEAN])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -51,6 +51,10 @@ export default struct EXTDLL_QUERYDATABYTAG {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, "ptr", IntPtr, UInt32, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

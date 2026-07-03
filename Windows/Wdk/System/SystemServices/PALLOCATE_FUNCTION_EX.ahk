@@ -42,6 +42,10 @@ export default struct PALLOCATE_FUNCTION_EX {
             this.value := CallbackCreate(fn, , ["ptr"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -43,6 +43,10 @@ export default struct DRIVER_UNLOAD {
             this.value := CallbackCreate(fn, , [DRIVER_OBJECT.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

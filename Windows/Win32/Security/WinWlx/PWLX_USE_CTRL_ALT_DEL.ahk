@@ -48,6 +48,10 @@ export default struct PWLX_USE_CTRL_ALT_DEL {
             this.value := CallbackCreate(fn, , [HANDLE, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

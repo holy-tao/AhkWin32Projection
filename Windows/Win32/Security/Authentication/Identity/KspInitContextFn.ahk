@@ -30,7 +30,7 @@ export default struct KspInitContextFn {
         NewContextIdMarshal := NewContextId is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, IntPtr, ContextId, SecBuffer.Ptr, ContextData, NewContextIdMarshal, NewContextId, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -50,6 +50,10 @@ export default struct KspInitContextFn {
             this.value := CallbackCreate(fn, , [IntPtr, SecBuffer.Ptr, "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

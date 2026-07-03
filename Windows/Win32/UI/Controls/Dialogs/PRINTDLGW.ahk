@@ -5,6 +5,8 @@
 #Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import ".\LPPRINTHOOKPROC.ahk" { LPPRINTHOOKPROC }
+#Import ".\LPSETUPHOOKPROC.ahk" { LPSETUPHOOKPROC }
 #Import ".\PRINTDLGEX_FLAGS.ahk" { PRINTDLGEX_FLAGS }
 
 /**
@@ -141,14 +143,14 @@ export default struct PRINTDLGW {
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nc-commdlg-lpprinthookproc">PrintHookProc</a> hook procedure that can process messages intended for the <b>Print</b> dialog box. This member is ignored unless the <b>PD_ENABLEPRINTHOOK</b> flag is set in the <b>Flags</b> member.
      */
-    lpfnPrintHook : IntPtr
+    lpfnPrintHook : LPPRINTHOOKPROC
 
     /**
      * Type: <b>LPSETUPHOOKPROC</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nc-commdlg-lpsetuphookproc">SetupHookProc</a> hook procedure that can process messages intended for the <b>Print Setup</b> dialog box. This member is ignored unless the <b>PD_ENABLESETUPHOOK</b> flag is set in the <b>Flags</b> member.
      */
-    lpfnSetupHook : IntPtr
+    lpfnSetupHook : LPSETUPHOOKPROC
 
     /**
      * Type: <b>LPCTSTR</b>

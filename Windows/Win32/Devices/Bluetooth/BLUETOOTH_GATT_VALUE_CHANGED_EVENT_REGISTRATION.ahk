@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\BTH_LE_GATT_CHARACTERISTIC.ahk" { BTH_LE_GATT_CHARACTERISTIC }
 #Import ".\BTH_LE_UUID.ahk" { BTH_LE_UUID }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }

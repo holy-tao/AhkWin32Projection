@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\FAX_ENUM_DEVICE_ID_SOURCE.ahk" { FAX_ENUM_DEVICE_ID_SOURCE }
+#Import ".\PFAX_EXT_CONFIG_CHANGE.ahk" { PFAX_EXT_CONFIG_CHANGE }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
@@ -33,7 +34,7 @@ export default struct PFAX_EXT_REGISTER_FOR_EVENTS {
     Call(param0, param1, param2, param3, param4) {
         param3 := param3 is String ? StrPtr(param3) : param3
 
-        result := DllCall(this.value, HINSTANCE, param0, UInt32, param1, FAX_ENUM_DEVICE_ID_SOURCE, param2, "ptr", param3, "ptr", param4, HANDLE.Owned)
+        result := DllCall(this.value, HINSTANCE, param0, UInt32, param1, FAX_ENUM_DEVICE_ID_SOURCE, param2, "ptr", param3, PFAX_EXT_CONFIG_CHANGE, param4, HANDLE.Owned)
         return result
     }
 
@@ -44,15 +45,19 @@ export default struct PFAX_EXT_REGISTER_FOR_EVENTS {
     struct From extends PFAX_EXT_REGISTER_FOR_EVENTS {
         /**
          * Creates a PFAX_EXT_REGISTER_FOR_EVENTS pointer that invokes the given AHK function when called.
-         * @param {Func(HINSTANCE, UInt32, FAX_ENUM_DEVICE_ID_SOURCE, PWSTR, "ptr") => HANDLE} fn the function to invoke.
+         * @param {Func(HINSTANCE, UInt32, FAX_ENUM_DEVICE_ID_SOURCE, PWSTR, PFAX_EXT_CONFIG_CHANGE) => HANDLE} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 5)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 5 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [HINSTANCE, UInt32, FAX_ENUM_DEVICE_ID_SOURCE, PWSTR, "ptr", HANDLE])
+            this.value := CallbackCreate(fn, , [HINSTANCE, UInt32, FAX_ENUM_DEVICE_ID_SOURCE, PWSTR, PFAX_EXT_CONFIG_CHANGE, HANDLE])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

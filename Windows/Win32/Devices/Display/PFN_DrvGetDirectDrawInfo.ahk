@@ -56,6 +56,10 @@ export default struct PFN_DrvGetDirectDrawInfo {
             this.value := CallbackCreate(fn, , [DHPDEV, DD_HALINFO.Ptr, "uint*", VIDEOMEMORY.Ptr, "uint*", "uint*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

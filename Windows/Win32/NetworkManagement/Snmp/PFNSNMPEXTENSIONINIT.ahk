@@ -48,6 +48,10 @@ export default struct PFNSNMPEXTENSIONINIT {
             this.value := CallbackCreate(fn, , [UInt32, HANDLE.Ptr, AsnObjectIdentifier.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

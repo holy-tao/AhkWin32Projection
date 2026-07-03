@@ -47,6 +47,10 @@ export default struct MI_Module_Load {
             this.value := CallbackCreate(fn, , ["ptr*", MI_Context.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

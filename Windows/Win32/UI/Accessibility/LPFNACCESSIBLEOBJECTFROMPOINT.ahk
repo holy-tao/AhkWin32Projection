@@ -48,6 +48,10 @@ export default struct LPFNACCESSIBLEOBJECTFROMPOINT {
             this.value := CallbackCreate(fn, , [POINT, VARIANT.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

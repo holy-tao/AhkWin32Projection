@@ -27,7 +27,7 @@ export default struct PFN_HidP_GetVersionInternal {
         _VersionMarshal := _Version is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, _VersionMarshal, _Version, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -47,6 +47,10 @@ export default struct PFN_HidP_GetVersionInternal {
             this.value := CallbackCreate(fn, , ["uint*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

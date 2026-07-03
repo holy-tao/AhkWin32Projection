@@ -46,6 +46,10 @@ export default struct PCLUSAPI_OPEN_NODE_BY_ID {
             this.value := CallbackCreate(fn, , [HCLUSTER, UInt32, HNODE])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

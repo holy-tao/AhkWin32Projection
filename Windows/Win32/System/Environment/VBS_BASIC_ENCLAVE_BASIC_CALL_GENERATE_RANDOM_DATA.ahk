@@ -47,6 +47,10 @@ export default struct VBS_BASIC_ENCLAVE_BASIC_CALL_GENERATE_RANDOM_DATA {
             this.value := CallbackCreate(fn, , [IntPtr, UInt32, "uint*", Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

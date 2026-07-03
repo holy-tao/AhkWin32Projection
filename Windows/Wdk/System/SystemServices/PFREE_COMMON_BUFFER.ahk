@@ -50,6 +50,10 @@ export default struct PFREE_COMMON_BUFFER {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, UInt32, Int64, "ptr", BOOLEAN, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

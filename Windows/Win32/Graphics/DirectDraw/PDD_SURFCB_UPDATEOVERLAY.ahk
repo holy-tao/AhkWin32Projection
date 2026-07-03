@@ -54,6 +54,10 @@ export default struct PDD_SURFCB_UPDATEOVERLAY {
             this.value := CallbackCreate(fn, , [DD_UPDATEOVERLAYDATA.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

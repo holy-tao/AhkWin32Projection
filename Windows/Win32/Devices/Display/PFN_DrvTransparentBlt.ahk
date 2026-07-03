@@ -55,6 +55,10 @@ export default struct PFN_DrvTransparentBlt {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, SURFOBJ.Ptr, CLIPOBJ.Ptr, XLATEOBJ.Ptr, RECTL.Ptr, RECTL.Ptr, UInt32, UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

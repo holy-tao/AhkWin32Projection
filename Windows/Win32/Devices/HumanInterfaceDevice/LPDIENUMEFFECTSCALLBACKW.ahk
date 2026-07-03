@@ -49,6 +49,10 @@ export default struct LPDIENUMEFFECTSCALLBACKW {
             this.value := CallbackCreate(fn, , [DIEFFECTINFOW.Ptr, "ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

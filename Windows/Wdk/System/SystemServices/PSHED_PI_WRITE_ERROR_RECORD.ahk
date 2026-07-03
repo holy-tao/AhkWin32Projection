@@ -30,7 +30,7 @@ export default struct PSHED_PI_WRITE_ERROR_RECORD {
         PluginContextMarshal := PluginContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, PluginContextMarshal, PluginContext, UInt32, Flags, UInt32, RecordLength, IntPtr, ErrorRecord, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -50,6 +50,10 @@ export default struct PSHED_PI_WRITE_ERROR_RECORD {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, UInt32, IntPtr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

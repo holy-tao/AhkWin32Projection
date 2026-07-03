@@ -50,6 +50,10 @@ export default struct EVT_VHF_ASYNC_OPERATION {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", "ptr", HID_XFER_PACKET.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

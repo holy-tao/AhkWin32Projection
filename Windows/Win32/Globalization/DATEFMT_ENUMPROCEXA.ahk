@@ -49,6 +49,10 @@ export default struct DATEFMT_ENUMPROCEXA {
             this.value := CallbackCreate(fn, , [PSTR, UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

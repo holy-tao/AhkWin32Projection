@@ -24,7 +24,7 @@ export default struct PPROCESSOR_HALT_ROUTINE {
      */
     Call() {
         result := DllCall(this.value, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -44,6 +44,10 @@ export default struct PPROCESSOR_HALT_ROUTINE {
             this.value := CallbackCreate(fn, , [NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

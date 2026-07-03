@@ -65,6 +65,10 @@ export default struct PFN_CRYPT_GET_SIGNER_CERTIFICATE {
             this.value := CallbackCreate(fn, , ["ptr", CERT_QUERY_ENCODING_TYPE, CERT_INFO.Ptr, HCERTSTORE, CERT_CONTEXT.Ptr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -58,6 +58,10 @@ export default struct PFN_DrvStrokePath {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, PATHOBJ.Ptr, CLIPOBJ.Ptr, XFORMOBJ.Ptr, BRUSHOBJ.Ptr, POINTL.Ptr, LINEATTRS.Ptr, UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

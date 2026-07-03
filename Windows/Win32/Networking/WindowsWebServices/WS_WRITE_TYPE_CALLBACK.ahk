@@ -69,6 +69,10 @@ export default struct WS_WRITE_TYPE_CALLBACK {
             this.value := CallbackCreate(fn, , [WS_XML_WRITER.Ptr, WS_TYPE_MAPPING, "ptr", IntPtr, UInt32, WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -46,6 +46,10 @@ export default struct PTIMER_APC_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, Int32, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

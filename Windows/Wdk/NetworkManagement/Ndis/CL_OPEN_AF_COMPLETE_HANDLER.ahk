@@ -41,6 +41,10 @@ export default struct CL_OPEN_AF_COMPLETE_HANDLER {
             this.value := CallbackCreate(fn, , [IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

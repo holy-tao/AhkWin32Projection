@@ -14,6 +14,9 @@
 #Import ".\NDIS_PARAMETER_TYPE.ahk" { NDIS_PARAMETER_TYPE }
 #Import ".\NDIS_RW_LOCK.ahk" { NDIS_RW_LOCK }
 #Import ".\NDIS_TIMER.ahk" { NDIS_TIMER }
+#Import ".\PNDIS_TIMER_FUNCTION.ahk" { PNDIS_TIMER_FUNCTION }
+#Import ".\TDI_PNP_HANDLER.ahk" { TDI_PNP_HANDLER }
+#Import ".\TDI_REGISTER_CALLBACK.ahk" { TDI_REGISTER_CALLBACK }
 #Import ".\VAR_STRING.ahk" { VAR_STRING }
 #Import "..\..\System\SystemServices\CM_RESOURCE_LIST.ahk" { CM_RESOURCE_LIST }
 #Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
@@ -356,7 +359,7 @@ export NdisInitializeString(Destination, Source) {
 export NdisInitializeTimer(Timer, TimerFunction, FunctionContext) {
     FunctionContextMarshal := FunctionContext is VarRef ? "ptr" : "ptr"
 
-    DllCall("NDIS.sys\NdisInitializeTimer", NDIS_TIMER.Ptr, Timer, "ptr", TimerFunction, FunctionContextMarshal, FunctionContext)
+    DllCall("NDIS.sys\NdisInitializeTimer", NDIS_TIMER.Ptr, Timer, PNDIS_TIMER_FUNCTION, TimerFunction, FunctionContextMarshal, FunctionContext)
 }
 
 /**
@@ -495,7 +498,7 @@ export NdisQueryBindInstanceName(pAdapterInstanceName, BindingContext) {
  * @returns {String} Nothing - always returns an empty string
  */
 export NdisRegisterTdiCallBack(RegisterCallback, PnPHandler) {
-    DllCall("NDIS.sys\NdisRegisterTdiCallBack", "ptr", RegisterCallback, "ptr", PnPHandler)
+    DllCall("NDIS.sys\NdisRegisterTdiCallBack", TDI_REGISTER_CALLBACK, RegisterCallback, TDI_PNP_HANDLER, PnPHandler)
 }
 
 /**
@@ -716,7 +719,7 @@ export NdisMInitializeTimer(Timer, MiniportAdapterHandle, TimerFunction, Functio
     MiniportAdapterHandleMarshal := MiniportAdapterHandle is VarRef ? "ptr" : "ptr"
     FunctionContextMarshal := FunctionContext is VarRef ? "ptr" : "ptr"
 
-    DllCall("NDIS.sys\NdisMInitializeTimer", NDIS_MINIPORT_TIMER.Ptr, Timer, MiniportAdapterHandleMarshal, MiniportAdapterHandle, "ptr", TimerFunction, FunctionContextMarshal, FunctionContext)
+    DllCall("NDIS.sys\NdisMInitializeTimer", NDIS_MINIPORT_TIMER.Ptr, Timer, MiniportAdapterHandleMarshal, MiniportAdapterHandle, PNDIS_TIMER_FUNCTION, TimerFunction, FunctionContextMarshal, FunctionContext)
 }
 
 /**

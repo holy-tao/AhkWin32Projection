@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\FWPM_FIELD_TYPE.ahk" { FWPM_FIELD_TYPE }
 #Import ".\FWP_DATA_TYPE.ahk" { FWP_DATA_TYPE }
 

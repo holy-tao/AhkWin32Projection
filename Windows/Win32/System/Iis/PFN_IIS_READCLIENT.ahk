@@ -50,6 +50,10 @@ export default struct PFN_IIS_READCLIENT {
             this.value := CallbackCreate(fn, , [HCONN, "ptr", "uint*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

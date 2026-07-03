@@ -50,6 +50,10 @@ export default struct PFAXGETDEVICESTATUSW {
             this.value := CallbackCreate(fn, , [HANDLE, "ptr*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

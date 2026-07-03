@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\D3D12_VIDEO_ENCODER_ENCODEFRAME_INPUT_ARGUMENTS1.ahk" { D3D12_VIDEO_ENCODER_ENCODEFRAME_INPUT_ARGUMENTS1 }
 #Import ".\D3D12_VIDEO_ENCODER_ENCODEFRAME_OUTPUT_ARGUMENTS1.ahk" { D3D12_VIDEO_ENCODER_ENCODEFRAME_OUTPUT_ARGUMENTS1 }
 #Import ".\D3D12_VIDEO_ENCODER_RESOLVE_INPUT_PARAM_LAYOUT_INPUT_ARGUMENTS.ahk" { D3D12_VIDEO_ENCODER_RESOLVE_INPUT_PARAM_LAYOUT_INPUT_ARGUMENTS }

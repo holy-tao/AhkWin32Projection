@@ -205,6 +205,10 @@ export default struct PCOPYFILE2_PROGRESS_ROUTINE {
             this.value := CallbackCreate(fn, , [COPYFILE2_MESSAGE.Ptr, "ptr", COPYFILE2_MESSAGE_ACTION])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

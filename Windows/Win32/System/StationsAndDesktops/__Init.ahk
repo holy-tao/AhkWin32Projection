@@ -1,0 +1,16 @@
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+
+#Import export ".\Apis.ahk" {*}
+#Import export ".\BROADCAST_SYSTEM_MESSAGE_FLAGS.ahk" {BROADCAST_SYSTEM_MESSAGE_FLAGS}
+#Import export ".\BROADCAST_SYSTEM_MESSAGE_INFO.ahk" {BROADCAST_SYSTEM_MESSAGE_INFO}
+#Import export ".\BSMINFO.ahk" {BSMINFO}
+#Import export ".\DESKTOPENUMPROCA.ahk" {DESKTOPENUMPROCA}
+#Import export ".\DESKTOPENUMPROCW.ahk" {DESKTOPENUMPROCW}
+#Import export ".\DESKTOP_ACCESS_FLAGS.ahk" {DESKTOP_ACCESS_FLAGS}
+#Import export ".\DESKTOP_CONTROL_FLAGS.ahk" {DESKTOP_CONTROL_FLAGS}
+#Import export ".\HDESK.ahk" {HDESK}
+#Import export ".\HWINSTA.ahk" {HWINSTA}
+#Import export ".\USEROBJECTFLAGS.ahk" {USEROBJECTFLAGS}
+#Import export ".\USER_OBJECT_INFORMATION_INDEX.ahk" {USER_OBJECT_INFORMATION_INDEX}
+#Import export ".\WINSTAENUMPROCA.ahk" {WINSTAENUMPROCA}
+#Import export ".\WINSTAENUMPROCW.ahk" {WINSTAENUMPROCW}

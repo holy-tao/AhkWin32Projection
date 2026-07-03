@@ -55,6 +55,10 @@ export default struct WSMAN_PLUGIN_SHELL {
             this.value := CallbackCreate(fn, , ["ptr", WSMAN_PLUGIN_REQUEST.Ptr, UInt32, WSMAN_SHELL_STARTUP_INFO_V11.Ptr, WSMAN_DATA.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -35,7 +35,7 @@ export default struct PFLUSH_ADAPTER_BUFFERS_EX {
         MapRegisterBaseMarshal := MapRegisterBase is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, MDL.Ptr, _Mdl, MapRegisterBaseMarshal, MapRegisterBase, Int64, Offset, UInt32, Length, BOOLEAN, WriteToDevice, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -55,6 +55,10 @@ export default struct PFLUSH_ADAPTER_BUFFERS_EX {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, MDL.Ptr, "ptr", Int64, UInt32, BOOLEAN, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

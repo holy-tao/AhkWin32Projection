@@ -26,7 +26,7 @@ export default struct PFND3DKMT_QUERYREMOTEVIDPNSOURCEFROMGDIDISPLAYNAME {
      */
     Call(param0) {
         result := DllCall(this.value, D3DKMT_QUERYREMOTEVIDPNSOURCEFROMGDIDISPLAYNAME.Ptr, param0, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -46,6 +46,10 @@ export default struct PFND3DKMT_QUERYREMOTEVIDPNSOURCEFROMGDIDISPLAYNAME {
             this.value := CallbackCreate(fn, , [D3DKMT_QUERYREMOTEVIDPNSOURCEFROMGDIDISPLAYNAME.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -73,6 +73,10 @@ export default struct PFAXROUTEMETHOD {
             this.value := CallbackCreate(fn, , [FAX_ROUTE.Ptr, "ptr*", "uint*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

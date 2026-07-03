@@ -47,6 +47,10 @@ export default struct PIBIO_STORAGE_UPDATE_RECORD_COMMIT_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, WINBIO_STORAGE_RECORD.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

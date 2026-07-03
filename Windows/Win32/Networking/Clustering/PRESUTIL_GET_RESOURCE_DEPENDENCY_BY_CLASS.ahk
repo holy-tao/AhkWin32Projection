@@ -51,6 +51,10 @@ export default struct PRESUTIL_GET_RESOURCE_DEPENDENCY_BY_CLASS {
             this.value := CallbackCreate(fn, , [HCLUSTER, HANDLE, CLUS_RESOURCE_CLASS_INFO.Ptr, BOOL, HRESOURCE])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

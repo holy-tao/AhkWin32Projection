@@ -56,6 +56,10 @@ export default struct LPDDENUMSURFACESCALLBACK7 {
             this.value := CallbackCreate(fn, , ["ptr", DDSURFACEDESC2.Ptr, "ptr", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

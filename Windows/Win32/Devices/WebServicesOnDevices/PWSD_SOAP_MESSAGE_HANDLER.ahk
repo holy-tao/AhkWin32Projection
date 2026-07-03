@@ -67,6 +67,10 @@ export default struct PWSD_SOAP_MESSAGE_HANDLER {
             this.value := CallbackCreate(fn, , ["ptr", WSD_EVENT.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

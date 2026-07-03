@@ -48,6 +48,10 @@ export default struct PFAXSETPORTA {
             this.value := CallbackCreate(fn, , [HANDLE, FAX_PORT_INFOA.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -55,6 +55,10 @@ export default struct PRESUTIL_SET_MULTI_SZ_VALUE {
             this.value := CallbackCreate(fn, , [HKEY, PWSTR, IntPtr, UInt32, PWSTR.Ptr, "uint*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

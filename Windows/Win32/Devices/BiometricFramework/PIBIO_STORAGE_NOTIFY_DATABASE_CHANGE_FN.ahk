@@ -47,6 +47,10 @@ export default struct PIBIO_STORAGE_NOTIFY_DATABASE_CHANGE_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, BOOLEAN, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -74,6 +74,10 @@ export default struct PFE_IMPORT_FUNC {
             this.value := CallbackCreate(fn, , [IntPtr, "ptr", "uint*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

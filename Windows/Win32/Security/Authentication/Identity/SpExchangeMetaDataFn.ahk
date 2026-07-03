@@ -202,7 +202,7 @@ export default struct SpExchangeMetaDataFn {
         ContextHandleMarshal := ContextHandle is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, IntPtr, CredentialHandle, LSA_UNICODE_STRING.Ptr, TargetName, UInt32, ContextRequirements, UInt32, MetaDataLength, IntPtr, MetaData, ContextHandleMarshal, ContextHandle, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -222,6 +222,10 @@ export default struct SpExchangeMetaDataFn {
             this.value := CallbackCreate(fn, , [IntPtr, LSA_UNICODE_STRING.Ptr, UInt32, UInt32, IntPtr, "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

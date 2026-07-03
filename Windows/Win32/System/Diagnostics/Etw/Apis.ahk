@@ -1,6 +1,6 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
@@ -29,6 +29,9 @@
 #Import ".\EVENT_TRACE_LOGFILEW.ahk" { EVENT_TRACE_LOGFILEW }
 #Import ".\EVENT_TRACE_PROPERTIES.ahk" { EVENT_TRACE_PROPERTIES }
 #Import ".\PAYLOAD_FILTER_PREDICATE.ahk" { PAYLOAD_FILTER_PREDICATE }
+#Import ".\PENABLECALLBACK.ahk" { PENABLECALLBACK }
+#Import ".\PETW_BUFFER_COMPLETION_CALLBACK.ahk" { PETW_BUFFER_COMPLETION_CALLBACK }
+#Import ".\PEVENT_CALLBACK.ahk" { PEVENT_CALLBACK }
 #Import ".\PROCESSTRACE_HANDLE.ahk" { PROCESSTRACE_HANDLE }
 #Import ".\PROPERTY_DATA_DESCRIPTOR.ahk" { PROPERTY_DATA_DESCRIPTOR }
 #Import ".\REGHANDLE.ahk" { REGHANDLE }
@@ -41,6 +44,7 @@
 #Import ".\TRACE_LOGFILE_HEADER.ahk" { TRACE_LOGFILE_HEADER }
 #Import ".\TRACE_MESSAGE_FLAGS.ahk" { TRACE_MESSAGE_FLAGS }
 #Import ".\TRACE_QUERY_INFO_CLASS.ahk" { TRACE_QUERY_INFO_CLASS }
+#Import ".\WMIDPREQUEST.ahk" { WMIDPREQUEST }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
@@ -2850,7 +2854,7 @@ export RegisterTraceGuidsW(RequestAddress, RequestContext, ControlGuid, GuidCoun
     RequestContextMarshal := RequestContext is VarRef ? "ptr" : "ptr"
     RegistrationHandleMarshal := RegistrationHandle is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\RegisterTraceGuidsW", "ptr", RequestAddress, RequestContextMarshal, RequestContext, Guid.Ptr, ControlGuid, UInt32, GuidCount, TRACE_GUID_REGISTRATION.Ptr, TraceGuidReg, "ptr", MofImagePath, "ptr", MofResourceName, RegistrationHandleMarshal, RegistrationHandle, UInt32)
+    result := DllCall("ADVAPI32.dll\RegisterTraceGuidsW", WMIDPREQUEST, RequestAddress, RequestContextMarshal, RequestContext, Guid.Ptr, ControlGuid, UInt32, GuidCount, TRACE_GUID_REGISTRATION.Ptr, TraceGuidReg, "ptr", MofImagePath, "ptr", MofResourceName, RegistrationHandleMarshal, RegistrationHandle, UInt32)
     return result
 }
 
@@ -2992,7 +2996,7 @@ export RegisterTraceGuidsA(RequestAddress, RequestContext, ControlGuid, GuidCoun
     RequestContextMarshal := RequestContext is VarRef ? "ptr" : "ptr"
     RegistrationHandleMarshal := RegistrationHandle is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\RegisterTraceGuidsA", "ptr", RequestAddress, RequestContextMarshal, RequestContext, Guid.Ptr, ControlGuid, UInt32, GuidCount, TRACE_GUID_REGISTRATION.Ptr, TraceGuidReg, "ptr", MofImagePath, "ptr", MofResourceName, RegistrationHandleMarshal, RegistrationHandle, UInt32)
+    result := DllCall("ADVAPI32.dll\RegisterTraceGuidsA", WMIDPREQUEST, RequestAddress, RequestContextMarshal, RequestContext, Guid.Ptr, ControlGuid, UInt32, GuidCount, TRACE_GUID_REGISTRATION.Ptr, TraceGuidReg, "ptr", MofImagePath, "ptr", MofResourceName, RegistrationHandleMarshal, RegistrationHandle, UInt32)
     return result
 }
 
@@ -3460,7 +3464,7 @@ export CloseTrace(TraceHandle) {
 export OpenTraceFromBufferStream(Options, BufferCompletionCallback, BufferCompletionContext) {
     BufferCompletionContextMarshal := BufferCompletionContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\OpenTraceFromBufferStream", ETW_OPEN_TRACE_OPTIONS.Ptr, Options, "ptr", BufferCompletionCallback, BufferCompletionContextMarshal, BufferCompletionContext, PROCESSTRACE_HANDLE.Owned)
+    result := DllCall("ADVAPI32.dll\OpenTraceFromBufferStream", ETW_OPEN_TRACE_OPTIONS.Ptr, Options, PETW_BUFFER_COMPLETION_CALLBACK, BufferCompletionCallback, BufferCompletionContextMarshal, BufferCompletionContext, PROCESSTRACE_HANDLE.Owned)
     return result
 }
 
@@ -3719,7 +3723,7 @@ export OpenTraceA(Logfile) {
  * @since windows5.0
  */
 export SetTraceCallback(pGuid, EventCallback) {
-    result := DllCall("ADVAPI32.dll\SetTraceCallback", Guid.Ptr, pGuid, "ptr", EventCallback, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\SetTraceCallback", Guid.Ptr, pGuid, PEVENT_CALLBACK, EventCallback, WIN32_ERROR)
     return result
 }
 
@@ -4087,7 +4091,7 @@ export TraceMessageVa(LoggerHandle, MessageFlags, MessageGuid, MessageNumber, Me
 export EventRegister(ProviderId, EnableCallback, CallbackContext, _RegHandle) {
     CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\EventRegister", Guid.Ptr, ProviderId, "ptr", EnableCallback, CallbackContextMarshal, CallbackContext, REGHANDLE.Ptr, _RegHandle, UInt32)
+    result := DllCall("ADVAPI32.dll\EventRegister", Guid.Ptr, ProviderId, PENABLECALLBACK, EnableCallback, CallbackContextMarshal, CallbackContext, REGHANDLE.Ptr, _RegHandle, UInt32)
     return result
 }
 

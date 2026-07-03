@@ -49,6 +49,10 @@ export default struct pCryptSIPGetCaps {
             this.value := CallbackCreate(fn, , [SIP_SUBJECTINFO.Ptr, SIP_CAP_SET_V3.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

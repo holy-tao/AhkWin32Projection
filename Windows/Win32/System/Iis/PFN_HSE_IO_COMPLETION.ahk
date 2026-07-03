@@ -48,6 +48,10 @@ export default struct PFN_HSE_IO_COMPLETION {
             this.value := CallbackCreate(fn, , [EXTENSION_CONTROL_BLOCK.Ptr, "ptr", UInt32, UInt32, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

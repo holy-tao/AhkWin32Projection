@@ -60,6 +60,10 @@ export default struct LINEEVENT {
             this.value := CallbackCreate(fn, , [HTAPILINE, HTAPICALL, UInt32, IntPtr, IntPtr, IntPtr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

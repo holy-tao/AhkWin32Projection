@@ -28,7 +28,7 @@ export default struct FAST_IO_RELEASE_FOR_CCFLUSH {
      */
     Call(FileObject, DeviceObject) {
         result := DllCall(this.value, FILE_OBJECT.Ptr, FileObject, DEVICE_OBJECT.Ptr, DeviceObject, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -48,6 +48,10 @@ export default struct FAST_IO_RELEASE_FOR_CCFLUSH {
             this.value := CallbackCreate(fn, , [FILE_OBJECT.Ptr, DEVICE_OBJECT.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

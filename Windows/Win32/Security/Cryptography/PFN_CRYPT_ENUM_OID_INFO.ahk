@@ -51,6 +51,10 @@ export default struct PFN_CRYPT_ENUM_OID_INFO {
             this.value := CallbackCreate(fn, , [CRYPT_OID_INFO.Ptr, "ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

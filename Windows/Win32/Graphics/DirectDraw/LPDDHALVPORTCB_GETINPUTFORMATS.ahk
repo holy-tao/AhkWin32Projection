@@ -44,6 +44,10 @@ export default struct LPDDHALVPORTCB_GETINPUTFORMATS {
             this.value := CallbackCreate(fn, , [DDHAL_GETVPORTINPUTFORMATDATA.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

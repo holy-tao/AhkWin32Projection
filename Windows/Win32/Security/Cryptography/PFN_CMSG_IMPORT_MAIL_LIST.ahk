@@ -72,6 +72,10 @@ export default struct PFN_CMSG_IMPORT_MAIL_LIST {
             this.value := CallbackCreate(fn, , [CRYPT_ALGORITHM_IDENTIFIER.Ptr, CMSG_CTRL_MAIL_LIST_DECRYPT_PARA.Ptr, UInt32, "ptr*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

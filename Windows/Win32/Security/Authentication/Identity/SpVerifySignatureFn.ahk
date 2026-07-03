@@ -31,7 +31,7 @@ export default struct SpVerifySignatureFn {
         QualityOfProtectionMarshal := QualityOfProtection is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, IntPtr, ContextHandle, SecBufferDesc.Ptr, MessageBuffers, UInt32, MessageSequenceNumber, QualityOfProtectionMarshal, QualityOfProtection, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -51,6 +51,10 @@ export default struct SpVerifySignatureFn {
             this.value := CallbackCreate(fn, , [IntPtr, SecBufferDesc.Ptr, UInt32, "uint*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

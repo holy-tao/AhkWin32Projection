@@ -2,6 +2,7 @@
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Security\SECURITY_DESCRIPTOR.ahk" { SECURITY_DESCRIPTOR }
 #Import ".\HCS_CREATE_OPTIONS.ahk" { HCS_CREATE_OPTIONS }
+#Import ".\HCS_EVENT_CALLBACK.ahk" { HCS_EVENT_CALLBACK }
 #Import ".\HCS_EVENT_OPTIONS.ahk" { HCS_EVENT_OPTIONS }
 
 /**
@@ -20,6 +21,6 @@ export default struct HCS_CREATE_OPTIONS_1 {
 
     CallbackContext : IntPtr
 
-    Callback : IntPtr
+    Callback : HCS_EVENT_CALLBACK
 
 }

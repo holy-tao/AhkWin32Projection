@@ -43,7 +43,7 @@ export default struct SpInstanceInitFn {
         UserFunctionsMarshal := UserFunctions is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, UInt32, _Version, SECPKG_DLL_FUNCTIONS.Ptr, FunctionTable, UserFunctionsMarshal, UserFunctions, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -63,6 +63,10 @@ export default struct SpInstanceInitFn {
             this.value := CallbackCreate(fn, , [UInt32, SECPKG_DLL_FUNCTIONS.Ptr, "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

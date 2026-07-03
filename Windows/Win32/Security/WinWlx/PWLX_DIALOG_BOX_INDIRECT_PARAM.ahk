@@ -2,6 +2,7 @@
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\UI\WindowsAndMessaging\DLGPROC.ahk" { DLGPROC }
 #Import "..\..\UI\WindowsAndMessaging\DLGTEMPLATE.ahk" { DLGTEMPLATE }
 
 /**
@@ -97,7 +98,7 @@ export default struct PWLX_DIALOG_BOX_INDIRECT_PARAM {
      * If the function fails, the return value is –1.
      */
     Call(hWlx, hInst, hDialogTemplate, hwndOwner, dlgprc, dwInitParam) {
-        result := DllCall(this.value, HANDLE, hWlx, HANDLE, hInst, DLGTEMPLATE.Ptr, hDialogTemplate, HWND, hwndOwner, "ptr", dlgprc, LPARAM, dwInitParam, Int32)
+        result := DllCall(this.value, HANDLE, hWlx, HANDLE, hInst, DLGTEMPLATE.Ptr, hDialogTemplate, HWND, hwndOwner, DLGPROC, dlgprc, LPARAM, dwInitParam, Int32)
         return result
     }
 
@@ -108,15 +109,19 @@ export default struct PWLX_DIALOG_BOX_INDIRECT_PARAM {
     struct From extends PWLX_DIALOG_BOX_INDIRECT_PARAM {
         /**
          * Creates a PWLX_DIALOG_BOX_INDIRECT_PARAM pointer that invokes the given AHK function when called.
-         * @param {Func(HANDLE, HANDLE, DLGTEMPLATE, HWND, "ptr", LPARAM) => Int32} fn the function to invoke.
+         * @param {Func(HANDLE, HANDLE, DLGTEMPLATE, HWND, DLGPROC, LPARAM) => Int32} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 6)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 6 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [HANDLE, HANDLE, DLGTEMPLATE.Ptr, HWND, "ptr", LPARAM, Int32])
+            this.value := CallbackCreate(fn, , [HANDLE, HANDLE, DLGTEMPLATE.Ptr, HWND, DLGPROC, LPARAM, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

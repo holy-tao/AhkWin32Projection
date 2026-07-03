@@ -48,6 +48,10 @@ export default struct DATEFMT_ENUMPROCW {
             this.value := CallbackCreate(fn, , [PWSTR, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

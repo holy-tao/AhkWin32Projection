@@ -36,7 +36,7 @@ export default struct PCALCULATE_SCATTER_GATHER_LIST_SIZE {
         pNumberOfMapRegistersMarshal := pNumberOfMapRegisters is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, MDL.Ptr, _Mdl, CurrentVaMarshal, CurrentVa, UInt32, Length, ScatterGatherListSizeMarshal, ScatterGatherListSize, pNumberOfMapRegistersMarshal, pNumberOfMapRegisters, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -56,6 +56,10 @@ export default struct PCALCULATE_SCATTER_GATHER_LIST_SIZE {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, MDL.Ptr, "ptr", UInt32, "uint*", "uint*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

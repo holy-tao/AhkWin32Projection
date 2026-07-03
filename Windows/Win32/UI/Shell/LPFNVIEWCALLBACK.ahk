@@ -70,6 +70,10 @@ export default struct LPFNVIEWCALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", HWND, UInt32, WPARAM, LPARAM, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

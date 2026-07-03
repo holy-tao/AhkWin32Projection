@@ -30,7 +30,7 @@ export default struct PFLT_INSTANCE_SETUP_CALLBACK {
      */
     Call(FltObjects, Flags, VolumeDeviceType, VolumeFilesystemType) {
         result := DllCall(this.value, FLT_RELATED_OBJECTS.Ptr, FltObjects, UInt32, Flags, UInt32, VolumeDeviceType, FLT_FILESYSTEM_TYPE, VolumeFilesystemType, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -50,6 +50,10 @@ export default struct PFLT_INSTANCE_SETUP_CALLBACK {
             this.value := CallbackCreate(fn, , [FLT_RELATED_OBJECTS.Ptr, UInt32, UInt32, FLT_FILESYSTEM_TYPE, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

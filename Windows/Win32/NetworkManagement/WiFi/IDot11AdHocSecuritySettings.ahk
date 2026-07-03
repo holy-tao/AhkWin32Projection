@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DOT11_ADHOC_AUTH_ALGORITHM.ahk" { DOT11_ADHOC_AUTH_ALGORITHM }
 #Import ".\DOT11_ADHOC_CIPHER_ALGORITHM.ahk" { DOT11_ADHOC_CIPHER_ALGORITHM }

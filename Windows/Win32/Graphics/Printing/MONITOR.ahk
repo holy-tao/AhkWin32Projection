@@ -1,4 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PFN_PRINTING_ADDPORT.ahk" { PFN_PRINTING_ADDPORT }
+#Import ".\PFN_PRINTING_ADDPORTEX.ahk" { PFN_PRINTING_ADDPORTEX }
+#Import ".\PFN_PRINTING_CLOSEPORT.ahk" { PFN_PRINTING_CLOSEPORT }
+#Import ".\PFN_PRINTING_CONFIGUREPORT.ahk" { PFN_PRINTING_CONFIGUREPORT }
+#Import ".\PFN_PRINTING_DELETEPORT.ahk" { PFN_PRINTING_DELETEPORT }
+#Import ".\PFN_PRINTING_ENDDOCPORT.ahk" { PFN_PRINTING_ENDDOCPORT }
+#Import ".\PFN_PRINTING_ENUMPORTS.ahk" { PFN_PRINTING_ENUMPORTS }
+#Import ".\PFN_PRINTING_GETPRINTERDATAFROMPORT.ahk" { PFN_PRINTING_GETPRINTERDATAFROMPORT }
+#Import ".\PFN_PRINTING_OPENPORT.ahk" { PFN_PRINTING_OPENPORT }
+#Import ".\PFN_PRINTING_OPENPORTEX.ahk" { PFN_PRINTING_OPENPORTEX }
+#Import ".\PFN_PRINTING_READPORT.ahk" { PFN_PRINTING_READPORT }
+#Import ".\PFN_PRINTING_SETPORTTIMEOUTS.ahk" { PFN_PRINTING_SETPORTTIMEOUTS }
+#Import ".\PFN_PRINTING_STARTDOCPORT.ahk" { PFN_PRINTING_STARTDOCPORT }
+#Import ".\PFN_PRINTING_WRITEPORT.ahk" { PFN_PRINTING_WRITEPORT }
+#Import ".\PFN_PRINTING_XCVCLOSEPORT.ahk" { PFN_PRINTING_XCVCLOSEPORT }
+#Import ".\PFN_PRINTING_XCVDATAPORT.ahk" { PFN_PRINTING_XCVDATAPORT }
+#Import ".\PFN_PRINTING_XCVOPENPORT.ahk" { PFN_PRINTING_XCVOPENPORT }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -6,38 +23,38 @@
 export default struct MONITOR {
     #StructPack 8
 
-    pfnEnumPorts : IntPtr
+    pfnEnumPorts : PFN_PRINTING_ENUMPORTS
 
-    pfnOpenPort : IntPtr
+    pfnOpenPort : PFN_PRINTING_OPENPORT
 
-    pfnOpenPortEx : IntPtr
+    pfnOpenPortEx : PFN_PRINTING_OPENPORTEX
 
-    pfnStartDocPort : IntPtr
+    pfnStartDocPort : PFN_PRINTING_STARTDOCPORT
 
-    pfnWritePort : IntPtr
+    pfnWritePort : PFN_PRINTING_WRITEPORT
 
-    pfnReadPort : IntPtr
+    pfnReadPort : PFN_PRINTING_READPORT
 
-    pfnEndDocPort : IntPtr
+    pfnEndDocPort : PFN_PRINTING_ENDDOCPORT
 
-    pfnClosePort : IntPtr
+    pfnClosePort : PFN_PRINTING_CLOSEPORT
 
-    pfnAddPort : IntPtr
+    pfnAddPort : PFN_PRINTING_ADDPORT
 
-    pfnAddPortEx : IntPtr
+    pfnAddPortEx : PFN_PRINTING_ADDPORTEX
 
-    pfnConfigurePort : IntPtr
+    pfnConfigurePort : PFN_PRINTING_CONFIGUREPORT
 
-    pfnDeletePort : IntPtr
+    pfnDeletePort : PFN_PRINTING_DELETEPORT
 
-    pfnGetPrinterDataFromPort : IntPtr
+    pfnGetPrinterDataFromPort : PFN_PRINTING_GETPRINTERDATAFROMPORT
 
-    pfnSetPortTimeOuts : IntPtr
+    pfnSetPortTimeOuts : PFN_PRINTING_SETPORTTIMEOUTS
 
-    pfnXcvOpenPort : IntPtr
+    pfnXcvOpenPort : PFN_PRINTING_XCVOPENPORT
 
-    pfnXcvDataPort : IntPtr
+    pfnXcvDataPort : PFN_PRINTING_XCVDATAPORT
 
-    pfnXcvClosePort : IntPtr
+    pfnXcvClosePort : PFN_PRINTING_XCVCLOSEPORT
 
 }

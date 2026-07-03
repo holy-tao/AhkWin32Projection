@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\DISCONNECT_CODE.ahk" { DISCONNECT_CODE }
 #Import ".\FINISH_MODE.ahk" { FINISH_MODE }
 #Import ".\QOS_SERVICE_LEVEL.ahk" { QOS_SERVICE_LEVEL }

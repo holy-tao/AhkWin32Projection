@@ -117,6 +117,10 @@ export default struct PIBIO_SENSOR_EXPORT_SENSOR_DATA_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, "ptr*", "ptr*", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

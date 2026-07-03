@@ -48,6 +48,10 @@ export default struct PTP_WORK_CALLBACK {
             this.value := CallbackCreate(fn, , [PTP_CALLBACK_INSTANCE, "ptr", PTP_WORK, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

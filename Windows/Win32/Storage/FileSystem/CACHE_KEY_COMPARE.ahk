@@ -49,6 +49,10 @@ export default struct CACHE_KEY_COMPARE {
             this.value := CallbackCreate(fn, , [UInt32, "char*", UInt32, "char*", Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

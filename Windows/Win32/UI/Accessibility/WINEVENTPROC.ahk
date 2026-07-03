@@ -70,6 +70,10 @@ export default struct WINEVENTPROC {
             this.value := CallbackCreate(fn, , [HWINEVENTHOOK, UInt32, HWND, Int32, Int32, UInt32, UInt32, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

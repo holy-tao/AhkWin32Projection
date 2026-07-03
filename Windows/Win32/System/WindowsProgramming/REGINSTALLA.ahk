@@ -51,6 +51,10 @@ export default struct REGINSTALLA {
             this.value := CallbackCreate(fn, , [HMODULE, PSTR, STRTABLEA.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

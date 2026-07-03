@@ -51,6 +51,10 @@ export default struct EXPORT_SECURITY_CONTEXT_FN {
             this.value := CallbackCreate(fn, , [SecHandle.Ptr, UInt32, SecBuffer.Ptr, "ptr*", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -48,6 +48,10 @@ export default struct pHalExamineMBR {
             this.value := CallbackCreate(fn, , [DEVICE_OBJECT.Ptr, UInt32, UInt32, "ptr*", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

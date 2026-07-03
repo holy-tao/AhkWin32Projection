@@ -46,6 +46,10 @@ export default struct PRESUTIL_SET_PRIVATE_PROPERTY_LIST {
             this.value := CallbackCreate(fn, , [HKEY, IntPtr, UInt32, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

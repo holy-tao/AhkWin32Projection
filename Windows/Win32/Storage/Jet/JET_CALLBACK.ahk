@@ -59,6 +59,10 @@ export default struct JET_CALLBACK {
             this.value := CallbackCreate(fn, , [JET_SESID, UInt32, JET_TABLEID, UInt32, "ptr", "ptr", "ptr", JET_API_PTR, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

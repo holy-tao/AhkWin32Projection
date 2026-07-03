@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\BUS_SPECIFIC_RESET_FLAGS.ahk" { BUS_SPECIFIC_RESET_FLAGS }
 #Import ".\DEVICE_BUS_SPECIFIC_RESET_TYPE.ahk" { DEVICE_BUS_SPECIFIC_RESET_TYPE }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
@@ -35,7 +35,7 @@ export default struct DEVICE_BUS_SPECIFIC_RESET_HANDLER {
         ResetParametersMarshal := ResetParameters is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, InterfaceContextMarshal, InterfaceContext, Guid.Ptr, BusType, DEVICE_BUS_SPECIFIC_RESET_TYPE, ResetTypeSelected, BUS_SPECIFIC_RESET_FLAGS.Ptr, Flags, ResetParametersMarshal, ResetParameters, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -55,6 +55,10 @@ export default struct DEVICE_BUS_SPECIFIC_RESET_HANDLER {
             this.value := CallbackCreate(fn, , ["ptr", Guid.Ptr, DEVICE_BUS_SPECIFIC_RESET_TYPE, BUS_SPECIFIC_RESET_FLAGS.Ptr, "ptr", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

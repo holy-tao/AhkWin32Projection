@@ -29,7 +29,7 @@ export default struct GET_VIRTUAL_FUNCTION_PROBED_BARS {
         BaseRegisterValuesMarshal := BaseRegisterValues is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, BaseRegisterValuesMarshal, BaseRegisterValues, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -49,6 +49,10 @@ export default struct GET_VIRTUAL_FUNCTION_PROBED_BARS {
             this.value := CallbackCreate(fn, , ["ptr", "uint*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

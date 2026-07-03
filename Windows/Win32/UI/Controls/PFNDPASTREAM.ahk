@@ -60,6 +60,10 @@ export default struct PFNDPASTREAM {
             this.value := CallbackCreate(fn, , [DPASTREAMINFO.Ptr, "ptr", "ptr", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -47,6 +47,10 @@ export default struct PFN_DrvNextBand {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, POINTL.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

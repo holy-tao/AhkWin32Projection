@@ -2,6 +2,7 @@
 #Import "..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
 #Import "..\..\Foundation\PKINTERRUPT.ahk" { PKINTERRUPT }
 #Import ".\KINTERRUPT_MODE.ahk" { KINTERRUPT_MODE }
+#Import ".\PKSERVICE_ROUTINE.ahk" { PKSERVICE_ROUTINE }
 #Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
@@ -14,7 +15,7 @@ export default struct IO_CONNECT_INTERRUPT_FULLY_SPECIFIED_PARAMETERS {
 
     InterruptObject : PKINTERRUPT.Ptr
 
-    ServiceRoutine : IntPtr
+    ServiceRoutine : PKSERVICE_ROUTINE
 
     ServiceContext : IntPtr
 

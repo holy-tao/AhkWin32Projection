@@ -48,6 +48,10 @@ export default struct SE_IMAGE_VERIFICATION_CALLBACK_FUNCTION {
             this.value := CallbackCreate(fn, , ["ptr", SE_IMAGE_TYPE, BDCB_IMAGE_INFORMATION.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

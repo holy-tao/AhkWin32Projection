@@ -52,6 +52,10 @@ export default struct CALINFO_ENUMPROCEXEX {
             this.value := CallbackCreate(fn, , [PWSTR, UInt32, PWSTR, LPARAM, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

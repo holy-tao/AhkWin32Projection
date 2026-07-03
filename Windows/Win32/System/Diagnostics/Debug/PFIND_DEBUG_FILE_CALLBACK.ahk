@@ -59,6 +59,10 @@ export default struct PFIND_DEBUG_FILE_CALLBACK {
             this.value := CallbackCreate(fn, , [HANDLE, PSTR, "ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

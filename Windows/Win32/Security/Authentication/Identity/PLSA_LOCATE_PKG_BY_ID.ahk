@@ -43,6 +43,10 @@ export default struct PLSA_LOCATE_PKG_BY_ID {
             this.value := CallbackCreate(fn, , [UInt32, "ptr"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

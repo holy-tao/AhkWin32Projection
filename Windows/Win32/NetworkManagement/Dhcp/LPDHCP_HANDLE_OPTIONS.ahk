@@ -64,6 +64,10 @@ export default struct LPDHCP_HANDLE_OPTIONS {
             this.value := CallbackCreate(fn, , ["char*", UInt32, "ptr", "ptr", DHCP_SERVER_OPTIONS.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

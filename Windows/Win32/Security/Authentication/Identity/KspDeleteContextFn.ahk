@@ -56,7 +56,7 @@ export default struct KspDeleteContextFn {
         LsaContextIdMarshal := LsaContextId is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, IntPtr, ContextId, LsaContextIdMarshal, LsaContextId, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -76,6 +76,10 @@ export default struct KspDeleteContextFn {
             this.value := CallbackCreate(fn, , [IntPtr, "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

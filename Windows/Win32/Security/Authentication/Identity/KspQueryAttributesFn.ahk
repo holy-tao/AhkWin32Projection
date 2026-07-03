@@ -29,7 +29,7 @@ export default struct KspQueryAttributesFn {
         _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, IntPtr, ContextId, UInt32, Attribute, _BufferMarshal, _Buffer, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -49,6 +49,10 @@ export default struct KspQueryAttributesFn {
             this.value := CallbackCreate(fn, , [IntPtr, UInt32, "ptr", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

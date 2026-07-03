@@ -3,6 +3,7 @@
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\LPOFNHOOKPROC.ahk" { LPOFNHOOKPROC }
 
 /**
  * The OPENFILENAME_NT4 structure is identical to OPENFILENAME with _WIN32_WINNT set to 0x0400. (ANSI)
@@ -50,7 +51,7 @@ export default struct OPENFILENAME_NT4A {
 
     lCustData : LPARAM
 
-    lpfnHook : IntPtr
+    lpfnHook : LPOFNHOOKPROC
 
     lpTemplateName : PSTR
 

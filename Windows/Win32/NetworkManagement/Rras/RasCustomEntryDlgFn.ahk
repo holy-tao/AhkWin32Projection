@@ -77,6 +77,10 @@ export default struct RasCustomEntryDlgFn {
             this.value := CallbackCreate(fn, , [HINSTANCE, PWSTR, PWSTR, RASENTRYDLGA.Ptr, UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

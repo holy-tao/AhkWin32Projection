@@ -45,10 +45,12 @@
 #Import ".\RAS_UPDATE_CONNECTION.ahk" { RAS_UPDATE_CONNECTION }
 #Import ".\ROUTING_PROTOCOL_CONFIG.ahk" { ROUTING_PROTOCOL_CONFIG }
 #Import ".\RTM_DEST_INFO.ahk" { RTM_DEST_INFO }
+#Import ".\RTM_ENTITY_EXPORT_METHOD.ahk" { RTM_ENTITY_EXPORT_METHOD }
 #Import ".\RTM_ENTITY_EXPORT_METHODS.ahk" { RTM_ENTITY_EXPORT_METHODS }
 #Import ".\RTM_ENTITY_INFO.ahk" { RTM_ENTITY_INFO }
 #Import ".\RTM_ENTITY_METHOD_INPUT.ahk" { RTM_ENTITY_METHOD_INPUT }
 #Import ".\RTM_ENTITY_METHOD_OUTPUT.ahk" { RTM_ENTITY_METHOD_OUTPUT }
+#Import ".\RTM_EVENT_CALLBACK.ahk" { RTM_EVENT_CALLBACK }
 #Import ".\RTM_NET_ADDRESS.ahk" { RTM_NET_ADDRESS }
 #Import ".\RTM_NEXTHOP_INFO.ahk" { RTM_NEXTHOP_INFO }
 #Import ".\RTM_REGN_PROFILE.ahk" { RTM_REGN_PROFILE }
@@ -18345,7 +18347,7 @@ export RtmConvertIpv6AddressAndLengthToNetAddress(pNetAddress, _Address, dwLengt
 export RtmRegisterEntity(RtmEntityInfo, ExportMethods, EventCallback, ReserveOpaquePointer, RtmRegProfile, RtmRegHandle) {
     RtmRegHandleMarshal := RtmRegHandle is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmRegisterEntity", RTM_ENTITY_INFO.Ptr, RtmEntityInfo, RTM_ENTITY_EXPORT_METHODS.Ptr, ExportMethods, "ptr", EventCallback, BOOL, ReserveOpaquePointer, RTM_REGN_PROFILE.Ptr, RtmRegProfile, RtmRegHandleMarshal, RtmRegHandle, UInt32)
+    result := DllCall("rtm.dll\RtmRegisterEntity", RTM_ENTITY_INFO.Ptr, RtmEntityInfo, RTM_ENTITY_EXPORT_METHODS.Ptr, ExportMethods, RTM_EVENT_CALLBACK, EventCallback, BOOL, ReserveOpaquePointer, RTM_REGN_PROFILE.Ptr, RtmRegProfile, RtmRegHandleMarshal, RtmRegHandle, UInt32)
     return result
 }
 

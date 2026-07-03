@@ -49,6 +49,10 @@ export default struct PCI_IS_DEVICE_PRESENT {
             this.value := CallbackCreate(fn, , [UInt16, UInt16, Int8, UInt16, UInt16, UInt32, BOOLEAN])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

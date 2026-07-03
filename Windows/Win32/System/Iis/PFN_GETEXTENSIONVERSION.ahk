@@ -45,6 +45,10 @@ export default struct PFN_GETEXTENSIONVERSION {
             this.value := CallbackCreate(fn, , [HSE_VERSION_INFO.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

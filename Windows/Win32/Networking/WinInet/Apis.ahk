@@ -16,7 +16,9 @@
 #Import ".\APP_CACHE_GROUP_LIST.ahk" { APP_CACHE_GROUP_LIST }
 #Import ".\APP_CACHE_STATE.ahk" { APP_CACHE_STATE }
 #Import ".\CACHE_CONFIG.ahk" { CACHE_CONFIG }
+#Import ".\CACHE_OPERATOR.ahk" { CACHE_OPERATOR }
 #Import ".\FTP_FLAGS.ahk" { FTP_FLAGS }
+#Import ".\GOPHER_ATTRIBUTE_ENUMERATOR.ahk" { GOPHER_ATTRIBUTE_ENUMERATOR }
 #Import ".\GOPHER_FIND_DATAA.ahk" { GOPHER_FIND_DATAA }
 #Import ".\GOPHER_FIND_DATAW.ahk" { GOPHER_FIND_DATAW }
 #Import ".\HTTP_ADDREQ_FLAG.ahk" { HTTP_ADDREQ_FLAG }
@@ -39,6 +41,7 @@
 #Import ".\INTERNET_COOKIE_FLAGS.ahk" { INTERNET_COOKIE_FLAGS }
 #Import ".\INTERNET_SCHEME.ahk" { INTERNET_SCHEME }
 #Import ".\INTERNET_SECURITY_INFO.ahk" { INTERNET_SECURITY_INFO }
+#Import ".\LPINTERNET_STATUS_CALLBACK.ahk" { LPINTERNET_STATUS_CALLBACK }
 #Import ".\PROXY_AUTO_DETECT_TYPE.ahk" { PROXY_AUTO_DETECT_TYPE }
 #Import ".\URLCACHE_ENTRY_INFO.ahk" { URLCACHE_ENTRY_INFO }
 #Import ".\URL_CACHE_LIMIT_TYPE.ahk" { URL_CACHE_LIMIT_TYPE }
@@ -2190,7 +2193,7 @@ export InternetGetLastResponseInfoW(lpdwError, lpszBuffer, lpdwBufferLength) {
 export InternetSetStatusCallbackA(hInternet, lpfnInternetCallback) {
     hInternetMarshal := hInternet is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WININET.dll\InternetSetStatusCallbackA", hInternetMarshal, hInternet, "ptr", lpfnInternetCallback, IntPtr)
+    result := DllCall("WININET.dll\InternetSetStatusCallbackA", hInternetMarshal, hInternet, LPINTERNET_STATUS_CALLBACK, lpfnInternetCallback, LPINTERNET_STATUS_CALLBACK)
     return result
 }
 
@@ -2231,7 +2234,7 @@ export InternetSetStatusCallbackA(hInternet, lpfnInternetCallback) {
 export InternetSetStatusCallbackW(hInternet, lpfnInternetCallback) {
     hInternetMarshal := hInternet is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WININET.dll\InternetSetStatusCallbackW", hInternetMarshal, hInternet, "ptr", lpfnInternetCallback, IntPtr)
+    result := DllCall("WININET.dll\InternetSetStatusCallbackW", hInternetMarshal, hInternet, LPINTERNET_STATUS_CALLBACK, lpfnInternetCallback, LPINTERNET_STATUS_CALLBACK)
     return result
 }
 
@@ -2267,7 +2270,7 @@ export InternetSetStatusCallbackW(hInternet, lpfnInternetCallback) {
 export InternetSetStatusCallback(hInternet, lpfnInternetCallback) {
     hInternetMarshal := hInternet is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WININET.dll\InternetSetStatusCallback", hInternetMarshal, hInternet, "ptr", lpfnInternetCallback, IntPtr)
+    result := DllCall("WININET.dll\InternetSetStatusCallback", hInternetMarshal, hInternet, LPINTERNET_STATUS_CALLBACK, lpfnInternetCallback, LPINTERNET_STATUS_CALLBACK)
     return result
 }
 
@@ -4101,7 +4104,7 @@ export GopherGetAttributeA(hConnect, lpszLocator, lpszAttributeName, lpBuffer, d
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\GopherGetAttributeA", hConnectMarshal, hConnect, "ptr", lpszLocator, "ptr", lpszAttributeName, lpBufferMarshal, lpBuffer, UInt32, dwBufferLength, lpdwCharactersReturnedMarshal, lpdwCharactersReturned, "ptr", lpfnEnumerator, IntPtr, dwContext, BOOL)
+    result := DllCall("WININET.dll\GopherGetAttributeA", hConnectMarshal, hConnect, "ptr", lpszLocator, "ptr", lpszAttributeName, lpBufferMarshal, lpBuffer, UInt32, dwBufferLength, lpdwCharactersReturnedMarshal, lpdwCharactersReturned, GOPHER_ATTRIBUTE_ENUMERATOR, lpfnEnumerator, IntPtr, dwContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4165,7 +4168,7 @@ export GopherGetAttributeW(hConnect, lpszLocator, lpszAttributeName, lpBuffer, d
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\GopherGetAttributeW", hConnectMarshal, hConnect, "ptr", lpszLocator, "ptr", lpszAttributeName, lpBufferMarshal, lpBuffer, UInt32, dwBufferLength, lpdwCharactersReturnedMarshal, lpdwCharactersReturned, "ptr", lpfnEnumerator, IntPtr, dwContext, BOOL)
+    result := DllCall("WININET.dll\GopherGetAttributeW", hConnectMarshal, hConnect, "ptr", lpszLocator, "ptr", lpszAttributeName, lpBufferMarshal, lpBuffer, UInt32, dwBufferLength, lpdwCharactersReturnedMarshal, lpdwCharactersReturned, GOPHER_ATTRIBUTE_ENUMERATOR, lpfnEnumerator, IntPtr, dwContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11399,7 +11402,7 @@ export PerformOperationOverUrlCacheA(pszUrlSearchPattern, dwFlags, dwFilter, Gro
 
     pOperatorDataMarshal := pOperatorData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WININET.dll\PerformOperationOverUrlCacheA", "ptr", pszUrlSearchPattern, UInt32, dwFlags, UInt32, dwFilter, Int64, GroupId, "ptr", pReserved1, "uint*", pdwReserved2, "ptr", pReserved3, "ptr", op, pOperatorDataMarshal, pOperatorData, BOOL)
+    result := DllCall("WININET.dll\PerformOperationOverUrlCacheA", "ptr", pszUrlSearchPattern, UInt32, dwFlags, UInt32, dwFilter, Int64, GroupId, "ptr", pReserved1, "uint*", pdwReserved2, "ptr", pReserved3, CACHE_OPERATOR, op, pOperatorDataMarshal, pOperatorData, BOOL)
     return result
 }
 

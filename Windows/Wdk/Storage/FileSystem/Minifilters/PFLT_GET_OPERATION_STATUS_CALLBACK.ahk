@@ -50,6 +50,10 @@ export default struct PFLT_GET_OPERATION_STATUS_CALLBACK {
             this.value := CallbackCreate(fn, , [FLT_RELATED_OBJECTS.Ptr, FLT_IO_PARAMETER_BLOCK.Ptr, NTSTATUS, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -49,6 +49,10 @@ export default struct DOT11EXTIHV_PERFORM_POST_ASSOCIATE {
             this.value := CallbackCreate(fn, , [HANDLE, HANDLE, DOT11_PORT_STATE.Ptr, UInt32, IntPtr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

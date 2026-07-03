@@ -56,6 +56,10 @@ export default struct PFN_PRINTING_ENUMPORTS {
             this.value := CallbackCreate(fn, , [PWSTR, UInt32, "char*", UInt32, "uint*", "uint*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

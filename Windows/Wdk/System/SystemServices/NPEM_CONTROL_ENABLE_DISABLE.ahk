@@ -29,7 +29,7 @@ export default struct NPEM_CONTROL_ENABLE_DISABLE {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, BOOLEAN, EnableNpem, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -49,6 +49,10 @@ export default struct NPEM_CONTROL_ENABLE_DISABLE {
             this.value := CallbackCreate(fn, , ["ptr", BOOLEAN, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

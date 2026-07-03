@@ -50,6 +50,10 @@ export default struct LPGROUP_CALLBACK_EX {
             this.value := CallbackCreate(fn, , [HCLUSTER, HGROUP, HGROUP, "ptr", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

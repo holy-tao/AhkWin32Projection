@@ -58,6 +58,10 @@ export default struct LPFN_RIOCLOSECOMPLETIONQUEUE {
             this.value := CallbackCreate(fn, , [RIO_CQ, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

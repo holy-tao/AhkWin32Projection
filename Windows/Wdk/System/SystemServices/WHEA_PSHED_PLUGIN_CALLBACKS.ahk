@@ -1,4 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PSHED_PI_ATTEMPT_ERROR_RECOVERY.ahk" { PSHED_PI_ATTEMPT_ERROR_RECOVERY }
+#Import ".\PSHED_PI_CLEAR_ERROR_RECORD.ahk" { PSHED_PI_CLEAR_ERROR_RECORD }
+#Import ".\PSHED_PI_CLEAR_ERROR_STATUS.ahk" { PSHED_PI_CLEAR_ERROR_STATUS }
+#Import ".\PSHED_PI_DISABLE_ERROR_SOURCE.ahk" { PSHED_PI_DISABLE_ERROR_SOURCE }
+#Import ".\PSHED_PI_ENABLE_ERROR_SOURCE.ahk" { PSHED_PI_ENABLE_ERROR_SOURCE }
+#Import ".\PSHED_PI_FINALIZE_ERROR_RECORD.ahk" { PSHED_PI_FINALIZE_ERROR_RECORD }
+#Import ".\PSHED_PI_GET_ALL_ERROR_SOURCES.ahk" { PSHED_PI_GET_ALL_ERROR_SOURCES }
+#Import ".\PSHED_PI_GET_ERROR_SOURCE_INFO.ahk" { PSHED_PI_GET_ERROR_SOURCE_INFO }
+#Import ".\PSHED_PI_GET_INJECTION_CAPABILITIES.ahk" { PSHED_PI_GET_INJECTION_CAPABILITIES }
+#Import ".\PSHED_PI_INJECT_ERROR.ahk" { PSHED_PI_INJECT_ERROR }
+#Import ".\PSHED_PI_READ_ERROR_RECORD.ahk" { PSHED_PI_READ_ERROR_RECORD }
+#Import ".\PSHED_PI_RETRIEVE_ERROR_INFO.ahk" { PSHED_PI_RETRIEVE_ERROR_INFO }
+#Import ".\PSHED_PI_SET_ERROR_SOURCE_INFO.ahk" { PSHED_PI_SET_ERROR_SOURCE_INFO }
+#Import ".\PSHED_PI_WRITE_ERROR_RECORD.ahk" { PSHED_PI_WRITE_ERROR_RECORD }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -6,34 +20,34 @@
 export default struct WHEA_PSHED_PLUGIN_CALLBACKS {
     #StructPack 8
 
-    GetAllErrorSources : IntPtr
+    GetAllErrorSources : PSHED_PI_GET_ALL_ERROR_SOURCES
 
     Reserved : IntPtr
 
-    GetErrorSourceInfo : IntPtr
+    GetErrorSourceInfo : PSHED_PI_GET_ERROR_SOURCE_INFO
 
-    SetErrorSourceInfo : IntPtr
+    SetErrorSourceInfo : PSHED_PI_SET_ERROR_SOURCE_INFO
 
-    EnableErrorSource : IntPtr
+    EnableErrorSource : PSHED_PI_ENABLE_ERROR_SOURCE
 
-    DisableErrorSource : IntPtr
+    DisableErrorSource : PSHED_PI_DISABLE_ERROR_SOURCE
 
-    WriteErrorRecord : IntPtr
+    WriteErrorRecord : PSHED_PI_WRITE_ERROR_RECORD
 
-    ReadErrorRecord : IntPtr
+    ReadErrorRecord : PSHED_PI_READ_ERROR_RECORD
 
-    ClearErrorRecord : IntPtr
+    ClearErrorRecord : PSHED_PI_CLEAR_ERROR_RECORD
 
-    RetrieveErrorInfo : IntPtr
+    RetrieveErrorInfo : PSHED_PI_RETRIEVE_ERROR_INFO
 
-    FinalizeErrorRecord : IntPtr
+    FinalizeErrorRecord : PSHED_PI_FINALIZE_ERROR_RECORD
 
-    ClearErrorStatus : IntPtr
+    ClearErrorStatus : PSHED_PI_CLEAR_ERROR_STATUS
 
-    AttemptRecovery : IntPtr
+    AttemptRecovery : PSHED_PI_ATTEMPT_ERROR_RECOVERY
 
-    GetInjectionCapabilities : IntPtr
+    GetInjectionCapabilities : PSHED_PI_GET_INJECTION_CAPABILITIES
 
-    InjectError : IntPtr
+    InjectError : PSHED_PI_INJECT_ERROR
 
 }

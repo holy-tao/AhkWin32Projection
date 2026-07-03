@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
@@ -12,6 +12,7 @@
 #Import ".\IMEREL.ahk" { IMEREL }
 #Import ".\IMESHF.ahk" { IMESHF }
 #Import ".\IMEWRD.ahk" { IMEWRD }
+#Import ".\PFNLOG.ahk" { PFNLOG }
 #Import ".\POSTBL.ahk" { POSTBL }
 
 /**
@@ -698,7 +699,7 @@ export default struct IFEDictionary extends IUnknown {
     ConvertFromOldMSIME(pchDic, _pfnLog, reg) {
         pchDic := pchDic is String ? StrPtr(pchDic) : pchDic
 
-        result := ComCall(18, this, "ptr", pchDic, "ptr", _pfnLog, IMEREG, reg, "HRESULT")
+        result := ComCall(18, this, "ptr", pchDic, PFNLOG, _pfnLog, IMEREG, reg, "HRESULT")
         return result
     }
 

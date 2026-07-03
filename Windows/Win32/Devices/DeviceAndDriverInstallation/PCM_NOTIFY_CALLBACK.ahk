@@ -51,6 +51,10 @@ export default struct PCM_NOTIFY_CALLBACK {
             this.value := CallbackCreate(fn, , [HCMNOTIFICATION, "ptr", CM_NOTIFY_ACTION, IntPtr, UInt32, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

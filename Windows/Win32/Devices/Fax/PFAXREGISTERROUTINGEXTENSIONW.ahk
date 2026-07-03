@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PFAX_ROUTING_INSTALLATION_CALLBACKW.ahk" { PFAX_ROUTING_INSTALLATION_CALLBACKW }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
@@ -37,7 +38,7 @@ export default struct PFAXREGISTERROUTINGEXTENSIONW {
 
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall(this.value, HANDLE, FaxHandle, "ptr", ExtensionName, "ptr", FriendlyName, "ptr", ImageName, "ptr", CallBack, _ContextMarshal, _Context, BOOL)
+        result := DllCall(this.value, HANDLE, FaxHandle, "ptr", ExtensionName, "ptr", FriendlyName, "ptr", ImageName, PFAX_ROUTING_INSTALLATION_CALLBACKW, CallBack, _ContextMarshal, _Context, BOOL)
         return result
     }
 
@@ -48,15 +49,19 @@ export default struct PFAXREGISTERROUTINGEXTENSIONW {
     struct From extends PFAXREGISTERROUTINGEXTENSIONW {
         /**
          * Creates a PFAXREGISTERROUTINGEXTENSIONW pointer that invokes the given AHK function when called.
-         * @param {Func(HANDLE, PWSTR, PWSTR, PWSTR, "ptr", "ptr") => BOOL} fn the function to invoke.
+         * @param {Func(HANDLE, PWSTR, PWSTR, PWSTR, PFAX_ROUTING_INSTALLATION_CALLBACKW, "ptr") => BOOL} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 6)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 6 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [HANDLE, PWSTR, PWSTR, PWSTR, "ptr", "ptr", BOOL])
+            this.value := CallbackCreate(fn, , [HANDLE, PWSTR, PWSTR, PWSTR, PFAX_ROUTING_INSTALLATION_CALLBACKW, "ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\CREATE_DISK_GPT.ahk" { CREATE_DISK_GPT }
 #Import ".\CREATE_DISK_MBR.ahk" { CREATE_DISK_MBR }
 #Import ".\PARTITION_STYLE.ahk" { PARTITION_STYLE }

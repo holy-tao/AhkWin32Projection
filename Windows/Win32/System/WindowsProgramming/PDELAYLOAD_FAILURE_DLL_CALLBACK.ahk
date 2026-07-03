@@ -45,6 +45,10 @@ export default struct PDELAYLOAD_FAILURE_DLL_CALLBACK {
             this.value := CallbackCreate(fn, , [UInt32, DELAYLOAD_INFO.Ptr, "ptr"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

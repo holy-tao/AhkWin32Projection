@@ -72,6 +72,10 @@ export default struct PCLUSAPI_GET_CLUSTER_NOTIFY_V2 {
             this.value := CallbackCreate(fn, , [HCHANGE, "ptr*", NOTIFY_FILTER_AND_TYPE.Ptr, "char*", "uint*", PWSTR, "uint*", PWSTR, "uint*", PWSTR, "uint*", PWSTR, "uint*", UInt32, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

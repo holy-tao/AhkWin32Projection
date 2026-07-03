@@ -57,6 +57,10 @@ export default struct PFN_CRYPT_XML_ENUM_ALG_INFO {
             this.value := CallbackCreate(fn, , [CRYPT_XML_ALGORITHM_INFO.Ptr, "ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

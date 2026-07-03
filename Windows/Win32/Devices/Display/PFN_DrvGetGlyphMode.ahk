@@ -46,6 +46,10 @@ export default struct PFN_DrvGetGlyphMode {
             this.value := CallbackCreate(fn, , [DHPDEV, FONTOBJ.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

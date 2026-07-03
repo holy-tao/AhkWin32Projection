@@ -52,6 +52,10 @@ export default struct WHV_EMULATOR_GET_VIRTUAL_PROCESSOR_REGISTERS_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", "int*", UInt32, WHV_REGISTER_VALUE.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

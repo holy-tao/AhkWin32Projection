@@ -66,6 +66,10 @@ export default struct PFNGENERATEGROUPPOLICY {
             this.value := CallbackCreate(fn, , [UInt32, BOOL.Ptr, PWSTR, RSOP_TARGET.Ptr, RSOP_TARGET.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

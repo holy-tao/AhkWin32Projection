@@ -61,6 +61,10 @@ export default struct PFN_DrvGradientFill {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, CLIPOBJ.Ptr, XLATEOBJ.Ptr, TRIVERTEX.Ptr, UInt32, "ptr", UInt32, RECTL.Ptr, POINTL.Ptr, UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

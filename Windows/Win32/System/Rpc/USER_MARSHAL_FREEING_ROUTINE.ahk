@@ -46,6 +46,10 @@ export default struct USER_MARSHAL_FREEING_ROUTINE {
             this.value := CallbackCreate(fn, , ["uint*", "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

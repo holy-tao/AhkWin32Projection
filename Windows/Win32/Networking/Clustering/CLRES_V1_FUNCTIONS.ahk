@@ -1,4 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PARBITRATE_ROUTINE.ahk" { PARBITRATE_ROUTINE }
+#Import ".\PCLOSE_ROUTINE.ahk" { PCLOSE_ROUTINE }
+#Import ".\PIS_ALIVE_ROUTINE.ahk" { PIS_ALIVE_ROUTINE }
+#Import ".\PLOOKS_ALIVE_ROUTINE.ahk" { PLOOKS_ALIVE_ROUTINE }
+#Import ".\POFFLINE_ROUTINE.ahk" { POFFLINE_ROUTINE }
+#Import ".\PONLINE_ROUTINE.ahk" { PONLINE_ROUTINE }
+#Import ".\POPEN_ROUTINE.ahk" { POPEN_ROUTINE }
+#Import ".\PRELEASE_ROUTINE.ahk" { PRELEASE_ROUTINE }
+#Import ".\PRESOURCE_CONTROL_ROUTINE.ahk" { PRESOURCE_CONTROL_ROUTINE }
+#Import ".\PRESOURCE_TYPE_CONTROL_ROUTINE.ahk" { PRESOURCE_TYPE_CONTROL_ROUTINE }
+#Import ".\PTERMINATE_ROUTINE.ahk" { PTERMINATE_ROUTINE }
 
 /**
  * Contains pointers to all Resource API version 1.0 entry points except Startup.
@@ -38,58 +49,58 @@ export default struct CLRES_V1_FUNCTIONS {
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-popen_routine">Open</a> entry point.
      */
-    Open : IntPtr
+    Open : POPEN_ROUTINE
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pclose_routine">Close</a> entry point.
      */
-    Close : IntPtr
+    Close : PCLOSE_ROUTINE
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-ponline_routine">Online</a> entry point.
      */
-    Online : IntPtr
+    Online : PONLINE_ROUTINE
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-poffline_routine">Offline</a> entry point.
      */
-    Offline : IntPtr
+    Offline : POFFLINE_ROUTINE
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pterminate_routine">Terminate</a> entry point.
      */
-    Terminate : IntPtr
+    Terminate : PTERMINATE_ROUTINE
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-plooks_alive_routine">LooksAlive</a> entry point.
      */
-    LooksAlive : IntPtr
+    LooksAlive : PLOOKS_ALIVE_ROUTINE
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pis_alive_routine">IsAlive</a> entry point.
      */
-    IsAlive : IntPtr
+    IsAlive : PIS_ALIVE_ROUTINE
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-parbitrate_routine">Arbitrate</a> entry point.
      */
-    Arbitrate : IntPtr
+    Arbitrate : PARBITRATE_ROUTINE
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-prelease_routine">Release</a> entry point.
      */
-    Release : IntPtr
+    Release : PRELEASE_ROUTINE
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-presource_control_routine">ResourceControl</a> entry 
      *       point.
      */
-    ResourceControl : IntPtr
+    ResourceControl : PRESOURCE_CONTROL_ROUTINE
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-presource_type_control_routine">ResourceTypeControl</a> entry 
      *       point.
      */
-    ResourceTypeControl : IntPtr
+    ResourceTypeControl : PRESOURCE_TYPE_CONTROL_ROUTINE
 
 }

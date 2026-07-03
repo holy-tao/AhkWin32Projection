@@ -77,6 +77,10 @@ export default struct PMGM_LOCAL_JOIN_CALLBACK {
             this.value := CallbackCreate(fn, , [UInt32, UInt32, UInt32, UInt32, UInt32, UInt32, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

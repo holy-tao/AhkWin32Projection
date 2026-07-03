@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PQUORUM_RESOURCE_LOST.ahk" { PQUORUM_RESOURCE_LOST }
 
 /**
  * Allows a node to attempt to regain ownership of a quorum resource.
@@ -70,7 +71,7 @@ export default struct PARBITRATE_ROUTINE {
     Call(Resource, LostQuorumResource) {
         ResourceMarshal := Resource is VarRef ? "ptr" : "ptr"
 
-        result := DllCall(this.value, ResourceMarshal, Resource, "ptr", LostQuorumResource, UInt32)
+        result := DllCall(this.value, ResourceMarshal, Resource, PQUORUM_RESOURCE_LOST, LostQuorumResource, UInt32)
         return result
     }
 
@@ -81,15 +82,19 @@ export default struct PARBITRATE_ROUTINE {
     struct From extends PARBITRATE_ROUTINE {
         /**
          * Creates a PARBITRATE_ROUTINE pointer that invokes the given AHK function when called.
-         * @param {Func("ptr", "ptr") => UInt32} fn the function to invoke.
+         * @param {Func("ptr", PQUORUM_RESOURCE_LOST) => UInt32} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 2)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 2 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , ["ptr", "ptr", UInt32])
+            this.value := CallbackCreate(fn, , ["ptr", PQUORUM_RESOURCE_LOST, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

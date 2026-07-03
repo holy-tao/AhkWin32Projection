@@ -59,6 +59,10 @@ export default struct PFN_AUTHENTICODE_DIGEST_SIGN_EX {
             this.value := CallbackCreate(fn, , [CRYPT_INTEGER_BLOB.Ptr, ALG_ID, "char*", UInt32, CRYPT_INTEGER_BLOB.Ptr, HCERTSTORE, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

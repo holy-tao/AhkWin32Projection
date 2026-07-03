@@ -38,7 +38,7 @@ export default struct BCryptImportKeyFn {
         pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
 
         result := DllCall(this.value, BCRYPT_ALG_HANDLE, hAlgorithm, BCRYPT_KEY_HANDLE, hImportKey, "ptr", pszBlobType, BCRYPT_KEY_HANDLE.Ptr, phKey, IntPtr, pbKeyObject, UInt32, cbKeyObject, IntPtr, pbInput, UInt32, cbInput, UInt32, dwFlags, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -58,6 +58,10 @@ export default struct BCryptImportKeyFn {
             this.value := CallbackCreate(fn, , [BCRYPT_ALG_HANDLE, BCRYPT_KEY_HANDLE, PWSTR, BCRYPT_KEY_HANDLE.Ptr, IntPtr, UInt32, IntPtr, UInt32, UInt32, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

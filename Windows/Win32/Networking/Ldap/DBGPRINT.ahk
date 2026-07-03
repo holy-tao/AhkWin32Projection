@@ -46,6 +46,10 @@ export default struct DBGPRINT {
             this.value := CallbackCreate(fn, "cdecl", [PSTR, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

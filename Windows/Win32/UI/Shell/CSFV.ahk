@@ -3,6 +3,7 @@
 #Import ".\FOLDERVIEWMODE.ahk" { FOLDERVIEWMODE }
 #Import ".\IShellFolder.ahk" { IShellFolder }
 #Import ".\IShellView.ahk" { IShellView }
+#Import ".\LPFNVIEWCALLBACK.ahk" { LPFNVIEWCALLBACK }
 
 /**
  * Used with the SHCreateShellFolderViewEx function.
@@ -50,7 +51,7 @@ export default struct CSFV {
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nc-shlobj_core-lpfnviewcallback">LPFNVIEWCALLBACK</a> function used by this folder view to handle callback messages. This parameter can be <b>NULL</b>.
      */
-    pfnCallback : IntPtr
+    pfnCallback : LPFNVIEWCALLBACK
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderviewmode">FOLDERVIEWMODE</a></b>

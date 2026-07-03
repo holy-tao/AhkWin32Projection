@@ -1,4 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DEREFERENCECONNECTION.ahk" { DEREFERENCECONNECTION }
+#Import ".\NOTIFYOFNEWCONNECTION.ahk" { NOTIFYOFNEWCONNECTION }
+#Import ".\QUERYFORCONNECTION.ahk" { QUERYFORCONNECTION }
 
 /**
  * Used to implement external caching of connections.
@@ -131,16 +134,16 @@ export default struct LDAP_REFERRAL_CALLBACK {
     /**
      * A pointer to a callback function to determine whether there is a cached connection cached available. For more information, see Remarks.
      */
-    QueryForConnection : IntPtr
+    QueryForConnection : QUERYFORCONNECTION
 
     /**
      * A pointer to a callback function that determines whether a new connection will be cached or destroyed after the operation completes. For more information, see Remarks.
      */
-    NotifyRoutine : IntPtr
+    NotifyRoutine : NOTIFYOFNEWCONNECTION
 
     /**
      * A pointer to a callback function to dereference a connection that is not in use. For more information, see Remarks.
      */
-    DereferenceRoutine : IntPtr
+    DereferenceRoutine : DEREFERENCECONNECTION
 
 }

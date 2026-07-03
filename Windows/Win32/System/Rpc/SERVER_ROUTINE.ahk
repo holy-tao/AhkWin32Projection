@@ -42,6 +42,10 @@ export default struct SERVER_ROUTINE {
             this.value := CallbackCreate(fn, , [Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

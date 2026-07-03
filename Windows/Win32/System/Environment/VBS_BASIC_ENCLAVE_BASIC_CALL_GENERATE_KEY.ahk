@@ -48,6 +48,10 @@ export default struct VBS_BASIC_ENCLAVE_BASIC_CALL_GENERATE_KEY {
             this.value := CallbackCreate(fn, , [ENCLAVE_VBS_BASIC_KEY_REQUEST.Ptr, UInt32, "char*", Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

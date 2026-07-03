@@ -4,6 +4,7 @@
 #Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import "..\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 #Import "..\HCERTSTORE.ahk" { HCERTSTORE }
+#Import ".\PFNTRUSTHELPER.ahk" { PFNTRUSTHELPER }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.UI
@@ -39,7 +40,7 @@ export default struct CERT_VERIFY_CERTIFICATE_TRUST {
 
     lCustData : LPARAM
 
-    pfnTrustHelper : IntPtr
+    pfnTrustHelper : PFNTRUSTHELPER
 
     pcChain : IntPtr
 

@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\USBUSER_REQUEST_HEADER.ahk" { USBUSER_REQUEST_HEADER }
 #Import ".\USB_PASS_THRU_PARAMETERS.ahk" { USB_PASS_THRU_PARAMETERS }
 #Import ".\USB_USER_ERROR_CODE.ahk" { USB_USER_ERROR_CODE }

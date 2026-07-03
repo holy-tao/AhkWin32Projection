@@ -48,6 +48,10 @@ export default struct FOUND_IMAGE_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", DOS_IMAGE_INFO.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

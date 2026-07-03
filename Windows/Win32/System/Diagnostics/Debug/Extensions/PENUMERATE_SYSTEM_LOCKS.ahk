@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDebugClient.ahk" { IDebugClient }
+#Import ".\KDEXTS_LOCK_CALLBACKROUTINE.ahk" { KDEXTS_LOCK_CALLBACKROUTINE }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -30,7 +31,7 @@ export default struct PENUMERATE_SYSTEM_LOCKS {
     Call(Client, Flags, Callback, _Context) {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall(this.value, "ptr", Client, UInt32, Flags, "ptr", Callback, _ContextMarshal, _Context, "HRESULT")
+        result := DllCall(this.value, "ptr", Client, UInt32, Flags, KDEXTS_LOCK_CALLBACKROUTINE, Callback, _ContextMarshal, _Context, "HRESULT")
         return result
     }
 
@@ -41,15 +42,19 @@ export default struct PENUMERATE_SYSTEM_LOCKS {
     struct From extends PENUMERATE_SYSTEM_LOCKS {
         /**
          * Creates a PENUMERATE_SYSTEM_LOCKS pointer that invokes the given AHK function when called.
-         * @param {Func("ptr", UInt32, "ptr", "ptr") => "int"} fn the function to invoke.
+         * @param {Func("ptr", UInt32, KDEXTS_LOCK_CALLBACKROUTINE, "ptr") => "int"} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 4)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 4 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , ["ptr", UInt32, "ptr", "ptr", "int"])
+            this.value := CallbackCreate(fn, , ["ptr", UInt32, KDEXTS_LOCK_CALLBACKROUTINE, "ptr", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

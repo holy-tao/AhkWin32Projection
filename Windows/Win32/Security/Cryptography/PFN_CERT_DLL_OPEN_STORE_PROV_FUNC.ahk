@@ -386,6 +386,10 @@ export default struct PFN_CERT_DLL_OPEN_STORE_PROV_FUNC {
             this.value := CallbackCreate(fn, , [PSTR, CERT_QUERY_ENCODING_TYPE, HCRYPTPROV_LEGACY, CERT_OPEN_STORE_FLAGS, "ptr", HCERTSTORE, CERT_STORE_PROV_INFO.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

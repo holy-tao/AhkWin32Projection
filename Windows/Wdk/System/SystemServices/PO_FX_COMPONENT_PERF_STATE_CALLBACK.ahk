@@ -49,6 +49,10 @@ export default struct PO_FX_COMPONENT_PERF_STATE_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, BOOLEAN, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

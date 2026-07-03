@@ -44,6 +44,10 @@ export default struct PFNFDIDECRYPT {
             this.value := CallbackCreate(fn, "cdecl", [FDIDECRYPT.Ptr, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

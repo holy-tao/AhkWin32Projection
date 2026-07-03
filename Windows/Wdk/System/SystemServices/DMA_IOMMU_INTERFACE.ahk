@@ -1,4 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PIOMMU_DOMAIN_ATTACH_DEVICE.ahk" { PIOMMU_DOMAIN_ATTACH_DEVICE }
+#Import ".\PIOMMU_DOMAIN_CONFIGURE.ahk" { PIOMMU_DOMAIN_CONFIGURE }
+#Import ".\PIOMMU_DOMAIN_CREATE.ahk" { PIOMMU_DOMAIN_CREATE }
+#Import ".\PIOMMU_DOMAIN_DELETE.ahk" { PIOMMU_DOMAIN_DELETE }
+#Import ".\PIOMMU_DOMAIN_DETACH_DEVICE.ahk" { PIOMMU_DOMAIN_DETACH_DEVICE }
+#Import ".\PIOMMU_FLUSH_DOMAIN.ahk" { PIOMMU_FLUSH_DOMAIN }
+#Import ".\PIOMMU_FLUSH_DOMAIN_VA_LIST.ahk" { PIOMMU_FLUSH_DOMAIN_VA_LIST }
+#Import ".\PIOMMU_MAP_IDENTITY_RANGE.ahk" { PIOMMU_MAP_IDENTITY_RANGE }
+#Import ".\PIOMMU_MAP_LOGICAL_RANGE.ahk" { PIOMMU_MAP_LOGICAL_RANGE }
+#Import ".\PIOMMU_QUERY_INPUT_MAPPINGS.ahk" { PIOMMU_QUERY_INPUT_MAPPINGS }
+#Import ".\PIOMMU_SET_DEVICE_FAULT_REPORTING.ahk" { PIOMMU_SET_DEVICE_FAULT_REPORTING }
+#Import ".\PIOMMU_UNMAP_IDENTITY_RANGE.ahk" { PIOMMU_UNMAP_IDENTITY_RANGE }
+#Import ".\PIOMMU_UNMAP_LOGICAL_RANGE.ahk" { PIOMMU_UNMAP_LOGICAL_RANGE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -8,30 +21,30 @@ export default struct DMA_IOMMU_INTERFACE {
 
     Version : UInt32
 
-    CreateDomain : IntPtr
+    CreateDomain : PIOMMU_DOMAIN_CREATE
 
-    DeleteDomain : IntPtr
+    DeleteDomain : PIOMMU_DOMAIN_DELETE
 
-    AttachDevice : IntPtr
+    AttachDevice : PIOMMU_DOMAIN_ATTACH_DEVICE
 
-    DetachDevice : IntPtr
+    DetachDevice : PIOMMU_DOMAIN_DETACH_DEVICE
 
-    FlushDomain : IntPtr
+    FlushDomain : PIOMMU_FLUSH_DOMAIN
 
-    FlushDomainByVaList : IntPtr
+    FlushDomainByVaList : PIOMMU_FLUSH_DOMAIN_VA_LIST
 
-    QueryInputMappings : IntPtr
+    QueryInputMappings : PIOMMU_QUERY_INPUT_MAPPINGS
 
-    MapLogicalRange : IntPtr
+    MapLogicalRange : PIOMMU_MAP_LOGICAL_RANGE
 
-    UnmapLogicalRange : IntPtr
+    UnmapLogicalRange : PIOMMU_UNMAP_LOGICAL_RANGE
 
-    MapIdentityRange : IntPtr
+    MapIdentityRange : PIOMMU_MAP_IDENTITY_RANGE
 
-    UnmapIdentityRange : IntPtr
+    UnmapIdentityRange : PIOMMU_UNMAP_IDENTITY_RANGE
 
-    SetDeviceFaultReporting : IntPtr
+    SetDeviceFaultReporting : PIOMMU_SET_DEVICE_FAULT_REPORTING
 
-    ConfigureDomain : IntPtr
+    ConfigureDomain : PIOMMU_DOMAIN_CONFIGURE
 
 }

@@ -30,7 +30,7 @@ export default struct PLSA_CHECK_PROTECTED_USER_BY_TOKEN {
         ProtectedUserMarshal := ProtectedUser is VarRef ? "char*" : "ptr"
 
         result := DllCall(this.value, HANDLE, UserToken, ProtectedUserMarshal, ProtectedUser, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -50,6 +50,10 @@ export default struct PLSA_CHECK_PROTECTED_USER_BY_TOKEN {
             this.value := CallbackCreate(fn, , [HANDLE, BOOLEAN.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

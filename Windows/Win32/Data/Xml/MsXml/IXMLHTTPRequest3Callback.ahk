@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IXMLHTTPRequest2Callback.ahk" { IXMLHTTPRequest2Callback }
 #Import ".\IXMLHTTPRequest3.ahk" { IXMLHTTPRequest3 }
 #Import ".\XHR_CERT.ahk" { XHR_CERT }

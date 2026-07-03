@@ -46,6 +46,10 @@ export default struct PKSEC_DEREFERENCE_LIST_ENTRY {
             this.value := CallbackCreate(fn, , [KSEC_LIST_ENTRY.Ptr, "char*", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

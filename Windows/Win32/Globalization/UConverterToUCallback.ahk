@@ -56,6 +56,10 @@ export default struct UConverterToUCallback {
             this.value := CallbackCreate(fn, "cdecl", ["ptr", UConverterToUnicodeArgs.Ptr, PSTR, Int32, UConverterCallbackReason, "int*", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

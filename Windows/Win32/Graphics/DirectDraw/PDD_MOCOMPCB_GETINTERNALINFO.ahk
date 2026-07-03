@@ -50,6 +50,10 @@ export default struct PDD_MOCOMPCB_GETINTERNALINFO {
             this.value := CallbackCreate(fn, , [DD_GETINTERNALMOCOMPDATA.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

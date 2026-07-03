@@ -60,6 +60,10 @@ export default struct CHANGE_PASSWORD_FN_W {
             this.value := CallbackCreate(fn, , ["ushort*", "ushort*", "ushort*", "ushort*", "ushort*", BOOLEAN, UInt32, SecBufferDesc.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

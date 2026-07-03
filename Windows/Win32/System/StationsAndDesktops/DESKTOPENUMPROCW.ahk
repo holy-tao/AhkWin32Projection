@@ -50,6 +50,10 @@ export default struct DESKTOPENUMPROCW {
             this.value := CallbackCreate(fn, , [PWSTR, LPARAM, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

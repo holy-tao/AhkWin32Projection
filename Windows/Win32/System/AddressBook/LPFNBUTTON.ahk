@@ -60,6 +60,10 @@ export default struct LPFNBUTTON {
             this.value := CallbackCreate(fn, , [IntPtr, "ptr", UInt32, ENTRYID.Ptr, UInt32, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

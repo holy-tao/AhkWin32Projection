@@ -13,6 +13,7 @@
 #Import ".\EVT_LOG_PROPERTY_ID.ahk" { EVT_LOG_PROPERTY_ID }
 #Import ".\EVT_PUBLISHER_METADATA_PROPERTY_ID.ahk" { EVT_PUBLISHER_METADATA_PROPERTY_ID }
 #Import ".\EVT_QUERY_PROPERTY_ID.ahk" { EVT_QUERY_PROPERTY_ID }
+#Import ".\EVT_SUBSCRIBE_CALLBACK.ahk" { EVT_SUBSCRIBE_CALLBACK }
 #Import ".\EVT_VARIANT.ahk" { EVT_VARIANT }
 #Import ".\READ_EVENT_LOG_READ_FLAGS.ahk" { READ_EVENT_LOG_READ_FLAGS }
 #Import ".\REPORT_EVENT_TYPE.ahk" { REPORT_EVENT_TYPE }
@@ -398,7 +399,7 @@ export EvtSubscribe(Session, SignalEvent, ChannelPath, Query, Bookmark, _Context
 
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtSubscribe", EVT_HANDLE, Session, HANDLE, SignalEvent, "ptr", ChannelPath, "ptr", Query, EVT_HANDLE, Bookmark, _ContextMarshal, _Context, "ptr", Callback, UInt32, Flags, EVT_HANDLE.Owned)
+    result := DllCall("wevtapi.dll\EvtSubscribe", EVT_HANDLE, Session, HANDLE, SignalEvent, "ptr", ChannelPath, "ptr", Query, EVT_HANDLE, Bookmark, _ContextMarshal, _Context, EVT_SUBSCRIBE_CALLBACK, Callback, UInt32, Flags, EVT_HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }

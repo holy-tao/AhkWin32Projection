@@ -58,6 +58,10 @@ export default struct LPFNDEVMODE {
             this.value := CallbackCreate(fn, , [HWND, HMODULE, DEVMODEA.Ptr, PSTR, PSTR, DEVMODEA.Ptr, PSTR, UInt32, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

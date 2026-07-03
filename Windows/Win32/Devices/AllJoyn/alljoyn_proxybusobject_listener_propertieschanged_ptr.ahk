@@ -53,6 +53,10 @@ export default struct alljoyn_proxybusobject_listener_propertieschanged_ptr {
             this.value := CallbackCreate(fn, , [alljoyn_proxybusobject, PSTR, alljoyn_msgarg, alljoyn_msgarg, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

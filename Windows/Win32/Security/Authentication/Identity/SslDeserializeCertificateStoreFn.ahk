@@ -46,6 +46,10 @@ export default struct SslDeserializeCertificateStoreFn {
             this.value := CallbackCreate(fn, , [CRYPT_INTEGER_BLOB, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

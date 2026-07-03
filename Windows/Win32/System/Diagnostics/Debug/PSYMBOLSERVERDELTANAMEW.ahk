@@ -60,6 +60,10 @@ export default struct PSYMBOLSERVERDELTANAMEW {
             this.value := CallbackCreate(fn, , [PWSTR, "ptr", UInt32, UInt32, "ptr", UInt32, UInt32, PWSTR, IntPtr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

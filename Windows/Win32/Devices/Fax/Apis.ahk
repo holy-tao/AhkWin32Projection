@@ -23,6 +23,9 @@
 #Import ".\FAX_ROUTING_METHODA.ahk" { FAX_ROUTING_METHODA }
 #Import ".\FAX_ROUTING_METHODW.ahk" { FAX_ROUTING_METHODW }
 #Import ".\IStillImageW.ahk" { IStillImageW }
+#Import ".\PFAX_RECIPIENT_CALLBACKA.ahk" { PFAX_RECIPIENT_CALLBACKA }
+#Import ".\PFAX_RECIPIENT_CALLBACKW.ahk" { PFAX_RECIPIENT_CALLBACKW }
+#Import ".\PFAX_ROUTING_INSTALLATION_CALLBACKW.ahk" { PFAX_ROUTING_INSTALLATION_CALLBACKW }
 #Import ".\SendToMode.ahk" { SendToMode }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
@@ -676,7 +679,7 @@ export FaxSendDocumentForBroadcastA(FaxHandle, FileName, FaxJobId, FaxRecipientC
 
     A_LastError := 0
 
-    result := DllCall("WINFAX.dll\FaxSendDocumentForBroadcastA", HANDLE, FaxHandle, "ptr", FileName, FaxJobIdMarshal, FaxJobId, "ptr", FaxRecipientCallback, _ContextMarshal, _Context, BOOL)
+    result := DllCall("WINFAX.dll\FaxSendDocumentForBroadcastA", HANDLE, FaxHandle, "ptr", FileName, FaxJobIdMarshal, FaxJobId, PFAX_RECIPIENT_CALLBACKA, FaxRecipientCallback, _ContextMarshal, _Context, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -797,7 +800,7 @@ export FaxSendDocumentForBroadcastW(FaxHandle, FileName, FaxJobId, FaxRecipientC
 
     A_LastError := 0
 
-    result := DllCall("WINFAX.dll\FaxSendDocumentForBroadcastW", HANDLE, FaxHandle, "ptr", FileName, FaxJobIdMarshal, FaxJobId, "ptr", FaxRecipientCallback, _ContextMarshal, _Context, BOOL)
+    result := DllCall("WINFAX.dll\FaxSendDocumentForBroadcastW", HANDLE, FaxHandle, "ptr", FileName, FaxJobIdMarshal, FaxJobId, PFAX_RECIPIENT_CALLBACKW, FaxRecipientCallback, _ContextMarshal, _Context, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4347,7 +4350,7 @@ export FaxRegisterRoutingExtensionW(FaxHandle, ExtensionName, FriendlyName, Imag
 
     A_LastError := 0
 
-    result := DllCall("WINFAX.dll\FaxRegisterRoutingExtensionW", HANDLE, FaxHandle, "ptr", ExtensionName, "ptr", FriendlyName, "ptr", ImageName, "ptr", CallBack, _ContextMarshal, _Context, BOOL)
+    result := DllCall("WINFAX.dll\FaxRegisterRoutingExtensionW", HANDLE, FaxHandle, "ptr", ExtensionName, "ptr", FriendlyName, "ptr", ImageName, PFAX_ROUTING_INSTALLATION_CALLBACKW, CallBack, _ContextMarshal, _Context, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }

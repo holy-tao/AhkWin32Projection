@@ -1,6 +1,6 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\LUID.ahk" { LUID }
@@ -33,12 +33,16 @@
 #Import ".\EXPLICIT_ACCESS_A.ahk" { EXPLICIT_ACCESS_A }
 #Import ".\EXPLICIT_ACCESS_W.ahk" { EXPLICIT_ACCESS_W }
 #Import ".\FN_OBJECT_MGR_FUNCTS.ahk" { FN_OBJECT_MGR_FUNCTS }
+#Import ".\FN_PROGRESS.ahk" { FN_PROGRESS }
 #Import ".\INHERITED_FROMA.ahk" { INHERITED_FROMA }
 #Import ".\INHERITED_FROMW.ahk" { INHERITED_FROMW }
 #Import ".\MULTIPLE_TRUSTEE_OPERATION.ahk" { MULTIPLE_TRUSTEE_OPERATION }
 #Import ".\OBJECTS_AND_NAME_A.ahk" { OBJECTS_AND_NAME_A }
 #Import ".\OBJECTS_AND_NAME_W.ahk" { OBJECTS_AND_NAME_W }
 #Import ".\OBJECTS_AND_SID.ahk" { OBJECTS_AND_SID }
+#Import ".\PFN_AUTHZ_COMPUTE_DYNAMIC_GROUPS.ahk" { PFN_AUTHZ_COMPUTE_DYNAMIC_GROUPS }
+#Import ".\PFN_AUTHZ_DYNAMIC_ACCESS_CHECK.ahk" { PFN_AUTHZ_DYNAMIC_ACCESS_CHECK }
+#Import ".\PFN_AUTHZ_FREE_DYNAMIC_GROUPS.ahk" { PFN_AUTHZ_FREE_DYNAMIC_GROUPS }
 #Import ".\PROG_INVOKE_SETTING.ahk" { PROG_INVOKE_SETTING }
 #Import ".\SE_OBJECT_TYPE.ahk" { SE_OBJECT_TYPE }
 #Import ".\TREE_SEC_INFO.ahk" { TREE_SEC_INFO }
@@ -52,6 +56,7 @@
 #Import "..\PSID.ahk" { PSID }
 #Import "..\SID_AND_ATTRIBUTES.ahk" { SID_AND_ATTRIBUTES }
 #Import "..\TOKEN_GROUPS.ahk" { TOKEN_GROUPS }
+#Import "..\..\System\Threading\LPTHREAD_START_ROUTINE.ahk" { LPTHREAD_START_ROUTINE }
 
 /**
  * @namespace Windows.Win32.Security.Authorization
@@ -322,7 +327,7 @@ export AuthzInitializeResourceManager(Flags, pfnDynamicAccessCheck, pfnComputeDy
 
     A_LastError := 0
 
-    result := DllCall("AUTHZ.dll\AuthzInitializeResourceManager", UInt32, Flags, "ptr", pfnDynamicAccessCheck, "ptr", pfnComputeDynamicGroups, "ptr", pfnFreeDynamicGroups, "ptr", szResourceManagerName, AUTHZ_RESOURCE_MANAGER_HANDLE.Ptr, phAuthzResourceManager, BOOL)
+    result := DllCall("AUTHZ.dll\AuthzInitializeResourceManager", UInt32, Flags, PFN_AUTHZ_DYNAMIC_ACCESS_CHECK, pfnDynamicAccessCheck, PFN_AUTHZ_COMPUTE_DYNAMIC_GROUPS, pfnComputeDynamicGroups, PFN_AUTHZ_FREE_DYNAMIC_GROUPS, pfnFreeDynamicGroups, "ptr", szResourceManagerName, AUTHZ_RESOURCE_MANAGER_HANDLE.Ptr, phAuthzResourceManager, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1186,7 +1191,7 @@ export AuthzRegisterCapChangeNotification(phCapChangeSubscription, pfnCapChangeC
 
     A_LastError := 0
 
-    result := DllCall("AUTHZ.dll\AuthzRegisterCapChangeNotification", AUTHZ_CAP_CHANGE_SUBSCRIPTION_HANDLE.Ptr, phCapChangeSubscription, "ptr", pfnCapChangeCallback, pCallbackContextMarshal, pCallbackContext, BOOL)
+    result := DllCall("AUTHZ.dll\AuthzRegisterCapChangeNotification", AUTHZ_CAP_CHANGE_SUBSCRIPTION_HANDLE.Ptr, phCapChangeSubscription, LPTHREAD_START_ROUTINE, pfnCapChangeCallback, pCallbackContextMarshal, pCallbackContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2022,7 +2027,7 @@ export TreeResetNamedSecurityInfoA(pObjectName, _ObjectType, SecurityInfo, pOwne
 
     ArgsMarshal := Args is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\TreeResetNamedSecurityInfoA", "ptr", pObjectName, SE_OBJECT_TYPE, _ObjectType, OBJECT_SECURITY_INFORMATION, SecurityInfo, PSID, pOwner, PSID, pGroup, ACL.Ptr, pDacl, ACL.Ptr, pSacl, BOOL, KeepExplicit, "ptr", fnProgress, PROG_INVOKE_SETTING, ProgressInvokeSetting, ArgsMarshal, Args, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\TreeResetNamedSecurityInfoA", "ptr", pObjectName, SE_OBJECT_TYPE, _ObjectType, OBJECT_SECURITY_INFORMATION, SecurityInfo, PSID, pOwner, PSID, pGroup, ACL.Ptr, pDacl, ACL.Ptr, pSacl, BOOL, KeepExplicit, FN_PROGRESS, fnProgress, PROG_INVOKE_SETTING, ProgressInvokeSetting, ArgsMarshal, Args, WIN32_ERROR)
     return result
 }
 
@@ -2072,7 +2077,7 @@ export TreeResetNamedSecurityInfoW(pObjectName, _ObjectType, SecurityInfo, pOwne
 
     ArgsMarshal := Args is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\TreeResetNamedSecurityInfoW", "ptr", pObjectName, SE_OBJECT_TYPE, _ObjectType, OBJECT_SECURITY_INFORMATION, SecurityInfo, PSID, pOwner, PSID, pGroup, ACL.Ptr, pDacl, ACL.Ptr, pSacl, BOOL, KeepExplicit, "ptr", fnProgress, PROG_INVOKE_SETTING, ProgressInvokeSetting, ArgsMarshal, Args, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\TreeResetNamedSecurityInfoW", "ptr", pObjectName, SE_OBJECT_TYPE, _ObjectType, OBJECT_SECURITY_INFORMATION, SecurityInfo, PSID, pOwner, PSID, pGroup, ACL.Ptr, pDacl, ACL.Ptr, pSacl, BOOL, KeepExplicit, FN_PROGRESS, fnProgress, PROG_INVOKE_SETTING, ProgressInvokeSetting, ArgsMarshal, Args, WIN32_ERROR)
     return result
 }
 
@@ -2124,7 +2129,7 @@ export TreeSetNamedSecurityInfoA(pObjectName, _ObjectType, SecurityInfo, pOwner,
 
     ArgsMarshal := Args is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\TreeSetNamedSecurityInfoA", "ptr", pObjectName, SE_OBJECT_TYPE, _ObjectType, OBJECT_SECURITY_INFORMATION, SecurityInfo, PSID, pOwner, PSID, pGroup, ACL.Ptr, pDacl, ACL.Ptr, pSacl, TREE_SEC_INFO, dwAction, "ptr", fnProgress, PROG_INVOKE_SETTING, ProgressInvokeSetting, ArgsMarshal, Args, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\TreeSetNamedSecurityInfoA", "ptr", pObjectName, SE_OBJECT_TYPE, _ObjectType, OBJECT_SECURITY_INFORMATION, SecurityInfo, PSID, pOwner, PSID, pGroup, ACL.Ptr, pDacl, ACL.Ptr, pSacl, TREE_SEC_INFO, dwAction, FN_PROGRESS, fnProgress, PROG_INVOKE_SETTING, ProgressInvokeSetting, ArgsMarshal, Args, WIN32_ERROR)
     return result
 }
 
@@ -2176,7 +2181,7 @@ export TreeSetNamedSecurityInfoW(pObjectName, _ObjectType, SecurityInfo, pOwner,
 
     ArgsMarshal := Args is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\TreeSetNamedSecurityInfoW", "ptr", pObjectName, SE_OBJECT_TYPE, _ObjectType, OBJECT_SECURITY_INFORMATION, SecurityInfo, PSID, pOwner, PSID, pGroup, ACL.Ptr, pDacl, ACL.Ptr, pSacl, TREE_SEC_INFO, dwAction, "ptr", fnProgress, PROG_INVOKE_SETTING, ProgressInvokeSetting, ArgsMarshal, Args, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\TreeSetNamedSecurityInfoW", "ptr", pObjectName, SE_OBJECT_TYPE, _ObjectType, OBJECT_SECURITY_INFORMATION, SecurityInfo, PSID, pOwner, PSID, pGroup, ACL.Ptr, pDacl, ACL.Ptr, pSacl, TREE_SEC_INFO, dwAction, FN_PROGRESS, fnProgress, PROG_INVOKE_SETTING, ProgressInvokeSetting, ArgsMarshal, Args, WIN32_ERROR)
     return result
 }
 

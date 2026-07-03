@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\WINBIO_BIR.ahk" { WINBIO_BIR }
 #Import ".\WINBIO_BSP_SCHEMA.ahk" { WINBIO_BSP_SCHEMA }
 #Import ".\WINBIO_COMPONENT.ahk" { WINBIO_COMPONENT }

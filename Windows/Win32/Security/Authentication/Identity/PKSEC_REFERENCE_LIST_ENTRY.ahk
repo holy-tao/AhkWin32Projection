@@ -29,7 +29,7 @@ export default struct PKSEC_REFERENCE_LIST_ENTRY {
      */
     Call(Entry, Signature, RemoveNoRef) {
         result := DllCall(this.value, KSEC_LIST_ENTRY.Ptr, Entry, UInt32, Signature, BOOLEAN, RemoveNoRef, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -49,6 +49,10 @@ export default struct PKSEC_REFERENCE_LIST_ENTRY {
             this.value := CallbackCreate(fn, , [KSEC_LIST_ENTRY.Ptr, UInt32, BOOLEAN, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

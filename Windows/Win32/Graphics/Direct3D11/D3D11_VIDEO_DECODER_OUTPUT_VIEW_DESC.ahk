@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\D3D11_TEX2D_VDOV.ahk" { D3D11_TEX2D_VDOV }
 #Import ".\D3D11_VDOV_DIMENSION.ahk" { D3D11_VDOV_DIMENSION }
 

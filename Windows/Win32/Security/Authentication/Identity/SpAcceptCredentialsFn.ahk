@@ -49,7 +49,7 @@ export default struct SpAcceptCredentialsFn {
      */
     Call(LogonType, AccountName, PrimaryCredentials, SupplementalCredentials) {
         result := DllCall(this.value, SECURITY_LOGON_TYPE, LogonType, LSA_UNICODE_STRING.Ptr, AccountName, SECPKG_PRIMARY_CRED.Ptr, PrimaryCredentials, SECPKG_SUPPLEMENTAL_CRED.Ptr, SupplementalCredentials, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -69,6 +69,10 @@ export default struct SpAcceptCredentialsFn {
             this.value := CallbackCreate(fn, , [SECURITY_LOGON_TYPE, LSA_UNICODE_STRING.Ptr, SECPKG_PRIMARY_CRED.Ptr, SECPKG_SUPPLEMENTAL_CRED.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

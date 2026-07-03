@@ -56,6 +56,10 @@ export default struct PSYMBOLSERVERSTORESUPPLEMENT {
             this.value := CallbackCreate(fn, , [PSTR, PSTR, PSTR, PSTR, IntPtr, UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

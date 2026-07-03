@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\CLUSPROP_PARTITION_INFO_EX.ahk" { CLUSPROP_PARTITION_INFO_EX }
 #Import ".\CLUSPROP_SYNTAX.ahk" { CLUSPROP_SYNTAX }
 #Import ".\CLUSPROP_VALUE.ahk" { CLUSPROP_VALUE }

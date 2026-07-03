@@ -54,6 +54,10 @@ export default struct PWINSTATIONQUERYINFORMATIONW {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, WINSTATIONINFOCLASS, "ptr", UInt32, "uint*", BOOLEAN])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

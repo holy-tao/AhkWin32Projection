@@ -83,6 +83,10 @@ export default struct PFN_CMSG_CNG_IMPORT_KEY_TRANS {
             this.value := CallbackCreate(fn, , [CMSG_CNG_CONTENT_DECRYPT_INFO.Ptr, CMSG_CTRL_KEY_TRANS_DECRYPT_PARA.Ptr, UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

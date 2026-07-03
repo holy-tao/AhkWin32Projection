@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\PFNCOMPROPSHEET.ahk" { PFNCOMPROPSHEET }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -15,6 +16,6 @@ export default struct PSPINFO {
 
     hCPSUIPage : HANDLE
 
-    pfnComPropSheet : IntPtr
+    pfnComPropSheet : PFNCOMPROPSHEET
 
 }

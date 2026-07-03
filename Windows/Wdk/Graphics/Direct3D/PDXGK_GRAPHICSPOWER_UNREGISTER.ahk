@@ -29,7 +29,7 @@ export default struct PDXGK_GRAPHICSPOWER_UNREGISTER {
         PrivateHandleMarshal := PrivateHandle is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, DeviceHandleMarshal, DeviceHandle, PrivateHandleMarshal, PrivateHandle, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -49,6 +49,10 @@ export default struct PDXGK_GRAPHICSPOWER_UNREGISTER {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

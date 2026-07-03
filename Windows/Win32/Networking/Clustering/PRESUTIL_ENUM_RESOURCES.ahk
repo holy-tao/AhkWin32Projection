@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\HRESOURCE.ahk" { HRESOURCE }
+#Import ".\LPRESOURCE_CALLBACK.ahk" { LPRESOURCE_CALLBACK }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -32,7 +33,7 @@ export default struct PRESUTIL_ENUM_RESOURCES {
 
         pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
 
-        result := DllCall(this.value, HRESOURCE, hSelf, "ptr", lpszResTypeName, "ptr", pResCallBack, pParameterMarshal, pParameter, UInt32)
+        result := DllCall(this.value, HRESOURCE, hSelf, "ptr", lpszResTypeName, LPRESOURCE_CALLBACK, pResCallBack, pParameterMarshal, pParameter, UInt32)
         return result
     }
 
@@ -43,15 +44,19 @@ export default struct PRESUTIL_ENUM_RESOURCES {
     struct From extends PRESUTIL_ENUM_RESOURCES {
         /**
          * Creates a PRESUTIL_ENUM_RESOURCES pointer that invokes the given AHK function when called.
-         * @param {Func(HRESOURCE, PWSTR, "ptr", "ptr") => UInt32} fn the function to invoke.
+         * @param {Func(HRESOURCE, PWSTR, LPRESOURCE_CALLBACK, "ptr") => UInt32} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 4)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 4 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [HRESOURCE, PWSTR, "ptr", "ptr", UInt32])
+            this.value := CallbackCreate(fn, , [HRESOURCE, PWSTR, LPRESOURCE_CALLBACK, "ptr", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

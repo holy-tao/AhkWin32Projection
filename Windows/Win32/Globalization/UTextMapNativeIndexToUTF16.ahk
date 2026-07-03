@@ -45,6 +45,10 @@ export default struct UTextMapNativeIndexToUTF16 {
             this.value := CallbackCreate(fn, "cdecl", [UText.Ptr, Int64, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

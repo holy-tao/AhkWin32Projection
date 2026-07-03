@@ -31,7 +31,7 @@ export default struct PLSA_REDIRECTED_LOGON_INIT {
      */
     Call(RedirectedLogonHandle, PackageName, SessionId, LogonId) {
         result := DllCall(this.value, HANDLE, RedirectedLogonHandle, LSA_UNICODE_STRING.Ptr, PackageName, UInt32, SessionId, LUID.Ptr, LogonId, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -51,6 +51,10 @@ export default struct PLSA_REDIRECTED_LOGON_INIT {
             this.value := CallbackCreate(fn, , [HANDLE, LSA_UNICODE_STRING.Ptr, UInt32, LUID.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

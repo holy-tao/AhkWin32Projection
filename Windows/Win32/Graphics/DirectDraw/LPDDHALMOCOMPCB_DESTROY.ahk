@@ -44,6 +44,10 @@ export default struct LPDDHALMOCOMPCB_DESTROY {
             this.value := CallbackCreate(fn, , [DDHAL_DESTROYMOCOMPDATA.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

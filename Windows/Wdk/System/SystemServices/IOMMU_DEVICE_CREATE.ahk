@@ -32,7 +32,7 @@ export default struct IOMMU_DEVICE_CREATE {
         DmaDeviceOutMarshal := DmaDeviceOut is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, DEVICE_OBJECT.Ptr, DeviceObject, IOMMU_DEVICE_CREATION_CONFIGURATION.Ptr, DeviceConfig, DmaDeviceOutMarshal, DmaDeviceOut, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -52,6 +52,10 @@ export default struct IOMMU_DEVICE_CREATE {
             this.value := CallbackCreate(fn, , [DEVICE_OBJECT.Ptr, IOMMU_DEVICE_CREATION_CONFIGURATION.Ptr, "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

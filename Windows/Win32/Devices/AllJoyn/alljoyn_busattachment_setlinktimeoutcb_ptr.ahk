@@ -47,6 +47,10 @@ export default struct alljoyn_busattachment_setlinktimeoutcb_ptr {
             this.value := CallbackCreate(fn, , [QStatus, UInt32, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

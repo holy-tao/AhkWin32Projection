@@ -50,6 +50,10 @@ export default struct DRT_BOOTSTRAP_RESOLVE_CALLBACK {
             this.value := CallbackCreate(fn, , ["int", "ptr", SOCKET_ADDRESS_LIST.Ptr, BOOL, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

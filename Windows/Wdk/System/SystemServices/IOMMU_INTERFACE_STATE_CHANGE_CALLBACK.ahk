@@ -46,6 +46,10 @@ export default struct IOMMU_INTERFACE_STATE_CHANGE_CALLBACK {
             this.value := CallbackCreate(fn, , [IOMMU_INTERFACE_STATE_CHANGE.Ptr, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

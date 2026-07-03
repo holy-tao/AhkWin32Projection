@@ -47,6 +47,10 @@ export default struct RTM_ENTITY_EXPORT_METHOD {
             this.value := CallbackCreate(fn, , [IntPtr, IntPtr, RTM_ENTITY_METHOD_INPUT.Ptr, RTM_ENTITY_METHOD_OUTPUT.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

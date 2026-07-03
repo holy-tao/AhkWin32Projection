@@ -67,6 +67,10 @@ export default struct LPHANDLER_FUNCTION {
             this.value := CallbackCreate(fn, , [UInt32, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

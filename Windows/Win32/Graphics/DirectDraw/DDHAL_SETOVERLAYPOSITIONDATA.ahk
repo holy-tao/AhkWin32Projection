@@ -2,6 +2,7 @@
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
 #Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
+#Import ".\LPDDHALSURFCB_SETOVERLAYPOSITION.ahk" { LPDDHALSURFCB_SETOVERLAYPOSITION }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -21,6 +22,6 @@ export default struct DDHAL_SETOVERLAYPOSITIONDATA {
 
     ddRVal : HRESULT
 
-    SetOverlayPosition : IntPtr
+    SetOverlayPosition : LPDDHALSURFCB_SETOVERLAYPOSITION
 
 }

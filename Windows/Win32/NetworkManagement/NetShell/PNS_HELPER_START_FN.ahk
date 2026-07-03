@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetShell
@@ -45,6 +45,10 @@ export default struct PNS_HELPER_START_FN {
             this.value := CallbackCreate(fn, , [Guid.Ptr, UInt32, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

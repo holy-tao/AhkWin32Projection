@@ -52,6 +52,10 @@ export default struct LPMAPISAVEMAIL {
             this.value := CallbackCreate(fn, , [IntPtr, IntPtr, MapiMessage.Ptr, UInt32, UInt32, PSTR, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

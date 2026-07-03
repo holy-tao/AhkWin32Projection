@@ -63,6 +63,10 @@ export default struct PFN_WdsCliCallback {
             this.value := CallbackCreate(fn, , [PFN_WDS_CLI_CALLBACK_MESSAGE_ID, WPARAM, LPARAM, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

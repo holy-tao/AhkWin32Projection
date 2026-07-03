@@ -54,6 +54,10 @@ export default struct LPFN_TRANSMITFILE {
             this.value := CallbackCreate(fn, , [SOCKET, HANDLE, UInt32, UInt32, OVERLAPPED.Ptr, TRANSMIT_FILE_BUFFERS.Ptr, UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

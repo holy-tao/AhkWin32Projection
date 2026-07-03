@@ -38,7 +38,7 @@ export default struct BCryptDeriveKeyFn {
         pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, BCRYPT_SECRET_HANDLE, hSharedSecret, "ptr", pwszKDF, BCryptBufferDesc.Ptr, pParameterList, IntPtr, pbDerivedKey, UInt32, cbDerivedKey, pcbResultMarshal, pcbResult, UInt32, dwFlags, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -58,6 +58,10 @@ export default struct BCryptDeriveKeyFn {
             this.value := CallbackCreate(fn, , [BCRYPT_SECRET_HANDLE, PWSTR, BCryptBufferDesc.Ptr, IntPtr, UInt32, "uint*", UInt32, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

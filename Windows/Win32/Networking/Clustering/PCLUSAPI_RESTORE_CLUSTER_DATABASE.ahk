@@ -50,6 +50,10 @@ export default struct PCLUSAPI_RESTORE_CLUSTER_DATABASE {
             this.value := CallbackCreate(fn, , [PWSTR, BOOL, PWSTR, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

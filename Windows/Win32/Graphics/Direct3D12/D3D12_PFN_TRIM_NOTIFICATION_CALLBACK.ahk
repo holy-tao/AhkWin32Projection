@@ -43,6 +43,10 @@ export default struct D3D12_PFN_TRIM_NOTIFICATION_CALLBACK {
             this.value := CallbackCreate(fn, , [D3D12_TRIM_NOTIFICATION.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

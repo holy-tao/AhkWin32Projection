@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import ".\D3D12_RESOLVE_MODE.ahk" { D3D12_RESOLVE_MODE }
 #Import ".\D3D12_SAMPLE_POSITION.ahk" { D3D12_SAMPLE_POSITION }

@@ -46,6 +46,10 @@ export default struct PGET_POOL_TAG_DESCRIPTION {
             this.value := CallbackCreate(fn, , [UInt32, DEBUG_POOLTAG_DESCRIPTION.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

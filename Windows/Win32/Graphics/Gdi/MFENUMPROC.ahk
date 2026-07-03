@@ -57,6 +57,10 @@ export default struct MFENUMPROC {
             this.value := CallbackCreate(fn, , [HDC, HANDLETABLE.Ptr, METARECORD.Ptr, Int32, LPARAM, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

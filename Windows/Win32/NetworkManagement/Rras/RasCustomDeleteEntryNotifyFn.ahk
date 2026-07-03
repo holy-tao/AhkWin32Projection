@@ -51,6 +51,10 @@ export default struct RasCustomDeleteEntryNotifyFn {
             this.value := CallbackCreate(fn, , [PWSTR, PWSTR, UInt32, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

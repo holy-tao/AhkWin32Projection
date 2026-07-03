@@ -55,6 +55,10 @@ export default struct PDX_ENABLEIRQ {
             this.value := CallbackCreate(fn, , ["ptr", DDENABLEIRQINFO.Ptr, "ptr", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

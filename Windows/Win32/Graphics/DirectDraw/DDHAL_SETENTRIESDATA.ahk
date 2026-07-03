@@ -2,6 +2,7 @@
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDRAWI_DDRAWPALETTE_GBL.ahk" { DDRAWI_DDRAWPALETTE_GBL }
 #Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
+#Import ".\LPDDHALPALCB_SETENTRIES.ahk" { LPDDHALPALCB_SETENTRIES }
 #Import "..\Gdi\PALETTEENTRY.ahk" { PALETTEENTRY }
 
 /**
@@ -22,6 +23,6 @@ export default struct DDHAL_SETENTRIESDATA {
 
     ddRVal : HRESULT
 
-    SetEntries : IntPtr
+    SetEntries : LPDDHALPALCB_SETENTRIES
 
 }

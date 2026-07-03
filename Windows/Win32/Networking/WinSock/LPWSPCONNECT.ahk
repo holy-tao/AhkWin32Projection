@@ -298,6 +298,10 @@ export default struct LPWSPCONNECT {
             this.value := CallbackCreate(fn, , [SOCKET, IntPtr, Int32, WSABUF.Ptr, WSABUF.Ptr, QOS.Ptr, QOS.Ptr, "int*", Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

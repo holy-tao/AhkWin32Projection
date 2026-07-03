@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\HCERTSTORE.ahk" { HCERTSTORE }
+#Import ".\PFNCFILTERPROC.ahk" { PFNCFILTERPROC }
 
 /**
  * Contains information about the certificate store used by the digital signature wizard.
@@ -27,7 +28,7 @@ export default struct CRYPTUI_WIZ_DIGITAL_SIGN_STORE_INFO {
     /**
      * Filter callback function used to display the certificate.
      */
-    pFilterCallback : IntPtr
+    pFilterCallback : PFNCFILTERPROC
 
     /**
      * A pointer to the callback data.

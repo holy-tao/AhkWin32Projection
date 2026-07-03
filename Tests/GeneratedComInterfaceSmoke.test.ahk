@@ -11,7 +11,7 @@
 #Import "../Windows/Win32/Data/Xml/MsXML/IXMLDOMDocument2.ahk" { IXMLDOMDocument2 }
 #Import "../Windows/Win32/Data/Xml/MsXML/IXMLDOMElement.ahk" { IXMLDOMElement }
 #Import "../Windows/Win32/Foundation/Constants.ahk" { VARIANT_TRUE, VARIANT_FALSE }
-#Import "../Guid.ahk" { Guid }
+#Import "../Windows/Guid.ahk" { Guid }
 
 #DllLoad Urlmon.dll
 

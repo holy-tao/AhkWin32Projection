@@ -49,6 +49,10 @@ export default struct PFN_DrvQuerySpoolType {
             this.value := CallbackCreate(fn, , [DHPDEV, PWSTR, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

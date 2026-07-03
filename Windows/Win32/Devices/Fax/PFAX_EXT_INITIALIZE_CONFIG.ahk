@@ -1,4 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PFAX_EXT_FREE_BUFFER.ahk" { PFAX_EXT_FREE_BUFFER }
+#Import ".\PFAX_EXT_GET_DATA.ahk" { PFAX_EXT_GET_DATA }
+#Import ".\PFAX_EXT_REGISTER_FOR_EVENTS.ahk" { PFAX_EXT_REGISTER_FOR_EVENTS }
+#Import ".\PFAX_EXT_SET_DATA.ahk" { PFAX_EXT_SET_DATA }
+#Import ".\PFAX_EXT_UNREGISTER_FOR_EVENTS.ahk" { PFAX_EXT_UNREGISTER_FOR_EVENTS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -28,7 +33,7 @@ export default struct PFAX_EXT_INITIALIZE_CONFIG {
      * @returns {HRESULT} 
      */
     Call(param0, param1, param2, param3, param4) {
-        result := DllCall(this.value, "ptr", param0, "ptr", param1, "ptr", param2, "ptr", param3, "ptr", param4, "HRESULT")
+        result := DllCall(this.value, PFAX_EXT_GET_DATA, param0, PFAX_EXT_SET_DATA, param1, PFAX_EXT_REGISTER_FOR_EVENTS, param2, PFAX_EXT_UNREGISTER_FOR_EVENTS, param3, PFAX_EXT_FREE_BUFFER, param4, "HRESULT")
         return result
     }
 
@@ -39,15 +44,19 @@ export default struct PFAX_EXT_INITIALIZE_CONFIG {
     struct From extends PFAX_EXT_INITIALIZE_CONFIG {
         /**
          * Creates a PFAX_EXT_INITIALIZE_CONFIG pointer that invokes the given AHK function when called.
-         * @param {Func("ptr", "ptr", "ptr", "ptr", "ptr") => "int"} fn the function to invoke.
+         * @param {Func(PFAX_EXT_GET_DATA, PFAX_EXT_SET_DATA, PFAX_EXT_REGISTER_FOR_EVENTS, PFAX_EXT_UNREGISTER_FOR_EVENTS, PFAX_EXT_FREE_BUFFER) => "int"} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 5)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 5 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , ["ptr", "ptr", "ptr", "ptr", "ptr", "int"])
+            this.value := CallbackCreate(fn, , [PFAX_EXT_GET_DATA, PFAX_EXT_SET_DATA, PFAX_EXT_REGISTER_FOR_EVENTS, PFAX_EXT_UNREGISTER_FOR_EVENTS, PFAX_EXT_FREE_BUFFER, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

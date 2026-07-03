@@ -51,6 +51,10 @@ export default struct CAPWAVECALLBACK {
             this.value := CallbackCreate(fn, , [HWND, WAVEHDR.Ptr, LRESULT])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

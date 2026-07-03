@@ -7,6 +7,7 @@
 #Import "..\..\Graphics\Gdi\DEVMODEA.ahk" { DEVMODEA }
 #Import "..\..\Graphics\Gdi\DEVMODEW.ahk" { DEVMODEW }
 #Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import ".\ABORTPROC.ahk" { ABORTPROC }
 #Import ".\DOCINFOA.ahk" { DOCINFOA }
 #Import ".\DOCINFOW.ahk" { DOCINFOW }
 #Import ".\PRINTER_DEVICE_CAPABILITIES.ahk" { PRINTER_DEVICE_CAPABILITIES }
@@ -546,7 +547,7 @@ export AbortDoc(_hdc) {
  * @since windows5.0
  */
 export SetAbortProc(_hdc, _proc) {
-    result := DllCall("GDI32.dll\SetAbortProc", HDC, _hdc, "ptr", _proc, Int32)
+    result := DllCall("GDI32.dll\SetAbortProc", HDC, _hdc, ABORTPROC, _proc, Int32)
     return result
 }
 

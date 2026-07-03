@@ -52,6 +52,10 @@ export default struct PFAXROUTESETROUTINGINFO {
             this.value := CallbackCreate(fn, , [PWSTR, UInt32, "char*", UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

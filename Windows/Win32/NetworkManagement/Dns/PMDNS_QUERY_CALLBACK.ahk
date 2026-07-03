@@ -48,6 +48,10 @@ export default struct PMDNS_QUERY_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", MDNS_QUERY_HANDLE.Ptr, DNS_QUERY_RESULT.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

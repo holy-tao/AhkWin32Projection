@@ -1,5 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\BCRYPT_INTERFACE_VERSION.ahk" { BCRYPT_INTERFACE_VERSION }
+#Import ".\BCryptCloseAlgorithmProviderFn.ahk" { BCryptCloseAlgorithmProviderFn }
+#Import ".\BCryptDestroyKeyFn.ahk" { BCryptDestroyKeyFn }
+#Import ".\BCryptExportKeyFn.ahk" { BCryptExportKeyFn }
+#Import ".\BCryptFinalizeKeyPairFn.ahk" { BCryptFinalizeKeyPairFn }
+#Import ".\BCryptGenerateKeyPairFn.ahk" { BCryptGenerateKeyPairFn }
+#Import ".\BCryptGetPropertyFn.ahk" { BCryptGetPropertyFn }
+#Import ".\BCryptImportKeyPairFn.ahk" { BCryptImportKeyPairFn }
+#Import ".\BCryptOpenAlgorithmProviderFn.ahk" { BCryptOpenAlgorithmProviderFn }
+#Import ".\BCryptSetPropertyFn.ahk" { BCryptSetPropertyFn }
+#Import ".\BCryptSignHashFn.ahk" { BCryptSignHashFn }
+#Import ".\BCryptVerifySignatureFn.ahk" { BCryptVerifySignatureFn }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -9,26 +20,26 @@ export default struct BCRYPT_SIGNATURE_FUNCTION_TABLE {
 
     Version : BCRYPT_INTERFACE_VERSION
 
-    OpenAlgorithmProvider : IntPtr
+    OpenAlgorithmProvider : BCryptOpenAlgorithmProviderFn
 
-    GetProperty : IntPtr
+    GetProperty : BCryptGetPropertyFn
 
-    SetProperty : IntPtr
+    SetProperty : BCryptSetPropertyFn
 
-    CloseAlgorithmProvider : IntPtr
+    CloseAlgorithmProvider : BCryptCloseAlgorithmProviderFn
 
-    GenerateKeyPair : IntPtr
+    GenerateKeyPair : BCryptGenerateKeyPairFn
 
-    FinalizeKeyPair : IntPtr
+    FinalizeKeyPair : BCryptFinalizeKeyPairFn
 
-    SignHash : IntPtr
+    SignHash : BCryptSignHashFn
 
-    VerifySignature : IntPtr
+    VerifySignature : BCryptVerifySignatureFn
 
-    ImportKeyPair : IntPtr
+    ImportKeyPair : BCryptImportKeyPairFn
 
-    ExportKey : IntPtr
+    ExportKey : BCryptExportKeyFn
 
-    DestroyKey : IntPtr
+    DestroyKey : BCryptDestroyKeyFn
 
 }

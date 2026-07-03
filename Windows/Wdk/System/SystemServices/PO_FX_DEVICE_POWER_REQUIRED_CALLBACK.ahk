@@ -44,6 +44,10 @@ export default struct PO_FX_DEVICE_POWER_REQUIRED_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

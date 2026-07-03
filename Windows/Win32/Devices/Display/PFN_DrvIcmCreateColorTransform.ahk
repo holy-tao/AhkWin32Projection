@@ -58,6 +58,10 @@ export default struct PFN_DrvIcmCreateColorTransform {
             this.value := CallbackCreate(fn, , [DHPDEV, LOGCOLORSPACEW.Ptr, "ptr", UInt32, "ptr", UInt32, "ptr", UInt32, UInt32, HANDLE])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

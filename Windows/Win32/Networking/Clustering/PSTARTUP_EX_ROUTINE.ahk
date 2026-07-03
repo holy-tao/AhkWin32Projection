@@ -54,6 +54,10 @@ export default struct PSTARTUP_EX_ROUTINE {
             this.value := CallbackCreate(fn, , [PWSTR, UInt32, UInt32, CLRES_CALLBACK_FUNCTION_TABLE.Ptr, "ptr*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

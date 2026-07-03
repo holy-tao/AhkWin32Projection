@@ -51,6 +51,10 @@ export default struct PSYMBOLSERVERCALLBACKPROC {
             this.value := CallbackCreate(fn, , [IntPtr, Int64, Int64, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

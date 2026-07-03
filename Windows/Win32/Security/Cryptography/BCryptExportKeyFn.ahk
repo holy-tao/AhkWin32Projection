@@ -37,7 +37,7 @@ export default struct BCryptExportKeyFn {
         pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, BCRYPT_KEY_HANDLE, _hKey, BCRYPT_KEY_HANDLE, hExportKey, "ptr", pszBlobType, IntPtr, pbOutput, UInt32, cbOutput, pcbResultMarshal, pcbResult, UInt32, dwFlags, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -57,6 +57,10 @@ export default struct BCryptExportKeyFn {
             this.value := CallbackCreate(fn, , [BCRYPT_KEY_HANDLE, BCRYPT_KEY_HANDLE, PWSTR, IntPtr, UInt32, "uint*", UInt32, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

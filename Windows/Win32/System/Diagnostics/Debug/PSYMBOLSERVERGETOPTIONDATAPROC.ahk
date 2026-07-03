@@ -47,6 +47,10 @@ export default struct PSYMBOLSERVERGETOPTIONDATAPROC {
             this.value := CallbackCreate(fn, , [IntPtr, "uint*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

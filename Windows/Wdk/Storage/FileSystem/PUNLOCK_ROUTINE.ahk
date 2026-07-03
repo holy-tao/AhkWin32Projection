@@ -46,6 +46,10 @@ export default struct PUNLOCK_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", FILE_LOCK_INFO.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

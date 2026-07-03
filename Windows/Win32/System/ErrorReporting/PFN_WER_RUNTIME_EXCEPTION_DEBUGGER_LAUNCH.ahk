@@ -67,6 +67,10 @@ export default struct PFN_WER_RUNTIME_EXCEPTION_DEBUGGER_LAUNCH {
             this.value := CallbackCreate(fn, , ["ptr", WER_RUNTIME_EXCEPTION_INFORMATION.Ptr, BOOL.Ptr, PWSTR, "uint*", BOOL.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\FILE_STORAGE_TIER.ahk" { FILE_STORAGE_TIER }
 #Import ".\FILE_STORAGE_TIER_CLASS.ahk" { FILE_STORAGE_TIER_CLASS }
 #Import ".\FILE_STORAGE_TIER_FLAGS.ahk" { FILE_STORAGE_TIER_FLAGS }

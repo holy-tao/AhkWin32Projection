@@ -46,6 +46,10 @@ export default struct UNESCAPE_CHAR_AT {
             this.value := CallbackCreate(fn, "cdecl", [Int32, "ptr", UInt16])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

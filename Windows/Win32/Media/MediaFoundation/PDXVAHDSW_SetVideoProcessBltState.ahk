@@ -51,6 +51,10 @@ export default struct PDXVAHDSW_SetVideoProcessBltState {
             this.value := CallbackCreate(fn, , [HANDLE, DXVAHD_BLT_STATE, UInt32, IntPtr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

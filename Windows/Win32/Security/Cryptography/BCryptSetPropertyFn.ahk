@@ -33,7 +33,7 @@ export default struct BCryptSetPropertyFn {
         pszProperty := pszProperty is String ? StrPtr(pszProperty) : pszProperty
 
         result := DllCall(this.value, BCRYPT_HANDLE, hObject, "ptr", pszProperty, IntPtr, pbInput, UInt32, cbInput, UInt32, dwFlags, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -53,6 +53,10 @@ export default struct BCryptSetPropertyFn {
             this.value := CallbackCreate(fn, , [BCRYPT_HANDLE, PWSTR, IntPtr, UInt32, UInt32, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

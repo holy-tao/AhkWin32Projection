@@ -47,6 +47,10 @@ export default struct PLOAD_IMAGE_NOTIFY_ROUTINE {
             this.value := CallbackCreate(fn, , [UNICODE_STRING.Ptr, HANDLE, IMAGE_INFO.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

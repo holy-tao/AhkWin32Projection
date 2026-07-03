@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MINIDUMP_CALLBACK_ROUTINE.ahk" { MINIDUMP_CALLBACK_ROUTINE }
 
 /**
  * Contains a pointer to an optional callback function that can be used by the MiniDumpWriteDump function.
@@ -13,7 +14,7 @@ export default struct MINIDUMP_CALLBACK_INFORMATION {
      * A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minidumpapiset/nc-minidumpapiset-minidump_callback_routine">MiniDumpCallback</a> callback function.
      */
-    CallbackRoutine : IntPtr
+    CallbackRoutine : MINIDUMP_CALLBACK_ROUTINE
 
     /**
      * The application-defined data for <b>CallbackRoutine</b>.

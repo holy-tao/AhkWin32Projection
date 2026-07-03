@@ -28,7 +28,7 @@ export default struct PGET_DMA_ADAPTER_INFO {
      */
     Call(DmaAdapter, AdapterInfo) {
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, DMA_ADAPTER_INFO.Ptr, AdapterInfo, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -48,6 +48,10 @@ export default struct PGET_DMA_ADAPTER_INFO {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, DMA_ADAPTER_INFO.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

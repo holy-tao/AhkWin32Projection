@@ -46,6 +46,10 @@ export default struct pHalHandlerForBus {
             this.value := CallbackCreate(fn, , [INTERFACE_TYPE, UInt32, PBUS_HANDLER])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

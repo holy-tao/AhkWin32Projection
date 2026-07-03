@@ -48,6 +48,10 @@ export default struct MIDL_ES_ALLOC {
             this.value := CallbackCreate(fn, , ["ptr", "ptr*", "uint*", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

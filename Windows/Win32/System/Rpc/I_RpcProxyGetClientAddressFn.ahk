@@ -52,6 +52,10 @@ export default struct I_RpcProxyGetClientAddressFn {
             this.value := CallbackCreate(fn, , ["ptr", PSTR, "uint*", RPC_STATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

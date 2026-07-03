@@ -46,6 +46,10 @@ export default struct pfn_REPORTFAULT {
             this.value := CallbackCreate(fn, , [EXCEPTION_POINTERS.Ptr, UInt32, EFaultRepRetVal])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

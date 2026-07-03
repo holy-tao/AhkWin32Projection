@@ -1,15 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\APP_LOCAL_DEVICE_ID.ahk" { APP_LOCAL_DEVICE_ID }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\GameInputDeviceCallback.ahk" { GameInputDeviceCallback }
 #Import ".\GameInputDeviceStatus.ahk" { GameInputDeviceStatus }
 #Import ".\GameInputEnumerationKind.ahk" { GameInputEnumerationKind }
 #Import ".\GameInputFocusPolicy.ahk" { GameInputFocusPolicy }
+#Import ".\GameInputKeyboardLayoutCallback.ahk" { GameInputKeyboardLayoutCallback }
 #Import ".\GameInputKind.ahk" { GameInputKind }
+#Import ".\GameInputReadingCallback.ahk" { GameInputReadingCallback }
+#Import ".\GameInputSystemButtonCallback.ahk" { GameInputSystemButtonCallback }
 #Import ".\GameInputSystemButtons.ahk" { GameInputSystemButtons }
 #Import ".\IGameInputDevice.ahk" { IGameInputDevice }
 #Import ".\IGameInputDispatcher.ahk" { IGameInputDispatcher }
@@ -131,7 +135,7 @@ export default struct IGameInput extends IUnknown {
     RegisterReadingCallback(device, inputKind, analogThreshold, _context, callbackFunc) {
         _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(8, this, "ptr", device, GameInputKind, inputKind, Float32, analogThreshold, _contextMarshal, _context, "ptr", callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", device, GameInputKind, inputKind, Float32, analogThreshold, _contextMarshal, _context, GameInputReadingCallback, callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
         return callbackToken
     }
 
@@ -148,7 +152,7 @@ export default struct IGameInput extends IUnknown {
     RegisterDeviceCallback(device, inputKind, statusFilter, enumerationKind, _context, callbackFunc) {
         _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, "ptr", device, GameInputKind, inputKind, GameInputDeviceStatus, statusFilter, GameInputEnumerationKind, enumerationKind, _contextMarshal, _context, "ptr", callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", device, GameInputKind, inputKind, GameInputDeviceStatus, statusFilter, GameInputEnumerationKind, enumerationKind, _contextMarshal, _context, GameInputDeviceCallback, callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
         return callbackToken
     }
 
@@ -163,7 +167,7 @@ export default struct IGameInput extends IUnknown {
     RegisterSystemButtonCallback(device, buttonFilter, _context, callbackFunc) {
         _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, "ptr", device, GameInputSystemButtons, buttonFilter, _contextMarshal, _context, "ptr", callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", device, GameInputSystemButtons, buttonFilter, _contextMarshal, _context, GameInputSystemButtonCallback, callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
         return callbackToken
     }
 
@@ -177,7 +181,7 @@ export default struct IGameInput extends IUnknown {
     RegisterKeyboardLayoutCallback(device, _context, callbackFunc) {
         _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(11, this, "ptr", device, _contextMarshal, _context, "ptr", callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", device, _contextMarshal, _context, GameInputKeyboardLayoutCallback, callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
         return callbackToken
     }
 

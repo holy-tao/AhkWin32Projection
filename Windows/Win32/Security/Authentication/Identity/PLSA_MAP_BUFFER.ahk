@@ -27,7 +27,7 @@ export default struct PLSA_MAP_BUFFER {
      */
     Call(InputBuffer, OutputBuffer) {
         result := DllCall(this.value, SecBuffer.Ptr, InputBuffer, SecBuffer.Ptr, OutputBuffer, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -47,6 +47,10 @@ export default struct PLSA_MAP_BUFFER {
             this.value := CallbackCreate(fn, , [SecBuffer.Ptr, SecBuffer.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

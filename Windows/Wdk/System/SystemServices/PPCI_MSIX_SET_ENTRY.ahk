@@ -24,7 +24,7 @@ export default struct PPCI_MSIX_SET_ENTRY {
      */
     Call() {
         result := DllCall(this.value, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -44,6 +44,10 @@ export default struct PPCI_MSIX_SET_ENTRY {
             this.value := CallbackCreate(fn, , [NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

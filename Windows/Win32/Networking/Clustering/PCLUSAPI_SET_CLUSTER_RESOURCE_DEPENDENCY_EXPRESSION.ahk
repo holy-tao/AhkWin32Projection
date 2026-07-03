@@ -48,6 +48,10 @@ export default struct PCLUSAPI_SET_CLUSTER_RESOURCE_DEPENDENCY_EXPRESSION {
             this.value := CallbackCreate(fn, , [HRESOURCE, PWSTR, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

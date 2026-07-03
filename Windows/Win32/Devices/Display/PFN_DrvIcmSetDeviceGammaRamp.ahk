@@ -49,6 +49,10 @@ export default struct PFN_DrvIcmSetDeviceGammaRamp {
             this.value := CallbackCreate(fn, , [DHPDEV, UInt32, "ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

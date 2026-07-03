@@ -7,6 +7,7 @@
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
 #Import ".\BerElement.ahk" { BerElement }
+#Import ".\DBGPRINT.ahk" { DBGPRINT }
 #Import ".\LDAP.ahk" { LDAP }
 #Import ".\LDAPControlA.ahk" { LDAPControlA }
 #Import ".\LDAPControlW.ahk" { LDAPControlW }
@@ -7196,7 +7197,7 @@ export ldap_set_dbg_flags(NewFlags) {
  * @returns {String} Nothing - always returns an empty string
  */
 export ldap_set_dbg_routine(DebugPrintRoutine) {
-    DllCall("WLDAP32.dll\ldap_set_dbg_routine", "ptr", DebugPrintRoutine)
+    DllCall("WLDAP32.dll\ldap_set_dbg_routine", DBGPRINT, DebugPrintRoutine)
 }
 
 /**

@@ -6,6 +6,8 @@
 #Import ".\NDR_ALLOC_ALL_NODES_CONTEXT.ahk" { NDR_ALLOC_ALL_NODES_CONTEXT }
 #Import ".\NDR_POINTER_QUEUE_STATE.ahk" { NDR_POINTER_QUEUE_STATE }
 #Import ".\NDR_SCONTEXT.ahk" { NDR_SCONTEXT }
+#Import ".\PFN_RPC_ALLOCATE.ahk" { PFN_RPC_ALLOCATE }
+#Import ".\PFN_RPC_FREE.ahk" { PFN_RPC_FREE }
 #Import ".\PNDR_ASYNC_MESSAGE.ahk" { PNDR_ASYNC_MESSAGE }
 #Import ".\PNDR_CORRELATION_INFO.ahk" { PNDR_CORRELATION_INFO }
 #Import ".\RPC_MESSAGE.ahk" { RPC_MESSAGE }
@@ -120,12 +122,12 @@ export default struct MIDL_STUB_MESSAGE {
     /**
      * Reserved.
      */
-    pfnAllocate : IntPtr
+    pfnAllocate : PFN_RPC_ALLOCATE
 
     /**
      * Reserved.
      */
-    pfnFree : IntPtr
+    pfnFree : PFN_RPC_FREE
 
     /**
      * Reserved.

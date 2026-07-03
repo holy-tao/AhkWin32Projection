@@ -48,6 +48,10 @@ export default struct PFN_DrvSaveScreenBits {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, UInt32, IntPtr, RECTL.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

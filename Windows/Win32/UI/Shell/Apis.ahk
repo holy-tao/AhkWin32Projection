@@ -1,6 +1,6 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
@@ -40,8 +40,10 @@
 #Import "..\..\System\Ole\DROPEFFECT.ahk" { DROPEFFECT }
 #Import "..\..\System\Ole\IDropSource.ahk" { IDropSource }
 #Import "..\..\System\Registry\HKEY.ahk" { HKEY }
+#Import "..\..\System\Threading\LPTHREAD_START_ROUTINE.ahk" { LPTHREAD_START_ROUTINE }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\Controls\HIMAGELIST.ahk" { HIMAGELIST }
+#Import "..\Controls\LPFNSVADDPROPSHEETPAGE.ahk" { LPFNSVADDPROPSHEETPAGE }
 #Import ".\APPBARDATA.ahk" { APPBARDATA }
 #Import ".\ASSOCF.ahk" { ASSOCF }
 #Import ".\ASSOCIATIONELEMENT.ahk" { ASSOCIATIONELEMENT }
@@ -79,6 +81,7 @@
 #Import ".\IShellView.ahk" { IShellView }
 #Import ".\KNOWN_FOLDER_FLAG.ahk" { KNOWN_FOLDER_FLAG }
 #Import ".\LIBRARYMANAGEDIALOGOPTIONS.ahk" { LIBRARYMANAGEDIALOGOPTIONS }
+#Import ".\LPFNDFMCALLBACK.ahk" { LPFNDFMCALLBACK }
 #Import ".\MM_FLAGS.ahk" { MM_FLAGS }
 #Import ".\NOTIFYICONDATAA.ahk" { NOTIFYICONDATAA }
 #Import ".\NOTIFYICONDATAW.ahk" { NOTIFYICONDATAW }
@@ -86,7 +89,9 @@
 #Import ".\NOTIFY_ICON_MESSAGE.ahk" { NOTIFY_ICON_MESSAGE }
 #Import ".\OPENASINFO.ahk" { OPENASINFO }
 #Import ".\OS.ahk" { OS }
+#Import ".\PAPPCONSTRAIN_CHANGE_ROUTINE.ahk" { PAPPCONSTRAIN_CHANGE_ROUTINE }
 #Import ".\PAPPCONSTRAIN_REGISTRATION.ahk" { PAPPCONSTRAIN_REGISTRATION }
+#Import ".\PAPPSTATE_CHANGE_ROUTINE.ahk" { PAPPSTATE_CHANGE_ROUTINE }
 #Import ".\PAPPSTATE_REGISTRATION.ahk" { PAPPSTATE_REGISTRATION }
 #Import ".\PARSEDURLA.ahk" { PARSEDURLA }
 #Import ".\PARSEDURLW.ahk" { PARSEDURLW }
@@ -124,6 +129,7 @@
 #Import ".\SHSTOCKICONINFO.ahk" { SHSTOCKICONINFO }
 #Import ".\SIGDN.ahk" { SIGDN }
 #Import ".\SSF_MASK.ahk" { SSF_MASK }
+#Import ".\SUBCLASSPROC.ahk" { SUBCLASSPROC }
 #Import ".\URLIS.ahk" { URLIS }
 #Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
 #Import "..\WindowsAndMessaging\HMENU.ahk" { HMENU }
@@ -158,7 +164,7 @@ export FileIconInit(fRestoreCache) {
     hModule := LoadLibraryW("SHELL32.dll")
     procAddr := GetProcAddress(hModule, 660)
 
-    result := DllCall(procAddr, BOOL, fRestoreCache, BOOL)
+    result := DllCall(procAddr.value, BOOL, fRestoreCache, BOOL)
 
     FreeLibrary(hModule)
 
@@ -1066,7 +1072,7 @@ export VariantToStrRet(varIn, pstrret) {
  * @since windows5.1.2600
  */
 export SetWindowSubclass(_hWnd, pfnSubclass, uIdSubclass, dwRefData) {
-    result := DllCall("COMCTL32.dll\SetWindowSubclass", HWND, _hWnd, "ptr", pfnSubclass, IntPtr, uIdSubclass, IntPtr, dwRefData, BOOL)
+    result := DllCall("COMCTL32.dll\SetWindowSubclass", HWND, _hWnd, SUBCLASSPROC, pfnSubclass, IntPtr, uIdSubclass, IntPtr, dwRefData, BOOL)
     return result
 }
 
@@ -1122,7 +1128,7 @@ export SetWindowSubclass(_hWnd, pfnSubclass, uIdSubclass, dwRefData) {
 export GetWindowSubclass(_hWnd, pfnSubclass, uIdSubclass, pdwRefData) {
     pdwRefDataMarshal := pdwRefData is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("COMCTL32.dll\GetWindowSubclass", HWND, _hWnd, "ptr", pfnSubclass, IntPtr, uIdSubclass, pdwRefDataMarshal, pdwRefData, BOOL)
+    result := DllCall("COMCTL32.dll\GetWindowSubclass", HWND, _hWnd, SUBCLASSPROC, pfnSubclass, IntPtr, uIdSubclass, pdwRefDataMarshal, pdwRefData, BOOL)
     return result
 }
 
@@ -1153,7 +1159,7 @@ export GetWindowSubclass(_hWnd, pfnSubclass, uIdSubclass, pdwRefData) {
  * @since windows5.1.2600
  */
 export RemoveWindowSubclass(_hWnd, pfnSubclass, uIdSubclass) {
-    result := DllCall("COMCTL32.dll\RemoveWindowSubclass", HWND, _hWnd, "ptr", pfnSubclass, IntPtr, uIdSubclass, BOOL)
+    result := DllCall("COMCTL32.dll\RemoveWindowSubclass", HWND, _hWnd, SUBCLASSPROC, pfnSubclass, IntPtr, uIdSubclass, BOOL)
     return result
 }
 
@@ -5719,7 +5725,7 @@ export SHDestroyPropSheetExtArray(_hpsxa) {
  * @since windows5.0
  */
 export SHAddFromPropSheetExtArray(_hpsxa, lpfnAddPage, _lParam) {
-    result := DllCall("SHELL32.dll\SHAddFromPropSheetExtArray", HPSXA, _hpsxa, "ptr", lpfnAddPage, LPARAM, _lParam, UInt32)
+    result := DllCall("SHELL32.dll\SHAddFromPropSheetExtArray", HPSXA, _hpsxa, LPFNSVADDPROPSHEETPAGE, lpfnAddPage, LPARAM, _lParam, UInt32)
     return result
 }
 
@@ -5744,7 +5750,7 @@ export SHAddFromPropSheetExtArray(_hpsxa, lpfnAddPage, _lParam) {
  * @since windows5.1.2600
  */
 export SHReplaceFromPropSheetExtArray(_hpsxa, uPageID, lpfnReplaceWith, _lParam) {
-    result := DllCall("SHELL32.dll\SHReplaceFromPropSheetExtArray", HPSXA, _hpsxa, UInt32, uPageID, "ptr", lpfnReplaceWith, LPARAM, _lParam, UInt32)
+    result := DllCall("SHELL32.dll\SHReplaceFromPropSheetExtArray", HPSXA, _hpsxa, UInt32, uPageID, LPFNSVADDPROPSHEETPAGE, lpfnReplaceWith, LPARAM, _lParam, UInt32)
     return result
 }
 
@@ -6493,7 +6499,7 @@ export SHCreateShellFolderView(pcsfv) {
 export CDefFolderMenu_Create2(pidlFolder, _hwnd, cidl, apidl, psf, _pfn, nKeys, ahkeys) {
     apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("SHELL32.dll\CDefFolderMenu_Create2", ITEMIDLIST.Ptr, pidlFolder, HWND, _hwnd, UInt32, cidl, apidlMarshal, apidl, "ptr", psf, "ptr", _pfn, UInt32, nKeys, HKEY.Ptr, ahkeys, "ptr*", &ppcm := 0, "HRESULT")
+    result := DllCall("SHELL32.dll\CDefFolderMenu_Create2", ITEMIDLIST.Ptr, pidlFolder, HWND, _hwnd, UInt32, cidl, apidlMarshal, apidl, "ptr", psf, LPFNDFMCALLBACK, _pfn, UInt32, nKeys, HKEY.Ptr, ahkeys, "ptr*", &ppcm := 0, "HRESULT")
     return IContextMenu(ppcm)
 }
 
@@ -23039,7 +23045,7 @@ export SHCreateThread(pfnThreadProc, pData, flags, _pfnCallback) {
 
     A_LastError := 0
 
-    result := DllCall("SHLWAPI.dll\SHCreateThread", "ptr", pfnThreadProc, pDataMarshal, pData, UInt32, flags, "ptr", _pfnCallback, BOOL)
+    result := DllCall("SHLWAPI.dll\SHCreateThread", LPTHREAD_START_ROUTINE, pfnThreadProc, pDataMarshal, pData, UInt32, flags, LPTHREAD_START_ROUTINE, _pfnCallback, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23092,7 +23098,7 @@ export SHCreateThreadWithHandle(pfnThreadProc, pData, flags, _pfnCallback, pHand
 
     A_LastError := 0
 
-    result := DllCall("SHLWAPI.dll\SHCreateThreadWithHandle", "ptr", pfnThreadProc, pDataMarshal, pData, UInt32, flags, "ptr", _pfnCallback, HANDLE.Ptr, pHandle, BOOL)
+    result := DllCall("SHLWAPI.dll\SHCreateThreadWithHandle", LPTHREAD_START_ROUTINE, pfnThreadProc, pDataMarshal, pData, UInt32, flags, LPTHREAD_START_ROUTINE, _pfnCallback, HANDLE.Ptr, pHandle, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -25001,7 +25007,7 @@ export RegisterAppStateChangeNotification(Routine, _Context, Registration) {
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
     RegistrationMarshal := Registration is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("api-ms-win-core-psm-appnotify-l1-1-0.dll\RegisterAppStateChangeNotification", "ptr", Routine, _ContextMarshal, _Context, RegistrationMarshal, Registration, UInt32)
+    result := DllCall("api-ms-win-core-psm-appnotify-l1-1-0.dll\RegisterAppStateChangeNotification", PAPPSTATE_CHANGE_ROUTINE, Routine, _ContextMarshal, _Context, RegistrationMarshal, Registration, UInt32)
     return result
 }
 
@@ -25026,7 +25032,7 @@ export RegisterAppConstrainedChangeNotification(Routine, _Context, Registration)
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
     RegistrationMarshal := Registration is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("api-ms-win-core-psm-appnotify-l1-1-1.dll\RegisterAppConstrainedChangeNotification", "ptr", Routine, _ContextMarshal, _Context, RegistrationMarshal, Registration, UInt32)
+    result := DllCall("api-ms-win-core-psm-appnotify-l1-1-1.dll\RegisterAppConstrainedChangeNotification", PAPPCONSTRAIN_CHANGE_ROUTINE, Routine, _ContextMarshal, _Context, RegistrationMarshal, Registration, UInt32)
     return result
 }
 

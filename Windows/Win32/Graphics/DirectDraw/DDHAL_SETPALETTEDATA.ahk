@@ -4,6 +4,7 @@
 #Import ".\DDRAWI_DDRAWPALETTE_GBL.ahk" { DDRAWI_DDRAWPALETTE_GBL }
 #Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
 #Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
+#Import ".\LPDDHALSURFCB_SETPALETTE.ahk" { LPDDHALSURFCB_SETPALETTE }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -19,7 +20,7 @@ export default struct DDHAL_SETPALETTEDATA {
 
     ddRVal : HRESULT
 
-    SetPalette : IntPtr
+    SetPalette : LPDDHALSURFCB_SETPALETTE
 
     Attach : BOOL
 

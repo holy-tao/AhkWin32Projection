@@ -32,7 +32,7 @@ export default struct PFN_NT_SET_INFORMATION_TRANSACTION {
         TransactionInformationMarshal := TransactionInformation is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, HANDLE, TransactionHandle, TRANSACTION_INFORMATION_CLASS, TransactionInformationClass, TransactionInformationMarshal, TransactionInformation, UInt32, TransactionInformationLength, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -52,6 +52,10 @@ export default struct PFN_NT_SET_INFORMATION_TRANSACTION {
             this.value := CallbackCreate(fn, , [HANDLE, TRANSACTION_INFORMATION_CLASS, "ptr", UInt32, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

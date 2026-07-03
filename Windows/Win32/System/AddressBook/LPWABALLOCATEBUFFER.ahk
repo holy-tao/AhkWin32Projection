@@ -48,6 +48,10 @@ export default struct LPWABALLOCATEBUFFER {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, "ptr*", Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

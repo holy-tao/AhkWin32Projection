@@ -61,6 +61,10 @@ export default struct PCRYPT_ENCRYPT_PRIVATE_KEY_FUNC {
             this.value := CallbackCreate(fn, , [CRYPT_ALGORITHM_IDENTIFIER.Ptr, CRYPT_INTEGER_BLOB.Ptr, IntPtr, "uint*", "ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

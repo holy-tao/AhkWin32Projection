@@ -46,6 +46,10 @@ export default struct SET_D3COLD_SUPPORT {
             this.value := CallbackCreate(fn, , ["ptr", BOOLEAN, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

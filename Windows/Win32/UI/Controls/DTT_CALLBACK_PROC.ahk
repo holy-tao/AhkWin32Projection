@@ -54,6 +54,10 @@ export default struct DTT_CALLBACK_PROC {
             this.value := CallbackCreate(fn, , [HDC, PWSTR, Int32, RECT.Ptr, UInt32, LPARAM, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

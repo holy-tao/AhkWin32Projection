@@ -33,7 +33,7 @@ export default struct PFLT_MESSAGE_NOTIFY {
         ReturnOutputBufferLengthMarshal := ReturnOutputBufferLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, PortCookieMarshal, PortCookie, IntPtr, InputBuffer, UInt32, InputBufferLength, IntPtr, OutputBuffer, UInt32, OutputBufferLength, ReturnOutputBufferLengthMarshal, ReturnOutputBufferLength, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -53,6 +53,10 @@ export default struct PFLT_MESSAGE_NOTIFY {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr, UInt32, IntPtr, UInt32, "uint*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

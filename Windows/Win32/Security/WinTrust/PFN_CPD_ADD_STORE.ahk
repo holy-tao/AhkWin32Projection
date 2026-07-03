@@ -47,6 +47,10 @@ export default struct PFN_CPD_ADD_STORE {
             this.value := CallbackCreate(fn, , [CRYPT_PROVIDER_DATA.Ptr, HCERTSTORE, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

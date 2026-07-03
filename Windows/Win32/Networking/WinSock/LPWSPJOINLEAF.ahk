@@ -316,6 +316,10 @@ export default struct LPWSPJOINLEAF {
             this.value := CallbackCreate(fn, , [SOCKET, IntPtr, Int32, WSABUF.Ptr, WSABUF.Ptr, QOS.Ptr, QOS.Ptr, UInt32, "int*", SOCKET])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

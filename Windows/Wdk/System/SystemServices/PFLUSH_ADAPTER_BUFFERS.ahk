@@ -54,6 +54,10 @@ export default struct PFLUSH_ADAPTER_BUFFERS {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, MDL.Ptr, "ptr", "ptr", UInt32, BOOLEAN, BOOLEAN])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

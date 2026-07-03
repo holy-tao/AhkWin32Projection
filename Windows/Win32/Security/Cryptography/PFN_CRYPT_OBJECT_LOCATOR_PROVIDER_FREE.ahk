@@ -50,6 +50,10 @@ export default struct PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE {
             this.value := CallbackCreate(fn, , ["ptr", "char*", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

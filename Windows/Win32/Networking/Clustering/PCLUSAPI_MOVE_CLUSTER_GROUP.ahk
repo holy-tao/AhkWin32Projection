@@ -46,6 +46,10 @@ export default struct PCLUSAPI_MOVE_CLUSTER_GROUP {
             this.value := CallbackCreate(fn, , [HGROUP, HNODE, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

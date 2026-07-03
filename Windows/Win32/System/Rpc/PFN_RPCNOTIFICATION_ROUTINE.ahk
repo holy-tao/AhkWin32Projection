@@ -48,6 +48,10 @@ export default struct PFN_RPCNOTIFICATION_ROUTINE {
             this.value := CallbackCreate(fn, , [RPC_ASYNC_STATE.Ptr, "ptr", RPC_ASYNC_EVENT, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

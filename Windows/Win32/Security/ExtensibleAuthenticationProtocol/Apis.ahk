@@ -1,6 +1,6 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Data\Xml\MsXml\IXMLDOMDocument2.ahk" { IXMLDOMDocument2 }
 #Import "..\..\Data\Xml\MsXml\IXMLDOMNode.ahk" { IXMLDOMNode }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
@@ -18,6 +18,7 @@
 #Import ".\EapHostPeerMethodResult.ahk" { EapHostPeerMethodResult }
 #Import ".\EapHostPeerMethodResultReason.ahk" { EapHostPeerMethodResultReason }
 #Import ".\EapHostPeerResponseAction.ahk" { EapHostPeerResponseAction }
+#Import ".\NotificationHandler.ahk" { NotificationHandler }
 
 /**
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
@@ -500,7 +501,7 @@ export EapHostPeerBeginSession(dwFlags, eapType, pAttributeArray, hTokenImperson
     pSessionIdMarshal := pSessionId is VarRef ? "uint*" : "ptr"
     ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("eappprxy.dll\EapHostPeerBeginSession", UInt32, dwFlags, EAP_METHOD_TYPE, eapType, EAP_ATTRIBUTES.Ptr, pAttributeArray, HANDLE, hTokenImpersonateUser, UInt32, dwSizeofConnectionData, pConnectionDataMarshal, pConnectionData, UInt32, dwSizeofUserData, pUserDataMarshal, pUserData, UInt32, dwMaxSendPacketSize, Guid.Ptr, pConnectionId, "ptr", _func, pContextDataMarshal, pContextData, pSessionIdMarshal, pSessionId, ppEapErrorMarshal, ppEapError, UInt32)
+    result := DllCall("eappprxy.dll\EapHostPeerBeginSession", UInt32, dwFlags, EAP_METHOD_TYPE, eapType, EAP_ATTRIBUTES.Ptr, pAttributeArray, HANDLE, hTokenImpersonateUser, UInt32, dwSizeofConnectionData, pConnectionDataMarshal, pConnectionData, UInt32, dwSizeofUserData, pUserDataMarshal, pUserData, UInt32, dwMaxSendPacketSize, Guid.Ptr, pConnectionId, NotificationHandler, _func, pContextDataMarshal, pContextData, pSessionIdMarshal, pSessionId, ppEapErrorMarshal, ppEapError, UInt32)
     return result
 }
 

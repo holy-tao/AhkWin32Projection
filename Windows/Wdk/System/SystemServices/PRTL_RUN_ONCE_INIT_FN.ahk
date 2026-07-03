@@ -42,6 +42,10 @@ export default struct PRTL_RUN_ONCE_INIT_FN {
             this.value := CallbackCreate(fn, , [UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

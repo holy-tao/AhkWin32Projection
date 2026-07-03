@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\VDS_HEALTH.ahk" { VDS_HEALTH }
 #Import ".\VDS_LUN_PLEX_STATUS.ahk" { VDS_LUN_PLEX_STATUS }
 #Import ".\VDS_LUN_PLEX_TYPE.ahk" { VDS_LUN_PLEX_TYPE }

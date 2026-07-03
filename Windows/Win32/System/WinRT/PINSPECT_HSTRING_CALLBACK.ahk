@@ -60,6 +60,10 @@ export default struct PINSPECT_HSTRING_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr, UInt32, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

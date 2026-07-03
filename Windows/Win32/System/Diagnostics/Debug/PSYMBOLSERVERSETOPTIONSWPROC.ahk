@@ -45,6 +45,10 @@ export default struct PSYMBOLSERVERSETOPTIONSWPROC {
             this.value := CallbackCreate(fn, , [IntPtr, Int64, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

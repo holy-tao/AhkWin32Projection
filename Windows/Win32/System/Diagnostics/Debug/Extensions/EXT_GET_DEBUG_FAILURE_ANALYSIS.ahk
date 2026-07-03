@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDebugClient4.ahk" { IDebugClient4 }
 #Import ".\IDebugFailureAnalysis2.ahk" { IDebugFailureAnalysis2 }
@@ -49,6 +49,10 @@ export default struct EXT_GET_DEBUG_FAILURE_ANALYSIS {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, Guid, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

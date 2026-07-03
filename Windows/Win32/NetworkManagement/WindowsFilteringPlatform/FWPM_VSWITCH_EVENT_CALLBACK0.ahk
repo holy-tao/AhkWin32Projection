@@ -57,6 +57,10 @@ export default struct FWPM_VSWITCH_EVENT_CALLBACK0 {
             this.value := CallbackCreate(fn, , ["ptr", FWPM_VSWITCH_EVENT0.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

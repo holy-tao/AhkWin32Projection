@@ -1,4 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PPO_FX_COMPONENT_ACTIVE_CONDITION_CALLBACK.ahk" { PPO_FX_COMPONENT_ACTIVE_CONDITION_CALLBACK }
+#Import ".\PPO_FX_COMPONENT_IDLE_CONDITION_CALLBACK.ahk" { PPO_FX_COMPONENT_IDLE_CONDITION_CALLBACK }
+#Import ".\PPO_FX_COMPONENT_IDLE_STATE_CALLBACK.ahk" { PPO_FX_COMPONENT_IDLE_STATE_CALLBACK }
+#Import ".\PPO_FX_DEVICE_POWER_NOT_REQUIRED_CALLBACK.ahk" { PPO_FX_DEVICE_POWER_NOT_REQUIRED_CALLBACK }
+#Import ".\PPO_FX_DEVICE_POWER_REQUIRED_CALLBACK.ahk" { PPO_FX_DEVICE_POWER_REQUIRED_CALLBACK }
+#Import ".\PPO_FX_POWER_CONTROL_CALLBACK.ahk" { PPO_FX_POWER_CONTROL_CALLBACK }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -10,17 +16,17 @@ export default struct PO_FX_DEVICE_V1 {
 
     ComponentCount : UInt32
 
-    ComponentActiveConditionCallback : IntPtr
+    ComponentActiveConditionCallback : PPO_FX_COMPONENT_ACTIVE_CONDITION_CALLBACK
 
-    ComponentIdleConditionCallback : IntPtr
+    ComponentIdleConditionCallback : PPO_FX_COMPONENT_IDLE_CONDITION_CALLBACK
 
-    ComponentIdleStateCallback : IntPtr
+    ComponentIdleStateCallback : PPO_FX_COMPONENT_IDLE_STATE_CALLBACK
 
-    DevicePowerRequiredCallback : IntPtr
+    DevicePowerRequiredCallback : PPO_FX_DEVICE_POWER_REQUIRED_CALLBACK
 
-    DevicePowerNotRequiredCallback : IntPtr
+    DevicePowerNotRequiredCallback : PPO_FX_DEVICE_POWER_NOT_REQUIRED_CALLBACK
 
-    PowerControlCallback : IntPtr
+    PowerControlCallback : PPO_FX_POWER_CONTROL_CALLBACK
 
     DeviceContext : IntPtr
 

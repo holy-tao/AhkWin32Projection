@@ -29,7 +29,7 @@ export default struct PGPE_CLEAR_STATUS {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, DEVICE_OBJECT.Ptr, param0, param1Marshal, param1, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -49,6 +49,10 @@ export default struct PGPE_CLEAR_STATUS {
             this.value := CallbackCreate(fn, , [DEVICE_OBJECT.Ptr, "ptr", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -62,6 +62,10 @@ export default struct PDD_VPORTCB_GETINPUTFORMATS {
             this.value := CallbackCreate(fn, , [DD_GETVPORTINPUTFORMATDATA.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\DHPDEV.ahk" { DHPDEV }
+#Import ".\FREEOBJPROC.ahk" { FREEOBJPROC }
 #Import ".\HDEV.ahk" { HDEV }
 
 /**
@@ -32,7 +33,7 @@ export default struct DRIVEROBJ {
      * 
      * The callback function returns <b>TRUE</b> if it is able to free the resource, and <b>FALSE</b> otherwise.
      */
-    pFreeProc : IntPtr
+    pFreeProc : FREEOBJPROC
 
     /**
      * GDI handle to the physical device associated with the object.

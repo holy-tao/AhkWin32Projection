@@ -50,6 +50,10 @@ export default struct PFN_WdsCliTraceFunction {
             this.value := CallbackCreate(fn, , [PWSTR, "char*", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

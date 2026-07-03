@@ -56,6 +56,10 @@ export default struct PFN_CRYPT_XML_CREATE_TRANSFORM {
             this.value := CallbackCreate(fn, , [CRYPT_XML_ALGORITHM.Ptr, CRYPT_XML_DATA_PROVIDER.Ptr, CRYPT_XML_DATA_PROVIDER.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

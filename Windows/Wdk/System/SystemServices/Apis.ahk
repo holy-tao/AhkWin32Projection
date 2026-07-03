@@ -1,8 +1,12 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
+#Import "..\..\Foundation\DRIVER_CANCEL.ahk" { DRIVER_CANCEL }
+#Import "..\..\Foundation\DRIVER_CONTROL.ahk" { DRIVER_CONTROL }
+#Import "..\..\Foundation\DRIVER_NOTIFICATION_CALLBACK_ROUTINE.ahk" { DRIVER_NOTIFICATION_CALLBACK_ROUTINE }
 #Import "..\..\Foundation\DRIVER_OBJECT.ahk" { DRIVER_OBJECT }
+#Import "..\..\Foundation\DRIVER_REINITIALIZE.ahk" { DRIVER_REINITIALIZE }
 #Import "..\..\Foundation\ERESOURCE.ahk" { ERESOURCE }
 #Import "..\..\Foundation\FAST_MUTEX.ahk" { FAST_MUTEX }
 #Import "..\..\Foundation\FILE_OBJECT.ahk" { FILE_OBJECT }
@@ -27,7 +31,10 @@
 #Import "..\..\Foundation\PETHREAD.ahk" { PETHREAD }
 #Import "..\..\Foundation\PEX_RUNDOWN_REF_CACHE_AWARE.ahk" { PEX_RUNDOWN_REF_CACHE_AWARE }
 #Import "..\..\Foundation\PEX_TIMER.ahk" { PEX_TIMER }
+#Import "..\..\Foundation\PFREE_FUNCTION.ahk" { PFREE_FUNCTION }
+#Import "..\..\Foundation\PIO_COMPLETION_ROUTINE.ahk" { PIO_COMPLETION_ROUTINE }
 #Import "..\..\Foundation\PIO_WORKITEM.ahk" { PIO_WORKITEM }
+#Import "..\..\Foundation\PKDEFERRED_ROUTINE.ahk" { PKDEFERRED_ROUTINE }
 #Import "..\..\Foundation\PKINTERRUPT.ahk" { PKINTERRUPT }
 #Import "..\..\Foundation\PKTHREAD.ahk" { PKTHREAD }
 #Import "..\..\Foundation\POBJECT_TYPE.ahk" { POBJECT_TYPE }
@@ -107,11 +114,53 @@
 #Import ".\MM_SYSTEMSIZE.ahk" { MM_SYSTEMSIZE }
 #Import ".\OBJECT_HANDLE_INFORMATION.ahk" { OBJECT_HANDLE_INFORMATION }
 #Import ".\OB_CALLBACK_REGISTRATION.ahk" { OB_CALLBACK_REGISTRATION }
+#Import ".\PALLOCATE_FUNCTION.ahk" { PALLOCATE_FUNCTION }
 #Import ".\PARTITION_INFORMATION_CLASS.ahk" { PARTITION_INFORMATION_CLASS }
+#Import ".\PBOOT_DRIVER_CALLBACK_FUNCTION.ahk" { PBOOT_DRIVER_CALLBACK_FUNCTION }
+#Import ".\PBOUND_CALLBACK.ahk" { PBOUND_CALLBACK }
+#Import ".\PCALLBACK_FUNCTION.ahk" { PCALLBACK_FUNCTION }
+#Import ".\PCLFS_SET_LOG_SIZE_COMPLETE_CALLBACK.ahk" { PCLFS_SET_LOG_SIZE_COMPLETE_CALLBACK }
+#Import ".\PCREATE_PROCESS_NOTIFY_ROUTINE.ahk" { PCREATE_PROCESS_NOTIFY_ROUTINE }
+#Import ".\PCREATE_PROCESS_NOTIFY_ROUTINE_EX.ahk" { PCREATE_PROCESS_NOTIFY_ROUTINE_EX }
+#Import ".\PCREATE_THREAD_NOTIFY_ROUTINE.ahk" { PCREATE_THREAD_NOTIFY_ROUTINE }
 #Import ".\PCW_DATA.ahk" { PCW_DATA }
 #Import ".\PCW_REGISTRATION_INFORMATION.ahk" { PCW_REGISTRATION_INFORMATION }
+#Import ".\PDEBUG_PRINT_CALLBACK.ahk" { PDEBUG_PRINT_CALLBACK }
+#Import ".\PDEVICE_CHANGE_COMPLETE_CALLBACK.ahk" { PDEVICE_CHANGE_COMPLETE_CALLBACK }
+#Import ".\PETWENABLECALLBACK.ahk" { PETWENABLECALLBACK }
+#Import ".\PEXPAND_STACK_CALLOUT.ahk" { PEXPAND_STACK_CALLOUT }
+#Import ".\PEXT_CALLBACK.ahk" { PEXT_CALLBACK }
+#Import ".\PEX_CALLBACK_FUNCTION.ahk" { PEX_CALLBACK_FUNCTION }
+#Import ".\PFN_IN_USE_PAGE_OFFLINE_NOTIFY.ahk" { PFN_IN_USE_PAGE_OFFLINE_NOTIFY }
+#Import ".\PFN_WHEA_HIGH_IRQL_LOG_SEL_EVENT_HANDLER.ahk" { PFN_WHEA_HIGH_IRQL_LOG_SEL_EVENT_HANDLER }
+#Import ".\PHAL_RESET_DISPLAY_PARAMETERS.ahk" { PHAL_RESET_DISPLAY_PARAMETERS }
+#Import ".\PHVL_WHEA_ERROR_NOTIFICATION.ahk" { PHVL_WHEA_ERROR_NOTIFICATION }
 #Import ".\PHYSICAL_COUNTER_RESOURCE_LIST.ahk" { PHYSICAL_COUNTER_RESOURCE_LIST }
 #Import ".\PHYSICAL_MEMORY_RANGE.ahk" { PHYSICAL_MEMORY_RANGE }
+#Import ".\PIO_CONTAINER_NOTIFICATION_FUNCTION.ahk" { PIO_CONTAINER_NOTIFICATION_FUNCTION }
+#Import ".\PIO_CSQ_ACQUIRE_LOCK.ahk" { PIO_CSQ_ACQUIRE_LOCK }
+#Import ".\PIO_CSQ_COMPLETE_CANCELED_IRP.ahk" { PIO_CSQ_COMPLETE_CANCELED_IRP }
+#Import ".\PIO_CSQ_INSERT_IRP.ahk" { PIO_CSQ_INSERT_IRP }
+#Import ".\PIO_CSQ_INSERT_IRP_EX.ahk" { PIO_CSQ_INSERT_IRP_EX }
+#Import ".\PIO_CSQ_PEEK_NEXT_IRP.ahk" { PIO_CSQ_PEEK_NEXT_IRP }
+#Import ".\PIO_CSQ_RELEASE_LOCK.ahk" { PIO_CSQ_RELEASE_LOCK }
+#Import ".\PIO_CSQ_REMOVE_IRP.ahk" { PIO_CSQ_REMOVE_IRP }
+#Import ".\PIO_DEVICE_EJECT_CALLBACK.ahk" { PIO_DEVICE_EJECT_CALLBACK }
+#Import ".\PIO_PERSISTED_MEMORY_ENUMERATION_CALLBACK.ahk" { PIO_PERSISTED_MEMORY_ENUMERATION_CALLBACK }
+#Import ".\PIO_QUERY_DEVICE_ROUTINE.ahk" { PIO_QUERY_DEVICE_ROUTINE }
+#Import ".\PIO_TIMER_ROUTINE.ahk" { PIO_TIMER_ROUTINE }
+#Import ".\PIO_WORKITEM_ROUTINE.ahk" { PIO_WORKITEM_ROUTINE }
+#Import ".\PIO_WORKITEM_ROUTINE_EX.ahk" { PIO_WORKITEM_ROUTINE_EX }
+#Import ".\PKBUGCHECK_CALLBACK_ROUTINE.ahk" { PKBUGCHECK_CALLBACK_ROUTINE }
+#Import ".\PKBUGCHECK_REASON_CALLBACK_ROUTINE.ahk" { PKBUGCHECK_REASON_CALLBACK_ROUTINE }
+#Import ".\PKIPI_BROADCAST_WORKER.ahk" { PKIPI_BROADCAST_WORKER }
+#Import ".\PKSERVICE_ROUTINE.ahk" { PKSERVICE_ROUTINE }
+#Import ".\PKSTART_ROUTINE.ahk" { PKSTART_ROUTINE }
+#Import ".\PKSYNCHRONIZE_ROUTINE.ahk" { PKSYNCHRONIZE_ROUTINE }
+#Import ".\PLOAD_IMAGE_NOTIFY_ROUTINE.ahk" { PLOAD_IMAGE_NOTIFY_ROUTINE }
+#Import ".\PMM_MDL_ROUTINE.ahk" { PMM_MDL_ROUTINE }
+#Import ".\PMM_ROTATE_COPY_CALLBACK_FUNCTION.ahk" { PMM_ROTATE_COPY_CALLBACK_FUNCTION }
+#Import ".\PNMI_CALLBACK.ahk" { PNMI_CALLBACK }
 #Import ".\POOL_CREATE_EXTENDED_PARAMS.ahk" { POOL_CREATE_EXTENDED_PARAMS }
 #Import ".\POOL_EXTENDED_PARAMETER.ahk" { POOL_EXTENDED_PARAMETER }
 #Import ".\POWER_STATE.ahk" { POWER_STATE }
@@ -120,8 +169,23 @@
 #Import ".\PO_FX_DEVICE_V1.ahk" { PO_FX_DEVICE_V1 }
 #Import ".\PO_FX_PERF_STATE_CHANGE.ahk" { PO_FX_PERF_STATE_CHANGE }
 #Import ".\PO_THERMAL_REQUEST_TYPE.ahk" { PO_THERMAL_REQUEST_TYPE }
+#Import ".\PPOWER_SETTING_CALLBACK.ahk" { PPOWER_SETTING_CALLBACK }
+#Import ".\PPO_FX_COMPONENT_PERF_STATE_CALLBACK.ahk" { PPO_FX_COMPONENT_PERF_STATE_CALLBACK }
+#Import ".\PPO_FX_DRIPS_WATCHDOG_CALLBACK.ahk" { PPO_FX_DRIPS_WATCHDOG_CALLBACK }
+#Import ".\PPROCESSOR_CALLBACK_FUNCTION.ahk" { PPROCESSOR_CALLBACK_FUNCTION }
+#Import ".\PREQUEST_POWER_COMPLETE.ahk" { PREQUEST_POWER_COMPLETE }
+#Import ".\PRTL_AVL_ALLOCATE_ROUTINE.ahk" { PRTL_AVL_ALLOCATE_ROUTINE }
+#Import ".\PRTL_AVL_COMPARE_ROUTINE.ahk" { PRTL_AVL_COMPARE_ROUTINE }
+#Import ".\PRTL_AVL_FREE_ROUTINE.ahk" { PRTL_AVL_FREE_ROUTINE }
+#Import ".\PRTL_AVL_MATCH_FUNCTION.ahk" { PRTL_AVL_MATCH_FUNCTION }
+#Import ".\PRTL_GENERIC_ALLOCATE_ROUTINE.ahk" { PRTL_GENERIC_ALLOCATE_ROUTINE }
+#Import ".\PRTL_GENERIC_COMPARE_ROUTINE.ahk" { PRTL_GENERIC_COMPARE_ROUTINE }
+#Import ".\PRTL_GENERIC_FREE_ROUTINE.ahk" { PRTL_GENERIC_FREE_ROUTINE }
+#Import ".\PRTL_RUN_ONCE_INIT_FN.ahk" { PRTL_RUN_ONCE_INIT_FN }
 #Import ".\PSCREATEPROCESSNOTIFYTYPE.ahk" { PSCREATEPROCESSNOTIFYTYPE }
 #Import ".\PSCREATETHREADNOTIFYTYPE.ahk" { PSCREATETHREADNOTIFYTYPE }
+#Import ".\PSE_IMAGE_VERIFICATION_CALLBACK_FUNCTION.ahk" { PSE_IMAGE_VERIFICATION_CALLBACK_FUNCTION }
+#Import ".\PTM_RM_NOTIFICATION.ahk" { PTM_RM_NOTIFICATION }
 #Import ".\RTL_AVL_TABLE.ahk" { RTL_AVL_TABLE }
 #Import ".\RTL_BITMAP.ahk" { RTL_BITMAP }
 #Import ".\RTL_BITMAP_RUN.ahk" { RTL_BITMAP_RUN }
@@ -134,6 +198,7 @@
 #Import ".\SE_IMAGE_TYPE.ahk" { SE_IMAGE_TYPE }
 #Import ".\SE_IMAGE_VERIFICATION_CALLBACK_TYPE.ahk" { SE_IMAGE_VERIFICATION_CALLBACK_TYPE }
 #Import ".\SHARE_ACCESS.ahk" { SHARE_ACCESS }
+#Import ".\SILO_CONTEXT_CLEANUP_CALLBACK.ahk" { SILO_CONTEXT_CLEANUP_CALLBACK }
 #Import ".\SILO_MONITOR_REGISTRATION.ahk" { SILO_MONITOR_REGISTRATION }
 #Import ".\STATE_LOCATION_TYPE.ahk" { STATE_LOCATION_TYPE }
 #Import ".\TABLE_SEARCH_RESULT.ahk" { TABLE_SEARCH_RESULT }
@@ -148,6 +213,7 @@
 #Import ".\WHEA_ERROR_SOURCE_CONFIGURATION.ahk" { WHEA_ERROR_SOURCE_CONFIGURATION }
 #Import ".\WHEA_EVENT_LOG_ENTRY.ahk" { WHEA_EVENT_LOG_ENTRY }
 #Import ".\WHEA_PSHED_PLUGIN_REGISTRATION_PACKET_V2.ahk" { WHEA_PSHED_PLUGIN_REGISTRATION_PACKET_V2 }
+#Import ".\WMI_NOTIFICATION_CALLBACK.ahk" { WMI_NOTIFICATION_CALLBACK }
 #Import ".\WORK_QUEUE_TYPE.ahk" { WORK_QUEUE_TYPE }
 #Import ".\XSTATE_SAVE.ahk" { XSTATE_SAVE }
 #Import ".\ZONE_HEADER.ahk" { ZONE_HEADER }
@@ -190,6 +256,7 @@
 #Import "..\..\..\Win32\System\Diagnostics\Etw\EVENT_INFO_CLASS.ahk" { EVENT_INFO_CLASS }
 #Import "..\..\..\Win32\System\Diagnostics\Etw\REGHANDLE.ahk" { REGHANDLE }
 #Import "..\..\..\Win32\System\IO\IO_STATUS_BLOCK.ahk" { IO_STATUS_BLOCK }
+#Import "..\..\..\Win32\System\IO\PIO_APC_ROUTINE.ahk" { PIO_APC_ROUTINE }
 #Import "..\..\..\Win32\System\Ioctl\CREATE_DISK.ahk" { CREATE_DISK }
 #Import "..\..\..\Win32\System\Ioctl\DRIVE_LAYOUT_INFORMATION.ahk" { DRIVE_LAYOUT_INFORMATION }
 #Import "..\..\..\Win32\System\Ioctl\DRIVE_LAYOUT_INFORMATION_EX.ahk" { DRIVE_LAYOUT_INFORMATION_EX }
@@ -230,7 +297,7 @@
  */
 export NtLoadDriver(DriverServiceName) {
     result := DllCall("ntdll.dll\NtLoadDriver", UNICODE_STRING.Ptr, DriverServiceName, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -241,7 +308,7 @@ export NtLoadDriver(DriverServiceName) {
  */
 export NtUnloadDriver(DriverServiceName) {
     result := DllCall("ntdll.dll\NtUnloadDriver", UNICODE_STRING.Ptr, DriverServiceName, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -252,7 +319,7 @@ export NtUnloadDriver(DriverServiceName) {
  */
 export NtMakeTemporaryObject(_Handle) {
     result := DllCall("ntdll.dll\NtMakeTemporaryObject", HANDLE, _Handle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -268,7 +335,7 @@ export NtMakeTemporaryObject(_Handle) {
  */
 export NtCreateTransactionManager(TmHandle, DesiredAccess, ObjectAttributes, LogFileName, CreateOptions, CommitStrength) {
     result := DllCall("ntdll.dll\NtCreateTransactionManager", HANDLE.Ptr, TmHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, UNICODE_STRING.Ptr, LogFileName, UInt32, CreateOptions, UInt32, CommitStrength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -284,7 +351,7 @@ export NtCreateTransactionManager(TmHandle, DesiredAccess, ObjectAttributes, Log
  */
 export NtOpenTransactionManager(TmHandle, DesiredAccess, ObjectAttributes, LogFileName, TmIdentity, OpenOptions) {
     result := DllCall("ntdll.dll\NtOpenTransactionManager", HANDLE.Ptr, TmHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, UNICODE_STRING.Ptr, LogFileName, Guid.Ptr, TmIdentity, UInt32, OpenOptions, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -298,7 +365,7 @@ export NtRollforwardTransactionManager(TransactionManagerHandle, TmVirtualClock)
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntdll.dll\NtRollforwardTransactionManager", HANDLE, TransactionManagerHandle, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -309,7 +376,7 @@ export NtRollforwardTransactionManager(TransactionManagerHandle, TmVirtualClock)
  */
 export NtRecoverTransactionManager(TransactionManagerHandle) {
     result := DllCall("ntdll.dll\NtRecoverTransactionManager", HANDLE, TransactionManagerHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -326,7 +393,7 @@ export NtEnumerateTransactionObject(RootObjectHandle, QueryType, ObjectCursor, O
     ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntdll.dll\NtEnumerateTransactionObject", HANDLE, RootObjectHandle, KTMOBJECT_TYPE, QueryType, IntPtr, ObjectCursor, UInt32, ObjectCursorLength, ReturnLengthMarshal, ReturnLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -348,7 +415,7 @@ export NtCreateTransaction(TransactionHandle, DesiredAccess, ObjectAttributes, U
     TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntdll.dll\NtCreateTransaction", HANDLE.Ptr, TransactionHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, Guid.Ptr, Uow, HANDLE, TmHandle, UInt32, CreateOptions, UInt32, _IsolationLevel, UInt32, IsolationFlags, TimeoutMarshal, Timeout, UNICODE_STRING.Ptr, Description, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -365,7 +432,7 @@ export NtQueryInformationTransaction(TransactionHandle, TransactionInformationCl
     ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntdll.dll\NtQueryInformationTransaction", HANDLE, TransactionHandle, TRANSACTION_INFORMATION_CLASS, TransactionInformationClass, IntPtr, TransactionInformation, UInt32, TransactionInformationLength, ReturnLengthMarshal, ReturnLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -377,7 +444,7 @@ export NtQueryInformationTransaction(TransactionHandle, TransactionInformationCl
  */
 export NtCommitTransaction(TransactionHandle, Wait) {
     result := DllCall("ntdll.dll\NtCommitTransaction", HANDLE, TransactionHandle, BOOLEAN, Wait, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -389,7 +456,7 @@ export NtCommitTransaction(TransactionHandle, Wait) {
  */
 export NtRollbackTransaction(TransactionHandle, Wait) {
     result := DllCall("ntdll.dll\NtRollbackTransaction", HANDLE, TransactionHandle, BOOLEAN, Wait, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -400,7 +467,7 @@ export NtRollbackTransaction(TransactionHandle, Wait) {
  */
 export NtRecoverResourceManager(ResourceManagerHandle) {
     result := DllCall("ntdll.dll\NtRecoverResourceManager", HANDLE, ResourceManagerHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -417,7 +484,7 @@ export NtQueryInformationResourceManager(ResourceManagerHandle, ResourceManagerI
     ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntdll.dll\NtQueryInformationResourceManager", HANDLE, ResourceManagerHandle, RESOURCEMANAGER_INFORMATION_CLASS, ResourceManagerInformationClass, IntPtr, ResourceManagerInformation, UInt32, ResourceManagerInformationLength, ReturnLengthMarshal, ReturnLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -431,7 +498,7 @@ export NtQueryInformationResourceManager(ResourceManagerHandle, ResourceManagerI
  */
 export NtSetInformationResourceManager(ResourceManagerHandle, ResourceManagerInformationClass, ResourceManagerInformation, ResourceManagerInformationLength) {
     result := DllCall("ntdll.dll\NtSetInformationResourceManager", HANDLE, ResourceManagerHandle, RESOURCEMANAGER_INFORMATION_CLASS, ResourceManagerInformationClass, IntPtr, ResourceManagerInformation, UInt32, ResourceManagerInformationLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -451,7 +518,7 @@ export NtCreateEnlistment(EnlistmentHandle, DesiredAccess, ResourceManagerHandle
     EnlistmentKeyMarshal := EnlistmentKey is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntdll.dll\NtCreateEnlistment", HANDLE.Ptr, EnlistmentHandle, UInt32, DesiredAccess, HANDLE, ResourceManagerHandle, HANDLE, TransactionHandle, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, UInt32, CreateOptions, UInt32, NotificationMask, EnlistmentKeyMarshal, EnlistmentKey, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -465,7 +532,7 @@ export NtRecoverEnlistment(EnlistmentHandle, EnlistmentKey) {
     EnlistmentKeyMarshal := EnlistmentKey is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntdll.dll\NtRecoverEnlistment", HANDLE, EnlistmentHandle, EnlistmentKeyMarshal, EnlistmentKey, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -479,7 +546,7 @@ export NtPrePrepareEnlistment(EnlistmentHandle, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntdll.dll\NtPrePrepareEnlistment", HANDLE, EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -493,7 +560,7 @@ export NtPrepareEnlistment(EnlistmentHandle, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntdll.dll\NtPrepareEnlistment", HANDLE, EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -507,7 +574,7 @@ export NtCommitEnlistment(EnlistmentHandle, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntdll.dll\NtCommitEnlistment", HANDLE, EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -521,7 +588,7 @@ export NtRollbackEnlistment(EnlistmentHandle, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntdll.dll\NtRollbackEnlistment", HANDLE, EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -535,7 +602,7 @@ export NtPrePrepareComplete(EnlistmentHandle, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntdll.dll\NtPrePrepareComplete", HANDLE, EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -549,7 +616,7 @@ export NtPrepareComplete(EnlistmentHandle, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntdll.dll\NtPrepareComplete", HANDLE, EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -563,7 +630,7 @@ export NtCommitComplete(EnlistmentHandle, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntdll.dll\NtCommitComplete", HANDLE, EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -577,7 +644,7 @@ export NtReadOnlyEnlistment(EnlistmentHandle, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntdll.dll\NtReadOnlyEnlistment", HANDLE, EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -591,7 +658,7 @@ export NtRollbackComplete(EnlistmentHandle, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntdll.dll\NtRollbackComplete", HANDLE, EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -605,7 +672,7 @@ export NtSinglePhaseReject(EnlistmentHandle, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntdll.dll\NtSinglePhaseReject", HANDLE, EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -616,7 +683,7 @@ export NtSinglePhaseReject(EnlistmentHandle, TmVirtualClock) {
  */
 export NtDisplayString(_String) {
     result := DllCall("ntdll.dll\NtDisplayString", UNICODE_STRING.Ptr, _String, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -631,7 +698,7 @@ export NtDisplayString(_String) {
  */
 export NtPowerInformation(InformationLevel, InputBuffer, InputBufferLength, OutputBuffer, OutputBufferLength) {
     result := DllCall("ntdll.dll\NtPowerInformation", POWER_INFORMATION_LEVEL, InformationLevel, IntPtr, InputBuffer, UInt32, InputBufferLength, IntPtr, OutputBuffer, UInt32, OutputBufferLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -642,7 +709,7 @@ export NtPowerInformation(InformationLevel, InputBuffer, InputBufferLength, Outp
  */
 export NtAllocateLocallyUniqueId(_Luid) {
     result := DllCall("ntdll.dll\NtAllocateLocallyUniqueId", LUID.Ptr, _Luid, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -657,7 +724,7 @@ export NtAllocateLocallyUniqueId(_Luid) {
  */
 export ZwManagePartition(TargetHandle, SourceHandle, PartitionInformationClass, PartitionInformation, PartitionInformationLength) {
     result := DllCall("ntdll.dll\ZwManagePartition", HANDLE, TargetHandle, HANDLE, SourceHandle, PARTITION_INFORMATION_CLASS, PartitionInformationClass, IntPtr, PartitionInformation, UInt32, PartitionInformationLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -674,7 +741,7 @@ export ZwRegisterProtocolAddressInformation(ResourceManager, ProtocolId, Protoco
     ProtocolInformationMarshal := ProtocolInformation is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntdll.dll\ZwRegisterProtocolAddressInformation", HANDLE, ResourceManager, Guid.Ptr, ProtocolId, UInt32, ProtocolInformationSize, ProtocolInformationMarshal, ProtocolInformation, UInt32, CreateOptions, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -686,7 +753,7 @@ export ZwRegisterProtocolAddressInformation(ResourceManager, ProtocolId, Protoco
  */
 export ZwRenameTransactionManager(LogFileName, ExistingTransactionManagerGuid) {
     result := DllCall("ntdll.dll\ZwRenameTransactionManager", UNICODE_STRING.Ptr, LogFileName, Guid.Ptr, ExistingTransactionManagerGuid, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -702,7 +769,7 @@ export ZwPropagationComplete(ResourceManagerHandle, RequestCookie, BufferLength,
     _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntdll.dll\ZwPropagationComplete", HANDLE, ResourceManagerHandle, UInt32, RequestCookie, UInt32, BufferLength, _BufferMarshal, _Buffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -715,7 +782,7 @@ export ZwPropagationComplete(ResourceManagerHandle, RequestCookie, BufferLength,
  */
 export ZwPropagationFailed(ResourceManagerHandle, RequestCookie, PropStatus) {
     result := DllCall("ntdll.dll\ZwPropagationFailed", HANDLE, ResourceManagerHandle, UInt32, RequestCookie, NTSTATUS, PropStatus, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -730,7 +797,7 @@ export ZwPropagationFailed(ResourceManagerHandle, RequestCookie, PropStatus) {
  */
 export NtManagePartition(TargetHandle, SourceHandle, PartitionInformationClass, PartitionInformation, PartitionInformationLength) {
     result := DllCall("ntdll.dll\NtManagePartition", HANDLE, TargetHandle, HANDLE, SourceHandle, PARTITION_INFORMATION_CLASS, PartitionInformationClass, IntPtr, PartitionInformation, UInt32, PartitionInformationLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -760,7 +827,7 @@ export RtlAssert(VoidFailedAssertion, VoidFileName, LineNumber, MutableMessage) 
  */
 export RtlIntegerToUnicodeString(Value, Base, _String) {
     result := DllCall("ntdll.dll\RtlIntegerToUnicodeString", UInt32, Value, UInt32, Base, UNICODE_STRING.Ptr, _String, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -773,7 +840,7 @@ export RtlIntegerToUnicodeString(Value, Base, _String) {
  */
 export RtlInt64ToUnicodeString(Value, Base, _String) {
     result := DllCall("ntdll.dll\RtlInt64ToUnicodeString", Int64, Value, UInt32, Base, UNICODE_STRING.Ptr, _String, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -788,7 +855,7 @@ export RtlUnicodeStringToInteger(_String, Base, Value) {
     ValueMarshal := Value is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntdll.dll\RtlUnicodeStringToInteger", UNICODE_STRING.Ptr, _String, UInt32, Base, ValueMarshal, Value, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -805,7 +872,7 @@ export RtlUnicodeStringToInt64(_String, Base, _Number, EndPointer) {
     EndPointerMarshal := EndPointer is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\RtlUnicodeStringToInt64", UNICODE_STRING.Ptr, _String, UInt32, Base, _NumberMarshal, _Number, EndPointerMarshal, EndPointer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -837,7 +904,7 @@ export RtlQueryRegistryValues(RelativeTo, _Path, QueryTable, _Context, Environme
     EnvironmentMarshal := Environment is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntdll.dll\RtlQueryRegistryValues", UInt32, RelativeTo, "ptr", _Path, RTL_QUERY_REGISTRY_TABLE.Ptr, QueryTable, _ContextMarshal, _Context, EnvironmentMarshal, Environment, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -866,7 +933,7 @@ export RtlWriteRegistryValue(RelativeTo, _Path, _ValueName, ValueType, ValueData
     _ValueName := _ValueName is String ? StrPtr(_ValueName) : _ValueName
 
     result := DllCall("ntdll.dll\RtlWriteRegistryValue", UInt32, RelativeTo, "ptr", _Path, "ptr", _ValueName, UInt32, ValueType, IntPtr, ValueData, UInt32, ValueLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -882,7 +949,7 @@ export RtlDeleteRegistryValue(RelativeTo, _Path, _ValueName) {
     _ValueName := _ValueName is String ? StrPtr(_ValueName) : _ValueName
 
     result := DllCall("ntdll.dll\RtlDeleteRegistryValue", UInt32, RelativeTo, "ptr", _Path, "ptr", _ValueName, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -896,7 +963,7 @@ export RtlCreateRegistryKey(RelativeTo, _Path) {
     _Path := _Path is String ? StrPtr(_Path) : _Path
 
     result := DllCall("ntdll.dll\RtlCreateRegistryKey", UInt32, RelativeTo, "ptr", _Path, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -910,7 +977,7 @@ export RtlCheckRegistryKey(RelativeTo, _Path) {
     _Path := _Path is String ? StrPtr(_Path) : _Path
 
     result := DllCall("ntdll.dll\RtlCheckRegistryKey", UInt32, RelativeTo, "ptr", _Path, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -924,7 +991,7 @@ export RtlInitUTF8StringEx(DestinationString, SourceString) {
     SourceStringMarshal := SourceString is VarRef ? "char*" : "ptr"
 
     result := DllCall("ntdll.dll\RtlInitUTF8StringEx", STRING.Ptr, DestinationString, SourceStringMarshal, SourceString, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -990,7 +1057,7 @@ export RtlHashUnicodeString(_String, CaseInSensitive, HashAlgorithm, HashValue) 
     HashValueMarshal := HashValue is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntdll.dll\RtlHashUnicodeString", UNICODE_STRING.Ptr, _String, BOOLEAN, CaseInSensitive, UInt32, HashAlgorithm, HashValueMarshal, HashValue, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1012,7 +1079,7 @@ export RtlCopyUnicodeString(DestinationString, SourceString) {
  */
 export RtlAppendUnicodeStringToString(Destination, Source) {
     result := DllCall("ntdll.dll\RtlAppendUnicodeStringToString", UNICODE_STRING.Ptr, Destination, UNICODE_STRING.Ptr, Source, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1026,7 +1093,7 @@ export RtlAppendUnicodeToString(Destination, Source) {
     Source := Source is String ? StrPtr(Source) : Source
 
     result := DllCall("ntdll.dll\RtlAppendUnicodeToString", UNICODE_STRING.Ptr, Destination, "ptr", Source, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1116,7 +1183,7 @@ export RtlUnicodeToUTF8N(UTF8StringDestination, UTF8StringMaxByteCount, UTF8Stri
     UTF8StringActualByteCountMarshal := UTF8StringActualByteCount is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntdll.dll\RtlUnicodeToUTF8N", IntPtr, UTF8StringDestination, UInt32, UTF8StringMaxByteCount, UTF8StringActualByteCountMarshal, UTF8StringActualByteCount, IntPtr, UnicodeStringSource, UInt32, UnicodeStringByteCount, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1154,7 +1221,7 @@ export RtlUTF8ToUnicodeN(UnicodeStringDestination, UnicodeStringMaxByteCount, Un
     UnicodeStringActualByteCountMarshal := UnicodeStringActualByteCount is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntdll.dll\RtlUTF8ToUnicodeN", IntPtr, UnicodeStringDestination, UInt32, UnicodeStringMaxByteCount, UnicodeStringActualByteCountMarshal, UnicodeStringActualByteCount, IntPtr, UTF8StringSource, UInt32, UTF8StringByteCount, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1167,7 +1234,7 @@ export RtlUTF8ToUnicodeN(UnicodeStringDestination, UnicodeStringMaxByteCount, Un
  */
 export RtlUnicodeStringToUTF8String(DestinationString, SourceString, AllocateDestinationString) {
     result := DllCall("ntdll.dll\RtlUnicodeStringToUTF8String", STRING.Ptr, DestinationString, UNICODE_STRING.Ptr, SourceString, BOOLEAN, AllocateDestinationString, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1180,7 +1247,7 @@ export RtlUnicodeStringToUTF8String(DestinationString, SourceString, AllocateDes
  */
 export RtlUTF8StringToUnicodeString(DestinationString, SourceString, AllocateDestinationString) {
     result := DllCall("ntdll.dll\RtlUTF8StringToUnicodeString", UNICODE_STRING.Ptr, DestinationString, STRING.Ptr, SourceString, BOOLEAN, AllocateDestinationString, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1192,7 +1259,7 @@ export RtlUTF8StringToUnicodeString(DestinationString, SourceString, AllocateDes
  */
 export RtlStringFromGUID(Guid, GuidString) {
     result := DllCall("ntdll.dll\RtlStringFromGUID", Guid.Ptr, Guid, UNICODE_STRING.Ptr, GuidString, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1204,7 +1271,7 @@ export RtlStringFromGUID(Guid, GuidString) {
  */
 export RtlGUIDFromString(GuidString, Guid) {
     result := DllCall("ntdll.dll\RtlGUIDFromString", UNICODE_STRING.Ptr, GuidString, Guid.Ptr, Guid, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1218,7 +1285,7 @@ export RtlGUIDFromString(GuidString, Guid) {
  */
 export RtlGenerateClass5Guid(NamespaceGuid, _Buffer, BufferSize, Guid) {
     result := DllCall("ntoskrnl.exe\RtlGenerateClass5Guid", Guid.Ptr, NamespaceGuid, IntPtr, _Buffer, UInt32, BufferSize, Guid.Ptr, Guid, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1337,7 +1404,7 @@ export DbgPrintReturnControlC(Format, args*) {
  */
 export DbgQueryDebugFilterState(ComponentId, Level) {
     result := DllCall("ntdll.dll\DbgQueryDebugFilterState", UInt32, ComponentId, UInt32, Level, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1350,7 +1417,7 @@ export DbgQueryDebugFilterState(ComponentId, Level) {
  */
 export DbgSetDebugFilterState(ComponentId, Level, State) {
     result := DllCall("ntdll.dll\DbgSetDebugFilterState", UInt32, ComponentId, UInt32, Level, BOOLEAN, State, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1361,8 +1428,8 @@ export DbgSetDebugFilterState(ComponentId, Level, State) {
  * @returns {NTSTATUS} 
  */
 export DbgSetDebugPrintCallback(DebugPrintCallback, Enable) {
-    result := DllCall("ntoskrnl.exe\DbgSetDebugPrintCallback", "ptr", DebugPrintCallback, BOOLEAN, Enable, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\DbgSetDebugPrintCallback", PDEBUG_PRINT_CALLBACK, DebugPrintCallback, BOOLEAN, Enable, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1719,7 +1786,7 @@ export RtlExtractBitMap(Source, Destination, TargetBit, NumberOfBits) {
  */
 export RtlCreateSecurityDescriptor(_SecurityDescriptor, Revision) {
     result := DllCall("ntdll.dll\RtlCreateSecurityDescriptor", PSECURITY_DESCRIPTOR, _SecurityDescriptor, UInt32, Revision, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1765,7 +1832,7 @@ export RtlValidRelativeSecurityDescriptor(SecurityDescriptorInput, SecurityDescr
  */
 export RtlSetDaclSecurityDescriptor(_SecurityDescriptor, DaclPresent, Dacl, DaclDefaulted) {
     result := DllCall("ntdll.dll\RtlSetDaclSecurityDescriptor", PSECURITY_DESCRIPTOR, _SecurityDescriptor, BOOLEAN, DaclPresent, ACL.Ptr, Dacl, BOOLEAN, DaclDefaulted, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1783,7 +1850,7 @@ export RtlSetDaclSecurityDescriptor(_SecurityDescriptor, DaclPresent, Dacl, Dacl
  */
 export RtlGetVersion(lpVersionInformation) {
     result := DllCall("ntdll.dll\RtlGetVersion", OSVERSIONINFOW.Ptr, lpVersionInformation, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1796,7 +1863,7 @@ export RtlGetVersion(lpVersionInformation) {
  */
 export RtlVerifyVersionInfo(VersionInfo, TypeMask, ConditionMask) {
     result := DllCall("ntdll.dll\RtlVerifyVersionInfo", OSVERSIONINFOEXW.Ptr, VersionInfo, UInt32, TypeMask, Int64, ConditionMask, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1832,7 +1899,7 @@ export RtlIsServicePackVersionInstalled(_Version) {
  */
 export RtlIoEncodeMemIoResource(Descriptor, Type, Length, Alignment, MinimumAddress, MaximumAddress) {
     result := DllCall("ntdll.dll\RtlIoEncodeMemIoResource", IO_RESOURCE_DESCRIPTOR.Ptr, Descriptor, Int8, Type, Int64, Length, Int64, Alignment, Int64, MinimumAddress, Int64, MaximumAddress, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1846,7 +1913,7 @@ export RtlIoEncodeMemIoResource(Descriptor, Type, Length, Alignment, MinimumAddr
  */
 export RtlCmEncodeMemIoResource(Descriptor, Type, Length, Start) {
     result := DllCall("ntdll.dll\RtlCmEncodeMemIoResource", CM_PARTIAL_RESOURCE_DESCRIPTOR.Ptr, Descriptor, Int8, Type, Int64, Length, Int64, Start, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1890,7 +1957,7 @@ export RtlFindClosestEncodableLength(SourceLength, TargetLength) {
     TargetLengthMarshal := TargetLength is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntdll.dll\RtlFindClosestEncodableLength", Int64, SourceLength, TargetLengthMarshal, TargetLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1906,7 +1973,7 @@ export RtlIsUntrustedObject(_Handle, _Object, UntrustedObject) {
     UntrustedObjectMarshal := UntrustedObject is VarRef ? "char*" : "ptr"
 
     result := DllCall("ntdll.dll\RtlIsUntrustedObject", HANDLE, _Handle, _ObjectMarshal, _Object, UntrustedObjectMarshal, UntrustedObject, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1928,7 +1995,7 @@ export RtlQueryValidationRunlevel(ComponentName) {
  */
 export NtRenameTransactionManager(LogFileName, ExistingTransactionManagerGuid) {
     result := DllCall("ntdll.dll\NtRenameTransactionManager", UNICODE_STRING.Ptr, LogFileName, Guid.Ptr, ExistingTransactionManagerGuid, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1945,7 +2012,7 @@ export NtQueryInformationTransactionManager(TransactionManagerHandle, Transactio
     ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntdll.dll\NtQueryInformationTransactionManager", HANDLE, TransactionManagerHandle, TRANSACTIONMANAGER_INFORMATION_CLASS, TransactionManagerInformationClass, IntPtr, TransactionManagerInformation, UInt32, TransactionManagerInformationLength, ReturnLengthMarshal, ReturnLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1959,7 +2026,7 @@ export NtQueryInformationTransactionManager(TransactionManagerHandle, Transactio
  */
 export NtSetInformationTransactionManager(TmHandle, TransactionManagerInformationClass, TransactionManagerInformation, TransactionManagerInformationLength) {
     result := DllCall("ntdll.dll\NtSetInformationTransactionManager", HANDLE, TmHandle, TRANSACTIONMANAGER_INFORMATION_CLASS, TransactionManagerInformationClass, IntPtr, TransactionManagerInformation, UInt32, TransactionManagerInformationLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1974,7 +2041,7 @@ export NtSetInformationTransactionManager(TmHandle, TransactionManagerInformatio
  */
 export NtOpenTransaction(TransactionHandle, DesiredAccess, ObjectAttributes, Uow, TmHandle) {
     result := DllCall("ntdll.dll\NtOpenTransaction", HANDLE.Ptr, TransactionHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, Guid.Ptr, Uow, HANDLE, TmHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1988,7 +2055,7 @@ export NtOpenTransaction(TransactionHandle, DesiredAccess, ObjectAttributes, Uow
  */
 export NtSetInformationTransaction(TransactionHandle, TransactionInformationClass, TransactionInformation, TransactionInformationLength) {
     result := DllCall("ntdll.dll\NtSetInformationTransaction", HANDLE, TransactionHandle, TRANSACTION_INFORMATION_CLASS, TransactionInformationClass, IntPtr, TransactionInformation, UInt32, TransactionInformationLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2003,7 +2070,7 @@ export NtSetInformationTransaction(TransactionHandle, TransactionInformationClas
  */
 export NtOpenEnlistment(EnlistmentHandle, DesiredAccess, ResourceManagerHandle, EnlistmentGuid, ObjectAttributes) {
     result := DllCall("ntdll.dll\NtOpenEnlistment", HANDLE.Ptr, EnlistmentHandle, UInt32, DesiredAccess, HANDLE, ResourceManagerHandle, Guid.Ptr, EnlistmentGuid, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2020,7 +2087,7 @@ export NtQueryInformationEnlistment(EnlistmentHandle, EnlistmentInformationClass
     ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntdll.dll\NtQueryInformationEnlistment", HANDLE, EnlistmentHandle, ENLISTMENT_INFORMATION_CLASS, EnlistmentInformationClass, IntPtr, EnlistmentInformation, UInt32, EnlistmentInformationLength, ReturnLengthMarshal, ReturnLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2034,7 +2101,7 @@ export NtQueryInformationEnlistment(EnlistmentHandle, EnlistmentInformationClass
  */
 export NtSetInformationEnlistment(EnlistmentHandle, EnlistmentInformationClass, EnlistmentInformation, EnlistmentInformationLength) {
     result := DllCall("ntdll.dll\NtSetInformationEnlistment", HANDLE, EnlistmentHandle, ENLISTMENT_INFORMATION_CLASS, EnlistmentInformationClass, IntPtr, EnlistmentInformation, UInt32, EnlistmentInformationLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2051,7 +2118,7 @@ export NtSetInformationEnlistment(EnlistmentHandle, EnlistmentInformationClass, 
  */
 export NtCreateResourceManager(ResourceManagerHandle, DesiredAccess, TmHandle, RmGuid, ObjectAttributes, CreateOptions, Description) {
     result := DllCall("ntdll.dll\NtCreateResourceManager", HANDLE.Ptr, ResourceManagerHandle, UInt32, DesiredAccess, HANDLE, TmHandle, Guid.Ptr, RmGuid, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, UInt32, CreateOptions, UNICODE_STRING.Ptr, Description, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2066,7 +2133,7 @@ export NtCreateResourceManager(ResourceManagerHandle, DesiredAccess, TmHandle, R
  */
 export NtOpenResourceManager(ResourceManagerHandle, DesiredAccess, TmHandle, ResourceManagerGuid, ObjectAttributes) {
     result := DllCall("ntdll.dll\NtOpenResourceManager", HANDLE.Ptr, ResourceManagerHandle, UInt32, DesiredAccess, HANDLE, TmHandle, Guid.Ptr, ResourceManagerGuid, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2086,7 +2153,7 @@ export NtGetNotificationResourceManager(ResourceManagerHandle, TransactionNotifi
     ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntdll.dll\NtGetNotificationResourceManager", HANDLE, ResourceManagerHandle, TRANSACTION_NOTIFICATION.Ptr, TransactionNotification, UInt32, NotificationLength, TimeoutMarshal, Timeout, ReturnLengthMarshal, ReturnLength, UInt32, Asynchronous, IntPtr, AsynchronousContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2103,7 +2170,7 @@ export NtRegisterProtocolAddressInformation(ResourceManager, ProtocolId, Protoco
     ProtocolInformationMarshal := ProtocolInformation is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntdll.dll\NtRegisterProtocolAddressInformation", HANDLE, ResourceManager, Guid.Ptr, ProtocolId, UInt32, ProtocolInformationSize, ProtocolInformationMarshal, ProtocolInformation, UInt32, CreateOptions, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2119,7 +2186,7 @@ export NtPropagationComplete(ResourceManagerHandle, RequestCookie, BufferLength,
     _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntdll.dll\NtPropagationComplete", HANDLE, ResourceManagerHandle, UInt32, RequestCookie, UInt32, BufferLength, _BufferMarshal, _Buffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2132,7 +2199,7 @@ export NtPropagationComplete(ResourceManagerHandle, RequestCookie, BufferLength,
  */
 export NtPropagationFailed(ResourceManagerHandle, RequestCookie, PropStatus) {
     result := DllCall("ntdll.dll\NtPropagationFailed", HANDLE, ResourceManagerHandle, UInt32, RequestCookie, NTSTATUS, PropStatus, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2176,7 +2243,7 @@ export KeGetCurrentIrql() {
 export KeInitializeDpc(Dpc, DeferredRoutine, DeferredContext) {
     DeferredContextMarshal := DeferredContext is VarRef ? "ptr" : "ptr"
 
-    DllCall("ntoskrnl.exe\KeInitializeDpc", KDPC.Ptr, Dpc, "ptr", DeferredRoutine, DeferredContextMarshal, DeferredContext)
+    DllCall("ntoskrnl.exe\KeInitializeDpc", KDPC.Ptr, Dpc, PKDEFERRED_ROUTINE, DeferredRoutine, DeferredContextMarshal, DeferredContext)
 }
 
 /**
@@ -2189,7 +2256,7 @@ export KeInitializeDpc(Dpc, DeferredRoutine, DeferredContext) {
 export KeInitializeThreadedDpc(Dpc, DeferredRoutine, DeferredContext) {
     DeferredContextMarshal := DeferredContext is VarRef ? "ptr" : "ptr"
 
-    DllCall("ntoskrnl.exe\KeInitializeThreadedDpc", KDPC.Ptr, Dpc, "ptr", DeferredRoutine, DeferredContextMarshal, DeferredContext)
+    DllCall("ntoskrnl.exe\KeInitializeThreadedDpc", KDPC.Ptr, Dpc, PKDEFERRED_ROUTINE, DeferredRoutine, DeferredContextMarshal, DeferredContext)
 }
 
 /**
@@ -2241,7 +2308,7 @@ export KeInitializeCrashDumpHeader(_DumpType, Flags, _Buffer, BufferSize, Buffer
     BufferNeededMarshal := BufferNeeded is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\KeInitializeCrashDumpHeader", UInt32, _DumpType, UInt32, Flags, IntPtr, _Buffer, UInt32, BufferSize, BufferNeededMarshal, BufferNeeded, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2358,7 +2425,7 @@ export KeRemoveEntryDeviceQueue(DeviceQueue, DeviceQueueEntry) {
 export KeSynchronizeExecution(Interrupt, SynchronizeRoutine, SynchronizeContext) {
     SynchronizeContextMarshal := SynchronizeContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\KeSynchronizeExecution", PKINTERRUPT, Interrupt, "ptr", SynchronizeRoutine, SynchronizeContextMarshal, SynchronizeContext, BOOLEAN)
+    result := DllCall("ntoskrnl.exe\KeSynchronizeExecution", PKINTERRUPT, Interrupt, PKSYNCHRONIZE_ROUTINE, SynchronizeRoutine, SynchronizeContextMarshal, SynchronizeContext, BOOLEAN)
     return result
 }
 
@@ -2510,7 +2577,7 @@ export KeDelayExecutionThread(WaitMode, Alertable, _Interval) {
     _IntervalMarshal := _Interval is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\KeDelayExecutionThread", Int8, WaitMode, BOOLEAN, Alertable, _IntervalMarshal, _Interval, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2558,7 +2625,7 @@ export KeQueryTotalCycleTimeThread(Thread, CycleTimeStamp) {
  */
 export KeSetTargetProcessorDpcEx(Dpc, ProcNumber) {
     result := DllCall("ntoskrnl.exe\KeSetTargetProcessorDpcEx", KDPC.Ptr, Dpc, PROCESSOR_NUMBER.Ptr, ProcNumber, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2764,7 +2831,7 @@ export KeWaitForMultipleObjects(Count, _Object, WaitType, WaitReason, WaitMode, 
     TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\KeWaitForMultipleObjects", UInt32, Count, _ObjectMarshal, _Object, WAIT_TYPE, WaitType, KWAIT_REASON, WaitReason, Int8, WaitMode, BOOLEAN, Alertable, TimeoutMarshal, Timeout, KWAIT_BLOCK.Ptr, WaitBlockArray, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2782,7 +2849,7 @@ export KeWaitForSingleObject(_Object, WaitReason, WaitMode, Alertable, Timeout) 
     TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\KeWaitForSingleObject", _ObjectMarshal, _Object, KWAIT_REASON, WaitReason, Int8, WaitMode, BOOLEAN, Alertable, TimeoutMarshal, Timeout, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2793,7 +2860,7 @@ export KeWaitForSingleObject(_Object, WaitReason, WaitMode, Alertable, Timeout) 
  * @returns {Pointer} 
  */
 export KeIpiGenericCall(BroadcastFunction, _Context) {
-    result := DllCall("ntoskrnl.exe\KeIpiGenericCall", "ptr", BroadcastFunction, IntPtr, _Context, IntPtr)
+    result := DllCall("ntoskrnl.exe\KeIpiGenericCall", PKIPI_BROADCAST_WORKER, BroadcastFunction, IntPtr, _Context, IntPtr)
     return result
 }
 
@@ -2926,7 +2993,7 @@ export KeReleaseInStackQueuedSpinLockForDpc(LockHandle) {
  */
 export KeQueryDpcWatchdogInformation(WatchdogInformation) {
     result := DllCall("ntoskrnl.exe\KeQueryDpcWatchdogInformation", KDPC_WATCHDOG_INFORMATION.Ptr, WatchdogInformation, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2961,7 +3028,7 @@ export KeDeregisterBugCheckCallback(CallbackRecord) {
 export KeRegisterBugCheckCallback(CallbackRecord, CallbackRoutine, _Buffer, Length, _Component) {
     _ComponentMarshal := _Component is VarRef ? "char*" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\KeRegisterBugCheckCallback", KBUGCHECK_CALLBACK_RECORD.Ptr, CallbackRecord, "ptr", CallbackRoutine, IntPtr, _Buffer, UInt32, Length, _ComponentMarshal, _Component, BOOLEAN)
+    result := DllCall("ntoskrnl.exe\KeRegisterBugCheckCallback", KBUGCHECK_CALLBACK_RECORD.Ptr, CallbackRecord, PKBUGCHECK_CALLBACK_ROUTINE, CallbackRoutine, IntPtr, _Buffer, UInt32, Length, _ComponentMarshal, _Component, BOOLEAN)
     return result
 }
 
@@ -2973,7 +3040,7 @@ export KeRegisterBugCheckCallback(CallbackRecord, CallbackRoutine, _Buffer, Leng
  */
 export KeInitializeTriageDumpDataArray(KtriageDumpDataArray, _Size) {
     result := DllCall("ntoskrnl.exe\KeInitializeTriageDumpDataArray", IntPtr, KtriageDumpDataArray, UInt32, _Size, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2988,7 +3055,7 @@ export KeAddTriageDumpDataBlock(KtriageDumpDataArray, _Address, _Size) {
     _AddressMarshal := _Address is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\KeAddTriageDumpDataBlock", KTRIAGE_DUMP_DATA_ARRAY.Ptr, KtriageDumpDataArray, _AddressMarshal, _Address, IntPtr, _Size, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3013,7 +3080,7 @@ export KeDeregisterBugCheckReasonCallback(CallbackRecord) {
 export KeRegisterBugCheckReasonCallback(CallbackRecord, CallbackRoutine, Reason, _Component) {
     _ComponentMarshal := _Component is VarRef ? "char*" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\KeRegisterBugCheckReasonCallback", KBUGCHECK_REASON_CALLBACK_RECORD.Ptr, CallbackRecord, "ptr", CallbackRoutine, KBUGCHECK_CALLBACK_REASON, Reason, _ComponentMarshal, _Component, BOOLEAN)
+    result := DllCall("ntoskrnl.exe\KeRegisterBugCheckReasonCallback", KBUGCHECK_REASON_CALLBACK_RECORD.Ptr, CallbackRecord, PKBUGCHECK_REASON_CALLBACK_ROUTINE, CallbackRoutine, KBUGCHECK_CALLBACK_REASON, Reason, _ComponentMarshal, _Component, BOOLEAN)
     return result
 }
 
@@ -3026,7 +3093,7 @@ export KeRegisterBugCheckReasonCallback(CallbackRecord, CallbackRoutine, Reason,
 export KeRegisterNmiCallback(CallbackRoutine, _Context) {
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\KeRegisterNmiCallback", "ptr", CallbackRoutine, _ContextMarshal, _Context, IntPtr)
+    result := DllCall("ntoskrnl.exe\KeRegisterNmiCallback", PNMI_CALLBACK, CallbackRoutine, _ContextMarshal, _Context, IntPtr)
     return result
 }
 
@@ -3039,7 +3106,7 @@ export KeDeregisterNmiCallback(_Handle) {
     _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\KeDeregisterNmiCallback", _HandleMarshal, _Handle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3049,7 +3116,7 @@ export KeDeregisterNmiCallback(_Handle) {
  * @returns {Pointer<Void>} 
  */
 export KeRegisterBoundCallback(CallbackRoutine) {
-    result := DllCall("ntoskrnl.exe\KeRegisterBoundCallback", "ptr", CallbackRoutine, IntPtr)
+    result := DllCall("ntoskrnl.exe\KeRegisterBoundCallback", PBOUND_CALLBACK, CallbackRoutine, IntPtr)
     return result
 }
 
@@ -3062,7 +3129,7 @@ export KeDeregisterBoundCallback(_Handle) {
     _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\KeDeregisterBoundCallback", _HandleMarshal, _Handle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3282,7 +3349,7 @@ export KeQueryLogicalProcessorRelationship(ProcessorNumber, RelationshipType, In
     LengthMarshal := Length is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\KeQueryLogicalProcessorRelationship", PROCESSOR_NUMBER.Ptr, ProcessorNumber, LOGICAL_PROCESSOR_RELATIONSHIP, RelationshipType, IntPtr, Information, LengthMarshal, Length, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3307,7 +3374,7 @@ export KeQueryNodeActiveAffinity2(NodeNumber, GroupAffinities, GroupAffinitiesCo
     GroupAffinitiesRequiredMarshal := GroupAffinitiesRequired is VarRef ? "ushort*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\KeQueryNodeActiveAffinity2", UInt16, NodeNumber, GROUP_AFFINITY.Ptr, GroupAffinities, UInt16, GroupAffinitiesCount, GroupAffinitiesRequiredMarshal, GroupAffinitiesRequired, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3395,7 +3462,7 @@ export KeReleaseGuardedMutexUnsafe(FastMutex) {
 export KeRegisterProcessorChangeCallback(CallbackFunction, CallbackContext, Flags) {
     CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\KeRegisterProcessorChangeCallback", "ptr", CallbackFunction, CallbackContextMarshal, CallbackContext, UInt32, Flags, IntPtr)
+    result := DllCall("ntoskrnl.exe\KeRegisterProcessorChangeCallback", PPROCESSOR_CALLBACK_FUNCTION, CallbackFunction, CallbackContextMarshal, CallbackContext, UInt32, Flags, IntPtr)
     return result
 }
 
@@ -3418,7 +3485,7 @@ export KeDeregisterProcessorChangeCallback(CallbackHandle) {
  */
 export KeGetProcessorNumberFromIndex(ProcIndex, ProcNumber) {
     result := DllCall("ntoskrnl.exe\KeGetProcessorNumberFromIndex", UInt32, ProcIndex, PROCESSOR_NUMBER.Ptr, ProcNumber, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3440,7 +3507,7 @@ export KeGetProcessorIndexFromNumber(ProcNumber) {
  */
 export KeSaveExtendedProcessorState(Mask, XStateSave) {
     result := DllCall("ntoskrnl.exe\KeSaveExtendedProcessorState", Int64, Mask, XSTATE_SAVE.Ptr, XStateSave, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3465,7 +3532,7 @@ export KeConvertAuxiliaryCounterToPerformanceCounter(AuxiliaryCounterValue, Perf
     ConversionErrorMarshal := ConversionError is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\KeConvertAuxiliaryCounterToPerformanceCounter", Int64, AuxiliaryCounterValue, PerformanceCounterValueMarshal, PerformanceCounterValue, ConversionErrorMarshal, ConversionError, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3481,7 +3548,7 @@ export KeConvertPerformanceCounterToAuxiliaryCounter(PerformanceCounterValue, Au
     ConversionErrorMarshal := ConversionError is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\KeConvertPerformanceCounterToAuxiliaryCounter", Int64, PerformanceCounterValue, AuxiliaryCounterValueMarshal, AuxiliaryCounterValue, ConversionErrorMarshal, ConversionError, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3494,7 +3561,7 @@ export KeQueryAuxiliaryCounterFrequency(AuxiliaryCounterFrequency) {
     AuxiliaryCounterFrequencyMarshal := AuxiliaryCounterFrequency is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\KeQueryAuxiliaryCounterFrequency", AuxiliaryCounterFrequencyMarshal, AuxiliaryCounterFrequency, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3504,7 +3571,7 @@ export KeQueryAuxiliaryCounterFrequency(AuxiliaryCounterFrequency) {
  */
 export KdDisableDebugger() {
     result := DllCall("ntoskrnl.exe\KdDisableDebugger", NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3514,7 +3581,7 @@ export KdDisableDebugger() {
  */
 export KdEnableDebugger() {
     result := DllCall("ntoskrnl.exe\KdEnableDebugger", NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3543,7 +3610,7 @@ export KdChangeOption(Option, InBufferBytes, InBuffer, OutBufferBytes, OutBuffer
     OutBufferNeededMarshal := OutBufferNeeded is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\KdChangeOption", KD_OPTION, Option, UInt32, InBufferBytes, InBufferMarshal, InBuffer, UInt32, OutBufferBytes, OutBufferMarshal, OutBuffer, OutBufferNeededMarshal, OutBufferNeeded, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3648,7 +3715,7 @@ export ExFreePool2(P, Tag, ExtendedParameters, ExtendedParametersCount) {
  */
 export ExCreatePool(Flags, Tag, Params, PoolHandle) {
     result := DllCall("ntoskrnl.exe\ExCreatePool", UInt32, Flags, IntPtr, Tag, POOL_CREATE_EXTENDED_PARAMS.Ptr, Params, HANDLE.Ptr, PoolHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3677,7 +3744,7 @@ export ExSecurePoolUpdate(SecurePoolHandle, Tag, Allocation, Cookie, Offset, _Si
     _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\ExSecurePoolUpdate", HANDLE, SecurePoolHandle, UInt32, Tag, AllocationMarshal, Allocation, IntPtr, Cookie, IntPtr, Offset, IntPtr, _Size, _BufferMarshal, _Buffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3851,7 +3918,7 @@ export ExIsProcessorFeaturePresent(ProcessorFeature) {
  */
 export ExInitializeResourceLite(Resource) {
     result := DllCall("ntoskrnl.exe\ExInitializeResourceLite", ERESOURCE.Ptr, Resource, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -3862,7 +3929,7 @@ export ExInitializeResourceLite(Resource) {
  */
 export ExReinitializeResourceLite(Resource) {
     result := DllCall("ntoskrnl.exe\ExReinitializeResourceLite", ERESOURCE.Ptr, Resource, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -4009,7 +4076,7 @@ export ExConvertExclusiveToSharedLite(Resource) {
  */
 export ExDeleteResourceLite(Resource) {
     result := DllCall("ntoskrnl.exe\ExDeleteResourceLite", ERESOURCE.Ptr, Resource, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -4124,7 +4191,7 @@ export ExLocalTimeToSystemTime(LocalTime, _SystemTime) {
 export ExAllocateTimer(Callback, CallbackContext, Attributes) {
     CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\ExAllocateTimer", "ptr", Callback, CallbackContextMarshal, CallbackContext, UInt32, Attributes, PEX_TIMER)
+    result := DllCall("ntoskrnl.exe\ExAllocateTimer", PEXT_CALLBACK, Callback, CallbackContextMarshal, CallbackContext, UInt32, Attributes, PEX_TIMER)
     return result
 }
 
@@ -4179,7 +4246,7 @@ export ExCreateCallback(CallbackObject, ObjectAttributes, Create, AllowMultipleC
     CallbackObjectMarshal := CallbackObject is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\ExCreateCallback", CallbackObjectMarshal, CallbackObject, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, BOOLEAN, Create, BOOLEAN, AllowMultipleCallbacks, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -4193,7 +4260,7 @@ export ExCreateCallback(CallbackObject, ObjectAttributes, Create, AllowMultipleC
 export ExRegisterCallback(CallbackObject, CallbackFunction, CallbackContext) {
     CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\ExRegisterCallback", PCALLBACK_OBJECT, CallbackObject, "ptr", CallbackFunction, CallbackContextMarshal, CallbackContext, IntPtr)
+    result := DllCall("ntoskrnl.exe\ExRegisterCallback", PCALLBACK_OBJECT, CallbackObject, PCALLBACK_FUNCTION, CallbackFunction, CallbackContextMarshal, CallbackContext, IntPtr)
     return result
 }
 
@@ -4635,7 +4702,7 @@ export ExGetFirmwareEnvironmentVariable(VariableName, VendorGuid, Value, ValueLe
     AttributesMarshal := Attributes is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\ExGetFirmwareEnvironmentVariable", UNICODE_STRING.Ptr, VariableName, Guid.Ptr, VendorGuid, IntPtr, Value, ValueLengthMarshal, ValueLength, AttributesMarshal, Attributes, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -4650,7 +4717,7 @@ export ExGetFirmwareEnvironmentVariable(VariableName, VendorGuid, Value, ValueLe
  */
 export ExSetFirmwareEnvironmentVariable(VariableName, VendorGuid, Value, ValueLength, Attributes) {
     result := DllCall("ntoskrnl.exe\ExSetFirmwareEnvironmentVariable", UNICODE_STRING.Ptr, VariableName, Guid.Ptr, VendorGuid, IntPtr, Value, UInt32, ValueLength, UInt32, Attributes, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -4693,7 +4760,7 @@ export ExEnumerateSystemFirmwareTables(FirmwareTableProviderSignature, FirmwareT
     ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\ExEnumerateSystemFirmwareTables", UInt32, FirmwareTableProviderSignature, IntPtr, FirmwareTableBuffer, UInt32, BufferLength, ReturnLengthMarshal, ReturnLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -4710,7 +4777,7 @@ export ExGetSystemFirmwareTable(FirmwareTableProviderSignature, FirmwareTableID,
     ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\ExGetSystemFirmwareTable", UInt32, FirmwareTableProviderSignature, UInt32, FirmwareTableID, IntPtr, FirmwareTableBuffer, UInt32, BufferLength, ReturnLengthMarshal, ReturnLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -4725,8 +4792,8 @@ export CmRegisterCallback(Function, _Context, Cookie) {
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
     CookieMarshal := Cookie is VarRef ? "int64*" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\CmRegisterCallback", "ptr", Function, _ContextMarshal, _Context, CookieMarshal, Cookie, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\CmRegisterCallback", PEX_CALLBACK_FUNCTION, Function, _ContextMarshal, _Context, CookieMarshal, Cookie, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -4737,7 +4804,7 @@ export CmRegisterCallback(Function, _Context, Cookie) {
  */
 export CmUnRegisterCallback(Cookie) {
     result := DllCall("ntoskrnl.exe\CmUnRegisterCallback", Int64, Cookie, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -4757,8 +4824,8 @@ export CmRegisterCallbackEx(Function, Altitude, Driver, _Context, Cookie) {
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
     CookieMarshal := Cookie is VarRef ? "int64*" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\CmRegisterCallbackEx", "ptr", Function, UNICODE_STRING.Ptr, Altitude, DriverMarshal, Driver, _ContextMarshal, _Context, CookieMarshal, Cookie, "ptr", Reserved, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\CmRegisterCallbackEx", PEX_CALLBACK_FUNCTION, Function, UNICODE_STRING.Ptr, Altitude, DriverMarshal, Driver, _ContextMarshal, _Context, CookieMarshal, Cookie, "ptr", Reserved, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -4790,7 +4857,7 @@ export CmSetCallbackObjectContext(_Object, Cookie, NewContext, OldContext) {
     OldContextMarshal := OldContext is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\CmSetCallbackObjectContext", _ObjectMarshal, _Object, CookieMarshal, Cookie, NewContextMarshal, NewContext, OldContextMarshal, OldContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -4809,7 +4876,7 @@ export CmCallbackGetKeyObjectID(Cookie, _Object, _ObjectID, ObjectName) {
     ObjectNameMarshal := ObjectName is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\CmCallbackGetKeyObjectID", CookieMarshal, Cookie, _ObjectMarshal, _Object, _ObjectIDMarshal, _ObjectID, ObjectNameMarshal, ObjectName, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -4843,7 +4910,7 @@ export CmCallbackGetKeyObjectIDEx(Cookie, _Object, _ObjectID, ObjectName, Flags)
     ObjectNameMarshal := ObjectName is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\CmCallbackGetKeyObjectIDEx", CookieMarshal, Cookie, _ObjectMarshal, _Object, _ObjectIDMarshal, _ObjectID, ObjectNameMarshal, ObjectName, UInt32, Flags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -4874,7 +4941,7 @@ export MmIsVerifierEnabled(VerifierFlags) {
     VerifierFlagsMarshal := VerifierFlags is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\MmIsVerifierEnabled", VerifierFlagsMarshal, VerifierFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -4886,7 +4953,7 @@ export MmIsVerifierEnabled(VerifierFlags) {
  */
 export MmAddVerifierThunks(ThunkBuffer, ThunkBufferSize) {
     result := DllCall("ntoskrnl.exe\MmAddVerifierThunks", IntPtr, ThunkBuffer, UInt32, ThunkBufferSize, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -4899,7 +4966,7 @@ export MmAddVerifierThunks(ThunkBuffer, ThunkBufferSize) {
  */
 export MmAddVerifierSpecialThunks(EntryRoutine, ThunkBuffer, ThunkBufferSize) {
     result := DllCall("ntoskrnl.exe\MmAddVerifierSpecialThunks", IntPtr, EntryRoutine, IntPtr, ThunkBuffer, UInt32, ThunkBufferSize, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -4967,7 +5034,7 @@ export MmAllocateMdlForIoSpace(PhysicalAddressList, NumberOfEntries, NewMdl) {
     NewMdlMarshal := NewMdl is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\MmAllocateMdlForIoSpace", MM_PHYSICAL_ADDRESS_LIST.Ptr, PhysicalAddressList, IntPtr, NumberOfEntries, NewMdlMarshal, NewMdl, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -4991,7 +5058,7 @@ export MmAreMdlPagesCached(MemoryDescriptorList) {
  */
 export MmSetPermanentCacheAttribute(StartAddress, NumberOfBytes, CacheType, Flags) {
     result := DllCall("ntoskrnl.exe\MmSetPermanentCacheAttribute", Int64, StartAddress, Int64, NumberOfBytes, MEMORY_CACHING_TYPE, CacheType, UInt32, Flags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -5017,8 +5084,8 @@ export MmMapLockedPages(MemoryDescriptorList, AccessMode) {
 export MmMapMdl(MemoryDescriptorList, Protection, DriverRoutine, DriverContext) {
     DriverContextMarshal := DriverContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\MmMapMdl", MDL.Ptr, MemoryDescriptorList, UInt32, Protection, "ptr", DriverRoutine, DriverContextMarshal, DriverContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\MmMapMdl", MDL.Ptr, MemoryDescriptorList, UInt32, Protection, PMM_MDL_ROUTINE, DriverRoutine, DriverContextMarshal, DriverContext, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -5034,7 +5101,7 @@ export MmMapMemoryDumpMdlEx(Va, PageTotal, MemoryDumpMdl, Flags) {
     VaMarshal := Va is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\MmMapMemoryDumpMdlEx", VaMarshal, Va, UInt32, PageTotal, MDL.Ptr, MemoryDumpMdl, UInt32, Flags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -5057,7 +5124,7 @@ export MmIsIoSpaceActive(StartAddress, NumberOfBytes) {
  */
 export MmAdvanceMdl(_Mdl, NumberOfBytes) {
     result := DllCall("ntoskrnl.exe\MmAdvanceMdl", MDL.Ptr, _Mdl, UInt32, NumberOfBytes, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -5069,7 +5136,7 @@ export MmAdvanceMdl(_Mdl, NumberOfBytes) {
  */
 export MmProtectMdlSystemAddress(MemoryDescriptorList, NewProtect) {
     result := DllCall("ntoskrnl.exe\MmProtectMdlSystemAddress", MDL.Ptr, MemoryDescriptorList, UInt32, NewProtect, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -5356,7 +5423,7 @@ export MmAllocateContiguousMemoryEx(NumberOfBytes, LowestAcceptableAddress, High
     BaseAddressMarshal := BaseAddress is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\MmAllocateContiguousMemoryEx", NumberOfBytesMarshal, NumberOfBytes, Int64, LowestAcceptableAddress, Int64, HighestAcceptableAddress, Int64, BoundaryAddressMultiple, UInt32, PreferredNode, UInt32, Protect, PartitionObjectMarshal, PartitionObject, UInt32, Tag, UInt32, Flags, BaseAddressMarshal, BaseAddress, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -5505,7 +5572,7 @@ export MmProtectDriverSection(AddressWithinSection, _Size, Flags) {
     AddressWithinSectionMarshal := AddressWithinSection is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\MmProtectDriverSection", AddressWithinSectionMarshal, AddressWithinSection, IntPtr, _Size, UInt32, Flags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -5558,7 +5625,7 @@ export SeReleaseSubjectContext(SubjectContext) {
  */
 export SeAssignSecurity(ParentDescriptor, ExplicitDescriptor, NewDescriptor, IsDirectoryObject, SubjectContext, GenericMapping, PoolType) {
     result := DllCall("ntoskrnl.exe\SeAssignSecurity", PSECURITY_DESCRIPTOR, ParentDescriptor, PSECURITY_DESCRIPTOR, ExplicitDescriptor, PSECURITY_DESCRIPTOR.Ptr, NewDescriptor, BOOLEAN, IsDirectoryObject, SECURITY_SUBJECT_CONTEXT.Ptr, SubjectContext, GENERIC_MAPPING.Ptr, GenericMapping, POOL_TYPE, PoolType, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -5591,7 +5658,7 @@ export SeComputeAutoInheritByObjectType(_ObjectType, _SecurityDescriptor, Parent
  */
 export SeAssignSecurityEx(ParentDescriptor, ExplicitDescriptor, NewDescriptor, _ObjectType, IsDirectoryObject, AutoInheritFlags, SubjectContext, GenericMapping, PoolType) {
     result := DllCall("ntoskrnl.exe\SeAssignSecurityEx", PSECURITY_DESCRIPTOR, ParentDescriptor, PSECURITY_DESCRIPTOR, ExplicitDescriptor, PSECURITY_DESCRIPTOR.Ptr, NewDescriptor, Guid.Ptr, _ObjectType, BOOLEAN, IsDirectoryObject, UInt32, AutoInheritFlags, SECURITY_SUBJECT_CONTEXT.Ptr, SubjectContext, GENERIC_MAPPING.Ptr, GenericMapping, POOL_TYPE, PoolType, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -5602,7 +5669,7 @@ export SeAssignSecurityEx(ParentDescriptor, ExplicitDescriptor, NewDescriptor, _
  */
 export SeDeassignSecurity(_SecurityDescriptor) {
     result := DllCall("ntoskrnl.exe\SeDeassignSecurity", PSECURITY_DESCRIPTOR.Ptr, _SecurityDescriptor, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -5641,7 +5708,7 @@ export SeSetAuditParameter(AuditParameters, Type, Index, Data) {
     DataMarshal := Data is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\SeSetAuditParameter", SE_ADT_PARAMETER_ARRAY.Ptr, AuditParameters, SE_ADT_PARAMETER_TYPE, Type, UInt32, Index, DataMarshal, Data, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -5655,7 +5722,7 @@ export SeSetAuditParameter(AuditParameters, Type, Index, Data) {
  */
 export SeReportSecurityEvent(Flags, SourceName, UserSid, AuditParameters) {
     result := DllCall("ntoskrnl.exe\SeReportSecurityEvent", UInt32, Flags, UNICODE_STRING.Ptr, SourceName, PSID, UserSid, SE_ADT_PARAMETER_ARRAY.Ptr, AuditParameters, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -5685,8 +5752,8 @@ export SeRegisterImageVerificationCallback(_ImageType, CallbackType, CallbackFun
     CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
     CallbackHandleMarshal := CallbackHandle is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\SeRegisterImageVerificationCallback", SE_IMAGE_TYPE, _ImageType, SE_IMAGE_VERIFICATION_CALLBACK_TYPE, CallbackType, "ptr", CallbackFunction, CallbackContextMarshal, CallbackContext, "ptr", Token, CallbackHandleMarshal, CallbackHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\SeRegisterImageVerificationCallback", SE_IMAGE_TYPE, _ImageType, SE_IMAGE_VERIFICATION_CALLBACK_TYPE, CallbackType, PSE_IMAGE_VERIFICATION_CALLBACK_FUNCTION, CallbackFunction, CallbackContextMarshal, CallbackContext, "ptr", Token, CallbackHandleMarshal, CallbackHandle, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -5715,8 +5782,8 @@ export SeUnregisterImageVerificationCallback(CallbackHandle) {
 export PsCreateSystemThread(ThreadHandle, DesiredAccess, ObjectAttributes, ProcessHandle, ClientId, StartRoutine, StartContext) {
     StartContextMarshal := StartContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\PsCreateSystemThread", HANDLE.Ptr, ThreadHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, HANDLE, ProcessHandle, CLIENT_ID.Ptr, ClientId, "ptr", StartRoutine, StartContextMarshal, StartContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\PsCreateSystemThread", HANDLE.Ptr, ThreadHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, HANDLE, ProcessHandle, CLIENT_ID.Ptr, ClientId, PKSTART_ROUTINE, StartRoutine, StartContextMarshal, StartContext, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -5727,7 +5794,7 @@ export PsCreateSystemThread(ThreadHandle, DesiredAccess, ObjectAttributes, Proce
  */
 export PsTerminateSystemThread(ExitStatus) {
     result := DllCall("ntoskrnl.exe\PsTerminateSystemThread", NTSTATUS, ExitStatus, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -5742,7 +5809,7 @@ export PsWrapApcWow64Thread(ApcContext, ApcRoutine) {
     ApcRoutineMarshal := ApcRoutine is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\PsWrapApcWow64Thread", ApcContextMarshal, ApcContext, ApcRoutineMarshal, ApcRoutine, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -5785,7 +5852,7 @@ export PsAllocateAffinityToken(AffinityToken) {
     AffinityTokenMarshal := AffinityToken is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\PsAllocateAffinityToken", AffinityTokenMarshal, AffinityToken, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -5807,7 +5874,7 @@ export PsFreeAffinityToken(AffinityToken) {
  */
 export PsSetSystemMultipleGroupAffinityThread(GroupAffinities, GroupCount, AffinityToken) {
     result := DllCall("ntoskrnl.exe\PsSetSystemMultipleGroupAffinityThread", GROUP_AFFINITY.Ptr, GroupAffinities, UInt16, GroupCount, PAFFINITY_TOKEN, AffinityToken, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -5844,7 +5911,7 @@ export IoAllocateDriverObjectExtension(DriverObject, ClientIdentificationAddress
     DriverObjectExtensionMarshal := DriverObjectExtension is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoAllocateDriverObjectExtension", DRIVER_OBJECT.Ptr, DriverObject, ClientIdentificationAddressMarshal, ClientIdentificationAddress, UInt32, DriverObjectExtensionSize, DriverObjectExtensionMarshal, DriverObjectExtension, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -5911,7 +5978,7 @@ export IoAttachDevice(SourceDevice, TargetDevice, AttachedDevice) {
     AttachedDeviceMarshal := AttachedDevice is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoAttachDevice", DEVICE_OBJECT.Ptr, SourceDevice, UNICODE_STRING.Ptr, TargetDevice, AttachedDeviceMarshal, AttachedDevice, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -5987,7 +6054,7 @@ export IoBuildPartialMdl(SourceMdl, TargetMdl, VirtualAddress, Length) {
  */
 export IoGetBootDiskInformation(BootDiskInformation, _Size) {
     result := DllCall("ntoskrnl.exe\IoGetBootDiskInformation", BOOTDISK_INFORMATION.Ptr, BootDiskInformation, UInt32, _Size, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -6000,7 +6067,7 @@ export IoGetBootDiskInformationLite(BootDiskInformation) {
     BootDiskInformationMarshal := BootDiskInformation is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoGetBootDiskInformationLite", BootDiskInformationMarshal, BootDiskInformation, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -6031,7 +6098,7 @@ export IoBuildSynchronousFsdRequest(MajorFunction, DeviceObject, _Buffer, Length
  */
 export IofCallDriver(DeviceObject, _Irp) {
     result := DllCall("ntoskrnl.exe\IofCallDriver", DEVICE_OBJECT.Ptr, DeviceObject, IRP.Ptr, _Irp, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -6056,7 +6123,7 @@ export IoCancelIrp(_Irp) {
  */
 export IoCheckShareAccess(DesiredAccess, DesiredShareAccess, FileObject, ShareAccess, Update) {
     result := DllCall("ntoskrnl.exe\IoCheckShareAccess", UInt32, DesiredAccess, UInt32, DesiredShareAccess, FILE_OBJECT.Ptr, FileObject, SHARE_ACCESS.Ptr, ShareAccess, BOOLEAN, Update, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -6074,7 +6141,7 @@ export IoCheckShareAccessEx(DesiredAccess, DesiredShareAccess, FileObject, Share
     WritePermissionMarshal := WritePermission is VarRef ? "char*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoCheckShareAccessEx", UInt32, DesiredAccess, UInt32, DesiredShareAccess, FILE_OBJECT.Ptr, FileObject, SHARE_ACCESS.Ptr, ShareAccess, BOOLEAN, Update, WritePermissionMarshal, WritePermission, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -6090,7 +6157,7 @@ export IoCheckShareAccessEx(DesiredAccess, DesiredShareAccess, FileObject, Share
  */
 export IoCheckLinkShareAccess(DesiredAccess, DesiredShareAccess, FileObject, ShareAccess, LinkShareAccess, IoShareAccessFlags) {
     result := DllCall("ntoskrnl.exe\IoCheckLinkShareAccess", UInt32, DesiredAccess, UInt32, DesiredShareAccess, FILE_OBJECT.Ptr, FileObject, SHARE_ACCESS.Ptr, ShareAccess, LINK_SHARE_ACCESS.Ptr, LinkShareAccess, UInt32, IoShareAccessFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -6124,8 +6191,8 @@ export IoConnectInterrupt(InterruptObject, ServiceRoutine, ServiceContext, SpinL
     ServiceContextMarshal := ServiceContext is VarRef ? "ptr" : "ptr"
     SpinLockMarshal := SpinLock is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\IoConnectInterrupt", InterruptObjectMarshal, InterruptObject, "ptr", ServiceRoutine, ServiceContextMarshal, ServiceContext, SpinLockMarshal, SpinLock, UInt32, Vector, Int8, Irql, Int8, SynchronizeIrql, KINTERRUPT_MODE, InterruptMode, BOOLEAN, ShareVector, IntPtr, ProcessorEnableMask, BOOLEAN, FloatingSave, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\IoConnectInterrupt", InterruptObjectMarshal, InterruptObject, PKSERVICE_ROUTINE, ServiceRoutine, ServiceContextMarshal, ServiceContext, SpinLockMarshal, SpinLock, UInt32, Vector, Int8, Irql, Int8, SynchronizeIrql, KINTERRUPT_MODE, InterruptMode, BOOLEAN, ShareVector, IntPtr, ProcessorEnableMask, BOOLEAN, FloatingSave, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -6136,7 +6203,7 @@ export IoConnectInterrupt(InterruptObject, ServiceRoutine, ServiceContext, SpinL
  */
 export IoConnectInterruptEx(Parameters) {
     result := DllCall("ntoskrnl.exe\IoConnectInterruptEx", IO_CONNECT_INTERRUPT_PARAMETERS.Ptr, Parameters, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -6155,7 +6222,7 @@ export IoCreateDevice(DriverObject, DeviceExtensionSize, DeviceName, DeviceType,
     DeviceObjectMarshal := DeviceObject is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoCreateDevice", DRIVER_OBJECT.Ptr, DriverObject, UInt32, DeviceExtensionSize, UNICODE_STRING.Ptr, DeviceName, UInt32, DeviceType, UInt32, DeviceCharacteristics, BOOLEAN, Exclusive, DeviceObjectMarshal, DeviceObject, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -6194,7 +6261,7 @@ export IoCreateFile(FileHandle, DesiredAccess, ObjectAttributes, IoStatusBlock, 
     InternalParametersMarshal := InternalParameters is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoCreateFile", HANDLE.Ptr, FileHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, IO_STATUS_BLOCK.Ptr, IoStatusBlock, AllocationSizeMarshal, AllocationSize, UInt32, FileAttributes, UInt32, ShareAccess, UInt32, Disposition, UInt32, CreateOptions, EaBufferMarshal, EaBuffer, UInt32, EaLength, CREATE_FILE_TYPE, CreateFileType, InternalParametersMarshal, InternalParameters, UInt32, Options, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -6217,7 +6284,7 @@ export IoCreateNotificationEvent(EventName, EventHandle) {
  */
 export IoCreateSymbolicLink(SymbolicLinkName, DeviceName) {
     result := DllCall("ntoskrnl.exe\IoCreateSymbolicLink", UNICODE_STRING.Ptr, SymbolicLinkName, UNICODE_STRING.Ptr, DeviceName, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -6240,7 +6307,7 @@ export IoCreateSynchronizationEvent(EventName, EventHandle) {
  */
 export IoCreateUnprotectedSymbolicLink(SymbolicLinkName, DeviceName) {
     result := DllCall("ntoskrnl.exe\IoCreateUnprotectedSymbolicLink", UNICODE_STRING.Ptr, SymbolicLinkName, UNICODE_STRING.Ptr, DeviceName, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -6260,7 +6327,7 @@ export IoDeleteDevice(DeviceObject) {
  */
 export IoDeleteSymbolicLink(SymbolicLinkName) {
     result := DllCall("ntoskrnl.exe\IoDeleteSymbolicLink", UNICODE_STRING.Ptr, SymbolicLinkName, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -6317,7 +6384,7 @@ export IoReportInterruptInactive(Parameters) {
  */
 export IoGetAffinityInterrupt(InterruptObject, GroupAffinity) {
     result := DllCall("ntoskrnl.exe\IoGetAffinityInterrupt", PKINTERRUPT, InterruptObject, GROUP_AFFINITY.Ptr, GroupAffinity, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -6384,7 +6451,7 @@ export IoGetDeviceObjectPointer(ObjectName, DesiredAccess, FileObject, DeviceObj
     DeviceObjectMarshal := DeviceObject is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoGetDeviceObjectPointer", UNICODE_STRING.Ptr, ObjectName, UInt32, DesiredAccess, FileObjectMarshal, FileObject, DeviceObjectMarshal, DeviceObject, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -6410,7 +6477,7 @@ export IoGetDmaAdapter(PhysicalDeviceObject, DeviceDescription, NumberOfMapRegis
  */
 export IoGetIommuInterface(_Version, InterfaceOut) {
     result := DllCall("ntoskrnl.exe\IoGetIommuInterface", UInt32, _Version, DMA_IOMMU_INTERFACE.Ptr, InterfaceOut, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -6423,7 +6490,7 @@ export IoGetIommuInterface(_Version, InterfaceOut) {
  */
 export IoGetIommuInterfaceEx(_Version, Flags, InterfaceOut) {
     result := DllCall("ntoskrnl.exe\IoGetIommuInterfaceEx", UInt32, _Version, Int64, Flags, DMA_IOMMU_INTERFACE_EX.Ptr, InterfaceOut, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -6446,7 +6513,7 @@ export IoForwardIrpSynchronously(DeviceObject, _Irp) {
  */
 export IoSynchronousCallDriver(DeviceObject, _Irp) {
     result := DllCall("ntoskrnl.exe\IoSynchronousCallDriver", DEVICE_OBJECT.Ptr, DeviceObject, IRP.Ptr, _Irp, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -6544,8 +6611,8 @@ export IoInitializeIrpEx(_Irp, DeviceObject, PacketSize, StackSize) {
 export IoInitializeTimer(DeviceObject, TimerRoutine, _Context) {
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\IoInitializeTimer", DEVICE_OBJECT.Ptr, DeviceObject, "ptr", TimerRoutine, _ContextMarshal, _Context, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\IoInitializeTimer", DEVICE_OBJECT.Ptr, DeviceObject, PIO_TIMER_ROUTINE, TimerRoutine, _ContextMarshal, _Context, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -6566,7 +6633,7 @@ export IoReuseIrp(_Irp, Iostatus) {
  */
 export IoRegisterShutdownNotification(DeviceObject) {
     result := DllCall("ntoskrnl.exe\IoRegisterShutdownNotification", DEVICE_OBJECT.Ptr, DeviceObject, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -6577,7 +6644,7 @@ export IoRegisterShutdownNotification(DeviceObject) {
  */
 export IoRegisterLastChanceShutdownNotification(DeviceObject) {
     result := DllCall("ntoskrnl.exe\IoRegisterLastChanceShutdownNotification", DEVICE_OBJECT.Ptr, DeviceObject, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -6637,8 +6704,8 @@ export IoRemoveLinkShareAccessEx(FileObject, ShareAccess, LinkShareAccess, IoSha
 export IoSetCompletionRoutineEx(DeviceObject, _Irp, CompletionRoutine, _Context, InvokeOnSuccess, InvokeOnError, InvokeOnCancel) {
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\IoSetCompletionRoutineEx", DEVICE_OBJECT.Ptr, DeviceObject, IRP.Ptr, _Irp, "ptr", CompletionRoutine, _ContextMarshal, _Context, BOOLEAN, InvokeOnSuccess, BOOLEAN, InvokeOnError, BOOLEAN, InvokeOnCancel, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\IoSetCompletionRoutineEx", DEVICE_OBJECT.Ptr, DeviceObject, IRP.Ptr, _Irp, PIO_COMPLETION_ROUTINE, CompletionRoutine, _ContextMarshal, _Context, BOOLEAN, InvokeOnSuccess, BOOLEAN, InvokeOnError, BOOLEAN, InvokeOnCancel, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -6720,7 +6787,7 @@ export IoAcquireRemoveLockEx(RemoveLock, Tag, _File, Line, RemlockSize) {
     TagMarshal := Tag is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoAcquireRemoveLockEx", IO_REMOVE_LOCK.Ptr, RemoveLock, TagMarshal, Tag, "ptr", _File, UInt32, Line, UInt32, RemlockSize, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -6793,7 +6860,7 @@ export IoStartNextPacketByKey(DeviceObject, Cancelable, Key) {
 export IoStartPacket(DeviceObject, _Irp, Key, CancelFunction) {
     KeyMarshal := Key is VarRef ? "uint*" : "ptr"
 
-    DllCall("ntoskrnl.exe\IoStartPacket", DEVICE_OBJECT.Ptr, DeviceObject, IRP.Ptr, _Irp, KeyMarshal, Key, "ptr", CancelFunction)
+    DllCall("ntoskrnl.exe\IoStartPacket", DEVICE_OBJECT.Ptr, DeviceObject, IRP.Ptr, _Irp, KeyMarshal, Key, DRIVER_CANCEL, CancelFunction)
 }
 
 /**
@@ -6894,8 +6961,8 @@ export IoCreateSystemThread(IoObject, ThreadHandle, DesiredAccess, ObjectAttribu
     IoObjectMarshal := IoObject is VarRef ? "ptr" : "ptr"
     StartContextMarshal := StartContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\IoCreateSystemThread", IoObjectMarshal, IoObject, HANDLE.Ptr, ThreadHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, HANDLE, ProcessHandle, CLIENT_ID.Ptr, ClientId, "ptr", StartRoutine, StartContextMarshal, StartContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\IoCreateSystemThread", IoObjectMarshal, IoObject, HANDLE.Ptr, ThreadHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, HANDLE, ProcessHandle, CLIENT_ID.Ptr, ClientId, PKSTART_ROUTINE, StartRoutine, StartContextMarshal, StartContext, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -6929,7 +6996,7 @@ export IoFreeWorkItem(IoWorkItem) {
 export IoQueueWorkItem(IoWorkItem, WorkerRoutine, QueueType, _Context) {
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-    DllCall("ntoskrnl.exe\IoQueueWorkItem", PIO_WORKITEM, IoWorkItem, "ptr", WorkerRoutine, WORK_QUEUE_TYPE, QueueType, _ContextMarshal, _Context)
+    DllCall("ntoskrnl.exe\IoQueueWorkItem", PIO_WORKITEM, IoWorkItem, PIO_WORKITEM_ROUTINE, WorkerRoutine, WORK_QUEUE_TYPE, QueueType, _ContextMarshal, _Context)
 }
 
 /**
@@ -6943,7 +7010,7 @@ export IoQueueWorkItem(IoWorkItem, WorkerRoutine, QueueType, _Context) {
 export IoQueueWorkItemEx(IoWorkItem, WorkerRoutine, QueueType, _Context) {
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-    DllCall("ntoskrnl.exe\IoQueueWorkItemEx", PIO_WORKITEM, IoWorkItem, "ptr", WorkerRoutine, WORK_QUEUE_TYPE, QueueType, _ContextMarshal, _Context)
+    DllCall("ntoskrnl.exe\IoQueueWorkItemEx", PIO_WORKITEM, IoWorkItem, PIO_WORKITEM_ROUTINE_EX, WorkerRoutine, WORK_QUEUE_TYPE, QueueType, _ContextMarshal, _Context)
 }
 
 /**
@@ -6987,7 +7054,7 @@ export IoUninitializeWorkItem(IoWorkItem) {
 export IoTryQueueWorkItem(IoWorkItem, WorkerRoutine, QueueType, _Context) {
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\IoTryQueueWorkItem", PIO_WORKITEM, IoWorkItem, "ptr", WorkerRoutine, WORK_QUEUE_TYPE, QueueType, _ContextMarshal, _Context, BOOLEAN)
+    result := DllCall("ntoskrnl.exe\IoTryQueueWorkItem", PIO_WORKITEM, IoWorkItem, PIO_WORKITEM_ROUTINE_EX, WorkerRoutine, WORK_QUEUE_TYPE, QueueType, _ContextMarshal, _Context, BOOLEAN)
     return result
 }
 
@@ -6999,7 +7066,7 @@ export IoTryQueueWorkItem(IoWorkItem, WorkerRoutine, QueueType, _Context) {
  */
 export IoWMIRegistrationControl(DeviceObject, Action) {
     result := DllCall("ntoskrnl.exe\IoWMIRegistrationControl", DEVICE_OBJECT.Ptr, DeviceObject, UInt32, Action, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7014,7 +7081,7 @@ export IoWMIAllocateInstanceIds(Guid, InstanceCount, FirstInstanceId) {
     FirstInstanceIdMarshal := FirstInstanceId is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoWMIAllocateInstanceIds", Guid.Ptr, Guid, UInt32, InstanceCount, FirstInstanceIdMarshal, FirstInstanceId, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7028,7 +7095,7 @@ export IoWMIAllocateInstanceIds(Guid, InstanceCount, FirstInstanceId) {
  */
 export IoWMISuggestInstanceName(PhysicalDeviceObject, SymbolicLinkName, CombineNames, SuggestedInstanceName) {
     result := DllCall("ntoskrnl.exe\IoWMISuggestInstanceName", DEVICE_OBJECT.Ptr, PhysicalDeviceObject, UNICODE_STRING.Ptr, SymbolicLinkName, BOOLEAN, CombineNames, UNICODE_STRING.Ptr, SuggestedInstanceName, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7041,7 +7108,7 @@ export IoWMIWriteEvent(WnodeEventItem) {
     WnodeEventItemMarshal := WnodeEventItem is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoWMIWriteEvent", WnodeEventItemMarshal, WnodeEventItem, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7056,7 +7123,7 @@ export IoWMIOpenBlock(Guid, DesiredAccess, DataBlockObject) {
     DataBlockObjectMarshal := DataBlockObject is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoWMIOpenBlock", Guid.Ptr, Guid, UInt32, DesiredAccess, DataBlockObjectMarshal, DataBlockObject, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7072,7 +7139,7 @@ export IoWMIQueryAllData(DataBlockObject, InOutBufferSize, OutBuffer) {
     InOutBufferSizeMarshal := InOutBufferSize is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoWMIQueryAllData", DataBlockObjectMarshal, DataBlockObject, InOutBufferSizeMarshal, InOutBufferSize, IntPtr, OutBuffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7089,7 +7156,7 @@ export IoWMIQueryAllDataMultiple(DataBlockObjectList, ObjectCount, InOutBufferSi
     InOutBufferSizeMarshal := InOutBufferSize is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoWMIQueryAllDataMultiple", DataBlockObjectListMarshal, DataBlockObjectList, UInt32, ObjectCount, InOutBufferSizeMarshal, InOutBufferSize, IntPtr, OutBuffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7106,7 +7173,7 @@ export IoWMIQuerySingleInstance(DataBlockObject, InstanceName, InOutBufferSize, 
     InOutBufferSizeMarshal := InOutBufferSize is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoWMIQuerySingleInstance", DataBlockObjectMarshal, DataBlockObject, UNICODE_STRING.Ptr, InstanceName, InOutBufferSizeMarshal, InOutBufferSize, IntPtr, OutBuffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7124,7 +7191,7 @@ export IoWMIQuerySingleInstanceMultiple(DataBlockObjectList, InstanceNames, Obje
     InOutBufferSizeMarshal := InOutBufferSize is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoWMIQuerySingleInstanceMultiple", DataBlockObjectListMarshal, DataBlockObjectList, UNICODE_STRING.Ptr, InstanceNames, UInt32, ObjectCount, InOutBufferSizeMarshal, InOutBufferSize, IntPtr, OutBuffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7141,7 +7208,7 @@ export IoWMISetSingleInstance(DataBlockObject, InstanceName, _Version, ValueBuff
     DataBlockObjectMarshal := DataBlockObject is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoWMISetSingleInstance", DataBlockObjectMarshal, DataBlockObject, UNICODE_STRING.Ptr, InstanceName, UInt32, _Version, UInt32, ValueBufferSize, IntPtr, ValueBuffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7159,7 +7226,7 @@ export IoWMISetSingleItem(DataBlockObject, InstanceName, DataItemId, _Version, V
     DataBlockObjectMarshal := DataBlockObject is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoWMISetSingleItem", DataBlockObjectMarshal, DataBlockObject, UNICODE_STRING.Ptr, InstanceName, UInt32, DataItemId, UInt32, _Version, UInt32, ValueBufferSize, IntPtr, ValueBuffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7178,7 +7245,7 @@ export IoWMIExecuteMethod(DataBlockObject, InstanceName, MethodId, InBufferSize,
     OutBufferSizeMarshal := OutBufferSize is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoWMIExecuteMethod", DataBlockObjectMarshal, DataBlockObject, UNICODE_STRING.Ptr, InstanceName, UInt32, MethodId, UInt32, InBufferSize, OutBufferSizeMarshal, OutBufferSize, IntPtr, InOutBuffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7193,8 +7260,8 @@ export IoWMISetNotificationCallback(_Object, Callback, _Context) {
     _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\IoWMISetNotificationCallback", _ObjectMarshal, _Object, "ptr", Callback, _ContextMarshal, _Context, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\IoWMISetNotificationCallback", _ObjectMarshal, _Object, WMI_NOTIFICATION_CALLBACK, Callback, _ContextMarshal, _Context, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7209,7 +7276,7 @@ export IoWMIHandleToInstanceName(DataBlockObject, FileHandle, InstanceName) {
     DataBlockObjectMarshal := DataBlockObject is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoWMIHandleToInstanceName", DataBlockObjectMarshal, DataBlockObject, HANDLE, FileHandle, UNICODE_STRING.Ptr, InstanceName, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7224,7 +7291,7 @@ export IoWMIDeviceObjectToInstanceName(DataBlockObject, DeviceObject, InstanceNa
     DataBlockObjectMarshal := DataBlockObject is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoWMIDeviceObjectToInstanceName", DataBlockObjectMarshal, DataBlockObject, DEVICE_OBJECT.Ptr, DeviceObject, UNICODE_STRING.Ptr, InstanceName, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7271,8 +7338,8 @@ export IoFreeErrorLogEntry(ElEntry) {
  * @returns {NTSTATUS} 
  */
 export IoCsqInitialize(Csq, CsqInsertIrp, CsqRemoveIrp, CsqPeekNextIrp, CsqAcquireLock, CsqReleaseLock, CsqCompleteCanceledIrp) {
-    result := DllCall("ntoskrnl.exe\IoCsqInitialize", IO_CSQ.Ptr, Csq, "ptr", CsqInsertIrp, "ptr", CsqRemoveIrp, "ptr", CsqPeekNextIrp, "ptr", CsqAcquireLock, "ptr", CsqReleaseLock, "ptr", CsqCompleteCanceledIrp, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\IoCsqInitialize", IO_CSQ.Ptr, Csq, PIO_CSQ_INSERT_IRP, CsqInsertIrp, PIO_CSQ_REMOVE_IRP, CsqRemoveIrp, PIO_CSQ_PEEK_NEXT_IRP, CsqPeekNextIrp, PIO_CSQ_ACQUIRE_LOCK, CsqAcquireLock, PIO_CSQ_RELEASE_LOCK, CsqReleaseLock, PIO_CSQ_COMPLETE_CANCELED_IRP, CsqCompleteCanceledIrp, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7288,8 +7355,8 @@ export IoCsqInitialize(Csq, CsqInsertIrp, CsqRemoveIrp, CsqPeekNextIrp, CsqAcqui
  * @returns {NTSTATUS} 
  */
 export IoCsqInitializeEx(Csq, CsqInsertIrp, CsqRemoveIrp, CsqPeekNextIrp, CsqAcquireLock, CsqReleaseLock, CsqCompleteCanceledIrp) {
-    result := DllCall("ntoskrnl.exe\IoCsqInitializeEx", IO_CSQ.Ptr, Csq, "ptr", CsqInsertIrp, "ptr", CsqRemoveIrp, "ptr", CsqPeekNextIrp, "ptr", CsqAcquireLock, "ptr", CsqReleaseLock, "ptr", CsqCompleteCanceledIrp, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\IoCsqInitializeEx", IO_CSQ.Ptr, Csq, PIO_CSQ_INSERT_IRP_EX, CsqInsertIrp, PIO_CSQ_REMOVE_IRP, CsqRemoveIrp, PIO_CSQ_PEEK_NEXT_IRP, CsqPeekNextIrp, PIO_CSQ_ACQUIRE_LOCK, CsqAcquireLock, PIO_CSQ_RELEASE_LOCK, CsqReleaseLock, PIO_CSQ_COMPLETE_CANCELED_IRP, CsqCompleteCanceledIrp, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7316,7 +7383,7 @@ export IoCsqInsertIrpEx(Csq, _Irp, _Context, InsertContext) {
     InsertContextMarshal := InsertContext is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoCsqInsertIrpEx", IO_CSQ.Ptr, Csq, IRP.Ptr, _Irp, IO_CSQ_IRP_CONTEXT.Ptr, _Context, InsertContextMarshal, InsertContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7352,7 +7419,7 @@ export IoCsqRemoveIrp(Csq, _Context) {
  */
 export IoValidateDeviceIoControlAccess(_Irp, RequiredAccess) {
     result := DllCall("ntoskrnl.exe\IoValidateDeviceIoControlAccess", IRP.Ptr, _Irp, UInt32, RequiredAccess, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7374,7 +7441,7 @@ export IoGetIoPriorityHint(_Irp) {
  */
 export IoSetIoPriorityHint(_Irp, PriorityHint) {
     result := DllCall("ntoskrnl.exe\IoSetIoPriorityHint", IRP.Ptr, _Irp, IO_PRIORITY_HINT, PriorityHint, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7391,7 +7458,7 @@ export IoAllocateSfioStreamIdentifier(FileObject, Length, Signature, StreamIdent
     StreamIdentifierMarshal := StreamIdentifier is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoAllocateSfioStreamIdentifier", FILE_OBJECT.Ptr, FileObject, UInt32, Length, SignatureMarshal, Signature, StreamIdentifierMarshal, StreamIdentifier, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7418,7 +7485,7 @@ export IoFreeSfioStreamIdentifier(FileObject, Signature) {
     SignatureMarshal := Signature is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoFreeSfioStreamIdentifier", FILE_OBJECT.Ptr, FileObject, SignatureMarshal, Signature, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7432,7 +7499,7 @@ export IoGetIoAttributionHandle(_Irp, IoAttributionHandle) {
     IoAttributionHandleMarshal := IoAttributionHandle is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoGetIoAttributionHandle", IRP.Ptr, _Irp, IoAttributionHandleMarshal, IoAttributionHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7446,7 +7513,7 @@ export IoRecordIoAttribution(OpaqueHandle, AttributionInformation) {
     OpaqueHandleMarshal := OpaqueHandle is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoRecordIoAttribution", OpaqueHandleMarshal, OpaqueHandle, IO_ATTRIBUTION_INFORMATION.Ptr, AttributionInformation, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7461,7 +7528,7 @@ export IoSetIoAttributionIrp(_Irp, AttributionSource, Flags) {
     AttributionSourceMarshal := AttributionSource is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoSetIoAttributionIrp", IRP.Ptr, _Irp, AttributionSourceMarshal, AttributionSource, UInt32, Flags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7477,7 +7544,7 @@ export IoGetContainerInformation(InformationClass, ContainerObject, _Buffer, Buf
     ContainerObjectMarshal := ContainerObject is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoGetContainerInformation", IO_CONTAINER_INFORMATION_CLASS, InformationClass, ContainerObjectMarshal, ContainerObject, IntPtr, _Buffer, UInt32, BufferLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7493,8 +7560,8 @@ export IoGetContainerInformation(InformationClass, ContainerObject, _Buffer, Buf
 export IoRegisterContainerNotification(NotificationClass, CallbackFunction, NotificationInformation, NotificationInformationLength, CallbackRegistration) {
     CallbackRegistrationMarshal := CallbackRegistration is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\IoRegisterContainerNotification", IO_CONTAINER_NOTIFICATION_CLASS, NotificationClass, "ptr", CallbackFunction, IntPtr, NotificationInformation, UInt32, NotificationInformationLength, CallbackRegistrationMarshal, CallbackRegistration, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\IoRegisterContainerNotification", IO_CONTAINER_NOTIFICATION_CLASS, NotificationClass, PIO_CONTAINER_NOTIFICATION_FUNCTION, CallbackFunction, IntPtr, NotificationInformation, UInt32, NotificationInformationLength, CallbackRegistrationMarshal, CallbackRegistration, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7522,7 +7589,7 @@ export IoReserveKsrPersistentMemory(DriverObject, PhysicalDeviceObject, _Size, F
     DataHandleMarshal := DataHandle is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoReserveKsrPersistentMemory", DRIVER_OBJECT.Ptr, DriverObject, DEVICE_OBJECT.Ptr, PhysicalDeviceObject, IntPtr, _Size, UInt32, Flags, DataHandleMarshal, DataHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7535,7 +7602,7 @@ export IoFreeKsrPersistentMemory(DataHandle) {
     DataHandleMarshal := DataHandle is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoFreeKsrPersistentMemory", DataHandleMarshal, DataHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7550,7 +7617,7 @@ export IoQueryKsrPersistentMemorySize(DriverObject, PhysicalDeviceObject, Buffer
     BufferSizeMarshal := BufferSize is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoQueryKsrPersistentMemorySize", DRIVER_OBJECT.Ptr, DriverObject, DEVICE_OBJECT.Ptr, PhysicalDeviceObject, BufferSizeMarshal, BufferSize, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7566,7 +7633,7 @@ export IoAcquireKsrPersistentMemory(DriverObject, PhysicalDeviceObject, _Buffer,
     _SizeMarshal := _Size is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoAcquireKsrPersistentMemory", DRIVER_OBJECT.Ptr, DriverObject, DEVICE_OBJECT.Ptr, PhysicalDeviceObject, IntPtr, _Buffer, _SizeMarshal, _Size, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7581,7 +7648,7 @@ export IoWriteKsrPersistentMemory(DataHandle, _Buffer, _Size) {
     DataHandleMarshal := DataHandle is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoWriteKsrPersistentMemory", DataHandleMarshal, DataHandle, IntPtr, _Buffer, IntPtr, _Size, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7597,8 +7664,8 @@ export IoWriteKsrPersistentMemory(DataHandle, _Buffer, _Size) {
 export IoEnumerateKsrPersistentMemoryEx(DriverObject, PhysicalDeviceObject, PhysicalDeviceId, Callback, CallbackContext) {
     CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\IoEnumerateKsrPersistentMemoryEx", DRIVER_OBJECT.Ptr, DriverObject, DEVICE_OBJECT.Ptr, PhysicalDeviceObject, UNICODE_STRING.Ptr, PhysicalDeviceId, "ptr", Callback, CallbackContextMarshal, CallbackContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\IoEnumerateKsrPersistentMemoryEx", DRIVER_OBJECT.Ptr, DriverObject, DEVICE_OBJECT.Ptr, PhysicalDeviceObject, UNICODE_STRING.Ptr, PhysicalDeviceId, PIO_PERSISTED_MEMORY_ENUMERATION_CALLBACK, Callback, CallbackContextMarshal, CallbackContext, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7619,7 +7686,7 @@ export IoReserveKsrPersistentMemoryEx(DriverObject, PhysicalDeviceObject, Physic
     DataHandleMarshal := DataHandle is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoReserveKsrPersistentMemoryEx", DRIVER_OBJECT.Ptr, DriverObject, DEVICE_OBJECT.Ptr, PhysicalDeviceObject, UNICODE_STRING.Ptr, PhysicalDeviceId, DataTagMarshal, DataTag, UInt32, DataVersion, IntPtr, _Size, UInt32, Flags, DataHandleMarshal, DataHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7639,7 +7706,7 @@ export IoQueryKsrPersistentMemorySizeEx(DriverObject, PhysicalDeviceObject, Phys
     BufferSizeMarshal := BufferSize is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoQueryKsrPersistentMemorySizeEx", DRIVER_OBJECT.Ptr, DriverObject, DEVICE_OBJECT.Ptr, PhysicalDeviceObject, UNICODE_STRING.Ptr, PhysicalDeviceId, DataTagMarshal, DataTag, DataVersionMarshal, DataVersion, BufferSizeMarshal, BufferSize, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7660,7 +7727,7 @@ export IoAcquireKsrPersistentMemoryEx(DriverObject, PhysicalDeviceObject, Physic
     _SizeMarshal := _Size is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoAcquireKsrPersistentMemoryEx", DRIVER_OBJECT.Ptr, DriverObject, DEVICE_OBJECT.Ptr, PhysicalDeviceObject, UNICODE_STRING.Ptr, PhysicalDeviceId, DataTagMarshal, DataTag, DataVersionMarshal, DataVersion, IntPtr, _Buffer, _SizeMarshal, _Size, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7678,7 +7745,7 @@ export WmiQueryTraceInformation(TraceInformationClass, TraceInformation, TraceIn
     _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\WmiQueryTraceInformation", TRACE_INFORMATION_CLASS, TraceInformationClass, IntPtr, TraceInformation, UInt32, TraceInformationLength, RequiredLengthMarshal, RequiredLength, _BufferMarshal, _Buffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7693,8 +7760,8 @@ export WmiQueryTraceInformation(TraceInformationClass, TraceInformation, TraceIn
 export EtwRegister(ProviderId, EnableCallback, CallbackContext, _RegHandle) {
     CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\EtwRegister", Guid.Ptr, ProviderId, "ptr", EnableCallback, CallbackContextMarshal, CallbackContext, REGHANDLE.Ptr, _RegHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\EtwRegister", Guid.Ptr, ProviderId, PETWENABLECALLBACK, EnableCallback, CallbackContextMarshal, CallbackContext, REGHANDLE.Ptr, _RegHandle, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7705,7 +7772,7 @@ export EtwRegister(ProviderId, EnableCallback, CallbackContext, _RegHandle) {
  */
 export EtwUnregister(_RegHandle) {
     result := DllCall("ntoskrnl.exe\EtwUnregister", REGHANDLE, _RegHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7719,7 +7786,7 @@ export EtwUnregister(_RegHandle) {
  */
 export EtwSetInformation(_RegHandle, InformationClass, EventInformation, InformationLength) {
     result := DllCall("ntoskrnl.exe\EtwSetInformation", REGHANDLE, _RegHandle, EVENT_INFO_CLASS, InformationClass, IntPtr, EventInformation, UInt32, InformationLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7754,7 +7821,7 @@ export EtwProviderEnabled(_RegHandle, Level, Keyword) {
  */
 export EtwActivityIdControl(ControlCode, ActivityId) {
     result := DllCall("ntoskrnl.exe\EtwActivityIdControl", UInt32, ControlCode, Guid.Ptr, ActivityId, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7769,7 +7836,7 @@ export EtwActivityIdControl(ControlCode, ActivityId) {
  */
 export EtwWrite(_RegHandle, EventDescriptor, ActivityId, UserDataCount, _UserData) {
     result := DllCall("ntoskrnl.exe\EtwWrite", REGHANDLE, _RegHandle, EVENT_DESCRIPTOR.Ptr, EventDescriptor, Guid.Ptr, ActivityId, UInt32, UserDataCount, EVENT_DATA_DESCRIPTOR.Ptr, _UserData, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7785,7 +7852,7 @@ export EtwWrite(_RegHandle, EventDescriptor, ActivityId, UserDataCount, _UserDat
  */
 export EtwWriteTransfer(_RegHandle, EventDescriptor, ActivityId, RelatedActivityId, UserDataCount, _UserData) {
     result := DllCall("ntoskrnl.exe\EtwWriteTransfer", REGHANDLE, _RegHandle, EVENT_DESCRIPTOR.Ptr, EventDescriptor, Guid.Ptr, ActivityId, Guid.Ptr, RelatedActivityId, UInt32, UserDataCount, EVENT_DATA_DESCRIPTOR.Ptr, _UserData, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7802,7 +7869,7 @@ export EtwWriteString(_RegHandle, Level, Keyword, ActivityId, _String) {
     _String := _String is String ? StrPtr(_String) : _String
 
     result := DllCall("ntoskrnl.exe\EtwWriteString", REGHANDLE, _RegHandle, Int8, Level, Int64, Keyword, Guid.Ptr, ActivityId, "ptr", _String, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7820,7 +7887,7 @@ export EtwWriteString(_RegHandle, Level, Keyword, ActivityId, _String) {
  */
 export EtwWriteEx(_RegHandle, EventDescriptor, Filter, Flags, ActivityId, RelatedActivityId, UserDataCount, _UserData) {
     result := DllCall("ntoskrnl.exe\EtwWriteEx", REGHANDLE, _RegHandle, EVENT_DESCRIPTOR.Ptr, EventDescriptor, Int64, Filter, UInt32, Flags, Guid.Ptr, ActivityId, Guid.Ptr, RelatedActivityId, UInt32, UserDataCount, EVENT_DATA_DESCRIPTOR.Ptr, _UserData, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7832,7 +7899,7 @@ export EtwWriteEx(_RegHandle, EventDescriptor, Filter, Flags, ActivityId, Relate
  */
 export SeEtwWriteKMCveEvent(CveId, AdditionalDetails) {
     result := DllCall("ntoskrnl.exe\SeEtwWriteKMCveEvent", UNICODE_STRING.Ptr, CveId, UNICODE_STRING.Ptr, AdditionalDetails, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7866,8 +7933,8 @@ export IoRequestDeviceEject(PhysicalDeviceObject) {
 export IoRequestDeviceEjectEx(PhysicalDeviceObject, Callback, _Context, DriverObject) {
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\IoRequestDeviceEjectEx", DEVICE_OBJECT.Ptr, PhysicalDeviceObject, "ptr", Callback, _ContextMarshal, _Context, DRIVER_OBJECT.Ptr, DriverObject, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\IoRequestDeviceEjectEx", DEVICE_OBJECT.Ptr, PhysicalDeviceObject, PIO_DEVICE_EJECT_CALLBACK, Callback, _ContextMarshal, _Context, DRIVER_OBJECT.Ptr, DriverObject, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7884,7 +7951,7 @@ export IoGetDeviceProperty(DeviceObject, DeviceProperty, BufferLength, PropertyB
     ResultLengthMarshal := ResultLength is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoGetDeviceProperty", DEVICE_OBJECT.Ptr, DeviceObject, DEVICE_REGISTRY_PROPERTY, DeviceProperty, UInt32, BufferLength, IntPtr, PropertyBuffer, ResultLengthMarshal, ResultLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7898,7 +7965,7 @@ export IoGetDeviceProperty(DeviceObject, DeviceProperty, BufferLength, PropertyB
  */
 export IoOpenDeviceRegistryKey(DeviceObject, DevInstKeyType, DesiredAccess, DeviceRegKey) {
     result := DllCall("ntoskrnl.exe\IoOpenDeviceRegistryKey", DEVICE_OBJECT.Ptr, DeviceObject, UInt32, DevInstKeyType, UInt32, DesiredAccess, HANDLE.Ptr, DeviceRegKey, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7912,7 +7979,7 @@ export IoOpenDeviceRegistryKey(DeviceObject, DevInstKeyType, DesiredAccess, Devi
  */
 export IoRegisterDeviceInterface(PhysicalDeviceObject, InterfaceClassGuid, ReferenceString, SymbolicLinkName) {
     result := DllCall("ntoskrnl.exe\IoRegisterDeviceInterface", DEVICE_OBJECT.Ptr, PhysicalDeviceObject, Guid.Ptr, InterfaceClassGuid, UNICODE_STRING.Ptr, ReferenceString, UNICODE_STRING.Ptr, SymbolicLinkName, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7925,7 +7992,7 @@ export IoRegisterDeviceInterface(PhysicalDeviceObject, InterfaceClassGuid, Refer
  */
 export IoOpenDeviceInterfaceRegistryKey(SymbolicLinkName, DesiredAccess, DeviceInterfaceRegKey) {
     result := DllCall("ntoskrnl.exe\IoOpenDeviceInterfaceRegistryKey", UNICODE_STRING.Ptr, SymbolicLinkName, UInt32, DesiredAccess, HANDLE.Ptr, DeviceInterfaceRegKey, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7937,7 +8004,7 @@ export IoOpenDeviceInterfaceRegistryKey(SymbolicLinkName, DesiredAccess, DeviceI
  */
 export IoSetDeviceInterfaceState(SymbolicLinkName, Enable) {
     result := DllCall("ntoskrnl.exe\IoSetDeviceInterfaceState", UNICODE_STRING.Ptr, SymbolicLinkName, BOOLEAN, Enable, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7953,7 +8020,7 @@ export IoGetDeviceInterfaces(InterfaceClassGuid, PhysicalDeviceObject, Flags, Sy
     SymbolicLinkListMarshal := SymbolicLinkList is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoGetDeviceInterfaces", Guid.Ptr, InterfaceClassGuid, DEVICE_OBJECT.Ptr, PhysicalDeviceObject, UInt32, Flags, SymbolicLinkListMarshal, SymbolicLinkList, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7966,7 +8033,7 @@ export IoGetDeviceInterfaces(InterfaceClassGuid, PhysicalDeviceObject, Flags, Sy
  */
 export IoGetDeviceInterfaceAlias(SymbolicLinkName, AliasInterfaceClassGuid, AliasSymbolicLinkName) {
     result := DllCall("ntoskrnl.exe\IoGetDeviceInterfaceAlias", UNICODE_STRING.Ptr, SymbolicLinkName, Guid.Ptr, AliasInterfaceClassGuid, UNICODE_STRING.Ptr, AliasSymbolicLinkName, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7986,8 +8053,8 @@ export IoRegisterPlugPlayNotification(EventCategory, EventCategoryFlags, EventCa
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
     NotificationEntryMarshal := NotificationEntry is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\IoRegisterPlugPlayNotification", IO_NOTIFICATION_EVENT_CATEGORY, EventCategory, UInt32, EventCategoryFlags, EventCategoryDataMarshal, EventCategoryData, DRIVER_OBJECT.Ptr, DriverObject, "ptr", CallbackRoutine, _ContextMarshal, _Context, NotificationEntryMarshal, NotificationEntry, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\IoRegisterPlugPlayNotification", IO_NOTIFICATION_EVENT_CATEGORY, EventCategory, UInt32, EventCategoryFlags, EventCategoryDataMarshal, EventCategoryData, DRIVER_OBJECT.Ptr, DriverObject, DRIVER_NOTIFICATION_CALLBACK_ROUTINE, CallbackRoutine, _ContextMarshal, _Context, NotificationEntryMarshal, NotificationEntry, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8000,7 +8067,7 @@ export IoUnregisterPlugPlayNotification(NotificationEntry) {
     NotificationEntryMarshal := NotificationEntry is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoUnregisterPlugPlayNotification", NotificationEntryMarshal, NotificationEntry, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8013,7 +8080,7 @@ export IoUnregisterPlugPlayNotificationEx(NotificationEntry) {
     NotificationEntryMarshal := NotificationEntry is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoUnregisterPlugPlayNotificationEx", NotificationEntryMarshal, NotificationEntry, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8027,7 +8094,7 @@ export IoReportTargetDeviceChange(PhysicalDeviceObject, NotificationStructure) {
     NotificationStructureMarshal := NotificationStructure is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoReportTargetDeviceChange", DEVICE_OBJECT.Ptr, PhysicalDeviceObject, NotificationStructureMarshal, NotificationStructure, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8052,8 +8119,8 @@ export IoReportTargetDeviceChangeAsynchronous(PhysicalDeviceObject, Notification
     NotificationStructureMarshal := NotificationStructure is VarRef ? "ptr" : "ptr"
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\IoReportTargetDeviceChangeAsynchronous", DEVICE_OBJECT.Ptr, PhysicalDeviceObject, NotificationStructureMarshal, NotificationStructure, "ptr", Callback, _ContextMarshal, _Context, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\IoReportTargetDeviceChangeAsynchronous", DEVICE_OBJECT.Ptr, PhysicalDeviceObject, NotificationStructureMarshal, NotificationStructure, PDEVICE_CHANGE_COMPLETE_CALLBACK, Callback, _ContextMarshal, _Context, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8067,7 +8134,7 @@ export IoReportTargetDeviceChangeAsynchronous(PhysicalDeviceObject, Notification
  */
 export IoGetDriverDirectory(DriverObject, DirectoryType, Flags, DriverDirectoryHandle) {
     result := DllCall("ntoskrnl.exe\IoGetDriverDirectory", DRIVER_OBJECT.Ptr, DriverObject, DRIVER_DIRECTORY_TYPE, DirectoryType, UInt32, Flags, HANDLE.Ptr, DriverDirectoryHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8084,7 +8151,7 @@ export IoGetDeviceDirectory(PhysicalDeviceObject, DirectoryType, Flags, Reserved
     ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoGetDeviceDirectory", DEVICE_OBJECT.Ptr, PhysicalDeviceObject, DEVICE_DIRECTORY_TYPE, DirectoryType, UInt32, Flags, ReservedMarshal, Reserved, HANDLE.Ptr, DeviceDirectoryHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8099,7 +8166,7 @@ export IoGetDeviceDirectory(PhysicalDeviceObject, DirectoryType, Flags, Reserved
  */
 export IoOpenDriverRegistryKey(DriverObject, RegKeyType, DesiredAccess, Flags, DriverRegKey) {
     result := DllCall("ntoskrnl.exe\IoOpenDriverRegistryKey", DRIVER_OBJECT.Ptr, DriverObject, DRIVER_REGKEY_TYPE, RegKeyType, UInt32, DesiredAccess, UInt32, Flags, HANDLE.Ptr, DriverRegKey, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8116,7 +8183,7 @@ export IoOpenDriverRegistryKey(DriverObject, RegKeyType, DesiredAccess, Flags, D
  */
 export IoSetDevicePropertyData(Pdo, _PropertyKey, Lcid, Flags, Type, _Size, Data) {
     result := DllCall("ntoskrnl.exe\IoSetDevicePropertyData", DEVICE_OBJECT.Ptr, Pdo, DEVPROPKEY.Ptr, _PropertyKey, UInt32, Lcid, UInt32, Flags, UInt32, Type, UInt32, _Size, IntPtr, Data, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8138,7 +8205,7 @@ export IoGetDevicePropertyData(Pdo, _PropertyKey, Lcid, _Size, Data, RequiredSiz
     TypeMarshal := Type is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoGetDevicePropertyData", DEVICE_OBJECT.Ptr, Pdo, DEVPROPKEY.Ptr, _PropertyKey, UInt32, Lcid, UInt32, Flags, UInt32, _Size, IntPtr, Data, RequiredSizeMarshal, RequiredSize, TypeMarshal, Type, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8155,7 +8222,7 @@ export IoGetDevicePropertyData(Pdo, _PropertyKey, Lcid, _Size, Data, RequiredSiz
  */
 export IoSetDeviceInterfacePropertyData(SymbolicLinkName, _PropertyKey, Lcid, Flags, Type, _Size, Data) {
     result := DllCall("ntoskrnl.exe\IoSetDeviceInterfacePropertyData", UNICODE_STRING.Ptr, SymbolicLinkName, DEVPROPKEY.Ptr, _PropertyKey, UInt32, Lcid, UInt32, Flags, UInt32, Type, UInt32, _Size, IntPtr, Data, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8177,7 +8244,7 @@ export IoGetDeviceInterfacePropertyData(SymbolicLinkName, _PropertyKey, Lcid, _S
     TypeMarshal := Type is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoGetDeviceInterfacePropertyData", UNICODE_STRING.Ptr, SymbolicLinkName, DEVPROPKEY.Ptr, _PropertyKey, UInt32, Lcid, UInt32, Flags, UInt32, _Size, IntPtr, Data, RequiredSizeMarshal, RequiredSize, TypeMarshal, Type, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8191,7 +8258,7 @@ export IoGetDeviceNumaNode(Pdo, NodeNumber) {
     NodeNumberMarshal := NodeNumber is VarRef ? "ushort*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoGetDeviceNumaNode", DEVICE_OBJECT.Ptr, Pdo, NodeNumberMarshal, NodeNumber, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8204,7 +8271,7 @@ export IoGetDeviceNumaNode(Pdo, NodeNumber) {
  */
 export IoReplacePartitionUnit(TargetPdo, SparePdo, Flags) {
     result := DllCall("ntoskrnl.exe\IoReplacePartitionUnit", DEVICE_OBJECT.Ptr, TargetPdo, DEVICE_OBJECT.Ptr, SparePdo, UInt32, Flags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8286,7 +8353,7 @@ export PoCreatePowerRequest(PowerRequest, DeviceObject, _Context) {
     PowerRequestMarshal := PowerRequest is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\PoCreatePowerRequest", PowerRequestMarshal, PowerRequest, DEVICE_OBJECT.Ptr, DeviceObject, COUNTED_REASON_CONTEXT.Ptr, _Context, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8300,7 +8367,7 @@ export PoSetPowerRequest(PowerRequest, Type) {
     PowerRequestMarshal := PowerRequest is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\PoSetPowerRequest", PowerRequestMarshal, PowerRequest, POWER_REQUEST_TYPE, Type, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8314,7 +8381,7 @@ export PoClearPowerRequest(PowerRequest, Type) {
     PowerRequestMarshal := PowerRequest is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\PoClearPowerRequest", PowerRequestMarshal, PowerRequest, POWER_REQUEST_TYPE, Type, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8343,8 +8410,8 @@ export PoRequestPowerIrp(DeviceObject, MinorFunction, PowerState, CompletionFunc
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
     _IrpMarshal := _Irp is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\PoRequestPowerIrp", DEVICE_OBJECT.Ptr, DeviceObject, Int8, MinorFunction, POWER_STATE, PowerState, "ptr", CompletionFunction, _ContextMarshal, _Context, _IrpMarshal, _Irp, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\PoRequestPowerIrp", DEVICE_OBJECT.Ptr, DeviceObject, Int8, MinorFunction, POWER_STATE, PowerState, PREQUEST_POWER_COMPLETE, CompletionFunction, _ContextMarshal, _Context, _IrpMarshal, _Irp, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8407,7 +8474,7 @@ export PoSetPowerState(DeviceObject, Type, State) {
  */
 export PoCallDriver(DeviceObject, _Irp) {
     result := DllCall("ntoskrnl.exe\PoCallDriver", DEVICE_OBJECT.Ptr, DeviceObject, IRP.Ptr, _Irp, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8492,8 +8559,8 @@ export PoRegisterPowerSettingCallback(DeviceObject, SettingGuid, Callback, _Cont
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
     _HandleMarshal := _Handle is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\PoRegisterPowerSettingCallback", DEVICE_OBJECT.Ptr, DeviceObject, Guid.Ptr, SettingGuid, "ptr", Callback, _ContextMarshal, _Context, _HandleMarshal, _Handle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\PoRegisterPowerSettingCallback", DEVICE_OBJECT.Ptr, DeviceObject, Guid.Ptr, SettingGuid, PPOWER_SETTING_CALLBACK, Callback, _ContextMarshal, _Context, _HandleMarshal, _Handle, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8506,7 +8573,7 @@ export PoUnregisterPowerSettingCallback(_Handle) {
     _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\PoUnregisterPowerSettingCallback", _HandleMarshal, _Handle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8521,7 +8588,7 @@ export PoFxRegisterDevice(Pdo, Device, _Handle) {
     _HandleMarshal := _Handle is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\PoFxRegisterDevice", DEVICE_OBJECT.Ptr, Pdo, PO_FX_DEVICE_V1.Ptr, Device, _HandleMarshal, _Handle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8550,7 +8617,7 @@ export PoFxUnregisterDevice(_Handle) {
  */
 export PoFxRegisterCrashdumpDevice(_Handle) {
     result := DllCall("ntoskrnl.exe\PoFxRegisterCrashdumpDevice", POHANDLE, _Handle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8564,7 +8631,7 @@ export PoFxPowerOnCrashdumpDevice(_Handle, _Context) {
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\PoFxPowerOnCrashdumpDevice", POHANDLE, _Handle, _ContextMarshal, _Context, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8688,7 +8755,7 @@ export PoFxPowerControl(_Handle, PowerControlCode, InBuffer, InBufferSize, OutBu
     BytesReturnedMarshal := BytesReturned is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\PoFxPowerControl", POHANDLE, _Handle, Guid.Ptr, PowerControlCode, InBufferMarshal, InBuffer, IntPtr, InBufferSize, OutBufferMarshal, OutBuffer, IntPtr, OutBufferSize, BytesReturnedMarshal, BytesReturned, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8714,8 +8781,8 @@ export PoFxNotifySurprisePowerOn(Pdo) {
 export PoFxRegisterComponentPerfStates(_Handle, _Component, Flags, ComponentPerfStateCallback, InputStateInfo, OutputStateInfo) {
     OutputStateInfoMarshal := OutputStateInfo is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\PoFxRegisterComponentPerfStates", POHANDLE, _Handle, UInt32, _Component, Int64, Flags, "ptr", ComponentPerfStateCallback, PO_FX_COMPONENT_PERF_INFO.Ptr, InputStateInfo, OutputStateInfoMarshal, OutputStateInfo, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\PoFxRegisterComponentPerfStates", POHANDLE, _Handle, UInt32, _Component, Int64, Flags, PPO_FX_COMPONENT_PERF_STATE_CALLBACK, ComponentPerfStateCallback, PO_FX_COMPONENT_PERF_INFO.Ptr, InputStateInfo, OutputStateInfoMarshal, OutputStateInfo, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8763,7 +8830,7 @@ export PoFxQueryCurrentComponentPerfState(_Handle, Flags, _Component, SetIndex, 
     CurrentPerfMarshal := CurrentPerf is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\PoFxQueryCurrentComponentPerfState", POHANDLE, _Handle, UInt32, Flags, UInt32, _Component, UInt32, SetIndex, CurrentPerfMarshal, CurrentPerf, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8775,7 +8842,7 @@ export PoFxQueryCurrentComponentPerfState(_Handle, Flags, _Component, SetIndex, 
  */
 export PoFxSetTargetDripsDevicePowerState(_Handle, TargetState) {
     result := DllCall("ntoskrnl.exe\PoFxSetTargetDripsDevicePowerState", POHANDLE, _Handle, DEVICE_POWER_STATE, TargetState, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8801,7 +8868,7 @@ export PoCreateThermalRequest(ThermalRequest, TargetDeviceObject, PolicyDeviceOb
     ThermalRequestMarshal := ThermalRequest is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\PoCreateThermalRequest", ThermalRequestMarshal, ThermalRequest, DEVICE_OBJECT.Ptr, TargetDeviceObject, DEVICE_OBJECT.Ptr, PolicyDeviceObject, COUNTED_REASON_CONTEXT.Ptr, _Context, UInt32, Flags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8828,7 +8895,7 @@ export PoSetThermalPassiveCooling(ThermalRequest, Throttle) {
     ThermalRequestMarshal := ThermalRequest is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\PoSetThermalPassiveCooling", ThermalRequestMarshal, ThermalRequest, Int8, Throttle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8842,7 +8909,7 @@ export PoSetThermalActiveCooling(ThermalRequest, Engaged) {
     ThermalRequestMarshal := ThermalRequest is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\PoSetThermalActiveCooling", ThermalRequestMarshal, ThermalRequest, BOOLEAN, Engaged, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8866,7 +8933,7 @@ export PoDeleteThermalRequest(ThermalRequest) {
  * @returns {String} Nothing - always returns an empty string
  */
 export PoFxRegisterDripsWatchdogCallback(_Handle, Callback, IncludeChildDevices, MatchingDriverObject) {
-    DllCall("ntoskrnl.exe\PoFxRegisterDripsWatchdogCallback", POHANDLE, _Handle, "ptr", Callback, BOOLEAN, IncludeChildDevices, DRIVER_OBJECT.Ptr, MatchingDriverObject)
+    DllCall("ntoskrnl.exe\PoFxRegisterDripsWatchdogCallback", POHANDLE, _Handle, PPO_FX_DRIPS_WATCHDOG_CALLBACK, Callback, BOOLEAN, IncludeChildDevices, DRIVER_OBJECT.Ptr, MatchingDriverObject)
 }
 
 /**
@@ -8883,7 +8950,7 @@ export ObReferenceObjectByHandle(_Handle, DesiredAccess, _ObjectType, AccessMode
     _ObjectMarshal := _Object is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\ObReferenceObjectByHandle", HANDLE, _Handle, UInt32, DesiredAccess, POBJECT_TYPE, _ObjectType, Int8, AccessMode, _ObjectMarshal, _Object, OBJECT_HANDLE_INFORMATION.Ptr, HandleInformation, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8902,7 +8969,7 @@ export ObReferenceObjectByHandleWithTag(_Handle, DesiredAccess, _ObjectType, Acc
     _ObjectMarshal := _Object is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\ObReferenceObjectByHandleWithTag", HANDLE, _Handle, UInt32, DesiredAccess, POBJECT_TYPE, _ObjectType, Int8, AccessMode, UInt32, Tag, _ObjectMarshal, _Object, OBJECT_HANDLE_INFORMATION.Ptr, HandleInformation, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8939,7 +9006,7 @@ export ObReferenceObjectSafeWithTag(_Object, Tag) {
  */
 export ObCloseHandle(_Handle, PreviousMode) {
     result := DllCall("ntoskrnl.exe\ObCloseHandle", HANDLE, _Handle, Int8, PreviousMode, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8980,7 +9047,7 @@ export ObReferenceObjectByPointer(_Object, DesiredAccess, _ObjectType, AccessMod
     _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\ObReferenceObjectByPointer", _ObjectMarshal, _Object, UInt32, DesiredAccess, POBJECT_TYPE, _ObjectType, Int8, AccessMode, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8997,7 +9064,7 @@ export ObReferenceObjectByPointerWithTag(_Object, DesiredAccess, _ObjectType, Ac
     _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\ObReferenceObjectByPointerWithTag", _ObjectMarshal, _Object, UInt32, DesiredAccess, POBJECT_TYPE, _ObjectType, Int8, AccessMode, UInt32, Tag, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9061,7 +9128,7 @@ export ObGetObjectSecurity(_Object, _SecurityDescriptor, MemoryAllocated) {
     MemoryAllocatedMarshal := MemoryAllocated is VarRef ? "char*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\ObGetObjectSecurity", _ObjectMarshal, _Object, PSECURITY_DESCRIPTOR.Ptr, _SecurityDescriptor, MemoryAllocatedMarshal, MemoryAllocated, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9085,7 +9152,7 @@ export ObRegisterCallbacks(CallbackRegistration, RegistrationHandle) {
     RegistrationHandleMarshal := RegistrationHandle is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\ObRegisterCallbacks", OB_CALLBACK_REGISTRATION.Ptr, CallbackRegistration, RegistrationHandleMarshal, RegistrationHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9128,7 +9195,7 @@ export ZwCreateFile(FileHandle, DesiredAccess, ObjectAttributes, IoStatusBlock, 
     AllocationSizeMarshal := AllocationSize is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntdll.dll\ZwCreateFile", HANDLE.Ptr, FileHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, IO_STATUS_BLOCK.Ptr, IoStatusBlock, AllocationSizeMarshal, AllocationSize, UInt32, FileAttributes, UInt32, ShareAccess, UInt32, CreateDisposition, UInt32, CreateOptions, IntPtr, EaBuffer, UInt32, EaLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9144,7 +9211,7 @@ export ZwCreateFile(FileHandle, DesiredAccess, ObjectAttributes, IoStatusBlock, 
  */
 export ZwOpenFile(FileHandle, DesiredAccess, ObjectAttributes, IoStatusBlock, ShareAccess, OpenOptions) {
     result := DllCall("ntdll.dll\ZwOpenFile", HANDLE.Ptr, FileHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, IO_STATUS_BLOCK.Ptr, IoStatusBlock, UInt32, ShareAccess, UInt32, OpenOptions, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9155,7 +9222,7 @@ export ZwOpenFile(FileHandle, DesiredAccess, ObjectAttributes, IoStatusBlock, Sh
  */
 export ZwLoadDriver(DriverServiceName) {
     result := DllCall("ntdll.dll\ZwLoadDriver", UNICODE_STRING.Ptr, DriverServiceName, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9166,7 +9233,7 @@ export ZwLoadDriver(DriverServiceName) {
  */
 export ZwUnloadDriver(DriverServiceName) {
     result := DllCall("ntdll.dll\ZwUnloadDriver", UNICODE_STRING.Ptr, DriverServiceName, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9181,7 +9248,7 @@ export ZwUnloadDriver(DriverServiceName) {
  */
 export ZwQueryInformationFile(FileHandle, IoStatusBlock, FileInformation, Length, FileInformationClass) {
     result := DllCall("ntdll.dll\ZwQueryInformationFile", HANDLE, FileHandle, IO_STATUS_BLOCK.Ptr, IoStatusBlock, IntPtr, FileInformation, UInt32, Length, FILE_INFORMATION_CLASS, FileInformationClass, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9196,7 +9263,7 @@ export ZwQueryInformationFile(FileHandle, IoStatusBlock, FileInformation, Length
  */
 export ZwSetInformationFile(FileHandle, IoStatusBlock, FileInformation, Length, FileInformationClass) {
     result := DllCall("ntdll.dll\ZwSetInformationFile", HANDLE, FileHandle, IO_STATUS_BLOCK.Ptr, IoStatusBlock, IntPtr, FileInformation, UInt32, Length, FILE_INFORMATION_CLASS, FileInformationClass, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9218,8 +9285,8 @@ export ZwReadFile(FileHandle, Event, ApcRoutine, ApcContext, IoStatusBlock, _Buf
     ByteOffsetMarshal := ByteOffset is VarRef ? "int64*" : "ptr"
     KeyMarshal := Key is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ntdll.dll\ZwReadFile", HANDLE, FileHandle, HANDLE, Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, IO_STATUS_BLOCK.Ptr, IoStatusBlock, IntPtr, _Buffer, UInt32, Length, ByteOffsetMarshal, ByteOffset, KeyMarshal, Key, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\ZwReadFile", HANDLE, FileHandle, HANDLE, Event, PIO_APC_ROUTINE, ApcRoutine, ApcContextMarshal, ApcContext, IO_STATUS_BLOCK.Ptr, IoStatusBlock, IntPtr, _Buffer, UInt32, Length, ByteOffsetMarshal, ByteOffset, KeyMarshal, Key, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9241,8 +9308,8 @@ export ZwWriteFile(FileHandle, Event, ApcRoutine, ApcContext, IoStatusBlock, _Bu
     ByteOffsetMarshal := ByteOffset is VarRef ? "int64*" : "ptr"
     KeyMarshal := Key is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ntdll.dll\ZwWriteFile", HANDLE, FileHandle, HANDLE, Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, IO_STATUS_BLOCK.Ptr, IoStatusBlock, IntPtr, _Buffer, UInt32, Length, ByteOffsetMarshal, ByteOffset, KeyMarshal, Key, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\ZwWriteFile", HANDLE, FileHandle, HANDLE, Event, PIO_APC_ROUTINE, ApcRoutine, ApcContextMarshal, ApcContext, IO_STATUS_BLOCK.Ptr, IoStatusBlock, IntPtr, _Buffer, UInt32, Length, ByteOffsetMarshal, ByteOffset, KeyMarshal, Key, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9253,7 +9320,7 @@ export ZwWriteFile(FileHandle, Event, ApcRoutine, ApcContext, IoStatusBlock, _Bu
  */
 export ZwClose(_Handle) {
     result := DllCall("ntdll.dll\ZwClose", HANDLE, _Handle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9264,7 +9331,7 @@ export ZwClose(_Handle) {
  */
 export ZwMakeTemporaryObject(_Handle) {
     result := DllCall("ntdll.dll\ZwMakeTemporaryObject", HANDLE, _Handle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9283,7 +9350,7 @@ export ZwCreateSection(SectionHandle, DesiredAccess, ObjectAttributes, MaximumSi
     MaximumSizeMarshal := MaximumSize is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntdll.dll\ZwCreateSection", HANDLE.Ptr, SectionHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, MaximumSizeMarshal, MaximumSize, UInt32, SectionPageProtection, UInt32, AllocationAttributes, HANDLE, FileHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9296,7 +9363,7 @@ export ZwCreateSection(SectionHandle, DesiredAccess, ObjectAttributes, MaximumSi
  */
 export ZwOpenSymbolicLinkObject(LinkHandle, DesiredAccess, ObjectAttributes) {
     result := DllCall("ntdll.dll\ZwOpenSymbolicLinkObject", HANDLE.Ptr, LinkHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9311,7 +9378,7 @@ export ZwQuerySymbolicLinkObject(LinkHandle, LinkTarget, ReturnedLength) {
     ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntdll.dll\ZwQuerySymbolicLinkObject", HANDLE, LinkHandle, UNICODE_STRING.Ptr, LinkTarget, ReturnedLengthMarshal, ReturnedLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9327,7 +9394,7 @@ export ZwQuerySymbolicLinkObject(LinkHandle, LinkTarget, ReturnedLength) {
  */
 export ZwCreateTransactionManager(TmHandle, DesiredAccess, ObjectAttributes, LogFileName, CreateOptions, CommitStrength) {
     result := DllCall("ntdll.dll\ZwCreateTransactionManager", HANDLE.Ptr, TmHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, UNICODE_STRING.Ptr, LogFileName, UInt32, CreateOptions, UInt32, CommitStrength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9343,7 +9410,7 @@ export ZwCreateTransactionManager(TmHandle, DesiredAccess, ObjectAttributes, Log
  */
 export ZwOpenTransactionManager(TmHandle, DesiredAccess, ObjectAttributes, LogFileName, TmIdentity, OpenOptions) {
     result := DllCall("ntdll.dll\ZwOpenTransactionManager", HANDLE.Ptr, TmHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, UNICODE_STRING.Ptr, LogFileName, Guid.Ptr, TmIdentity, UInt32, OpenOptions, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9357,7 +9424,7 @@ export ZwRollforwardTransactionManager(TransactionManagerHandle, TmVirtualClock)
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntdll.dll\ZwRollforwardTransactionManager", HANDLE, TransactionManagerHandle, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9368,7 +9435,7 @@ export ZwRollforwardTransactionManager(TransactionManagerHandle, TmVirtualClock)
  */
 export ZwRecoverTransactionManager(TransactionManagerHandle) {
     result := DllCall("ntdll.dll\ZwRecoverTransactionManager", HANDLE, TransactionManagerHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9385,7 +9452,7 @@ export ZwQueryInformationTransactionManager(TransactionManagerHandle, Transactio
     ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntdll.dll\ZwQueryInformationTransactionManager", HANDLE, TransactionManagerHandle, TRANSACTIONMANAGER_INFORMATION_CLASS, TransactionManagerInformationClass, IntPtr, TransactionManagerInformation, UInt32, TransactionManagerInformationLength, ReturnLengthMarshal, ReturnLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9401,7 +9468,7 @@ export ZwSetInformationTransactionManager(TmHandle, TransactionManagerInformatio
     TransactionManagerInformationMarshal := TransactionManagerInformation is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntdll.dll\ZwSetInformationTransactionManager", HANDLE, TmHandle, TRANSACTIONMANAGER_INFORMATION_CLASS, TransactionManagerInformationClass, TransactionManagerInformationMarshal, TransactionManagerInformation, UInt32, TransactionManagerInformationLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9418,7 +9485,7 @@ export ZwEnumerateTransactionObject(RootObjectHandle, QueryType, ObjectCursor, O
     ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntdll.dll\ZwEnumerateTransactionObject", HANDLE, RootObjectHandle, KTMOBJECT_TYPE, QueryType, IntPtr, ObjectCursor, UInt32, ObjectCursorLength, ReturnLengthMarshal, ReturnLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9440,7 +9507,7 @@ export ZwCreateTransaction(TransactionHandle, DesiredAccess, ObjectAttributes, U
     TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntdll.dll\ZwCreateTransaction", HANDLE.Ptr, TransactionHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, Guid.Ptr, Uow, HANDLE, TmHandle, UInt32, CreateOptions, UInt32, _IsolationLevel, UInt32, IsolationFlags, TimeoutMarshal, Timeout, UNICODE_STRING.Ptr, Description, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9455,7 +9522,7 @@ export ZwCreateTransaction(TransactionHandle, DesiredAccess, ObjectAttributes, U
  */
 export ZwOpenTransaction(TransactionHandle, DesiredAccess, ObjectAttributes, Uow, TmHandle) {
     result := DllCall("ntdll.dll\ZwOpenTransaction", HANDLE.Ptr, TransactionHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, Guid.Ptr, Uow, HANDLE, TmHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9472,7 +9539,7 @@ export ZwQueryInformationTransaction(TransactionHandle, TransactionInformationCl
     ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntdll.dll\ZwQueryInformationTransaction", HANDLE, TransactionHandle, TRANSACTION_INFORMATION_CLASS, TransactionInformationClass, IntPtr, TransactionInformation, UInt32, TransactionInformationLength, ReturnLengthMarshal, ReturnLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9488,7 +9555,7 @@ export ZwSetInformationTransaction(TransactionHandle, TransactionInformationClas
     TransactionInformationMarshal := TransactionInformation is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntdll.dll\ZwSetInformationTransaction", HANDLE, TransactionHandle, TRANSACTION_INFORMATION_CLASS, TransactionInformationClass, TransactionInformationMarshal, TransactionInformation, UInt32, TransactionInformationLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9500,7 +9567,7 @@ export ZwSetInformationTransaction(TransactionHandle, TransactionInformationClas
  */
 export ZwCommitTransaction(TransactionHandle, Wait) {
     result := DllCall("ntdll.dll\ZwCommitTransaction", HANDLE, TransactionHandle, BOOLEAN, Wait, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9512,7 +9579,7 @@ export ZwCommitTransaction(TransactionHandle, Wait) {
  */
 export ZwRollbackTransaction(TransactionHandle, Wait) {
     result := DllCall("ntdll.dll\ZwRollbackTransaction", HANDLE, TransactionHandle, BOOLEAN, Wait, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9529,7 +9596,7 @@ export ZwRollbackTransaction(TransactionHandle, Wait) {
  */
 export ZwCreateResourceManager(ResourceManagerHandle, DesiredAccess, TmHandle, ResourceManagerGuid, ObjectAttributes, CreateOptions, Description) {
     result := DllCall("ntdll.dll\ZwCreateResourceManager", HANDLE.Ptr, ResourceManagerHandle, UInt32, DesiredAccess, HANDLE, TmHandle, Guid.Ptr, ResourceManagerGuid, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, UInt32, CreateOptions, UNICODE_STRING.Ptr, Description, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9544,7 +9611,7 @@ export ZwCreateResourceManager(ResourceManagerHandle, DesiredAccess, TmHandle, R
  */
 export ZwOpenResourceManager(ResourceManagerHandle, DesiredAccess, TmHandle, ResourceManagerGuid, ObjectAttributes) {
     result := DllCall("ntdll.dll\ZwOpenResourceManager", HANDLE.Ptr, ResourceManagerHandle, UInt32, DesiredAccess, HANDLE, TmHandle, Guid.Ptr, ResourceManagerGuid, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9555,7 +9622,7 @@ export ZwOpenResourceManager(ResourceManagerHandle, DesiredAccess, TmHandle, Res
  */
 export ZwRecoverResourceManager(ResourceManagerHandle) {
     result := DllCall("ntdll.dll\ZwRecoverResourceManager", HANDLE, ResourceManagerHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9575,7 +9642,7 @@ export ZwGetNotificationResourceManager(ResourceManagerHandle, TransactionNotifi
     ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntdll.dll\ZwGetNotificationResourceManager", HANDLE, ResourceManagerHandle, TRANSACTION_NOTIFICATION.Ptr, TransactionNotification, UInt32, NotificationLength, TimeoutMarshal, Timeout, ReturnLengthMarshal, ReturnLength, UInt32, Asynchronous, IntPtr, AsynchronousContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9592,7 +9659,7 @@ export ZwQueryInformationResourceManager(ResourceManagerHandle, ResourceManagerI
     ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntdll.dll\ZwQueryInformationResourceManager", HANDLE, ResourceManagerHandle, RESOURCEMANAGER_INFORMATION_CLASS, ResourceManagerInformationClass, IntPtr, ResourceManagerInformation, UInt32, ResourceManagerInformationLength, ReturnLengthMarshal, ReturnLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9606,7 +9673,7 @@ export ZwQueryInformationResourceManager(ResourceManagerHandle, ResourceManagerI
  */
 export ZwSetInformationResourceManager(ResourceManagerHandle, ResourceManagerInformationClass, ResourceManagerInformation, ResourceManagerInformationLength) {
     result := DllCall("ntdll.dll\ZwSetInformationResourceManager", HANDLE, ResourceManagerHandle, RESOURCEMANAGER_INFORMATION_CLASS, ResourceManagerInformationClass, IntPtr, ResourceManagerInformation, UInt32, ResourceManagerInformationLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9626,7 +9693,7 @@ export ZwCreateEnlistment(EnlistmentHandle, DesiredAccess, ResourceManagerHandle
     EnlistmentKeyMarshal := EnlistmentKey is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntdll.dll\ZwCreateEnlistment", HANDLE.Ptr, EnlistmentHandle, UInt32, DesiredAccess, HANDLE, ResourceManagerHandle, HANDLE, TransactionHandle, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, UInt32, CreateOptions, UInt32, NotificationMask, EnlistmentKeyMarshal, EnlistmentKey, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9641,7 +9708,7 @@ export ZwCreateEnlistment(EnlistmentHandle, DesiredAccess, ResourceManagerHandle
  */
 export ZwOpenEnlistment(EnlistmentHandle, DesiredAccess, RmHandle, EnlistmentGuid, ObjectAttributes) {
     result := DllCall("ntdll.dll\ZwOpenEnlistment", HANDLE.Ptr, EnlistmentHandle, UInt32, DesiredAccess, HANDLE, RmHandle, Guid.Ptr, EnlistmentGuid, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9658,7 +9725,7 @@ export ZwQueryInformationEnlistment(EnlistmentHandle, EnlistmentInformationClass
     ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntdll.dll\ZwQueryInformationEnlistment", HANDLE, EnlistmentHandle, ENLISTMENT_INFORMATION_CLASS, EnlistmentInformationClass, IntPtr, EnlistmentInformation, UInt32, EnlistmentInformationLength, ReturnLengthMarshal, ReturnLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9672,7 +9739,7 @@ export ZwQueryInformationEnlistment(EnlistmentHandle, EnlistmentInformationClass
  */
 export ZwSetInformationEnlistment(EnlistmentHandle, EnlistmentInformationClass, EnlistmentInformation, EnlistmentInformationLength) {
     result := DllCall("ntdll.dll\ZwSetInformationEnlistment", HANDLE, EnlistmentHandle, ENLISTMENT_INFORMATION_CLASS, EnlistmentInformationClass, IntPtr, EnlistmentInformation, UInt32, EnlistmentInformationLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9686,7 +9753,7 @@ export ZwRecoverEnlistment(EnlistmentHandle, EnlistmentKey) {
     EnlistmentKeyMarshal := EnlistmentKey is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntdll.dll\ZwRecoverEnlistment", HANDLE, EnlistmentHandle, EnlistmentKeyMarshal, EnlistmentKey, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9700,7 +9767,7 @@ export ZwPrePrepareEnlistment(EnlistmentHandle, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntdll.dll\ZwPrePrepareEnlistment", HANDLE, EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9714,7 +9781,7 @@ export ZwPrepareEnlistment(EnlistmentHandle, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntdll.dll\ZwPrepareEnlistment", HANDLE, EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9728,7 +9795,7 @@ export ZwCommitEnlistment(EnlistmentHandle, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntdll.dll\ZwCommitEnlistment", HANDLE, EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9742,7 +9809,7 @@ export ZwRollbackEnlistment(EnlistmentHandle, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntdll.dll\ZwRollbackEnlistment", HANDLE, EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9756,7 +9823,7 @@ export ZwPrePrepareComplete(EnlistmentHandle, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntdll.dll\ZwPrePrepareComplete", HANDLE, EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9770,7 +9837,7 @@ export ZwPrepareComplete(EnlistmentHandle, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntdll.dll\ZwPrepareComplete", HANDLE, EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9784,7 +9851,7 @@ export ZwCommitComplete(EnlistmentHandle, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntdll.dll\ZwCommitComplete", HANDLE, EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9798,7 +9865,7 @@ export ZwReadOnlyEnlistment(EnlistmentHandle, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntdll.dll\ZwReadOnlyEnlistment", HANDLE, EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9812,7 +9879,7 @@ export ZwRollbackComplete(EnlistmentHandle, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntdll.dll\ZwRollbackComplete", HANDLE, EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9826,7 +9893,7 @@ export ZwSinglePhaseReject(EnlistmentHandle, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntdll.dll\ZwSinglePhaseReject", HANDLE, EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9841,7 +9908,7 @@ export ZwSinglePhaseReject(EnlistmentHandle, TmVirtualClock) {
  */
 export ZwQueryInformationByName(ObjectAttributes, IoStatusBlock, FileInformation, Length, FileInformationClass) {
     result := DllCall("ntdll.dll\ZwQueryInformationByName", OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, IO_STATUS_BLOCK.Ptr, IoStatusBlock, IntPtr, FileInformation, UInt32, Length, FILE_INFORMATION_CLASS, FileInformationClass, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9967,7 +10034,7 @@ export ClfsMgmtRegisterManagedClient(LogFile, RegistrationData, ClientCookie) {
     ClientCookieMarshal := ClientCookie is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("CLFS.SYS\ClfsMgmtRegisterManagedClient", FILE_OBJECT.Ptr, LogFile, CLFS_MGMT_CLIENT_REGISTRATION.Ptr, RegistrationData, ClientCookieMarshal, ClientCookie, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9980,7 +10047,7 @@ export ClfsMgmtDeregisterManagedClient(ClientCookie) {
     ClientCookieMarshal := ClientCookie is VarRef ? "ptr" : "ptr"
 
     result := DllCall("CLFS.SYS\ClfsMgmtDeregisterManagedClient", ClientCookieMarshal, ClientCookie, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9994,7 +10061,7 @@ export ClfsMgmtTailAdvanceFailure(Client, Reason) {
     ClientMarshal := Client is VarRef ? "ptr" : "ptr"
 
     result := DllCall("CLFS.SYS\ClfsMgmtTailAdvanceFailure", ClientMarshal, Client, NTSTATUS, Reason, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10007,7 +10074,7 @@ export ClfsMgmtHandleLogFileFull(Client) {
     ClientMarshal := Client is VarRef ? "ptr" : "ptr"
 
     result := DllCall("CLFS.SYS\ClfsMgmtHandleLogFileFull", ClientMarshal, Client, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10020,7 +10087,7 @@ export ClfsMgmtHandleLogFileFull(Client) {
  */
 export ClfsMgmtInstallPolicy(LogFile, Policy, PolicyLength) {
     result := DllCall("CLFS.SYS\ClfsMgmtInstallPolicy", FILE_OBJECT.Ptr, LogFile, IntPtr, Policy, UInt32, PolicyLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10036,7 +10103,7 @@ export ClfsMgmtQueryPolicy(LogFile, PolicyType, Policy, PolicyLength) {
     PolicyLengthMarshal := PolicyLength is VarRef ? "uint*" : "ptr"
 
     result := DllCall("CLFS.SYS\ClfsMgmtQueryPolicy", FILE_OBJECT.Ptr, LogFile, CLFS_MGMT_POLICY_TYPE, PolicyType, IntPtr, Policy, PolicyLengthMarshal, PolicyLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10048,7 +10115,7 @@ export ClfsMgmtQueryPolicy(LogFile, PolicyType, Policy, PolicyLength) {
  */
 export ClfsMgmtRemovePolicy(LogFile, PolicyType) {
     result := DllCall("CLFS.SYS\ClfsMgmtRemovePolicy", FILE_OBJECT.Ptr, LogFile, CLFS_MGMT_POLICY_TYPE, PolicyType, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10066,8 +10133,8 @@ export ClfsMgmtSetLogFileSize(LogFile, NewSizeInContainers, ResultingSizeInConta
     ResultingSizeInContainersMarshal := ResultingSizeInContainers is VarRef ? "uint*" : "ptr"
     CompletionRoutineDataMarshal := CompletionRoutineData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CLFS.SYS\ClfsMgmtSetLogFileSize", FILE_OBJECT.Ptr, LogFile, NewSizeInContainersMarshal, NewSizeInContainers, ResultingSizeInContainersMarshal, ResultingSizeInContainers, "ptr", CompletionRoutine, CompletionRoutineDataMarshal, CompletionRoutineData, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("CLFS.SYS\ClfsMgmtSetLogFileSize", FILE_OBJECT.Ptr, LogFile, NewSizeInContainersMarshal, NewSizeInContainers, ResultingSizeInContainersMarshal, ResultingSizeInContainers, PCLFS_SET_LOG_SIZE_COMPLETE_CALLBACK, CompletionRoutine, CompletionRoutineDataMarshal, CompletionRoutineData, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10087,8 +10154,8 @@ export ClfsMgmtSetLogFileSizeAsClient(LogFile, ClientCookie, NewSizeInContainers
     ResultingSizeInContainersMarshal := ResultingSizeInContainers is VarRef ? "uint*" : "ptr"
     CompletionRoutineDataMarshal := CompletionRoutineData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CLFS.SYS\ClfsMgmtSetLogFileSizeAsClient", FILE_OBJECT.Ptr, LogFile, ClientCookieMarshal, ClientCookie, NewSizeInContainersMarshal, NewSizeInContainers, ResultingSizeInContainersMarshal, ResultingSizeInContainers, "ptr", CompletionRoutine, CompletionRoutineDataMarshal, CompletionRoutineData, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("CLFS.SYS\ClfsMgmtSetLogFileSizeAsClient", FILE_OBJECT.Ptr, LogFile, ClientCookieMarshal, ClientCookie, NewSizeInContainersMarshal, NewSizeInContainers, ResultingSizeInContainersMarshal, ResultingSizeInContainers, PCLFS_SET_LOG_SIZE_COMPLETE_CALLBACK, CompletionRoutine, CompletionRoutineDataMarshal, CompletionRoutineData, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10098,7 +10165,7 @@ export ClfsMgmtSetLogFileSizeAsClient(LogFile, ClientCookie, NewSizeInContainers
  */
 export ClfsInitialize() {
     result := DllCall("CLFS.SYS\ClfsInitialize", NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10129,7 +10196,7 @@ export ClfsCreateLogFile(pplfoLog, puszLogFileName, fDesiredAccess, dwShareMode,
     pplfoLogMarshal := pplfoLog is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("CLFS.SYS\ClfsCreateLogFile", pplfoLogMarshal, pplfoLog, UNICODE_STRING.Ptr, puszLogFileName, UInt32, fDesiredAccess, UInt32, dwShareMode, PSECURITY_DESCRIPTOR, psdLogFile, UInt32, fCreateDisposition, UInt32, fCreateOptions, UInt32, fFlagsAndAttributes, UInt32, fLogOptionFlag, IntPtr, pvContext, UInt32, cbContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10140,7 +10207,7 @@ export ClfsCreateLogFile(pplfoLog, puszLogFileName, fDesiredAccess, dwShareMode,
  */
 export ClfsDeleteLogByPointer(plfoLog) {
     result := DllCall("CLFS.SYS\ClfsDeleteLogByPointer", FILE_OBJECT.Ptr, plfoLog, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10157,7 +10224,7 @@ export ClfsDeleteLogFile(puszLogFileName, pvReserved, fLogOptionFlag, pvContext,
     pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
 
     result := DllCall("CLFS.SYS\ClfsDeleteLogFile", UNICODE_STRING.Ptr, puszLogFileName, pvReservedMarshal, pvReserved, UInt32, fLogOptionFlag, IntPtr, pvContext, UInt32, cbContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10172,7 +10239,7 @@ export ClfsAddLogContainer(plfoLog, pcbContainer, puszContainerPath) {
     pcbContainerMarshal := pcbContainer is VarRef ? "uint*" : "ptr"
 
     result := DllCall("CLFS.SYS\ClfsAddLogContainer", FILE_OBJECT.Ptr, plfoLog, pcbContainerMarshal, pcbContainer, UNICODE_STRING.Ptr, puszContainerPath, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10188,7 +10255,7 @@ export ClfsAddLogContainerSet(plfoLog, cContainers, pcbContainer, rguszContainer
     pcbContainerMarshal := pcbContainer is VarRef ? "uint*" : "ptr"
 
     result := DllCall("CLFS.SYS\ClfsAddLogContainerSet", FILE_OBJECT.Ptr, plfoLog, UInt16, cContainers, pcbContainerMarshal, pcbContainer, UNICODE_STRING.Ptr, rguszContainerPath, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10201,7 +10268,7 @@ export ClfsAddLogContainerSet(plfoLog, cContainers, pcbContainer, rguszContainer
  */
 export ClfsRemoveLogContainer(plfoLog, puszContainerPath, fForce) {
     result := DllCall("CLFS.SYS\ClfsRemoveLogContainer", FILE_OBJECT.Ptr, plfoLog, UNICODE_STRING.Ptr, puszContainerPath, BOOLEAN, fForce, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10215,7 +10282,7 @@ export ClfsRemoveLogContainer(plfoLog, puszContainerPath, fForce) {
  */
 export ClfsRemoveLogContainerSet(plfoLog, cContainers, rgwszContainerPath, fForce) {
     result := DllCall("CLFS.SYS\ClfsRemoveLogContainerSet", FILE_OBJECT.Ptr, plfoLog, UInt16, cContainers, UNICODE_STRING.Ptr, rgwszContainerPath, BOOLEAN, fForce, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10227,7 +10294,7 @@ export ClfsRemoveLogContainerSet(plfoLog, cContainers, rgwszContainerPath, fForc
  */
 export ClfsSetArchiveTail(plfoLog, plsnArchiveTail) {
     result := DllCall("CLFS.SYS\ClfsSetArchiveTail", FILE_OBJECT.Ptr, plfoLog, CLS_LSN.Ptr, plsnArchiveTail, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10239,7 +10306,7 @@ export ClfsSetArchiveTail(plfoLog, plsnArchiveTail) {
  */
 export ClfsSetEndOfLog(plfoLog, plsnEnd) {
     result := DllCall("CLFS.SYS\ClfsSetEndOfLog", FILE_OBJECT.Ptr, plfoLog, CLS_LSN.Ptr, plsnEnd, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10254,7 +10321,7 @@ export ClfsSetEndOfLog(plfoLog, plsnEnd) {
  */
 export ClfsCreateScanContext(plfoLog, cFromContainer, cContainers, eScanMode, pcxScan) {
     result := DllCall("CLFS.SYS\ClfsCreateScanContext", FILE_OBJECT.Ptr, plfoLog, UInt32, cFromContainer, UInt32, cContainers, Int8, eScanMode, CLS_SCAN_CONTEXT.Ptr, pcxScan, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10266,7 +10333,7 @@ export ClfsCreateScanContext(plfoLog, cFromContainer, cContainers, eScanMode, pc
  */
 export ClfsScanLogContainers(pcxScan, eScanMode) {
     result := DllCall("CLFS.SYS\ClfsScanLogContainers", CLS_SCAN_CONTEXT.Ptr, pcxScan, Int8, eScanMode, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10282,7 +10349,7 @@ export ClfsGetContainerName(plfoLog, cidLogicalContainer, puszContainerName, pcA
     pcActualLenContainerNameMarshal := pcActualLenContainerName is VarRef ? "uint*" : "ptr"
 
     result := DllCall("CLFS.SYS\ClfsGetContainerName", FILE_OBJECT.Ptr, plfoLog, UInt32, cidLogicalContainer, UNICODE_STRING.Ptr, puszContainerName, pcActualLenContainerNameMarshal, pcActualLenContainerName, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10297,7 +10364,7 @@ export ClfsGetLogFileInformation(plfoLog, pinfoBuffer, pcbInfoBuffer) {
     pcbInfoBufferMarshal := pcbInfoBuffer is VarRef ? "uint*" : "ptr"
 
     result := DllCall("CLFS.SYS\ClfsGetLogFileInformation", FILE_OBJECT.Ptr, plfoLog, IntPtr, pinfoBuffer, pcbInfoBufferMarshal, pcbInfoBuffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10315,7 +10382,7 @@ export ClfsQueryLogFileInformation(plfoLog, eInformationClass, pinfoInputBuffer,
     pcbInfoBufferMarshal := pcbInfoBuffer is VarRef ? "uint*" : "ptr"
 
     result := DllCall("CLFS.SYS\ClfsQueryLogFileInformation", FILE_OBJECT.Ptr, plfoLog, CLS_LOG_INFORMATION_CLASS, eInformationClass, IntPtr, pinfoInputBuffer, UInt32, cbinfoInputBuffer, IntPtr, pinfoBuffer, pcbInfoBufferMarshal, pcbInfoBuffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10329,7 +10396,7 @@ export ClfsQueryLogFileInformation(plfoLog, eInformationClass, pinfoInputBuffer,
  */
 export ClfsSetLogFileInformation(plfoLog, eInformationClass, pinfoBuffer, cbBuffer) {
     result := DllCall("CLFS.SYS\ClfsSetLogFileInformation", FILE_OBJECT.Ptr, plfoLog, CLS_LOG_INFORMATION_CLASS, eInformationClass, IntPtr, pinfoBuffer, UInt32, cbBuffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10349,7 +10416,7 @@ export ClfsReadRestartArea(pvMarshalContext, ppvRestartBuffer, pcbRestartBuffer,
     ppvReadContextMarshal := ppvReadContext is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("CLFS.SYS\ClfsReadRestartArea", pvMarshalContextMarshal, pvMarshalContext, ppvRestartBufferMarshal, ppvRestartBuffer, pcbRestartBufferMarshal, pcbRestartBuffer, CLS_LSN.Ptr, plsn, ppvReadContextMarshal, ppvReadContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10367,7 +10434,7 @@ export ClfsReadPreviousRestartArea(pvReadContext, ppvRestartBuffer, pcbRestartBu
     pcbRestartBufferMarshal := pcbRestartBuffer is VarRef ? "uint*" : "ptr"
 
     result := DllCall("CLFS.SYS\ClfsReadPreviousRestartArea", pvReadContextMarshal, pvReadContext, ppvRestartBufferMarshal, ppvRestartBuffer, pcbRestartBufferMarshal, pcbRestartBuffer, CLS_LSN.Ptr, plsnRestart, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10387,7 +10454,7 @@ export ClfsWriteRestartArea(pvMarshalContext, pvRestartBuffer, cbRestartBuffer, 
     pcbWrittenMarshal := pcbWritten is VarRef ? "uint*" : "ptr"
 
     result := DllCall("CLFS.SYS\ClfsWriteRestartArea", pvMarshalContextMarshal, pvMarshalContext, IntPtr, pvRestartBuffer, UInt32, cbRestartBuffer, CLS_LSN.Ptr, plsnBase, UInt32, fFlags, pcbWrittenMarshal, pcbWritten, CLS_LSN.Ptr, plsnNext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10402,7 +10469,7 @@ export ClfsAdvanceLogBase(pvMarshalContext, plsnBase, fFlags) {
     pvMarshalContextMarshal := pvMarshalContext is VarRef ? "ptr" : "ptr"
 
     result := DllCall("CLFS.SYS\ClfsAdvanceLogBase", pvMarshalContextMarshal, pvMarshalContext, CLS_LSN.Ptr, plsnBase, UInt32, fFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10413,7 +10480,7 @@ export ClfsAdvanceLogBase(pvMarshalContext, plsnBase, fFlags) {
  */
 export ClfsCloseAndResetLogFile(plfoLog) {
     result := DllCall("CLFS.SYS\ClfsCloseAndResetLogFile", FILE_OBJECT.Ptr, plfoLog, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10424,7 +10491,7 @@ export ClfsCloseAndResetLogFile(plfoLog) {
  */
 export ClfsCloseLogFileObject(plfoLog) {
     result := DllCall("CLFS.SYS\ClfsCloseLogFileObject", FILE_OBJECT.Ptr, plfoLog, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10443,8 +10510,8 @@ export ClfsCloseLogFileObject(plfoLog) {
 export ClfsCreateMarshallingArea(plfoLog, ePoolType, pfnAllocBuffer, pfnFreeBuffer, cbMarshallingBuffer, cMaxWriteBuffers, cMaxReadBuffers, ppvMarshalContext) {
     ppvMarshalContextMarshal := ppvMarshalContext is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("CLFS.SYS\ClfsCreateMarshallingArea", FILE_OBJECT.Ptr, plfoLog, POOL_TYPE, ePoolType, "ptr", pfnAllocBuffer, "ptr", pfnFreeBuffer, UInt32, cbMarshallingBuffer, UInt32, cMaxWriteBuffers, UInt32, cMaxReadBuffers, ppvMarshalContextMarshal, ppvMarshalContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("CLFS.SYS\ClfsCreateMarshallingArea", FILE_OBJECT.Ptr, plfoLog, POOL_TYPE, ePoolType, PALLOCATE_FUNCTION, pfnAllocBuffer, PFREE_FUNCTION, pfnFreeBuffer, UInt32, cbMarshallingBuffer, UInt32, cMaxWriteBuffers, UInt32, cMaxReadBuffers, ppvMarshalContextMarshal, ppvMarshalContext, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10465,8 +10532,8 @@ export ClfsCreateMarshallingArea(plfoLog, ePoolType, pfnAllocBuffer, pfnFreeBuff
 export ClfsCreateMarshallingAreaEx(plfoLog, ePoolType, pfnAllocBuffer, pfnFreeBuffer, cbMarshallingBuffer, cMaxWriteBuffers, cMaxReadBuffers, cAlignmentSize, fFlags, ppvMarshalContext) {
     ppvMarshalContextMarshal := ppvMarshalContext is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("CLFS.SYS\ClfsCreateMarshallingAreaEx", FILE_OBJECT.Ptr, plfoLog, POOL_TYPE, ePoolType, "ptr", pfnAllocBuffer, "ptr", pfnFreeBuffer, UInt32, cbMarshallingBuffer, UInt32, cMaxWriteBuffers, UInt32, cMaxReadBuffers, UInt32, cAlignmentSize, Int64, fFlags, ppvMarshalContextMarshal, ppvMarshalContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("CLFS.SYS\ClfsCreateMarshallingAreaEx", FILE_OBJECT.Ptr, plfoLog, POOL_TYPE, ePoolType, PALLOCATE_FUNCTION, pfnAllocBuffer, PFREE_FUNCTION, pfnFreeBuffer, UInt32, cbMarshallingBuffer, UInt32, cMaxWriteBuffers, UInt32, cMaxReadBuffers, UInt32, cAlignmentSize, Int64, fFlags, ppvMarshalContextMarshal, ppvMarshalContext, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10479,7 +10546,7 @@ export ClfsDeleteMarshallingArea(pvMarshalContext) {
     pvMarshalContextMarshal := pvMarshalContext is VarRef ? "ptr" : "ptr"
 
     result := DllCall("CLFS.SYS\ClfsDeleteMarshallingArea", pvMarshalContextMarshal, pvMarshalContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10501,7 +10568,7 @@ export ClfsReserveAndAppendLog(pvMarshalContext, rgWriteEntries, cWriteEntries, 
     rgcbReservationMarshal := rgcbReservation is VarRef ? "int64*" : "ptr"
 
     result := DllCall("CLFS.SYS\ClfsReserveAndAppendLog", pvMarshalContextMarshal, pvMarshalContext, CLS_WRITE_ENTRY.Ptr, rgWriteEntries, UInt32, cWriteEntries, CLS_LSN.Ptr, plsnUndoNext, CLS_LSN.Ptr, plsnPrevious, UInt32, cReserveRecords, rgcbReservationMarshal, rgcbReservation, UInt32, fFlags, CLS_LSN.Ptr, plsn, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10524,7 +10591,7 @@ export ClfsReserveAndAppendLogAligned(pvMarshalContext, rgWriteEntries, cWriteEn
     rgcbReservationMarshal := rgcbReservation is VarRef ? "int64*" : "ptr"
 
     result := DllCall("CLFS.SYS\ClfsReserveAndAppendLogAligned", pvMarshalContextMarshal, pvMarshalContext, CLS_WRITE_ENTRY.Ptr, rgWriteEntries, UInt32, cWriteEntries, UInt32, cbEntryAlignment, CLS_LSN.Ptr, plsnUndoNext, CLS_LSN.Ptr, plsnPrevious, UInt32, cReserveRecords, rgcbReservationMarshal, rgcbReservation, UInt32, fFlags, CLS_LSN.Ptr, plsn, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10542,7 +10609,7 @@ export ClfsAlignReservedLog(pvMarshalContext, cRecords, rgcbReservation, pcbAlig
     pcbAlignReservationMarshal := pcbAlignReservation is VarRef ? "int64*" : "ptr"
 
     result := DllCall("CLFS.SYS\ClfsAlignReservedLog", pvMarshalContextMarshal, pvMarshalContext, UInt32, cRecords, rgcbReservationMarshal, rgcbReservation, pcbAlignReservationMarshal, pcbAlignReservation, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10558,7 +10625,7 @@ export ClfsAllocReservedLog(pvMarshalContext, cRecords, pcbAdjustment) {
     pcbAdjustmentMarshal := pcbAdjustment is VarRef ? "int64*" : "ptr"
 
     result := DllCall("CLFS.SYS\ClfsAllocReservedLog", pvMarshalContextMarshal, pvMarshalContext, UInt32, cRecords, pcbAdjustmentMarshal, pcbAdjustment, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10574,7 +10641,7 @@ export ClfsFreeReservedLog(pvMarshalContext, cRecords, pcbAdjustment) {
     pcbAdjustmentMarshal := pcbAdjustment is VarRef ? "int64*" : "ptr"
 
     result := DllCall("CLFS.SYS\ClfsFreeReservedLog", pvMarshalContextMarshal, pvMarshalContext, UInt32, cRecords, pcbAdjustmentMarshal, pcbAdjustment, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10587,7 +10654,7 @@ export ClfsFlushBuffers(pvMarshalContext) {
     pvMarshalContextMarshal := pvMarshalContext is VarRef ? "ptr" : "ptr"
 
     result := DllCall("CLFS.SYS\ClfsFlushBuffers", pvMarshalContextMarshal, pvMarshalContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10602,7 +10669,7 @@ export ClfsFlushToLsn(pvMarshalContext, plsnFlush, plsnLastFlushed) {
     pvMarshalContextMarshal := pvMarshalContext is VarRef ? "ptr" : "ptr"
 
     result := DllCall("CLFS.SYS\ClfsFlushToLsn", pvMarshalContextMarshal, pvMarshalContext, CLS_LSN.Ptr, plsnFlush, CLS_LSN.Ptr, plsnLastFlushed, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10627,7 +10694,7 @@ export ClfsReadLogRecord(pvMarshalContext, plsnFirst, peContextMode, ppvReadBuff
     ppvReadContextMarshal := ppvReadContext is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("CLFS.SYS\ClfsReadLogRecord", pvMarshalContextMarshal, pvMarshalContext, CLS_LSN.Ptr, plsnFirst, CLFS_CONTEXT_MODE, peContextMode, ppvReadBufferMarshal, ppvReadBuffer, pcbReadBufferMarshal, pcbReadBuffer, peRecordTypeMarshal, peRecordType, CLS_LSN.Ptr, plsnUndoNext, CLS_LSN.Ptr, plsnPrevious, ppvReadContextMarshal, ppvReadContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10650,7 +10717,7 @@ export ClfsReadNextLogRecord(pvReadContext, ppvBuffer, pcbBuffer, peRecordType, 
     peRecordTypeMarshal := peRecordType is VarRef ? "char*" : "ptr"
 
     result := DllCall("CLFS.SYS\ClfsReadNextLogRecord", pvReadContextMarshal, pvReadContext, ppvBufferMarshal, ppvBuffer, pcbBufferMarshal, pcbBuffer, peRecordTypeMarshal, peRecordType, CLS_LSN.Ptr, plsnUser, CLS_LSN.Ptr, plsnUndoNext, CLS_LSN.Ptr, plsnPrevious, CLS_LSN.Ptr, plsnRecord, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10663,7 +10730,7 @@ export ClfsTerminateReadLog(pvCursorContext) {
     pvCursorContextMarshal := pvCursorContext is VarRef ? "ptr" : "ptr"
 
     result := DllCall("CLFS.SYS\ClfsTerminateReadLog", pvCursorContextMarshal, pvCursorContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10680,7 +10747,7 @@ export ClfsGetIoStatistics(plfoLog, pvStatsBuffer, cbStatsBuffer, eStatsClass, p
     pcbStatsWrittenMarshal := pcbStatsWritten is VarRef ? "uint*" : "ptr"
 
     result := DllCall("CLFS.SYS\ClfsGetIoStatistics", FILE_OBJECT.Ptr, plfoLog, IntPtr, pvStatsBuffer, UInt32, cbStatsBuffer, CLFS_IOSTATS_CLASS, eStatsClass, pcbStatsWrittenMarshal, pcbStatsWritten, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10717,7 +10784,7 @@ export ClfsLsnDifference(plsnStart, plsnFinish, cbContainer, cbMaxBlock, pcbDiff
     pcbDifferenceMarshal := pcbDifference is VarRef ? "int64*" : "ptr"
 
     result := DllCall("CLFS.SYS\ClfsLsnDifference", CLS_LSN.Ptr, plsnStart, CLS_LSN.Ptr, plsnFinish, UInt32, cbContainer, UInt32, cbMaxBlock, pcbDifferenceMarshal, pcbDifference, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10733,7 +10800,7 @@ export TmInitializeTransactionManager(TransactionManager, LogFileName, TmId, Cre
     TransactionManagerMarshal := TransactionManager is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\TmInitializeTransactionManager", TransactionManagerMarshal, TransactionManager, UNICODE_STRING.Ptr, LogFileName, Guid.Ptr, TmId, UInt32, CreateOptions, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10745,7 +10812,7 @@ export TmInitializeTransactionManager(TransactionManager, LogFileName, TmId, Cre
  */
 export TmRenameTransactionManager(LogFileName, ExistingTransactionManagerGuid) {
     result := DllCall("ntoskrnl.exe\TmRenameTransactionManager", UNICODE_STRING.Ptr, LogFileName, Guid.Ptr, ExistingTransactionManagerGuid, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10760,7 +10827,7 @@ export TmRecoverTransactionManager(Tm, TargetVirtualClock) {
     TargetVirtualClockMarshal := TargetVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\TmRecoverTransactionManager", TmMarshal, Tm, TargetVirtualClockMarshal, TargetVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10774,7 +10841,7 @@ export TmCommitTransaction(Transaction, Wait) {
     TransactionMarshal := Transaction is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\TmCommitTransaction", TransactionMarshal, Transaction, BOOLEAN, Wait, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10788,7 +10855,7 @@ export TmRollbackTransaction(Transaction, Wait) {
     TransactionMarshal := Transaction is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\TmRollbackTransaction", TransactionMarshal, Transaction, BOOLEAN, Wait, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10811,7 +10878,7 @@ export TmCreateEnlistment(EnlistmentHandle, PreviousMode, DesiredAccess, ObjectA
     EnlistmentKeyMarshal := EnlistmentKey is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\TmCreateEnlistment", HANDLE.Ptr, EnlistmentHandle, Int8, PreviousMode, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, ResourceManagerMarshal, ResourceManager, TransactionMarshal, Transaction, UInt32, CreateOptions, UInt32, NotificationMask, EnlistmentKeyMarshal, EnlistmentKey, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10826,7 +10893,7 @@ export TmRecoverEnlistment(Enlistment, EnlistmentKey) {
     EnlistmentKeyMarshal := EnlistmentKey is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\TmRecoverEnlistment", EnlistmentMarshal, Enlistment, EnlistmentKeyMarshal, EnlistmentKey, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10841,7 +10908,7 @@ export TmPrePrepareEnlistment(Enlistment, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\TmPrePrepareEnlistment", EnlistmentMarshal, Enlistment, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10856,7 +10923,7 @@ export TmPrepareEnlistment(Enlistment, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\TmPrepareEnlistment", EnlistmentMarshal, Enlistment, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10871,7 +10938,7 @@ export TmCommitEnlistment(Enlistment, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\TmCommitEnlistment", EnlistmentMarshal, Enlistment, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10886,7 +10953,7 @@ export TmRollbackEnlistment(Enlistment, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\TmRollbackEnlistment", EnlistmentMarshal, Enlistment, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10901,7 +10968,7 @@ export TmPrePrepareComplete(Enlistment, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\TmPrePrepareComplete", EnlistmentMarshal, Enlistment, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10916,7 +10983,7 @@ export TmPrepareComplete(Enlistment, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\TmPrepareComplete", EnlistmentMarshal, Enlistment, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10931,7 +10998,7 @@ export TmReadOnlyEnlistment(Enlistment, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\TmReadOnlyEnlistment", EnlistmentMarshal, Enlistment, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10946,7 +11013,7 @@ export TmCommitComplete(Enlistment, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\TmCommitComplete", EnlistmentMarshal, Enlistment, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10961,7 +11028,7 @@ export TmRollbackComplete(Enlistment, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\TmRollbackComplete", EnlistmentMarshal, Enlistment, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10976,7 +11043,7 @@ export TmReferenceEnlistmentKey(Enlistment, Key) {
     KeyMarshal := Key is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\TmReferenceEnlistmentKey", EnlistmentMarshal, Enlistment, KeyMarshal, Key, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10991,7 +11058,7 @@ export TmDereferenceEnlistmentKey(Enlistment, LastReference) {
     LastReferenceMarshal := LastReference is VarRef ? "char*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\TmDereferenceEnlistmentKey", EnlistmentMarshal, Enlistment, LastReferenceMarshal, LastReference, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -11006,7 +11073,7 @@ export TmSinglePhaseReject(Enlistment, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\TmSinglePhaseReject", EnlistmentMarshal, Enlistment, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -11021,7 +11088,7 @@ export TmRequestOutcomeEnlistment(Enlistment, TmVirtualClock) {
     TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\TmRequestOutcomeEnlistment", EnlistmentMarshal, Enlistment, TmVirtualClockMarshal, TmVirtualClock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -11036,8 +11103,8 @@ export TmEnableCallbacks(ResourceManager, CallbackRoutine, RMKey) {
     ResourceManagerMarshal := ResourceManager is VarRef ? "ptr*" : "ptr"
     RMKeyMarshal := RMKey is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\TmEnableCallbacks", ResourceManagerMarshal, ResourceManager, "ptr", CallbackRoutine, RMKeyMarshal, RMKey, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\TmEnableCallbacks", ResourceManagerMarshal, ResourceManager, PTM_RM_NOTIFICATION, CallbackRoutine, RMKeyMarshal, RMKey, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -11050,7 +11117,7 @@ export TmRecoverResourceManager(ResourceManager) {
     ResourceManagerMarshal := ResourceManager is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\TmRecoverResourceManager", ResourceManagerMarshal, ResourceManager, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -11067,7 +11134,7 @@ export TmPropagationComplete(ResourceManager, RequestCookie, BufferLength, _Buff
     _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\TmPropagationComplete", ResourceManagerMarshal, ResourceManager, UInt32, RequestCookie, UInt32, BufferLength, _BufferMarshal, _Buffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -11082,7 +11149,7 @@ export TmPropagationFailed(ResourceManager, RequestCookie, _Status) {
     ResourceManagerMarshal := ResourceManager is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\TmPropagationFailed", ResourceManagerMarshal, ResourceManager, UInt32, RequestCookie, NTSTATUS, _Status, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -11120,7 +11187,7 @@ export PcwRegister(Registration, Info) {
     RegistrationMarshal := Registration is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\PcwRegister", RegistrationMarshal, Registration, PCW_REGISTRATION_INFORMATION.Ptr, Info, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -11146,7 +11213,7 @@ export PcwCreateInstance(Instance, Registration, Name, Count, Data) {
     InstanceMarshal := Instance is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\PcwCreateInstance", InstanceMarshal, Instance, PPCW_REGISTRATION, Registration, UNICODE_STRING.Ptr, Name, UInt32, Count, PCW_DATA.Ptr, Data, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -11170,7 +11237,7 @@ export PcwCloseInstance(Instance) {
  */
 export PcwAddInstance(_Buffer, Name, Id, Count, Data) {
     result := DllCall("ntoskrnl.exe\PcwAddInstance", PPCW_BUFFER, _Buffer, UNICODE_STRING.Ptr, Name, UInt32, Id, UInt32, Count, PCW_DATA.Ptr, Data, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -11185,7 +11252,7 @@ export PcwAddInstance(_Buffer, Name, Id, Count, Data) {
  */
 export VslCreateSecureSection(_Handle, TargetProcess, _Mdl, DevicePageProtection, Attributes) {
     result := DllCall("ntoskrnl.exe\VslCreateSecureSection", HANDLE.Ptr, _Handle, PEPROCESS, TargetProcess, MDL.Ptr, _Mdl, UInt32, DevicePageProtection, UInt32, Attributes, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -11196,7 +11263,7 @@ export VslCreateSecureSection(_Handle, TargetProcess, _Mdl, DevicePageProtection
  */
 export VslDeleteSecureSection(GlobalHandle) {
     result := DllCall("ntoskrnl.exe\VslDeleteSecureSection", HANDLE, GlobalHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -11221,8 +11288,8 @@ export RtlRunOnceExecuteOnce(RunOnce, InitFn, Parameter, _Context) {
     ParameterMarshal := Parameter is VarRef ? "ptr" : "ptr"
     _ContextMarshal := _Context is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("ntdll.dll\RtlRunOnceExecuteOnce", INIT_ONCE.Ptr, RunOnce, "ptr", InitFn, ParameterMarshal, Parameter, _ContextMarshal, _Context, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\RtlRunOnceExecuteOnce", INIT_ONCE.Ptr, RunOnce, PRTL_RUN_ONCE_INIT_FN, InitFn, ParameterMarshal, Parameter, _ContextMarshal, _Context, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -11237,7 +11304,7 @@ export RtlRunOnceBeginInitialize(RunOnce, Flags, _Context) {
     _ContextMarshal := _Context is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntdll.dll\RtlRunOnceBeginInitialize", INIT_ONCE.Ptr, RunOnce, UInt32, Flags, _ContextMarshal, _Context, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -11252,7 +11319,7 @@ export RtlRunOnceComplete(RunOnce, Flags, _Context) {
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntdll.dll\RtlRunOnceComplete", INIT_ONCE.Ptr, RunOnce, UInt32, Flags, _ContextMarshal, _Context, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -11268,7 +11335,7 @@ export RtlRunOnceComplete(RunOnce, Flags, _Context) {
 export RtlInitializeGenericTableAvl(Table, CompareRoutine, AllocateRoutine, FreeRoutine, TableContext) {
     TableContextMarshal := TableContext is VarRef ? "ptr" : "ptr"
 
-    DllCall("ntdll.dll\RtlInitializeGenericTableAvl", RTL_AVL_TABLE.Ptr, Table, "ptr", CompareRoutine, "ptr", AllocateRoutine, "ptr", FreeRoutine, TableContextMarshal, TableContext)
+    DllCall("ntdll.dll\RtlInitializeGenericTableAvl", RTL_AVL_TABLE.Ptr, Table, PRTL_AVL_COMPARE_ROUTINE, CompareRoutine, PRTL_AVL_ALLOCATE_ROUTINE, AllocateRoutine, PRTL_AVL_FREE_ROUTINE, FreeRoutine, TableContextMarshal, TableContext)
 }
 
 /**
@@ -11415,7 +11482,7 @@ export RtlEnumerateGenericTableLikeADirectory(Table, MatchFunction, MatchData, N
     DeleteCountMarshal := DeleteCount is VarRef ? "uint*" : "ptr"
     _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntdll.dll\RtlEnumerateGenericTableLikeADirectory", RTL_AVL_TABLE.Ptr, Table, "ptr", MatchFunction, MatchDataMarshal, MatchData, UInt32, NextFlag, RestartKeyMarshal, RestartKey, DeleteCountMarshal, DeleteCount, _BufferMarshal, _Buffer, IntPtr)
+    result := DllCall("ntdll.dll\RtlEnumerateGenericTableLikeADirectory", RTL_AVL_TABLE.Ptr, Table, PRTL_AVL_MATCH_FUNCTION, MatchFunction, MatchDataMarshal, MatchData, UInt32, NextFlag, RestartKeyMarshal, RestartKey, DeleteCountMarshal, DeleteCount, _BufferMarshal, _Buffer, IntPtr)
     return result
 }
 
@@ -11534,7 +11601,7 @@ export RtlRealPredecessor(Links) {
 export RtlInitializeGenericTable(Table, CompareRoutine, AllocateRoutine, FreeRoutine, TableContext) {
     TableContextMarshal := TableContext is VarRef ? "ptr" : "ptr"
 
-    DllCall("ntdll.dll\RtlInitializeGenericTable", RTL_GENERIC_TABLE.Ptr, Table, "ptr", CompareRoutine, "ptr", AllocateRoutine, "ptr", FreeRoutine, TableContextMarshal, TableContext)
+    DllCall("ntdll.dll\RtlInitializeGenericTable", RTL_GENERIC_TABLE.Ptr, Table, PRTL_GENERIC_COMPARE_ROUTINE, CompareRoutine, PRTL_GENERIC_ALLOCATE_ROUTINE, AllocateRoutine, PRTL_GENERIC_FREE_ROUTINE, FreeRoutine, TableContextMarshal, TableContext)
 }
 
 /**
@@ -11997,7 +12064,7 @@ export RtlSuffixUnicodeString(String1, String2, CaseInSensitive) {
  */
 export RtlUpcaseUnicodeString(DestinationString, SourceString, AllocateDestinationString) {
     result := DllCall("ntdll.dll\RtlUpcaseUnicodeString", UNICODE_STRING.Ptr, DestinationString, UNICODE_STRING.Ptr, SourceString, BOOLEAN, AllocateDestinationString, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12017,7 +12084,7 @@ export RtlQueryRegistryValueWithFallback(PrimaryHandle, FallbackHandle, _ValueNa
     ResultLengthMarshal := ResultLength is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntdll.dll\RtlQueryRegistryValueWithFallback", HANDLE, PrimaryHandle, HANDLE, FallbackHandle, UNICODE_STRING.Ptr, _ValueName, UInt32, ValueLength, ValueTypeMarshal, ValueType, IntPtr, ValueData, ResultLengthMarshal, ResultLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12043,7 +12110,7 @@ export RtlVolumeDeviceToDosName(VolumeDeviceObject, DosName) {
     VolumeDeviceObjectMarshal := VolumeDeviceObject is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\RtlVolumeDeviceToDosName", VolumeDeviceObjectMarshal, VolumeDeviceObject, UNICODE_STRING.Ptr, DosName, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12150,7 +12217,7 @@ export RtlGetPersistedStateLocation(SourceID, CustomValue, DefaultPath, StateLoc
     BufferLengthOutMarshal := BufferLengthOut is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntdll.dll\RtlGetPersistedStateLocation", "ptr", SourceID, "ptr", CustomValue, "ptr", DefaultPath, STATE_LOCATION_TYPE, StateLocationType, IntPtr, TargetPath, UInt32, BufferLengthIn, BufferLengthOutMarshal, BufferLengthOut, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12163,7 +12230,7 @@ export RtlIsApiSetImplemented(apiSetName) {
     apiSetName := apiSetName is String ? StrPtr(apiSetName) : apiSetName
 
     result := DllCall("ntdll.dll\RtlIsApiSetImplemented", "ptr", apiSetName, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12224,7 +12291,7 @@ export RtlSetSystemGlobalData(DataId, _Buffer, _Size) {
     _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\RtlSetSystemGlobalData", RTL_SYSTEM_GLOBAL_DATA_ID, DataId, _BufferMarshal, _Buffer, UInt32, _Size, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12250,8 +12317,8 @@ export KePulseEvent(Event, Increment, Wait) {
 export KeExpandKernelStackAndCallout(Callout, Parameter, _Size) {
     ParameterMarshal := Parameter is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\KeExpandKernelStackAndCallout", "ptr", Callout, ParameterMarshal, Parameter, IntPtr, _Size, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\KeExpandKernelStackAndCallout", PEXPAND_STACK_CALLOUT, Callout, ParameterMarshal, Parameter, IntPtr, _Size, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12268,8 +12335,8 @@ export KeExpandKernelStackAndCalloutEx(Callout, Parameter, _Size, Wait, _Context
     ParameterMarshal := Parameter is VarRef ? "ptr" : "ptr"
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\KeExpandKernelStackAndCalloutEx", "ptr", Callout, ParameterMarshal, Parameter, IntPtr, _Size, BOOLEAN, Wait, _ContextMarshal, _Context, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\KeExpandKernelStackAndCalloutEx", PEXPAND_STACK_CALLOUT, Callout, ParameterMarshal, Parameter, IntPtr, _Size, BOOLEAN, Wait, _ContextMarshal, _Context, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12322,7 +12389,7 @@ export KeInvalidateRangeAllCaches(BaseAddress, Length) {
  */
 export KeSetHardwareCounterConfiguration(CounterArray, Count) {
     result := DllCall("ntoskrnl.exe\KeSetHardwareCounterConfiguration", HARDWARE_COUNTER.Ptr, CounterArray, UInt32, Count, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12337,7 +12404,7 @@ export KeQueryHardwareCounterConfiguration(CounterArray, MaximumCount, Count) {
     CountMarshal := Count is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\KeQueryHardwareCounterConfiguration", HARDWARE_COUNTER.Ptr, CounterArray, UInt32, MaximumCount, CountMarshal, Count, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12369,7 +12436,7 @@ export ExInitializeZone(Zone, BlockSize, InitialSegment, InitialSegmentSize) {
     InitialSegmentMarshal := InitialSegment is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\ExInitializeZone", ZONE_HEADER.Ptr, Zone, UInt32, BlockSize, InitialSegmentMarshal, InitialSegment, UInt32, InitialSegmentSize, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12384,7 +12451,7 @@ export ExExtendZone(Zone, Segment, SegmentSize) {
     SegmentMarshal := Segment is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\ExExtendZone", ZONE_HEADER.Ptr, Zone, SegmentMarshal, Segment, UInt32, SegmentSize, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12401,7 +12468,7 @@ export ExInterlockedExtendZone(Zone, Segment, SegmentSize, Lock) {
     LockMarshal := Lock is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\ExInterlockedExtendZone", ZONE_HEADER.Ptr, Zone, SegmentMarshal, Segment, UInt32, SegmentSize, LockMarshal, Lock, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12412,7 +12479,7 @@ export ExInterlockedExtendZone(Zone, Segment, SegmentSize, Lock) {
  */
 export ExUuidCreate(Uuid) {
     result := DllCall("ntoskrnl.exe\ExUuidCreate", Guid.Ptr, Uuid, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12436,7 +12503,7 @@ export MmMapUserAddressesToPage(BaseAddress, NumberOfBytes, PageAddress) {
     PageAddressMarshal := PageAddress is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\MmMapUserAddressesToPage", IntPtr, BaseAddress, IntPtr, NumberOfBytes, PageAddressMarshal, PageAddress, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12451,7 +12518,7 @@ export MmAddPhysicalMemory(StartAddress, NumberOfBytes) {
     NumberOfBytesMarshal := NumberOfBytes is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\MmAddPhysicalMemory", StartAddressMarshal, StartAddress, NumberOfBytesMarshal, NumberOfBytes, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12470,8 +12537,8 @@ export MmRotatePhysicalView(VirtualAddress, NumberOfBytes, NewMdl, _Direction, C
     NumberOfBytesMarshal := NumberOfBytes is VarRef ? "ptr*" : "ptr"
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\MmRotatePhysicalView", VirtualAddressMarshal, VirtualAddress, NumberOfBytesMarshal, NumberOfBytes, MDL.Ptr, NewMdl, MM_ROTATE_DIRECTION, _Direction, "ptr", CopyFunction, _ContextMarshal, _Context, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\MmRotatePhysicalView", VirtualAddressMarshal, VirtualAddress, NumberOfBytesMarshal, NumberOfBytes, MDL.Ptr, NewMdl, MM_ROTATE_DIRECTION, _Direction, PMM_ROTATE_COPY_CALLBACK_FUNCTION, CopyFunction, _ContextMarshal, _Context, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12486,7 +12553,7 @@ export MmRemovePhysicalMemory(StartAddress, NumberOfBytes) {
     NumberOfBytesMarshal := NumberOfBytes is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\MmRemovePhysicalMemory", StartAddressMarshal, StartAddress, NumberOfBytesMarshal, NumberOfBytes, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12568,7 +12635,7 @@ export MmGetCacheAttribute(PhysicalAddress, CacheType) {
     CacheTypeMarshal := CacheType is VarRef ? "int*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\MmGetCacheAttribute", Int64, PhysicalAddress, CacheTypeMarshal, CacheType, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12586,7 +12653,7 @@ export MmCopyMemory(TargetAddress, SourceAddress, NumberOfBytes, Flags, NumberOf
     NumberOfBytesTransferredMarshal := NumberOfBytesTransferred is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\MmCopyMemory", TargetAddressMarshal, TargetAddress, MM_COPY_ADDRESS, SourceAddress, IntPtr, NumberOfBytes, UInt32, Flags, NumberOfBytesTransferredMarshal, NumberOfBytesTransferred, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12601,7 +12668,7 @@ export MmGetCacheAttributeEx(PhysicalAddress, Flags, CacheType) {
     CacheTypeMarshal := CacheType is VarRef ? "int*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\MmGetCacheAttributeEx", Int64, PhysicalAddress, UInt32, Flags, CacheTypeMarshal, CacheType, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12720,7 +12787,7 @@ export MmMapViewInSystemSpaceEx(_Section, MappedBase, ViewSize, SectionOffset, F
     SectionOffsetMarshal := SectionOffset is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\MmMapViewInSystemSpaceEx", _SectionMarshal, _Section, MappedBaseMarshal, MappedBase, ViewSizeMarshal, ViewSize, SectionOffsetMarshal, SectionOffset, IntPtr, Flags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12737,7 +12804,7 @@ export MmMapViewInSystemSpace(_Section, MappedBase, ViewSize) {
     ViewSizeMarshal := ViewSize is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\MmMapViewInSystemSpace", _SectionMarshal, _Section, MappedBaseMarshal, MappedBase, ViewSizeMarshal, ViewSize, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12750,7 +12817,7 @@ export MmUnmapViewInSystemSpace(MappedBase) {
     MappedBaseMarshal := MappedBase is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\MmUnmapViewInSystemSpace", MappedBaseMarshal, MappedBase, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12770,7 +12837,7 @@ export MmMapViewInSessionSpaceEx(_Section, MappedBase, ViewSize, SectionOffset, 
     SectionOffsetMarshal := SectionOffset is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\MmMapViewInSessionSpaceEx", _SectionMarshal, _Section, MappedBaseMarshal, MappedBase, ViewSizeMarshal, ViewSize, SectionOffsetMarshal, SectionOffset, IntPtr, Flags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12787,7 +12854,7 @@ export MmMapViewInSessionSpace(_Section, MappedBase, ViewSize) {
     ViewSizeMarshal := ViewSize is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\MmMapViewInSessionSpace", _SectionMarshal, _Section, MappedBaseMarshal, MappedBase, ViewSizeMarshal, ViewSize, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12800,7 +12867,7 @@ export MmUnmapViewInSessionSpace(MappedBase) {
     MappedBaseMarshal := MappedBase is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\MmUnmapViewInSessionSpace", MappedBaseMarshal, MappedBase, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12810,7 +12877,7 @@ export MmUnmapViewInSessionSpace(MappedBase) {
  */
 export MmCreateMirror() {
     result := DllCall("ntoskrnl.exe\MmCreateMirror", NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12832,8 +12899,8 @@ export SeSinglePrivilegeCheck(PrivilegeValue, PreviousMode) {
  * @returns {NTSTATUS} 
  */
 export PsSetCreateProcessNotifyRoutine(NotifyRoutine, Remove) {
-    result := DllCall("ntoskrnl.exe\PsSetCreateProcessNotifyRoutine", "ptr", NotifyRoutine, BOOLEAN, Remove, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\PsSetCreateProcessNotifyRoutine", PCREATE_PROCESS_NOTIFY_ROUTINE, NotifyRoutine, BOOLEAN, Remove, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12844,8 +12911,8 @@ export PsSetCreateProcessNotifyRoutine(NotifyRoutine, Remove) {
  * @returns {NTSTATUS} 
  */
 export PsSetCreateProcessNotifyRoutineEx(NotifyRoutine, Remove) {
-    result := DllCall("ntoskrnl.exe\PsSetCreateProcessNotifyRoutineEx", "ptr", NotifyRoutine, BOOLEAN, Remove, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\PsSetCreateProcessNotifyRoutineEx", PCREATE_PROCESS_NOTIFY_ROUTINE_EX, NotifyRoutine, BOOLEAN, Remove, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12860,7 +12927,7 @@ export PsSetCreateProcessNotifyRoutineEx2(NotifyType, NotifyInformation, Remove)
     NotifyInformationMarshal := NotifyInformation is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\PsSetCreateProcessNotifyRoutineEx2", PSCREATEPROCESSNOTIFYTYPE, NotifyType, NotifyInformationMarshal, NotifyInformation, BOOLEAN, Remove, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12870,8 +12937,8 @@ export PsSetCreateProcessNotifyRoutineEx2(NotifyType, NotifyInformation, Remove)
  * @returns {NTSTATUS} 
  */
 export PsSetCreateThreadNotifyRoutine(NotifyRoutine) {
-    result := DllCall("ntoskrnl.exe\PsSetCreateThreadNotifyRoutine", "ptr", NotifyRoutine, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\PsSetCreateThreadNotifyRoutine", PCREATE_THREAD_NOTIFY_ROUTINE, NotifyRoutine, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12885,7 +12952,7 @@ export PsSetCreateThreadNotifyRoutineEx(NotifyType, NotifyInformation) {
     NotifyInformationMarshal := NotifyInformation is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\PsSetCreateThreadNotifyRoutineEx", PSCREATETHREADNOTIFYTYPE, NotifyType, NotifyInformationMarshal, NotifyInformation, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12895,8 +12962,8 @@ export PsSetCreateThreadNotifyRoutineEx(NotifyType, NotifyInformation) {
  * @returns {NTSTATUS} 
  */
 export PsRemoveCreateThreadNotifyRoutine(NotifyRoutine) {
-    result := DllCall("ntoskrnl.exe\PsRemoveCreateThreadNotifyRoutine", "ptr", NotifyRoutine, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\PsRemoveCreateThreadNotifyRoutine", PCREATE_THREAD_NOTIFY_ROUTINE, NotifyRoutine, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12906,8 +12973,8 @@ export PsRemoveCreateThreadNotifyRoutine(NotifyRoutine) {
  * @returns {NTSTATUS} 
  */
 export PsSetLoadImageNotifyRoutine(NotifyRoutine) {
-    result := DllCall("ntoskrnl.exe\PsSetLoadImageNotifyRoutine", "ptr", NotifyRoutine, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\PsSetLoadImageNotifyRoutine", PLOAD_IMAGE_NOTIFY_ROUTINE, NotifyRoutine, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12918,8 +12985,8 @@ export PsSetLoadImageNotifyRoutine(NotifyRoutine) {
  * @returns {NTSTATUS} 
  */
 export PsSetLoadImageNotifyRoutineEx(NotifyRoutine, Flags) {
-    result := DllCall("ntoskrnl.exe\PsSetLoadImageNotifyRoutineEx", "ptr", NotifyRoutine, IntPtr, Flags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\PsSetLoadImageNotifyRoutineEx", PLOAD_IMAGE_NOTIFY_ROUTINE, NotifyRoutine, IntPtr, Flags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12929,8 +12996,8 @@ export PsSetLoadImageNotifyRoutineEx(NotifyRoutine, Flags) {
  * @returns {NTSTATUS} 
  */
 export PsRemoveLoadImageNotifyRoutine(NotifyRoutine) {
-    result := DllCall("ntoskrnl.exe\PsRemoveLoadImageNotifyRoutine", "ptr", NotifyRoutine, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\PsRemoveLoadImageNotifyRoutine", PLOAD_IMAGE_NOTIFY_ROUTINE, NotifyRoutine, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -12998,7 +13065,7 @@ export PsGetProcessStartKey(Process) {
  */
 export PsGetProcessExitStatus(Process) {
     result := DllCall("ntoskrnl.exe\PsGetProcessExitStatus", PEPROCESS, Process, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13009,7 +13076,7 @@ export PsGetProcessExitStatus(Process) {
  */
 export PsGetThreadExitStatus(Thread) {
     result := DllCall("ntoskrnl.exe\PsGetThreadExitStatus", PETHREAD, Thread, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13084,7 +13151,7 @@ export PsGetJobSilo(Job, Silo) {
     SiloMarshal := Silo is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\PsGetJobSilo", PEJOB, Job, SiloMarshal, Silo, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13098,7 +13165,7 @@ export PsGetJobServerSilo(Job, ServerSilo) {
     ServerSiloMarshal := ServerSilo is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\PsGetJobServerSilo", PEJOB, Job, ServerSiloMarshal, ServerSilo, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13193,7 +13260,7 @@ export PsIsCurrentThreadInServerSilo() {
  */
 export PsAcquireSiloHardReference(Silo) {
     result := DllCall("ntoskrnl.exe\PsAcquireSiloHardReference", PESILO, Silo, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13216,7 +13283,7 @@ export PsAllocSiloContextSlot(Reserved, ReturnedContextSlot) {
     ReturnedContextSlotMarshal := ReturnedContextSlot is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\PsAllocSiloContextSlot", IntPtr, Reserved, ReturnedContextSlotMarshal, ReturnedContextSlot, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13227,7 +13294,7 @@ export PsAllocSiloContextSlot(Reserved, ReturnedContextSlot) {
  */
 export PsFreeSiloContextSlot(ContextSlot) {
     result := DllCall("ntoskrnl.exe\PsFreeSiloContextSlot", UInt32, ContextSlot, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13243,8 +13310,8 @@ export PsFreeSiloContextSlot(ContextSlot) {
 export PsCreateSiloContext(Silo, _Size, PoolType, ContextCleanupCallback, ReturnedSiloContext) {
     ReturnedSiloContextMarshal := ReturnedSiloContext is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\PsCreateSiloContext", PESILO, Silo, UInt32, _Size, POOL_TYPE, PoolType, "ptr", ContextCleanupCallback, ReturnedSiloContextMarshal, ReturnedSiloContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\PsCreateSiloContext", PESILO, Silo, UInt32, _Size, POOL_TYPE, PoolType, SILO_CONTEXT_CLEANUP_CALLBACK, ContextCleanupCallback, ReturnedSiloContextMarshal, ReturnedSiloContext, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13259,7 +13326,7 @@ export PsInsertSiloContext(Silo, ContextSlot, SiloContext) {
     SiloContextMarshal := SiloContext is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\PsInsertSiloContext", PESILO, Silo, UInt32, ContextSlot, SiloContextMarshal, SiloContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13276,7 +13343,7 @@ export PsReplaceSiloContext(Silo, ContextSlot, NewSiloContext, OldSiloContext) {
     OldSiloContextMarshal := OldSiloContext is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\PsReplaceSiloContext", PESILO, Silo, UInt32, ContextSlot, NewSiloContextMarshal, NewSiloContext, OldSiloContextMarshal, OldSiloContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13291,7 +13358,7 @@ export PsGetSiloContext(Silo, ContextSlot, ReturnedSiloContext) {
     ReturnedSiloContextMarshal := ReturnedSiloContext is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\PsGetSiloContext", PESILO, Silo, UInt32, ContextSlot, ReturnedSiloContextMarshal, ReturnedSiloContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13306,7 +13373,7 @@ export PsRemoveSiloContext(Silo, ContextSlot, RemovedSiloContext) {
     RemovedSiloContextMarshal := RemovedSiloContext is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\PsRemoveSiloContext", PESILO, Silo, UInt32, ContextSlot, RemovedSiloContextMarshal, RemovedSiloContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13343,7 +13410,7 @@ export PsInsertPermanentSiloContext(Silo, ContextSlot, SiloContext) {
     SiloContextMarshal := SiloContext is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\PsInsertPermanentSiloContext", PESILO, Silo, UInt32, ContextSlot, SiloContextMarshal, SiloContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13355,7 +13422,7 @@ export PsInsertPermanentSiloContext(Silo, ContextSlot, SiloContext) {
  */
 export PsMakeSiloContextPermanent(Silo, ContextSlot) {
     result := DllCall("ntoskrnl.exe\PsMakeSiloContextPermanent", PESILO, Silo, UInt32, ContextSlot, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13370,7 +13437,7 @@ export PsGetPermanentSiloContext(Silo, ContextSlot, ReturnedSiloContext) {
     ReturnedSiloContextMarshal := ReturnedSiloContext is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\PsGetPermanentSiloContext", PESILO, Silo, UInt32, ContextSlot, ReturnedSiloContextMarshal, ReturnedSiloContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13384,7 +13451,7 @@ export PsRegisterSiloMonitor(Registration, ReturnedMonitor) {
     ReturnedMonitorMarshal := ReturnedMonitor is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\PsRegisterSiloMonitor", SILO_MONITOR_REGISTRATION.Ptr, Registration, ReturnedMonitorMarshal, ReturnedMonitor, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13395,7 +13462,7 @@ export PsRegisterSiloMonitor(Registration, ReturnedMonitor) {
  */
 export PsStartSiloMonitor(_Monitor) {
     result := DllCall("ntoskrnl.exe\PsStartSiloMonitor", PSILO_MONITOR, _Monitor, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13481,8 +13548,8 @@ export IoAllocateAdapterChannel(AdapterObject, DeviceObject, NumberOfMapRegister
     AdapterObjectMarshal := AdapterObject is VarRef ? "ptr*" : "ptr"
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\IoAllocateAdapterChannel", AdapterObjectMarshal, AdapterObject, DEVICE_OBJECT.Ptr, DeviceObject, UInt32, NumberOfMapRegisters, "ptr", ExecutionRoutine, _ContextMarshal, _Context, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\IoAllocateAdapterChannel", AdapterObjectMarshal, AdapterObject, DEVICE_OBJECT.Ptr, DeviceObject, UInt32, NumberOfMapRegisters, DRIVER_CONTROL, ExecutionRoutine, _ContextMarshal, _Context, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13497,7 +13564,7 @@ export IoAllocateAdapterChannel(AdapterObject, DeviceObject, NumberOfMapRegister
 export IoAllocateController(ControllerObject, DeviceObject, ExecutionRoutine, _Context) {
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-    DllCall("ntoskrnl.exe\IoAllocateController", CONTROLLER_OBJECT.Ptr, ControllerObject, DEVICE_OBJECT.Ptr, DeviceObject, "ptr", ExecutionRoutine, _ContextMarshal, _Context)
+    DllCall("ntoskrnl.exe\IoAllocateController", CONTROLLER_OBJECT.Ptr, ControllerObject, DEVICE_OBJECT.Ptr, DeviceObject, DRIVER_CONTROL, ExecutionRoutine, _ContextMarshal, _Context)
 }
 
 /**
@@ -13514,7 +13581,7 @@ export IoAssignResources(RegistryPath, DriverClassName, DriverObject, DeviceObje
     AllocatedResourcesMarshal := AllocatedResources is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoAssignResources", UNICODE_STRING.Ptr, RegistryPath, UNICODE_STRING.Ptr, DriverClassName, DRIVER_OBJECT.Ptr, DriverObject, DEVICE_OBJECT.Ptr, DeviceObject, IO_RESOURCE_REQUIREMENTS_LIST.Ptr, RequestedResources, AllocatedResourcesMarshal, AllocatedResources, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13526,7 +13593,7 @@ export IoAssignResources(RegistryPath, DriverClassName, DriverObject, DeviceObje
  */
 export IoAttachDeviceByPointer(SourceDevice, TargetDevice) {
     result := DllCall("ntoskrnl.exe\IoAttachDeviceByPointer", DEVICE_OBJECT.Ptr, SourceDevice, DEVICE_OBJECT.Ptr, TargetDevice, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13630,8 +13697,8 @@ export IoQueryDeviceDescription(BusType, BusNumber, ControllerType, ControllerNu
     PeripheralNumberMarshal := PeripheralNumber is VarRef ? "uint*" : "ptr"
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\IoQueryDeviceDescription", BusTypeMarshal, BusType, BusNumberMarshal, BusNumber, ControllerTypeMarshal, ControllerType, ControllerNumberMarshal, ControllerNumber, PeripheralTypeMarshal, PeripheralType, PeripheralNumberMarshal, PeripheralNumber, "ptr", CalloutRoutine, _ContextMarshal, _Context, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\IoQueryDeviceDescription", BusTypeMarshal, BusType, BusNumberMarshal, BusNumber, ControllerTypeMarshal, ControllerType, ControllerNumberMarshal, ControllerNumber, PeripheralTypeMarshal, PeripheralType, PeripheralNumberMarshal, PeripheralNumber, PIO_QUERY_DEVICE_ROUTINE, CalloutRoutine, _ContextMarshal, _Context, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13678,7 +13745,7 @@ export IoSetThreadHardErrorMode(EnableHardErrors) {
 export IoRegisterBootDriverReinitialization(DriverObject, DriverReinitializationRoutine, _Context) {
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-    DllCall("ntoskrnl.exe\IoRegisterBootDriverReinitialization", DRIVER_OBJECT.Ptr, DriverObject, "ptr", DriverReinitializationRoutine, _ContextMarshal, _Context)
+    DllCall("ntoskrnl.exe\IoRegisterBootDriverReinitialization", DRIVER_OBJECT.Ptr, DriverObject, DRIVER_REINITIALIZE, DriverReinitializationRoutine, _ContextMarshal, _Context)
 }
 
 /**
@@ -13691,7 +13758,7 @@ export IoRegisterBootDriverReinitialization(DriverObject, DriverReinitialization
 export IoRegisterDriverReinitialization(DriverObject, DriverReinitializationRoutine, _Context) {
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-    DllCall("ntoskrnl.exe\IoRegisterDriverReinitialization", DRIVER_OBJECT.Ptr, DriverObject, "ptr", DriverReinitializationRoutine, _ContextMarshal, _Context)
+    DllCall("ntoskrnl.exe\IoRegisterDriverReinitialization", DRIVER_OBJECT.Ptr, DriverObject, DRIVER_REINITIALIZE, DriverReinitializationRoutine, _ContextMarshal, _Context)
 }
 
 /**
@@ -13711,7 +13778,7 @@ export IoReportResourceUsage(DriverClassName, DriverObject, DriverList, DriverLi
     ConflictDetectedMarshal := ConflictDetected is VarRef ? "char*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoReportResourceUsage", UNICODE_STRING.Ptr, DriverClassName, DRIVER_OBJECT.Ptr, DriverObject, IntPtr, DriverList, UInt32, DriverListSize, DEVICE_OBJECT.Ptr, DeviceObject, IntPtr, DeviceList, UInt32, DeviceListSize, BOOLEAN, OverrideConflict, ConflictDetectedMarshal, ConflictDetected, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13768,7 +13835,7 @@ export IoReadPartitionTable(DeviceObject, SectorSize, ReturnRecognizedPartitions
     PartitionBufferMarshal := PartitionBuffer is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoReadPartitionTable", DEVICE_OBJECT.Ptr, DeviceObject, UInt32, SectorSize, BOOLEAN, ReturnRecognizedPartitions, PartitionBufferMarshal, PartitionBuffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13782,7 +13849,7 @@ export IoReadPartitionTable(DeviceObject, SectorSize, ReturnRecognizedPartitions
  */
 export IoSetPartitionInformation(DeviceObject, SectorSize, PartitionNumber, PartitionType) {
     result := DllCall("ntoskrnl.exe\IoSetPartitionInformation", DEVICE_OBJECT.Ptr, DeviceObject, UInt32, SectorSize, UInt32, PartitionNumber, UInt32, PartitionType, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13797,7 +13864,7 @@ export IoSetPartitionInformation(DeviceObject, SectorSize, PartitionNumber, Part
  */
 export IoWritePartitionTable(DeviceObject, SectorSize, SectorsPerTrack, NumberOfHeads, PartitionBuffer) {
     result := DllCall("ntoskrnl.exe\IoWritePartitionTable", DEVICE_OBJECT.Ptr, DeviceObject, UInt32, SectorSize, UInt32, SectorsPerTrack, UInt32, NumberOfHeads, DRIVE_LAYOUT_INFORMATION.Ptr, PartitionBuffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13809,7 +13876,7 @@ export IoWritePartitionTable(DeviceObject, SectorSize, SectorsPerTrack, NumberOf
  */
 export IoCreateDisk(DeviceObject, Disk) {
     result := DllCall("ntoskrnl.exe\IoCreateDisk", DEVICE_OBJECT.Ptr, DeviceObject, CREATE_DISK.Ptr, Disk, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13823,7 +13890,7 @@ export IoReadPartitionTableEx(DeviceObject, DriveLayout) {
     DriveLayoutMarshal := DriveLayout is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoReadPartitionTableEx", DEVICE_OBJECT.Ptr, DeviceObject, DriveLayoutMarshal, DriveLayout, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13835,7 +13902,7 @@ export IoReadPartitionTableEx(DeviceObject, DriveLayout) {
  */
 export IoWritePartitionTableEx(DeviceObject, DriveLayout) {
     result := DllCall("ntoskrnl.exe\IoWritePartitionTableEx", DEVICE_OBJECT.Ptr, DeviceObject, DRIVE_LAYOUT_INFORMATION_EX.Ptr, DriveLayout, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13848,7 +13915,7 @@ export IoWritePartitionTableEx(DeviceObject, DriveLayout) {
  */
 export IoSetPartitionInformationEx(DeviceObject, PartitionNumber, PartitionInfo) {
     result := DllCall("ntoskrnl.exe\IoSetPartitionInformationEx", DEVICE_OBJECT.Ptr, DeviceObject, UInt32, PartitionNumber, SET_PARTITION_INFORMATION_EX.Ptr, PartitionInfo, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13860,7 +13927,7 @@ export IoSetPartitionInformationEx(DeviceObject, PartitionNumber, PartitionInfo)
  */
 export IoVerifyPartitionTable(DeviceObject, FixErrors) {
     result := DllCall("ntoskrnl.exe\IoVerifyPartitionTable", DEVICE_OBJECT.Ptr, DeviceObject, BOOLEAN, FixErrors, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13873,7 +13940,7 @@ export IoVerifyPartitionTable(DeviceObject, FixErrors) {
  */
 export IoReadDiskSignature(DeviceObject, BytesPerSector, Signature) {
     result := DllCall("ntoskrnl.exe\IoReadDiskSignature", DEVICE_OBJECT.Ptr, DeviceObject, UInt32, BytesPerSector, DISK_SIGNATURE.Ptr, Signature, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13887,7 +13954,7 @@ export IoVolumeDeviceToDosName(VolumeDeviceObject, DosName) {
     VolumeDeviceObjectMarshal := VolumeDeviceObject is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoVolumeDeviceToDosName", VolumeDeviceObjectMarshal, VolumeDeviceObject, UNICODE_STRING.Ptr, DosName, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13901,7 +13968,7 @@ export IoVolumeDeviceToGuidPath(VolumeDeviceObject, GuidPath) {
     VolumeDeviceObjectMarshal := VolumeDeviceObject is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoVolumeDeviceToGuidPath", VolumeDeviceObjectMarshal, VolumeDeviceObject, UNICODE_STRING.Ptr, GuidPath, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13915,7 +13982,7 @@ export IoVolumeDeviceToGuid(VolumeDeviceObject, Guid) {
     VolumeDeviceObjectMarshal := VolumeDeviceObject is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoVolumeDeviceToGuid", VolumeDeviceObjectMarshal, VolumeDeviceObject, Guid.Ptr, Guid, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13927,7 +13994,7 @@ export IoVolumeDeviceToGuid(VolumeDeviceObject, Guid) {
  */
 export IoVolumeDeviceNameToGuid(VolumeDeviceName, Guid) {
     result := DllCall("ntoskrnl.exe\IoVolumeDeviceNameToGuid", UNICODE_STRING.Ptr, VolumeDeviceName, Guid.Ptr, Guid, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13939,7 +14006,7 @@ export IoVolumeDeviceNameToGuid(VolumeDeviceName, Guid) {
  */
 export IoVolumeDeviceNameToGuidPath(VolumeDeviceName, GuidPath) {
     result := DllCall("ntoskrnl.exe\IoVolumeDeviceNameToGuidPath", UNICODE_STRING.Ptr, VolumeDeviceName, UNICODE_STRING.Ptr, GuidPath, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13950,7 +14017,7 @@ export IoVolumeDeviceNameToGuidPath(VolumeDeviceName, GuidPath) {
  */
 export IoSetSystemPartition(VolumeNameString) {
     result := DllCall("ntoskrnl.exe\IoSetSystemPartition", UNICODE_STRING.Ptr, VolumeNameString, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -13980,7 +14047,7 @@ export IoCreateFileSpecifyDeviceObjectHint(FileHandle, DesiredAccess, ObjectAttr
     DeviceObjectMarshal := DeviceObject is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoCreateFileSpecifyDeviceObjectHint", HANDLE.Ptr, FileHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, IO_STATUS_BLOCK.Ptr, IoStatusBlock, AllocationSizeMarshal, AllocationSize, UInt32, FileAttributes, UInt32, ShareAccess, UInt32, Disposition, UInt32, CreateOptions, EaBufferMarshal, EaBuffer, UInt32, EaLength, CREATE_FILE_TYPE, CreateFileType, InternalParametersMarshal, InternalParameters, UInt32, Options, DeviceObjectMarshal, DeviceObject, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14039,7 +14106,7 @@ export IoCreateFileEx(FileHandle, DesiredAccess, ObjectAttributes, IoStatusBlock
     InternalParametersMarshal := InternalParameters is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoCreateFileEx", HANDLE.Ptr, FileHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, IO_STATUS_BLOCK.Ptr, IoStatusBlock, AllocationSizeMarshal, AllocationSize, UInt32, FileAttributes, UInt32, ShareAccess, UInt32, Disposition, UInt32, CreateOptions, EaBufferMarshal, EaBuffer, UInt32, EaLength, CREATE_FILE_TYPE, CreateFileType, InternalParametersMarshal, InternalParameters, UInt32, Options, IO_DRIVER_CREATE_CONTEXT.Ptr, DriverContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14053,7 +14120,7 @@ export IoSetIrpExtraCreateParameter(_Irp, ExtraCreateParameter) {
     ExtraCreateParameterMarshal := ExtraCreateParameter is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoSetIrpExtraCreateParameter", IRP.Ptr, _Irp, ExtraCreateParameterMarshal, ExtraCreateParameter, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14076,7 +14143,7 @@ export IoGetIrpExtraCreateParameter(_Irp, ExtraCreateParameter) {
     ExtraCreateParameterMarshal := ExtraCreateParameter is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoGetIrpExtraCreateParameter", IRP.Ptr, _Irp, ExtraCreateParameterMarshal, ExtraCreateParameter, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14093,7 +14160,7 @@ export IoGetIrpExtraCreateParameter(_Irp, ExtraCreateParameter) {
  */
 export IoQueryInformationByName(ObjectAttributes, IoStatusBlock, FileInformation, Length, FileInformationClass, Options, DriverContext) {
     result := DllCall("ntoskrnl.exe\IoQueryInformationByName", OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, IO_STATUS_BLOCK.Ptr, IoStatusBlock, IntPtr, FileInformation, UInt32, Length, FILE_INFORMATION_CLASS, FileInformationClass, UInt32, Options, IO_DRIVER_CREATE_CONTEXT.Ptr, DriverContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14108,7 +14175,7 @@ export IoAttachDeviceToDeviceStackSafe(SourceDevice, TargetDevice, AttachedToDev
     AttachedToDeviceObjectMarshal := AttachedToDeviceObject is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoAttachDeviceToDeviceStackSafe", DEVICE_OBJECT.Ptr, SourceDevice, DEVICE_OBJECT.Ptr, TargetDevice, AttachedToDeviceObjectMarshal, AttachedToDeviceObject, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14130,7 +14197,7 @@ export IoIsFileOriginRemote(FileObject) {
  */
 export IoSetFileOrigin(FileObject, Remote) {
     result := DllCall("ntoskrnl.exe\IoSetFileOrigin", FILE_OBJECT.Ptr, FileObject, BOOLEAN, Remote, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14151,7 +14218,7 @@ export IoIsFileObjectIgnoringSharing(FileObject) {
  */
 export IoSetFileObjectIgnoreSharing(FileObject) {
     result := DllCall("ntoskrnl.exe\IoSetFileObjectIgnoreSharing", FILE_OBJECT.Ptr, FileObject, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14174,7 +14241,7 @@ export IoGetPagingIoPriority(_Irp) {
 export IoRegisterBootDriverCallback(CallbackFunction, CallbackContext) {
     CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\IoRegisterBootDriverCallback", "ptr", CallbackFunction, CallbackContextMarshal, CallbackContext, IntPtr)
+    result := DllCall("ntoskrnl.exe\IoRegisterBootDriverCallback", PBOOT_DRIVER_CALLBACK_FUNCTION, CallbackFunction, CallbackContextMarshal, CallbackContext, IntPtr)
     return result
 }
 
@@ -14197,7 +14264,7 @@ export IoUnregisterBootDriverCallback(CallbackHandle) {
  */
 export IoGetActivityIdIrp(_Irp, Guid) {
     result := DllCall("ntoskrnl.exe\IoGetActivityIdIrp", IRP.Ptr, _Irp, Guid.Ptr, Guid, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14209,7 +14276,7 @@ export IoGetActivityIdIrp(_Irp, Guid) {
  */
 export IoSetActivityIdIrp(_Irp, Guid) {
     result := DllCall("ntoskrnl.exe\IoSetActivityIdIrp", IRP.Ptr, _Irp, Guid.Ptr, Guid, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14224,7 +14291,7 @@ export IoPropagateActivityIdToThread(_Irp, PropagatedId, OriginalId) {
     OriginalIdMarshal := OriginalId is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoPropagateActivityIdToThread", IRP.Ptr, _Irp, Guid.Ptr, PropagatedId, OriginalIdMarshal, OriginalId, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14276,7 +14343,7 @@ export IoGetFsZeroingOffset(_Irp, ZeroingOffset) {
     ZeroingOffsetMarshal := ZeroingOffset is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoGetFsZeroingOffset", IRP.Ptr, _Irp, ZeroingOffsetMarshal, ZeroingOffset, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14287,7 +14354,7 @@ export IoGetFsZeroingOffset(_Irp, ZeroingOffset) {
  */
 export IoSetFsZeroingOffsetRequired(_Irp) {
     result := DllCall("ntoskrnl.exe\IoSetFsZeroingOffsetRequired", IRP.Ptr, _Irp, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14299,7 +14366,7 @@ export IoSetFsZeroingOffsetRequired(_Irp) {
  */
 export IoSetFsZeroingOffset(_Irp, ZeroingOffset) {
     result := DllCall("ntoskrnl.exe\IoSetFsZeroingOffset", IRP.Ptr, _Irp, UInt32, ZeroingOffset, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14321,7 +14388,7 @@ export IoIsValidIrpStatus(_Status) {
  */
 export IoIncrementKeepAliveCount(FileObject, Process) {
     result := DllCall("ntoskrnl.exe\IoIncrementKeepAliveCount", FILE_OBJECT.Ptr, FileObject, PEPROCESS, Process, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14333,7 +14400,7 @@ export IoIncrementKeepAliveCount(FileObject, Process) {
  */
 export IoDecrementKeepAliveCount(FileObject, Process) {
     result := DllCall("ntoskrnl.exe\IoDecrementKeepAliveCount", FILE_OBJECT.Ptr, FileObject, PEPROCESS, Process, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14365,7 +14432,7 @@ export IoSetMasterIrpStatus(MasterIrp, _Status) {
  */
 export IoQueryFullDriverPath(DriverObject, FullPath) {
     result := DllCall("ntoskrnl.exe\IoQueryFullDriverPath", DRIVER_OBJECT.Ptr, DriverObject, UNICODE_STRING.Ptr, FullPath, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14385,7 +14452,7 @@ export IoReportDetectedDevice(DriverObject, LegacyBusType, BusNumber, SlotNumber
     DeviceObjectMarshal := DeviceObject is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoReportDetectedDevice", DRIVER_OBJECT.Ptr, DriverObject, INTERFACE_TYPE, LegacyBusType, UInt32, BusNumber, UInt32, SlotNumber, CM_RESOURCE_LIST.Ptr, ResourceList, IO_RESOURCE_REQUIREMENTS_LIST.Ptr, ResourceRequirements, BOOLEAN, ResourceAssigned, DeviceObjectMarshal, DeviceObject, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14396,7 +14463,7 @@ export IoReportDetectedDevice(DriverObject, LegacyBusType, BusNumber, SlotNumber
  */
 export IoReportRootDevice(DriverObject) {
     result := DllCall("ntoskrnl.exe\IoReportRootDevice", DRIVER_OBJECT.Ptr, DriverObject, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14415,7 +14482,7 @@ export IoReportResourceForDetection(DriverObject, DriverList, DriverListSize, De
     ConflictDetectedMarshal := ConflictDetected is VarRef ? "char*" : "ptr"
 
     result := DllCall("ntoskrnl.exe\IoReportResourceForDetection", DRIVER_OBJECT.Ptr, DriverObject, IntPtr, DriverList, UInt32, DriverListSize, DEVICE_OBJECT.Ptr, DeviceObject, IntPtr, DeviceList, UInt32, DeviceListSize, ConflictDetectedMarshal, ConflictDetected, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14425,7 +14492,7 @@ export IoReportResourceForDetection(DriverObject, DriverList, DriverListSize, De
  * @returns {String} Nothing - always returns an empty string
  */
 export HalAcquireDisplayOwnership(ResetDisplayParameters) {
-    DllCall("HAL.dll\HalAcquireDisplayOwnership", "ptr", ResetDisplayParameters)
+    DllCall("HAL.dll\HalAcquireDisplayOwnership", PHAL_RESET_DISPLAY_PARAMETERS, ResetDisplayParameters)
 }
 
 /**
@@ -14444,7 +14511,7 @@ export HalAssignSlotResources(RegistryPath, DriverClassName, DriverObject, Devic
     AllocatedResourcesMarshal := AllocatedResources is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("HAL.dll\HalAssignSlotResources", UNICODE_STRING.Ptr, RegistryPath, UNICODE_STRING.Ptr, DriverClassName, DRIVER_OBJECT.Ptr, DriverObject, DEVICE_OBJECT.Ptr, DeviceObject, INTERFACE_TYPE, BusType, UInt32, BusNumber, UInt32, SlotNumber, AllocatedResourcesMarshal, AllocatedResources, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14541,7 +14608,7 @@ export HalDmaAllocateCrashDumpRegistersEx(_Adapter, NumberOfMapRegisters, Type, 
     MapRegistersAvailableMarshal := MapRegistersAvailable is VarRef ? "uint*" : "ptr"
 
     result := DllCall("HAL.dll\HalDmaAllocateCrashDumpRegistersEx", _AdapterMarshal, _Adapter, UInt32, NumberOfMapRegisters, HAL_DMA_CRASH_DUMP_REGISTER_TYPE, Type, MapRegisterBaseMarshal, MapRegisterBase, MapRegistersAvailableMarshal, MapRegistersAvailable, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14555,7 +14622,7 @@ export HalDmaFreeCrashDumpRegistersEx(_Adapter, Type) {
     _AdapterMarshal := _Adapter is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("HAL.dll\HalDmaFreeCrashDumpRegistersEx", _AdapterMarshal, _Adapter, HAL_DMA_CRASH_DUMP_REGISTER_TYPE, Type, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14622,8 +14689,8 @@ export HalMakeBeep(Frequency) {
 export HalAllocateAdapterChannel(AdapterObject, Wcb, NumberOfMapRegisters, ExecutionRoutine) {
     AdapterObjectMarshal := AdapterObject is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("HAL.dll\HalAllocateAdapterChannel", AdapterObjectMarshal, AdapterObject, WAIT_CONTEXT_BLOCK.Ptr, Wcb, UInt32, NumberOfMapRegisters, "ptr", ExecutionRoutine, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("HAL.dll\HalAllocateAdapterChannel", AdapterObjectMarshal, AdapterObject, WAIT_CONTEXT_BLOCK.Ptr, Wcb, UInt32, NumberOfMapRegisters, DRIVER_CONTROL, ExecutionRoutine, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14755,7 +14822,7 @@ export HalBugCheckSystem(ErrorSource, ErrorRecord) {
  */
 export HalAllocateHardwareCounters(GroupAffinty, GroupCount, ResourceList, CounterSetHandle) {
     result := DllCall("HAL.dll\HalAllocateHardwareCounters", GROUP_AFFINITY.Ptr, GroupAffinty, UInt32, GroupCount, PHYSICAL_COUNTER_RESOURCE_LIST.Ptr, ResourceList, HANDLE.Ptr, CounterSetHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14766,7 +14833,7 @@ export HalAllocateHardwareCounters(GroupAffinty, GroupCount, ResourceList, Count
  */
 export HalFreeHardwareCounters(CounterSetHandle) {
     result := DllCall("HAL.dll\HalFreeHardwareCounters", HANDLE, CounterSetHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14797,8 +14864,8 @@ export FsRtlIsTotalDeviceFailure(_Status) {
 export ZwDeviceIoControlFile(FileHandle, Event, ApcRoutine, ApcContext, IoStatusBlock, IoControlCode, InputBuffer, InputBufferLength, OutputBuffer, OutputBufferLength) {
     ApcContextMarshal := ApcContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntdll.dll\ZwDeviceIoControlFile", HANDLE, FileHandle, HANDLE, Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, IO_STATUS_BLOCK.Ptr, IoStatusBlock, UInt32, IoControlCode, IntPtr, InputBuffer, UInt32, InputBufferLength, IntPtr, OutputBuffer, UInt32, OutputBufferLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\ZwDeviceIoControlFile", HANDLE, FileHandle, HANDLE, Event, PIO_APC_ROUTINE, ApcRoutine, ApcContextMarshal, ApcContext, IO_STATUS_BLOCK.Ptr, IoStatusBlock, UInt32, IoControlCode, IntPtr, InputBuffer, UInt32, InputBufferLength, IntPtr, OutputBuffer, UInt32, OutputBufferLength, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14809,7 +14876,7 @@ export ZwDeviceIoControlFile(FileHandle, Event, ApcRoutine, ApcContext, IoStatus
  */
 export ZwDisplayString(_String) {
     result := DllCall("ntdll.dll\ZwDisplayString", UNICODE_STRING.Ptr, _String, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14824,7 +14891,7 @@ export ZwDisplayString(_String) {
  */
 export ZwPowerInformation(InformationLevel, InputBuffer, InputBufferLength, OutputBuffer, OutputBufferLength) {
     result := DllCall("ntdll.dll\ZwPowerInformation", POWER_INFORMATION_LEVEL, InformationLevel, IntPtr, InputBuffer, UInt32, InputBufferLength, IntPtr, OutputBuffer, UInt32, OutputBufferLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14835,7 +14902,7 @@ export ZwPowerInformation(InformationLevel, InputBuffer, InputBufferLength, Outp
  */
 export ZwAllocateLocallyUniqueId(_Luid) {
     result := DllCall("ntdll.dll\ZwAllocateLocallyUniqueId", LUID.Ptr, _Luid, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14850,7 +14917,7 @@ export WheaAddErrorSourceDeviceDriver(_Context, Configuration, NumberPreallocate
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\WheaAddErrorSourceDeviceDriver", _ContextMarshal, _Context, WHEA_ERROR_SOURCE_CONFIGURATION_DEVICE_DRIVER.Ptr, Configuration, UInt32, NumberPreallocatedErrorReports, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14866,7 +14933,7 @@ export WheaAddErrorSourceDeviceDriverV1(_Context, Configuration, NumBuffersToPre
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\WheaAddErrorSourceDeviceDriverV1", _ContextMarshal, _Context, WHEA_ERROR_SOURCE_CONFIGURATION_DEVICE_DRIVER.Ptr, Configuration, UInt32, NumBuffersToPreallocate, UInt32, MaxDataLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14877,7 +14944,7 @@ export WheaAddErrorSourceDeviceDriverV1(_Context, Configuration, NumBuffersToPre
  */
 export WheaRemoveErrorSourceDeviceDriver(ErrorSourceId) {
     result := DllCall("ntoskrnl.exe\WheaRemoveErrorSourceDeviceDriver", UInt32, ErrorSourceId, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14896,7 +14963,7 @@ export WheaReportHwErrorDeviceDriver(ErrorSourceId, DeviceObject, ErrorData, Err
     DeviceFriendlyName := DeviceFriendlyName is String ? StrPtr(DeviceFriendlyName) : DeviceFriendlyName
 
     result := DllCall("ntoskrnl.exe\WheaReportHwErrorDeviceDriver", UInt32, ErrorSourceId, DEVICE_OBJECT.Ptr, DeviceObject, IntPtr, ErrorData, UInt32, ErrorDataLength, Guid.Ptr, SectionTypeGuid, WHEA_ERROR_SEVERITY, ErrorSeverity, "ptr", DeviceFriendlyName, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14922,7 +14989,7 @@ export WheaAddHwErrorReportSectionDeviceDriver(ErrorHandle, SectionDataLength, B
     ErrorHandleMarshal := ErrorHandle is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\WheaAddHwErrorReportSectionDeviceDriver", ErrorHandleMarshal, ErrorHandle, UInt32, SectionDataLength, WHEA_DRIVER_BUFFER_SET.Ptr, BufferSet, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14935,7 +15002,7 @@ export WheaHwErrorReportAbandonDeviceDriver(ErrorHandle) {
     ErrorHandleMarshal := ErrorHandle is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\WheaHwErrorReportAbandonDeviceDriver", ErrorHandleMarshal, ErrorHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14948,7 +15015,7 @@ export WheaHwErrorReportSubmitDeviceDriver(ErrorHandle) {
     ErrorHandleMarshal := ErrorHandle is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\WheaHwErrorReportSubmitDeviceDriver", ErrorHandleMarshal, ErrorHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14962,7 +15029,7 @@ export WheaHwErrorReportSetSeverityDeviceDriver(ErrorHandle, ErrorSeverity) {
     ErrorHandleMarshal := ErrorHandle is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\WheaHwErrorReportSetSeverityDeviceDriver", ErrorHandleMarshal, ErrorHandle, WHEA_ERROR_SEVERITY, ErrorSeverity, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14975,7 +15042,7 @@ export WheaHwErrorReportSetSeverityDeviceDriver(ErrorHandle, ErrorSeverity) {
  */
 export WheaHwErrorReportSetSectionNameDeviceDriver(BufferSet, NameLength, Name) {
     result := DllCall("ntoskrnl.exe\WheaHwErrorReportSetSectionNameDeviceDriver", WHEA_DRIVER_BUFFER_SET.Ptr, BufferSet, UInt32, NameLength, IntPtr, Name, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -14986,7 +15053,7 @@ export WheaHwErrorReportSetSectionNameDeviceDriver(BufferSet, NameLength, Name) 
  */
 export WheaReportHwError(ErrorPacket) {
     result := DllCall("ntoskrnl.exe\WheaReportHwError", WHEA_ERROR_PACKET_V2.Ptr, ErrorPacket, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -15000,7 +15067,7 @@ export WheaAddErrorSource(ErrorSource, _Context) {
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntoskrnl.exe\WheaAddErrorSource", WHEA_ERROR_SOURCE_DESCRIPTOR.Ptr, ErrorSource, _ContextMarshal, _Context, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -15011,7 +15078,7 @@ export WheaAddErrorSource(ErrorSource, _Context) {
  */
 export WheaInitializeRecordHeader(Header) {
     result := DllCall("ntoskrnl.exe\WheaInitializeRecordHeader", WHEA_ERROR_RECORD_HEADER.Ptr, Header, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -15023,7 +15090,7 @@ export WheaInitializeRecordHeader(Header) {
  */
 export WheaConfigureErrorSource(SourceType, Configuration) {
     result := DllCall("ntoskrnl.exe\WheaConfigureErrorSource", WHEA_ERROR_SOURCE_TYPE, SourceType, WHEA_ERROR_SOURCE_CONFIGURATION.Ptr, Configuration, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -15034,7 +15101,7 @@ export WheaConfigureErrorSource(SourceType, Configuration) {
  */
 export WheaUnconfigureErrorSource(SourceType) {
     result := DllCall("ntoskrnl.exe\WheaUnconfigureErrorSource", WHEA_ERROR_SOURCE_TYPE, SourceType, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -15084,7 +15151,7 @@ export WheaIsCriticalState() {
 export WheaHighIrqlLogSelEventHandlerRegister(Handler, _Context) {
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\WheaHighIrqlLogSelEventHandlerRegister", "ptr", Handler, _ContextMarshal, _Context, BOOLEAN)
+    result := DllCall("ntoskrnl.exe\WheaHighIrqlLogSelEventHandlerRegister", PFN_WHEA_HIGH_IRQL_LOG_SEL_EVENT_HANDLER, Handler, _ContextMarshal, _Context, BOOLEAN)
     return result
 }
 
@@ -15105,8 +15172,8 @@ export WheaHighIrqlLogSelEventHandlerUnregister() {
 export WheaRegisterInUsePageOfflineNotification(Callback, _Context) {
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntoskrnl.exe\WheaRegisterInUsePageOfflineNotification", "ptr", Callback, _ContextMarshal, _Context, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\WheaRegisterInUsePageOfflineNotification", PFN_IN_USE_PAGE_OFFLINE_NOTIFY, Callback, _ContextMarshal, _Context, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -15116,8 +15183,8 @@ export WheaRegisterInUsePageOfflineNotification(Callback, _Context) {
  * @returns {NTSTATUS} 
  */
 export WheaUnregisterInUsePageOfflineNotification(Callback) {
-    result := DllCall("ntoskrnl.exe\WheaUnregisterInUsePageOfflineNotification", "ptr", Callback, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\WheaUnregisterInUsePageOfflineNotification", PFN_IN_USE_PAGE_OFFLINE_NOTIFY, Callback, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -15136,8 +15203,8 @@ export WheaGetNotifyAllOfflinesPolicy() {
  * @returns {NTSTATUS} 
  */
 export HvlRegisterWheaErrorNotification(Callback) {
-    result := DllCall("ntoskrnl.exe\HvlRegisterWheaErrorNotification", "ptr", Callback, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\HvlRegisterWheaErrorNotification", PHVL_WHEA_ERROR_NOTIFICATION, Callback, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -15147,8 +15214,8 @@ export HvlRegisterWheaErrorNotification(Callback) {
  * @returns {NTSTATUS} 
  */
 export HvlUnregisterWheaErrorNotification(Callback) {
-    result := DllCall("ntoskrnl.exe\HvlUnregisterWheaErrorNotification", "ptr", Callback, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntoskrnl.exe\HvlUnregisterWheaErrorNotification", PHVL_WHEA_ERROR_NOTIFICATION, Callback, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -15189,7 +15256,7 @@ export PshedIsSystemWheaEnabled() {
  */
 export PshedRegisterPlugin(Packet) {
     result := DllCall("PSHED.dll\PshedRegisterPlugin", WHEA_PSHED_PLUGIN_REGISTRATION_PACKET_V2.Ptr, Packet, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -15214,7 +15281,7 @@ export PshedUnregisterPlugin(PluginHandle) {
 export PshedSynchronizeExecution(ErrorSource, SynchronizeRoutine, SynchronizeContext) {
     SynchronizeContextMarshal := SynchronizeContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("PSHED.dll\PshedSynchronizeExecution", WHEA_ERROR_SOURCE_DESCRIPTOR.Ptr, ErrorSource, "ptr", SynchronizeRoutine, SynchronizeContextMarshal, SynchronizeContext, BOOLEAN)
+    result := DllCall("PSHED.dll\PshedSynchronizeExecution", WHEA_ERROR_SOURCE_DESCRIPTOR.Ptr, ErrorSource, PKSYNCHRONIZE_ROUTINE, SynchronizeRoutine, SynchronizeContextMarshal, SynchronizeContext, BOOLEAN)
     return result
 }
 

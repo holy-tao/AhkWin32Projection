@@ -4714,7 +4714,7 @@ export NetAddServiceAccount(ServerName, AccountName, Password, Flags) {
     Password := Password is String ? StrPtr(Password) : Password
 
     result := DllCall("NETAPI32.dll\NetAddServiceAccount", "ptr", ServerName, "ptr", AccountName, "ptr", Password, UInt32, Flags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -4752,7 +4752,7 @@ export NetRemoveServiceAccount(ServerName, AccountName, Flags) {
     AccountName := AccountName is String ? StrPtr(AccountName) : AccountName
 
     result := DllCall("NETAPI32.dll\NetRemoveServiceAccount", "ptr", ServerName, "ptr", AccountName, UInt32, Flags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -4777,7 +4777,7 @@ export NetEnumerateServiceAccounts(ServerName, Flags, AccountsCount, Accounts) {
     AccountsMarshal := Accounts is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("NETAPI32.dll\NetEnumerateServiceAccounts", "ptr", ServerName, UInt32, Flags, AccountsCountMarshal, AccountsCount, AccountsMarshal, Accounts, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -4799,7 +4799,7 @@ export NetIsServiceAccount(ServerName, AccountName, IsService) {
     IsServiceMarshal := IsService is VarRef ? "int*" : "ptr"
 
     result := DllCall("NETAPI32.dll\NetIsServiceAccount", "ptr", ServerName, "ptr", AccountName, IsServiceMarshal, IsService, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -4819,7 +4819,7 @@ export NetIsServiceAccount2(ServerName, AccountName, IsService, AccountType) {
     AccountTypeMarshal := AccountType is VarRef ? "int*" : "ptr"
 
     result := DllCall("NETAPI32.dll\NetIsServiceAccount2", "ptr", ServerName, "ptr", AccountName, IsServiceMarshal, IsService, AccountTypeMarshal, AccountType, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -4862,7 +4862,7 @@ export NetQueryServiceAccount(ServerName, AccountName, InfoLevel, _Buffer) {
     _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("NETAPI32.dll\NetQueryServiceAccount", "ptr", ServerName, "ptr", AccountName, UInt32, InfoLevel, _BufferMarshal, _Buffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 

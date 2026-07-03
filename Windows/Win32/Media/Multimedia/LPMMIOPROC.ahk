@@ -51,6 +51,10 @@ export default struct LPMMIOPROC {
             this.value := CallbackCreate(fn, , [PSTR, UInt32, LPARAM, LPARAM, LRESULT])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

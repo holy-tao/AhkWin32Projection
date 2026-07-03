@@ -54,6 +54,10 @@ export default struct PQUERYACTCTXW_FUNC {
             this.value := CallbackCreate(fn, , [UInt32, HANDLE, "ptr", UInt32, IntPtr, IntPtr, "ptr*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

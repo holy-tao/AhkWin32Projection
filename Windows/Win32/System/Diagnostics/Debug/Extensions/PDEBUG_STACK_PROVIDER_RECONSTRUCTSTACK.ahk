@@ -53,6 +53,10 @@ export default struct PDEBUG_STACK_PROVIDER_RECONSTRUCTSTACK {
             this.value := CallbackCreate(fn, , [UInt32, DEBUG_STACK_FRAME_EX.Ptr, UInt32, "ptr*", "uint*", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

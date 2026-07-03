@@ -48,6 +48,10 @@ export default struct PFILTER_REPORT_CHANGE {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", BOOLEAN])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

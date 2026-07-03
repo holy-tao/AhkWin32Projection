@@ -47,6 +47,10 @@ export default struct PFN_DrvAccumulateD3DDirtyRect {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, CDDDXGK_REDIRBITMAPPRESENTINFO.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

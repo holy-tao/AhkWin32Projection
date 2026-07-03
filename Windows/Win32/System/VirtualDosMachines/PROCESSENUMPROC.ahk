@@ -49,6 +49,10 @@ export default struct PROCESSENUMPROC {
             this.value := CallbackCreate(fn, , [UInt32, UInt32, LPARAM, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

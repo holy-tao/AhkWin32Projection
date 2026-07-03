@@ -54,6 +54,10 @@ export default struct LPD3DENUMDEVICESCALLBACK7 {
             this.value := CallbackCreate(fn, , [PSTR, PSTR, D3DDEVICEDESC7.Ptr, "ptr", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

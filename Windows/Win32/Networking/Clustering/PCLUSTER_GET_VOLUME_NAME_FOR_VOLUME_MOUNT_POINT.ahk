@@ -50,6 +50,10 @@ export default struct PCLUSTER_GET_VOLUME_NAME_FOR_VOLUME_MOUNT_POINT {
             this.value := CallbackCreate(fn, , [PWSTR, PWSTR, UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -2,6 +2,7 @@
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\HCLUSTER.ahk" { HCLUSTER }
 #Import ".\HNODE.ahk" { HNODE }
+#Import ".\PCLUSTER_SETUP_PROGRESS_CALLBACK.ahk" { PCLUSTER_SETUP_PROGRESS_CALLBACK }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -33,7 +34,7 @@ export default struct PCLUSAPI_ADD_CLUSTER_NODE {
 
         pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
 
-        result := DllCall(this.value, HCLUSTER, _hCluster, "ptr", lpszNodeName, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, HNODE)
+        result := DllCall(this.value, HCLUSTER, _hCluster, "ptr", lpszNodeName, PCLUSTER_SETUP_PROGRESS_CALLBACK, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, HNODE)
         return result
     }
 
@@ -44,15 +45,19 @@ export default struct PCLUSAPI_ADD_CLUSTER_NODE {
     struct From extends PCLUSAPI_ADD_CLUSTER_NODE {
         /**
          * Creates a PCLUSAPI_ADD_CLUSTER_NODE pointer that invokes the given AHK function when called.
-         * @param {Func(HCLUSTER, PWSTR, "ptr", "ptr") => HNODE} fn the function to invoke.
+         * @param {Func(HCLUSTER, PWSTR, PCLUSTER_SETUP_PROGRESS_CALLBACK, "ptr") => HNODE} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 4)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 4 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [HCLUSTER, PWSTR, "ptr", "ptr", HNODE])
+            this.value := CallbackCreate(fn, , [HCLUSTER, PWSTR, PCLUSTER_SETUP_PROGRESS_CALLBACK, "ptr", HNODE])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

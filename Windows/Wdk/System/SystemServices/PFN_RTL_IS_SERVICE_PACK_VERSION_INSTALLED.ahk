@@ -44,6 +44,10 @@ export default struct PFN_RTL_IS_SERVICE_PACK_VERSION_INSTALLED {
             this.value := CallbackCreate(fn, , [UInt32, BOOLEAN])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

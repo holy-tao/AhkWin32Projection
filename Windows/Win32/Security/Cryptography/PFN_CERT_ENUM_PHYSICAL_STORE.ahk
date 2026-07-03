@@ -73,6 +73,10 @@ export default struct PFN_CERT_ENUM_PHYSICAL_STORE {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, PWSTR, CERT_PHYSICAL_STORE_INFO.Ptr, "ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

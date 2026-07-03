@@ -56,6 +56,10 @@ export default struct LPFN_ACCEPTEX {
             this.value := CallbackCreate(fn, , [SOCKET, SOCKET, "ptr", UInt32, UInt32, UInt32, "uint*", OVERLAPPED.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

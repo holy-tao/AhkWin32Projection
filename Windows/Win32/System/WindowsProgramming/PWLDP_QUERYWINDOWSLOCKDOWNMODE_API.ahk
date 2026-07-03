@@ -44,6 +44,10 @@ export default struct PWLDP_QUERYWINDOWSLOCKDOWNMODE_API {
             this.value := CallbackCreate(fn, , ["int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

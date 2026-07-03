@@ -57,6 +57,10 @@ export default struct WSMAN_PLUGIN_COMMAND {
             this.value := CallbackCreate(fn, , [WSMAN_PLUGIN_REQUEST.Ptr, UInt32, "ptr", PWSTR, WSMAN_COMMAND_ARG_SET.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

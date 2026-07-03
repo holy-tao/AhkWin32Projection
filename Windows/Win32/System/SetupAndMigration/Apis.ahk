@@ -1,6 +1,7 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\OOBE_COMPLETED_CALLBACK.ahk" { OOBE_COMPLETED_CALLBACK }
 
 /**
  * @namespace Windows.Win32.System.SetupAndMigration
@@ -45,7 +46,7 @@ export RegisterWaitUntilOOBECompleted(OOBECompletedCallback, CallbackContext, Wa
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\RegisterWaitUntilOOBECompleted", "ptr", OOBECompletedCallback, CallbackContextMarshal, CallbackContext, WaitHandleMarshal, WaitHandle, BOOL)
+    result := DllCall("KERNEL32.dll\RegisterWaitUntilOOBECompleted", OOBE_COMPLETED_CALLBACK, OOBECompletedCallback, CallbackContextMarshal, CallbackContext, WaitHandleMarshal, WaitHandle, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }

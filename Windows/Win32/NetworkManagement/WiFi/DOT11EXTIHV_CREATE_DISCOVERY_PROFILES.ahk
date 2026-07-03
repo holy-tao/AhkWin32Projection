@@ -55,6 +55,10 @@ export default struct DOT11EXTIHV_CREATE_DISCOVERY_PROFILES {
             this.value := CallbackCreate(fn, , [HANDLE, BOOL, DOT11EXT_IHV_PROFILE_PARAMS.Ptr, DOT11_BSS_LIST.Ptr, DOT11EXT_IHV_DISCOVERY_PROFILE_LIST.Ptr, "uint*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

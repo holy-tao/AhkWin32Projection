@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\MIDL_INTERFACE_METHOD_PROPERTIES.ahk" { MIDL_INTERFACE_METHOD_PROPERTIES }
 #Import ".\RPC_DISPATCH_TABLE.ahk" { RPC_DISPATCH_TABLE }
 #Import ".\RPC_SYNTAX_IDENTIFIER.ahk" { RPC_SYNTAX_IDENTIFIER }

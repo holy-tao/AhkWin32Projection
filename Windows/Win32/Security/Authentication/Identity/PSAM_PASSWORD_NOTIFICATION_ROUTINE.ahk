@@ -85,7 +85,7 @@ export default struct PSAM_PASSWORD_NOTIFICATION_ROUTINE {
      */
     Call(UserName, RelativeId, NewPassword) {
         result := DllCall(this.value, LSA_UNICODE_STRING.Ptr, UserName, UInt32, RelativeId, LSA_UNICODE_STRING.Ptr, NewPassword, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -105,6 +105,10 @@ export default struct PSAM_PASSWORD_NOTIFICATION_ROUTINE {
             this.value := CallbackCreate(fn, , [LSA_UNICODE_STRING.Ptr, UInt32, LSA_UNICODE_STRING.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

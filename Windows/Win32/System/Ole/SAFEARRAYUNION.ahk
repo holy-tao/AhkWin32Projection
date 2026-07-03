@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\Com\BYTE_SIZEDARR.ahk" { BYTE_SIZEDARR }
 #Import "..\Com\DWORD_SIZEDARR.ahk" { DWORD_SIZEDARR }
 #Import "..\Com\FLAGGED_WORD_BLOB.ahk" { FLAGGED_WORD_BLOB }

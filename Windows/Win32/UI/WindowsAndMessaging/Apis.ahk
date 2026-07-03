@@ -30,6 +30,7 @@
 #Import ".\CURSORINFO.ahk" { CURSORINFO }
 #Import ".\CWP_FLAGS.ahk" { CWP_FLAGS }
 #Import ".\DI_FLAGS.ahk" { DI_FLAGS }
+#Import ".\DLGPROC.ahk" { DLGPROC }
 #Import ".\DLGTEMPLATE.ahk" { DLGTEMPLATE }
 #Import ".\FLASHWINFO.ahk" { FLASHWINFO }
 #Import ".\FOREGROUND_WINDOW_LOCK_CODE.ahk" { FOREGROUND_WINDOW_LOCK_CODE }
@@ -46,6 +47,7 @@
 #Import ".\HHOOK.ahk" { HHOOK }
 #Import ".\HICON.ahk" { HICON }
 #Import ".\HMENU.ahk" { HMENU }
+#Import ".\HOOKPROC.ahk" { HOOKPROC }
 #Import ".\ICONINFO.ahk" { ICONINFO }
 #Import ".\ICONINFOEXA.ahk" { ICONINFOEXA }
 #Import ".\ICONINFOEXW.ahk" { ICONINFOEXW }
@@ -73,12 +75,17 @@
 #Import ".\MrmResourceIndexerMessage.ahk" { MrmResourceIndexerMessage }
 #Import ".\OBJECT_IDENTIFIER.ahk" { OBJECT_IDENTIFIER }
 #Import ".\PEEK_MESSAGE_REMOVE_TYPE.ahk" { PEEK_MESSAGE_REMOVE_TYPE }
+#Import ".\PROPENUMPROCA.ahk" { PROPENUMPROCA }
+#Import ".\PROPENUMPROCEXA.ahk" { PROPENUMPROCEXA }
+#Import ".\PROPENUMPROCEXW.ahk" { PROPENUMPROCEXW }
+#Import ".\PROPENUMPROCW.ahk" { PROPENUMPROCW }
 #Import ".\QUEUE_STATUS_FLAGS.ahk" { QUEUE_STATUS_FLAGS }
 #Import ".\REGISTER_NOTIFICATION_FLAGS.ahk" { REGISTER_NOTIFICATION_FLAGS }
 #Import ".\SCROLLBARINFO.ahk" { SCROLLBARINFO }
 #Import ".\SCROLLBAR_CONSTANTS.ahk" { SCROLLBAR_CONSTANTS }
 #Import ".\SCROLLINFO.ahk" { SCROLLINFO }
 #Import ".\SCROLL_WINDOW_FLAGS.ahk" { SCROLL_WINDOW_FLAGS }
+#Import ".\SENDASYNCPROC.ahk" { SENDASYNCPROC }
 #Import ".\SEND_MESSAGE_TIMEOUT_FLAGS.ahk" { SEND_MESSAGE_TIMEOUT_FLAGS }
 #Import ".\SET_WINDOW_POS_FLAGS.ahk" { SET_WINDOW_POS_FLAGS }
 #Import ".\SHOW_WINDOW_CMD.ahk" { SHOW_WINDOW_CMD }
@@ -87,6 +94,7 @@
 #Import ".\SYSTEM_PARAMETERS_INFO_ACTION.ahk" { SYSTEM_PARAMETERS_INFO_ACTION }
 #Import ".\SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS.ahk" { SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS }
 #Import ".\TILE_WINDOWS_HOW.ahk" { TILE_WINDOWS_HOW }
+#Import ".\TIMERPROC.ahk" { TIMERPROC }
 #Import ".\TITLEBARINFO.ahk" { TITLEBARINFO }
 #Import ".\TOOLTIP_DISMISS_FLAGS.ahk" { TOOLTIP_DISMISS_FLAGS }
 #Import ".\TPMPARAMS.ahk" { TPMPARAMS }
@@ -106,6 +114,8 @@
 #Import ".\WNDCLASSEXA.ahk" { WNDCLASSEXA }
 #Import ".\WNDCLASSEXW.ahk" { WNDCLASSEXW }
 #Import ".\WNDCLASSW.ahk" { WNDCLASSW }
+#Import ".\WNDENUMPROC.ahk" { WNDENUMPROC }
+#Import ".\WNDPROC.ahk" { WNDPROC }
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
@@ -2011,7 +2021,7 @@ export SendNotifyMessageW(_hWnd, _Msg, _wParam, _lParam) {
 export SendMessageCallbackA(_hWnd, _Msg, _wParam, _lParam, lpResultCallBack, dwData) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SendMessageCallbackA", HWND, _hWnd, UInt32, _Msg, WPARAM, _wParam, LPARAM, _lParam, "ptr", lpResultCallBack, IntPtr, dwData, BOOL)
+    result := DllCall("USER32.dll\SendMessageCallbackA", HWND, _hWnd, UInt32, _Msg, WPARAM, _wParam, LPARAM, _lParam, SENDASYNCPROC, lpResultCallBack, IntPtr, dwData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2071,7 +2081,7 @@ export SendMessageCallbackA(_hWnd, _Msg, _wParam, _lParam, lpResultCallBack, dwD
 export SendMessageCallbackW(_hWnd, _Msg, _wParam, _lParam, lpResultCallBack, dwData) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SendMessageCallbackW", HWND, _hWnd, UInt32, _Msg, WPARAM, _wParam, LPARAM, _lParam, "ptr", lpResultCallBack, IntPtr, dwData, BOOL)
+    result := DllCall("USER32.dll\SendMessageCallbackW", HWND, _hWnd, UInt32, _Msg, WPARAM, _wParam, LPARAM, _lParam, SENDASYNCPROC, lpResultCallBack, IntPtr, dwData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2786,7 +2796,7 @@ export PostQuitMessage(nExitCode) {
  * @since windows5.0
  */
 export CallWindowProcA(lpPrevWndFunc, _hWnd, _Msg, _wParam, _lParam) {
-    result := DllCall("USER32.dll\CallWindowProcA", "ptr", lpPrevWndFunc, HWND, _hWnd, UInt32, _Msg, WPARAM, _wParam, LPARAM, _lParam, LRESULT)
+    result := DllCall("USER32.dll\CallWindowProcA", WNDPROC, lpPrevWndFunc, HWND, _hWnd, UInt32, _Msg, WPARAM, _wParam, LPARAM, _lParam, LRESULT)
     return result
 }
 
@@ -2837,7 +2847,7 @@ export CallWindowProcA(lpPrevWndFunc, _hWnd, _Msg, _wParam, _lParam) {
  * @since windows5.0
  */
 export CallWindowProcW(lpPrevWndFunc, _hWnd, _Msg, _wParam, _lParam) {
-    result := DllCall("USER32.dll\CallWindowProcW", "ptr", lpPrevWndFunc, HWND, _hWnd, UInt32, _Msg, WPARAM, _wParam, LPARAM, _lParam, LRESULT)
+    result := DllCall("USER32.dll\CallWindowProcW", WNDPROC, lpPrevWndFunc, HWND, _hWnd, UInt32, _Msg, WPARAM, _wParam, LPARAM, _lParam, LRESULT)
     return result
 }
 
@@ -4626,7 +4636,7 @@ export CreateDialogParamA(_hInstance, lpTemplateName, hWndParent, lpDialogFunc, 
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\CreateDialogParamA", HINSTANCE, _hInstance, "ptr", lpTemplateName, HWND, hWndParent, "ptr", lpDialogFunc, LPARAM, dwInitParam, HWND)
+    result := DllCall("USER32.dll\CreateDialogParamA", HINSTANCE, _hInstance, "ptr", lpTemplateName, HWND, hWndParent, DLGPROC, lpDialogFunc, LPARAM, dwInitParam, HWND)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4675,7 +4685,7 @@ export CreateDialogParamW(_hInstance, lpTemplateName, hWndParent, lpDialogFunc, 
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\CreateDialogParamW", HINSTANCE, _hInstance, "ptr", lpTemplateName, HWND, hWndParent, "ptr", lpDialogFunc, LPARAM, dwInitParam, HWND)
+    result := DllCall("USER32.dll\CreateDialogParamW", HINSTANCE, _hInstance, "ptr", lpTemplateName, HWND, hWndParent, DLGPROC, lpDialogFunc, LPARAM, dwInitParam, HWND)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4735,7 +4745,7 @@ export CreateDialogParamW(_hInstance, lpTemplateName, hWndParent, lpDialogFunc, 
 export CreateDialogIndirectParamA(_hInstance, lpTemplate, hWndParent, lpDialogFunc, dwInitParam) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\CreateDialogIndirectParamA", HINSTANCE, _hInstance, DLGTEMPLATE.Ptr, lpTemplate, HWND, hWndParent, "ptr", lpDialogFunc, LPARAM, dwInitParam, HWND)
+    result := DllCall("USER32.dll\CreateDialogIndirectParamA", HINSTANCE, _hInstance, DLGTEMPLATE.Ptr, lpTemplate, HWND, hWndParent, DLGPROC, lpDialogFunc, LPARAM, dwInitParam, HWND)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4795,7 +4805,7 @@ export CreateDialogIndirectParamA(_hInstance, lpTemplate, hWndParent, lpDialogFu
 export CreateDialogIndirectParamW(_hInstance, lpTemplate, hWndParent, lpDialogFunc, dwInitParam) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\CreateDialogIndirectParamW", HINSTANCE, _hInstance, DLGTEMPLATE.Ptr, lpTemplate, HWND, hWndParent, "ptr", lpDialogFunc, LPARAM, dwInitParam, HWND)
+    result := DllCall("USER32.dll\CreateDialogIndirectParamW", HINSTANCE, _hInstance, DLGTEMPLATE.Ptr, lpTemplate, HWND, hWndParent, DLGPROC, lpDialogFunc, LPARAM, dwInitParam, HWND)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4844,7 +4854,7 @@ export DialogBoxParamA(_hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwI
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\DialogBoxParamA", HINSTANCE, _hInstance, "ptr", lpTemplateName, HWND, hWndParent, "ptr", lpDialogFunc, LPARAM, dwInitParam, IntPtr)
+    result := DllCall("USER32.dll\DialogBoxParamA", HINSTANCE, _hInstance, "ptr", lpTemplateName, HWND, hWndParent, DLGPROC, lpDialogFunc, LPARAM, dwInitParam, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4893,7 +4903,7 @@ export DialogBoxParamW(_hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwI
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\DialogBoxParamW", HINSTANCE, _hInstance, "ptr", lpTemplateName, HWND, hWndParent, "ptr", lpDialogFunc, LPARAM, dwInitParam, IntPtr)
+    result := DllCall("USER32.dll\DialogBoxParamW", HINSTANCE, _hInstance, "ptr", lpTemplateName, HWND, hWndParent, DLGPROC, lpDialogFunc, LPARAM, dwInitParam, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4951,7 +4961,7 @@ export DialogBoxParamW(_hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwI
 export DialogBoxIndirectParamA(_hInstance, hDialogTemplate, hWndParent, lpDialogFunc, dwInitParam) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\DialogBoxIndirectParamA", HINSTANCE, _hInstance, DLGTEMPLATE.Ptr, hDialogTemplate, HWND, hWndParent, "ptr", lpDialogFunc, LPARAM, dwInitParam, IntPtr)
+    result := DllCall("USER32.dll\DialogBoxIndirectParamA", HINSTANCE, _hInstance, DLGTEMPLATE.Ptr, hDialogTemplate, HWND, hWndParent, DLGPROC, lpDialogFunc, LPARAM, dwInitParam, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5009,7 +5019,7 @@ export DialogBoxIndirectParamA(_hInstance, hDialogTemplate, hWndParent, lpDialog
 export DialogBoxIndirectParamW(_hInstance, hDialogTemplate, hWndParent, lpDialogFunc, dwInitParam) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\DialogBoxIndirectParamW", HINSTANCE, _hInstance, DLGTEMPLATE.Ptr, hDialogTemplate, HWND, hWndParent, "ptr", lpDialogFunc, LPARAM, dwInitParam, IntPtr)
+    result := DllCall("USER32.dll\DialogBoxIndirectParamW", HINSTANCE, _hInstance, DLGTEMPLATE.Ptr, hDialogTemplate, HWND, hWndParent, DLGPROC, lpDialogFunc, LPARAM, dwInitParam, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7130,7 +7140,7 @@ export MsgWaitForMultipleObjectsEx(nCount, pHandles, dwMilliseconds, dwWakeMask,
 export SetTimer(_hWnd, nIDEvent, uElapse, lpTimerFunc) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SetTimer", HWND, _hWnd, IntPtr, nIDEvent, UInt32, uElapse, "ptr", lpTimerFunc, IntPtr)
+    result := DllCall("USER32.dll\SetTimer", HWND, _hWnd, IntPtr, nIDEvent, UInt32, uElapse, TIMERPROC, lpTimerFunc, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7184,7 +7194,7 @@ export SetTimer(_hWnd, nIDEvent, uElapse, lpTimerFunc) {
 export SetCoalescableTimer(_hWnd, nIDEvent, uElapse, lpTimerFunc, uToleranceDelay) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SetCoalescableTimer", HWND, _hWnd, IntPtr, nIDEvent, UInt32, uElapse, "ptr", lpTimerFunc, UInt32, uToleranceDelay, IntPtr)
+    result := DllCall("USER32.dll\SetCoalescableTimer", HWND, _hWnd, IntPtr, nIDEvent, UInt32, uElapse, TIMERPROC, lpTimerFunc, UInt32, uToleranceDelay, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11235,7 +11245,7 @@ export RemovePropW(_hWnd, lpString) {
  * @since windows5.0
  */
 export EnumPropsExA(_hWnd, lpEnumFunc, _lParam) {
-    result := DllCall("USER32.dll\EnumPropsExA", HWND, _hWnd, "ptr", lpEnumFunc, LPARAM, _lParam, Int32)
+    result := DllCall("USER32.dll\EnumPropsExA", HWND, _hWnd, PROPENUMPROCEXA, lpEnumFunc, LPARAM, _lParam, Int32)
     return result
 }
 
@@ -11259,7 +11269,7 @@ export EnumPropsExA(_hWnd, lpEnumFunc, _lParam) {
  * @since windows5.0
  */
 export EnumPropsExW(_hWnd, lpEnumFunc, _lParam) {
-    result := DllCall("USER32.dll\EnumPropsExW", HWND, _hWnd, "ptr", lpEnumFunc, LPARAM, _lParam, Int32)
+    result := DllCall("USER32.dll\EnumPropsExW", HWND, _hWnd, PROPENUMPROCEXW, lpEnumFunc, LPARAM, _lParam, Int32)
     return result
 }
 
@@ -11287,7 +11297,7 @@ export EnumPropsExW(_hWnd, lpEnumFunc, _lParam) {
  * @since windows5.0
  */
 export EnumPropsA(_hWnd, lpEnumFunc) {
-    result := DllCall("USER32.dll\EnumPropsA", HWND, _hWnd, "ptr", lpEnumFunc, Int32)
+    result := DllCall("USER32.dll\EnumPropsA", HWND, _hWnd, PROPENUMPROCA, lpEnumFunc, Int32)
     return result
 }
 
@@ -11315,7 +11325,7 @@ export EnumPropsA(_hWnd, lpEnumFunc) {
  * @since windows5.0
  */
 export EnumPropsW(_hWnd, lpEnumFunc) {
-    result := DllCall("USER32.dll\EnumPropsW", HWND, _hWnd, "ptr", lpEnumFunc, Int32)
+    result := DllCall("USER32.dll\EnumPropsW", HWND, _hWnd, PROPENUMPROCW, lpEnumFunc, Int32)
     return result
 }
 
@@ -14049,7 +14059,7 @@ export SetParent(hWndChild, hWndNewParent) {
  * @since windows5.0
  */
 export EnumChildWindows(hWndParent, lpEnumFunc, _lParam) {
-    result := DllCall("USER32.dll\EnumChildWindows", HWND, hWndParent, "ptr", lpEnumFunc, LPARAM, _lParam, BOOL)
+    result := DllCall("USER32.dll\EnumChildWindows", HWND, hWndParent, WNDENUMPROC, lpEnumFunc, LPARAM, _lParam, BOOL)
     return result
 }
 
@@ -14405,7 +14415,7 @@ export DeregisterShellHookWindow(_hwnd) {
 export EnumWindows(lpEnumFunc, _lParam) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\EnumWindows", "ptr", lpEnumFunc, LPARAM, _lParam, BOOL)
+    result := DllCall("USER32.dll\EnumWindows", WNDENUMPROC, lpEnumFunc, LPARAM, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14431,7 +14441,7 @@ export EnumWindows(lpEnumFunc, _lParam) {
  * @since windows5.0
  */
 export EnumThreadWindows(dwThreadId, lpfn, _lParam) {
-    result := DllCall("USER32.dll\EnumThreadWindows", UInt32, dwThreadId, "ptr", lpfn, LPARAM, _lParam, BOOL)
+    result := DllCall("USER32.dll\EnumThreadWindows", UInt32, dwThreadId, WNDENUMPROC, lpfn, LPARAM, _lParam, BOOL)
     return result
 }
 
@@ -14628,7 +14638,7 @@ export GetWindow(_hWnd, uCmd) {
  * @returns {HHOOK} 
  */
 export SetWindowsHookA(nFilterType, pfnFilterProc) {
-    result := DllCall("USER32.dll\SetWindowsHookA", Int32, nFilterType, "ptr", pfnFilterProc, HHOOK.Owned)
+    result := DllCall("USER32.dll\SetWindowsHookA", Int32, nFilterType, HOOKPROC, pfnFilterProc, HHOOK.Owned)
     return result
 }
 
@@ -14639,7 +14649,7 @@ export SetWindowsHookA(nFilterType, pfnFilterProc) {
  * @returns {HHOOK} 
  */
 export SetWindowsHookW(nFilterType, pfnFilterProc) {
-    result := DllCall("USER32.dll\SetWindowsHookW", Int32, nFilterType, "ptr", pfnFilterProc, HHOOK.Owned)
+    result := DllCall("USER32.dll\SetWindowsHookW", Int32, nFilterType, HOOKPROC, pfnFilterProc, HHOOK.Owned)
     return result
 }
 
@@ -14650,7 +14660,7 @@ export SetWindowsHookW(nFilterType, pfnFilterProc) {
  * @returns {BOOL} 
  */
 export UnhookWindowsHook(nCode, pfnFilterProc) {
-    result := DllCall("USER32.dll\UnhookWindowsHook", Int32, nCode, "ptr", pfnFilterProc, BOOL)
+    result := DllCall("USER32.dll\UnhookWindowsHook", Int32, nCode, HOOKPROC, pfnFilterProc, BOOL)
     return result
 }
 
@@ -14793,7 +14803,7 @@ export UnhookWindowsHook(nCode, pfnFilterProc) {
 export SetWindowsHookExA(idHook, lpfn, hmod, dwThreadId) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SetWindowsHookExA", WINDOWS_HOOK_ID, idHook, "ptr", lpfn, HINSTANCE, hmod, UInt32, dwThreadId, HHOOK.Owned)
+    result := DllCall("USER32.dll\SetWindowsHookExA", WINDOWS_HOOK_ID, idHook, HOOKPROC, lpfn, HINSTANCE, hmod, UInt32, dwThreadId, HHOOK.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14940,7 +14950,7 @@ export SetWindowsHookExA(idHook, lpfn, hmod, dwThreadId) {
 export SetWindowsHookExW(idHook, lpfn, hmod, dwThreadId) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SetWindowsHookExW", WINDOWS_HOOK_ID, idHook, "ptr", lpfn, HINSTANCE, hmod, UInt32, dwThreadId, HHOOK.Owned)
+    result := DllCall("USER32.dll\SetWindowsHookExW", WINDOWS_HOOK_ID, idHook, HOOKPROC, lpfn, HINSTANCE, hmod, UInt32, dwThreadId, HHOOK.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }

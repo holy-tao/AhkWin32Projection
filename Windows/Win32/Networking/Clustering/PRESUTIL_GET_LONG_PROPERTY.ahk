@@ -54,6 +54,10 @@ export default struct PRESUTIL_GET_LONG_PROPERTY {
             this.value := CallbackCreate(fn, , ["int*", CLUSPROP_LONG.Ptr, Int32, Int32, Int32, "ptr*", "uint*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -54,6 +54,10 @@ export default struct PRESUTIL_SET_BINARY_VALUE {
             this.value := CallbackCreate(fn, , [HKEY, PWSTR, IntPtr, UInt32, IntPtr, "uint*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

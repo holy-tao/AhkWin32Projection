@@ -49,6 +49,10 @@ export default struct PCLUSAPI_CLUSTER_NODE_OPEN_ENUM_EX {
             this.value := CallbackCreate(fn, , [HNODE, UInt32, "ptr", HNODEENUMEX])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

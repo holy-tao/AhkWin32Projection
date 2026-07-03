@@ -61,6 +61,10 @@ export default struct NOTIFYOFNEWCONNECTION {
             this.value := CallbackCreate(fn, "cdecl", [LDAP.Ptr, LDAP.Ptr, PWSTR, PSTR, LDAP.Ptr, UInt32, "ptr", "ptr", UInt32, BOOLEAN])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

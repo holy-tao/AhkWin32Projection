@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\NLM_CONNECTIVITY.ahk" { NLM_CONNECTIVITY }
 #Import ".\NLM_NETWORK_PROPERTY_CHANGE.ahk" { NLM_NETWORK_PROPERTY_CHANGE }

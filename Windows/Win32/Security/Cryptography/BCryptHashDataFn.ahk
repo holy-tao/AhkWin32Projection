@@ -29,7 +29,7 @@ export default struct BCryptHashDataFn {
      */
     Call(hHash, pbInput, cbInput, dwFlags) {
         result := DllCall(this.value, BCRYPT_HASH_HANDLE, hHash, IntPtr, pbInput, UInt32, cbInput, UInt32, dwFlags, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -49,6 +49,10 @@ export default struct BCryptHashDataFn {
             this.value := CallbackCreate(fn, , [BCRYPT_HASH_HANDLE, IntPtr, UInt32, UInt32, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

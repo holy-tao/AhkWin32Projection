@@ -33,7 +33,7 @@ export default struct IOMMU_FLUSH_DOMAIN_VA_LIST {
         VaListMarshal := VaList is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, DomainMarshal, Domain, BOOLEAN, LastLevel, UInt32, _Number, VaListMarshal, VaList, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -53,6 +53,10 @@ export default struct IOMMU_FLUSH_DOMAIN_VA_LIST {
             this.value := CallbackCreate(fn, , [IOMMU_DMA_DOMAIN.Ptr, BOOLEAN, UInt32, "ptr", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

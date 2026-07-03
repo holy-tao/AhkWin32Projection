@@ -46,6 +46,10 @@ export default struct PFN_CARD_RSA_DECRYPT {
             this.value := CallbackCreate(fn, , [CARD_DATA.Ptr, CARD_RSA_DECRYPT_INFO.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -56,6 +56,10 @@ export default struct PLSA_AUDIT_LOGON {
             this.value := CallbackCreate(fn, , [NTSTATUS, NTSTATUS, LSA_UNICODE_STRING.Ptr, LSA_UNICODE_STRING.Ptr, LSA_UNICODE_STRING.Ptr, PSID, SECURITY_LOGON_TYPE, TOKEN_SOURCE.Ptr, LUID.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

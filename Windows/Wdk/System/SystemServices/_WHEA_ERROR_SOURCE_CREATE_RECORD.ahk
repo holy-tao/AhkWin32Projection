@@ -33,7 +33,7 @@ export default struct _WHEA_ERROR_SOURCE_CREATE_RECORD {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, WHEA_ERROR_SOURCE_DESCRIPTOR.Ptr, ErrorSource, WHEA_ERROR_PACKET_V2.Ptr, ErrorPacket, IntPtr, ErrorRecord, UInt32, BufferSize, _ContextMarshal, _Context, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -53,6 +53,10 @@ export default struct _WHEA_ERROR_SOURCE_CREATE_RECORD {
             this.value := CallbackCreate(fn, , [WHEA_ERROR_SOURCE_DESCRIPTOR.Ptr, WHEA_ERROR_PACKET_V2.Ptr, IntPtr, UInt32, "ptr", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

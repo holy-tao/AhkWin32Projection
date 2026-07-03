@@ -52,6 +52,10 @@ export default struct alljoyn_sessionportlistener_acceptsessionjoiner_ptr {
             this.value := CallbackCreate(fn, , ["ptr", UInt16, PSTR, alljoyn_sessionopts, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

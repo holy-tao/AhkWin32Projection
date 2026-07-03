@@ -4,6 +4,8 @@
 #Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
 #Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 #Import ".\NCRYPT_KEY_HANDLE.ahk" { NCRYPT_KEY_HANDLE }
+#Import ".\PFN_CMSG_ALLOC.ahk" { PFN_CMSG_ALLOC }
+#Import ".\PFN_CMSG_FREE.ahk" { PFN_CMSG_FREE }
 
 /**
  * Contains all the relevant information passed between CryptMsgControl and object identifier (OID) installable functions for the import and decryption of a Cryptography API:\_Next Generation (CNG) content encryption key (CEK).
@@ -26,12 +28,12 @@ export default struct CMSG_CNG_CONTENT_DECRYPT_INFO {
     /**
      * A pointer to an installable function used to allocate memory for any updated member.
      */
-    pfnAlloc : IntPtr
+    pfnAlloc : PFN_CMSG_ALLOC
 
     /**
      * A pointer to an installable function used to free memory allocated by <i>pfnAlloc</i>.
      */
-    pfnFree : IntPtr
+    pfnFree : PFN_CMSG_FREE
 
     /**
      * A handle to the CNG <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private key</a> to be used for decryption of the CEK contained in the <i>pKeyTransDecryptPara</i> parameter or the <i>pKeyAgreeDecryptPara</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_cmsg_cng_import_key_trans">PFN_CMSG_CNG_IMPORT_KEY_TRANS</a> function. Callback functions must use this key instead of the one contained in the <i>DecryptPara</i> structure because that structure might contain a converted <b>HCRYPTPROV</b> handle.

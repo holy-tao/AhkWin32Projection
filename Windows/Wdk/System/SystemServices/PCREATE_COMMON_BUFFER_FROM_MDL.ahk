@@ -34,7 +34,7 @@ export default struct PCREATE_COMMON_BUFFER_FROM_MDL {
         LogicalAddressMarshal := LogicalAddress is VarRef ? "int64*" : "ptr"
 
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, MDL.Ptr, _Mdl, DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION.Ptr, ExtendedConfigs, UInt32, ExtendedConfigsCount, LogicalAddressMarshal, LogicalAddress, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -54,6 +54,10 @@ export default struct PCREATE_COMMON_BUFFER_FROM_MDL {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, MDL.Ptr, DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION.Ptr, UInt32, "int64*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

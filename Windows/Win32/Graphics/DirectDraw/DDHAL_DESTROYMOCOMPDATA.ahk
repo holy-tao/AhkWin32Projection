@@ -2,6 +2,7 @@
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDRAWI_DDMOTIONCOMP_LCL.ahk" { DDRAWI_DDMOTIONCOMP_LCL }
 #Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
+#Import ".\LPDDHALMOCOMPCB_DESTROY.ahk" { LPDDHALMOCOMPCB_DESTROY }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -15,6 +16,6 @@ export default struct DDHAL_DESTROYMOCOMPDATA {
 
     ddRVal : HRESULT
 
-    DestroyMoComp : IntPtr
+    DestroyMoComp : LPDDHALMOCOMPCB_DESTROY
 
 }

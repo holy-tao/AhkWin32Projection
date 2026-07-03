@@ -50,6 +50,10 @@ export default struct PDXGK_POWER_NOTIFICATION {
             this.value := CallbackCreate(fn, , ["ptr", DEVICE_POWER_STATE, BOOLEAN, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -82,6 +82,10 @@ export default struct PFAX_ROUTING_INSTALLATION_CALLBACKW {
             this.value := CallbackCreate(fn, , [HANDLE, "ptr", PWSTR, PWSTR, PWSTR, PWSTR, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

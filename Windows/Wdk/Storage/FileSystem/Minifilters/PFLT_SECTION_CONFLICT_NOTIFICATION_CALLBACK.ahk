@@ -30,7 +30,7 @@ export default struct PFLT_SECTION_CONFLICT_NOTIFICATION_CALLBACK {
      */
     Call(Instance, SectionContext, Data) {
         result := DllCall(this.value, PFLT_INSTANCE, Instance, PFLT_CONTEXT, SectionContext, FLT_CALLBACK_DATA.Ptr, Data, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -50,6 +50,10 @@ export default struct PFLT_SECTION_CONFLICT_NOTIFICATION_CALLBACK {
             this.value := CallbackCreate(fn, , [PFLT_INSTANCE, PFLT_CONTEXT, FLT_CALLBACK_DATA.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -606,6 +606,10 @@ export default struct LPWSPASYNCSELECT {
             this.value := CallbackCreate(fn, , [SOCKET, HWND, UInt32, Int32, "int*", Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

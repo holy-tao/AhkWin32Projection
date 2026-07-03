@@ -47,6 +47,10 @@ export default struct PFAXROUTEINITIALIZE {
             this.value := CallbackCreate(fn, , [HANDLE, FAX_ROUTE_CALLBACKROUTINES.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

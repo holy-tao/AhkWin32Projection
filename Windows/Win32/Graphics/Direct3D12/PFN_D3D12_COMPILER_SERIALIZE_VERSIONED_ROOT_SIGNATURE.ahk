@@ -48,6 +48,10 @@ export default struct PFN_D3D12_COMPILER_SERIALIZE_VERSIONED_ROOT_SIGNATURE {
             this.value := CallbackCreate(fn, , [D3D12_VERSIONED_ROOT_SIGNATURE_DESC.Ptr, ID3DBlob.Ptr, ID3DBlob.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

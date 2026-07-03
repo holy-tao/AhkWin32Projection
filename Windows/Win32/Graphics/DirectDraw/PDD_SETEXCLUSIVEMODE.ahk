@@ -50,6 +50,10 @@ export default struct PDD_SETEXCLUSIVEMODE {
             this.value := CallbackCreate(fn, , [DD_SETEXCLUSIVEMODEDATA.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

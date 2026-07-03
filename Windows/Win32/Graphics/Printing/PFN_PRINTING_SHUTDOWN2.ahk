@@ -43,6 +43,10 @@ export default struct PFN_PRINTING_SHUTDOWN2 {
             this.value := CallbackCreate(fn, , [HANDLE, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

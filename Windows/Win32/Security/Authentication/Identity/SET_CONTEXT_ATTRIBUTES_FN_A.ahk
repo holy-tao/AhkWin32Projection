@@ -51,6 +51,10 @@ export default struct SET_CONTEXT_ATTRIBUTES_FN_A {
             this.value := CallbackCreate(fn, , [SecHandle.Ptr, UInt32, "ptr", UInt32, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

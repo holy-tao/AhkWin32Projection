@@ -53,6 +53,10 @@ export default struct PFN_IIS_SERVERSUPPORTFUNCTION {
             this.value := CallbackCreate(fn, , [HCONN, UInt32, "ptr", "uint*", "uint*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

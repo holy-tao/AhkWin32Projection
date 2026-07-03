@@ -48,6 +48,10 @@ export default struct PFNGLVERTEXPOINTEREXTPROC {
             this.value := CallbackCreate(fn, , [Int32, UInt32, Int32, Int32, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -2,6 +2,7 @@
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
 #Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
+#Import ".\LPDDHALSURFCB_FLIP.ahk" { LPDDHALSURFCB_FLIP }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -19,7 +20,7 @@ export default struct DDHAL_FLIPDATA {
 
     ddRVal : HRESULT
 
-    Flip : IntPtr
+    Flip : LPDDHALSURFCB_FLIP
 
     lpSurfCurrLeft : DDRAWI_DDRAWSURFACE_LCL.Ptr
 

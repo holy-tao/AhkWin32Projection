@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Threading\LPTHREAD_START_ROUTINE.ahk" { LPTHREAD_START_ROUTINE }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -67,7 +68,7 @@ export default struct IHostThreadpoolManager extends IUnknown {
     QueueUserWorkItem(Function, _Context, Flags) {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", Function, _ContextMarshal, _Context, UInt32, Flags, "HRESULT")
+        result := ComCall(3, this, LPTHREAD_START_ROUTINE, Function, _ContextMarshal, _Context, UInt32, Flags, "HRESULT")
         return result
     }
 

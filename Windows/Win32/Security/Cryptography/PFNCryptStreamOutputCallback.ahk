@@ -78,6 +78,10 @@ export default struct PFNCryptStreamOutputCallback {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr, IntPtr, BOOL, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

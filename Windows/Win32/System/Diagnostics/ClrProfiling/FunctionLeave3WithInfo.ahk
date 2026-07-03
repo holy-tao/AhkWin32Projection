@@ -44,6 +44,10 @@ export default struct FunctionLeave3WithInfo {
             this.value := CallbackCreate(fn, , [FunctionIDOrClientID, IntPtr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

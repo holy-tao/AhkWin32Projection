@@ -118,6 +118,10 @@ export default struct LPWSPENUMNETWORKEVENTS {
             this.value := CallbackCreate(fn, , [SOCKET, HANDLE, WSANETWORKEVENTS.Ptr, "int*", Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

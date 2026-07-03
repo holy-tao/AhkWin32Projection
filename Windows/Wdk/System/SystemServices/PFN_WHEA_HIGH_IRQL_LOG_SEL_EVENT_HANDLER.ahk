@@ -29,7 +29,7 @@ export default struct PFN_WHEA_HIGH_IRQL_LOG_SEL_EVENT_HANDLER {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, IPMI_OS_SEL_RECORD.Ptr, OsSelRecord, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -49,6 +49,10 @@ export default struct PFN_WHEA_HIGH_IRQL_LOG_SEL_EVENT_HANDLER {
             this.value := CallbackCreate(fn, , ["ptr", IPMI_OS_SEL_RECORD.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

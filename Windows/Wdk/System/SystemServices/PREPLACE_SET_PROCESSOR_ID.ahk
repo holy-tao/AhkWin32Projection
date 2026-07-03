@@ -30,7 +30,7 @@ export default struct PREPLACE_SET_PROCESSOR_ID {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, UInt32, ApicId, BOOLEAN, Target, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -50,6 +50,10 @@ export default struct PREPLACE_SET_PROCESSOR_ID {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, BOOLEAN, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

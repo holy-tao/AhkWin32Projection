@@ -29,7 +29,7 @@ export default struct PGPE_DISCONNECT_VECTOR2 {
         _ObjectContextMarshal := _ObjectContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, _ObjectContextMarshal, _ObjectContext, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -49,6 +49,10 @@ export default struct PGPE_DISCONNECT_VECTOR2 {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

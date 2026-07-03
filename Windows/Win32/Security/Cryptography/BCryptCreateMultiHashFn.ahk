@@ -34,7 +34,7 @@ export default struct BCryptCreateMultiHashFn {
      */
     Call(hAlgorithm, phHash, nHashes, pbHashObject, cbHashObject, pbSecret, cbSecret, dwFlags) {
         result := DllCall(this.value, BCRYPT_ALG_HANDLE, hAlgorithm, BCRYPT_HASH_HANDLE.Ptr, phHash, UInt32, nHashes, IntPtr, pbHashObject, UInt32, cbHashObject, IntPtr, pbSecret, UInt32, cbSecret, UInt32, dwFlags, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -54,6 +54,10 @@ export default struct BCryptCreateMultiHashFn {
             this.value := CallbackCreate(fn, , [BCRYPT_ALG_HANDLE, BCRYPT_HASH_HANDLE.Ptr, UInt32, IntPtr, UInt32, IntPtr, UInt32, UInt32, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

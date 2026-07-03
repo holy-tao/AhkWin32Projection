@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
+#Import ".\LPDDHAL_WAITFORVERTICALBLANK.ahk" { LPDDHAL_WAITFORVERTICALBLANK }
 
 /**
  * The DD_WAITFORVERTICALBLANKDATA structure contains information necessary to obtain the monitor's vertical blank information. (DDHAL_WAITFORVERTICALBLANKDATA)
@@ -35,6 +36,6 @@ export default struct DDHAL_WAITFORVERTICALBLANKDATA {
     /**
      * Used by the Microsoft DirectDraw API and should not be filled in by the driver.
      */
-    WaitForVerticalBlank : IntPtr
+    WaitForVerticalBlank : LPDDHAL_WAITFORVERTICALBLANK
 
 }

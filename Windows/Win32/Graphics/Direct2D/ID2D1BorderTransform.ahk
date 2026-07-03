@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\D2D1_EXTEND_MODE.ahk" { D2D1_EXTEND_MODE }
 #Import ".\ID2D1ConcreteTransform.ahk" { ID2D1ConcreteTransform }
 

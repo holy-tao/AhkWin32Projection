@@ -1,6 +1,6 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
@@ -44,8 +44,11 @@
 #Import ".\UiaCacheRequest.ahk" { UiaCacheRequest }
 #Import ".\UiaChangeInfo.ahk" { UiaChangeInfo }
 #Import ".\UiaCondition.ahk" { UiaCondition }
+#Import ".\UiaEventCallback.ahk" { UiaEventCallback }
 #Import ".\UiaFindParams.ahk" { UiaFindParams }
 #Import ".\UiaPoint.ahk" { UiaPoint }
+#Import ".\UiaProviderCallback.ahk" { UiaProviderCallback }
+#Import ".\WINEVENTPROC.ahk" { WINEVENTPROC }
 #Import ".\WindowVisualState.ahk" { WindowVisualState }
 #Import "..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk" { POINTER_INPUT_TYPE }
 
@@ -3147,7 +3150,7 @@ export NotifyWinEvent(event, _hwnd, idObject, idChild) {
  * @since windows5.0
  */
 export SetWinEventHook(eventMin, eventMax, hmodWinEventProc, pfnWinEventProc, idProcess, idThread, dwFlags) {
-    result := DllCall("USER32.dll\SetWinEventHook", UInt32, eventMin, UInt32, eventMax, HMODULE, hmodWinEventProc, "ptr", pfnWinEventProc, UInt32, idProcess, UInt32, idThread, UInt32, dwFlags, HWINEVENTHOOK.Owned)
+    result := DllCall("USER32.dll\SetWinEventHook", UInt32, eventMin, UInt32, eventMax, HMODULE, hmodWinEventProc, WINEVENTPROC, pfnWinEventProc, UInt32, idProcess, UInt32, idThread, UInt32, dwFlags, HWINEVENTHOOK.Owned)
     return result
 }
 

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PFN_WTD_GENERIC_CHAIN_POLICY_CALLBACK.ahk" { PFN_WTD_GENERIC_CHAIN_POLICY_CALLBACK }
 #Import ".\WTD_GENERIC_CHAIN_POLICY_CREATE_INFO.ahk" { WTD_GENERIC_CHAIN_POLICY_CREATE_INFO }
 
 /**
@@ -13,7 +14,7 @@ export default struct WTD_GENERIC_CHAIN_POLICY_DATA {
 
     pCounterSignerChainInfo : WTD_GENERIC_CHAIN_POLICY_CREATE_INFO.Ptr
 
-    pfnPolicyCallback : IntPtr
+    pfnPolicyCallback : PFN_WTD_GENERIC_CHAIN_POLICY_CALLBACK
 
     pvPolicyArg : IntPtr
 

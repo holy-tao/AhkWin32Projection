@@ -46,6 +46,10 @@ export default struct D3D12CompilerCacheSessionAllocationFunc {
             this.value := CallbackCreate(fn, , [IntPtr, "ptr", "ptr"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

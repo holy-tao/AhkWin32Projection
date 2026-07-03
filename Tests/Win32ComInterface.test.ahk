@@ -3,8 +3,8 @@
 #Include ./Yunit/Yunit.ahk
 #Include ./YunitExtensions/Assert.ahk
 
-#Import "../Win32ComInterface.ahk" { Win32ComInterface }
-#Import "../Guid.ahk" { Guid }
+#Import "../Windows/Win32ComInterface.ahk" { Win32ComInterface }
+#Import "../Windows/Guid.ahk" { Guid }
 #Import "../Windows/Win32/System/Com/IUnknown.ahk" { IUnknown }
 
 class Win32ComInterfaceTests {

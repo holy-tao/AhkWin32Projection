@@ -33,7 +33,7 @@ export default struct PCI_MSIX_GET_ENTRY {
         MaskedMarshal := Masked is VarRef ? "char*" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, UInt32, TableEntry, MessageNumberMarshal, MessageNumber, MaskedMarshal, Masked, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -53,6 +53,10 @@ export default struct PCI_MSIX_GET_ENTRY {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, "uint*", BOOLEAN.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

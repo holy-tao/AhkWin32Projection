@@ -31,7 +31,7 @@ export default struct PCLFS_CLIENT_ADVANCE_TAIL_CALLBACK {
         ClientDataMarshal := ClientData is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, FILE_OBJECT.Ptr, LogFile, CLS_LSN.Ptr, TargetLsn, ClientDataMarshal, ClientData, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -51,6 +51,10 @@ export default struct PCLFS_CLIENT_ADVANCE_TAIL_CALLBACK {
             this.value := CallbackCreate(fn, , [FILE_OBJECT.Ptr, CLS_LSN.Ptr, "ptr", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

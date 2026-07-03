@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CLUSTER_SHARED_VOLUME_SNAPSHOT_STATE.ahk" { CLUSTER_SHARED_VOLUME_SNAPSHOT_STATE }
 
@@ -50,6 +50,10 @@ export default struct PCLUSAPI_SHARED_VOLUME_SET_SNAPSHOT_STATE {
             this.value := CallbackCreate(fn, , [Guid, PWSTR, CLUSTER_SHARED_VOLUME_SNAPSHOT_STATE, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

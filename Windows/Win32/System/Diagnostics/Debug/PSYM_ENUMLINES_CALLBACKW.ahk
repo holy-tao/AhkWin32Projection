@@ -55,6 +55,10 @@ export default struct PSYM_ENUMLINES_CALLBACKW {
             this.value := CallbackCreate(fn, , [SRCCODEINFOW.Ptr, "ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

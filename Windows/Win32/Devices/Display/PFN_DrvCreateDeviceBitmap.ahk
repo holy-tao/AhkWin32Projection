@@ -48,6 +48,10 @@ export default struct PFN_DrvCreateDeviceBitmap {
             this.value := CallbackCreate(fn, , [DHPDEV, SIZE, UInt32, HBITMAP])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

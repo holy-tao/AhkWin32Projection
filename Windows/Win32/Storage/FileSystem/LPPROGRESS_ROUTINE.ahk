@@ -125,6 +125,10 @@ export default struct LPPROGRESS_ROUTINE {
             this.value := CallbackCreate(fn, , [Int64, Int64, Int64, Int64, UInt32, LPPROGRESS_ROUTINE_CALLBACK_REASON, HANDLE, HANDLE, "ptr", COPYPROGRESSROUTINE_PROGRESS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

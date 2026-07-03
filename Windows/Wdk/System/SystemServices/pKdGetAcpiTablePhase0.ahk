@@ -46,6 +46,10 @@ export default struct pKdGetAcpiTablePhase0 {
             this.value := CallbackCreate(fn, , ["ptr*", UInt32, "ptr"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

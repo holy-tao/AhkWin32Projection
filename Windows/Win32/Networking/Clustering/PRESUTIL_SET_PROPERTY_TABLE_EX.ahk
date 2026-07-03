@@ -57,6 +57,10 @@ export default struct PRESUTIL_SET_PROPERTY_TABLE_EX {
             this.value := CallbackCreate(fn, , [HKEY, RESUTIL_PROPERTY_ITEM.Ptr, "ptr", BOOL, "ptr", UInt32, BOOL, "char*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

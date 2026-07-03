@@ -57,6 +57,10 @@ export default struct PNS_OSVERSIONCHECK {
             this.value := CallbackCreate(fn, , [UInt32, UInt32, PWSTR, PWSTR, PWSTR, PWSTR, UInt32, UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

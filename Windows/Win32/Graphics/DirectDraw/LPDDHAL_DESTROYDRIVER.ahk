@@ -44,6 +44,10 @@ export default struct LPDDHAL_DESTROYDRIVER {
             this.value := CallbackCreate(fn, , [DDHAL_DESTROYDRIVERDATA.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

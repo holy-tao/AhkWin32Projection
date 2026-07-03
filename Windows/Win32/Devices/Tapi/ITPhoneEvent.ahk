@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\ITCallInfo.ahk" { ITCallInfo }
 #Import ".\ITPhone.ahk" { ITPhone }
 #Import ".\PHONE_BUTTON_STATE.ahk" { PHONE_BUTTON_STATE }

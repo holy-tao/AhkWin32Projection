@@ -55,6 +55,10 @@ export default struct PFAXSTARTPRINTJOBW {
             this.value := CallbackCreate(fn, , [PWSTR, FAX_PRINT_INFOW.Ptr, "uint*", FAX_CONTEXT_INFOW.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

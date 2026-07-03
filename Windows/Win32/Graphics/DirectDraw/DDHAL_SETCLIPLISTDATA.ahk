@@ -2,6 +2,7 @@
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
 #Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
+#Import ".\LPDDHALSURFCB_SETCLIPLIST.ahk" { LPDDHALSURFCB_SETCLIPLIST }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -15,6 +16,6 @@ export default struct DDHAL_SETCLIPLISTDATA {
 
     ddRVal : HRESULT
 
-    SetClipList : IntPtr
+    SetClipList : LPDDHALSURFCB_SETCLIPLIST
 
 }

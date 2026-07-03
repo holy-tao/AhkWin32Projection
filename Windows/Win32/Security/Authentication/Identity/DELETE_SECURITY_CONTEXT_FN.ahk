@@ -45,6 +45,10 @@ export default struct DELETE_SECURITY_CONTEXT_FN {
             this.value := CallbackCreate(fn, , [SecHandle.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

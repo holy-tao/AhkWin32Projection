@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\LPSERVICE_MAIN_FUNCTIONW.ahk" { LPSERVICE_MAIN_FUNCTIONW }
 
 /**
  * Specifies the ServiceMain function for a service that can run in the calling process. It is used by the StartServiceCtrlDispatcher function. (Unicode)
@@ -27,6 +28,6 @@ export default struct SERVICE_TABLE_ENTRYW {
      * A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nc-winsvc-lpservice_main_functiona">ServiceMain</a> function.
      */
-    lpServiceProc : IntPtr
+    lpServiceProc : LPSERVICE_MAIN_FUNCTIONW
 
 }

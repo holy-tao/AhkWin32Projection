@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\IO\LPOVERLAPPED_COMPLETION_ROUTINE.ahk" { LPOVERLAPPED_COMPLETION_ROUTINE }
+#Import "..\Threading\LPTHREAD_START_ROUTINE.ahk" { LPTHREAD_START_ROUTINE }
+#Import "..\Threading\WAITORTIMERCALLBACK.ahk" { WAITORTIMERCALLBACK }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -60,7 +63,7 @@ export default struct ICorThreadpool extends IUnknown {
     CorRegisterWaitForSingleObject(phNewWaitObject, hWaitObject, Callback, _Context, timeout, executeOnlyOnce) {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, HANDLE.Ptr, phNewWaitObject, HANDLE, hWaitObject, "ptr", Callback, _ContextMarshal, _Context, UInt32, timeout, BOOL, executeOnlyOnce, BOOL.Ptr, &result := 0, "HRESULT")
+        result := ComCall(3, this, HANDLE.Ptr, phNewWaitObject, HANDLE, hWaitObject, WAITORTIMERCALLBACK, Callback, _ContextMarshal, _Context, UInt32, timeout, BOOL, executeOnlyOnce, BOOL.Ptr, &result := 0, "HRESULT")
         return result
     }
 
@@ -85,7 +88,7 @@ export default struct ICorThreadpool extends IUnknown {
     CorQueueUserWorkItem(Function, _Context, executeOnlyOnce) {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "ptr", Function, _ContextMarshal, _Context, BOOL, executeOnlyOnce, BOOL.Ptr, &result := 0, "HRESULT")
+        result := ComCall(5, this, LPTHREAD_START_ROUTINE, Function, _ContextMarshal, _Context, BOOL, executeOnlyOnce, BOOL.Ptr, &result := 0, "HRESULT")
         return result
     }
 
@@ -101,7 +104,7 @@ export default struct ICorThreadpool extends IUnknown {
     CorCreateTimer(phNewTimer, Callback, Parameter, DueTime, Period) {
         ParameterMarshal := Parameter is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, HANDLE.Ptr, phNewTimer, "ptr", Callback, ParameterMarshal, Parameter, UInt32, DueTime, UInt32, Period, BOOL.Ptr, &result := 0, "HRESULT")
+        result := ComCall(6, this, HANDLE.Ptr, phNewTimer, WAITORTIMERCALLBACK, Callback, ParameterMarshal, Parameter, UInt32, DueTime, UInt32, Period, BOOL.Ptr, &result := 0, "HRESULT")
         return result
     }
 
@@ -135,7 +138,7 @@ export default struct ICorThreadpool extends IUnknown {
      * @returns {HRESULT} 
      */
     CorBindIoCompletionCallback(fileHandle, callback) {
-        result := ComCall(9, this, HANDLE, fileHandle, "ptr", callback, "HRESULT")
+        result := ComCall(9, this, HANDLE, fileHandle, LPOVERLAPPED_COMPLETION_ROUTINE, callback, "HRESULT")
         return result
     }
 
@@ -148,7 +151,7 @@ export default struct ICorThreadpool extends IUnknown {
     CorCallOrQueueUserWorkItem(Function, _Context) {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, "ptr", Function, _ContextMarshal, _Context, BOOL.Ptr, &result := 0, "HRESULT")
+        result := ComCall(10, this, LPTHREAD_START_ROUTINE, Function, _ContextMarshal, _Context, BOOL.Ptr, &result := 0, "HRESULT")
         return result
     }
 

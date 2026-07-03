@@ -29,7 +29,7 @@ export default struct PFLT_COMPLETE_LOCK_CALLBACK_DATA_ROUTINE {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, FLT_CALLBACK_DATA.Ptr, CallbackData, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -49,6 +49,10 @@ export default struct PFLT_COMPLETE_LOCK_CALLBACK_DATA_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", FLT_CALLBACK_DATA.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

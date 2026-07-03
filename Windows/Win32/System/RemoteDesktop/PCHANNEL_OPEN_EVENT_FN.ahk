@@ -49,6 +49,10 @@ export default struct PCHANNEL_OPEN_EVENT_FN {
             this.value := CallbackCreate(fn, , [UInt32, UInt32, "ptr", UInt32, UInt32, UInt32, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -43,6 +43,10 @@ export default struct EXT_DECODE_ERROR {
             this.value := CallbackCreate(fn, , [DEBUG_DECODE_ERROR.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

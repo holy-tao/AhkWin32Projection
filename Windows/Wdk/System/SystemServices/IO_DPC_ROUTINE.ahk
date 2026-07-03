@@ -50,6 +50,10 @@ export default struct IO_DPC_ROUTINE {
             this.value := CallbackCreate(fn, , [KDPC.Ptr, DEVICE_OBJECT.Ptr, IRP.Ptr, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

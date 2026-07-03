@@ -52,6 +52,10 @@ export default struct PFAX_EXT_CONFIG_CHANGE {
             this.value := CallbackCreate(fn, , [UInt32, PWSTR, "char*", UInt32, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_ASYNC_FUNCTION.ahk" { WS_ASYNC_FUNCTION }
 
 /**
  * Used with the WsAsyncExecute to specify the next function to invoke in a series of async operations. (WS_ASYNC_OPERATION)
@@ -11,6 +12,6 @@ export default struct WS_ASYNC_OPERATION {
     /**
      * The asynchronous function to invoke.
      */
-    function : IntPtr
+    function : WS_ASYNC_FUNCTION
 
 }

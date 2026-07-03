@@ -53,6 +53,10 @@ export default struct PCLUSAPI_CLUSTER_REG_SET_VALUE {
             this.value := CallbackCreate(fn, , [HKEY, PWSTR, UInt32, "char*", UInt32, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

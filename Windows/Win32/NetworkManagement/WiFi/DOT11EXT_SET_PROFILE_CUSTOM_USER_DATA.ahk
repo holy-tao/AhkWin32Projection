@@ -48,6 +48,10 @@ export default struct DOT11EXT_SET_PROFILE_CUSTOM_USER_DATA {
             this.value := CallbackCreate(fn, , [HANDLE, HANDLE, UInt32, UInt32, IntPtr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

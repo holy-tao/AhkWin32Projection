@@ -3,6 +3,7 @@
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\LPOFNHOOKPROC.ahk" { LPOFNHOOKPROC }
 #Import ".\OPEN_FILENAME_FLAGS.ahk" { OPEN_FILENAME_FLAGS }
 #Import ".\OPEN_FILENAME_FLAGS_EX.ahk" { OPEN_FILENAME_FLAGS_EX }
 
@@ -502,7 +503,7 @@ export default struct OPENFILENAMEW {
      * 
      * If <b>OFN_EXPLORER</b> is set, <b>lpfnHook</b> is a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nc-commdlg-lpofnhookproc">OFNHookProc</a> hook procedure. The hook procedure receives notification messages sent from the dialog box. The hook procedure also receives messages for any additional controls that you defined by specifying a child dialog template. The hook procedure does not receive messages intended for the standard controls of the default dialog box.
      */
-    lpfnHook : IntPtr
+    lpfnHook : LPOFNHOOKPROC
 
     /**
      * Type: <b>LPCTSTR</b>

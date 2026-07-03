@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WS_ERROR.ahk" { WS_ERROR }
+#Import ".\WS_WRITE_CALLBACK.ahk" { WS_WRITE_CALLBACK }
 
 /**
  * Handles creating an encoder instance.
@@ -43,7 +44,7 @@ export default struct WS_CREATE_ENCODER_CALLBACK {
         writeContextMarshal := writeContext is VarRef ? "ptr" : "ptr"
         _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall(this.value, createContextMarshal, createContext, "ptr", writeCallback, writeContextMarshal, writeContext, "ptr*", &encoderContext := 0, _errorMarshal, _error, "HRESULT")
+        result := DllCall(this.value, createContextMarshal, createContext, WS_WRITE_CALLBACK, writeCallback, writeContextMarshal, writeContext, "ptr*", &encoderContext := 0, _errorMarshal, _error, "HRESULT")
         return encoderContext
     }
 
@@ -54,15 +55,19 @@ export default struct WS_CREATE_ENCODER_CALLBACK {
     struct From extends WS_CREATE_ENCODER_CALLBACK {
         /**
          * Creates a WS_CREATE_ENCODER_CALLBACK pointer that invokes the given AHK function when called.
-         * @param {Func("ptr", "ptr", "ptr", WS_ERROR) => "int"} fn the function to invoke.
+         * @param {Func("ptr", WS_WRITE_CALLBACK, "ptr", WS_ERROR) => "int"} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 4)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 4 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , ["ptr", "ptr", "ptr", WS_ERROR.Ptr, "int"])
+            this.value := CallbackCreate(fn, , ["ptr", WS_WRITE_CALLBACK, "ptr", WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

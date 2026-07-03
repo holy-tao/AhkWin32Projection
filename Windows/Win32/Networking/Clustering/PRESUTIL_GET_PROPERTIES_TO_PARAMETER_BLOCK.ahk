@@ -54,6 +54,10 @@ export default struct PRESUTIL_GET_PROPERTIES_TO_PARAMETER_BLOCK {
             this.value := CallbackCreate(fn, , [HKEY, RESUTIL_PROPERTY_ITEM.Ptr, "char*", BOOL, PWSTR.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

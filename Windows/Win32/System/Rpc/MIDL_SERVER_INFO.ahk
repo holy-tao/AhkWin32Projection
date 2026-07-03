@@ -2,6 +2,8 @@
 #Import ".\MIDL_STUB_DESC.ahk" { MIDL_STUB_DESC }
 #Import ".\MIDL_SYNTAX_INFO.ahk" { MIDL_SYNTAX_INFO }
 #Import ".\RPC_SYNTAX_IDENTIFIER.ahk" { RPC_SYNTAX_IDENTIFIER }
+#Import ".\SERVER_ROUTINE.ahk" { SERVER_ROUTINE }
+#Import ".\STUB_THUNK.ahk" { STUB_THUNK }
 
 /**
  * @namespace Windows.Win32.System.Rpc

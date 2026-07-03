@@ -46,6 +46,10 @@ export default struct PNS_DLL_INIT_FN {
             this.value := CallbackCreate(fn, , [UInt32, "ptr", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

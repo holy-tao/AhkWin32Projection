@@ -61,6 +61,10 @@ export default struct PDXVAHDSW_ProposeVideoPrivateFormat {
             this.value := CallbackCreate(fn, , [HANDLE, "uint*", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

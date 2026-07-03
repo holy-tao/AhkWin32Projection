@@ -29,7 +29,7 @@ export default struct PFS_FILTER_CALLBACK {
         CompletionContextMarshal := CompletionContext is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, FS_FILTER_CALLBACK_DATA.Ptr, Data, CompletionContextMarshal, CompletionContext, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -49,6 +49,10 @@ export default struct PFS_FILTER_CALLBACK {
             this.value := CallbackCreate(fn, , [FS_FILTER_CALLBACK_DATA.Ptr, "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

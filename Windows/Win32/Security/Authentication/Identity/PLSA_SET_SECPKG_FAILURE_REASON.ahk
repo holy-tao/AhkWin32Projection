@@ -26,7 +26,7 @@ export default struct PLSA_SET_SECPKG_FAILURE_REASON {
      */
     Call(Reason) {
         result := DllCall(this.value, SECPKG_FAILURE_REASON, Reason, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -46,6 +46,10 @@ export default struct PLSA_SET_SECPKG_FAILURE_REASON {
             this.value := CallbackCreate(fn, , [SECPKG_FAILURE_REASON, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

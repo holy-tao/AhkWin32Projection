@@ -53,6 +53,10 @@ export default struct PFNCMHOOKPROC {
             this.value := CallbackCreate(fn, , [HWND, UInt32, WPARAM, LPARAM, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

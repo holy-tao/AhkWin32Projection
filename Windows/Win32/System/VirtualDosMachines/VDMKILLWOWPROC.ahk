@@ -43,6 +43,10 @@ export default struct VDMKILLWOWPROC {
             this.value := CallbackCreate(fn, , [BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

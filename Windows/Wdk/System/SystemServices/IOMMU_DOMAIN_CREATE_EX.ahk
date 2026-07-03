@@ -36,7 +36,7 @@ export default struct IOMMU_DOMAIN_CREATE_EX {
         DomainOutMarshal := DomainOut is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, IOMMU_DMA_DOMAIN_TYPE, DomainType, IOMMU_DMA_DOMAIN_CREATION_FLAGS, Flags, IOMMU_DMA_LOGICAL_ALLOCATOR_CONFIG.Ptr, LogicalAllocatorConfig, IOMMU_DMA_RESERVED_REGION.Ptr, ReservedRegions, DomainOutMarshal, DomainOut, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -56,6 +56,10 @@ export default struct IOMMU_DOMAIN_CREATE_EX {
             this.value := CallbackCreate(fn, , [IOMMU_DMA_DOMAIN_TYPE, IOMMU_DMA_DOMAIN_CREATION_FLAGS, IOMMU_DMA_LOGICAL_ALLOCATOR_CONFIG.Ptr, IOMMU_DMA_RESERVED_REGION.Ptr, "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

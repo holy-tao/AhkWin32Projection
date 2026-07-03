@@ -48,6 +48,10 @@ export default struct alljoyn_keystorelistener_acquireexclusivelock_ptr {
             this.value := CallbackCreate(fn, , ["ptr", alljoyn_keystorelistener, QStatus])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

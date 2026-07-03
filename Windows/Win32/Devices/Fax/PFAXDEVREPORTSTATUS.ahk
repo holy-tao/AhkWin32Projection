@@ -51,6 +51,10 @@ export default struct PFAXDEVREPORTSTATUS {
             this.value := CallbackCreate(fn, , [HANDLE, FAX_DEV_STATUS.Ptr, UInt32, "uint*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -46,6 +46,10 @@ export default struct pCryptSIPRemoveSignedDataMsg {
             this.value := CallbackCreate(fn, , [SIP_SUBJECTINFO.Ptr, UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

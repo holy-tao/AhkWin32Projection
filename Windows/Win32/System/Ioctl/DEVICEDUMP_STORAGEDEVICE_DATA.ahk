@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\DEVICEDUMP_SECTION_HEADER.ahk" { DEVICEDUMP_SECTION_HEADER }
 #Import ".\DEVICEDUMP_STRUCTURE_VERSION.ahk" { DEVICEDUMP_STRUCTURE_VERSION }
 #Import ".\DEVICEDUMP_SUBSECTION_POINTER.ahk" { DEVICEDUMP_SUBSECTION_POINTER }

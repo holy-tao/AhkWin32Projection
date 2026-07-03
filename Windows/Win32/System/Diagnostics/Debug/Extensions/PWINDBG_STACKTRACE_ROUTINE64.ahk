@@ -48,6 +48,10 @@ export default struct PWINDBG_STACKTRACE_ROUTINE64 {
             this.value := CallbackCreate(fn, , [Int64, Int64, Int64, EXTSTACKTRACE64.Ptr, UInt32, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

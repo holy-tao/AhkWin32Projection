@@ -3,6 +3,7 @@
 #Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
 #Import ".\DDRAWI_DDVIDEOPORT_LCL.ahk" { DDRAWI_DDVIDEOPORT_LCL }
 #Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
+#Import ".\LPDDHALVPORTCB_FLIP.ahk" { LPDDHALVPORTCB_FLIP }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -20,6 +21,6 @@ export default struct DDHAL_FLIPVPORTDATA {
 
     ddRVal : HRESULT
 
-    FlipVideoPort : IntPtr
+    FlipVideoPort : LPDDHALVPORTCB_FLIP
 
 }

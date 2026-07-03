@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SEC_GET_KEY_FN.ahk" { SEC_GET_KEY_FN }
 #Import "..\..\Credentials\SecHandle.ahk" { SecHandle }
 
 /**
@@ -41,7 +42,7 @@ export default struct ACQUIRE_CREDENTIALS_HANDLE_FN_W {
         param6Marshal := param6 is VarRef ? "ptr" : "ptr"
         param8Marshal := param8 is VarRef ? "int64*" : "ptr"
 
-        result := DllCall(this.value, param0Marshal, param0, param1Marshal, param1, UInt32, param2, param3Marshal, param3, param4Marshal, param4, "ptr", param5, param6Marshal, param6, SecHandle.Ptr, param7, param8Marshal, param8, "HRESULT")
+        result := DllCall(this.value, param0Marshal, param0, param1Marshal, param1, UInt32, param2, param3Marshal, param3, param4Marshal, param4, SEC_GET_KEY_FN, param5, param6Marshal, param6, SecHandle.Ptr, param7, param8Marshal, param8, "HRESULT")
         return result
     }
 
@@ -52,15 +53,19 @@ export default struct ACQUIRE_CREDENTIALS_HANDLE_FN_W {
     struct From extends ACQUIRE_CREDENTIALS_HANDLE_FN_W {
         /**
          * Creates a ACQUIRE_CREDENTIALS_HANDLE_FN_W pointer that invokes the given AHK function when called.
-         * @param {Func("ushort*", "ushort*", UInt32, "ptr", "ptr", "ptr", "ptr", SecHandle, "int64*") => "int"} fn the function to invoke.
+         * @param {Func("ushort*", "ushort*", UInt32, "ptr", "ptr", SEC_GET_KEY_FN, "ptr", SecHandle, "int64*") => "int"} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 9)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 9 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , ["ushort*", "ushort*", UInt32, "ptr", "ptr", "ptr", "ptr", SecHandle.Ptr, "int64*", "int"])
+            this.value := CallbackCreate(fn, , ["ushort*", "ushort*", UInt32, "ptr", "ptr", SEC_GET_KEY_FN, "ptr", SecHandle.Ptr, "int64*", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

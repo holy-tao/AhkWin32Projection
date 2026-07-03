@@ -32,7 +32,7 @@ export default struct IOMMU_QUERY_INPUT_MAPPINGS {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, DEVICE_OBJECT.Ptr, PhysicalDeviceObject, INPUT_MAPPING_ELEMENT.Ptr, _Buffer, UInt32, BufferLength, ReturnLengthMarshal, ReturnLength, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -52,6 +52,10 @@ export default struct IOMMU_QUERY_INPUT_MAPPINGS {
             this.value := CallbackCreate(fn, , [DEVICE_OBJECT.Ptr, INPUT_MAPPING_ELEMENT.Ptr, UInt32, "uint*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

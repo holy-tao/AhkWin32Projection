@@ -46,6 +46,10 @@ export default struct PROTOCOL_CO_AF_REGISTER_NOTIFY {
             this.value := CallbackCreate(fn, , ["ptr", CO_ADDRESS_FAMILY.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

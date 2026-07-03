@@ -1,4 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PDX_BOBNEXTFIELD.ahk" { PDX_BOBNEXTFIELD }
+#Import ".\PDX_ENABLEIRQ.ahk" { PDX_ENABLEIRQ }
+#Import ".\PDX_FLIPOVERLAY.ahk" { PDX_FLIPOVERLAY }
+#Import ".\PDX_FLIPVIDEOPORT.ahk" { PDX_FLIPVIDEOPORT }
+#Import ".\PDX_GETCURRENTAUTOFLIP.ahk" { PDX_GETCURRENTAUTOFLIP }
+#Import ".\PDX_GETIRQINFO.ahk" { PDX_GETIRQINFO }
+#Import ".\PDX_GETPOLARITY.ahk" { PDX_GETPOLARITY }
+#Import ".\PDX_GETPREVIOUSAUTOFLIP.ahk" { PDX_GETPREVIOUSAUTOFLIP }
+#Import ".\PDX_GETTRANSFERSTATUS.ahk" { PDX_GETTRANSFERSTATUS }
+#Import ".\PDX_LOCK.ahk" { PDX_LOCK }
+#Import ".\PDX_SETSTATE.ahk" { PDX_SETSTATE }
+#Import ".\PDX_SKIPNEXTFIELD.ahk" { PDX_SKIPNEXTFIELD }
+#Import ".\PDX_TRANSFER.ahk" { PDX_TRANSFER }
 
 /**
  * The DXAPI_INTERFACE structure contains the interface callback functions that a video miniport driver implements to support Kernel-Mode Video Transport.
@@ -36,66 +49,66 @@ export default struct DXAPI_INTERFACE {
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/dxmini/nc-dxmini-pdx_getirqinfo">DxGetIRQInfo</a> miniport driver callback function.
      */
-    DxGetIrqInfo : IntPtr
+    DxGetIrqInfo : PDX_GETIRQINFO
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/dxmini/nc-dxmini-pdx_enableirq">DxEnableIRQ</a> miniport driver callback function.
      */
-    DxEnableIrq : IntPtr
+    DxEnableIrq : PDX_ENABLEIRQ
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/dxmini/nc-dxmini-pdx_skipnextfield">DxSkipNextField</a> miniport driver callback function.
      */
-    DxSkipNextField : IntPtr
+    DxSkipNextField : PDX_SKIPNEXTFIELD
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/dxmini/nc-dxmini-pdx_bobnextfield">DxBobNextField</a> miniport driver callback function.
      */
-    DxBobNextField : IntPtr
+    DxBobNextField : PDX_BOBNEXTFIELD
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/dxmini/nc-dxmini-pdx_setstate">DxSetState</a> miniport driver callback function.
      */
-    DxSetState : IntPtr
+    DxSetState : PDX_SETSTATE
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/dxmini/nc-dxmini-pdx_lock">DxLock</a> miniport driver callback function.
      */
-    DxLock : IntPtr
+    DxLock : PDX_LOCK
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/dxmini/nc-dxmini-pdx_flipoverlay">DxFlipOverlay</a> miniport driver callback function.
      */
-    DxFlipOverlay : IntPtr
+    DxFlipOverlay : PDX_FLIPOVERLAY
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/dxmini/nc-dxmini-pdx_flipvideoport">DxFlipVideoPort</a> miniport driver callback function.
      */
-    DxFlipVideoPort : IntPtr
+    DxFlipVideoPort : PDX_FLIPVIDEOPORT
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/dxmini/nc-dxmini-pdx_getpolarity">DxGetPolarity</a> miniport driver callback function.
      */
-    DxGetPolarity : IntPtr
+    DxGetPolarity : PDX_GETPOLARITY
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/dxmini/nc-dxmini-pdx_getcurrentautoflip">DxGetCurrentAutoflip</a> miniport driver callback function.
      */
-    DxGetCurrentAutoflip : IntPtr
+    DxGetCurrentAutoflip : PDX_GETCURRENTAUTOFLIP
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/dxmini/nc-dxmini-pdx_getpreviousautoflip">DxGetPreviousAutoflip</a> miniport driver callback function.
      */
-    DxGetPreviousAutoflip : IntPtr
+    DxGetPreviousAutoflip : PDX_GETPREVIOUSAUTOFLIP
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/dxmini/nc-dxmini-pdx_transfer">DxTransfer</a> miniport driver callback function.
      */
-    DxTransfer : IntPtr
+    DxTransfer : PDX_TRANSFER
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/dxmini/nc-dxmini-pdx_gettransferstatus">DxGetTransferStatus</a> miniport driver callback function.
      */
-    DxGetTransferStatus : IntPtr
+    DxGetTransferStatus : PDX_GETTRANSFERSTATUS
 
 }

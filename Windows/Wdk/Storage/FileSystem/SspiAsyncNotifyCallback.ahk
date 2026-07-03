@@ -49,6 +49,10 @@ export default struct SspiAsyncNotifyCallback {
             this.value := CallbackCreate(fn, , [SspiAsyncContext.Ptr, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

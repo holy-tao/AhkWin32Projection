@@ -49,6 +49,10 @@ export default struct PCLUSAPI_SET_CLUSTER_NETWORK_PRIORITY_ORDER {
             this.value := CallbackCreate(fn, , [HCLUSTER, UInt32, HNETWORK.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

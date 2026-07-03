@@ -33,7 +33,7 @@ export default struct PFLT_CONNECT_NOTIFY {
         ConnectionPortCookieMarshal := ConnectionPortCookie is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, PFLT_PORT, ClientPort, ServerPortCookieMarshal, ServerPortCookie, IntPtr, ConnectionContext, UInt32, SizeOfContext, ConnectionPortCookieMarshal, ConnectionPortCookie, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -53,6 +53,10 @@ export default struct PFLT_CONNECT_NOTIFY {
             this.value := CallbackCreate(fn, , [PFLT_PORT, "ptr", IntPtr, UInt32, "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

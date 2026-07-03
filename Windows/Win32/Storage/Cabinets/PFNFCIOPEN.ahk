@@ -53,6 +53,10 @@ export default struct PFNFCIOPEN {
             this.value := CallbackCreate(fn, "cdecl", [PSTR, Int32, Int32, "int*", "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

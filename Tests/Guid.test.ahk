@@ -3,7 +3,7 @@
 #Import ".\Yunit\Yunit.ahk" { Yunit}
 #Import ".\YunitExtensions\Assert.ahk" { Assert }
 
-#Import "..\Guid.ahk" { Guid }
+#Import "..\Windows\Guid.ahk" { Guid }
 
 class GuidTests {
 

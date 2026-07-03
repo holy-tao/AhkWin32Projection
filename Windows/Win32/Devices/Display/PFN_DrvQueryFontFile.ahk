@@ -48,6 +48,10 @@ export default struct PFN_DrvQueryFontFile {
             this.value := CallbackCreate(fn, , [IntPtr, UInt32, UInt32, "uint*", Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

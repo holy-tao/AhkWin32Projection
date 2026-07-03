@@ -2,6 +2,7 @@
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\BFFCALLBACK.ahk" { BFFCALLBACK }
 #Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 
 /**
@@ -54,7 +55,7 @@ export default struct BROWSEINFOA {
      * 
      * Pointer to an application-defined function that the dialog box calls when an event occurs. For more information, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb762598(v=vs.85)">BrowseCallbackProc</a> function. This member can be <b>NULL</b>.
      */
-    lpfn : IntPtr
+    lpfn : BFFCALLBACK
 
     /**
      * Type: <b>LPARAM</b>

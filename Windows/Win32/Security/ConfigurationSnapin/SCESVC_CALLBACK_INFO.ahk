@@ -1,4 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PFSCE_FREE_INFO.ahk" { PFSCE_FREE_INFO }
+#Import ".\PFSCE_LOG_INFO.ahk" { PFSCE_LOG_INFO }
+#Import ".\PFSCE_QUERY_INFO.ahk" { PFSCE_QUERY_INFO }
+#Import ".\PFSCE_SET_INFO.ahk" { PFSCE_SET_INFO }
 
 /**
  * The SCESVC_CALLBACK_INFO structure contains an opaque database handle and callback function pointers to query, set, and free information.
@@ -17,24 +21,24 @@ export default struct SCESVC_CALLBACK_INFO {
      * Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/scesvc/nc-scesvc-pfsce_query_info">PFSCE_QUERY_INFO</a> callback function that queries information in the security database.
      */
-    pfQueryInfo : IntPtr
+    pfQueryInfo : PFSCE_QUERY_INFO
 
     /**
      * Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/scesvc/nc-scesvc-pfsce_set_info">PFSCE_SET_INFO</a> callback function that sets information in the security database.
      */
-    pfSetInfo : IntPtr
+    pfSetInfo : PFSCE_SET_INFO
 
     /**
      * Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/scesvc/nc-scesvc-pfsce_free_info">PFSCE_FREE_INFO</a> callback function that frees information in the security database.
      */
-    pfFreeInfo : IntPtr
+    pfFreeInfo : PFSCE_FREE_INFO
 
     /**
      * Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/scesvc/nc-scesvc-pfsce_log_info">PFSCE_LOG_INFO</a> callback function that logs messages to the configuration log file or analysis log file.
      */
-    pfLogInfo : IntPtr
+    pfLogInfo : PFSCE_LOG_INFO
 
 }

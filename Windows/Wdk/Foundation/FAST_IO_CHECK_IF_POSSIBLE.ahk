@@ -56,6 +56,10 @@ export default struct FAST_IO_CHECK_IF_POSSIBLE {
             this.value := CallbackCreate(fn, , [FILE_OBJECT.Ptr, "int64*", UInt32, BOOLEAN, UInt32, BOOLEAN, IO_STATUS_BLOCK.Ptr, DEVICE_OBJECT.Ptr, BOOLEAN])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

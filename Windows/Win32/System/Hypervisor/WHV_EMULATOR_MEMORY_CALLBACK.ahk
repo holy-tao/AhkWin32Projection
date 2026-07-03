@@ -48,6 +48,10 @@ export default struct WHV_EMULATOR_MEMORY_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", WHV_EMULATOR_MEMORY_ACCESS_INFO.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

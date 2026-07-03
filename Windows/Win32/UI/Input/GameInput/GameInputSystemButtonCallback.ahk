@@ -51,6 +51,10 @@ export default struct GameInputSystemButtonCallback {
             this.value := CallbackCreate(fn, , [Int64, "ptr", "ptr", Int64, GameInputSystemButtons, GameInputSystemButtons, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

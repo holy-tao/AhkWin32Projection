@@ -43,7 +43,7 @@ export default struct PLSA_CONVERT_AUTH_DATA_TO_TOKEN {
         SubStatusMarshal := SubStatus is VarRef ? "int*" : "ptr"
 
         result := DllCall(this.value, UserAuthDataMarshal, UserAuthData, UInt32, UserAuthDataSize, SECURITY_IMPERSONATION_LEVEL, ImpersonationLevel, TOKEN_SOURCE.Ptr, TokenSource, SECURITY_LOGON_TYPE, LogonType, LSA_UNICODE_STRING.Ptr, AuthorityName, HANDLE.Ptr, Token, LUID.Ptr, LogonId, LSA_UNICODE_STRING.Ptr, AccountName, SubStatusMarshal, SubStatus, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -63,6 +63,10 @@ export default struct PLSA_CONVERT_AUTH_DATA_TO_TOKEN {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, SECURITY_IMPERSONATION_LEVEL, TOKEN_SOURCE.Ptr, SECURITY_LOGON_TYPE, LSA_UNICODE_STRING.Ptr, HANDLE.Ptr, LUID.Ptr, LSA_UNICODE_STRING.Ptr, "int*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

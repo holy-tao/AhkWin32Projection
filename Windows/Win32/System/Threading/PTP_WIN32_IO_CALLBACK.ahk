@@ -52,6 +52,10 @@ export default struct PTP_WIN32_IO_CALLBACK {
             this.value := CallbackCreate(fn, , [PTP_CALLBACK_INSTANCE, "ptr", "ptr", UInt32, IntPtr, PTP_IO, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

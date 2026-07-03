@@ -61,6 +61,10 @@ export default struct UiaEventCallback {
             this.value := CallbackCreate(fn, , [UiaEventArgs.Ptr, SAFEARRAY.Ptr, BSTR, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

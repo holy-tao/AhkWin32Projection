@@ -47,6 +47,10 @@ export default struct PDX_IRQCALLBACK {
             this.value := CallbackCreate(fn, , [DX_IRQDATA.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

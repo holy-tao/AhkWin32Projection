@@ -52,6 +52,10 @@ export default struct PDD_SURFCB_FLIP {
             this.value := CallbackCreate(fn, , [DD_FLIPDATA.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

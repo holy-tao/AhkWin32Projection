@@ -4,6 +4,8 @@
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import ".\LPFNPSPCALLBACKA.ahk" { LPFNPSPCALLBACKA }
+#Import "..\WindowsAndMessaging\DLGPROC.ahk" { DLGPROC }
 #Import "..\WindowsAndMessaging\DLGTEMPLATE.ahk" { DLGTEMPLATE }
 #Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
 
@@ -26,11 +28,11 @@ export default struct PROPSHEETPAGEA {
 
     pszTitle : PSTR
 
-    pfnDlgProc : IntPtr
+    pfnDlgProc : DLGPROC
 
     lParam : LPARAM
 
-    pfnCallback : IntPtr
+    pfnCallback : LPFNPSPCALLBACKA
 
     pcRefParent : IntPtr
 

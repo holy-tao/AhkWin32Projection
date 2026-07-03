@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IServerXMLHTTPRequest.ahk" { IServerXMLHTTPRequest }
 #Import ".\SXH_PROXY_SETTING.ahk" { SXH_PROXY_SETTING }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }

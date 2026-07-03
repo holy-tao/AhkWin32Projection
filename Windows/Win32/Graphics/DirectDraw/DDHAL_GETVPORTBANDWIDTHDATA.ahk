@@ -4,6 +4,7 @@
 #Import ".\DDRAWI_DDVIDEOPORT_LCL.ahk" { DDRAWI_DDVIDEOPORT_LCL }
 #Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
 #Import ".\DDVIDEOPORTBANDWIDTH.ahk" { DDVIDEOPORTBANDWIDTH }
+#Import ".\LPDDHALVPORTCB_GETBANDWIDTH.ahk" { LPDDHALVPORTCB_GETBANDWIDTH }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -27,6 +28,6 @@ export default struct DDHAL_GETVPORTBANDWIDTHDATA {
 
     ddRVal : HRESULT
 
-    GetVideoPortBandwidth : IntPtr
+    GetVideoPortBandwidth : LPDDHALVPORTCB_GETBANDWIDTH
 
 }

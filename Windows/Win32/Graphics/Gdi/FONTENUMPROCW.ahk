@@ -50,6 +50,10 @@ export default struct FONTENUMPROCW {
             this.value := CallbackCreate(fn, , [LOGFONTW.Ptr, TEXTMETRICW.Ptr, UInt32, LPARAM, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

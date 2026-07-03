@@ -116,7 +116,7 @@ export default struct SpAcquireCredentialsHandleFn {
         ExpirationTimeMarshal := ExpirationTime is VarRef ? "int64*" : "ptr"
 
         result := DllCall(this.value, LSA_UNICODE_STRING.Ptr, PrincipalName, UInt32, CredentialUseFlags, LUID.Ptr, LogonId, AuthorizationDataMarshal, AuthorizationData, GetKeyFuncitonMarshal, GetKeyFunciton, GetKeyArgumentMarshal, GetKeyArgument, CredentialHandleMarshal, CredentialHandle, ExpirationTimeMarshal, ExpirationTime, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -136,6 +136,10 @@ export default struct SpAcquireCredentialsHandleFn {
             this.value := CallbackCreate(fn, , [LSA_UNICODE_STRING.Ptr, UInt32, LUID.Ptr, "ptr", "ptr", "ptr", "ptr*", "int64*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

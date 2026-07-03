@@ -33,7 +33,7 @@ export default struct TDI_PNP_HANDLER {
         ReconfigBufferMarshal := ReconfigBuffer is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, UNICODE_STRING.Ptr, UpperComponent, UNICODE_STRING.Ptr, LowerComponent, UNICODE_STRING.Ptr, BindList, ReconfigBufferMarshal, ReconfigBuffer, UInt32, ReconfigBufferSize, UInt32, Operation, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -53,6 +53,10 @@ export default struct TDI_PNP_HANDLER {
             this.value := CallbackCreate(fn, , [UNICODE_STRING.Ptr, UNICODE_STRING.Ptr, UNICODE_STRING.Ptr, "ptr", UInt32, UInt32, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

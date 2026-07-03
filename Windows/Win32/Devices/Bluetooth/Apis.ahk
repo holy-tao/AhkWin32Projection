@@ -1,6 +1,6 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\AUTHENTICATION_REQUIREMENTS.ahk" { AUTHENTICATION_REQUIREMENTS }
 #Import ".\BLUETOOTH_ADDRESS.ahk" { BLUETOOTH_ADDRESS }
 #Import ".\BLUETOOTH_AUTHENTICATE_RESPONSE.ahk" { BLUETOOTH_AUTHENTICATE_RESPONSE }
@@ -19,6 +19,10 @@
 #Import ".\BTH_LE_GATT_SERVICE.ahk" { BTH_LE_GATT_SERVICE }
 #Import ".\HBLUETOOTH_DEVICE_FIND.ahk" { HBLUETOOTH_DEVICE_FIND }
 #Import ".\HBLUETOOTH_RADIO_FIND.ahk" { HBLUETOOTH_RADIO_FIND }
+#Import ".\PFNBLUETOOTH_GATT_EVENT_CALLBACK.ahk" { PFNBLUETOOTH_GATT_EVENT_CALLBACK }
+#Import ".\PFN_AUTHENTICATION_CALLBACK.ahk" { PFN_AUTHENTICATION_CALLBACK }
+#Import ".\PFN_AUTHENTICATION_CALLBACK_EX.ahk" { PFN_AUTHENTICATION_CALLBACK_EX }
+#Import ".\PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK.ahk" { PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK }
 #Import ".\SDP_ELEMENT_DATA.ahk" { SDP_ELEMENT_DATA }
 #Import ".\SDP_STRING_TYPE_DATA.ahk" { SDP_STRING_TYPE_DATA }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
@@ -1050,7 +1054,7 @@ export BluetoothRegisterForAuthentication(pbtdi, phRegHandle, _pfnCallback, pvPa
 
     A_LastError := 0
 
-    result := DllCall("BluetoothApis.dll\BluetoothRegisterForAuthentication", BLUETOOTH_DEVICE_INFO.Ptr, pbtdi, phRegHandleMarshal, phRegHandle, "ptr", _pfnCallback, pvParamMarshal, pvParam, UInt32)
+    result := DllCall("BluetoothApis.dll\BluetoothRegisterForAuthentication", BLUETOOTH_DEVICE_INFO.Ptr, pbtdi, phRegHandleMarshal, phRegHandle, PFN_AUTHENTICATION_CALLBACK, _pfnCallback, pvParamMarshal, pvParam, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1106,7 +1110,7 @@ export BluetoothRegisterForAuthenticationEx(pbtdiIn, phRegHandleOut, pfnCallback
     phRegHandleOutMarshal := phRegHandleOut is VarRef ? "ptr*" : "ptr"
     pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("BluetoothApis.dll\BluetoothRegisterForAuthenticationEx", BLUETOOTH_DEVICE_INFO.Ptr, pbtdiIn, phRegHandleOutMarshal, phRegHandleOut, "ptr", pfnCallbackIn, pvParamMarshal, pvParam, UInt32)
+    result := DllCall("BluetoothApis.dll\BluetoothRegisterForAuthenticationEx", BLUETOOTH_DEVICE_INFO.Ptr, pbtdiIn, phRegHandleOutMarshal, phRegHandleOut, PFN_AUTHENTICATION_CALLBACK_EX, pfnCallbackIn, pvParamMarshal, pvParam, UInt32)
     return result
 }
 
@@ -1485,7 +1489,7 @@ export BluetoothSdpEnumAttributes(pSDPStream, cbStreamSize, _pfnCallback, pvPara
 
     A_LastError := 0
 
-    result := DllCall("BluetoothApis.dll\BluetoothSdpEnumAttributes", IntPtr, pSDPStream, UInt32, cbStreamSize, "ptr", _pfnCallback, pvParamMarshal, pvParam, BOOL)
+    result := DllCall("BluetoothApis.dll\BluetoothSdpEnumAttributes", IntPtr, pSDPStream, UInt32, cbStreamSize, PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK, _pfnCallback, pvParamMarshal, pvParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3685,7 +3689,7 @@ export BluetoothGATTRegisterEvent(hService, EventType, EventParameterIn, Callbac
     EventParameterInMarshal := EventParameterIn is VarRef ? "ptr" : "ptr"
     CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("BluetoothApis.dll\BluetoothGATTRegisterEvent", HANDLE, hService, BTH_LE_GATT_EVENT_TYPE, EventType, EventParameterInMarshal, EventParameterIn, "ptr", Callback, CallbackContextMarshal, CallbackContext, "ptr*", &pEventHandle := 0, UInt32, Flags, "HRESULT")
+    result := DllCall("BluetoothApis.dll\BluetoothGATTRegisterEvent", HANDLE, hService, BTH_LE_GATT_EVENT_TYPE, EventType, EventParameterInMarshal, EventParameterIn, PFNBLUETOOTH_GATT_EVENT_CALLBACK, Callback, CallbackContextMarshal, CallbackContext, "ptr*", &pEventHandle := 0, UInt32, Flags, "HRESULT")
     return pEventHandle
 }
 

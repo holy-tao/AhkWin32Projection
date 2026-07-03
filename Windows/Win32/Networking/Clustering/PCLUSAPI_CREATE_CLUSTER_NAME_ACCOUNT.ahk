@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\CREATE_CLUSTER_NAME_ACCOUNT.ahk" { CREATE_CLUSTER_NAME_ACCOUNT }
 #Import ".\HCLUSTER.ahk" { HCLUSTER }
+#Import ".\PCLUSTER_SETUP_PROGRESS_CALLBACK.ahk" { PCLUSTER_SETUP_PROGRESS_CALLBACK }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -30,7 +31,7 @@ export default struct PCLUSAPI_CREATE_CLUSTER_NAME_ACCOUNT {
     Call(_hCluster, pConfig, pfnProgressCallback, pvCallbackArg) {
         pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
 
-        result := DllCall(this.value, HCLUSTER, _hCluster, CREATE_CLUSTER_NAME_ACCOUNT.Ptr, pConfig, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, UInt32)
+        result := DllCall(this.value, HCLUSTER, _hCluster, CREATE_CLUSTER_NAME_ACCOUNT.Ptr, pConfig, PCLUSTER_SETUP_PROGRESS_CALLBACK, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, UInt32)
         return result
     }
 
@@ -41,15 +42,19 @@ export default struct PCLUSAPI_CREATE_CLUSTER_NAME_ACCOUNT {
     struct From extends PCLUSAPI_CREATE_CLUSTER_NAME_ACCOUNT {
         /**
          * Creates a PCLUSAPI_CREATE_CLUSTER_NAME_ACCOUNT pointer that invokes the given AHK function when called.
-         * @param {Func(HCLUSTER, CREATE_CLUSTER_NAME_ACCOUNT, "ptr", "ptr") => UInt32} fn the function to invoke.
+         * @param {Func(HCLUSTER, CREATE_CLUSTER_NAME_ACCOUNT, PCLUSTER_SETUP_PROGRESS_CALLBACK, "ptr") => UInt32} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 4)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 4 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [HCLUSTER, CREATE_CLUSTER_NAME_ACCOUNT.Ptr, "ptr", "ptr", UInt32])
+            this.value := CallbackCreate(fn, , [HCLUSTER, CREATE_CLUSTER_NAME_ACCOUNT.Ptr, PCLUSTER_SETUP_PROGRESS_CALLBACK, "ptr", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

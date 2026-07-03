@@ -47,6 +47,10 @@ export default struct PFN_DrvRenderHint {
             this.value := CallbackCreate(fn, , [DHPDEV, UInt32, IntPtr, IntPtr, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

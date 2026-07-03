@@ -52,6 +52,10 @@ export default struct PFN_DrvEscape {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, UInt32, UInt32, "ptr", UInt32, "ptr", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -38,7 +38,7 @@ export default struct PSAM_CREDENTIAL_UPDATE_NOTIFY_ROUTINE {
         NewCredentialSizeMarshal := NewCredentialSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, LSA_UNICODE_STRING.Ptr, ClearPassword, IntPtr, OldCredentials, UInt32, OldCredentialSize, UInt32, UserAccountControl, LSA_UNICODE_STRING.Ptr, UPN, LSA_UNICODE_STRING.Ptr, UserName, LSA_UNICODE_STRING.Ptr, NetbiosDomainName, LSA_UNICODE_STRING.Ptr, DnsDomainName, NewCredentialsMarshal, NewCredentials, NewCredentialSizeMarshal, NewCredentialSize, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -58,6 +58,10 @@ export default struct PSAM_CREDENTIAL_UPDATE_NOTIFY_ROUTINE {
             this.value := CallbackCreate(fn, , [LSA_UNICODE_STRING.Ptr, IntPtr, UInt32, UInt32, LSA_UNICODE_STRING.Ptr, LSA_UNICODE_STRING.Ptr, LSA_UNICODE_STRING.Ptr, LSA_UNICODE_STRING.Ptr, "ptr*", "uint*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

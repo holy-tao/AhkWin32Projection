@@ -54,6 +54,10 @@ export default struct PFN_DrvQueryGlyphAttrs {
             this.value := CallbackCreate(fn, , [FONTOBJ.Ptr, UInt32, FD_GLYPHATTR.Ptr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

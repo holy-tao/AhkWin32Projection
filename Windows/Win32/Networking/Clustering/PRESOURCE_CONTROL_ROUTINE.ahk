@@ -135,6 +135,10 @@ export default struct PRESOURCE_CONTROL_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, "ptr", UInt32, "ptr", UInt32, "uint*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -85,6 +85,10 @@ export default struct RASADFUNCA {
             this.value := CallbackCreate(fn, , [PSTR, PSTR, RASADPARAMS.Ptr, "uint*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

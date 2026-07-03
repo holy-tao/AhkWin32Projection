@@ -55,6 +55,10 @@ export default struct PFAX_EXT_SET_DATA {
             this.value := CallbackCreate(fn, , [HINSTANCE, UInt32, FAX_ENUM_DEVICE_ID_SOURCE, PWSTR, "char*", UInt32, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

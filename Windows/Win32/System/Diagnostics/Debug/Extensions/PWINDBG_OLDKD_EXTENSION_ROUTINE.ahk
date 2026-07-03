@@ -48,6 +48,10 @@ export default struct PWINDBG_OLDKD_EXTENSION_ROUTINE {
             this.value := CallbackCreate(fn, , [UInt32, WINDBG_OLDKD_EXTENSION_APIS.Ptr, PSTR, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

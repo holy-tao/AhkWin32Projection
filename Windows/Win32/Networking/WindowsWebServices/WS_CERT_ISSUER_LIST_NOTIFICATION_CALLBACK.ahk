@@ -53,6 +53,10 @@ export default struct WS_CERT_ISSUER_LIST_NOTIFICATION_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", SecPkgContext_IssuerListInfoEx.Ptr, WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -49,6 +49,10 @@ export default struct PCLUSAPI_OPEN_CLUSTER_NETWORK {
             this.value := CallbackCreate(fn, , [HCLUSTER, PWSTR, HNETWORK])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

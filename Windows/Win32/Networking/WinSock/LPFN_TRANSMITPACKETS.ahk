@@ -360,6 +360,10 @@ export default struct LPFN_TRANSMITPACKETS {
             this.value := CallbackCreate(fn, , [SOCKET, TRANSMIT_PACKETS_ELEMENT.Ptr, UInt32, UInt32, OVERLAPPED.Ptr, UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

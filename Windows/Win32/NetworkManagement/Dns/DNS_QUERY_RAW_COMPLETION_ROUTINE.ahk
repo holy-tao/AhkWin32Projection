@@ -46,6 +46,10 @@ export default struct DNS_QUERY_RAW_COMPLETION_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", DNS_QUERY_RAW_RESULT.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

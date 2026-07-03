@@ -44,6 +44,10 @@ export default struct PFLT_CALLBACK_DATA_QUEUE_RELEASE {
             this.value := CallbackCreate(fn, , [FLT_CALLBACK_DATA_QUEUE.Ptr, Int8, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

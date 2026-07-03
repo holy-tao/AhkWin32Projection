@@ -50,6 +50,10 @@ export default struct alljoyn_sessionportlistener_sessionjoined_ptr {
             this.value := CallbackCreate(fn, , ["ptr", UInt16, UInt32, PSTR, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

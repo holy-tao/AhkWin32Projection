@@ -54,6 +54,10 @@ export default struct PFNSNMPEXTENSIONTRAP {
             this.value := CallbackCreate(fn, , [AsnObjectIdentifier.Ptr, "int*", "int*", "uint*", SnmpVarBindList.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

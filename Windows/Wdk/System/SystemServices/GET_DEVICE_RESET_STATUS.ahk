@@ -34,7 +34,7 @@ export default struct GET_DEVICE_RESET_STATUS {
         IsResettingMarshal := IsResetting is VarRef ? "char*" : "ptr"
 
         result := DllCall(this.value, InterfaceContextMarshal, InterfaceContext, IsResettingMarshal, IsResetting, DEVICE_BUS_SPECIFIC_RESET_TYPE.Ptr, ResetTypeSelected, DEVICE_RESET_STATUS_FLAGS.Ptr, Flags, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -54,6 +54,10 @@ export default struct GET_DEVICE_RESET_STATUS {
             this.value := CallbackCreate(fn, , ["ptr", BOOLEAN.Ptr, DEVICE_BUS_SPECIFIC_RESET_TYPE.Ptr, DEVICE_RESET_STATUS_FLAGS.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

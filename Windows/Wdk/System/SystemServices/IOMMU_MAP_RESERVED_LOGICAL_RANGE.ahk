@@ -32,7 +32,7 @@ export default struct IOMMU_MAP_RESERVED_LOGICAL_RANGE {
      */
     Call(LogicalAddressToken, Offset, Permissions, PhysicalAddressToMap, MappedSegment) {
         result := DllCall(this.value, IOMMU_DMA_LOGICAL_ADDRESS_TOKEN.Ptr, LogicalAddressToken, IntPtr, Offset, UInt32, Permissions, IOMMU_MAP_PHYSICAL_ADDRESS.Ptr, PhysicalAddressToMap, IOMMU_DMA_LOGICAL_ADDRESS_TOKEN_MAPPED_SEGMENT.Ptr, MappedSegment, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -52,6 +52,10 @@ export default struct IOMMU_MAP_RESERVED_LOGICAL_RANGE {
             this.value := CallbackCreate(fn, , [IOMMU_DMA_LOGICAL_ADDRESS_TOKEN.Ptr, IntPtr, UInt32, IOMMU_MAP_PHYSICAL_ADDRESS.Ptr, IOMMU_DMA_LOGICAL_ADDRESS_TOKEN_MAPPED_SEGMENT.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -58,6 +58,10 @@ export default struct CryptXmlDllGetInterface {
             this.value := CallbackCreate(fn, , [UInt32, CRYPT_XML_ALGORITHM_INFO.Ptr, CRYPT_XML_CRYPTOGRAPHIC_INTERFACE.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -47,6 +47,10 @@ export default struct PIBIO_STORAGE_RESERVED_1_FN {
             this.value := CallbackCreate(fn, , ["int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

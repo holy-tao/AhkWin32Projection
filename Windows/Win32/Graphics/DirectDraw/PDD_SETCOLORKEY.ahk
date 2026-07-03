@@ -44,6 +44,10 @@ export default struct PDD_SETCOLORKEY {
             this.value := CallbackCreate(fn, , [DD_DRVSETCOLORKEYDATA.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -30,7 +30,7 @@ export default struct IOMMU_DOMAIN_CREATE {
         DomainOutMarshal := DomainOut is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, BOOLEAN, OsManagedPageTable, DomainOutMarshal, DomainOut, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -50,6 +50,10 @@ export default struct IOMMU_DOMAIN_CREATE {
             this.value := CallbackCreate(fn, , [BOOLEAN, "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -98,6 +98,10 @@ export default struct LPFN_RIOCREATEREQUESTQUEUE {
             this.value := CallbackCreate(fn, , [SOCKET, UInt32, UInt32, UInt32, UInt32, RIO_CQ, RIO_CQ, "ptr", RIO_RQ])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

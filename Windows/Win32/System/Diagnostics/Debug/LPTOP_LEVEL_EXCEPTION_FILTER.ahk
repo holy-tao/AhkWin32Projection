@@ -44,6 +44,10 @@ export default struct LPTOP_LEVEL_EXCEPTION_FILTER {
             this.value := CallbackCreate(fn, , [EXCEPTION_POINTERS.Ptr, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

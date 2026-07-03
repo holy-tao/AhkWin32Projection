@@ -2,6 +2,7 @@
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Gdi\DEVMODEA.ahk" { DEVMODEA }
+#Import ".\OEMCUIPCALLBACK.ahk" { OEMCUIPCALLBACK }
 #Import ".\OEMUIOBJ.ahk" { OEMUIOBJ }
 #Import ".\OPTITEM.ahk" { OPTITEM }
 
@@ -39,6 +40,6 @@ export default struct OEMCUIPPARAM {
 
     pOEMUserData : IntPtr
 
-    OEMCUIPCallback : IntPtr
+    OEMCUIPCallback : OEMCUIPCALLBACK
 
 }

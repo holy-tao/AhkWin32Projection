@@ -55,6 +55,10 @@ export default struct UStringCaseMapper {
             this.value := CallbackCreate(fn, "cdecl", [UCaseMap.Ptr, "ushort*", Int32, "ushort*", Int32, "int*", Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

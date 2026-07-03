@@ -31,7 +31,7 @@ export default struct RTL_HEAP_COMMIT_ROUTINE {
         CommitSizeMarshal := CommitSize is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, BaseMarshal, Base, CommitAddressMarshal, CommitAddress, CommitSizeMarshal, CommitSize, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -51,6 +51,10 @@ export default struct RTL_HEAP_COMMIT_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", "ptr*", "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

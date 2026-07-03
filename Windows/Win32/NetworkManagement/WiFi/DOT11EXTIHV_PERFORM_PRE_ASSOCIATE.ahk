@@ -56,6 +56,10 @@ export default struct DOT11EXTIHV_PERFORM_PRE_ASSOCIATE {
             this.value := CallbackCreate(fn, , [HANDLE, HANDLE, DOT11EXT_IHV_PROFILE_PARAMS.Ptr, DOT11EXT_IHV_CONNECTIVITY_PROFILE.Ptr, DOT11EXT_IHV_SECURITY_PROFILE.Ptr, DOT11_BSS_LIST.Ptr, "uint*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

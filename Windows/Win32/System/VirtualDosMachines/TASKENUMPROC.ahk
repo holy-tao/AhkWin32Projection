@@ -48,6 +48,10 @@ export default struct TASKENUMPROC {
             this.value := CallbackCreate(fn, , [UInt32, UInt16, UInt16, LPARAM, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

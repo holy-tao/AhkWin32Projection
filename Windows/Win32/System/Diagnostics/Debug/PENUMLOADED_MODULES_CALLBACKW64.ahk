@@ -62,6 +62,10 @@ export default struct PENUMLOADED_MODULES_CALLBACKW64 {
             this.value := CallbackCreate(fn, , [PWSTR, Int64, UInt32, "ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

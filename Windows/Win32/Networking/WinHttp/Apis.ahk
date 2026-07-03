@@ -1,6 +1,6 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
@@ -11,6 +11,7 @@
 #Import ".\WINHTTP_EXTENDED_HEADER.ahk" { WINHTTP_EXTENDED_HEADER }
 #Import ".\WINHTTP_HEADER_NAME.ahk" { WINHTTP_HEADER_NAME }
 #Import ".\WINHTTP_OPEN_REQUEST_FLAGS.ahk" { WINHTTP_OPEN_REQUEST_FLAGS }
+#Import ".\WINHTTP_PROXY_CHANGE_CALLBACK.ahk" { WINHTTP_PROXY_CHANGE_CALLBACK }
 #Import ".\WINHTTP_PROXY_INFO.ahk" { WINHTTP_PROXY_INFO }
 #Import ".\WINHTTP_PROXY_RESULT.ahk" { WINHTTP_PROXY_RESULT }
 #Import ".\WINHTTP_PROXY_RESULT_EX.ahk" { WINHTTP_PROXY_RESULT_EX }
@@ -18,6 +19,7 @@
 #Import ".\WINHTTP_PROXY_SETTINGS_PARAM.ahk" { WINHTTP_PROXY_SETTINGS_PARAM }
 #Import ".\WINHTTP_PROXY_SETTINGS_TYPE.ahk" { WINHTTP_PROXY_SETTINGS_TYPE }
 #Import ".\WINHTTP_QUERY_CONNECTION_GROUP_RESULT.ahk" { WINHTTP_QUERY_CONNECTION_GROUP_RESULT }
+#Import ".\WINHTTP_STATUS_CALLBACK.ahk" { WINHTTP_STATUS_CALLBACK }
 #Import ".\WINHTTP_WEB_SOCKET_BUFFER_TYPE.ahk" { WINHTTP_WEB_SOCKET_BUFFER_TYPE }
 #Import ".\WIN_HTTP_CREATE_URL_FLAGS.ahk" { WIN_HTTP_CREATE_URL_FLAGS }
 
@@ -317,7 +319,7 @@ export WinHttpSetStatusCallback(hInternet, lpfnInternetCallback, dwNotificationF
 
     A_LastError := 0
 
-    result := DllCall("WINHTTP.dll\WinHttpSetStatusCallback", hInternetMarshal, hInternet, "ptr", lpfnInternetCallback, UInt32, dwNotificationFlags, IntPtr, dwReserved, IntPtr)
+    result := DllCall("WINHTTP.dll\WinHttpSetStatusCallback", hInternetMarshal, hInternet, WINHTTP_STATUS_CALLBACK, lpfnInternetCallback, UInt32, dwNotificationFlags, IntPtr, dwReserved, WINHTTP_STATUS_CALLBACK)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5146,7 +5148,7 @@ export WinHttpRegisterProxyChangeNotification(ullFlags, _pfnCallback, pvContext,
     pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
     hRegistrationMarshal := hRegistration is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WINHTTP.dll\WinHttpRegisterProxyChangeNotification", Int64, ullFlags, "ptr", _pfnCallback, pvContextMarshal, pvContext, hRegistrationMarshal, hRegistration, UInt32)
+    result := DllCall("WINHTTP.dll\WinHttpRegisterProxyChangeNotification", Int64, ullFlags, WINHTTP_PROXY_CHANGE_CALLBACK, _pfnCallback, pvContextMarshal, pvContext, hRegistrationMarshal, hRegistration, UInt32)
     return result
 }
 

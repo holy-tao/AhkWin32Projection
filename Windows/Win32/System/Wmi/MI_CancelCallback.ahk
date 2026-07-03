@@ -46,6 +46,10 @@ export default struct MI_CancelCallback {
             this.value := CallbackCreate(fn, , [MI_CancellationReason, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -31,7 +31,7 @@ export default struct PLSA_SET_APP_MODE_INFO {
      */
     Call(UserFunction, Argument1, Argument2, _UserData, ReturnToLsa) {
         result := DllCall(this.value, UInt32, UserFunction, IntPtr, Argument1, IntPtr, Argument2, SecBuffer.Ptr, _UserData, BOOLEAN, ReturnToLsa, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -51,6 +51,10 @@ export default struct PLSA_SET_APP_MODE_INFO {
             this.value := CallbackCreate(fn, , [UInt32, IntPtr, IntPtr, SecBuffer.Ptr, BOOLEAN, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

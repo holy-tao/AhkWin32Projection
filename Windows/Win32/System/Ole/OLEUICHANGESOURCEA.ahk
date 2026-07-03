@@ -6,6 +6,7 @@
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\CHANGE_SOURCE_FLAGS.ahk" { CHANGE_SOURCE_FLAGS }
 #Import ".\IOleUILinkContainerA.ahk" { IOleUILinkContainerA }
+#Import ".\LPFNOLEUIHOOK.ahk" { LPFNOLEUIHOOK }
 #Import "..\..\UI\Controls\Dialogs\OPENFILENAMEA.ahk" { OPENFILENAMEA }
 
 /**
@@ -82,7 +83,7 @@ export default struct OLEUICHANGESOURCEA {
     /**
      * Pointer to a hook function that processes messages intended for the dialog box. The hook function must return zero to pass a message that it didn't process back to the dialog box procedure in the library. The hook function must return a nonzero value to prevent the library's dialog box procedure from processing a message it has already processed.
      */
-    lpfnHook : IntPtr
+    lpfnHook : LPFNOLEUIHOOK
 
     /**
      * Application-defined data that the library passes to the hook function pointed to by the [OLEUICHANGEICON](./nf-oledlg-oleuichangeicona.md) structure in the <i>lParam</i> parameter of the WM_INITDIALOG message; this pointer can be used to retrieve the <b>lCustData</b> member.

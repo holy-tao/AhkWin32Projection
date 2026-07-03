@@ -47,6 +47,10 @@ export default struct PFN_AUTH_NOTIFY {
             this.value := CallbackCreate(fn, , [IntPtr, UInt32, "ptr", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

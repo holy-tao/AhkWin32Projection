@@ -52,6 +52,10 @@ export default struct LPRESOURCE_CALLBACK_EX {
             this.value := CallbackCreate(fn, , [HCLUSTER, HRESOURCE, HRESOURCE, "ptr", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

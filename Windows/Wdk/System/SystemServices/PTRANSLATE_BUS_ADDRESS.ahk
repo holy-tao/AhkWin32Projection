@@ -43,6 +43,10 @@ export default struct PTRANSLATE_BUS_ADDRESS {
             this.value := CallbackCreate(fn, , [BOOLEAN])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

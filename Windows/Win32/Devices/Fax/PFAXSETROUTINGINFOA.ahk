@@ -54,6 +54,10 @@ export default struct PFAXSETROUTINGINFOA {
             this.value := CallbackCreate(fn, , [HANDLE, PSTR, "char*", UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

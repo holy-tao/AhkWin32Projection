@@ -26,7 +26,7 @@ export default struct SILO_MONITOR_CREATE_CALLBACK {
      */
     Call(Silo) {
         result := DllCall(this.value, PESILO, Silo, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -46,6 +46,10 @@ export default struct SILO_MONITOR_CREATE_CALLBACK {
             this.value := CallbackCreate(fn, , [PESILO, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

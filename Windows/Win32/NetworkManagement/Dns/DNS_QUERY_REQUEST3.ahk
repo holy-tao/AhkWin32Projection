@@ -3,6 +3,7 @@
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DNS_ADDR_ARRAY.ahk" { DNS_ADDR_ARRAY }
 #Import ".\DNS_CUSTOM_SERVER.ahk" { DNS_CUSTOM_SERVER }
+#Import ".\PDNS_QUERY_COMPLETION_ROUTINE.ahk" { PDNS_QUERY_COMPLETION_ROUTINE }
 
 /**
  * Contains the DNS query parameters used in a call to [DnsQueryEx](/windows/win32/api/windns/nf-windns-dnsqueryex).
@@ -69,7 +70,7 @@ export default struct DNS_QUERY_REQUEST3 {
      * > [!NOTE]
      * > If **NULL**, then [DnsQueryEx](/windows/win32/api/windns/nf-windns-dnsqueryex) is called synchronously.
      */
-    pQueryCompletionCallback : IntPtr
+    pQueryCompletionCallback : PDNS_QUERY_COMPLETION_ROUTINE
 
     /**
      * Type: **[PVOID](/windows/win32/winprog/windows-data-types)**

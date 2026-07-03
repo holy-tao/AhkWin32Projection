@@ -60,6 +60,10 @@ export default struct LPFN_RIODEREGISTERBUFFER {
             this.value := CallbackCreate(fn, , [RIO_BUFFERID, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

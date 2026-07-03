@@ -49,6 +49,10 @@ export default struct MI_ProviderFT_Load {
             this.value := CallbackCreate(fn, , ["ptr*", MI_Module_Self.Ptr, MI_Context.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -62,6 +62,10 @@ export default struct PCMSCALLBACKW {
             this.value := CallbackCreate(fn, , [COLORMATCHSETUPW.Ptr, LPARAM, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

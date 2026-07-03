@@ -2,6 +2,7 @@
 #Import ".\DDNTCORECAPS.ahk" { DDNTCORECAPS }
 #Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
 #Import ".\DDSCAPS.ahk" { DDSCAPS }
+#Import ".\PDD_GETDRIVERINFO.ahk" { PDD_GETDRIVERINFO }
 #Import ".\VIDEOMEMORYINFO.ahk" { VIDEOMEMORYINFO }
 
 /**
@@ -16,7 +17,7 @@ export default struct DD_HALINFO_V4 {
 
     ddCaps : DDNTCORECAPS
 
-    GetDriverInfo : IntPtr
+    GetDriverInfo : PDD_GETDRIVERINFO
 
     dwFlags : UInt32
 

@@ -1,4 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\UTextAccess.ahk" { UTextAccess }
+#Import ".\UTextClone.ahk" { UTextClone }
+#Import ".\UTextClose.ahk" { UTextClose }
+#Import ".\UTextCopy.ahk" { UTextCopy }
+#Import ".\UTextExtract.ahk" { UTextExtract }
+#Import ".\UTextMapNativeIndexToUTF16.ahk" { UTextMapNativeIndexToUTF16 }
+#Import ".\UTextMapOffsetToNative.ahk" { UTextMapOffsetToNative }
+#Import ".\UTextNativeLength.ahk" { UTextNativeLength }
+#Import ".\UTextReplace.ahk" { UTextReplace }
 
 /**
  * @namespace Windows.Win32.Globalization
@@ -14,28 +23,28 @@ export default struct UTextFuncs {
 
     reserved3 : Int32
 
-    clone : IntPtr
+    clone : UTextClone
 
-    nativeLength : IntPtr
+    nativeLength : UTextNativeLength
 
-    access : IntPtr
+    access : UTextAccess
 
-    extract : IntPtr
+    extract : UTextExtract
 
-    replace : IntPtr
+    replace : UTextReplace
 
-    copy : IntPtr
+    copy : UTextCopy
 
-    mapOffsetToNative : IntPtr
+    mapOffsetToNative : UTextMapOffsetToNative
 
-    mapNativeIndexToUTF16 : IntPtr
+    mapNativeIndexToUTF16 : UTextMapNativeIndexToUTF16
 
-    close : IntPtr
+    close : UTextClose
 
-    spare1 : IntPtr
+    spare1 : UTextClose
 
-    spare2 : IntPtr
+    spare2 : UTextClose
 
-    spare3 : IntPtr
+    spare3 : UTextClose
 
 }

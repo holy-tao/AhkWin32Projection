@@ -49,6 +49,10 @@ export default struct PROTOCOL_CL_REGISTER_SAP_COMPLETE {
             this.value := CallbackCreate(fn, , [Int32, "ptr", CO_SAP.Ptr, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

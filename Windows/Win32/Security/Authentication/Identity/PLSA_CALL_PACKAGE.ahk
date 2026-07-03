@@ -35,7 +35,7 @@ export default struct PLSA_CALL_PACKAGE {
         ProtocolStatusMarshal := ProtocolStatus is VarRef ? "int*" : "ptr"
 
         result := DllCall(this.value, LSA_UNICODE_STRING.Ptr, AuthenticationPackage, IntPtr, ProtocolSubmitBuffer, UInt32, SubmitBufferLength, ProtocolReturnBufferMarshal, ProtocolReturnBuffer, ReturnBufferLengthMarshal, ReturnBufferLength, ProtocolStatusMarshal, ProtocolStatus, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -55,6 +55,10 @@ export default struct PLSA_CALL_PACKAGE {
             this.value := CallbackCreate(fn, , [LSA_UNICODE_STRING.Ptr, IntPtr, UInt32, "ptr*", "uint*", "int*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

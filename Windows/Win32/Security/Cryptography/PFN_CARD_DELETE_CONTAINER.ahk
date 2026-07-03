@@ -46,6 +46,10 @@ export default struct PFN_CARD_DELETE_CONTAINER {
             this.value := CallbackCreate(fn, , [CARD_DATA.Ptr, Int8, UInt32, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -6,6 +6,7 @@
 #Import ".\MAGCOLOREFFECT.ahk" { MAGCOLOREFFECT }
 #Import ".\MAGTRANSFORM.ahk" { MAGTRANSFORM }
 #Import ".\MW_FILTERMODE.ahk" { MW_FILTERMODE }
+#Import ".\MagImageScalingCallback.ahk" { MagImageScalingCallback }
 
 /**
  * @namespace Windows.Win32.UI.Magnification
@@ -222,7 +223,7 @@ export MagGetWindowFilterList(_hwnd, pdwFilterMode, count, pHWND) {
  * @since windows6.0.6000
  */
 export MagSetImageScalingCallback(_hwnd, callback) {
-    result := DllCall("MAGNIFICATION.dll\MagSetImageScalingCallback", HWND, _hwnd, "ptr", callback, BOOL)
+    result := DllCall("MAGNIFICATION.dll\MagSetImageScalingCallback", HWND, _hwnd, MagImageScalingCallback, callback, BOOL)
     return result
 }
 
@@ -242,7 +243,7 @@ export MagSetImageScalingCallback(_hwnd, callback) {
  * @since windows6.0.6000
  */
 export MagGetImageScalingCallback(_hwnd) {
-    result := DllCall("MAGNIFICATION.dll\MagGetImageScalingCallback", HWND, _hwnd, IntPtr)
+    result := DllCall("MAGNIFICATION.dll\MagGetImageScalingCallback", HWND, _hwnd, MagImageScalingCallback)
     return result
 }
 

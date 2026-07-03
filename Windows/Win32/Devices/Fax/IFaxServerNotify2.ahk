@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\IFaxJobStatus.ahk" { IFaxJobStatus }
 #Import ".\IFaxServer2.ahk" { IFaxServer2 }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }

@@ -42,7 +42,7 @@ export default struct SpInitializeFn {
      */
     Call(PackageId, Parameters, FunctionTable) {
         result := DllCall(this.value, IntPtr, PackageId, SECPKG_PARAMETERS.Ptr, Parameters, LSA_SECPKG_FUNCTION_TABLE.Ptr, FunctionTable, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -62,6 +62,10 @@ export default struct SpInitializeFn {
             this.value := CallbackCreate(fn, , [IntPtr, SECPKG_PARAMETERS.Ptr, LSA_SECPKG_FUNCTION_TABLE.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

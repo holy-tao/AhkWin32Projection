@@ -44,6 +44,10 @@ export default struct LPDDHALEXEBUFCB_DESTROYEXEBUF {
             this.value := CallbackCreate(fn, , [DDHAL_DESTROYSURFACEDATA.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ENABLECALLBACK_ENABLED_STATE.ahk" { ENABLECALLBACK_ENABLED_STATE }
 #Import ".\EVENT_FILTER_DESCRIPTOR.ahk" { EVENT_FILTER_DESCRIPTOR }
 
@@ -252,6 +252,10 @@ export default struct PENABLECALLBACK {
             this.value := CallbackCreate(fn, , [Guid.Ptr, ENABLECALLBACK_ENABLED_STATE, Int8, Int64, Int64, EVENT_FILTER_DESCRIPTOR.Ptr, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

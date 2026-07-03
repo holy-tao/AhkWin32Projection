@@ -55,6 +55,10 @@ export default struct WS_DURATION_COMPARISON_CALLBACK {
             this.value := CallbackCreate(fn, , [WS_DURATION.Ptr, WS_DURATION.Ptr, WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

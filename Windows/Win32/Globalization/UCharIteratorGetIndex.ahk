@@ -46,6 +46,10 @@ export default struct UCharIteratorGetIndex {
             this.value := CallbackCreate(fn, "cdecl", [UCharIterator.Ptr, UCharIteratorOrigin, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

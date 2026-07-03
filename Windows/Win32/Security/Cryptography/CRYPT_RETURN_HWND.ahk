@@ -45,6 +45,10 @@ export default struct CRYPT_RETURN_HWND {
             this.value := CallbackCreate(fn, , [HWND.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

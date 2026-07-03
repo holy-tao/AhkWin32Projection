@@ -52,6 +52,10 @@ export default struct GameUICompletionRoutine {
             this.value := CallbackCreate(fn, , ["int", "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

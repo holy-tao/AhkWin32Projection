@@ -55,6 +55,10 @@ export default struct PFN_MAPPINGCALLBACKPROC {
             this.value := CallbackCreate(fn, , [MAPPING_PROPERTY_BAG.Ptr, "ptr", UInt32, "int", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

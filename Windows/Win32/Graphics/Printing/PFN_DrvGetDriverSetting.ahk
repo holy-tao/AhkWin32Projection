@@ -56,6 +56,10 @@ export default struct PFN_DrvGetDriverSetting {
             this.value := CallbackCreate(fn, , ["ptr", PSTR, IntPtr, UInt32, "uint*", "uint*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

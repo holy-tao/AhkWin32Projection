@@ -50,6 +50,10 @@ export default struct PRESUTIL_GET_EXPAND_SZ_VALUE {
             this.value := CallbackCreate(fn, , [HKEY, PWSTR, BOOL, PWSTR])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

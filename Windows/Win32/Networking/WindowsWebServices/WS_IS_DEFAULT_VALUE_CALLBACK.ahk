@@ -67,6 +67,10 @@ export default struct WS_IS_DEFAULT_VALUE_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr, IntPtr, UInt32, WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

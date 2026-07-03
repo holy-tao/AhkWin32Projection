@@ -48,6 +48,10 @@ export default struct LPWPUCREATESOCKETHANDLE {
             this.value := CallbackCreate(fn, , [UInt32, IntPtr, "int*", SOCKET])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

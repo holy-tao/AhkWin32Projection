@@ -54,6 +54,10 @@ export default struct ENUMRESLANGPROCW {
             this.value := CallbackCreate(fn, , [HMODULE, PWSTR, PWSTR, UInt16, IntPtr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -26,7 +26,7 @@ export default struct pKdReleasePciDeviceForDebugging {
      */
     Call(PciDevice) {
         result := DllCall(this.value, DEBUG_DEVICE_DESCRIPTOR.Ptr, PciDevice, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -46,6 +46,10 @@ export default struct pKdReleasePciDeviceForDebugging {
             this.value := CallbackCreate(fn, , [DEBUG_DEVICE_DESCRIPTOR.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

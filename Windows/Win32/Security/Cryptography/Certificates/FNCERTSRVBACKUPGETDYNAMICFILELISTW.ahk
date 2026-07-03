@@ -50,6 +50,10 @@ export default struct FNCERTSRVBACKUPGETDYNAMICFILELISTW {
             this.value := CallbackCreate(fn, , ["ptr", "ptr*", "uint*", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

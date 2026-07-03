@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\SDP_LARGE_INTEGER_16.ahk" { SDP_LARGE_INTEGER_16 }
 #Import ".\SDP_SPECIFICTYPE.ahk" { SDP_SPECIFICTYPE }
 #Import ".\SDP_TYPE.ahk" { SDP_TYPE }

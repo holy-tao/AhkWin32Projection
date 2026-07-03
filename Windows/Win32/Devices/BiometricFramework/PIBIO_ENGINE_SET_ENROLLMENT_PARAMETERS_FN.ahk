@@ -71,6 +71,10 @@ export default struct PIBIO_ENGINE_SET_ENROLLMENT_PARAMETERS_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, WINBIO_EXTENDED_ENROLLMENT_PARAMETERS.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -50,6 +50,10 @@ export default struct alljoyn_applicationstatelistener_state_ptr {
             this.value := CallbackCreate(fn, , ["char*", "char*", alljoyn_applicationstate, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

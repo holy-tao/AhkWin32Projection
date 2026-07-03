@@ -44,6 +44,10 @@ export default struct PFN_AUTHZ_FREE_CENTRAL_ACCESS_POLICY {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

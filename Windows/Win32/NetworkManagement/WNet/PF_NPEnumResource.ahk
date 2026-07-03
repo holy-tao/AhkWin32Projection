@@ -50,6 +50,10 @@ export default struct PF_NPEnumResource {
             this.value := CallbackCreate(fn, , [HANDLE, "uint*", IntPtr, "uint*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

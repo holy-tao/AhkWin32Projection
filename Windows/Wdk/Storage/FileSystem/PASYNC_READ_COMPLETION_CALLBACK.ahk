@@ -46,6 +46,10 @@ export default struct PASYNC_READ_COMPLETION_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", BOOLEAN])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\ADDRESS_CAPABILITY.ahk" { ADDRESS_CAPABILITY }
 #Import ".\ADDRESS_CAPABILITY_STRING.ahk" { ADDRESS_CAPABILITY_STRING }
 #Import ".\IEnumBstr.ahk" { IEnumBstr }

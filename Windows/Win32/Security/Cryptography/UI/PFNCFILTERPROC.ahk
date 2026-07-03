@@ -52,6 +52,10 @@ export default struct PFNCFILTERPROC {
             this.value := CallbackCreate(fn, , [CERT_CONTEXT.Ptr, BOOL.Ptr, "ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

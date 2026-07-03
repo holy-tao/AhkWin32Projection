@@ -49,6 +49,10 @@ export default struct LPDIENUMDEVICESCALLBACKW {
             this.value := CallbackCreate(fn, , [DIDEVICEINSTANCEW.Ptr, "ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

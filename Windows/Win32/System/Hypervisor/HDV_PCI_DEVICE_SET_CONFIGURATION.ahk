@@ -64,6 +64,10 @@ export default struct HDV_PCI_DEVICE_SET_CONFIGURATION {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, PWSTR.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

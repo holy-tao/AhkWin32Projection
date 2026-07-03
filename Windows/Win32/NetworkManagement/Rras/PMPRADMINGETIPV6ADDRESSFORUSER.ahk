@@ -54,6 +54,10 @@ export default struct PMPRADMINGETIPV6ADDRESSFORUSER {
             this.value := CallbackCreate(fn, , [PWSTR, PWSTR, IN6_ADDR.Ptr, BOOL.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

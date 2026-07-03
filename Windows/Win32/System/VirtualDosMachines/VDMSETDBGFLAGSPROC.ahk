@@ -46,6 +46,10 @@ export default struct VDMSETDBGFLAGSPROC {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

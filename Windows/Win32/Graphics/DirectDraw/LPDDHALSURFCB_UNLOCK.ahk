@@ -44,6 +44,10 @@ export default struct LPDDHALSURFCB_UNLOCK {
             this.value := CallbackCreate(fn, , [DDHAL_UNLOCKDATA.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

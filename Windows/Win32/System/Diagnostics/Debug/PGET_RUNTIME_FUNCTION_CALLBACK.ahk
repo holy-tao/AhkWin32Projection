@@ -48,6 +48,10 @@ export default struct PGET_RUNTIME_FUNCTION_CALLBACK {
             this.value := CallbackCreate(fn, , [Int64, "ptr", IMAGE_RUNTIME_FUNCTION_ENTRY.Ptr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

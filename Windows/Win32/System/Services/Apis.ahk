@@ -9,6 +9,9 @@
 #Import "..\Registry\HKEY.ahk" { HKEY }
 #Import ".\ENUM_SERVICE_STATE.ahk" { ENUM_SERVICE_STATE }
 #Import ".\ENUM_SERVICE_TYPE.ahk" { ENUM_SERVICE_TYPE }
+#Import ".\LPHANDLER_FUNCTION.ahk" { LPHANDLER_FUNCTION }
+#Import ".\LPHANDLER_FUNCTION_EX.ahk" { LPHANDLER_FUNCTION_EX }
+#Import ".\PSC_NOTIFICATION_CALLBACK.ahk" { PSC_NOTIFICATION_CALLBACK }
 #Import ".\PSC_NOTIFICATION_REGISTRATION.ahk" { PSC_NOTIFICATION_REGISTRATION }
 #Import ".\SC_ENUM_TYPE.ahk" { SC_ENUM_TYPE }
 #Import ".\SC_EVENT_TYPE.ahk" { SC_EVENT_TYPE }
@@ -4004,7 +4007,7 @@ export RegisterServiceCtrlHandlerA(lpServiceName, lpHandlerProc) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerA", "ptr", lpServiceName, "ptr", lpHandlerProc, SERVICE_STATUS_HANDLE)
+    result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerA", "ptr", lpServiceName, LPHANDLER_FUNCTION, lpHandlerProc, SERVICE_STATUS_HANDLE)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4082,7 +4085,7 @@ export RegisterServiceCtrlHandlerW(lpServiceName, lpHandlerProc) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerW", "ptr", lpServiceName, "ptr", lpHandlerProc, SERVICE_STATUS_HANDLE)
+    result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerW", "ptr", lpServiceName, LPHANDLER_FUNCTION, lpHandlerProc, SERVICE_STATUS_HANDLE)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4165,7 +4168,7 @@ export RegisterServiceCtrlHandlerExA(lpServiceName, lpHandlerProc, lpContext) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerExA", "ptr", lpServiceName, "ptr", lpHandlerProc, lpContextMarshal, lpContext, SERVICE_STATUS_HANDLE)
+    result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerExA", "ptr", lpServiceName, LPHANDLER_FUNCTION_EX, lpHandlerProc, lpContextMarshal, lpContext, SERVICE_STATUS_HANDLE)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4248,7 +4251,7 @@ export RegisterServiceCtrlHandlerExW(lpServiceName, lpHandlerProc, lpContext) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerExW", "ptr", lpServiceName, "ptr", lpHandlerProc, lpContextMarshal, lpContext, SERVICE_STATUS_HANDLE)
+    result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerExW", "ptr", lpServiceName, LPHANDLER_FUNCTION_EX, lpHandlerProc, lpContextMarshal, lpContext, SERVICE_STATUS_HANDLE)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5946,7 +5949,7 @@ export SubscribeServiceChangeNotifications(hService, eEventType, pCallback, pCal
     pCallbackContextMarshal := pCallbackContext is VarRef ? "ptr" : "ptr"
     pSubscriptionMarshal := pSubscription is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("SecHost.dll\SubscribeServiceChangeNotifications", SC_HANDLE, hService, SC_EVENT_TYPE, eEventType, "ptr", pCallback, pCallbackContextMarshal, pCallbackContext, pSubscriptionMarshal, pSubscription, UInt32)
+    result := DllCall("SecHost.dll\SubscribeServiceChangeNotifications", SC_HANDLE, hService, SC_EVENT_TYPE, eEventType, PSC_NOTIFICATION_CALLBACK, pCallback, pCallbackContextMarshal, pCallbackContext, pSubscriptionMarshal, pSubscription, UInt32)
     return result
 }
 

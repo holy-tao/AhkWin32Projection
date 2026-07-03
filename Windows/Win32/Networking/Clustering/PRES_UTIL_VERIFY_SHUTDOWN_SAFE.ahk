@@ -47,6 +47,10 @@ export default struct PRES_UTIL_VERIFY_SHUTDOWN_SAFE {
             this.value := CallbackCreate(fn, , [UInt32, UInt32, "uint*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

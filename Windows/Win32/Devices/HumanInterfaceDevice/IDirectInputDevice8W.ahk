@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\DIACTIONFORMATW.ahk" { DIACTIONFORMATW }
 #Import ".\DIDATAFORMAT.ahk" { DIDATAFORMAT }
 #Import ".\DIDEVCAPS.ahk" { DIDEVCAPS }
@@ -14,6 +14,10 @@
 #Import ".\DIFILEEFFECT.ahk" { DIFILEEFFECT }
 #Import ".\DIPROPHEADER.ahk" { DIPROPHEADER }
 #Import ".\IDirectInputEffect.ahk" { IDirectInputEffect }
+#Import ".\LPDIENUMCREATEDEFFECTOBJECTSCALLBACK.ahk" { LPDIENUMCREATEDEFFECTOBJECTSCALLBACK }
+#Import ".\LPDIENUMDEVICEOBJECTSCALLBACKW.ahk" { LPDIENUMDEVICEOBJECTSCALLBACKW }
+#Import ".\LPDIENUMEFFECTSCALLBACKW.ahk" { LPDIENUMEFFECTSCALLBACKW }
+#Import ".\LPDIENUMEFFECTSINFILECALLBACK.ahk" { LPDIENUMEFFECTSINFILECALLBACK }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
@@ -104,7 +108,7 @@ export default struct IDirectInputDevice8W extends IUnknown {
     EnumObjects(param0, param1, param2) {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "ptr", param0, param1Marshal, param1, UInt32, param2, "HRESULT")
+        result := ComCall(4, this, LPDIENUMDEVICEOBJECTSCALLBACKW, param0, param1Marshal, param1, UInt32, param2, "HRESULT")
         return result
     }
 
@@ -305,7 +309,7 @@ export default struct IDirectInputDevice8W extends IUnknown {
     EnumEffects(param0, param1, param2) {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(19, this, "ptr", param0, param1Marshal, param1, UInt32, param2, "HRESULT")
+        result := ComCall(19, this, LPDIENUMEFFECTSCALLBACKW, param0, param1Marshal, param1, UInt32, param2, "HRESULT")
         return result
     }
 
@@ -352,7 +356,7 @@ export default struct IDirectInputDevice8W extends IUnknown {
     EnumCreatedEffectObjects(param0, param1, param2) {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(23, this, "ptr", param0, param1Marshal, param1, UInt32, param2, "HRESULT")
+        result := ComCall(23, this, LPDIENUMCREATEDEFFECTOBJECTSCALLBACK, param0, param1Marshal, param1, UInt32, param2, "HRESULT")
         return result
     }
 
@@ -444,7 +448,7 @@ export default struct IDirectInputDevice8W extends IUnknown {
 
         param2Marshal := param2 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(27, this, "ptr", param0, "ptr", param1, param2Marshal, param2, UInt32, param3, "HRESULT")
+        result := ComCall(27, this, "ptr", param0, LPDIENUMEFFECTSINFILECALLBACK, param1, param2Marshal, param2, UInt32, param3, "HRESULT")
         return result
     }
 

@@ -27,7 +27,7 @@ export default struct PLSA_GET_CLIENT_INFO_EX {
      */
     Call(ClientInfo, StructSize) {
         result := DllCall(this.value, SECPKG_CLIENT_INFO_EX.Ptr, ClientInfo, UInt32, StructSize, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -47,6 +47,10 @@ export default struct PLSA_GET_CLIENT_INFO_EX {
             this.value := CallbackCreate(fn, , [SECPKG_CLIENT_INFO_EX.Ptr, UInt32, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

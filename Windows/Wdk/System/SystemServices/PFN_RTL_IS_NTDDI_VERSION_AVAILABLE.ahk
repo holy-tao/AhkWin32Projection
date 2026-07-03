@@ -44,6 +44,10 @@ export default struct PFN_RTL_IS_NTDDI_VERSION_AVAILABLE {
             this.value := CallbackCreate(fn, , [UInt32, BOOLEAN])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -31,7 +31,7 @@ export default struct DEVICE_QUERY_BUS_SPECIFIC_RESET_HANDLER {
         ResetInfoCountMarshal := ResetInfoCount is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, InterfaceContextMarshal, InterfaceContext, ResetInfoCountMarshal, ResetInfoCount, DEVICE_BUS_SPECIFIC_RESET_INFO.Ptr, ResetInfoSupported, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -51,6 +51,10 @@ export default struct DEVICE_QUERY_BUS_SPECIFIC_RESET_HANDLER {
             this.value := CallbackCreate(fn, , ["ptr", "uint*", DEVICE_BUS_SPECIFIC_RESET_INFO.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -52,6 +52,10 @@ export default struct PDXVA2SW_CREATEVIDEOPROCESSDEVICE {
             this.value := CallbackCreate(fn, , ["ptr", DXVA2_VideoDesc.Ptr, D3DFORMAT, UInt32, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -3,7 +3,7 @@
 #Import ".\Yunit\Yunit.ahk" { Yunit}
 #Import ".\YunitExtensions\Assert.ahk" { Assert }
 
-#Import  "../Guid.ahk" { Guid }
+#Import  "../Windows/Guid.ahk" { Guid }
 #Import "../Windows/Win32/Foundation/Apis.ahk" { SysAllocString, SysFreeString }
 #Import "../Windows/Win32/Foundation/BSTR.ahk" { BSTR }
 #Import "../Windows/Win32/System/SystemInformation/Apis.ahk" { GetPhysicallyInstalledSystemMemory }

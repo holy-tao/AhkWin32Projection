@@ -63,6 +63,10 @@ export default struct ACMFILTERTAGENUMCBW {
             this.value := CallbackCreate(fn, , [HACMDRIVERID, ACMFILTERTAGDETAILSW.Ptr, IntPtr, UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

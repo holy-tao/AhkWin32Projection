@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\WINBIO_IDENTITY.ahk" { WINBIO_IDENTITY }
 #Import ".\WINBIO_PRESENCE_PROPERTIES.ahk" { WINBIO_PRESENCE_PROPERTIES }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }

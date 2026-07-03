@@ -1,4 +1,31 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ACCEPT_SECURITY_CONTEXT_FN.ahk" { ACCEPT_SECURITY_CONTEXT_FN }
+#Import ".\ACQUIRE_CREDENTIALS_HANDLE_FN_W.ahk" { ACQUIRE_CREDENTIALS_HANDLE_FN_W }
+#Import ".\ADD_CREDENTIALS_FN_W.ahk" { ADD_CREDENTIALS_FN_W }
+#Import ".\APPLY_CONTROL_TOKEN_FN.ahk" { APPLY_CONTROL_TOKEN_FN }
+#Import ".\CHANGE_PASSWORD_FN_W.ahk" { CHANGE_PASSWORD_FN_W }
+#Import ".\COMPLETE_AUTH_TOKEN_FN.ahk" { COMPLETE_AUTH_TOKEN_FN }
+#Import ".\DECRYPT_MESSAGE_FN.ahk" { DECRYPT_MESSAGE_FN }
+#Import ".\DELETE_SECURITY_CONTEXT_FN.ahk" { DELETE_SECURITY_CONTEXT_FN }
+#Import ".\ENCRYPT_MESSAGE_FN.ahk" { ENCRYPT_MESSAGE_FN }
+#Import ".\ENUMERATE_SECURITY_PACKAGES_FN_W.ahk" { ENUMERATE_SECURITY_PACKAGES_FN_W }
+#Import ".\EXPORT_SECURITY_CONTEXT_FN.ahk" { EXPORT_SECURITY_CONTEXT_FN }
+#Import ".\FREE_CONTEXT_BUFFER_FN.ahk" { FREE_CONTEXT_BUFFER_FN }
+#Import ".\FREE_CREDENTIALS_HANDLE_FN.ahk" { FREE_CREDENTIALS_HANDLE_FN }
+#Import ".\IMPERSONATE_SECURITY_CONTEXT_FN.ahk" { IMPERSONATE_SECURITY_CONTEXT_FN }
+#Import ".\IMPORT_SECURITY_CONTEXT_FN_W.ahk" { IMPORT_SECURITY_CONTEXT_FN_W }
+#Import ".\INITIALIZE_SECURITY_CONTEXT_FN_W.ahk" { INITIALIZE_SECURITY_CONTEXT_FN_W }
+#Import ".\MAKE_SIGNATURE_FN.ahk" { MAKE_SIGNATURE_FN }
+#Import ".\QUERY_CONTEXT_ATTRIBUTES_EX_FN_W.ahk" { QUERY_CONTEXT_ATTRIBUTES_EX_FN_W }
+#Import ".\QUERY_CONTEXT_ATTRIBUTES_FN_W.ahk" { QUERY_CONTEXT_ATTRIBUTES_FN_W }
+#Import ".\QUERY_CREDENTIALS_ATTRIBUTES_EX_FN_W.ahk" { QUERY_CREDENTIALS_ATTRIBUTES_EX_FN_W }
+#Import ".\QUERY_CREDENTIALS_ATTRIBUTES_FN_W.ahk" { QUERY_CREDENTIALS_ATTRIBUTES_FN_W }
+#Import ".\QUERY_SECURITY_CONTEXT_TOKEN_FN.ahk" { QUERY_SECURITY_CONTEXT_TOKEN_FN }
+#Import ".\QUERY_SECURITY_PACKAGE_INFO_FN_W.ahk" { QUERY_SECURITY_PACKAGE_INFO_FN_W }
+#Import ".\REVERT_SECURITY_CONTEXT_FN.ahk" { REVERT_SECURITY_CONTEXT_FN }
+#Import ".\SET_CONTEXT_ATTRIBUTES_FN_W.ahk" { SET_CONTEXT_ATTRIBUTES_FN_W }
+#Import ".\SET_CREDENTIALS_ATTRIBUTES_FN_W.ahk" { SET_CREDENTIALS_ATTRIBUTES_FN_W }
+#Import ".\VERIFY_SIGNATURE_FN.ahk" { VERIFY_SIGNATURE_FN }
 
 /**
  * The SecurityFunctionTable structure is a dispatch table that contains pointers to the functions defined in SSPI. (Unicode)
@@ -19,72 +46,72 @@ export default struct SecurityFunctionTableW {
      */
     dwVersion : UInt32
 
-    EnumerateSecurityPackagesW : IntPtr
+    EnumerateSecurityPackagesW : ENUMERATE_SECURITY_PACKAGES_FN_W
 
-    QueryCredentialsAttributesW : IntPtr
+    QueryCredentialsAttributesW : QUERY_CREDENTIALS_ATTRIBUTES_FN_W
 
-    AcquireCredentialsHandleW : IntPtr
+    AcquireCredentialsHandleW : ACQUIRE_CREDENTIALS_HANDLE_FN_W
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-freecredentialshandle">FreeCredentialsHandle</a> function.
      */
-    FreeCredentialsHandle : IntPtr
+    FreeCredentialsHandle : FREE_CREDENTIALS_HANDLE_FN
 
     /**
      * Reserved for future use.
      */
     Reserved2 : IntPtr
 
-    InitializeSecurityContextW : IntPtr
+    InitializeSecurityContextW : INITIALIZE_SECURITY_CONTEXT_FN_W
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-acceptsecuritycontext">AcceptSecurityContext (General)</a> function.
      */
-    AcceptSecurityContext : IntPtr
+    AcceptSecurityContext : ACCEPT_SECURITY_CONTEXT_FN
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-completeauthtoken">CompleteAuthToken</a> function.
      */
-    CompleteAuthToken : IntPtr
+    CompleteAuthToken : COMPLETE_AUTH_TOKEN_FN
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-deletesecuritycontext">DeleteSecurityContext</a> function.
      */
-    DeleteSecurityContext : IntPtr
+    DeleteSecurityContext : DELETE_SECURITY_CONTEXT_FN
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-applycontroltoken">ApplyControlToken</a> function.
      */
-    ApplyControlToken : IntPtr
+    ApplyControlToken : APPLY_CONTROL_TOKEN_FN
 
-    QueryContextAttributesW : IntPtr
+    QueryContextAttributesW : QUERY_CONTEXT_ATTRIBUTES_FN_W
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-impersonatesecuritycontext">ImpersonateSecurityContext</a> function.
      */
-    ImpersonateSecurityContext : IntPtr
+    ImpersonateSecurityContext : IMPERSONATE_SECURITY_CONTEXT_FN
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-revertsecuritycontext">RevertSecurityContext</a> function.
      */
-    RevertSecurityContext : IntPtr
+    RevertSecurityContext : REVERT_SECURITY_CONTEXT_FN
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-makesignature">MakeSignature</a> function.
      */
-    MakeSignature : IntPtr
+    MakeSignature : MAKE_SIGNATURE_FN
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-verifysignature">VerifySignature</a> function.
      */
-    VerifySignature : IntPtr
+    VerifySignature : VERIFY_SIGNATURE_FN
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-freecontextbuffer">FreeContextBuffer</a> function.
      */
-    FreeContextBuffer : IntPtr
+    FreeContextBuffer : FREE_CONTEXT_BUFFER_FN
 
-    QuerySecurityPackageInfoW : IntPtr
+    QuerySecurityPackageInfoW : QUERY_SECURITY_PACKAGE_INFO_FN_W
 
     /**
      * Reserved for future use.
@@ -99,11 +126,11 @@ export default struct SecurityFunctionTableW {
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-exportsecuritycontext">ExportSecurityContext</a> function.
      */
-    ExportSecurityContext : IntPtr
+    ExportSecurityContext : EXPORT_SECURITY_CONTEXT_FN
 
-    ImportSecurityContextW : IntPtr
+    ImportSecurityContextW : IMPORT_SECURITY_CONTEXT_FN_W
 
-    AddCredentialsW : IntPtr
+    AddCredentialsW : ADD_CREDENTIALS_FN_W
 
     /**
      * Reserved for future use.
@@ -113,26 +140,26 @@ export default struct SecurityFunctionTableW {
     /**
      * Pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-querysecuritycontexttoken">QuerySecurityContextToken</a> function.
      */
-    QuerySecurityContextToken : IntPtr
+    QuerySecurityContextToken : QUERY_SECURITY_CONTEXT_TOKEN_FN
 
     /**
      * Pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-encryptmessage">EncryptMessage (General)</a> function.
      */
-    EncryptMessage : IntPtr
+    EncryptMessage : ENCRYPT_MESSAGE_FN
 
     /**
      * Pointer to the   <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-decryptmessage">DecryptMessage (General)</a> function.
      */
-    DecryptMessage : IntPtr
+    DecryptMessage : DECRYPT_MESSAGE_FN
 
-    SetContextAttributesW : IntPtr
+    SetContextAttributesW : SET_CONTEXT_ATTRIBUTES_FN_W
 
-    SetCredentialsAttributesW : IntPtr
+    SetCredentialsAttributesW : SET_CREDENTIALS_ATTRIBUTES_FN_W
 
-    ChangeAccountPasswordW : IntPtr
+    ChangeAccountPasswordW : CHANGE_PASSWORD_FN_W
 
-    QueryContextAttributesExW : IntPtr
+    QueryContextAttributesExW : QUERY_CONTEXT_ATTRIBUTES_EX_FN_W
 
-    QueryCredentialsAttributesExW : IntPtr
+    QueryCredentialsAttributesExW : QUERY_CREDENTIALS_ATTRIBUTES_EX_FN_W
 
 }

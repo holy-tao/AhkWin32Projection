@@ -1,6 +1,6 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
@@ -70,6 +70,7 @@
 #Import ".\OLECREATE.ahk" { OLECREATE as OLECREATE_enum }
 #Import ".\OLEINPLACEFRAMEINFO.ahk" { OLEINPLACEFRAMEINFO }
 #Import ".\OLEMENUGROUPWIDTHS.ahk" { OLEMENUGROUPWIDTHS }
+#Import ".\OLESTREAMQUERYCONVERTOLELINKCALLBACK.ahk" { OLESTREAMQUERYCONVERTOLELINKCALLBACK }
 #Import ".\OLEUIBUSYA.ahk" { OLEUIBUSYA as OLEUIBUSYA_struct }
 #Import ".\OLEUIBUSYW.ahk" { OLEUIBUSYW as OLEUIBUSYW_struct }
 #Import ".\OLEUICHANGEICONA.ahk" { OLEUICHANGEICONA as OLEUICHANGEICONA_struct }
@@ -14652,7 +14653,7 @@ export OleRegEnumVerbs(clsid) {
 export OleConvertOLESTREAMToIStorage2(lpolestream, pstg, ptd, opt, pvCallbackContext, pQueryConvertOLELinkCallback) {
     pvCallbackContextMarshal := pvCallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ole32.dll\OleConvertOLESTREAMToIStorage2", OLESTREAM.Ptr, lpolestream, "ptr", pstg, DVTARGETDEVICE.Ptr, ptd, UInt32, opt, pvCallbackContextMarshal, pvCallbackContext, "ptr", pQueryConvertOLELinkCallback, "HRESULT")
+    result := DllCall("ole32.dll\OleConvertOLESTREAMToIStorage2", OLESTREAM.Ptr, lpolestream, "ptr", pstg, DVTARGETDEVICE.Ptr, ptd, UInt32, opt, pvCallbackContextMarshal, pvCallbackContext, OLESTREAMQUERYCONVERTOLELINKCALLBACK, pQueryConvertOLELinkCallback, "HRESULT")
     return result
 }
 
@@ -14888,7 +14889,7 @@ export OleConvertOLESTREAMToIStorageEx2(polestm, pstg, pcfFormat, plwWidth, plHe
     pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
     pvCallbackContextMarshal := pvCallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ole32.dll\OleConvertOLESTREAMToIStorageEx2", OLESTREAM.Ptr, polestm, "ptr", pstg, pcfFormatMarshal, pcfFormat, plwWidthMarshal, plwWidth, plHeightMarshal, plHeight, pdwSizeMarshal, pdwSize, STGMEDIUM.Ptr, pmedium, UInt32, opt, pvCallbackContextMarshal, pvCallbackContext, "ptr", pQueryConvertOLELinkCallback, "HRESULT")
+    result := DllCall("ole32.dll\OleConvertOLESTREAMToIStorageEx2", OLESTREAM.Ptr, polestm, "ptr", pstg, pcfFormatMarshal, pcfFormat, plwWidthMarshal, plwWidth, plHeightMarshal, plHeight, pdwSizeMarshal, pdwSize, STGMEDIUM.Ptr, pmedium, UInt32, opt, pvCallbackContextMarshal, pvCallbackContext, OLESTREAMQUERYCONVERTOLELINKCALLBACK, pQueryConvertOLELinkCallback, "HRESULT")
     return result
 }
 

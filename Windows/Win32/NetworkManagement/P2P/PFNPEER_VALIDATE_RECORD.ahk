@@ -99,6 +99,10 @@ export default struct PFNPEER_VALIDATE_RECORD {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", PEER_RECORD.Ptr, PEER_RECORD_CHANGE_TYPE, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -52,6 +52,10 @@ export default struct PWLX_SET_CONTEXT_POINTER {
             this.value := CallbackCreate(fn, , [HANDLE, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

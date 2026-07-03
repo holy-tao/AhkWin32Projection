@@ -49,6 +49,10 @@ export default struct PDXVAHDSW_CreateDevice {
             this.value := CallbackCreate(fn, , ["ptr", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -47,6 +47,10 @@ export default struct PFIND_MATCHING_PROCESS {
             this.value := CallbackCreate(fn, , ["ptr", KDEXT_PROCESS_FIND_PARAMS.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

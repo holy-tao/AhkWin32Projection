@@ -31,7 +31,7 @@ export default struct IO_CSQ_INSERT_IRP_EX {
         InsertContextMarshal := InsertContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, IO_CSQ.Ptr, Csq, IRP.Ptr, _Irp, InsertContextMarshal, InsertContext, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -51,6 +51,10 @@ export default struct IO_CSQ_INSERT_IRP_EX {
             this.value := CallbackCreate(fn, , [IO_CSQ.Ptr, IRP.Ptr, "ptr", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

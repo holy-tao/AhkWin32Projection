@@ -48,6 +48,10 @@ export default struct PFN_CARD_QUERY_KEY_SIZES {
             this.value := CallbackCreate(fn, , [CARD_DATA.Ptr, UInt32, UInt32, CARD_KEY_SIZES.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

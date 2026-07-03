@@ -10,7 +10,14 @@
 #Import "..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 #Import ".\CALDATETIME.ahk" { CALDATETIME }
 #Import ".\CALDATETIME_DATEUNIT.ahk" { CALDATETIME_DATEUNIT }
+#Import ".\CALINFO_ENUMPROCA.ahk" { CALINFO_ENUMPROCA }
+#Import ".\CALINFO_ENUMPROCEXA.ahk" { CALINFO_ENUMPROCEXA }
+#Import ".\CALINFO_ENUMPROCEXEX.ahk" { CALINFO_ENUMPROCEXEX }
+#Import ".\CALINFO_ENUMPROCEXW.ahk" { CALINFO_ENUMPROCEXW }
+#Import ".\CALINFO_ENUMPROCW.ahk" { CALINFO_ENUMPROCW }
 #Import ".\CHARSETINFO.ahk" { CHARSETINFO }
+#Import ".\CODEPAGE_ENUMPROCA.ahk" { CODEPAGE_ENUMPROCA }
+#Import ".\CODEPAGE_ENUMPROCW.ahk" { CODEPAGE_ENUMPROCW }
 #Import ".\COMPARESTRING_RESULT.ahk" { COMPARESTRING_RESULT }
 #Import ".\COMPARE_STRING_FLAGS.ahk" { COMPARE_STRING_FLAGS }
 #Import ".\CPINFO.ahk" { CPINFO }
@@ -18,15 +25,29 @@
 #Import ".\CPINFOEXW.ahk" { CPINFOEXW }
 #Import ".\CURRENCYFMTA.ahk" { CURRENCYFMTA }
 #Import ".\CURRENCYFMTW.ahk" { CURRENCYFMTW }
+#Import ".\DATEFMT_ENUMPROCA.ahk" { DATEFMT_ENUMPROCA }
+#Import ".\DATEFMT_ENUMPROCEXA.ahk" { DATEFMT_ENUMPROCEXA }
+#Import ".\DATEFMT_ENUMPROCEXEX.ahk" { DATEFMT_ENUMPROCEXEX }
+#Import ".\DATEFMT_ENUMPROCEXW.ahk" { DATEFMT_ENUMPROCEXW }
+#Import ".\DATEFMT_ENUMPROCW.ahk" { DATEFMT_ENUMPROCW }
 #Import ".\ENUM_DATE_FORMATS_FLAGS.ahk" { ENUM_DATE_FORMATS_FLAGS }
 #Import ".\ENUM_SYSTEM_CODE_PAGES_FLAGS.ahk" { ENUM_SYSTEM_CODE_PAGES_FLAGS }
 #Import ".\ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS.ahk" { ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS }
 #Import ".\FOLD_STRING_MAP_FLAGS.ahk" { FOLD_STRING_MAP_FLAGS }
 #Import ".\FONTSIGNATURE.ahk" { FONTSIGNATURE }
+#Import ".\GEO_ENUMNAMEPROC.ahk" { GEO_ENUMNAMEPROC }
+#Import ".\GEO_ENUMPROC.ahk" { GEO_ENUMPROC }
 #Import ".\GOFFSET.ahk" { GOFFSET }
 #Import ".\HSAVEDUILANGUAGES.ahk" { HSAVEDUILANGUAGES }
 #Import ".\IS_TEXT_UNICODE_RESULT.ahk" { IS_TEXT_UNICODE_RESULT }
 #Import ".\IS_VALID_LOCALE_FLAGS.ahk" { IS_VALID_LOCALE_FLAGS }
+#Import ".\LANGGROUPLOCALE_ENUMPROCA.ahk" { LANGGROUPLOCALE_ENUMPROCA }
+#Import ".\LANGGROUPLOCALE_ENUMPROCW.ahk" { LANGGROUPLOCALE_ENUMPROCW }
+#Import ".\LANGUAGEGROUP_ENUMPROCA.ahk" { LANGUAGEGROUP_ENUMPROCA }
+#Import ".\LANGUAGEGROUP_ENUMPROCW.ahk" { LANGUAGEGROUP_ENUMPROCW }
+#Import ".\LOCALE_ENUMPROCA.ahk" { LOCALE_ENUMPROCA }
+#Import ".\LOCALE_ENUMPROCEX.ahk" { LOCALE_ENUMPROCEX }
+#Import ".\LOCALE_ENUMPROCW.ahk" { LOCALE_ENUMPROCW }
 #Import ".\MAPPING_ENUM_OPTIONS.ahk" { MAPPING_ENUM_OPTIONS }
 #Import ".\MAPPING_OPTIONS.ahk" { MAPPING_OPTIONS }
 #Import ".\MAPPING_PROPERTY_BAG.ahk" { MAPPING_PROPERTY_BAG }
@@ -53,10 +74,14 @@
 #Import ".\SYSGEOCLASS.ahk" { SYSGEOCLASS }
 #Import ".\SYSGEOTYPE.ahk" { SYSGEOTYPE }
 #Import ".\TEXTRANGE_PROPERTIES.ahk" { TEXTRANGE_PROPERTIES }
+#Import ".\TIMEFMT_ENUMPROCA.ahk" { TIMEFMT_ENUMPROCA }
+#Import ".\TIMEFMT_ENUMPROCEX.ahk" { TIMEFMT_ENUMPROCEX }
+#Import ".\TIMEFMT_ENUMPROCW.ahk" { TIMEFMT_ENUMPROCW }
 #Import ".\TIME_FORMAT_FLAGS.ahk" { TIME_FORMAT_FLAGS }
 #Import ".\TRANSLATE_CHARSET_INFO_FLAGS.ahk" { TRANSLATE_CHARSET_INFO_FLAGS }
 #Import ".\UAcceptResult.ahk" { UAcceptResult }
 #Import ".\UBiDi.ahk" { UBiDi }
+#Import ".\UBiDiClassCallback.ahk" { UBiDiClassCallback }
 #Import ".\UBiDiDirection.ahk" { UBiDiDirection }
 #Import ".\UBiDiMirroring.ahk" { UBiDiMirroring }
 #Import ".\UBiDiOrder.ahk" { UBiDiOrder }
@@ -67,6 +92,7 @@
 #Import ".\UBreakIteratorType.ahk" { UBreakIteratorType }
 #Import ".\UCPMap.ahk" { UCPMap }
 #Import ".\UCPMapRangeOption.ahk" { UCPMapRangeOption }
+#Import ".\UCPMapValueFilter.ahk" { UCPMapValueFilter }
 #Import ".\UCPTrie.ahk" { UCPTrie }
 #Import ".\UCPTrieType.ahk" { UCPTrieType }
 #Import ".\UCPTrieValueWidth.ahk" { UCPTrieValueWidth }
@@ -79,6 +105,7 @@
 #Import ".\UCalendarWeekdayType.ahk" { UCalendarWeekdayType }
 #Import ".\UCaseMap.ahk" { UCaseMap }
 #Import ".\UCharDirection.ahk" { UCharDirection }
+#Import ".\UCharEnumTypeRange.ahk" { UCharEnumTypeRange }
 #Import ".\UCharIterator.ahk" { UCharIterator }
 #Import ".\UCharNameChoice.ahk" { UCharNameChoice }
 #Import ".\UCharsetDetector.ahk" { UCharsetDetector }
@@ -94,9 +121,11 @@
 #Import ".\UConstrainedFieldPosition.ahk" { UConstrainedFieldPosition }
 #Import ".\UConverter.ahk" { UConverter }
 #Import ".\UConverterCallbackReason.ahk" { UConverterCallbackReason }
+#Import ".\UConverterFromUCallback.ahk" { UConverterFromUCallback }
 #Import ".\UConverterFromUnicodeArgs.ahk" { UConverterFromUnicodeArgs }
 #Import ".\UConverterPlatform.ahk" { UConverterPlatform }
 #Import ".\UConverterSelector.ahk" { UConverterSelector }
+#Import ".\UConverterToUCallback.ahk" { UConverterToUCallback }
 #Import ".\UConverterToUnicodeArgs.ahk" { UConverterToUnicodeArgs }
 #Import ".\UConverterType.ahk" { UConverterType }
 #Import ".\UConverterUnicodeSet.ahk" { UConverterUnicodeSet }
@@ -117,6 +146,7 @@
 #Import ".\UDialectHandling.ahk" { UDialectHandling }
 #Import ".\UDisplayContext.ahk" { UDisplayContext }
 #Import ".\UDisplayContextType.ahk" { UDisplayContextType }
+#Import ".\UEnumCharNamesFn.ahk" { UEnumCharNamesFn }
 #Import ".\UEnumeration.ahk" { UEnumeration }
 #Import ".\UErrorCode.ahk" { UErrorCode }
 #Import ".\UFieldPosition.ahk" { UFieldPosition }
@@ -132,6 +162,8 @@
 #Import ".\UGenderInfo.ahk" { UGenderInfo }
 #Import ".\UIDNA.ahk" { UIDNA }
 #Import ".\UIDNAInfo.ahk" { UIDNAInfo }
+#Import ".\UILANGUAGE_ENUMPROCA.ahk" { UILANGUAGE_ENUMPROCA }
+#Import ".\UILANGUAGE_ENUMPROCW.ahk" { UILANGUAGE_ENUMPROCW }
 #Import ".\ULayoutType.ahk" { ULayoutType }
 #Import ".\UListFormatter.ahk" { UListFormatter }
 #Import ".\UListFormatterType.ahk" { UListFormatterType }
@@ -143,7 +175,11 @@
 #Import ".\ULocaleDataExemplarSetType.ahk" { ULocaleDataExemplarSetType }
 #Import ".\ULocaleDisplayNames.ahk" { ULocaleDisplayNames }
 #Import ".\UMeasurementSystem.ahk" { UMeasurementSystem }
+#Import ".\UMemAllocFn.ahk" { UMemAllocFn }
+#Import ".\UMemFreeFn.ahk" { UMemFreeFn }
+#Import ".\UMemReallocFn.ahk" { UMemReallocFn }
 #Import ".\UMutableCPTrie.ahk" { UMutableCPTrie }
+#Import ".\UNESCAPE_CHAR_AT.ahk" { UNESCAPE_CHAR_AT }
 #Import ".\UNormalization2Mode.ahk" { UNormalization2Mode }
 #Import ".\UNormalizationCheckResult.ahk" { UNormalizationCheckResult }
 #Import ".\UNormalizer2.ahk" { UNormalizer2 }
@@ -162,6 +198,8 @@
 #Import ".\UPluralType.ahk" { UPluralType }
 #Import ".\UProperty.ahk" { UProperty }
 #Import ".\UPropertyNameChoice.ahk" { UPropertyNameChoice }
+#Import ".\URegexFindProgressCallback.ahk" { URegexFindProgressCallback }
+#Import ".\URegexMatchCallback.ahk" { URegexMatchCallback }
 #Import ".\URegion.ahk" { URegion }
 #Import ".\URegionType.ahk" { URegionType }
 #Import ".\URegularExpression.ahk" { URegularExpression }
@@ -188,6 +226,9 @@
 #Import ".\UTimeScaleValue.ahk" { UTimeScaleValue }
 #Import ".\UTimeZoneLocalOption.ahk" { UTimeZoneLocalOption }
 #Import ".\UTimeZoneTransitionType.ahk" { UTimeZoneTransitionType }
+#Import ".\UTraceData.ahk" { UTraceData }
+#Import ".\UTraceEntry.ahk" { UTraceEntry }
+#Import ".\UTraceExit.ahk" { UTraceExit }
 #Import ".\UTransDirection.ahk" { UTransDirection }
 #Import ".\UTransPosition.ahk" { UTransPosition }
 #Import "..\Graphics\Gdi\ABC.ahk" { ABC }
@@ -3827,7 +3868,7 @@ export GetCurrencyFormatW(Locale, dwFlags, lpValue, lpFormat, lpCurrencyStr, cch
 export EnumCalendarInfoA(lpCalInfoEnumProc, Locale, Calendar, CalType) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumCalendarInfoA", "ptr", lpCalInfoEnumProc, UInt32, Locale, UInt32, Calendar, UInt32, CalType, BOOL)
+    result := DllCall("KERNEL32.dll\EnumCalendarInfoA", CALINFO_ENUMPROCA, lpCalInfoEnumProc, UInt32, Locale, UInt32, Calendar, UInt32, CalType, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3883,7 +3924,7 @@ export EnumCalendarInfoA(lpCalInfoEnumProc, Locale, Calendar, CalType) {
 export EnumCalendarInfoW(lpCalInfoEnumProc, Locale, Calendar, CalType) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumCalendarInfoW", "ptr", lpCalInfoEnumProc, UInt32, Locale, UInt32, Calendar, UInt32, CalType, BOOL)
+    result := DllCall("KERNEL32.dll\EnumCalendarInfoW", CALINFO_ENUMPROCW, lpCalInfoEnumProc, UInt32, Locale, UInt32, Calendar, UInt32, CalType, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3947,7 +3988,7 @@ export EnumCalendarInfoW(lpCalInfoEnumProc, Locale, Calendar, CalType) {
 export EnumCalendarInfoExA(lpCalInfoEnumProcEx, Locale, Calendar, CalType) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumCalendarInfoExA", "ptr", lpCalInfoEnumProcEx, UInt32, Locale, UInt32, Calendar, UInt32, CalType, BOOL)
+    result := DllCall("KERNEL32.dll\EnumCalendarInfoExA", CALINFO_ENUMPROCEXA, lpCalInfoEnumProcEx, UInt32, Locale, UInt32, Calendar, UInt32, CalType, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4011,7 +4052,7 @@ export EnumCalendarInfoExA(lpCalInfoEnumProcEx, Locale, Calendar, CalType) {
 export EnumCalendarInfoExW(lpCalInfoEnumProcEx, Locale, Calendar, CalType) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumCalendarInfoExW", "ptr", lpCalInfoEnumProcEx, UInt32, Locale, UInt32, Calendar, UInt32, CalType, BOOL)
+    result := DllCall("KERNEL32.dll\EnumCalendarInfoExW", CALINFO_ENUMPROCEXW, lpCalInfoEnumProcEx, UInt32, Locale, UInt32, Calendar, UInt32, CalType, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4072,7 +4113,7 @@ export EnumCalendarInfoExW(lpCalInfoEnumProcEx, Locale, Calendar, CalType) {
 export EnumTimeFormatsA(lpTimeFmtEnumProc, Locale, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumTimeFormatsA", "ptr", lpTimeFmtEnumProc, UInt32, Locale, TIME_FORMAT_FLAGS, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\EnumTimeFormatsA", TIMEFMT_ENUMPROCA, lpTimeFmtEnumProc, UInt32, Locale, TIME_FORMAT_FLAGS, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4133,7 +4174,7 @@ export EnumTimeFormatsA(lpTimeFmtEnumProc, Locale, dwFlags) {
 export EnumTimeFormatsW(lpTimeFmtEnumProc, Locale, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumTimeFormatsW", "ptr", lpTimeFmtEnumProc, UInt32, Locale, TIME_FORMAT_FLAGS, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\EnumTimeFormatsW", TIMEFMT_ENUMPROCW, lpTimeFmtEnumProc, UInt32, Locale, TIME_FORMAT_FLAGS, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4192,7 +4233,7 @@ export EnumTimeFormatsW(lpTimeFmtEnumProc, Locale, dwFlags) {
 export EnumDateFormatsA(lpDateFmtEnumProc, Locale, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumDateFormatsA", "ptr", lpDateFmtEnumProc, UInt32, Locale, UInt32, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\EnumDateFormatsA", DATEFMT_ENUMPROCA, lpDateFmtEnumProc, UInt32, Locale, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4251,7 +4292,7 @@ export EnumDateFormatsA(lpDateFmtEnumProc, Locale, dwFlags) {
 export EnumDateFormatsW(lpDateFmtEnumProc, Locale, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumDateFormatsW", "ptr", lpDateFmtEnumProc, UInt32, Locale, UInt32, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\EnumDateFormatsW", DATEFMT_ENUMPROCW, lpDateFmtEnumProc, UInt32, Locale, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4320,7 +4361,7 @@ export EnumDateFormatsW(lpDateFmtEnumProc, Locale, dwFlags) {
 export EnumDateFormatsExA(lpDateFmtEnumProcEx, Locale, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumDateFormatsExA", "ptr", lpDateFmtEnumProcEx, UInt32, Locale, UInt32, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\EnumDateFormatsExA", DATEFMT_ENUMPROCEXA, lpDateFmtEnumProcEx, UInt32, Locale, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4389,7 +4430,7 @@ export EnumDateFormatsExA(lpDateFmtEnumProcEx, Locale, dwFlags) {
 export EnumDateFormatsExW(lpDateFmtEnumProcEx, Locale, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumDateFormatsExW", "ptr", lpDateFmtEnumProcEx, UInt32, Locale, UInt32, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\EnumDateFormatsExW", DATEFMT_ENUMPROCEXW, lpDateFmtEnumProcEx, UInt32, Locale, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4734,7 +4775,7 @@ export GetGeoInfoEx(_location, geoType, geoData, geoDataCount) {
 export EnumSystemGeoID(GeoClass, ParentGeoId, lpGeoEnumProc) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumSystemGeoID", UInt32, GeoClass, Int32, ParentGeoId, "ptr", lpGeoEnumProc, BOOL)
+    result := DllCall("KERNEL32.dll\EnumSystemGeoID", UInt32, GeoClass, Int32, ParentGeoId, GEO_ENUMPROC, lpGeoEnumProc, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4785,7 +4826,7 @@ export EnumSystemGeoID(GeoClass, ParentGeoId, lpGeoEnumProc) {
 export EnumSystemGeoNames(geoClass, geoEnumProc, data) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumSystemGeoNames", UInt32, geoClass, "ptr", geoEnumProc, LPARAM, data, BOOL)
+    result := DllCall("KERNEL32.dll\EnumSystemGeoNames", UInt32, geoClass, GEO_ENUMNAMEPROC, geoEnumProc, LPARAM, data, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6710,7 +6751,7 @@ export FoldStringA(dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchDest) {
 export EnumSystemLocalesA(lpLocaleEnumProc, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumSystemLocalesA", "ptr", lpLocaleEnumProc, UInt32, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\EnumSystemLocalesA", LOCALE_ENUMPROCA, lpLocaleEnumProc, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6781,7 +6822,7 @@ export EnumSystemLocalesA(lpLocaleEnumProc, dwFlags) {
 export EnumSystemLocalesW(lpLocaleEnumProc, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumSystemLocalesW", "ptr", lpLocaleEnumProc, UInt32, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\EnumSystemLocalesW", LOCALE_ENUMPROCW, lpLocaleEnumProc, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6816,7 +6857,7 @@ export EnumSystemLocalesW(lpLocaleEnumProc, dwFlags) {
 export EnumSystemLanguageGroupsA(lpLanguageGroupEnumProc, dwFlags, _lParam) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumSystemLanguageGroupsA", "ptr", lpLanguageGroupEnumProc, ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS, dwFlags, IntPtr, _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumSystemLanguageGroupsA", LANGUAGEGROUP_ENUMPROCA, lpLanguageGroupEnumProc, ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS, dwFlags, IntPtr, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6851,7 +6892,7 @@ export EnumSystemLanguageGroupsA(lpLanguageGroupEnumProc, dwFlags, _lParam) {
 export EnumSystemLanguageGroupsW(lpLanguageGroupEnumProc, dwFlags, _lParam) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumSystemLanguageGroupsW", "ptr", lpLanguageGroupEnumProc, ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS, dwFlags, IntPtr, _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumSystemLanguageGroupsW", LANGUAGEGROUP_ENUMPROCW, lpLanguageGroupEnumProc, ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS, dwFlags, IntPtr, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6887,7 +6928,7 @@ export EnumSystemLanguageGroupsW(lpLanguageGroupEnumProc, dwFlags, _lParam) {
 export EnumLanguageGroupLocalesA(lpLangGroupLocaleEnumProc, LanguageGroup, dwFlags, _lParam) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumLanguageGroupLocalesA", "ptr", lpLangGroupLocaleEnumProc, UInt32, LanguageGroup, UInt32, dwFlags, IntPtr, _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumLanguageGroupLocalesA", LANGGROUPLOCALE_ENUMPROCA, lpLangGroupLocaleEnumProc, UInt32, LanguageGroup, UInt32, dwFlags, IntPtr, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6923,7 +6964,7 @@ export EnumLanguageGroupLocalesA(lpLangGroupLocaleEnumProc, LanguageGroup, dwFla
 export EnumLanguageGroupLocalesW(lpLangGroupLocaleEnumProc, LanguageGroup, dwFlags, _lParam) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumLanguageGroupLocalesW", "ptr", lpLangGroupLocaleEnumProc, UInt32, LanguageGroup, UInt32, dwFlags, IntPtr, _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumLanguageGroupLocalesW", LANGGROUPLOCALE_ENUMPROCW, lpLangGroupLocaleEnumProc, UInt32, LanguageGroup, UInt32, dwFlags, IntPtr, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7052,7 +7093,7 @@ export EnumLanguageGroupLocalesW(lpLangGroupLocaleEnumProc, LanguageGroup, dwFla
 export EnumUILanguagesA(lpUILanguageEnumProc, dwFlags, _lParam) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumUILanguagesA", "ptr", lpUILanguageEnumProc, UInt32, dwFlags, IntPtr, _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumUILanguagesA", UILANGUAGE_ENUMPROCA, lpUILanguageEnumProc, UInt32, dwFlags, IntPtr, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7181,7 +7222,7 @@ export EnumUILanguagesA(lpUILanguageEnumProc, dwFlags, _lParam) {
 export EnumUILanguagesW(lpUILanguageEnumProc, dwFlags, _lParam) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumUILanguagesW", "ptr", lpUILanguageEnumProc, UInt32, dwFlags, IntPtr, _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumUILanguagesW", UILANGUAGE_ENUMPROCW, lpUILanguageEnumProc, UInt32, dwFlags, IntPtr, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7217,7 +7258,7 @@ export EnumUILanguagesW(lpUILanguageEnumProc, dwFlags, _lParam) {
 export EnumSystemCodePagesA(lpCodePageEnumProc, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumSystemCodePagesA", "ptr", lpCodePageEnumProc, ENUM_SYSTEM_CODE_PAGES_FLAGS, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\EnumSystemCodePagesA", CODEPAGE_ENUMPROCA, lpCodePageEnumProc, ENUM_SYSTEM_CODE_PAGES_FLAGS, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7253,7 +7294,7 @@ export EnumSystemCodePagesA(lpCodePageEnumProc, dwFlags) {
 export EnumSystemCodePagesW(lpCodePageEnumProc, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumSystemCodePagesW", "ptr", lpCodePageEnumProc, ENUM_SYSTEM_CODE_PAGES_FLAGS, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\EnumSystemCodePagesW", CODEPAGE_ENUMPROCW, lpCodePageEnumProc, ENUM_SYSTEM_CODE_PAGES_FLAGS, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8772,7 +8813,7 @@ export EnumCalendarInfoExEx(pCalInfoEnumProcExEx, lpLocaleName, Calendar, CalTyp
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumCalendarInfoExEx", "ptr", pCalInfoEnumProcExEx, "ptr", lpLocaleName, UInt32, Calendar, "ptr", lpReserved, UInt32, CalType, LPARAM, _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumCalendarInfoExEx", CALINFO_ENUMPROCEXEX, pCalInfoEnumProcExEx, "ptr", lpLocaleName, UInt32, Calendar, "ptr", lpReserved, UInt32, CalType, LPARAM, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8819,7 +8860,7 @@ export EnumDateFormatsExEx(lpDateFmtEnumProcExEx, lpLocaleName, dwFlags, _lParam
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumDateFormatsExEx", "ptr", lpDateFmtEnumProcExEx, "ptr", lpLocaleName, ENUM_DATE_FORMATS_FLAGS, dwFlags, LPARAM, _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumDateFormatsExEx", DATEFMT_ENUMPROCEXEX, lpDateFmtEnumProcExEx, "ptr", lpLocaleName, ENUM_DATE_FORMATS_FLAGS, dwFlags, LPARAM, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8863,7 +8904,7 @@ export EnumTimeFormatsEx(lpTimeFmtEnumProcEx, lpLocaleName, dwFlags, _lParam) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumTimeFormatsEx", "ptr", lpTimeFmtEnumProcEx, "ptr", lpLocaleName, UInt32, dwFlags, LPARAM, _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumTimeFormatsEx", TIMEFMT_ENUMPROCEX, lpTimeFmtEnumProcEx, "ptr", lpLocaleName, UInt32, dwFlags, LPARAM, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8915,7 +8956,7 @@ export EnumSystemLocalesEx(lpLocaleEnumProcEx, dwFlags, _lParam) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumSystemLocalesEx", "ptr", lpLocaleEnumProcEx, UInt32, dwFlags, LPARAM, _lParam, "ptr", lpReserved, BOOL)
+    result := DllCall("KERNEL32.dll\EnumSystemLocalesEx", LOCALE_ENUMPROCEX, lpLocaleEnumProcEx, UInt32, dwFlags, LPARAM, _lParam, "ptr", lpReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10912,7 +10953,7 @@ export utrace_getLevel() {
 export utrace_setFunctions(_context, e, x, d) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    DllCall("icuuc.dll\utrace_setFunctions", _contextMarshal, _context, "ptr", e, "ptr", x, "ptr", d)
+    DllCall("icuuc.dll\utrace_setFunctions", _contextMarshal, _context, UTraceEntry, e, UTraceExit, x, UTraceData, d)
 }
 
 /**
@@ -13787,7 +13828,7 @@ export ucnv_setToUCallBack(converter, newAction, newContext, oldAction, oldConte
     oldContextMarshal := oldContext is VarRef ? "ptr*" : "ptr"
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\ucnv_setToUCallBack", converterMarshal, converter, "ptr", newAction, newContextMarshal, newContext, oldActionMarshal, oldAction, oldContextMarshal, oldContext, errMarshal, err)
+    DllCall("icuuc.dll\ucnv_setToUCallBack", converterMarshal, converter, UConverterToUCallback, newAction, newContextMarshal, newContext, oldActionMarshal, oldAction, oldContextMarshal, oldContext, errMarshal, err)
 }
 
 /**
@@ -13807,7 +13848,7 @@ export ucnv_setFromUCallBack(converter, newAction, newContext, oldAction, oldCon
     oldContextMarshal := oldContext is VarRef ? "ptr*" : "ptr"
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\ucnv_setFromUCallBack", converterMarshal, converter, "ptr", newAction, newContextMarshal, newContext, oldActionMarshal, oldAction, oldContextMarshal, oldContext, errMarshal, err)
+    DllCall("icuuc.dll\ucnv_setFromUCallBack", converterMarshal, converter, UConverterFromUCallback, newAction, newContextMarshal, newContext, oldActionMarshal, oldAction, oldContextMarshal, oldContext, errMarshal, err)
 }
 
 /**
@@ -15660,7 +15701,7 @@ export ubidi_setClassCallback(pBiDi, newFn, newContext, oldFn, oldContext, pErro
     oldContextMarshal := oldContext is VarRef ? "ptr*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\ubidi_setClassCallback", pBiDiMarshal, pBiDi, "ptr", newFn, newContextMarshal, newContext, oldFnMarshal, oldFn, oldContextMarshal, oldContext, pErrorCodeMarshal, pErrorCode)
+    DllCall("icuuc.dll\ubidi_setClassCallback", pBiDiMarshal, pBiDi, UBiDiClassCallback, newFn, newContextMarshal, newContext, oldFnMarshal, oldFn, oldContextMarshal, oldContext, pErrorCodeMarshal, pErrorCode)
 }
 
 /**
@@ -18025,7 +18066,7 @@ export u_unescapeAt(charAt, offset, length, _context) {
     offsetMarshal := offset is VarRef ? "int*" : "ptr"
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("icuuc.dll\u_unescapeAt", "ptr", charAt, offsetMarshal, offset, Int32, length, _contextMarshal, _context, Int32)
+    result := DllCall("icuuc.dll\u_unescapeAt", UNESCAPE_CHAR_AT, charAt, offsetMarshal, offset, Int32, length, _contextMarshal, _context, Int32)
     return result
 }
 
@@ -25067,7 +25108,7 @@ export uregex_setMatchCallback(regexp, callback, _context, _status) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\uregex_setMatchCallback", regexpMarshal, regexp, "ptr", callback, _contextMarshal, _context, _statusMarshal, _status)
+    DllCall("icuin.dll\uregex_setMatchCallback", regexpMarshal, regexp, URegexMatchCallback, callback, _contextMarshal, _context, _statusMarshal, _status)
 }
 
 /**
@@ -25100,7 +25141,7 @@ export uregex_setFindProgressCallback(regexp, callback, _context, _status) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\uregex_setFindProgressCallback", regexpMarshal, regexp, "ptr", callback, _contextMarshal, _context, _statusMarshal, _status)
+    DllCall("icuin.dll\uregex_setFindProgressCallback", regexpMarshal, regexp, URegexFindProgressCallback, callback, _contextMarshal, _context, _statusMarshal, _status)
 }
 
 /**

@@ -20,6 +20,7 @@
 #Import ".\DNS_FREE_TYPE.ahk" { DNS_FREE_TYPE }
 #Import ".\DNS_MESSAGE_BUFFER.ahk" { DNS_MESSAGE_BUFFER }
 #Import ".\DNS_NAME_FORMAT.ahk" { DNS_NAME_FORMAT }
+#Import ".\DNS_PROXY_COMPLETION_ROUTINE.ahk" { DNS_PROXY_COMPLETION_ROUTINE }
 #Import ".\DNS_PROXY_INFORMATION.ahk" { DNS_PROXY_INFORMATION }
 #Import ".\DNS_QUERY_CANCEL.ahk" { DNS_QUERY_CANCEL }
 #Import ".\DNS_QUERY_OPTIONS.ahk" { DNS_QUERY_OPTIONS }
@@ -1193,7 +1194,7 @@ export DnsGetProxyInformation(hostName, proxyInformation, defaultProxyInformatio
 
     completionContextMarshal := completionContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("DNSAPI.dll\DnsGetProxyInformation", "ptr", hostName, DNS_PROXY_INFORMATION.Ptr, proxyInformation, DNS_PROXY_INFORMATION.Ptr, defaultProxyInformation, "ptr", completionRoutine, completionContextMarshal, completionContext, UInt32)
+    result := DllCall("DNSAPI.dll\DnsGetProxyInformation", "ptr", hostName, DNS_PROXY_INFORMATION.Ptr, proxyInformation, DNS_PROXY_INFORMATION.Ptr, defaultProxyInformation, DNS_PROXY_COMPLETION_ROUTINE, completionRoutine, completionContextMarshal, completionContext, UInt32)
     return result
 }
 

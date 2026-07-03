@@ -46,6 +46,10 @@ export default struct PWLDP_QUERYPOLICYSETTINGENABLED_API {
             this.value := CallbackCreate(fn, , [WLDP_POLICY_SETTING, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

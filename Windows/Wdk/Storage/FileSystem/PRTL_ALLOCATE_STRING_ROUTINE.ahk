@@ -42,6 +42,10 @@ export default struct PRTL_ALLOCATE_STRING_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

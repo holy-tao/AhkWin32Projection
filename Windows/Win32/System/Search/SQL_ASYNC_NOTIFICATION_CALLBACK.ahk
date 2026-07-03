@@ -47,6 +47,10 @@ export default struct SQL_ASYNC_NOTIFICATION_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", BOOL, Int16])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

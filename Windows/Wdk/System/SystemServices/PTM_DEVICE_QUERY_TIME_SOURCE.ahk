@@ -29,7 +29,7 @@ export default struct PTM_DEVICE_QUERY_TIME_SOURCE {
         TimeSourceMarshal := TimeSource is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, TimeSourceMarshal, TimeSource, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -49,6 +49,10 @@ export default struct PTM_DEVICE_QUERY_TIME_SOURCE {
             this.value := CallbackCreate(fn, , ["ptr", "uint*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

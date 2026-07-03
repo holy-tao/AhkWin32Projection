@@ -31,7 +31,7 @@ export default struct IOMMU_SET_DEVICE_FAULT_REPORTING {
      */
     Call(PhysicalDeviceObject, InputMappingIdBase, Enable, FaultConfig) {
         result := DllCall(this.value, DEVICE_OBJECT.Ptr, PhysicalDeviceObject, UInt32, InputMappingIdBase, BOOLEAN, Enable, DEVICE_FAULT_CONFIGURATION.Ptr, FaultConfig, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -51,6 +51,10 @@ export default struct IOMMU_SET_DEVICE_FAULT_REPORTING {
             this.value := CallbackCreate(fn, , [DEVICE_OBJECT.Ptr, UInt32, BOOLEAN, DEVICE_FAULT_CONFIGURATION.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -47,6 +47,10 @@ export default struct UCharIteratorMove {
             this.value := CallbackCreate(fn, "cdecl", [UCharIterator.Ptr, Int32, UCharIteratorOrigin, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

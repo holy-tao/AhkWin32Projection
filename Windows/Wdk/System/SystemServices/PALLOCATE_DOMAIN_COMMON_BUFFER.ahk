@@ -41,7 +41,7 @@ export default struct PALLOCATE_DOMAIN_COMMON_BUFFER {
         VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, HANDLE, DomainHandle, MaximumAddressMarshal, MaximumAddress, UInt32, Length, UInt32, Flags, CacheTypeMarshal, CacheType, UInt32, PreferredNode, LogicalAddressMarshal, LogicalAddress, VirtualAddressMarshal, VirtualAddress, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -61,6 +61,10 @@ export default struct PALLOCATE_DOMAIN_COMMON_BUFFER {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, HANDLE, "int64*", UInt32, UInt32, "int*", UInt32, "int64*", "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

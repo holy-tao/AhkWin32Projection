@@ -45,6 +45,10 @@ export default struct GENERIC_BINDING_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", "ptr"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

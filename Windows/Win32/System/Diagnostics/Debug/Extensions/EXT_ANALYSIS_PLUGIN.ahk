@@ -49,6 +49,10 @@ export default struct EXT_ANALYSIS_PLUGIN {
             this.value := CallbackCreate(fn, , ["ptr", FA_EXTENSION_PLUGIN_PHASE, "ptr", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -53,6 +53,10 @@ export default struct pCryptSIPGetSealedDigest {
             this.value := CallbackCreate(fn, , [SIP_SUBJECTINFO.Ptr, "char*", UInt32, "char*", "uint*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

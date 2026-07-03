@@ -43,6 +43,10 @@ export default struct PMPRADMINCONNECTIONHANGUPNOTIFICATIONEX {
             this.value := CallbackCreate(fn, , [RAS_CONNECTION_EX.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

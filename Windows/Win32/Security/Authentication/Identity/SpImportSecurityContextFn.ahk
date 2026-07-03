@@ -43,7 +43,7 @@ export default struct SpImportSecurityContextFn {
         phContextMarshal := phContext is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, SecBuffer.Ptr, pPackedContext, HANDLE, Token, phContextMarshal, phContext, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -63,6 +63,10 @@ export default struct SpImportSecurityContextFn {
             this.value := CallbackCreate(fn, , [SecBuffer.Ptr, HANDLE, "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -103,6 +103,10 @@ export default struct RasCustomDialDlgFn {
             this.value := CallbackCreate(fn, , [HINSTANCE, UInt32, PWSTR, PWSTR, PWSTR, RASDIALDLG.Ptr, "ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

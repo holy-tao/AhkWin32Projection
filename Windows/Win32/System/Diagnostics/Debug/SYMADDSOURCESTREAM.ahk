@@ -54,6 +54,10 @@ export default struct SYMADDSOURCESTREAM {
             this.value := CallbackCreate(fn, , [HANDLE, Int64, PSTR, "char*", IntPtr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

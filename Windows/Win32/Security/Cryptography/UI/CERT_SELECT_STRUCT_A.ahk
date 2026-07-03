@@ -6,6 +6,8 @@
 #Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import "..\HCERTSTORE.ahk" { HCERTSTORE }
 #Import ".\CERT_SELECT_STRUCT_FLAGS.ahk" { CERT_SELECT_STRUCT_FLAGS }
+#Import ".\PFNCMFILTERPROC.ahk" { PFNCMFILTERPROC }
+#Import ".\PFNCMHOOKPROC.ahk" { PFNCMHOOKPROC }
 
 /**
  * Contains criteria upon which to select certificates that are presented in a certificate selection dialog box. This structure is used in the CertSelectCertificate function. (ANSI)
@@ -119,14 +121,14 @@ export default struct CERT_SELECT_STRUCT_A {
      *       callback function. This function is called before messages are processed by the dialog box. For more 
      *       information, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/hooks">Hooks</a>.
      */
-    pfnHook : IntPtr
+    pfnHook : PFNCMHOOKPROC
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/cryptdlg/nc-cryptdlg-pfncmfilterproc">PFNCMFILTERPROC</a> function pointer to the 
      *       filter callback function. This is called to determine which certificates will be displayed by the dialog 
      *       box.
      */
-    pfnFilter : IntPtr
+    pfnFilter : PFNCMFILTERPROC
 
     /**
      * A pointer to a null-terminated string that contains the full path to the Help file.

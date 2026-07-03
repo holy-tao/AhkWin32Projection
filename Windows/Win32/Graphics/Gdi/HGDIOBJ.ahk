@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HFONT.ahk" { HFONT }
+#Import ".\HPEN.ahk" { HPEN }
 #Import ".\HBRUSH.ahk" { HBRUSH }
 #Import ".\HBITMAP.ahk" { HBITMAP }
-#Import ".\HPEN.ahk" { HPEN }
-#Import ".\HRGN.ahk" { HRGN }
 #Import ".\HPALETTE.ahk" { HPALETTE }
-#Import ".\HFONT.ahk" { HFONT }
+#Import ".\HRGN.ahk" { HRGN }
 #Import ".\Apis.ahk" { DeleteObject }
 
 /**

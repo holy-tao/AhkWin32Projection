@@ -106,6 +106,10 @@ export default struct PRJ_GET_PLACEHOLDER_INFO_CB {
             this.value := CallbackCreate(fn, , [PRJ_CALLBACK_DATA.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

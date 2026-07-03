@@ -52,6 +52,10 @@ export default struct PRESUTIL_SET_QWORD_VALUE {
             this.value := CallbackCreate(fn, , [HKEY, PWSTR, Int64, "uint*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

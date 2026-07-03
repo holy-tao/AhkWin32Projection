@@ -30,7 +30,7 @@ export default struct PMM_ROTATE_COPY_CALLBACK_FUNCTION {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, MDL.Ptr, DestinationMdl, MDL.Ptr, SourceMdl, _ContextMarshal, _Context, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -50,6 +50,10 @@ export default struct PMM_ROTATE_COPY_CALLBACK_FUNCTION {
             this.value := CallbackCreate(fn, , [MDL.Ptr, MDL.Ptr, "ptr", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

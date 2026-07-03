@@ -50,6 +50,10 @@ export default struct PFN_DrvUpdateUISetting {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", UInt32, UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -51,6 +51,10 @@ export default struct PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK {
             this.value := CallbackCreate(fn, , [UInt32, IntPtr, UInt32, "ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

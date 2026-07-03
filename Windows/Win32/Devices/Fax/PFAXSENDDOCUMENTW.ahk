@@ -57,6 +57,10 @@ export default struct PFAXSENDDOCUMENTW {
             this.value := CallbackCreate(fn, , [HANDLE, PWSTR, FAX_JOB_PARAMW.Ptr, FAX_COVERPAGE_INFOW.Ptr, "uint*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

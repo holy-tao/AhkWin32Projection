@@ -80,6 +80,10 @@ export default struct PROPENUMPROCEXA {
             this.value := CallbackCreate(fn, , [HWND, PSTR, HANDLE, IntPtr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

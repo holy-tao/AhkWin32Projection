@@ -1,6 +1,6 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Data\HtmlHelp\PRIORITY.ahk" { PRIORITY }
 #Import ".\CM_DEVNODE_STATUS_FLAGS.ahk" { CM_DEVNODE_STATUS_FLAGS }
 #Import ".\CM_ENUMERATE_FLAGS.ahk" { CM_ENUMERATE_FLAGS }
@@ -27,7 +27,11 @@
 #Import ".\INFCONTEXT.ahk" { INFCONTEXT }
 #Import ".\INF_STYLE.ahk" { INF_STYLE }
 #Import ".\OEM_SOURCE_MEDIA_TYPE.ahk" { OEM_SOURCE_MEDIA_TYPE }
+#Import ".\PCM_NOTIFY_CALLBACK.ahk" { PCM_NOTIFY_CALLBACK }
 #Import ".\PNP_VETO_TYPE.ahk" { PNP_VETO_TYPE }
+#Import ".\PSP_DETSIG_CMPPROC.ahk" { PSP_DETSIG_CMPPROC }
+#Import ".\PSP_FILE_CALLBACK_A.ahk" { PSP_FILE_CALLBACK_A }
+#Import ".\PSP_FILE_CALLBACK_W.ahk" { PSP_FILE_CALLBACK_W }
 #Import ".\SETUPSCANFILEQUEUE_FLAGS.ahk" { SETUPSCANFILEQUEUE_FLAGS }
 #Import ".\SETUP_DI_DEVICE_CREATION_FLAGS.ahk" { SETUP_DI_DEVICE_CREATION_FLAGS }
 #Import ".\SETUP_DI_DRIVER_TYPE.ahk" { SETUP_DI_DRIVER_TYPE }
@@ -3346,7 +3350,7 @@ export SetupInstallFileA(InfHandle, _InfContext, _SourceFile, SourcePathRoot, De
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupInstallFileA", InfHandleMarshal, InfHandle, INFCONTEXT.Ptr, _InfContext, "ptr", _SourceFile, "ptr", SourcePathRoot, "ptr", DestinationName, SP_COPY_STYLE, CopyStyle, "ptr", CopyMsgHandler, _ContextMarshal, _Context, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupInstallFileA", InfHandleMarshal, InfHandle, INFCONTEXT.Ptr, _InfContext, "ptr", _SourceFile, "ptr", SourcePathRoot, "ptr", DestinationName, SP_COPY_STYLE, CopyStyle, PSP_FILE_CALLBACK_A, CopyMsgHandler, _ContextMarshal, _Context, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3393,7 +3397,7 @@ export SetupInstallFileW(InfHandle, _InfContext, _SourceFile, SourcePathRoot, De
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupInstallFileW", InfHandleMarshal, InfHandle, INFCONTEXT.Ptr, _InfContext, "ptr", _SourceFile, "ptr", SourcePathRoot, "ptr", DestinationName, SP_COPY_STYLE, CopyStyle, "ptr", CopyMsgHandler, _ContextMarshal, _Context, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupInstallFileW", InfHandleMarshal, InfHandle, INFCONTEXT.Ptr, _InfContext, "ptr", _SourceFile, "ptr", SourcePathRoot, "ptr", DestinationName, SP_COPY_STYLE, CopyStyle, PSP_FILE_CALLBACK_W, CopyMsgHandler, _ContextMarshal, _Context, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3444,7 +3448,7 @@ export SetupInstallFileExA(InfHandle, _InfContext, _SourceFile, SourcePathRoot, 
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupInstallFileExA", InfHandleMarshal, InfHandle, INFCONTEXT.Ptr, _InfContext, "ptr", _SourceFile, "ptr", SourcePathRoot, "ptr", DestinationName, SP_COPY_STYLE, CopyStyle, "ptr", CopyMsgHandler, _ContextMarshal, _Context, FileWasInUseMarshal, FileWasInUse, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupInstallFileExA", InfHandleMarshal, InfHandle, INFCONTEXT.Ptr, _InfContext, "ptr", _SourceFile, "ptr", SourcePathRoot, "ptr", DestinationName, SP_COPY_STYLE, CopyStyle, PSP_FILE_CALLBACK_A, CopyMsgHandler, _ContextMarshal, _Context, FileWasInUseMarshal, FileWasInUse, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3495,7 +3499,7 @@ export SetupInstallFileExW(InfHandle, _InfContext, _SourceFile, SourcePathRoot, 
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupInstallFileExW", InfHandleMarshal, InfHandle, INFCONTEXT.Ptr, _InfContext, "ptr", _SourceFile, "ptr", SourcePathRoot, "ptr", DestinationName, SP_COPY_STYLE, CopyStyle, "ptr", CopyMsgHandler, _ContextMarshal, _Context, FileWasInUseMarshal, FileWasInUse, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupInstallFileExW", InfHandleMarshal, InfHandle, INFCONTEXT.Ptr, _InfContext, "ptr", _SourceFile, "ptr", SourcePathRoot, "ptr", DestinationName, SP_COPY_STYLE, CopyStyle, PSP_FILE_CALLBACK_W, CopyMsgHandler, _ContextMarshal, _Context, FileWasInUseMarshal, FileWasInUse, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4388,7 +4392,7 @@ export SetupCommitFileQueueA(Owner, QueueHandle, MsgHandler, _Context) {
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupCommitFileQueueA", HWND, Owner, QueueHandleMarshal, QueueHandle, "ptr", MsgHandler, _ContextMarshal, _Context, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupCommitFileQueueA", HWND, Owner, QueueHandleMarshal, QueueHandle, PSP_FILE_CALLBACK_A, MsgHandler, _ContextMarshal, _Context, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4433,7 +4437,7 @@ export SetupCommitFileQueueW(Owner, QueueHandle, MsgHandler, _Context) {
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupCommitFileQueueW", HWND, Owner, QueueHandleMarshal, QueueHandle, "ptr", MsgHandler, _ContextMarshal, _Context, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupCommitFileQueueW", HWND, Owner, QueueHandleMarshal, QueueHandle, PSP_FILE_CALLBACK_W, MsgHandler, _ContextMarshal, _Context, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4614,7 +4618,7 @@ export SetupScanFileQueueA(FileQueue, Flags, Window, CallbackRoutine, CallbackCo
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupScanFileQueueA", FileQueueMarshal, FileQueue, SETUPSCANFILEQUEUE_FLAGS, Flags, HWND, Window, "ptr", CallbackRoutine, CallbackContextMarshal, CallbackContext, ResultMarshal, Result, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupScanFileQueueA", FileQueueMarshal, FileQueue, SETUPSCANFILEQUEUE_FLAGS, Flags, HWND, Window, PSP_FILE_CALLBACK_A, CallbackRoutine, CallbackContextMarshal, CallbackContext, ResultMarshal, Result, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4795,7 +4799,7 @@ export SetupScanFileQueueW(FileQueue, Flags, Window, CallbackRoutine, CallbackCo
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupScanFileQueueW", FileQueueMarshal, FileQueue, SETUPSCANFILEQUEUE_FLAGS, Flags, HWND, Window, "ptr", CallbackRoutine, CallbackContextMarshal, CallbackContext, ResultMarshal, Result, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupScanFileQueueW", FileQueueMarshal, FileQueue, SETUPSCANFILEQUEUE_FLAGS, Flags, HWND, Window, PSP_FILE_CALLBACK_W, CallbackRoutine, CallbackContextMarshal, CallbackContext, ResultMarshal, Result, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6308,7 +6312,7 @@ export SetupIterateCabinetA(CabinetFile, MsgHandler, _Context) {
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupIterateCabinetA", "ptr", CabinetFile, UInt32, Reserved, "ptr", MsgHandler, _ContextMarshal, _Context, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupIterateCabinetA", "ptr", CabinetFile, UInt32, Reserved, PSP_FILE_CALLBACK_A, MsgHandler, _ContextMarshal, _Context, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6341,7 +6345,7 @@ export SetupIterateCabinetW(CabinetFile, MsgHandler, _Context) {
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupIterateCabinetW", "ptr", CabinetFile, UInt32, Reserved, "ptr", MsgHandler, _ContextMarshal, _Context, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupIterateCabinetW", "ptr", CabinetFile, UInt32, Reserved, PSP_FILE_CALLBACK_W, MsgHandler, _ContextMarshal, _Context, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7115,7 +7119,7 @@ export SetupInstallFromInfSectionA(Owner, InfHandle, SectionName, Flags, Relativ
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupInstallFromInfSectionA", HWND, Owner, InfHandleMarshal, InfHandle, "ptr", SectionName, UInt32, Flags, HKEY, RelativeKeyRoot, "ptr", SourceRootPath, UInt32, CopyFlags, "ptr", MsgHandler, _ContextMarshal, _Context, HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupInstallFromInfSectionA", HWND, Owner, InfHandleMarshal, InfHandle, "ptr", SectionName, UInt32, Flags, HKEY, RelativeKeyRoot, "ptr", SourceRootPath, UInt32, CopyFlags, PSP_FILE_CALLBACK_A, MsgHandler, _ContextMarshal, _Context, HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7202,7 +7206,7 @@ export SetupInstallFromInfSectionW(Owner, InfHandle, SectionName, Flags, Relativ
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupInstallFromInfSectionW", HWND, Owner, InfHandleMarshal, InfHandle, "ptr", SectionName, UInt32, Flags, HKEY, RelativeKeyRoot, "ptr", SourceRootPath, UInt32, CopyFlags, "ptr", MsgHandler, _ContextMarshal, _Context, HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupInstallFromInfSectionW", HWND, Owner, InfHandleMarshal, InfHandle, "ptr", SectionName, UInt32, Flags, HKEY, RelativeKeyRoot, "ptr", SourceRootPath, UInt32, CopyFlags, PSP_FILE_CALLBACK_W, MsgHandler, _ContextMarshal, _Context, HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10200,7 +10204,7 @@ export SetupDiRegisterDeviceInfo(DeviceInfoSet, DeviceInfoData, Flags, ComparePr
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiRegisterDeviceInfo", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, UInt32, Flags, "ptr", CompareProc, CompareContextMarshal, CompareContext, SP_DEVINFO_DATA.Ptr, DupDeviceInfoData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiRegisterDeviceInfo", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, UInt32, Flags, PSP_DETSIG_CMPPROC, CompareProc, CompareContextMarshal, CompareContext, SP_DEVINFO_DATA.Ptr, DupDeviceInfoData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23293,7 +23297,7 @@ export CMP_WaitNoPendingInstallEvents(dwTimeout) {
 export CM_Register_Notification(pFilter, pContext, pCallback, pNotifyContext) {
     pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CFGMGR32.dll\CM_Register_Notification", CM_NOTIFY_FILTER.Ptr, pFilter, pContextMarshal, pContext, "ptr", pCallback, HCMNOTIFICATION.Ptr, pNotifyContext, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Register_Notification", CM_NOTIFY_FILTER.Ptr, pFilter, pContextMarshal, pContext, PCM_NOTIFY_CALLBACK, pCallback, HCMNOTIFICATION.Ptr, pNotifyContext, CONFIGRET)
     return result
 }
 

@@ -50,6 +50,10 @@ export default struct PCLUSAPI_CLUSTER_REMOVE_GROUP_FROM_AFFINITY_RULE {
             this.value := CallbackCreate(fn, , [HCLUSTER, PWSTR, HGROUP, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

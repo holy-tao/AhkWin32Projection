@@ -107,6 +107,10 @@ export default struct PONLINE_V2_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", HANDLE.Ptr, UInt32, IntPtr, UInt32, UInt32, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

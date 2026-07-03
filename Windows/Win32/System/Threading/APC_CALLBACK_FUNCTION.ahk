@@ -47,6 +47,10 @@ export default struct APC_CALLBACK_FUNCTION {
             this.value := CallbackCreate(fn, , [UInt32, "ptr", "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -58,6 +58,10 @@ export default struct WSMAN_PLUGIN_AUTHORIZE_OPERATION {
             this.value := CallbackCreate(fn, , ["ptr", WSMAN_SENDER_DETAILS.Ptr, UInt32, UInt32, PWSTR, PWSTR, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

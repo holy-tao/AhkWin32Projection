@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 
 /**
  * Notifies a namespace service provider version-2 (NSPv2) provider that a new client process is to begin using the provider.
@@ -138,6 +138,10 @@ export default struct LPNSPV2STARTUP {
             this.value := CallbackCreate(fn, , [Guid.Ptr, "ptr*", Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

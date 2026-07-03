@@ -1,5 +1,34 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\BCRYPT_INTERFACE_VERSION.ahk" { BCRYPT_INTERFACE_VERSION }
+#Import ".\NCryptCreateClaimFn.ahk" { NCryptCreateClaimFn }
+#Import ".\NCryptCreatePersistedKeyFn.ahk" { NCryptCreatePersistedKeyFn }
+#Import ".\NCryptDecryptFn.ahk" { NCryptDecryptFn }
+#Import ".\NCryptDeleteKeyFn.ahk" { NCryptDeleteKeyFn }
+#Import ".\NCryptDeriveKeyFn.ahk" { NCryptDeriveKeyFn }
+#Import ".\NCryptEncryptFn.ahk" { NCryptEncryptFn }
+#Import ".\NCryptEnumAlgorithmsFn.ahk" { NCryptEnumAlgorithmsFn }
+#Import ".\NCryptEnumKeysFn.ahk" { NCryptEnumKeysFn }
+#Import ".\NCryptExportKeyFn.ahk" { NCryptExportKeyFn }
+#Import ".\NCryptFinalizeKeyFn.ahk" { NCryptFinalizeKeyFn }
+#Import ".\NCryptFreeBufferFn.ahk" { NCryptFreeBufferFn }
+#Import ".\NCryptFreeKeyFn.ahk" { NCryptFreeKeyFn }
+#Import ".\NCryptFreeProviderFn.ahk" { NCryptFreeProviderFn }
+#Import ".\NCryptFreeSecretFn.ahk" { NCryptFreeSecretFn }
+#Import ".\NCryptGetKeyPropertyFn.ahk" { NCryptGetKeyPropertyFn }
+#Import ".\NCryptGetProviderPropertyFn.ahk" { NCryptGetProviderPropertyFn }
+#Import ".\NCryptImportKeyFn.ahk" { NCryptImportKeyFn }
+#Import ".\NCryptIsAlgSupportedFn.ahk" { NCryptIsAlgSupportedFn }
+#Import ".\NCryptKeyDerivationFn.ahk" { NCryptKeyDerivationFn }
+#Import ".\NCryptNotifyChangeKeyFn.ahk" { NCryptNotifyChangeKeyFn }
+#Import ".\NCryptOpenKeyFn.ahk" { NCryptOpenKeyFn }
+#Import ".\NCryptOpenStorageProviderFn.ahk" { NCryptOpenStorageProviderFn }
+#Import ".\NCryptPromptUserFn.ahk" { NCryptPromptUserFn }
+#Import ".\NCryptSecretAgreementFn.ahk" { NCryptSecretAgreementFn }
+#Import ".\NCryptSetKeyPropertyFn.ahk" { NCryptSetKeyPropertyFn }
+#Import ".\NCryptSetProviderPropertyFn.ahk" { NCryptSetProviderPropertyFn }
+#Import ".\NCryptSignHashFn.ahk" { NCryptSignHashFn }
+#Import ".\NCryptVerifyClaimFn.ahk" { NCryptVerifyClaimFn }
+#Import ".\NCryptVerifySignatureFn.ahk" { NCryptVerifySignatureFn }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -9,62 +38,62 @@ export default struct NCRYPT_KEY_STORAGE_FUNCTION_TABLE {
 
     Version : BCRYPT_INTERFACE_VERSION
 
-    OpenProvider : IntPtr
+    OpenProvider : NCryptOpenStorageProviderFn
 
-    OpenKey : IntPtr
+    OpenKey : NCryptOpenKeyFn
 
-    CreatePersistedKey : IntPtr
+    CreatePersistedKey : NCryptCreatePersistedKeyFn
 
-    GetProviderProperty : IntPtr
+    GetProviderProperty : NCryptGetProviderPropertyFn
 
-    GetKeyProperty : IntPtr
+    GetKeyProperty : NCryptGetKeyPropertyFn
 
-    SetProviderProperty : IntPtr
+    SetProviderProperty : NCryptSetProviderPropertyFn
 
-    SetKeyProperty : IntPtr
+    SetKeyProperty : NCryptSetKeyPropertyFn
 
-    FinalizeKey : IntPtr
+    FinalizeKey : NCryptFinalizeKeyFn
 
-    DeleteKey : IntPtr
+    DeleteKey : NCryptDeleteKeyFn
 
-    FreeProvider : IntPtr
+    FreeProvider : NCryptFreeProviderFn
 
-    FreeKey : IntPtr
+    FreeKey : NCryptFreeKeyFn
 
-    FreeBuffer : IntPtr
+    FreeBuffer : NCryptFreeBufferFn
 
-    Encrypt : IntPtr
+    Encrypt : NCryptEncryptFn
 
-    Decrypt : IntPtr
+    Decrypt : NCryptDecryptFn
 
-    IsAlgSupported : IntPtr
+    IsAlgSupported : NCryptIsAlgSupportedFn
 
-    EnumAlgorithms : IntPtr
+    EnumAlgorithms : NCryptEnumAlgorithmsFn
 
-    EnumKeys : IntPtr
+    EnumKeys : NCryptEnumKeysFn
 
-    ImportKey : IntPtr
+    ImportKey : NCryptImportKeyFn
 
-    ExportKey : IntPtr
+    ExportKey : NCryptExportKeyFn
 
-    SignHash : IntPtr
+    SignHash : NCryptSignHashFn
 
-    VerifySignature : IntPtr
+    VerifySignature : NCryptVerifySignatureFn
 
-    PromptUser : IntPtr
+    PromptUser : NCryptPromptUserFn
 
-    NotifyChangeKey : IntPtr
+    NotifyChangeKey : NCryptNotifyChangeKeyFn
 
-    SecretAgreement : IntPtr
+    SecretAgreement : NCryptSecretAgreementFn
 
-    DeriveKey : IntPtr
+    DeriveKey : NCryptDeriveKeyFn
 
-    FreeSecret : IntPtr
+    FreeSecret : NCryptFreeSecretFn
 
-    KeyDerivation : IntPtr
+    KeyDerivation : NCryptKeyDerivationFn
 
-    CreateClaim : IntPtr
+    CreateClaim : NCryptCreateClaimFn
 
-    VerifyClaim : IntPtr
+    VerifyClaim : NCryptVerifyClaimFn
 
 }

@@ -1,4 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WHEA_ERROR_SOURCE_CORRECT.ahk" { WHEA_ERROR_SOURCE_CORRECT }
+#Import ".\WHEA_ERROR_SOURCE_CREATE_RECORD.ahk" { WHEA_ERROR_SOURCE_CREATE_RECORD }
+#Import ".\WHEA_ERROR_SOURCE_INITIALIZE.ahk" { WHEA_ERROR_SOURCE_INITIALIZE }
+#Import ".\WHEA_ERROR_SOURCE_RECOVER.ahk" { WHEA_ERROR_SOURCE_RECOVER }
+#Import ".\WHEA_ERROR_SOURCE_UNINITIALIZE.ahk" { WHEA_ERROR_SOURCE_UNINITIALIZE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -8,15 +13,15 @@ export default struct WHEA_ERROR_SOURCE_CONFIGURATION {
 
     Flags : UInt32
 
-    Correct : IntPtr
+    Correct : WHEA_ERROR_SOURCE_CORRECT
 
-    Initialize : IntPtr
+    Initialize : WHEA_ERROR_SOURCE_INITIALIZE
 
-    CreateRecord : IntPtr
+    CreateRecord : WHEA_ERROR_SOURCE_CREATE_RECORD
 
-    Recover : IntPtr
+    Recover : WHEA_ERROR_SOURCE_RECOVER
 
-    Uninitialize : IntPtr
+    Uninitialize : WHEA_ERROR_SOURCE_UNINITIALIZE
 
     Reserved : IntPtr
 

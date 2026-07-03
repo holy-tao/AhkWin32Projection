@@ -56,6 +56,10 @@ export default struct PCLUSAPI_GET_CLUSTER_RESOURCE_STATE {
             this.value := CallbackCreate(fn, , [HRESOURCE, PWSTR, "uint*", PWSTR, "uint*", CLUSTER_RESOURCE_STATE])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

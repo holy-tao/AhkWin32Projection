@@ -54,6 +54,10 @@ export default struct PFN_DrvQueryAdvanceWidths {
             this.value := CallbackCreate(fn, , [DHPDEV, FONTOBJ.Ptr, UInt32, "uint*", "ptr", UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\FExecuteInAppDomainCallback.ahk" { FExecuteInAppDomainCallback }
 #Import ".\ICLRControl.ahk" { ICLRControl }
 #Import ".\IHostControl.ahk" { IHostControl }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
@@ -111,7 +112,7 @@ export default struct ICLRRuntimeHost extends IUnknown {
     ExecuteInAppDomain(dwAppDomainId, pCallback, cookie) {
         cookieMarshal := cookie is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(8, this, UInt32, dwAppDomainId, "ptr", pCallback, cookieMarshal, cookie, "HRESULT")
+        result := ComCall(8, this, UInt32, dwAppDomainId, FExecuteInAppDomainCallback, pCallback, cookieMarshal, cookie, "HRESULT")
         return result
     }
 

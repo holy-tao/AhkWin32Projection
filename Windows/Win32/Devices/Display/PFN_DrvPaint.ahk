@@ -52,6 +52,10 @@ export default struct PFN_DrvPaint {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, CLIPOBJ.Ptr, BRUSHOBJ.Ptr, POINTL.Ptr, UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -33,7 +33,7 @@ export default struct IOMMU_SET_DEVICE_FAULT_REPORTING_EX {
         DmaDeviceMarshal := DmaDevice is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, DmaDeviceMarshal, DmaDevice, UInt32, InputMappingIdBase, BOOLEAN, Enable, DEVICE_FAULT_CONFIGURATION.Ptr, FaultConfig, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -53,6 +53,10 @@ export default struct IOMMU_SET_DEVICE_FAULT_REPORTING_EX {
             this.value := CallbackCreate(fn, , [IOMMU_DMA_DEVICE.Ptr, UInt32, BOOLEAN, DEVICE_FAULT_CONFIGURATION.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

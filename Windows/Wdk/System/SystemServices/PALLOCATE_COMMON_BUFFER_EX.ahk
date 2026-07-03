@@ -53,6 +53,10 @@ export default struct PALLOCATE_COMMON_BUFFER_EX {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, "int64*", UInt32, "int64*", BOOLEAN, UInt32, "ptr"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

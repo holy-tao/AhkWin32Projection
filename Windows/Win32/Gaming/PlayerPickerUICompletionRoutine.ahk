@@ -59,6 +59,10 @@ export default struct PlayerPickerUICompletionRoutine {
             this.value := CallbackCreate(fn, , ["int", "ptr", HSTRING.Ptr, IntPtr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

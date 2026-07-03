@@ -52,6 +52,10 @@ export default struct PDD_VPORTCB_GETLINE {
             this.value := CallbackCreate(fn, , [DD_GETVPORTLINEDATA.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

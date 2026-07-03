@@ -1,4 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PMPRADMINACCEPTNEWCONNECTIONEX.ahk" { PMPRADMINACCEPTNEWCONNECTIONEX }
+#Import ".\PMPRADMINACCEPTNEWLINK.ahk" { PMPRADMINACCEPTNEWLINK }
+#Import ".\PMPRADMINACCEPTREAUTHENTICATIONEX.ahk" { PMPRADMINACCEPTREAUTHENTICATIONEX }
+#Import ".\PMPRADMINACCEPTTUNNELENDPOINTCHANGEEX.ahk" { PMPRADMINACCEPTTUNNELENDPOINTCHANGEEX }
+#Import ".\PMPRADMINCONNECTIONHANGUPNOTIFICATIONEX.ahk" { PMPRADMINCONNECTIONHANGUPNOTIFICATIONEX }
+#Import ".\PMPRADMINGETIPADDRESSFORUSER.ahk" { PMPRADMINGETIPADDRESSFORUSER }
+#Import ".\PMPRADMINGETIPV6ADDRESSFORUSER.ahk" { PMPRADMINGETIPV6ADDRESSFORUSER }
+#Import ".\PMPRADMINLINKHANGUPNOTIFICATION.ahk" { PMPRADMINLINKHANGUPNOTIFICATION }
+#Import ".\PMPRADMINRASVALIDATEPREAUTHENTICATEDCONNECTIONEX.ahk" { PMPRADMINRASVALIDATEPREAUTHENTICATEDCONNECTIONEX }
+#Import ".\PMPRADMINRELEASEIPADRESS.ahk" { PMPRADMINRELEASEIPADRESS }
+#Import ".\PMPRADMINRELEASEIPV6ADDRESSFORUSER.ahk" { PMPRADMINRELEASEIPV6ADDRESSFORUSER }
+#Import ".\PMPRADMINTERMINATEDLL.ahk" { PMPRADMINTERMINATEDLL }
 
 /**
  * The MPRAPI_ADMIN_DLL_CALLBACKS structure is used by the MprAdminInitializeDllEx function to register the callback function pointers.
@@ -58,7 +70,7 @@ export default struct MPRAPI_ADMIN_DLL_CALLBACKS {
      * 
      * ```
      */
-    lpfnMprAdminGetIpAddressForUser : IntPtr
+    lpfnMprAdminGetIpAddressForUser : PMPRADMINGETIPADDRESSFORUSER
 
     /**
      * A function pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminreleaseipaddress">MprAdminReleaseIpAddress</a> callback. The callback prototype is defined as:
@@ -69,7 +81,7 @@ export default struct MPRAPI_ADMIN_DLL_CALLBACKS {
      * 
      * ```
      */
-    lpfnMprAdminReleaseIpAddress : IntPtr
+    lpfnMprAdminReleaseIpAddress : PMPRADMINRELEASEIPADRESS
 
     /**
      * A function pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmingetipv6addressforuser">MprAdminGetIpv6AddressForUser</a> callback. The callback prototype is defined as:
@@ -80,7 +92,7 @@ export default struct MPRAPI_ADMIN_DLL_CALLBACKS {
      * 
      * ```
      */
-    lpfnMprAdminGetIpv6AddressForUser : IntPtr
+    lpfnMprAdminGetIpv6AddressForUser : PMPRADMINGETIPV6ADDRESSFORUSER
 
     /**
      * A function pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminreleaseipv6addressforuser">MprAdminReleaseIpv6AddressForUser</a> callback. The callback prototype is defined as:
@@ -91,7 +103,7 @@ export default struct MPRAPI_ADMIN_DLL_CALLBACKS {
      * 
      * ```
      */
-    lpfnMprAdminReleaseIpV6AddressForUser : IntPtr
+    lpfnMprAdminReleaseIpV6AddressForUser : PMPRADMINRELEASEIPV6ADDRESSFORUSER
 
     /**
      * A function pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminacceptnewlink">MprAdminAcceptNewLink</a> callback. The callback prototype is defined as:
@@ -102,7 +114,7 @@ export default struct MPRAPI_ADMIN_DLL_CALLBACKS {
      * 
      * ```
      */
-    lpfnRasAdminAcceptNewLink : IntPtr
+    lpfnRasAdminAcceptNewLink : PMPRADMINACCEPTNEWLINK
 
     /**
      * A function pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminlinkhangupnotification">MprAdminLinkHangupNotification</a> callback. The callback prototype is defined as:
@@ -113,7 +125,7 @@ export default struct MPRAPI_ADMIN_DLL_CALLBACKS {
      * 
      * ```
      */
-    lpfnRasAdminLinkHangupNotification : IntPtr
+    lpfnRasAdminLinkHangupNotification : PMPRADMINLINKHANGUPNOTIFICATION
 
     /**
      * A function pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminterminatedll">MprAdminTerminateDll</a> callback. The callback prototype is defined as:
@@ -124,7 +136,7 @@ export default struct MPRAPI_ADMIN_DLL_CALLBACKS {
      * 
      * ```
      */
-    lpfnRasAdminTerminateDll : IntPtr
+    lpfnRasAdminTerminateDll : PMPRADMINTERMINATEDLL
 
     /**
      * A function pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminacceptnewconnectionex">MprAdminAcceptNewConnectionEx</a>  callback. The callback prototype is defined as:
@@ -135,9 +147,9 @@ export default struct MPRAPI_ADMIN_DLL_CALLBACKS {
      * 
      * ```
      */
-    lpfnRasAdminAcceptNewConnectionEx : IntPtr
+    lpfnRasAdminAcceptNewConnectionEx : PMPRADMINACCEPTNEWCONNECTIONEX
 
-    lpfnRasAdminAcceptEndpointChangeEx : IntPtr
+    lpfnRasAdminAcceptEndpointChangeEx : PMPRADMINACCEPTTUNNELENDPOINTCHANGEEX
 
     /**
      * A function pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminacceptreauthenticationex">MprAdminAcceptReauthenticationEx</a> callback. The callback prototype is defined as:
@@ -148,7 +160,7 @@ export default struct MPRAPI_ADMIN_DLL_CALLBACKS {
      * 
      * ```
      */
-    lpfnRasAdminAcceptReauthenticationEx : IntPtr
+    lpfnRasAdminAcceptReauthenticationEx : PMPRADMINACCEPTREAUTHENTICATIONEX
 
     /**
      * A function pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminconnectionhangupnotificationex">MprAdminConnectionHangupNotificationEx</a> callback. The callback prototype is defined as:
@@ -159,8 +171,8 @@ export default struct MPRAPI_ADMIN_DLL_CALLBACKS {
      * 
      * ```
      */
-    lpfnRasAdminConnectionHangupNotificationEx : IntPtr
+    lpfnRasAdminConnectionHangupNotificationEx : PMPRADMINCONNECTIONHANGUPNOTIFICATIONEX
 
-    lpfnRASValidatePreAuthenticatedConnectionEx : IntPtr
+    lpfnRASValidatePreAuthenticatedConnectionEx : PMPRADMINRASVALIDATEPREAUTHENTICATEDCONNECTIONEX
 
 }

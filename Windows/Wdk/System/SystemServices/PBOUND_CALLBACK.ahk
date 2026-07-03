@@ -43,6 +43,10 @@ export default struct PBOUND_CALLBACK {
             this.value := CallbackCreate(fn, , [BOUND_CALLBACK_STATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

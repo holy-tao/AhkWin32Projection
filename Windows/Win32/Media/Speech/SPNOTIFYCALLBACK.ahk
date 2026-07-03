@@ -45,6 +45,10 @@ export default struct SPNOTIFYCALLBACK {
             this.value := CallbackCreate(fn, , [WPARAM, LPARAM, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

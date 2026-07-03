@@ -45,6 +45,10 @@ export default struct GET_SDEV_IDENTIFIER {
             this.value := CallbackCreate(fn, , ["ptr", Int64])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

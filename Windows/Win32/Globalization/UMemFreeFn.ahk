@@ -46,6 +46,10 @@ export default struct UMemFreeFn {
             this.value := CallbackCreate(fn, "cdecl", ["ptr", "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

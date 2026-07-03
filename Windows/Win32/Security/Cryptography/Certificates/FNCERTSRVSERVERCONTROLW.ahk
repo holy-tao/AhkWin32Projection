@@ -53,6 +53,10 @@ export default struct FNCERTSRVSERVERCONTROLW {
             this.value := CallbackCreate(fn, , [PWSTR, UInt32, "uint*", "ptr*", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

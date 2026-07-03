@@ -2,6 +2,7 @@
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDSCAPS.ahk" { DDSCAPS }
 #Import ".\HEAPALIGNMENT.ahk" { HEAPALIGNMENT }
+#Import ".\LPDDHAL_GETHEAPALIGNMENT.ahk" { LPDDHAL_GETHEAPALIGNMENT }
 #Import ".\SURFACEALIGNMENT.ahk" { SURFACEALIGNMENT }
 
 /**
@@ -16,7 +17,7 @@ export default struct DDHAL_GETHEAPALIGNMENTDATA {
 
     ddRVal : HRESULT
 
-    GetHeapAlignment : IntPtr
+    GetHeapAlignment : LPDDHAL_GETHEAPALIGNMENT
 
     Alignment : HEAPALIGNMENT
 

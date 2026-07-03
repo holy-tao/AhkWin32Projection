@@ -47,6 +47,10 @@ export default struct PFN_DrvMovePointer {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, Int32, Int32, RECTL.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

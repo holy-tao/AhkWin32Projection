@@ -43,6 +43,10 @@ export default struct PFND3DKMT_BUDGETCHANGENOTIFICATIONCALLBACK {
             this.value := CallbackCreate(fn, , [D3DKMT_BUDGETCHANGENOTIFICATION.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

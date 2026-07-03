@@ -55,6 +55,10 @@ export default struct PFAXSTARTPRINTJOBA {
             this.value := CallbackCreate(fn, , [PSTR, FAX_PRINT_INFOA.Ptr, "uint*", FAX_CONTEXT_INFOA.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

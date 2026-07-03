@@ -29,7 +29,7 @@ export default struct HVL_WHEA_ERROR_NOTIFICATION {
      */
     Call(RecoveryContext, PlatformDirected, Poisoned) {
         result := DllCall(this.value, WHEA_RECOVERY_CONTEXT.Ptr, RecoveryContext, BOOLEAN, PlatformDirected, BOOLEAN, Poisoned, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -49,6 +49,10 @@ export default struct HVL_WHEA_ERROR_NOTIFICATION {
             this.value := CallbackCreate(fn, , [WHEA_RECOVERY_CONTEXT.Ptr, BOOLEAN, BOOLEAN, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

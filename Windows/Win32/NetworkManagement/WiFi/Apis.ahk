@@ -1,6 +1,6 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
@@ -8,6 +8,7 @@
 #Import ".\DOT11_BSS_TYPE.ahk" { DOT11_BSS_TYPE }
 #Import ".\DOT11_NETWORK_LIST.ahk" { DOT11_NETWORK_LIST }
 #Import ".\DOT11_SSID.ahk" { DOT11_SSID }
+#Import ".\WFD_OPEN_SESSION_COMPLETE_CALLBACK.ahk" { WFD_OPEN_SESSION_COMPLETE_CALLBACK }
 #Import ".\WLAN_AUTOCONF_OPCODE.ahk" { WLAN_AUTOCONF_OPCODE }
 #Import ".\WLAN_AVAILABLE_NETWORK_LIST.ahk" { WLAN_AVAILABLE_NETWORK_LIST }
 #Import ".\WLAN_AVAILABLE_NETWORK_LIST_V2.ahk" { WLAN_AVAILABLE_NETWORK_LIST_V2 }
@@ -23,6 +24,7 @@
 #Import ".\WLAN_INTERFACE_CAPABILITY.ahk" { WLAN_INTERFACE_CAPABILITY }
 #Import ".\WLAN_INTERFACE_INFO_LIST.ahk" { WLAN_INTERFACE_INFO_LIST }
 #Import ".\WLAN_INTF_OPCODE.ahk" { WLAN_INTF_OPCODE }
+#Import ".\WLAN_NOTIFICATION_CALLBACK.ahk" { WLAN_NOTIFICATION_CALLBACK }
 #Import ".\WLAN_NOTIFICATION_SOURCES.ahk" { WLAN_NOTIFICATION_SOURCES }
 #Import ".\WLAN_OPCODE_VALUE_TYPE.ahk" { WLAN_OPCODE_VALUE_TYPE }
 #Import ".\WLAN_PROFILE_INFO_LIST.ahk" { WLAN_PROFILE_INFO_LIST }
@@ -1763,7 +1765,7 @@ export WlanRegisterNotification(hClientHandle, dwNotifSource, bIgnoreDuplicate, 
     pCallbackContextMarshal := pCallbackContext is VarRef ? "ptr" : "ptr"
     pdwPrevNotifSourceMarshal := pdwPrevNotifSource is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("wlanapi.dll\WlanRegisterNotification", HANDLE, hClientHandle, WLAN_NOTIFICATION_SOURCES, dwNotifSource, BOOL, bIgnoreDuplicate, "ptr", funcCallback, pCallbackContextMarshal, pCallbackContext, "ptr", pReserved, pdwPrevNotifSourceMarshal, pdwPrevNotifSource, UInt32)
+    result := DllCall("wlanapi.dll\WlanRegisterNotification", HANDLE, hClientHandle, WLAN_NOTIFICATION_SOURCES, dwNotifSource, BOOL, bIgnoreDuplicate, WLAN_NOTIFICATION_CALLBACK, funcCallback, pCallbackContextMarshal, pCallbackContext, "ptr", pReserved, pdwPrevNotifSourceMarshal, pdwPrevNotifSource, UInt32)
     return result
 }
 
@@ -5935,7 +5937,7 @@ export WFDStartOpenSession(hClientHandle, pDeviceAddress, pvContext, _pfnCallbac
     pDeviceAddressMarshal := pDeviceAddress is VarRef ? "ptr*" : "ptr"
     pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("wlanapi.dll\WFDStartOpenSession", HANDLE, hClientHandle, pDeviceAddressMarshal, pDeviceAddress, pvContextMarshal, pvContext, "ptr", _pfnCallback, HANDLE.Ptr, phSessionHandle, UInt32)
+    result := DllCall("wlanapi.dll\WFDStartOpenSession", HANDLE, hClientHandle, pDeviceAddressMarshal, pDeviceAddress, pvContextMarshal, pvContext, WFD_OPEN_SESSION_COMPLETE_CALLBACK, _pfnCallback, HANDLE.Ptr, phSessionHandle, UInt32)
     return result
 }
 

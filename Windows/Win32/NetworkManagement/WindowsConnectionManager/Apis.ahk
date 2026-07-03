@@ -1,11 +1,12 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\NET_INTERFACE_CONTEXT_TABLE.ahk" { NET_INTERFACE_CONTEXT_TABLE }
+#Import ".\ONDEMAND_NOTIFICATION_CALLBACK.ahk" { ONDEMAND_NOTIFICATION_CALLBACK }
 #Import ".\WCM_PROFILE_INFO_LIST.ahk" { WCM_PROFILE_INFO_LIST }
 #Import ".\WCM_PROPERTY.ahk" { WCM_PROPERTY }
 
@@ -271,7 +272,7 @@ export OnDemandRegisterNotification(callback, callbackContext) {
     callbackContextMarshal := callbackContext is VarRef ? "ptr" : "ptr"
 
     registrationHandle := HANDLE.Owned()
-    result := DllCall("OnDemandConnRouteHelper.dll\OnDemandRegisterNotification", "ptr", callback, callbackContextMarshal, callbackContext, HANDLE.Ptr, registrationHandle, "HRESULT")
+    result := DllCall("OnDemandConnRouteHelper.dll\OnDemandRegisterNotification", ONDEMAND_NOTIFICATION_CALLBACK, callback, callbackContextMarshal, callbackContext, HANDLE.Ptr, registrationHandle, "HRESULT")
     return registrationHandle
 }
 

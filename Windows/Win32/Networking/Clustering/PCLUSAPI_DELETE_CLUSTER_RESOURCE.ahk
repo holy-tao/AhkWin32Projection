@@ -44,6 +44,10 @@ export default struct PCLUSAPI_DELETE_CLUSTER_RESOURCE {
             this.value := CallbackCreate(fn, , [HRESOURCE, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -26,7 +26,7 @@ export default struct PFND3DKMT_GETPOSTCOMPOSITIONCAPS {
      */
     Call(param0) {
         result := DllCall(this.value, D3DKMT_GET_POST_COMPOSITION_CAPS.Ptr, param0, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -46,6 +46,10 @@ export default struct PFND3DKMT_GETPOSTCOMPOSITIONCAPS {
             this.value := CallbackCreate(fn, , [D3DKMT_GET_POST_COMPOSITION_CAPS.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

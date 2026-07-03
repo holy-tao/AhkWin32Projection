@@ -46,6 +46,10 @@ export default struct PFN_DrvAssertMode {
             this.value := CallbackCreate(fn, , [DHPDEV, BOOL, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

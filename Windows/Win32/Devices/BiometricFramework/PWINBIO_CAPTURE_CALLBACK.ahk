@@ -65,6 +65,10 @@ export default struct PWINBIO_CAPTURE_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", "int", UInt32, IntPtr, IntPtr, UInt32, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

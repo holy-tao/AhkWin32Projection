@@ -30,7 +30,7 @@ export default struct IOMMU_UNMAP_IDENTITY_RANGE_EX {
         DomainMarshal := Domain is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, DomainMarshal, Domain, IOMMU_MAP_PHYSICAL_ADDRESS.Ptr, MappedPhysicalAddress, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -50,6 +50,10 @@ export default struct IOMMU_UNMAP_IDENTITY_RANGE_EX {
             this.value := CallbackCreate(fn, , [IOMMU_DMA_DOMAIN.Ptr, IOMMU_MAP_PHYSICAL_ADDRESS.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

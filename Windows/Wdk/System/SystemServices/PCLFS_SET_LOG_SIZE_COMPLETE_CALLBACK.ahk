@@ -48,6 +48,10 @@ export default struct PCLFS_SET_LOG_SIZE_COMPLETE_CALLBACK {
             this.value := CallbackCreate(fn, , [FILE_OBJECT.Ptr, NTSTATUS, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

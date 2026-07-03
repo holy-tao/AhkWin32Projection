@@ -48,6 +48,10 @@ export default struct PFNMSGECALLBACK {
             this.value := CallbackCreate(fn, , [BOOL, PWSTR, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -48,6 +48,10 @@ export default struct KDEXTS_LOCK_CALLBACKROUTINE {
             this.value := CallbackCreate(fn, , [KDEXTS_LOCK_INFO.Ptr, "ptr", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -53,6 +53,10 @@ export default struct PDX_LOCK {
             this.value := CallbackCreate(fn, , ["ptr", DDLOCKININFO.Ptr, DDLOCKOUTINFO.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

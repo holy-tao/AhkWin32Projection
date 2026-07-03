@@ -54,6 +54,10 @@ export default struct LPDHCP_DELETE_CLIENT {
             this.value := CallbackCreate(fn, , [UInt32, "char*", UInt32, UInt32, UInt32, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

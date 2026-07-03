@@ -46,6 +46,10 @@ export default struct IOMMU_DEVICE_FAULT_HANDLER {
             this.value := CallbackCreate(fn, , ["ptr", FAULT_INFORMATION.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

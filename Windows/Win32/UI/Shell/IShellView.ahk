@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Ole\IOleWindow.ahk" { IOleWindow }
+#Import "..\Controls\LPFNSVADDPROPSHEETPAGE.ahk" { LPFNSVADDPROPSHEETPAGE }
 #Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import ".\FOLDERSETTINGS.ahk" { FOLDERSETTINGS }
 #Import ".\IShellBrowser.ahk" { IShellBrowser }
@@ -235,7 +236,7 @@ export default struct IShellView extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview-addpropertysheetpages
      */
     AddPropertySheetPages(dwReserved, _pfn, _lparam) {
-        result := ComCall(12, this, UInt32, dwReserved, "ptr", _pfn, LPARAM, _lparam, "HRESULT")
+        result := ComCall(12, this, UInt32, dwReserved, LPFNSVADDPROPSHEETPAGE, _pfn, LPARAM, _lparam, "HRESULT")
         return result
     }
 

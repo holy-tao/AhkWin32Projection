@@ -2,6 +2,7 @@
 #Import ".\WS_MESSAGE_DESCRIPTION.ahk" { WS_MESSAGE_DESCRIPTION }
 #Import ".\WS_OPERATION_STYLE.ahk" { WS_OPERATION_STYLE }
 #Import ".\WS_PARAMETER_DESCRIPTION.ahk" { WS_PARAMETER_DESCRIPTION }
+#Import ".\WS_SERVICE_STUB_CALLBACK.ahk" { WS_SERVICE_STUB_CALLBACK }
 
 /**
  * Metadata for the service operation.
@@ -62,7 +63,7 @@ export default struct WS_OPERATION_DESCRIPTION {
      * A pointer to the stub function for the given operation to which the service model will delegate 
      *                     to do the service operation call. This will be <b>NULL</b> for proxies.
      */
-    stubCallback : IntPtr
+    stubCallback : WS_SERVICE_STUB_CALLBACK
 
     style : WS_OPERATION_STYLE
 

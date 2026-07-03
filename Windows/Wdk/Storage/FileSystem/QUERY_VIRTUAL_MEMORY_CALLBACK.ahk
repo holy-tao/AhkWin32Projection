@@ -36,7 +36,7 @@ export default struct QUERY_VIRTUAL_MEMORY_CALLBACK {
         ReturnLengthMarshal := ReturnLength is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, HANDLE, CallbackContext, HANDLE, ProcessHandle, BaseAddressMarshal, BaseAddress, HEAP_MEMORY_INFO_CLASS, MemoryInformationClass, IntPtr, MemoryInformation, IntPtr, MemoryInformationLength, ReturnLengthMarshal, ReturnLength, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -56,6 +56,10 @@ export default struct QUERY_VIRTUAL_MEMORY_CALLBACK {
             this.value := CallbackCreate(fn, , [HANDLE, HANDLE, "ptr", HEAP_MEMORY_INFO_CLASS, IntPtr, IntPtr, "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

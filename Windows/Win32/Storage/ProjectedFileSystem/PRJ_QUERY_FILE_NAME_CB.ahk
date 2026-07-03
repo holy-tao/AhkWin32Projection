@@ -93,6 +93,10 @@ export default struct PRJ_QUERY_FILE_NAME_CB {
             this.value := CallbackCreate(fn, , [PRJ_CALLBACK_DATA.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

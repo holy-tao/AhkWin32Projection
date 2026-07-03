@@ -71,6 +71,10 @@ export default struct WS_CREATE_CHANNEL_FOR_LISTENER_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr, UInt32, WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

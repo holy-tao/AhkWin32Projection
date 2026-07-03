@@ -46,6 +46,10 @@ export default struct PCLUSAPI_GET_CLUSTER_GROUP_KEY {
             this.value := CallbackCreate(fn, , [HGROUP, UInt32, HKEY])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

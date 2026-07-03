@@ -51,6 +51,10 @@ export default struct PFNCMFILTERPROC {
             this.value := CallbackCreate(fn, , [CERT_CONTEXT.Ptr, LPARAM, UInt32, UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

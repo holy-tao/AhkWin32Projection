@@ -46,6 +46,10 @@ export default struct PWLDP_QUERYDEVICESECURITYINFORMATION_API {
             this.value := CallbackCreate(fn, , [WLDP_DEVICE_SECURITY_INFORMATION.Ptr, UInt32, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

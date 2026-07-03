@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LPWSAOVERLAPPED_COMPLETION_ROUTINE.ahk" { LPWSAOVERLAPPED_COMPLETION_ROUTINE }
 #Import ".\SOCKET.ahk" { SOCKET }
 #Import ".\WSABUF.ahk" { WSABUF }
 #Import ".\WSATHREADID.ahk" { WSATHREADID }
@@ -345,7 +346,7 @@ export default struct LPWSPSENDTO {
         lpNumberOfBytesSentMarshal := lpNumberOfBytesSent is VarRef ? "uint*" : "ptr"
         lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
 
-        result := DllCall(this.value, SOCKET, s, WSABUF.Ptr, lpBuffers, UInt32, dwBufferCount, lpNumberOfBytesSentMarshal, lpNumberOfBytesSent, UInt32, dwFlags, IntPtr, lpTo, Int32, iTolen, OVERLAPPED.Ptr, lpOverlapped, "ptr", lpCompletionRoutine, WSATHREADID.Ptr, lpThreadId, lpErrnoMarshal, lpErrno, Int32)
+        result := DllCall(this.value, SOCKET, s, WSABUF.Ptr, lpBuffers, UInt32, dwBufferCount, lpNumberOfBytesSentMarshal, lpNumberOfBytesSent, UInt32, dwFlags, IntPtr, lpTo, Int32, iTolen, OVERLAPPED.Ptr, lpOverlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, WSATHREADID.Ptr, lpThreadId, lpErrnoMarshal, lpErrno, Int32)
         return result
     }
 
@@ -356,15 +357,19 @@ export default struct LPWSPSENDTO {
     struct From extends LPWSPSENDTO {
         /**
          * Creates a LPWSPSENDTO pointer that invokes the given AHK function when called.
-         * @param {Func(SOCKET, WSABUF, UInt32, "uint*", UInt32, IntPtr, Int32, OVERLAPPED, "ptr", WSATHREADID, "int*") => Int32} fn the function to invoke.
+         * @param {Func(SOCKET, WSABUF, UInt32, "uint*", UInt32, IntPtr, Int32, OVERLAPPED, LPWSAOVERLAPPED_COMPLETION_ROUTINE, WSATHREADID, "int*") => Int32} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 11)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 11 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [SOCKET, WSABUF.Ptr, UInt32, "uint*", UInt32, IntPtr, Int32, OVERLAPPED.Ptr, "ptr", WSATHREADID.Ptr, "int*", Int32])
+            this.value := CallbackCreate(fn, , [SOCKET, WSABUF.Ptr, UInt32, "uint*", UInt32, IntPtr, Int32, OVERLAPPED.Ptr, LPWSAOVERLAPPED_COMPLETION_ROUTINE, WSATHREADID.Ptr, "int*", Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

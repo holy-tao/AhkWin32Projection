@@ -48,6 +48,10 @@ export default struct alljoyn_proxybusobject_listener_setpropertycb_ptr {
             this.value := CallbackCreate(fn, , [QStatus, alljoyn_proxybusobject, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

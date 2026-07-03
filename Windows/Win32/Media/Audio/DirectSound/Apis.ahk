@@ -1,6 +1,6 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\DSBUFFERDESC.ahk" { DSBUFFERDESC }
@@ -11,6 +11,8 @@
 #Import ".\IDirectSoundCapture.ahk" { IDirectSoundCapture }
 #Import ".\IDirectSoundCaptureBuffer8.ahk" { IDirectSoundCaptureBuffer8 }
 #Import ".\IDirectSoundFullDuplex.ahk" { IDirectSoundFullDuplex }
+#Import ".\LPDSENUMCALLBACKA.ahk" { LPDSENUMCALLBACKA }
+#Import ".\LPDSENUMCALLBACKW.ahk" { LPDSENUMCALLBACKW }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
@@ -38,7 +40,7 @@ export DirectSoundCreate(pcGuidDevice, pUnkOuter) {
 export DirectSoundEnumerateA(pDSEnumCallback, pContext) {
     pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("DSOUND.dll\DirectSoundEnumerateA", "ptr", pDSEnumCallback, pContextMarshal, pContext, "HRESULT")
+    result := DllCall("DSOUND.dll\DirectSoundEnumerateA", LPDSENUMCALLBACKA, pDSEnumCallback, pContextMarshal, pContext, "HRESULT")
     return result
 }
 
@@ -51,7 +53,7 @@ export DirectSoundEnumerateA(pDSEnumCallback, pContext) {
 export DirectSoundEnumerateW(pDSEnumCallback, pContext) {
     pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("DSOUND.dll\DirectSoundEnumerateW", "ptr", pDSEnumCallback, pContextMarshal, pContext, "HRESULT")
+    result := DllCall("DSOUND.dll\DirectSoundEnumerateW", LPDSENUMCALLBACKW, pDSEnumCallback, pContextMarshal, pContext, "HRESULT")
     return result
 }
 
@@ -75,7 +77,7 @@ export DirectSoundCaptureCreate(pcGuidDevice, pUnkOuter) {
 export DirectSoundCaptureEnumerateA(pDSEnumCallback, pContext) {
     pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("DSOUND.dll\DirectSoundCaptureEnumerateA", "ptr", pDSEnumCallback, pContextMarshal, pContext, "HRESULT")
+    result := DllCall("DSOUND.dll\DirectSoundCaptureEnumerateA", LPDSENUMCALLBACKA, pDSEnumCallback, pContextMarshal, pContext, "HRESULT")
     return result
 }
 
@@ -88,7 +90,7 @@ export DirectSoundCaptureEnumerateA(pDSEnumCallback, pContext) {
 export DirectSoundCaptureEnumerateW(pDSEnumCallback, pContext) {
     pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("DSOUND.dll\DirectSoundCaptureEnumerateW", "ptr", pDSEnumCallback, pContextMarshal, pContext, "HRESULT")
+    result := DllCall("DSOUND.dll\DirectSoundCaptureEnumerateW", LPDSENUMCALLBACKW, pDSEnumCallback, pContextMarshal, pContext, "HRESULT")
     return result
 }
 

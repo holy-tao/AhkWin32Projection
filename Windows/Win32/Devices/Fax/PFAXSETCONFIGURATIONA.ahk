@@ -48,6 +48,10 @@ export default struct PFAXSETCONFIGURATIONA {
             this.value := CallbackCreate(fn, , [HANDLE, FAX_CONFIGURATIONA.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

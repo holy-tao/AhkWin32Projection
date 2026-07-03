@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
@@ -10,6 +10,8 @@
 #Import ".\IDirectDrawClipper.ahk" { IDirectDrawClipper }
 #Import ".\IDirectDrawPalette.ahk" { IDirectDrawPalette }
 #Import ".\IDirectDrawSurface.ahk" { IDirectDrawSurface }
+#Import ".\LPDDENUMMODESCALLBACK.ahk" { LPDDENUMMODESCALLBACK }
+#Import ".\LPDDENUMSURFACESCALLBACK.ahk" { LPDDENUMSURFACESCALLBACK }
 #Import "..\Gdi\PALETTEENTRY.ahk" { PALETTEENTRY }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
@@ -134,7 +136,7 @@ export default struct IDirectDraw extends IUnknown {
     EnumDisplayModes(param0, param1, param2, param3) {
         param2Marshal := param2 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(8, this, UInt32, param0, DDSURFACEDESC.Ptr, param1, param2Marshal, param2, "ptr", param3, "HRESULT")
+        result := ComCall(8, this, UInt32, param0, DDSURFACEDESC.Ptr, param1, param2Marshal, param2, LPDDENUMMODESCALLBACK, param3, "HRESULT")
         return result
     }
 
@@ -149,7 +151,7 @@ export default struct IDirectDraw extends IUnknown {
     EnumSurfaces(param0, param1, param2, param3) {
         param2Marshal := param2 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, UInt32, param0, DDSURFACEDESC.Ptr, param1, param2Marshal, param2, "ptr", param3, "HRESULT")
+        result := ComCall(9, this, UInt32, param0, DDSURFACEDESC.Ptr, param1, param2Marshal, param2, LPDDENUMSURFACESCALLBACK, param3, "HRESULT")
         return result
     }
 

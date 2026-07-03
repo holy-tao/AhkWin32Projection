@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
@@ -32,7 +32,7 @@ export default struct PTM_PROPAGATE_ROUTINE {
         CallbackDataMarshal := CallbackData is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, PropagationCookieMarshal, PropagationCookie, CallbackDataMarshal, CallbackData, NTSTATUS, PropagationStatus, Guid, TransactionGuid, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -52,6 +52,10 @@ export default struct PTM_PROPAGATE_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", NTSTATUS, Guid, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -31,7 +31,7 @@ export default struct SE_LOGON_SESSION_TERMINATED_ROUTINE_EX {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, LUID.Ptr, LogonId, PESILO, pServerSilo, _ContextMarshal, _Context, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -51,6 +51,10 @@ export default struct SE_LOGON_SESSION_TERMINATED_ROUTINE_EX {
             this.value := CallbackCreate(fn, , [LUID.Ptr, PESILO, "ptr", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

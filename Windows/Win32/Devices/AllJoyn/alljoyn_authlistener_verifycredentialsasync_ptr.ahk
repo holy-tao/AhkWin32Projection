@@ -58,6 +58,10 @@ export default struct alljoyn_authlistener_verifycredentialsasync_ptr {
             this.value := CallbackCreate(fn, , ["ptr", alljoyn_authlistener, PSTR, PSTR, alljoyn_credentials, "ptr", QStatus])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

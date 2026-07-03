@@ -34,7 +34,7 @@ export default struct PLSA_GET_SERVICE_ACCOUNT_PASSWORD {
      */
     Call(AccountName, DomainName, CredFetch, FileTimeExpiry, CurrentPassword, PreviousPassword, FileTimeCurrPwdValidForOutbound) {
         result := DllCall(this.value, LSA_UNICODE_STRING.Ptr, AccountName, LSA_UNICODE_STRING.Ptr, DomainName, CRED_FETCH, CredFetch, FILETIME.Ptr, FileTimeExpiry, LSA_UNICODE_STRING.Ptr, CurrentPassword, LSA_UNICODE_STRING.Ptr, PreviousPassword, FILETIME.Ptr, FileTimeCurrPwdValidForOutbound, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -54,6 +54,10 @@ export default struct PLSA_GET_SERVICE_ACCOUNT_PASSWORD {
             this.value := CallbackCreate(fn, , [LSA_UNICODE_STRING.Ptr, LSA_UNICODE_STRING.Ptr, CRED_FETCH, FILETIME.Ptr, LSA_UNICODE_STRING.Ptr, LSA_UNICODE_STRING.Ptr, FILETIME.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

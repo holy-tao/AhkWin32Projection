@@ -44,6 +44,10 @@ export default struct LPDDHALKERNELCB_SYNCVIDEOPORT {
             this.value := CallbackCreate(fn, , [DDHAL_SYNCVIDEOPORTDATA.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

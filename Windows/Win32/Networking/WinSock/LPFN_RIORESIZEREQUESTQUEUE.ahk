@@ -72,6 +72,10 @@ export default struct LPFN_RIORESIZEREQUESTQUEUE {
             this.value := CallbackCreate(fn, , [RIO_RQ, UInt32, UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

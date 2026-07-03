@@ -45,6 +45,10 @@ export default struct PDXVA2SW_DESTROYVIDEOPROCESSDEVICE {
             this.value := CallbackCreate(fn, , [HANDLE, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

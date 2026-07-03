@@ -50,6 +50,10 @@ export default struct PFN_D3D12_SERIALIZE_ROOT_SIGNATURE {
             this.value := CallbackCreate(fn, , [D3D12_ROOT_SIGNATURE_DESC.Ptr, D3D_ROOT_SIGNATURE_VERSION, ID3DBlob.Ptr, ID3DBlob.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

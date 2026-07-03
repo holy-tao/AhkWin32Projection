@@ -1,6 +1,6 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
@@ -92,6 +92,7 @@
 #Import ".\IOPMVideoOutput.ahk" { IOPMVideoOutput }
 #Import ".\MFASYNC_WORKQUEUE_TYPE.ahk" { MFASYNC_WORKQUEUE_TYPE }
 #Import ".\MFCameraIntrinsic_DistortionModelType.ahk" { MFCameraIntrinsic_DistortionModelType }
+#Import ".\MFPERIODICCALLBACK.ahk" { MFPERIODICCALLBACK }
 #Import ".\MFP_CREATION_OPTIONS.ahk" { MFP_CREATION_OPTIONS }
 #Import ".\MFStandardVideoFormat.ahk" { MFStandardVideoFormat }
 #Import ".\MFT_REGISTER_TYPE_INFO.ahk" { MFT_REGISTER_TYPE_INFO }
@@ -108,6 +109,7 @@
 #Import ".\OPM_HDCP_STATUS.ahk" { OPM_HDCP_STATUS }
 #Import ".\OPM_HDCP_TYPE.ahk" { OPM_HDCP_TYPE }
 #Import ".\OPM_VIDEO_OUTPUT_SEMANTICS.ahk" { OPM_VIDEO_OUTPUT_SEMANTICS }
+#Import ".\PDXVAHDSW_Plugin.ahk" { PDXVAHDSW_Plugin }
 #Import "..\..\System\Com\IClassFactory.ahk" { IClassFactory }
 #Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
@@ -135,7 +137,7 @@
  * @since windows6.1
  */
 export DXVAHD_CreateDevice(pD3DDevice, pContentDesc, Usage, pPlugin) {
-    result := DllCall("dxva2.dll\DXVAHD_CreateDevice", "ptr", pD3DDevice, DXVAHD_CONTENT_DESC.Ptr, pContentDesc, DXVAHD_DEVICE_USAGE, Usage, "ptr", pPlugin, "ptr*", &ppDevice := 0, "HRESULT")
+    result := DllCall("dxva2.dll\DXVAHD_CreateDevice", "ptr", pD3DDevice, DXVAHD_CONTENT_DESC.Ptr, pContentDesc, DXVAHD_DEVICE_USAGE, Usage, PDXVAHDSW_Plugin, pPlugin, "ptr*", &ppDevice := 0, "HRESULT")
     return IDXVAHD_Device(ppDevice)
 }
 
@@ -3166,7 +3168,7 @@ export MFGetTimerPeriodicity() {
  * @since windows6.0.6000
  */
 export MFAddPeriodicCallback(Callback, pContext) {
-    result := DllCall("MFPlat.dll\MFAddPeriodicCallback", "ptr", Callback, "ptr", pContext, "uint*", &pdwKey := 0, "HRESULT")
+    result := DllCall("MFPlat.dll\MFAddPeriodicCallback", MFPERIODICCALLBACK, Callback, "ptr", pContext, "uint*", &pdwKey := 0, "HRESULT")
     return pdwKey
 }
 

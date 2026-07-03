@@ -46,6 +46,10 @@ export default struct PWINDBG_GET_THREAD_CONTEXT_ROUTINE {
             this.value := CallbackCreate(fn, , [UInt32, CONTEXT.Ptr, UInt32, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

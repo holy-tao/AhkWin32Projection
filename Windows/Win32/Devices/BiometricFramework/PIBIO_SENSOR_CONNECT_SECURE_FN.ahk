@@ -48,6 +48,10 @@ export default struct PIBIO_SENSOR_CONNECT_SECURE_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, WINBIO_SECURE_CONNECTION_PARAMS.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

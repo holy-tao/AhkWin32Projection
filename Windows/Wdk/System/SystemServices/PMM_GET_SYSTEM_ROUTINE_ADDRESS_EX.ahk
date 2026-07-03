@@ -48,6 +48,10 @@ export default struct PMM_GET_SYSTEM_ROUTINE_ADDRESS_EX {
             this.value := CallbackCreate(fn, , [UNICODE_STRING.Ptr, PSTR, "ptr"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

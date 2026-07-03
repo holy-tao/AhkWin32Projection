@@ -48,6 +48,10 @@ export default struct HCS_EVENT_CALLBACK {
             this.value := CallbackCreate(fn, , [HCS_EVENT.Ptr, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

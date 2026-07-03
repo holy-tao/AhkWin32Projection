@@ -48,6 +48,10 @@ export default struct NCryptNotifyChangeKeyFn {
             this.value := CallbackCreate(fn, , [NCRYPT_PROV_HANDLE, HANDLE.Ptr, UInt32, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

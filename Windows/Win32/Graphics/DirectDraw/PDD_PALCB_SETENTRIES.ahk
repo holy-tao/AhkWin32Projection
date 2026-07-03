@@ -46,6 +46,10 @@ export default struct PDD_PALCB_SETENTRIES {
             this.value := CallbackCreate(fn, , [DD_SETENTRIESDATA.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

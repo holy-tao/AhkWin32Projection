@@ -48,6 +48,10 @@ export default struct PRESUTIL_GET_SZ_VALUE {
             this.value := CallbackCreate(fn, , [HKEY, PWSTR, PWSTR])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

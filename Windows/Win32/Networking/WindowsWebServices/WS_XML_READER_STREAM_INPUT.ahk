@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_READ_CALLBACK.ahk" { WS_READ_CALLBACK }
 #Import ".\WS_XML_READER_INPUT.ahk" { WS_XML_READER_INPUT }
 #Import ".\WS_XML_READER_INPUT_TYPE.ahk" { WS_XML_READER_INPUT_TYPE }
 
@@ -18,7 +19,7 @@ export default struct WS_XML_READER_STREAM_INPUT {
     /**
      * A callback that is invoked when <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfillreader">WsFillReader</a> is called.
      */
-    readCallback : IntPtr
+    readCallback : WS_READ_CALLBACK
 
     /**
      * A user-defined value that will be passed back to readCallback.

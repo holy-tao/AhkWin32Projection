@@ -49,6 +49,10 @@ export default struct PFNFCIGETNEXTCABINET {
             this.value := CallbackCreate(fn, "cdecl", [CCAB.Ptr, UInt32, "ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

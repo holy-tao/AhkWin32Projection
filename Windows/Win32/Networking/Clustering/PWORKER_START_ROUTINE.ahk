@@ -51,6 +51,10 @@ export default struct PWORKER_START_ROUTINE {
             this.value := CallbackCreate(fn, , [CLUS_WORKER.Ptr, "ptr", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

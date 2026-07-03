@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
@@ -14,6 +14,7 @@
 #Import ".\IDirectDraw.ahk" { IDirectDraw }
 #Import ".\IDirectDrawClipper.ahk" { IDirectDrawClipper }
 #Import ".\IDirectDrawPalette.ahk" { IDirectDrawPalette }
+#Import ".\LPDDENUMSURFACESCALLBACK.ahk" { LPDDENUMSURFACESCALLBACK }
 #Import "..\Gdi\HDC.ahk" { HDC }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
@@ -164,7 +165,7 @@ export default struct IDirectDrawSurface3 extends IUnknown {
     EnumAttachedSurfaces(param0, param1) {
         param0Marshal := param0 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, param0Marshal, param0, "ptr", param1, "HRESULT")
+        result := ComCall(9, this, param0Marshal, param0, LPDDENUMSURFACESCALLBACK, param1, "HRESULT")
         return result
     }
 
@@ -178,7 +179,7 @@ export default struct IDirectDrawSurface3 extends IUnknown {
     EnumOverlayZOrders(param0, param1, param2) {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, UInt32, param0, param1Marshal, param1, "ptr", param2, "HRESULT")
+        result := ComCall(10, this, UInt32, param0, param1Marshal, param1, LPDDENUMSURFACESCALLBACK, param2, "HRESULT")
         return result
     }
 

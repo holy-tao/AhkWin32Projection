@@ -46,6 +46,10 @@ export default struct PFNSETSHELLNEXT {
             this.value := CallbackCreate(fn, , [PSTR, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

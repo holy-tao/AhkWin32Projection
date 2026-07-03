@@ -34,7 +34,7 @@ export default struct PGET_DMA_TRANSFER_INFO {
      */
     Call(DmaAdapter, _Mdl, Offset, Length, WriteOnly, TransferInfo) {
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, MDL.Ptr, _Mdl, Int64, Offset, UInt32, Length, BOOLEAN, WriteOnly, DMA_TRANSFER_INFO.Ptr, TransferInfo, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -54,6 +54,10 @@ export default struct PGET_DMA_TRANSFER_INFO {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, MDL.Ptr, Int64, UInt32, BOOLEAN, DMA_TRANSFER_INFO.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -2,6 +2,7 @@
 
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\LPOVERLAPPED_COMPLETION_ROUTINE.ahk" { LPOVERLAPPED_COMPLETION_ROUTINE }
 #Import ".\OVERLAPPED.ahk" { OVERLAPPED }
 #Import ".\OVERLAPPED_ENTRY.ahk" { OVERLAPPED_ENTRY }
 
@@ -1138,7 +1139,7 @@ export CancelSynchronousIo(hThread) {
 export BindIoCompletionCallback(FileHandle, Function, Flags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\BindIoCompletionCallback", HANDLE, FileHandle, "ptr", Function, UInt32, Flags, BOOL)
+    result := DllCall("KERNEL32.dll\BindIoCompletionCallback", HANDLE, FileHandle, LPOVERLAPPED_COMPLETION_ROUTINE, Function, UInt32, Flags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }

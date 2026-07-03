@@ -129,7 +129,7 @@ export SrpIsTokenService(TokenHandle, IsTokenService) {
     IsTokenServiceMarshal := IsTokenService is VarRef ? "char*" : "ptr"
 
     result := DllCall("srpapi.dll\SrpIsTokenService", HANDLE, TokenHandle, IsTokenServiceMarshal, IsTokenService, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -154,7 +154,7 @@ export SrpIsAllowed(FileInfo) {
     FileInfoMarshal := FileInfo is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("srpapi.dll\SrpIsAllowed", FileInfoMarshal, FileInfo, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 

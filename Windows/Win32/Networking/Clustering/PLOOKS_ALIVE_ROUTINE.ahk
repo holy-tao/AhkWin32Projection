@@ -81,6 +81,10 @@ export default struct PLOOKS_ALIVE_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

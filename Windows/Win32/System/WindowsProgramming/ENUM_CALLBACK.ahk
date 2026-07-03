@@ -46,6 +46,10 @@ export default struct ENUM_CALLBACK {
             this.value := CallbackCreate(fn, , [DCISURFACEINFO.Ptr, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

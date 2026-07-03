@@ -83,6 +83,10 @@ export default struct PWLX_GET_SOURCE_DESKTOP {
             this.value := CallbackCreate(fn, , [HANDLE, "ptr*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

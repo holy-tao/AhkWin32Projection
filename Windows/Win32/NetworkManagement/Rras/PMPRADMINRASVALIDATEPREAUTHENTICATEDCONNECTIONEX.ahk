@@ -44,6 +44,10 @@ export default struct PMPRADMINRASVALIDATEPREAUTHENTICATEDCONNECTIONEX {
             this.value := CallbackCreate(fn, , [AUTH_VALIDATION_EX.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

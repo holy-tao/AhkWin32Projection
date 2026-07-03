@@ -44,6 +44,10 @@ export default struct DOT11EXTIHV_GET_VERSION_INFO {
             this.value := CallbackCreate(fn, , [DOT11_IHV_VERSION_INFO.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

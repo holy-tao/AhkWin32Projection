@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
+#Import ".\PDEVICE_NOTIFY_CALLBACK.ahk" { PDEVICE_NOTIFY_CALLBACK }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
@@ -29,8 +30,8 @@ export default struct PREGISTER_FOR_DEVICE_NOTIFICATIONS {
     Call(param0, param1, param2) {
         param2Marshal := param2 is VarRef ? "ptr" : "ptr"
 
-        result := DllCall(this.value, DEVICE_OBJECT.Ptr, param0, "ptr", param1, param2Marshal, param2, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        result := DllCall(this.value, DEVICE_OBJECT.Ptr, param0, PDEVICE_NOTIFY_CALLBACK, param1, param2Marshal, param2, NTSTATUS)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -41,15 +42,19 @@ export default struct PREGISTER_FOR_DEVICE_NOTIFICATIONS {
     struct From extends PREGISTER_FOR_DEVICE_NOTIFICATIONS {
         /**
          * Creates a PREGISTER_FOR_DEVICE_NOTIFICATIONS pointer that invokes the given AHK function when called.
-         * @param {Func(DEVICE_OBJECT, "ptr", "ptr") => NTSTATUS} fn the function to invoke.
+         * @param {Func(DEVICE_OBJECT, PDEVICE_NOTIFY_CALLBACK, "ptr") => NTSTATUS} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 3)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 3 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [DEVICE_OBJECT.Ptr, "ptr", "ptr", NTSTATUS])
+            this.value := CallbackCreate(fn, , [DEVICE_OBJECT.Ptr, PDEVICE_NOTIFY_CALLBACK, "ptr", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

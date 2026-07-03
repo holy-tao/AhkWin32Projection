@@ -2,6 +2,7 @@
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import ".\LPWSAOVERLAPPED_COMPLETION_ROUTINE.ahk" { LPWSAOVERLAPPED_COMPLETION_ROUTINE }
 #Import ".\WSACOMPLETIONTYPE.ahk" { WSACOMPLETIONTYPE }
 #Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
 
@@ -65,7 +66,7 @@ export default struct WSACOMPLETION {
         struct _Apc {
             lpOverlapped : OVERLAPPED.Ptr
 
-            lpfnCompletionProc : IntPtr
+            lpfnCompletionProc : LPWSAOVERLAPPED_COMPLETION_ROUTINE
 
         }
 

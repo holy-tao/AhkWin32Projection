@@ -46,6 +46,10 @@ export default struct SslFreeObjectFn {
             this.value := CallbackCreate(fn, , [NCRYPT_HANDLE, UInt32, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

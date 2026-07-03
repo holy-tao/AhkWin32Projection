@@ -41,6 +41,10 @@ export default struct WHEA_ERROR_SOURCE_UNINITIALIZE {
             this.value := CallbackCreate(fn, , [IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -47,6 +47,10 @@ export default struct EXTS_TABLE_ENTRY_CALLBACK {
             this.value := CallbackCreate(fn, , [Int64, "ptr", BOOLEAN])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

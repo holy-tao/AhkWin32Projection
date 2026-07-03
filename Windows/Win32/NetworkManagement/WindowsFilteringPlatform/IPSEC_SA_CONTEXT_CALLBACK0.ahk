@@ -54,6 +54,10 @@ export default struct IPSEC_SA_CONTEXT_CALLBACK0 {
             this.value := CallbackCreate(fn, , ["ptr", IPSEC_SA_CONTEXT_CHANGE0.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

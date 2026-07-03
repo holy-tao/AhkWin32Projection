@@ -50,6 +50,10 @@ export default struct PWINBIO_EVENT_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", "int", WINBIO_EVENT.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -32,7 +32,7 @@ export default struct GET_IDLE_WAKE_INFO {
         DeepestWakeableDstateMarshal := DeepestWakeableDstate is VarRef ? "int*" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, SYSTEM_POWER_STATE, SystemPowerState, DeepestWakeableDstateMarshal, DeepestWakeableDstate, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -52,6 +52,10 @@ export default struct GET_IDLE_WAKE_INFO {
             this.value := CallbackCreate(fn, , ["ptr", SYSTEM_POWER_STATE, "int*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

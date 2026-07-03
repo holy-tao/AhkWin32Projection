@@ -116,6 +116,10 @@ export default struct LPFNDFMCALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", HWND, "ptr", UInt32, WPARAM, LPARAM, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

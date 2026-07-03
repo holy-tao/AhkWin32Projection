@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 
 /**
  * The VDS_MOUNT_POINT_NOTIFICATION structure (vdshwprv.h) represents data returned by the software provider because a drive letter or volume GUID path changed.

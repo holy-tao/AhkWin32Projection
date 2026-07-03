@@ -49,6 +49,10 @@ export default struct IO_CSQ_PEEK_NEXT_IRP {
             this.value := CallbackCreate(fn, , [IO_CSQ.Ptr, IRP.Ptr, "ptr", IRP.Ptr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

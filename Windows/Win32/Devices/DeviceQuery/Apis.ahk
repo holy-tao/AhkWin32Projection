@@ -5,6 +5,7 @@
 #Import ".\DEV_OBJECT_TYPE.ahk" { DEV_OBJECT_TYPE }
 #Import ".\DEV_QUERY_PARAMETER.ahk" { DEV_QUERY_PARAMETER }
 #Import ".\HDEVQUERY.ahk" { HDEVQUERY }
+#Import ".\PDEV_QUERY_RESULT_CALLBACK.ahk" { PDEV_QUERY_RESULT_CALLBACK }
 #Import "..\Properties\DEVPROPCOMPKEY.ahk" { DEVPROPCOMPKEY }
 #Import "..\Properties\DEVPROPERTY.ahk" { DEVPROPERTY }
 #Import "..\Properties\DEVPROPSTORE.ahk" { DEVPROPSTORE }
@@ -32,7 +33,7 @@
 export DevCreateObjectQuery(_ObjectType, QueryFlags, cRequestedProperties, pRequestedProperties, cFilterExpressionCount, pFilter, pCallback, pContext) {
     pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("api-ms-win-devices-query-l1-1-0.dll\DevCreateObjectQuery", DEV_OBJECT_TYPE, _ObjectType, UInt32, QueryFlags, UInt32, cRequestedProperties, DEVPROPCOMPKEY.Ptr, pRequestedProperties, UInt32, cFilterExpressionCount, DEVPROP_FILTER_EXPRESSION.Ptr, pFilter, "ptr", pCallback, pContextMarshal, pContext, HDEVQUERY.Ptr, &phDevQuery := 0, "HRESULT")
+    result := DllCall("api-ms-win-devices-query-l1-1-0.dll\DevCreateObjectQuery", DEV_OBJECT_TYPE, _ObjectType, UInt32, QueryFlags, UInt32, cRequestedProperties, DEVPROPCOMPKEY.Ptr, pRequestedProperties, UInt32, cFilterExpressionCount, DEVPROP_FILTER_EXPRESSION.Ptr, pFilter, PDEV_QUERY_RESULT_CALLBACK, pCallback, pContextMarshal, pContext, HDEVQUERY.Ptr, &phDevQuery := 0, "HRESULT")
     return phDevQuery
 }
 
@@ -53,7 +54,7 @@ export DevCreateObjectQuery(_ObjectType, QueryFlags, cRequestedProperties, pRequ
 export DevCreateObjectQueryEx(_ObjectType, QueryFlags, cRequestedProperties, pRequestedProperties, cFilterExpressionCount, pFilter, cExtendedParameterCount, pExtendedParameters, pCallback, pContext) {
     pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("api-ms-win-devices-query-l1-1-1.dll\DevCreateObjectQueryEx", DEV_OBJECT_TYPE, _ObjectType, UInt32, QueryFlags, UInt32, cRequestedProperties, DEVPROPCOMPKEY.Ptr, pRequestedProperties, UInt32, cFilterExpressionCount, DEVPROP_FILTER_EXPRESSION.Ptr, pFilter, UInt32, cExtendedParameterCount, DEV_QUERY_PARAMETER.Ptr, pExtendedParameters, "ptr", pCallback, pContextMarshal, pContext, HDEVQUERY.Ptr, &phDevQuery := 0, "HRESULT")
+    result := DllCall("api-ms-win-devices-query-l1-1-1.dll\DevCreateObjectQueryEx", DEV_OBJECT_TYPE, _ObjectType, UInt32, QueryFlags, UInt32, cRequestedProperties, DEVPROPCOMPKEY.Ptr, pRequestedProperties, UInt32, cFilterExpressionCount, DEVPROP_FILTER_EXPRESSION.Ptr, pFilter, UInt32, cExtendedParameterCount, DEV_QUERY_PARAMETER.Ptr, pExtendedParameters, PDEV_QUERY_RESULT_CALLBACK, pCallback, pContextMarshal, pContext, HDEVQUERY.Ptr, &phDevQuery := 0, "HRESULT")
     return phDevQuery
 }
 
@@ -75,7 +76,7 @@ export DevCreateObjectQueryFromId(_ObjectType, pszObjectId, QueryFlags, cRequest
 
     pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("api-ms-win-devices-query-l1-1-0.dll\DevCreateObjectQueryFromId", DEV_OBJECT_TYPE, _ObjectType, "ptr", pszObjectId, UInt32, QueryFlags, UInt32, cRequestedProperties, DEVPROPCOMPKEY.Ptr, pRequestedProperties, UInt32, cFilterExpressionCount, DEVPROP_FILTER_EXPRESSION.Ptr, pFilter, "ptr", pCallback, pContextMarshal, pContext, HDEVQUERY.Ptr, &phDevQuery := 0, "HRESULT")
+    result := DllCall("api-ms-win-devices-query-l1-1-0.dll\DevCreateObjectQueryFromId", DEV_OBJECT_TYPE, _ObjectType, "ptr", pszObjectId, UInt32, QueryFlags, UInt32, cRequestedProperties, DEVPROPCOMPKEY.Ptr, pRequestedProperties, UInt32, cFilterExpressionCount, DEVPROP_FILTER_EXPRESSION.Ptr, pFilter, PDEV_QUERY_RESULT_CALLBACK, pCallback, pContextMarshal, pContext, HDEVQUERY.Ptr, &phDevQuery := 0, "HRESULT")
     return phDevQuery
 }
 
@@ -99,7 +100,7 @@ export DevCreateObjectQueryFromIdEx(_ObjectType, pszObjectId, QueryFlags, cReque
 
     pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("api-ms-win-devices-query-l1-1-1.dll\DevCreateObjectQueryFromIdEx", DEV_OBJECT_TYPE, _ObjectType, "ptr", pszObjectId, UInt32, QueryFlags, UInt32, cRequestedProperties, DEVPROPCOMPKEY.Ptr, pRequestedProperties, UInt32, cFilterExpressionCount, DEVPROP_FILTER_EXPRESSION.Ptr, pFilter, UInt32, cExtendedParameterCount, DEV_QUERY_PARAMETER.Ptr, pExtendedParameters, "ptr", pCallback, pContextMarshal, pContext, HDEVQUERY.Ptr, &phDevQuery := 0, "HRESULT")
+    result := DllCall("api-ms-win-devices-query-l1-1-1.dll\DevCreateObjectQueryFromIdEx", DEV_OBJECT_TYPE, _ObjectType, "ptr", pszObjectId, UInt32, QueryFlags, UInt32, cRequestedProperties, DEVPROPCOMPKEY.Ptr, pRequestedProperties, UInt32, cFilterExpressionCount, DEVPROP_FILTER_EXPRESSION.Ptr, pFilter, UInt32, cExtendedParameterCount, DEV_QUERY_PARAMETER.Ptr, pExtendedParameters, PDEV_QUERY_RESULT_CALLBACK, pCallback, pContextMarshal, pContext, HDEVQUERY.Ptr, &phDevQuery := 0, "HRESULT")
     return phDevQuery
 }
 
@@ -121,7 +122,7 @@ export DevCreateObjectQueryFromIds(_ObjectType, pszzObjectIds, QueryFlags, cRequ
 
     pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("api-ms-win-devices-query-l1-1-0.dll\DevCreateObjectQueryFromIds", DEV_OBJECT_TYPE, _ObjectType, "ptr", pszzObjectIds, UInt32, QueryFlags, UInt32, cRequestedProperties, DEVPROPCOMPKEY.Ptr, pRequestedProperties, UInt32, cFilterExpressionCount, DEVPROP_FILTER_EXPRESSION.Ptr, pFilter, "ptr", pCallback, pContextMarshal, pContext, HDEVQUERY.Ptr, &phDevQuery := 0, "HRESULT")
+    result := DllCall("api-ms-win-devices-query-l1-1-0.dll\DevCreateObjectQueryFromIds", DEV_OBJECT_TYPE, _ObjectType, "ptr", pszzObjectIds, UInt32, QueryFlags, UInt32, cRequestedProperties, DEVPROPCOMPKEY.Ptr, pRequestedProperties, UInt32, cFilterExpressionCount, DEVPROP_FILTER_EXPRESSION.Ptr, pFilter, PDEV_QUERY_RESULT_CALLBACK, pCallback, pContextMarshal, pContext, HDEVQUERY.Ptr, &phDevQuery := 0, "HRESULT")
     return phDevQuery
 }
 
@@ -145,7 +146,7 @@ export DevCreateObjectQueryFromIdsEx(_ObjectType, pszzObjectIds, QueryFlags, cRe
 
     pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("api-ms-win-devices-query-l1-1-1.dll\DevCreateObjectQueryFromIdsEx", DEV_OBJECT_TYPE, _ObjectType, "ptr", pszzObjectIds, UInt32, QueryFlags, UInt32, cRequestedProperties, DEVPROPCOMPKEY.Ptr, pRequestedProperties, UInt32, cFilterExpressionCount, DEVPROP_FILTER_EXPRESSION.Ptr, pFilter, UInt32, cExtendedParameterCount, DEV_QUERY_PARAMETER.Ptr, pExtendedParameters, "ptr", pCallback, pContextMarshal, pContext, HDEVQUERY.Ptr, &phDevQuery := 0, "HRESULT")
+    result := DllCall("api-ms-win-devices-query-l1-1-1.dll\DevCreateObjectQueryFromIdsEx", DEV_OBJECT_TYPE, _ObjectType, "ptr", pszzObjectIds, UInt32, QueryFlags, UInt32, cRequestedProperties, DEVPROPCOMPKEY.Ptr, pRequestedProperties, UInt32, cFilterExpressionCount, DEVPROP_FILTER_EXPRESSION.Ptr, pFilter, UInt32, cExtendedParameterCount, DEV_QUERY_PARAMETER.Ptr, pExtendedParameters, PDEV_QUERY_RESULT_CALLBACK, pCallback, pContextMarshal, pContext, HDEVQUERY.Ptr, &phDevQuery := 0, "HRESULT")
     return phDevQuery
 }
 

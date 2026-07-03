@@ -77,6 +77,10 @@ export default struct UILANGUAGE_ENUMPROCA {
             this.value := CallbackCreate(fn, , [PSTR, IntPtr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -51,6 +51,10 @@ export default struct PFAXENABLEROUTINGMETHODW {
             this.value := CallbackCreate(fn, , [HANDLE, PWSTR, BOOL, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

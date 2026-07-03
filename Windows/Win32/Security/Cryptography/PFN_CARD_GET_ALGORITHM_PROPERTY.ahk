@@ -56,6 +56,10 @@ export default struct PFN_CARD_GET_ALGORITHM_PROPERTY {
             this.value := CallbackCreate(fn, , [CARD_DATA.Ptr, PWSTR, PWSTR, IntPtr, UInt32, "uint*", UInt32, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

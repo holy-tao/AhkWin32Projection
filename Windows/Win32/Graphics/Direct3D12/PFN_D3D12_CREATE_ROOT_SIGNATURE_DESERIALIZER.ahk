@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -47,6 +47,10 @@ export default struct PFN_D3D12_CREATE_ROOT_SIGNATURE_DESERIALIZER {
             this.value := CallbackCreate(fn, , [IntPtr, IntPtr, Guid.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

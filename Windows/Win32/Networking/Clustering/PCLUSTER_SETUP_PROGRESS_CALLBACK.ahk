@@ -58,6 +58,10 @@ export default struct PCLUSTER_SETUP_PROGRESS_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", CLUSTER_SETUP_PHASE, CLUSTER_SETUP_PHASE_TYPE, CLUSTER_SETUP_PHASE_SEVERITY, UInt32, PWSTR, UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

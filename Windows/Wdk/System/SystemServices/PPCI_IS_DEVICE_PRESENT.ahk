@@ -43,6 +43,10 @@ export default struct PPCI_IS_DEVICE_PRESENT {
             this.value := CallbackCreate(fn, , [BOOLEAN])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

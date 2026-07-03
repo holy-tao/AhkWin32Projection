@@ -50,6 +50,10 @@ export default struct CAPCONTROLCALLBACK {
             this.value := CallbackCreate(fn, , [HWND, Int32, LRESULT])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

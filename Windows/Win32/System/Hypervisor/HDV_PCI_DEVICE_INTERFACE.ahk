@@ -1,5 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HDV_PCI_DEVICE_GET_DETAILS.ahk" { HDV_PCI_DEVICE_GET_DETAILS }
+#Import ".\HDV_PCI_DEVICE_INITIALIZE.ahk" { HDV_PCI_DEVICE_INITIALIZE }
+#Import ".\HDV_PCI_DEVICE_SET_CONFIGURATION.ahk" { HDV_PCI_DEVICE_SET_CONFIGURATION }
+#Import ".\HDV_PCI_DEVICE_START.ahk" { HDV_PCI_DEVICE_START }
+#Import ".\HDV_PCI_DEVICE_STOP.ahk" { HDV_PCI_DEVICE_STOP }
+#Import ".\HDV_PCI_DEVICE_TEARDOWN.ahk" { HDV_PCI_DEVICE_TEARDOWN }
 #Import ".\HDV_PCI_INTERFACE_VERSION.ahk" { HDV_PCI_INTERFACE_VERSION }
+#Import ".\HDV_PCI_READ_CONFIG_SPACE.ahk" { HDV_PCI_READ_CONFIG_SPACE }
+#Import ".\HDV_PCI_READ_INTERCEPTED_MEMORY.ahk" { HDV_PCI_READ_INTERCEPTED_MEMORY }
+#Import ".\HDV_PCI_WRITE_CONFIG_SPACE.ahk" { HDV_PCI_WRITE_CONFIG_SPACE }
+#Import ".\HDV_PCI_WRITE_INTERCEPTED_MEMORY.ahk" { HDV_PCI_WRITE_INTERCEPTED_MEMORY }
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
@@ -9,24 +19,24 @@ export default struct HDV_PCI_DEVICE_INTERFACE {
 
     Version : HDV_PCI_INTERFACE_VERSION
 
-    Initialize : IntPtr
+    Initialize : HDV_PCI_DEVICE_INITIALIZE
 
-    Teardown : IntPtr
+    Teardown : HDV_PCI_DEVICE_TEARDOWN
 
-    SetConfiguration : IntPtr
+    SetConfiguration : HDV_PCI_DEVICE_SET_CONFIGURATION
 
-    GetDetails : IntPtr
+    GetDetails : HDV_PCI_DEVICE_GET_DETAILS
 
-    Start : IntPtr
+    Start : HDV_PCI_DEVICE_START
 
-    Stop : IntPtr
+    Stop : HDV_PCI_DEVICE_STOP
 
-    ReadConfigSpace : IntPtr
+    ReadConfigSpace : HDV_PCI_READ_CONFIG_SPACE
 
-    WriteConfigSpace : IntPtr
+    WriteConfigSpace : HDV_PCI_WRITE_CONFIG_SPACE
 
-    ReadInterceptedMemory : IntPtr
+    ReadInterceptedMemory : HDV_PCI_READ_INTERCEPTED_MEMORY
 
-    WriteInterceptedMemory : IntPtr
+    WriteInterceptedMemory : HDV_PCI_WRITE_INTERCEPTED_MEMORY
 
 }

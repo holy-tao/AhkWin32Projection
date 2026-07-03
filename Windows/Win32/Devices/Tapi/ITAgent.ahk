@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\AGENT_STATE.ahk" { AGENT_STATE }
 #Import ".\IEnumAgentSession.ahk" { IEnumAgentSession }
 #Import ".\ITACDGroup.ahk" { ITACDGroup }

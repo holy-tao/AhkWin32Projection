@@ -44,6 +44,10 @@ export default struct WHEA_ERROR_SOURCE_UNINITIALIZE_DEVICE_DRIVER {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

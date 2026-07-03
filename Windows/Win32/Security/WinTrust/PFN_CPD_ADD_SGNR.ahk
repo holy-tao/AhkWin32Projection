@@ -49,6 +49,10 @@ export default struct PFN_CPD_ADD_SGNR {
             this.value := CallbackCreate(fn, , [CRYPT_PROVIDER_DATA.Ptr, BOOL, UInt32, CRYPT_PROVIDER_SGNR.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

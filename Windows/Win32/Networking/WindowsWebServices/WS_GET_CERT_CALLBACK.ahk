@@ -57,6 +57,10 @@ export default struct WS_GET_CERT_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", WS_ENDPOINT_ADDRESS.Ptr, WS_STRING.Ptr, WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

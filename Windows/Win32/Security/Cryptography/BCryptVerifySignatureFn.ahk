@@ -34,7 +34,7 @@ export default struct BCryptVerifySignatureFn {
         pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, BCRYPT_KEY_HANDLE, _hKey, pPaddingInfoMarshal, pPaddingInfo, IntPtr, pbHash, UInt32, cbHash, IntPtr, pbSignature, UInt32, cbSignature, UInt32, dwFlags, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -54,6 +54,10 @@ export default struct BCryptVerifySignatureFn {
             this.value := CallbackCreate(fn, , [BCRYPT_KEY_HANDLE, "ptr", IntPtr, UInt32, IntPtr, UInt32, UInt32, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

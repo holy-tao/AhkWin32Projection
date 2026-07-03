@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\WSDXML_NAME.ahk" { WSDXML_NAME }
 #Import ".\WSDXML_NAMESPACE.ahk" { WSDXML_NAMESPACE }
 #Import ".\WSDXML_TYPE.ahk" { WSDXML_TYPE }

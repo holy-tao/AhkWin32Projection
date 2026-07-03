@@ -44,6 +44,10 @@ export default struct GEO_ENUMPROC {
             this.value := CallbackCreate(fn, , [Int32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -1,11 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 #Import ".\ETW_BUFFER_CONTEXT.ahk" { ETW_BUFFER_CONTEXT }
 #Import ".\EVENT_TRACE.ahk" { EVENT_TRACE }
 #Import ".\EVENT_TRACE_HEADER.ahk" { EVENT_TRACE_HEADER }
+#Import ".\PEVENT_CALLBACK.ahk" { PEVENT_CALLBACK }
+#Import ".\PEVENT_RECORD_CALLBACK.ahk" { PEVENT_RECORD_CALLBACK }
+#Import ".\PEVENT_TRACE_BUFFER_CALLBACKA.ahk" { PEVENT_TRACE_BUFFER_CALLBACKA }
 #Import ".\TRACE_LOGFILE_HEADER.ahk" { TRACE_LOGFILE_HEADER }
 #Import "..\..\Time\TIME_ZONE_INFORMATION.ahk" { TIME_ZONE_INFORMATION }
 #Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
@@ -143,7 +146,7 @@ export default struct EVENT_TRACE_LOGFILEA {
      * ETW calls this callback after it delivers all the events in the buffer. This
      * callback is optional.
      */
-    BufferCallback : IntPtr
+    BufferCallback : PEVENT_TRACE_BUFFER_CALLBACKA
 
     /**
      * On output, contains the size of each buffer, in bytes.
@@ -161,7 +164,7 @@ export default struct EVENT_TRACE_LOGFILEA {
      */
     EventsLost : UInt32
 
-    EventCallback : IntPtr
+    EventCallback : PEVENT_CALLBACK
 
     /**
      * On output, if this member is **TRUE**, the event tracing session is the NT
@@ -184,7 +187,7 @@ export default struct EVENT_TRACE_LOGFILEA {
 
     static __New() {
         DefineProp(this.Prototype, 'ProcessTraceMode', { type: UInt32, offset: 28 })
-        DefineProp(this.Prototype, 'EventRecordCallback', { type: IntPtr, offset: 424 })
+        DefineProp(this.Prototype, 'EventRecordCallback', { type: PEVENT_RECORD_CALLBACK, offset: 424 })
         this.DeleteProp("__New")
     }
 }

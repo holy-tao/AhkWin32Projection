@@ -31,7 +31,7 @@ export default struct KspSerializeAuthDataFn {
         SerializedDataMarshal := SerializedData is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, pvAuthDataMarshal, pvAuthData, _SizeMarshal, _Size, SerializedDataMarshal, SerializedData, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -51,6 +51,10 @@ export default struct KspSerializeAuthDataFn {
             this.value := CallbackCreate(fn, , ["ptr", "uint*", "ptr*", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

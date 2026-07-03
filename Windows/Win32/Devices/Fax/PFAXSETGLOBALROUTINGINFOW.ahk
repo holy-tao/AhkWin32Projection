@@ -48,6 +48,10 @@ export default struct PFAXSETGLOBALROUTINGINFOW {
             this.value := CallbackCreate(fn, , [HANDLE, FAX_GLOBAL_ROUTING_INFOW.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

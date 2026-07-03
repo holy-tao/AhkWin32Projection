@@ -51,6 +51,10 @@ export default struct HDV_PCI_DEVICE_GET_DETAILS {
             this.value := CallbackCreate(fn, , ["ptr", HDV_PCI_PNP_ID.Ptr, UInt32, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

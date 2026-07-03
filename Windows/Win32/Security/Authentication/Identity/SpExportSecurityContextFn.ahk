@@ -78,7 +78,7 @@ export default struct SpExportSecurityContextFn {
      */
     Call(phContext, fFlags, pPackedContext, pToken) {
         result := DllCall(this.value, IntPtr, phContext, UInt32, fFlags, SecBuffer.Ptr, pPackedContext, HANDLE.Ptr, pToken, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -98,6 +98,10 @@ export default struct SpExportSecurityContextFn {
             this.value := CallbackCreate(fn, , [IntPtr, UInt32, SecBuffer.Ptr, HANDLE.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

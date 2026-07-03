@@ -46,6 +46,10 @@ export default struct PD2D1_EFFECT_FACTORY {
             this.value := CallbackCreate(fn, , ["int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

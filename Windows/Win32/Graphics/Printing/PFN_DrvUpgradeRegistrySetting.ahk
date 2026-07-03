@@ -51,6 +51,10 @@ export default struct PFN_DrvUpgradeRegistrySetting {
             this.value := CallbackCreate(fn, , [HANDLE, PSTR, PSTR, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

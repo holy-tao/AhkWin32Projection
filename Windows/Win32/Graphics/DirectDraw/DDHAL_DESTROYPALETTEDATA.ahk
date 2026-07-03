@@ -2,6 +2,7 @@
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDRAWI_DDRAWPALETTE_GBL.ahk" { DDRAWI_DDRAWPALETTE_GBL }
 #Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
+#Import ".\LPDDHALPALCB_DESTROYPALETTE.ahk" { LPDDHALPALCB_DESTROYPALETTE }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -15,6 +16,6 @@ export default struct DDHAL_DESTROYPALETTEDATA {
 
     ddRVal : HRESULT
 
-    DestroyPalette : IntPtr
+    DestroyPalette : LPDDHALPALCB_DESTROYPALETTE
 
 }

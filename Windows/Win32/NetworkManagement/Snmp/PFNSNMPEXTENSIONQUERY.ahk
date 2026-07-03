@@ -51,6 +51,10 @@ export default struct PFNSNMPEXTENSIONQUERY {
             this.value := CallbackCreate(fn, , [Int8, SnmpVarBindList.Ptr, "int*", "int*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -48,6 +48,10 @@ export default struct WNDOBJCHANGEPROC {
             this.value := CallbackCreate(fn, , [WNDOBJ.Ptr, UInt32, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

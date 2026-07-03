@@ -49,6 +49,10 @@ export default struct FAST_IO_QUERY_OPEN {
             this.value := CallbackCreate(fn, , [IRP.Ptr, FILE_NETWORK_OPEN_INFORMATION.Ptr, DEVICE_OBJECT.Ptr, BOOLEAN])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

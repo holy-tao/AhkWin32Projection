@@ -52,6 +52,10 @@ export default struct PFN_DrvIcmCheckBitmapBits {
             this.value := CallbackCreate(fn, , [DHPDEV, HANDLE, SURFOBJ.Ptr, "char*", BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

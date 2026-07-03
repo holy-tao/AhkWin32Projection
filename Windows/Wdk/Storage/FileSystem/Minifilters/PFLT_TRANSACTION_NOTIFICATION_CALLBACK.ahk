@@ -29,7 +29,7 @@ export default struct PFLT_TRANSACTION_NOTIFICATION_CALLBACK {
      */
     Call(FltObjects, _TransactionContext, NotificationMask) {
         result := DllCall(this.value, FLT_RELATED_OBJECTS.Ptr, FltObjects, PFLT_CONTEXT, _TransactionContext, UInt32, NotificationMask, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -49,6 +49,10 @@ export default struct PFLT_TRANSACTION_NOTIFICATION_CALLBACK {
             this.value := CallbackCreate(fn, , [FLT_RELATED_OBJECTS.Ptr, PFLT_CONTEXT, UInt32, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

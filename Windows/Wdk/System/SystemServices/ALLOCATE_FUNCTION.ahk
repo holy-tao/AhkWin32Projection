@@ -46,6 +46,10 @@ export default struct ALLOCATE_FUNCTION {
             this.value := CallbackCreate(fn, , [POOL_TYPE, IntPtr, UInt32, "ptr"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

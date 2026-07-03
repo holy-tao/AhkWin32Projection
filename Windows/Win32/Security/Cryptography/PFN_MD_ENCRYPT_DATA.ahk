@@ -58,6 +58,10 @@ export default struct PFN_MD_ENCRYPT_DATA {
             this.value := CallbackCreate(fn, , [CARD_DATA.Ptr, IntPtr, PWSTR, IntPtr, UInt32, UInt32, "ptr*", "uint*", UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

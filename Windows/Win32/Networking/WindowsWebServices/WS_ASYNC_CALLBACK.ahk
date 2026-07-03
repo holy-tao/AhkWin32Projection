@@ -55,6 +55,10 @@ export default struct WS_ASYNC_CALLBACK {
             this.value := CallbackCreate(fn, , ["int", WS_CALLBACK_MODEL, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

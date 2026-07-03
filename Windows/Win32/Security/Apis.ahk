@@ -1,6 +1,6 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Guid.ahk" { Guid }
 #Import "..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\Foundation\HANDLE.ahk" { HANDLE }
@@ -5952,7 +5952,7 @@ export LogonUserExW(lpszUsername, lpszDomain, lpszPassword, dwLogonType, dwLogon
  */
 export RtlConvertSidToUnicodeString(UnicodeString, _Sid, AllocateDestinationString) {
     result := DllCall("ntdll.dll\RtlConvertSidToUnicodeString", UNICODE_STRING.Ptr, UnicodeString, PSID, _Sid, BOOLEAN, AllocateDestinationString, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 

@@ -57,6 +57,10 @@ export default struct PFN_OFFLOAD_MOD_EXPO {
             this.value := CallbackCreate(fn, , ["char*", "char*", UInt32, "char*", UInt32, "char*", "ptr", UInt32, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -28,6 +28,7 @@
 #Import ".\COORD.ahk" { COORD }
 #Import ".\HPCON.ahk" { HPCON }
 #Import ".\INPUT_RECORD.ahk" { INPUT_RECORD }
+#Import ".\PHANDLER_ROUTINE.ahk" { PHANDLER_ROUTINE }
 #Import ".\SMALL_RECT.ahk" { SMALL_RECT }
 #Import ".\STD_HANDLE.ahk" { STD_HANDLE }
 #Import "..\..\UI\WindowsAndMessaging\HCURSOR.ahk" { HCURSOR }
@@ -596,7 +597,7 @@ export WriteConsoleW(hConsoleOutput, lpBuffer, nNumberOfCharsToWrite, lpNumberOf
 export SetConsoleCtrlHandler(HandlerRoutine, Add) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetConsoleCtrlHandler", "ptr", HandlerRoutine, BOOL, Add, BOOL)
+    result := DllCall("KERNEL32.dll\SetConsoleCtrlHandler", PHANDLER_ROUTINE, HandlerRoutine, BOOL, Add, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3125,7 +3126,7 @@ export GetConsoleInputWaitHandle() {
  */
 export ConsoleControl(Command, ConsoleInformation, ConsoleInformationLength) {
     result := DllCall("USER32.dll\ConsoleControl", CONSOLECONTROL_enum, Command, IntPtr, ConsoleInformation, UInt32, ConsoleInformationLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 

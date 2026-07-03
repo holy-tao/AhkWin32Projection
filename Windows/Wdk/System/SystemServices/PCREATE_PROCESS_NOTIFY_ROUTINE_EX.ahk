@@ -47,6 +47,10 @@ export default struct PCREATE_PROCESS_NOTIFY_ROUTINE_EX {
             this.value := CallbackCreate(fn, , [PEPROCESS, HANDLE, PS_CREATE_NOTIFY_INFO.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

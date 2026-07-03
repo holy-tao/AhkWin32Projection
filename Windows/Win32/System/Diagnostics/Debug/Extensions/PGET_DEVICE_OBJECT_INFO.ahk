@@ -48,6 +48,10 @@ export default struct PGET_DEVICE_OBJECT_INFO {
             this.value := CallbackCreate(fn, , ["ptr", Int64, DEBUG_DEVICE_OBJECT_INFO.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

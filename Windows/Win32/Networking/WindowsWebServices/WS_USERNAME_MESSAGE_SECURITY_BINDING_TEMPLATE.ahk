@@ -2,6 +2,7 @@
 #Import ".\WS_SECURITY_BINDING_PROPERTIES.ahk" { WS_SECURITY_BINDING_PROPERTIES }
 #Import ".\WS_SECURITY_BINDING_PROPERTY.ahk" { WS_SECURITY_BINDING_PROPERTY }
 #Import ".\WS_USERNAME_CREDENTIAL.ahk" { WS_USERNAME_CREDENTIAL }
+#Import ".\WS_VALIDATE_PASSWORD_CALLBACK.ahk" { WS_VALIDATE_PASSWORD_CALLBACK }
 
 /**
  * The security binding template for specifying the use of an application supplied username / password pair as a direct (i.e., one-shot) security token.
@@ -28,7 +29,7 @@ export default struct WS_USERNAME_MESSAGE_SECURITY_BINDING_TEMPLATE {
      *           This needs to be specified when this security binding is used on the
      *           service.
      */
-    passwordValidator : IntPtr
+    passwordValidator : WS_VALIDATE_PASSWORD_CALLBACK
 
     /**
      * The optional state to be passed in as an argument when the username validator is invoked.

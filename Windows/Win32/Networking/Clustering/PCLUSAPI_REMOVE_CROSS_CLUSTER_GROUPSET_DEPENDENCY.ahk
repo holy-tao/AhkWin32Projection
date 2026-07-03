@@ -50,6 +50,10 @@ export default struct PCLUSAPI_REMOVE_CROSS_CLUSTER_GROUPSET_DEPENDENCY {
             this.value := CallbackCreate(fn, , [HGROUPSET, PWSTR, PWSTR, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

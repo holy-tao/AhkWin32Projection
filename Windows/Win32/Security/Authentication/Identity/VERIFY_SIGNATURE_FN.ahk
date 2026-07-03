@@ -51,6 +51,10 @@ export default struct VERIFY_SIGNATURE_FN {
             this.value := CallbackCreate(fn, , [SecHandle.Ptr, SecBufferDesc.Ptr, UInt32, "uint*", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

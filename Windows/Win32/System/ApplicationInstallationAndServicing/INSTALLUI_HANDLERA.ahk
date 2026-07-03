@@ -420,6 +420,10 @@ export default struct INSTALLUI_HANDLERA {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, PSTR, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -45,6 +45,10 @@ export default struct CF_CALLBACK {
             this.value := CallbackCreate(fn, , [CF_CALLBACK_INFO.Ptr, CF_CALLBACK_PARAMETERS.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

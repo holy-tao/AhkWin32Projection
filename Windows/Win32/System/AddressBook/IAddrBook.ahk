@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ADRENTRY.ahk" { ADRENTRY }
 #Import ".\ADRLIST.ahk" { ADRLIST }
@@ -8,6 +8,8 @@
 #Import ".\ENTRYID.ahk" { ENTRYID }
 #Import ".\IMAPIAdviseSink.ahk" { IMAPIAdviseSink }
 #Import ".\IMAPIProp.ahk" { IMAPIProp }
+#Import ".\LPFNBUTTON.ahk" { LPFNBUTTON }
+#Import ".\LPFNDISMISS.ahk" { LPFNDISMISS }
 #Import ".\SPropTagArray.ahk" { SPropTagArray }
 #Import ".\SPropValue.ahk" { SPropValue }
 #Import ".\SRowSet.ahk" { SRowSet }
@@ -428,7 +430,7 @@ export default struct IAddrBook extends IMAPIProp {
         lpvButtonContextMarshal := lpvButtonContext is VarRef ? "ptr" : "ptr"
         lpszButtonTextMarshal := lpszButtonText is VarRef ? "char*" : "ptr"
 
-        result := ComCall(22, this, lpulUIParamMarshal, lpulUIParam, "ptr", _lpfnDismiss, lpvDismissContextMarshal, lpvDismissContext, UInt32, cbEntryID, ENTRYID.Ptr, lpEntryID, "ptr", lpfButtonCallback, lpvButtonContextMarshal, lpvButtonContext, lpszButtonTextMarshal, lpszButtonText, UInt32, ulFlags, "HRESULT")
+        result := ComCall(22, this, lpulUIParamMarshal, lpulUIParam, LPFNDISMISS, _lpfnDismiss, lpvDismissContextMarshal, lpvDismissContext, UInt32, cbEntryID, ENTRYID.Ptr, lpEntryID, LPFNBUTTON, lpfButtonCallback, lpvButtonContextMarshal, lpvButtonContext, lpszButtonTextMarshal, lpszButtonText, UInt32, ulFlags, "HRESULT")
         return result
     }
 

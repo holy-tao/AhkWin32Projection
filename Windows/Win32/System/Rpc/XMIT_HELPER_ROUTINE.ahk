@@ -43,6 +43,10 @@ export default struct XMIT_HELPER_ROUTINE {
             this.value := CallbackCreate(fn, , [MIDL_STUB_MESSAGE.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -47,6 +47,10 @@ export default struct PFREE_COMMON_BUFFER_VECTOR {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, DMA_COMMON_BUFFER_VECTOR.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

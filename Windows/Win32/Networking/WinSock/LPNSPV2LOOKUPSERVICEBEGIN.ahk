@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\WSAQUERYSET2W.ahk" { WSAQUERYSET2W }
 
@@ -228,6 +228,10 @@ export default struct LPNSPV2LOOKUPSERVICEBEGIN {
             this.value := CallbackCreate(fn, , [Guid.Ptr, WSAQUERYSET2W.Ptr, UInt32, "ptr", HANDLE.Ptr, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

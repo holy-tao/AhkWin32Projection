@@ -43,6 +43,10 @@ export default struct FAST_IO_ACQUIRE_FILE {
             this.value := CallbackCreate(fn, , [FILE_OBJECT.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
@@ -11,17 +11,26 @@
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ACMDRIVERDETAILSA.ahk" { ACMDRIVERDETAILSA as ACMDRIVERDETAILSA_struct }
 #Import ".\ACMDRIVERDETAILSW.ahk" { ACMDRIVERDETAILSW as ACMDRIVERDETAILSW_struct }
+#Import ".\ACMDRIVERENUMCB.ahk" { ACMDRIVERENUMCB }
 #Import ".\ACMFILTERCHOOSEA.ahk" { ACMFILTERCHOOSEA as ACMFILTERCHOOSEA_struct }
 #Import ".\ACMFILTERCHOOSEW.ahk" { ACMFILTERCHOOSEW as ACMFILTERCHOOSEW_struct }
 #Import ".\ACMFILTERDETAILSA.ahk" { ACMFILTERDETAILSA as ACMFILTERDETAILSA_struct }
 #Import ".\ACMFILTERDETAILSW.ahk" { ACMFILTERDETAILSW as ACMFILTERDETAILSW_struct }
+#Import ".\ACMFILTERENUMCBA.ahk" { ACMFILTERENUMCBA }
+#Import ".\ACMFILTERENUMCBW.ahk" { ACMFILTERENUMCBW }
 #Import ".\ACMFILTERTAGDETAILSA.ahk" { ACMFILTERTAGDETAILSA as ACMFILTERTAGDETAILSA_struct }
 #Import ".\ACMFILTERTAGDETAILSW.ahk" { ACMFILTERTAGDETAILSW as ACMFILTERTAGDETAILSW_struct }
+#Import ".\ACMFILTERTAGENUMCBA.ahk" { ACMFILTERTAGENUMCBA }
+#Import ".\ACMFILTERTAGENUMCBW.ahk" { ACMFILTERTAGENUMCBW }
 #Import ".\ACMFORMATCHOOSEA.ahk" { ACMFORMATCHOOSEA as ACMFORMATCHOOSEA_struct }
 #Import ".\ACMFORMATCHOOSEW.ahk" { ACMFORMATCHOOSEW as ACMFORMATCHOOSEW_struct }
 #Import ".\ACMFORMATDETAILSA.ahk" { ACMFORMATDETAILSA as ACMFORMATDETAILSA_struct }
+#Import ".\ACMFORMATENUMCBA.ahk" { ACMFORMATENUMCBA }
+#Import ".\ACMFORMATENUMCBW.ahk" { ACMFORMATENUMCBW }
 #Import ".\ACMFORMATTAGDETAILSA.ahk" { ACMFORMATTAGDETAILSA as ACMFORMATTAGDETAILSA_struct }
 #Import ".\ACMFORMATTAGDETAILSW.ahk" { ACMFORMATTAGDETAILSW as ACMFORMATTAGDETAILSW_struct }
+#Import ".\ACMFORMATTAGENUMCBA.ahk" { ACMFORMATTAGENUMCBA }
+#Import ".\ACMFORMATTAGENUMCBW.ahk" { ACMFORMATTAGENUMCBW }
 #Import ".\ACMSTREAMHEADER.ahk" { ACMSTREAMHEADER }
 #Import ".\AUDIO_STREAM_CATEGORY.ahk" { AUDIO_STREAM_CATEGORY }
 #Import ".\ERole.ahk" { ERole }
@@ -7578,7 +7587,7 @@ export acmMetrics(hao, uMetric, pMetric) {
  * @since windows5.0
  */
 export acmDriverEnum(fnCallback, dwInstance, fdwEnum) {
-    result := DllCall("MSACM32.dll\acmDriverEnum", "ptr", fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
+    result := DllCall("MSACM32.dll\acmDriverEnum", ACMDRIVERENUMCB, fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
     return result
 }
 
@@ -8519,7 +8528,7 @@ export acmFormatTagDetailsW(had, paftd, fdwDetails) {
  * @since windows5.0
  */
 export acmFormatTagEnumA(had, paftd, fnCallback, dwInstance, fdwEnum) {
-    result := DllCall("MSACM32.dll\acmFormatTagEnumA", HACMDRIVER, had, ACMFORMATTAGDETAILSA_struct.Ptr, paftd, "ptr", fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
+    result := DllCall("MSACM32.dll\acmFormatTagEnumA", HACMDRIVER, had, ACMFORMATTAGDETAILSA_struct.Ptr, paftd, ACMFORMATTAGENUMCBA, fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
     return result
 }
 
@@ -8584,7 +8593,7 @@ export acmFormatTagEnumA(had, paftd, fnCallback, dwInstance, fdwEnum) {
  * @since windows5.0
  */
 export acmFormatTagEnumW(had, paftd, fnCallback, dwInstance, fdwEnum) {
-    result := DllCall("MSACM32.dll\acmFormatTagEnumW", HACMDRIVER, had, ACMFORMATTAGDETAILSW_struct.Ptr, paftd, "ptr", fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
+    result := DllCall("MSACM32.dll\acmFormatTagEnumW", HACMDRIVER, had, ACMFORMATTAGDETAILSW_struct.Ptr, paftd, ACMFORMATTAGENUMCBW, fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
     return result
 }
 
@@ -8878,7 +8887,7 @@ export acmFormatDetailsW(had, pafd, fdwDetails) {
  * @since windows5.0
  */
 export acmFormatEnumA(had, pafd, fnCallback, dwInstance, fdwEnum) {
-    result := DllCall("MSACM32.dll\acmFormatEnumA", HACMDRIVER, had, ACMFORMATDETAILSA_struct.Ptr, pafd, "ptr", fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
+    result := DllCall("MSACM32.dll\acmFormatEnumA", HACMDRIVER, had, ACMFORMATDETAILSA_struct.Ptr, pafd, ACMFORMATENUMCBA, fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
     return result
 }
 
@@ -9002,7 +9011,7 @@ export acmFormatEnumA(had, pafd, fnCallback, dwInstance, fdwEnum) {
  * @since windows5.0
  */
 export acmFormatEnumW(had, pafd, fnCallback, dwInstance, fdwEnum) {
-    result := DllCall("MSACM32.dll\acmFormatEnumW", HACMDRIVER, had, tACMFORMATDETAILSW.Ptr, pafd, "ptr", fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
+    result := DllCall("MSACM32.dll\acmFormatEnumW", HACMDRIVER, had, tACMFORMATDETAILSW.Ptr, pafd, ACMFORMATENUMCBW, fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
     return result
 }
 
@@ -9506,7 +9515,7 @@ export acmFilterTagDetailsW(had, paftd, fdwDetails) {
  * @since windows5.0
  */
 export acmFilterTagEnumA(had, paftd, fnCallback, dwInstance, fdwEnum) {
-    result := DllCall("MSACM32.dll\acmFilterTagEnumA", HACMDRIVER, had, ACMFILTERTAGDETAILSA_struct.Ptr, paftd, "ptr", fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
+    result := DllCall("MSACM32.dll\acmFilterTagEnumA", HACMDRIVER, had, ACMFILTERTAGDETAILSA_struct.Ptr, paftd, ACMFILTERTAGENUMCBA, fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
     return result
 }
 
@@ -9571,7 +9580,7 @@ export acmFilterTagEnumA(had, paftd, fnCallback, dwInstance, fdwEnum) {
  * @since windows5.0
  */
 export acmFilterTagEnumW(had, paftd, fnCallback, dwInstance, fdwEnum) {
-    result := DllCall("MSACM32.dll\acmFilterTagEnumW", HACMDRIVER, had, ACMFILTERTAGDETAILSW_struct.Ptr, paftd, "ptr", fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
+    result := DllCall("MSACM32.dll\acmFilterTagEnumW", HACMDRIVER, had, ACMFILTERTAGDETAILSW_struct.Ptr, paftd, ACMFILTERTAGENUMCBW, fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
     return result
 }
 
@@ -9832,7 +9841,7 @@ export acmFilterDetailsW(had, pafd, fdwDetails) {
  * @since windows5.0
  */
 export acmFilterEnumA(had, pafd, fnCallback, dwInstance, fdwEnum) {
-    result := DllCall("MSACM32.dll\acmFilterEnumA", HACMDRIVER, had, ACMFILTERDETAILSA_struct.Ptr, pafd, "ptr", fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
+    result := DllCall("MSACM32.dll\acmFilterEnumA", HACMDRIVER, had, ACMFILTERDETAILSA_struct.Ptr, pafd, ACMFILTERENUMCBA, fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
     return result
 }
 
@@ -9923,7 +9932,7 @@ export acmFilterEnumA(had, pafd, fnCallback, dwInstance, fdwEnum) {
  * @since windows5.0
  */
 export acmFilterEnumW(had, pafd, fnCallback, dwInstance, fdwEnum) {
-    result := DllCall("MSACM32.dll\acmFilterEnumW", HACMDRIVER, had, ACMFILTERDETAILSW_struct.Ptr, pafd, "ptr", fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
+    result := DllCall("MSACM32.dll\acmFilterEnumW", HACMDRIVER, had, ACMFILTERDETAILSW_struct.Ptr, pafd, ACMFILTERENUMCBW, fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
     return result
 }
 

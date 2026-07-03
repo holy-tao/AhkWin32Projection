@@ -45,6 +45,10 @@ export default struct LPEXCEPFINO_DEFERRED_FILLIN {
             this.value := CallbackCreate(fn, , [EXCEPINFO.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -50,6 +50,10 @@ export default struct PDXGK_FSTATE_NOTIFICATION {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, UInt32, BOOLEAN, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

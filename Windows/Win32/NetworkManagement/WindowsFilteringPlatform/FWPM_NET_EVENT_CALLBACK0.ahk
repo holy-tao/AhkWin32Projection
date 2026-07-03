@@ -54,6 +54,10 @@ export default struct FWPM_NET_EVENT_CALLBACK0 {
             this.value := CallbackCreate(fn, , ["ptr", FWPM_NET_EVENT1.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

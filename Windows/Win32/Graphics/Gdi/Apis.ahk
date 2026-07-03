@@ -21,6 +21,9 @@
 #Import ".\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
 #Import ".\BLENDFUNCTION.ahk" { BLENDFUNCTION }
 #Import ".\CDS_TYPE.ahk" { CDS_TYPE }
+#Import ".\CFP_ALLOCPROC.ahk" { CFP_ALLOCPROC }
+#Import ".\CFP_FREEPROC.ahk" { CFP_FREEPROC }
+#Import ".\CFP_REALLOCPROC.ahk" { CFP_REALLOCPROC }
 #Import ".\COLORADJUSTMENT.ahk" { COLORADJUSTMENT }
 #Import ".\CREATE_FONT_PACKAGE_SUBSET_ENCODING.ahk" { CREATE_FONT_PACKAGE_SUBSET_ENCODING }
 #Import ".\CREATE_FONT_PACKAGE_SUBSET_PLATFORM.ahk" { CREATE_FONT_PACKAGE_SUBSET_PLATFORM }
@@ -33,6 +36,7 @@
 #Import ".\DISPLAY_DEVICEW.ahk" { DISPLAY_DEVICEW }
 #Import ".\DISP_CHANGE.ahk" { DISP_CHANGE }
 #Import ".\DRAWEDGE_FLAGS.ahk" { DRAWEDGE_FLAGS }
+#Import ".\DRAWSTATEPROC.ahk" { DRAWSTATEPROC }
 #Import ".\DRAWSTATE_FLAGS.ahk" { DRAWSTATE_FLAGS }
 #Import ".\DRAWTEXTPARAMS.ahk" { DRAWTEXTPARAMS }
 #Import ".\DRAW_CAPTION_FLAGS.ahk" { DRAW_CAPTION_FLAGS }
@@ -41,12 +45,15 @@
 #Import ".\EMBEDDED_FONT_PRIV_STATUS.ahk" { EMBEDDED_FONT_PRIV_STATUS }
 #Import ".\EMBED_FONT_CHARSET.ahk" { EMBED_FONT_CHARSET }
 #Import ".\ENHMETARECORD.ahk" { ENHMETARECORD }
+#Import ".\ENHMFENUMPROC.ahk" { ENHMFENUMPROC }
 #Import ".\ENUMLOGFONTEXDVA.ahk" { ENUMLOGFONTEXDVA }
 #Import ".\ENUMLOGFONTEXDVW.ahk" { ENUMLOGFONTEXDVW }
 #Import ".\ENUM_DISPLAY_SETTINGS_FLAGS.ahk" { ENUM_DISPLAY_SETTINGS_FLAGS }
 #Import ".\ENUM_DISPLAY_SETTINGS_MODE.ahk" { ENUM_DISPLAY_SETTINGS_MODE }
 #Import ".\ETO_OPTIONS.ahk" { ETO_OPTIONS }
 #Import ".\EXT_FLOOD_FILL_TYPE.ahk" { EXT_FLOOD_FILL_TYPE }
+#Import ".\FONTENUMPROCA.ahk" { FONTENUMPROCA }
+#Import ".\FONTENUMPROCW.ahk" { FONTENUMPROCW }
 #Import ".\FONT_LICENSE_PRIVS.ahk" { FONT_LICENSE_PRIVS }
 #Import ".\FONT_RESOURCE_CHARACTERISTICS.ahk" { FONT_RESOURCE_CHARACTERISTICS }
 #Import ".\GCP_RESULTSA.ahk" { GCP_RESULTSA }
@@ -58,8 +65,10 @@
 #Import ".\GET_STOCK_OBJECT_FLAGS.ahk" { GET_STOCK_OBJECT_FLAGS }
 #Import ".\GLYPHMETRICS.ahk" { GLYPHMETRICS }
 #Import ".\GLYPHSET.ahk" { GLYPHSET }
+#Import ".\GOBJENUMPROC.ahk" { GOBJENUMPROC }
 #Import ".\GRADIENT_FILL.ahk" { GRADIENT_FILL }
 #Import ".\GRAPHICS_MODE.ahk" { GRAPHICS_MODE }
+#Import ".\GRAYSTRINGPROC.ahk" { GRAYSTRINGPROC }
 #Import ".\HANDLETABLE.ahk" { HANDLETABLE }
 #Import ".\HATCH_BRUSH_STYLE.ahk" { HATCH_BRUSH_STYLE }
 #Import ".\HBITMAP.ahk" { HBITMAP }
@@ -75,6 +84,7 @@
 #Import ".\HPEN.ahk" { HPEN }
 #Import ".\HRGN.ahk" { HRGN }
 #Import ".\KERNINGPAIR.ahk" { KERNINGPAIR }
+#Import ".\LINEDDAPROC.ahk" { LINEDDAPROC }
 #Import ".\LOGBRUSH.ahk" { LOGBRUSH }
 #Import ".\LOGFONTA.ahk" { LOGFONTA }
 #Import ".\LOGFONTW.ahk" { LOGFONTW }
@@ -82,7 +92,9 @@
 #Import ".\LOGPEN.ahk" { LOGPEN }
 #Import ".\MAT2.ahk" { MAT2 }
 #Import ".\METARECORD.ahk" { METARECORD }
+#Import ".\MFENUMPROC.ahk" { MFENUMPROC }
 #Import ".\MODIFY_WORLD_TRANSFORM_MODE.ahk" { MODIFY_WORLD_TRANSFORM_MODE }
+#Import ".\MONITORENUMPROC.ahk" { MONITORENUMPROC }
 #Import ".\MONITORINFO.ahk" { MONITORINFO }
 #Import ".\MONITOR_FROM_FLAGS.ahk" { MONITOR_FROM_FLAGS }
 #Import ".\OBJ_TYPE.ahk" { OBJ_TYPE }
@@ -92,6 +104,7 @@
 #Import ".\POLYTEXTA.ahk" { POLYTEXTA }
 #Import ".\POLYTEXTW.ahk" { POLYTEXTW }
 #Import ".\R2_MODE.ahk" { R2_MODE }
+#Import ".\READEMBEDPROC.ahk" { READEMBEDPROC }
 #Import ".\REDRAW_WINDOW_FLAGS.ahk" { REDRAW_WINDOW_FLAGS }
 #Import ".\RGBQUAD.ahk" { RGBQUAD }
 #Import ".\RGN_COMBINE_MODE.ahk" { RGN_COMBINE_MODE }
@@ -111,6 +124,7 @@
 #Import ".\TTVALIDATIONTESTSPARAMS.ahk" { TTVALIDATIONTESTSPARAMS }
 #Import ".\TTVALIDATIONTESTSPARAMSEX.ahk" { TTVALIDATIONTESTSPARAMSEX }
 #Import ".\WGLSWAP.ahk" { WGLSWAP }
+#Import ".\WRITEEMBEDPROC.ahk" { WRITEEMBEDPROC }
 #Import ".\XFORM.ahk" { XFORM }
 
 /**
@@ -2666,7 +2680,7 @@ export Ellipse(_hdc, left, top, right, bottom) {
  * @since windows5.0
  */
 export EnumFontFamiliesExA(_hdc, lpLogfont, lpProc, _lParam, dwFlags) {
-    result := DllCall("GDI32.dll\EnumFontFamiliesExA", HDC, _hdc, LOGFONTA.Ptr, lpLogfont, "ptr", lpProc, LPARAM, _lParam, UInt32, dwFlags, Int32)
+    result := DllCall("GDI32.dll\EnumFontFamiliesExA", HDC, _hdc, LOGFONTA.Ptr, lpLogfont, FONTENUMPROCA, lpProc, LPARAM, _lParam, UInt32, dwFlags, Int32)
     return result
 }
 
@@ -2817,7 +2831,7 @@ export EnumFontFamiliesExA(_hdc, lpLogfont, lpProc, _lParam, dwFlags) {
  * @since windows5.0
  */
 export EnumFontFamiliesExW(_hdc, lpLogfont, lpProc, _lParam, dwFlags) {
-    result := DllCall("GDI32.dll\EnumFontFamiliesExW", HDC, _hdc, LOGFONTW.Ptr, lpLogfont, "ptr", lpProc, LPARAM, _lParam, UInt32, dwFlags, Int32)
+    result := DllCall("GDI32.dll\EnumFontFamiliesExW", HDC, _hdc, LOGFONTW.Ptr, lpLogfont, FONTENUMPROCW, lpProc, LPARAM, _lParam, UInt32, dwFlags, Int32)
     return result
 }
 
@@ -2840,7 +2854,7 @@ export EnumFontFamiliesExW(_hdc, lpLogfont, lpProc, _lParam, dwFlags) {
 export EnumFontFamiliesA(_hdc, lpLogfont, lpProc, _lParam) {
     lpLogfont := lpLogfont is String ? StrPtr(lpLogfont) : lpLogfont
 
-    result := DllCall("GDI32.dll\EnumFontFamiliesA", HDC, _hdc, "ptr", lpLogfont, "ptr", lpProc, LPARAM, _lParam, Int32)
+    result := DllCall("GDI32.dll\EnumFontFamiliesA", HDC, _hdc, "ptr", lpLogfont, FONTENUMPROCA, lpProc, LPARAM, _lParam, Int32)
     return result
 }
 
@@ -2863,7 +2877,7 @@ export EnumFontFamiliesA(_hdc, lpLogfont, lpProc, _lParam) {
 export EnumFontFamiliesW(_hdc, lpLogfont, lpProc, _lParam) {
     lpLogfont := lpLogfont is String ? StrPtr(lpLogfont) : lpLogfont
 
-    result := DllCall("GDI32.dll\EnumFontFamiliesW", HDC, _hdc, "ptr", lpLogfont, "ptr", lpProc, LPARAM, _lParam, Int32)
+    result := DllCall("GDI32.dll\EnumFontFamiliesW", HDC, _hdc, "ptr", lpLogfont, FONTENUMPROCW, lpProc, LPARAM, _lParam, Int32)
     return result
 }
 
@@ -2891,7 +2905,7 @@ export EnumFontFamiliesW(_hdc, lpLogfont, lpProc, _lParam) {
 export EnumFontsA(_hdc, lpLogfont, lpProc, _lParam) {
     lpLogfont := lpLogfont is String ? StrPtr(lpLogfont) : lpLogfont
 
-    result := DllCall("GDI32.dll\EnumFontsA", HDC, _hdc, "ptr", lpLogfont, "ptr", lpProc, LPARAM, _lParam, Int32)
+    result := DllCall("GDI32.dll\EnumFontsA", HDC, _hdc, "ptr", lpLogfont, FONTENUMPROCA, lpProc, LPARAM, _lParam, Int32)
     return result
 }
 
@@ -2919,7 +2933,7 @@ export EnumFontsA(_hdc, lpLogfont, lpProc, _lParam) {
 export EnumFontsW(_hdc, lpLogfont, lpProc, _lParam) {
     lpLogfont := lpLogfont is String ? StrPtr(lpLogfont) : lpLogfont
 
-    result := DllCall("GDI32.dll\EnumFontsW", HDC, _hdc, "ptr", lpLogfont, "ptr", lpProc, LPARAM, _lParam, Int32)
+    result := DllCall("GDI32.dll\EnumFontsW", HDC, _hdc, "ptr", lpLogfont, FONTENUMPROCW, lpProc, LPARAM, _lParam, Int32)
     return result
 }
 
@@ -2936,7 +2950,7 @@ export EnumFontsW(_hdc, lpLogfont, lpProc, _lParam) {
  * @since windows5.0
  */
 export EnumObjects(_hdc, nType, lpFunc, _lParam) {
-    result := DllCall("GDI32.dll\EnumObjects", HDC, _hdc, OBJ_TYPE, nType, "ptr", lpFunc, LPARAM, _lParam, Int32)
+    result := DllCall("GDI32.dll\EnumObjects", HDC, _hdc, OBJ_TYPE, nType, GOBJENUMPROC, lpFunc, LPARAM, _lParam, Int32)
     return result
 }
 
@@ -6081,7 +6095,7 @@ export InvertRgn(_hdc, _hrgn) {
  * @since windows5.0
  */
 export LineDDA(xStart, yStart, xEnd, yEnd, lpProc, data) {
-    result := DllCall("GDI32.dll\LineDDA", Int32, xStart, Int32, yStart, Int32, xEnd, Int32, yEnd, "ptr", lpProc, LPARAM, data, BOOL)
+    result := DllCall("GDI32.dll\LineDDA", Int32, xStart, Int32, yStart, Int32, xEnd, Int32, yEnd, LINEDDAPROC, lpProc, LPARAM, data, BOOL)
     return result
 }
 
@@ -8404,7 +8418,7 @@ export PlayMetaFileRecord(_hdc, lpHandleTable, lpMR, noObjs) {
  * @since windows5.0
  */
 export EnumMetaFile(_hdc, hmf, _proc, param3) {
-    result := DllCall("GDI32.dll\EnumMetaFile", HDC, _hdc, HMETAFILE, hmf, "ptr", _proc, LPARAM, param3, BOOL)
+    result := DllCall("GDI32.dll\EnumMetaFile", HDC, _hdc, HMETAFILE, hmf, MFENUMPROC, _proc, LPARAM, param3, BOOL)
     return result
 }
 
@@ -8610,7 +8624,7 @@ export DeleteEnhMetaFile(hmf) {
 export EnumEnhMetaFile(_hdc, hmf, _proc, param3, lpRect) {
     param3Marshal := param3 is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("GDI32.dll\EnumEnhMetaFile", HDC, _hdc, HENHMETAFILE, hmf, "ptr", _proc, param3Marshal, param3, RECT.Ptr, lpRect, BOOL)
+    result := DllCall("GDI32.dll\EnumEnhMetaFile", HDC, _hdc, HENHMETAFILE, hmf, ENHMFENUMPROC, _proc, param3Marshal, param3, RECT.Ptr, lpRect, BOOL)
     return result
 }
 
@@ -11336,7 +11350,7 @@ export CreateFontPackage(puchSrcBuffer, ulSrcBufferSize, ppuchFontPackageBuffer,
     pusSubsetKeepListMarshal := pusSubsetKeepList is VarRef ? "ushort*" : "ptr"
     lpvReservedMarshal := lpvReserved is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("FONTSUB.dll\CreateFontPackage", puchSrcBufferMarshal, puchSrcBuffer, UInt32, ulSrcBufferSize, ppuchFontPackageBufferMarshal, ppuchFontPackageBuffer, pulFontPackageBufferSizeMarshal, pulFontPackageBufferSize, pulBytesWrittenMarshal, pulBytesWritten, UInt16, usFlag, UInt16, usTTCIndex, UInt16, usSubsetFormat, UInt16, usSubsetLanguage, CREATE_FONT_PACKAGE_SUBSET_PLATFORM, usSubsetPlatform, CREATE_FONT_PACKAGE_SUBSET_ENCODING, usSubsetEncoding, pusSubsetKeepListMarshal, pusSubsetKeepList, UInt16, usSubsetListCount, "ptr", lpfnAllocate, "ptr", lpfnReAllocate, "ptr", lpfnFree, lpvReservedMarshal, lpvReserved, UInt32)
+    result := DllCall("FONTSUB.dll\CreateFontPackage", puchSrcBufferMarshal, puchSrcBuffer, UInt32, ulSrcBufferSize, ppuchFontPackageBufferMarshal, ppuchFontPackageBuffer, pulFontPackageBufferSizeMarshal, pulFontPackageBufferSize, pulBytesWrittenMarshal, pulBytesWritten, UInt16, usFlag, UInt16, usTTCIndex, UInt16, usSubsetFormat, UInt16, usSubsetLanguage, CREATE_FONT_PACKAGE_SUBSET_PLATFORM, usSubsetPlatform, CREATE_FONT_PACKAGE_SUBSET_ENCODING, usSubsetEncoding, pusSubsetKeepListMarshal, pusSubsetKeepList, UInt16, usSubsetListCount, CFP_ALLOCPROC, lpfnAllocate, CFP_REALLOCPROC, lpfnReAllocate, CFP_FREEPROC, lpfnFree, lpvReservedMarshal, lpvReserved, UInt32)
     return result
 }
 
@@ -11444,7 +11458,7 @@ export MergeFontPackage(puchMergeFontBuffer, ulMergeFontBufferSize, puchFontPack
     pulBytesWrittenMarshal := pulBytesWritten is VarRef ? "uint*" : "ptr"
     lpvReservedMarshal := lpvReserved is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("FONTSUB.dll\MergeFontPackage", puchMergeFontBufferMarshal, puchMergeFontBuffer, UInt32, ulMergeFontBufferSize, puchFontPackageBufferMarshal, puchFontPackageBuffer, UInt32, ulFontPackageBufferSize, ppuchDestBufferMarshal, ppuchDestBuffer, pulDestBufferSizeMarshal, pulDestBufferSize, pulBytesWrittenMarshal, pulBytesWritten, UInt16, usMode, "ptr", lpfnAllocate, "ptr", lpfnReAllocate, "ptr", lpfnFree, lpvReservedMarshal, lpvReserved, UInt32)
+    result := DllCall("FONTSUB.dll\MergeFontPackage", puchMergeFontBufferMarshal, puchMergeFontBuffer, UInt32, ulMergeFontBufferSize, puchFontPackageBufferMarshal, puchFontPackageBuffer, UInt32, ulFontPackageBufferSize, ppuchDestBufferMarshal, ppuchDestBuffer, pulDestBufferSizeMarshal, pulDestBufferSize, pulBytesWrittenMarshal, pulBytesWritten, UInt16, usMode, CFP_ALLOCPROC, lpfnAllocate, CFP_REALLOCPROC, lpfnReAllocate, CFP_FREEPROC, lpfnFree, lpvReservedMarshal, lpvReserved, UInt32)
     return result
 }
 
@@ -11479,7 +11493,7 @@ export TTEmbedFont(_hDC, ulFlags, ulCharSet, pulPrivStatus, pulStatus, lpfnWrite
     lpvWriteStreamMarshal := lpvWriteStream is VarRef ? "ptr" : "ptr"
     pusCharCodeSetMarshal := pusCharCodeSet is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("t2embed.dll\TTEmbedFont", HDC, _hDC, TTEMBED_FLAGS, ulFlags, EMBED_FONT_CHARSET, ulCharSet, pulPrivStatusMarshal, pulPrivStatus, pulStatusMarshal, pulStatus, "ptr", lpfnWriteToStream, lpvWriteStreamMarshal, lpvWriteStream, pusCharCodeSetMarshal, pusCharCodeSet, UInt16, usCharCodeCount, UInt16, usLanguage, TTEMBEDINFO.Ptr, pTTEmbedInfo, Int32)
+    result := DllCall("t2embed.dll\TTEmbedFont", HDC, _hDC, TTEMBED_FLAGS, ulFlags, EMBED_FONT_CHARSET, ulCharSet, pulPrivStatusMarshal, pulPrivStatus, pulStatusMarshal, pulStatus, WRITEEMBEDPROC, lpfnWriteToStream, lpvWriteStreamMarshal, lpvWriteStream, pusCharCodeSetMarshal, pusCharCodeSet, UInt16, usCharCodeCount, UInt16, usLanguage, TTEMBEDINFO.Ptr, pTTEmbedInfo, Int32)
     return result
 }
 
@@ -11520,7 +11534,7 @@ export TTEmbedFontFromFileA(_hDC, szFontFileName, usTTCIndex, ulFlags, ulCharSet
     lpvWriteStreamMarshal := lpvWriteStream is VarRef ? "ptr" : "ptr"
     pusCharCodeSetMarshal := pusCharCodeSet is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("t2embed.dll\TTEmbedFontFromFileA", HDC, _hDC, "ptr", szFontFileName, UInt16, usTTCIndex, TTEMBED_FLAGS, ulFlags, EMBED_FONT_CHARSET, ulCharSet, pulPrivStatusMarshal, pulPrivStatus, pulStatusMarshal, pulStatus, "ptr", lpfnWriteToStream, lpvWriteStreamMarshal, lpvWriteStream, pusCharCodeSetMarshal, pusCharCodeSet, UInt16, usCharCodeCount, UInt16, usLanguage, TTEMBEDINFO.Ptr, pTTEmbedInfo, Int32)
+    result := DllCall("t2embed.dll\TTEmbedFontFromFileA", HDC, _hDC, "ptr", szFontFileName, UInt16, usTTCIndex, TTEMBED_FLAGS, ulFlags, EMBED_FONT_CHARSET, ulCharSet, pulPrivStatusMarshal, pulPrivStatus, pulStatusMarshal, pulStatus, WRITEEMBEDPROC, lpfnWriteToStream, lpvWriteStreamMarshal, lpvWriteStream, pusCharCodeSetMarshal, pusCharCodeSet, UInt16, usCharCodeCount, UInt16, usLanguage, TTEMBEDINFO.Ptr, pTTEmbedInfo, Int32)
     return result
 }
 
@@ -11579,7 +11593,7 @@ export TTLoadEmbeddedFont(phFontReference, ulFlags, pulPrivStatus, ulPrivs, pulS
     pulStatusMarshal := pulStatus is VarRef ? "uint*" : "ptr"
     lpvReadStreamMarshal := lpvReadStream is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("t2embed.dll\TTLoadEmbeddedFont", HANDLE.Ptr, phFontReference, UInt32, ulFlags, pulPrivStatusMarshal, pulPrivStatus, FONT_LICENSE_PRIVS, ulPrivs, pulStatusMarshal, pulStatus, "ptr", lpfnReadFromStream, lpvReadStreamMarshal, lpvReadStream, "ptr", szWinFamilyName, "ptr", szMacFamilyName, TTLOADINFO.Ptr, pTTLoadInfo, Int32)
+    result := DllCall("t2embed.dll\TTLoadEmbeddedFont", HANDLE.Ptr, phFontReference, UInt32, ulFlags, pulPrivStatusMarshal, pulPrivStatus, FONT_LICENSE_PRIVS, ulPrivs, pulStatusMarshal, pulStatus, READEMBEDPROC, lpfnReadFromStream, lpvReadStreamMarshal, lpvReadStream, "ptr", szWinFamilyName, "ptr", szMacFamilyName, TTLOADINFO.Ptr, pTTLoadInfo, Int32)
     return result
 }
 
@@ -11669,7 +11683,7 @@ export TTGetEmbeddedFontInfo(ulFlags, pulPrivStatus, ulPrivs, pulStatus, lpfnRea
     pulStatusMarshal := pulStatus is VarRef ? "uint*" : "ptr"
     lpvReadStreamMarshal := lpvReadStream is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("t2embed.dll\TTGetEmbeddedFontInfo", TTEMBED_FLAGS, ulFlags, pulPrivStatusMarshal, pulPrivStatus, FONT_LICENSE_PRIVS, ulPrivs, pulStatusMarshal, pulStatus, "ptr", lpfnReadFromStream, lpvReadStreamMarshal, lpvReadStream, TTLOADINFO.Ptr, pTTLoadInfo, Int32)
+    result := DllCall("t2embed.dll\TTGetEmbeddedFontInfo", TTEMBED_FLAGS, ulFlags, pulPrivStatusMarshal, pulPrivStatus, FONT_LICENSE_PRIVS, ulPrivs, pulStatusMarshal, pulStatus, READEMBEDPROC, lpfnReadFromStream, lpvReadStreamMarshal, lpvReadStream, TTLOADINFO.Ptr, pTTLoadInfo, Int32)
     return result
 }
 
@@ -11963,7 +11977,7 @@ export TTEmbedFontEx(_hDC, ulFlags, ulCharSet, pulPrivStatus, pulStatus, lpfnWri
     lpvWriteStreamMarshal := lpvWriteStream is VarRef ? "ptr" : "ptr"
     pulCharCodeSetMarshal := pulCharCodeSet is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("t2embed.dll\TTEmbedFontEx", HDC, _hDC, TTEMBED_FLAGS, ulFlags, EMBED_FONT_CHARSET, ulCharSet, pulPrivStatusMarshal, pulPrivStatus, pulStatusMarshal, pulStatus, "ptr", lpfnWriteToStream, lpvWriteStreamMarshal, lpvWriteStream, pulCharCodeSetMarshal, pulCharCodeSet, UInt16, usCharCodeCount, UInt16, usLanguage, TTEMBEDINFO.Ptr, pTTEmbedInfo, Int32)
+    result := DllCall("t2embed.dll\TTEmbedFontEx", HDC, _hDC, TTEMBED_FLAGS, ulFlags, EMBED_FONT_CHARSET, ulCharSet, pulPrivStatusMarshal, pulPrivStatus, pulStatusMarshal, pulStatus, WRITEEMBEDPROC, lpfnWriteToStream, lpvWriteStreamMarshal, lpvWriteStream, pulCharCodeSetMarshal, pulCharCodeSet, UInt16, usCharCodeCount, UInt16, usLanguage, TTEMBEDINFO.Ptr, pTTEmbedInfo, Int32)
     return result
 }
 
@@ -12359,7 +12373,7 @@ export DrawTextExW(_hdc, lpchText, cchText, lprc, format, lpdtp) {
  * @since windows5.0
  */
 export GrayStringA(_hDC, _hBrush, lpOutputFunc, lpData, nCount, X, Y, nWidth, nHeight) {
-    result := DllCall("USER32.dll\GrayStringA", HDC, _hDC, HBRUSH, _hBrush, "ptr", lpOutputFunc, LPARAM, lpData, Int32, nCount, Int32, X, Int32, Y, Int32, nWidth, Int32, nHeight, BOOL)
+    result := DllCall("USER32.dll\GrayStringA", HDC, _hDC, HBRUSH, _hBrush, GRAYSTRINGPROC, lpOutputFunc, LPARAM, lpData, Int32, nCount, Int32, X, Int32, Y, Int32, nWidth, Int32, nHeight, BOOL)
     return result
 }
 
@@ -12390,7 +12404,7 @@ export GrayStringA(_hDC, _hBrush, lpOutputFunc, lpData, nCount, X, Y, nWidth, nH
  * @since windows5.0
  */
 export GrayStringW(_hDC, _hBrush, lpOutputFunc, lpData, nCount, X, Y, nWidth, nHeight) {
-    result := DllCall("USER32.dll\GrayStringW", HDC, _hDC, HBRUSH, _hBrush, "ptr", lpOutputFunc, LPARAM, lpData, Int32, nCount, Int32, X, Int32, Y, Int32, nWidth, Int32, nHeight, BOOL)
+    result := DllCall("USER32.dll\GrayStringW", HDC, _hDC, HBRUSH, _hBrush, GRAYSTRINGPROC, lpOutputFunc, LPARAM, lpData, Int32, nCount, Int32, X, Int32, Y, Int32, nWidth, Int32, nHeight, BOOL)
     return result
 }
 
@@ -12556,7 +12570,7 @@ export GrayStringW(_hDC, _hBrush, lpOutputFunc, lpData, nCount, X, Y, nWidth, nH
  * @since windows5.0
  */
 export DrawStateA(_hdc, hbrFore, qfnCallBack, lData, wData, x, y, cx, _cy, uFlags) {
-    result := DllCall("USER32.dll\DrawStateA", HDC, _hdc, HBRUSH, hbrFore, "ptr", qfnCallBack, LPARAM, lData, WPARAM, wData, Int32, x, Int32, y, Int32, cx, Int32, _cy, DRAWSTATE_FLAGS, uFlags, BOOL)
+    result := DllCall("USER32.dll\DrawStateA", HDC, _hdc, HBRUSH, hbrFore, DRAWSTATEPROC, qfnCallBack, LPARAM, lData, WPARAM, wData, Int32, x, Int32, y, Int32, cx, Int32, _cy, DRAWSTATE_FLAGS, uFlags, BOOL)
     return result
 }
 
@@ -12722,7 +12736,7 @@ export DrawStateA(_hdc, hbrFore, qfnCallBack, lData, wData, x, y, cx, _cy, uFlag
  * @since windows5.0
  */
 export DrawStateW(_hdc, hbrFore, qfnCallBack, lData, wData, x, y, cx, _cy, uFlags) {
-    result := DllCall("USER32.dll\DrawStateW", HDC, _hdc, HBRUSH, hbrFore, "ptr", qfnCallBack, LPARAM, lData, WPARAM, wData, Int32, x, Int32, y, Int32, cx, Int32, _cy, DRAWSTATE_FLAGS, uFlags, BOOL)
+    result := DllCall("USER32.dll\DrawStateW", HDC, _hdc, HBRUSH, hbrFore, DRAWSTATEPROC, qfnCallBack, LPARAM, lData, WPARAM, wData, Int32, x, Int32, y, Int32, cx, Int32, _cy, DRAWSTATE_FLAGS, uFlags, BOOL)
     return result
 }
 
@@ -15468,7 +15482,7 @@ export GetMonitorInfoW(_hMonitor, lpmi) {
  * @since windows5.0
  */
 export EnumDisplayMonitors(_hdc, lprcClip, lpfnEnum, dwData) {
-    result := DllCall("USER32.dll\EnumDisplayMonitors", HDC, _hdc, RECT.Ptr, lprcClip, "ptr", lpfnEnum, LPARAM, dwData, BOOL)
+    result := DllCall("USER32.dll\EnumDisplayMonitors", HDC, _hdc, RECT.Ptr, lprcClip, MONITORENUMPROC, lpfnEnum, LPARAM, dwData, BOOL)
     return result
 }
 

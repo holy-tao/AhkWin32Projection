@@ -31,7 +31,7 @@ export default struct PCW_CALLBACK {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, PCW_CALLBACK_TYPE, Type, PCW_CALLBACK_INFORMATION.Ptr, Info, _ContextMarshal, _Context, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -51,6 +51,10 @@ export default struct PCW_CALLBACK {
             this.value := CallbackCreate(fn, , [PCW_CALLBACK_TYPE, PCW_CALLBACK_INFORMATION.Ptr, "ptr", NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

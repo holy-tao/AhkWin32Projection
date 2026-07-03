@@ -46,6 +46,10 @@ export default struct NDIS_PROC_CALLBACK {
             this.value := CallbackCreate(fn, , [NDIS_WORK_ITEM.Ptr, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -46,6 +46,10 @@ export default struct PFN_CARD_QUERY_CAPABILITIES {
             this.value := CallbackCreate(fn, , [CARD_DATA.Ptr, CARD_CAPABILITIES.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -51,6 +51,10 @@ export default struct REQUEST_POWER_COMPLETE {
             this.value := CallbackCreate(fn, , [DEVICE_OBJECT.Ptr, Int8, POWER_STATE, "ptr", IO_STATUS_BLOCK.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -59,6 +59,10 @@ export default struct PCLUSAPI_CLUSTER_REG_QUERY_INFO_KEY {
             this.value := CallbackCreate(fn, , [HKEY, "uint*", "uint*", "uint*", "uint*", "uint*", "uint*", FILETIME.Ptr, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

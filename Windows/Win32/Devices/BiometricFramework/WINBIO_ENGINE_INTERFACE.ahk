@@ -1,5 +1,46 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
+#Import ".\PIBIO_ENGINE_ACCEPT_PRIVATE_SENSOR_TYPE_INFO_FN.ahk" { PIBIO_ENGINE_ACCEPT_PRIVATE_SENSOR_TYPE_INFO_FN }
+#Import ".\PIBIO_ENGINE_ACCEPT_SAMPLE_DATA_FN.ahk" { PIBIO_ENGINE_ACCEPT_SAMPLE_DATA_FN }
+#Import ".\PIBIO_ENGINE_ACTIVATE_FN.ahk" { PIBIO_ENGINE_ACTIVATE_FN }
+#Import ".\PIBIO_ENGINE_ATTACH_FN.ahk" { PIBIO_ENGINE_ATTACH_FN }
+#Import ".\PIBIO_ENGINE_CHECK_FOR_DUPLICATE_FN.ahk" { PIBIO_ENGINE_CHECK_FOR_DUPLICATE_FN }
+#Import ".\PIBIO_ENGINE_CLEAR_CONTEXT_FN.ahk" { PIBIO_ENGINE_CLEAR_CONTEXT_FN }
+#Import ".\PIBIO_ENGINE_COMMIT_ENROLLMENT_FN.ahk" { PIBIO_ENGINE_COMMIT_ENROLLMENT_FN }
+#Import ".\PIBIO_ENGINE_CONTROL_UNIT_FN.ahk" { PIBIO_ENGINE_CONTROL_UNIT_FN }
+#Import ".\PIBIO_ENGINE_CONTROL_UNIT_PRIVILEGED_FN.ahk" { PIBIO_ENGINE_CONTROL_UNIT_PRIVILEGED_FN }
+#Import ".\PIBIO_ENGINE_CREATE_ENROLLMENT_AUTHENTICATED_FN.ahk" { PIBIO_ENGINE_CREATE_ENROLLMENT_AUTHENTICATED_FN }
+#Import ".\PIBIO_ENGINE_CREATE_ENROLLMENT_FN.ahk" { PIBIO_ENGINE_CREATE_ENROLLMENT_FN }
+#Import ".\PIBIO_ENGINE_CREATE_KEY_FN.ahk" { PIBIO_ENGINE_CREATE_KEY_FN }
+#Import ".\PIBIO_ENGINE_DEACTIVATE_FN.ahk" { PIBIO_ENGINE_DEACTIVATE_FN }
+#Import ".\PIBIO_ENGINE_DETACH_FN.ahk" { PIBIO_ENGINE_DETACH_FN }
+#Import ".\PIBIO_ENGINE_DISCARD_ENROLLMENT_FN.ahk" { PIBIO_ENGINE_DISCARD_ENROLLMENT_FN }
+#Import ".\PIBIO_ENGINE_EXPORT_ENGINE_DATA_FN.ahk" { PIBIO_ENGINE_EXPORT_ENGINE_DATA_FN }
+#Import ".\PIBIO_ENGINE_GET_ENROLLMENT_HASH_FN.ahk" { PIBIO_ENGINE_GET_ENROLLMENT_HASH_FN }
+#Import ".\PIBIO_ENGINE_GET_ENROLLMENT_STATUS_FN.ahk" { PIBIO_ENGINE_GET_ENROLLMENT_STATUS_FN }
+#Import ".\PIBIO_ENGINE_IDENTIFY_ALL_FN.ahk" { PIBIO_ENGINE_IDENTIFY_ALL_FN }
+#Import ".\PIBIO_ENGINE_IDENTIFY_FEATURE_SET_AUTHENTICATED_FN.ahk" { PIBIO_ENGINE_IDENTIFY_FEATURE_SET_AUTHENTICATED_FN }
+#Import ".\PIBIO_ENGINE_IDENTIFY_FEATURE_SET_FN.ahk" { PIBIO_ENGINE_IDENTIFY_FEATURE_SET_FN }
+#Import ".\PIBIO_ENGINE_IDENTIFY_FEATURE_SET_SECURE_FN.ahk" { PIBIO_ENGINE_IDENTIFY_FEATURE_SET_SECURE_FN }
+#Import ".\PIBIO_ENGINE_NOTIFY_POWER_CHANGE_FN.ahk" { PIBIO_ENGINE_NOTIFY_POWER_CHANGE_FN }
+#Import ".\PIBIO_ENGINE_PIPELINE_CLEANUP_FN.ahk" { PIBIO_ENGINE_PIPELINE_CLEANUP_FN }
+#Import ".\PIBIO_ENGINE_PIPELINE_INIT_FN.ahk" { PIBIO_ENGINE_PIPELINE_INIT_FN }
+#Import ".\PIBIO_ENGINE_QUERY_CALIBRATION_DATA_FN.ahk" { PIBIO_ENGINE_QUERY_CALIBRATION_DATA_FN }
+#Import ".\PIBIO_ENGINE_QUERY_EXTENDED_ENROLLMENT_STATUS_FN.ahk" { PIBIO_ENGINE_QUERY_EXTENDED_ENROLLMENT_STATUS_FN }
+#Import ".\PIBIO_ENGINE_QUERY_EXTENDED_INFO_FN.ahk" { PIBIO_ENGINE_QUERY_EXTENDED_INFO_FN }
+#Import ".\PIBIO_ENGINE_QUERY_HASH_ALGORITHMS_FN.ahk" { PIBIO_ENGINE_QUERY_HASH_ALGORITHMS_FN }
+#Import ".\PIBIO_ENGINE_QUERY_INDEX_VECTOR_SIZE_FN.ahk" { PIBIO_ENGINE_QUERY_INDEX_VECTOR_SIZE_FN }
+#Import ".\PIBIO_ENGINE_QUERY_PREFERRED_FORMAT_FN.ahk" { PIBIO_ENGINE_QUERY_PREFERRED_FORMAT_FN }
+#Import ".\PIBIO_ENGINE_QUERY_SAMPLE_HINT_FN.ahk" { PIBIO_ENGINE_QUERY_SAMPLE_HINT_FN }
+#Import ".\PIBIO_ENGINE_REFRESH_CACHE_FN.ahk" { PIBIO_ENGINE_REFRESH_CACHE_FN }
+#Import ".\PIBIO_ENGINE_RESERVED_1_FN.ahk" { PIBIO_ENGINE_RESERVED_1_FN }
+#Import ".\PIBIO_ENGINE_SELECT_CALIBRATION_FORMAT_FN.ahk" { PIBIO_ENGINE_SELECT_CALIBRATION_FORMAT_FN }
+#Import ".\PIBIO_ENGINE_SET_ACCOUNT_POLICY_FN.ahk" { PIBIO_ENGINE_SET_ACCOUNT_POLICY_FN }
+#Import ".\PIBIO_ENGINE_SET_ENROLLMENT_PARAMETERS_FN.ahk" { PIBIO_ENGINE_SET_ENROLLMENT_PARAMETERS_FN }
+#Import ".\PIBIO_ENGINE_SET_ENROLLMENT_SELECTOR_FN.ahk" { PIBIO_ENGINE_SET_ENROLLMENT_SELECTOR_FN }
+#Import ".\PIBIO_ENGINE_SET_HASH_ALGORITHM_FN.ahk" { PIBIO_ENGINE_SET_HASH_ALGORITHM_FN }
+#Import ".\PIBIO_ENGINE_UPDATE_ENROLLMENT_FN.ahk" { PIBIO_ENGINE_UPDATE_ENROLLMENT_FN }
+#Import ".\PIBIO_ENGINE_VERIFY_FEATURE_SET_FN.ahk" { PIBIO_ENGINE_VERIFY_FEATURE_SET_FN }
 #Import ".\WINBIO_ADAPTER_INTERFACE_VERSION.ahk" { WINBIO_ADAPTER_INTERFACE_VERSION }
 
 /**
@@ -39,197 +80,197 @@ export default struct WINBIO_ENGINE_INTERFACE {
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_attach_fn">EngineAdapterAttach</a> function.
      */
-    Attach : IntPtr
+    Attach : PIBIO_ENGINE_ATTACH_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_detach_fn">EngineAdapterDetach</a> function.
      */
-    Detach : IntPtr
+    Detach : PIBIO_ENGINE_DETACH_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_clear_context_fn">EngineAdapterClearContext</a> function.
      */
-    ClearContext : IntPtr
+    ClearContext : PIBIO_ENGINE_CLEAR_CONTEXT_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_query_preferred_format_fn">EngineAdapterQueryPreferredFormat</a> function.
      */
-    QueryPreferredFormat : IntPtr
+    QueryPreferredFormat : PIBIO_ENGINE_QUERY_PREFERRED_FORMAT_FN
 
     /**
      * A pointer to your implementation of the   <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_query_index_vector_size_fn">EngineAdapterQueryIndexVectorSize</a> function.
      */
-    QueryIndexVectorSize : IntPtr
+    QueryIndexVectorSize : PIBIO_ENGINE_QUERY_INDEX_VECTOR_SIZE_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_query_hash_algorithms_fn">EngineAdapterQueryHashAlgorithms</a> function.
      */
-    QueryHashAlgorithms : IntPtr
+    QueryHashAlgorithms : PIBIO_ENGINE_QUERY_HASH_ALGORITHMS_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_set_hash_algorithm_fn">EngineAdapterSetHashAlgorithm</a> function.
      */
-    SetHashAlgorithm : IntPtr
+    SetHashAlgorithm : PIBIO_ENGINE_SET_HASH_ALGORITHM_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_query_sample_hint_fn">EngineAdapterQuerySampleHint</a> function.
      */
-    QuerySampleHint : IntPtr
+    QuerySampleHint : PIBIO_ENGINE_QUERY_SAMPLE_HINT_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_accept_sample_data_fn">EngineAdapterAcceptSampleData</a> function.
      */
-    AcceptSampleData : IntPtr
+    AcceptSampleData : PIBIO_ENGINE_ACCEPT_SAMPLE_DATA_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_export_engine_data_fn">EngineAdapterExportEngineData</a> function.
      */
-    ExportEngineData : IntPtr
+    ExportEngineData : PIBIO_ENGINE_EXPORT_ENGINE_DATA_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_verify_feature_set_fn">EngineAdapterVerifyFeatureSet</a> function.
      */
-    VerifyFeatureSet : IntPtr
+    VerifyFeatureSet : PIBIO_ENGINE_VERIFY_FEATURE_SET_FN
 
     /**
      * A pointer to your implementation of the   <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_identify_feature_set_fn">EngineAdapterIdentifyFeatureSet</a> function.
      */
-    IdentifyFeatureSet : IntPtr
+    IdentifyFeatureSet : PIBIO_ENGINE_IDENTIFY_FEATURE_SET_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_create_enrollment_fn">EngineAdapterCreateEnrollment</a> function.
      */
-    CreateEnrollment : IntPtr
+    CreateEnrollment : PIBIO_ENGINE_CREATE_ENROLLMENT_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_update_enrollment_fn">EngineAdapterUpdateEnrollment</a> function.
      */
-    UpdateEnrollment : IntPtr
+    UpdateEnrollment : PIBIO_ENGINE_UPDATE_ENROLLMENT_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_get_enrollment_status_fn">EngineAdapterGetEnrollmentStatus</a> function.
      */
-    GetEnrollmentStatus : IntPtr
+    GetEnrollmentStatus : PIBIO_ENGINE_GET_ENROLLMENT_STATUS_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_get_enrollment_hash_fn">EngineAdapterGetEnrollmentHash</a> function.
      */
-    GetEnrollmentHash : IntPtr
+    GetEnrollmentHash : PIBIO_ENGINE_GET_ENROLLMENT_HASH_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_check_for_duplicate_fn">EngineAdapterCheckForDuplicate</a> function.
      */
-    CheckForDuplicate : IntPtr
+    CheckForDuplicate : PIBIO_ENGINE_CHECK_FOR_DUPLICATE_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_commit_enrollment_fn">EngineAdapterCommitEnrollment</a> function.
      */
-    CommitEnrollment : IntPtr
+    CommitEnrollment : PIBIO_ENGINE_COMMIT_ENROLLMENT_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_discard_enrollment_fn">EngineAdapterDiscardEnrollment</a> function.
      */
-    DiscardEnrollment : IntPtr
+    DiscardEnrollment : PIBIO_ENGINE_DISCARD_ENROLLMENT_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_control_unit_fn">EngineAdapterControlUnit</a> function.
      */
-    ControlUnit : IntPtr
+    ControlUnit : PIBIO_ENGINE_CONTROL_UNIT_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_control_unit_privileged_fn">EngineAdapterControlUnitPrivileged</a> function.
      */
-    ControlUnitPrivileged : IntPtr
+    ControlUnitPrivileged : PIBIO_ENGINE_CONTROL_UNIT_PRIVILEGED_FN
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_notify_power_change_fn">EngineAdapterNotifyPowerChange</a> function. This member is supported starting in Windows 8.
      */
-    NotifyPowerChange : IntPtr
+    NotifyPowerChange : PIBIO_ENGINE_NOTIFY_POWER_CHANGE_FN
 
     /**
      * This field is reserved and should be set to <b>NULL</b>.
      */
-    Reserved_1 : IntPtr
+    Reserved_1 : PIBIO_ENGINE_RESERVED_1_FN
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_pipeline_init_fn">EngineAdapterPipelineInit</a> function. This member is supported starting in Windows 10.
      */
-    PipelineInit : IntPtr
+    PipelineInit : PIBIO_ENGINE_PIPELINE_INIT_FN
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_pipeline_cleanup_fn">EngineAdapterPipelineCleanup</a> function. This member is supported starting in Windows 10.
      */
-    PipelineCleanup : IntPtr
+    PipelineCleanup : PIBIO_ENGINE_PIPELINE_CLEANUP_FN
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_activate_fn">EngineAdapterActivate</a> function. This member is supported starting in Windows 10.
      */
-    Activate : IntPtr
+    Activate : PIBIO_ENGINE_ACTIVATE_FN
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_deactivate_fn">EngineAdapterDeactivate</a> function.  This member is supported starting in Windows 10.
      */
-    Deactivate : IntPtr
+    Deactivate : PIBIO_ENGINE_DEACTIVATE_FN
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_query_extended_info_fn">EngineAdapterQueryExtendedInfo</a> function. This member is supported starting in Windows 10.
      */
-    QueryExtendedInfo : IntPtr
+    QueryExtendedInfo : PIBIO_ENGINE_QUERY_EXTENDED_INFO_FN
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_identify_all_fn">EngineAdapterIdentifyAll</a> function. This member is supported starting in Windows 10.
      */
-    IdentifyAll : IntPtr
+    IdentifyAll : PIBIO_ENGINE_IDENTIFY_ALL_FN
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_set_enrollment_selector_fn">EngineAdapterSetEnrollmentSelector</a> function. This member is supported starting in Windows 10.
      */
-    SetEnrollmentSelector : IntPtr
+    SetEnrollmentSelector : PIBIO_ENGINE_SET_ENROLLMENT_SELECTOR_FN
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_set_enrollment_parameters_fn">EngineAdapterSetEnrollmentParameters</a> function. This member is supported starting in Windows 10.
      */
-    SetEnrollmentParameters : IntPtr
+    SetEnrollmentParameters : PIBIO_ENGINE_SET_ENROLLMENT_PARAMETERS_FN
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_query_extended_enrollment_status_fn">EngineAdapterQueryExtendedEnrollmentStatus</a> function. This member is supported starting in Windows 10.
      */
-    QueryExtendedEnrollmentStatus : IntPtr
+    QueryExtendedEnrollmentStatus : PIBIO_ENGINE_QUERY_EXTENDED_ENROLLMENT_STATUS_FN
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_refresh_cache_fn">EngineAdapterRefreshCache</a> function. This member is supported starting in Windows 10.
      */
-    RefreshCache : IntPtr
+    RefreshCache : PIBIO_ENGINE_REFRESH_CACHE_FN
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_select_calibration_format_fn">EngineAdapterSelectCalibrationFormat</a> function. This member is supported starting in Windows 10.
      */
-    SelectCalibrationFormat : IntPtr
+    SelectCalibrationFormat : PIBIO_ENGINE_SELECT_CALIBRATION_FORMAT_FN
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_query_calibration_data_fn">EngineAdapterQueryCalibrationData</a> function. This member is supported starting in Windows 10.
      */
-    QueryCalibrationData : IntPtr
+    QueryCalibrationData : PIBIO_ENGINE_QUERY_CALIBRATION_DATA_FN
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_set_account_policy_fn">EngineAdapterSetAccountPolicy</a> function. This member is supported starting in Windows 10.
      */
-    SetAccountPolicy : IntPtr
+    SetAccountPolicy : PIBIO_ENGINE_SET_ACCOUNT_POLICY_FN
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_create_key_fn">EngineAdapterCreateKey</a> function. This member is supported starting in Windows 10, version 1607.
      */
-    CreateKey : IntPtr
+    CreateKey : PIBIO_ENGINE_CREATE_KEY_FN
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_identify_feature_set_secure_fn">EngineAdapterIdentifyFeatureSetSecure</a> function. This member is supported starting in Windows 10, version 1607.
      */
-    IdentifyFeatureSetSecure : IntPtr
+    IdentifyFeatureSetSecure : PIBIO_ENGINE_IDENTIFY_FEATURE_SET_SECURE_FN
 
-    AcceptPrivateSensorTypeInfo : IntPtr
+    AcceptPrivateSensorTypeInfo : PIBIO_ENGINE_ACCEPT_PRIVATE_SENSOR_TYPE_INFO_FN
 
-    CreateEnrollmentAuthenticated : IntPtr
+    CreateEnrollmentAuthenticated : PIBIO_ENGINE_CREATE_ENROLLMENT_AUTHENTICATED_FN
 
-    IdentifyFeatureSetAuthenticated : IntPtr
+    IdentifyFeatureSetAuthenticated : PIBIO_ENGINE_IDENTIFY_FEATURE_SET_AUTHENTICATED_FN
 
 }

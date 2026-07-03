@@ -54,6 +54,10 @@ export default struct LPCQPAGEPROC {
             this.value := CallbackCreate(fn, , [CQPAGE.Ptr, HWND, UInt32, WPARAM, LPARAM, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -41,6 +41,10 @@ export default struct CO_AF_REGISTER_NOTIFY_HANDLER {
             this.value := CallbackCreate(fn, , [IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -98,6 +98,10 @@ export default struct PFNRASRECEIVEBUFFER {
             this.value := CallbackCreate(fn, , [HANDLE, "char*", "uint*", UInt32, HANDLE, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

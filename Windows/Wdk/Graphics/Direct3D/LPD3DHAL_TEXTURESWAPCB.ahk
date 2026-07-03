@@ -44,6 +44,10 @@ export default struct LPD3DHAL_TEXTURESWAPCB {
             this.value := CallbackCreate(fn, , [D3DHAL_TEXTURESWAPDATA.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

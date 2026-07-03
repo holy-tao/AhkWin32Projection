@@ -63,7 +63,7 @@ export default struct SpInitUserModeContextFn {
      */
     Call(ContextHandle, PackedContext) {
         result := DllCall(this.value, IntPtr, ContextHandle, SecBuffer.Ptr, PackedContext, NTSTATUS)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -83,6 +83,10 @@ export default struct SpInitUserModeContextFn {
             this.value := CallbackCreate(fn, , [IntPtr, SecBuffer.Ptr, NTSTATUS])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -42,6 +42,10 @@ export default struct CO_CREATE_VC_HANDLER {
             this.value := CallbackCreate(fn, , [Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

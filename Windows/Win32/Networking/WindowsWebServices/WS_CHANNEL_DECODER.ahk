@@ -1,4 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_CREATE_DECODER_CALLBACK.ahk" { WS_CREATE_DECODER_CALLBACK }
+#Import ".\WS_DECODER_DECODE_CALLBACK.ahk" { WS_DECODER_DECODE_CALLBACK }
+#Import ".\WS_DECODER_END_CALLBACK.ahk" { WS_DECODER_END_CALLBACK }
+#Import ".\WS_DECODER_GET_CONTENT_TYPE_CALLBACK.ahk" { WS_DECODER_GET_CONTENT_TYPE_CALLBACK }
+#Import ".\WS_DECODER_START_CALLBACK.ahk" { WS_DECODER_START_CALLBACK }
+#Import ".\WS_FREE_DECODER_CALLBACK.ahk" { WS_FREE_DECODER_CALLBACK }
 
 /**
  * A structure that is used to specify a set of callbacks that can transform the content type and encoded bytes of a received message.
@@ -57,32 +63,32 @@ export default struct WS_CHANNEL_DECODER {
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_create_decoder_callback">WS_CREATE_DECODER_CALLBACK</a> callback that creates an instance of a decoder.
      */
-    createDecoderCallback : IntPtr
+    createDecoderCallback : WS_CREATE_DECODER_CALLBACK
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_decoder_get_content_type_callback">WS_DECODER_GET_CONTENT_TYPE_CALLBACK</a> callback that is invoked to get the content type of the message.
      */
-    decoderGetContentTypeCallback : IntPtr
+    decoderGetContentTypeCallback : WS_DECODER_GET_CONTENT_TYPE_CALLBACK
 
     /**
      * A 
      *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_decoder_start_callback">WS_DECODER_START_CALLBACK</a> callback that is invoked at the start of decoding a message.
      */
-    decoderStartCallback : IntPtr
+    decoderStartCallback : WS_DECODER_START_CALLBACK
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_decoder_decode_callback">WS_DECODER_DECODE_CALLBACK</a> callback that is invoked to decode a message.
      */
-    decoderDecodeCallback : IntPtr
+    decoderDecodeCallback : WS_DECODER_DECODE_CALLBACK
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_decoder_end_callback">WS_DECODER_END_CALLBACK</a> callback that is invoked at the end of decoding a message.
      */
-    decoderEndCallback : IntPtr
+    decoderEndCallback : WS_DECODER_END_CALLBACK
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_free_decoder_callback">WS_FREE_DECODER_CALLBACK</a> callback that frees an instance of a decoder.
      */
-    freeDecoderCallback : IntPtr
+    freeDecoderCallback : WS_FREE_DECODER_CALLBACK
 
 }

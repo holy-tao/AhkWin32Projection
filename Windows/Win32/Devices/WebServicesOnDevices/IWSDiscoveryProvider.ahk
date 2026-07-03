@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\IWSDXMLContext.ahk" { IWSDXMLContext }
 #Import ".\IWSDiscoveryProviderNotify.ahk" { IWSDiscoveryProviderNotify }
 #Import ".\WSD_NAME_LIST.ahk" { WSD_NAME_LIST }

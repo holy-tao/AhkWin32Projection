@@ -2,6 +2,8 @@
 #Import "..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
 #Import "..\..\Foundation\PKINTERRUPT.ahk" { PKINTERRUPT }
 #Import ".\IO_INTERRUPT_MESSAGE_INFO.ahk" { IO_INTERRUPT_MESSAGE_INFO }
+#Import ".\PKMESSAGE_SERVICE_ROUTINE.ahk" { PKMESSAGE_SERVICE_ROUTINE }
+#Import ".\PKSERVICE_ROUTINE.ahk" { PKSERVICE_ROUTINE }
 #Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
@@ -25,7 +27,7 @@ export default struct IO_CONNECT_INTERRUPT_MESSAGE_BASED_PARAMETERS {
 
     ConnectionContext : IO_CONNECT_INTERRUPT_MESSAGE_BASED_PARAMETERS._ConnectionContext
 
-    MessageServiceRoutine : IntPtr
+    MessageServiceRoutine : PKMESSAGE_SERVICE_ROUTINE
 
     ServiceContext : IntPtr
 
@@ -35,6 +37,6 @@ export default struct IO_CONNECT_INTERRUPT_MESSAGE_BASED_PARAMETERS {
 
     FloatingSave : BOOLEAN
 
-    FallBackServiceRoutine : IntPtr
+    FallBackServiceRoutine : PKSERVICE_ROUTINE
 
 }

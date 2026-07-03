@@ -52,6 +52,10 @@ export default struct LPFNACCESSIBLECHILDREN {
             this.value := CallbackCreate(fn, , ["ptr", Int32, Int32, VARIANT.Ptr, "int*", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

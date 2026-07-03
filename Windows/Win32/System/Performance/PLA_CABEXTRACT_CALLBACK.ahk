@@ -48,6 +48,10 @@ export default struct PLA_CABEXTRACT_CALLBACK {
             this.value := CallbackCreate(fn, , [PWSTR, "ptr", IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

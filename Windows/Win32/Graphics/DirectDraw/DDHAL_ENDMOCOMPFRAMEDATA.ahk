@@ -2,6 +2,7 @@
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDRAWI_DDMOTIONCOMP_LCL.ahk" { DDRAWI_DDMOTIONCOMP_LCL }
 #Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
+#Import ".\LPDDHALMOCOMPCB_ENDFRAME.ahk" { LPDDHALMOCOMPCB_ENDFRAME }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -19,6 +20,6 @@ export default struct DDHAL_ENDMOCOMPFRAMEDATA {
 
     ddRVal : HRESULT
 
-    EndMoCompFrame : IntPtr
+    EndMoCompFrame : LPDDHALMOCOMPCB_ENDFRAME
 
 }

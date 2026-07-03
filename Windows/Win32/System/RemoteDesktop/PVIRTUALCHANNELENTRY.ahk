@@ -45,6 +45,10 @@ export default struct PVIRTUALCHANNELENTRY {
             this.value := CallbackCreate(fn, , [CHANNEL_ENTRY_POINTS.Ptr, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

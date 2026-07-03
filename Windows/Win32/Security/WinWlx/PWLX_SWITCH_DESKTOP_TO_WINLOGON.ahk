@@ -47,6 +47,10 @@ export default struct PWLX_SWITCH_DESKTOP_TO_WINLOGON {
             this.value := CallbackCreate(fn, , [HANDLE, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

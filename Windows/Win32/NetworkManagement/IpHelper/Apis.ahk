@@ -1,6 +1,6 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
@@ -63,6 +63,13 @@
 #Import ".\PF_FILTER_DESCRIPTOR.ahk" { PF_FILTER_DESCRIPTOR }
 #Import ".\PF_INTERFACE_STATS.ahk" { PF_INTERFACE_STATS }
 #Import ".\PF_LATEBIND_INFO.ahk" { PF_LATEBIND_INFO }
+#Import ".\PINTERFACE_TIMESTAMP_CONFIG_CHANGE_CALLBACK.ahk" { PINTERFACE_TIMESTAMP_CONFIG_CHANGE_CALLBACK }
+#Import ".\PIPFORWARD_CHANGE_CALLBACK.ahk" { PIPFORWARD_CHANGE_CALLBACK }
+#Import ".\PIPINTERFACE_CHANGE_CALLBACK.ahk" { PIPINTERFACE_CHANGE_CALLBACK }
+#Import ".\PNETWORK_CONNECTIVITY_HINT_CHANGE_CALLBACK.ahk" { PNETWORK_CONNECTIVITY_HINT_CHANGE_CALLBACK }
+#Import ".\PSTABLE_UNICAST_IPADDRESS_TABLE_CALLBACK.ahk" { PSTABLE_UNICAST_IPADDRESS_TABLE_CALLBACK }
+#Import ".\PTEREDO_PORT_CHANGE_CALLBACK.ahk" { PTEREDO_PORT_CHANGE_CALLBACK }
+#Import ".\PUNICAST_IPADDRESS_CHANGE_CALLBACK.ahk" { PUNICAST_IPADDRESS_CHANGE_CALLBACK }
 #Import ".\TCPIP_OWNER_MODULE_INFO_CLASS.ahk" { TCPIP_OWNER_MODULE_INFO_CLASS }
 #Import ".\TCP_ESTATS_TYPE.ahk" { TCP_ESTATS_TYPE }
 #Import ".\TCP_TABLE_CLASS.ahk" { TCP_TABLE_CLASS }
@@ -76,6 +83,7 @@
 #Import "..\..\Networking\WinSock\SOCKADDR_IN6_PAIR.ahk" { SOCKADDR_IN6_PAIR }
 #Import "..\..\Networking\WinSock\SOCKADDR_INET.ahk" { SOCKADDR_INET }
 #Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
+#Import "..\..\System\IO\PIO_APC_ROUTINE.ahk" { PIO_APC_ROUTINE }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
@@ -369,7 +377,7 @@ export IcmpSendEcho2(IcmpHandle, Event, ApcRoutine, ApcContext, DestinationAddre
 
     A_LastError := 0
 
-    result := DllCall("IPHLPAPI.dll\IcmpSendEcho2", HANDLE, IcmpHandle, HANDLE, Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, UInt32, DestinationAddress, IntPtr, RequestData, UInt16, RequestSize, IP_OPTION_INFORMATION.Ptr, RequestOptions, IntPtr, ReplyBuffer, UInt32, ReplySize, UInt32, Timeout, UInt32)
+    result := DllCall("IPHLPAPI.dll\IcmpSendEcho2", HANDLE, IcmpHandle, HANDLE, Event, PIO_APC_ROUTINE, ApcRoutine, ApcContextMarshal, ApcContext, UInt32, DestinationAddress, IntPtr, RequestData, UInt16, RequestSize, IP_OPTION_INFORMATION.Ptr, RequestOptions, IntPtr, ReplyBuffer, UInt32, ReplySize, UInt32, Timeout, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -581,7 +589,7 @@ export IcmpSendEcho2Ex(IcmpHandle, Event, ApcRoutine, ApcContext, SourceAddress,
 
     A_LastError := 0
 
-    result := DllCall("IPHLPAPI.dll\IcmpSendEcho2Ex", HANDLE, IcmpHandle, HANDLE, Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, UInt32, SourceAddress, UInt32, DestinationAddress, IntPtr, RequestData, UInt16, RequestSize, IP_OPTION_INFORMATION.Ptr, RequestOptions, IntPtr, ReplyBuffer, UInt32, ReplySize, UInt32, Timeout, UInt32)
+    result := DllCall("IPHLPAPI.dll\IcmpSendEcho2Ex", HANDLE, IcmpHandle, HANDLE, Event, PIO_APC_ROUTINE, ApcRoutine, ApcContextMarshal, ApcContext, UInt32, SourceAddress, UInt32, DestinationAddress, IntPtr, RequestData, UInt16, RequestSize, IP_OPTION_INFORMATION.Ptr, RequestOptions, IntPtr, ReplyBuffer, UInt32, ReplySize, UInt32, Timeout, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -850,7 +858,7 @@ export Icmp6SendEcho2(IcmpHandle, Event, ApcRoutine, ApcContext, SourceAddress, 
 
     A_LastError := 0
 
-    result := DllCall("IPHLPAPI.dll\Icmp6SendEcho2", HANDLE, IcmpHandle, HANDLE, Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, SOCKADDR_IN6.Ptr, SourceAddress, SOCKADDR_IN6.Ptr, DestinationAddress, IntPtr, RequestData, UInt16, RequestSize, IP_OPTION_INFORMATION.Ptr, RequestOptions, IntPtr, ReplyBuffer, UInt32, ReplySize, UInt32, Timeout, UInt32)
+    result := DllCall("IPHLPAPI.dll\Icmp6SendEcho2", HANDLE, IcmpHandle, HANDLE, Event, PIO_APC_ROUTINE, ApcRoutine, ApcContextMarshal, ApcContext, SOCKADDR_IN6.Ptr, SourceAddress, SOCKADDR_IN6.Ptr, DestinationAddress, IntPtr, RequestData, UInt16, RequestSize, IP_OPTION_INFORMATION.Ptr, RequestOptions, IntPtr, ReplyBuffer, UInt32, ReplySize, UInt32, Timeout, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6790,7 +6798,7 @@ export CaptureInterfaceHardwareCrossTimestamp(InterfaceLuid, CrossTimestamp) {
 export RegisterInterfaceTimestampConfigChange(Callback, CallerContext, NotificationHandle) {
     CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\RegisterInterfaceTimestampConfigChange", "ptr", Callback, CallerContextMarshal, CallerContext, HIFTIMESTAMPCHANGE.Ptr, NotificationHandle, UInt32)
+    result := DllCall("IPHLPAPI.dll\RegisterInterfaceTimestampConfigChange", PINTERFACE_TIMESTAMP_CONFIG_CHANGE_CALLBACK, Callback, CallerContextMarshal, CallerContext, HIFTIMESTAMPCHANGE.Ptr, NotificationHandle, UInt32)
     return result
 }
 
@@ -6841,7 +6849,7 @@ export GetInterfaceHardwareTimestampCapabilities(InterfaceLuid, TimestampCapabil
 export NotifyIfTimestampConfigChange(CallerContext, Callback, NotificationHandle) {
     CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IPHLPAPI.DLL\NotifyIfTimestampConfigChange", CallerContextMarshal, CallerContext, "ptr", Callback, HIFTIMESTAMPCHANGE.Ptr, NotificationHandle, UInt32)
+    result := DllCall("IPHLPAPI.DLL\NotifyIfTimestampConfigChange", CallerContextMarshal, CallerContext, PINTERFACE_TIMESTAMP_CONFIG_CHANGE_CALLBACK, Callback, HIFTIMESTAMPCHANGE.Ptr, NotificationHandle, UInt32)
     return result
 }
 
@@ -9308,7 +9316,7 @@ export InitializeIpInterfaceEntry(Row) {
 export NotifyIpInterfaceChange(Family, Callback, CallerContext, InitialNotification, NotificationHandle) {
     CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\NotifyIpInterfaceChange", ADDRESS_FAMILY, Family, "ptr", Callback, CallerContextMarshal, CallerContext, BOOLEAN, InitialNotification, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\NotifyIpInterfaceChange", ADDRESS_FAMILY, Family, PIPINTERFACE_CHANGE_CALLBACK, Callback, CallerContextMarshal, CallerContext, BOOLEAN, InitialNotification, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
     return result
 }
 
@@ -10182,7 +10190,7 @@ export InitializeUnicastIpAddressEntry(Row) {
 export NotifyUnicastIpAddressChange(Family, Callback, CallerContext, InitialNotification, NotificationHandle) {
     CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\NotifyUnicastIpAddressChange", ADDRESS_FAMILY, Family, "ptr", Callback, CallerContextMarshal, CallerContext, BOOLEAN, InitialNotification, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\NotifyUnicastIpAddressChange", ADDRESS_FAMILY, Family, PUNICAST_IPADDRESS_CHANGE_CALLBACK, Callback, CallerContextMarshal, CallerContext, BOOLEAN, InitialNotification, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
     return result
 }
 
@@ -10370,7 +10378,7 @@ export NotifyStableUnicastIpAddressTable(Family, Table, CallerCallback, CallerCo
     TableMarshal := Table is VarRef ? "ptr*" : "ptr"
     CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\NotifyStableUnicastIpAddressTable", ADDRESS_FAMILY, Family, TableMarshal, Table, "ptr", CallerCallback, CallerContextMarshal, CallerContext, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\NotifyStableUnicastIpAddressTable", ADDRESS_FAMILY, Family, TableMarshal, Table, PSTABLE_UNICAST_IPADDRESS_TABLE_CALLBACK, CallerCallback, CallerContextMarshal, CallerContext, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
     return result
 }
 
@@ -11825,7 +11833,7 @@ export InitializeIpForwardEntry(Row) {
 export NotifyRouteChange2(AddressFamily, Callback, CallerContext, InitialNotification, NotificationHandle) {
     CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\NotifyRouteChange2", ADDRESS_FAMILY, AddressFamily, "ptr", Callback, CallerContextMarshal, CallerContext, BOOLEAN, InitialNotification, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\NotifyRouteChange2", ADDRESS_FAMILY, AddressFamily, PIPFORWARD_CHANGE_CALLBACK, Callback, CallerContextMarshal, CallerContext, BOOLEAN, InitialNotification, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
     return result
 }
 
@@ -13137,7 +13145,7 @@ export SetIpNetEntry2(Row) {
 export NotifyTeredoPortChange(Callback, CallerContext, InitialNotification, NotificationHandle) {
     CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\NotifyTeredoPortChange", "ptr", Callback, CallerContextMarshal, CallerContext, BOOLEAN, InitialNotification, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\NotifyTeredoPortChange", PTEREDO_PORT_CHANGE_CALLBACK, Callback, CallerContextMarshal, CallerContext, BOOLEAN, InitialNotification, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
     return result
 }
 
@@ -14281,7 +14289,7 @@ export GetNetworkConnectivityHintForInterface(InterfaceIndex, ConnectivityHint) 
 export NotifyNetworkConnectivityHintChange(Callback, CallerContext, InitialNotification, NotificationHandle) {
     CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\NotifyNetworkConnectivityHintChange", "ptr", Callback, CallerContextMarshal, CallerContext, BOOLEAN, InitialNotification, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\NotifyNetworkConnectivityHintChange", PNETWORK_CONNECTIVITY_HINT_CHANGE_CALLBACK, Callback, CallerContextMarshal, CallerContext, BOOLEAN, InitialNotification, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
     return result
 }
 

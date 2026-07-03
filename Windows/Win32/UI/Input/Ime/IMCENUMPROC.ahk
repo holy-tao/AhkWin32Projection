@@ -51,6 +51,10 @@ export default struct IMCENUMPROC {
             this.value := CallbackCreate(fn, , [HIMC, LPARAM, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\FWPM_FILTER0.ahk" { FWPM_FILTER0 }
 #Import ".\FWP_DIRECTION.ahk" { FWP_DIRECTION }
 #Import ".\FWP_IP_VERSION.ahk" { FWP_IP_VERSION }

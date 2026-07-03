@@ -3,6 +3,7 @@
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDRAWI_DDRAWPALETTE_GBL.ahk" { DDRAWI_DDRAWPALETTE_GBL }
 #Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
+#Import ".\LPDDHAL_CREATEPALETTE.ahk" { LPDDHAL_CREATEPALETTE }
 #Import "..\Gdi\PALETTEENTRY.ahk" { PALETTEENTRY }
 
 /**
@@ -19,7 +20,7 @@ export default struct DDHAL_CREATEPALETTEDATA {
 
     ddRVal : HRESULT
 
-    CreatePalette : IntPtr
+    CreatePalette : LPDDHAL_CREATEPALETTE
 
     is_excl : BOOL
 

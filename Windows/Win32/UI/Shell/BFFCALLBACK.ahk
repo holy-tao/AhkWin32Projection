@@ -55,6 +55,10 @@ export default struct BFFCALLBACK {
             this.value := CallbackCreate(fn, , [HWND, UInt32, LPARAM, LPARAM, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

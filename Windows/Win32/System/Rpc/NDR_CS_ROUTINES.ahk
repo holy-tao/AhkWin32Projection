@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CS_TAG_GETTING_ROUTINE.ahk" { CS_TAG_GETTING_ROUTINE }
 #Import ".\NDR_CS_SIZE_CONVERT_ROUTINES.ahk" { NDR_CS_SIZE_CONVERT_ROUTINES }
 
 /**

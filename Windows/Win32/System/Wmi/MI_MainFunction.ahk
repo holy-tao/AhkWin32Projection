@@ -45,6 +45,10 @@ export default struct MI_MainFunction {
             this.value := CallbackCreate(fn, "cdecl", [MI_Server.Ptr, MI_Module.Ptr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

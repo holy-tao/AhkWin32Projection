@@ -50,6 +50,10 @@ export default struct PWINBIO_ASYNC_COMPLETION_CALLBACK {
             this.value := CallbackCreate(fn, , [WINBIO_ASYNC_RESULT.Ptr, IntPtr])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

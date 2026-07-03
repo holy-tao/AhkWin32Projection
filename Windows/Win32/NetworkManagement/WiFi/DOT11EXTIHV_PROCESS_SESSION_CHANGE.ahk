@@ -45,6 +45,10 @@ export default struct DOT11EXTIHV_PROCESS_SESSION_CHANGE {
             this.value := CallbackCreate(fn, , [UInt32, WTSSESSION_NOTIFICATION.Ptr, UInt32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

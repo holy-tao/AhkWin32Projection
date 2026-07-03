@@ -46,6 +46,10 @@ export default struct PFNGETACTIVATIONFACTORY {
             this.value := CallbackCreate(fn, , [HSTRING, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

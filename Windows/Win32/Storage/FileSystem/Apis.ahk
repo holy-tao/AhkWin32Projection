@@ -1,6 +1,6 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
@@ -10,6 +10,8 @@
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
 #Import ".\BY_HANDLE_FILE_INFORMATION.ahk" { BY_HANDLE_FILE_INFORMATION }
+#Import ".\CLFS_BLOCK_ALLOCATION.ahk" { CLFS_BLOCK_ALLOCATION }
+#Import ".\CLFS_BLOCK_DEALLOCATION.ahk" { CLFS_BLOCK_DEALLOCATION }
 #Import ".\CLFS_CONTEXT_MODE.ahk" { CLFS_CONTEXT_MODE }
 #Import ".\CLFS_FLAG.ahk" { CLFS_FLAG }
 #Import ".\CLFS_IOSTATS_CLASS.ahk" { CLFS_IOSTATS_CLASS }
@@ -67,9 +69,12 @@
 #Import ".\IORING_VERSION.ahk" { IORING_VERSION }
 #Import ".\LOCK_FILE_FLAGS.ahk" { LOCK_FILE_FLAGS }
 #Import ".\LOG_MANAGEMENT_CALLBACKS.ahk" { LOG_MANAGEMENT_CALLBACKS }
+#Import ".\LPPROGRESS_ROUTINE.ahk" { LPPROGRESS_ROUTINE }
 #Import ".\LZOPENFILE_STYLE.ahk" { LZOPENFILE_STYLE }
 #Import ".\MOVE_FILE_FLAGS.ahk" { MOVE_FILE_FLAGS }
 #Import ".\OFSTRUCT.ahk" { OFSTRUCT }
+#Import ".\PFE_EXPORT_FUNC.ahk" { PFE_EXPORT_FUNC }
+#Import ".\PFE_IMPORT_FUNC.ahk" { PFE_IMPORT_FUNC }
 #Import ".\PREPARE_TAPE_OPERATION.ahk" { PREPARE_TAPE_OPERATION }
 #Import ".\READ_DIRECTORY_NOTIFY_INFORMATION_CLASS.ahk" { READ_DIRECTORY_NOTIFY_INFORMATION_CLASS }
 #Import ".\REPLACE_FILE_FLAGS.ahk" { REPLACE_FILE_FLAGS }
@@ -89,6 +94,9 @@
 #Import ".\VER_INSTALL_FILE_STATUS.ahk" { VER_INSTALL_FILE_STATUS }
 #Import ".\WIN32_FIND_DATAA.ahk" { WIN32_FIND_DATAA }
 #Import ".\WIN32_FIND_DATAW.ahk" { WIN32_FIND_DATAW }
+#Import ".\WofEnumEntryProc.ahk" { WofEnumEntryProc }
+#Import ".\WofEnumFilesProc.ahk" { WofEnumFilesProc }
+#Import "..\..\System\IO\LPOVERLAPPED_COMPLETION_ROUTINE.ahk" { LPOVERLAPPED_COMPLETION_ROUTINE }
 #Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
 
 /**
@@ -10093,7 +10101,7 @@ export ReadFile(hFile, lpBuffer, nNumberOfBytesToRead, lpNumberOfBytesRead, lpOv
 export ReadFileEx(hFile, lpBuffer, nNumberOfBytesToRead, lpOverlapped, lpCompletionRoutine) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\ReadFileEx", HANDLE, hFile, IntPtr, lpBuffer, UInt32, nNumberOfBytesToRead, OVERLAPPED.Ptr, lpOverlapped, "ptr", lpCompletionRoutine, BOOL)
+    result := DllCall("KERNEL32.dll\ReadFileEx", HANDLE, hFile, IntPtr, lpBuffer, UInt32, nNumberOfBytesToRead, OVERLAPPED.Ptr, lpOverlapped, LPOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -12597,7 +12605,7 @@ export WriteFile(hFile, lpBuffer, nNumberOfBytesToWrite, lpNumberOfBytesWritten,
 export WriteFileEx(hFile, lpBuffer, nNumberOfBytesToWrite, lpOverlapped, lpCompletionRoutine) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\WriteFileEx", HANDLE, hFile, IntPtr, lpBuffer, UInt32, nNumberOfBytesToWrite, OVERLAPPED.Ptr, lpOverlapped, "ptr", lpCompletionRoutine, BOOL)
+    result := DllCall("KERNEL32.dll\WriteFileEx", HANDLE, hFile, IntPtr, lpBuffer, UInt32, nNumberOfBytesToWrite, OVERLAPPED.Ptr, lpOverlapped, LPOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -19251,7 +19259,7 @@ export CreateLogMarshallingArea(_hLog, pfnAllocBuffer, pfnFreeBuffer, pvBlockAll
 
     A_LastError := 0
 
-    result := DllCall("clfsw32.dll\CreateLogMarshallingArea", HANDLE, _hLog, "ptr", pfnAllocBuffer, "ptr", pfnFreeBuffer, pvBlockAllocContextMarshal, pvBlockAllocContext, UInt32, cbMarshallingBuffer, UInt32, cMaxWriteBuffers, UInt32, cMaxReadBuffers, ppvMarshalMarshal, ppvMarshal, BOOL)
+    result := DllCall("clfsw32.dll\CreateLogMarshallingArea", HANDLE, _hLog, CLFS_BLOCK_ALLOCATION, pfnAllocBuffer, CLFS_BLOCK_DEALLOCATION, pfnFreeBuffer, pvBlockAllocContextMarshal, pvBlockAllocContext, UInt32, cbMarshallingBuffer, UInt32, cMaxWriteBuffers, UInt32, cMaxReadBuffers, ppvMarshalMarshal, ppvMarshal, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -22370,7 +22378,7 @@ export WofEnumEntries(VolumeName, Provider, EnumProc, _UserData) {
 
     _UserDataMarshal := _UserData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WOFUTIL.dll\WofEnumEntries", "ptr", VolumeName, UInt32, Provider, "ptr", EnumProc, _UserDataMarshal, _UserData, "HRESULT")
+    result := DllCall("WOFUTIL.dll\WofEnumEntries", "ptr", VolumeName, UInt32, Provider, WofEnumEntryProc, EnumProc, _UserDataMarshal, _UserData, "HRESULT")
     return result
 }
 
@@ -22405,7 +22413,7 @@ export WofWimEnumFiles(VolumeName, DataSourceId, EnumProc, _UserData) {
 
     _UserDataMarshal := _UserData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WOFUTIL.dll\WofWimEnumFiles", "ptr", VolumeName, Int64, DataSourceId, "ptr", EnumProc, _UserDataMarshal, _UserData, "HRESULT")
+    result := DllCall("WOFUTIL.dll\WofWimEnumFiles", "ptr", VolumeName, Int64, DataSourceId, WofEnumFilesProc, EnumProc, _UserDataMarshal, _UserData, "HRESULT")
     return result
 }
 
@@ -22471,7 +22479,7 @@ export WofFileEnumFiles(VolumeName, Algorithm, EnumProc, _UserData) {
 
     _UserDataMarshal := _UserData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WOFUTIL.dll\WofFileEnumFiles", "ptr", VolumeName, UInt32, Algorithm, "ptr", EnumProc, _UserDataMarshal, _UserData, "HRESULT")
+    result := DllCall("WOFUTIL.dll\WofFileEnumFiles", "ptr", VolumeName, UInt32, Algorithm, WofEnumFilesProc, EnumProc, _UserDataMarshal, _UserData, "HRESULT")
     return result
 }
 
@@ -30480,7 +30488,7 @@ export ReadEncryptedFileRaw(pfExportCallback, pvCallbackContext, pvContext) {
     pvCallbackContextMarshal := pvCallbackContext is VarRef ? "ptr" : "ptr"
     pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\ReadEncryptedFileRaw", "ptr", pfExportCallback, pvCallbackContextMarshal, pvCallbackContext, pvContextMarshal, pvContext, UInt32)
+    result := DllCall("ADVAPI32.dll\ReadEncryptedFileRaw", PFE_EXPORT_FUNC, pfExportCallback, pvCallbackContextMarshal, pvCallbackContext, pvContextMarshal, pvContext, UInt32)
     return result
 }
 
@@ -30601,7 +30609,7 @@ export WriteEncryptedFileRaw(pfImportCallback, pvCallbackContext, pvContext) {
     pvCallbackContextMarshal := pvCallbackContext is VarRef ? "ptr" : "ptr"
     pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\WriteEncryptedFileRaw", "ptr", pfImportCallback, pvCallbackContextMarshal, pvCallbackContext, pvContextMarshal, pvContext, UInt32)
+    result := DllCall("ADVAPI32.dll\WriteEncryptedFileRaw", PFE_IMPORT_FUNC, pfImportCallback, pvCallbackContextMarshal, pvCallbackContext, pvContextMarshal, pvContext, UInt32)
     return result
 }
 
@@ -36635,7 +36643,7 @@ export CopyFileExA(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData,
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CopyFileExA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, COPYFILE_FLAGS, dwCopyFlags, BOOL)
+    result := DllCall("KERNEL32.dll\CopyFileExA", "ptr", lpExistingFileName, "ptr", lpNewFileName, LPPROGRESS_ROUTINE, lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, COPYFILE_FLAGS, dwCopyFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -36924,7 +36932,7 @@ export CopyFileExW(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData,
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CopyFileExW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, COPYFILE_FLAGS, dwCopyFlags, BOOL)
+    result := DllCall("KERNEL32.dll\CopyFileExW", "ptr", lpExistingFileName, "ptr", lpNewFileName, LPPROGRESS_ROUTINE, lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, COPYFILE_FLAGS, dwCopyFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -37158,7 +37166,7 @@ export CopyFileTransactedA(lpExistingFileName, lpNewFileName, lpProgressRoutine,
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CopyFileTransactedA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, UInt32, dwCopyFlags, HANDLE, hTransaction, BOOL)
+    result := DllCall("KERNEL32.dll\CopyFileTransactedA", "ptr", lpExistingFileName, "ptr", lpNewFileName, LPPROGRESS_ROUTINE, lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, UInt32, dwCopyFlags, HANDLE, hTransaction, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -37392,7 +37400,7 @@ export CopyFileTransactedW(lpExistingFileName, lpNewFileName, lpProgressRoutine,
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CopyFileTransactedW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, UInt32, dwCopyFlags, HANDLE, hTransaction, BOOL)
+    result := DllCall("KERNEL32.dll\CopyFileTransactedW", "ptr", lpExistingFileName, "ptr", lpNewFileName, LPPROGRESS_ROUTINE, lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, UInt32, dwCopyFlags, HANDLE, hTransaction, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -38365,7 +38373,7 @@ export MoveFileWithProgressA(lpExistingFileName, lpNewFileName, lpProgressRoutin
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\MoveFileWithProgressA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, MOVE_FILE_FLAGS, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\MoveFileWithProgressA", "ptr", lpExistingFileName, "ptr", lpNewFileName, LPPROGRESS_ROUTINE, lpProgressRoutine, lpDataMarshal, lpData, MOVE_FILE_FLAGS, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -38527,7 +38535,7 @@ export MoveFileWithProgressW(lpExistingFileName, lpNewFileName, lpProgressRoutin
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\MoveFileWithProgressW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, MOVE_FILE_FLAGS, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\MoveFileWithProgressW", "ptr", lpExistingFileName, "ptr", lpNewFileName, LPPROGRESS_ROUTINE, lpProgressRoutine, lpDataMarshal, lpData, MOVE_FILE_FLAGS, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -38686,7 +38694,7 @@ export MoveFileTransactedA(lpExistingFileName, lpNewFileName, lpProgressRoutine,
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\MoveFileTransactedA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, MOVE_FILE_FLAGS, dwFlags, HANDLE, hTransaction, BOOL)
+    result := DllCall("KERNEL32.dll\MoveFileTransactedA", "ptr", lpExistingFileName, "ptr", lpNewFileName, LPPROGRESS_ROUTINE, lpProgressRoutine, lpDataMarshal, lpData, MOVE_FILE_FLAGS, dwFlags, HANDLE, hTransaction, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -38845,7 +38853,7 @@ export MoveFileTransactedW(lpExistingFileName, lpNewFileName, lpProgressRoutine,
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\MoveFileTransactedW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, MOVE_FILE_FLAGS, dwFlags, HANDLE, hTransaction, BOOL)
+    result := DllCall("KERNEL32.dll\MoveFileTransactedW", "ptr", lpExistingFileName, "ptr", lpNewFileName, LPPROGRESS_ROUTINE, lpProgressRoutine, lpDataMarshal, lpData, MOVE_FILE_FLAGS, dwFlags, HANDLE, hTransaction, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -40612,7 +40620,7 @@ export ReadDirectoryChangesW(hDirectory, lpBuffer, nBufferLength, bWatchSubtree,
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\ReadDirectoryChangesW", HANDLE, hDirectory, IntPtr, lpBuffer, UInt32, nBufferLength, BOOL, bWatchSubtree, FILE_NOTIFY_CHANGE, dwNotifyFilter, lpBytesReturnedMarshal, lpBytesReturned, OVERLAPPED.Ptr, lpOverlapped, "ptr", lpCompletionRoutine, BOOL)
+    result := DllCall("KERNEL32.dll\ReadDirectoryChangesW", HANDLE, hDirectory, IntPtr, lpBuffer, UInt32, nBufferLength, BOOL, bWatchSubtree, FILE_NOTIFY_CHANGE, dwNotifyFilter, lpBytesReturnedMarshal, lpBytesReturned, OVERLAPPED.Ptr, lpOverlapped, LPOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -40733,7 +40741,7 @@ export ReadDirectoryChangesExW(hDirectory, lpBuffer, nBufferLength, bWatchSubtre
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\ReadDirectoryChangesExW", HANDLE, hDirectory, IntPtr, lpBuffer, UInt32, nBufferLength, BOOL, bWatchSubtree, FILE_NOTIFY_CHANGE, dwNotifyFilter, lpBytesReturnedMarshal, lpBytesReturned, OVERLAPPED.Ptr, lpOverlapped, "ptr", lpCompletionRoutine, READ_DIRECTORY_NOTIFY_INFORMATION_CLASS, ReadDirectoryNotifyInformationClass, BOOL)
+    result := DllCall("KERNEL32.dll\ReadDirectoryChangesExW", HANDLE, hDirectory, IntPtr, lpBuffer, UInt32, nBufferLength, BOOL, bWatchSubtree, FILE_NOTIFY_CHANGE, dwNotifyFilter, lpBytesReturnedMarshal, lpBytesReturned, OVERLAPPED.Ptr, lpOverlapped, LPOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, READ_DIRECTORY_NOTIFY_INFORMATION_CLASS, ReadDirectoryNotifyInformationClass, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }

@@ -48,6 +48,10 @@ export default struct PINSTALLUI_HANDLER_RECORD {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, MSIHANDLE, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

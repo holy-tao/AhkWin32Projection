@@ -3,6 +3,7 @@
 #Import ".\DDRAWI_DDVIDEOPORT_LCL.ahk" { DDRAWI_DDVIDEOPORT_LCL }
 #Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
 #Import ".\DDVIDEOPORTDESC.ahk" { DDVIDEOPORTDESC }
+#Import ".\LPDDHALVPORTCB_CREATEVIDEOPORT.ahk" { LPDDHALVPORTCB_CREATEVIDEOPORT }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -18,6 +19,6 @@ export default struct DDHAL_CREATEVPORTDATA {
 
     ddRVal : HRESULT
 
-    CreateVideoPort : IntPtr
+    CreateVideoPort : LPDDHALVPORTCB_CREATEVIDEOPORT
 
 }

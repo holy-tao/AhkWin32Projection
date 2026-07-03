@@ -50,6 +50,10 @@ export default struct SslInitializeInterfaceFn {
             this.value := CallbackCreate(fn, , [PWSTR, NCRYPT_SSL_FUNCTION_TABLE.Ptr, UInt32, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

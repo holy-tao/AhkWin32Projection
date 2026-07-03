@@ -2,6 +2,7 @@
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\UI\WindowsAndMessaging\DLGPROC.ahk" { DLGPROC }
 
 /**
  * Called by the GINA to create a modal dialog box from a dialog box template.
@@ -95,7 +96,7 @@ export default struct PWLX_DIALOG_BOX {
     Call(hWlx, hInst, lpszTemplate, hwndOwner, dlgprc) {
         lpszTemplate := lpszTemplate is String ? StrPtr(lpszTemplate) : lpszTemplate
 
-        result := DllCall(this.value, HANDLE, hWlx, HANDLE, hInst, "ptr", lpszTemplate, HWND, hwndOwner, "ptr", dlgprc, Int32)
+        result := DllCall(this.value, HANDLE, hWlx, HANDLE, hInst, "ptr", lpszTemplate, HWND, hwndOwner, DLGPROC, dlgprc, Int32)
         return result
     }
 
@@ -106,15 +107,19 @@ export default struct PWLX_DIALOG_BOX {
     struct From extends PWLX_DIALOG_BOX {
         /**
          * Creates a PWLX_DIALOG_BOX pointer that invokes the given AHK function when called.
-         * @param {Func(HANDLE, HANDLE, PWSTR, HWND, "ptr") => Int32} fn the function to invoke.
+         * @param {Func(HANDLE, HANDLE, PWSTR, HWND, DLGPROC) => Int32} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 5)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 5 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [HANDLE, HANDLE, PWSTR, HWND, "ptr", Int32])
+            this.value := CallbackCreate(fn, , [HANDLE, HANDLE, PWSTR, HWND, DLGPROC, Int32])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

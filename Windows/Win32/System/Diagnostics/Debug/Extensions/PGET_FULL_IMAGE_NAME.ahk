@@ -50,6 +50,10 @@ export default struct PGET_FULL_IMAGE_NAME {
             this.value := CallbackCreate(fn, , ["ptr", Int64, PSTR.Ptr, "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

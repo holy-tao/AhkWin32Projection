@@ -54,6 +54,10 @@ export default struct PFN_WTD_GENERIC_CHAIN_POLICY_CALLBACK {
             this.value := CallbackCreate(fn, , [CRYPT_PROVIDER_DATA.Ptr, UInt32, UInt32, UInt32, "ptr*", "ptr", "int"])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

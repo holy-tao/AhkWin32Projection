@@ -2,6 +2,7 @@
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
+#Import ".\LPDDHAL_SETMODE.ahk" { LPDDHAL_SETMODE }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -15,7 +16,7 @@ export default struct DDHAL_SETMODEDATA {
 
     ddRVal : HRESULT
 
-    SetMode : IntPtr
+    SetMode : LPDDHAL_SETMODE
 
     inexcl : BOOL
 

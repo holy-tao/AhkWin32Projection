@@ -63,6 +63,10 @@ export default struct PSYMBOL_REGISTERED_CALLBACK64 {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, Int64, Int64, BOOL])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }

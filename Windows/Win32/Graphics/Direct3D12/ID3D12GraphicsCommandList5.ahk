@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\D3D12_SHADING_RATE.ahk" { D3D12_SHADING_RATE }
 #Import ".\D3D12_SHADING_RATE_COMBINER.ahk" { D3D12_SHADING_RATE_COMBINER }
 #Import ".\ID3D12GraphicsCommandList4.ahk" { ID3D12GraphicsCommandList4 }

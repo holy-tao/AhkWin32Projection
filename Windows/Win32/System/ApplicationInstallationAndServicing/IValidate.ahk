@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
-#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\LPDISPLAYVAL.ahk" { LPDISPLAYVAL }
+#Import ".\LPEVALCOMCALLBACK.ahk" { LPEVALCOMCALLBACK }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
@@ -264,7 +266,7 @@ export default struct IValidate extends IUnknown {
     SetDisplay(pDisplayFunction, pContext) {
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, "ptr", pDisplayFunction, pContextMarshal, pContext, "HRESULT")
+        result := ComCall(7, this, LPDISPLAYVAL, pDisplayFunction, pContextMarshal, pContext, "HRESULT")
         return result
     }
 
@@ -296,7 +298,7 @@ export default struct IValidate extends IUnknown {
     SetStatus(pStatusFunction, pContext) {
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(8, this, "ptr", pStatusFunction, pContextMarshal, pContext, "HRESULT")
+        result := ComCall(8, this, LPEVALCOMCALLBACK, pStatusFunction, pContextMarshal, pContext, "HRESULT")
         return result
     }
 

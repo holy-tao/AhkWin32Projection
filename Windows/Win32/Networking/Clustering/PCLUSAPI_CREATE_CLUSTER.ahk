@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\CREATE_CLUSTER_CONFIG.ahk" { CREATE_CLUSTER_CONFIG }
 #Import ".\HCLUSTER.ahk" { HCLUSTER }
+#Import ".\PCLUSTER_SETUP_PROGRESS_CALLBACK.ahk" { PCLUSTER_SETUP_PROGRESS_CALLBACK }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -29,7 +30,7 @@ export default struct PCLUSAPI_CREATE_CLUSTER {
     Call(pConfig, pfnProgressCallback, pvCallbackArg) {
         pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
 
-        result := DllCall(this.value, CREATE_CLUSTER_CONFIG.Ptr, pConfig, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, HCLUSTER)
+        result := DllCall(this.value, CREATE_CLUSTER_CONFIG.Ptr, pConfig, PCLUSTER_SETUP_PROGRESS_CALLBACK, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, HCLUSTER)
         return result
     }
 
@@ -40,15 +41,19 @@ export default struct PCLUSAPI_CREATE_CLUSTER {
     struct From extends PCLUSAPI_CREATE_CLUSTER {
         /**
          * Creates a PCLUSAPI_CREATE_CLUSTER pointer that invokes the given AHK function when called.
-         * @param {Func(CREATE_CLUSTER_CONFIG, "ptr", "ptr") => HCLUSTER} fn the function to invoke.
+         * @param {Func(CREATE_CLUSTER_CONFIG, PCLUSTER_SETUP_PROGRESS_CALLBACK, "ptr") => HCLUSTER} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 3)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 3 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [CREATE_CLUSTER_CONFIG.Ptr, "ptr", "ptr", HCLUSTER])
+            this.value := CallbackCreate(fn, , [CREATE_CLUSTER_CONFIG.Ptr, PCLUSTER_SETUP_PROGRESS_CALLBACK, "ptr", HCLUSTER])
         }
 
-        __Delete() => CallbackFree(this.value)
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
     }
 }
