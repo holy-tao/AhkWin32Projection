@@ -62,11 +62,11 @@ export default struct ICertEncodeCRLDistInfo2 extends ICertEncodeCRLDistInfo {
         return pstrEncodedData
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICertEncodeCRLDistInfo2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

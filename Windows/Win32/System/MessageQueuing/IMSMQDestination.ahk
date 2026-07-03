@@ -248,11 +248,11 @@ export default struct IMSMQDestination extends IDispatch {
         return IDispatch(ppcolProperties)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSMQDestination.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

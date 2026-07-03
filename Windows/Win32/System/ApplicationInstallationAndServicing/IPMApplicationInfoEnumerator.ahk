@@ -52,11 +52,11 @@ export default struct IPMApplicationInfoEnumerator extends IUnknown {
         return IPMApplicationInfo(ppAppInfo)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPMApplicationInfoEnumerator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

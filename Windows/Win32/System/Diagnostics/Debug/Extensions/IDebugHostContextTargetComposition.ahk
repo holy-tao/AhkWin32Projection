@@ -67,11 +67,11 @@ export default struct IDebugHostContextTargetComposition extends IUnknown {
         return ppThread
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugHostContextTargetComposition.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

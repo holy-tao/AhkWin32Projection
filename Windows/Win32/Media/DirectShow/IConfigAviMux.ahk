@@ -124,11 +124,11 @@ export default struct IConfigAviMux extends IUnknown {
         return pfOldIndex
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IConfigAviMux.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

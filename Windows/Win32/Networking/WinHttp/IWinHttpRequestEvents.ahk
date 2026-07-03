@@ -126,11 +126,11 @@ export default struct IWinHttpRequestEvents extends IUnknown {
         ComCall(6, this, Int32, ErrorNumber, BSTR, ErrorDescription)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWinHttpRequestEvents.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

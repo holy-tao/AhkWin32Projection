@@ -94,11 +94,11 @@ export default struct IESOpenMmiEvent extends IESEvent {
         return pbstrData
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IESOpenMmiEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

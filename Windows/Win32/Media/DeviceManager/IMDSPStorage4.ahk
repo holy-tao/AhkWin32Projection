@@ -312,11 +312,11 @@ export default struct IMDSPStorage4 extends IMDSPStorage3 {
         return IMDSPStorage(ppStorage)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMDSPStorage4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

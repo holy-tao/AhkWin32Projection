@@ -51,11 +51,11 @@ export default struct ID3D12Debug2 extends IUnknown {
         ComCall(3, this, D3D12_GPU_BASED_VALIDATION_FLAGS, Flags)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12Debug2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

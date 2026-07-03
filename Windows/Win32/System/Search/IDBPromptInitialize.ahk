@@ -75,11 +75,11 @@ export default struct IDBPromptInitialize extends IUnknown {
         return ppwszSelectedFile
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDBPromptInitialize.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

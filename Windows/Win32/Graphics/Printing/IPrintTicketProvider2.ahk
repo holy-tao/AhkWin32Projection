@@ -61,11 +61,11 @@ export default struct IPrintTicketProvider2 extends IPrintTicketProvider {
         return IXMLDOMDocument2(ppDeviceResources)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPrintTicketProvider2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

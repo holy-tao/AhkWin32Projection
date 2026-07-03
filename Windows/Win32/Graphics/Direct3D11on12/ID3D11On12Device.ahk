@@ -114,11 +114,11 @@ export default struct ID3D11On12Device extends IUnknown {
         ComCall(5, this, ID3D11Resource.Ptr, ppResources, UInt32, NumResources)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D11On12Device.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

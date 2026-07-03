@@ -97,11 +97,11 @@ export default struct IEnumOleUndoUnits extends IUnknown {
         return IEnumOleUndoUnits(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumOleUndoUnits.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -55,11 +55,11 @@ export default struct IWdsTransportConfigurationManager2 extends IWdsTransportCo
         return IWdsTransportMulticastSessionPolicy(ppWdsTransportMulticastSessionPolicy)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWdsTransportConfigurationManager2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

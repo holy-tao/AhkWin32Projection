@@ -142,11 +142,11 @@ export default struct ID2D1SvgGlyphStyle extends ID2D1Resource {
         ComCall(8, this, ID2D1Brush.Ptr, brush, strokeWidthMarshal, strokeWidth, dashesMarshal, dashes, UInt32, dashesCount, dashOffsetMarshal, dashOffset)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1SvgGlyphStyle.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

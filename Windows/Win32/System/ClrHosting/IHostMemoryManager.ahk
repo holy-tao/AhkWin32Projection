@@ -263,11 +263,11 @@ export default struct IHostMemoryManager extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHostMemoryManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -234,11 +234,11 @@ export default struct IWMPClosedCaption2 extends IWMPClosedCaption {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMPClosedCaption2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

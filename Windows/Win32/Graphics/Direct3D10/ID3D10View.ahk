@@ -66,11 +66,11 @@ export default struct ID3D10View extends ID3D10DeviceChild {
         ComCall(7, this, ID3D10Resource.Ptr, ppResource)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D10View.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

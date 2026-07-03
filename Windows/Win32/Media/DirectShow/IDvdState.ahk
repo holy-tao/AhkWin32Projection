@@ -64,11 +64,11 @@ export default struct IDvdState extends IUnknown {
         return pulParentalLevel
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDvdState.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

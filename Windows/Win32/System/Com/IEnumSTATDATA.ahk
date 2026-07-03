@@ -91,11 +91,11 @@ export default struct IEnumSTATDATA extends IUnknown {
         return IEnumSTATDATA(ppenum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumSTATDATA.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -79,11 +79,11 @@ export default struct ContextInfo2 extends ContextInfo {
         return __MIDL__ContextInfo20002
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ContextInfo2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

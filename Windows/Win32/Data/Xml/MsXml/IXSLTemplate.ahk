@@ -74,11 +74,11 @@ export default struct IXSLTemplate extends IDispatch {
         return IXSLProcessor(ppProcessor)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXSLTemplate.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

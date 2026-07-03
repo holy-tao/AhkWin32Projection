@@ -1025,11 +1025,11 @@ export default struct IX509CertificateRequestCmc extends IX509CertificateRequest
         return ISignerCertificates(ppValue)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IX509CertificateRequestCmc.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

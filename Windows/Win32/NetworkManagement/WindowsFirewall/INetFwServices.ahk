@@ -124,11 +124,11 @@ export default struct INetFwServices extends IDispatch {
         return IUnknown(newEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (INetFwServices.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

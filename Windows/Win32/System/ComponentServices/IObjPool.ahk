@@ -100,11 +100,11 @@ export default struct IObjPool extends IUnknown {
         ComCall(9, this)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IObjPool.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

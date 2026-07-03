@@ -199,11 +199,11 @@ export default struct IEnumPins extends IUnknown {
         return IEnumPins(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumPins.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

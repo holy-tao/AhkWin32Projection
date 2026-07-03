@@ -126,11 +126,11 @@ export default struct IAccountingProviderConfig extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAccountingProviderConfig.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

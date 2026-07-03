@@ -78,11 +78,11 @@ export default struct ICLRHostBindingPolicyManager extends IUnknown {
         return pdwPoliciesApplied
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICLRHostBindingPolicyManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

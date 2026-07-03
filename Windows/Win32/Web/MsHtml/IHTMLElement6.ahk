@@ -1137,11 +1137,11 @@ export default struct IHTMLElement6 extends IDispatch {
         return pfHasAttributes
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLElement6.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

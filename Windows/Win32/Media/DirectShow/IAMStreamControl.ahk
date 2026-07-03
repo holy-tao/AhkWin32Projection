@@ -115,11 +115,11 @@ export default struct IAMStreamControl extends IUnknown {
         return pInfo
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAMStreamControl.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

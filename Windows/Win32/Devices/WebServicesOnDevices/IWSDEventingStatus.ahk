@@ -83,11 +83,11 @@ export default struct IWSDEventingStatus extends IUnknown {
         ComCall(5, this, "ptr", pszSubscriptionAction)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWSDEventingStatus.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

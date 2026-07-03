@@ -51,11 +51,11 @@ export default struct IXMLDOMImplementation extends IDispatch {
         return hasFeature
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXMLDOMImplementation.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

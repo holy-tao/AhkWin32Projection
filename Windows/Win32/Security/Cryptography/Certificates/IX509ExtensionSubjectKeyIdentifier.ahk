@@ -145,11 +145,11 @@ export default struct IX509ExtensionSubjectKeyIdentifier extends IX509Extension 
         return pValue
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IX509ExtensionSubjectKeyIdentifier.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

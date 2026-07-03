@@ -170,11 +170,11 @@ export default struct IDeviceSpecificProperty extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDeviceSpecificProperty.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

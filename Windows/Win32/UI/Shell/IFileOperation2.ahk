@@ -46,11 +46,11 @@ export default struct IFileOperation2 extends IFileOperation {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFileOperation2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

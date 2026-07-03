@@ -44,11 +44,11 @@ export default struct IDxcVersionInfo3 extends IUnknown {
         return pVersionString
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDxcVersionInfo3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

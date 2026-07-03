@@ -70,11 +70,11 @@ export default struct IWMProximityDetection extends IUnknown {
         return INSSBuffer(ppRegistrationResponseMsg)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMProximityDetection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

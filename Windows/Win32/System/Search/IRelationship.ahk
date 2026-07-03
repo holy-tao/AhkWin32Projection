@@ -111,11 +111,11 @@ export default struct IRelationship extends IUnknown {
         return ppszPhrase
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRelationship.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -89,11 +89,11 @@ export default struct IPrintSchemaElement extends IDispatch {
         return pbstrNamespaceUri
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPrintSchemaElement.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

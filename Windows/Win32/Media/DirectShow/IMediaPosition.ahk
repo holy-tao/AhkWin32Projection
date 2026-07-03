@@ -388,11 +388,11 @@ export default struct IMediaPosition extends IDispatch {
         return pCanSeekBackward
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMediaPosition.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

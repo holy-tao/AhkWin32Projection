@@ -178,11 +178,11 @@ export default struct IDebugAdvanced2 extends IUnknown {
         return InfoSize
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugAdvanced2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -106,11 +106,11 @@ export default struct ISpeechRecoResultTimes extends IDispatch {
         return OffsetFromStart
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpeechRecoResultTimes.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

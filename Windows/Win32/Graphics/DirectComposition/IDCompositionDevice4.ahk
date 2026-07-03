@@ -59,11 +59,11 @@ export default struct IDCompositionDevice4 extends IDCompositionDevice3 {
         return IDCompositionTexture(compositionTexture)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDCompositionDevice4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

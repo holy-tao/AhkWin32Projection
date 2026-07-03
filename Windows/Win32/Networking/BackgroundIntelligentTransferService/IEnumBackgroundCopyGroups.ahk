@@ -155,11 +155,11 @@ export default struct IEnumBackgroundCopyGroups extends IUnknown {
         return puCount
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumBackgroundCopyGroups.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

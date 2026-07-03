@@ -82,11 +82,11 @@ export default struct IUIAutomationProxyFactory extends IUnknown {
         return factoryId
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAutomationProxyFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

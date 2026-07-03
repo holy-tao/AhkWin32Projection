@@ -79,11 +79,11 @@ export default struct IDebugFormatter extends IUnknown {
         return pbstr
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugFormatter.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

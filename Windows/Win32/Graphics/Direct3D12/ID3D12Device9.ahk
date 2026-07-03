@@ -102,11 +102,11 @@ export default struct ID3D12Device9 extends ID3D12Device8 {
         return ppCommandQueue
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12Device9.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

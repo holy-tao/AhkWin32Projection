@@ -57,11 +57,11 @@ export default struct IRpcHelper extends IUnknown {
         return piid
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRpcHelper.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

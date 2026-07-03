@@ -157,11 +157,11 @@ export default struct IEnumDMO extends IUnknown {
         return IEnumDMO(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumDMO.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

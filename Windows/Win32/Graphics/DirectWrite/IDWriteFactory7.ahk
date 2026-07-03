@@ -75,11 +75,11 @@ export default struct IDWriteFactory7 extends IDWriteFactory6 {
         return IDWriteFontCollection3(_fontCollection)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteFactory7.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

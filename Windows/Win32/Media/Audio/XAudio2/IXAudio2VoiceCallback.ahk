@@ -216,10 +216,10 @@ export default struct IXAudio2VoiceCallback extends Win32ComInterface {
         ComCall(6, this, pBufferContextMarshal, pBufferContext, "int", _Error)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXAudio2VoiceCallback.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 }

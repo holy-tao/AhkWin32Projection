@@ -56,11 +56,11 @@ export default struct IDataModelScriptDebugStack extends IUnknown {
         return IDataModelScriptDebugStackFrame(_stackFrame)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDataModelScriptDebugStack.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

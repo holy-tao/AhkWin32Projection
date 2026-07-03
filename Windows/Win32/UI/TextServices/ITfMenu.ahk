@@ -106,11 +106,11 @@ export default struct ITfMenu extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfMenu.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

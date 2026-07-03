@@ -50,11 +50,11 @@ export default struct IWMPEvents4 extends IWMPEvents3 {
         ComCall(65, this, "ptr", pDevice, "int", hrResult, Int64, qwEstimatedUsedSpace, Int64, qwEstimatedSpace)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMPEvents4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

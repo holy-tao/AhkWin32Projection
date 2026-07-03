@@ -63,11 +63,11 @@ export default struct IWMClientConnections2 extends IWMClientConnections {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMClientConnections2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

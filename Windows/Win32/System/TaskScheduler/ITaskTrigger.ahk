@@ -129,11 +129,11 @@ export default struct ITaskTrigger extends IUnknown {
         return ppwszTrigger
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITaskTrigger.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

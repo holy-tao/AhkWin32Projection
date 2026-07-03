@@ -192,11 +192,11 @@ export default struct ITypeLib2 extends ITypeLib {
         return pCustData
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITypeLib2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

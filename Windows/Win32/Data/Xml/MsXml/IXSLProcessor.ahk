@@ -251,11 +251,11 @@ export default struct IXSLProcessor extends IDispatch {
         return IXMLDOMNode(stylesheet)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXSLProcessor.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

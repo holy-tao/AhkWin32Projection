@@ -63,11 +63,11 @@ export default struct IDXGIDevice3 extends IDXGIDevice2 {
         ComCall(17, this)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDXGIDevice3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -68,11 +68,11 @@ export default struct IRawElementProviderHwndOverride extends IUnknown {
         return IRawElementProviderSimple(pRetVal)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRawElementProviderHwndOverride.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

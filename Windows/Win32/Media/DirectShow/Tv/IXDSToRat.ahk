@@ -160,11 +160,11 @@ export default struct IXDSToRat extends IDispatch {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXDSToRat.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

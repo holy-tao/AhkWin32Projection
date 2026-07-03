@@ -58,11 +58,11 @@ export default struct ICoreWindowComponentInterop extends IUnknown {
         return componentViewInstanceId
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICoreWindowComponentInterop.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

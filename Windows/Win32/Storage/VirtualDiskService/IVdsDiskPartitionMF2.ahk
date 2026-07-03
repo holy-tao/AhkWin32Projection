@@ -58,11 +58,11 @@ export default struct IVdsDiskPartitionMF2 extends IUnknown {
         return IVdsAsync(ppAsync)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVdsDiskPartitionMF2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

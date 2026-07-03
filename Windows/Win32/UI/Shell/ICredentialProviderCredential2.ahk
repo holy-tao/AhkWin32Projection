@@ -65,11 +65,11 @@ export default struct ICredentialProviderCredential2 extends ICredentialProvider
         return _sid
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICredentialProviderCredential2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

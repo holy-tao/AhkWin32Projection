@@ -260,11 +260,11 @@ export default struct IDWriteFontResource extends IUnknown {
         return IDWriteFontFaceReference1(fontFaceReference)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteFontResource.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -497,11 +497,11 @@ export default struct IADsClass extends IADs {
         return IADsCollection(ppQualifiers)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IADsClass.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

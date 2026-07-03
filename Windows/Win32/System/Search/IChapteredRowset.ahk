@@ -56,11 +56,11 @@ export default struct IChapteredRowset extends IUnknown {
         return pcRefCount
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IChapteredRowset.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -46,11 +46,11 @@ export default struct IDocHostUIHandler2 extends IDocHostUIHandler {
         return pchKey
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDocHostUIHandler2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -73,11 +73,11 @@ export default struct IHTMLAttributeCollection2 extends IDispatch {
         return IHTMLDOMAttribute(newretNode)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLAttributeCollection2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

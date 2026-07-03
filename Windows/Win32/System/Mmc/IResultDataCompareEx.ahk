@@ -64,11 +64,11 @@ export default struct IResultDataCompareEx extends IUnknown {
         return pnResult
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IResultDataCompareEx.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

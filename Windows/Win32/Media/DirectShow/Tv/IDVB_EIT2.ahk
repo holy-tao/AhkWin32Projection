@@ -104,11 +104,11 @@ export default struct IDVB_EIT2 extends IDVB_EIT {
         return pbVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDVB_EIT2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -51,11 +51,11 @@ export default struct IDXGraphicsAnalysis extends IUnknown {
         ComCall(4, this)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDXGraphicsAnalysis.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

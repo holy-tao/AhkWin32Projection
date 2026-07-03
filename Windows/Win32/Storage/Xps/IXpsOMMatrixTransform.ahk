@@ -154,11 +154,11 @@ export default struct IXpsOMMatrixTransform extends IXpsOMShareable {
         return IXpsOMMatrixTransform(matrixTransform)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsOMMatrixTransform.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

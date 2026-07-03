@@ -98,11 +98,11 @@ export default struct ICreateDevEnum extends IUnknown {
         return IEnumMoniker(ppEnumMoniker)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICreateDevEnum.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

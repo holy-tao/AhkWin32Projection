@@ -143,11 +143,11 @@ export default struct IXpsOMColorProfileResourceCollection extends IUnknown {
         return IXpsOMColorProfileResource(part)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsOMColorProfileResourceCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

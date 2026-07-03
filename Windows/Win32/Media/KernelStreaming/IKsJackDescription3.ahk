@@ -57,11 +57,11 @@ export default struct IKsJackDescription3 extends IUnknown {
         return pDescription3
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IKsJackDescription3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

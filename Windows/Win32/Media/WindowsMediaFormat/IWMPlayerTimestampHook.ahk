@@ -48,11 +48,11 @@ export default struct IWMPlayerTimestampHook extends IUnknown {
         return prtOut
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMPlayerTimestampHook.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -272,11 +272,11 @@ export default struct IScanningTunerEx extends IScanningTuner {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IScanningTunerEx.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

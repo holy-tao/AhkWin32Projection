@@ -63,11 +63,11 @@ export default struct IAudioProcessingObjectLoggingService extends IUnknown {
         ComCall(3, this, APO_LOG_LEVEL, level, "ptr", format)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAudioProcessingObjectLoggingService.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

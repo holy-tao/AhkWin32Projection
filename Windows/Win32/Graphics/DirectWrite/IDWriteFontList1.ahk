@@ -89,11 +89,11 @@ export default struct IDWriteFontList1 extends IDWriteFontList {
         return IDWriteFontFaceReference(fontFaceReference)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteFontList1.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

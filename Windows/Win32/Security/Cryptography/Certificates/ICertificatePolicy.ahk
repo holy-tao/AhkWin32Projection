@@ -127,11 +127,11 @@ export default struct ICertificatePolicy extends IDispatch {
         return IPolicyQualifiers(ppValue)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICertificatePolicy.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

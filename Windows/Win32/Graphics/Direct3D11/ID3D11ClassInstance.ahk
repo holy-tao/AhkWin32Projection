@@ -153,11 +153,11 @@ export default struct ID3D11ClassInstance extends ID3D11DeviceChild {
         ComCall(10, this, "ptr", pTypeName, pBufferLengthMarshal, pBufferLength)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D11ClassInstance.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

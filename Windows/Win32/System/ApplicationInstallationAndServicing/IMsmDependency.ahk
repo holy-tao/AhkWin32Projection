@@ -184,11 +184,11 @@ export default struct IMsmDependency extends IDispatch {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMsmDependency.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

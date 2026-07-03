@@ -122,11 +122,11 @@ export default struct IUPnPRemoteEndpointInfo extends IUnknown {
         return pguidValue
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUPnPRemoteEndpointInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

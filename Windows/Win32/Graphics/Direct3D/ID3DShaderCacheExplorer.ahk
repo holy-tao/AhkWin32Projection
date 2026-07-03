@@ -49,11 +49,11 @@ export default struct ID3DShaderCacheExplorer extends IUnknown {
         return ppvApp
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3DShaderCacheExplorer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

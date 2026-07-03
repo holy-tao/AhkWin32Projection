@@ -69,11 +69,11 @@ export default struct ID2D1DeviceContext6 extends ID2D1DeviceContext5 {
         ComCall(119, this, "ptr", _image, D2D1_BLEND_MODE, blendMode, D2D_POINT_2F.Ptr, targetOffset, D2D_RECT_F.Ptr, imageRectangle, D2D1_INTERPOLATION_MODE, _interpolationMode)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1DeviceContext6.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

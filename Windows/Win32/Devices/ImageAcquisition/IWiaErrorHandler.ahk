@@ -95,11 +95,11 @@ export default struct IWiaErrorHandler extends IUnknown {
         return pbstrDescription
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWiaErrorHandler.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -137,11 +137,11 @@ export default struct IWscProduct2 extends IWscProduct {
         return peStatus
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWscProduct2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

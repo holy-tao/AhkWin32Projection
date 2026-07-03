@@ -44,11 +44,11 @@ export default struct IAVIPersistFile extends IPersistFile {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAVIPersistFile.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -371,11 +371,11 @@ export default struct IXpsOMPackageWriter extends IUnknown {
         return isClosed
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsOMPackageWriter.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

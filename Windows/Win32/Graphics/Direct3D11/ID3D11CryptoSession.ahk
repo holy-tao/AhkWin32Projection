@@ -122,11 +122,11 @@ export default struct ID3D11CryptoSession extends ID3D11DeviceChild {
         ComCall(11, this, HANDLE.Ptr, pCryptoSessionHandle)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D11CryptoSession.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

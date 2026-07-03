@@ -44,11 +44,11 @@ export default struct IPrintWriteStreamFlush extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPrintWriteStreamFlush.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

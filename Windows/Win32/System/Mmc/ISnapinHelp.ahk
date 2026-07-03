@@ -57,11 +57,11 @@ export default struct ISnapinHelp extends IUnknown {
         return lpCompiledHelpFile
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISnapinHelp.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

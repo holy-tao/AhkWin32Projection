@@ -337,11 +337,11 @@ export default struct IConditionFactory2 extends IConditionFactory {
         return ppv
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IConditionFactory2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

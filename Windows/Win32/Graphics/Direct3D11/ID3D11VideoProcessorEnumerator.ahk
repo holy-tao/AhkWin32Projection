@@ -127,11 +127,11 @@ export default struct ID3D11VideoProcessorEnumerator extends ID3D11DeviceChild {
         return pRange
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D11VideoProcessorEnumerator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

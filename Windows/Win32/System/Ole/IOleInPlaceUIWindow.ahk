@@ -221,11 +221,11 @@ export default struct IOleInPlaceUIWindow extends IOleWindow {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOleInPlaceUIWindow.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

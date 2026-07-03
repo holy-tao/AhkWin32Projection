@@ -214,11 +214,11 @@ export default struct ISVGPathSegCurvetoCubicRel extends IDispatch {
         return p
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISVGPathSegCurvetoCubicRel.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -47,11 +47,11 @@ export default struct IDebugHostEvaluator3 extends IDebugHostEvaluator2 {
         return IModelObject(ppResult)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugHostEvaluator3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

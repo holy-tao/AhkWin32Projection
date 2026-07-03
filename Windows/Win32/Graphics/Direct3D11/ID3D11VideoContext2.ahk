@@ -131,11 +131,11 @@ export default struct ID3D11VideoContext2 extends ID3D11VideoContext1 {
         ComCall(82, this, "ptr", pVideoProcessor, UInt32, StreamIndex, pTypeMarshal, pType, UInt32, _Size, IntPtr, pMetaData)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D11VideoContext2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

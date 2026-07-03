@@ -114,11 +114,11 @@ export default struct IMSVidAudioRenderer extends IMSVidOutputDevice {
         return lBal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSVidAudioRenderer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

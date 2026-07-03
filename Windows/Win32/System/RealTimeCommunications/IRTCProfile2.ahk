@@ -96,11 +96,11 @@ export default struct IRTCProfile2 extends IRTCProfile {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRTCProfile2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

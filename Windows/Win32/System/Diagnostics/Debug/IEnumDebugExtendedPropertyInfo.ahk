@@ -91,11 +91,11 @@ export default struct IEnumDebugExtendedPropertyInfo extends IUnknown {
         return pcelt
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumDebugExtendedPropertyInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -80,11 +80,11 @@ export default struct IDebugApplicationThread11032 extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugApplicationThread11032.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

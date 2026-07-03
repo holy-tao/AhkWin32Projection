@@ -99,11 +99,11 @@ export default struct IX509NameValuePair extends IDispatch {
         return pValue
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IX509NameValuePair.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

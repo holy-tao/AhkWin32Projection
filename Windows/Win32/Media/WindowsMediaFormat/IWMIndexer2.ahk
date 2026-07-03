@@ -92,11 +92,11 @@ export default struct IWMIndexer2 extends IWMIndexer {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMIndexer2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

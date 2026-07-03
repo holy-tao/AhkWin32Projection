@@ -286,11 +286,11 @@ export default struct ISpRecoGrammar extends ISpGrammarBuilder {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpRecoGrammar.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

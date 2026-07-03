@@ -151,11 +151,11 @@ export default struct IEnhancedStorageSilo extends IUnknown {
         return ppwszSiloDevicePath
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnhancedStorageSilo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

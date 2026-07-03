@@ -67,11 +67,11 @@ export default struct IEventObjectChange2 extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEventObjectChange2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

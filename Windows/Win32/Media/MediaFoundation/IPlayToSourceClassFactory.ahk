@@ -53,11 +53,11 @@ export default struct IPlayToSourceClassFactory extends IUnknown {
         return IInspectable(ppSource)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPlayToSourceClassFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

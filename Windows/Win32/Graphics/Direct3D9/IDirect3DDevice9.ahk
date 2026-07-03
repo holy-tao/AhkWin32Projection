@@ -4004,11 +4004,11 @@ export default struct IDirect3DDevice9 extends IUnknown {
         return IDirect3DQuery9(ppQuery)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDirect3DDevice9.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -49,11 +49,11 @@ export default struct IKsTopology extends IUnknown {
         return _Interface
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IKsTopology.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

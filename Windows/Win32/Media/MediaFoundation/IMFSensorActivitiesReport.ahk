@@ -77,11 +77,11 @@ export default struct IMFSensorActivitiesReport extends IUnknown {
         return IMFSensorActivityReport(sensorActivityReport)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFSensorActivitiesReport.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

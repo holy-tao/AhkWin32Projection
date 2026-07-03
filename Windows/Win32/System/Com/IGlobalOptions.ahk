@@ -209,11 +209,11 @@ export default struct IGlobalOptions extends IUnknown {
         return pdwValue
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGlobalOptions.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

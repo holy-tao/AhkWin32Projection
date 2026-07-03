@@ -125,11 +125,11 @@ export default struct ICertPropertyKeyProvInfo extends ICertProperty {
         return IX509PrivateKey(ppValue)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICertPropertyKeyProvInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

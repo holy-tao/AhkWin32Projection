@@ -33,11 +33,11 @@ export default struct IICCSVGColor extends IDispatch {
         super.__New(implObj, flags)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IICCSVGColor.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -49,11 +49,11 @@ export default struct IESCloseMmiEvent extends IESEvent {
         return pDialogNumber
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IESCloseMmiEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

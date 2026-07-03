@@ -247,11 +247,11 @@ export default struct IMultiLanguage extends IUnknown {
         return IMLangConvertCharset(ppMLangConvertCharset)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMultiLanguage.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

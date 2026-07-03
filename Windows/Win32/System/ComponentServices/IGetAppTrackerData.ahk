@@ -428,11 +428,11 @@ export default struct IGetAppTrackerData extends IUnknown {
         return PollingIntervalInSeconds
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGetAppTrackerData.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

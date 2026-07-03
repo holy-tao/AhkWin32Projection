@@ -88,11 +88,11 @@ export default struct IDataConvert extends IUnknown {
         return pcbDstLength
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDataConvert.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

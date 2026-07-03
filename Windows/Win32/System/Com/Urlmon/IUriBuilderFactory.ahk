@@ -59,11 +59,11 @@ export default struct IUriBuilderFactory extends IUnknown {
         return IUriBuilder(ppIUriBuilder)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUriBuilderFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

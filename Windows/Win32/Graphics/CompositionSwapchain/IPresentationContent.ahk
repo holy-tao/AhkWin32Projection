@@ -50,11 +50,11 @@ export default struct IPresentationContent extends IUnknown {
         ComCall(3, this, IntPtr, tag)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPresentationContent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -729,11 +729,11 @@ export default struct IMFCaptureSource extends IUnknown {
         return pdwActualStreamIndex
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFCaptureSource.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

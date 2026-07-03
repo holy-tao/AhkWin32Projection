@@ -33,11 +33,11 @@ export default struct ISupportPackagedComElevationEnabledClasses extends IUnknow
         super.__New(implObj, flags)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISupportPackagedComElevationEnabledClasses.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

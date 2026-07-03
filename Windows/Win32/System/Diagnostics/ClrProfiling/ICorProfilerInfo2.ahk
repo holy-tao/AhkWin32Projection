@@ -365,11 +365,11 @@ export default struct ICorProfilerInfo2 extends ICorProfilerInfo {
         return pinfo
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICorProfilerInfo2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

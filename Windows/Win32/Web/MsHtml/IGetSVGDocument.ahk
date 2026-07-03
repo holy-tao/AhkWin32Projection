@@ -44,11 +44,11 @@ export default struct IGetSVGDocument extends IDispatch {
         return IDispatch(ppSVGDocument)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGetSVGDocument.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -56,11 +56,11 @@ export default struct ISurfacePresenterFlip extends IUnknown {
         return ppBuffer
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISurfacePresenterFlip.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

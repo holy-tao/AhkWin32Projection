@@ -176,11 +176,11 @@ export default struct IDXCoreAdapterFactory extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDXCoreAdapterFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

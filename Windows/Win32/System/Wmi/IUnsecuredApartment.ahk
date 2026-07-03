@@ -62,11 +62,11 @@ export default struct IUnsecuredApartment extends IUnknown {
         return IUnknown(ppStub)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUnsecuredApartment.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

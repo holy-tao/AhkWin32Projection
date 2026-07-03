@@ -54,11 +54,11 @@ export default struct IAzTask2 extends IAzTask {
         return IAzRoleAssignments(ppRoleAssignments)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAzTask2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

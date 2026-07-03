@@ -44,11 +44,11 @@ export default struct IDebugHostType3 extends IDebugHostType2 {
         return IDebugHostType3(containingParentType)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugHostType3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

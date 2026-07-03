@@ -78,11 +78,11 @@ export default struct IFaxInboundRouting extends IDispatch {
         return IFaxInboundRoutingMethods(pFaxInboundRoutingMethods)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFaxInboundRouting.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

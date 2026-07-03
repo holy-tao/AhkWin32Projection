@@ -1528,11 +1528,11 @@ export default struct IDvdInfo2 extends IUnknown {
         return pbEnabled
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDvdInfo2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

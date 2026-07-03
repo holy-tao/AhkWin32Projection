@@ -168,11 +168,11 @@ export default struct IGPMMigrationTable extends IDispatch {
         return IGPMMapEntryCollection(ppEntries)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGPMMigrationTable.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

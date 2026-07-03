@@ -57,11 +57,11 @@ export default struct ITargetFramePriv2 extends ITargetFramePriv {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITargetFramePriv2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

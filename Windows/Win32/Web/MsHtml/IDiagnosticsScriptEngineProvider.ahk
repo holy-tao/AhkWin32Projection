@@ -50,11 +50,11 @@ export default struct IDiagnosticsScriptEngineProvider extends IUnknown {
         return IDiagnosticsScriptEngine(ppEngine)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDiagnosticsScriptEngineProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

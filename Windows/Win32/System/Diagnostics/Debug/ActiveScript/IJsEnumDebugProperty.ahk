@@ -60,11 +60,11 @@ export default struct IJsEnumDebugProperty extends IUnknown {
         return pCount
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IJsEnumDebugProperty.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

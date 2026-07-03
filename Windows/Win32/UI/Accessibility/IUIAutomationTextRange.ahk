@@ -483,11 +483,11 @@ export default struct IUIAutomationTextRange extends IUnknown {
         return IUIAutomationElementArray(children)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAutomationTextRange.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

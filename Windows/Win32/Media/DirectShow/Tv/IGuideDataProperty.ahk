@@ -98,11 +98,11 @@ export default struct IGuideDataProperty extends IUnknown {
         return pvar
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGuideDataProperty.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

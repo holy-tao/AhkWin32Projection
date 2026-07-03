@@ -47,11 +47,11 @@ export default struct IMLOperatorKernelFactory extends IUnknown {
         return IMLOperatorKernel(kernel)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMLOperatorKernelFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

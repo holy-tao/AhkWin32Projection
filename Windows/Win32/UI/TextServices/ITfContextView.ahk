@@ -174,11 +174,11 @@ export default struct ITfContextView extends IUnknown {
         return phwnd
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfContextView.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

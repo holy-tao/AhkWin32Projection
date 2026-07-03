@@ -719,11 +719,11 @@ export default struct IMFMediaEngine extends IUnknown {
         return pPts
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFMediaEngine.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

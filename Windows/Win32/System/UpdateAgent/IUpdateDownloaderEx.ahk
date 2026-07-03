@@ -64,11 +64,11 @@ export default struct IUpdateDownloaderEx extends IUpdateDownloader {
         return IDownloadResult(retval)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUpdateDownloaderEx.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

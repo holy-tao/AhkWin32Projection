@@ -48,11 +48,11 @@ export default struct ITransactionPhase0Factory extends IUnknown {
         return ITransactionPhase0EnlistmentAsync(ppPhase0Enlistment)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITransactionPhase0Factory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

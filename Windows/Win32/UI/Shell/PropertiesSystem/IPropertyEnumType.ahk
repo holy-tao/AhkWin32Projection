@@ -119,11 +119,11 @@ export default struct IPropertyEnumType extends IUnknown {
         return ppszDisplay
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPropertyEnumType.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

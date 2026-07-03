@@ -82,11 +82,11 @@ export default struct IBackgroundCopyJob5 extends IBackgroundCopyJob4 {
         return _PropertyValue
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBackgroundCopyJob5.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

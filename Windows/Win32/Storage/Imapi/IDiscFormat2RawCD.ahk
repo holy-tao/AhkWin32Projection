@@ -2268,11 +2268,11 @@ export default struct IDiscFormat2RawCD extends IDiscFormat2 {
         return supportedSpeedDescriptors
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDiscFormat2RawCD.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

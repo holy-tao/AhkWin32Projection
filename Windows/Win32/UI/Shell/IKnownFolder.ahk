@@ -198,11 +198,11 @@ export default struct IKnownFolder extends IUnknown {
         return pKFD
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IKnownFolder.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

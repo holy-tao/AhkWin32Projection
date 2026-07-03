@@ -154,11 +154,11 @@ export default struct IFsrmQuotaObject extends IFsrmQuotaBase {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFsrmQuotaObject.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

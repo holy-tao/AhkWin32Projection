@@ -236,11 +236,11 @@ export default struct IRunningObjectTable extends IUnknown {
         return IEnumMoniker(ppenumMoniker)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRunningObjectTable.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

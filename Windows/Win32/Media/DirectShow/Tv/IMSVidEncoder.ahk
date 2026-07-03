@@ -85,11 +85,11 @@ export default struct IMSVidEncoder extends IMSVidFeature {
         return IUnknown(ppEncInt)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSVidEncoder.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -122,11 +122,11 @@ export default struct ISyncMgrResolutionHandler extends IUnknown {
         return pFeedback
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISyncMgrResolutionHandler.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

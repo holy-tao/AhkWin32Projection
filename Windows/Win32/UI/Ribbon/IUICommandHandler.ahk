@@ -109,11 +109,11 @@ export default struct IUICommandHandler extends IUnknown {
         return newValue
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUICommandHandler.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

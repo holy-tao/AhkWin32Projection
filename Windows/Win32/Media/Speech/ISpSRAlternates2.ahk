@@ -52,11 +52,11 @@ export default struct ISpSRAlternates2 extends ISpSRAlternates {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpSRAlternates2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

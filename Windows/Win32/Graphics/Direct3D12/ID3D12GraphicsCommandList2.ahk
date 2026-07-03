@@ -56,11 +56,11 @@ export default struct ID3D12GraphicsCommandList2 extends ID3D12GraphicsCommandLi
         ComCall(66, this, UInt32, Count, D3D12_WRITEBUFFERIMMEDIATE_PARAMETER.Ptr, pParams, pModesMarshal, pModes)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12GraphicsCommandList2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

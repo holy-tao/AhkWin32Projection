@@ -1420,11 +1420,11 @@ export default struct IXpsOMGeometryFigure extends IUnknown {
         return IXpsOMGeometryFigure(geometryFigure)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsOMGeometryFigure.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

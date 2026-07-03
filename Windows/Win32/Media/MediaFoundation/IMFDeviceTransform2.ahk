@@ -45,11 +45,11 @@ export default struct IMFDeviceTransform2 extends IMFDeviceTransform {
         return IMFAttributes(ppAttributes)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFDeviceTransform2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

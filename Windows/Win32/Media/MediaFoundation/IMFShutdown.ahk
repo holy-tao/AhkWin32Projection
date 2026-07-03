@@ -94,11 +94,11 @@ export default struct IMFShutdown extends IUnknown {
         return pStatus
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFShutdown.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -237,11 +237,11 @@ export default struct IMbnInterface extends IUnknown {
         return IMbnConnection(mbnConnection)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMbnInterface.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

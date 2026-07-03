@@ -88,11 +88,11 @@ export default struct IRSOPInformation extends IUnknown {
         return ppszText
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRSOPInformation.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

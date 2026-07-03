@@ -59,11 +59,11 @@ export default struct IWRdsProtocolConnectionSettings extends IUnknown {
         return pPropertyEntriesOut
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWRdsProtocolConnectionSettings.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

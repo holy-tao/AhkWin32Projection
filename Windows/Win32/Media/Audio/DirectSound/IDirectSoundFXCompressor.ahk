@@ -57,11 +57,11 @@ export default struct IDirectSoundFXCompressor extends IUnknown {
         return pDsFxCompressor
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDirectSoundFXCompressor.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

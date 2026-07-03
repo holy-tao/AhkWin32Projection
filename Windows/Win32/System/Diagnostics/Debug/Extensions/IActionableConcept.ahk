@@ -47,11 +47,11 @@ export default struct IActionableConcept extends IUnknown {
         return IActionEnumerator(actionEnumerator)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IActionableConcept.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

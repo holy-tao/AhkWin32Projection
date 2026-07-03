@@ -89,11 +89,11 @@ export default struct ICallInterceptor extends ICallIndirect {
         return ICallFrameEvents(ppsink)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICallInterceptor.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

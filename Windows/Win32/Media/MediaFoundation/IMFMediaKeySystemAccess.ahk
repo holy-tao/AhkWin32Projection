@@ -83,11 +83,11 @@ export default struct IMFMediaKeySystemAccess extends IUnknown {
         return pKeySystem
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFMediaKeySystemAccess.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -486,11 +486,11 @@ export default struct IAlertDataCollector extends IDataCollector {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAlertDataCollector.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

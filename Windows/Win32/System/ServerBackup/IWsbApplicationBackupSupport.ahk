@@ -80,11 +80,11 @@ export default struct IWsbApplicationBackupSupport extends IUnknown {
         return IWsbApplicationAsync(ppAsync)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWsbApplicationBackupSupport.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -88,11 +88,11 @@ export default struct IEnumDiskQuotaUsers extends IUnknown {
         return IEnumDiskQuotaUsers(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumDiskQuotaUsers.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

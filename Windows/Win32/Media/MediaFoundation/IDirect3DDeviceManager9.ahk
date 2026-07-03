@@ -307,11 +307,11 @@ export default struct IDirect3DDeviceManager9 extends IUnknown {
         return ppService
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDirect3DDeviceManager9.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

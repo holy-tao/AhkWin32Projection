@@ -395,11 +395,11 @@ export default struct ID3D11Device3 extends ID3D11Device2 {
         ComCall(64, this, pDstDataMarshal, pDstData, UInt32, DstRowPitch, UInt32, DstDepthPitch, "ptr", pSrcResource, UInt32, SrcSubresource, D3D11_BOX.Ptr, pSrcBox)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D11Device3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

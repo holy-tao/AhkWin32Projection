@@ -260,11 +260,11 @@ export default struct IMFASFMutualExclusion extends IUnknown {
         return IMFASFMutualExclusion(ppIMutex)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFASFMutualExclusion.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

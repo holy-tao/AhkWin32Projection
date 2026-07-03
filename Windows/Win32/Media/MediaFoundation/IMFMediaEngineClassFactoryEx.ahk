@@ -102,11 +102,11 @@ export default struct IMFMediaEngineClassFactoryEx extends IMFMediaEngineClassFa
         return isSupported
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFMediaEngineClassFactoryEx.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

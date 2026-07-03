@@ -110,11 +110,11 @@ export default struct IEnumConnections extends IUnknown {
         return IEnumConnections(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumConnections.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

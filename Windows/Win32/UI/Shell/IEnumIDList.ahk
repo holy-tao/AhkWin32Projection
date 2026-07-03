@@ -124,11 +124,11 @@ export default struct IEnumIDList extends IUnknown {
         return IEnumIDList(ppenum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumIDList.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

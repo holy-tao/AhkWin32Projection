@@ -84,11 +84,11 @@ export default struct IDebugHostContextExtensibility extends IUnknown {
         return IDebugHostContext(clonedContext)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugHostContextExtensibility.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

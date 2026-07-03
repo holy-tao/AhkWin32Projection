@@ -91,11 +91,11 @@ export default struct ITfContextKeyEventSink extends IUnknown {
         return pfEaten
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfContextKeyEventSink.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

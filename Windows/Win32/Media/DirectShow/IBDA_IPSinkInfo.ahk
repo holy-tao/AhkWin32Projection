@@ -97,11 +97,11 @@ export default struct IBDA_IPSinkInfo extends IUnknown {
         return pbstrBuffer
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBDA_IPSinkInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

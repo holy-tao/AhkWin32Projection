@@ -45,11 +45,11 @@ export default struct ILearningModelOperatorProviderNative extends IUnknown {
         return IMLOperatorRegistry(ppOperatorRegistry)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ILearningModelOperatorProviderNative.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

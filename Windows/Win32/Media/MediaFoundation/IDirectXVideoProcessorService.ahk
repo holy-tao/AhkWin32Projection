@@ -238,11 +238,11 @@ export default struct IDirectXVideoProcessorService extends IDirectXVideoAcceler
         return IDirectXVideoProcessor(ppVidProcess)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDirectXVideoProcessorService.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

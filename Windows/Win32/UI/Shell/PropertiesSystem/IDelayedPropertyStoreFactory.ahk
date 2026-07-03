@@ -59,11 +59,11 @@ export default struct IDelayedPropertyStoreFactory extends IPropertyStoreFactory
         return ppv
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDelayedPropertyStoreFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

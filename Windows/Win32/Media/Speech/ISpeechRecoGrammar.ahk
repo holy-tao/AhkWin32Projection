@@ -309,11 +309,11 @@ export default struct ISpeechRecoGrammar extends IDispatch {
         return WordPronounceable
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpeechRecoGrammar.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

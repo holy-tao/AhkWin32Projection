@@ -184,11 +184,11 @@ export default struct ICredentialProviderUser extends IUnknown {
         return value
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICredentialProviderUser.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

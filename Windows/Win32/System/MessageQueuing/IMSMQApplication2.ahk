@@ -149,11 +149,11 @@ export default struct IMSMQApplication2 extends IMSMQApplication {
         return IDispatch(ppcolProperties)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSMQApplication2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -489,11 +489,11 @@ export default struct IFsrmPropertyBag extends IDispatch {
         return pStreamInterface
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFsrmPropertyBag.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

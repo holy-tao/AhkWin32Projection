@@ -56,11 +56,11 @@ export default struct ID2D1RectangleGeometry extends ID2D1Geometry {
         ComCall(17, this, D2D_RECT_F.Ptr, _rect)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1RectangleGeometry.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

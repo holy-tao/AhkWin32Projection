@@ -102,11 +102,11 @@ export default struct IWICMetadataReaderInfo extends IWICMetadataHandlerInfo {
         return IWICMetadataReader(ppIReader)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWICMetadataReaderInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

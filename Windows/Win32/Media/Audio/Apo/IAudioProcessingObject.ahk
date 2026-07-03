@@ -208,11 +208,11 @@ export default struct IAudioProcessingObject extends IUnknown {
         return pu32ChannelCount
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAudioProcessingObject.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -418,11 +418,11 @@ export default struct ISpeechRecognizer extends IDispatch {
         return ISpeechObjectTokens(ObjectTokens)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpeechRecognizer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

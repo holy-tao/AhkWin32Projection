@@ -141,11 +141,11 @@ export default struct IAudioProcessingObjectNotifications2 extends IAudioProcess
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAudioProcessingObjectNotifications2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

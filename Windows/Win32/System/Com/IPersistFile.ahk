@@ -204,11 +204,11 @@ export default struct IPersistFile extends IPersist {
         return ppszFileName
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPersistFile.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

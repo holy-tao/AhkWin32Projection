@@ -97,11 +97,11 @@ export default struct ISVGAnimatedPreserveAspectRatio extends IDispatch {
         return ISVGPreserveAspectRatio(p)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISVGAnimatedPreserveAspectRatio.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

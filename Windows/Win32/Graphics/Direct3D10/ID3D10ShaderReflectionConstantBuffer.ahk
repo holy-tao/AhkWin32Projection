@@ -88,10 +88,10 @@ export default struct ID3D10ShaderReflectionConstantBuffer extends Win32ComInter
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D10ShaderReflectionConstantBuffer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 }

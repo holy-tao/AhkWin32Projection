@@ -83,11 +83,11 @@ export default struct ISpreadsheetItemProvider extends IUnknown {
         return pRetVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpreadsheetItemProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -109,11 +109,11 @@ export default struct ISpeechMMSysAudio extends ISpeechAudio {
         return _Handle
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpeechMMSysAudio.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -81,11 +81,11 @@ export default struct ID3D11Query extends ID3D11Asynchronous {
         ComCall(8, this, D3D11_QUERY_DESC.Ptr, pDesc)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D11Query.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

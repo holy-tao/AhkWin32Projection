@@ -98,11 +98,11 @@ export default struct IWiaSegmentationFilter extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWiaSegmentationFilter.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

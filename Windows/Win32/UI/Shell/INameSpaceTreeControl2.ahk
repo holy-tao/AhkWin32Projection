@@ -114,11 +114,11 @@ export default struct INameSpaceTreeControl2 extends INameSpaceTreeControl {
         return pnstcsStyle
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (INameSpaceTreeControl2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

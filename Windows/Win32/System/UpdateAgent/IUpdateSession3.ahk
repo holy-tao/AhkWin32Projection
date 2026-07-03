@@ -96,11 +96,11 @@ export default struct IUpdateSession3 extends IUpdateSession2 {
         return IUpdateHistoryEntryCollection(retval)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUpdateSession3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

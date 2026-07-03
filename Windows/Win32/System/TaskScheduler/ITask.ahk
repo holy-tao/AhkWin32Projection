@@ -475,11 +475,11 @@ export default struct ITask extends IScheduledWorkItem {
         return pdwMaxRunTimeMS
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITask.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

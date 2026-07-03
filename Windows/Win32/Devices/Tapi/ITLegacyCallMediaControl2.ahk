@@ -516,11 +516,11 @@ export default struct ITLegacyCallMediaControl2 extends ITLegacyCallMediaControl
         return pVarDeviceID
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITLegacyCallMediaControl2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

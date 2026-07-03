@@ -54,11 +54,11 @@ export default struct IMultisessionSequential2 extends IMultisessionSequential {
         return value
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMultisessionSequential2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

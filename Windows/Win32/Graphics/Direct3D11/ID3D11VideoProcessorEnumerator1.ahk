@@ -66,11 +66,11 @@ export default struct ID3D11VideoProcessorEnumerator1 extends ID3D11VideoProcess
         return pSupported
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D11VideoProcessorEnumerator1.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

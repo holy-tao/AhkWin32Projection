@@ -53,11 +53,11 @@ export default struct ID3D11ShaderResourceView1 extends ID3D11ShaderResourceView
         ComCall(9, this, D3D11_SHADER_RESOURCE_VIEW_DESC1.Ptr, pDesc1)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D11ShaderResourceView1.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

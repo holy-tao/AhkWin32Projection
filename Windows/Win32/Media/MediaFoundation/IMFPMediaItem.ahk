@@ -499,11 +499,11 @@ export default struct IMFPMediaItem extends IUnknown {
         return IPropertyStore(ppMetadataStore)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFPMediaItem.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

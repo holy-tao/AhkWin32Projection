@@ -361,11 +361,11 @@ export default struct ICertRequest2 extends ICertRequest {
         return pvarPropertyValue
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICertRequest2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

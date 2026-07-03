@@ -46,11 +46,11 @@ export default struct ID3D12Device11 extends ID3D12Device10 {
         ComCall(79, this, D3D12_SAMPLER_DESC2.Ptr, pDesc, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12Device11.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

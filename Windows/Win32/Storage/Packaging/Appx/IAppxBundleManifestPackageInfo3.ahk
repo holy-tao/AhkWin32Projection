@@ -45,11 +45,11 @@ export default struct IAppxBundleManifestPackageInfo3 extends IUnknown {
         return IAppxManifestTargetDeviceFamiliesEnumerator(targetDeviceFamilies)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxBundleManifestPackageInfo3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

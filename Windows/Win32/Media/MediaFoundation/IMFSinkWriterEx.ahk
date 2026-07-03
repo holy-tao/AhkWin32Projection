@@ -52,11 +52,11 @@ export default struct IMFSinkWriterEx extends IMFSinkWriter {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFSinkWriterEx.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

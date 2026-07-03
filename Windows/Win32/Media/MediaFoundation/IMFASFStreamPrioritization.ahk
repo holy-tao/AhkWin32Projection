@@ -182,11 +182,11 @@ export default struct IMFASFStreamPrioritization extends IUnknown {
         return IMFASFStreamPrioritization(ppIStreamPrioritization)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFASFStreamPrioritization.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

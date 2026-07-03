@@ -92,11 +92,11 @@ export default struct IConnectionPointContainer extends IUnknown {
         return IConnectionPoint(ppCP)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IConnectionPointContainer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

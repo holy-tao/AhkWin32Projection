@@ -169,11 +169,11 @@ export default struct ID2D1StrokeStyle extends ID2D1Resource {
         ComCall(12, this, dashesMarshal, dashes, UInt32, dashesCount)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1StrokeStyle.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -337,11 +337,11 @@ export default struct IVMRDeinterlaceControl extends IUnknown {
         return lpDeinterlaceMode
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVMRDeinterlaceControl.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

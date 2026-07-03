@@ -47,11 +47,11 @@ export default struct IShellDispatch5 extends IShellDispatch4 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IShellDispatch5.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

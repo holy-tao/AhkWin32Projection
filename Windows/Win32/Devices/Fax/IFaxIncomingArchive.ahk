@@ -409,11 +409,11 @@ export default struct IFaxIncomingArchive extends IDispatch {
         return IFaxIncomingMessage(pFaxIncomingMessage)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFaxIncomingArchive.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

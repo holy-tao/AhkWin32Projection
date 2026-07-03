@@ -79,11 +79,11 @@ export default struct IOpenServiceManager extends IUnknown {
         return IOpenService(ppService)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOpenServiceManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

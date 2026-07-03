@@ -347,11 +347,11 @@ export default struct IMFASFProfile extends IMFAttributes {
         return IMFASFProfile(ppIProfile)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFASFProfile.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

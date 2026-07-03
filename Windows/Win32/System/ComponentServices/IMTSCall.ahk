@@ -49,11 +49,11 @@ export default struct IMTSCall extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMTSCall.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

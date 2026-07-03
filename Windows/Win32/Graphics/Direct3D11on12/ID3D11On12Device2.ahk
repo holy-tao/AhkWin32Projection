@@ -104,11 +104,11 @@ export default struct ID3D11On12Device2 extends ID3D11On12Device1 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D11On12Device2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

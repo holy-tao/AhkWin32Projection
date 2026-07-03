@@ -59,11 +59,11 @@ export default struct IPublishedApp2 extends IPublishedApp {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPublishedApp2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

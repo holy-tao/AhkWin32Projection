@@ -66,11 +66,11 @@ export default struct IXpsDocumentPackageTarget3D extends IUnknown {
         return IXpsOMObjectFactory(xpsFactory)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsDocumentPackageTarget3D.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

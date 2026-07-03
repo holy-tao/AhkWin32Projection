@@ -154,11 +154,11 @@ export default struct IOpcDigitalSignatureEnumerator extends IUnknown {
         return IOpcDigitalSignatureEnumerator(copy)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOpcDigitalSignatureEnumerator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

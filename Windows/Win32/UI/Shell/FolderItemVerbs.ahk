@@ -119,11 +119,11 @@ export default struct FolderItemVerbs extends IDispatch {
         return IUnknown(ppunk)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (FolderItemVerbs.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

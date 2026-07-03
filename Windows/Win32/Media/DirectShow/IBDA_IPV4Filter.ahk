@@ -108,11 +108,11 @@ export default struct IBDA_IPV4Filter extends IUnknown {
         return pulModeMask
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBDA_IPV4Filter.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

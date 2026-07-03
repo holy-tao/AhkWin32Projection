@@ -95,11 +95,11 @@ export default struct IOleContainer extends IParseDisplayName {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOleContainer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -1212,11 +1212,11 @@ export default struct IHTMLInputElement extends IDispatch {
         return p
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLInputElement.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -81,11 +81,11 @@ export default struct IWMFrameInterpProps extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMFrameInterpProps.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

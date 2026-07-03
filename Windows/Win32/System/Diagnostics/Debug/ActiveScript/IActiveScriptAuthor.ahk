@@ -268,11 +268,11 @@ export default struct IActiveScriptAuthor extends IUnknown {
         return pfcommit
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IActiveScriptAuthor.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -77,11 +77,11 @@ export default struct ID2D1BoundsAdjustmentTransform extends ID2D1TransformNode 
         ComCall(5, this, RECT.Ptr, outputBounds)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1BoundsAdjustmentTransform.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

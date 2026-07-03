@@ -49,11 +49,11 @@ export default struct ISynchronizeHandle extends IUnknown {
         return ph
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISynchronizeHandle.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

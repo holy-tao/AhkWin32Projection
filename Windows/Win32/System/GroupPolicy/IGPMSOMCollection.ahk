@@ -93,11 +93,11 @@ export default struct IGPMSOMCollection extends IDispatch {
         return IEnumVARIANT(ppIGPMSOM)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGPMSOMCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

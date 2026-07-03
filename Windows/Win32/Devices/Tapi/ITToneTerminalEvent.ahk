@@ -102,11 +102,11 @@ export default struct ITToneTerminalEvent extends IDispatch {
         return phrErrorCode
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITToneTerminalEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

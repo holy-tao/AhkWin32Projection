@@ -81,11 +81,11 @@ export default struct IMFByteStreamCacheControl2 extends IMFByteStreamCacheContr
         return pfActive
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFByteStreamCacheControl2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

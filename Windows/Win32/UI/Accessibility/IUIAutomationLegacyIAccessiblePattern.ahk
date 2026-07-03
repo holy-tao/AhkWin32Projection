@@ -474,11 +474,11 @@ export default struct IUIAutomationLegacyIAccessiblePattern extends IUnknown {
         return IAccessible(ppAccessible)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAutomationLegacyIAccessiblePattern.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

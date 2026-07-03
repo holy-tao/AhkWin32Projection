@@ -57,11 +57,11 @@ export default struct IDOMParser extends IDispatch {
         return IHTMLDocument2(ppNode)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDOMParser.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

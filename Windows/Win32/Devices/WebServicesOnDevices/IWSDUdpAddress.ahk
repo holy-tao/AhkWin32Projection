@@ -356,11 +356,11 @@ export default struct IWSDUdpAddress extends IWSDTransportAddress {
         return pAlias
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWSDUdpAddress.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

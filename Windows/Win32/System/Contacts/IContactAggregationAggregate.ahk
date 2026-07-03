@@ -159,11 +159,11 @@ export default struct IContactAggregationAggregate extends IUnknown {
         return ppItemId
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IContactAggregationAggregate.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

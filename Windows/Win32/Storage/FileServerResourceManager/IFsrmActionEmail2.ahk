@@ -73,11 +73,11 @@ export default struct IFsrmActionEmail2 extends IFsrmActionEmail {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFsrmActionEmail2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

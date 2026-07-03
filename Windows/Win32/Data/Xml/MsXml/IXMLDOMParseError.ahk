@@ -157,11 +157,11 @@ export default struct IXMLDOMParseError extends IDispatch {
         return filePosition
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXMLDOMParseError.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

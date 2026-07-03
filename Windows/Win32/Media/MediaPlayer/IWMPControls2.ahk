@@ -70,11 +70,11 @@ export default struct IWMPControls2 extends IWMPControls {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMPControls2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

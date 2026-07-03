@@ -121,11 +121,11 @@ export default struct IAppxBundleReader extends IUnknown {
         return IAppxFile(payloadPackage)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxBundleReader.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

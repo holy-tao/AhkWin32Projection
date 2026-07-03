@@ -101,11 +101,11 @@ export default struct IIsolatedProcessLauncher extends IUnknown {
         return running
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IIsolatedProcessLauncher.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

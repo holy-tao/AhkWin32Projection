@@ -91,11 +91,11 @@ export default struct ISpeechPhoneConverter extends IDispatch {
         return Phonemes
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpeechPhoneConverter.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

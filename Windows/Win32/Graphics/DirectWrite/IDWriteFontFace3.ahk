@@ -315,11 +315,11 @@ export default struct IDWriteFontFace3 extends IDWriteFontFace2 {
         return isLocal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteFontFace3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -90,11 +90,11 @@ export default struct IDebugHostFunctionLocalDetails extends IUnknown {
         return argPosition
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugHostFunctionLocalDetails.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

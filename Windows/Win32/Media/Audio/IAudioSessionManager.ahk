@@ -66,11 +66,11 @@ export default struct IAudioSessionManager extends IUnknown {
         return ISimpleAudioVolume(AudioVolume)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAudioSessionManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -389,11 +389,11 @@ export default struct IStylusPlugin extends IUnknown {
         return pDataInterest
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IStylusPlugin.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

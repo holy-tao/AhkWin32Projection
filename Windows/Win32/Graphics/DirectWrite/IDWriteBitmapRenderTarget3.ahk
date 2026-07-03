@@ -87,11 +87,11 @@ export default struct IDWriteBitmapRenderTarget3 extends IDWriteBitmapRenderTarg
         return blackBoxRect
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteBitmapRenderTarget3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

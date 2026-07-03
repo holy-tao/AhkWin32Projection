@@ -215,11 +215,11 @@ export default struct IDWriteTextRenderer1 extends IDWriteTextRenderer {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteTextRenderer1.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

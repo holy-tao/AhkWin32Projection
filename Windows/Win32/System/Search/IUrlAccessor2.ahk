@@ -99,11 +99,11 @@ export default struct IUrlAccessor2 extends IUrlAccessor {
         return pdwLength
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUrlAccessor2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

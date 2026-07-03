@@ -88,11 +88,11 @@ export default struct IAccountsSettingsPaneInterop extends IInspectable {
         return asyncAction
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAccountsSettingsPaneInterop.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

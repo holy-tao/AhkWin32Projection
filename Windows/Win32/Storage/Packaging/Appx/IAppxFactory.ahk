@@ -151,11 +151,11 @@ export default struct IAppxFactory extends IUnknown {
         return IAppxBlockMapReader(blockMapReader)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

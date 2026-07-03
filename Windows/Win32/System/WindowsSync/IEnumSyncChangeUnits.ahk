@@ -121,11 +121,11 @@ export default struct IEnumSyncChangeUnits extends IUnknown {
         return IEnumSyncChangeUnits(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumSyncChangeUnits.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

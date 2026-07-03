@@ -153,11 +153,11 @@ export default struct ISVGEllipseElement extends IDispatch {
         return ISVGAnimatedLength(p)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISVGEllipseElement.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -143,11 +143,11 @@ export default struct ISWbemPrivilegeSet extends IDispatch {
         return ISWbemPrivilege(objWbemPrivilege)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISWbemPrivilegeSet.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

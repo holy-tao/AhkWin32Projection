@@ -80,11 +80,11 @@ export default struct IMultiLanguage3 extends IMultiLanguage2 {
         return puiDetectedCodePages
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMultiLanguage3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

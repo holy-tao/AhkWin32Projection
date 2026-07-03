@@ -75,11 +75,11 @@ export default struct IAppxManifestMainPackageDependenciesEnumerator extends IUn
         return hasNext
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxManifestMainPackageDependenciesEnumerator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

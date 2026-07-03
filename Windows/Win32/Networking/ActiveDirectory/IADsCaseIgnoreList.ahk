@@ -67,11 +67,11 @@ export default struct IADsCaseIgnoreList extends IDispatch {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IADsCaseIgnoreList.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

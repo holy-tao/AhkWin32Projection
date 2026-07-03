@@ -81,11 +81,11 @@ export default struct IAudioSessionEnumerator extends IUnknown {
         return IAudioSessionControl(Session)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAudioSessionEnumerator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

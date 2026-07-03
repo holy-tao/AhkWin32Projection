@@ -110,11 +110,11 @@ export default struct ITPhoneDeviceSpecificEvent extends IDispatch {
         return pParam3
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITPhoneDeviceSpecificEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

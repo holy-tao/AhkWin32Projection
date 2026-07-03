@@ -61,11 +61,11 @@ export default struct IScrollableContextMenu extends IUnknown {
         return cmdID
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IScrollableContextMenu.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

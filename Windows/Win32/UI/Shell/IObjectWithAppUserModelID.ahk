@@ -82,11 +82,11 @@ export default struct IObjectWithAppUserModelID extends IUnknown {
         return ppszAppID
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IObjectWithAppUserModelID.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

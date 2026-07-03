@@ -197,11 +197,11 @@ export default struct IX509CertificateRequestPkcs7V2 extends IX509CertificateReq
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IX509CertificateRequestPkcs7V2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

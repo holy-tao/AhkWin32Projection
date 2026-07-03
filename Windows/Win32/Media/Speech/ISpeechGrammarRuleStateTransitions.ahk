@@ -87,11 +87,11 @@ export default struct ISpeechGrammarRuleStateTransitions extends IDispatch {
         return IUnknown(EnumVARIANT)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpeechGrammarRuleStateTransitions.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

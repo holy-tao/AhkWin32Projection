@@ -156,11 +156,11 @@ export default struct IHTMLDocument6 extends IDispatch {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLDocument6.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

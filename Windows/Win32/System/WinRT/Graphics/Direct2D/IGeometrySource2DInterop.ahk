@@ -57,11 +57,11 @@ export default struct IGeometrySource2DInterop extends IUnknown {
         return ID2D1Geometry(value)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGeometrySource2DInterop.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

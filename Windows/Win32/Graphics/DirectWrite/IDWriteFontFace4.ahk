@@ -125,11 +125,11 @@ export default struct IDWriteFontFace4 extends IDWriteFontFace3 {
         ComCall(52, this, glyphDataContextMarshal, glyphDataContext)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteFontFace4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

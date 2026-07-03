@@ -104,11 +104,11 @@ export default struct ISpObjectTokenEnumBuilder extends IEnumSpObjectTokens {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpObjectTokenEnumBuilder.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

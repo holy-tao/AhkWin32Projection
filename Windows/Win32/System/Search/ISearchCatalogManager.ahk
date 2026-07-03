@@ -523,11 +523,11 @@ export default struct ISearchCatalogManager extends IUnknown {
         return ISearchCrawlScopeManager(ppCrawlScopeManager)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISearchCatalogManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

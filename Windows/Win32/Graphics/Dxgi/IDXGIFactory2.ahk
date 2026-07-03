@@ -324,11 +324,11 @@ export default struct IDXGIFactory2 extends IDXGIFactory1 {
         return IDXGISwapChain1(ppSwapChain)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDXGIFactory2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -109,11 +109,11 @@ export default struct IMultisession extends IDispatch {
         return IDiscRecorder2(value)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMultisession.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

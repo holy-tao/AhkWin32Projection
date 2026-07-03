@@ -91,11 +91,11 @@ export default struct IEnumFORMATETC extends IUnknown {
         return IEnumFORMATETC(ppenum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumFORMATETC.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

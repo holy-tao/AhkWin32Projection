@@ -222,11 +222,11 @@ export default struct IGuideData extends IUnknown {
         return IEnumGuideDataProperties(ppEnumProperties)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGuideData.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -201,11 +201,11 @@ export default struct IWbemHiPerfProvider extends IUnknown {
         return IWbemObjectAccess(apObj)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWbemHiPerfProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

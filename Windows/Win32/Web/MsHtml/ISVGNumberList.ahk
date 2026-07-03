@@ -148,11 +148,11 @@ export default struct ISVGNumberList extends IDispatch {
         return ISVGNumber(ppResult)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISVGNumberList.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -268,11 +268,11 @@ export default struct ID3D12VideoProcessCommandList extends ID3D12CommandList {
         ComCall(22, this, UInt32, Count, D3D12_WRITEBUFFERIMMEDIATE_PARAMETER.Ptr, pParams, pModesMarshal, pModes)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12VideoProcessCommandList.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

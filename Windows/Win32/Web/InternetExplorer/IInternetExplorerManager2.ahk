@@ -45,11 +45,11 @@ export default struct IInternetExplorerManager2 extends IUnknown {
         return IEnumManagerFrames(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IInternetExplorerManager2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

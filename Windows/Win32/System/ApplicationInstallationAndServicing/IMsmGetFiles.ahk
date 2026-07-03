@@ -56,11 +56,11 @@ export default struct IMsmGetFiles extends IDispatch {
         return IMsmStrings(Files)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMsmGetFiles.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

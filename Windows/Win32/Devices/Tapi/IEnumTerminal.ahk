@@ -165,11 +165,11 @@ export default struct IEnumTerminal extends IUnknown {
         return IEnumTerminal(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumTerminal.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -90,11 +90,11 @@ export default struct IEnumUnknown extends IUnknown {
         return IEnumUnknown(ppenum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumUnknown.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

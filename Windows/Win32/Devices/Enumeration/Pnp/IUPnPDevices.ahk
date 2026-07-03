@@ -98,11 +98,11 @@ export default struct IUPnPDevices extends IDispatch {
         return IUPnPDevice(ppDevice)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUPnPDevices.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -98,11 +98,11 @@ export default struct IAudioMeterInformation extends IUnknown {
         return pdwHardwareSupportMask
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAudioMeterInformation.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

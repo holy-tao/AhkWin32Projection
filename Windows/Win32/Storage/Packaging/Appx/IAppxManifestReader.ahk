@@ -212,11 +212,11 @@ export default struct IAppxManifestReader extends IUnknown {
         return IStream(manifestStream)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxManifestReader.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

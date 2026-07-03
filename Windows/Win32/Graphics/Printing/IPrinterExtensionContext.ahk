@@ -105,11 +105,11 @@ export default struct IPrinterExtensionContext extends IDispatch {
         return IPrinterPropertyBag(ppPropertyBag)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPrinterExtensionContext.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

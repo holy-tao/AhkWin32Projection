@@ -96,11 +96,11 @@ export default struct IGPMStarterGPOBackupCollection extends IDispatch {
         return IEnumVARIANT(ppIGPMTmplBackup)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGPMStarterGPOBackupCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

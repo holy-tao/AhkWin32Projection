@@ -54,11 +54,11 @@ export default struct IHTMLImageElementFactory extends IDispatch {
         return IHTMLImgElement(__MIDL__IHTMLImageElementFactory0000)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLImageElementFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

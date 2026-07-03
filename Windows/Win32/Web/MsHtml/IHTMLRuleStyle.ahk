@@ -2556,11 +2556,11 @@ export default struct IHTMLRuleStyle extends IDispatch {
         return pfSuccess
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLRuleStyle.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

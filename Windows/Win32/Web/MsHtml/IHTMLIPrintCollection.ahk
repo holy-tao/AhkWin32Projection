@@ -80,11 +80,11 @@ export default struct IHTMLIPrintCollection extends IDispatch {
         return IUnknown(ppIPrint)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLIPrintCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

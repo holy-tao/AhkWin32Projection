@@ -37,11 +37,11 @@ export default struct ID3D12Pageable extends ID3D12DeviceChild {
         super.__New(implObj, flags)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12Pageable.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

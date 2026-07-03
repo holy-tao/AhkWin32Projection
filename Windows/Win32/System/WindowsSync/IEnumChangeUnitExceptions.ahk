@@ -141,11 +141,11 @@ export default struct IEnumChangeUnitExceptions extends IUnknown {
         return IEnumChangeUnitExceptions(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumChangeUnitExceptions.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

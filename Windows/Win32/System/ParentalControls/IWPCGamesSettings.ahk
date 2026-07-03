@@ -50,11 +50,11 @@ export default struct IWPCGamesSettings extends IWPCSettings {
         return pdwReasons
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWPCGamesSettings.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

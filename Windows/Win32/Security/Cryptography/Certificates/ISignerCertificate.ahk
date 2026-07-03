@@ -484,11 +484,11 @@ export default struct ISignerCertificate extends IDispatch {
         return IX509SignatureInformation(ppValue)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISignerCertificate.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

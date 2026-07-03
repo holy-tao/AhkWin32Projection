@@ -65,11 +65,11 @@ export default struct IUIAutomationTextEditPattern extends IUIAutomationTextPatt
         return IUIAutomationTextRange(range)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAutomationTextEditPattern.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

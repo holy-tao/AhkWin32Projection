@@ -49,11 +49,11 @@ export default struct IMediaSample2Config extends IUnknown {
         return IUnknown(ppDirect3DSurface9)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMediaSample2Config.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

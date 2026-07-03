@@ -214,11 +214,11 @@ export default struct IXpsOMFontResource extends IXpsOMResource {
         return embeddingOption
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsOMFontResource.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -51,11 +51,11 @@ export default struct IDWriteColorGlyphRunEnumerator1 extends IDWriteColorGlyphR
         return colorGlyphRun
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteColorGlyphRunEnumerator1.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

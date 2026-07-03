@@ -73,11 +73,11 @@ export default struct INetSharingPortMappingCollection extends IDispatch {
         return pVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (INetSharingPortMappingCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -254,11 +254,11 @@ export default struct IQueryAssociations extends IUnknown {
         return ppvOut
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IQueryAssociations.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

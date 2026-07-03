@@ -73,11 +73,11 @@ export default struct IPropertyDescriptionAliasInfo extends IPropertyDescription
         return ppv
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPropertyDescriptionAliasInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

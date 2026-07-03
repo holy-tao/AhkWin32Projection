@@ -55,11 +55,11 @@ export default struct ID2D1Mesh extends ID2D1Resource {
         return ID2D1TessellationSink(tessellationSink)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1Mesh.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

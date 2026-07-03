@@ -143,11 +143,11 @@ export default struct IOpcRelationshipSelector extends IUnknown {
         return selectionCriterion
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOpcRelationshipSelector.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

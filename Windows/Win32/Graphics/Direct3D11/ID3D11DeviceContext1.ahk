@@ -1024,11 +1024,11 @@ export default struct ID3D11DeviceContext1 extends ID3D11DeviceContext {
         ComCall(133, this, "ptr", pResourceView, RECT.Ptr, pRects, UInt32, NumRects)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D11DeviceContext1.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

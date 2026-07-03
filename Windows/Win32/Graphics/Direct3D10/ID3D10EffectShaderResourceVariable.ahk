@@ -107,11 +107,11 @@ export default struct ID3D10EffectShaderResourceVariable extends ID3D10EffectVar
         return ID3D10ShaderResourceView(ppResources)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D10EffectShaderResourceVariable.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

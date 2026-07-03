@@ -139,11 +139,11 @@ export default struct ICrmMonitorClerks extends IDispatch {
         return pItem
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICrmMonitorClerks.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

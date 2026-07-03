@@ -189,11 +189,11 @@ export default struct IAssocHandler extends IUnknown {
         return IAssocHandlerInvoker(ppInvoker)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAssocHandler.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

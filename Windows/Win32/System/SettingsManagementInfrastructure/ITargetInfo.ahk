@@ -423,11 +423,11 @@ export default struct ITargetInfo extends IUnknown {
         return pMountName
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITargetInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

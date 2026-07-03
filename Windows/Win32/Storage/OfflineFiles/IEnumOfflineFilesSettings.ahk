@@ -87,11 +87,11 @@ export default struct IEnumOfflineFilesSettings extends IUnknown {
         return IEnumOfflineFilesSettings(ppenum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumOfflineFilesSettings.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

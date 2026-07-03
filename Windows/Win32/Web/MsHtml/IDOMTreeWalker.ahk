@@ -201,11 +201,11 @@ export default struct IDOMTreeWalker extends IDispatch {
         return IDispatch(ppRetNode)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDOMTreeWalker.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

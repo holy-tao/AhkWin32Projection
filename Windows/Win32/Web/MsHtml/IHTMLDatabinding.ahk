@@ -131,11 +131,11 @@ export default struct IHTMLDatabinding extends IDispatch {
         return p
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLDatabinding.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

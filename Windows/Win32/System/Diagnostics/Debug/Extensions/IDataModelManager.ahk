@@ -285,11 +285,11 @@ export default struct IDataModelManager extends IUnknown {
         return IModelObject(modelObject)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDataModelManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

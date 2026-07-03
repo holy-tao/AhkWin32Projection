@@ -70,11 +70,11 @@ export default struct IEnumACString extends IEnumString {
         return pdwOptions
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumACString.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

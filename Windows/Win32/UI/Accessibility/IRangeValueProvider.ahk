@@ -205,11 +205,11 @@ export default struct IRangeValueProvider extends IUnknown {
         return pRetVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRangeValueProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

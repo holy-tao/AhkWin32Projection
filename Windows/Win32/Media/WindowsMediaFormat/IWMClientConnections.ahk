@@ -61,11 +61,11 @@ export default struct IWMClientConnections extends IUnknown {
         return pClientProperties
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMClientConnections.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

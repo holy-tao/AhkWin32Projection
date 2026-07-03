@@ -92,11 +92,11 @@ export default struct IEnumString extends IUnknown {
         return IEnumString(ppenum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumString.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

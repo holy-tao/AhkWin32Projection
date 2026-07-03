@@ -68,11 +68,11 @@ export default struct IAzApplication2 extends IAzApplication {
         return IAzClientContext2(ppClientContext)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAzApplication2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -122,11 +122,11 @@ export default struct IDMLObject extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDMLObject.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

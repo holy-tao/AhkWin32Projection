@@ -67,11 +67,11 @@ export default struct ISegmentList extends IUnknown {
         return pfEmpty
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISegmentList.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

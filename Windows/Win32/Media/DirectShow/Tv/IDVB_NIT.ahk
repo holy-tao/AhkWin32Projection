@@ -462,11 +462,11 @@ export default struct IDVB_NIT extends IUnknown {
         return pdwVersionHash
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDVB_NIT.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -51,11 +51,11 @@ export default struct IDOMParserFactory extends IDispatch {
         return IDOMParser(__MIDL__IDOMParserFactory0000)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDOMParserFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

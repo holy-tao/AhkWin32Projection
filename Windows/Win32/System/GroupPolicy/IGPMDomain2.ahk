@@ -144,11 +144,11 @@ export default struct IGPMDomain2 extends IGPMDomain {
         return IGPMResult(ppIGPMResult)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGPMDomain2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

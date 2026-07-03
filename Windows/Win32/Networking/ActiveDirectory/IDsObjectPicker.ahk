@@ -71,11 +71,11 @@ export default struct IDsObjectPicker extends IUnknown {
         return IDataObject(ppdoSelections)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDsObjectPicker.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

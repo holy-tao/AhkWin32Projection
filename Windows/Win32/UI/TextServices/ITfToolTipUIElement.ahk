@@ -49,11 +49,11 @@ export default struct ITfToolTipUIElement extends ITfUIElement {
         return _pstr
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfToolTipUIElement.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

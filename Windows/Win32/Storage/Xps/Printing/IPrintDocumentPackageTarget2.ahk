@@ -56,11 +56,11 @@ export default struct IPrintDocumentPackageTarget2 extends IUnknown {
         return ppvTarget
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPrintDocumentPackageTarget2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

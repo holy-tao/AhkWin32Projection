@@ -277,11 +277,11 @@ export default struct IDirect3DSurface9 extends IDirect3DResource9 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDirect3DSurface9.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -51,11 +51,11 @@ export default struct IPrintSchemaCapabilities2 extends IPrintSchemaCapabilities
         return IPrintSchemaParameterDefinition(ppParameterDefinition)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPrintSchemaCapabilities2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

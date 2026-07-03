@@ -151,11 +151,11 @@ export default struct IRTCUserSearchResultsEvent extends IDispatch {
         return pfMoreAvailable
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRTCUserSearchResultsEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

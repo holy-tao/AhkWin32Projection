@@ -56,10 +56,10 @@ export default struct IMemoryAllocator extends Win32ComInterface {
         ComCall(1, this, pvMarshal, pv)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMemoryAllocator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 }

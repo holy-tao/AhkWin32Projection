@@ -109,11 +109,11 @@ export default struct IOfflineFilesChangeInfo extends IUnknown {
         return pbLocallyModifiedTime
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOfflineFilesChangeInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

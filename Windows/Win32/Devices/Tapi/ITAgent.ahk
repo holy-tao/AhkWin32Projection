@@ -483,11 +483,11 @@ export default struct ITAgent extends IDispatch {
         return pVariant
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITAgent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -89,11 +89,11 @@ export default struct IWSDHttpAuthParameters extends IUnknown {
         return pAuthType
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWSDHttpAuthParameters.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

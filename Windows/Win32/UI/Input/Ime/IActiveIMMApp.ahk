@@ -1110,11 +1110,11 @@ export default struct IActiveIMMApp extends IUnknown {
         return IEnumInputContext(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IActiveIMMApp.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

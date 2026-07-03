@@ -138,11 +138,11 @@ export default struct IDropSource extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDropSource.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

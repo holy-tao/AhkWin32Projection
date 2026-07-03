@@ -51,11 +51,11 @@ export default struct IWSDDeviceHostNotify extends IUnknown {
         return IUnknown(ppService)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWSDDeviceHostNotify.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

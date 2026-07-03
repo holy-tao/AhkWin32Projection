@@ -95,11 +95,11 @@ export default struct IPublishedApp extends IShellApp {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPublishedApp.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

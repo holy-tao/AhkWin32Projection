@@ -84,11 +84,11 @@ export default struct ITfFnConfigureRegisterWord extends ITfFunction {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfFnConfigureRegisterWord.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

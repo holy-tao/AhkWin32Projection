@@ -240,11 +240,11 @@ export default struct IFsrmFileScreenManager extends IDispatch {
         return IFsrmCommittableCollection(collection)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFsrmFileScreenManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

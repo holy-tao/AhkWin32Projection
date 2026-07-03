@@ -66,11 +66,11 @@ export default struct ID3D12Device2 extends ID3D12Device1 {
         return ppPipelineState
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12Device2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

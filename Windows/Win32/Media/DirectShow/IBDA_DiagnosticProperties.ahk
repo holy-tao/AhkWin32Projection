@@ -37,11 +37,11 @@ export default struct IBDA_DiagnosticProperties extends IPropertyBag {
         super.__New(implObj, flags)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBDA_DiagnosticProperties.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

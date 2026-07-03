@@ -80,11 +80,11 @@ export default struct IAudioProcessingObjectNotifications extends IUnknown {
         ComCall(4, this, APO_NOTIFICATION.Ptr, apoNotification)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAudioProcessingObjectNotifications.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -97,11 +97,11 @@ export default struct ITfContextComposition extends IUnknown {
         return ITfComposition(ppComposition)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfContextComposition.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

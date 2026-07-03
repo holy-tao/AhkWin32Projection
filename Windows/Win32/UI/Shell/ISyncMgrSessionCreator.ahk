@@ -72,11 +72,11 @@ export default struct ISyncMgrSessionCreator extends IUnknown {
         return ISyncMgrSyncCallback(ppCallback)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISyncMgrSessionCreator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

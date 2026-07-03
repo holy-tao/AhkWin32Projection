@@ -97,11 +97,11 @@ export default struct IDXGISurface extends IDXGIDeviceSubObject {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDXGISurface.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -113,11 +113,11 @@ export default struct IContactCollection extends IUnknown {
         return IContact(ppContact)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IContactCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -82,11 +82,11 @@ export default struct IMFClockConsumer extends IUnknown {
         return IMFPresentationClock(ppPresentationClock)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFClockConsumer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

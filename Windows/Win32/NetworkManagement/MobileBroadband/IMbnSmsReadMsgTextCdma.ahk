@@ -259,11 +259,11 @@ export default struct IMbnSmsReadMsgTextCdma extends IUnknown {
         return Message
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMbnSmsReadMsgTextCdma.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

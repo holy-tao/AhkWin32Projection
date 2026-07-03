@@ -164,11 +164,11 @@ export default struct IRawElementProviderSimple extends IUnknown {
         return IRawElementProviderSimple(pRetVal)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRawElementProviderSimple.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -83,11 +83,11 @@ export default struct IPMExtensionShareTargetInfo extends IUnknown {
         return pSupportsAllTypes
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPMExtensionShareTargetInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

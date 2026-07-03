@@ -63,11 +63,11 @@ export default struct IGPMAsyncCancel extends IDispatch {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGPMAsyncCancel.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -49,11 +49,11 @@ export default struct ID3D12Device13 extends ID3D12Device12 {
         return ppvHeap
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12Device13.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

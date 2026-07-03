@@ -180,11 +180,11 @@ export default struct IScriptErrorList extends IDispatch {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IScriptErrorList.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

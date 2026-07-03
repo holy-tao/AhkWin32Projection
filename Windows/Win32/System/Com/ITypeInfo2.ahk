@@ -292,11 +292,11 @@ export default struct ITypeInfo2 extends ITypeInfo {
         return pCustData
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITypeInfo2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -60,11 +60,11 @@ export default struct IPrintCoreHelperUni extends IPrintCoreHelper {
         return IStream(ppSnapshotStream)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPrintCoreHelperUni.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -100,11 +100,11 @@ export default struct IBDA_AUX extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBDA_AUX.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

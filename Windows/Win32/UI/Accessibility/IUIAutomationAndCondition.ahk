@@ -90,11 +90,11 @@ export default struct IUIAutomationAndCondition extends IUIAutomationCondition {
         return childArray
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAutomationAndCondition.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

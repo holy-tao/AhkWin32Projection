@@ -48,11 +48,11 @@ export default struct IMTSLocator extends IDispatch {
         return IUnknown(pUnk)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMTSLocator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

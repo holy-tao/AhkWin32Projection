@@ -405,11 +405,11 @@ export default struct IDebugRegisters2 extends IUnknown {
         return Offset
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugRegisters2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

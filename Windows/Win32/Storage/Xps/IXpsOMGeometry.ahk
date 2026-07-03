@@ -568,11 +568,11 @@ export default struct IXpsOMGeometry extends IXpsOMShareable {
         return IXpsOMGeometry(geometry)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsOMGeometry.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

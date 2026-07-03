@@ -186,11 +186,11 @@ export default struct IDvbLogicalChannel2Descriptor extends IDvbLogicalChannelDe
         return pwVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDvbLogicalChannel2Descriptor.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

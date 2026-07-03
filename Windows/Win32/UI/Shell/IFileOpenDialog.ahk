@@ -83,11 +83,11 @@ export default struct IFileOpenDialog extends IFileDialog {
         return IShellItemArray(ppsai)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFileOpenDialog.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

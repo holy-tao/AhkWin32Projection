@@ -45,11 +45,11 @@ export default struct IHandlerInfo2 extends IHandlerInfo {
         return value
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHandlerInfo2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

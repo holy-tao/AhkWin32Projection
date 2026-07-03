@@ -613,11 +613,11 @@ export default struct IHTMLTxtRange extends IDispatch {
         return pfRet
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLTxtRange.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

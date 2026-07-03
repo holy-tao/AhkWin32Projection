@@ -342,11 +342,11 @@ export default struct ITScriptableAudioFormat extends IDispatch {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITScriptableAudioFormat.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

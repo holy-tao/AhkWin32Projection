@@ -440,11 +440,11 @@ export default struct ITraceDataProvider extends IDispatch {
         return IValueMap(Processes)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITraceDataProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

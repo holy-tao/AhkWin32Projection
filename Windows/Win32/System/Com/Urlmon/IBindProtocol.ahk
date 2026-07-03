@@ -51,11 +51,11 @@ export default struct IBindProtocol extends IUnknown {
         return IBinding(ppb)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBindProtocol.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

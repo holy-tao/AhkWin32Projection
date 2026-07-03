@@ -48,11 +48,11 @@ export default struct IWTSListener extends IUnknown {
         return IPropertyBag(ppPropertyBag)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWTSListener.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

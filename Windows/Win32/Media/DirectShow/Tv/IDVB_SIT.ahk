@@ -430,11 +430,11 @@ export default struct IDVB_SIT extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDVB_SIT.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

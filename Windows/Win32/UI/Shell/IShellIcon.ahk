@@ -75,11 +75,11 @@ export default struct IShellIcon extends IUnknown {
         return pIconIndex
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IShellIcon.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

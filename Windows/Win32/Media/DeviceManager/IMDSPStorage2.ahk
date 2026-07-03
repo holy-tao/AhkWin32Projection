@@ -149,11 +149,11 @@ export default struct IMDSPStorage2 extends IMDSPStorage {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMDSPStorage2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

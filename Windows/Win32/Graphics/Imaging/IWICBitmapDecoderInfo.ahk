@@ -99,11 +99,11 @@ export default struct IWICBitmapDecoderInfo extends IWICBitmapCodecInfo {
         return IWICBitmapDecoder(ppIBitmapDecoder)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWICBitmapDecoderInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -197,11 +197,11 @@ export default struct ITfReadOnlyProperty extends IUnknown {
         return ITfContext(ppContext)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfReadOnlyProperty.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

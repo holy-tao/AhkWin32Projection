@@ -205,11 +205,11 @@ export default struct IShellUIHelper6 extends IShellUIHelper5 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IShellUIHelper6.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

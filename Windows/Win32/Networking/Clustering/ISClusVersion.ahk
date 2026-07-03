@@ -210,11 +210,11 @@ export default struct ISClusVersion extends IDispatch {
         return pvarMixedVersion
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISClusVersion.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

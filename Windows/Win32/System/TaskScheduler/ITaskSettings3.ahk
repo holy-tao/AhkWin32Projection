@@ -195,11 +195,11 @@ export default struct ITaskSettings3 extends ITaskSettings {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITaskSettings3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

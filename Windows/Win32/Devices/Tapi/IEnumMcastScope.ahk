@@ -143,11 +143,11 @@ export default struct IEnumMcastScope extends IUnknown {
         return IEnumMcastScope(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumMcastScope.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

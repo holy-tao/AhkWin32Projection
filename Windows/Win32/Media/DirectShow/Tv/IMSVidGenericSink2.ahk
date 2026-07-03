@@ -102,11 +102,11 @@ export default struct IMSVidGenericSink2 extends IMSVidGenericSink {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSVidGenericSink2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

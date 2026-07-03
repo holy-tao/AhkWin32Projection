@@ -69,11 +69,11 @@ export default struct IHTMLStyleSheetRulesCollection extends IDispatch {
         return IHTMLStyleSheetRule(ppHTMLStyleSheetRule)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLStyleSheetRulesCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

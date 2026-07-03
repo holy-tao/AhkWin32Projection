@@ -233,11 +233,11 @@ export default struct IOperationsProgressDialog extends IUnknown {
         return popstatus
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOperationsProgressDialog.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -125,11 +125,11 @@ export default struct IAppxPackageReader extends IUnknown {
         return IAppxManifestReader(manifestReader)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxPackageReader.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

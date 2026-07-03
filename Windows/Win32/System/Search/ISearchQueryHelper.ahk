@@ -554,11 +554,11 @@ export default struct ISearchQueryHelper extends IUnknown {
         return pcMaxResults
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISearchQueryHelper.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

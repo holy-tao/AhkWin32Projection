@@ -55,11 +55,11 @@ export default struct IDataModelScriptDebugBreakpointEnumerator extends IUnknown
         return IDataModelScriptDebugBreakpoint(breakpoint)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDataModelScriptDebugBreakpointEnumerator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -227,11 +227,11 @@ export default struct IGPMDomain extends IDispatch {
         return IGPMWMIFilterCollection(ppIGPMWMIFilterCollection)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGPMDomain.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

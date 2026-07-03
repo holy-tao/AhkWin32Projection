@@ -324,11 +324,11 @@ export default struct IUri extends IUnknown {
         return pfEqual
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUri.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

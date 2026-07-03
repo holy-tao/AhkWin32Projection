@@ -65,11 +65,11 @@ export default struct IPortableDeviceContent2 extends IPortableDeviceContent {
         return IStream(ppData)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPortableDeviceContent2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

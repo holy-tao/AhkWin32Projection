@@ -320,11 +320,11 @@ export default struct IX509CertificateRequestCmc2 extends IX509CertificateReques
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IX509CertificateRequestCmc2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

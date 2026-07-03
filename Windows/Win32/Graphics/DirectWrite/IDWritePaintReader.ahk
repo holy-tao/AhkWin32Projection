@@ -155,11 +155,11 @@ export default struct IDWritePaintReader extends IUnknown {
         return gradientStopColors
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWritePaintReader.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

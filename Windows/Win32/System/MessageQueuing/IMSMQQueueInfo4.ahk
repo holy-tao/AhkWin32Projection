@@ -633,11 +633,11 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
         return pbstrADsPath
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSMQQueueInfo4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

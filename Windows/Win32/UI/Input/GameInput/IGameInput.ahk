@@ -288,11 +288,11 @@ export default struct IGameInput extends IUnknown {
         ComCall(21, this, GameInputFocusPolicy, policy)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGameInput.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

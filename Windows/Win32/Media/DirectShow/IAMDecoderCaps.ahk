@@ -96,11 +96,11 @@ export default struct IAMDecoderCaps extends IUnknown {
         return lpdwCap
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAMDecoderCaps.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

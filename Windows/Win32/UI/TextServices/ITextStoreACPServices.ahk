@@ -207,11 +207,11 @@ export default struct ITextStoreACPServices extends IUnknown {
         return ITfRangeACP(ppRange)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITextStoreACPServices.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

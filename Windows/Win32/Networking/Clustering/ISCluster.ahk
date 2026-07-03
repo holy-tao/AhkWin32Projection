@@ -383,11 +383,11 @@ export default struct ISCluster extends IDispatch {
         return ISClusNetInterfaces(ppNetInterfaces)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISCluster.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

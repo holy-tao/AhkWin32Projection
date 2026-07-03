@@ -178,11 +178,11 @@ export default struct IWiaDrvItem extends IUnknown {
         return __MIDL__IWiaDrvItem0015
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWiaDrvItem.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

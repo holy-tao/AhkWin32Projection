@@ -67,11 +67,11 @@ export default struct IWorkspaceScriptable3 extends IWorkspaceScriptable2 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWorkspaceScriptable3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

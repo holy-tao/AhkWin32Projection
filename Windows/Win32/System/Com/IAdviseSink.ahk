@@ -118,11 +118,11 @@ export default struct IAdviseSink extends IUnknown {
         ComCall(7, this)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAdviseSink.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

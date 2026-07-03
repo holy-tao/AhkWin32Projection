@@ -57,11 +57,11 @@ export default struct IAudioProcessingObjectRTQueueService extends IUnknown {
         return workQueueId
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAudioProcessingObjectRTQueueService.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

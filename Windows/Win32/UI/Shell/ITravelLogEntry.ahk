@@ -55,11 +55,11 @@ export default struct ITravelLogEntry extends IUnknown {
         return ppszURL
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITravelLogEntry.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -72,11 +72,11 @@ export default struct IACList2 extends IACList {
         return pdwFlag
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IACList2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -150,11 +150,11 @@ export default struct IUIAutomation2 extends IUIAutomation {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAutomation2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

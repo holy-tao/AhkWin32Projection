@@ -72,11 +72,11 @@ export default struct IWMDeviceManager extends IUnknown {
         return IWMDMEnumDevice(ppEnumDevice)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMDeviceManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

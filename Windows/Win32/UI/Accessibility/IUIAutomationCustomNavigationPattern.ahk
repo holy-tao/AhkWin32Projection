@@ -50,11 +50,11 @@ export default struct IUIAutomationCustomNavigationPattern extends IUnknown {
         return IUIAutomationElement(pRetVal)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAutomationCustomNavigationPattern.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

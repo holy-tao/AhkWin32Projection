@@ -138,11 +138,11 @@ export default struct IMF2DBuffer2 extends IMF2DBuffer {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMF2DBuffer2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

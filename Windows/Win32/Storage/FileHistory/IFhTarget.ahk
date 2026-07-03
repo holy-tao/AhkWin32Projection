@@ -67,11 +67,11 @@ export default struct IFhTarget extends IUnknown {
         return _PropertyValue
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFhTarget.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

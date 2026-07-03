@@ -107,11 +107,11 @@ export default struct IWbemLevel1Login extends IUnknown {
         return IWbemServices(ppNamespace)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWbemLevel1Login.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

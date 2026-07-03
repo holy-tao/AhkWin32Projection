@@ -132,11 +132,11 @@ export default struct ISelectionProvider2 extends ISelectionProvider {
         return retVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISelectionProvider2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

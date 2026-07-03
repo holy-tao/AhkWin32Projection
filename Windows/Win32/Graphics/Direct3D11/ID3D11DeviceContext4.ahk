@@ -75,11 +75,11 @@ export default struct ID3D11DeviceContext4 extends ID3D11DeviceContext3 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D11DeviceContext4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

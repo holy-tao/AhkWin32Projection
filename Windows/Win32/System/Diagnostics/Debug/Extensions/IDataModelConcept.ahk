@@ -63,11 +63,11 @@ export default struct IDataModelConcept extends IUnknown {
         return modelName
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDataModelConcept.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

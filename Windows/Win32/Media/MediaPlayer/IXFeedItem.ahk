@@ -223,11 +223,11 @@ export default struct IXFeedItem extends IUnknown {
         return pstModifiedTime
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXFeedItem.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

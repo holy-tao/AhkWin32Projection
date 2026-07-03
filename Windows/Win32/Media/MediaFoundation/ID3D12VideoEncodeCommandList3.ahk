@@ -48,11 +48,11 @@ export default struct ID3D12VideoEncodeCommandList3 extends ID3D12VideoEncodeCom
         ComCall(29, this, UInt32, NumBarrierGroups, D3D12_BARRIER_GROUP.Ptr, pBarrierGroups)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12VideoEncodeCommandList3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

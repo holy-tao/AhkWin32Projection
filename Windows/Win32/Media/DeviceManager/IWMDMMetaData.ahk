@@ -133,11 +133,11 @@ export default struct IWMDMMetaData extends IUnknown {
         return iCount
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMDMMetaData.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

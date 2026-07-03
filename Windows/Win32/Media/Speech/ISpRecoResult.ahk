@@ -130,11 +130,11 @@ export default struct ISpRecoResult extends ISpPhrase {
         return ISpRecoContext(ppRecoContext)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpRecoResult.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

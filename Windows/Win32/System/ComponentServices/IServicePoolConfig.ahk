@@ -211,11 +211,11 @@ export default struct IServicePoolConfig extends IUnknown {
         return IClassFactory(pFactory)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IServicePoolConfig.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

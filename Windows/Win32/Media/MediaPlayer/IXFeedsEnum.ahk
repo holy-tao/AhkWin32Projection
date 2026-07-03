@@ -69,11 +69,11 @@ export default struct IXFeedsEnum extends IUnknown {
         return ppv
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXFeedsEnum.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

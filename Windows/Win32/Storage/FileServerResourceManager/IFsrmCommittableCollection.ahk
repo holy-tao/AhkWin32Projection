@@ -71,11 +71,11 @@ export default struct IFsrmCommittableCollection extends IFsrmMutableCollection 
         return IFsrmCollection(results)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFsrmCommittableCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

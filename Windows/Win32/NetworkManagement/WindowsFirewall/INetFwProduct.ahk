@@ -131,11 +131,11 @@ export default struct INetFwProduct extends IDispatch {
         return _path
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (INetFwProduct.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

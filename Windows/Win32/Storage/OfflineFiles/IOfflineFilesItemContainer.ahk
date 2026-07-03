@@ -108,11 +108,11 @@ export default struct IOfflineFilesItemContainer extends IUnknown {
         return IEnumOfflineFilesItems(ppenum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOfflineFilesItemContainer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

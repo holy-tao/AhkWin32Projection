@@ -82,11 +82,11 @@ export default struct IWbemStatusCodeText extends IUnknown {
         return MessageText
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWbemStatusCodeText.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

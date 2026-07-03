@@ -523,11 +523,11 @@ export default struct IPhotoProgressDialog extends IUnknown {
         return pPropVarResult
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPhotoProgressDialog.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

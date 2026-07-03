@@ -79,11 +79,11 @@ export default struct IAudioMute extends IUnknown {
         return pbMuted
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAudioMute.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

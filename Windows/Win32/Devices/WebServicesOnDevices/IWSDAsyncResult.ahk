@@ -272,11 +272,11 @@ export default struct IWSDAsyncResult extends IUnknown {
         return IWSDEndpointProxy(ppEndpoint)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWSDAsyncResult.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

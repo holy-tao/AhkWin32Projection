@@ -48,11 +48,11 @@ export default struct IFilterMapper3 extends IFilterMapper2 {
         return ICreateDevEnum(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFilterMapper3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

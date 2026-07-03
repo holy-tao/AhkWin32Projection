@@ -60,11 +60,11 @@ export default struct IDWriteFontFace7 extends IDWriteFontFace6 {
         return IDWritePaintReader(paintReader)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteFontFace7.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

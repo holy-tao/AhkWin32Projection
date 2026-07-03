@@ -78,11 +78,11 @@ export default struct IMFNetCrossOriginSupport extends IUnknown {
         return pfIsSameOrigin
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFNetCrossOriginSupport.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -73,11 +73,11 @@ export default struct IDebugHostExtensibility3 extends IDebugHostExtensibility2 
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugHostExtensibility3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

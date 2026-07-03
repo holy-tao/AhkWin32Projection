@@ -81,11 +81,11 @@ export default struct IAppxBundleManifestPackageInfoEnumerator extends IUnknown 
         return hasNext
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxBundleManifestPackageInfoEnumerator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -68,11 +68,11 @@ export default struct IPMExtensionFileSavePickerInfo extends IUnknown {
         return pSupportsAllTypes
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPMExtensionFileSavePickerInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

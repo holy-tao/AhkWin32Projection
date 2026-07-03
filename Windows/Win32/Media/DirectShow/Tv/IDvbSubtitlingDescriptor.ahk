@@ -127,11 +127,11 @@ export default struct IDvbSubtitlingDescriptor extends IUnknown {
         return pwVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDvbSubtitlingDescriptor.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

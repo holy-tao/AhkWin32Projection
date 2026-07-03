@@ -91,11 +91,11 @@ export default struct IVdsVolumeShrink extends IUnknown {
         return IVdsAsync(ppAsync)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVdsVolumeShrink.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

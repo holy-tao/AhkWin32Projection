@@ -75,11 +75,11 @@ export default struct IXpsDocumentPackageTarget extends IUnknown {
         return documentType
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsDocumentPackageTarget.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

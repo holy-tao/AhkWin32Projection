@@ -44,11 +44,11 @@ export default struct IBindHttpSecurity extends IUnknown {
         return pdwIgnoreCertMask
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBindHttpSecurity.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

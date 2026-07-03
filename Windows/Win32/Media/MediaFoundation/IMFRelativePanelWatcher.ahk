@@ -82,11 +82,11 @@ export default struct IMFRelativePanelWatcher extends IMFShutdown {
         return IMFRelativePanelReport(ppRelativePanelReport)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFRelativePanelWatcher.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

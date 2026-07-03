@@ -81,11 +81,11 @@ export default struct IEnumMsmString extends IUnknown {
         return IEnumMsmString(pemsmStrings)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumMsmString.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -60,11 +60,11 @@ export default struct IAppxContentGroup extends IUnknown {
         return IAppxContentGroupFilesEnumerator(_enumerator)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxContentGroup.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

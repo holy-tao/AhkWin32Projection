@@ -102,11 +102,11 @@ export default struct IIsdbHierarchicalTransmissionDescriptor extends IUnknown {
         return pwVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IIsdbHierarchicalTransmissionDescriptor.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

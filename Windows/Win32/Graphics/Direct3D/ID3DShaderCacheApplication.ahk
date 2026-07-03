@@ -146,11 +146,11 @@ export default struct ID3DShaderCacheApplication extends IUnknown {
         return pInstallerName
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3DShaderCacheApplication.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

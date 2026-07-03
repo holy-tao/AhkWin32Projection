@@ -250,11 +250,11 @@ export default struct ITuneRequestInfo extends IUnknown {
         return ITuneRequest(_TuneRequest)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITuneRequestInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

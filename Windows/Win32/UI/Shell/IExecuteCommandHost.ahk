@@ -54,11 +54,11 @@ export default struct IExecuteCommandHost extends IUnknown {
         return pUIMode
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IExecuteCommandHost.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

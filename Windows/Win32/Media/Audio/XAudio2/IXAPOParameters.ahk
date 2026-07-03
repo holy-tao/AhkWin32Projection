@@ -90,11 +90,11 @@ export default struct IXAPOParameters extends IUnknown {
         ComCall(4, this, IntPtr, pParameters, UInt32, ParameterByteSize)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXAPOParameters.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

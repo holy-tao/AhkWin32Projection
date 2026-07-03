@@ -55,10 +55,10 @@ export default struct ID3D11FunctionParameterReflection extends Win32ComInterfac
         return pDesc
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D11FunctionParameterReflection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 }

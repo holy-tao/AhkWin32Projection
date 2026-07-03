@@ -537,11 +537,11 @@ export default struct IFolderView2 extends IFolderView {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFolderView2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

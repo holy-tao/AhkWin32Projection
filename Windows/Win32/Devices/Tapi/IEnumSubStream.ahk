@@ -165,11 +165,11 @@ export default struct IEnumSubStream extends IUnknown {
         return IEnumSubStream(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumSubStream.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

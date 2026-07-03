@@ -107,11 +107,11 @@ export default struct IDirect3DDevice9Video extends IUnknown {
         return IDirect3DCryptoSession9(ppCryptoSession)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDirect3DDevice9Video.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

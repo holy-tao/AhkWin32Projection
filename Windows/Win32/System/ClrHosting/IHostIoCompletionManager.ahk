@@ -276,11 +276,11 @@ export default struct IHostIoCompletionManager extends IUnknown {
         return pdwMinIOCompletionThreads
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHostIoCompletionManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -46,11 +46,11 @@ export default struct ISpStreamFormat extends IStream {
         return ppCoMemWaveFormatEx
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpStreamFormat.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

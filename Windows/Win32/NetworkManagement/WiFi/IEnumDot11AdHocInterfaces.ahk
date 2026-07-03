@@ -218,11 +218,11 @@ export default struct IEnumDot11AdHocInterfaces extends IUnknown {
         return IEnumDot11AdHocInterfaces(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumDot11AdHocInterfaces.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

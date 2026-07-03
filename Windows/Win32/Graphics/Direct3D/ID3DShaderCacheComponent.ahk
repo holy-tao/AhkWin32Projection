@@ -94,11 +94,11 @@ export default struct ID3DShaderCacheComponent extends IUnknown {
         return pPSDBs
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3DShaderCacheComponent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

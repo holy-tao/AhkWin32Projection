@@ -84,11 +84,11 @@ export default struct IMPEG2PIDMap extends IUnknown {
         return IEnumPIDMap(pIEnumPIDMap)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMPEG2PIDMap.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -52,11 +52,11 @@ export default struct ID3D12VideoProcessCommandList1 extends ID3D12VideoProcessC
         ComCall(23, this, "ptr", pVideoProcessor, D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS.Ptr, pOutputArguments, UInt32, NumInputStreams, D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS1.Ptr, pInputArguments)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12VideoProcessCommandList1.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

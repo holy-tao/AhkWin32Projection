@@ -37,11 +37,11 @@ export default struct ID3D12QueryHeap extends ID3D12Pageable {
         super.__New(implObj, flags)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12QueryHeap.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

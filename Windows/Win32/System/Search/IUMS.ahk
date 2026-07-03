@@ -76,10 +76,10 @@ export default struct IUMS extends Win32ComInterface {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUMS.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 }

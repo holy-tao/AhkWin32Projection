@@ -276,11 +276,11 @@ export default struct IAMTimecodeReader extends IUnknown {
         return pTimecodeSample
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAMTimecodeReader.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

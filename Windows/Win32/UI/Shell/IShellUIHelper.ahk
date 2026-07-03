@@ -215,11 +215,11 @@ export default struct IShellUIHelper extends IDispatch {
         return pvarOut
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IShellUIHelper.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

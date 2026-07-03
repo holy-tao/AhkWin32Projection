@@ -156,11 +156,11 @@ export default struct ISchemaItem extends IDispatch {
         return isWritten
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISchemaItem.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -51,11 +51,11 @@ export default struct IMFPluginControl2 extends IMFPluginControl {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFPluginControl2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

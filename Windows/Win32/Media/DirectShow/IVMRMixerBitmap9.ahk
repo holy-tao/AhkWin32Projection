@@ -179,11 +179,11 @@ export default struct IVMRMixerBitmap9 extends IUnknown {
         return pBmpParms
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVMRMixerBitmap9.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

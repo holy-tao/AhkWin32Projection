@@ -91,11 +91,11 @@ export default struct INetCfgClassSetup extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (INetCfgClassSetup.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

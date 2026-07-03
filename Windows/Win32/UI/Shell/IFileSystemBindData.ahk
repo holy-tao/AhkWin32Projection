@@ -87,11 +87,11 @@ export default struct IFileSystemBindData extends IUnknown {
         return pfd
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFileSystemBindData.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

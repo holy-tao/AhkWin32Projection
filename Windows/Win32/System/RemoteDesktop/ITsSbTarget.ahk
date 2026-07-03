@@ -370,11 +370,11 @@ export default struct ITsSbTarget extends IUnknown {
         return pTargetLoad
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITsSbTarget.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

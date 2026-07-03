@@ -110,11 +110,11 @@ export default struct IIsdbCAServiceDescriptor extends IUnknown {
         return pwServiceIds
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IIsdbCAServiceDescriptor.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

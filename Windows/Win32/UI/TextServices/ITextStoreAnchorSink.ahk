@@ -420,11 +420,11 @@ export default struct ITextStoreAnchorSink extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITextStoreAnchorSink.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

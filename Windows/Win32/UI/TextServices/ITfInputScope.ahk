@@ -152,11 +152,11 @@ export default struct ITfInputScope extends IUnknown {
         return pbstrXML
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfInputScope.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -181,11 +181,11 @@ export default struct ISVGRadialGradientElement extends IDispatch {
         return ISVGAnimatedLength(p)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISVGRadialGradientElement.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

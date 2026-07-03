@@ -200,11 +200,11 @@ export default struct IDWriteFactory6 extends IDWriteFactory5 {
         return IDWriteTextFormat3(textFormat)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteFactory6.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

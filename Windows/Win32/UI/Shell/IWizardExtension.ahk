@@ -105,11 +105,11 @@ export default struct IWizardExtension extends IUnknown {
         return phpage
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWizardExtension.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

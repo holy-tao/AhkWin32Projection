@@ -267,11 +267,11 @@ export default struct IHTMLDialog extends IDispatch {
         return _String
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLDialog.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

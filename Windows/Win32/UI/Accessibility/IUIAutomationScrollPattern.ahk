@@ -302,11 +302,11 @@ export default struct IUIAutomationScrollPattern extends IUnknown {
         return retVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAutomationScrollPattern.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

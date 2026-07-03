@@ -129,11 +129,11 @@ export default struct IDvbLinkageDescriptor extends IUnknown {
         return pbData
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDvbLinkageDescriptor.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

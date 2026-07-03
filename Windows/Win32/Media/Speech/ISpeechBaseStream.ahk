@@ -104,11 +104,11 @@ export default struct ISpeechBaseStream extends IDispatch {
         return NewPosition
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpeechBaseStream.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

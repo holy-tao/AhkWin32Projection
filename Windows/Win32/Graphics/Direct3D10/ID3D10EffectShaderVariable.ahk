@@ -150,11 +150,11 @@ export default struct ID3D10EffectShaderVariable extends ID3D10EffectVariable {
         return pDesc
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D10EffectShaderVariable.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

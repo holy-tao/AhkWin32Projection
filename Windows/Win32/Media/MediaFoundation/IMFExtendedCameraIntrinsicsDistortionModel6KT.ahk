@@ -57,11 +57,11 @@ export default struct IMFExtendedCameraIntrinsicsDistortionModel6KT extends IUnk
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFExtendedCameraIntrinsicsDistortionModel6KT.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

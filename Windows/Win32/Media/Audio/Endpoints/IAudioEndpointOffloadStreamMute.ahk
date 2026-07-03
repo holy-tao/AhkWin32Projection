@@ -59,11 +59,11 @@ export default struct IAudioEndpointOffloadStreamMute extends IUnknown {
         return pbMuted
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAudioEndpointOffloadStreamMute.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

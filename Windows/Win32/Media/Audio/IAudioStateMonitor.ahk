@@ -70,11 +70,11 @@ export default struct IAudioStateMonitor extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAudioStateMonitor.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

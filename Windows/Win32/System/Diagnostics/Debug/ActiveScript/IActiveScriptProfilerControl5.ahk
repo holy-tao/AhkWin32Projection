@@ -47,11 +47,11 @@ export default struct IActiveScriptProfilerControl5 extends IActiveScriptProfile
         return IActiveScriptProfilerHeapEnum(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IActiveScriptProfilerControl5.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

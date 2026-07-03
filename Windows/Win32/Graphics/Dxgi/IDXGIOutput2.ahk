@@ -51,11 +51,11 @@ export default struct IDXGIOutput2 extends IDXGIOutput1 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDXGIOutput2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -2133,11 +2133,11 @@ export default struct ITextRange extends IDispatch {
         return IUnknown(ppObject)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITextRange.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

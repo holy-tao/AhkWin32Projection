@@ -48,11 +48,11 @@ export default struct ISCPSecureAuthenticate extends IUnknown {
         return ISCPSecureQuery(ppSecureQuery)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISCPSecureAuthenticate.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -143,11 +143,11 @@ export default struct IRowsetUpdate extends IRowsetChange {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRowsetUpdate.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

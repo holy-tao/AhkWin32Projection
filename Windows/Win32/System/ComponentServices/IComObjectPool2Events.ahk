@@ -103,11 +103,11 @@ export default struct IComObjectPool2Events extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IComObjectPool2Events.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

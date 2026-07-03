@@ -87,11 +87,11 @@ export default struct IMSMQQueueManagement extends IMSMQManagement {
         return pvCollection
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSMQQueueManagement.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

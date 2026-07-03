@@ -111,11 +111,11 @@ export default struct IDXGIFactory1 extends IDXGIFactory {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDXGIFactory1.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

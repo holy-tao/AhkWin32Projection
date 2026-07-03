@@ -75,11 +75,11 @@ export default struct IATSCComponentType extends IMPEG2ComponentType {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IATSCComponentType.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

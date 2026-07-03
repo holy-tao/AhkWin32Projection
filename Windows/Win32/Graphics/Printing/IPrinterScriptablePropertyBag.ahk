@@ -173,11 +173,11 @@ export default struct IPrinterScriptablePropertyBag extends IDispatch {
         return IPrinterScriptableStream(ppStream)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPrinterScriptablePropertyBag.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

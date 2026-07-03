@@ -459,11 +459,11 @@ export default struct IDOMMouseEvent extends IDispatch {
         return p
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDOMMouseEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

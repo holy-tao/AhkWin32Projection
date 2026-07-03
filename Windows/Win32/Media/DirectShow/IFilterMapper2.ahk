@@ -195,11 +195,11 @@ export default struct IFilterMapper2 extends IUnknown {
         return IEnumMoniker(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFilterMapper2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

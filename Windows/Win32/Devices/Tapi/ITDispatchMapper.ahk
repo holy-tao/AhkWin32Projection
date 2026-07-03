@@ -58,11 +58,11 @@ export default struct ITDispatchMapper extends IDispatch {
         return IDispatch(ppReturnedInterface)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITDispatchMapper.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

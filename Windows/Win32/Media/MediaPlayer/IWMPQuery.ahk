@@ -166,11 +166,11 @@ export default struct IWMPQuery extends IDispatch {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMPQuery.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

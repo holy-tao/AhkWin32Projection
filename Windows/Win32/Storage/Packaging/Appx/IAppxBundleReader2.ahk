@@ -49,11 +49,11 @@ export default struct IAppxBundleReader2 extends IUnknown {
         return IAppxPackageReader(payloadPackageReader)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxBundleReader2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -86,11 +86,11 @@ export default struct IFsrmMutableCollection extends IFsrmCollection {
         return IFsrmMutableCollection(collection)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFsrmMutableCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

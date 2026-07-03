@@ -266,11 +266,11 @@ export default struct ISpRecoContext extends ISpEventSource {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpRecoContext.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

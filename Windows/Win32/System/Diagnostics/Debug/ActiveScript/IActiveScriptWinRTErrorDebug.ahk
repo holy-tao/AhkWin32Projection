@@ -68,11 +68,11 @@ export default struct IActiveScriptWinRTErrorDebug extends IActiveScriptError {
         return capabilitySid
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IActiveScriptWinRTErrorDebug.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

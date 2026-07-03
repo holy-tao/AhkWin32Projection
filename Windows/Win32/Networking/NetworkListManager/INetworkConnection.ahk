@@ -135,11 +135,11 @@ export default struct INetworkConnection extends IDispatch {
         return pDomainType
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (INetworkConnection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

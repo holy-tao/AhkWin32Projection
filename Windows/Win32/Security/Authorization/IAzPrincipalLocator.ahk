@@ -84,11 +84,11 @@ export default struct IAzPrincipalLocator extends IDispatch {
         return IAzObjectPicker(ppObjectPicker)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAzPrincipalLocator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -54,11 +54,11 @@ export default struct ITridentEventSink extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITridentEventSink.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

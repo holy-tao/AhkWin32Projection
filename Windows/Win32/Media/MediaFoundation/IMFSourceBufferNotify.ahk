@@ -87,11 +87,11 @@ export default struct IMFSourceBufferNotify extends IUnknown {
         ComCall(7, this)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFSourceBufferNotify.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

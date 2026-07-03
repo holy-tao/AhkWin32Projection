@@ -148,11 +148,11 @@ export default struct ISVGPointList extends IDispatch {
         return ISVGPoint(ppResult)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISVGPointList.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

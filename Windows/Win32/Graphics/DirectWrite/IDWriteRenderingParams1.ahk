@@ -48,11 +48,11 @@ export default struct IDWriteRenderingParams1 extends IDWriteRenderingParams {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteRenderingParams1.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

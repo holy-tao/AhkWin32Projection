@@ -123,11 +123,11 @@ export default struct ICatInformation extends IUnknown {
         return IEnumGUID(ppenumCatid)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICatInformation.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

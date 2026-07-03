@@ -145,11 +145,11 @@ export default struct IDeviceTopology extends IUnknown {
         return IPartsList(ppParts)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDeviceTopology.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

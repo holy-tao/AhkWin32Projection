@@ -907,11 +907,11 @@ export default struct ICertAdmin2 extends ICertAdmin {
         return pcDeleted
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICertAdmin2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

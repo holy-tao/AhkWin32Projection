@@ -53,11 +53,11 @@ export default struct ID3D10RenderTargetView extends ID3D10View {
         ComCall(8, this, D3D10_RENDER_TARGET_VIEW_DESC.Ptr, pDesc)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D10RenderTargetView.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

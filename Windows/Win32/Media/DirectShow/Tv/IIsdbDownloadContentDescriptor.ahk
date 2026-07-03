@@ -247,11 +247,11 @@ export default struct IIsdbDownloadContentDescriptor extends IUnknown {
         return pbstrName
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IIsdbDownloadContentDescriptor.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

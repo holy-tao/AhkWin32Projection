@@ -1137,11 +1137,11 @@ export default struct ID2D1DeviceContext extends ID2D1RenderTarget {
         ComCall(91, this, "ptr", opacityMask, "ptr", brush, D2D_RECT_F.Ptr, destinationRectangle, D2D_RECT_F.Ptr, sourceRectangle)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1DeviceContext.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

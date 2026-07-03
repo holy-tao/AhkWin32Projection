@@ -70,11 +70,11 @@ export default struct IMILBitmapEffectConnections extends IUnknown {
         return IMILBitmapEffectOutputConnector(ppConnector)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMILBitmapEffectConnections.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

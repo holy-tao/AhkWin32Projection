@@ -393,11 +393,11 @@ export default struct IPMTaskInfo extends IUnknown {
         return pIsOptedIn
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPMTaskInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

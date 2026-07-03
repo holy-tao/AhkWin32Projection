@@ -95,11 +95,11 @@ export default struct IRTCSessionStateChangeEvent2 extends IRTCSessionStateChang
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRTCSessionStateChangeEvent2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

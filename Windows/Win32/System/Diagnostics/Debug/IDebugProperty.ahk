@@ -107,11 +107,11 @@ export default struct IDebugProperty extends IUnknown {
         return IDebugProperty(ppDebugProp)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugProperty.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

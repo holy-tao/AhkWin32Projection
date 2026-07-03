@@ -90,11 +90,11 @@ export default struct ISpellCheckProviderFactory extends IUnknown {
         return ISpellCheckProvider(value)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpellCheckProviderFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

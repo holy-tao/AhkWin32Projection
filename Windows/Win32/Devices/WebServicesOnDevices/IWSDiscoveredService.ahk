@@ -215,11 +215,11 @@ export default struct IWSDiscoveredService extends IUnknown {
         return pullInstanceId
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWSDiscoveredService.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

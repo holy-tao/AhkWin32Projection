@@ -222,11 +222,11 @@ export default struct IRTCClient2 extends IRTCClient {
         return penListenMode
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRTCClient2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

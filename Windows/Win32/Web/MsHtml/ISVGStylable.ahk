@@ -52,11 +52,11 @@ export default struct ISVGStylable extends IDispatch {
         return ISVGAnimatedString(p)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISVGStylable.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

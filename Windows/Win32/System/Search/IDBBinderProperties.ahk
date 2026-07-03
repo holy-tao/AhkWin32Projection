@@ -44,11 +44,11 @@ export default struct IDBBinderProperties extends IDBProperties {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDBBinderProperties.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

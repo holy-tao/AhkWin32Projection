@@ -74,11 +74,11 @@ export default struct IDebugHostMemory5 extends IDebugHostMemory4 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugHostMemory5.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

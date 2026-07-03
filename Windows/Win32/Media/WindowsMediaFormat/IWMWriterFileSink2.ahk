@@ -164,11 +164,11 @@ export default struct IWMWriterFileSink2 extends IWMWriterFileSink {
         return pfClosed
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMWriterFileSink2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

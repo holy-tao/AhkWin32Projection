@@ -113,11 +113,11 @@ export default struct IFsrmPropertyDefinitionValue extends IDispatch {
         return uniqueID
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFsrmPropertyDefinitionValue.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

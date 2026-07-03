@@ -235,11 +235,11 @@ export default struct IOpcRelationship extends IUnknown {
         return targetMode
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOpcRelationship.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

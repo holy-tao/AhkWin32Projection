@@ -127,11 +127,11 @@ export default struct IDynamicPortMappingCollection extends IDispatch {
         return IDynamicPortMapping(ppDPM)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDynamicPortMappingCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

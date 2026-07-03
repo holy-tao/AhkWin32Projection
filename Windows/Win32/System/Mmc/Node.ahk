@@ -120,11 +120,11 @@ export default struct Node extends IDispatch {
         return Nodetype
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (Node.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

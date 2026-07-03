@@ -77,11 +77,11 @@ export default struct IAppxEncryptionFactory5 extends IUnknown {
         return IAppxBundleReader(bundleReader)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxEncryptionFactory5.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

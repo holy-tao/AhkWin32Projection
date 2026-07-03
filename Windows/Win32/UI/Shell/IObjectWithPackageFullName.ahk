@@ -50,11 +50,11 @@ export default struct IObjectWithPackageFullName extends IUnknown {
         return packageFullName
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IObjectWithPackageFullName.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -123,11 +123,11 @@ export default struct ISpeechAudioStatus extends IDispatch {
         return CurrentDevicePosition
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpeechAudioStatus.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

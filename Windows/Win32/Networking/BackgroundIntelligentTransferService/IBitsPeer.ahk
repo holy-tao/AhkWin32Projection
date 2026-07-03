@@ -80,11 +80,11 @@ export default struct IBitsPeer extends IUnknown {
         return pOnline
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBitsPeer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

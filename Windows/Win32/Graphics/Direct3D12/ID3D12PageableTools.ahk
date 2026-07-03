@@ -46,11 +46,11 @@ export default struct ID3D12PageableTools extends IUnknown {
         return pAllocation
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12PageableTools.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

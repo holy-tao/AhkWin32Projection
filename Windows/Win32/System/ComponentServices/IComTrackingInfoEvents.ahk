@@ -48,11 +48,11 @@ export default struct IComTrackingInfoEvents extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IComTrackingInfoEvents.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

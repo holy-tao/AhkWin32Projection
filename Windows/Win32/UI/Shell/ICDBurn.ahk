@@ -104,11 +104,11 @@ export default struct ICDBurn extends IUnknown {
         return pfHasRecorder
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICDBurn.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

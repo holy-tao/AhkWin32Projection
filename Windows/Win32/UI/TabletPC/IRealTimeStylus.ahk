@@ -678,11 +678,11 @@ export default struct IRealTimeStylus extends IUnknown {
         return ppPacketProperties
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRealTimeStylus.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

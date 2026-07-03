@@ -260,11 +260,11 @@ export default struct IMcastAddressAllocation extends IDispatch {
         return IMcastLeaseInfo(ppReleaseRequest)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMcastAddressAllocation.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

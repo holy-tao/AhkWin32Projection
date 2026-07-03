@@ -45,11 +45,11 @@ export default struct IElementBehaviorCategory extends IUnknown {
         return ppchCategory
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IElementBehaviorCategory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

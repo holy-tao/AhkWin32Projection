@@ -67,11 +67,11 @@ export default struct IWSDSSLClientCertificate extends IUnknown {
         return phToken
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWSDSSLClientCertificate.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

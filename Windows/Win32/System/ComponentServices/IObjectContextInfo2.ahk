@@ -101,11 +101,11 @@ export default struct IObjectContextInfo2 extends IObjectContextInfo {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IObjectContextInfo2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

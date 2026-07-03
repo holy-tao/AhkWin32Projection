@@ -94,11 +94,11 @@ export default struct IDeskBand2 extends IDeskBand {
         return pfCompositionEnabled
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDeskBand2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -62,11 +62,11 @@ export default struct IROTData extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IROTData.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

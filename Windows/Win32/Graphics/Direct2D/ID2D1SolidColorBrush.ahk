@@ -69,11 +69,11 @@ export default struct ID2D1SolidColorBrush extends ID2D1Brush {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1SolidColorBrush.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

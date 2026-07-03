@@ -129,11 +129,11 @@ export default struct IChannelHook extends IUnknown {
         ComCall(8, this, Guid.Ptr, uExtent, Guid.Ptr, riid, pDataSizeMarshal, pDataSize, pDataBufferMarshal, pDataBuffer, "int", hrFault)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IChannelHook.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

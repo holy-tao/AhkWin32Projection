@@ -568,11 +568,11 @@ export default struct IX509EnrollmentPolicyServer extends IDispatch {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IX509EnrollmentPolicyServer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -99,11 +99,11 @@ export default struct ISpatialAudioClient2 extends ISpatialAudioClient {
         return frameCountPerBuffer
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpatialAudioClient2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

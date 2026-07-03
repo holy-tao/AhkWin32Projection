@@ -54,11 +54,11 @@ export default struct IRicheditWindowlessAccessibility extends IUnknown {
         return IRawElementProviderSimple(ppProvider)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRicheditWindowlessAccessibility.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

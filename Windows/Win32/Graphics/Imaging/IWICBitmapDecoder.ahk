@@ -276,11 +276,11 @@ export default struct IWICBitmapDecoder extends IUnknown {
         return IWICBitmapFrameDecode(ppIBitmapFrame)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWICBitmapDecoder.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

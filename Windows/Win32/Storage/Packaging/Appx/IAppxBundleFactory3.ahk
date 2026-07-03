@@ -51,11 +51,11 @@ export default struct IAppxBundleFactory3 extends IUnknown {
         return IAppxBundleReader(bundleReader)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxBundleFactory3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

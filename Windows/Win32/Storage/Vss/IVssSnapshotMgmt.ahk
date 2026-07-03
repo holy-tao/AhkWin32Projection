@@ -90,11 +90,11 @@ export default struct IVssSnapshotMgmt extends IUnknown {
         return IVssEnumObject(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVssSnapshotMgmt.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

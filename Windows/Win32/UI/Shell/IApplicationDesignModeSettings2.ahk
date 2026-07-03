@@ -159,11 +159,11 @@ export default struct IApplicationDesignModeSettings2 extends IApplicationDesign
         return viewOrientation
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IApplicationDesignModeSettings2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

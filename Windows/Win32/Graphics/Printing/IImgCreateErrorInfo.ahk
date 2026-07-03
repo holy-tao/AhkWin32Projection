@@ -46,11 +46,11 @@ export default struct IImgCreateErrorInfo extends ICreateErrorInfo {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IImgCreateErrorInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

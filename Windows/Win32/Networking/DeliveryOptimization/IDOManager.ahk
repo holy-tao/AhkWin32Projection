@@ -68,11 +68,11 @@ export default struct IDOManager extends IUnknown {
         return IEnumUnknown(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDOManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

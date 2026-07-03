@@ -93,11 +93,11 @@ export default struct IDebugStackFrame extends IUnknown {
         return IDebugProperty(ppDebugProp)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugStackFrame.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

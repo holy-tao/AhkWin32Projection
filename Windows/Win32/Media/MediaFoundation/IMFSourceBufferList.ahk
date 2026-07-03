@@ -59,11 +59,11 @@ export default struct IMFSourceBufferList extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFSourceBufferList.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

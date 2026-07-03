@@ -55,11 +55,11 @@ export default struct IOfflineFilesGhostInfo extends IUnknown {
         return pbGhosted
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOfflineFilesGhostInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

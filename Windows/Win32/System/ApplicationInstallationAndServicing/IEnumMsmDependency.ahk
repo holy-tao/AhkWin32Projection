@@ -80,11 +80,11 @@ export default struct IEnumMsmDependency extends IUnknown {
         return IEnumMsmDependency(pemsmDependencies)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumMsmDependency.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

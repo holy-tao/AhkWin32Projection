@@ -198,11 +198,11 @@ export default struct IPhotoAcquireItem extends IUnknown {
         return IPhotoAcquireItem(ppPhotoAcquireItem)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPhotoAcquireItem.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -56,11 +56,11 @@ export default struct IHTMLTimeRanges2 extends IDispatch {
         return endTime
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLTimeRanges2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

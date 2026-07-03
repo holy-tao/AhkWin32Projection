@@ -89,11 +89,11 @@ export default struct ICertificateAttestationChallenge extends IDispatch {
         return pstrRequestID
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICertificateAttestationChallenge.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

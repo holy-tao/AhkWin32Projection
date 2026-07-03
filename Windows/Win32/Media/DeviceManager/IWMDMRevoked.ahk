@@ -55,11 +55,11 @@ export default struct IWMDMRevoked extends IUnknown {
         return pdwRevokedBitFlag
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMDMRevoked.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -86,11 +86,11 @@ export default struct ISpSREngineSite2 extends ISpSREngineSite {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpSREngineSite2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -57,11 +57,11 @@ export default struct ID3D10BlendState1 extends ID3D10BlendState {
         ComCall(8, this, D3D10_BLEND_DESC1.Ptr, pDesc)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D10BlendState1.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

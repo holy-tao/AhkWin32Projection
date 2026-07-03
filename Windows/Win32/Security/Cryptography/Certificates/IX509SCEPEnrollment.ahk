@@ -435,11 +435,11 @@ export default struct IX509SCEPEnrollment extends IDispatch {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IX509SCEPEnrollment.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

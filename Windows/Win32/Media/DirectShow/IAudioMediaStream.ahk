@@ -131,11 +131,11 @@ export default struct IAudioMediaStream extends IMediaStream {
         return IAudioStreamSample(ppSample)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAudioMediaStream.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

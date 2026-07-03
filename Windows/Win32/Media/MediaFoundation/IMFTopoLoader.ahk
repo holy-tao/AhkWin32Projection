@@ -60,11 +60,11 @@ export default struct IMFTopoLoader extends IUnknown {
         return IMFTopology(ppOutputTopo)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFTopoLoader.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

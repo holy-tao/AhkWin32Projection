@@ -88,11 +88,11 @@ export default struct ISchemaIdentityConstraint extends ISchemaItem {
         return ISchemaIdentityConstraint(key)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISchemaIdentityConstraint.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

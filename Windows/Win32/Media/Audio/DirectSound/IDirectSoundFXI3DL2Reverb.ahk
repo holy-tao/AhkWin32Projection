@@ -99,11 +99,11 @@ export default struct IDirectSoundFXI3DL2Reverb extends IUnknown {
         return plQuality
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDirectSoundFXI3DL2Reverb.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

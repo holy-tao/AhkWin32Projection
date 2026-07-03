@@ -92,11 +92,11 @@ export default struct ISClusNetworkNetInterfaces extends IDispatch {
         return ISClusNetInterface(ppClusNetInterface)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISClusNetworkNetInterfaces.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -184,11 +184,11 @@ export default struct IDXGIResource extends IDXGIDeviceSubObject {
         return pEvictionPriority
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDXGIResource.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

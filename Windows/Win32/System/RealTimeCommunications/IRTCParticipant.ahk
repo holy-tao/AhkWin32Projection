@@ -125,11 +125,11 @@ export default struct IRTCParticipant extends IUnknown {
         return IRTCSession(ppSession)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRTCParticipant.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

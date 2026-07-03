@@ -55,11 +55,11 @@ export default struct ILanguageExceptionStackBackTrace extends IUnknown {
         return framesCaptured
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ILanguageExceptionStackBackTrace.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

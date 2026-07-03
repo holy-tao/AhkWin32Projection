@@ -50,11 +50,11 @@ export default struct ICoreFrameworkInputViewInterop extends IInspectable {
         return coreFrameworkInputView
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICoreFrameworkInputViewInterop.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

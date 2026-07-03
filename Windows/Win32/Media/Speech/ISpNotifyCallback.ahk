@@ -42,10 +42,10 @@ export default struct ISpNotifyCallback extends Win32ComInterface {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpNotifyCallback.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 }

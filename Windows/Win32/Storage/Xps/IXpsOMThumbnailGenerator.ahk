@@ -97,11 +97,11 @@ export default struct IXpsOMThumbnailGenerator extends IUnknown {
         return IXpsOMImageResource(imageResource)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsOMThumbnailGenerator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

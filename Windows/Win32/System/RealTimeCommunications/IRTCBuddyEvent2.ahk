@@ -88,11 +88,11 @@ export default struct IRTCBuddyEvent2 extends IRTCBuddyEvent {
         return pbstrStatusText
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRTCBuddyEvent2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

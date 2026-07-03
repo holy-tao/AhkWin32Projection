@@ -54,11 +54,11 @@ export default struct IShellLinkDual2 extends IShellLinkDual {
         return FolderItem(ppfi)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IShellLinkDual2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

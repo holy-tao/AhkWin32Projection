@@ -66,11 +66,11 @@ export default struct IDxcOperationResult extends IUnknown {
         return IDxcBlobEncoding(ppErrors)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDxcOperationResult.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

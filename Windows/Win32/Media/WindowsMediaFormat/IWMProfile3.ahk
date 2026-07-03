@@ -373,11 +373,11 @@ export default struct IWMProfile3 extends IWMProfile2 {
         return pcPackets
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMProfile3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

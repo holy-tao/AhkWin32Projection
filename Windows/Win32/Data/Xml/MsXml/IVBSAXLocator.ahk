@@ -105,11 +105,11 @@ export default struct IVBSAXLocator extends IDispatch {
         return strSystemId
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVBSAXLocator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

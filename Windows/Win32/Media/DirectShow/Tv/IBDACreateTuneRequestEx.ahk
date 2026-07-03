@@ -51,11 +51,11 @@ export default struct IBDACreateTuneRequestEx extends IUnknown {
         return ITuneRequest(_TuneRequest)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBDACreateTuneRequestEx.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

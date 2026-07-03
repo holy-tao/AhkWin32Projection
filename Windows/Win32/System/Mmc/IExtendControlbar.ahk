@@ -73,11 +73,11 @@ export default struct IExtendControlbar extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IExtendControlbar.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -445,11 +445,11 @@ export default struct ISyncMgrSynchronizeCallback extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISyncMgrSynchronizeCallback.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -56,11 +56,11 @@ export default struct ID3D12GraphicsCommandList9 extends ID3D12GraphicsCommandLi
         ComCall(83, this, D3D12_INDEX_BUFFER_STRIP_CUT_VALUE, IBStripCutValue)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12GraphicsCommandList9.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

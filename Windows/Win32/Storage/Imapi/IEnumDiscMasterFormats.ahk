@@ -80,11 +80,11 @@ export default struct IEnumDiscMasterFormats extends IUnknown {
         return IEnumDiscMasterFormats(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumDiscMasterFormats.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

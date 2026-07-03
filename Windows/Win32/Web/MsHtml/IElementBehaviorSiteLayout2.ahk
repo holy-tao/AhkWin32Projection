@@ -46,11 +46,11 @@ export default struct IElementBehaviorSiteLayout2 extends IUnknown {
         return plf
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IElementBehaviorSiteLayout2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

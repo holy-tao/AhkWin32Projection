@@ -248,11 +248,11 @@ export default struct IGameInputDevice extends IUnknown {
         ComCall(21, this)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGameInputDevice.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

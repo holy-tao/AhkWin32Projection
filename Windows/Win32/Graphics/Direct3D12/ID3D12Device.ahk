@@ -1327,11 +1327,11 @@ export default struct ID3D12Device extends ID3D12Object {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12Device.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

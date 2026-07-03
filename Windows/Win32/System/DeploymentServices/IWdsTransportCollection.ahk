@@ -91,11 +91,11 @@ export default struct IWdsTransportCollection extends IDispatch {
         return IUnknown(ppVal)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWdsTransportCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

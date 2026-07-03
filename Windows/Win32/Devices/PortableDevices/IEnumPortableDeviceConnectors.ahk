@@ -102,11 +102,11 @@ export default struct IEnumPortableDeviceConnectors extends IUnknown {
         return IEnumPortableDeviceConnectors(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumPortableDeviceConnectors.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

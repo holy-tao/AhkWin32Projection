@@ -555,11 +555,11 @@ export default struct IDebugSystemObjects4 extends IUnknown {
         return NameSize
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugSystemObjects4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

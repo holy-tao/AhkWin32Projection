@@ -115,11 +115,11 @@ export default struct ISBE2EnumStream extends IUnknown {
         return ISBE2EnumStream(ppIEnumStream)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISBE2EnumStream.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

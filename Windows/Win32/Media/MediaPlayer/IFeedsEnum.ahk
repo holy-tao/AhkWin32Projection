@@ -86,11 +86,11 @@ export default struct IFeedsEnum extends IDispatch {
         return IEnumVARIANT(enumVar)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFeedsEnum.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

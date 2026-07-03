@@ -386,11 +386,11 @@ export default struct IXpsOMRadialGradientBrush extends IXpsOMGradientBrush {
         return IXpsOMRadialGradientBrush(radialGradientBrush)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsOMRadialGradientBrush.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

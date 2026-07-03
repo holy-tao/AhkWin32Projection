@@ -154,11 +154,11 @@ export default struct IShellUIHelper7 extends IShellUIHelper6 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IShellUIHelper7.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -45,11 +45,11 @@ export default struct IDebugHostContext extends IUnknown {
         return pIsEqual
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugHostContext.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

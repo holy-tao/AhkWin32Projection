@@ -45,11 +45,11 @@ export default struct IAppServiceConnectionExtendedExecution extends IUnknown {
         return operation
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppServiceConnectionExtendedExecution.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

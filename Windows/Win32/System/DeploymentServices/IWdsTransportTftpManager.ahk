@@ -54,11 +54,11 @@ export default struct IWdsTransportTftpManager extends IDispatch {
         return IWdsTransportCollection(ppWdsTransportTftpClients)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWdsTransportTftpManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

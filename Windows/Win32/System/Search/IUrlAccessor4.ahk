@@ -63,11 +63,11 @@ export default struct IUrlAccessor4 extends IUrlAccessor3 {
         return pfIndexProperty
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUrlAccessor4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

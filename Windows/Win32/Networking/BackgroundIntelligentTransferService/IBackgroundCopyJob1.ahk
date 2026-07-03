@@ -293,11 +293,11 @@ export default struct IBackgroundCopyJob1 extends IUnknown {
         return pguidJobID
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBackgroundCopyJob1.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

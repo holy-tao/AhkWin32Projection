@@ -70,11 +70,11 @@ export default struct Folder3 extends Folder2 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (Folder3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

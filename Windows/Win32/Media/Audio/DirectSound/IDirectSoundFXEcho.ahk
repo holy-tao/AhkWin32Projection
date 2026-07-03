@@ -57,11 +57,11 @@ export default struct IDirectSoundFXEcho extends IUnknown {
         return pDsFxEcho
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDirectSoundFXEcho.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

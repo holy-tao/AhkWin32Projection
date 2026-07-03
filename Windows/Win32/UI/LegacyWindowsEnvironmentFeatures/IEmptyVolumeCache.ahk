@@ -267,11 +267,11 @@ export default struct IEmptyVolumeCache extends IUnknown {
         return pdwFlags
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEmptyVolumeCache.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -138,11 +138,11 @@ export default struct IRTCUserSearchQuery extends IUnknown {
         return pbstrDomain
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRTCUserSearchQuery.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

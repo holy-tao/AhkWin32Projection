@@ -50,11 +50,11 @@ export default struct IGetSecurityCallContext extends IDispatch {
         return ISecurityCallContext(ppObject)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGetSecurityCallContext.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

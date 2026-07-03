@@ -52,11 +52,11 @@ export default struct IRTCBuddyEvent extends IDispatch {
         return IRTCBuddy(ppBuddy)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRTCBuddyEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

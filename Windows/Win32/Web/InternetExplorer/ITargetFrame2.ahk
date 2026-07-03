@@ -177,11 +177,11 @@ export default struct ITargetFrame2 extends IUnknown {
         return ppszTargetAlias
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITargetFrame2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

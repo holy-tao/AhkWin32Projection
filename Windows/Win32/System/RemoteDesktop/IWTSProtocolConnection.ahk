@@ -386,11 +386,11 @@ export default struct IWTSProtocolConnection extends IUnknown {
         return IWTSProtocolShadowConnection(ppShadowConnection)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWTSProtocolConnection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

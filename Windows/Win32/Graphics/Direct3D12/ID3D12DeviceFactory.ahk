@@ -201,11 +201,11 @@ export default struct ID3D12DeviceFactory extends IUnknown {
         return ppvDevice
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12DeviceFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -265,11 +265,11 @@ export default struct IUIAutomationProxyFactoryEntry extends IUnknown {
         return winEvents
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAutomationProxyFactoryEntry.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

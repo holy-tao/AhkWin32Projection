@@ -49,11 +49,11 @@ export default struct IPrintClassObjectFactory extends IUnknown {
         return ppNewObject
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPrintClassObjectFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

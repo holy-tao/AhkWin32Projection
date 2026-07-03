@@ -81,11 +81,11 @@ export default struct IDropTargetProvider extends IUnknown {
         return pRetVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDropTargetProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

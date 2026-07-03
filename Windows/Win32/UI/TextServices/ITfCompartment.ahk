@@ -115,11 +115,11 @@ export default struct ITfCompartment extends IUnknown {
         return pvarValue
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfCompartment.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

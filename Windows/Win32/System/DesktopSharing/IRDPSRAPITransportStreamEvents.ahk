@@ -76,11 +76,11 @@ export default struct IRDPSRAPITransportStreamEvents extends IUnknown {
         ComCall(5, this, "int", hrReason)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRDPSRAPITransportStreamEvents.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

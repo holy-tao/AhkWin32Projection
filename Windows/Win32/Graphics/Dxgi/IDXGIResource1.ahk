@@ -129,11 +129,11 @@ export default struct IDXGIResource1 extends IDXGIResource {
         return pHandle
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDXGIResource1.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

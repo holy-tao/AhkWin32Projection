@@ -208,11 +208,11 @@ export default struct IFsrmExportImport extends IDispatch {
         return IFsrmCommittableCollection(templates)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFsrmExportImport.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

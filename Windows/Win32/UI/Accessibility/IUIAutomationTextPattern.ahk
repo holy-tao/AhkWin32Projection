@@ -180,11 +180,11 @@ export default struct IUIAutomationTextPattern extends IUnknown {
         return _supportedTextSelection
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAutomationTextPattern.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

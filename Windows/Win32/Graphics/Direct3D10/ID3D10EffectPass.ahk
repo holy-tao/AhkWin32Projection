@@ -194,10 +194,10 @@ export default struct ID3D10EffectPass extends Win32ComInterface {
         return pStateBlockMask
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D10EffectPass.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 }

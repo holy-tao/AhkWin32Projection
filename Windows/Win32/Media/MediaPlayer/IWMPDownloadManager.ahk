@@ -56,11 +56,11 @@ export default struct IWMPDownloadManager extends IDispatch {
         return IWMPDownloadCollection(ppCollection)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMPDownloadManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

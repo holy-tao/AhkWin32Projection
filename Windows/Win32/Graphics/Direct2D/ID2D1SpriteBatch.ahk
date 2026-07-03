@@ -246,11 +246,11 @@ export default struct ID2D1SpriteBatch extends ID2D1Resource {
         ComCall(8, this)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1SpriteBatch.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

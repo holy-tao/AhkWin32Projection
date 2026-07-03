@@ -150,11 +150,11 @@ export default struct IMediaSample2 extends IMediaSample {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMediaSample2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

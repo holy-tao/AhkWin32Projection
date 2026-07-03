@@ -46,11 +46,11 @@ export default struct IKsPinEx extends IKsPin {
         ComCall(16, this, "ptr", Sample, "int", hr)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IKsPinEx.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

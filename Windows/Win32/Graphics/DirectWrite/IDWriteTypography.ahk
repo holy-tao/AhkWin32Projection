@@ -87,11 +87,11 @@ export default struct IDWriteTypography extends IUnknown {
         return fontFeature
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteTypography.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

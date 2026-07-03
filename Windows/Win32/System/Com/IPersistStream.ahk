@@ -234,11 +234,11 @@ export default struct IPersistStream extends IPersist {
         return pcbSize
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPersistStream.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

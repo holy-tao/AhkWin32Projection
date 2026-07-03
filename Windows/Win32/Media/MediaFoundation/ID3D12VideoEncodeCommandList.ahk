@@ -295,11 +295,11 @@ export default struct ID3D12VideoEncodeCommandList extends ID3D12CommandList {
         ComCall(24, this, "ptr", pProtectedResourceSession)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12VideoEncodeCommandList.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

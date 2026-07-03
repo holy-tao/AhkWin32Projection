@@ -49,11 +49,11 @@ export default struct IDxcIncludeHandler extends IUnknown {
         return IDxcBlob(ppIncludeSource)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDxcIncludeHandler.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

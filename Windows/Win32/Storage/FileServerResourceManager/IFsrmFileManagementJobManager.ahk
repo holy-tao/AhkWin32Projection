@@ -132,11 +132,11 @@ export default struct IFsrmFileManagementJobManager extends IDispatch {
         return IFsrmFileManagementJob(fileManagementJob)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFsrmFileManagementJobManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

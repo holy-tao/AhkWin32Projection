@@ -78,11 +78,11 @@ export default struct IDedupChunkLibrary extends IUnknown {
         return IUnknown(ppChunksEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDedupChunkLibrary.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

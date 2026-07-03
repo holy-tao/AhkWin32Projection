@@ -241,11 +241,11 @@ export default struct ISpeechVoiceStatus extends IDispatch {
         return VisemeId
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpeechVoiceStatus.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -163,11 +163,11 @@ export default struct ISimilarity extends IUnknown {
         return recordCount
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISimilarity.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

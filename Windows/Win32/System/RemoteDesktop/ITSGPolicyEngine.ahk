@@ -142,11 +142,11 @@ export default struct ITSGPolicyEngine extends IUnknown {
         return quarantineEnabled
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITSGPolicyEngine.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -153,11 +153,11 @@ export default struct IEventControl extends IDispatch {
         return errorIndex
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEventControl.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

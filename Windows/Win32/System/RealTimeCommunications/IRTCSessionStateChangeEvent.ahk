@@ -106,11 +106,11 @@ export default struct IRTCSessionStateChangeEvent extends IDispatch {
         return pbstrStatusText
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRTCSessionStateChangeEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

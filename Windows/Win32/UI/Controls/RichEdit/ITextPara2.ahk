@@ -451,11 +451,11 @@ export default struct ITextPara2 extends ITextPara {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITextPara2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

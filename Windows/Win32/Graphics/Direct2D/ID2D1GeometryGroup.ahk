@@ -87,11 +87,11 @@ export default struct ID2D1GeometryGroup extends ID2D1Geometry {
         ComCall(19, this, ID2D1Geometry.Ptr, geometries, UInt32, geometriesCount)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1GeometryGroup.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

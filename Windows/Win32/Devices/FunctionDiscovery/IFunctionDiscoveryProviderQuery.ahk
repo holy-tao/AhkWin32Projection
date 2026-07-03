@@ -103,11 +103,11 @@ export default struct IFunctionDiscoveryProviderQuery extends IUnknown {
         return IProviderPropertyConstraintCollection(ppIProviderPropertyConstraints)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFunctionDiscoveryProviderQuery.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -97,11 +97,11 @@ export default struct IDtcToXaHelperSinglePipe extends IUnknown {
         ComCall(6, this, UInt32, i_dwRMCookie, BOOL, i_fNormal)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDtcToXaHelperSinglePipe.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

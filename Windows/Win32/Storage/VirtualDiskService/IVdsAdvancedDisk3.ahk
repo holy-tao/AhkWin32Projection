@@ -57,11 +57,11 @@ export default struct IVdsAdvancedDisk3 extends IUnknown {
         return ppwszId
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVdsAdvancedDisk3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

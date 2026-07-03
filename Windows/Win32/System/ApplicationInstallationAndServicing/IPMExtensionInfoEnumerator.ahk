@@ -52,11 +52,11 @@ export default struct IPMExtensionInfoEnumerator extends IUnknown {
         return IPMExtensionInfo(ppExtensionInfo)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPMExtensionInfoEnumerator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

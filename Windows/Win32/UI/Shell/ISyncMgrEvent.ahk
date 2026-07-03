@@ -200,11 +200,11 @@ export default struct ISyncMgrEvent extends IUnknown {
         return ppszContext
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISyncMgrEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -112,11 +112,11 @@ export default struct IWMLanguageList extends IUnknown {
         return pwIndex
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMLanguageList.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

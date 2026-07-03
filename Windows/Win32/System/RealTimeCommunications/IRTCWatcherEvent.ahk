@@ -52,11 +52,11 @@ export default struct IRTCWatcherEvent extends IDispatch {
         return IRTCWatcher(ppWatcher)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRTCWatcherEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

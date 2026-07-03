@@ -66,11 +66,11 @@ export default struct IPersistIDList extends IPersist {
         return ppidl
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPersistIDList.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

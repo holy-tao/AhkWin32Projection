@@ -116,11 +116,11 @@ export default struct ID2D1Device extends ID2D1Resource {
         ComCall(8, this, UInt32, millisecondsSinceUse)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1Device.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

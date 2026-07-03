@@ -1243,11 +1243,11 @@ export default struct ITextStoreACP2 extends IUnknown {
         return prc
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITextStoreACP2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

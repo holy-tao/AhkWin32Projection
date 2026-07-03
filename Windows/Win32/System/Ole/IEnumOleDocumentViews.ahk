@@ -95,11 +95,11 @@ export default struct IEnumOleDocumentViews extends IUnknown {
         return IEnumOleDocumentViews(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumOleDocumentViews.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

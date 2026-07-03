@@ -167,11 +167,11 @@ export default struct IRecoverableError extends IUnknown {
         return IRecoverableErrorData(ppErrorData)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRecoverableError.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

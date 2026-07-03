@@ -124,11 +124,11 @@ export default struct IWMSyncReader2 extends IWMSyncReader {
         return IWMReaderAllocatorEx(ppAllocator)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMSyncReader2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

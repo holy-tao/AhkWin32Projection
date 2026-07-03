@@ -55,11 +55,11 @@ export default struct IWMPCore2 extends IWMPCore {
         return IWMPDVD(ppDVD)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMPCore2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

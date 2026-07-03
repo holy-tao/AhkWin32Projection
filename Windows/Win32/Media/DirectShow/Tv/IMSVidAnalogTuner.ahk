@@ -191,11 +191,11 @@ export default struct IMSVidAnalogTuner extends IMSVidTuner {
         return fSignalPresent
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSVidAnalogTuner.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

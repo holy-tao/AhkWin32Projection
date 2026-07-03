@@ -52,11 +52,11 @@ export default struct IMSMQEvent2 extends IMSMQEvent {
         return IDispatch(ppcolProperties)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSMQEvent2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

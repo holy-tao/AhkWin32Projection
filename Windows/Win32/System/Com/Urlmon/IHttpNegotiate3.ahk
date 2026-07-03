@@ -49,11 +49,11 @@ export default struct IHttpNegotiate3 extends IHttpNegotiate2 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHttpNegotiate3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

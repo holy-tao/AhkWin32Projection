@@ -97,11 +97,11 @@ export default struct IWdsTransportNamespaceManager extends IDispatch {
         return IWdsTransportCollection(ppWdsTransportNamespaces)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWdsTransportNamespaceManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

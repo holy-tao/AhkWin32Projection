@@ -45,11 +45,11 @@ export default struct IAppxBundleManifestPackageInfo4 extends IUnknown {
         return isStub
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxBundleManifestPackageInfo4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

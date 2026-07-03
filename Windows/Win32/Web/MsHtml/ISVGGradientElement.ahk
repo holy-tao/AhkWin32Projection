@@ -126,11 +126,11 @@ export default struct ISVGGradientElement extends IDispatch {
         return ISVGAnimatedEnumeration(p)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISVGGradientElement.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

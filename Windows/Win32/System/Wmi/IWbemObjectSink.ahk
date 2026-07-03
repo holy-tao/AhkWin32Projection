@@ -96,11 +96,11 @@ export default struct IWbemObjectSink extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWbemObjectSink.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

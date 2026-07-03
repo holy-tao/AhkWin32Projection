@@ -92,11 +92,11 @@ export default struct IDWriteFactory1 extends IDWriteFactory {
         return IDWriteRenderingParams1(renderingParams)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteFactory1.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

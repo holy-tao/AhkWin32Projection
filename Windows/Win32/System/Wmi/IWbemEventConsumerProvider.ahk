@@ -87,11 +87,11 @@ export default struct IWbemEventConsumerProvider extends IUnknown {
         return IWbemUnboundObjectSink(ppConsumer)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWbemEventConsumerProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

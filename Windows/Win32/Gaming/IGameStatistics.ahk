@@ -183,11 +183,11 @@ export default struct IGameStatistics extends IUnknown {
         return pCategoryIndex
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGameStatistics.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

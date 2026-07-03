@@ -210,11 +210,11 @@ export default struct ISVGMaskElement extends IDispatch {
         return ISVGAnimatedLength(p)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISVGMaskElement.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

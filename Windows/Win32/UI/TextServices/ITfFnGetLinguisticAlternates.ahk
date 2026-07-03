@@ -50,11 +50,11 @@ export default struct ITfFnGetLinguisticAlternates extends ITfFunction {
         return ITfCandidateList(ppCandidateList)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfFnGetLinguisticAlternates.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -1042,11 +1042,11 @@ export default struct IHTMLElement5 extends IDispatch {
         return p
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLElement5.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

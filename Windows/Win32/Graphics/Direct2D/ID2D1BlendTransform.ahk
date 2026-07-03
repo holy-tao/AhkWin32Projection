@@ -62,11 +62,11 @@ export default struct ID2D1BlendTransform extends ID2D1ConcreteTransform {
         ComCall(7, this, D2D1_BLEND_DESCRIPTION.Ptr, description)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1BlendTransform.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

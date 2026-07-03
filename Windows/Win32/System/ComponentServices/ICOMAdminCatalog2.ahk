@@ -784,11 +784,11 @@ export default struct ICOMAdminCatalog2 extends ICOMAdminCatalog {
         return plVersionCount
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICOMAdminCatalog2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -55,11 +55,11 @@ export default struct ICatalogFileInfo extends IUnknown {
         return ppJavaTrust
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICatalogFileInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

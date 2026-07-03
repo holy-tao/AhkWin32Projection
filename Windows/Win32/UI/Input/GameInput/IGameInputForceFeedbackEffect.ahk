@@ -117,11 +117,11 @@ export default struct IGameInputForceFeedbackEffect extends IUnknown {
         ComCall(10, this, GameInputFeedbackEffectState, state)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGameInputForceFeedbackEffect.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

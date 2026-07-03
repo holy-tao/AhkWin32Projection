@@ -297,11 +297,11 @@ export default struct IXAPO extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXAPO.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

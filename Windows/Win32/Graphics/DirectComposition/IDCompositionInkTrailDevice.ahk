@@ -56,11 +56,11 @@ export default struct IDCompositionInkTrailDevice extends IUnknown {
         return IDCompositionDelegatedInkTrail(inkTrail)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDCompositionInkTrailDevice.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

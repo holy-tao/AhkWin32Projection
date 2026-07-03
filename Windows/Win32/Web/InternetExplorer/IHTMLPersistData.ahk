@@ -76,11 +76,11 @@ export default struct IHTMLPersistData extends IUnknown {
         return pfSupportsType
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLPersistData.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

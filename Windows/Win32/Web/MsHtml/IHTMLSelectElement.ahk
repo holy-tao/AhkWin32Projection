@@ -429,11 +429,11 @@ export default struct IHTMLSelectElement extends IDispatch {
         return IDispatch(pdisp)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLSelectElement.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

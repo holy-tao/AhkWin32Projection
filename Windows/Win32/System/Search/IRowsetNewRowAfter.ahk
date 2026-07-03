@@ -53,11 +53,11 @@ export default struct IRowsetNewRowAfter extends IUnknown {
         return phRow
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRowsetNewRowAfter.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -91,11 +91,11 @@ export default struct ITfSystemDeviceTypeLangBarItem extends IUnknown {
         return pdwFlags
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfSystemDeviceTypeLangBarItem.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

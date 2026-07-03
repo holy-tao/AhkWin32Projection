@@ -840,11 +840,11 @@ export default struct IX509CertificateRequest extends IDispatch {
         return pValue
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IX509CertificateRequest.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

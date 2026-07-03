@@ -101,11 +101,11 @@ export default struct IUPnPNAT extends IDispatch {
         return INATEventManager(ppNEM)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUPnPNAT.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

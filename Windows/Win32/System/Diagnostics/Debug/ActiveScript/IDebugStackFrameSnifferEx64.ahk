@@ -46,11 +46,11 @@ export default struct IDebugStackFrameSnifferEx64 extends IDebugStackFrameSniffe
         return IEnumDebugStackFrames64(ppedsf)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugStackFrameSnifferEx64.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

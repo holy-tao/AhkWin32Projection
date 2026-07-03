@@ -153,11 +153,11 @@ export default struct ITAddressTranslationInfo extends IDispatch {
         return plResults
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITAddressTranslationInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

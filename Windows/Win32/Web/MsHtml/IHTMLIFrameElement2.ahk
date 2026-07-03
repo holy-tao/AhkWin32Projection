@@ -95,11 +95,11 @@ export default struct IHTMLIFrameElement2 extends IDispatch {
         return p
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLIFrameElement2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

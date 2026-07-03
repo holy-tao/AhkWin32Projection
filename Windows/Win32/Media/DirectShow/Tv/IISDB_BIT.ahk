@@ -227,11 +227,11 @@ export default struct IISDB_BIT extends IUnknown {
         return pdwVersionHash
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IISDB_BIT.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

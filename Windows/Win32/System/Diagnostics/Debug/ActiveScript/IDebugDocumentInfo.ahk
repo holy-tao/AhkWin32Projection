@@ -60,11 +60,11 @@ export default struct IDebugDocumentInfo extends IUnknown {
         return pclsidDocument
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugDocumentInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

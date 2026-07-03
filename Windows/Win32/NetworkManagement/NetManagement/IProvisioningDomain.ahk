@@ -67,11 +67,11 @@ export default struct IProvisioningDomain extends IUnknown {
         return IXMLDOMNodeList(_Nodes)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IProvisioningDomain.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -53,11 +53,11 @@ export default struct IInternetBindInfoEx extends IInternetBindInfo {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IInternetBindInfoEx.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

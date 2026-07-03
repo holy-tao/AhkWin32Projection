@@ -45,11 +45,11 @@ export default struct IIMEServices extends IUnknown {
         return IActiveIMMApp(ppActiveIMM)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IIMEServices.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

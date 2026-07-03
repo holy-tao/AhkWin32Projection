@@ -60,11 +60,11 @@ export default struct IAppxManifestOptionalPackageInfo extends IUnknown {
         return mainPackageName
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxManifestOptionalPackageInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

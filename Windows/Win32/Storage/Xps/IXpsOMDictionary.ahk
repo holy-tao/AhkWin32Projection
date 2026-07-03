@@ -309,11 +309,11 @@ export default struct IXpsOMDictionary extends IUnknown {
         return IXpsOMDictionary(dictionary)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsOMDictionary.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

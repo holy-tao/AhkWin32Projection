@@ -73,11 +73,11 @@ export default struct IMDServiceProvider extends IUnknown {
         return IMDSPEnumDevice(ppEnumDevice)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMDServiceProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

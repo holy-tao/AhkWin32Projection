@@ -91,11 +91,11 @@ export default struct IEnumCATEGORYINFO extends IUnknown {
         return IEnumCATEGORYINFO(ppenum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumCATEGORYINFO.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

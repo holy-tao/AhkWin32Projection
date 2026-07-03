@@ -113,11 +113,11 @@ export default struct ITAllocatorProperties extends IUnknown {
         return pBufferSize
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITAllocatorProperties.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

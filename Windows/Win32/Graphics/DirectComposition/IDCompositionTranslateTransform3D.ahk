@@ -170,11 +170,11 @@ export default struct IDCompositionTranslateTransform3D extends IDCompositionTra
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDCompositionTranslateTransform3D.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

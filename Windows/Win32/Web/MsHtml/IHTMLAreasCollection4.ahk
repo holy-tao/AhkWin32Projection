@@ -77,11 +77,11 @@ export default struct IHTMLAreasCollection4 extends IDispatch {
         return IHTMLElement2(pNode)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLAreasCollection4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

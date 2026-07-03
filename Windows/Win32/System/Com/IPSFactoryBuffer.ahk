@@ -70,11 +70,11 @@ export default struct IPSFactoryBuffer extends IUnknown {
         return IRpcStubBuffer(ppStub)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPSFactoryBuffer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

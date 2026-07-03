@@ -229,11 +229,11 @@ export default struct IHTMLWindow3 extends IDispatch {
         return IHTMLWindow2(pDialog)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLWindow3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

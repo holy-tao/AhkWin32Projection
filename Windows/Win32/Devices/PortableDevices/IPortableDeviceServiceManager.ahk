@@ -123,11 +123,11 @@ export default struct IPortableDeviceServiceManager extends IUnknown {
         return ppszPnPDeviceID
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPortableDeviceServiceManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

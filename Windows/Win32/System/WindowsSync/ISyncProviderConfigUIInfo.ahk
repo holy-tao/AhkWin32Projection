@@ -51,11 +51,11 @@ export default struct ISyncProviderConfigUIInfo extends IPropertyStore {
         return ISyncProviderConfigUI(ppSyncProviderConfigUI)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISyncProviderConfigUIInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

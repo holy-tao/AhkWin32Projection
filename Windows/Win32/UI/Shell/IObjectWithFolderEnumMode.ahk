@@ -74,11 +74,11 @@ export default struct IObjectWithFolderEnumMode extends IUnknown {
         return pfeMode
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IObjectWithFolderEnumMode.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

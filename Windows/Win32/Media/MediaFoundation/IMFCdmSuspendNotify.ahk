@@ -58,11 +58,11 @@ export default struct IMFCdmSuspendNotify extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFCdmSuspendNotify.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -119,11 +119,11 @@ export default struct IRTCSession2 extends IRTCSession {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRTCSession2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

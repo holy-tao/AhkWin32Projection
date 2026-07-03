@@ -117,11 +117,11 @@ export default struct IIsdbLogoTransmissionDescriptor extends IUnknown {
         return pbstrChar
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IIsdbLogoTransmissionDescriptor.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

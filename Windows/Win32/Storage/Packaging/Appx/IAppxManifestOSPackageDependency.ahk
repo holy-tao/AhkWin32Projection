@@ -63,11 +63,11 @@ export default struct IAppxManifestOSPackageDependency extends IUnknown {
         return _version
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxManifestOSPackageDependency.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

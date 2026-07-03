@@ -78,11 +78,11 @@ export default struct IWindowsMediaLibrarySharingDeviceProperty extends IDispatc
         return value
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWindowsMediaLibrarySharingDeviceProperty.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -55,11 +55,11 @@ export default struct ISyncProviderInfo extends IPropertyStore {
         return IRegisteredSyncProvider(ppSyncProvider)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISyncProviderInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

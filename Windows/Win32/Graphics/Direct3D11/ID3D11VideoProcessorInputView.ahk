@@ -49,11 +49,11 @@ export default struct ID3D11VideoProcessorInputView extends ID3D11View {
         ComCall(8, this, D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC.Ptr, pDesc)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D11VideoProcessorInputView.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -56,11 +56,11 @@ export default struct ISyncFullEnumerationChangeBatch2 extends ISyncFullEnumerat
         return ISyncChangeBuilder(ppChangeBuilder)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISyncFullEnumerationChangeBatch2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -54,11 +54,11 @@ export default struct IProvisioningProfileWireless extends IUnknown {
         return pulStatus
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IProvisioningProfileWireless.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

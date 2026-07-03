@@ -87,11 +87,11 @@ export default struct IFullScreenVideoEx extends IFullScreenVideo {
         return pKeepAspect
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFullScreenVideoEx.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

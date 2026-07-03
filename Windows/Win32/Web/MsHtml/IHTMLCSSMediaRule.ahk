@@ -115,11 +115,11 @@ export default struct IHTMLCSSMediaRule extends IDispatch {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLCSSMediaRule.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

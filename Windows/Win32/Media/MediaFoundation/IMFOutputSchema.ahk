@@ -75,11 +75,11 @@ export default struct IMFOutputSchema extends IMFAttributes {
         return pguidOriginatorID
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFOutputSchema.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

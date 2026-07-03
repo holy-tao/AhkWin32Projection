@@ -127,11 +127,11 @@ export default struct IRpcOptions extends IUnknown {
         return pdwValue
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRpcOptions.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -176,11 +176,11 @@ export default struct IUpdateSession extends IDispatch {
         return IUpdateInstaller(retval)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUpdateSession.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

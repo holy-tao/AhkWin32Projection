@@ -92,11 +92,11 @@ export default struct ITTAPI2 extends ITTAPI {
         return ITCollection2(ppCollection)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITTAPI2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

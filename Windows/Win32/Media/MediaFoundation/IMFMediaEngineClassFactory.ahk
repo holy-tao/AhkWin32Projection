@@ -236,11 +236,11 @@ export default struct IMFMediaEngineClassFactory extends IUnknown {
         return IMFMediaError(ppError)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFMediaEngineClassFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

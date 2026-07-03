@@ -58,11 +58,11 @@ export default struct IIterableConcept extends IUnknown {
         return IModelIterator(iterator)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IIterableConcept.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

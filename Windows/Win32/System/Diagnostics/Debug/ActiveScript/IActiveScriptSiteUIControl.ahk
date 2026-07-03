@@ -47,11 +47,11 @@ export default struct IActiveScriptSiteUIControl extends IUnknown {
         return pUicHandling
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IActiveScriptSiteUIControl.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -500,11 +500,11 @@ export default struct IXAudio2 extends IUnknown {
         ComCall(12, this, XAUDIO2_DEBUG_CONFIGURATION.Ptr, pDebugConfiguration, "ptr", pReserved)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXAudio2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

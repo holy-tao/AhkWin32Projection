@@ -97,11 +97,11 @@ export default struct ISVGAnimatedAngle extends IDispatch {
         return ISVGAngle(p)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISVGAnimatedAngle.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

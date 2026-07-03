@@ -135,11 +135,11 @@ export default struct IXpsOMImageResource extends IXpsOMResource {
         return _imageType
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsOMImageResource.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

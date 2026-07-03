@@ -81,11 +81,11 @@ export default struct IEnumDebugApplicationNodes extends IUnknown {
         return IEnumDebugApplicationNodes(pperddp)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumDebugApplicationNodes.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

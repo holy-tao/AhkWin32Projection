@@ -281,11 +281,11 @@ export default struct IFaxDeviceProvider extends IDispatch {
         return pvDeviceIds
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFaxDeviceProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

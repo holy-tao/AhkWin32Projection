@@ -78,11 +78,11 @@ export default struct IAppxBundleManifestPackageInfo2 extends IUnknown {
         return isDefaultApplicablePackage
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxBundleManifestPackageInfo2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -44,11 +44,11 @@ export default struct IDebugHostStatus extends IUnknown {
         return interruptRequested
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugHostStatus.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

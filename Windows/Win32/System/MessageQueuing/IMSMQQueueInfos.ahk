@@ -61,11 +61,11 @@ export default struct IMSMQQueueInfos extends IDispatch {
         return IMSMQQueueInfo(ppqinfoNext)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSMQQueueInfos.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

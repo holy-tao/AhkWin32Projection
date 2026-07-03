@@ -82,11 +82,11 @@ export default struct ID2D1DeviceContext7 extends ID2D1DeviceContext6 {
         ComCall(122, this, D2D_POINT_2F, baselineOrigin, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_GLYPH_RUN_DESCRIPTION.Ptr, glyphRunDescription, "ptr", foregroundBrush, "ptr", svgGlyphStyle, UInt32, colorPaletteIndex, DWRITE_MEASURING_MODE, measuringMode, D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION, bitmapSnapOption)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1DeviceContext7.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

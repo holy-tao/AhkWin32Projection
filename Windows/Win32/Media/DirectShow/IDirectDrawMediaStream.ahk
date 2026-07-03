@@ -264,11 +264,11 @@ export default struct IDirectDrawMediaStream extends IMediaStream {
         return pFrameTime
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDirectDrawMediaStream.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

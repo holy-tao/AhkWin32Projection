@@ -64,11 +64,11 @@ export default struct ID3D12VideoMotionVectorHeap extends ID3D12Pageable {
         return ppProtectedSession
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12VideoMotionVectorHeap.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

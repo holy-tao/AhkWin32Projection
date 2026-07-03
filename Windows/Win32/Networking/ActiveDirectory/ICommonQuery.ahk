@@ -53,11 +53,11 @@ export default struct ICommonQuery extends IUnknown {
         return IDataObject(ppDataObject)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICommonQuery.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

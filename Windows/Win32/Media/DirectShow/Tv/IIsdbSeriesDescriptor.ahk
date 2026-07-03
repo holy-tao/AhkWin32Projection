@@ -145,11 +145,11 @@ export default struct IIsdbSeriesDescriptor extends IUnknown {
         return pbstrName
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IIsdbSeriesDescriptor.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

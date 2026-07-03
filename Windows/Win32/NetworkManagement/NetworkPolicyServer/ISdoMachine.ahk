@@ -221,11 +221,11 @@ export default struct ISdoMachine extends IDispatch {
         return IUnknown(ppSDOSchema)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISdoMachine.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -77,11 +77,11 @@ export default struct ITPluggableTerminalSuperclassInfo extends IDispatch {
         return pCLSID
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITPluggableTerminalSuperclassInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

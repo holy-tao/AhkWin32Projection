@@ -61,11 +61,11 @@ export default struct ITsSbGenericNotifySink extends IUnknown {
         return pftTimeout
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITsSbGenericNotifySink.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

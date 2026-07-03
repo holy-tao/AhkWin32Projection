@@ -119,11 +119,11 @@ export default struct IWdsTransportContentProvider extends IDispatch {
         return pbszInitializationRoutine
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWdsTransportContentProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

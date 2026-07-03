@@ -53,11 +53,11 @@ export default struct IMSMQTransaction3 extends IMSMQTransaction2 {
         return pvarITransaction
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSMQTransaction3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

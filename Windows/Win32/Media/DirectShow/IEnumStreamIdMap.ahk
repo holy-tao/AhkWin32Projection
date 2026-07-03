@@ -89,11 +89,11 @@ export default struct IEnumStreamIdMap extends IUnknown {
         return IEnumStreamIdMap(ppIEnumStreamIdMap)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumStreamIdMap.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

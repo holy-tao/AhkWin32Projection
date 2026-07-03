@@ -82,11 +82,11 @@ export default struct IESRequestTunerEvent extends IESEvent {
         return pdwEstimatedTime
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IESRequestTunerEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

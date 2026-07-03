@@ -160,11 +160,11 @@ export default struct IOpcRelationshipEnumerator extends IUnknown {
         return IOpcRelationshipEnumerator(copy)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOpcRelationshipEnumerator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

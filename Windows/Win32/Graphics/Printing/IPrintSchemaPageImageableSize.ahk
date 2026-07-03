@@ -136,11 +136,11 @@ export default struct IPrintSchemaPageImageableSize extends IPrintSchemaElement 
         return pulExtentHeight
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPrintSchemaPageImageableSize.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

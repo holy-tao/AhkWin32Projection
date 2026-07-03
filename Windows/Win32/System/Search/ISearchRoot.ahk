@@ -512,11 +512,11 @@ export default struct ISearchRoot extends IUnknown {
         return ppszPassword
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISearchRoot.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

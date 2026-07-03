@@ -72,11 +72,11 @@ export default struct IMFMediaKeys2 extends IMFMediaKeys {
         return code
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFMediaKeys2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

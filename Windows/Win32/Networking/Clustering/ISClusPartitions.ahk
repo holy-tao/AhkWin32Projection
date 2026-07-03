@@ -82,11 +82,11 @@ export default struct ISClusPartitions extends IDispatch {
         return ISClusPartition(ppPartition)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISClusPartitions.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

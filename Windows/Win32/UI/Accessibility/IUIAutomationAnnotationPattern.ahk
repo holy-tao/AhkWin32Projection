@@ -229,11 +229,11 @@ export default struct IUIAutomationAnnotationPattern extends IUnknown {
         return IUIAutomationElement(retVal)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAutomationAnnotationPattern.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

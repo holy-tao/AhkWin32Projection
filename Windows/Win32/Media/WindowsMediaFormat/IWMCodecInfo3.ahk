@@ -463,11 +463,11 @@ export default struct IWMCodecInfo3 extends IWMCodecInfo2 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMCodecInfo3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

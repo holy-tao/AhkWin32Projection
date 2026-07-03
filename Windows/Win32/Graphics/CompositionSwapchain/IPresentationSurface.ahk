@@ -183,11 +183,11 @@ export default struct IPresentationSurface extends IPresentationContent {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPresentationSurface.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

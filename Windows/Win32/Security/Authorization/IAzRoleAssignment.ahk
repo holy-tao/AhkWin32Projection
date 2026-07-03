@@ -111,11 +111,11 @@ export default struct IAzRoleAssignment extends IAzRole {
         return IAzScope(ppScope)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAzRoleAssignment.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -163,11 +163,11 @@ export default struct IScriptNode extends IUnknown {
         return IScriptEntry(ppse)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IScriptNode.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

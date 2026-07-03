@@ -128,11 +128,11 @@ export default struct IInkDivisionUnit extends IDispatch {
         return IInkTransform(RotationTransform)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IInkDivisionUnit.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

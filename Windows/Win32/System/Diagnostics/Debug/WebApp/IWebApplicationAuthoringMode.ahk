@@ -56,11 +56,11 @@ export default struct IWebApplicationAuthoringMode extends IServiceProvider {
         return designModeDllPath
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWebApplicationAuthoringMode.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -52,11 +52,11 @@ export default struct ISVGExternalResourcesRequired extends IDispatch {
         return ISVGAnimatedBoolean(p)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISVGExternalResourcesRequired.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

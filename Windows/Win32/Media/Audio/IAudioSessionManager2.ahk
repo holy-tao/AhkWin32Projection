@@ -250,11 +250,11 @@ export default struct IAudioSessionManager2 extends IAudioSessionManager {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAudioSessionManager2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

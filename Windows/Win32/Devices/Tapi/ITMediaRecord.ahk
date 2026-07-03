@@ -72,11 +72,11 @@ export default struct ITMediaRecord extends IDispatch {
         return pbstrFileName
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITMediaRecord.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

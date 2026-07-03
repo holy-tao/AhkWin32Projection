@@ -53,11 +53,11 @@ export default struct IMFContentDecryptorContext extends IUnknown {
         return OutputPrivateData
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFContentDecryptorContext.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

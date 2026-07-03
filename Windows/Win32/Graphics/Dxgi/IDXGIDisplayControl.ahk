@@ -85,11 +85,11 @@ export default struct IDXGIDisplayControl extends IUnknown {
         ComCall(4, this, BOOL, enabled)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDXGIDisplayControl.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

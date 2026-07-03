@@ -68,11 +68,11 @@ export default struct ILaunchSourceViewSizePreference extends IUnknown {
         return sourceSizeAfterLaunch
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ILaunchSourceViewSizePreference.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

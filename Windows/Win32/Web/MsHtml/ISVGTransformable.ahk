@@ -52,11 +52,11 @@ export default struct ISVGTransformable extends IDispatch {
         return ISVGAnimatedTransformList(p)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISVGTransformable.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

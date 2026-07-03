@@ -74,11 +74,11 @@ export default struct ISearchProtocol2 extends ISearchProtocol {
         return IUrlAccessor(ppAccessor)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISearchProtocol2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

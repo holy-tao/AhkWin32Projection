@@ -515,11 +515,11 @@ export default struct IMSMQQueue4 extends IDispatch {
         return IMSMQMessage4(ppmsg)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSMQQueue4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

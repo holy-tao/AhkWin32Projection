@@ -49,11 +49,11 @@ export default struct ITLegacyWaveSupport extends IDispatch {
         return pSupport
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITLegacyWaveSupport.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

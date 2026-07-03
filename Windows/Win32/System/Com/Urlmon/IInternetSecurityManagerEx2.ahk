@@ -114,11 +114,11 @@ export default struct IInternetSecurityManagerEx2 extends IInternetSecurityManag
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IInternetSecurityManagerEx2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

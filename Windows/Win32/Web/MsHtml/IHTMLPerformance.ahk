@@ -100,11 +100,11 @@ export default struct IHTMLPerformance extends IDispatch {
         return pVar
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLPerformance.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

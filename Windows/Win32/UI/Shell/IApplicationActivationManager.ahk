@@ -100,11 +100,11 @@ export default struct IApplicationActivationManager extends IUnknown {
         return processId
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IApplicationActivationManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

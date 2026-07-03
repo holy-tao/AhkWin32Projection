@@ -320,11 +320,11 @@ export default struct IUIAutomationTreeWalker extends IUnknown {
         return IUIAutomationCondition(condition)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAutomationTreeWalker.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

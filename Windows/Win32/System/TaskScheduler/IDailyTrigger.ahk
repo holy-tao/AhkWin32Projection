@@ -123,11 +123,11 @@ export default struct IDailyTrigger extends ITrigger {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDailyTrigger.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

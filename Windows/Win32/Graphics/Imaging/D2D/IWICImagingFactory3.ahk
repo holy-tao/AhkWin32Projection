@@ -45,11 +45,11 @@ export default struct IWICImagingFactory3 extends IWICImagingFactory2 {
         return IWICBitmapToneMapper(ppToneMapper)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWICImagingFactory3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -117,11 +117,11 @@ export default struct ID2D1GradientStopCollection1 extends ID2D1GradientStopColl
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1GradientStopCollection1.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

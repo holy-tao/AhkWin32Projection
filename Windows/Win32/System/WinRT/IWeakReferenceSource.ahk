@@ -50,11 +50,11 @@ export default struct IWeakReferenceSource extends IUnknown {
         return IWeakReference(weakReference)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWeakReferenceSource.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

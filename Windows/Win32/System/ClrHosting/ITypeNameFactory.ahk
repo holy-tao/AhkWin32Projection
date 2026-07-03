@@ -69,11 +69,11 @@ export default struct ITypeNameFactory extends IUnknown {
         return ITypeNameBuilder(ppTypeBuilder)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITypeNameFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

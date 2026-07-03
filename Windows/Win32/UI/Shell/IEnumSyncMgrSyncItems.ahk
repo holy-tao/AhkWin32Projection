@@ -105,11 +105,11 @@ export default struct IEnumSyncMgrSyncItems extends IUnknown {
         return IEnumSyncMgrSyncItems(ppenum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumSyncMgrSyncItems.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

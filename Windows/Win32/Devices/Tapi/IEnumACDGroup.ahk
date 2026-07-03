@@ -217,11 +217,11 @@ export default struct IEnumACDGroup extends IUnknown {
         return IEnumACDGroup(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumACDGroup.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

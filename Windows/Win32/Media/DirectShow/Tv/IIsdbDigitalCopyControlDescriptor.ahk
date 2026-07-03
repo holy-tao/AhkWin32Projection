@@ -318,11 +318,11 @@ export default struct IIsdbDigitalCopyControlDescriptor extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IIsdbDigitalCopyControlDescriptor.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

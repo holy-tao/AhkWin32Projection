@@ -53,11 +53,11 @@ export default struct ITfQueryEmbedded extends IUnknown {
         return pfInsertable
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfQueryEmbedded.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

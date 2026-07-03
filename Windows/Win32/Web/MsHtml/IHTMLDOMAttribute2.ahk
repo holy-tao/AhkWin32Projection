@@ -326,11 +326,11 @@ export default struct IHTMLDOMAttribute2 extends IDispatch {
         return IHTMLDOMAttribute(clonedNode)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLDOMAttribute2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

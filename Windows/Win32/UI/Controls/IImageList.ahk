@@ -716,11 +716,11 @@ export default struct IImageList extends IUnknown {
         return piIndex
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IImageList.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

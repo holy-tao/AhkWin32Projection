@@ -116,11 +116,11 @@ export default struct IUpdateServiceRegistration extends IDispatch {
         return IUpdateService2(retval)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUpdateServiceRegistration.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

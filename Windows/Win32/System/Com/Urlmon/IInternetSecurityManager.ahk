@@ -160,11 +160,11 @@ export default struct IInternetSecurityManager extends IUnknown {
         return IEnumString(ppenumString)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IInternetSecurityManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

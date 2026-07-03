@@ -49,11 +49,11 @@ export default struct ITsSbPlacementNotifySink extends ITsSbBaseNotifySink {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITsSbPlacementNotifySink.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

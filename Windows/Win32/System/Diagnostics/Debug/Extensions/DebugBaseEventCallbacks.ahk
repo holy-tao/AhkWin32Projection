@@ -28,11 +28,11 @@ export default struct DebugBaseEventCallbacks extends IDebugEventCallbacks {
         super.__New(implObj, flags)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (DebugBaseEventCallbacks.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

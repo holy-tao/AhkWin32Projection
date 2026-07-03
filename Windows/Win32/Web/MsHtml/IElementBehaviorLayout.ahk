@@ -86,11 +86,11 @@ export default struct IElementBehaviorLayout extends IUnknown {
         return prcOut
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IElementBehaviorLayout.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

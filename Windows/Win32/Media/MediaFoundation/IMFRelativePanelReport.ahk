@@ -49,11 +49,11 @@ export default struct IMFRelativePanelReport extends IUnknown {
         return panel
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFRelativePanelReport.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

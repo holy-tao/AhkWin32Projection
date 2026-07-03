@@ -73,11 +73,11 @@ export default struct IDebugHostType6 extends IDebugHostType5 {
         return IDebugHostType(pUpcastedCaseType)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugHostType6.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

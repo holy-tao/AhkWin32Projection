@@ -150,11 +150,11 @@ export default struct IAudioClock extends IUnknown {
         return pdwCharacteristics
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAudioClock.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -142,11 +142,11 @@ export default struct ITfFnGetPreferredTouchKeyboardLayout extends ITfFunction {
         return pTKBLayoutType
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfFnGetPreferredTouchKeyboardLayout.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

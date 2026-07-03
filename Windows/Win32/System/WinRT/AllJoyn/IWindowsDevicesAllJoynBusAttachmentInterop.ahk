@@ -53,11 +53,11 @@ export default struct IWindowsDevicesAllJoynBusAttachmentInterop extends IInspec
         return value
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWindowsDevicesAllJoynBusAttachmentInterop.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

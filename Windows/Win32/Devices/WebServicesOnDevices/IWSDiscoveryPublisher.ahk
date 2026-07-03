@@ -1073,11 +1073,11 @@ export default struct IWSDiscoveryPublisher extends IUnknown {
         return IWSDXMLContext(ppContext)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWSDiscoveryPublisher.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

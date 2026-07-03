@@ -80,11 +80,11 @@ export default struct IRTCEnumWatchers extends IUnknown {
         return IRTCEnumWatchers(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRTCEnumWatchers.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

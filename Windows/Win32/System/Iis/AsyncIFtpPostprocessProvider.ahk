@@ -63,11 +63,11 @@ export default struct AsyncIFtpPostprocessProvider extends IUnknown {
         return pFtpProcessStatus
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (AsyncIFtpPostprocessProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

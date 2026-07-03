@@ -154,11 +154,11 @@ export default struct IOpcSignaturePartReferenceEnumerator extends IUnknown {
         return IOpcSignaturePartReferenceEnumerator(copy)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOpcSignaturePartReferenceEnumerator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

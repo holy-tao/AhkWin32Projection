@@ -195,11 +195,11 @@ export default struct IMSMQManagement extends IDispatch {
         return pvBytesInQueue
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSMQManagement.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

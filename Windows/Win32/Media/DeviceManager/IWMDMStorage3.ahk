@@ -201,11 +201,11 @@ export default struct IWMDMStorage3 extends IWMDMStorage2 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMDMStorage3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

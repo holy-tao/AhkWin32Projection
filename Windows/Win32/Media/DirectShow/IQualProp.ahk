@@ -150,11 +150,11 @@ export default struct IQualProp extends IUnknown {
         return piDev
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IQualProp.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

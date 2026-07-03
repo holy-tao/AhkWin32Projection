@@ -107,11 +107,11 @@ export default struct IProxyProviderWinEventSink extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IProxyProviderWinEventSink.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

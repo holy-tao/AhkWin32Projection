@@ -87,11 +87,11 @@ export default struct IMFWorkQueueServicesEx extends IMFWorkQueueServices {
         return plPriority
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFWorkQueueServicesEx.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

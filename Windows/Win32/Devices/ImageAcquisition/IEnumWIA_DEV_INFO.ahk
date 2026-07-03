@@ -150,11 +150,11 @@ export default struct IEnumWIA_DEV_INFO extends IUnknown {
         return celt
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumWIA_DEV_INFO.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

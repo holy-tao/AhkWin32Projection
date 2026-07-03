@@ -93,11 +93,11 @@ export default struct IMILBitmapEffectConnectorInfo extends IUnknown {
         return pFormat
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMILBitmapEffectConnectorInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

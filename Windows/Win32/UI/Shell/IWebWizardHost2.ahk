@@ -49,11 +49,11 @@ export default struct IWebWizardHost2 extends IWebWizardHost {
         return signedValue
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWebWizardHost2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

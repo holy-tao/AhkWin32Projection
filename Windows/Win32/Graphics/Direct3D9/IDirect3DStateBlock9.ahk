@@ -112,11 +112,11 @@ export default struct IDirect3DStateBlock9 extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDirect3DStateBlock9.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

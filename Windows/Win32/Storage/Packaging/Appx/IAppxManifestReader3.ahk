@@ -58,11 +58,11 @@ export default struct IAppxManifestReader3 extends IAppxManifestReader2 {
         return IAppxManifestTargetDeviceFamiliesEnumerator(targetDeviceFamilies)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxManifestReader3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

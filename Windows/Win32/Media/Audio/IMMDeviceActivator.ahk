@@ -49,11 +49,11 @@ export default struct IMMDeviceActivator extends IUnknown {
         return ppInterface
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMMDeviceActivator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

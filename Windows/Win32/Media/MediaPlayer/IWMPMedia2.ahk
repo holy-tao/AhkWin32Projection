@@ -57,11 +57,11 @@ export default struct IWMPMedia2 extends IWMPMedia {
         return IWMPErrorItem(ppIWMPErrorItem)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMPMedia2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

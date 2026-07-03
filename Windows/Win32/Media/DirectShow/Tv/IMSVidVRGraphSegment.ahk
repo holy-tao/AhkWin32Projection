@@ -335,11 +335,11 @@ export default struct IMSVidVRGraphSegment extends IMSVidGraphSegment {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSVidVRGraphSegment.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

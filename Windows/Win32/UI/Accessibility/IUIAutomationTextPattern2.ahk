@@ -77,11 +77,11 @@ export default struct IUIAutomationTextPattern2 extends IUIAutomationTextPattern
         return IUIAutomationTextRange(range)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAutomationTextPattern2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

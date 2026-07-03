@@ -122,11 +122,11 @@ export default struct IDataModelScriptDebugStackFrame extends IUnknown {
         return IDataModelScriptDebugVariableSetEnumerator(variablesEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDataModelScriptDebugStackFrame.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

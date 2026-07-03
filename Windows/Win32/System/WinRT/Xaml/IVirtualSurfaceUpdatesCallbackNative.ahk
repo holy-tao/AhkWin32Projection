@@ -48,11 +48,11 @@ export default struct IVirtualSurfaceUpdatesCallbackNative extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVirtualSurfaceUpdatesCallbackNative.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

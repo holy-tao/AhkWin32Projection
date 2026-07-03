@@ -53,11 +53,11 @@ export default struct IServiceTransactionConfig extends IServiceTransactionConfi
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IServiceTransactionConfig.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -78,11 +78,11 @@ export default struct ISyncChangeBatch2 extends ISyncChangeBatch {
         return ISyncChangeBuilder(ppChangeBuilder)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISyncChangeBatch2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

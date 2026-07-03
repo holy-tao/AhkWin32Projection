@@ -61,11 +61,11 @@ export default struct IWICBitmapFrameChainWriter extends IUnknown {
         return pfIsSupported
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWICBitmapFrameChainWriter.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

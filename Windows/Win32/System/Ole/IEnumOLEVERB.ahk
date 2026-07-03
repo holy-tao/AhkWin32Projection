@@ -91,11 +91,11 @@ export default struct IEnumOLEVERB extends IUnknown {
         return IEnumOLEVERB(ppenum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumOLEVERB.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -64,11 +64,11 @@ export default struct IUpdateEx extends IUpdate5 {
         return retval
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUpdateEx.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

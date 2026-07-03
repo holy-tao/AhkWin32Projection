@@ -184,11 +184,11 @@ export default struct ICertPropertyBackedUp extends ICertProperty {
         return pDate
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICertPropertyBackedUp.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

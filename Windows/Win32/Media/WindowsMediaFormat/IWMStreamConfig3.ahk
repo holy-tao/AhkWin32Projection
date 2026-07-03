@@ -72,11 +72,11 @@ export default struct IWMStreamConfig3 extends IWMStreamConfig2 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMStreamConfig3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

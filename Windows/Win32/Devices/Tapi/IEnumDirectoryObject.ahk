@@ -143,11 +143,11 @@ export default struct IEnumDirectoryObject extends IUnknown {
         return IEnumDirectoryObject(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumDirectoryObject.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

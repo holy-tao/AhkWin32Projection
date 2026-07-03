@@ -64,11 +64,11 @@ export default struct IUIAutomationEventHandler extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAutomationEventHandler.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

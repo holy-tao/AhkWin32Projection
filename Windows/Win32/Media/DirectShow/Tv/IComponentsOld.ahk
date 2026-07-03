@@ -127,11 +127,11 @@ export default struct IComponentsOld extends IDispatch {
         return IComponents(NewList)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IComponentsOld.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

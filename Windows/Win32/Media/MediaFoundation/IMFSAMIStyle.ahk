@@ -88,11 +88,11 @@ export default struct IMFSAMIStyle extends IUnknown {
         return ppwszStyle
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFSAMIStyle.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

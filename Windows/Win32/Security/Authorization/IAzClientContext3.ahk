@@ -179,11 +179,11 @@ export default struct IAzClientContext3 extends IAzClientContext2 {
         return pStringSidArray
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAzClientContext3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

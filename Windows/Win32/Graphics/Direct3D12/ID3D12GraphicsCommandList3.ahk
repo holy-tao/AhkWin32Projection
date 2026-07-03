@@ -49,11 +49,11 @@ export default struct ID3D12GraphicsCommandList3 extends ID3D12GraphicsCommandLi
         ComCall(67, this, "ptr", pProtectedResourceSession)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12GraphicsCommandList3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

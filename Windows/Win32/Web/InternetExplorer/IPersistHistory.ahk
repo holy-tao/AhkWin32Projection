@@ -80,11 +80,11 @@ export default struct IPersistHistory extends IPersist {
         return pdwPositioncookie
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPersistHistory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

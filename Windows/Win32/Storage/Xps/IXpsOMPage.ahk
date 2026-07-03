@@ -1247,11 +1247,11 @@ export default struct IXpsOMPage extends IXpsOMPart {
         return IXpsOMPage(page)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsOMPage.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

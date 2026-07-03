@@ -84,11 +84,11 @@ export default struct IMPEG2StreamIdMap extends IUnknown {
         return IEnumStreamIdMap(ppIEnumStreamIdMap)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMPEG2StreamIdMap.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

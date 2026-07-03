@@ -82,11 +82,11 @@ export default struct IDedupBackupSupport extends IUnknown {
         return FileResults
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDedupBackupSupport.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -55,11 +55,11 @@ export default struct IMSAdminBase3W extends IMSAdminBase2W {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSAdminBase3W.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

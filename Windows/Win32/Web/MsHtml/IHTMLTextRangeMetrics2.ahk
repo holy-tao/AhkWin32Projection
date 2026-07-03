@@ -56,11 +56,11 @@ export default struct IHTMLTextRangeMetrics2 extends IDispatch {
         return IHTMLRect(pRect)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLTextRangeMetrics2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -1362,10 +1362,10 @@ export default struct IVssCreateWriterMetadata extends Win32ComInterface {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVssCreateWriterMetadata.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 }

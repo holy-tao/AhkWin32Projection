@@ -126,11 +126,11 @@ export default struct IWiaTransfer extends IUnknown {
         return IEnumWIA_FORMAT_INFO(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWiaTransfer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

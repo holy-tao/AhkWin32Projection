@@ -124,11 +124,11 @@ export default struct IAppxBundleManifestPackageInfo extends IUnknown {
         return IAppxManifestQualifiedResourcesEnumerator(resources)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxBundleManifestPackageInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

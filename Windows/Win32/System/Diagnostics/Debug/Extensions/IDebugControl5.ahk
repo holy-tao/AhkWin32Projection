@@ -2486,11 +2486,11 @@ export default struct IDebugControl5 extends IUnknown {
         return IDebugBreakpoint3(Bp)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugControl5.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

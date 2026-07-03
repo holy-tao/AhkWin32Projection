@@ -52,11 +52,11 @@ export default struct IPMBackgroundWorkerInfoEnumerator extends IUnknown {
         return IPMBackgroundWorkerInfo(ppBWInfo)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPMBackgroundWorkerInfoEnumerator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

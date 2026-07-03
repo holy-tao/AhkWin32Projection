@@ -52,11 +52,11 @@ export default struct IRDPSRAPIPerfCounterLoggingManager extends IUnknown {
         return IRDPSRAPIPerfCounterLogger(ppLogger)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRDPSRAPIPerfCounterLoggingManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

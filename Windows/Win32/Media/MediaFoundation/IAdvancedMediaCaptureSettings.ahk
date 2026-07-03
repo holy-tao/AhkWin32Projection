@@ -48,11 +48,11 @@ export default struct IAdvancedMediaCaptureSettings extends IUnknown {
         return IMFDXGIDeviceManager(value)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAdvancedMediaCaptureSettings.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

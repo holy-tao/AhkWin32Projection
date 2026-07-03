@@ -157,11 +157,11 @@ export default struct IHTMLOpsProfile extends IDispatch {
         return success
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLOpsProfile.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

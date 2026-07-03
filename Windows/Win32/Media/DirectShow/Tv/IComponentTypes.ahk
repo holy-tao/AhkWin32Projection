@@ -160,11 +160,11 @@ export default struct IComponentTypes extends IDispatch {
         return IComponentTypes(NewList)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IComponentTypes.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

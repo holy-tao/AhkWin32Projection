@@ -53,11 +53,11 @@ export default struct ILanguageExceptionTransform extends IUnknown {
         return IRestrictedErrorInfo(restrictedErrorInfo)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ILanguageExceptionTransform.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

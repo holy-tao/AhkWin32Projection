@@ -537,11 +537,11 @@ export default struct ISCTE_EAS extends IUnknown {
         return IGenericDescriptor(ppDescriptor)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISCTE_EAS.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -206,11 +206,11 @@ export default struct IMSVidStreamBufferSink extends IMSVidOutputDevice {
         return IUnknown(sbeConfig)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSVidStreamBufferSink.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

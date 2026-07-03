@@ -51,11 +51,11 @@ export default struct IExecuteCommandApplicationHostEnvironment extends IUnknown
         return pahe
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IExecuteCommandApplicationHostEnvironment.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

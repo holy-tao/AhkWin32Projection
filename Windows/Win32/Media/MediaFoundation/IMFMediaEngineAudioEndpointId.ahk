@@ -58,11 +58,11 @@ export default struct IMFMediaEngineAudioEndpointId extends IUnknown {
         return ppszEndpointId
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFMediaEngineAudioEndpointId.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

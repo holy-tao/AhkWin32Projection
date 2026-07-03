@@ -45,11 +45,11 @@ export default struct IAppxManifestReader4 extends IAppxManifestReader3 {
         return IAppxManifestOptionalPackageInfo(optionalPackageInfo)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxManifestReader4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

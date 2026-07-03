@@ -156,11 +156,11 @@ export default struct IIsdbSiParser2 extends IDvbSiParser2 {
         return IISDB_EMM(ppEMM)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IIsdbSiParser2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

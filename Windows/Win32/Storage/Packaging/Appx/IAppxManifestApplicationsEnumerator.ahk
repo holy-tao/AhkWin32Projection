@@ -85,11 +85,11 @@ export default struct IAppxManifestApplicationsEnumerator extends IUnknown {
         return hasNext
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxManifestApplicationsEnumerator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -86,11 +86,11 @@ export default struct ID2D1DCRenderTarget extends ID2D1RenderTarget {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1DCRenderTarget.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

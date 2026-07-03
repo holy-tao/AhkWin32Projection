@@ -47,11 +47,11 @@ export default struct IEquatableConcept extends IUnknown {
         return isEqual
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEquatableConcept.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

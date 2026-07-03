@@ -212,11 +212,11 @@ export default struct IOpcPartSet extends IUnknown {
         return IOpcPartEnumerator(partEnumerator)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOpcPartSet.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

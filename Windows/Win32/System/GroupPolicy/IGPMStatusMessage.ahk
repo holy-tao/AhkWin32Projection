@@ -145,11 +145,11 @@ export default struct IGPMStatusMessage extends IDispatch {
         return pVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGPMStatusMessage.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -380,11 +380,11 @@ export default struct ISpellChecker extends IUnknown {
         return IEnumSpellingError(value)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpellChecker.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -72,11 +72,11 @@ export default struct ID3D12PipelineLibrary1 extends ID3D12PipelineLibrary {
         return ppPipelineState
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12PipelineLibrary1.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -102,11 +102,11 @@ export default struct ITACDGroup extends IDispatch {
         return pVariant
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITACDGroup.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

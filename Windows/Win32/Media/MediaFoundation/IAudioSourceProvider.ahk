@@ -48,11 +48,11 @@ export default struct IAudioSourceProvider extends IUnknown {
         return pInterleavedAudioData
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAudioSourceProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

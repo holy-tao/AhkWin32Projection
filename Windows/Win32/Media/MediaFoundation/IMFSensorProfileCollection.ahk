@@ -106,11 +106,11 @@ export default struct IMFSensorProfileCollection extends IUnknown {
         ComCall(8, this, SENSORPROFILEID.Ptr, ProfileId)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFSensorProfileCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

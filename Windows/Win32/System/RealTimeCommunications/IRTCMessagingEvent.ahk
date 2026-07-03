@@ -143,11 +143,11 @@ export default struct IRTCMessagingEvent extends IDispatch {
         return penUserStatus
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRTCMessagingEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

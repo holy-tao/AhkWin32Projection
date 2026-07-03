@@ -131,11 +131,11 @@ export default struct IWMPMedia3 extends IWMPMedia2 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMPMedia3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

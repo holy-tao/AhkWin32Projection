@@ -152,11 +152,11 @@ export default struct IVdsHwProviderStoragePools extends IUnknown {
         return pullMaxLunSize
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVdsHwProviderStoragePools.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

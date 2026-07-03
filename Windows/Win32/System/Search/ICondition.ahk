@@ -178,11 +178,11 @@ export default struct ICondition extends IPersistStream {
         return ICondition(ppc)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICondition.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

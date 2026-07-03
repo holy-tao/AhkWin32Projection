@@ -203,11 +203,11 @@ export default struct IWMReaderCallbackAdvanced extends IUnknown {
         return INSSBuffer(ppBuffer)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMReaderCallbackAdvanced.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -108,11 +108,11 @@ export default struct IMbnConnectionManager extends IUnknown {
         return mbnConnections
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMbnConnectionManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

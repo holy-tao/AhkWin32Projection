@@ -67,11 +67,11 @@ export default struct ITCallInfo2 extends ITCallInfo {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITCallInfo2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

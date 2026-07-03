@@ -187,11 +187,11 @@ export default struct IDirect3DCubeTexture9 extends IDirect3DBaseTexture9 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDirect3DCubeTexture9.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

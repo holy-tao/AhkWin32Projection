@@ -135,11 +135,11 @@ export default struct IColumnData extends IUnknown {
         return ppColSortData
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IColumnData.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

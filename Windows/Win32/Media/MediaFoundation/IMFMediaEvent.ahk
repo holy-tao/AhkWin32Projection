@@ -126,11 +126,11 @@ export default struct IMFMediaEvent extends IMFAttributes {
         return pvValue
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFMediaEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

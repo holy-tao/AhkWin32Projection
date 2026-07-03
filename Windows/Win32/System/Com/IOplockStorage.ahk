@@ -69,11 +69,11 @@ export default struct IOplockStorage extends IUnknown {
         return ppstgOpen
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOplockStorage.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

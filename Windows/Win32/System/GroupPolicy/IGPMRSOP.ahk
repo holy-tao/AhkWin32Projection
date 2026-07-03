@@ -602,11 +602,11 @@ export default struct IGPMRSOP extends IDispatch {
         return IGPMResult(ppIGPMResult)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGPMRSOP.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

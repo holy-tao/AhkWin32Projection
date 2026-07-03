@@ -365,11 +365,11 @@ export default struct IDebugSystemObjects extends IUnknown {
         return ExeSize
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugSystemObjects.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

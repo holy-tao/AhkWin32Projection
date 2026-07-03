@@ -63,11 +63,11 @@ export default struct IPropertyDescription2 extends IPropertyDescription {
         return ppszImageRes
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPropertyDescription2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

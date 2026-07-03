@@ -139,11 +139,11 @@ export default struct IDWriteTextLayout1 extends IDWriteTextLayout {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteTextLayout1.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

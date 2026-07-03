@@ -118,11 +118,11 @@ export default struct IScopedOperations extends IBindResource {
         return IUnknown(ppRowset)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IScopedOperations.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

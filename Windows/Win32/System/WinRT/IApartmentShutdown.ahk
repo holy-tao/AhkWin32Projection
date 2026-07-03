@@ -48,11 +48,11 @@ export default struct IApartmentShutdown extends IUnknown {
         ComCall(3, this, Int64, ui64ApartmentIdentifier)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IApartmentShutdown.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -48,11 +48,11 @@ export default struct ICertExit2 extends ICertExit {
         return ICertManageModule(ppManageModule)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICertExit2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

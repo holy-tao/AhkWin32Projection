@@ -50,11 +50,11 @@ export default struct IMFVideoDeviceID extends IUnknown {
         return pDeviceID
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFVideoDeviceID.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

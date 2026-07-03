@@ -671,11 +671,11 @@ export default struct IFileOperation extends IUnknown {
         return pfAnyOperationsAborted
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFileOperation.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

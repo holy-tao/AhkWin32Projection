@@ -281,11 +281,11 @@ export default struct IWICBitmapCodecInfo extends IWICComponentInfo {
         return pfMatches
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWICBitmapCodecInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

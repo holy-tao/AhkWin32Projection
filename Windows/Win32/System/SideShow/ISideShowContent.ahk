@@ -86,11 +86,11 @@ export default struct ISideShowContent extends IUnknown {
         return out_pfDifferentiateContent
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISideShowContent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

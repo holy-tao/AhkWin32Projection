@@ -122,11 +122,11 @@ export default struct ICertEncodeDateArray extends IDispatch {
         return pstrBinary
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICertEncodeDateArray.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

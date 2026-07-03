@@ -59,11 +59,11 @@ export default struct IMFMediaKeySessionNotify2 extends IMFMediaKeySessionNotify
         ComCall(7, this)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFMediaKeySessionNotify2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

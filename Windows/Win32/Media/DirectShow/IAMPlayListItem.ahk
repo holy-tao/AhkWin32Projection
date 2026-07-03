@@ -157,11 +157,11 @@ export default struct IAMPlayListItem extends IUnknown {
         return prtScanDuration
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAMPlayListItem.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -103,11 +103,11 @@ export default struct ID2D1PathGeometry extends ID2D1Geometry {
         return count
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1PathGeometry.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

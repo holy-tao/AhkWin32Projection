@@ -75,11 +75,11 @@ export default struct ID3D11LibraryReflection extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D11LibraryReflection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

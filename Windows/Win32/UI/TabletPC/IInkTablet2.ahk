@@ -55,11 +55,11 @@ export default struct IInkTablet2 extends IDispatch {
         return Kind
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IInkTablet2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

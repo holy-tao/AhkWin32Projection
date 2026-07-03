@@ -72,11 +72,11 @@ export default struct IXpsPrintJob extends IUnknown {
         return jobStatus
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsPrintJob.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

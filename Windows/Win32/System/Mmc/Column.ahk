@@ -163,11 +163,11 @@ export default struct Column extends IDispatch {
         return IsSortColumn
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (Column.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

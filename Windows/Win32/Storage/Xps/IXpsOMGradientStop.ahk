@@ -278,11 +278,11 @@ export default struct IXpsOMGradientStop extends IUnknown {
         return IXpsOMGradientStop(gradientStop)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsOMGradientStop.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

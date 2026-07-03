@@ -91,11 +91,11 @@ export default struct ICorProfilerObjectEnum extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICorProfilerObjectEnum.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

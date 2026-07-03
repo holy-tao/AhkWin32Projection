@@ -68,11 +68,11 @@ export default struct IMachineDebugManager extends IUnknown {
         return IEnumRemoteDebugApplications(ppeda)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMachineDebugManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

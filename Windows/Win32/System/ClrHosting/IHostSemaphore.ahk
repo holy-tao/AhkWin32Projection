@@ -75,11 +75,11 @@ export default struct IHostSemaphore extends IUnknown {
         return lpPreviousCount
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHostSemaphore.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

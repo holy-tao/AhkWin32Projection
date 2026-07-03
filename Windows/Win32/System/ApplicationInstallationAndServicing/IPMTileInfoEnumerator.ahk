@@ -52,11 +52,11 @@ export default struct IPMTileInfoEnumerator extends IUnknown {
         return IPMTileInfo(ppTileInfo)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPMTileInfoEnumerator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

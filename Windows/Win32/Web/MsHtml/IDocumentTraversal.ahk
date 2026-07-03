@@ -66,11 +66,11 @@ export default struct IDocumentTraversal extends IDispatch {
         return IDOMTreeWalker(ppTreeWalker)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDocumentTraversal.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

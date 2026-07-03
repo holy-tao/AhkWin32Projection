@@ -45,11 +45,11 @@ export default struct ITargetEmbedding extends IUnknown {
         return ITargetFrame(ppTargetFrame)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITargetEmbedding.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

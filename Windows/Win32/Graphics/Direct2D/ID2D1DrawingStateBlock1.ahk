@@ -62,11 +62,11 @@ export default struct ID2D1DrawingStateBlock1 extends ID2D1DrawingStateBlock {
         ComCall(9, this, D2D1_DRAWING_STATE_DESCRIPTION1.Ptr, stateDescription)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1DrawingStateBlock1.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

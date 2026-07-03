@@ -69,11 +69,11 @@ export default struct IAuxInTuningSpace2 extends IAuxInTuningSpace {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAuxInTuningSpace2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

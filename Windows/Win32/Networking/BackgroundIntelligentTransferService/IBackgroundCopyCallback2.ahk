@@ -67,11 +67,11 @@ export default struct IBackgroundCopyCallback2 extends IBackgroundCopyCallback {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBackgroundCopyCallback2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -1113,11 +1113,11 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
         return IDispatch(p)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLWindow2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

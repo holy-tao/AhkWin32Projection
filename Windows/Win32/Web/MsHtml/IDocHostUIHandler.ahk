@@ -254,11 +254,11 @@ export default struct IDocHostUIHandler extends IUnknown {
         return IDataObject(ppDORet)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDocHostUIHandler.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

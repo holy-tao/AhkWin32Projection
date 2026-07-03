@@ -66,11 +66,11 @@ export default struct IObjectWithSite extends IUnknown {
         return ppvSite
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IObjectWithSite.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

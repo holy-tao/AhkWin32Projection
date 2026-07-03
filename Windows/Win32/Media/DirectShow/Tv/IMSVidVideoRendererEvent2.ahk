@@ -49,11 +49,11 @@ export default struct IMSVidVideoRendererEvent2 extends IMSVidOutputDeviceEvent 
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSVidVideoRendererEvent2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

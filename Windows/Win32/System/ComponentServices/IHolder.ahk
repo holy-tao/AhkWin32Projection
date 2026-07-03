@@ -477,11 +477,11 @@ export default struct IHolder extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHolder.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

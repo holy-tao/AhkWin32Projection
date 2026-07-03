@@ -904,11 +904,11 @@ export default struct IMediaSeeking extends IUnknown {
         return pllPreroll
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMediaSeeking.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

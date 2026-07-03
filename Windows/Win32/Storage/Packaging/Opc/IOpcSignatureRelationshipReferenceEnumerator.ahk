@@ -154,11 +154,11 @@ export default struct IOpcSignatureRelationshipReferenceEnumerator extends IUnkn
         return IOpcSignatureRelationshipReferenceEnumerator(copy)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOpcSignatureRelationshipReferenceEnumerator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

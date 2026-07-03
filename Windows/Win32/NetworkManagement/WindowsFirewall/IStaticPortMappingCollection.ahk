@@ -233,11 +233,11 @@ export default struct IStaticPortMappingCollection extends IDispatch {
         return IStaticPortMapping(ppSPM)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IStaticPortMappingCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

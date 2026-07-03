@@ -108,11 +108,11 @@ export default struct IDXGIDevice1 extends IDXGIDevice {
         return pMaxLatency
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDXGIDevice1.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -112,11 +112,11 @@ export default struct IAccessibleWindowlessSite extends IUnknown {
         return IAccessible(ppParent)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAccessibleWindowlessSite.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -119,11 +119,11 @@ export default struct IAMDevMemoryControl extends IUnknown {
         return pdwDevId
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAMDevMemoryControl.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

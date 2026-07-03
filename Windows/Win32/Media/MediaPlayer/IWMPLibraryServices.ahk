@@ -94,11 +94,11 @@ export default struct IWMPLibraryServices extends IUnknown {
         return IWMPLibrary(ppIWMPLibrary)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMPLibraryServices.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

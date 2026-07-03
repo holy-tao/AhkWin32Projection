@@ -59,11 +59,11 @@ export default struct IUpdateDownloadContent2 extends IUpdateDownloadContent {
         return retval
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUpdateDownloadContent2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

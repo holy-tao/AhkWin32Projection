@@ -90,11 +90,11 @@ export default struct ICertPolicy2 extends ICertPolicy {
         return ICertManageModule(ppManageModule)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICertPolicy2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

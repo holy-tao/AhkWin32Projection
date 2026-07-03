@@ -1545,11 +1545,11 @@ export default struct IDebugControl3 extends IUnknown {
         return NextIndex
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugControl3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

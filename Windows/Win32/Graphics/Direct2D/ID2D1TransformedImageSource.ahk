@@ -63,11 +63,11 @@ export default struct ID2D1TransformedImageSource extends ID2D1Image {
         ComCall(5, this, D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES.Ptr, _properties)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1TransformedImageSource.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -55,11 +55,11 @@ export default struct IDataModelScriptTemplateEnumerator extends IUnknown {
         return IDataModelScriptTemplate(templateContent)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDataModelScriptTemplateEnumerator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

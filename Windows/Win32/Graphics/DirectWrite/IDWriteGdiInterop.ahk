@@ -145,11 +145,11 @@ export default struct IDWriteGdiInterop extends IUnknown {
         return IDWriteBitmapRenderTarget(renderTarget)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteGdiInterop.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

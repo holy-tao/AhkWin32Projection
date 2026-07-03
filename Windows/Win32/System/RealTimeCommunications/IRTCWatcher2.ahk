@@ -70,11 +70,11 @@ export default struct IRTCWatcher2 extends IRTCWatcher {
         return penScope
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRTCWatcher2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

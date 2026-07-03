@@ -256,11 +256,11 @@ export default struct IVssAsync extends IUnknown {
         return pHrResult
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVssAsync.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

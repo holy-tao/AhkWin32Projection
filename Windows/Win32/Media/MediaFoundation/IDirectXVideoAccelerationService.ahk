@@ -70,11 +70,11 @@ export default struct IDirectXVideoAccelerationService extends IUnknown {
         return IDirect3DSurface9(ppSurface)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDirectXVideoAccelerationService.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

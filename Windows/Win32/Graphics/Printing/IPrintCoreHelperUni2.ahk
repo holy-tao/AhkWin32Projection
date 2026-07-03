@@ -55,11 +55,11 @@ export default struct IPrintCoreHelperUni2 extends IPrintCoreHelperUni {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPrintCoreHelperUni2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

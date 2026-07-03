@@ -74,11 +74,11 @@ export default struct IOpenServiceActivityOutputContext extends IUnknown {
         return pfCanNavigate
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOpenServiceActivityOutputContext.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

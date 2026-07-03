@@ -60,11 +60,11 @@ export default struct IVideoFrameNative extends IInspectable {
         return ppv
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVideoFrameNative.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

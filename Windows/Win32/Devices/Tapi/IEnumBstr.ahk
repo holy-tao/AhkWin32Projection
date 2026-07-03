@@ -142,11 +142,11 @@ export default struct IEnumBstr extends IUnknown {
         return IEnumBstr(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumBstr.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -70,11 +70,11 @@ export default struct ISurfacePresenter extends IUnknown {
         return pIsCurrent
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISurfacePresenter.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

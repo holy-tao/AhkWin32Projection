@@ -141,11 +141,11 @@ export default struct IEnumFeedClockVector extends IUnknown {
         return IEnumFeedClockVector(ppiEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumFeedClockVector.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

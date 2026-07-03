@@ -100,11 +100,11 @@ export default struct IADsFileService extends IADsService {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IADsFileService.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

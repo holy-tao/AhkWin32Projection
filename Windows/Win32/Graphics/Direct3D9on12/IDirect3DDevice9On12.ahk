@@ -82,11 +82,11 @@ export default struct IDirect3DDevice9On12 extends IUnknown {
         return ID3D12Fence(ppFences)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDirect3DDevice9On12.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

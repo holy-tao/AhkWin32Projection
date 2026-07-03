@@ -68,11 +68,11 @@ export default struct IEncodingFilterFactory extends IUnknown {
         return IDataFilter(ppDF)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEncodingFilterFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -125,11 +125,11 @@ export default struct IVdsVolumePlex extends IUnknown {
         return IVdsAsync(ppAsync)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVdsVolumePlex.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

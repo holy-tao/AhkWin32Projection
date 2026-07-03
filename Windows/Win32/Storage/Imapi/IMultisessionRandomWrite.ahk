@@ -99,11 +99,11 @@ export default struct IMultisessionRandomWrite extends IMultisession {
         return value
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMultisessionRandomWrite.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -66,11 +66,11 @@ export default struct IDWriteFontFallback1 extends IDWriteFontFallback {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteFontFallback1.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -157,11 +157,11 @@ export default struct IFolderActionCollection extends IDispatch {
         return IFolderAction(FolderAction)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFolderActionCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

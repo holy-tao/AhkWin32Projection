@@ -396,11 +396,11 @@ export default struct ITaskScheduler extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITaskScheduler.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

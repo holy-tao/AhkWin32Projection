@@ -77,11 +77,11 @@ export default struct IHTMLSelectElementEx extends IUnknown {
         return pfOpen
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLSelectElementEx.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

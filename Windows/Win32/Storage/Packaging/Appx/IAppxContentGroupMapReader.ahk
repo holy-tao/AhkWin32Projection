@@ -60,11 +60,11 @@ export default struct IAppxContentGroupMapReader extends IUnknown {
         return IAppxContentGroupsEnumerator(automaticGroupsEnumerator)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxContentGroupMapReader.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

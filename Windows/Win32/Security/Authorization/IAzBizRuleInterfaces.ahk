@@ -139,11 +139,11 @@ export default struct IAzBizRuleInterfaces extends IDispatch {
         return plCount
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAzBizRuleInterfaces.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

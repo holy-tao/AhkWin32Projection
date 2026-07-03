@@ -82,11 +82,11 @@ export default struct IStreamBufferSink2 extends IStreamBufferSink {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IStreamBufferSink2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

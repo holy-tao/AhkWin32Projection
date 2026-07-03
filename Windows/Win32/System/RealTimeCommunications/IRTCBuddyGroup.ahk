@@ -169,11 +169,11 @@ export default struct IRTCBuddyGroup extends IUnknown {
         return IRTCProfile2(ppProfile)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRTCBuddyGroup.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

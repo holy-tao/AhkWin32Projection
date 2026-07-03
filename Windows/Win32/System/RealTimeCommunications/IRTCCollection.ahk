@@ -82,11 +82,11 @@ export default struct IRTCCollection extends IDispatch {
         return IUnknown(ppNewEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRTCCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

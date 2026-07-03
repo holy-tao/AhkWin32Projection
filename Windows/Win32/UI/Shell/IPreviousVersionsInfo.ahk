@@ -107,11 +107,11 @@ export default struct IPreviousVersionsInfo extends IUnknown {
         return pfAvailable
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPreviousVersionsInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

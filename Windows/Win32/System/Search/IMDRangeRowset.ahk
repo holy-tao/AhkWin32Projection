@@ -51,11 +51,11 @@ export default struct IMDRangeRowset extends IUnknown {
         return IUnknown(ppRowset)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMDRangeRowset.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -55,11 +55,11 @@ export default struct IUIAutomationBoolCondition extends IUIAutomationCondition 
         return boolVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAutomationBoolCondition.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

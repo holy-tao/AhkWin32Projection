@@ -55,11 +55,11 @@ export default struct IDataModelScriptProviderEnumerator extends IUnknown {
         return IDataModelScriptProvider(provider)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDataModelScriptProviderEnumerator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

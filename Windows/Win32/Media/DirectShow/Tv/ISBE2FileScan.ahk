@@ -93,11 +93,11 @@ export default struct ISBE2FileScan extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISBE2FileScan.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

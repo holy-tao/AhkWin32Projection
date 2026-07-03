@@ -75,11 +75,11 @@ export default struct IAudioSystemEffects3 extends IAudioSystemEffects2 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAudioSystemEffects3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

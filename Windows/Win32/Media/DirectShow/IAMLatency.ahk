@@ -47,11 +47,11 @@ export default struct IAMLatency extends IUnknown {
         return prtLatency
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAMLatency.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

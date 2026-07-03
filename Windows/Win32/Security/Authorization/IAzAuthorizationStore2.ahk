@@ -73,11 +73,11 @@ export default struct IAzAuthorizationStore2 extends IAzAuthorizationStore {
         return IAzApplication2(ppApplication)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAzAuthorizationStore2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

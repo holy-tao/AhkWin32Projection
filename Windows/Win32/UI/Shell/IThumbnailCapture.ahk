@@ -58,11 +58,11 @@ export default struct IThumbnailCapture extends IUnknown {
         return phbmThumbnail
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IThumbnailCapture.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -99,11 +99,11 @@ export default struct IHTMLFontSizesCollection extends IDispatch {
         return plSize
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLFontSizesCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

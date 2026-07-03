@@ -44,11 +44,11 @@ export default struct IDebugHostBaseClass extends IDebugHostSymbol {
         return offset
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugHostBaseClass.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

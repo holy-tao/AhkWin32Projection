@@ -191,11 +191,11 @@ export default struct IEnumSyncProviderInfos extends IUnknown {
         return IEnumSyncProviderInfos(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumSyncProviderInfos.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

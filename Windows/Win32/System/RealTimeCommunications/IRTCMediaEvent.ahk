@@ -87,11 +87,11 @@ export default struct IRTCMediaEvent extends IDispatch {
         return penEventReason
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRTCMediaEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -129,11 +129,11 @@ export default struct IDWriteFactory4 extends IDWriteFactory3 {
         return glyphOrigins
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteFactory4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

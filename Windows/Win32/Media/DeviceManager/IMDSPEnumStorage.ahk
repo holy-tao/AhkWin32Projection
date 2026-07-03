@@ -117,11 +117,11 @@ export default struct IMDSPEnumStorage extends IUnknown {
         return IMDSPEnumStorage(ppEnumStorage)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMDSPEnumStorage.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

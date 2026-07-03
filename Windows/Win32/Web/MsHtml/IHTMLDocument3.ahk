@@ -643,11 +643,11 @@ export default struct IHTMLDocument3 extends IDispatch {
         return IHTMLElementCollection(pelColl)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLDocument3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

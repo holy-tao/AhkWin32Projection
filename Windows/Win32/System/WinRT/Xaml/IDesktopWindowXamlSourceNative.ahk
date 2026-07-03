@@ -77,11 +77,11 @@ export default struct IDesktopWindowXamlSourceNative extends IUnknown {
         return _hWnd
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDesktopWindowXamlSourceNative.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

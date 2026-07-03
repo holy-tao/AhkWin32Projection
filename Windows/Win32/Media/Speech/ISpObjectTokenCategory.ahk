@@ -117,11 +117,11 @@ export default struct ISpObjectTokenCategory extends ISpDataKey {
         return ppszCoMemTokenId
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpObjectTokenCategory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

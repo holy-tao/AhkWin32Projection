@@ -167,11 +167,11 @@ export default struct IMDSPObjectInfo extends IUnknown {
         return pdwLongestPos
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMDSPObjectInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

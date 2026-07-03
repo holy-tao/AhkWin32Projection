@@ -242,11 +242,11 @@ export default struct IDXCoreAdapter extends IUnknown {
         return ppvFactory
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDXCoreAdapter.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

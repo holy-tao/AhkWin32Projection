@@ -121,11 +121,11 @@ export default struct ITfLangBarItem extends IUnknown {
         return pbstrToolTip
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfLangBarItem.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

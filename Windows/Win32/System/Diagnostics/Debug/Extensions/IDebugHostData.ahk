@@ -69,11 +69,11 @@ export default struct IDebugHostData extends IDebugHostSymbol {
         return value
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugHostData.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

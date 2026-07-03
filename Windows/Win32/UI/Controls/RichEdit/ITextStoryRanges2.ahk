@@ -55,11 +55,11 @@ export default struct ITextStoryRanges2 extends ITextStoryRanges {
         return ITextRange2(ppRange)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITextStoryRanges2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

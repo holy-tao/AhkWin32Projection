@@ -118,11 +118,11 @@ export default struct IWICPixelFormatInfo extends IWICComponentInfo {
         return pcbActual
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWICPixelFormatInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

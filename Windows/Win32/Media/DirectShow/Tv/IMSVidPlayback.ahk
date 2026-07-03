@@ -649,11 +649,11 @@ export default struct IMSVidPlayback extends IMSVidInputDevice {
         return lLength
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSVidPlayback.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

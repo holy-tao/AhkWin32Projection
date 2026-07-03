@@ -396,11 +396,11 @@ export default struct ITextStoreACPSink extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITextStoreACPSink.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

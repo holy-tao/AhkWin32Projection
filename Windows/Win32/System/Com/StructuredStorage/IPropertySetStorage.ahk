@@ -194,11 +194,11 @@ export default struct IPropertySetStorage extends IUnknown {
         return IEnumSTATPROPSETSTG(ppenum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPropertySetStorage.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

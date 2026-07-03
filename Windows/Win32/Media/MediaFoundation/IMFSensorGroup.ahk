@@ -195,11 +195,11 @@ export default struct IMFSensorGroup extends IUnknown {
         return IMFMediaSource(ppSource)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFSensorGroup.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

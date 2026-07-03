@@ -236,11 +236,11 @@ export default struct IWMPEvents3 extends IWMPEvents2 {
         ComCall(64, this, "ptr", pdispMedia)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMPEvents3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -98,7 +98,7 @@ struct Win32ComInterface {
         }
 
         ; Per-instance IID (e.g. parameterized COM types)
-        if (this.Query(riid) || (this.HasProp("IID") && this.IID.Equals(riid))) {
+        if (this._Query(riid) || (this.HasProp("IID") && this.IID.Equals(riid))) {
             NumPut("ptr", this.ptr, comOutPtr)
             this.AddRef()
             return 0  ; S_OK
@@ -116,7 +116,7 @@ struct Win32ComInterface {
         return --this.refCount
     }
 
-    Query(iid) => false
+    _Query(iid) => false
 
     /**
      * Chain target for derived `Implement` overrides. The most-derived class's

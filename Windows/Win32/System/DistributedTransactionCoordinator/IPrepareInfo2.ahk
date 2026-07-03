@@ -55,11 +55,11 @@ export default struct IPrepareInfo2 extends IUnknown {
         return pPrepInfo
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPrepareInfo2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

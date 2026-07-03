@@ -60,11 +60,11 @@ export default struct IXMLDOMDocument3 extends IXMLDOMDocument2 {
         return IXMLDOMNode(clone)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXMLDOMDocument3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

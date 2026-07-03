@@ -184,11 +184,11 @@ export default struct _AppEvents extends IDispatch {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (_AppEvents.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

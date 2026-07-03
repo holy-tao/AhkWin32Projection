@@ -73,11 +73,11 @@ export default struct ITipHelper extends IUnknown {
         return o_ppszLocalTmUrl
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITipHelper.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

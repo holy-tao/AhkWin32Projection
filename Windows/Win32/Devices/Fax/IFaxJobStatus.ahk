@@ -364,11 +364,11 @@ export default struct IFaxJobStatus extends IDispatch {
         return pbstrRoutingInformation
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFaxJobStatus.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

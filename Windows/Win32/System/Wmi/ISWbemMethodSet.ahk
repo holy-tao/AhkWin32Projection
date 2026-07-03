@@ -97,11 +97,11 @@ export default struct ISWbemMethodSet extends IDispatch {
         return iCount
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISWbemMethodSet.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

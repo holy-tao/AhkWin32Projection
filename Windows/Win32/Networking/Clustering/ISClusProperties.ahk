@@ -201,11 +201,11 @@ export default struct ISClusProperties extends IDispatch {
         return pvarModified
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISClusProperties.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

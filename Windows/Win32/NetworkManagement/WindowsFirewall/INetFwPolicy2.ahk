@@ -562,11 +562,11 @@ export default struct INetFwPolicy2 extends IDispatch {
         return modifyState
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (INetFwPolicy2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

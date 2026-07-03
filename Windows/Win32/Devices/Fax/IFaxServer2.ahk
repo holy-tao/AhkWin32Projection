@@ -114,11 +114,11 @@ export default struct IFaxServer2 extends IFaxServer {
         return IFaxSecurity2(ppFaxSecurity2)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFaxServer2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

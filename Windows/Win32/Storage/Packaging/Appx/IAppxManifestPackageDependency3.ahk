@@ -45,11 +45,11 @@ export default struct IAppxManifestPackageDependency3 extends IUnknown {
         return isOptional
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxManifestPackageDependency3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

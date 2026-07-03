@@ -64,11 +64,11 @@ export default struct IPrinterQueue2 extends IPrinterQueue {
         return IPrinterQueueView(ppJobView)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPrinterQueue2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

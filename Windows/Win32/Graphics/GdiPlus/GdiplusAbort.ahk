@@ -38,10 +38,10 @@ export default struct GdiplusAbort extends Win32ComInterface {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (GdiplusAbort.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 }

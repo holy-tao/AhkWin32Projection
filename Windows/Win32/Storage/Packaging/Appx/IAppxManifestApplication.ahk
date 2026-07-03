@@ -103,11 +103,11 @@ export default struct IAppxManifestApplication extends IUnknown {
         return appUserModelId
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxManifestApplication.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

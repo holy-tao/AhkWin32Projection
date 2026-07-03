@@ -152,11 +152,11 @@ export default struct IHTMLTable4 extends IDispatch {
         return IHTMLTableSection(tbody)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLTable4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -337,11 +337,11 @@ export default struct IVdsLunMpio extends IUnknown {
         return pulLbFlags
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVdsLunMpio.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

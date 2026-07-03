@@ -459,11 +459,11 @@ export default struct IMFASFSplitter extends IUnknown {
         return pdwLastSendTime
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFASFSplitter.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

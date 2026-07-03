@@ -44,11 +44,11 @@ export default struct IDirectSound8 extends IDirectSound {
         return pdwCertified
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDirectSound8.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -101,11 +101,11 @@ export default struct IDvbLogicalChannelDescriptor extends IUnknown {
         return pwVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDvbLogicalChannelDescriptor.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

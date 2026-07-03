@@ -60,11 +60,11 @@ export default struct IPixelFilter extends IFilter {
         return pixelBuffer
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPixelFilter.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

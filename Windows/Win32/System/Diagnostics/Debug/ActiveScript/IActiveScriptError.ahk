@@ -75,11 +75,11 @@ export default struct IActiveScriptError extends IUnknown {
         return pbstrSourceLine
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IActiveScriptError.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -107,11 +107,11 @@ export default struct IUIAutomationExpandCollapsePattern extends IUnknown {
         return retVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAutomationExpandCollapsePattern.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

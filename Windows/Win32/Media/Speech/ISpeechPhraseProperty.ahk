@@ -193,11 +193,11 @@ export default struct ISpeechPhraseProperty extends IDispatch {
         return ISpeechPhraseProperties(Children)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpeechPhraseProperty.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -201,11 +201,11 @@ export default struct ITForwardInformation2 extends ITForwardInformation {
         return pCallerAddressType
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITForwardInformation2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

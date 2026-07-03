@@ -76,11 +76,11 @@ export default struct IMPEG2ComponentType extends ILanguageComponentType {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMPEG2ComponentType.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

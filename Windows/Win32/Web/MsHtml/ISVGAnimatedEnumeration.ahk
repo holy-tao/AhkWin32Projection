@@ -98,11 +98,11 @@ export default struct ISVGAnimatedEnumeration extends IDispatch {
         return p
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISVGAnimatedEnumeration.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

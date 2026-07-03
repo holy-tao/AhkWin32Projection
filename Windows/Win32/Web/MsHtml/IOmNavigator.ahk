@@ -369,11 +369,11 @@ export default struct IOmNavigator extends IDispatch {
         return IHTMLOpsProfile(p)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOmNavigator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -136,11 +136,11 @@ export default struct ITfCompartmentMgr extends IUnknown {
         return IEnumGUID(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfCompartmentMgr.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -1655,11 +1655,11 @@ export default struct IFileSystemImage extends IDispatch {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFileSystemImage.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

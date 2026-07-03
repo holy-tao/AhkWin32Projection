@@ -218,11 +218,11 @@ export default struct IEnumDot11AdHocSecuritySettings extends IUnknown {
         return IEnumDot11AdHocSecuritySettings(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumDot11AdHocSecuritySettings.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -142,11 +142,11 @@ export default struct ISBE2MediaTypeProfile extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISBE2MediaTypeProfile.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

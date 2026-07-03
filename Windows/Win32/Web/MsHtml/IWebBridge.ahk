@@ -170,11 +170,11 @@ export default struct IWebBridge extends IDispatch {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWebBridge.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

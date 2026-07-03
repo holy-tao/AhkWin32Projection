@@ -50,11 +50,11 @@ export default struct IPortableDeviceServiceMethodCallback extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPortableDeviceServiceMethodCallback.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -43,11 +43,11 @@ export default struct IMSVidDataServices extends IMSVidFeature {
         super.__New(implObj, flags)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSVidDataServices.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

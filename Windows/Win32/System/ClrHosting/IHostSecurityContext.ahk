@@ -47,11 +47,11 @@ export default struct IHostSecurityContext extends IUnknown {
         return IHostSecurityContext(ppClonedContext)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHostSecurityContext.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

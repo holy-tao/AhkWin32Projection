@@ -52,11 +52,11 @@ export default struct IDirectInput7W extends IDirectInput2W {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDirectInput7W.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

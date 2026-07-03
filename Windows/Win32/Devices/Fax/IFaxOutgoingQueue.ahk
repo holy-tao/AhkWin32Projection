@@ -487,11 +487,11 @@ export default struct IFaxOutgoingQueue extends IDispatch {
         return IFaxOutgoingJob(pFaxOutgoingJob)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFaxOutgoingQueue.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

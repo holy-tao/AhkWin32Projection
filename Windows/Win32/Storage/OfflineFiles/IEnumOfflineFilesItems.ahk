@@ -110,11 +110,11 @@ export default struct IEnumOfflineFilesItems extends IUnknown {
         return IEnumOfflineFilesItems(ppenum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumOfflineFilesItems.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

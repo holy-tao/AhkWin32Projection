@@ -67,11 +67,11 @@ export default struct INetFwRule2 extends INetFwRule {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (INetFwRule2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

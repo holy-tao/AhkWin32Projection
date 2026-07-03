@@ -143,11 +143,11 @@ export default struct IXpsOMFontResourceCollection extends IUnknown {
         return IXpsOMFontResource(part)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsOMFontResourceCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

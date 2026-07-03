@@ -179,11 +179,11 @@ export default struct IPerPropertyBrowsing extends IUnknown {
         return pVarOut
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPerPropertyBrowsing.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -292,11 +292,11 @@ export default struct Document extends IDispatch {
         return _Application(_Application)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (Document.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

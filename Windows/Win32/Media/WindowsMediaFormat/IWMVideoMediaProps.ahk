@@ -90,11 +90,11 @@ export default struct IWMVideoMediaProps extends IWMMediaProps {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMVideoMediaProps.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

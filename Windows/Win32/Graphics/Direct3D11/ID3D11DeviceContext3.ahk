@@ -93,11 +93,11 @@ export default struct ID3D11DeviceContext3 extends ID3D11DeviceContext2 {
         ComCall(146, this, pHwProtectionEnableMarshal, pHwProtectionEnable)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D11DeviceContext3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

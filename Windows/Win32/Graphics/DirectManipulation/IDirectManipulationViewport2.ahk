@@ -83,11 +83,11 @@ export default struct IDirectManipulationViewport2 extends IDirectManipulationVi
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDirectManipulationViewport2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

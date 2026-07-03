@@ -82,11 +82,11 @@ export default struct IGenericDescriptor2 extends IGenericDescriptor {
         return pwVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGenericDescriptor2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

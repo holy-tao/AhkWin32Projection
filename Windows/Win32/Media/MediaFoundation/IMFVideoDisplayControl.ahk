@@ -706,11 +706,11 @@ export default struct IMFVideoDisplayControl extends IUnknown {
         return pfFullscreen
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFVideoDisplayControl.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

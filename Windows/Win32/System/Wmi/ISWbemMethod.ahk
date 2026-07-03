@@ -130,11 +130,11 @@ export default struct ISWbemMethod extends IDispatch {
         return ISWbemQualifierSet(objWbemQualifierSet)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISWbemMethod.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

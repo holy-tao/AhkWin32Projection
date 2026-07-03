@@ -103,11 +103,11 @@ export default struct IFaxIncomingJobs extends IDispatch {
         return plCount
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFaxIncomingJobs.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -49,11 +49,11 @@ export default struct IProvideClassInfo2 extends IProvideClassInfo {
         return pGUID
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IProvideClassInfo2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

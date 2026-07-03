@@ -60,11 +60,11 @@ export default struct IDWriteFactory8 extends IDWriteFactory7 {
         return IDWriteColorGlyphRunEnumerator1(colorEnumerator)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteFactory8.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -297,11 +297,11 @@ export default struct IDebugApplication64 extends IRemoteDebugApplication {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugApplication64.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

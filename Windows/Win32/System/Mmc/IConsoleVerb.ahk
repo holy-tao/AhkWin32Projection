@@ -108,11 +108,11 @@ export default struct IConsoleVerb extends IUnknown {
         return peCmdID
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IConsoleVerb.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

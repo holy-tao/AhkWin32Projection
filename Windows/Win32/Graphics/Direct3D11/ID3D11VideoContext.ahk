@@ -1317,11 +1317,11 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
         ComCall(64, this, "ptr", pVideoProcessor, UInt32, StreamIndex, pEnableMarshal, pEnable, pRotationMarshal, pRotation)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D11VideoContext.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

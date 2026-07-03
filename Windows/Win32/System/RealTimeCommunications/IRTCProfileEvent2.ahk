@@ -52,11 +52,11 @@ export default struct IRTCProfileEvent2 extends IRTCProfileEvent {
         return pEventType
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRTCProfileEvent2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

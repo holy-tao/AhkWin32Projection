@@ -161,11 +161,11 @@ export default struct IHostSyncManager extends IUnknown {
         return IHostSemaphore(ppSemaphore)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHostSyncManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

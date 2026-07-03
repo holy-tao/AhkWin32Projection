@@ -519,11 +519,11 @@ export default struct IUPnPDescriptionDocument extends IDispatch {
         return IUPnPDevice(ppudDevice)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUPnPDescriptionDocument.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

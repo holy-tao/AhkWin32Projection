@@ -130,11 +130,11 @@ export default struct IVersionInfo extends IUnknown {
         return pImplStr
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVersionInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

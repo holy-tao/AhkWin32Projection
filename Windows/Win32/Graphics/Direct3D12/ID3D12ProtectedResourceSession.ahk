@@ -47,11 +47,11 @@ export default struct ID3D12ProtectedResourceSession extends ID3D12ProtectedSess
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12ProtectedResourceSession.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

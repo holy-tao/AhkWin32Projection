@@ -538,11 +538,11 @@ export default struct IVMRWindowlessControl9 extends IUnknown {
         return lpClr
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVMRWindowlessControl9.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

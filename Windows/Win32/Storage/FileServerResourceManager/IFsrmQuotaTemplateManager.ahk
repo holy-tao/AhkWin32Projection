@@ -145,11 +145,11 @@ export default struct IFsrmQuotaTemplateManager extends IDispatch {
         return IFsrmCommittableCollection(quotaTemplates)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFsrmQuotaTemplateManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

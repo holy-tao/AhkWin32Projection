@@ -78,11 +78,11 @@ export default struct IBanneredBar extends IUnknown {
         return phBitmap
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBanneredBar.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

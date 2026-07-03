@@ -92,11 +92,11 @@ export default struct ISClusNodes extends IDispatch {
         return ISClusNode(ppNode)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISClusNodes.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

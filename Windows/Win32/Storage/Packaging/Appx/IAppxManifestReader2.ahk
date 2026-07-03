@@ -57,11 +57,11 @@ export default struct IAppxManifestReader2 extends IAppxManifestReader {
         return IAppxManifestQualifiedResourcesEnumerator(resources)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxManifestReader2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -80,11 +80,11 @@ export default struct ITQueueEvent extends IDispatch {
         return pEvent
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITQueueEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

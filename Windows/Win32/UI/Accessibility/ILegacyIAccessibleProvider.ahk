@@ -283,11 +283,11 @@ export default struct ILegacyIAccessibleProvider extends IUnknown {
         return pszDefaultAction
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ILegacyIAccessibleProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

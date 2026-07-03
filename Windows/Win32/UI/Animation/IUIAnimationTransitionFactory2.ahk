@@ -60,11 +60,11 @@ export default struct IUIAnimationTransitionFactory2 extends IUnknown {
         return IUIAnimationTransition2(transition)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAnimationTransitionFactory2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

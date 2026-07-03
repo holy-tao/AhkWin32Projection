@@ -111,11 +111,11 @@ export default struct IDCompositionSurfaceFactory extends IUnknown {
         return IDCompositionVirtualSurface(virtualSurface)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDCompositionSurfaceFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

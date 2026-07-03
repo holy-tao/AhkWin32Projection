@@ -52,11 +52,11 @@ export default struct IMFMediaEngineClassFactory3 extends IUnknown {
         return IMFMediaKeySystemAccess(ppKeyAccess)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFMediaEngineClassFactory3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

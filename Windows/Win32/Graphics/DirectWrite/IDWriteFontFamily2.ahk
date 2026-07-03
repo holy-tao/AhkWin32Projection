@@ -71,11 +71,11 @@ export default struct IDWriteFontFamily2 extends IDWriteFontFamily1 {
         return IDWriteFontSet1(fontSet)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteFontFamily2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

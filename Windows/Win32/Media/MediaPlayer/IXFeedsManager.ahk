@@ -230,11 +230,11 @@ export default struct IXFeedsManager extends IUnknown {
         return puiItemCountLimit
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXFeedsManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

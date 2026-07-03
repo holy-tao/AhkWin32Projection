@@ -83,11 +83,11 @@ export default struct IKsControl extends IUnknown {
         return BytesReturned
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IKsControl.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

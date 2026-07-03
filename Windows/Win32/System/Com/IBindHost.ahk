@@ -81,11 +81,11 @@ export default struct IBindHost extends IUnknown {
         return ppvObj
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBindHost.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

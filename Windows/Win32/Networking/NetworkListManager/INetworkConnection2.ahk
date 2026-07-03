@@ -56,11 +56,11 @@ export default struct INetworkConnection2 extends INetworkConnection {
         return pValue
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (INetworkConnection2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

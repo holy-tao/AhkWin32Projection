@@ -56,11 +56,11 @@ export default struct IActiveScriptErrorDebug extends IActiveScriptError {
         return IDebugStackFrame(ppdsf)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IActiveScriptErrorDebug.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

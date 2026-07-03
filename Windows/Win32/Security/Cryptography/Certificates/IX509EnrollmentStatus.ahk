@@ -245,11 +245,11 @@ export default struct IX509EnrollmentStatus extends IDispatch {
         return pValue
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IX509EnrollmentStatus.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

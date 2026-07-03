@@ -54,11 +54,11 @@ export default struct IColumnMapperCreator extends IUnknown {
         return IColumnMapper(ppColumnMapper)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IColumnMapperCreator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

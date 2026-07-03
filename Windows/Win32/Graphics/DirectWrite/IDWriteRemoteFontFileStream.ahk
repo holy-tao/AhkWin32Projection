@@ -114,11 +114,11 @@ export default struct IDWriteRemoteFontFileStream extends IDWriteFontFileStream 
         return IDWriteAsyncResult(asyncResult)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteRemoteFontFileStream.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

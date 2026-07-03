@@ -250,11 +250,11 @@ export default struct IMFASFContentInfo extends IUnknown {
         return IPropertyStore(ppIStore)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFASFContentInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

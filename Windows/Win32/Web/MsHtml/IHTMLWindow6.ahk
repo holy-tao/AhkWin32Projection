@@ -219,11 +219,11 @@ export default struct IHTMLWindow6 extends IDispatch {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLWindow6.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

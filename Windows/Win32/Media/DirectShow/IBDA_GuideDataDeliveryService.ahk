@@ -168,11 +168,11 @@ export default struct IBDA_GuideDataDeliveryService extends IUnknown {
         return pbstrServiceDescription
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBDA_GuideDataDeliveryService.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

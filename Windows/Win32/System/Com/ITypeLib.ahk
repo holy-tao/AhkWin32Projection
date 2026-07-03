@@ -303,11 +303,11 @@ export default struct ITypeLib extends IUnknown {
         ComCall(12, this, TLIBATTR.Ptr, pTLibAttr)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITypeLib.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

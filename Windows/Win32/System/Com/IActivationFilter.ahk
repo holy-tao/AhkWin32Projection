@@ -47,11 +47,11 @@ export default struct IActivationFilter extends IUnknown {
         return pReplacementClsId
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IActivationFilter.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

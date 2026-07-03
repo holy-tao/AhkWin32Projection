@@ -51,11 +51,11 @@ export default struct IDebugHostModule4 extends IDebugHostModule3 {
         return IDebugHostType(type)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugHostModule4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

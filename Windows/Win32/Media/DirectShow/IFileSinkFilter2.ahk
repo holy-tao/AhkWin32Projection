@@ -59,11 +59,11 @@ export default struct IFileSinkFilter2 extends IFileSinkFilter {
         return pdwFlags
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFileSinkFilter2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

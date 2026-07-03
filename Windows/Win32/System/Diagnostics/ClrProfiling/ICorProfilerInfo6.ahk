@@ -53,11 +53,11 @@ export default struct ICorProfilerInfo6 extends ICorProfilerInfo5 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICorProfilerInfo6.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -61,11 +61,11 @@ export default struct ITfDisplayAttributeProvider extends IUnknown {
         return ITfDisplayAttributeInfo(ppInfo)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfDisplayAttributeProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -177,11 +177,11 @@ export default struct ISClusPropertyValue extends IDispatch {
         return ISClusPropertyValueData(ppClusterPropertyValueData)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISClusPropertyValue.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -105,11 +105,11 @@ export default struct ITCollection extends IDispatch {
         return IUnknown(ppNewEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

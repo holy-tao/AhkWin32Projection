@@ -78,11 +78,11 @@ export default struct IMFCapturePhotoConfirmation extends IUnknown {
         return subtype
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFCapturePhotoConfirmation.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

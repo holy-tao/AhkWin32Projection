@@ -117,11 +117,11 @@ export default struct IAppxFile extends IUnknown {
         return IStream(stream)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxFile.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

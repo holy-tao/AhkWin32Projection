@@ -158,11 +158,11 @@ export default struct IMFClock extends IUnknown {
         return pClockProperties
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFClock.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

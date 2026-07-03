@@ -55,11 +55,11 @@ export default struct IInstallationProgressChangedCallbackArgs extends IDispatch
         return IInstallationProgress(retval)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IInstallationProgressChangedCallbackArgs.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -90,11 +90,11 @@ export default struct IRemoteDesktopClientActions extends IDispatch {
         return snapshotData
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRemoteDesktopClientActions.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

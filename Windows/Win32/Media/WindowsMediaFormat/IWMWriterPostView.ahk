@@ -301,11 +301,11 @@ export default struct IWMWriterPostView extends IUnknown {
         return pfAllocate
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMWriterPostView.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

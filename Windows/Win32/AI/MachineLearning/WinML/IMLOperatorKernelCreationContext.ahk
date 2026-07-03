@@ -133,11 +133,11 @@ export default struct IMLOperatorKernelCreationContext extends IMLOperatorAttrib
         ComCall(15, this, IUnknown.Ptr, executionObject)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMLOperatorKernelCreationContext.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

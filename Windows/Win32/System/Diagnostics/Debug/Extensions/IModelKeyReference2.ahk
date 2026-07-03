@@ -46,11 +46,11 @@ export default struct IModelKeyReference2 extends IModelKeyReference {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IModelKeyReference2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

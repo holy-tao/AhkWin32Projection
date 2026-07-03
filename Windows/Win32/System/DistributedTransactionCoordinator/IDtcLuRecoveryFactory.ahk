@@ -50,11 +50,11 @@ export default struct IDtcLuRecoveryFactory extends IUnknown {
         return IDtcLuRecovery(ppRecovery)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDtcLuRecoveryFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

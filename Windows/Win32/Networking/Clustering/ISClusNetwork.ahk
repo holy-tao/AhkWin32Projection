@@ -225,11 +225,11 @@ export default struct ISClusNetwork extends IDispatch {
         return ISCluster(ppCluster)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISClusNetwork.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

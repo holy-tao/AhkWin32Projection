@@ -58,11 +58,11 @@ export default struct IAppxManifestPackageId2 extends IAppxManifestPackageId {
         return _architecture
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxManifestPackageId2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

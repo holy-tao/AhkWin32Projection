@@ -128,11 +128,11 @@ export default struct IMLangFontLink2 extends IMLangCodePages {
         return _pSid
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMLangFontLink2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

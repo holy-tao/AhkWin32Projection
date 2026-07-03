@@ -256,11 +256,11 @@ export default struct IMFTimedTextRegion extends IUnknown {
         return scrollMode
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFTimedTextRegion.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

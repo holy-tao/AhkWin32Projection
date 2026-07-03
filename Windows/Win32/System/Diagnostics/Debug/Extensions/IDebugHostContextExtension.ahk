@@ -60,11 +60,11 @@ export default struct IDebugHostContextExtension extends IUnknown {
         return IDebugHostContext(immutableContext)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugHostContextExtension.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

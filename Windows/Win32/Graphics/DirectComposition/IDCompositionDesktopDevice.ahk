@@ -104,11 +104,11 @@ export default struct IDCompositionDesktopDevice extends IDCompositionDevice2 {
         return IUnknown(surface)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDCompositionDesktopDevice.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

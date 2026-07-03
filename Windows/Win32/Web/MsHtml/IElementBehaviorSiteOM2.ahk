@@ -45,11 +45,11 @@ export default struct IElementBehaviorSiteOM2 extends IElementBehaviorSiteOM {
         return IHTMLElementDefaults(ppDefaults)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IElementBehaviorSiteOM2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -62,11 +62,11 @@ export default struct ITfCompositionView extends IUnknown {
         return ITfRange(ppRange)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfCompositionView.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -77,11 +77,11 @@ export default struct IHTMLElementCollection4 extends IDispatch {
         return IHTMLElement2(pNode)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLElementCollection4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

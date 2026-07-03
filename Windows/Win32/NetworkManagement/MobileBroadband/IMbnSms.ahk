@@ -242,11 +242,11 @@ export default struct IMbnSms extends IUnknown {
         return smsStatusInfo
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMbnSms.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

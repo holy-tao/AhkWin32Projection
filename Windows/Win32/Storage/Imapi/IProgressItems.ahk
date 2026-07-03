@@ -148,11 +148,11 @@ export default struct IProgressItems extends IDispatch {
         return IEnumProgressItems(NewEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IProgressItems.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

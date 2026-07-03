@@ -276,11 +276,11 @@ export default struct ICredentialProviderCredentialEvents extends IUnknown {
         return phwndOwner
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICredentialProviderCredentialEvents.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

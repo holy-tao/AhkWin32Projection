@@ -56,11 +56,11 @@ export default struct ISideShowCapabilitiesCollection extends IUnknown {
         return ISideShowCapabilities(out_ppCapabilities)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISideShowCapabilitiesCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

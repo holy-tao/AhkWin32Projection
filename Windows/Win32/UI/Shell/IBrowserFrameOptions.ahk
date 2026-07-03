@@ -54,11 +54,11 @@ export default struct IBrowserFrameOptions extends IUnknown {
         return pdwOptions
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBrowserFrameOptions.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -51,11 +51,11 @@ export default struct ICreateWithTransactionEx extends IUnknown {
         return pObject
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICreateWithTransactionEx.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

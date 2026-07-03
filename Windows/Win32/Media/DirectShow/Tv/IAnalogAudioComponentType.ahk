@@ -76,11 +76,11 @@ export default struct IAnalogAudioComponentType extends IComponentType {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAnalogAudioComponentType.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

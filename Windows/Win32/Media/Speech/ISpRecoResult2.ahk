@@ -78,11 +78,11 @@ export default struct ISpRecoResult2 extends ISpRecoResult {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpRecoResult2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

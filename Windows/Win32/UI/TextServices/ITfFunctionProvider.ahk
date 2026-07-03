@@ -76,11 +76,11 @@ export default struct ITfFunctionProvider extends IUnknown {
         return IUnknown(ppunk)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfFunctionProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

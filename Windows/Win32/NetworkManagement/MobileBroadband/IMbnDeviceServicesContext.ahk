@@ -104,11 +104,11 @@ export default struct IMbnDeviceServicesContext extends IUnknown {
         return maxDataSize
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMbnDeviceServicesContext.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

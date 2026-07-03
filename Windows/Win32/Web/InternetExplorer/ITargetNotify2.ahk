@@ -46,11 +46,11 @@ export default struct ITargetNotify2 extends ITargetNotify {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITargetNotify2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

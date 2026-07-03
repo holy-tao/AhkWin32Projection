@@ -203,11 +203,11 @@ export default struct ILayoutRect extends IDispatch {
         return IDispatch(pDoc)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ILayoutRect.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -320,11 +320,11 @@ export default struct INetFwService extends IDispatch {
         return INetFwOpenPorts(openPorts)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (INetFwService.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

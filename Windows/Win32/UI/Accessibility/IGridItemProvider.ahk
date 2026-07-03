@@ -133,11 +133,11 @@ export default struct IGridItemProvider extends IUnknown {
         return IRawElementProviderSimple(pRetVal)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGridItemProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

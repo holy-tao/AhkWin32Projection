@@ -166,11 +166,11 @@ export default struct IVdsLunIscsi extends IUnknown {
         return IEnumVdsObject(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVdsLunIscsi.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

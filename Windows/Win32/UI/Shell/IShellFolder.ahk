@@ -592,11 +592,11 @@ export default struct IShellFolder extends IUnknown {
         return ppidlOut
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IShellFolder.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

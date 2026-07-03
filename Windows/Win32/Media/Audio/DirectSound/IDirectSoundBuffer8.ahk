@@ -72,11 +72,11 @@ export default struct IDirectSoundBuffer8 extends IDirectSoundBuffer {
         return ppObject
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDirectSoundBuffer8.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

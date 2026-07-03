@@ -253,11 +253,11 @@ export default struct IXpsOMDocument extends IXpsOMPart {
         return IXpsOMDocument(_document)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsOMDocument.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

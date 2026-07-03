@@ -91,11 +91,11 @@ export default struct IUIAutomationTableItemPattern extends IUnknown {
         return IUIAutomationElementArray(retVal)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAutomationTableItemPattern.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

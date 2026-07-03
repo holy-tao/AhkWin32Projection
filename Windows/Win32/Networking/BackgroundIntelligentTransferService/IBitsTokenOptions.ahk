@@ -158,11 +158,11 @@ export default struct IBitsTokenOptions extends IUnknown {
         return _pSid
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBitsTokenOptions.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

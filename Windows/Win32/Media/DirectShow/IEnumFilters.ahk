@@ -139,11 +139,11 @@ export default struct IEnumFilters extends IUnknown {
         return IEnumFilters(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumFilters.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

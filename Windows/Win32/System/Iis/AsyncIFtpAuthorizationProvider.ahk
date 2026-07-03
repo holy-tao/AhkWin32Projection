@@ -71,11 +71,11 @@ export default struct AsyncIFtpAuthorizationProvider extends IUnknown {
         return pFtpAccess
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (AsyncIFtpAuthorizationProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

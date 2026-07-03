@@ -104,11 +104,11 @@ export default struct IDWriteLocalFontFileLoader extends IDWriteFontFileLoader {
         return lastWriteTime
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteLocalFontFileLoader.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

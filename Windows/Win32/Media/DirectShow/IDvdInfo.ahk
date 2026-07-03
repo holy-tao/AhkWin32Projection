@@ -931,11 +931,11 @@ export default struct IDvdInfo extends IUnknown {
         return pulActualSize
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDvdInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

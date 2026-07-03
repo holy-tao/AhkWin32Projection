@@ -67,11 +67,11 @@ export default struct IViewObject2 extends IViewObject {
         return lpsizel
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IViewObject2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

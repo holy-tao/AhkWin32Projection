@@ -77,11 +77,11 @@ export default struct ITableItemProvider extends IUnknown {
         return pRetVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITableItemProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

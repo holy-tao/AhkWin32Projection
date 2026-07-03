@@ -124,11 +124,11 @@ export default struct IRpcStubBuffer extends IUnknown {
         ComCall(9, this, pvMarshal, pv)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRpcStubBuffer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -99,11 +99,11 @@ export default struct ISVGAnimatedBoolean extends IDispatch {
         return p
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISVGAnimatedBoolean.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

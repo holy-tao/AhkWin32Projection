@@ -53,11 +53,11 @@ export default struct ID3D11RefDefaultTrackingOptions extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D11RefDefaultTrackingOptions.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

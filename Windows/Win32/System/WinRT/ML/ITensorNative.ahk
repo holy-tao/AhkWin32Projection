@@ -60,11 +60,11 @@ export default struct ITensorNative extends IUnknown {
         return ID3D12Resource(result)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITensorNative.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

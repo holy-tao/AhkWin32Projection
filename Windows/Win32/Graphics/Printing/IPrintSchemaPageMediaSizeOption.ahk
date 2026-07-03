@@ -68,11 +68,11 @@ export default struct IPrintSchemaPageMediaSizeOption extends IPrintSchemaOption
         return pulHeight
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPrintSchemaPageMediaSizeOption.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

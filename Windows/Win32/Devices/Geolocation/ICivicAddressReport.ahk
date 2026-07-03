@@ -132,11 +132,11 @@ export default struct ICivicAddressReport extends ILocationReport {
         return pDetailLevel
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICivicAddressReport.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

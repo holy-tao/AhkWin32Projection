@@ -282,11 +282,11 @@ export default struct IFsrmRule extends IFsrmObject {
         return lastModified
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFsrmRule.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

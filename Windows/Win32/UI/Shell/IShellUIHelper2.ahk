@@ -212,11 +212,11 @@ export default struct IShellUIHelper2 extends IShellUIHelper {
         return pbstrUrl
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IShellUIHelper2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -71,11 +71,11 @@ export default struct IParseAndCreateItem extends IUnknown {
         return ppv
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IParseAndCreateItem.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

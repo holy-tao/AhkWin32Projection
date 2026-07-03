@@ -205,11 +205,11 @@ export default struct IDVBSLocator extends IDigitalLocator {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDVBSLocator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

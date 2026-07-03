@@ -81,11 +81,11 @@ export default struct IContextMenu3 extends IContextMenu2 {
         return plResult
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IContextMenu3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

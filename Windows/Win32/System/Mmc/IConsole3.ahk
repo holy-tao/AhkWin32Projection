@@ -50,11 +50,11 @@ export default struct IConsole3 extends IConsole2 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IConsole3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

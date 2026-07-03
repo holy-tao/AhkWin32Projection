@@ -53,11 +53,11 @@ export default struct IDsObjectPickerCredentials extends IDsObjectPicker {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDsObjectPickerCredentials.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

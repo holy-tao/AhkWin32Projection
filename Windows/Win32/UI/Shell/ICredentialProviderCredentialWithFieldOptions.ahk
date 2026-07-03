@@ -52,11 +52,11 @@ export default struct ICredentialProviderCredentialWithFieldOptions extends IUnk
         return options
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICredentialProviderCredentialWithFieldOptions.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

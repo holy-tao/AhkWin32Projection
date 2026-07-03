@@ -173,11 +173,11 @@ export default struct IMalloc extends IUnknown {
         ComCall(8, this)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMalloc.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -164,11 +164,11 @@ export default struct ITSubStreamControl extends IDispatch {
         return pVariant
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITSubStreamControl.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

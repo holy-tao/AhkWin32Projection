@@ -50,11 +50,11 @@ export default struct IResultData2 extends IResultData {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IResultData2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

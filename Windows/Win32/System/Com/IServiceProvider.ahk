@@ -59,11 +59,11 @@ export default struct IServiceProvider extends IUnknown {
         return ppvObject
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IServiceProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

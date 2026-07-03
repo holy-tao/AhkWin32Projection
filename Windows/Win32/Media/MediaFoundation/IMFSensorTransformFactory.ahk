@@ -104,11 +104,11 @@ export default struct IMFSensorTransformFactory extends IUnknown {
         return IMFDeviceTransform(ppDeviceMFT)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFSensorTransformFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

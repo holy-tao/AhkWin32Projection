@@ -143,11 +143,11 @@ export default struct IDispatchEx extends IDispatch {
         return IUnknown(ppunk)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDispatchEx.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

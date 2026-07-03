@@ -56,11 +56,11 @@ export default struct IAudioProcessingObjectVBR extends IUnknown {
         return pu32OutputFrameCount
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAudioProcessingObjectVBR.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

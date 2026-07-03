@@ -83,11 +83,11 @@ export default struct IAppxManifestPackageDependenciesEnumerator extends IUnknow
         return hasNext
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxManifestPackageDependenciesEnumerator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

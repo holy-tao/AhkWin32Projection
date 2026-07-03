@@ -62,11 +62,11 @@ export default struct ID2D1BitmapRenderTarget extends ID2D1RenderTarget {
         return ID2D1Bitmap(_bitmap)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1BitmapRenderTarget.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

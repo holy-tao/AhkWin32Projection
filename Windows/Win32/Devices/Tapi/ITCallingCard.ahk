@@ -182,11 +182,11 @@ export default struct ITCallingCard extends IDispatch {
         return ppRule
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITCallingCard.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

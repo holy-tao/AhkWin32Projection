@@ -62,11 +62,11 @@ export default struct CIE4ConnectionPoint extends IConnectionPoint {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (CIE4ConnectionPoint.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

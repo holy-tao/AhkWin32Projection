@@ -67,11 +67,11 @@ export default struct IDebugHostTaggedUnionRangeEnumerator extends IUnknown {
         return pCount
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugHostTaggedUnionRangeEnumerator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

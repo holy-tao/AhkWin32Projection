@@ -110,11 +110,11 @@ export default struct ICertPropertyRequestOriginator extends ICertProperty {
         return pValue
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICertPropertyRequestOriginator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

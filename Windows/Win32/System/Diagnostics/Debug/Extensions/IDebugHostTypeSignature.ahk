@@ -73,11 +73,11 @@ export default struct IDebugHostTypeSignature extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugHostTypeSignature.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

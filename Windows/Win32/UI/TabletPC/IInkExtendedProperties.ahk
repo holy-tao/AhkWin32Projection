@@ -325,11 +325,11 @@ export default struct IInkExtendedProperties extends IDispatch {
         return DoesPropertyExist
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IInkExtendedProperties.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

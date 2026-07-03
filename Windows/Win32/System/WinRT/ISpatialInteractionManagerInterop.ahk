@@ -95,11 +95,11 @@ export default struct ISpatialInteractionManagerInterop extends IInspectable {
         return spatialInteractionManager
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpatialInteractionManagerInterop.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

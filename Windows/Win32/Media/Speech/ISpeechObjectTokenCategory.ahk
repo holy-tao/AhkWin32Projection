@@ -129,11 +129,11 @@ export default struct ISpeechObjectTokenCategory extends IDispatch {
         return ISpeechObjectTokens(Tokens)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpeechObjectTokenCategory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

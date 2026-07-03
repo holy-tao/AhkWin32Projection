@@ -182,11 +182,11 @@ export default struct IVisualProperties extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVisualProperties.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

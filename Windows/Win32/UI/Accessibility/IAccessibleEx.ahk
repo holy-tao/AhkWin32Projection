@@ -117,11 +117,11 @@ export default struct IAccessibleEx extends IUnknown {
         return IAccessibleEx(ppRetValOut)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAccessibleEx.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

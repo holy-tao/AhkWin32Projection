@@ -526,11 +526,11 @@ export default struct IDCompositionDevice extends IUnknown {
         return pfValid
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDCompositionDevice.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

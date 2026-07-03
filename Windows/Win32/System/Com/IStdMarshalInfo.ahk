@@ -58,11 +58,11 @@ export default struct IStdMarshalInfo extends IUnknown {
         return pClsid
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IStdMarshalInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

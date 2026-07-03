@@ -68,11 +68,11 @@ export default struct AsyncIFtpHomeDirectoryProvider extends IUnknown {
         return ppszHomeDirectoryData
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (AsyncIFtpHomeDirectoryProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

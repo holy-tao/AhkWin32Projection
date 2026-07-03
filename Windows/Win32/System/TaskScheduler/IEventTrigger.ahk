@@ -267,11 +267,11 @@ export default struct IEventTrigger extends ITrigger {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEventTrigger.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

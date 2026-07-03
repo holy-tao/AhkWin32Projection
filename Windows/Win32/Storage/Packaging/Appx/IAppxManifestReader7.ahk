@@ -67,11 +67,11 @@ export default struct IAppxManifestReader7 extends IUnknown {
         return IAppxManifestHostRuntimeDependenciesEnumerator(hostRuntimeDependencies)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxManifestReader7.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

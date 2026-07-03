@@ -45,11 +45,11 @@ export default struct INetLanConnectionUiInfo extends IUnknown {
         return pguid
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (INetLanConnectionUiInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -74,11 +74,11 @@ export default struct IWindowsDriverUpdate4 extends IWindowsDriverUpdate3 {
         return retval
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWindowsDriverUpdate4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

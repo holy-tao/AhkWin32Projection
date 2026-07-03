@@ -49,11 +49,11 @@ export default struct ISyncFilterDeserializer extends IUnknown {
         return ISyncFilter(ppISyncFilter)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISyncFilterDeserializer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

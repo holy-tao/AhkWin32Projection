@@ -389,11 +389,11 @@ export default struct IWMHeaderInfo3 extends IWMHeaderInfo2 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMHeaderInfo3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

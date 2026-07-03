@@ -151,11 +151,11 @@ export default struct IWMDMOperation2 extends IWMDMOperation {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMDMOperation2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -43,10 +43,10 @@ export default struct ISpTask extends Win32ComInterface {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpTask.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 }

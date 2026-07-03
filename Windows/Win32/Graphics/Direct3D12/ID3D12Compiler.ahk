@@ -91,11 +91,11 @@ export default struct ID3D12Compiler extends ID3D12CompilerFactoryChild {
         return ppCompilerCacheSession
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12Compiler.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

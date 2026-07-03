@@ -70,11 +70,11 @@ export default struct IAppxManifestTargetDeviceFamily extends IUnknown {
         return maxVersionTested
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxManifestTargetDeviceFamily.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

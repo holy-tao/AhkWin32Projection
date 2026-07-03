@@ -76,11 +76,11 @@ export default struct IInputPaneInterop extends IInspectable {
         return inputPane
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IInputPaneInterop.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

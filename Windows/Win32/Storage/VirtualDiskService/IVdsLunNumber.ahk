@@ -53,11 +53,11 @@ export default struct IVdsLunNumber extends IUnknown {
         return pulLunNumber
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVdsLunNumber.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

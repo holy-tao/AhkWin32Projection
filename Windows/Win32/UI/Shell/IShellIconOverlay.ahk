@@ -201,11 +201,11 @@ export default struct IShellIconOverlay extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IShellIconOverlay.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

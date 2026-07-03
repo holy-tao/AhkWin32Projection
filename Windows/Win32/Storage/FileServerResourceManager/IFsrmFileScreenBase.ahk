@@ -139,11 +139,11 @@ export default struct IFsrmFileScreenBase extends IFsrmObject {
         return IFsrmCollection(actions)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFsrmFileScreenBase.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

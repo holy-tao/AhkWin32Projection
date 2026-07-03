@@ -96,11 +96,11 @@ export default struct IAppxFactory3 extends IUnknown {
         return IAppxAppInstallerReader(appInstallerReader)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxFactory3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

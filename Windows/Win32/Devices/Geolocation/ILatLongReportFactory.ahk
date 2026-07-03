@@ -58,11 +58,11 @@ export default struct ILatLongReportFactory extends ILocationReportFactory {
         return IDispLatLongReport(pVal)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ILatLongReportFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

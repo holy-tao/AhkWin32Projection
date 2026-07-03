@@ -161,11 +161,11 @@ export default struct ISBE2SpanningEvent extends IUnknown {
         return pb
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISBE2SpanningEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

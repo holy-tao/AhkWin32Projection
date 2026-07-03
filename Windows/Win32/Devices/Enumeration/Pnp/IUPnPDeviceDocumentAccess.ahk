@@ -51,11 +51,11 @@ export default struct IUPnPDeviceDocumentAccess extends IUnknown {
         return pbstrDocument
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUPnPDeviceDocumentAccess.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

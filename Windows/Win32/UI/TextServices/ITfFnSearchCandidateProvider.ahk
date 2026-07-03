@@ -100,11 +100,11 @@ export default struct ITfFnSearchCandidateProvider extends ITfFunction {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfFnSearchCandidateProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

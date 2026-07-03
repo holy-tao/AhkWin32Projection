@@ -84,11 +84,11 @@ export default struct ISyncDataConverter extends IUnknown {
         return IUnknown(ppUnkDataout)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISyncDataConverter.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

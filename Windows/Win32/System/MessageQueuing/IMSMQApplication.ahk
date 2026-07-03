@@ -55,11 +55,11 @@ export default struct IMSMQApplication extends IDispatch {
         return pbstrGuid
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSMQApplication.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

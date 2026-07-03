@@ -101,11 +101,11 @@ export default struct IADsDNWithString extends IDispatch {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IADsDNWithString.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

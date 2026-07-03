@@ -85,11 +85,11 @@ export default struct IDebugHostType2 extends IDebugHostType {
         return IDebugHostType2(instancePointerType)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugHostType2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

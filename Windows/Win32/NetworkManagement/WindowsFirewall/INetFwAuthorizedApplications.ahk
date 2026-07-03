@@ -342,11 +342,11 @@ export default struct INetFwAuthorizedApplications extends IDispatch {
         return IUnknown(newEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (INetFwAuthorizedApplications.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -204,11 +204,11 @@ export default struct IWSDServiceProxy extends IWSDMetadataExchange {
         return IWSDEndpointProxy(ppProxy)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWSDServiceProxy.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

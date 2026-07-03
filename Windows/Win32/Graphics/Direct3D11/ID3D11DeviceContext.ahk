@@ -3512,11 +3512,11 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
         return ID3D11CommandList(ppCommandList)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D11DeviceContext.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

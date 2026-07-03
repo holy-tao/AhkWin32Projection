@@ -59,11 +59,11 @@ export default struct IXpsOMPackageTarget extends IUnknown {
         return IXpsOMPackageWriter(packageWriter)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsOMPackageTarget.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

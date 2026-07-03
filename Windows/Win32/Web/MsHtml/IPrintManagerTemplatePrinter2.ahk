@@ -86,11 +86,11 @@ export default struct IPrintManagerTemplatePrinter2 extends IPrintManagerTemplat
         return p
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPrintManagerTemplatePrinter2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

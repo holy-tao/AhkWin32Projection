@@ -165,11 +165,11 @@ export default struct ICoreWindowAdapterInterop extends IInspectable {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICoreWindowAdapterInterop.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

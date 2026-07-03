@@ -51,11 +51,11 @@ export default struct ID3D11RasterizerState1 extends ID3D11RasterizerState {
         ComCall(8, this, D3D11_RASTERIZER_DESC1.Ptr, pDesc)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D11RasterizerState1.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

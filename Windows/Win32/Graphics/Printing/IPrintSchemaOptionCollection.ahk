@@ -81,11 +81,11 @@ export default struct IPrintSchemaOptionCollection extends IDispatch {
         return IUnknown(ppUnk)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPrintSchemaOptionCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -69,11 +69,11 @@ export default struct IMSVidWebDVD2 extends IMSVidWebDVD {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSVidWebDVD2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

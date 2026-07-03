@@ -177,11 +177,11 @@ export default struct IVBMXNamespaceManager extends IDispatch {
         return uri
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVBMXNamespaceManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

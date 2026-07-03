@@ -181,11 +181,11 @@ export default struct IMSVidVMR9 extends IMSVidVideoRenderer {
         return IUnknown(AllocPresent)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSVidVMR9.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -134,11 +134,11 @@ export default struct IMFExtendedDRMTypeSupport extends IUnknown {
         return pAnswer
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFExtendedDRMTypeSupport.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

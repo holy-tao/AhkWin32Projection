@@ -63,11 +63,11 @@ export default struct IVPManager extends IUnknown {
         return pdwVideoPortIndex
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVPManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

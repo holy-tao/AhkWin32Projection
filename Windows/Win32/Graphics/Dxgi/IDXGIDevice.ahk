@@ -174,11 +174,11 @@ export default struct IDXGIDevice extends IDXGIObject {
         return pPriority
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDXGIDevice.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

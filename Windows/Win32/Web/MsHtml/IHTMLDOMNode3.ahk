@@ -262,11 +262,11 @@ export default struct IHTMLDOMNode3 extends IDispatch {
         return pfisSupported
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLDOMNode3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

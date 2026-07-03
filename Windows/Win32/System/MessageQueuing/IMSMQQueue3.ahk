@@ -500,11 +500,11 @@ export default struct IMSMQQueue3 extends IDispatch {
         return pisOpen
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSMQQueue3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

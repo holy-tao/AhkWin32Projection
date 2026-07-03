@@ -98,11 +98,11 @@ export default struct IDirect3DSwapChain9Ex extends IDirect3DSwapChain9 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDirect3DSwapChain9Ex.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -56,11 +56,11 @@ export default struct ITfReverseConversion extends IUnknown {
         return ITfReverseConversionList(ppList)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfReverseConversion.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

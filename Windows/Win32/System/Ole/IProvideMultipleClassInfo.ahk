@@ -70,11 +70,11 @@ export default struct IProvideMultipleClassInfo extends IProvideClassInfo2 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IProvideMultipleClassInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

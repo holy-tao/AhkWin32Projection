@@ -139,11 +139,11 @@ export default struct IADsOpenDSObject extends IDispatch {
         return IDispatch(ppOleDsObj)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IADsOpenDSObject.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

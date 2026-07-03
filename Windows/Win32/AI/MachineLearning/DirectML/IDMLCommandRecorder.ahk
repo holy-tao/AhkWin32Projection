@@ -59,11 +59,11 @@ export default struct IDMLCommandRecorder extends IDMLDeviceChild {
         ComCall(8, this, "ptr", commandList, "ptr", dispatchable, "ptr", bindings)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDMLCommandRecorder.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

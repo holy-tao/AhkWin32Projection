@@ -177,11 +177,11 @@ export default struct IAzScope2 extends IAzScope {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAzScope2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

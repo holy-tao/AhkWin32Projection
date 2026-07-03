@@ -63,11 +63,11 @@ export default struct IETFilterConfig extends IUnknown {
         return IUnknown(ppUnkDRMSecureChannel)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IETFilterConfig.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -110,11 +110,11 @@ export default struct IUIImageFromBitmap extends IUnknown {
         return IUIImage(_image)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIImageFromBitmap.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

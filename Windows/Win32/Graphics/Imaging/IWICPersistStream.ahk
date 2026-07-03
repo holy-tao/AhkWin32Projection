@@ -84,11 +84,11 @@ export default struct IWICPersistStream extends IPersistStream {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWICPersistStream.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

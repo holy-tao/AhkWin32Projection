@@ -73,11 +73,11 @@ export default struct ID2D1GdiMetafile1 extends ID2D1GdiMetafile {
         return bounds
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1GdiMetafile1.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

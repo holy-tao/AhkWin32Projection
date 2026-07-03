@@ -63,11 +63,11 @@ export default struct ITfLMLattice extends IUnknown {
         return IEnumTfLatticeElements(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfLMLattice.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

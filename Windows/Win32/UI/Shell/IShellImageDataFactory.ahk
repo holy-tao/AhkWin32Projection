@@ -121,11 +121,11 @@ export default struct IShellImageDataFactory extends IUnknown {
         return pDataFormat
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IShellImageDataFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

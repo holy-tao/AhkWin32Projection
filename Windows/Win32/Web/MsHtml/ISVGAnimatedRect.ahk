@@ -97,11 +97,11 @@ export default struct ISVGAnimatedRect extends IDispatch {
         return ISVGRect(p)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISVGAnimatedRect.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

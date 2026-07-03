@@ -118,11 +118,11 @@ export default struct ID2D1DeviceContext1 extends ID2D1DeviceContext {
         ComCall(94, this, "ptr", geometryRealization, "ptr", brush)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1DeviceContext1.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

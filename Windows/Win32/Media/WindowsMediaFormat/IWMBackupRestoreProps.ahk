@@ -167,11 +167,11 @@ export default struct IWMBackupRestoreProps extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMBackupRestoreProps.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -55,11 +55,11 @@ export default struct IDebugHostFunctionLocalStorageEnumerator extends IUnknown 
         return IDebugHostFunctionLocalStorage(storage)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugHostFunctionLocalStorageEnumerator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

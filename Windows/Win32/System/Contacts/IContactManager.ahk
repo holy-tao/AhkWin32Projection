@@ -209,11 +209,11 @@ export default struct IContactManager extends IUnknown {
         return IContactCollection(ppContactCollection)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IContactManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

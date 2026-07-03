@@ -2127,11 +2127,11 @@ export default struct IEnroll extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnroll.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

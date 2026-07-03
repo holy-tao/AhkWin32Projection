@@ -89,11 +89,11 @@ export default struct IProcessDebugManager32 extends IUnknown {
         return IDebugDocumentHelper32(pddh)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IProcessDebugManager32.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

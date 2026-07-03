@@ -177,11 +177,11 @@ export default struct ITPluggableTerminalClassInfo extends IDispatch {
         return pMediaTypes
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITPluggableTerminalClassInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

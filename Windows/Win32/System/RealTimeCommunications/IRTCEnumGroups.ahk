@@ -80,11 +80,11 @@ export default struct IRTCEnumGroups extends IUnknown {
         return IRTCEnumGroups(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRTCEnumGroups.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -45,11 +45,11 @@ export default struct IHTMLXDomainRequestFactory extends IDispatch {
         return IHTMLXDomainRequest(__MIDL__IHTMLXDomainRequestFactory0000)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLXDomainRequestFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

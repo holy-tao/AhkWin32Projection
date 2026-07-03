@@ -64,11 +64,11 @@ export default struct ID2D1OffsetTransform extends ID2D1TransformNode {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1OffsetTransform.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

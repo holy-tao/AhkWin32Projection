@@ -936,11 +936,11 @@ export default struct IWMPEvents extends IUnknown {
         ComCall(47, this, Int16, nButton, Int16, nShiftState, Int32, fX, Int32, fY)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMPEvents.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

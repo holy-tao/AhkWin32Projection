@@ -234,11 +234,11 @@ export default struct ICategory extends IDispatch {
         return IUpdateCollection(retval)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICategory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

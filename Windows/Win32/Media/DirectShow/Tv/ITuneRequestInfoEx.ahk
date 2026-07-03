@@ -47,11 +47,11 @@ export default struct ITuneRequestInfoEx extends ITuneRequestInfo {
         return IUnknown(ppCurPMT)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITuneRequestInfoEx.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

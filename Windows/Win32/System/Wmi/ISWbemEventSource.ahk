@@ -70,11 +70,11 @@ export default struct ISWbemEventSource extends IDispatch {
         return ISWbemSecurity(objWbemSecurity)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISWbemEventSource.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

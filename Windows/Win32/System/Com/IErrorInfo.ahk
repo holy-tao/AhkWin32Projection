@@ -110,11 +110,11 @@ export default struct IErrorInfo extends IUnknown {
         return pdwHelpContext
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IErrorInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

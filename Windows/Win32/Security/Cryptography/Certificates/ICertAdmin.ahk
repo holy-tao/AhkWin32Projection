@@ -391,11 +391,11 @@ export default struct ICertAdmin extends IDispatch {
         return pRequestId
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICertAdmin.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

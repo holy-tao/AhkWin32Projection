@@ -67,11 +67,11 @@ export default struct ID3D12VideoDevice1 extends ID3D12VideoDevice {
         return ppVideoMotionVectorHeap
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12VideoDevice1.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

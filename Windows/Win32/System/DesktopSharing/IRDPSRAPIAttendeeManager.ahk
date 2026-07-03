@@ -78,11 +78,11 @@ export default struct IRDPSRAPIAttendeeManager extends IDispatch {
         return IRDPSRAPIAttendee(ppItem)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRDPSRAPIAttendeeManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

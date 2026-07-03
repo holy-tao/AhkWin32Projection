@@ -49,11 +49,11 @@ export default struct IDataModelManager4 extends IDataModelManager3 {
         return IModelObject(_object)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDataModelManager4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

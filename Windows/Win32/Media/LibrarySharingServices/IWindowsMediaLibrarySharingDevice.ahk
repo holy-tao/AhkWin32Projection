@@ -127,11 +127,11 @@ export default struct IWindowsMediaLibrarySharingDevice extends IDispatch {
         return IWindowsMediaLibrarySharingDeviceProperties(deviceProperties)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWindowsMediaLibrarySharingDevice.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

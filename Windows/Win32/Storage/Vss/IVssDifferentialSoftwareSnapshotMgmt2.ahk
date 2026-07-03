@@ -251,11 +251,11 @@ export default struct IVssDifferentialSoftwareSnapshotMgmt2 extends IVssDifferen
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVssDifferentialSoftwareSnapshotMgmt2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

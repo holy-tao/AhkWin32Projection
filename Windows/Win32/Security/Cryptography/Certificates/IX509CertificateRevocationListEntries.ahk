@@ -159,11 +159,11 @@ export default struct IX509CertificateRevocationListEntries extends IDispatch {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IX509CertificateRevocationListEntries.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -879,11 +879,11 @@ export default struct IITPropList extends IPersistStreamInit {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IITPropList.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

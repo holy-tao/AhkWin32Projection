@@ -90,11 +90,11 @@ export default struct ID2D1ConcreteTransform extends ID2D1TransformNode {
         ComCall(5, this, BOOL, isCached)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1ConcreteTransform.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

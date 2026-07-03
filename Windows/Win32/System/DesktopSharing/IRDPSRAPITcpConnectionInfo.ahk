@@ -135,11 +135,11 @@ export default struct IRDPSRAPITcpConnectionInfo extends IDispatch {
         return pbstrIP
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRDPSRAPITcpConnectionInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

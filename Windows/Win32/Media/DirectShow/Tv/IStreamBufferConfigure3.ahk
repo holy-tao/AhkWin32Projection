@@ -146,11 +146,11 @@ export default struct IStreamBufferConfigure3 extends IStreamBufferConfigure2 {
         return ppszNamespace
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IStreamBufferConfigure3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

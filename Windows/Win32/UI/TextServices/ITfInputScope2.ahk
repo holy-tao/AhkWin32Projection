@@ -48,11 +48,11 @@ export default struct ITfInputScope2 extends ITfInputScope {
         return IEnumString(ppEnumString)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfInputScope2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

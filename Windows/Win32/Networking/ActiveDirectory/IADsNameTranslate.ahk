@@ -166,11 +166,11 @@ export default struct IADsNameTranslate extends IDispatch {
         return pvar
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IADsNameTranslate.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

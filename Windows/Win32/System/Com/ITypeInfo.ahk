@@ -687,11 +687,11 @@ export default struct ITypeInfo extends IUnknown {
         ComCall(21, this, VARDESC.Ptr, pVarDesc)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITypeInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

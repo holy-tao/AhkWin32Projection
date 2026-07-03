@@ -49,11 +49,11 @@ export default struct IDirectManipulationManager3 extends IDirectManipulationMan
         return _object
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDirectManipulationManager3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

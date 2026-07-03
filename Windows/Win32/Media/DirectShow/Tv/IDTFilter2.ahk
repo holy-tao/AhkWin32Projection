@@ -124,11 +124,11 @@ export default struct IDTFilter2 extends IDTFilter {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDTFilter2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -178,11 +178,11 @@ export default struct ISCPSecureExchange3 extends ISCPSecureExchange2 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISCPSecureExchange3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

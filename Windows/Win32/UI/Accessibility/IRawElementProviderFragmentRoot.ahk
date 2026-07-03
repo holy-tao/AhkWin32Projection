@@ -79,11 +79,11 @@ export default struct IRawElementProviderFragmentRoot extends IUnknown {
         return IRawElementProviderFragment(pRetVal)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRawElementProviderFragmentRoot.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

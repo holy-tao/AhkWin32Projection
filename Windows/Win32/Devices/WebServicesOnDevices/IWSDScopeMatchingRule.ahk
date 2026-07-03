@@ -71,11 +71,11 @@ export default struct IWSDScopeMatchingRule extends IUnknown {
         return pfMatch
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWSDScopeMatchingRule.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

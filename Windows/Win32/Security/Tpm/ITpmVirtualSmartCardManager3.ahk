@@ -71,11 +71,11 @@ export default struct ITpmVirtualSmartCardManager3 extends ITpmVirtualSmartCardM
         return ppszInstanceId
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITpmVirtualSmartCardManager3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

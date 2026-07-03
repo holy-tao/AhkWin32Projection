@@ -43,11 +43,11 @@ export default struct ID3D12DeviceTools extends IUnknown {
         ComCall(3, this, Int64, nextAllocationVirtualAddress)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12DeviceTools.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

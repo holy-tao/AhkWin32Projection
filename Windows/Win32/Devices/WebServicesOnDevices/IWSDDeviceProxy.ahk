@@ -319,11 +319,11 @@ export default struct IWSDDeviceProxy extends IUnknown {
         return IWSDEndpointProxy(ppProxy)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWSDDeviceProxy.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -51,11 +51,11 @@ export default struct IXpsRasterizationFactory extends IUnknown {
         return IXpsRasterizer(ppIXPSRasterizer)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsRasterizationFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

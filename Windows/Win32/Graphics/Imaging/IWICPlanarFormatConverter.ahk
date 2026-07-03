@@ -90,11 +90,11 @@ export default struct IWICPlanarFormatConverter extends IWICBitmapSource {
         return pfCanConvert
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWICPlanarFormatConverter.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -52,11 +52,11 @@ export default struct IMFMetadataProvider extends IUnknown {
         return IMFMetadata(ppMFMetadata)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFMetadataProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

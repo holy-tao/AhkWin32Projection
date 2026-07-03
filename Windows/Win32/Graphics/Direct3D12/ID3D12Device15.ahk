@@ -189,11 +189,11 @@ export default struct ID3D12Device15 extends ID3D12Device14 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12Device15.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

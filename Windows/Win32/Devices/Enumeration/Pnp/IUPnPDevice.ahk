@@ -443,11 +443,11 @@ export default struct IUPnPDevice extends IDispatch {
         return IUPnPServices(ppusServices)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUPnPDevice.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

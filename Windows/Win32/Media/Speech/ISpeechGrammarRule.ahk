@@ -160,11 +160,11 @@ export default struct ISpeechGrammarRule extends IDispatch {
         return ISpeechGrammarRuleState(State)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpeechGrammarRule.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

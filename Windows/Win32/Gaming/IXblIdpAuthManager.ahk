@@ -152,11 +152,11 @@ export default struct IXblIdpAuthManager extends IUnknown {
         return IXblIdpAuthTokenResult(result)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXblIdpAuthManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

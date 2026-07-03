@@ -108,11 +108,11 @@ export default struct ID2D1SvgPointCollection extends ID2D1SvgAttribute {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1SvgPointCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

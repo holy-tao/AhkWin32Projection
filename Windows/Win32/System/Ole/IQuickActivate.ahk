@@ -97,11 +97,11 @@ export default struct IQuickActivate extends IUnknown {
         return pSizel
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IQuickActivate.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

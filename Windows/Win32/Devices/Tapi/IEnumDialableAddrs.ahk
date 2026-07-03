@@ -142,11 +142,11 @@ export default struct IEnumDialableAddrs extends IUnknown {
         return IEnumDialableAddrs(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumDialableAddrs.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

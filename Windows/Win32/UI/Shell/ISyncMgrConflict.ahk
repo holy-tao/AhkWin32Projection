@@ -129,11 +129,11 @@ export default struct ISyncMgrConflict extends IUnknown {
         return ppvResolutionHandler
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISyncMgrConflict.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

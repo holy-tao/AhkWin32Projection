@@ -186,11 +186,11 @@ export default struct IX509PrivateKey2 extends IX509PrivateKey {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IX509PrivateKey2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -211,11 +211,11 @@ export default struct IShellFolderViewDual3 extends IShellFolderViewDual2 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IShellFolderViewDual3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

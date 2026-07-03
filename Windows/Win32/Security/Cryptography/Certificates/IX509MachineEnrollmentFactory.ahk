@@ -54,11 +54,11 @@ export default struct IX509MachineEnrollmentFactory extends IDispatch {
         return IX509EnrollmentHelper(ppIHelper)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IX509MachineEnrollmentFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -47,11 +47,11 @@ export default struct IParentRowset extends IUnknown {
         return IUnknown(ppRowset)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IParentRowset.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

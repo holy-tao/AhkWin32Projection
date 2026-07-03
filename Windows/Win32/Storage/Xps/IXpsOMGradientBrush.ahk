@@ -577,11 +577,11 @@ export default struct IXpsOMGradientBrush extends IXpsOMBrush {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsOMGradientBrush.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

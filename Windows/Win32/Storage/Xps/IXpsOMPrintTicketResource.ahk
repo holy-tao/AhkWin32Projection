@@ -70,11 +70,11 @@ export default struct IXpsOMPrintTicketResource extends IXpsOMResource {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsOMPrintTicketResource.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

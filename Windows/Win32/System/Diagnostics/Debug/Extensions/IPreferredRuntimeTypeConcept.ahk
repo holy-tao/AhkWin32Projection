@@ -46,11 +46,11 @@ export default struct IPreferredRuntimeTypeConcept extends IUnknown {
         return IModelObject(_object)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPreferredRuntimeTypeConcept.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

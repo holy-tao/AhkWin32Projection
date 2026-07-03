@@ -167,11 +167,11 @@ export default struct IOpcSignaturePartReference extends IUnknown {
         return transformMethod
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOpcSignaturePartReference.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

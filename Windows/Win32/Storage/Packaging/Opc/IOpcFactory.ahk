@@ -284,11 +284,11 @@ export default struct IOpcFactory extends IUnknown {
         return IOpcDigitalSignatureManager(signatureManager)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOpcFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -81,11 +81,11 @@ export default struct IEnumOpenServiceActivityCategory extends IUnknown {
         return IEnumOpenServiceActivityCategory(ppenum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumOpenServiceActivityCategory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

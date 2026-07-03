@@ -55,11 +55,11 @@ export default struct IWTSVirtualChannelManager extends IUnknown {
         return IWTSListener(ppListener)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWTSVirtualChannelManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

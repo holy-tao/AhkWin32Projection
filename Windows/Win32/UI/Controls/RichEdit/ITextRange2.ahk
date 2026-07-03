@@ -1540,11 +1540,11 @@ export default struct ITextRange2 extends ITextSelection {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITextRange2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -201,11 +201,11 @@ export default struct ITransactionProperty extends IUnknown {
         ComCall(20, this)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITransactionProperty.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

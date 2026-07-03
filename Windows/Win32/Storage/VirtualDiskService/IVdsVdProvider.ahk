@@ -192,11 +192,11 @@ export default struct IVdsVdProvider extends IUnknown {
         return IVdsVDisk(ppVDisk)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVdsVdProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -99,11 +99,11 @@ export default struct IESEvent extends IUnknown {
         return pbstrData
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IESEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

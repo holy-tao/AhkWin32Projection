@@ -57,11 +57,11 @@ export default struct IFsrmQuotaManagerEx extends IFsrmQuotaManager {
         return affected
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFsrmQuotaManagerEx.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

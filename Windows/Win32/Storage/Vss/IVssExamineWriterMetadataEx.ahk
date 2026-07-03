@@ -144,11 +144,11 @@ export default struct IVssExamineWriterMetadataEx extends IVssExamineWriterMetad
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVssExamineWriterMetadataEx.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

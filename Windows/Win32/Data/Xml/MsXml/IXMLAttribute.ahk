@@ -71,11 +71,11 @@ export default struct IXMLAttribute extends IDispatch {
         return v
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXMLAttribute.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

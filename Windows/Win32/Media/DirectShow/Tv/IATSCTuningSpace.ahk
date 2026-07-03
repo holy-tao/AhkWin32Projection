@@ -176,11 +176,11 @@ export default struct IATSCTuningSpace extends IAnalogTVTuningSpace {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IATSCTuningSpace.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

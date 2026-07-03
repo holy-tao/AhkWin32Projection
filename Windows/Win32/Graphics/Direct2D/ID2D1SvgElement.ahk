@@ -560,11 +560,11 @@ export default struct ID2D1SvgElement extends ID2D1Resource {
         return valueLength
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1SvgElement.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

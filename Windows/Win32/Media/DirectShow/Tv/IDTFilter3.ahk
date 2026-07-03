@@ -77,11 +77,11 @@ export default struct IDTFilter3 extends IDTFilter2 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDTFilter3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

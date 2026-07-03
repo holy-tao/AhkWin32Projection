@@ -339,11 +339,11 @@ export default struct IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2 {
         return hres
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSVidStreamBufferSink3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

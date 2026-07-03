@@ -70,11 +70,11 @@ export default struct IPortableDeviceDispatchFactory extends IUnknown {
         return IDispatch(ppDeviceDispatch)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPortableDeviceDispatchFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -245,11 +245,11 @@ export default struct IBackgroundCopyJob4 extends IBackgroundCopyJob3 {
         return pTimeout
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBackgroundCopyJob4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

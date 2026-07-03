@@ -1548,11 +1548,11 @@ export default struct IMoniker extends IPersistStream {
         return pdwMksys
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMoniker.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

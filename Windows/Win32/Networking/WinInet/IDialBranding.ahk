@@ -85,11 +85,11 @@ export default struct IDialBranding extends IUnknown {
         return phBitmap
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDialBranding.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

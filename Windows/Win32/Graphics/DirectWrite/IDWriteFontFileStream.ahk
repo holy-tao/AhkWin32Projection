@@ -120,11 +120,11 @@ export default struct IDWriteFontFileStream extends IUnknown {
         return lastWriteTime
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteFontFileStream.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

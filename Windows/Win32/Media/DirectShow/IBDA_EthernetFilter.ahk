@@ -114,11 +114,11 @@ export default struct IBDA_EthernetFilter extends IUnknown {
         return pulModeMask
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBDA_EthernetFilter.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

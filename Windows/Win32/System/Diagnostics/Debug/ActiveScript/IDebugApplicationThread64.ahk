@@ -49,11 +49,11 @@ export default struct IDebugApplicationThread64 extends IDebugApplicationThread 
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugApplicationThread64.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

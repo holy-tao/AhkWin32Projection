@@ -107,11 +107,11 @@ export default struct IMarkupContainer2 extends IMarkupContainer {
         return IHTMLElement(ppElementMaster)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMarkupContainer2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

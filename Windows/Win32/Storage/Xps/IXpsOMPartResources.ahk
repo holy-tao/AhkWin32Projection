@@ -129,11 +129,11 @@ export default struct IXpsOMPartResources extends IUnknown {
         return IXpsOMRemoteDictionaryResourceCollection(dictionaryResources)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsOMPartResources.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

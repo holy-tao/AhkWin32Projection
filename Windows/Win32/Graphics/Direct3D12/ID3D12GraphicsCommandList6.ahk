@@ -45,11 +45,11 @@ export default struct ID3D12GraphicsCommandList6 extends ID3D12GraphicsCommandLi
         ComCall(79, this, UInt32, ThreadGroupCountX, UInt32, ThreadGroupCountY, UInt32, ThreadGroupCountZ)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12GraphicsCommandList6.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

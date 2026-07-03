@@ -72,11 +72,11 @@ export default struct ISpPhrase2 extends ISpPhrase {
         return ISpStreamFormat(ppStream)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpPhrase2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

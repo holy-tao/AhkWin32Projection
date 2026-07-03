@@ -670,11 +670,11 @@ export default struct IMonthlyTrigger extends ITrigger {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMonthlyTrigger.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

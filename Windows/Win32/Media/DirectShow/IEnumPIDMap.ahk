@@ -115,11 +115,11 @@ export default struct IEnumPIDMap extends IUnknown {
         return IEnumPIDMap(ppIEnumPIDMap)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumPIDMap.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

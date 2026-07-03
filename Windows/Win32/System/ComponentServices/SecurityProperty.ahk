@@ -110,11 +110,11 @@ export default struct SecurityProperty extends IDispatch {
         return bstrUserName
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (SecurityProperty.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

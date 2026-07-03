@@ -116,11 +116,11 @@ export default struct IFileSystemImage3 extends IFileSystemImage2 {
         return isAppendable
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFileSystemImage3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -594,10 +594,10 @@ export default struct IXAudio2Voice extends Win32ComInterface {
         ComCall(18, this)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXAudio2Voice.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 }

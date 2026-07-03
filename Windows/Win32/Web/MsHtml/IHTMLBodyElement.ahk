@@ -563,11 +563,11 @@ export default struct IHTMLBodyElement extends IDispatch {
         return IHTMLTxtRange(range)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLBodyElement.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

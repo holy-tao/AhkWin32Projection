@@ -52,11 +52,11 @@ export default struct ISystemMediaTransportControlsInterop extends IInspectable 
         return mediaTransportControl
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISystemMediaTransportControlsInterop.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

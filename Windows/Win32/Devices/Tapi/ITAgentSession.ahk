@@ -464,11 +464,11 @@ export default struct ITAgentSession extends IDispatch {
         return plAnswerTime
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITAgentSession.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

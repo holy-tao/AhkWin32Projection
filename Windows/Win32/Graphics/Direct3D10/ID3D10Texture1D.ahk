@@ -176,11 +176,11 @@ export default struct ID3D10Texture1D extends ID3D10Resource {
         ComCall(12, this, D3D10_TEXTURE1D_DESC.Ptr, pDesc)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D10Texture1D.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

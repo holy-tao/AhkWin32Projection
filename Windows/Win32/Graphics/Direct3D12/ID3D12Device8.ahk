@@ -235,11 +235,11 @@ export default struct ID3D12Device8 extends ID3D12Device7 {
         ComCall(72, this, D3D12_RESOURCE_DESC1.Ptr, pResourceDesc, UInt32, FirstSubresource, UInt32, NumSubresources, Int64, BaseOffset, D3D12_PLACED_SUBRESOURCE_FOOTPRINT.Ptr, pLayouts, pNumRowsMarshal, pNumRows, pRowSizeInBytesMarshal, pRowSizeInBytes, pTotalBytesMarshal, pTotalBytes)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12Device8.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

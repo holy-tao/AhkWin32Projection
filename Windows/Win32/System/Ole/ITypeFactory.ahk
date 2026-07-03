@@ -47,11 +47,11 @@ export default struct ITypeFactory extends IUnknown {
         return IUnknown(ppv)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITypeFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

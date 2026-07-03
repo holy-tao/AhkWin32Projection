@@ -118,11 +118,11 @@ export default struct IMtsEvents extends IDispatch {
         return id
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMtsEvents.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

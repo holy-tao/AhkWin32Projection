@@ -67,11 +67,11 @@ export default struct IUrlHistoryStg2 extends IUrlHistoryStg {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUrlHistoryStg2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

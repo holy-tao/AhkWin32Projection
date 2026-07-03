@@ -203,11 +203,11 @@ export default struct IMSVidVideoRenderer2 extends IMSVidVideoRenderer {
         return bSuppress
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSVidVideoRenderer2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

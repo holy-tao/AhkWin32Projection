@@ -162,11 +162,11 @@ export default struct IDXGIAdapter3 extends IDXGIAdapter2 {
         ComCall(17, this, UInt32, dwCookie)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDXGIAdapter3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

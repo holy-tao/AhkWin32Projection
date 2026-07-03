@@ -63,11 +63,11 @@ export default struct INamedEntity extends IUnknown {
         return ppszPhrase
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (INamedEntity.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

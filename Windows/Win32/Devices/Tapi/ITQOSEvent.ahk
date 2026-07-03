@@ -97,11 +97,11 @@ export default struct ITQOSEvent extends IDispatch {
         return plMediaType
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITQOSEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

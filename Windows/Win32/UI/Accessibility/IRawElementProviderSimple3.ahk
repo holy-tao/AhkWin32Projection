@@ -72,11 +72,11 @@ export default struct IRawElementProviderSimple3 extends IRawElementProviderSimp
         return returnVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRawElementProviderSimple3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

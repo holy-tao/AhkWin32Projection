@@ -66,11 +66,11 @@ export default struct IURLSearchHook2 extends IURLSearchHook {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IURLSearchHook2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

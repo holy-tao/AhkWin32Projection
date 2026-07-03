@@ -85,11 +85,11 @@ export default struct IClusterDetector extends IUnknown {
         return IToc(ppDstToc)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IClusterDetector.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

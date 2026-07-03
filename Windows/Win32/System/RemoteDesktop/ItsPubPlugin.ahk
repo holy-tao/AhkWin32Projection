@@ -163,11 +163,11 @@ export default struct ItsPubPlugin extends IUnknown {
         return _resourceType
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ItsPubPlugin.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

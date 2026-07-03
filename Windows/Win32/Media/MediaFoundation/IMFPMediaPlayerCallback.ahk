@@ -52,11 +52,11 @@ export default struct IMFPMediaPlayerCallback extends IUnknown {
         ComCall(3, this, MFP_EVENT_HEADER.Ptr, pEventHeader)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFPMediaPlayerCallback.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

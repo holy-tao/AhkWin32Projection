@@ -198,11 +198,11 @@ export default struct IOpcPartUri extends IOpcUri {
         return isRelationshipUri
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOpcPartUri.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -304,11 +304,11 @@ export default struct ITfThreadMgr extends IUnknown {
         return ITfCompartmentMgr(ppCompMgr)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfThreadMgr.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

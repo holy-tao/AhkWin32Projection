@@ -321,11 +321,11 @@ export default struct ICEnroll3 extends ICEnroll2 {
         return fEnableSMIMECapabilities
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICEnroll3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

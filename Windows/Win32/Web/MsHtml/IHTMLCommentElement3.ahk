@@ -89,11 +89,11 @@ export default struct IHTMLCommentElement3 extends IDispatch {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLCommentElement3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -54,11 +54,11 @@ export default struct IWbemConnectorLogin extends IUnknown {
         return pInterface
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWbemConnectorLogin.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -125,11 +125,11 @@ export default struct ISVGCircleElement extends IDispatch {
         return ISVGAnimatedLength(p)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISVGCircleElement.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

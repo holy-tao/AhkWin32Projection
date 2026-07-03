@@ -59,11 +59,11 @@ export default struct ITrackingProtection extends IUnknown {
         return pfEnabled
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITrackingProtection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

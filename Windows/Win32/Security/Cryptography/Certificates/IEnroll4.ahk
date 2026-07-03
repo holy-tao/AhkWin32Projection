@@ -600,11 +600,11 @@ export default struct IEnroll4 extends IEnroll2 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnroll4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

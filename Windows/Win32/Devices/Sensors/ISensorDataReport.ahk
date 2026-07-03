@@ -92,11 +92,11 @@ export default struct ISensorDataReport extends IUnknown {
         return IPortableDeviceValues(ppValues)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISensorDataReport.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

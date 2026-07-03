@@ -45,11 +45,11 @@ export default struct ICorProfilerCallback9 extends ICorProfilerCallback8 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICorProfilerCallback9.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

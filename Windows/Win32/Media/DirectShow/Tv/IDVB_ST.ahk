@@ -113,11 +113,11 @@ export default struct IDVB_ST extends IUnknown {
         return ppData
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDVB_ST.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

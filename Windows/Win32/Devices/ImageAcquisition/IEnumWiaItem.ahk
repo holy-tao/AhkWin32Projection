@@ -154,11 +154,11 @@ export default struct IEnumWiaItem extends IUnknown {
         return celt
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumWiaItem.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

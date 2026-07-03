@@ -218,11 +218,11 @@ export default struct IDCompositionDevice3 extends IDCompositionDevice2 {
         return IDCompositionAffineTransform2DEffect(affineTransform2dEffect)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDCompositionDevice3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

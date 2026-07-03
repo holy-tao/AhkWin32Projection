@@ -513,11 +513,11 @@ export default struct IWMMutualExclusion2 extends IWMMutualExclusion {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMMutualExclusion2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

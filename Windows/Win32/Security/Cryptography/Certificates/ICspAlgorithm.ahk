@@ -902,11 +902,11 @@ export default struct ICspAlgorithm extends IDispatch {
         return pValue
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICspAlgorithm.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

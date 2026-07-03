@@ -44,11 +44,11 @@ export default struct IKsQualityForwarder extends IKsObject {
         ComCall(4, this, "ptr", Pin)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IKsQualityForwarder.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

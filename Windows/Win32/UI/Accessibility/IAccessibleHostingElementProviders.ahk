@@ -71,11 +71,11 @@ export default struct IAccessibleHostingElementProviders extends IUnknown {
         return pidObject
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAccessibleHostingElementProviders.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

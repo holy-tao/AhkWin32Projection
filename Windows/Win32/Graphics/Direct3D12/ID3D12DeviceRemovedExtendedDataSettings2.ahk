@@ -44,11 +44,11 @@ export default struct ID3D12DeviceRemovedExtendedDataSettings2 extends ID3D12Dev
         ComCall(7, this, BOOL, MarkersOnly)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12DeviceRemovedExtendedDataSettings2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

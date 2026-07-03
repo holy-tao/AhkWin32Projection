@@ -193,11 +193,11 @@ export default struct IConnectedIdentityProvider extends IUnknown {
         return pState
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IConnectedIdentityProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

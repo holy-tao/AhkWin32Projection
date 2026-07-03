@@ -239,11 +239,11 @@ export default struct IContactAggregationManager extends IUnknown {
         return IContactAggregationLinkCollection(ppServerContactLinkCollection)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IContactAggregationManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

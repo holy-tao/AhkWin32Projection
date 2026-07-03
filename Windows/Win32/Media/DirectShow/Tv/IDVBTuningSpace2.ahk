@@ -69,11 +69,11 @@ export default struct IDVBTuningSpace2 extends IDVBTuningSpace {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDVBTuningSpace2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

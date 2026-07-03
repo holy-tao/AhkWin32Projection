@@ -255,11 +255,11 @@ export default struct IX509CertificateTemplateWritable extends IDispatch {
         return IX509CertificateTemplate(ppValue)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IX509CertificateTemplateWritable.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

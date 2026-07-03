@@ -182,11 +182,11 @@ export default struct IConditionGenerator extends IUnknown {
         return ppszPhrase
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IConditionGenerator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

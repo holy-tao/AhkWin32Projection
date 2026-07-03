@@ -69,11 +69,11 @@ export default struct ID3D12DeviceRemovedExtendedDataSettings extends IUnknown {
         ComCall(5, this, D3D12_DRED_ENABLEMENT, Enablement)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12DeviceRemovedExtendedDataSettings.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

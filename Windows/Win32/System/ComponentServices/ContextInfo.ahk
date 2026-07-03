@@ -103,11 +103,11 @@ export default struct ContextInfo extends IDispatch {
         return pbstrCtxId
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ContextInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -891,11 +891,11 @@ export default struct IMetaDataEmit extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMetaDataEmit.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -396,11 +396,11 @@ export default struct IDirectDrawVideo extends IUnknown {
         return UseWhenFullScreen
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDirectDrawVideo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

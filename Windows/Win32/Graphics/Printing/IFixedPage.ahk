@@ -117,11 +117,11 @@ export default struct IFixedPage extends IPartBase {
         return IXpsPartIterator(pXpsPartIt)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFixedPage.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

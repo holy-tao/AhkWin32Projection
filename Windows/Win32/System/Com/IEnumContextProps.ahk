@@ -102,11 +102,11 @@ export default struct IEnumContextProps extends IUnknown {
         return pcelt
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumContextProps.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

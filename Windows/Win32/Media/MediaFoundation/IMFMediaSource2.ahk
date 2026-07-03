@@ -47,11 +47,11 @@ export default struct IMFMediaSource2 extends IMFMediaSourceEx {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFMediaSource2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

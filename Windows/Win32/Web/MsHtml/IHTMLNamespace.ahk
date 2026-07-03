@@ -185,11 +185,11 @@ export default struct IHTMLNamespace extends IDispatch {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLNamespace.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

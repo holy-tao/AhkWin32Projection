@@ -76,11 +76,11 @@ export default struct IXpsPartIterator extends IUnknown {
         ComCall(6, this)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsPartIterator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

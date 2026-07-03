@@ -47,11 +47,11 @@ export default struct INetConnectionManager extends IUnknown {
         return IEnumNetConnection(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (INetConnectionManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

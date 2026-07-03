@@ -59,11 +59,11 @@ export default struct IDWriteFontDownloadListener extends IUnknown {
         ComCall(3, this, "ptr", downloadQueue, "ptr", _context, "int", downloadResult)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteFontDownloadListener.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

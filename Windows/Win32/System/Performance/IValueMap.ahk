@@ -270,11 +270,11 @@ export default struct IValueMap extends IDispatch {
         return IValueMapItem(Item)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IValueMap.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

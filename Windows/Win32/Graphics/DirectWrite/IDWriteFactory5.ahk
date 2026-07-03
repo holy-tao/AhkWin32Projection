@@ -131,11 +131,11 @@ export default struct IDWriteFactory5 extends IDWriteFactory4 {
         return IDWriteFontFileStream(unpackedFontStream)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteFactory5.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

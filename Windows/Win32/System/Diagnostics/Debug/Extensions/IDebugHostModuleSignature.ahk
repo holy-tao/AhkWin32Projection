@@ -46,11 +46,11 @@ export default struct IDebugHostModuleSignature extends IUnknown {
         return isMatch
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugHostModuleSignature.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

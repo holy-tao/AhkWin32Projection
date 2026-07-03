@@ -107,11 +107,11 @@ export default struct IXpsSignatureBlock extends IUnknown {
         return IXpsSignatureRequest(signatureRequest)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsSignatureBlock.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

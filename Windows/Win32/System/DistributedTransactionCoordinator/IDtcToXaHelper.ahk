@@ -61,11 +61,11 @@ export default struct IDtcToXaHelper extends IUnknown {
         return pXid
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDtcToXaHelper.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

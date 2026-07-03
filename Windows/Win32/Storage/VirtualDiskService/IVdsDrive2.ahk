@@ -55,11 +55,11 @@ export default struct IVdsDrive2 extends IUnknown {
         return pDriveProp2
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVdsDrive2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

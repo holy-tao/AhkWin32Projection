@@ -46,11 +46,11 @@ export default struct ISpContainerLexicon extends ISpLexicon {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpContainerLexicon.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

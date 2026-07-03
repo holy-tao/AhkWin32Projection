@@ -155,11 +155,11 @@ export default struct IScheduleCollection extends IDispatch {
         return ISchedule(_Schedule)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IScheduleCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

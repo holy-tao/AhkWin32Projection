@@ -148,11 +148,11 @@ export default struct IX509ExtensionAlternativeNames extends IX509Extension {
         return IAlternativeNames(ppValue)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IX509ExtensionAlternativeNames.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

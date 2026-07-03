@@ -146,11 +146,11 @@ export default struct IAMVideoProcAmp extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAMVideoProcAmp.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

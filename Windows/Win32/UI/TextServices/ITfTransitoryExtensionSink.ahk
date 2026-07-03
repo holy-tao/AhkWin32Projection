@@ -54,11 +54,11 @@ export default struct ITfTransitoryExtensionSink extends IUnknown {
         return pfDeleteResultRange
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfTransitoryExtensionSink.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

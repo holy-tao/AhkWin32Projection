@@ -49,11 +49,11 @@ export default struct IWindowsDevicesAllJoynBusAttachmentFactoryInterop extends 
         return ppv
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWindowsDevicesAllJoynBusAttachmentFactoryInterop.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

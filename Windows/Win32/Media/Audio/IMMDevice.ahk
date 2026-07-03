@@ -242,11 +242,11 @@ export default struct IMMDevice extends IUnknown {
         return pdwState
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMMDevice.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

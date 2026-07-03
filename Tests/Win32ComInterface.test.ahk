@@ -171,11 +171,11 @@ struct DummyInterface extends IUnknown {
         return ComCall(4, this, "int", arg, "int")
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (DummyInterface.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

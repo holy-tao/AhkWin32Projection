@@ -713,11 +713,11 @@ export default struct ITDirectory extends IDispatch {
         return IEnumDirectoryObject(ppEnumObject)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITDirectory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

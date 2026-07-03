@@ -1206,11 +1206,11 @@ export default struct IFsrmFileManagementJob extends IFsrmObject {
         return IFsrmActionCommand(customAction)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFsrmFileManagementJob.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

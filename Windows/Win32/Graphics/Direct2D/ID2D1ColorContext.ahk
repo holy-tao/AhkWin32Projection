@@ -83,11 +83,11 @@ export default struct ID2D1ColorContext extends ID2D1Resource {
         return _profile
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1ColorContext.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

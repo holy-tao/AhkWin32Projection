@@ -308,11 +308,11 @@ export default struct IMcastLeaseInfo extends IDispatch {
         return IEnumBstr(ppEnumAddresses)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMcastLeaseInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -110,11 +110,11 @@ export default struct IADsResource extends IADs {
         return retval
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IADsResource.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

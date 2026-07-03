@@ -43,11 +43,11 @@ export default struct IPresentationSurface2 extends IPresentationSurface {
         ComCall(12, this, Int8, isHdrContent)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPresentationSurface2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

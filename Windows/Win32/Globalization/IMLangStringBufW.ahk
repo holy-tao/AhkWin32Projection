@@ -107,11 +107,11 @@ export default struct IMLangStringBufW extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMLangStringBufW.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

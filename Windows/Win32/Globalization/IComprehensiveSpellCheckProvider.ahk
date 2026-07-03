@@ -54,11 +54,11 @@ export default struct IComprehensiveSpellCheckProvider extends IUnknown {
         return IEnumSpellingError(value)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IComprehensiveSpellCheckProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

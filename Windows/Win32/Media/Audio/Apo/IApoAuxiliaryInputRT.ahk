@@ -57,11 +57,11 @@ export default struct IApoAuxiliaryInputRT extends IUnknown {
         ComCall(3, this, UInt32, dwInputId, APO_CONNECTION_PROPERTY.Ptr, pInputConnection)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IApoAuxiliaryInputRT.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

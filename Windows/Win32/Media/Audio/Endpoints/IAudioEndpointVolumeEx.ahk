@@ -73,11 +73,11 @@ export default struct IAudioEndpointVolumeEx extends IAudioEndpointVolume {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAudioEndpointVolumeEx.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

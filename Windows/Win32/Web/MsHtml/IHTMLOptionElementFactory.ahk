@@ -56,11 +56,11 @@ export default struct IHTMLOptionElementFactory extends IDispatch {
         return IHTMLOptionElement(__MIDL__IHTMLOptionElementFactory0000)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLOptionElementFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

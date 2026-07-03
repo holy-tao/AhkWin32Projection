@@ -71,11 +71,11 @@ export default struct IDataModelManager2 extends IDataModelManager {
         return IModelObject(_object)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDataModelManager2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

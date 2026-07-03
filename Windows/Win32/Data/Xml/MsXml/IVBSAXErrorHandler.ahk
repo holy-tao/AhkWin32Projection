@@ -75,11 +75,11 @@ export default struct IVBSAXErrorHandler extends IDispatch {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVBSAXErrorHandler.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

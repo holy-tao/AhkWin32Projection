@@ -89,11 +89,11 @@ export default struct IDebugHelper extends IUnknown {
         return ISimpleConnectionPoint(ppscp)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugHelper.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

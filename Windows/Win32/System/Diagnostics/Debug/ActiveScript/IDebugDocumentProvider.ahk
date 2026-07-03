@@ -45,11 +45,11 @@ export default struct IDebugDocumentProvider extends IDebugDocumentInfo {
         return IDebugDocument(ppssd)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugDocumentProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

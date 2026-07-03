@@ -128,11 +128,11 @@ export default struct IMSVidStreamBufferSourceEvent3 extends IMSVidStreamBufferS
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSVidStreamBufferSourceEvent3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

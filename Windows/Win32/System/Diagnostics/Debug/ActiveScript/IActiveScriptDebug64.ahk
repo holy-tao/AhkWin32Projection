@@ -89,11 +89,11 @@ export default struct IActiveScriptDebug64 extends IUnknown {
         return IEnumDebugCodeContexts(ppescc)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IActiveScriptDebug64.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

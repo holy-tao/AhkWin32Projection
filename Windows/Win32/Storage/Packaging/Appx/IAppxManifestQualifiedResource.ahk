@@ -66,11 +66,11 @@ export default struct IAppxManifestQualifiedResource extends IUnknown {
         return dxFeatureLevel
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxManifestQualifiedResource.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

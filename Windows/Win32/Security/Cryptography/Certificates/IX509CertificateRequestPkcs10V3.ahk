@@ -214,11 +214,11 @@ export default struct IX509CertificateRequestPkcs10V3 extends IX509CertificateRe
         return IX509NameValuePairs(ppValue)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IX509CertificateRequestPkcs10V3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

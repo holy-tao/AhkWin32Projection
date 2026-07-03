@@ -196,11 +196,11 @@ export default struct IWMPSubscriptionService2 extends IWMPSubscriptionService {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMPSubscriptionService2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

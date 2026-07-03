@@ -56,11 +56,11 @@ export default struct IWSManInternal extends IDispatch {
         return resource
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWSManInternal.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

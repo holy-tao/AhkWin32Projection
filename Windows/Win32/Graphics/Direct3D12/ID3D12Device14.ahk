@@ -54,11 +54,11 @@ export default struct ID3D12Device14 extends ID3D12Device13 {
         return ppvRootSignature
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12Device14.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

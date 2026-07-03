@@ -586,11 +586,11 @@ export default struct IDWriteFactory extends IUnknown {
         return IDWriteGlyphRunAnalysis(glyphRunAnalysis)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

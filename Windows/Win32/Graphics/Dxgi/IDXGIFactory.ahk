@@ -247,11 +247,11 @@ export default struct IDXGIFactory extends IDXGIObject {
         return IDXGIAdapter(ppAdapter)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDXGIFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

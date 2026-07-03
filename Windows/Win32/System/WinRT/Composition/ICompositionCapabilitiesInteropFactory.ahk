@@ -46,11 +46,11 @@ export default struct ICompositionCapabilitiesInteropFactory extends IInspectabl
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICompositionCapabilitiesInteropFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

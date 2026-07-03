@@ -499,11 +499,11 @@ export default struct IRecordInfo extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRecordInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

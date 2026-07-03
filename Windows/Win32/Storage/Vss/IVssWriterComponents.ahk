@@ -168,10 +168,10 @@ export default struct IVssWriterComponents extends Win32ComInterface {
         return IVssComponent(ppComponent)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVssWriterComponents.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 }

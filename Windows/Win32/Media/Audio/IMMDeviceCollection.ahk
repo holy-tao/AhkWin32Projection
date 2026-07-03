@@ -66,11 +66,11 @@ export default struct IMMDeviceCollection extends IUnknown {
         return IMMDevice(ppDevice)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMMDeviceCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

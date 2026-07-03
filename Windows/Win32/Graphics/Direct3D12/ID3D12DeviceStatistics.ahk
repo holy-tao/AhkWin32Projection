@@ -46,11 +46,11 @@ export default struct ID3D12DeviceStatistics extends IUnknown {
         return pStatistics
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12DeviceStatistics.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

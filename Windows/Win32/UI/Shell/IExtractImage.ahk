@@ -136,11 +136,11 @@ export default struct IExtractImage extends IUnknown {
         return phBmpThumbnail
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IExtractImage.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

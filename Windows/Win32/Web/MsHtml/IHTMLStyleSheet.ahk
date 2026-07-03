@@ -375,11 +375,11 @@ export default struct IHTMLStyleSheet extends IDispatch {
         return IHTMLStyleSheetRulesCollection(p)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLStyleSheet.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

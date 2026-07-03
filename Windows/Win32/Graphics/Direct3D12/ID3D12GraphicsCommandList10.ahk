@@ -55,11 +55,11 @@ export default struct ID3D12GraphicsCommandList10 extends ID3D12GraphicsCommandL
         ComCall(85, this, D3D12_DISPATCH_GRAPH_DESC.Ptr, pDesc)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12GraphicsCommandList10.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

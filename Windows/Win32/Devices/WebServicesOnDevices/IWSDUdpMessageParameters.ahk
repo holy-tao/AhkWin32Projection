@@ -81,11 +81,11 @@ export default struct IWSDUdpMessageParameters extends IWSDMessageParameters {
         return pParams
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWSDUdpMessageParameters.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

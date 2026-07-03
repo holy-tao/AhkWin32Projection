@@ -206,11 +206,11 @@ export default struct ISpSREngine2 extends ISpSREngine {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpSREngine2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

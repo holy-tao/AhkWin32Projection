@@ -97,11 +97,11 @@ export default struct ITsSbResourceNotificationEx extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITsSbResourceNotificationEx.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

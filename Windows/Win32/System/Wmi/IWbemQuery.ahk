@@ -145,11 +145,11 @@ export default struct IWbemQuery extends IUnknown {
         return pDestBuf
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWbemQuery.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -151,11 +151,11 @@ export default struct IUIAutomationSelectionItemPattern extends IUnknown {
         return IUIAutomationElement(retVal)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAutomationSelectionItemPattern.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

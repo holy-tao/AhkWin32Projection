@@ -97,11 +97,11 @@ export default struct IX509AttributeArchiveKeyHash extends IX509Attribute {
         return pValue
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IX509AttributeArchiveKeyHash.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

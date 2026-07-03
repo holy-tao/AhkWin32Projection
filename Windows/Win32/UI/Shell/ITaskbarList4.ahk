@@ -76,11 +76,11 @@ export default struct ITaskbarList4 extends ITaskbarList3 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITaskbarList4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

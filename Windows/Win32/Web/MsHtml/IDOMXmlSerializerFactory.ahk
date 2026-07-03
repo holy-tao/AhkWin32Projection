@@ -45,11 +45,11 @@ export default struct IDOMXmlSerializerFactory extends IDispatch {
         return IDOMXmlSerializer(__MIDL__IDOMXmlSerializerFactory0000)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDOMXmlSerializerFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -77,11 +77,11 @@ export default struct IWMPCore3 extends IWMPCore2 {
         return IWMPMedia(ppMedia)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMPCore3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

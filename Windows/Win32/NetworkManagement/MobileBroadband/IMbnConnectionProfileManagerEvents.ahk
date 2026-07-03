@@ -72,11 +72,11 @@ export default struct IMbnConnectionProfileManagerEvents extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMbnConnectionProfileManagerEvents.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

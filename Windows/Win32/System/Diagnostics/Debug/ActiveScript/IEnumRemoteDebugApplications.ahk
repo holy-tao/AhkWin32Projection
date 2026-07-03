@@ -81,11 +81,11 @@ export default struct IEnumRemoteDebugApplications extends IUnknown {
         return IEnumRemoteDebugApplications(ppessd)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumRemoteDebugApplications.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

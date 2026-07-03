@@ -242,11 +242,11 @@ export default struct IMediaFilter extends IPersist {
         return IReferenceClock(pClock)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMediaFilter.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

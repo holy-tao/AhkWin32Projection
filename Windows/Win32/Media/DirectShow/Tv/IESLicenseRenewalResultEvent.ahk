@@ -489,11 +489,11 @@ export default struct IESLicenseRenewalResultEvent extends IESEvent {
         return pqwExpiryDate
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IESLicenseRenewalResultEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

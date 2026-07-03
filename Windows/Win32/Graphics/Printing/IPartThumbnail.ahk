@@ -60,11 +60,11 @@ export default struct IPartThumbnail extends IPartBase {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPartThumbnail.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

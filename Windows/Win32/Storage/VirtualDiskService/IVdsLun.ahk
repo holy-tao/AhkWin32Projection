@@ -823,11 +823,11 @@ export default struct IVdsLun extends IUnknown {
         return pullMaxBytesToBeAdded
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVdsLun.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -153,11 +153,11 @@ export default struct ISearchLanguageSupport extends IUnknown {
         return pulPrefixLength
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISearchLanguageSupport.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

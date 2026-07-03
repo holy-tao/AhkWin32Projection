@@ -83,11 +83,11 @@ export default struct ISecurityInformation2 extends IUnknown {
         return IDataObject(ppdo)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISecurityInformation2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -55,11 +55,11 @@ export default struct ITextRangeProvider2 extends ITextRangeProvider {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITextRangeProvider2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

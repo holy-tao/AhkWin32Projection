@@ -104,11 +104,11 @@ export default struct IWMPSyncServices extends IUnknown {
         return IWMPSyncDevice(ppDevice)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMPSyncServices.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

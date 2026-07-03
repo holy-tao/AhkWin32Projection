@@ -331,11 +331,11 @@ export default struct IRDPSRAPIViewer extends IDispatch {
         return pbstrReverseConnectString
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRDPSRAPIViewer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

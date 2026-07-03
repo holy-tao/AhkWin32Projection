@@ -52,11 +52,11 @@ export default struct IMFImageSharingEngineClassFactory extends IUnknown {
         return IMFImageSharingEngine(ppEngine)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFImageSharingEngineClassFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

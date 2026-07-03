@@ -249,11 +249,11 @@ export default struct IMFTopology extends IMFAttributes {
         return IMFCollection(ppCollection)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFTopology.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

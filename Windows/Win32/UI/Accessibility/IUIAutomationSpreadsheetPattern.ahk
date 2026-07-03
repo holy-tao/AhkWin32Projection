@@ -56,11 +56,11 @@ export default struct IUIAutomationSpreadsheetPattern extends IUnknown {
         return IUIAutomationElement(element)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAutomationSpreadsheetPattern.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

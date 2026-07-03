@@ -76,11 +76,11 @@ export default struct IWICFastMetadataEncoder extends IUnknown {
         return IWICMetadataQueryWriter(ppIMetadataQueryWriter)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWICFastMetadataEncoder.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

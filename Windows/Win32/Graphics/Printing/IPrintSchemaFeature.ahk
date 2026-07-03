@@ -116,11 +116,11 @@ export default struct IPrintSchemaFeature extends IPrintSchemaDisplayableElement
         return pbShow
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPrintSchemaFeature.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

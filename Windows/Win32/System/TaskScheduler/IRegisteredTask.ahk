@@ -421,11 +421,11 @@ export default struct IRegisteredTask extends IDispatch {
         return pRunTimes
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRegisteredTask.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

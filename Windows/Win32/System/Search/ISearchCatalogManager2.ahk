@@ -64,11 +64,11 @@ export default struct ISearchCatalogManager2 extends ISearchCatalogManager {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISearchCatalogManager2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

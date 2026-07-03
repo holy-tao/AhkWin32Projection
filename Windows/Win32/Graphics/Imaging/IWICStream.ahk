@@ -160,11 +160,11 @@ export default struct IWICStream extends IStream {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWICStream.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

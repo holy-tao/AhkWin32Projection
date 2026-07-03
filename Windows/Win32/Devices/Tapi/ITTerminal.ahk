@@ -160,11 +160,11 @@ export default struct ITTerminal extends IDispatch {
         return pDirection
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITTerminal.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

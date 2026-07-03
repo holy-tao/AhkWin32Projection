@@ -58,11 +58,11 @@ export default struct IConnectionRequestCallback extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IConnectionRequestCallback.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

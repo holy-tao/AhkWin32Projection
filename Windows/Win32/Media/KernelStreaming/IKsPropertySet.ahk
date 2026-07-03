@@ -128,11 +128,11 @@ export default struct IKsPropertySet extends IUnknown {
         return pTypeSupport
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IKsPropertySet.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

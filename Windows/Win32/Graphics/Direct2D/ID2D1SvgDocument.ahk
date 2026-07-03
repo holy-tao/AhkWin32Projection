@@ -242,11 +242,11 @@ export default struct ID2D1SvgDocument extends ID2D1Resource {
         return ID2D1SvgPathData(_pathData)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1SvgDocument.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

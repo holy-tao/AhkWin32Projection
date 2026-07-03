@@ -382,11 +382,11 @@ export default struct IEnumCERTVIEWCOLUMN extends IDispatch {
         return IEnumCERTVIEWCOLUMN(ppenum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumCERTVIEWCOLUMN.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

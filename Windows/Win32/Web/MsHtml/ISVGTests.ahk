@@ -101,11 +101,11 @@ export default struct ISVGTests extends IDispatch {
         return pResult
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISVGTests.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

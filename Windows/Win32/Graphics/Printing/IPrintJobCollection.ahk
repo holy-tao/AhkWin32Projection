@@ -81,11 +81,11 @@ export default struct IPrintJobCollection extends IDispatch {
         return IUnknown(ppUnk)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPrintJobCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

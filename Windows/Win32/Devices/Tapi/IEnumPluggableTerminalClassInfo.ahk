@@ -165,11 +165,11 @@ export default struct IEnumPluggableTerminalClassInfo extends IUnknown {
         return IEnumPluggableTerminalClassInfo(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumPluggableTerminalClassInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

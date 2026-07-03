@@ -217,11 +217,11 @@ export default struct IEnumQueue extends IUnknown {
         return IEnumQueue(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumQueue.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -88,11 +88,11 @@ export default struct IEVRFilterConfigEx extends IEVRFilterConfig {
         return pdwConfigFlags
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEVRFilterConfigEx.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

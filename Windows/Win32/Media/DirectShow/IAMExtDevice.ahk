@@ -544,11 +544,11 @@ export default struct IAMExtDevice extends IUnknown {
         return pDevicePort
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAMExtDevice.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -311,11 +311,11 @@ export default struct IFsrmSetting extends IDispatch {
         return delayTimeMinutes
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFsrmSetting.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

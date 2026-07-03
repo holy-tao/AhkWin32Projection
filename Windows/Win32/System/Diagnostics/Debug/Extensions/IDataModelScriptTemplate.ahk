@@ -70,11 +70,11 @@ export default struct IDataModelScriptTemplate extends IUnknown {
         return IStream(contentStream)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDataModelScriptTemplate.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

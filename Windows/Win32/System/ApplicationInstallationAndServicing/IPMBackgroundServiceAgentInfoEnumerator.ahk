@@ -52,11 +52,11 @@ export default struct IPMBackgroundServiceAgentInfoEnumerator extends IUnknown {
         return IPMBackgroundServiceAgentInfo(ppBSAInfo)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPMBackgroundServiceAgentInfoEnumerator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

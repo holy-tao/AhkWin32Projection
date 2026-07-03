@@ -2016,11 +2016,11 @@ export default struct IDataCollectorSet extends IDispatch {
         return value
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDataCollectorSet.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

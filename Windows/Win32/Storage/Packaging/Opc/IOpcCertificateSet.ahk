@@ -149,11 +149,11 @@ export default struct IOpcCertificateSet extends IUnknown {
         return IOpcCertificateEnumerator(certificateEnumerator)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOpcCertificateSet.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

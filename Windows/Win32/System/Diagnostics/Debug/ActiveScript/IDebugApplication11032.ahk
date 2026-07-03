@@ -76,11 +76,11 @@ export default struct IDebugApplication11032 extends IRemoteDebugApplication110 
         return pIndex
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugApplication11032.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

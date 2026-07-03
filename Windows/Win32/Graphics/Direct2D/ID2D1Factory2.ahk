@@ -56,11 +56,11 @@ export default struct ID2D1Factory2 extends ID2D1Factory1 {
         return ID2D1Device1(d2dDevice1)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1Factory2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

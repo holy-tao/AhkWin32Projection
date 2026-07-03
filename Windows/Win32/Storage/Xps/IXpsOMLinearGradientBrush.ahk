@@ -239,11 +239,11 @@ export default struct IXpsOMLinearGradientBrush extends IXpsOMGradientBrush {
         return IXpsOMLinearGradientBrush(linearGradientBrush)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsOMLinearGradientBrush.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

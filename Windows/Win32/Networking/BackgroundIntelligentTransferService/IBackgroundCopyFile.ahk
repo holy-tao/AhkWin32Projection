@@ -87,11 +87,11 @@ export default struct IBackgroundCopyFile extends IUnknown {
         return pVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBackgroundCopyFile.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

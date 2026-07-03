@@ -119,11 +119,11 @@ export default struct ID3D12StateObjectProperties extends IUnknown {
         ComCall(6, this, Int64, PipelineStackSizeInBytes)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12StateObjectProperties.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

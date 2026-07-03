@@ -81,11 +81,11 @@ export default struct IEnumRemoteDebugApplicationThreads extends IUnknown {
         return IEnumRemoteDebugApplicationThreads(pperdat)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumRemoteDebugApplicationThreads.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

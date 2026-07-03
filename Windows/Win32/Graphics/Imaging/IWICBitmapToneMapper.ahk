@@ -63,11 +63,11 @@ export default struct IWICBitmapToneMapper extends IWICBitmapSource {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWICBitmapToneMapper.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

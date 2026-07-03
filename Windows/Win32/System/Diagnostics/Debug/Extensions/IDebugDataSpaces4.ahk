@@ -607,11 +607,11 @@ export default struct IDebugDataSpaces4 extends IUnknown {
         return BytesWritten
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugDataSpaces4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

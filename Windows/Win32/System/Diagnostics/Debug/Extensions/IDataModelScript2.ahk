@@ -60,11 +60,11 @@ export default struct IDataModelScript2 extends IDataModelScript {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDataModelScript2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

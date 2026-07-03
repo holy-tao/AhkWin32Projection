@@ -51,11 +51,11 @@ export default struct IUIAutomationNotCondition extends IUIAutomationCondition {
         return IUIAutomationCondition(condition)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAutomationNotCondition.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

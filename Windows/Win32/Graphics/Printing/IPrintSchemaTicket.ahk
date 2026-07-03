@@ -136,11 +136,11 @@ export default struct IPrintSchemaTicket extends IPrintSchemaElement {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPrintSchemaTicket.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

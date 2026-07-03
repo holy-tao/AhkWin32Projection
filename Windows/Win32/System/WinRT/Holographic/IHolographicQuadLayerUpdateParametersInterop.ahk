@@ -77,11 +77,11 @@ export default struct IHolographicQuadLayerUpdateParametersInterop extends IInsp
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHolographicQuadLayerUpdateParametersInterop.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -51,11 +51,11 @@ export default struct IWTSBitmapRenderService extends IUnknown {
         return IWTSBitmapRenderer(ppMappedRenderer)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWTSBitmapRenderService.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

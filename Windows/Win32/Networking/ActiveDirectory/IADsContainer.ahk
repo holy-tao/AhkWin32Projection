@@ -375,11 +375,11 @@ export default struct IADsContainer extends IDispatch {
         return IDispatch(ppObject)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IADsContainer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -78,11 +78,11 @@ export default struct ID3D10EffectRasterizerVariable extends ID3D10EffectVariabl
         return pRasterizerDesc
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D10EffectRasterizerVariable.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

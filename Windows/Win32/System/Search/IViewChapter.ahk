@@ -56,11 +56,11 @@ export default struct IViewChapter extends IUnknown {
         return phViewChapter
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IViewChapter.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

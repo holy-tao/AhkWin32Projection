@@ -78,11 +78,11 @@ export default struct IInkRecognizer2 extends IDispatch {
         return UnicodeRanges
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IInkRecognizer2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

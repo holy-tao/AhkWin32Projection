@@ -81,11 +81,11 @@ export default struct IFolderViewOptions extends IUnknown {
         return pfvoFlags
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFolderViewOptions.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

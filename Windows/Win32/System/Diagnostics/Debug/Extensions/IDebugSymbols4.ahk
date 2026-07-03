@@ -2051,11 +2051,11 @@ export default struct IDebugSymbols4 extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugSymbols4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

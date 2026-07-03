@@ -61,11 +61,11 @@ export default struct ITransactionExportFactory extends IUnknown {
         return ITransactionExport(ppExport)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITransactionExportFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

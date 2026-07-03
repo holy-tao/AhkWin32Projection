@@ -191,11 +191,11 @@ export default struct IWMPPlaylistCollection extends IDispatch {
         return IWMPPlaylist(ppImportedItem)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMPPlaylistCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

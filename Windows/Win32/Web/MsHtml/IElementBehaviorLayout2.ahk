@@ -44,11 +44,11 @@ export default struct IElementBehaviorLayout2 extends IUnknown {
         return plDescent
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IElementBehaviorLayout2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

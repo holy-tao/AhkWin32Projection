@@ -1236,11 +1236,11 @@ export default struct IUIAutomation extends IUnknown {
         return IUIAutomationElement(element)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAutomation.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

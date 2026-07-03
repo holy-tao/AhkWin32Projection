@@ -75,11 +75,11 @@ export default struct IPartFont extends IPartBase {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPartFont.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

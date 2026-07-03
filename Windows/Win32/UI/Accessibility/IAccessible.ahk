@@ -1678,11 +1678,11 @@ export default struct IAccessible extends IDispatch {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAccessible.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

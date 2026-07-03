@@ -248,11 +248,11 @@ export default struct IDisplayPointer extends IUnknown {
         return pdwBreaks
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDisplayPointer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

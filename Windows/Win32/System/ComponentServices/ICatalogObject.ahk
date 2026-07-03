@@ -163,11 +163,11 @@ export default struct ICatalogObject extends IDispatch {
         return pbRetVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICatalogObject.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

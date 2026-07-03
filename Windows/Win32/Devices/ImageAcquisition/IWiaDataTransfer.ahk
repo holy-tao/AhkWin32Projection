@@ -250,11 +250,11 @@ export default struct IWiaDataTransfer extends IUnknown {
         return pExtendedTransferInfo
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWiaDataTransfer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

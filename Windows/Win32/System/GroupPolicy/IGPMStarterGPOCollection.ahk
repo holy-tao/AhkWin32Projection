@@ -93,11 +93,11 @@ export default struct IGPMStarterGPOCollection extends IDispatch {
         return IEnumVARIANT(ppIGPMTemplates)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGPMStarterGPOCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

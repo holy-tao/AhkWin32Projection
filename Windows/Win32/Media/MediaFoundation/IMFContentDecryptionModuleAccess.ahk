@@ -88,11 +88,11 @@ export default struct IMFContentDecryptionModuleAccess extends IUnknown {
         return keySystem
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFContentDecryptionModuleAccess.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

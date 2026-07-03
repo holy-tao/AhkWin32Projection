@@ -49,11 +49,11 @@ export default struct IPrinterScriptablePropertyBag2 extends IPrinterScriptableP
         return IUnknown(ppXmlNode)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPrinterScriptablePropertyBag2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

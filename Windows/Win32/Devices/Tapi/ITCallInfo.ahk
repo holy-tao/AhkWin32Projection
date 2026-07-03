@@ -589,11 +589,11 @@ export default struct ITCallInfo extends IDispatch {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITCallInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

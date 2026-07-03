@@ -92,11 +92,11 @@ export default struct ISClusResTypePossibleOwnerNodes extends IDispatch {
         return ISClusNode(ppNode)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISClusResTypePossibleOwnerNodes.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

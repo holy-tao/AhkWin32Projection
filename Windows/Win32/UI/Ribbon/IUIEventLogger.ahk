@@ -47,11 +47,11 @@ export default struct IUIEventLogger extends IUnknown {
         ComCall(3, this, UI_EVENTPARAMS.Ptr, pEventParams)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIEventLogger.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

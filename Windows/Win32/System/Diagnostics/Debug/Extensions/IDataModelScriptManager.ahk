@@ -106,11 +106,11 @@ export default struct IDataModelScriptManager extends IUnknown {
         return IDataModelScriptProviderEnumerator(_enumerator)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDataModelScriptManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

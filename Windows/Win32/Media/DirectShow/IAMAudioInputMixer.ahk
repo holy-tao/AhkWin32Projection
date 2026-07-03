@@ -538,11 +538,11 @@ export default struct IAMAudioInputMixer extends IUnknown {
         return pRange
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAMAudioInputMixer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

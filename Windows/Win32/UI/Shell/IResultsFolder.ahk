@@ -117,11 +117,11 @@ export default struct IResultsFolder extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IResultsFolder.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

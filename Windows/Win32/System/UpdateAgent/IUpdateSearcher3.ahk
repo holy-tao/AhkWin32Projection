@@ -66,11 +66,11 @@ export default struct IUpdateSearcher3 extends IUpdateSearcher2 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUpdateSearcher3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -85,11 +85,11 @@ export default struct IXMLHTTPRequest3Callback extends IXMLHTTPRequest2Callback 
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXMLHTTPRequest3Callback.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -293,11 +293,11 @@ export default struct IMFVirtualCamera extends IMFAttributes {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFVirtualCamera.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

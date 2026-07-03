@@ -49,11 +49,11 @@ export default struct IBindCallbackRedirect extends IUnknown {
         return vbCancel
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBindCallbackRedirect.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

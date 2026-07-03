@@ -78,11 +78,11 @@ export default struct ISearchContext extends IUnknown {
         return pdwSearchStyle
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISearchContext.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

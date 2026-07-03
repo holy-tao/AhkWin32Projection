@@ -160,11 +160,11 @@ export default struct IDXVAHD_Device extends IUnknown {
         return IDXVAHD_VideoProcessor(ppVideoProcessor)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDXVAHD_Device.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

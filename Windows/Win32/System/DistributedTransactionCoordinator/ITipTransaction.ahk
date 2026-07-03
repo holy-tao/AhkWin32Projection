@@ -58,11 +58,11 @@ export default struct ITipTransaction extends IUnknown {
         return o_ppszLocalTxUrl
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITipTransaction.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

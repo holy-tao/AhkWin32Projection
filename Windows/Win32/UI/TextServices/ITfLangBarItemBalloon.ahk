@@ -117,11 +117,11 @@ export default struct ITfLangBarItemBalloon extends ITfLangBarItem {
         return pInfo
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfLangBarItemBalloon.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

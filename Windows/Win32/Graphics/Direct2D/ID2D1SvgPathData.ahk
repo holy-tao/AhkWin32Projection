@@ -199,11 +199,11 @@ export default struct ID2D1SvgPathData extends ID2D1SvgAttribute {
         return ID2D1PathGeometry1(pathGeometry)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1SvgPathData.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

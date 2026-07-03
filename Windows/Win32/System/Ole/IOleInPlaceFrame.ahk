@@ -336,11 +336,11 @@ export default struct IOleInPlaceFrame extends IOleInPlaceUIWindow {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOleInPlaceFrame.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

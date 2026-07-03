@@ -217,11 +217,11 @@ export default struct IFaxEventLogging extends IDispatch {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFaxEventLogging.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

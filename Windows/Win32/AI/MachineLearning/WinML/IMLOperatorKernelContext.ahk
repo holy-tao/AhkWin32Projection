@@ -93,11 +93,11 @@ export default struct IMLOperatorKernelContext extends IUnknown {
         ComCall(7, this, IUnknown.Ptr, executionObject)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMLOperatorKernelContext.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

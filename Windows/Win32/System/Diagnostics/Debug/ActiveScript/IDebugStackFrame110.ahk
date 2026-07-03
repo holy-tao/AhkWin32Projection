@@ -56,11 +56,11 @@ export default struct IDebugStackFrame110 extends IDebugStackFrame {
         return IScriptInvocationContext(ppInvocationContext)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugStackFrame110.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

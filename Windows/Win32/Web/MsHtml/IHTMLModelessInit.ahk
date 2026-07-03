@@ -106,11 +106,11 @@ export default struct IHTMLModelessInit extends IDispatch {
         return IUnknown(p)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLModelessInit.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -54,11 +54,11 @@ export default struct INamespaceWalkCB2 extends INamespaceWalkCB {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (INamespaceWalkCB2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

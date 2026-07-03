@@ -331,11 +331,11 @@ export default struct IComponentType extends IDispatch {
         return IComponentType(NewCT)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IComponentType.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -147,11 +147,11 @@ export default struct IEnumGuideDataProperties extends IUnknown {
         return IEnumGuideDataProperties(ppenum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumGuideDataProperties.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

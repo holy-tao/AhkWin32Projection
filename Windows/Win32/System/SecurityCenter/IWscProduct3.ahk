@@ -51,11 +51,11 @@ export default struct IWscProduct3 extends IWscProduct2 {
         return pdwDays
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWscProduct3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

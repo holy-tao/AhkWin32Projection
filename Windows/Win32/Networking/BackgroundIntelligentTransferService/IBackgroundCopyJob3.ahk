@@ -488,11 +488,11 @@ export default struct IBackgroundCopyJob3 extends IBackgroundCopyJob2 {
         return Flags
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBackgroundCopyJob3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -71,11 +71,11 @@ export default struct IDataModelManager3 extends IDataModelManager2 {
         return INamedModelsEnumerator(ppEnumerator)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDataModelManager3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

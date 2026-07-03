@@ -43,11 +43,11 @@ export default struct ITxProxyHolder extends IUnknown {
         ComCall(3, this, Guid.Ptr, pGuidLtx)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITxProxyHolder.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

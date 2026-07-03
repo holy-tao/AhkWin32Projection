@@ -139,11 +139,11 @@ export default struct IOfflineFilesEvents2 extends IOfflineFilesEvents {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOfflineFilesEvents2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -141,11 +141,11 @@ export default struct IEnumRangeExceptions extends IUnknown {
         return IEnumRangeExceptions(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumRangeExceptions.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

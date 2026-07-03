@@ -76,11 +76,11 @@ export default struct IMapMIMEToCLSID extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMapMIMEToCLSID.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

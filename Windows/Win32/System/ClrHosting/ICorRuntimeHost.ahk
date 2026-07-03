@@ -275,11 +275,11 @@ export default struct ICorRuntimeHost extends IUnknown {
         return IUnknown(pAppDomain)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICorRuntimeHost.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

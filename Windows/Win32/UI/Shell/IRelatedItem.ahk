@@ -68,11 +68,11 @@ export default struct IRelatedItem extends IUnknown {
         return IShellItem(ppsi)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRelatedItem.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

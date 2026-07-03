@@ -91,11 +91,11 @@ export default struct IHomeGroup extends IUnknown {
         return sharingchoices
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHomeGroup.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

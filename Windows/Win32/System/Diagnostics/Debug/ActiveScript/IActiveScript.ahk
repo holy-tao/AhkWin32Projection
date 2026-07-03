@@ -189,11 +189,11 @@ export default struct IActiveScript extends IUnknown {
         return IActiveScript(ppscript)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IActiveScript.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

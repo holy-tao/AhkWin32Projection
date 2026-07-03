@@ -156,11 +156,11 @@ export default struct IMSVidStreamBufferV2SourceEvent extends IMSVidFilePlayback
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSVidStreamBufferV2SourceEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

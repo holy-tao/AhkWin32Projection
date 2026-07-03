@@ -50,11 +50,11 @@ export default struct IDxcValidator2 extends IDxcValidator {
         return IDxcOperationResult(ppResult)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDxcValidator2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -353,11 +353,11 @@ export default struct IDCompositionTableTransferEffect extends IDCompositionFilt
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDCompositionTableTransferEffect.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

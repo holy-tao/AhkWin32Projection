@@ -364,11 +364,11 @@ export default struct IDCompositionLinearTransferEffect extends IDCompositionFil
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDCompositionLinearTransferEffect.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

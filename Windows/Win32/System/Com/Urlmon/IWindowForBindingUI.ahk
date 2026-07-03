@@ -50,11 +50,11 @@ export default struct IWindowForBindingUI extends IUnknown {
         return phwnd
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWindowForBindingUI.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

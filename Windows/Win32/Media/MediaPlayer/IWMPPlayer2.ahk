@@ -334,11 +334,11 @@ export default struct IWMPPlayer2 extends IWMPCore {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMPPlayer2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

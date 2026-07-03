@@ -67,11 +67,11 @@ export default struct IOfflineFilesSimpleProgress extends IOfflineFilesProgress 
         return pResponse
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOfflineFilesSimpleProgress.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

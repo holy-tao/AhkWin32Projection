@@ -170,11 +170,11 @@ export default struct ISVGTransformList extends IDispatch {
         return ISVGTransform(ppResult)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISVGTransformList.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

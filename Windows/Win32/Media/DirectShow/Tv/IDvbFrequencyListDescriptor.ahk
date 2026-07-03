@@ -100,11 +100,11 @@ export default struct IDvbFrequencyListDescriptor extends IUnknown {
         return pdwVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDvbFrequencyListDescriptor.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

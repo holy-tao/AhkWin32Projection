@@ -153,11 +153,11 @@ export default struct IWMDMDevice3 extends IWMDMDevice2 {
         return IWMDMStorage(ppStorage)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMDMDevice3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

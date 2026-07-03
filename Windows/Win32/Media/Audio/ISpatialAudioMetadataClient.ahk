@@ -123,11 +123,11 @@ export default struct ISpatialAudioMetadataClient extends IUnknown {
         return ISpatialAudioMetadataReader(metadataReader)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpatialAudioMetadataClient.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

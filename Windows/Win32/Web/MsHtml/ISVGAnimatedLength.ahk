@@ -97,11 +97,11 @@ export default struct ISVGAnimatedLength extends IDispatch {
         return ISVGLength(p)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISVGAnimatedLength.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

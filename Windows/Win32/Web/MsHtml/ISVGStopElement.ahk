@@ -69,11 +69,11 @@ export default struct ISVGStopElement extends IDispatch {
         return ISVGAnimatedNumber(p)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISVGStopElement.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

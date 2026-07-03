@@ -48,11 +48,11 @@ export default struct IAudioStreamSample extends IStreamSample {
         return IAudioData(ppAudio)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAudioStreamSample.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

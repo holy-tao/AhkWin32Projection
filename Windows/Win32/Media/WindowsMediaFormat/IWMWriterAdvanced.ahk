@@ -353,11 +353,11 @@ export default struct IWMWriterAdvanced extends IUnknown {
         return pmsWindow
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMWriterAdvanced.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

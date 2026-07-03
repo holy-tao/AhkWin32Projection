@@ -57,11 +57,11 @@ export default struct IDirectSoundFXDistortion extends IUnknown {
         return pDsFxDistortion
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDirectSoundFXDistortion.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

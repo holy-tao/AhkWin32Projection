@@ -67,11 +67,11 @@ export default struct IBlockRangeList extends IDispatch {
         return value
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBlockRangeList.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

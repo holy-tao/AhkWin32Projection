@@ -643,11 +643,11 @@ export default struct IXpsOMCanvas extends IXpsOMVisual {
         return IXpsOMCanvas(canvas)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsOMCanvas.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

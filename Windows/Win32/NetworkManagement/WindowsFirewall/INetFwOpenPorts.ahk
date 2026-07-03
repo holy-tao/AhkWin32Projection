@@ -317,11 +317,11 @@ export default struct INetFwOpenPorts extends IDispatch {
         return IUnknown(newEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (INetFwOpenPorts.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

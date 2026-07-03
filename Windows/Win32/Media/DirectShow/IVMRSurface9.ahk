@@ -140,11 +140,11 @@ export default struct IVMRSurface9 extends IUnknown {
         return IDirect3DSurface9(lplpSurface)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVMRSurface9.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

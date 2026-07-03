@@ -71,11 +71,11 @@ export default struct IUIAutomationElementArray extends IUnknown {
         return IUIAutomationElement(element)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAutomationElementArray.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -146,11 +146,11 @@ export default struct IMFNetCredential extends IUnknown {
         return pfLoggedOnUser
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFNetCredential.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

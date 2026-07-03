@@ -61,11 +61,11 @@ export default struct ID3D11VideoProcessor extends ID3D11DeviceChild {
         ComCall(8, this, D3D11_VIDEO_PROCESSOR_RATE_CONVERSION_CAPS.Ptr, pCaps)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D11VideoProcessor.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

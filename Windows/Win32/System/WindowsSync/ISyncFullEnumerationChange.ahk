@@ -64,11 +64,11 @@ export default struct ISyncFullEnumerationChange extends IUnknown {
         return IForgottenKnowledge(ppLearnedForgottenKnowledge)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISyncFullEnumerationChange.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -80,11 +80,11 @@ export default struct IAzNameResolver extends IDispatch {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAzNameResolver.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

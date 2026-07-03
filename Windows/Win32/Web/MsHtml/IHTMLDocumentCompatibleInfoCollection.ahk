@@ -69,11 +69,11 @@ export default struct IHTMLDocumentCompatibleInfoCollection extends IDispatch {
         return IHTMLDocumentCompatibleInfo(compatibleInfo)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLDocumentCompatibleInfoCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

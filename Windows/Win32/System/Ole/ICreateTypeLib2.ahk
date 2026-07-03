@@ -259,11 +259,11 @@ export default struct ICreateTypeLib2 extends ICreateTypeLib {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICreateTypeLib2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

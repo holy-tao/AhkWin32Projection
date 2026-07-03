@@ -146,11 +146,11 @@ export default struct IX509ExtensionMSApplicationPolicies extends IX509Extension
         return ICertificatePolicies(ppValue)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IX509ExtensionMSApplicationPolicies.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

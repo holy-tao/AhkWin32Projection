@@ -80,11 +80,11 @@ export default struct IMSVidCompositionSegment extends IMSVidGraphSegment {
         return IMSVidGraphSegment(downstream)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSVidCompositionSegment.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

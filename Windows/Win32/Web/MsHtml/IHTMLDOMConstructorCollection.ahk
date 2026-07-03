@@ -1836,11 +1836,11 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
         return IDispatch(p)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLDOMConstructorCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

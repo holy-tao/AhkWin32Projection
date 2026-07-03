@@ -91,11 +91,11 @@ export default struct IAzTasks extends IDispatch {
         return IUnknown(ppEnumPtr)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAzTasks.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

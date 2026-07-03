@@ -105,11 +105,11 @@ export default struct IMarkupPointer2 extends IMarkupPointer {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMarkupPointer2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

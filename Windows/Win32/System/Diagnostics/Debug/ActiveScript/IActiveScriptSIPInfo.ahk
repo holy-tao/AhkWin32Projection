@@ -45,11 +45,11 @@ export default struct IActiveScriptSIPInfo extends IUnknown {
         return poid_sip
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IActiveScriptSIPInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

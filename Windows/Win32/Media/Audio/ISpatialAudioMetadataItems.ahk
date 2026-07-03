@@ -95,11 +95,11 @@ export default struct ISpatialAudioMetadataItems extends IUnknown {
         return info
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpatialAudioMetadataItems.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

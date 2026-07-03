@@ -81,11 +81,11 @@ export default struct IEnumTravelLogEntry extends IUnknown {
         return IEnumTravelLogEntry(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumTravelLogEntry.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

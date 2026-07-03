@@ -69,11 +69,11 @@ export default struct ID2D1TransformedGeometry extends ID2D1Geometry {
         ComCall(18, this, D2D_MATRIX_3X2_F.Ptr, transform)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1TransformedGeometry.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

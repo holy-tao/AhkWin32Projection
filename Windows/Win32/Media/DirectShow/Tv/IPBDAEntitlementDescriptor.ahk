@@ -74,11 +74,11 @@ export default struct IPBDAEntitlementDescriptor extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPBDAEntitlementDescriptor.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

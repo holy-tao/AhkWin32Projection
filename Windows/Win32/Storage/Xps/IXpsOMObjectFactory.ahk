@@ -1964,11 +1964,11 @@ export default struct IXpsOMObjectFactory extends IUnknown {
         return IStream(stream)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsOMObjectFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -45,11 +45,11 @@ export default struct IUriContainer extends IUnknown {
         return IUri(ppIUri)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUriContainer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

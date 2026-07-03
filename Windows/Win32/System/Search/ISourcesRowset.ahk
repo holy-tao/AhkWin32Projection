@@ -49,11 +49,11 @@ export default struct ISourcesRowset extends IUnknown {
         return IUnknown(ppSourcesRowset)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISourcesRowset.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

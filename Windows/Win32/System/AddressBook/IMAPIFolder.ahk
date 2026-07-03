@@ -504,11 +504,11 @@ export default struct IMAPIFolder extends IMAPIContainer {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMAPIFolder.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

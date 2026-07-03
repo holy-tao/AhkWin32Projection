@@ -52,11 +52,11 @@ export default struct IXmlResolver extends IUnknown {
         return IUnknown(ppResolvedInput)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXmlResolver.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

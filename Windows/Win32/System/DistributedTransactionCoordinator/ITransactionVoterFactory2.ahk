@@ -50,11 +50,11 @@ export default struct ITransactionVoterFactory2 extends IUnknown {
         return ITransactionVoterBallotAsync2(ppVoterBallot)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITransactionVoterFactory2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

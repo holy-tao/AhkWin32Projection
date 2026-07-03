@@ -107,11 +107,11 @@ export default struct ICommDlgBrowser2 extends ICommDlgBrowser {
         return pdwFlags
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICommDlgBrowser2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

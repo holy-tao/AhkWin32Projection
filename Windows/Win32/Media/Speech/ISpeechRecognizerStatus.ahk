@@ -142,11 +142,11 @@ export default struct ISpeechRecognizerStatus extends IDispatch {
         return SupportedLanguages
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpeechRecognizerStatus.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

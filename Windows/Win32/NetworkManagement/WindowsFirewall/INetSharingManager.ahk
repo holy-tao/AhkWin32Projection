@@ -162,11 +162,11 @@ export default struct INetSharingManager extends IDispatch {
         return INetConnectionProps(ppProps)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (INetSharingManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

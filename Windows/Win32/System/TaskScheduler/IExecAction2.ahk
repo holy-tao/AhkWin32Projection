@@ -67,11 +67,11 @@ export default struct IExecAction2 extends IExecAction {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IExecAction2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

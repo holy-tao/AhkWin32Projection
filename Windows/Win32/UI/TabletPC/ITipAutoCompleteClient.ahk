@@ -105,11 +105,11 @@ export default struct ITipAutoCompleteClient extends IUnknown {
         return pfAllowShowing
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITipAutoCompleteClient.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

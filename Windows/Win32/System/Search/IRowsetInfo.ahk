@@ -76,11 +76,11 @@ export default struct IRowsetInfo extends IUnknown {
         return IUnknown(ppSpecification)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRowsetInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

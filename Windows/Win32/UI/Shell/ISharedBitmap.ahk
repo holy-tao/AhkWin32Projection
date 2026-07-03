@@ -129,11 +129,11 @@ export default struct ISharedBitmap extends IUnknown {
         return phbm
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISharedBitmap.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

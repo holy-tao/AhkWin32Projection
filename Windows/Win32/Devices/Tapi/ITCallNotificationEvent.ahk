@@ -100,11 +100,11 @@ export default struct ITCallNotificationEvent extends IDispatch {
         return plCallbackInstance
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITCallNotificationEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

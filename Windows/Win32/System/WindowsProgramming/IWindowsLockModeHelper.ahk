@@ -45,11 +45,11 @@ export default struct IWindowsLockModeHelper extends IUnknown {
         return isSmode
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWindowsLockModeHelper.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

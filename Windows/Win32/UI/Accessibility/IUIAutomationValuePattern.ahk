@@ -144,11 +144,11 @@ export default struct IUIAutomationValuePattern extends IUnknown {
         return retVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAutomationValuePattern.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -91,11 +91,11 @@ export default struct ISVGAnimatedPoints extends IDispatch {
         return ISVGPointList(p)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISVGAnimatedPoints.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

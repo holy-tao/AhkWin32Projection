@@ -64,11 +64,11 @@ export default struct IHTMLWindow4 extends IDispatch {
         return IHTMLFrameBase(p)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLWindow4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

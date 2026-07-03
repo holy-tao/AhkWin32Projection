@@ -82,11 +82,11 @@ export default struct ISClusDisks extends IDispatch {
         return ISClusDisk(ppDisk)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISClusDisks.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

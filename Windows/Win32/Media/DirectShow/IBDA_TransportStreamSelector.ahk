@@ -58,11 +58,11 @@ export default struct IBDA_TransportStreamSelector extends IUnknown {
         return pbTSInformationBuffer
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBDA_TransportStreamSelector.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -251,11 +251,11 @@ export default struct IAMAnalogVideoDecoder extends IUnknown {
         return plOutputEnable
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAMAnalogVideoDecoder.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

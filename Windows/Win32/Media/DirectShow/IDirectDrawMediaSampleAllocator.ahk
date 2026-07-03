@@ -50,11 +50,11 @@ export default struct IDirectDrawMediaSampleAllocator extends IUnknown {
         return IDirectDraw(ppDirectDraw)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDirectDrawMediaSampleAllocator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

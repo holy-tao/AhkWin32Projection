@@ -239,11 +239,11 @@ export default struct IWMWriterFileSink3 extends IWMWriterFileSink2 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMWriterFileSink3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

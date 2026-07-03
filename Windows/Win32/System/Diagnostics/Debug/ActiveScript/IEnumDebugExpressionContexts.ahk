@@ -81,11 +81,11 @@ export default struct IEnumDebugExpressionContexts extends IUnknown {
         return IEnumDebugExpressionContexts(ppedec)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumDebugExpressionContexts.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -72,11 +72,11 @@ export default struct IWICMetadataWriterInfo extends IWICMetadataHandlerInfo {
         return IWICMetadataWriter(ppIWriter)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWICMetadataWriterInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

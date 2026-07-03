@@ -109,11 +109,11 @@ export default struct ISpStreamFormatConverter extends ISpStreamFormat {
         return pullOffsetConvertedStream
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpStreamFormatConverter.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

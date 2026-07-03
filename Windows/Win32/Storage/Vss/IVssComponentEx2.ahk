@@ -312,11 +312,11 @@ export default struct IVssComponentEx2 extends IVssComponentEx {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVssComponentEx2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

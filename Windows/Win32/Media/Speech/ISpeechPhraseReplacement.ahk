@@ -105,11 +105,11 @@ export default struct ISpeechPhraseReplacement extends IDispatch {
         return NumberOfElements
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpeechPhraseReplacement.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

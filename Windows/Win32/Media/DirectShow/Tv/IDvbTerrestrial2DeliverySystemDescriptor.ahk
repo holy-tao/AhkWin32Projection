@@ -164,11 +164,11 @@ export default struct IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown 
         return pbVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDvbTerrestrial2DeliverySystemDescriptor.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

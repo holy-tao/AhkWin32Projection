@@ -60,11 +60,11 @@ export default struct IFunctionInstanceQuery extends IUnknown {
         return IFunctionInstance(ppIFunctionInstance)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFunctionInstanceQuery.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

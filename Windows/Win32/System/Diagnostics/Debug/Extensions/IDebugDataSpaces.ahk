@@ -306,11 +306,11 @@ export default struct IDebugDataSpaces extends IUnknown {
         return DataSize
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugDataSpaces.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -124,11 +124,11 @@ export default struct IADsCollection extends IDispatch {
         return pvItem
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IADsCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

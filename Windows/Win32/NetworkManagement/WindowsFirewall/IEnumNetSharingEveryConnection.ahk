@@ -381,11 +381,11 @@ export default struct IEnumNetSharingEveryConnection extends IUnknown {
         return IEnumNetSharingEveryConnection(ppenum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumNetSharingEveryConnection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

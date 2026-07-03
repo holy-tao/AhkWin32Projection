@@ -56,11 +56,11 @@ export default struct IPrinterScriptableSequentialStream extends IDispatch {
         return pcbWritten
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPrinterScriptableSequentialStream.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

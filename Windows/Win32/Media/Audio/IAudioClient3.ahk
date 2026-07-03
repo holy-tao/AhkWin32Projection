@@ -335,11 +335,11 @@ export default struct IAudioClient3 extends IAudioClient2 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAudioClient3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

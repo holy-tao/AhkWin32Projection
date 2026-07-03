@@ -184,11 +184,11 @@ export default struct IWMDMStorage4 extends IWMDMStorage3 {
         return IWMDMStorage(ppStorage)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMDMStorage4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

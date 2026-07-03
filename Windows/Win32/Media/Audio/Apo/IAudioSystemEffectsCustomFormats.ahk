@@ -79,11 +79,11 @@ export default struct IAudioSystemEffectsCustomFormats extends IUnknown {
         return ppwstrFormatRep
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAudioSystemEffectsCustomFormats.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

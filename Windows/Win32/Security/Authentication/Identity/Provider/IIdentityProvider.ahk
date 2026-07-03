@@ -155,11 +155,11 @@ export default struct IIdentityProvider extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IIdentityProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -721,11 +721,11 @@ export default struct IVssCreateExpressWriterMetadata extends IUnknown {
         return pbstrXML
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVssCreateExpressWriterMetadata.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

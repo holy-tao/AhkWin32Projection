@@ -54,11 +54,11 @@ export default struct IMFHttpDownloadSessionProvider extends IUnknown {
         return IMFHttpDownloadSession(ppDownloadSession)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFHttpDownloadSessionProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

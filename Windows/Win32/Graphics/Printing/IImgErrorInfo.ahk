@@ -112,11 +112,11 @@ export default struct IImgErrorInfo extends IErrorInfo {
         return pErrorInfo
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IImgErrorInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

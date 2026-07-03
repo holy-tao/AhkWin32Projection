@@ -94,11 +94,11 @@ export default struct IHTMLDOMImplementation2 extends IDispatch {
         return pfHasFeature
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLDOMImplementation2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

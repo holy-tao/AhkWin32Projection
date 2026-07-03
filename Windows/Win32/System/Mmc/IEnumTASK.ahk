@@ -93,11 +93,11 @@ export default struct IEnumTASK extends IUnknown {
         return IEnumTASK(ppenum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumTASK.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

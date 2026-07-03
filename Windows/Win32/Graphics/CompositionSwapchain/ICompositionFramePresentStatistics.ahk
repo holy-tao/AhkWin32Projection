@@ -85,11 +85,11 @@ export default struct ICompositionFramePresentStatistics extends IPresentStatist
         ComCall(7, this, displayInstanceArrayCountMarshal, displayInstanceArrayCount, displayInstanceArrayMarshal, displayInstanceArray)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICompositionFramePresentStatistics.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

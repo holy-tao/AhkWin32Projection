@@ -100,11 +100,11 @@ export default struct IX509AttributeExtensions extends IX509Attribute {
         return IX509Extensions(ppValue)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IX509AttributeExtensions.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

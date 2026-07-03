@@ -37,11 +37,11 @@ export default struct IDCompositionTransform3D extends IDCompositionEffect {
         super.__New(implObj, flags)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDCompositionTransform3D.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

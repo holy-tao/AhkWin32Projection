@@ -56,11 +56,11 @@ export default struct ITfTextEditSink extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfTextEditSink.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

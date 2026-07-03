@@ -70,11 +70,11 @@ export default struct ISchemaAttributeGroup extends ISchemaItem {
         return ISchemaItemCollection(attributes)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISchemaAttributeGroup.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -127,11 +127,11 @@ export default struct IEnumBackgroundCopyFiles extends IUnknown {
         return puCount
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumBackgroundCopyFiles.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

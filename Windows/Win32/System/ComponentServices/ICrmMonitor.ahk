@@ -62,11 +62,11 @@ export default struct ICrmMonitor extends IUnknown {
         return pItem
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICrmMonitor.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -98,11 +98,11 @@ export default struct ISVGPathSegLinetoAbs extends IDispatch {
         return p
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISVGPathSegLinetoAbs.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

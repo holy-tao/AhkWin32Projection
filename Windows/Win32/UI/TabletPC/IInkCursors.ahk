@@ -97,11 +97,11 @@ export default struct IInkCursors extends IDispatch {
         return IInkCursor(Cursor)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IInkCursors.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

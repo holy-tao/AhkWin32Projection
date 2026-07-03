@@ -47,11 +47,11 @@ export default struct ISpecifyParticularPages extends IUnknown {
         return pPages
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpecifyParticularPages.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

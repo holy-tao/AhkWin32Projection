@@ -47,11 +47,11 @@ export default struct IDebugPropertyEnumType_All extends IUnknown {
         return __MIDL__IDebugPropertyEnumType_All0000
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugPropertyEnumType_All.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -86,11 +86,11 @@ export default struct IContactAggregationAggregateCollection extends IUnknown {
         return pCount
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IContactAggregationAggregateCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

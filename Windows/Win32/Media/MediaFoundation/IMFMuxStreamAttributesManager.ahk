@@ -60,11 +60,11 @@ export default struct IMFMuxStreamAttributesManager extends IUnknown {
         return IMFAttributes(ppStreamAttributes)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFMuxStreamAttributesManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

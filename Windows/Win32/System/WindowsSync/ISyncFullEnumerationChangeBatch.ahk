@@ -186,11 +186,11 @@ export default struct ISyncFullEnumerationChangeBatch extends ISyncChangeBatchBa
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISyncFullEnumerationChangeBatch.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

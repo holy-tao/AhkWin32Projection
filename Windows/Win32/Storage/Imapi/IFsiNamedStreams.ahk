@@ -136,11 +136,11 @@ export default struct IFsiNamedStreams extends IDispatch {
         return IEnumFsiItems(NewEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFsiNamedStreams.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

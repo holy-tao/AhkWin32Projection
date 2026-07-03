@@ -200,11 +200,11 @@ export default struct IVBSAXAttributes extends IDispatch {
         return strValue
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVBSAXAttributes.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

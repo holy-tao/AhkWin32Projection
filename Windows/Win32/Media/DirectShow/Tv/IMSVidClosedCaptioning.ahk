@@ -76,11 +76,11 @@ export default struct IMSVidClosedCaptioning extends IMSVidFeature {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSVidClosedCaptioning.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

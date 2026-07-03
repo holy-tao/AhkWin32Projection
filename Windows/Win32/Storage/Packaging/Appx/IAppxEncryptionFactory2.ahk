@@ -58,11 +58,11 @@ export default struct IAppxEncryptionFactory2 extends IUnknown {
         return IAppxEncryptedPackageWriter(packageWriter)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxEncryptionFactory2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

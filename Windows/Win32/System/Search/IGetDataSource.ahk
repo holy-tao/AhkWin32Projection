@@ -45,11 +45,11 @@ export default struct IGetDataSource extends IUnknown {
         return IUnknown(ppDataSource)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGetDataSource.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

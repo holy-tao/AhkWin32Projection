@@ -208,11 +208,11 @@ export default struct IADsProperty extends IADs {
         return IADsCollection(ppQualifiers)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IADsProperty.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

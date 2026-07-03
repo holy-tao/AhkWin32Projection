@@ -166,11 +166,11 @@ export default struct IWbemConfigureRefresher extends IUnknown {
         return IWbemHiPerfEnum(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWbemConfigureRefresher.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

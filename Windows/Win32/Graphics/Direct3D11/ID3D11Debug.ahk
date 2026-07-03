@@ -310,11 +310,11 @@ export default struct ID3D11Debug extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D11Debug.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

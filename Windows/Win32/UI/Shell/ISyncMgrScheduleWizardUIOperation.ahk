@@ -57,11 +57,11 @@ export default struct ISyncMgrScheduleWizardUIOperation extends ISyncMgrUIOperat
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISyncMgrScheduleWizardUIOperation.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -46,11 +46,11 @@ export default struct ITransaction2 extends ITransactionCloner {
         return pinfo
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITransaction2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

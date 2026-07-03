@@ -69,11 +69,11 @@ export default struct ITextEditProvider extends ITextProvider {
         return ITextRangeProvider(pRetVal)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITextEditProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

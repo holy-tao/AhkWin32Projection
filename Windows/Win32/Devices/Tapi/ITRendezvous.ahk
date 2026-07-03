@@ -140,11 +140,11 @@ export default struct ITRendezvous extends IDispatch {
         return ITDirectoryObject(ppDirectoryObject)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITRendezvous.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

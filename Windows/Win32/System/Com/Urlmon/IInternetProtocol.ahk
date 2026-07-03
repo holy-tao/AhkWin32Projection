@@ -81,11 +81,11 @@ export default struct IInternetProtocol extends IInternetProtocolRoot {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IInternetProtocol.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

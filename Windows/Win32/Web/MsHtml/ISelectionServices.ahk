@@ -107,11 +107,11 @@ export default struct ISelectionServices extends IUnknown {
         return ISelectionServicesListener(ppISelectionServicesListener)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISelectionServices.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -87,10 +87,10 @@ export default struct IXAudio2EngineCallback extends Win32ComInterface {
         ComCall(2, this, "int", _Error)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXAudio2EngineCallback.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 }

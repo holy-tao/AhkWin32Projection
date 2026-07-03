@@ -213,11 +213,11 @@ export default struct IHTMLInputButtonElement extends IDispatch {
         return IHTMLTxtRange(range)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLInputButtonElement.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

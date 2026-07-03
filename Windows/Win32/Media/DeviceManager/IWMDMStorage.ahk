@@ -394,11 +394,11 @@ export default struct IWMDMStorage extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMDMStorage.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

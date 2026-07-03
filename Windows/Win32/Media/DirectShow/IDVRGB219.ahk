@@ -68,11 +68,11 @@ export default struct IDVRGB219 extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDVRGB219.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

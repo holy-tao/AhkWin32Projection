@@ -82,11 +82,11 @@ export default struct IShellView3 extends IShellView2 {
         return phwndView
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IShellView3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

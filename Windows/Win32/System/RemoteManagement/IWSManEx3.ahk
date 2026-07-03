@@ -107,11 +107,11 @@ export default struct IWSManEx3 extends IWSManEx2 {
         return flags
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWSManEx3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

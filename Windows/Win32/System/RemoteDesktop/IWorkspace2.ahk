@@ -70,11 +70,11 @@ export default struct IWorkspace2 extends IWorkspace {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWorkspace2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

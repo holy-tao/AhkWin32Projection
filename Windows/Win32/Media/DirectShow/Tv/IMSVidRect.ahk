@@ -228,11 +228,11 @@ export default struct IMSVidRect extends IDispatch {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSVidRect.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

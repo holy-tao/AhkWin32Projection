@@ -54,11 +54,11 @@ export default struct IAddrTrackingControl extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAddrTrackingControl.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

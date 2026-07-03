@@ -50,11 +50,11 @@ export default struct IElementBehaviorSiteCategory extends IUnknown {
         return IEnumUnknown(ppEnumerator)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IElementBehaviorSiteCategory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -63,11 +63,11 @@ export default struct IOfflineFilesFileItem extends IOfflineFilesItem {
         return pbIsEncrypted
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOfflineFilesFileItem.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

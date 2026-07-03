@@ -44,11 +44,11 @@ export default struct IRpcChannelBuffer2 extends IRpcChannelBuffer {
         return pdwVersion
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRpcChannelBuffer2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

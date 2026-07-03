@@ -71,11 +71,11 @@ export default struct IUIAutomationTextRangeArray extends IUnknown {
         return IUIAutomationTextRange(element)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAutomationTextRangeArray.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

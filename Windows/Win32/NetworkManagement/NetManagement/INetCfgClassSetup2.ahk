@@ -48,11 +48,11 @@ export default struct INetCfgClassSetup2 extends INetCfgClassSetup {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (INetCfgClassSetup2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

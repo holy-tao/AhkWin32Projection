@@ -120,11 +120,11 @@ export default struct IBDA_ConditionalAccessEx extends IUnknown {
         return pulDialogRequestNumber
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBDA_ConditionalAccessEx.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

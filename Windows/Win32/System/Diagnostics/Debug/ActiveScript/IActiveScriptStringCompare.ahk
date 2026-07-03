@@ -50,11 +50,11 @@ export default struct IActiveScriptStringCompare extends IUnknown {
         return iRet
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IActiveScriptStringCompare.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

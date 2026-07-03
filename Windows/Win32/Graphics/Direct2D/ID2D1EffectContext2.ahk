@@ -59,11 +59,11 @@ export default struct ID2D1EffectContext2 extends ID2D1EffectContext1 {
         return ID2D1ColorContext1(colorContext)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1EffectContext2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

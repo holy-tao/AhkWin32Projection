@@ -318,11 +318,11 @@ export default struct IHTMLOptionButtonElement extends IDispatch {
         return IHTMLFormElement(p)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLOptionButtonElement.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

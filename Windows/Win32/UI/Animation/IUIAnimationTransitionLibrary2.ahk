@@ -447,11 +447,11 @@ export default struct IUIAnimationTransitionLibrary2 extends IUnknown {
         return IUIAnimationTransition2(ppTransition)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAnimationTransitionLibrary2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

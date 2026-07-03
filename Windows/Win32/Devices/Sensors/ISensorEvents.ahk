@@ -152,11 +152,11 @@ export default struct ISensorEvents extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISensorEvents.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

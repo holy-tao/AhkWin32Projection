@@ -95,11 +95,11 @@ export default struct IGameExplorer extends IUnknown {
         return pfHasAccess
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGameExplorer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

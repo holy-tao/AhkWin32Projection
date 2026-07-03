@@ -109,11 +109,11 @@ export default struct IFsrmActionEventLog extends IFsrmAction {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFsrmActionEventLog.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

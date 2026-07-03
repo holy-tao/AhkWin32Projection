@@ -147,11 +147,11 @@ export default struct IStringTable extends IUnknown {
         return IEnumString(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IStringTable.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

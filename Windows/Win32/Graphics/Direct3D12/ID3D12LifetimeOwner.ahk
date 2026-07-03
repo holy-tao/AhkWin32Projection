@@ -49,11 +49,11 @@ export default struct ID3D12LifetimeOwner extends IUnknown {
         ComCall(3, this, D3D12_LIFETIME_STATE, NewState)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12LifetimeOwner.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

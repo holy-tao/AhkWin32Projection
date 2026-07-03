@@ -281,11 +281,11 @@ export default struct IUpdateService extends IDispatch {
         return retval
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUpdateService.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

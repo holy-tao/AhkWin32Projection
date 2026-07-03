@@ -1252,11 +1252,11 @@ export default struct IX509CertificateRequestPkcs10 extends IX509CertificateRequ
         return ICspStatuses(ppCspStatuses)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IX509CertificateRequestPkcs10.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

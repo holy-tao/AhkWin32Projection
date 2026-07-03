@@ -306,11 +306,11 @@ export default struct ISpeechPhraseInfo extends IDispatch {
         return DisplayAttributes
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpeechPhraseInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

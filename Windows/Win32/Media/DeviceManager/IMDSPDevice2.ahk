@@ -167,11 +167,11 @@ export default struct IMDSPDevice2 extends IMDSPDevice {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMDSPDevice2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -118,11 +118,11 @@ export default struct IOfflineFilesConnectionInfo extends IUnknown {
         return pbOpenFilesPreventedTransition
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOfflineFilesConnectionInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

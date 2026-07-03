@@ -216,11 +216,11 @@ export default struct ICertExit extends IDispatch {
         return pstrDescription
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICertExit.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

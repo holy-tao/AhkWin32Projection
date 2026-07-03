@@ -158,11 +158,11 @@ export default struct ISBE2Crossbar extends IUnknown {
         return ISBE2EnumStream(ppStreams)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISBE2Crossbar.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -45,11 +45,11 @@ export default struct IDtcLuRecoveryInitiatedByLu extends IUnknown {
         return IDtcLuRecoveryInitiatedByLuWork(ppWork)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDtcLuRecoveryInitiatedByLu.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

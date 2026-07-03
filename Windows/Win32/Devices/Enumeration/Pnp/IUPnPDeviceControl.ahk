@@ -97,11 +97,11 @@ export default struct IUPnPDeviceControl extends IUnknown {
         return IDispatch(ppdispService)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUPnPDeviceControl.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

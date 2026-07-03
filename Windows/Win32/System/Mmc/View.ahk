@@ -51,7 +51,6 @@ export default struct View extends IDispatch {
         get_ListItems                 : IntPtr
         SnapinScopeObject             : IntPtr
         SnapinSelectionObject         : IntPtr
-        Is                            : IntPtr
         get_Document                  : IntPtr
         SelectAll                     : IntPtr
         Select                        : IntPtr
@@ -618,11 +617,11 @@ export default struct View extends IDispatch {
         return IDispatch(Control)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (View.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

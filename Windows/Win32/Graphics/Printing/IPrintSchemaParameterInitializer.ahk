@@ -65,11 +65,11 @@ export default struct IPrintSchemaParameterInitializer extends IPrintSchemaEleme
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPrintSchemaParameterInitializer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -61,11 +61,11 @@ export default struct IAudioEndpointLastBufferControl extends IUnknown {
         ComCall(4, this, APO_CONNECTION_PROPERTY.Ptr, pConnectionProperty)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAudioEndpointLastBufferControl.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

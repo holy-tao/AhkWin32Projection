@@ -102,11 +102,11 @@ export default struct IGPMClientSideExtension extends IDispatch {
         return pvbEnabled
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGPMClientSideExtension.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

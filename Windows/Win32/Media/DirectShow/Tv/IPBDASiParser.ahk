@@ -80,11 +80,11 @@ export default struct IPBDASiParser extends IUnknown {
         return IPBDA_Services(ppServices)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPBDASiParser.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

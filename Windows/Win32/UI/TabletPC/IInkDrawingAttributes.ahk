@@ -439,11 +439,11 @@ export default struct IInkDrawingAttributes extends IDispatch {
         return IInkDrawingAttributes(DrawingAttributes)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IInkDrawingAttributes.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

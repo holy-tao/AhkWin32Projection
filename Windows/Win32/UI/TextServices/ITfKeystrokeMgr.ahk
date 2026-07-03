@@ -570,11 +570,11 @@ export default struct ITfKeystrokeMgr extends IUnknown {
         return pfEaten
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfKeystrokeMgr.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

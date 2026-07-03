@@ -91,11 +91,11 @@ export default struct ID3D12SharingContract extends IUnknown {
         ComCall(6, this, Guid.Ptr, guid)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12SharingContract.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

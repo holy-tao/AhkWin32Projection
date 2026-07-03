@@ -88,11 +88,11 @@ export default struct IDirectManipulationDragDropBehavior extends IUnknown {
         return _status
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDirectManipulationDragDropBehavior.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

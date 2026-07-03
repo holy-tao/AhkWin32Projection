@@ -85,11 +85,11 @@ export default struct IFilterGraph3 extends IFilterGraph2 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFilterGraph3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

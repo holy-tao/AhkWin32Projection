@@ -270,11 +270,11 @@ export default struct IPortableDeviceConnector extends IUnknown {
         return ppwszPnPID
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPortableDeviceConnector.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -45,11 +45,11 @@ export default struct IImageDecodeEventSink2 extends IImageDecodeEventSink {
         return pfPremultAlpha
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IImageDecodeEventSink2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

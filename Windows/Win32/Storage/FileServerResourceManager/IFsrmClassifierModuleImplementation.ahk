@@ -170,11 +170,11 @@ export default struct IFsrmClassifierModuleImplementation extends IFsrmPipelineM
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFsrmClassifierModuleImplementation.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

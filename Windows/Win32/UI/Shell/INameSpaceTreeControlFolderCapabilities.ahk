@@ -57,11 +57,11 @@ export default struct INameSpaceTreeControlFolderCapabilities extends IUnknown {
         return pnfcValue
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (INameSpaceTreeControlFolderCapabilities.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

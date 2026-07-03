@@ -127,11 +127,11 @@ export default struct IClassFactory2 extends IClassFactory {
         return ppvObj
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IClassFactory2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

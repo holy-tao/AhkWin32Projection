@@ -160,11 +160,11 @@ export default struct IDCompositionAffineTransform2DEffect extends IDComposition
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDCompositionAffineTransform2DEffect.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

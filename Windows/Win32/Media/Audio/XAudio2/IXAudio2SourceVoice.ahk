@@ -358,11 +358,11 @@ export default struct IXAudio2SourceVoice extends IXAudio2Voice {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXAudio2SourceVoice.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

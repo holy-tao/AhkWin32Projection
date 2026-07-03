@@ -162,11 +162,11 @@ export default struct IAzClientContext2 extends IAzClientContext {
         return pbstrLDAPQueryDN
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAzClientContext2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

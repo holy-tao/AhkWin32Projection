@@ -122,11 +122,11 @@ export default struct IFileSystemBindData2 extends IFileSystemBindData {
         return pclsid
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFileSystemBindData2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

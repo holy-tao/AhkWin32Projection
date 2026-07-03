@@ -155,11 +155,11 @@ export default struct IMessageMover extends IDispatch {
         return plMessagesMoved
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMessageMover.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

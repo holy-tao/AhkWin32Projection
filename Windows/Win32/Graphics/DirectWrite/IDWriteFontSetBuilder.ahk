@@ -105,11 +105,11 @@ export default struct IDWriteFontSetBuilder extends IUnknown {
         return IDWriteFontSet(fontSet)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteFontSetBuilder.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

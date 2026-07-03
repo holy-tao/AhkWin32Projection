@@ -50,11 +50,11 @@ export default struct ITfFnGetSAPIObject extends ITfFunction {
         return IUnknown(ppunk)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfFnGetSAPIObject.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

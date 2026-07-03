@@ -566,11 +566,11 @@ export default struct ICertRequest extends IDispatch {
         return pstrCertificate
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICertRequest.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

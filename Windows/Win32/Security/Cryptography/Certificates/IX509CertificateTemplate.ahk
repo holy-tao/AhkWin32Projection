@@ -51,11 +51,11 @@ export default struct IX509CertificateTemplate extends IDispatch {
         return pValue
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IX509CertificateTemplate.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

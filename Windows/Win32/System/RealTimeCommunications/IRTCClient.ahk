@@ -650,11 +650,11 @@ export default struct IRTCClient extends IUnknown {
         return pfTuned
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRTCClient.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

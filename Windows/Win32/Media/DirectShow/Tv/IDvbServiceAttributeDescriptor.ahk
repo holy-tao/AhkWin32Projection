@@ -98,11 +98,11 @@ export default struct IDvbServiceAttributeDescriptor extends IUnknown {
         return pfVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDvbServiceAttributeDescriptor.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

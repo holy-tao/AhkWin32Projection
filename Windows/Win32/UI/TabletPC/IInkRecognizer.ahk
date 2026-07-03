@@ -190,11 +190,11 @@ export default struct IInkRecognizer extends IDispatch {
         return IInkRecognizerContext(_Context)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IInkRecognizer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

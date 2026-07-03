@@ -148,11 +148,11 @@ export default struct ISVGPathSegList extends IDispatch {
         return ISVGPathSeg(ppResult)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISVGPathSegList.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

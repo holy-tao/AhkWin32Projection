@@ -395,11 +395,11 @@ export default struct IMFOutputPolicy extends IMFAttributes {
         return pdwMinimumGRLVersion
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFOutputPolicy.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

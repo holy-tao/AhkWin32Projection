@@ -115,11 +115,11 @@ export default struct ID3D11ClassLinkage extends ID3D11DeviceChild {
         return ID3D11ClassInstance(ppInstance)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D11ClassLinkage.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

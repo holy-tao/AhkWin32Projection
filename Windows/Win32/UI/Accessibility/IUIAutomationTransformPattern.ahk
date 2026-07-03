@@ -207,11 +207,11 @@ export default struct IUIAutomationTransformPattern extends IUnknown {
         return retVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAutomationTransformPattern.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

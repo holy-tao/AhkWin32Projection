@@ -183,11 +183,11 @@ export default struct IADsFileShare extends IADs {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IADsFileShare.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

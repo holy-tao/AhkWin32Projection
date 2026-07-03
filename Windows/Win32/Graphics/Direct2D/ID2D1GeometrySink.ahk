@@ -105,11 +105,11 @@ export default struct ID2D1GeometrySink extends ID2D1SimplifiedGeometrySink {
         ComCall(14, this, D2D1_ARC_SEGMENT.Ptr, arc)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1GeometrySink.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

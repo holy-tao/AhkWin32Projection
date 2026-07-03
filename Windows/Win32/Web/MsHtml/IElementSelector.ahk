@@ -63,11 +63,11 @@ export default struct IElementSelector extends IDispatch {
         return IHTMLDOMChildrenCollection(pel)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IElementSelector.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

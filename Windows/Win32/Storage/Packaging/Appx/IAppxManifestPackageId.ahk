@@ -199,11 +199,11 @@ export default struct IAppxManifestPackageId extends IUnknown {
         return packageFamilyName
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxManifestPackageId.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

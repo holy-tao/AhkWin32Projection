@@ -112,11 +112,11 @@ export default struct ID3D11Device4 extends ID3D11Device3 {
         ComCall(66, this, UInt32, dwCookie)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D11Device4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

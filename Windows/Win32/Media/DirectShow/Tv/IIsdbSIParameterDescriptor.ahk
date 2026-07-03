@@ -132,11 +132,11 @@ export default struct IIsdbSIParameterDescriptor extends IUnknown {
         return pbBuffer
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IIsdbSIParameterDescriptor.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

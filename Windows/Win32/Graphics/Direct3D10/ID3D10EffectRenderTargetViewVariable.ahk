@@ -107,11 +107,11 @@ export default struct ID3D10EffectRenderTargetViewVariable extends ID3D10EffectV
         return ID3D10RenderTargetView(ppResources)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D10EffectRenderTargetViewVariable.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

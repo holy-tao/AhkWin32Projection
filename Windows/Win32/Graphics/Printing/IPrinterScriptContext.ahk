@@ -86,11 +86,11 @@ export default struct IPrinterScriptContext extends IDispatch {
         return IPrinterScriptablePropertyBag(ppPropertyBag)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPrinterScriptContext.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

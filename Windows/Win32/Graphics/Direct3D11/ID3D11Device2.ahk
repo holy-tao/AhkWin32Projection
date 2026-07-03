@@ -167,11 +167,11 @@ export default struct ID3D11Device2 extends ID3D11Device1 {
         return pNumQualityLevels
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D11Device2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

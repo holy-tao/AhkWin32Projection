@@ -178,11 +178,11 @@ export default struct IMFMetadata extends IUnknown {
         return ppvNames
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFMetadata.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

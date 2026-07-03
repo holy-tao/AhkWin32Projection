@@ -84,11 +84,11 @@ export default struct ID3D12CommandQueue1 extends ID3D12CommandQueue {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12CommandQueue1.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

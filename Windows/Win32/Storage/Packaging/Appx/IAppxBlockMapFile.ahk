@@ -116,11 +116,11 @@ export default struct IAppxBlockMapFile extends IUnknown {
         return isValid
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxBlockMapFile.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

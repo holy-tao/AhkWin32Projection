@@ -78,11 +78,11 @@ export default struct FolderItems3 extends FolderItems2 {
         return FolderItemVerbs(ppfic)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (FolderItems3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

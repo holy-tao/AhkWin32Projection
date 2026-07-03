@@ -93,11 +93,11 @@ export default struct ICredentialProviderUserArray extends IUnknown {
         return ICredentialProviderUser(user)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICredentialProviderUserArray.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

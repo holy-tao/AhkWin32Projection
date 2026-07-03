@@ -112,11 +112,11 @@ export default struct ISVGLocatable extends IDispatch {
         return ISVGMatrix(ppResult)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISVGLocatable.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

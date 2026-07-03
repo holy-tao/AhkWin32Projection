@@ -51,11 +51,11 @@ export default struct ID3D12StateObjectDatabaseFactory extends IUnknown {
         return ppvStateObjectDatabase
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12StateObjectDatabaseFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -79,11 +79,11 @@ export default struct IAutomaticUpdatesResults extends IDispatch {
         return retval
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAutomaticUpdatesResults.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

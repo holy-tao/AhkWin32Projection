@@ -133,11 +133,11 @@ export default struct IMenuBand extends IUnknown {
         return plRet
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMenuBand.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

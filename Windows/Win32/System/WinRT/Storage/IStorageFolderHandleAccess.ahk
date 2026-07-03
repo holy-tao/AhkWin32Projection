@@ -63,11 +63,11 @@ export default struct IStorageFolderHandleAccess extends IUnknown {
         return interopHandle
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IStorageFolderHandleAccess.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

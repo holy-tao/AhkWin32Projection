@@ -126,11 +126,11 @@ export default struct IHWEventHandler extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHWEventHandler.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

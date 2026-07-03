@@ -106,11 +106,11 @@ export default struct IOfflineFilesItem extends IUnknown {
         return pbMarkedForDeletion
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOfflineFilesItem.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

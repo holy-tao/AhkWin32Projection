@@ -220,11 +220,11 @@ export default struct ITPhoneEvent extends IDispatch {
         return ITCallInfo(ppCallInfo)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITPhoneEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

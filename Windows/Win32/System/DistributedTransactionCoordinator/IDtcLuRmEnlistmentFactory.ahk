@@ -57,11 +57,11 @@ export default struct IDtcLuRmEnlistmentFactory extends IUnknown {
         return IDtcLuRmEnlistment(ppRmEnlistment)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDtcLuRmEnlistmentFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -379,11 +379,11 @@ export default struct IAMTimecodeGenerator extends IUnknown {
         return pTimecodeSample
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAMTimecodeGenerator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

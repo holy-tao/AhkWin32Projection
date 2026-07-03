@@ -59,11 +59,11 @@ export default struct IMFAsyncCallbackLogging extends IMFAsyncCallback {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFAsyncCallbackLogging.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

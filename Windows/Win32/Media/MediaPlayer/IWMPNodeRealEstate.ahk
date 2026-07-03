@@ -122,11 +122,11 @@ export default struct IWMPNodeRealEstate extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMPNodeRealEstate.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

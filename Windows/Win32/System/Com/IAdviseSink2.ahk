@@ -55,11 +55,11 @@ export default struct IAdviseSink2 extends IAdviseSink {
         ComCall(8, this, "ptr", pmk)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAdviseSink2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

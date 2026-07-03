@@ -51,11 +51,11 @@ export default struct IEnumSpellingError extends IUnknown {
         return ISpellingError(value)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumSpellingError.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

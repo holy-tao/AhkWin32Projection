@@ -90,11 +90,11 @@ export default struct ISideShowContentManager extends IUnknown {
         return ISideShowCapabilitiesCollection(out_ppCollection)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISideShowContentManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

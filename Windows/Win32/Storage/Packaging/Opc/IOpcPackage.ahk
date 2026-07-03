@@ -78,11 +78,11 @@ export default struct IOpcPackage extends IUnknown {
         return IOpcRelationshipSet(relationshipSet)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOpcPackage.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

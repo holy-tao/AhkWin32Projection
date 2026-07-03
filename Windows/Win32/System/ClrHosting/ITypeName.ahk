@@ -114,11 +114,11 @@ export default struct ITypeName extends IUnknown {
         return rgbszAssemblyNames
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITypeName.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

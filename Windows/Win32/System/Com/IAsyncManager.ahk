@@ -66,11 +66,11 @@ export default struct IAsyncManager extends IUnknown {
         return pulStateFlags
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAsyncManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

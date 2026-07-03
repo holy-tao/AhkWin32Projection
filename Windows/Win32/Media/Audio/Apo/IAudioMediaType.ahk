@@ -134,11 +134,11 @@ export default struct IAudioMediaType extends IUnknown {
         return pUncompressedAudioFormat
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAudioMediaType.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

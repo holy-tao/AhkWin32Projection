@@ -440,11 +440,11 @@ export default struct IX509SignatureInformation extends IDispatch {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IX509SignatureInformation.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

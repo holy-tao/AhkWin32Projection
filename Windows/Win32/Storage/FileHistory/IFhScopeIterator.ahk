@@ -64,11 +64,11 @@ export default struct IFhScopeIterator extends IUnknown {
         return Item
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFhScopeIterator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

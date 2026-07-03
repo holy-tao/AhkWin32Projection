@@ -165,11 +165,11 @@ export default struct IEnumCallingCard extends IUnknown {
         return IEnumCallingCard(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumCallingCard.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

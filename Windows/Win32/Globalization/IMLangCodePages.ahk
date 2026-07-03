@@ -89,11 +89,11 @@ export default struct IMLangCodePages extends IUnknown {
         return puCodePage
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMLangCodePages.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

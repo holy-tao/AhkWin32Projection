@@ -76,11 +76,11 @@ export default struct IRDPSRAPIApplicationList extends IDispatch {
         return IRDPSRAPIApplication(pApplication)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRDPSRAPIApplicationList.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

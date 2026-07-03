@@ -52,11 +52,11 @@ export default struct IPMExtensionCachedFileUpdaterInfo extends IUnknown {
         return pSupportsUpdates
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPMExtensionCachedFileUpdaterInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

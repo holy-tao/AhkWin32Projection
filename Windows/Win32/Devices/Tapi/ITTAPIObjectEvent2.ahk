@@ -60,11 +60,11 @@ export default struct ITTAPIObjectEvent2 extends ITTAPIObjectEvent {
         return ITPhone(ppPhone)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITTAPIObjectEvent2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

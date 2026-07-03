@@ -56,11 +56,11 @@ export default struct IMFMediaSourceExtensionLiveSeekableRange extends IUnknown 
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFMediaSourceExtensionLiveSeekableRange.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

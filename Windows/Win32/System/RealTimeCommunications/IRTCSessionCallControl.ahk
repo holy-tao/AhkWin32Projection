@@ -168,11 +168,11 @@ export default struct IRTCSessionCallControl extends IUnknown {
         return pfIsReferred
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRTCSessionCallControl.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

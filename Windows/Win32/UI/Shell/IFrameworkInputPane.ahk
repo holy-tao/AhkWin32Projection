@@ -116,11 +116,11 @@ export default struct IFrameworkInputPane extends IUnknown {
         return prcInputPaneScreenLocation
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFrameworkInputPane.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

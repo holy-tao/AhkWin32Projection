@@ -123,11 +123,11 @@ export default struct IOpcRelationshipSelectorSet extends IUnknown {
         return IOpcRelationshipSelectorEnumerator(relationshipSelectorEnumerator)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOpcRelationshipSelectorSet.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -54,11 +54,11 @@ export default struct ITfPersistentPropertyLoaderACP extends IUnknown {
         return IStream(ppStream)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfPersistentPropertyLoaderACP.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

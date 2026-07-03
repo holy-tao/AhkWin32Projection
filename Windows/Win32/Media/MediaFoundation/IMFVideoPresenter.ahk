@@ -93,11 +93,11 @@ export default struct IMFVideoPresenter extends IMFClockStateSink {
         return IMFVideoMediaType(ppMediaType)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFVideoPresenter.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

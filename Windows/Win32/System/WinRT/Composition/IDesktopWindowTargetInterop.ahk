@@ -53,11 +53,11 @@ export default struct IDesktopWindowTargetInterop extends IUnknown {
         return value
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDesktopWindowTargetInterop.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

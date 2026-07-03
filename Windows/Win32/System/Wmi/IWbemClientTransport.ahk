@@ -66,11 +66,11 @@ export default struct IWbemClientTransport extends IUnknown {
         return IWbemServices(ppNamespace)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWbemClientTransport.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

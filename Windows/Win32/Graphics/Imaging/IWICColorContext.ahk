@@ -226,11 +226,11 @@ export default struct IWICColorContext extends IUnknown {
         return pValue
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWICColorContext.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

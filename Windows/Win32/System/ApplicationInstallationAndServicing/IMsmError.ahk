@@ -532,11 +532,11 @@ export default struct IMsmError extends IDispatch {
         return IMsmStrings(ErrorKeys)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMsmError.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

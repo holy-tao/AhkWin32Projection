@@ -196,11 +196,11 @@ export default struct ICallIndirect extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICallIndirect.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

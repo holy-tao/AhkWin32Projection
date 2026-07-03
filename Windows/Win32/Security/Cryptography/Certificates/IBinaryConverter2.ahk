@@ -59,11 +59,11 @@ export default struct IBinaryConverter2 extends IBinaryConverter {
         return pvarStringArray
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBinaryConverter2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

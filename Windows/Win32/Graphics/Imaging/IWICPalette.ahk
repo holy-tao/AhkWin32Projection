@@ -233,11 +233,11 @@ export default struct IWICPalette extends IUnknown {
         return pfHasAlpha
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWICPalette.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

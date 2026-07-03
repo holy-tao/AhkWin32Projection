@@ -116,11 +116,11 @@ export default struct IWTSProtocolManager extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWTSProtocolManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

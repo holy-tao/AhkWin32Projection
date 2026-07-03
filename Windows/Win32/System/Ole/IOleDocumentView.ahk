@@ -579,11 +579,11 @@ export default struct IOleDocumentView extends IUnknown {
         return IOleDocumentView(ppViewNew)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOleDocumentView.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

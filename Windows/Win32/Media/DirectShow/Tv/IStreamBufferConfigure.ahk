@@ -237,11 +237,11 @@ export default struct IStreamBufferConfigure extends IUnknown {
         return pdwSeconds
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IStreamBufferConfigure.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

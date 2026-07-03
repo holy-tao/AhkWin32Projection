@@ -230,11 +230,11 @@ export default struct IPortableDeviceResources extends IUnknown {
         return IStream(ppData)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPortableDeviceResources.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

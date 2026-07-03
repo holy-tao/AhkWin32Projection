@@ -77,11 +77,11 @@ export default struct IUIAutomationElement9 extends IUIAutomationElement8 {
         return retVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAutomationElement9.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -66,11 +66,11 @@ export default struct IDvbSiParser2 extends IDvbSiParser {
         return IDVB_EIT2(ppEIT)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDvbSiParser2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

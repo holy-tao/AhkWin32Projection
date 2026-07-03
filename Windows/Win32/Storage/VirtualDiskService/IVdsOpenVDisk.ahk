@@ -259,11 +259,11 @@ export default struct IVdsOpenVDisk extends IUnknown {
         return IVdsAsync(ppAsync)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVdsOpenVDisk.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

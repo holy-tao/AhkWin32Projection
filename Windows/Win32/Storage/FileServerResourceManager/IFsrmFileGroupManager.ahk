@@ -157,11 +157,11 @@ export default struct IFsrmFileGroupManager extends IDispatch {
         return IFsrmCommittableCollection(fileGroups)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFsrmFileGroupManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

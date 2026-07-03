@@ -50,11 +50,11 @@ export default struct ISyncSessionExtendedErrorInfo extends IUnknown {
         return ISyncProvider(ppProviderWithError)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISyncSessionExtendedErrorInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -39,11 +39,11 @@ export default struct DispCanvasRenderingContext2D extends IDispatch {
         super.__New(implObj, flags)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (DispCanvasRenderingContext2D.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

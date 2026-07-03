@@ -57,11 +57,11 @@ export default struct IHTMLElementAppliedStyles extends IDispatch {
         return IRulesAppliedCollection(ppRulesAppliedCollection)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLElementAppliedStyles.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

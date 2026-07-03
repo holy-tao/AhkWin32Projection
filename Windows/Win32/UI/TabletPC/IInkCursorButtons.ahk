@@ -98,11 +98,11 @@ export default struct IInkCursorButtons extends IDispatch {
         return IInkCursorButton(Button)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IInkCursorButtons.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

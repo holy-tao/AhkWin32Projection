@@ -193,11 +193,11 @@ export default struct IWMSecureChannel extends IWMAuthorizer {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMSecureChannel.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

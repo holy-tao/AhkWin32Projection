@@ -182,11 +182,11 @@ export default struct IABContainer extends IMAPIContainer {
         return lpFlagList
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IABContainer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

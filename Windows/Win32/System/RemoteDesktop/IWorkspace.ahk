@@ -92,11 +92,11 @@ export default struct IWorkspace extends IUnknown {
         return pulProcessId
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWorkspace.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

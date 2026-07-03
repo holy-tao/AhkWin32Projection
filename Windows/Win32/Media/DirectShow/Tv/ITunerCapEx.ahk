@@ -57,11 +57,11 @@ export default struct ITunerCapEx extends IUnknown {
         return pbHasCaption
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITunerCapEx.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

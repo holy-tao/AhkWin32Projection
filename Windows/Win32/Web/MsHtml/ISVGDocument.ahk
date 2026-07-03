@@ -52,11 +52,11 @@ export default struct ISVGDocument extends IDispatch {
         return ISVGSVGElement(p)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISVGDocument.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

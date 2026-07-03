@@ -113,11 +113,11 @@ export default struct IFsrmFileScreenTemplate extends IFsrmFileScreenBase {
         return IFsrmDerivedObjectsResult(derivedObjectsResult)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFsrmFileScreenTemplate.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

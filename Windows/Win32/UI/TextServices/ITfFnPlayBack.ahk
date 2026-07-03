@@ -150,11 +150,11 @@ export default struct ITfFnPlayBack extends ITfFunction {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfFnPlayBack.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

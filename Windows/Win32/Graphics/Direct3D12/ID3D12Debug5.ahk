@@ -59,11 +59,11 @@ export default struct ID3D12Debug5 extends ID3D12Debug4 {
         ComCall(8, this, BOOL, Enable)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12Debug5.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

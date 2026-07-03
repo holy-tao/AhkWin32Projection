@@ -127,11 +127,11 @@ export default struct IDWriteTextAnalyzer2 extends IDWriteTextAnalyzer1 {
         return featureApplies
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteTextAnalyzer2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

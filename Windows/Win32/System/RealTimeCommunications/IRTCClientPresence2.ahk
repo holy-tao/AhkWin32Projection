@@ -264,11 +264,11 @@ export default struct IRTCClientPresence2 extends IRTCClientPresence {
         return IRTCBuddy2(ppBuddy)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRTCClientPresence2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

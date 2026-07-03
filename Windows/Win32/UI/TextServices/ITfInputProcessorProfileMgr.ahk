@@ -656,11 +656,11 @@ export default struct ITfInputProcessorProfileMgr extends IUnknown {
         return pProfile
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfInputProcessorProfileMgr.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -88,11 +88,11 @@ export default struct IHTMLStyleSheetsCollection extends IDispatch {
         return pvarResult
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLStyleSheetsCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -164,11 +164,11 @@ export default struct IEnumPluggableSuperclassInfo extends IUnknown {
         return IEnumPluggableSuperclassInfo(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumPluggableSuperclassInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

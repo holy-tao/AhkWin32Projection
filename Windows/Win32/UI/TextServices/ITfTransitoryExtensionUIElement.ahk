@@ -48,11 +48,11 @@ export default struct ITfTransitoryExtensionUIElement extends ITfUIElement {
         return ITfDocumentMgr(ppdim)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfTransitoryExtensionUIElement.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

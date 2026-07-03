@@ -49,11 +49,11 @@ export default struct INewWDEvents extends IWebWizardHost {
         return pvfAuthenitcated
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (INewWDEvents.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

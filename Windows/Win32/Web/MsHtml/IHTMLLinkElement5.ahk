@@ -52,11 +52,11 @@ export default struct IHTMLLinkElement5 extends IDispatch {
         return IHTMLStyleSheet(p)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLLinkElement5.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

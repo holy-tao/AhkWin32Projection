@@ -121,11 +121,11 @@ export default struct IValueProvider extends IUnknown {
         return pRetVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IValueProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

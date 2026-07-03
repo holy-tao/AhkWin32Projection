@@ -53,11 +53,11 @@ export default struct IHTMLAudioElementFactory extends IDispatch {
         return IHTMLAudioElement(__MIDL__IHTMLAudioElementFactory0000)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLAudioElementFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

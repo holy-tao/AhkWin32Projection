@@ -46,11 +46,11 @@ export default struct ILearningModelDeviceFactoryNative extends IUnknown {
         return IUnknown(result)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ILearningModelDeviceFactoryNative.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

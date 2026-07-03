@@ -49,11 +49,11 @@ export default struct IAdvancedMediaCaptureInitializationSettings extends IUnkno
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAdvancedMediaCaptureInitializationSettings.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

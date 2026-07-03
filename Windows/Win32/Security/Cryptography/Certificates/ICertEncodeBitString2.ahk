@@ -79,11 +79,11 @@ export default struct ICertEncodeBitString2 extends ICertEncodeBitString {
         return pstrBitString
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICertEncodeBitString2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

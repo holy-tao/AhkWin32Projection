@@ -132,11 +132,11 @@ export default struct IGPMTrustee extends IDispatch {
         return lVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGPMTrustee.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

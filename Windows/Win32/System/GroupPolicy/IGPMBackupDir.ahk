@@ -95,11 +95,11 @@ export default struct IGPMBackupDir extends IDispatch {
         return IGPMBackupCollection(ppIGPMBackupCollection)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGPMBackupDir.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -46,11 +46,11 @@ export default struct IHTMLTableSection2 extends IDispatch {
         return IDispatch(row)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLTableSection2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

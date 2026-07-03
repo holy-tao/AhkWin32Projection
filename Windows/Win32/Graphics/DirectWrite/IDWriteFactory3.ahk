@@ -255,11 +255,11 @@ export default struct IDWriteFactory3 extends IDWriteFactory2 {
         return IDWriteFontDownloadQueue(fontDownloadQueue)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteFactory3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

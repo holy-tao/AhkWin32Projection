@@ -127,11 +127,11 @@ export default struct IDCompositionTranslateTransform extends IDCompositionTrans
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDCompositionTranslateTransform.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

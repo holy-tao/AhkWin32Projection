@@ -121,11 +121,11 @@ export default struct IEditionUpgradeHelper extends IUnknown {
         return isGenuine
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEditionUpgradeHelper.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

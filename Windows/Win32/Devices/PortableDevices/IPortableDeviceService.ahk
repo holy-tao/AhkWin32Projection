@@ -292,11 +292,11 @@ export default struct IPortableDeviceService extends IUnknown {
         return IPortableDeviceValues(ppResults)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPortableDeviceService.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

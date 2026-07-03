@@ -74,11 +74,11 @@ export default struct IXAudio2MasteringVoice extends IXAudio2Voice {
         return pChannelmask
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXAudio2MasteringVoice.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -238,11 +238,11 @@ export default struct IMbnConnection extends IUnknown {
         return networkError
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMbnConnection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

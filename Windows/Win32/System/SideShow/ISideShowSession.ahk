@@ -65,11 +65,11 @@ export default struct ISideShowSession extends IUnknown {
         return ISideShowNotificationManager(out_ppINotification)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISideShowSession.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

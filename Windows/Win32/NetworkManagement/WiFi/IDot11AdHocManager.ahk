@@ -229,11 +229,11 @@ export default struct IDot11AdHocManager extends IUnknown {
         return IDot11AdHocNetwork(pNetwork)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDot11AdHocManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

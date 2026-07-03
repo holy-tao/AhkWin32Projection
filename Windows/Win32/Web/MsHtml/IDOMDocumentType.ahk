@@ -148,11 +148,11 @@ export default struct IDOMDocumentType extends IDispatch {
         return p
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDOMDocumentType.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

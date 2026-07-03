@@ -143,11 +143,11 @@ export default struct IOleInPlaceObjectWindowless extends IOleInPlaceObject {
         return IDropTarget(ppDropTarget)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOleInPlaceObjectWindowless.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

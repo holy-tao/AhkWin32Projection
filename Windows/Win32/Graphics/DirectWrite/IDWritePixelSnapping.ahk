@@ -91,11 +91,11 @@ export default struct IDWritePixelSnapping extends IUnknown {
         return pixelsPerDip
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWritePixelSnapping.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

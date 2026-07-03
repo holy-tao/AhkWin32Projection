@@ -304,11 +304,11 @@ export default struct IFeedFolder extends IDispatch {
         return IDispatch(disp)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFeedFolder.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

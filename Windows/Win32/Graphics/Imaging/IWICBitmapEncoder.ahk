@@ -275,11 +275,11 @@ export default struct IWICBitmapEncoder extends IUnknown {
         return IWICMetadataQueryWriter(ppIMetadataQueryWriter)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWICBitmapEncoder.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -171,11 +171,11 @@ export default struct IWdsTransportTftpClient extends IDispatch {
         return pulWindowSize
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWdsTransportTftpClient.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

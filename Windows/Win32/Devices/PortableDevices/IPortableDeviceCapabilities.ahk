@@ -214,11 +214,11 @@ export default struct IPortableDeviceCapabilities extends IUnknown {
         return IPortableDeviceValues(ppOptions)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPortableDeviceCapabilities.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

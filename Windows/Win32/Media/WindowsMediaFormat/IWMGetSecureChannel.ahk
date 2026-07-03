@@ -48,11 +48,11 @@ export default struct IWMGetSecureChannel extends IUnknown {
         return IWMSecureChannel(ppPeer)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMGetSecureChannel.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

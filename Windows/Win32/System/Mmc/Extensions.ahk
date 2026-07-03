@@ -90,11 +90,11 @@ export default struct Extensions extends IDispatch {
         return Count
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (Extensions.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

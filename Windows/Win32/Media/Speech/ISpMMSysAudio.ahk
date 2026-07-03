@@ -95,11 +95,11 @@ export default struct ISpMMSysAudio extends ISpAudio {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpMMSysAudio.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

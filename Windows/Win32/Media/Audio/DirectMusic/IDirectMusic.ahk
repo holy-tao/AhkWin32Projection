@@ -149,11 +149,11 @@ export default struct IDirectMusic extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDirectMusic.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

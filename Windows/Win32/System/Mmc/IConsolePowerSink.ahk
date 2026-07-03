@@ -56,11 +56,11 @@ export default struct IConsolePowerSink extends IUnknown {
         return plReturn
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IConsolePowerSink.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

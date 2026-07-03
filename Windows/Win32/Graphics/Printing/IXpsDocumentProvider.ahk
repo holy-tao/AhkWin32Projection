@@ -44,11 +44,11 @@ export default struct IXpsDocumentProvider extends IUnknown {
         return IUnknown(ppIXpsPart)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsDocumentProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -57,11 +57,11 @@ export default struct IWMReaderAdvanced6 extends IWMReaderAdvanced5 {
         return pbInitializationVector
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMReaderAdvanced6.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

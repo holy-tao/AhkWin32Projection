@@ -82,11 +82,11 @@ export default struct ISchemaStringCollection extends IDispatch {
         return IUnknown(ppunk)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISchemaStringCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

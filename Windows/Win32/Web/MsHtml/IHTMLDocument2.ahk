@@ -1753,11 +1753,11 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
         return IHTMLStyleSheet(ppnewStyleSheet)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLDocument2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

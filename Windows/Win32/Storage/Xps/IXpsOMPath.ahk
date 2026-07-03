@@ -1866,11 +1866,11 @@ export default struct IXpsOMPath extends IXpsOMVisual {
         return IXpsOMPath(_path)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsOMPath.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

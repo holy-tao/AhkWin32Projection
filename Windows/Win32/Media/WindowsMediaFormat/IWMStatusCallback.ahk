@@ -317,11 +317,11 @@ export default struct IWMStatusCallback extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMStatusCallback.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

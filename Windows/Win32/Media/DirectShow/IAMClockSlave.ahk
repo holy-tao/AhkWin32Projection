@@ -103,11 +103,11 @@ export default struct IAMClockSlave extends IUnknown {
         return pdwTolerance
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAMClockSlave.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -98,11 +98,11 @@ export default struct IWICBitmapFrameDecode extends IWICBitmapSource {
         return IWICBitmapSource(ppIThumbnail)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWICBitmapFrameDecode.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

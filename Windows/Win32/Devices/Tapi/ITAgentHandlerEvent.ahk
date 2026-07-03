@@ -80,11 +80,11 @@ export default struct ITAgentHandlerEvent extends IDispatch {
         return pEvent
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITAgentHandlerEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -707,11 +707,11 @@ export default struct IFaxServer extends IDispatch {
         return pAPIVersion
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFaxServer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

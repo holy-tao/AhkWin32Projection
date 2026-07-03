@@ -77,11 +77,11 @@ export default struct ID2D1DeviceContext3 extends ID2D1DeviceContext2 {
         ComCall(107, this, "ptr", spriteBatch, UInt32, startIndex, UInt32, spriteCount, "ptr", _bitmap, D2D1_BITMAP_INTERPOLATION_MODE, _interpolationMode, D2D1_SPRITE_OPTIONS, spriteOptions)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1DeviceContext3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -80,11 +80,11 @@ export default struct ITAgentSessionEvent extends IDispatch {
         return pEvent
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITAgentSessionEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

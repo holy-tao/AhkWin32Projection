@@ -67,11 +67,11 @@ export default struct IHttpNegotiate extends IUnknown {
         return pszAdditionalRequestHeaders
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHttpNegotiate.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

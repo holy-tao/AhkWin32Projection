@@ -132,11 +132,11 @@ export default struct ISyncChangeBatchWithFilterKeyMap extends IUnknown {
         return ISyncKnowledge(ppLearnedFilterForgottenKnowledge)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISyncChangeBatchWithFilterKeyMap.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

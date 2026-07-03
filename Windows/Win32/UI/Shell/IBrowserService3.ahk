@@ -87,11 +87,11 @@ export default struct IBrowserService3 extends IBrowserService2 {
         return ppidlOut
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBrowserService3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

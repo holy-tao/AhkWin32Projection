@@ -196,11 +196,11 @@ export default struct ISpeechDataKey extends IDispatch {
         return _ValueName
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpeechDataKey.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

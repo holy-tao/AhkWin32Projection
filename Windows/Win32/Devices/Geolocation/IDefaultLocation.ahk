@@ -124,11 +124,11 @@ export default struct IDefaultLocation extends IUnknown {
         return ILocationReport(ppLocationReport)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDefaultLocation.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

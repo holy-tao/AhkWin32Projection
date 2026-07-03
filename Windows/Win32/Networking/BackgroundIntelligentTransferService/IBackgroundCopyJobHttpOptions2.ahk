@@ -83,11 +83,11 @@ export default struct IBackgroundCopyJobHttpOptions2 extends IBackgroundCopyJobH
         return method
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBackgroundCopyJobHttpOptions2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

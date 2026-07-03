@@ -214,11 +214,11 @@ export default struct IEnumCERTVIEWATTRIBUTE extends IDispatch {
         return IEnumCERTVIEWATTRIBUTE(ppenum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumCERTVIEWATTRIBUTE.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

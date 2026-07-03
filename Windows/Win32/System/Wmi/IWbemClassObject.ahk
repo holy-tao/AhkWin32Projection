@@ -700,11 +700,11 @@ export default struct IWbemClassObject extends IUnknown {
         return pstrClassName
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWbemClassObject.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

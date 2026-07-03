@@ -45,11 +45,11 @@ export default struct IGetSourceRow extends IUnknown {
         return IUnknown(ppRow)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGetSourceRow.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

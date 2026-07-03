@@ -194,11 +194,11 @@ export default struct IMFSimpleAudioVolume extends IUnknown {
         return pbMute
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFSimpleAudioVolume.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

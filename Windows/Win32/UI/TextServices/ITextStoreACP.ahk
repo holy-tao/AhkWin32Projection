@@ -1353,11 +1353,11 @@ export default struct ITextStoreACP extends IUnknown {
         return phwnd
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITextStoreACP.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

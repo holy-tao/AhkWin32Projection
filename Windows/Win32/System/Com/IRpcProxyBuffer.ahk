@@ -59,11 +59,11 @@ export default struct IRpcProxyBuffer extends IUnknown {
         ComCall(4, this)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRpcProxyBuffer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

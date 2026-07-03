@@ -115,11 +115,11 @@ export default struct IInkRecognitionAlternates extends IDispatch {
         return IInkRecognitionAlternate(InkRecoAlternate)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IInkRecognitionAlternates.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

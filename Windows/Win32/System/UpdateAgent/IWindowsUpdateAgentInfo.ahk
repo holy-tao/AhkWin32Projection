@@ -85,11 +85,11 @@ export default struct IWindowsUpdateAgentInfo extends IDispatch {
         return retval
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWindowsUpdateAgentInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

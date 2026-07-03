@@ -45,11 +45,11 @@ export default struct ISearchCatalogManager3 extends ISearchCatalogManager2 {
         return isContainsSemanticSupported
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISearchCatalogManager3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

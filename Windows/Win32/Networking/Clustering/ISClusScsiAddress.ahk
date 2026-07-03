@@ -107,11 +107,11 @@ export default struct ISClusScsiAddress extends IDispatch {
         return pvarLun
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISClusScsiAddress.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

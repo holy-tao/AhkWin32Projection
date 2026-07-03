@@ -61,11 +61,11 @@ export default struct IMPEG2TuneRequestFactory extends IDispatch {
         return IMPEG2TuneRequest(_TuneRequest)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMPEG2TuneRequestFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

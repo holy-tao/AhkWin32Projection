@@ -55,11 +55,11 @@ export default struct ISpatialAudioObjectRenderStream extends ISpatialAudioObjec
         return ISpatialAudioObject(audioObject)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpatialAudioObjectRenderStream.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

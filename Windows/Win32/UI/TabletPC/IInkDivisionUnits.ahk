@@ -93,11 +93,11 @@ export default struct IInkDivisionUnits extends IDispatch {
         return IInkDivisionUnit(InkDivisionUnit)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IInkDivisionUnits.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -118,11 +118,11 @@ export default struct IEnumEnhancedStorageACT extends IUnknown {
         return IEnhancedStorageACT(ppIEnhancedStorageACT)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumEnhancedStorageACT.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

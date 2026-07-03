@@ -94,11 +94,11 @@ export default struct IAccessor extends IUnknown {
         return pcRefCount
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAccessor.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

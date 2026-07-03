@@ -106,11 +106,11 @@ export default struct IMLOperatorTensor extends IUnknown {
         ComCall(9, this, IUnknown.Ptr, dataInterface)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMLOperatorTensor.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

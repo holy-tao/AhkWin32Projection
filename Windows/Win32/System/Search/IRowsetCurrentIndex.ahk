@@ -56,11 +56,11 @@ export default struct IRowsetCurrentIndex extends IRowsetIndex {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRowsetCurrentIndex.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -279,11 +279,11 @@ export default struct IXMLDocument extends IDispatch {
         return IXMLElement(ppElem)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXMLDocument.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

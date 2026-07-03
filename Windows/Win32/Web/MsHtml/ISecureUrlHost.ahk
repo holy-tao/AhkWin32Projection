@@ -50,11 +50,11 @@ export default struct ISecureUrlHost extends IUnknown {
         return pfAllow
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISecureUrlHost.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

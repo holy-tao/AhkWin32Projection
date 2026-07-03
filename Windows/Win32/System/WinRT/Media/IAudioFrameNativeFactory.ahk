@@ -51,11 +51,11 @@ export default struct IAudioFrameNativeFactory extends IInspectable {
         return ppv
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAudioFrameNativeFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

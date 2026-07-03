@@ -1635,11 +1635,11 @@ export default struct IDiscRecorder2 extends IDispatch {
         return value
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDiscRecorder2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

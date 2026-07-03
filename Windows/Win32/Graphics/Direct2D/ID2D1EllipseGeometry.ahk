@@ -54,11 +54,11 @@ export default struct ID2D1EllipseGeometry extends ID2D1Geometry {
         ComCall(17, this, D2D1_ELLIPSE.Ptr, ellipse)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1EllipseGeometry.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

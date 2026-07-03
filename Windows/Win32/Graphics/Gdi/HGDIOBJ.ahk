@@ -3,8 +3,8 @@
 #Import ".\HPEN.ahk" { HPEN }
 #Import ".\HBRUSH.ahk" { HBRUSH }
 #Import ".\HBITMAP.ahk" { HBITMAP }
-#Import ".\HPALETTE.ahk" { HPALETTE }
 #Import ".\HRGN.ahk" { HRGN }
+#Import ".\HPALETTE.ahk" { HPALETTE }
 #Import ".\Apis.ahk" { DeleteObject }
 
 /**

@@ -217,11 +217,11 @@ export default struct IEnumAgent extends IUnknown {
         return IEnumAgent(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumAgent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

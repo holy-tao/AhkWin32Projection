@@ -72,11 +72,11 @@ export default struct IWMPLibrary2 extends IWMPLibrary {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMPLibrary2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

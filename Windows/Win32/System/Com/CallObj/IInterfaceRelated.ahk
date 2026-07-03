@@ -56,11 +56,11 @@ export default struct IInterfaceRelated extends IUnknown {
         return piid
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IInterfaceRelated.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

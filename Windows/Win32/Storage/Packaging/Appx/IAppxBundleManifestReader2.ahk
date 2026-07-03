@@ -48,11 +48,11 @@ export default struct IAppxBundleManifestReader2 extends IUnknown {
         return IAppxBundleManifestOptionalBundleInfoEnumerator(optionalBundles)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxBundleManifestReader2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

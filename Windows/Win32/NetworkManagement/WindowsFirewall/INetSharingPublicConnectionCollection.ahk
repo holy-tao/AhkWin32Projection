@@ -73,11 +73,11 @@ export default struct INetSharingPublicConnectionCollection extends IDispatch {
         return pVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (INetSharingPublicConnectionCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

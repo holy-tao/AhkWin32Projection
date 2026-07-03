@@ -66,11 +66,11 @@ export default struct IAppxManifestHostRuntimeDependency extends IUnknown {
         return minVersion
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxManifestHostRuntimeDependency.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

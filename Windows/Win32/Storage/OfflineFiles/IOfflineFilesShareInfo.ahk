@@ -76,11 +76,11 @@ export default struct IOfflineFilesShareInfo extends IUnknown {
         return pbIsDfsJunction
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOfflineFilesShareInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

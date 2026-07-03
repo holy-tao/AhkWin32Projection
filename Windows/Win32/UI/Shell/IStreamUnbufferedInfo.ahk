@@ -49,11 +49,11 @@ export default struct IStreamUnbufferedInfo extends IUnknown {
         return pcbSectorSize
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IStreamUnbufferedInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

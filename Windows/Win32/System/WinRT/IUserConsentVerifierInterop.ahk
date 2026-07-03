@@ -56,11 +56,11 @@ export default struct IUserConsentVerifierInterop extends IInspectable {
         return asyncOperation
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUserConsentVerifierInterop.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -69,11 +69,11 @@ export default struct ISVGElementInstanceList extends IDispatch {
         return ISVGElementInstance(ppResult)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISVGElementInstanceList.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

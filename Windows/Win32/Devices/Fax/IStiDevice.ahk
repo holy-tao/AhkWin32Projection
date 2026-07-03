@@ -327,11 +327,11 @@ export default struct IStiDevice extends IUnknown {
         return pLastErrorInfo
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IStiDevice.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -179,11 +179,11 @@ export default struct ICorProfilerInfo4 extends ICorProfilerInfo3 {
         return pcSize
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICorProfilerInfo4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -200,11 +200,11 @@ export default struct IPolicyQualifier extends IDispatch {
         return pValue
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPolicyQualifier.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

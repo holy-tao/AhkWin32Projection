@@ -49,11 +49,11 @@ export default struct IISDB_SDT extends IDVB_SDT {
         return pbVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IISDB_SDT.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -98,11 +98,11 @@ export default struct ID3D10EffectConstantBuffer extends ID3D10EffectVariable {
         return ID3D10ShaderResourceView(ppTextureBuffer)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D10EffectConstantBuffer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

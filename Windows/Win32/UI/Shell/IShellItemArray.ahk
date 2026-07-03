@@ -229,11 +229,11 @@ export default struct IShellItemArray extends IUnknown {
         return IEnumShellItems(ppenumShellItems)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IShellItemArray.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

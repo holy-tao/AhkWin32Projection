@@ -567,11 +567,11 @@ export default struct IShellLibrary extends IUnknown {
         return IShellItem(ppsiSavedTo)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IShellLibrary.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

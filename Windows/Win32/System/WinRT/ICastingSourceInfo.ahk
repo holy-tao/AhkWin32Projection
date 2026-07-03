@@ -56,11 +56,11 @@ export default struct ICastingSourceInfo extends IUnknown {
         return INamedPropertyStore(props)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICastingSourceInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -289,11 +289,11 @@ export default struct IWSDEndpointProxy extends IUnknown {
         return ppFault
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWSDEndpointProxy.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

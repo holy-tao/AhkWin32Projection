@@ -650,11 +650,11 @@ export default struct IMFMediaSession extends IMFMediaEventGenerator {
         return IMFTopology(ppFullTopology)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFMediaSession.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

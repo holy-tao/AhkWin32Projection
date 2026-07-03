@@ -299,11 +299,11 @@ export default struct ITLocationInfo extends IDispatch {
         return ppCode
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITLocationInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

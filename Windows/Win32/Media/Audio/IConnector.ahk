@@ -260,11 +260,11 @@ export default struct IConnector extends IUnknown {
         return ppwstrDeviceId
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IConnector.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -188,11 +188,11 @@ export default struct IISDB_CDT extends IUnknown {
         return pdwVersionHash
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IISDB_CDT.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

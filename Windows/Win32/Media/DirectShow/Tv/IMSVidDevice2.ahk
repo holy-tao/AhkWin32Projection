@@ -66,11 +66,11 @@ export default struct IMSVidDevice2 extends IUnknown {
         return DevPath
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSVidDevice2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

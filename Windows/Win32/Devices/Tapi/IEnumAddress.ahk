@@ -165,11 +165,11 @@ export default struct IEnumAddress extends IUnknown {
         return IEnumAddress(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumAddress.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

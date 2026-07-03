@@ -106,11 +106,11 @@ export default struct IVisualTreeService2 extends IVisualTreeService {
         return IBitmapData(ppBitmapData)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVisualTreeService2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

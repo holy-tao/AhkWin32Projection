@@ -56,11 +56,11 @@ export default struct ITsSbLoadBalanceResult extends IUnknown {
         return pVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITsSbLoadBalanceResult.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

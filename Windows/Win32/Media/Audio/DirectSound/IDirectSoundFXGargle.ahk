@@ -57,11 +57,11 @@ export default struct IDirectSoundFXGargle extends IUnknown {
         return pDsFxGargle
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDirectSoundFXGargle.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -95,11 +95,11 @@ export default struct ISynchronizeContainer extends IUnknown {
         return ISynchronize(ppSync)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISynchronizeContainer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -139,11 +139,11 @@ export default struct INetCfg extends IUnknown {
         return ppvObject
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (INetCfg.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

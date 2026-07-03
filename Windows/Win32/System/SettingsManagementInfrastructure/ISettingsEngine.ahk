@@ -268,11 +268,11 @@ export default struct ISettingsEngine extends IUnknown {
         return ISettingsContext(SettingsContext)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISettingsEngine.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

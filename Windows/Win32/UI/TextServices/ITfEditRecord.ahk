@@ -72,11 +72,11 @@ export default struct ITfEditRecord extends IUnknown {
         return IEnumTfRanges(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfEditRecord.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

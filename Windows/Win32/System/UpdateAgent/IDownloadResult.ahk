@@ -86,11 +86,11 @@ export default struct IDownloadResult extends IDispatch {
         return IUpdateDownloadResult(retval)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDownloadResult.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

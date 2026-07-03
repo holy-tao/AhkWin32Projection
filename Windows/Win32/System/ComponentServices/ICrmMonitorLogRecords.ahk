@@ -183,11 +183,11 @@ export default struct ICrmMonitorLogRecords extends IUnknown {
         return pLogRecord
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICrmMonitorLogRecords.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

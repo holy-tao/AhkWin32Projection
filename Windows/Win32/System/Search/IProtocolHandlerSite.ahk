@@ -69,11 +69,11 @@ export default struct IProtocolHandlerSite extends IUnknown {
         return IFilter(ppFilter)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IProtocolHandlerSite.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

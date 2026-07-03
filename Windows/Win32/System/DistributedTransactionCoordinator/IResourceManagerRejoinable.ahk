@@ -50,11 +50,11 @@ export default struct IResourceManagerRejoinable extends IResourceManager2 {
         return pXactStat
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IResourceManagerRejoinable.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

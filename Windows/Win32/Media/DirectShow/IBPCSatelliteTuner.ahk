@@ -76,11 +76,11 @@ export default struct IBPCSatelliteTuner extends IAMTuner {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBPCSatelliteTuner.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -162,11 +162,11 @@ export default struct IDCompositionTurbulenceEffect extends IDCompositionFilterE
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDCompositionTurbulenceEffect.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

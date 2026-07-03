@@ -97,11 +97,11 @@ export default struct ID3D10StateBlock extends IUnknown {
         return ID3D10Device(ppDevice)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D10StateBlock.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

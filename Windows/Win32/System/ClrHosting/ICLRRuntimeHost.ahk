@@ -162,11 +162,11 @@ export default struct ICLRRuntimeHost extends IUnknown {
         return pReturnValue
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICLRRuntimeHost.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -79,11 +79,11 @@ export default struct IOpenServiceActivityInput extends IUnknown {
         return pType
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOpenServiceActivityInput.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -47,11 +47,11 @@ export default struct IComparableConcept extends IUnknown {
         return comparisonResult
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IComparableConcept.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

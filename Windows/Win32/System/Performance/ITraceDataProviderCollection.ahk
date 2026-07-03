@@ -197,11 +197,11 @@ export default struct ITraceDataProviderCollection extends IDispatch {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITraceDataProviderCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

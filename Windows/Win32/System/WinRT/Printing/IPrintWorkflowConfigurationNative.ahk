@@ -87,11 +87,11 @@ export default struct IPrintWorkflowConfigurationNative extends IUnknown {
         return IPrinterPropertyBag(value)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPrintWorkflowConfigurationNative.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -362,11 +362,11 @@ export default struct IDebugBreakpoint extends IUnknown {
         return Params
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugBreakpoint.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

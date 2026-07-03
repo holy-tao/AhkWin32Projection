@@ -159,11 +159,11 @@ export default struct IWMOutputMediaProps extends IWMMediaProps {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMOutputMediaProps.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

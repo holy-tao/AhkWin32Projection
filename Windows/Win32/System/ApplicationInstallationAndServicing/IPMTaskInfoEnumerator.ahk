@@ -52,11 +52,11 @@ export default struct IPMTaskInfoEnumerator extends IUnknown {
         return IPMTaskInfo(ppTaskInfo)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPMTaskInfoEnumerator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

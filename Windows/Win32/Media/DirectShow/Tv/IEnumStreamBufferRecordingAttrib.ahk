@@ -117,11 +117,11 @@ export default struct IEnumStreamBufferRecordingAttrib extends IUnknown {
         return IEnumStreamBufferRecordingAttrib(ppIEnumStreamBufferAttrib)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumStreamBufferRecordingAttrib.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

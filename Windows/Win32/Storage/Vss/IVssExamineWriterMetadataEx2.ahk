@@ -140,11 +140,11 @@ export default struct IVssExamineWriterMetadataEx2 extends IVssExamineWriterMeta
         return IVssWMFiledesc(ppFiledesc)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVssExamineWriterMetadataEx2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

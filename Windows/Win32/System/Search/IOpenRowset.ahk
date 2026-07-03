@@ -52,11 +52,11 @@ export default struct IOpenRowset extends IUnknown {
         return IUnknown(ppRowset)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOpenRowset.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -45,11 +45,11 @@ export default struct IAppDomainBinding extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppDomainBinding.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

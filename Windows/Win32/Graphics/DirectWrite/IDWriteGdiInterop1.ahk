@@ -113,11 +113,11 @@ export default struct IDWriteGdiInterop1 extends IDWriteGdiInterop {
         return IDWriteFontSet(filteredSet)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteGdiInterop1.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

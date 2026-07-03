@@ -54,11 +54,11 @@ export default struct INetCfgPnpReconfigCallback extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (INetCfgPnpReconfigCallback.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

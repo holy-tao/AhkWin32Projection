@@ -126,11 +126,11 @@ export default struct IMSVidAudioRendererEvent2 extends IMSVidAudioRendererEvent
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSVidAudioRendererEvent2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

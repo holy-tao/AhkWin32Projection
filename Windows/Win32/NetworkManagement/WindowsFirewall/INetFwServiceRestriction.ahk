@@ -162,11 +162,11 @@ export default struct INetFwServiceRestriction extends IDispatch {
         return INetFwRules(rules)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (INetFwServiceRestriction.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

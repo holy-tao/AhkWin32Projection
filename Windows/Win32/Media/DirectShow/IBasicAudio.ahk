@@ -202,11 +202,11 @@ export default struct IBasicAudio extends IDispatch {
         return plBalance
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBasicAudio.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

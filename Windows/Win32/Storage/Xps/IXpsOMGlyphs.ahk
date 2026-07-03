@@ -1125,11 +1125,11 @@ export default struct IXpsOMGlyphs extends IXpsOMVisual {
         return IXpsOMGlyphs(glyphs)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsOMGlyphs.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

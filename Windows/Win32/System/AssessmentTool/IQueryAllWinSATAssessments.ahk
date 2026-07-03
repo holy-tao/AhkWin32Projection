@@ -62,11 +62,11 @@ export default struct IQueryAllWinSATAssessments extends IDispatch {
         return IXMLDOMNodeList(ppDomNodeList)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IQueryAllWinSATAssessments.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

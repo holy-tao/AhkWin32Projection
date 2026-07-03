@@ -76,11 +76,11 @@ export default struct IAppxBundleManifestOptionalBundleInfo extends IUnknown {
         return IAppxBundleManifestPackageInfoEnumerator(packageInfoItems)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxBundleManifestOptionalBundleInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

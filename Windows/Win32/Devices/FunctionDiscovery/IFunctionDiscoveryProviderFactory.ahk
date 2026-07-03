@@ -103,11 +103,11 @@ export default struct IFunctionDiscoveryProviderFactory extends IUnknown {
         return IFunctionInstanceCollection(ppIFunctionInstanceCollection)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFunctionDiscoveryProviderFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

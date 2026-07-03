@@ -208,11 +208,11 @@ export default struct IBackgroundCopyManager extends IUnknown {
         return pErrorDescription
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBackgroundCopyManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

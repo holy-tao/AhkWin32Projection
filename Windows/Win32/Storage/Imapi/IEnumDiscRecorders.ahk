@@ -81,11 +81,11 @@ export default struct IEnumDiscRecorders extends IUnknown {
         return IEnumDiscRecorders(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumDiscRecorders.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

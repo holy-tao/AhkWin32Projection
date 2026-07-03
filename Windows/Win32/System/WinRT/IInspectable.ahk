@@ -161,11 +161,11 @@ export default struct IInspectable extends IUnknown {
         return _trustLevel
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IInspectable.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

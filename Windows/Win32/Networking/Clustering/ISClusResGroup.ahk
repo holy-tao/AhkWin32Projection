@@ -292,11 +292,11 @@ export default struct ISClusResGroup extends IDispatch {
         return ISCluster(ppCluster)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISClusResGroup.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

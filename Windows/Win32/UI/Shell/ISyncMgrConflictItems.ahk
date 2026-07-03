@@ -67,11 +67,11 @@ export default struct ISyncMgrConflictItems extends IUnknown {
         return pItemInfo
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISyncMgrConflictItems.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -351,11 +351,11 @@ export default struct IXpsOMObjectFactory1 extends IXpsOMObjectFactory {
         return IXpsOMRemoteDictionaryResource(dictionaryResource)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsOMObjectFactory1.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

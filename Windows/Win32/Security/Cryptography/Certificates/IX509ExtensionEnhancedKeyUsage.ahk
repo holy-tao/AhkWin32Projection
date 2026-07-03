@@ -146,11 +146,11 @@ export default struct IX509ExtensionEnhancedKeyUsage extends IX509Extension {
         return IObjectIds(ppValue)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IX509ExtensionEnhancedKeyUsage.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

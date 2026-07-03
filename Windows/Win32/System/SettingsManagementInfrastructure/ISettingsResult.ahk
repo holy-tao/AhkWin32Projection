@@ -106,11 +106,11 @@ export default struct ISettingsResult extends IUnknown {
         return _file
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISettingsResult.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

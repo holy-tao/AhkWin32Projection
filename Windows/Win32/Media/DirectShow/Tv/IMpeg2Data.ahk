@@ -95,11 +95,11 @@ export default struct IMpeg2Data extends IUnknown {
         return IMpeg2Stream(ppMpegStream)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMpeg2Data.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

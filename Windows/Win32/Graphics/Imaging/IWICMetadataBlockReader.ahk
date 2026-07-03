@@ -100,11 +100,11 @@ export default struct IWICMetadataBlockReader extends IUnknown {
         return IEnumUnknown(ppIEnumMetadata)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWICMetadataBlockReader.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

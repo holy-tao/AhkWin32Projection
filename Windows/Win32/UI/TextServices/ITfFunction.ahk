@@ -49,11 +49,11 @@ export default struct ITfFunction extends IUnknown {
         return pbstrName
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfFunction.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -73,11 +73,11 @@ export default struct IWICFormatConverterInfo extends IWICComponentInfo {
         return IWICFormatConverter(ppIConverter)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWICFormatConverterInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

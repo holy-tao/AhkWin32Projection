@@ -81,11 +81,11 @@ export default struct IWbemObjectTextSrc extends IUnknown {
         return IWbemClassObject(pNewObj)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWbemObjectTextSrc.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

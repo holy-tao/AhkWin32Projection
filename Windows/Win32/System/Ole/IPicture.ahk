@@ -405,11 +405,11 @@ export default struct IPicture extends IUnknown {
         return pDwAttr
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPicture.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

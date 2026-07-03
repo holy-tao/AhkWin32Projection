@@ -44,11 +44,11 @@ export default struct IDebugHostFunctionIntrospection3 extends IDebugHostFunctio
         return pIsNoReturnFunction
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugHostFunctionIntrospection3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

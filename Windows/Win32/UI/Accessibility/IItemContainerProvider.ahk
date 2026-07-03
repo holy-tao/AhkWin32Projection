@@ -74,11 +74,11 @@ export default struct IItemContainerProvider extends IUnknown {
         return IRawElementProviderSimple(pFound)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IItemContainerProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

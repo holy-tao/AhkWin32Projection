@@ -51,11 +51,11 @@ export default struct IAppxFactory4 extends IUnknown {
         return IAppxPackageReader(packageReader)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxFactory4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -177,11 +177,11 @@ export default struct IExplorerCommand extends IUnknown {
         return IEnumExplorerCommand(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IExplorerCommand.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -1130,11 +1130,11 @@ export default struct ISystemMonitor extends IUnknown {
         return bsSqlLogSetName
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISystemMonitor.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

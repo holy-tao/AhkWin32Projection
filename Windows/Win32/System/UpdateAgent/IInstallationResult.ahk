@@ -105,11 +105,11 @@ export default struct IInstallationResult extends IDispatch {
         return IUpdateInstallationResult(retval)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IInstallationResult.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

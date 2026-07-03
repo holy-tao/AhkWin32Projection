@@ -49,11 +49,11 @@ export default struct IKsJackSinkInformation extends IUnknown {
         return pJackSinkInformation
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IKsJackSinkInformation.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

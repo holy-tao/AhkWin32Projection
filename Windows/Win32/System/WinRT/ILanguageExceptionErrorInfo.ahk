@@ -49,11 +49,11 @@ export default struct ILanguageExceptionErrorInfo extends IUnknown {
         return IUnknown(languageException)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ILanguageExceptionErrorInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

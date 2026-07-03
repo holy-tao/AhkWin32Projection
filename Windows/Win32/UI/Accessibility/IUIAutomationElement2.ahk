@@ -163,11 +163,11 @@ export default struct IUIAutomationElement2 extends IUIAutomationElement {
         return IUIAutomationElementArray(retVal)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAutomationElement2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -322,11 +322,11 @@ export default struct IUrlAccessor extends IUnknown {
         return IFilter(ppFilter)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUrlAccessor.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

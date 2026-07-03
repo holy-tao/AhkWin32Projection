@@ -290,11 +290,11 @@ export default struct _Application extends IDispatch {
         return VersionMinor
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (_Application.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

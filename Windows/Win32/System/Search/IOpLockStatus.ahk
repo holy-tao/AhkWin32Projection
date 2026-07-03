@@ -84,11 +84,11 @@ export default struct IOpLockStatus extends IUnknown {
         return phOplockEv
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOpLockStatus.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

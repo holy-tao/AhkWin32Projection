@@ -58,11 +58,11 @@ export default struct IPersistTuneXmlUtility extends IUnknown {
         return IUnknown(ppObject)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPersistTuneXmlUtility.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

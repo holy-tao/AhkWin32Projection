@@ -122,11 +122,11 @@ export default struct IPropertyStoreCache extends IPropertyStore {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPropertyStoreCache.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -48,11 +48,11 @@ export default struct IVPBaseNotify extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVPBaseNotify.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

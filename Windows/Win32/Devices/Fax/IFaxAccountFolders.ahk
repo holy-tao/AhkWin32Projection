@@ -120,11 +120,11 @@ export default struct IFaxAccountFolders extends IDispatch {
         return IFaxAccountOutgoingArchive(pFaxOutgoingArchive)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFaxAccountFolders.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

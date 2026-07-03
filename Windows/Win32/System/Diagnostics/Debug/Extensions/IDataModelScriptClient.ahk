@@ -53,11 +53,11 @@ export default struct IDataModelScriptClient extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDataModelScriptClient.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

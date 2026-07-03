@@ -55,11 +55,11 @@ export default struct IADsAggregator extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IADsAggregator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

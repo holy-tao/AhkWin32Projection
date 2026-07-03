@@ -52,11 +52,11 @@ export default struct IAgileReference extends IUnknown {
         return ppvObjectReference
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAgileReference.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

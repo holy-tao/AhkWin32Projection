@@ -126,11 +126,11 @@ export default struct IWMPMediaCollection2 extends IWMPMediaCollection {
         return IWMPPlaylist(ppMediaItems)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMPMediaCollection2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

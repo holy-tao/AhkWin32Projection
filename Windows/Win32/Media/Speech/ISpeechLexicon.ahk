@@ -166,11 +166,11 @@ export default struct ISpeechLexicon extends IDispatch {
         return ISpeechLexiconWords(ppWords)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpeechLexicon.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

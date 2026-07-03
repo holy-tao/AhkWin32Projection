@@ -161,11 +161,11 @@ export default struct ITRequestEvent extends IDispatch {
         return ppComment
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITRequestEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

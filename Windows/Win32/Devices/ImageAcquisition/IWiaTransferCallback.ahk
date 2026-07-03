@@ -112,11 +112,11 @@ export default struct IWiaTransferCallback extends IUnknown {
         return IStream(ppDestination)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWiaTransferCallback.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

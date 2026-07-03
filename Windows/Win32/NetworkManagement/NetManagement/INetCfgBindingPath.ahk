@@ -167,11 +167,11 @@ export default struct INetCfgBindingPath extends IUnknown {
         return IEnumNetCfgBindingInterface(ppenumInterface)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (INetCfgBindingPath.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

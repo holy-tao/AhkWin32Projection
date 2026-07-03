@@ -125,11 +125,11 @@ export default struct ITravelLogStg extends IUnknown {
         return ITravelLogEntry(ptle)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITravelLogStg.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

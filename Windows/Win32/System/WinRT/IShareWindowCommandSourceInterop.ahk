@@ -73,11 +73,11 @@ export default struct IShareWindowCommandSourceInterop extends IUnknown {
         return shareWindowCommandSource
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IShareWindowCommandSourceInterop.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

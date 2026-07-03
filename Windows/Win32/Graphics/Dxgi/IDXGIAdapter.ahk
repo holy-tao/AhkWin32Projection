@@ -169,11 +169,11 @@ export default struct IDXGIAdapter extends IDXGIObject {
         return pUMDVersion
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDXGIAdapter.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

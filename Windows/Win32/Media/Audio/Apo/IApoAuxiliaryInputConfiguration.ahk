@@ -115,11 +115,11 @@ export default struct IApoAuxiliaryInputConfiguration extends IUnknown {
         return IAudioMediaType(ppSupportedInputFormat)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IApoAuxiliaryInputConfiguration.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

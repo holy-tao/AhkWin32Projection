@@ -137,11 +137,11 @@ export default struct IRDPSRAPIVirtualChannel extends IDispatch {
         return pPriority
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRDPSRAPIVirtualChannel.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

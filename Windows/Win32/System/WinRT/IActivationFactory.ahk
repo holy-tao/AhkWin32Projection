@@ -57,11 +57,11 @@ export default struct IActivationFactory extends IInspectable {
         return IInspectable(instance)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IActivationFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

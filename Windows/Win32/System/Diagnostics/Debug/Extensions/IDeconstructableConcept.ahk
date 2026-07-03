@@ -71,11 +71,11 @@ export default struct IDeconstructableConcept extends IUnknown {
         return IModelObject(constructorArguments)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDeconstructableConcept.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

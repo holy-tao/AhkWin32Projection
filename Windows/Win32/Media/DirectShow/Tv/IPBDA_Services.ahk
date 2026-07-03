@@ -75,11 +75,11 @@ export default struct IPBDA_Services extends IUnknown {
         return pul64ServiceIdx
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPBDA_Services.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

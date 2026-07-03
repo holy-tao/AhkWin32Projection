@@ -268,11 +268,11 @@ export default struct IMPEG2_TIF_CONTROL extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMPEG2_TIF_CONTROL.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

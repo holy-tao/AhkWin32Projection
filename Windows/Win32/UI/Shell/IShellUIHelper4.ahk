@@ -257,11 +257,11 @@ export default struct IShellUIHelper4 extends IShellUIHelper3 {
         return pfEnabled
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IShellUIHelper4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

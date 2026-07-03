@@ -118,11 +118,11 @@ export default struct IWsbApplicationRestoreSupport extends IUnknown {
         return pbRollForwardSupported
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWsbApplicationRestoreSupport.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

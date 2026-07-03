@@ -161,11 +161,11 @@ export default struct IFolderViewSettings extends IUnknown {
         return pcVisibleRows
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFolderViewSettings.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

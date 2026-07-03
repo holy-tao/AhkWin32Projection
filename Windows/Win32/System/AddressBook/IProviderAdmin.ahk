@@ -176,11 +176,11 @@ export default struct IProviderAdmin extends IUnknown {
         return IProfSect(lppProfSect)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IProviderAdmin.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

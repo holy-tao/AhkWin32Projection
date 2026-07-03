@@ -451,11 +451,11 @@ export default struct IHTMLEventObj extends IDispatch {
         return IDispatch(p)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLEventObj.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

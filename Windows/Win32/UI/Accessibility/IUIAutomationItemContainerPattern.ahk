@@ -74,11 +74,11 @@ export default struct IUIAutomationItemContainerPattern extends IUnknown {
         return IUIAutomationElement(pFound)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAutomationItemContainerPattern.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -62,11 +62,11 @@ export default struct IAppxDigestProvider extends IUnknown {
         return digest
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxDigestProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

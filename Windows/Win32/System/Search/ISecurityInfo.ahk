@@ -71,11 +71,11 @@ export default struct ISecurityInfo extends IUnknown {
         return pPermissions
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISecurityInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

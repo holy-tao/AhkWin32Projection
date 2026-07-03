@@ -91,11 +91,11 @@ export default struct IWMPPlaylistArray extends IDispatch {
         return IWMPPlaylist(ppItem)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMPPlaylistArray.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

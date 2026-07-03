@@ -145,11 +145,11 @@ export default struct ISettingsContext extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISettingsContext.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

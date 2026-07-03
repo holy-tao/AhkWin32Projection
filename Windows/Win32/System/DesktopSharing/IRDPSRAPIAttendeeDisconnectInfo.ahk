@@ -100,11 +100,11 @@ export default struct IRDPSRAPIAttendeeDisconnectInfo extends IDispatch {
         return pVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRDPSRAPIAttendeeDisconnectInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

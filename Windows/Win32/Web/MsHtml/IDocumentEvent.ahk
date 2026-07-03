@@ -49,11 +49,11 @@ export default struct IDocumentEvent extends IDispatch {
         return IDOMEvent(ppEvent)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDocumentEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -184,11 +184,11 @@ export default struct IFaxOutgoingMessage2 extends IFaxOutgoingMessage {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFaxOutgoingMessage2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

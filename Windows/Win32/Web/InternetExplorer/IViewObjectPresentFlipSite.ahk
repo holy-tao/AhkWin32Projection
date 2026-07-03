@@ -138,11 +138,11 @@ export default struct IViewObjectPresentFlipSite extends IUnknown {
         return pSize
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IViewObjectPresentFlipSite.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

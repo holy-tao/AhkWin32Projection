@@ -48,11 +48,11 @@ export default struct IAdviseSinkEx extends IAdviseSink {
         ComCall(8, this, UInt32, dwViewStatus)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAdviseSinkEx.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

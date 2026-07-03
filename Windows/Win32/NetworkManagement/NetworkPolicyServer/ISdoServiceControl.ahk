@@ -100,11 +100,11 @@ export default struct ISdoServiceControl extends IDispatch {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISdoServiceControl.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -64,11 +64,11 @@ export default struct ICLRMetaHostPolicy extends IUnknown {
         return ppRuntime
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICLRMetaHostPolicy.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

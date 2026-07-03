@@ -212,11 +212,11 @@ export default struct IWBScriptControl extends IDispatch {
         return p
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWBScriptControl.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

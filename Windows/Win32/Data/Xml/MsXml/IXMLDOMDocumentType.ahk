@@ -88,11 +88,11 @@ export default struct IXMLDOMDocumentType extends IXMLDOMNode {
         return IXMLDOMNamedNodeMap(notationMap)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXMLDOMDocumentType.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

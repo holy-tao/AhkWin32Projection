@@ -90,11 +90,11 @@ export default struct IPluginAuthenticator extends IUnknown {
         return lockStatus
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPluginAuthenticator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

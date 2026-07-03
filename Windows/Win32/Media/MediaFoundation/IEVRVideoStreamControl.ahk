@@ -60,11 +60,11 @@ export default struct IEVRVideoStreamControl extends IUnknown {
         return lpfActive
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEVRVideoStreamControl.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -46,11 +46,11 @@ export default struct ITransactionReceiverFactory extends IUnknown {
         return ITransactionReceiver(ppReceiver)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITransactionReceiverFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

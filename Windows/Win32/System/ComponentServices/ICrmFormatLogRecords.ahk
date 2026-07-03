@@ -87,11 +87,11 @@ export default struct ICrmFormatLogRecords extends IUnknown {
         return pFormattedLogRecord
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICrmFormatLogRecords.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

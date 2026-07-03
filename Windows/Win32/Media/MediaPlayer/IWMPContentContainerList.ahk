@@ -72,11 +72,11 @@ export default struct IWMPContentContainerList extends IUnknown {
         return IWMPContentContainer(ppContent)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMPContentContainerList.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

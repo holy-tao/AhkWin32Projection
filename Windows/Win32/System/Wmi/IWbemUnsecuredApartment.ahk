@@ -72,11 +72,11 @@ export default struct IWbemUnsecuredApartment extends IUnsecuredApartment {
         return IWbemObjectSink(ppStub)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWbemUnsecuredApartment.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

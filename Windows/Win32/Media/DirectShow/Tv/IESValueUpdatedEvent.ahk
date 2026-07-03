@@ -50,11 +50,11 @@ export default struct IESValueUpdatedEvent extends IESEvent {
         return pbstrNames
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IESValueUpdatedEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -730,11 +730,11 @@ export default struct IVssSoftwareSnapshotProvider extends IUnknown {
         return IVssAsync(ppAsync)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVssSoftwareSnapshotProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

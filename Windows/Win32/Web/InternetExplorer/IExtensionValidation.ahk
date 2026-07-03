@@ -74,11 +74,11 @@ export default struct IExtensionValidation extends IUnknown {
         return displayName
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IExtensionValidation.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -2132,11 +2132,11 @@ export default struct IDiscFormat2TrackAtOnce extends IDiscFormat2 {
         return supportedSpeedDescriptors
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDiscFormat2TrackAtOnce.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

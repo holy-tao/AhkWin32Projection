@@ -164,11 +164,11 @@ export default struct IAMDroppedFrames extends IUnknown {
         return plAverageSize
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAMDroppedFrames.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

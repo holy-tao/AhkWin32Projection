@@ -839,11 +839,11 @@ export default struct IDataCollector extends IDispatch {
         return _Location
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDataCollector.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

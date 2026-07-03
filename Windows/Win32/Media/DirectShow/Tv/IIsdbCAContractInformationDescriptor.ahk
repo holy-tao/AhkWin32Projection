@@ -147,11 +147,11 @@ export default struct IIsdbCAContractInformationDescriptor extends IUnknown {
         return pbstrName
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IIsdbCAContractInformationDescriptor.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

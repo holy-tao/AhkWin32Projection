@@ -75,11 +75,11 @@ export default struct IFsrmDerivedObjectsResult extends IDispatch {
         return IFsrmCollection(results)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFsrmDerivedObjectsResult.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

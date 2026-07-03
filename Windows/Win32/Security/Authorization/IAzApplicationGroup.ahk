@@ -966,11 +966,11 @@ export default struct IAzApplicationGroup extends IDispatch {
         return pvarProp
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAzApplicationGroup.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

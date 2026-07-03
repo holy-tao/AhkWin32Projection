@@ -100,11 +100,11 @@ export default struct IHlinkTarget extends IUnknown {
         return ppwzFriendlyName
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHlinkTarget.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

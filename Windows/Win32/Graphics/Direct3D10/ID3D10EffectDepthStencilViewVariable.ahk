@@ -107,11 +107,11 @@ export default struct ID3D10EffectDepthStencilViewVariable extends ID3D10EffectV
         return ID3D10DepthStencilView(ppResources)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D10EffectDepthStencilViewVariable.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

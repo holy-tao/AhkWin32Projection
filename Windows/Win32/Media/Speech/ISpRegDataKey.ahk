@@ -48,11 +48,11 @@ export default struct ISpRegDataKey extends ISpDataKey {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpRegDataKey.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

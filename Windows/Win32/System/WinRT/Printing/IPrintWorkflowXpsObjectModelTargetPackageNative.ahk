@@ -52,11 +52,11 @@ export default struct IPrintWorkflowXpsObjectModelTargetPackageNative extends IU
         return IXpsDocumentPackageTarget(value)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPrintWorkflowXpsObjectModelTargetPackageNative.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

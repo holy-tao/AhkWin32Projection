@@ -103,11 +103,11 @@ export default struct IRTCIntensityEvent extends IDispatch {
         return penDirection
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRTCIntensityEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

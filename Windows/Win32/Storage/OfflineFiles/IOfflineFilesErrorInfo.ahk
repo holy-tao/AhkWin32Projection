@@ -62,11 +62,11 @@ export default struct IOfflineFilesErrorInfo extends IUnknown {
         return ppszDescription
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOfflineFilesErrorInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

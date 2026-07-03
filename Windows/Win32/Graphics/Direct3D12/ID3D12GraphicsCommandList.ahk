@@ -1594,11 +1594,11 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
         ComCall(59, this, "ptr", pCommandSignature, UInt32, MaxCommandCount, "ptr", pArgumentBuffer, Int64, ArgumentBufferOffset, "ptr", pCountBuffer, Int64, CountBufferOffset)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12GraphicsCommandList.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

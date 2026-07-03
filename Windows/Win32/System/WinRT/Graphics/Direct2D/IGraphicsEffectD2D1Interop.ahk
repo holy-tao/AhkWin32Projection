@@ -137,11 +137,11 @@ export default struct IGraphicsEffectD2D1Interop extends IUnknown {
         return count
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGraphicsEffectD2D1Interop.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

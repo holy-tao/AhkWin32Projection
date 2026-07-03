@@ -405,11 +405,11 @@ export default struct IMetaDataAssemblyImport extends IUnknown {
         return IUnknown(ppIUnk)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMetaDataAssemblyImport.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

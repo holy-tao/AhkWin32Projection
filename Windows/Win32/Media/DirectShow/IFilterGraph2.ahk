@@ -154,11 +154,11 @@ export default struct IFilterGraph2 extends IGraphBuilder {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFilterGraph2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

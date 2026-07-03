@@ -70,11 +70,11 @@ export default struct IHTMLUrnCollection extends IDispatch {
         return ppUrn
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLUrnCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

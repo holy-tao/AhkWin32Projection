@@ -153,11 +153,11 @@ export default struct ISimilarityFileIdTable extends IUnknown {
         return recordCount
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISimilarityFileIdTable.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

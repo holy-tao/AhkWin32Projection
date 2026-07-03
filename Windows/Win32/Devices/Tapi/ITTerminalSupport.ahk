@@ -179,11 +179,11 @@ export default struct ITTerminalSupport extends IDispatch {
         return ITTerminal(ppTerminal)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITTerminalSupport.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

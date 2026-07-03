@@ -306,11 +306,11 @@ export default struct ICertView extends IDispatch {
         return IEnumCERTVIEWROW(ppenum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICertView.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -59,11 +59,11 @@ export default struct IAudioPeakMeter extends IUnknown {
         return pfLevel
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAudioPeakMeter.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

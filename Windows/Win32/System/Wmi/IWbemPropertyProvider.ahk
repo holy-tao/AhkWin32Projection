@@ -82,11 +82,11 @@ export default struct IWbemPropertyProvider extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWbemPropertyProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

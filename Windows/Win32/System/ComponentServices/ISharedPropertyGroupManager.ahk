@@ -196,11 +196,11 @@ export default struct ISharedPropertyGroupManager extends IDispatch {
         return IUnknown(retval)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISharedPropertyGroupManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

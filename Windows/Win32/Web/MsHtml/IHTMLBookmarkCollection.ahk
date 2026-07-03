@@ -82,11 +82,11 @@ export default struct IHTMLBookmarkCollection extends IDispatch {
         return pVarBookmark
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLBookmarkCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

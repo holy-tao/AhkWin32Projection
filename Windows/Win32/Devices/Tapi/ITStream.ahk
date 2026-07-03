@@ -511,11 +511,11 @@ export default struct ITStream extends IDispatch {
         return pTerminals
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITStream.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

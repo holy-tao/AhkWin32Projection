@@ -89,11 +89,11 @@ export default struct IWICDisplayAdaptationControl2 extends IWICDisplayAdaptatio
         return pfIsSupported
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWICDisplayAdaptationControl2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

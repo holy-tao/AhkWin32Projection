@@ -78,11 +78,11 @@ export default struct IEventTarget extends IDispatch {
         return pfResult
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEventTarget.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

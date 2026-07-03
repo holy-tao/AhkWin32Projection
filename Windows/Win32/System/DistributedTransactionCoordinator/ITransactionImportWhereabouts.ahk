@@ -60,11 +60,11 @@ export default struct ITransactionImportWhereabouts extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITransactionImportWhereabouts.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -63,11 +63,11 @@ export default struct INSSBuffer2 extends INSSBuffer {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (INSSBuffer2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

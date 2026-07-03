@@ -121,11 +121,11 @@ export default struct IVBGetControl extends IUnknown {
         return IEnumUnknown(ppenumUnk)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVBGetControl.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

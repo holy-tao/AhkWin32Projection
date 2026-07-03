@@ -62,11 +62,11 @@ export default struct IMFSinkWriterCallback2 extends IMFSinkWriterCallback {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFSinkWriterCallback2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

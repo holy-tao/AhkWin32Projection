@@ -57,11 +57,11 @@ export default struct IPersistFolder2 extends IPersistFolder {
         return ppidl
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPersistFolder2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

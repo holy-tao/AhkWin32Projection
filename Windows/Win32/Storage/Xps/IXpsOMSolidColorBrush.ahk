@@ -188,11 +188,11 @@ export default struct IXpsOMSolidColorBrush extends IXpsOMBrush {
         return IXpsOMSolidColorBrush(solidColorBrush)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsOMSolidColorBrush.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

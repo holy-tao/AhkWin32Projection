@@ -191,11 +191,11 @@ export default struct IDWriteFactory2 extends IDWriteFactory1 {
         return IDWriteGlyphRunAnalysis(glyphRunAnalysis)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteFactory2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

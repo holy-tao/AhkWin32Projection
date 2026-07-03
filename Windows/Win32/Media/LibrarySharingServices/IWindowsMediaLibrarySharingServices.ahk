@@ -586,11 +586,11 @@ export default struct IWindowsMediaLibrarySharingServices extends IDispatch {
         return customSettingsApplied
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWindowsMediaLibrarySharingServices.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

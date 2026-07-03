@@ -129,11 +129,11 @@ export default struct ISimpleFrameSite extends IUnknown {
         return plResult
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISimpleFrameSite.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

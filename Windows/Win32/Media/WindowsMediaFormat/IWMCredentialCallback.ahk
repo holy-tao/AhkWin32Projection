@@ -64,11 +64,11 @@ export default struct IWMCredentialCallback extends IUnknown {
         return pdwFlags
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMCredentialCallback.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

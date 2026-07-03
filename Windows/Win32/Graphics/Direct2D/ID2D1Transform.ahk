@@ -117,11 +117,11 @@ export default struct ID2D1Transform extends ID2D1TransformNode {
         return invalidOutputRect
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1Transform.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -50,11 +50,11 @@ export default struct IDWriteFontList2 extends IDWriteFontList1 {
         return IDWriteFontSet1(fontSet)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteFontList2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

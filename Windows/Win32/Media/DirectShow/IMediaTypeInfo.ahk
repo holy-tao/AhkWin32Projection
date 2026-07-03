@@ -71,11 +71,11 @@ export default struct IMediaTypeInfo extends IDispatch {
         return strType
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMediaTypeInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

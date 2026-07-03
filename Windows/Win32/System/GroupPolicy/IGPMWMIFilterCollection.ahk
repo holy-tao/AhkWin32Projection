@@ -93,11 +93,11 @@ export default struct IGPMWMIFilterCollection extends IDispatch {
         return IEnumVARIANT(pVal)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGPMWMIFilterCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

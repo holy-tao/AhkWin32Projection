@@ -80,11 +80,11 @@ export default struct IRTCEnumUserSearchResults extends IUnknown {
         return IRTCEnumUserSearchResults(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRTCEnumUserSearchResults.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

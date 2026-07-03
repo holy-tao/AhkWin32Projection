@@ -68,11 +68,11 @@ export default struct IMemAllocatorCallbackTemp extends IMemAllocator {
         return plBuffersFree
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMemAllocatorCallbackTemp.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

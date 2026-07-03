@@ -161,11 +161,11 @@ export default struct IOpcSignatureRelationshipReference extends IUnknown {
         return IOpcRelationshipSelectorEnumerator(selectorEnumerator)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOpcSignatureRelationshipReference.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -86,11 +86,11 @@ export default struct IViewFilter extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IViewFilter.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -46,11 +46,11 @@ export default struct IDBCreateSession extends IUnknown {
         return IUnknown(ppDBSession)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDBCreateSession.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

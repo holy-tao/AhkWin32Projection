@@ -200,11 +200,11 @@ export default struct IDirectInputDevice2A extends IDirectInputDeviceA {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDirectInputDevice2A.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

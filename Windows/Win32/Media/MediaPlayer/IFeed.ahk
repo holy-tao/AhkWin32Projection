@@ -725,11 +725,11 @@ export default struct IFeed extends IDispatch {
         return count
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFeed.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

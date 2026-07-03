@@ -89,11 +89,11 @@ export default struct ITMediaControl extends IDispatch {
         return pTerminalMediaState
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITMediaControl.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -50,11 +50,11 @@ export default struct ITridentTouchInput extends IUnknown {
         return pfAllowManipulations
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITridentTouchInput.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

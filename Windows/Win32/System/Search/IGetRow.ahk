@@ -59,11 +59,11 @@ export default struct IGetRow extends IUnknown {
         return ppwszURL
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGetRow.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

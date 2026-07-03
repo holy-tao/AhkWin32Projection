@@ -214,11 +214,11 @@ export default struct IDirectSound3DListener extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDirectSound3DListener.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

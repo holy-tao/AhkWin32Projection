@@ -51,11 +51,11 @@ export default struct IMSMQTransactionDispenser extends IDispatch {
         return IMSMQTransaction(ptransaction)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMSMQTransactionDispenser.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

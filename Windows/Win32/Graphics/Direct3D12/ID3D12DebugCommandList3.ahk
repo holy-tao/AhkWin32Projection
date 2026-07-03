@@ -60,11 +60,11 @@ export default struct ID3D12DebugCommandList3 extends ID3D12DebugCommandList2 {
         ComCall(9, this, "ptr", pResource, UInt32, Subresource, D3D12_BARRIER_LAYOUT, Layout)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12DebugCommandList3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

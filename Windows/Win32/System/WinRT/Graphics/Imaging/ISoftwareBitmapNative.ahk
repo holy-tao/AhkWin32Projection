@@ -47,11 +47,11 @@ export default struct ISoftwareBitmapNative extends IInspectable {
         return ppv
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISoftwareBitmapNative.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

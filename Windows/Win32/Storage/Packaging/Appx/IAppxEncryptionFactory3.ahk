@@ -107,11 +107,11 @@ export default struct IAppxEncryptionFactory3 extends IUnknown {
         return IAppxEncryptedBundleWriter(bundleWriter)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxEncryptionFactory3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

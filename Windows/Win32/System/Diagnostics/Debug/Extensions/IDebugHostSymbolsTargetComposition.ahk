@@ -55,11 +55,11 @@ export default struct IDebugHostSymbolsTargetComposition extends IUnknown {
         return IDebugHostType(ppHostType)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugHostSymbolsTargetComposition.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

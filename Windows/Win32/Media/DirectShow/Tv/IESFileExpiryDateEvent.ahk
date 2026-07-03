@@ -106,11 +106,11 @@ export default struct IESFileExpiryDateEvent extends IESEvent {
         return pfExpireAfterFirstUse
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IESFileExpiryDateEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -49,11 +49,11 @@ export default struct IJsDebug extends IUnknown {
         return IJsDebugProcess(ppProcess)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IJsDebug.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

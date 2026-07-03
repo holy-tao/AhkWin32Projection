@@ -272,11 +272,11 @@ export default struct IVMRMixerControl extends IUnknown {
         return pdwMixerPrefs
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVMRMixerControl.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

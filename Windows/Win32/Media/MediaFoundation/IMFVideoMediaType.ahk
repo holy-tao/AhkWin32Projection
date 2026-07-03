@@ -73,11 +73,11 @@ export default struct IMFVideoMediaType extends IMFMediaType {
         return ppvRepresentation
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFVideoMediaType.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

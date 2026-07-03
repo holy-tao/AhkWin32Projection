@@ -87,11 +87,11 @@ export default struct IAzRoleDefinitions extends IDispatch {
         return IUnknown(ppEnumPtr)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAzRoleDefinitions.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

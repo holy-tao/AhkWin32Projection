@@ -196,11 +196,11 @@ export default struct IMFVideoMixerControl extends IUnknown {
         return pnrcOutput
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFVideoMixerControl.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

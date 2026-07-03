@@ -66,11 +66,11 @@ export default struct IWICPixelFormatInfo2 extends IWICPixelFormatInfo {
         return pNumericRepresentation
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWICPixelFormatInfo2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

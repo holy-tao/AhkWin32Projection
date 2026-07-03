@@ -72,11 +72,11 @@ export default struct IWbemDecoupledBasicEventProvider extends IWbemDecoupledReg
         return IWbemServices(a_Service)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWbemDecoupledBasicEventProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

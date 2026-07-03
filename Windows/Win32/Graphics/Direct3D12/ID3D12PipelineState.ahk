@@ -56,11 +56,11 @@ export default struct ID3D12PipelineState extends ID3D12Pageable {
         return ID3DBlob(ppBlob)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12PipelineState.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

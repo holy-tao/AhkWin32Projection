@@ -66,11 +66,11 @@ export default struct IXpsOMRemoteDictionaryResource1 extends IXpsOMRemoteDictio
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsOMRemoteDictionaryResource1.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

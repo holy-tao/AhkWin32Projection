@@ -89,11 +89,11 @@ export default struct ISyncMgrSyncItemContainer extends IUnknown {
         return pcItems
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISyncMgrSyncItemContainer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

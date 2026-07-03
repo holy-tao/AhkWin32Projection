@@ -78,11 +78,11 @@ export default struct IKsAllocator extends IUnknown {
         ComCall(6, this, KSALLOCATORMODE, _Mode)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IKsAllocator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

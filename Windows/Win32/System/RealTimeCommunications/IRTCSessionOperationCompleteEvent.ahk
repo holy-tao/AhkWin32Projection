@@ -105,11 +105,11 @@ export default struct IRTCSessionOperationCompleteEvent extends IDispatch {
         return pbstrStatusText
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRTCSessionOperationCompleteEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

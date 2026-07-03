@@ -94,11 +94,11 @@ export default struct IReconcilableObject extends IUnknown {
         return pulProgressMax
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IReconcilableObject.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

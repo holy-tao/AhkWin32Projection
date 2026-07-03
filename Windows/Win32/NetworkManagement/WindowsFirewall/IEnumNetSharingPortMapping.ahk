@@ -387,11 +387,11 @@ export default struct IEnumNetSharingPortMapping extends IUnknown {
         return IEnumNetSharingPortMapping(ppenum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumNetSharingPortMapping.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

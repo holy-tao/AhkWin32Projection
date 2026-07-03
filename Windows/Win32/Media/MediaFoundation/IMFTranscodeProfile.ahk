@@ -214,11 +214,11 @@ export default struct IMFTranscodeProfile extends IUnknown {
         return IMFAttributes(ppAttrs)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFTranscodeProfile.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -269,11 +269,11 @@ export default struct IMultiMediaStream extends IUnknown {
         return phEOS
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMultiMediaStream.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

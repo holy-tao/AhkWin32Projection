@@ -86,11 +86,11 @@ export default struct IRTCProfileEvent extends IDispatch {
         return plStatusCode
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRTCProfileEvent.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

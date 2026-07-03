@@ -85,11 +85,11 @@ export default struct IMediaEventEx extends IMediaEvent {
         return lplNoNotifyFlags
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMediaEventEx.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -107,11 +107,11 @@ export default struct IMILBitmapEffects extends IUnknown {
         return puiCount
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMILBitmapEffects.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

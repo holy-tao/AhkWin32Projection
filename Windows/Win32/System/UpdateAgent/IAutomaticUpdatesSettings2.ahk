@@ -97,11 +97,11 @@ export default struct IAutomaticUpdatesSettings2 extends IAutomaticUpdatesSettin
         return userHasPermission
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAutomaticUpdatesSettings2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

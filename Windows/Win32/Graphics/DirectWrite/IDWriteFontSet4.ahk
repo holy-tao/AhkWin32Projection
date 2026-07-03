@@ -107,11 +107,11 @@ export default struct IDWriteFontSet4 extends IDWriteFontSet3 {
         return IDWriteFontSet4(matchingFonts)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteFontSet4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

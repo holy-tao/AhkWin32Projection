@@ -132,11 +132,11 @@ export default struct IJsDebugFrame extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IJsDebugFrame.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

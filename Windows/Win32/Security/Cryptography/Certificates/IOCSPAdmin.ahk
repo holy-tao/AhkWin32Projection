@@ -641,11 +641,11 @@ export default struct IOCSPAdmin extends IDispatch {
         return pVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOCSPAdmin.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

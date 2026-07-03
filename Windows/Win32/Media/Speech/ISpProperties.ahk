@@ -93,11 +93,11 @@ export default struct ISpProperties extends IUnknown {
         return ppCoMemValue
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpProperties.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

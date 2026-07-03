@@ -60,11 +60,11 @@ export default struct IAudioLfxControl extends IUnknown {
         return pbEnabled
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAudioLfxControl.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

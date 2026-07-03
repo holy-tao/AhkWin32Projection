@@ -90,11 +90,11 @@ export default struct IWICD3DTextureSource extends IUnknown {
         return IPropertyBag2(ppID3DTextureOptions)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWICD3DTextureSource.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

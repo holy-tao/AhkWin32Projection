@@ -236,11 +236,11 @@ export default struct IWdsTransportServicePolicy extends IWdsTransportCacheable 
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWdsTransportServicePolicy.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

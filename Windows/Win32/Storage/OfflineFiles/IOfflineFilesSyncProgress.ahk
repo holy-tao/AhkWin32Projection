@@ -69,11 +69,11 @@ export default struct IOfflineFilesSyncProgress extends IOfflineFilesProgress {
         return pResponse
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOfflineFilesSyncProgress.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -55,11 +55,11 @@ export default struct ISAXXMLFilter extends ISAXXMLReader {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISAXXMLFilter.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

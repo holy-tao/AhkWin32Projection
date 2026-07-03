@@ -150,11 +150,11 @@ export default struct IAppPublisher extends IUnknown {
         return IEnumPublishedApps(ppepa)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppPublisher.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

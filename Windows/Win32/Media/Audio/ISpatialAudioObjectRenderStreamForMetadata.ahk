@@ -70,11 +70,11 @@ export default struct ISpatialAudioObjectRenderStreamForMetadata extends ISpatia
         return ISpatialAudioObjectForMetadataItems(audioObject)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISpatialAudioObjectRenderStreamForMetadata.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

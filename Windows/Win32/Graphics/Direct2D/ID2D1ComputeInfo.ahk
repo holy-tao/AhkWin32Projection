@@ -133,11 +133,11 @@ export default struct ID2D1ComputeInfo extends ID2D1RenderInfo {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1ComputeInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

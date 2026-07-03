@@ -60,11 +60,11 @@ export default struct INetworkConnectionCost extends IUnknown {
         return pDataPlanStatus
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (INetworkConnectionCost.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

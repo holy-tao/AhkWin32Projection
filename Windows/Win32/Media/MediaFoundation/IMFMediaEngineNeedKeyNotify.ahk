@@ -47,11 +47,11 @@ export default struct IMFMediaEngineNeedKeyNotify extends IUnknown {
         ComCall(3, this, IntPtr, initData, UInt32, cb)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFMediaEngineNeedKeyNotify.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

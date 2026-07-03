@@ -70,7 +70,6 @@ export default struct IHTMLElement extends IDispatch {
         put_onselectstart     : IntPtr
         get_onselectstart     : IntPtr
         scrollIntoView        : IntPtr
-        contains              : IntPtr
         get_sourceIndex       : IntPtr
         get_recordNumber      : IntPtr
         put_lang              : IntPtr
@@ -1378,11 +1377,11 @@ export default struct IHTMLElement extends IDispatch {
         return IDispatch(p)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLElement.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

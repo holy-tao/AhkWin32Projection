@@ -313,11 +313,11 @@ export default struct IMFMediaBuffer extends IUnknown {
         return pcbMaxLength
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFMediaBuffer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

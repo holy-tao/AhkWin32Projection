@@ -71,11 +71,11 @@ export default struct IRTCBuddy extends IRTCPresenceContact {
         return pbstrNotes
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRTCBuddy.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

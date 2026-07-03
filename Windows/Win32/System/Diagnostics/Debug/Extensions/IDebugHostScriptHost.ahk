@@ -48,11 +48,11 @@ export default struct IDebugHostScriptHost extends IUnknown {
         return IDataModelScriptHostContext(scriptContext)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugHostScriptHost.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

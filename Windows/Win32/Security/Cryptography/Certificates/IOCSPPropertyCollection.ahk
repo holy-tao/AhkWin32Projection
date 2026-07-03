@@ -213,11 +213,11 @@ export default struct IOCSPPropertyCollection extends IDispatch {
         return pVarProperties
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOCSPPropertyCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

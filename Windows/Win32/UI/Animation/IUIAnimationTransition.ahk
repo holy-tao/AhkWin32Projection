@@ -117,11 +117,11 @@ export default struct IUIAnimationTransition extends IUnknown {
         return duration
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUIAnimationTransition.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -46,11 +46,11 @@ export default struct ICLRGCManager2 extends ICLRGCManager {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICLRGCManager2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

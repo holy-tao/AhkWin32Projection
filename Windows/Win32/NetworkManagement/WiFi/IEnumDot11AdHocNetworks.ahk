@@ -218,11 +218,11 @@ export default struct IEnumDot11AdHocNetworks extends IUnknown {
         return IEnumDot11AdHocNetworks(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumDot11AdHocNetworks.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

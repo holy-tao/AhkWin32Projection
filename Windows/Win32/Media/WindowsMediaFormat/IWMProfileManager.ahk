@@ -184,11 +184,11 @@ export default struct IWMProfileManager extends IUnknown {
         return IWMProfile(ppProfile)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMProfileManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

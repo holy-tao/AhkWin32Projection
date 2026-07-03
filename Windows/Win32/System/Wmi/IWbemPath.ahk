@@ -424,11 +424,11 @@ export default struct IWbemPath extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWbemPath.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

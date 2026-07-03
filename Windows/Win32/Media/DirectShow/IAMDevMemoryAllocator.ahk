@@ -122,11 +122,11 @@ export default struct IAMDevMemoryAllocator extends IUnknown {
         return IUnknown(ppUnkInnner)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAMDevMemoryAllocator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

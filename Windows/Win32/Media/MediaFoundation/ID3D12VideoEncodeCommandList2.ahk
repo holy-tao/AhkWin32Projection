@@ -77,11 +77,11 @@ export default struct ID3D12VideoEncodeCommandList2 extends ID3D12VideoEncodeCom
         ComCall(28, this, D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS.Ptr, pInputArguments, D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_ARGUMENTS.Ptr, pOutputArguments)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12VideoEncodeCommandList2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

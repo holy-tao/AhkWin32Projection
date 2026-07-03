@@ -346,11 +346,11 @@ export default struct IHTMLLocation extends IDispatch {
         return _string
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLLocation.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

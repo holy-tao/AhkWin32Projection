@@ -86,11 +86,11 @@ export default struct IUpdateHistoryEntryCollection extends IDispatch {
         return retval
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IUpdateHistoryEntryCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

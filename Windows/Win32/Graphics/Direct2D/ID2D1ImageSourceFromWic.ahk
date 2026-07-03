@@ -107,11 +107,11 @@ export default struct ID2D1ImageSourceFromWic extends ID2D1ImageSource {
         ComCall(8, this, IWICBitmapSource.Ptr, wicBitmapSource)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1ImageSourceFromWic.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

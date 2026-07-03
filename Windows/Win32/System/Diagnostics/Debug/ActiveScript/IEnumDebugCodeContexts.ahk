@@ -81,11 +81,11 @@ export default struct IEnumDebugCodeContexts extends IUnknown {
         return IEnumDebugCodeContexts(ppescc)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumDebugCodeContexts.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

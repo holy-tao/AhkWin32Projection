@@ -130,11 +130,11 @@ export default struct ID3D12VideoDevice2 extends ID3D12VideoDevice1 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12VideoDevice2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

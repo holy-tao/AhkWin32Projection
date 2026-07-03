@@ -92,11 +92,11 @@ export default struct IBitmapData extends IUnknown {
         return pBitmapDescription
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBitmapData.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -200,11 +200,11 @@ export default struct IGPMSOM extends IDispatch {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGPMSOM.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -54,11 +54,11 @@ export default struct ID2D1Device5 extends ID2D1Device4 {
         return ID2D1DeviceContext5(deviceContext5)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1Device5.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

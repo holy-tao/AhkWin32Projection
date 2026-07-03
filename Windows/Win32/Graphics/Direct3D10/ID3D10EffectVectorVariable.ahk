@@ -289,11 +289,11 @@ export default struct ID3D10EffectVectorVariable extends ID3D10EffectVariable {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D10EffectVectorVariable.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

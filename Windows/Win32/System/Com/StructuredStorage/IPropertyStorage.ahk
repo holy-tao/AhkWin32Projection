@@ -357,11 +357,11 @@ export default struct IPropertyStorage extends IUnknown {
         return pstatpsstg
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPropertyStorage.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

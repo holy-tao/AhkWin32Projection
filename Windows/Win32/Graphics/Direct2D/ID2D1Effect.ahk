@@ -154,11 +154,11 @@ export default struct ID2D1Effect extends ID2D1Properties {
         ComCall(18, this, ID2D1Image.Ptr, outputImage)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID2D1Effect.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

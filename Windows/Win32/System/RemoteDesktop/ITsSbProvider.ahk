@@ -228,11 +228,11 @@ export default struct ITsSbProvider extends IUnknown {
         return ITsSbEnvironmentPropertySet(ppPropertySet)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITsSbProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

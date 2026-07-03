@@ -146,11 +146,11 @@ export default struct IX509ExtensionSmimeCapabilities extends IX509Extension {
         return ISmimeCapabilities(ppValue)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IX509ExtensionSmimeCapabilities.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

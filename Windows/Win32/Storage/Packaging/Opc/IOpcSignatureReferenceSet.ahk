@@ -163,11 +163,11 @@ export default struct IOpcSignatureReferenceSet extends IUnknown {
         return IOpcSignatureReferenceEnumerator(referenceEnumerator)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOpcSignatureReferenceSet.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

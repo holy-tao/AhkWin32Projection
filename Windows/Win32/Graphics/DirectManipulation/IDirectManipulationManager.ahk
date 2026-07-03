@@ -164,11 +164,11 @@ export default struct IDirectManipulationManager extends IUnknown {
         return _object
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDirectManipulationManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -54,11 +54,11 @@ export default struct IInterFilterCommunicator extends IUnknown {
         return ppIWriter
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IInterFilterCommunicator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

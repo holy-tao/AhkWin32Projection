@@ -122,11 +122,11 @@ export default struct IMFPMPServer extends IUnknown {
         return ppObject
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFPMPServer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

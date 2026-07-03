@@ -51,11 +51,11 @@ export default struct IDWriteFontCollection3 extends IDWriteFontCollection2 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDWriteFontCollection3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

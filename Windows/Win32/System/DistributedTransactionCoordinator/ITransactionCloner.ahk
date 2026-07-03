@@ -44,11 +44,11 @@ export default struct ITransactionCloner extends ITransaction {
         return ITransaction(ppITransaction)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITransactionCloner.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -88,11 +88,11 @@ export default struct IActiveScriptSiteDebug64 extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IActiveScriptSiteDebug64.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

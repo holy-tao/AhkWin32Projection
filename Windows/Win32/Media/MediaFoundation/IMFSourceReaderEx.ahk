@@ -437,11 +437,11 @@ export default struct IMFSourceReaderEx extends IMFSourceReader {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFSourceReaderEx.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

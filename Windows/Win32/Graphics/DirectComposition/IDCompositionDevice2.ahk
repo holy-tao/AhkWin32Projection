@@ -468,11 +468,11 @@ export default struct IDCompositionDevice2 extends IUnknown {
         return IDCompositionAnimation(animation)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDCompositionDevice2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

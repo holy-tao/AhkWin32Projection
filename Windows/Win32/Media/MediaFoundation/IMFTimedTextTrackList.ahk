@@ -82,11 +82,11 @@ export default struct IMFTimedTextTrackList extends IUnknown {
         return IMFTimedTextTrack(track)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFTimedTextTrackList.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

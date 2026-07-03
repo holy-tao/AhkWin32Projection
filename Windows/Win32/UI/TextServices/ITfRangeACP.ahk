@@ -149,11 +149,11 @@ export default struct ITfRangeACP extends ITfRange {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfRangeACP.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -45,11 +45,11 @@ export default struct ICustomFilterInfo extends ISyncFilterInfo {
         return ISyncFilter(pISyncFilter)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICustomFilterInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

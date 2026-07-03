@@ -161,11 +161,11 @@ export default struct IMFAudioPolicy extends IUnknown {
         return pszPath
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFAudioPolicy.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

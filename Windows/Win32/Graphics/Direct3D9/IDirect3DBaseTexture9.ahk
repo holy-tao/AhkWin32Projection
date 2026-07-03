@@ -184,11 +184,11 @@ export default struct IDirect3DBaseTexture9 extends IDirect3DResource9 {
         ComCall(16, this)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDirect3DBaseTexture9.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

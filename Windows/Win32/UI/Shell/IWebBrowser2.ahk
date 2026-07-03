@@ -329,11 +329,11 @@ export default struct IWebBrowser2 extends IWebBrowserApp {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWebBrowser2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

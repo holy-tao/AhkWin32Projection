@@ -89,11 +89,11 @@ export default struct IEnumComponentTypes extends IUnknown {
         return IEnumComponentTypes(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumComponentTypes.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

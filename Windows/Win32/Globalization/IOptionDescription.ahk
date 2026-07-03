@@ -128,11 +128,11 @@ export default struct IOptionDescription extends IUnknown {
         return IEnumString(value)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOptionDescription.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

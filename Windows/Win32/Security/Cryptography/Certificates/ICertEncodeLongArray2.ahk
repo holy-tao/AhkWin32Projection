@@ -62,11 +62,11 @@ export default struct ICertEncodeLongArray2 extends ICertEncodeLongArray {
         return pstrEncodedData
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICertEncodeLongArray2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

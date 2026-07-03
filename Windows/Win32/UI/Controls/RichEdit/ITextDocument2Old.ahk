@@ -330,11 +330,11 @@ export default struct ITextDocument2Old extends ITextDocument {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITextDocument2Old.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

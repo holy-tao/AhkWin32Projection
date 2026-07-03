@@ -88,11 +88,11 @@ export default struct ITLegacyAddressMediaControl2 extends ITLegacyAddressMediaC
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITLegacyAddressMediaControl2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

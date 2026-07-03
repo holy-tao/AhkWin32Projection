@@ -57,11 +57,11 @@ export default struct ID3D11ShaderTraceFactory extends IUnknown {
         return ID3D11ShaderTrace(ppShaderTrace)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D11ShaderTraceFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

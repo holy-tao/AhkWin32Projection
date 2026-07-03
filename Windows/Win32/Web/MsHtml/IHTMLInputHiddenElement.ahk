@@ -207,11 +207,11 @@ export default struct IHTMLInputHiddenElement extends IDispatch {
         return IHTMLTxtRange(range)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLInputHiddenElement.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -110,11 +110,11 @@ export default struct IEnumSearchRoots extends IUnknown {
         return IEnumSearchRoots(ppenum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumSearchRoots.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

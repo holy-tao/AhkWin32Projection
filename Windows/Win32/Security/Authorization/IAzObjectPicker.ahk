@@ -86,11 +86,11 @@ export default struct IAzObjectPicker extends IDispatch {
         return pbstrName
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAzObjectPicker.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

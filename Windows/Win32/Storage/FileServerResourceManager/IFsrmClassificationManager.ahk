@@ -828,11 +828,11 @@ export default struct IFsrmClassificationManager extends IDispatch {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFsrmClassificationManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

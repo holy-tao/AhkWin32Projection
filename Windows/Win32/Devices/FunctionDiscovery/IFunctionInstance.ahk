@@ -138,11 +138,11 @@ export default struct IFunctionInstance extends IServiceProvider {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFunctionInstance.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

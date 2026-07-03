@@ -91,11 +91,11 @@ export default struct IHTMLMSCSSKeyframeRule extends IDispatch {
         return IHTMLRuleStyle(p)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLMSCSSKeyframeRule.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

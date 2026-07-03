@@ -55,11 +55,11 @@ export default struct IFtpRoleProvider extends IUnknown {
         return pfIsInRole
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFtpRoleProvider.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

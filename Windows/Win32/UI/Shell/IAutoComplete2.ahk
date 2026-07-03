@@ -75,11 +75,11 @@ export default struct IAutoComplete2 extends IAutoComplete {
         return pdwFlag
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAutoComplete2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -155,11 +155,11 @@ export default struct ITFileTrack extends IDispatch {
         return ITScriptableAudioFormat(ppAudioFormat)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITFileTrack.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

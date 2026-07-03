@@ -47,11 +47,11 @@ export default struct ICDBurnExt extends IUnknown {
         return pdwActions
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICDBurnExt.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

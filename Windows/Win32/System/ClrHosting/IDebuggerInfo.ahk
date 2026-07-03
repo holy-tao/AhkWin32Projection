@@ -45,11 +45,11 @@ export default struct IDebuggerInfo extends IUnknown {
         return pbAttached
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebuggerInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -49,11 +49,11 @@ export default struct IServiceSysTxnConfig extends IServiceTransactionConfig {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IServiceSysTxnConfig.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

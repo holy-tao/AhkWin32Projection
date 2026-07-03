@@ -99,11 +99,11 @@ export default struct IBDA_DigitalDemodulator3 extends IBDA_DigitalDemodulator2 
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IBDA_DigitalDemodulator3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

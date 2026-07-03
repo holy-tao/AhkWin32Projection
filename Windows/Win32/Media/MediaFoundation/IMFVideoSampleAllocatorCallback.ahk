@@ -66,11 +66,11 @@ export default struct IMFVideoSampleAllocatorCallback extends IUnknown {
         return plSamples
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFVideoSampleAllocatorCallback.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

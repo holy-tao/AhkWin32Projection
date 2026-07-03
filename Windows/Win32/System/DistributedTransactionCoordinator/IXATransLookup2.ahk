@@ -47,11 +47,11 @@ export default struct IXATransLookup2 extends IUnknown {
         return ITransaction(ppTransaction)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXATransLookup2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

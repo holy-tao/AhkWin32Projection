@@ -73,11 +73,11 @@ export default struct IWdsTransportSetupManager2 extends IWdsTransportSetupManag
         return IWdsTransportCollection(ppProviderCollection)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWdsTransportSetupManager2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

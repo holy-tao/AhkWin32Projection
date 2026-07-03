@@ -123,11 +123,11 @@ export default struct ISharedPropertyGroup extends IDispatch {
         return ISharedProperty(ppProperty)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISharedPropertyGroup.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -45,11 +45,11 @@ export default struct IQueryOEMWinSATCustomization extends IUnknown {
         return state
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IQueryOEMWinSATCustomization.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

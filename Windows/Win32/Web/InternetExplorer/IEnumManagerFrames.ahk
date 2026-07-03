@@ -99,11 +99,11 @@ export default struct IEnumManagerFrames extends IUnknown {
         return IEnumManagerFrames(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumManagerFrames.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -54,11 +54,11 @@ export default struct IDestinationStreamFactory extends IUnknown {
         return IStream(ppstm)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDestinationStreamFactory.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

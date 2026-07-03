@@ -80,11 +80,11 @@ export default struct IHTMLDOMChildrenCollection extends IDispatch {
         return IDispatch(ppItem)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IHTMLDOMChildrenCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

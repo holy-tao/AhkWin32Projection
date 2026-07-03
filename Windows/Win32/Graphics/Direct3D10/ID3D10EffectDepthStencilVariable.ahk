@@ -78,11 +78,11 @@ export default struct ID3D10EffectDepthStencilVariable extends ID3D10EffectVaria
         return pDepthStencilDesc
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D10EffectDepthStencilVariable.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

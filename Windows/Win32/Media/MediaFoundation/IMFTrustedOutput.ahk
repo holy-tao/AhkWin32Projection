@@ -76,11 +76,11 @@ export default struct IMFTrustedOutput extends IUnknown {
         return pfIsFinal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFTrustedOutput.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

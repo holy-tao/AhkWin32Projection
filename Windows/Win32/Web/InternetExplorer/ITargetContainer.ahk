@@ -56,11 +56,11 @@ export default struct ITargetContainer extends IUnknown {
         return IOleContainer(ppContainer)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITargetContainer.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

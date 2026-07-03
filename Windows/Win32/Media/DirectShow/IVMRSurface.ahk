@@ -99,11 +99,11 @@ export default struct IVMRSurface extends IUnknown {
         return IDirectDrawSurface7(lplpSurface)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVMRSurface.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

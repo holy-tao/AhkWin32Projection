@@ -74,11 +74,11 @@ export default struct ID3D11AuthenticatedChannel extends ID3D11DeviceChild {
         ComCall(9, this, HANDLE.Ptr, pChannelHandle)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D11AuthenticatedChannel.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -105,11 +105,11 @@ export default struct ITfSystemLangBarItemText extends IUnknown {
         return pbstrText
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITfSystemLangBarItemText.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

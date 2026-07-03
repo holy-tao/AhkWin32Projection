@@ -133,11 +133,11 @@ export default struct IX509SCEPEnrollment2 extends IX509SCEPEnrollment {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IX509SCEPEnrollment2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -45,11 +45,11 @@ export default struct IGetSession extends IUnknown {
         return IUnknown(ppSession)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGetSession.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -60,11 +60,11 @@ export default struct ITransactionDispenser extends IUnknown {
         return ITransaction(ppTransaction)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ITransactionDispenser.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

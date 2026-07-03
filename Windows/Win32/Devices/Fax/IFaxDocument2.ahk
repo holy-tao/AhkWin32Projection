@@ -190,11 +190,11 @@ export default struct IFaxDocument2 extends IFaxDocument {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFaxDocument2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

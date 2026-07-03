@@ -135,11 +135,11 @@ export default struct IProtectionPolicyManagerInterop3 extends IInspectable {
         return asyncOperation
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IProtectionPolicyManagerInterop3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

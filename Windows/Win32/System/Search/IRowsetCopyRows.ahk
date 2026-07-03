@@ -94,11 +94,11 @@ export default struct IRowsetCopyRows extends IUnknown {
         return phSourceID
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRowsetCopyRows.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

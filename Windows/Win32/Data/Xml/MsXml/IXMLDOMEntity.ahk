@@ -90,11 +90,11 @@ export default struct IXMLDOMEntity extends IXMLDOMNode {
         return name
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXMLDOMEntity.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

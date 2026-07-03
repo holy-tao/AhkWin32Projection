@@ -389,11 +389,11 @@ export default struct IFsiItem extends IDispatch {
         return pVal
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFsiItem.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

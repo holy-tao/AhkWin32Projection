@@ -78,11 +78,11 @@ export default struct IEnumerableView extends IUnknown {
         return IEnumIDList(ppEnumIDList)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumerableView.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -108,11 +108,11 @@ export default struct IVssBackupComponentsEx4 extends IVssBackupComponentsEx3 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IVssBackupComponentsEx4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

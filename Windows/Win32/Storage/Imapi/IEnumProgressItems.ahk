@@ -167,11 +167,11 @@ export default struct IEnumProgressItems extends IUnknown {
         return IEnumProgressItems(ppEnum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumProgressItems.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

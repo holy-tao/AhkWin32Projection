@@ -60,11 +60,11 @@ export default struct IAudioFormatEnumerator extends IUnknown {
         return format
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAudioFormatEnumerator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

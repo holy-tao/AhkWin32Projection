@@ -161,11 +161,11 @@ export default struct IPersistQuery extends IPersist {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IPersistQuery.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

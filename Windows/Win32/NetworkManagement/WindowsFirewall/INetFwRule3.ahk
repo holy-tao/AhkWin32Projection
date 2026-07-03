@@ -242,11 +242,11 @@ export default struct INetFwRule3 extends INetFwRule2 {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (INetFwRule3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

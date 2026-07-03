@@ -74,11 +74,11 @@ export default struct IQueryInfo extends IUnknown {
         return pdwFlags
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IQueryInfo.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

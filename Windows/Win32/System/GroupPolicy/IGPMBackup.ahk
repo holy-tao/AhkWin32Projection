@@ -218,11 +218,11 @@ export default struct IGPMBackup extends IDispatch {
         return IGPMResult(ppIGPMResult)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGPMBackup.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

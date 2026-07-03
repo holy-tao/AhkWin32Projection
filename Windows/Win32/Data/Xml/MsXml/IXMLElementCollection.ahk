@@ -102,11 +102,11 @@ export default struct IXMLElementCollection extends IDispatch {
         return IDispatch(ppDisp)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXMLElementCollection.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

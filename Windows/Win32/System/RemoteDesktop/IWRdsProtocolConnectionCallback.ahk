@@ -123,11 +123,11 @@ export default struct IWRdsProtocolConnectionCallback extends IUnknown {
         return pConnectionId
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWRdsProtocolConnectionCallback.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

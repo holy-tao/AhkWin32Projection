@@ -71,11 +71,11 @@ export default struct ISchemaNotation extends ISchemaItem {
         return uri
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISchemaNotation.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -138,11 +138,11 @@ export default struct IRemoteDebugApplicationThread extends IUnknown {
         return pdwCount
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRemoteDebugApplicationThread.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

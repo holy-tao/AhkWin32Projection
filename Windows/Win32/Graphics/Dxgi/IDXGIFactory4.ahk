@@ -83,11 +83,11 @@ export default struct IDXGIFactory4 extends IDXGIFactory3 {
         return ppvAdapter
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDXGIFactory4.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

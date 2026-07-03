@@ -115,11 +115,11 @@ export default struct IGPMMapEntry extends IDispatch {
         return pgpmEntryType
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IGPMMapEntry.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

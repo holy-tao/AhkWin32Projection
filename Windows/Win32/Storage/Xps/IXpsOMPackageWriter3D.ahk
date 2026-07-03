@@ -68,11 +68,11 @@ export default struct IXpsOMPackageWriter3D extends IXpsOMPackageWriter {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsOMPackageWriter3D.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

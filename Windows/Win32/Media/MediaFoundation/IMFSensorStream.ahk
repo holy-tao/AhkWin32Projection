@@ -71,11 +71,11 @@ export default struct IMFSensorStream extends IMFAttributes {
         return IMFSensorStream(ppStream)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFSensorStream.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

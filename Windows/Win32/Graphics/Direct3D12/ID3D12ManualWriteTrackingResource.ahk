@@ -45,11 +45,11 @@ export default struct ID3D12ManualWriteTrackingResource extends IUnknown {
         ComCall(3, this, UInt32, Subresource, D3D12_RANGE.Ptr, pWrittenRange)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12ManualWriteTrackingResource.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

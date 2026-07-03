@@ -58,11 +58,11 @@ export default struct IDirectSoundCaptureBuffer8 extends IDirectSoundCaptureBuff
         return pdwFXStatus
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDirectSoundCaptureBuffer8.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

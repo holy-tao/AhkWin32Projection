@@ -61,11 +61,11 @@ export default struct IWMSBufferAllocator extends IUnknown {
         return INSSBuffer(ppBuffer)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMSBufferAllocator.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

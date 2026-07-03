@@ -55,11 +55,11 @@ export default struct ISearchViewChangedSink extends IUnknown {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISearchViewChangedSink.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -59,11 +59,11 @@ export default struct IXpsOMShareable extends IUnknown {
         return type
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IXpsOMShareable.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

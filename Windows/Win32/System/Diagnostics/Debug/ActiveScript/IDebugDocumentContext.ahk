@@ -56,11 +56,11 @@ export default struct IDebugDocumentContext extends IUnknown {
         return IEnumDebugCodeContexts(ppescc)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDebugDocumentContext.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

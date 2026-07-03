@@ -48,11 +48,11 @@ export default struct ID3D12VideoProcessCommandList3 extends ID3D12VideoProcessC
         ComCall(27, this, UInt32, NumBarrierGroups, D3D12_BARRIER_GROUP.Ptr, pBarrierGroups)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D12VideoProcessCommandList3.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

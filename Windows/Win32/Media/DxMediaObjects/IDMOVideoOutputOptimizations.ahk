@@ -174,11 +174,11 @@ export default struct IDMOVideoOutputOptimizations extends IUnknown {
         return pdwRequestedFeatures
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IDMOVideoOutputOptimizations.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

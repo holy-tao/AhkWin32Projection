@@ -70,11 +70,11 @@ export default struct IResourceManager2 extends IResourceManager {
         return pXactStat
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IResourceManager2.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

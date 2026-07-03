@@ -263,11 +263,11 @@ export default struct IFeedsManager extends IDispatch {
         return itemCountLimit
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IFeedsManager.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

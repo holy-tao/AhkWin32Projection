@@ -106,11 +106,11 @@ export default struct IMbnSubscriberInformation extends IUnknown {
         return TelephoneNumbers
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMbnSubscriberInformation.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -98,11 +98,11 @@ export default struct ICreatePropBagOnRegKey extends IUnknown {
         return ppBag
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ICreatePropBagOnRegKey.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

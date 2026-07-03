@@ -116,11 +116,11 @@ export default struct IWICBitmapLock extends IUnknown {
         return pPixelFormat
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWICBitmapLock.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

@@ -160,11 +160,11 @@ export default struct IOleParentUndoUnit extends IOleUndoUnit {
         return pdwState
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IOleParentUndoUnit.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

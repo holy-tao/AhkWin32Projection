@@ -52,11 +52,11 @@ export default struct ISchemaModelGroup extends ISchemaParticle {
         return ISchemaItemCollection(particles)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ISchemaModelGroup.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

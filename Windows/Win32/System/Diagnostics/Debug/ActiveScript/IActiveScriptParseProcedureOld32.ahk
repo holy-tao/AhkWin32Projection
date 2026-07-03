@@ -59,11 +59,11 @@ export default struct IActiveScriptParseProcedureOld32 extends IUnknown {
         return IDispatch(ppdisp)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IActiveScriptParseProcedureOld32.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

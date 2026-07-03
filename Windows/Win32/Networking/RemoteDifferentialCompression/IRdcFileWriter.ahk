@@ -71,11 +71,11 @@ export default struct IRdcFileWriter extends IRdcFileReader {
         return result
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IRdcFileWriter.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

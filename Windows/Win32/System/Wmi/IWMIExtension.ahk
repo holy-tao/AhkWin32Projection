@@ -81,11 +81,11 @@ export default struct IWMIExtension extends IDispatch {
         return ISWbemServices(objWMIServices)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IWMIExtension.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

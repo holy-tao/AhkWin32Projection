@@ -105,11 +105,11 @@ export default struct IEnumSyncMgrEvents extends IUnknown {
         return IEnumSyncMgrEvents(ppenum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumSyncMgrEvents.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

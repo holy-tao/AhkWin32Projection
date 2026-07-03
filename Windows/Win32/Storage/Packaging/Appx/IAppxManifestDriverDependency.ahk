@@ -45,11 +45,11 @@ export default struct IAppxManifestDriverDependency extends IUnknown {
         return IAppxManifestDriverConstraintsEnumerator(driverConstraints)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IAppxManifestDriverDependency.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

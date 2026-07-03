@@ -2700,11 +2700,11 @@ export default struct ID3D10Device extends IUnknown {
         ComCall(97, this, pWidthMarshal, pWidth, pHeightMarshal, pHeight)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (ID3D10Device.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

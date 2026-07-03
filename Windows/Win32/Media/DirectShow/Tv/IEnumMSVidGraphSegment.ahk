@@ -81,11 +81,11 @@ export default struct IEnumMSVidGraphSegment extends IUnknown {
         return IEnumMSVidGraphSegment(ppenum)
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IEnumMSVidGraphSegment.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {

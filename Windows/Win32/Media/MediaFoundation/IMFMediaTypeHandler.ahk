@@ -221,11 +221,11 @@ export default struct IMFMediaTypeHandler extends IUnknown {
         return pguidMajorType
     }
 
-    Query(iid) {
+    _Query(iid) {
         if (IMFMediaTypeHandler.IID.Equals(iid)) {
             return true
         }
-        return super.Query(iid)
+        return super._Query(iid)
     }
 
     Implement(implObj, flags := "") {
