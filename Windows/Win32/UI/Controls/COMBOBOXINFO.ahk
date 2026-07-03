@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\COMBOBOXINFO_BUTTON_STATE.ahk" { COMBOBOXINFO_BUTTON_STATE }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\COMBOBOXINFO_BUTTON_STATE.ahk" { COMBOBOXINFO_BUTTON_STATE }
 
 /**
  * Contains combo box status information.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\AsnObjectIdentifier.ahk" { AsnObjectIdentifier }
 #Import ".\SnmpVarBindList.ahk" { SnmpVarBindList }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Snmp
@@ -54,10 +54,6 @@ export default struct PFNSNMPEXTENSIONTRAP {
             this.value := CallbackCreate(fn, , [AsnObjectIdentifier.Ptr, "int*", "int*", "uint*", SnmpVarBindList.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

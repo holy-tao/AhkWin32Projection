@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Input\KeyboardAndMouse\HKL.ahk" { HKL }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITfInputProcessorProfileActivationSink interface is implemented by an application to receive notifications when the profile changes.

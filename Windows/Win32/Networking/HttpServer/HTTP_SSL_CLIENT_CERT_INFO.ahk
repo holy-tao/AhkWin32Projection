@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * Contains data about a Secure Sockets Layer (SSL) client certificate that can be used to determine whether the certificate is valid.

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\AddressBook\IMessage.ahk" { IMessage }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\System\AddressBook\SPropValue.ahk" { SPropValue }
 #Import ".\STnefProblemArray.ahk" { STnefProblemArray }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\AddressBook\SPropTagArray.ahk" { SPropTagArray }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\System\AddressBook\IMAPITable.ahk" { IMAPITable }
+#Import "..\..\System\AddressBook\IMessage.ahk" { IMessage }
+#Import "..\..\System\AddressBook\SPropTagArray.ahk" { SPropTagArray }
+#Import "..\..\System\AddressBook\SPropValue.ahk" { SPropValue }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods for encapsulating MAPI properties that are not supported by a messaging system into binary streams that can be attached to messages.

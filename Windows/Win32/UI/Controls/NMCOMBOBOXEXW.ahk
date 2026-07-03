@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\NMHDR.ahk" { NMHDR }
-#Import ".\COMBOBOX_EX_ITEM_FLAGS.ahk" { COMBOBOX_EX_ITEM_FLAGS }
 #Import ".\COMBOBOXEXITEMW.ahk" { COMBOBOXEXITEMW }
+#Import ".\COMBOBOX_EX_ITEM_FLAGS.ahk" { COMBOBOX_EX_ITEM_FLAGS }
+#Import ".\NMHDR.ahk" { NMHDR }
 
 /**
  * Contains information specific to ComboBoxEx items for use with notification codes. (Unicode)

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DOMAIN_CONFIGURATION.ahk" { DOMAIN_CONFIGURATION }
 #Import "..\..\Foundation\IOMMU_DMA_DOMAIN.ahk" { IOMMU_DMA_DOMAIN }
+#Import ".\DOMAIN_CONFIGURATION.ahk" { DOMAIN_CONFIGURATION }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
@@ -30,7 +30,7 @@ export default struct IOMMU_DOMAIN_CONFIGURE {
         DomainMarshal := Domain is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, DomainMarshal, Domain, DOMAIN_CONFIGURATION.Ptr, Configuration, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -50,10 +50,6 @@ export default struct IOMMU_DOMAIN_CONFIGURE {
             this.value := CallbackCreate(fn, , [IOMMU_DMA_DOMAIN.Ptr, DOMAIN_CONFIGURATION.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

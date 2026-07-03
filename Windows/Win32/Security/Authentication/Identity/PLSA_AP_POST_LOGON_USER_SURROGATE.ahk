@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
-#Import ".\SECURITY_LOGON_TYPE.ahk" { SECURITY_LOGON_TYPE }
-#Import ".\SECPKG_SUPPLEMENTAL_CRED_ARRAY.ahk" { SECPKG_SUPPLEMENTAL_CRED_ARRAY }
 #Import "..\..\..\Foundation\LUID.ahk" { LUID }
-#Import ".\SECPKG_SURROGATE_LOGON.ahk" { SECPKG_SURROGATE_LOGON }
-#Import ".\LSA_TOKEN_INFORMATION_TYPE.ahk" { LSA_TOKEN_INFORMATION_TYPE }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\LSA_TOKEN_INFORMATION_TYPE.ahk" { LSA_TOKEN_INFORMATION_TYPE }
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 #Import ".\SECPKG_PRIMARY_CRED.ahk" { SECPKG_PRIMARY_CRED }
+#Import ".\SECPKG_SUPPLEMENTAL_CRED_ARRAY.ahk" { SECPKG_SUPPLEMENTAL_CRED_ARRAY }
+#Import ".\SECPKG_SURROGATE_LOGON.ahk" { SECPKG_SURROGATE_LOGON }
+#Import ".\SECURITY_LOGON_TYPE.ahk" { SECURITY_LOGON_TYPE }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -53,7 +53,7 @@ export default struct PLSA_AP_POST_LOGON_USER_SURROGATE {
         TokenInformationMarshal := TokenInformation is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, ClientRequestMarshal, ClientRequest, SECURITY_LOGON_TYPE, LogonType, IntPtr, ProtocolSubmitBuffer, ClientBufferBaseMarshal, ClientBufferBase, UInt32, SubmitBufferSize, SECPKG_SURROGATE_LOGON.Ptr, SurrogateLogon, IntPtr, ProfileBuffer, UInt32, ProfileBufferSize, LUID.Ptr, LogonId, NTSTATUS, _Status, NTSTATUS, SubStatus, LSA_TOKEN_INFORMATION_TYPE, TokenInformationType, TokenInformationMarshal, TokenInformation, LSA_UNICODE_STRING.Ptr, AccountName, LSA_UNICODE_STRING.Ptr, AuthenticatingAuthority, LSA_UNICODE_STRING.Ptr, MachineName, SECPKG_PRIMARY_CRED.Ptr, PrimaryCredentials, SECPKG_SUPPLEMENTAL_CRED_ARRAY.Ptr, SupplementalCredentials, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -73,10 +73,6 @@ export default struct PLSA_AP_POST_LOGON_USER_SURROGATE {
             this.value := CallbackCreate(fn, , ["ptr*", SECURITY_LOGON_TYPE, IntPtr, "ptr", UInt32, SECPKG_SURROGATE_LOGON.Ptr, IntPtr, UInt32, LUID.Ptr, NTSTATUS, NTSTATUS, LSA_TOKEN_INFORMATION_TYPE, "ptr", LSA_UNICODE_STRING.Ptr, LSA_UNICODE_STRING.Ptr, LSA_UNICODE_STRING.Ptr, SECPKG_PRIMARY_CRED.Ptr, SECPKG_SUPPLEMENTAL_CRED_ARRAY.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

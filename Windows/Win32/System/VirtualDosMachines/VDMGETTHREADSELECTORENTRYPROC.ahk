@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\VDMLDT_ENTRY.ahk" { VDMLDT_ENTRY }
 
 /**
@@ -50,10 +50,6 @@ export default struct VDMGETTHREADSELECTORENTRYPROC {
             this.value := CallbackCreate(fn, , [HANDLE, HANDLE, UInt32, VDMLDT_ENTRY.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

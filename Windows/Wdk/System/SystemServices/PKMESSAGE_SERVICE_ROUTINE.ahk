@@ -43,10 +43,6 @@ export default struct PKMESSAGE_SERVICE_ROUTINE {
             this.value := CallbackCreate(fn, , [BOOLEAN])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

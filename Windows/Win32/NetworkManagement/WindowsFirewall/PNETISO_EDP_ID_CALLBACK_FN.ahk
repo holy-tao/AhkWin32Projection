@@ -49,10 +49,6 @@ export default struct PNETISO_EDP_ID_CALLBACK_FN {
             this.value := CallbackCreate(fn, , ["ptr", PWSTR, UInt32, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

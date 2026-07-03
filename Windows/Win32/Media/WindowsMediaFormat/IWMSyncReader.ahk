@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import ".\WMT_STREAM_SELECTION.ahk" { WMT_STREAM_SELECTION }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IWMOutputMediaProps.ahk" { IWMOutputMediaProps }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\WMT_ATTR_DATATYPE.ahk" { WMT_ATTR_DATATYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\INSSBuffer.ahk" { INSSBuffer }
+#Import ".\IWMOutputMediaProps.ahk" { IWMOutputMediaProps }
+#Import ".\WMT_ATTR_DATATYPE.ahk" { WMT_ATTR_DATATYPE }
+#Import ".\WMT_STREAM_SELECTION.ahk" { WMT_STREAM_SELECTION }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMSyncReader interface provides the ability to read ASF files using synchronous calls.

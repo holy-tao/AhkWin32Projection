@@ -1,46 +1,45 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\PRINTER_NOTIFY_OPTIONS.ahk" { PRINTER_NOTIFY_OPTIONS }
-#Import ".\PRINTER_OPTIONSW.ahk" { PRINTER_OPTIONSW }
-#Import ".\BIDI_RESPONSE_CONTAINER.ahk" { BIDI_RESPONSE_CONTAINER }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\PRINTER_DEFAULTSA.ahk" { PRINTER_DEFAULTSA }
-#Import ".\IPrintAsyncNotifyCallback.ahk" { IPrintAsyncNotifyCallback }
-#Import ".\EPrintXPSJobProgress.ahk" { EPrintXPSJobProgress }
-#Import "..\Gdi\DEVMODEA.ahk" { DEVMODEA }
-#Import ".\ATTRIBUTE_INFO_3.ahk" { ATTRIBUTE_INFO_3 }
-#Import ".\PRINT_EXECUTION_DATA.ahk" { PRINT_EXECUTION_DATA }
-#Import ".\CORE_PRINTER_DRIVERW.ahk" { CORE_PRINTER_DRIVERW }
-#Import ".\PrintAsyncNotifyUserFilter.ahk" { PrintAsyncNotifyUserFilter }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\PrintNamedProperty.ahk" { PrintNamedProperty }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\PRINTER_NOTIFY_INFO_DATA.ahk" { PRINTER_NOTIFY_INFO_DATA }
-#Import "..\..\Storage\Xps\DOCINFOW.ahk" { DOCINFOW }
-#Import ".\PrintAsyncNotifyConversationStyle.ahk" { PrintAsyncNotifyConversationStyle }
-#Import "..\Gdi\DEVMODEW.ahk" { DEVMODEW }
-#Import ".\SHOWUIPARAMS.ahk" { SHOWUIPARAMS }
-#Import ".\IPrintAsyncNotifyChannel.ahk" { IPrintAsyncNotifyChannel }
-#Import ".\DEVQUERYPRINT_INFO.ahk" { DEVQUERYPRINT_INFO }
-#Import ".\PRINTER_DEFAULTSW.ahk" { PRINTER_DEFAULTSW }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\PRINTER_HANDLE.ahk" { PRINTER_HANDLE }
-#Import ".\PFNPROPSHEETUI.ahk" { PFNPROPSHEETUI }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\FINDPRINTERCHANGENOTIFICATION_HANDLE.ahk" { FINDPRINTERCHANGENOTIFICATION_HANDLE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\DOC_INFO_1W.ahk" { DOC_INFO_1W }
-#Import ".\PrintPropertyValue.ahk" { PrintPropertyValue }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\Gdi\HDC.ahk" { HDC }
-#Import ".\PRINTER_NOTIFY_INFO.ahk" { PRINTER_NOTIFY_INFO }
-#Import ".\DOC_INFO_1A.ahk" { DOC_INFO_1A }
-#Import ".\EPrintXPSJobOperation.ahk" { EPrintXPSJobOperation }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\Gdi\DEVMODEA.ahk" { DEVMODEA }
+#Import "..\Gdi\DEVMODEW.ahk" { DEVMODEW }
+#Import "..\Gdi\HDC.ahk" { HDC }
+#Import ".\ATTRIBUTE_INFO_3.ahk" { ATTRIBUTE_INFO_3 }
+#Import ".\BIDI_RESPONSE_CONTAINER.ahk" { BIDI_RESPONSE_CONTAINER }
 #Import ".\CORE_PRINTER_DRIVERA.ahk" { CORE_PRINTER_DRIVERA }
+#Import ".\CORE_PRINTER_DRIVERW.ahk" { CORE_PRINTER_DRIVERW }
+#Import ".\DEVQUERYPRINT_INFO.ahk" { DEVQUERYPRINT_INFO }
+#Import ".\DOC_INFO_1A.ahk" { DOC_INFO_1A }
+#Import ".\DOC_INFO_1W.ahk" { DOC_INFO_1W }
+#Import ".\EPrintXPSJobOperation.ahk" { EPrintXPSJobOperation }
+#Import ".\EPrintXPSJobProgress.ahk" { EPrintXPSJobProgress }
+#Import ".\FINDPRINTERCHANGENOTIFICATION_HANDLE.ahk" { FINDPRINTERCHANGENOTIFICATION_HANDLE }
+#Import ".\IPrintAsyncNotifyCallback.ahk" { IPrintAsyncNotifyCallback }
+#Import ".\IPrintAsyncNotifyChannel.ahk" { IPrintAsyncNotifyChannel }
+#Import ".\PRINTER_DEFAULTSA.ahk" { PRINTER_DEFAULTSA }
+#Import ".\PRINTER_DEFAULTSW.ahk" { PRINTER_DEFAULTSW }
+#Import ".\PRINTER_HANDLE.ahk" { PRINTER_HANDLE }
+#Import ".\PRINTER_NOTIFY_INFO.ahk" { PRINTER_NOTIFY_INFO }
+#Import ".\PRINTER_NOTIFY_INFO_DATA.ahk" { PRINTER_NOTIFY_INFO_DATA }
+#Import ".\PRINTER_NOTIFY_OPTIONS.ahk" { PRINTER_NOTIFY_OPTIONS }
 #Import ".\PRINTER_OPTIONSA.ahk" { PRINTER_OPTIONSA }
+#Import ".\PRINTER_OPTIONSW.ahk" { PRINTER_OPTIONSW }
+#Import ".\PRINT_EXECUTION_DATA.ahk" { PRINT_EXECUTION_DATA }
+#Import ".\PrintAsyncNotifyConversationStyle.ahk" { PrintAsyncNotifyConversationStyle }
+#Import ".\PrintAsyncNotifyUserFilter.ahk" { PrintAsyncNotifyUserFilter }
+#Import ".\PrintNamedProperty.ahk" { PrintNamedProperty }
+#Import ".\PrintPropertyValue.ahk" { PrintPropertyValue }
+#Import ".\SHOWUIPARAMS.ahk" { SHOWUIPARAMS }
+#Import "..\..\Storage\Xps\DOCINFOW.ahk" { DOCINFOW }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -58,7 +57,7 @@
 export CommonPropertySheetUIA(hWndOwner, _pfnPropSheetUI, _lParam, pResult) {
     pResultMarshal := pResult is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("COMPSTUI.dll\CommonPropertySheetUIA", HWND, hWndOwner, PFNPROPSHEETUI, _pfnPropSheetUI, LPARAM, _lParam, pResultMarshal, pResult, Int32)
+    result := DllCall("COMPSTUI.dll\CommonPropertySheetUIA", HWND, hWndOwner, "ptr", _pfnPropSheetUI, LPARAM, _lParam, pResultMarshal, pResult, Int32)
     return result
 }
 
@@ -73,7 +72,7 @@ export CommonPropertySheetUIA(hWndOwner, _pfnPropSheetUI, _lParam, pResult) {
 export CommonPropertySheetUIW(hWndOwner, _pfnPropSheetUI, _lParam, pResult) {
     pResultMarshal := pResult is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("COMPSTUI.dll\CommonPropertySheetUIW", HWND, hWndOwner, PFNPROPSHEETUI, _pfnPropSheetUI, LPARAM, _lParam, pResultMarshal, pResult, Int32)
+    result := DllCall("COMPSTUI.dll\CommonPropertySheetUIW", HWND, hWndOwner, "ptr", _pfnPropSheetUI, LPARAM, _lParam, pResultMarshal, pResult, Int32)
     return result
 }
 

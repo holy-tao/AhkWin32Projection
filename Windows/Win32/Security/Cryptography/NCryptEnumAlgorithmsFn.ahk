@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\NCRYPT_PROV_HANDLE.ahk" { NCRYPT_PROV_HANDLE }
 #Import ".\NCryptAlgorithmName.ahk" { NCryptAlgorithmName }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -53,10 +53,6 @@ export default struct NCryptEnumAlgorithmsFn {
             this.value := CallbackCreate(fn, , [NCRYPT_PROV_HANDLE, UInt32, "uint*", "ptr*", UInt32, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

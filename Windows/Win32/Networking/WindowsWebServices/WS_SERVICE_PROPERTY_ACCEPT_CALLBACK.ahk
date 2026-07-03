@@ -1,5 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_SERVICE_ACCEPT_CHANNEL_CALLBACK.ahk" { WS_SERVICE_ACCEPT_CHANNEL_CALLBACK }
 
 /**
  * Specifies the callback which is called when a channel is successfully accepted.
@@ -12,6 +11,6 @@ export default struct WS_SERVICE_PROPERTY_ACCEPT_CALLBACK {
     /**
      * The accept channel callback function reference.
      */
-    callback : WS_SERVICE_ACCEPT_CHANNEL_CALLBACK
+    callback : IntPtr
 
 }

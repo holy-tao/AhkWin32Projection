@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITfCandidateListUIElement.ahk" { ITfCandidateListUIElement }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfCandidateListUIElement.ahk" { ITfCandidateListUIElement }
 
 /**
  * This interface is implemented by a text service that has a candidate list UI and its UI can be controlled by the application. The application QI this interface from ITfUIElement and controls the candidate list behavior.

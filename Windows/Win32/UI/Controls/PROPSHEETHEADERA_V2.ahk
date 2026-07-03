@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\PROPSHEETPAGEA.ahk" { PROPSHEETPAGEA }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import ".\PFNPROPSHEETCALLBACK.ahk" { PFNPROPSHEETCALLBACK }
-#Import ".\HPROPSHEETPAGE.ahk" { HPROPSHEETPAGE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
+#Import ".\HPROPSHEETPAGE.ahk" { HPROPSHEETPAGE }
+#Import ".\PROPSHEETPAGEA.ahk" { PROPSHEETPAGEA }
 #Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
 
 /**
@@ -60,7 +59,7 @@ export default struct PROPSHEETHEADERA_V2 {
 
     ppsp : PROPSHEETPAGEA.Ptr
 
-    pfnCallback : PFNPROPSHEETCALLBACK
+    pfnCallback : IntPtr
 
     hbmWatermark : HBITMAP
 

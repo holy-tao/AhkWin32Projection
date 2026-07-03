@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
@@ -28,7 +28,7 @@ export default struct TDI_REGISTER_CALLBACK {
      */
     Call(DeviceName, TdiHandle) {
         result := DllCall(this.value, UNICODE_STRING.Ptr, DeviceName, HANDLE.Ptr, TdiHandle, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -48,10 +48,6 @@ export default struct TDI_REGISTER_CALLBACK {
             this.value := CallbackCreate(fn, , [UNICODE_STRING.Ptr, HANDLE.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

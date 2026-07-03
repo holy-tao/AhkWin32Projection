@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SECPKG_TARGETINFO.ahk" { SECPKG_TARGETINFO }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\SECPKG_TARGETINFO.ahk" { SECPKG_TARGETINFO }
 
 /**
  * Validates that the specified SECPKG_TARGETINFO structure represents a valid target.
@@ -46,7 +46,7 @@ export default struct SpValidateTargetInfoFn {
         ClientBufferBaseMarshal := ClientBufferBase is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, ClientRequestMarshal, ClientRequest, IntPtr, ProtocolSubmitBuffer, ClientBufferBaseMarshal, ClientBufferBase, UInt32, SubmitBufferLength, SECPKG_TARGETINFO.Ptr, TargetInfo, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -66,10 +66,6 @@ export default struct SpValidateTargetInfoFn {
             this.value := CallbackCreate(fn, , ["ptr*", IntPtr, "ptr", UInt32, SECPKG_TARGETINFO.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

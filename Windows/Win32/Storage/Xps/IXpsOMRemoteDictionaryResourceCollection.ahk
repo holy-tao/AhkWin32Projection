@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IXpsOMRemoteDictionaryResource.ahk" { IXpsOMRemoteDictionaryResource }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
+#Import ".\IXpsOMRemoteDictionaryResource.ahk" { IXpsOMRemoteDictionaryResource }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * A collection of IXpsOMRemoteDictionaryResource interface pointers.

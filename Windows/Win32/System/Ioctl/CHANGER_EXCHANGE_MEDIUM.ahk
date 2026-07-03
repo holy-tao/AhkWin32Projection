@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ELEMENT_TYPE.ahk" { ELEMENT_TYPE }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import ".\CHANGER_ELEMENT.ahk" { CHANGER_ELEMENT }
+#Import ".\ELEMENT_TYPE.ahk" { ELEMENT_TYPE }
 
 /**
  * Contains information the IOCTL_CHANGER_EXCHANGE_MEDIUM control code uses to move a piece of media to a destination, and the piece of media originally in the first destination to a second destination.

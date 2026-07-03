@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WCN_ATTRIBUTE_TYPE.ahk" { WCN_ATTRIBUTE_TYPE }
-#Import ".\WCN_PASSWORD_TYPE.ahk" { WCN_PASSWORD_TYPE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IWCNConnectNotify.ahk" { IWCNConnectNotify }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WCN_ATTRIBUTE_TYPE.ahk" { WCN_ATTRIBUTE_TYPE }
+#Import ".\WCN_PASSWORD_TYPE.ahk" { WCN_PASSWORD_TYPE }
 #Import ".\WCN_VENDOR_EXTENSION_SPEC.ahk" { WCN_VENDOR_EXTENSION_SPEC }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Use this interface to configure the device and initiate the session.

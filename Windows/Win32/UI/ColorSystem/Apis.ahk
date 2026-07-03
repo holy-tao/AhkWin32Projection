@@ -1,39 +1,36 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\COLOR.ahk" { COLOR }
-#Import ".\COLORDATATYPE.ahk" { COLORDATATYPE }
-#Import ".\WCS_DEVICE_CAPABILITIES_TYPE.ahk" { WCS_DEVICE_CAPABILITIES_TYPE }
-#Import ".\COLORPROFILETYPE.ahk" { COLORPROFILETYPE }
-#Import ".\ICM_MODE.ahk" { ICM_MODE }
-#Import ".\PROFILE.ahk" { PROFILE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\LUID.ahk" { LUID }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
 #Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
-#Import ".\COLORMATCHSETUPA.ahk" { COLORMATCHSETUPA }
 #Import "..\..\Graphics\Gdi\RGBTRIPLE.ahk" { RGBTRIPLE }
 #Import ".\BMFORMAT.ahk" { BMFORMAT }
-#Import ".\ICM_COMMAND.ahk" { ICM_COMMAND }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\LOGCOLORSPACEA.ahk" { LOGCOLORSPACEA }
-#Import ".\ICMENUMPROCW.ahk" { ICMENUMPROCW }
-#Import ".\PROFILEHEADER.ahk" { PROFILEHEADER }
-#Import ".\COLORPROFILESUBTYPE.ahk" { COLORPROFILESUBTYPE }
-#Import ".\COLORTYPE.ahk" { COLORTYPE }
-#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
-#Import ".\ENUMTYPEW.ahk" { ENUMTYPEW }
-#Import ".\ICMENUMPROCA.ahk" { ICMENUMPROCA }
-#Import ".\WCS_PROFILE_MANAGEMENT_SCOPE.ahk" { WCS_PROFILE_MANAGEMENT_SCOPE }
-#Import ".\COLOR_MATCH_TO_TARGET_ACTION.ahk" { COLOR_MATCH_TO_TARGET_ACTION }
-#Import "..\..\Foundation\LUID.ahk" { LUID }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\COLOR.ahk" { COLOR }
+#Import ".\COLORDATATYPE.ahk" { COLORDATATYPE }
+#Import ".\COLORMATCHSETUPA.ahk" { COLORMATCHSETUPA }
 #Import ".\COLORMATCHSETUPW.ahk" { COLORMATCHSETUPW }
+#Import ".\COLORPROFILESUBTYPE.ahk" { COLORPROFILESUBTYPE }
+#Import ".\COLORPROFILETYPE.ahk" { COLORPROFILETYPE }
+#Import ".\COLORTYPE.ahk" { COLORTYPE }
+#Import ".\COLOR_MATCH_TO_TARGET_ACTION.ahk" { COLOR_MATCH_TO_TARGET_ACTION }
 #Import ".\ENUMTYPEA.ahk" { ENUMTYPEA }
+#Import ".\ENUMTYPEW.ahk" { ENUMTYPEW }
+#Import ".\HCOLORSPACE.ahk" { HCOLORSPACE }
+#Import ".\ICM_COMMAND.ahk" { ICM_COMMAND }
+#Import ".\ICM_MODE.ahk" { ICM_MODE }
+#Import ".\LOGCOLORSPACEA.ahk" { LOGCOLORSPACEA }
 #Import ".\LOGCOLORSPACEW.ahk" { LOGCOLORSPACEW }
 #Import ".\NAMED_PROFILE_INFO.ahk" { NAMED_PROFILE_INFO }
-#Import ".\HCOLORSPACE.ahk" { HCOLORSPACE }
-#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\LPBMCALLBACKFN.ahk" { LPBMCALLBACKFN }
+#Import ".\PROFILE.ahk" { PROFILE }
+#Import ".\PROFILEHEADER.ahk" { PROFILEHEADER }
+#Import ".\WCS_DEVICE_CAPABILITIES_TYPE.ahk" { WCS_DEVICE_CAPABILITIES_TYPE }
+#Import ".\WCS_PROFILE_MANAGEMENT_SCOPE.ahk" { WCS_PROFILE_MANAGEMENT_SCOPE }
 
 /**
  * @namespace Windows.Win32.UI.ColorSystem
@@ -504,7 +501,7 @@ export ColorMatchToTarget(_hdc, hdcTarget, action) {
  * @since windows5.0
  */
 export EnumICMProfilesA(_hdc, _proc, param2) {
-    result := DllCall("GDI32.dll\EnumICMProfilesA", HDC, _hdc, ICMENUMPROCA, _proc, LPARAM, param2, Int32)
+    result := DllCall("GDI32.dll\EnumICMProfilesA", HDC, _hdc, "ptr", _proc, LPARAM, param2, Int32)
     return result
 }
 
@@ -529,7 +526,7 @@ export EnumICMProfilesA(_hdc, _proc, param2) {
  * @since windows5.0
  */
 export EnumICMProfilesW(_hdc, _proc, param2) {
-    result := DllCall("GDI32.dll\EnumICMProfilesW", HDC, _hdc, ICMENUMPROCW, _proc, LPARAM, param2, Int32)
+    result := DllCall("GDI32.dll\EnumICMProfilesW", HDC, _hdc, "ptr", _proc, LPARAM, param2, Int32)
     return result
 }
 
@@ -1411,7 +1408,7 @@ export TranslateBitmapBits(hColorTransform, pSrcBits, bmInput, dwWidth, dwHeight
     pSrcBitsMarshal := pSrcBits is VarRef ? "ptr" : "ptr"
     pDestBitsMarshal := pDestBits is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("mscms.dll\TranslateBitmapBits", IntPtr, hColorTransform, pSrcBitsMarshal, pSrcBits, BMFORMAT, bmInput, UInt32, dwWidth, UInt32, dwHeight, UInt32, dwInputStride, pDestBitsMarshal, pDestBits, BMFORMAT, bmOutput, UInt32, dwOutputStride, LPBMCALLBACKFN, _pfnCallBack, LPARAM, ulCallbackData, BOOL)
+    result := DllCall("mscms.dll\TranslateBitmapBits", IntPtr, hColorTransform, pSrcBitsMarshal, pSrcBits, BMFORMAT, bmInput, UInt32, dwWidth, UInt32, dwHeight, UInt32, dwInputStride, pDestBitsMarshal, pDestBits, BMFORMAT, bmOutput, UInt32, dwOutputStride, "ptr", _pfnCallBack, LPARAM, ulCallbackData, BOOL)
     return result
 }
 
@@ -1443,7 +1440,7 @@ export CheckBitmapBits(hColorTransform, pSrcBits, bmInput, dwWidth, dwHeight, dw
     pSrcBitsMarshal := pSrcBits is VarRef ? "ptr" : "ptr"
     paResultMarshal := paResult is VarRef ? "char*" : "ptr"
 
-    result := DllCall("mscms.dll\CheckBitmapBits", IntPtr, hColorTransform, pSrcBitsMarshal, pSrcBits, BMFORMAT, bmInput, UInt32, dwWidth, UInt32, dwHeight, UInt32, dwStride, paResultMarshal, paResult, LPBMCALLBACKFN, _pfnCallback, LPARAM, lpCallbackData, BOOL)
+    result := DllCall("mscms.dll\CheckBitmapBits", IntPtr, hColorTransform, pSrcBitsMarshal, pSrcBits, BMFORMAT, bmInput, UInt32, dwWidth, UInt32, dwHeight, UInt32, dwStride, paResultMarshal, paResult, "ptr", _pfnCallback, LPARAM, lpCallbackData, BOOL)
     return result
 }
 
@@ -2413,7 +2410,7 @@ export CMCheckRGBs(hcmTransform, lpSrcBits, bmInput, dwWidth, dwHeight, dwStride
     lpSrcBitsMarshal := lpSrcBits is VarRef ? "ptr" : "ptr"
     lpaResultMarshal := lpaResult is VarRef ? "char*" : "ptr"
 
-    result := DllCall("ICM32.dll\CMCheckRGBs", IntPtr, hcmTransform, lpSrcBitsMarshal, lpSrcBits, BMFORMAT, bmInput, UInt32, dwWidth, UInt32, dwHeight, UInt32, dwStride, lpaResultMarshal, lpaResult, LPBMCALLBACKFN, _pfnCallback, LPARAM, ulCallbackData, BOOL)
+    result := DllCall("ICM32.dll\CMCheckRGBs", IntPtr, hcmTransform, lpSrcBitsMarshal, lpSrcBits, BMFORMAT, bmInput, UInt32, dwWidth, UInt32, dwHeight, UInt32, dwStride, lpaResultMarshal, lpaResult, "ptr", _pfnCallback, LPARAM, ulCallbackData, BOOL)
     return result
 }
 
@@ -2952,7 +2949,7 @@ export CMTranslateRGBsExt(hcmTransform, lpSrcBits, bmInput, dwWidth, dwHeight, d
     lpSrcBitsMarshal := lpSrcBits is VarRef ? "ptr" : "ptr"
     lpDestBitsMarshal := lpDestBits is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ICM32.dll\CMTranslateRGBsExt", IntPtr, hcmTransform, lpSrcBitsMarshal, lpSrcBits, BMFORMAT, bmInput, UInt32, dwWidth, UInt32, dwHeight, UInt32, dwInputStride, lpDestBitsMarshal, lpDestBits, BMFORMAT, bmOutput, UInt32, dwOutputStride, LPBMCALLBACKFN, lpfnCallback, LPARAM, ulCallbackData, BOOL)
+    result := DllCall("ICM32.dll\CMTranslateRGBsExt", IntPtr, hcmTransform, lpSrcBitsMarshal, lpSrcBits, BMFORMAT, bmInput, UInt32, dwWidth, UInt32, dwHeight, UInt32, dwInputStride, lpDestBitsMarshal, lpDestBits, BMFORMAT, bmOutput, UInt32, dwOutputStride, "ptr", lpfnCallback, LPARAM, ulCallbackData, BOOL)
     return result
 }
 

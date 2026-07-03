@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DML_TENSOR_DESC.ahk" { DML_TENSOR_DESC }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Performs a local response normalization (LRN) function on the input.

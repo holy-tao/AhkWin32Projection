@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
-#Import "..\..\Graphics\DirectDraw\IDirectDrawSurface7.ahk" { IDirectDrawSurface7 }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Graphics\DirectDraw\IDirectDrawSurface7.ahk" { IDirectDrawSurface7 }
 #Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
 #Import ".\NORMALIZEDRECT.ahk" { NORMALIZEDRECT }
 

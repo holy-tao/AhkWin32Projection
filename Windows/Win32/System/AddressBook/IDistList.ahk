@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SBinaryArray.ahk" { SBinaryArray }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ADRLIST.ahk" { ADRLIST }
 #Import ".\FlagList.ahk" { FlagList }
 #Import ".\IMAPIContainer.ahk" { IMAPIContainer }
-#Import ".\ADRLIST.ahk" { ADRLIST }
-#Import ".\IMAPIProp.ahk" { IMAPIProp }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SPropTagArray.ahk" { SPropTagArray }
 #Import ".\IMAPIProgress.ahk" { IMAPIProgress }
+#Import ".\IMAPIProp.ahk" { IMAPIProp }
+#Import ".\SBinaryArray.ahk" { SBinaryArray }
+#Import ".\SPropTagArray.ahk" { SPropTagArray }
 
 /**
  * Do not use. This interface is used to provide access to distribution lists in modifiable address book containers. The interface provides methods to create, copy, and delete distribution lists, in addition to performing name resolution.

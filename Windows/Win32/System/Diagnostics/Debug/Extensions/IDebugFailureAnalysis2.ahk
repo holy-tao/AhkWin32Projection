@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DEBUG_FLR_PARAM_TYPE.ahk" { DEBUG_FLR_PARAM_TYPE }
-#Import ".\FA_ENTRY.ahk" { FA_ENTRY }
+#Import "..\..\..\..\Data\Xml\MsXml\IXMLDOMElement.ahk" { IXMLDOMElement }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\IDebugFAEntryTags.ahk" { IDebugFAEntryTags }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DEBUG_FAILURE_TYPE.ahk" { DEBUG_FAILURE_TYPE }
-#Import "..\..\..\..\Data\Xml\MsXml\IXMLDOMElement.ahk" { IXMLDOMElement }
+#Import ".\DEBUG_FLR_PARAM_TYPE.ahk" { DEBUG_FLR_PARAM_TYPE }
+#Import ".\FA_ENTRY.ahk" { FA_ENTRY }
 #Import ".\FA_ENTRY_TYPE.ahk" { FA_ENTRY_TYPE }
+#Import ".\IDebugFAEntryTags.ahk" { IDebugFAEntryTags }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

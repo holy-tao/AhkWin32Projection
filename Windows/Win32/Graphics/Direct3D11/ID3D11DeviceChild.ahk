@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ID3D11Device.ahk" { ID3D11Device }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D11Device.ahk" { ID3D11Device }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * A device-child interface accesses data used by a device. (ID3D11DeviceChild)

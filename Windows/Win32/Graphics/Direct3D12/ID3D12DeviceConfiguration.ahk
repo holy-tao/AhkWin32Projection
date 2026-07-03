@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D12_VERSIONED_ROOT_SIGNATURE_DESC.ahk" { D3D12_VERSIONED_ROOT_SIGNATURE_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Direct3D\ID3DBlob.ahk" { ID3DBlob }
 #Import ".\D3D12_DEVICE_CONFIGURATION_DESC.ahk" { D3D12_DEVICE_CONFIGURATION_DESC }
+#Import ".\D3D12_VERSIONED_ROOT_SIGNATURE_DESC.ahk" { D3D12_VERSIONED_ROOT_SIGNATURE_DESC }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

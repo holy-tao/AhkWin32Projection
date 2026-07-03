@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\IMSVidOutputDevices.ahk" { IMSVidOutputDevices }
-#Import ".\IMSVidAudioRendererDevices.ahk" { IMSVidAudioRendererDevices }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MSVidCtlStateList.ahk" { MSVidCtlStateList }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IMSVidAudioRenderer.ahk" { IMSVidAudioRenderer }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IMSVidVideoRendererDevices.ahk" { IMSVidVideoRendererDevices }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\DisplaySizeList.ahk" { DisplaySizeList }
-#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IMSVidAudioRenderer.ahk" { IMSVidAudioRenderer }
+#Import ".\IMSVidAudioRendererDevices.ahk" { IMSVidAudioRendererDevices }
 #Import ".\IMSVidFeatures.ahk" { IMSVidFeatures }
 #Import ".\IMSVidInputDevice.ahk" { IMSVidInputDevice }
 #Import ".\IMSVidInputDevices.ahk" { IMSVidInputDevices }
+#Import ".\IMSVidOutputDevices.ahk" { IMSVidOutputDevices }
 #Import ".\IMSVidVideoRenderer.ahk" { IMSVidVideoRenderer }
+#Import ".\IMSVidVideoRendererDevices.ahk" { IMSVidVideoRendererDevices }
+#Import ".\MSVidCtlStateList.ahk" { MSVidCtlStateList }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IMSVidCtl interface is the main interface for the Video Control.

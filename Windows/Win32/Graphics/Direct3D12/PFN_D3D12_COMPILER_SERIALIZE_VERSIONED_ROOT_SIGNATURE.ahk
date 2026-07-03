@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_VERSIONED_ROOT_SIGNATURE_DESC.ahk" { D3D12_VERSIONED_ROOT_SIGNATURE_DESC }
-#Import "..\Direct3D\ID3DBlob.ahk" { ID3DBlob }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Direct3D\ID3DBlob.ahk" { ID3DBlob }
+#Import ".\D3D12_VERSIONED_ROOT_SIGNATURE_DESC.ahk" { D3D12_VERSIONED_ROOT_SIGNATURE_DESC }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -48,10 +48,6 @@ export default struct PFN_D3D12_COMPILER_SERIALIZE_VERSIONED_ROOT_SIGNATURE {
             this.value := CallbackCreate(fn, , [D3D12_VERSIONED_ROOT_SIGNATURE_DESC.Ptr, ID3DBlob.Ptr, ID3DBlob.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

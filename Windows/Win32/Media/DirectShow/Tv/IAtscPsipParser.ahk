@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITSDT.ahk" { ITSDT }
-#Import ".\IATSC_MGT.ahk" { IATSC_MGT }
-#Import ".\ICAT.ahk" { ICAT }
-#Import ".\IATSC_VCT.ahk" { IATSC_VCT }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IATSC_STT.ahk" { IATSC_STT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ISCTE_EAS.ahk" { ISCTE_EAS }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IATSC_EIT.ahk" { IATSC_EIT }
+#Import ".\IATSC_ETT.ahk" { IATSC_ETT }
+#Import ".\IATSC_MGT.ahk" { IATSC_MGT }
+#Import ".\IATSC_STT.ahk" { IATSC_STT }
+#Import ".\IATSC_VCT.ahk" { IATSC_VCT }
+#Import ".\ICAT.ahk" { ICAT }
 #Import ".\IPAT.ahk" { IPAT }
 #Import ".\IPMT.ahk" { IPMT }
-#Import ".\IATSC_ETT.ahk" { IATSC_ETT }
+#Import ".\ISCTE_EAS.ahk" { ISCTE_EAS }
+#Import ".\ITSDT.ahk" { ITSDT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later. The IAtscPsipParser interface retrieves ATSC Program and System Information Protocol (PSIP) tables.

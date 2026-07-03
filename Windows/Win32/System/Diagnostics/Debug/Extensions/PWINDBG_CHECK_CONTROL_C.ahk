@@ -42,10 +42,6 @@ export default struct PWINDBG_CHECK_CONTROL_C {
             this.value := CallbackCreate(fn, , [UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

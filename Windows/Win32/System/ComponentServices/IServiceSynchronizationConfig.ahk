@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\CSC_SynchronizationConfig.ahk" { CSC_SynchronizationConfig }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\CSC_SynchronizationConfig.ahk" { CSC_SynchronizationConfig }
 
 /**
  * Configures the synchronization for the work that is done when calling either CoCreateActivity or CoEnterServiceDomain.

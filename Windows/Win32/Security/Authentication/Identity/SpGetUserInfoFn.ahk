@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Foundation\LUID.ahk" { LUID }
-#Import ".\SECURITY_USER_DATA.ahk" { SECURITY_USER_DATA }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\SECURITY_USER_DATA.ahk" { SECURITY_USER_DATA }
 
 /**
  * Retrieves information about a logon session.
@@ -45,7 +45,7 @@ export default struct SpGetUserInfoFn {
         _UserDataMarshal := _UserData is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, LUID.Ptr, LogonId, UInt32, Flags, _UserDataMarshal, _UserData, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -65,10 +65,6 @@ export default struct SpGetUserInfoFn {
             this.value := CallbackCreate(fn, , [LUID.Ptr, UInt32, "ptr*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IWMPDownloadItem.ahk" { IWMPDownloadItem }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMPDownloadItem.ahk" { IWMPDownloadItem }
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer

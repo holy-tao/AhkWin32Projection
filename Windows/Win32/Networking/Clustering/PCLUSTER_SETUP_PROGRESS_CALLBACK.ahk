@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\CLUSTER_SETUP_PHASE_SEVERITY.ahk" { CLUSTER_SETUP_PHASE_SEVERITY }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CLUSTER_SETUP_PHASE.ahk" { CLUSTER_SETUP_PHASE }
+#Import ".\CLUSTER_SETUP_PHASE_SEVERITY.ahk" { CLUSTER_SETUP_PHASE_SEVERITY }
 #Import ".\CLUSTER_SETUP_PHASE_TYPE.ahk" { CLUSTER_SETUP_PHASE_TYPE }
 
 /**
@@ -58,10 +58,6 @@ export default struct PCLUSTER_SETUP_PROGRESS_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", CLUSTER_SETUP_PHASE, CLUSTER_SETUP_PHASE_TYPE, CLUSTER_SETUP_PHASE_SEVERITY, UInt32, PWSTR, UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

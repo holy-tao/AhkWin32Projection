@@ -153,10 +153,6 @@ export default struct PWLX_MESSAGE_BOX {
             this.value := CallbackCreate(fn, , [HANDLE, HWND, PWSTR, PWSTR, UInt32, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

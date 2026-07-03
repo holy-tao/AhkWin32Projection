@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NETRESOURCEW.ahk" { NETRESOURCEW }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\NETRESOURCEW.ahk" { NETRESOURCEW }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WNet
@@ -49,10 +49,6 @@ export default struct PF_NPOpenEnum {
             this.value := CallbackCreate(fn, , [UInt32, UInt32, UInt32, NETRESOURCEW.Ptr, HANDLE.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

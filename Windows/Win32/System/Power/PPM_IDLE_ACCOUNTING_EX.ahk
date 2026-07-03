@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PPM_IDLE_STATE_BUCKET_EX.ahk" { PPM_IDLE_STATE_BUCKET_EX }
 #Import ".\PPM_IDLE_STATE_ACCOUNTING_EX.ahk" { PPM_IDLE_STATE_ACCOUNTING_EX }
+#Import ".\PPM_IDLE_STATE_BUCKET_EX.ahk" { PPM_IDLE_STATE_BUCKET_EX }
 
 /**
  * @namespace Windows.Win32.System.Power

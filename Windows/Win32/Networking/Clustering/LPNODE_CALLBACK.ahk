@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\CLUSTER_NODE_STATE.ahk" { CLUSTER_NODE_STATE }
-#Import ".\HNODE.ahk" { HNODE }
 #Import ".\HCLUSTER.ahk" { HCLUSTER }
+#Import ".\HNODE.ahk" { HNODE }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -51,10 +51,6 @@ export default struct LPNODE_CALLBACK {
             this.value := CallbackCreate(fn, , [HCLUSTER, HNODE, CLUSTER_NODE_STATE, "ptr", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

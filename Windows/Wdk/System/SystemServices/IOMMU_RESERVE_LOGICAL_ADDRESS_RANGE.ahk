@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IOMMU_DMA_LOGICAL_ADDRESS_TOKEN.ahk" { IOMMU_DMA_LOGICAL_ADDRESS_TOKEN }
 #Import "..\..\Foundation\IOMMU_DMA_DOMAIN.ahk" { IOMMU_DMA_DOMAIN }
+#Import ".\IOMMU_DMA_LOGICAL_ADDRESS_TOKEN.ahk" { IOMMU_DMA_LOGICAL_ADDRESS_TOKEN }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
@@ -38,7 +38,7 @@ export default struct IOMMU_RESERVE_LOGICAL_ADDRESS_RANGE {
         LogicalAddressTokenMarshal := LogicalAddressToken is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, DomainMarshal, Domain, IntPtr, _Size, ExplicitLogicalAddressMarshal, ExplicitLogicalAddress, MinLogicalAddressMarshal, MinLogicalAddress, MaxLogicalAddressMarshal, MaxLogicalAddress, LogicalAddressTokenMarshal, LogicalAddressToken, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -58,10 +58,6 @@ export default struct IOMMU_RESERVE_LOGICAL_ADDRESS_RANGE {
             this.value := CallbackCreate(fn, , [IOMMU_DMA_DOMAIN.Ptr, IntPtr, "uint*", "uint*", "uint*", "ptr*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

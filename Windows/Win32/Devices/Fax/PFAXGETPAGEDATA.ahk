@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * The FaxGetPageData function returns to a fax client application the first page of data for a fax job.
@@ -132,10 +132,6 @@ export default struct PFAXGETPAGEDATA {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, "ptr*", "uint*", "uint*", "uint*", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

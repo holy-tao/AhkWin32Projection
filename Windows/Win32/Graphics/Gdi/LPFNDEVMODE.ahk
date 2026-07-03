@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\DEVMODEA.ahk" { DEVMODEA }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
@@ -58,10 +58,6 @@ export default struct LPFNDEVMODE {
             this.value := CallbackCreate(fn, , [HWND, HMODULE, DEVMODEA.Ptr, PSTR, PSTR, DEVMODEA.Ptr, PSTR, UInt32, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

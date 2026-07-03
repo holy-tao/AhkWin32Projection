@@ -49,10 +49,6 @@ export default struct PWINDBG_READ_PROCESS_MEMORY_ROUTINE32 {
             this.value := CallbackCreate(fn, , [UInt32, "ptr", UInt32, "uint*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

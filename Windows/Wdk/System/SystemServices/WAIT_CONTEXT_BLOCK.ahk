@@ -1,5 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\DRIVER_CONTROL.ahk" { DRIVER_CONTROL }
 #Import "..\..\Foundation\KDPC.ahk" { KDPC }
 
 /**
@@ -54,7 +53,7 @@ export default struct WAIT_CONTEXT_BLOCK {
         get => (this._bitfield >> 12) & 0xFFFFF
         set => this._bitfield := ((value & 0xFFFFF) << 12) | (this._bitfield & ~(0xFFFFF << 12))
     }
-    DeviceRoutine : DRIVER_CONTROL
+    DeviceRoutine : IntPtr
 
     DeviceContext : IntPtr
 

@@ -1,6 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PFN_CRYPT_XML_DATA_PROVIDER_READ.ahk" { PFN_CRYPT_XML_DATA_PROVIDER_READ }
-#Import ".\PFN_CRYPT_XML_DATA_PROVIDER_CLOSE.ahk" { PFN_CRYPT_XML_DATA_PROVIDER_CLOSE }
 
 /**
  * Specifies the interface to the XML data provider.
@@ -25,11 +23,11 @@ export default struct CRYPT_XML_DATA_PROVIDER {
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nc-cryptxml-pfn_crypt_xml_data_provider_read">PFN_CRYPT_XML_DATA_PROVIDER_READ</a> callback function used to read data.
      */
-    pfnRead : PFN_CRYPT_XML_DATA_PROVIDER_READ
+    pfnRead : IntPtr
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nc-cryptxml-pfn_crypt_xml_data_provider_close">PFN_CRYPT_XML_DATA_PROVIDER_CLOSE</a> callback function used to release the data provider. When you have finished using the data provider, you must release it.
      */
-    pfnClose : PFN_CRYPT_XML_DATA_PROVIDER_CLOSE
+    pfnClose : IntPtr
 
 }

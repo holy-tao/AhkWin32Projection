@@ -1,60 +1,57 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\JET_LOGINFO_W.ahk" { JET_LOGINFO_W }
-#Import ".\JET_PFNREALLOC.ahk" { JET_PFNREALLOC }
-#Import ".\JET_ENUMCOLUMNID.ahk" { JET_ENUMCOLUMNID }
-#Import ".\JET_INDEXCREATE3_A.ahk" { JET_INDEXCREATE3_A }
-#Import ".\JET_TABLECREATE4_W.ahk" { JET_TABLECREATE4_W }
-#Import "..\StructuredStorage\JET_HANDLE.ahk" { JET_HANDLE }
-#Import ".\JET_LS.ahk" { JET_LS }
-#Import ".\JET_INDEXCREATE_A.ahk" { JET_INDEXCREATE_A }
-#Import ".\JET_TABLECREATE_A.ahk" { JET_TABLECREATE_A }
-#Import ".\JET_TABLECREATE2_W.ahk" { JET_TABLECREATE2_W }
-#Import ".\JET_SETINFO.ahk" { JET_SETINFO }
 #Import ".\JET_COLUMNDEF.ahk" { JET_COLUMNDEF }
-#Import ".\JET_CONVERT_A.ahk" { JET_CONVERT_A }
 #Import ".\JET_COMMIT_ID.ahk" { JET_COMMIT_ID }
-#Import ".\JET_RECSIZE2.ahk" { JET_RECSIZE2 }
-#Import ".\JET_TABLECREATE3_W.ahk" { JET_TABLECREATE3_W }
-#Import ".\JET_SETSYSPARAM_W.ahk" { JET_SETSYSPARAM_W }
-#Import ".\JET_TABLECREATE3_A.ahk" { JET_TABLECREATE3_A }
-#Import ".\JET_SESID.ahk" { JET_SESID }
-#Import ".\JET_RECSIZE.ahk" { JET_RECSIZE }
-#Import ".\JET_TABLECREATE4_A.ahk" { JET_TABLECREATE4_A }
-#Import ".\JET_INDEX_RANGE.ahk" { JET_INDEX_RANGE }
-#Import ".\JET_RSTMAP_A.ahk" { JET_RSTMAP_A }
-#Import ".\JET_INDEXID.ahk" { JET_INDEXID }
-#Import ".\JET_TABLECREATE_W.ahk" { JET_TABLECREATE_W }
-#Import ".\JET_INDEXRANGE.ahk" { JET_INDEXRANGE }
-#Import ".\JET_RSTINFO_W.ahk" { JET_RSTINFO_W }
-#Import ".\JET_ENUMCOLUMN.ahk" { JET_ENUMCOLUMN }
-#Import ".\JET_INDEXCREATE2_W.ahk" { JET_INDEXCREATE2_W }
-#Import ".\JET_RETINFO.ahk" { JET_RETINFO }
-#Import ".\JET_OPENTEMPORARYTABLE2.ahk" { JET_OPENTEMPORARYTABLE2 }
-#Import ".\JET_INSTANCE_INFO_W.ahk" { JET_INSTANCE_INFO_W }
-#Import ".\JET_INSTANCE.ahk" { JET_INSTANCE }
-#Import ".\JET_UNICODEINDEX.ahk" { JET_UNICODEINDEX }
-#Import ".\JET_INDEXCREATE_W.ahk" { JET_INDEXCREATE_W }
-#Import ".\JET_RSTINFO_A.ahk" { JET_RSTINFO_A }
-#Import ".\JET_OPENTEMPORARYTABLE.ahk" { JET_OPENTEMPORARYTABLE }
-#Import ".\JET_TABLECREATE2_A.ahk" { JET_TABLECREATE2_A }
-#Import ".\JET_INDEXCREATE2_A.ahk" { JET_INDEXCREATE2_A }
-#Import ".\JET_RETRIEVECOLUMN.ahk" { JET_RETRIEVECOLUMN }
-#Import ".\JET_PFNSTATUS.ahk" { JET_PFNSTATUS }
+#Import ".\JET_CONVERT_A.ahk" { JET_CONVERT_A }
 #Import ".\JET_CONVERT_W.ahk" { JET_CONVERT_W }
+#Import ".\JET_ENUMCOLUMN.ahk" { JET_ENUMCOLUMN }
+#Import ".\JET_ENUMCOLUMNID.ahk" { JET_ENUMCOLUMNID }
+#Import ".\JET_INDEXCREATE2_A.ahk" { JET_INDEXCREATE2_A }
+#Import ".\JET_INDEXCREATE2_W.ahk" { JET_INDEXCREATE2_W }
+#Import ".\JET_INDEXCREATE3_A.ahk" { JET_INDEXCREATE3_A }
 #Import ".\JET_INDEXCREATE3_W.ahk" { JET_INDEXCREATE3_W }
+#Import ".\JET_INDEXCREATE_A.ahk" { JET_INDEXCREATE_A }
+#Import ".\JET_INDEXCREATE_W.ahk" { JET_INDEXCREATE_W }
+#Import ".\JET_INDEXID.ahk" { JET_INDEXID }
+#Import ".\JET_INDEXRANGE.ahk" { JET_INDEXRANGE }
+#Import ".\JET_INDEX_COLUMN.ahk" { JET_INDEX_COLUMN }
+#Import ".\JET_INDEX_RANGE.ahk" { JET_INDEX_RANGE }
+#Import ".\JET_INSTANCE.ahk" { JET_INSTANCE }
+#Import ".\JET_INSTANCE_INFO_A.ahk" { JET_INSTANCE_INFO_A }
+#Import ".\JET_INSTANCE_INFO_W.ahk" { JET_INSTANCE_INFO_W }
+#Import ".\JET_LOGINFO_A.ahk" { JET_LOGINFO_A }
+#Import ".\JET_LOGINFO_W.ahk" { JET_LOGINFO_W }
+#Import ".\JET_LS.ahk" { JET_LS }
+#Import ".\JET_OPENTEMPORARYTABLE.ahk" { JET_OPENTEMPORARYTABLE }
+#Import ".\JET_OPENTEMPORARYTABLE2.ahk" { JET_OPENTEMPORARYTABLE2 }
 #Import ".\JET_OSSNAPID.ahk" { JET_OSSNAPID }
 #Import ".\JET_RECORDLIST.ahk" { JET_RECORDLIST }
-#Import "..\StructuredStorage\JET_TABLEID.ahk" { JET_TABLEID }
-#Import ".\JET_CALLBACK.ahk" { JET_CALLBACK }
-#Import ".\JET_SETCOLUMN.ahk" { JET_SETCOLUMN }
-#Import "..\StructuredStorage\JET_API_PTR.ahk" { JET_API_PTR }
-#Import ".\JET_SETSYSPARAM_A.ahk" { JET_SETSYSPARAM_A }
-#Import ".\JET_INSTANCE_INFO_A.ahk" { JET_INSTANCE_INFO_A }
 #Import ".\JET_RECPOS.ahk" { JET_RECPOS }
+#Import ".\JET_RECSIZE.ahk" { JET_RECSIZE }
+#Import ".\JET_RECSIZE2.ahk" { JET_RECSIZE2 }
+#Import ".\JET_RETINFO.ahk" { JET_RETINFO }
+#Import ".\JET_RETRIEVECOLUMN.ahk" { JET_RETRIEVECOLUMN }
+#Import ".\JET_RSTINFO_A.ahk" { JET_RSTINFO_A }
+#Import ".\JET_RSTINFO_W.ahk" { JET_RSTINFO_W }
+#Import ".\JET_RSTMAP_A.ahk" { JET_RSTMAP_A }
 #Import ".\JET_RSTMAP_W.ahk" { JET_RSTMAP_W }
-#Import ".\JET_INDEX_COLUMN.ahk" { JET_INDEX_COLUMN }
-#Import ".\JET_LOGINFO_A.ahk" { JET_LOGINFO_A }
+#Import ".\JET_SESID.ahk" { JET_SESID }
+#Import ".\JET_SETCOLUMN.ahk" { JET_SETCOLUMN }
+#Import ".\JET_SETINFO.ahk" { JET_SETINFO }
+#Import ".\JET_SETSYSPARAM_A.ahk" { JET_SETSYSPARAM_A }
+#Import ".\JET_SETSYSPARAM_W.ahk" { JET_SETSYSPARAM_W }
+#Import ".\JET_TABLECREATE2_A.ahk" { JET_TABLECREATE2_A }
+#Import ".\JET_TABLECREATE2_W.ahk" { JET_TABLECREATE2_W }
+#Import ".\JET_TABLECREATE3_A.ahk" { JET_TABLECREATE3_A }
+#Import ".\JET_TABLECREATE3_W.ahk" { JET_TABLECREATE3_W }
+#Import ".\JET_TABLECREATE4_A.ahk" { JET_TABLECREATE4_A }
+#Import ".\JET_TABLECREATE4_W.ahk" { JET_TABLECREATE4_W }
+#Import ".\JET_TABLECREATE_A.ahk" { JET_TABLECREATE_A }
+#Import ".\JET_TABLECREATE_W.ahk" { JET_TABLECREATE_W }
+#Import ".\JET_UNICODEINDEX.ahk" { JET_UNICODEINDEX }
+#Import "..\StructuredStorage\JET_API_PTR.ahk" { JET_API_PTR }
+#Import "..\StructuredStorage\JET_HANDLE.ahk" { JET_HANDLE }
+#Import "..\StructuredStorage\JET_TABLEID.ahk" { JET_TABLEID }
 
 /**
  * @namespace Windows.Win32.Storage.Jet
@@ -1784,7 +1781,7 @@ export JetEnumerateColumns(sesid, tableid, cEnumColumnId, rgEnumColumnId, pcEnum
     prgEnumColumnMarshal := prgEnumColumn is VarRef ? "ptr*" : "ptr"
     pvReallocContextMarshal := pvReallocContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ESENT.dll\JetEnumerateColumns", JET_SESID, sesid, JET_TABLEID, tableid, UInt32, cEnumColumnId, JET_ENUMCOLUMNID.Ptr, rgEnumColumnId, pcEnumColumnMarshal, pcEnumColumn, prgEnumColumnMarshal, prgEnumColumn, JET_PFNREALLOC, pfnRealloc, pvReallocContextMarshal, pvReallocContext, UInt32, cbDataMost, UInt32, grbit, Int32)
+    result := DllCall("ESENT.dll\JetEnumerateColumns", JET_SESID, sesid, JET_TABLEID, tableid, UInt32, cEnumColumnId, JET_ENUMCOLUMNID.Ptr, rgEnumColumnId, pcEnumColumnMarshal, pcEnumColumn, prgEnumColumnMarshal, prgEnumColumn, "ptr", pfnRealloc, pvReallocContextMarshal, pvReallocContext, UInt32, cbDataMost, UInt32, grbit, Int32)
     return result
 }
 
@@ -2242,7 +2239,7 @@ export JetCompactA(sesid, szDatabaseSrc, szDatabaseDest, pfnStatus, pconvert, gr
     szDatabaseSrcMarshal := szDatabaseSrc is VarRef ? "char*" : "ptr"
     szDatabaseDestMarshal := szDatabaseDest is VarRef ? "char*" : "ptr"
 
-    result := DllCall("ESENT.dll\JetCompactA", JET_SESID, sesid, szDatabaseSrcMarshal, szDatabaseSrc, szDatabaseDestMarshal, szDatabaseDest, JET_PFNSTATUS, pfnStatus, JET_CONVERT_A.Ptr, pconvert, UInt32, grbit, Int32)
+    result := DllCall("ESENT.dll\JetCompactA", JET_SESID, sesid, szDatabaseSrcMarshal, szDatabaseSrc, szDatabaseDestMarshal, szDatabaseDest, "ptr", pfnStatus, JET_CONVERT_A.Ptr, pconvert, UInt32, grbit, Int32)
     return result
 }
 
@@ -2261,7 +2258,7 @@ export JetCompactW(sesid, szDatabaseSrc, szDatabaseDest, pfnStatus, pconvert, gr
     szDatabaseSrcMarshal := szDatabaseSrc is VarRef ? "ushort*" : "ptr"
     szDatabaseDestMarshal := szDatabaseDest is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("ESENT.dll\JetCompactW", JET_SESID, sesid, szDatabaseSrcMarshal, szDatabaseSrc, szDatabaseDestMarshal, szDatabaseDest, JET_PFNSTATUS, pfnStatus, JET_CONVERT_W.Ptr, pconvert, UInt32, grbit, Int32)
+    result := DllCall("ESENT.dll\JetCompactW", JET_SESID, sesid, szDatabaseSrcMarshal, szDatabaseSrc, szDatabaseDestMarshal, szDatabaseDest, "ptr", pfnStatus, JET_CONVERT_W.Ptr, pconvert, UInt32, grbit, Int32)
     return result
 }
 
@@ -2322,7 +2319,7 @@ export JetDefragment2A(sesid, _dbid, szTableName, pcPasses, pcSeconds, callback,
     pcPassesMarshal := pcPasses is VarRef ? "uint*" : "ptr"
     pcSecondsMarshal := pcSeconds is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ESENT.dll\JetDefragment2A", JET_SESID, sesid, UInt32, _dbid, szTableNameMarshal, szTableName, pcPassesMarshal, pcPasses, pcSecondsMarshal, pcSeconds, JET_CALLBACK, callback, UInt32, grbit, Int32)
+    result := DllCall("ESENT.dll\JetDefragment2A", JET_SESID, sesid, UInt32, _dbid, szTableNameMarshal, szTableName, pcPassesMarshal, pcPasses, pcSecondsMarshal, pcSeconds, "ptr", callback, UInt32, grbit, Int32)
     return result
 }
 
@@ -2343,7 +2340,7 @@ export JetDefragment2W(sesid, _dbid, szTableName, pcPasses, pcSeconds, callback,
     pcPassesMarshal := pcPasses is VarRef ? "uint*" : "ptr"
     pcSecondsMarshal := pcSeconds is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ESENT.dll\JetDefragment2W", JET_SESID, sesid, UInt32, _dbid, szTableNameMarshal, szTableName, pcPassesMarshal, pcPasses, pcSecondsMarshal, pcSeconds, JET_CALLBACK, callback, UInt32, grbit, Int32)
+    result := DllCall("ESENT.dll\JetDefragment2W", JET_SESID, sesid, UInt32, _dbid, szTableNameMarshal, szTableName, pcPassesMarshal, pcPasses, pcSecondsMarshal, pcSeconds, "ptr", callback, UInt32, grbit, Int32)
     return result
 }
 
@@ -2366,7 +2363,7 @@ export JetDefragment3A(sesid, szDatabaseName, szTableName, pcPasses, pcSeconds, 
     pcSecondsMarshal := pcSeconds is VarRef ? "uint*" : "ptr"
     pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ESENT.dll\JetDefragment3A", JET_SESID, sesid, szDatabaseNameMarshal, szDatabaseName, szTableNameMarshal, szTableName, pcPassesMarshal, pcPasses, pcSecondsMarshal, pcSeconds, JET_CALLBACK, callback, pvContextMarshal, pvContext, UInt32, grbit, Int32)
+    result := DllCall("ESENT.dll\JetDefragment3A", JET_SESID, sesid, szDatabaseNameMarshal, szDatabaseName, szTableNameMarshal, szTableName, pcPassesMarshal, pcPasses, pcSecondsMarshal, pcSeconds, "ptr", callback, pvContextMarshal, pvContext, UInt32, grbit, Int32)
     return result
 }
 
@@ -2389,7 +2386,7 @@ export JetDefragment3W(sesid, szDatabaseName, szTableName, pcPasses, pcSeconds, 
     pcSecondsMarshal := pcSeconds is VarRef ? "uint*" : "ptr"
     pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ESENT.dll\JetDefragment3W", JET_SESID, sesid, szDatabaseNameMarshal, szDatabaseName, szTableNameMarshal, szTableName, pcPassesMarshal, pcPasses, pcSecondsMarshal, pcSeconds, JET_CALLBACK, callback, pvContextMarshal, pvContext, UInt32, grbit, Int32)
+    result := DllCall("ESENT.dll\JetDefragment3W", JET_SESID, sesid, szDatabaseNameMarshal, szDatabaseName, szTableNameMarshal, szTableName, pcPassesMarshal, pcPasses, pcSecondsMarshal, pcSeconds, "ptr", callback, pvContextMarshal, pvContext, UInt32, grbit, Int32)
     return result
 }
 
@@ -2632,7 +2629,7 @@ export JetOpenTemporaryTable2(sesid, popentemporarytable) {
 export JetBackupA(szBackupPath, grbit, pfnStatus) {
     szBackupPathMarshal := szBackupPath is VarRef ? "char*" : "ptr"
 
-    result := DllCall("ESENT.dll\JetBackupA", szBackupPathMarshal, szBackupPath, UInt32, grbit, JET_PFNSTATUS, pfnStatus, Int32)
+    result := DllCall("ESENT.dll\JetBackupA", szBackupPathMarshal, szBackupPath, UInt32, grbit, "ptr", pfnStatus, Int32)
     return result
 }
 
@@ -2647,7 +2644,7 @@ export JetBackupA(szBackupPath, grbit, pfnStatus) {
 export JetBackupW(szBackupPath, grbit, pfnStatus) {
     szBackupPathMarshal := szBackupPath is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("ESENT.dll\JetBackupW", szBackupPathMarshal, szBackupPath, UInt32, grbit, JET_PFNSTATUS, pfnStatus, Int32)
+    result := DllCall("ESENT.dll\JetBackupW", szBackupPathMarshal, szBackupPath, UInt32, grbit, "ptr", pfnStatus, Int32)
     return result
 }
 
@@ -2663,7 +2660,7 @@ export JetBackupW(szBackupPath, grbit, pfnStatus) {
 export JetBackupInstanceA(instance, szBackupPath, grbit, pfnStatus) {
     szBackupPathMarshal := szBackupPath is VarRef ? "char*" : "ptr"
 
-    result := DllCall("ESENT.dll\JetBackupInstanceA", JET_INSTANCE, instance, szBackupPathMarshal, szBackupPath, UInt32, grbit, JET_PFNSTATUS, pfnStatus, Int32)
+    result := DllCall("ESENT.dll\JetBackupInstanceA", JET_INSTANCE, instance, szBackupPathMarshal, szBackupPath, UInt32, grbit, "ptr", pfnStatus, Int32)
     return result
 }
 
@@ -2679,7 +2676,7 @@ export JetBackupInstanceA(instance, szBackupPath, grbit, pfnStatus) {
 export JetBackupInstanceW(instance, szBackupPath, grbit, pfnStatus) {
     szBackupPathMarshal := szBackupPath is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("ESENT.dll\JetBackupInstanceW", JET_INSTANCE, instance, szBackupPathMarshal, szBackupPath, UInt32, grbit, JET_PFNSTATUS, pfnStatus, Int32)
+    result := DllCall("ESENT.dll\JetBackupInstanceW", JET_INSTANCE, instance, szBackupPathMarshal, szBackupPath, UInt32, grbit, "ptr", pfnStatus, Int32)
     return result
 }
 
@@ -2693,7 +2690,7 @@ export JetBackupInstanceW(instance, szBackupPath, grbit, pfnStatus) {
 export JetRestoreA(szSource, _pfn) {
     szSourceMarshal := szSource is VarRef ? "char*" : "ptr"
 
-    result := DllCall("ESENT.dll\JetRestoreA", szSourceMarshal, szSource, JET_PFNSTATUS, _pfn, Int32)
+    result := DllCall("ESENT.dll\JetRestoreA", szSourceMarshal, szSource, "ptr", _pfn, Int32)
     return result
 }
 
@@ -2707,7 +2704,7 @@ export JetRestoreA(szSource, _pfn) {
 export JetRestoreW(szSource, _pfn) {
     szSourceMarshal := szSource is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("ESENT.dll\JetRestoreW", szSourceMarshal, szSource, JET_PFNSTATUS, _pfn, Int32)
+    result := DllCall("ESENT.dll\JetRestoreW", szSourceMarshal, szSource, "ptr", _pfn, Int32)
     return result
 }
 
@@ -2723,7 +2720,7 @@ export JetRestore2A(sz, szDest, _pfn) {
     szMarshal := sz is VarRef ? "char*" : "ptr"
     szDestMarshal := szDest is VarRef ? "char*" : "ptr"
 
-    result := DllCall("ESENT.dll\JetRestore2A", szMarshal, sz, szDestMarshal, szDest, JET_PFNSTATUS, _pfn, Int32)
+    result := DllCall("ESENT.dll\JetRestore2A", szMarshal, sz, szDestMarshal, szDest, "ptr", _pfn, Int32)
     return result
 }
 
@@ -2739,7 +2736,7 @@ export JetRestore2W(sz, szDest, _pfn) {
     szMarshal := sz is VarRef ? "ushort*" : "ptr"
     szDestMarshal := szDest is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("ESENT.dll\JetRestore2W", szMarshal, sz, szDestMarshal, szDest, JET_PFNSTATUS, _pfn, Int32)
+    result := DllCall("ESENT.dll\JetRestore2W", szMarshal, sz, szDestMarshal, szDest, "ptr", _pfn, Int32)
     return result
 }
 
@@ -2756,7 +2753,7 @@ export JetRestoreInstanceA(instance, sz, szDest, _pfn) {
     szMarshal := sz is VarRef ? "char*" : "ptr"
     szDestMarshal := szDest is VarRef ? "char*" : "ptr"
 
-    result := DllCall("ESENT.dll\JetRestoreInstanceA", JET_INSTANCE, instance, szMarshal, sz, szDestMarshal, szDest, JET_PFNSTATUS, _pfn, Int32)
+    result := DllCall("ESENT.dll\JetRestoreInstanceA", JET_INSTANCE, instance, szMarshal, sz, szDestMarshal, szDest, "ptr", _pfn, Int32)
     return result
 }
 
@@ -2773,7 +2770,7 @@ export JetRestoreInstanceW(instance, sz, szDest, _pfn) {
     szMarshal := sz is VarRef ? "ushort*" : "ptr"
     szDestMarshal := szDest is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("ESENT.dll\JetRestoreInstanceW", JET_INSTANCE, instance, szMarshal, sz, szDestMarshal, szDest, JET_PFNSTATUS, _pfn, Int32)
+    result := DllCall("ESENT.dll\JetRestoreInstanceW", JET_INSTANCE, instance, szMarshal, sz, szDestMarshal, szDest, "ptr", _pfn, Int32)
     return result
 }
 
@@ -3239,7 +3236,7 @@ export JetExternalRestoreA(szCheckpointFilePath, szLogPath, rgrstmap, crstfilema
     szLogPathMarshal := szLogPath is VarRef ? "char*" : "ptr"
     szBackupLogPathMarshal := szBackupLogPath is VarRef ? "char*" : "ptr"
 
-    result := DllCall("ESENT.dll\JetExternalRestoreA", szCheckpointFilePathMarshal, szCheckpointFilePath, szLogPathMarshal, szLogPath, JET_RSTMAP_A.Ptr, rgrstmap, Int32, crstfilemap, szBackupLogPathMarshal, szBackupLogPath, Int32, genLow, Int32, genHigh, JET_PFNSTATUS, _pfn, Int32)
+    result := DllCall("ESENT.dll\JetExternalRestoreA", szCheckpointFilePathMarshal, szCheckpointFilePath, szLogPathMarshal, szLogPath, JET_RSTMAP_A.Ptr, rgrstmap, Int32, crstfilemap, szBackupLogPathMarshal, szBackupLogPath, Int32, genLow, Int32, genHigh, "ptr", _pfn, Int32)
     return result
 }
 
@@ -3261,7 +3258,7 @@ export JetExternalRestoreW(szCheckpointFilePath, szLogPath, rgrstmap, crstfilema
     szLogPathMarshal := szLogPath is VarRef ? "ushort*" : "ptr"
     szBackupLogPathMarshal := szBackupLogPath is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("ESENT.dll\JetExternalRestoreW", szCheckpointFilePathMarshal, szCheckpointFilePath, szLogPathMarshal, szLogPath, JET_RSTMAP_W.Ptr, rgrstmap, Int32, crstfilemap, szBackupLogPathMarshal, szBackupLogPath, Int32, genLow, Int32, genHigh, JET_PFNSTATUS, _pfn, Int32)
+    result := DllCall("ESENT.dll\JetExternalRestoreW", szCheckpointFilePathMarshal, szCheckpointFilePath, szLogPathMarshal, szLogPath, JET_RSTMAP_W.Ptr, rgrstmap, Int32, crstfilemap, szBackupLogPathMarshal, szBackupLogPath, Int32, genLow, Int32, genHigh, "ptr", _pfn, Int32)
     return result
 }
 
@@ -3288,7 +3285,7 @@ export JetExternalRestore2A(szCheckpointFilePath, szLogPath, rgrstmap, crstfilem
     szTargetInstanceLogPathMarshal := szTargetInstanceLogPath is VarRef ? "char*" : "ptr"
     szTargetInstanceCheckpointPathMarshal := szTargetInstanceCheckpointPath is VarRef ? "char*" : "ptr"
 
-    result := DllCall("ESENT.dll\JetExternalRestore2A", szCheckpointFilePathMarshal, szCheckpointFilePath, szLogPathMarshal, szLogPath, JET_RSTMAP_A.Ptr, rgrstmap, Int32, crstfilemap, szBackupLogPathMarshal, szBackupLogPath, JET_LOGINFO_A.Ptr, pLogInfo, szTargetInstanceNameMarshal, szTargetInstanceName, szTargetInstanceLogPathMarshal, szTargetInstanceLogPath, szTargetInstanceCheckpointPathMarshal, szTargetInstanceCheckpointPath, JET_PFNSTATUS, _pfn, Int32)
+    result := DllCall("ESENT.dll\JetExternalRestore2A", szCheckpointFilePathMarshal, szCheckpointFilePath, szLogPathMarshal, szLogPath, JET_RSTMAP_A.Ptr, rgrstmap, Int32, crstfilemap, szBackupLogPathMarshal, szBackupLogPath, JET_LOGINFO_A.Ptr, pLogInfo, szTargetInstanceNameMarshal, szTargetInstanceName, szTargetInstanceLogPathMarshal, szTargetInstanceLogPath, szTargetInstanceCheckpointPathMarshal, szTargetInstanceCheckpointPath, "ptr", _pfn, Int32)
     return result
 }
 
@@ -3315,7 +3312,7 @@ export JetExternalRestore2W(szCheckpointFilePath, szLogPath, rgrstmap, crstfilem
     szTargetInstanceLogPathMarshal := szTargetInstanceLogPath is VarRef ? "ushort*" : "ptr"
     szTargetInstanceCheckpointPathMarshal := szTargetInstanceCheckpointPath is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("ESENT.dll\JetExternalRestore2W", szCheckpointFilePathMarshal, szCheckpointFilePath, szLogPathMarshal, szLogPath, JET_RSTMAP_W.Ptr, rgrstmap, Int32, crstfilemap, szBackupLogPathMarshal, szBackupLogPath, JET_LOGINFO_W.Ptr, pLogInfo, szTargetInstanceNameMarshal, szTargetInstanceName, szTargetInstanceLogPathMarshal, szTargetInstanceLogPath, szTargetInstanceCheckpointPathMarshal, szTargetInstanceCheckpointPath, JET_PFNSTATUS, _pfn, Int32)
+    result := DllCall("ESENT.dll\JetExternalRestore2W", szCheckpointFilePathMarshal, szCheckpointFilePath, szLogPathMarshal, szLogPath, JET_RSTMAP_W.Ptr, rgrstmap, Int32, crstfilemap, szBackupLogPathMarshal, szBackupLogPath, JET_LOGINFO_W.Ptr, pLogInfo, szTargetInstanceNameMarshal, szTargetInstanceName, szTargetInstanceLogPathMarshal, szTargetInstanceLogPath, szTargetInstanceCheckpointPathMarshal, szTargetInstanceCheckpointPath, "ptr", _pfn, Int32)
     return result
 }
 
@@ -3333,7 +3330,7 @@ export JetExternalRestore2W(szCheckpointFilePath, szLogPath, rgrstmap, crstfilem
 export JetRegisterCallback(sesid, tableid, cbtyp, pCallback, pvContext, phCallbackId) {
     pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ESENT.dll\JetRegisterCallback", JET_SESID, sesid, JET_TABLEID, tableid, UInt32, cbtyp, JET_CALLBACK, pCallback, pvContextMarshal, pvContext, JET_HANDLE.Ptr, phCallbackId, Int32)
+    result := DllCall("ESENT.dll\JetRegisterCallback", JET_SESID, sesid, JET_TABLEID, tableid, UInt32, cbtyp, "ptr", pCallback, pvContextMarshal, pvContext, JET_HANDLE.Ptr, phCallbackId, Int32)
     return result
 }
 

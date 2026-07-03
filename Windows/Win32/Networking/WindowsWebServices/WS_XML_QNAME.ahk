@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
 #Import ".\WS_XML_DICTIONARY.ahk" { WS_XML_DICTIONARY }
+#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
 
 /**
  * A structure used to specify an XML name (of an element or an attribute) as a local name, namespace pair.

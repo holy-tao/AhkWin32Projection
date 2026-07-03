@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\BUTTON_IMAGELIST_ALIGN.ahk" { BUTTON_IMAGELIST_ALIGN }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\BUTTON_IMAGELIST_ALIGN.ahk" { BUTTON_IMAGELIST_ALIGN }
 #Import ".\HIMAGELIST.ahk" { HIMAGELIST }
 
 /**

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Networking\WinSock\SOCKADDR_INET.ahk" { SOCKADDR_INET }
-#Import "..\Ndis\NET_LUID_LH.ahk" { NET_LUID_LH }
-#Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
-#Import "..\..\Networking\WinSock\SOCKADDR_IN6.ahk" { SOCKADDR_IN6 }
-#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
-#Import "..\..\Networking\WinSock\SCOPE_ID.ahk" { SCOPE_ID }
 #Import ".\MIB_ANYCASTIPADDRESS_ROW.ahk" { MIB_ANYCASTIPADDRESS_ROW }
-#Import "..\..\Networking\WinSock\SOCKADDR_IN.ahk" { SOCKADDR_IN }
+#Import "..\Ndis\NET_LUID_LH.ahk" { NET_LUID_LH }
 #Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
+#Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
+#Import "..\..\Networking\WinSock\SCOPE_ID.ahk" { SCOPE_ID }
+#Import "..\..\Networking\WinSock\SOCKADDR_IN.ahk" { SOCKADDR_IN }
+#Import "..\..\Networking\WinSock\SOCKADDR_IN6.ahk" { SOCKADDR_IN6 }
+#Import "..\..\Networking\WinSock\SOCKADDR_INET.ahk" { SOCKADDR_INET }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**

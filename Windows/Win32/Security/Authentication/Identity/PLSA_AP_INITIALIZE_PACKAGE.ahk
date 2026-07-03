@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
-#Import ".\LSA_STRING.ahk" { LSA_STRING }
 #Import ".\LSA_DISPATCH_TABLE.ahk" { LSA_DISPATCH_TABLE }
+#Import ".\LSA_STRING.ahk" { LSA_STRING }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -33,7 +33,7 @@ export default struct PLSA_AP_INITIALIZE_PACKAGE {
         AuthenticationPackageNameMarshal := AuthenticationPackageName is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, UInt32, AuthenticationPackageId, LSA_DISPATCH_TABLE.Ptr, LsaDispatchTable, LSA_STRING.Ptr, Database, LSA_STRING.Ptr, Confidentiality, AuthenticationPackageNameMarshal, AuthenticationPackageName, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -53,10 +53,6 @@ export default struct PLSA_AP_INITIALIZE_PACKAGE {
             this.value := CallbackCreate(fn, , [UInt32, LSA_DISPATCH_TABLE.Ptr, LSA_STRING.Ptr, LSA_STRING.Ptr, "ptr*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

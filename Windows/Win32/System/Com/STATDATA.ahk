@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
-#Import ".\IAdviseSink.ahk" { IAdviseSink }
 #Import ".\FORMATETC.ahk" { FORMATETC }
+#Import ".\IAdviseSink.ahk" { IAdviseSink }
 
 /**
  * Contains information used to specify each advisory connection.

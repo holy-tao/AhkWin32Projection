@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DRAGLISTINFO_NOTIFICATION_FLAGS.ahk" { DRAGLISTINFO_NOTIFICATION_FLAGS }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\DRAGLISTINFO_NOTIFICATION_FLAGS.ahk" { DRAGLISTINFO_NOTIFICATION_FLAGS }
 
 /**
  * Contains information about a drag event. The pointer to DRAGLISTINFO is passed as the lParam parameter of the drag list message.

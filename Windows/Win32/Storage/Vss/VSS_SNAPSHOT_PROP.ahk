@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VSS_SNAPSHOT_STATE.ahk" { VSS_SNAPSHOT_STATE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VSS_SNAPSHOT_STATE.ahk" { VSS_SNAPSHOT_STATE }
 
 /**
  * Contains the properties of a shadow copy or shadow copy set.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CREDSSP_CRED.ahk" { CREDSSP_CRED }
 #Import ".\CREDSPP_SUBMIT_TYPE.ahk" { CREDSPP_SUBMIT_TYPE }
+#Import ".\CREDSSP_CRED.ahk" { CREDSSP_CRED }
 
 /**
  * @namespace Windows.Win32.Security.Credentials

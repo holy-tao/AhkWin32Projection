@@ -1,13 +1,13 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\EXIT_WINDOWS_FLAGS.ahk" { EXIT_WINDOWS_FLAGS }
 #Import ".\SHUTDOWN_FLAGS.ahk" { SHUTDOWN_FLAGS }
 #Import ".\SHUTDOWN_REASON.ahk" { SHUTDOWN_REASON }
-#Import ".\EXIT_WINDOWS_FLAGS.ahk" { EXIT_WINDOWS_FLAGS }
 
 /**
  * @namespace Windows.Win32.System.Shutdown

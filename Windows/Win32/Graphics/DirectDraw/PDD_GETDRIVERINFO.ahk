@@ -91,10 +91,6 @@ export default struct PDD_GETDRIVERINFO {
             this.value := CallbackCreate(fn, , [DD_GETDRIVERINFODATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

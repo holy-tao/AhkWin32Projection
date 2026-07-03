@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * The MCI_DGV_SAVE_PARMSW (Unicode) structure (digitalv.h) contains information for the MCI_SAVE command for digital-video devices.

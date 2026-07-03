@@ -29,7 +29,7 @@ export default struct PTM_DEVICE_QUERY_GRANULARITY {
         GranularityMarshal := Granularity is VarRef ? "char*" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, GranularityMarshal, Granularity, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -49,10 +49,6 @@ export default struct PTM_DEVICE_QUERY_GRANULARITY {
             this.value := CallbackCreate(fn, , ["ptr", "char*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

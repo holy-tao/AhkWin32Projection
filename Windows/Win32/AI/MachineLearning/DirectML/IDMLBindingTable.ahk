@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DML_BINDING_TABLE_DESC.ahk" { DML_BINDING_TABLE_DESC }
 #Import ".\DML_BINDING_DESC.ahk" { DML_BINDING_DESC }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DML_BINDING_TABLE_DESC.ahk" { DML_BINDING_TABLE_DESC }
 #Import ".\IDMLDeviceChild.ahk" { IDMLDeviceChild }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Wraps a range of an application-managed descriptor heap, and is used by DirectML to create bindings for resources. To create this object, call IDMLDevice::CreateBindingTable.

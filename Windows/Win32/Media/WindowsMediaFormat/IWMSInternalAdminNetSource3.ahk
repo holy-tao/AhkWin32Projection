@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWMSInternalAdminNetSource2.ahk" { IWMSInternalAdminNetSource2 }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\NETSOURCE_URLCREDPOLICY_SETTINGS.ahk" { NETSOURCE_URLCREDPOLICY_SETTINGS }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMSInternalAdminNetSource2.ahk" { IWMSInternalAdminNetSource2 }
+#Import ".\NETSOURCE_URLCREDPOLICY_SETTINGS.ahk" { NETSOURCE_URLCREDPOLICY_SETTINGS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMSInternalAdminNetSource3 interface provides improved methods to find proxy servers.To obtain a pointer to an instance of this interface, call the QueryInterface method of the IDispatch method retrieved by INSNetSourceCreator::GetNetSourceAdminInterface.

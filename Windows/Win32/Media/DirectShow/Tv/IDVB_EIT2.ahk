@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDVB_EIT.ahk" { IDVB_EIT }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDVB_EIT.ahk" { IDVB_EIT }
 
 /**
  * The IDVB_EIT2 interface enables an application to get information from a Digital Video Broadcasting (DVB) event information table (EIT). The IDvbSiParser2::GetEIT2 method returns a pointer to this interface. This interface extends the IDVB_EIT interface.

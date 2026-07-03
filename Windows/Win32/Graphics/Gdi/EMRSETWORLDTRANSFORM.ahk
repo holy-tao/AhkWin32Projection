@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\XFORM.ahk" { XFORM }
-#Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
 #Import ".\EMR.ahk" { EMR }
+#Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
+#Import ".\XFORM.ahk" { XFORM }
 
 /**
  * The EMRSETWORLDTRANSFORM structure contains members for the SetWorldTransform enhanced metafile record.

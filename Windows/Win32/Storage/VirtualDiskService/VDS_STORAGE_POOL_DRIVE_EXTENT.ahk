@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The VDS_STORAGE_POOL_DRIVE_EXTENT structure (vdshwprv.h) defines a drive extent that could be used by a storage pool.

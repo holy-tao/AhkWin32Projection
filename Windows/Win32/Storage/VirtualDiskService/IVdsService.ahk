@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\VDS_FILE_SYSTEM_TYPE_PROP.ahk" { VDS_FILE_SYSTEM_TYPE_PROP }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
+#Import ".\IVdsAdviseSink.ahk" { IVdsAdviseSink }
+#Import ".\VDS_DRIVE_LETTER_PROP.ahk" { VDS_DRIVE_LETTER_PROP }
+#Import ".\VDS_FILE_SYSTEM_TYPE_PROP.ahk" { VDS_FILE_SYSTEM_TYPE_PROP }
+#Import ".\VDS_OBJECT_TYPE.ahk" { VDS_OBJECT_TYPE }
 #Import ".\VDS_SERVICE_PROP.ahk" { VDS_SERVICE_PROP }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IVdsAdviseSink.ahk" { IVdsAdviseSink }
-#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
-#Import ".\VDS_DRIVE_LETTER_PROP.ahk" { VDS_DRIVE_LETTER_PROP }
-#Import ".\VDS_OBJECT_TYPE.ahk" { VDS_OBJECT_TYPE }
 
 /**
  * Provides methods to query and interact with VDS.

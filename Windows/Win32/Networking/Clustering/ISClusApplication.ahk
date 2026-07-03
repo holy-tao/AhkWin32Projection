@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISDomainNames.ahk" { ISDomainNames }
-#Import ".\ISCluster.ahk" { ISCluster }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\ISClusterNames.ahk" { ISClusterNames }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISCluster.ahk" { ISCluster }
+#Import ".\ISClusterNames.ahk" { ISClusterNames }
+#Import ".\ISDomainNames.ahk" { ISDomainNames }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering

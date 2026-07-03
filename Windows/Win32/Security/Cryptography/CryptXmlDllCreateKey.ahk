@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CRYPT_XML_BLOB.ahk" { CRYPT_XML_BLOB }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\BCRYPT_KEY_HANDLE.ahk" { BCRYPT_KEY_HANDLE }
+#Import ".\CRYPT_XML_BLOB.ahk" { CRYPT_XML_BLOB }
 
 /**
  * Parses the KeyValue element and creates a Cryptography API:\_Next Generation (CNG) BCrypt key handle to verify a signature.
@@ -51,10 +51,6 @@ export default struct CryptXmlDllCreateKey {
             this.value := CallbackCreate(fn, , [CRYPT_XML_BLOB.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

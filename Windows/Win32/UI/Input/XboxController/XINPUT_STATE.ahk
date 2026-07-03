@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\XINPUT_GAMEPAD_BUTTON_FLAGS.ahk" { XINPUT_GAMEPAD_BUTTON_FLAGS }
 #Import ".\XINPUT_GAMEPAD.ahk" { XINPUT_GAMEPAD }
+#Import ".\XINPUT_GAMEPAD_BUTTON_FLAGS.ahk" { XINPUT_GAMEPAD_BUTTON_FLAGS }
 
 /**
  * Represents the state of a controller.

@@ -44,10 +44,6 @@ export default struct PARM_WPR_WATCHDOG_FOR_CURRENT_RESOURCE_CALL_ROUTINE {
             this.value := CallbackCreate(fn, , [IntPtr, Int64, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

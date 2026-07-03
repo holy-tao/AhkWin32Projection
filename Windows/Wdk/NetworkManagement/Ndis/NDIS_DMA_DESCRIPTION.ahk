@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\System\SystemServices\DMA_SPEED.ahk" { DMA_SPEED }
 #Import "..\..\System\SystemServices\DMA_WIDTH.ahk" { DMA_WIDTH }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis

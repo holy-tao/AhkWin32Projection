@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\KSCORRELATED_TIME.ahk" { KSCORRELATED_TIME }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\KSRESOLUTION.ahk" { KSRESOLUTION }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\KSCORRELATED_TIME.ahk" { KSCORRELATED_TIME }
+#Import ".\KSRESOLUTION.ahk" { KSRESOLUTION }
 #Import ".\KSSTATE.ahk" { KSSTATE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

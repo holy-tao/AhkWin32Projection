@@ -1,11 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IWABObject.ahk" { IWABObject }
-#Import ".\LPALLOCATEBUFFER.ahk" { LPALLOCATEBUFFER }
-#Import ".\LPFREEBUFFER.ahk" { LPFREEBUFFER }
-#Import ".\LPALLOCATEMORE.ahk" { LPALLOCATEMORE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WAB_PARAM.ahk" { WAB_PARAM }
 #Import ".\IAddrBook.ahk" { IAddrBook }
+#Import ".\IWABObject.ahk" { IWABObject }
+#Import ".\WAB_PARAM.ahk" { WAB_PARAM }
 
 /**
  * @namespace Windows.Win32.System.AddressBook
@@ -36,7 +33,7 @@ export default struct LPWABOPENEX {
      * @returns {HRESULT} 
      */
     Call(lppAdrBook, lppWABObject, lpWP, Reserved, fnAllocateBuffer, fnAllocateMore, fnFreeBuffer) {
-        result := DllCall(this.value, IAddrBook.Ptr, lppAdrBook, IWABObject.Ptr, lppWABObject, WAB_PARAM.Ptr, lpWP, UInt32, Reserved, LPALLOCATEBUFFER, fnAllocateBuffer, LPALLOCATEMORE, fnAllocateMore, LPFREEBUFFER, fnFreeBuffer, "HRESULT")
+        result := DllCall(this.value, IAddrBook.Ptr, lppAdrBook, IWABObject.Ptr, lppWABObject, WAB_PARAM.Ptr, lpWP, UInt32, Reserved, "ptr", fnAllocateBuffer, "ptr", fnAllocateMore, "ptr", fnFreeBuffer, "HRESULT")
         return result
     }
 
@@ -47,19 +44,15 @@ export default struct LPWABOPENEX {
     struct From extends LPWABOPENEX {
         /**
          * Creates a LPWABOPENEX pointer that invokes the given AHK function when called.
-         * @param {Func(IAddrBook, IWABObject, WAB_PARAM, UInt32, LPALLOCATEBUFFER, LPALLOCATEMORE, LPFREEBUFFER) => "int"} fn the function to invoke.
+         * @param {Func(IAddrBook, IWABObject, WAB_PARAM, UInt32, "ptr", "ptr", "ptr") => "int"} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 7)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 7 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [IAddrBook.Ptr, IWABObject.Ptr, WAB_PARAM.Ptr, UInt32, LPALLOCATEBUFFER, LPALLOCATEMORE, LPFREEBUFFER, "int"])
+            this.value := CallbackCreate(fn, , [IAddrBook.Ptr, IWABObject.Ptr, WAB_PARAM.Ptr, UInt32, "ptr", "ptr", "ptr", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

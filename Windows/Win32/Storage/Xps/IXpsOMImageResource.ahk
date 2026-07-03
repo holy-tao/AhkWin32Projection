@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
 #Import ".\IXpsOMResource.ahk" { IXpsOMResource }
 #Import ".\XPS_IMAGE_TYPE.ahk" { XPS_IMAGE_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**

@@ -100,10 +100,6 @@ export default struct PMGM_JOIN_ALERT_CALLBACK {
             this.value := CallbackCreate(fn, , [UInt32, UInt32, UInt32, UInt32, BOOL, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -50,10 +50,6 @@ export default struct PDXVAHDSW_CreateVideoProcessor {
             this.value := CallbackCreate(fn, , [HANDLE, Guid.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

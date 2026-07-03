@@ -1,12 +1,12 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\HPTPROVIDER.ahk" { HPTPROVIDER }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Gdi\DEVMODEA.ahk" { DEVMODEA }
 #Import ".\EDefaultDevmodeType.ahk" { EDefaultDevmodeType }
 #Import ".\EPrintTicketScope.ahk" { EPrintTicketScope }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Gdi\DEVMODEA.ahk" { DEVMODEA }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\HPTPROVIDER.ahk" { HPTPROVIDER }
 #Import "..\..\..\System\Com\IStream.ahk" { IStream }
 
 /**

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HCERTSTORE.ahk" { HCERTSTORE }
-#Import ".\CRL_INFO.ahk" { CRL_INFO }
 #Import ".\CERT_QUERY_ENCODING_TYPE.ahk" { CERT_QUERY_ENCODING_TYPE }
+#Import ".\CRL_INFO.ahk" { CRL_INFO }
+#Import ".\HCERTSTORE.ahk" { HCERTSTORE }
 
 /**
  * The CRL_CONTEXT structure contains both the encoded and decoded representations of a certificate revocation list (CRL). CRL contexts returned by any CryptoAPI function must be freed by calling the CertFreeCRLContext function.

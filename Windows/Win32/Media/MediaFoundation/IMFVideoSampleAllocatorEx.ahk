@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFMediaType.ahk" { IMFMediaType }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFVideoSampleAllocator.ahk" { IMFVideoSampleAllocator }
 #Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import ".\IMFMediaType.ahk" { IMFMediaType }
+#Import ".\IMFVideoSampleAllocator.ahk" { IMFVideoSampleAllocator }
 
 /**
  * Allocates video samples that contain Microsoft Direct3D 11 texture surfaces.

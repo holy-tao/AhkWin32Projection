@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\POINTER_DEVICE_TYPE.ahk" { POINTER_DEVICE_TYPE }
 #Import "..\..\..\Graphics\Gdi\HMONITOR.ahk" { HMONITOR }
+#Import ".\POINTER_DEVICE_TYPE.ahk" { POINTER_DEVICE_TYPE }
 #Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

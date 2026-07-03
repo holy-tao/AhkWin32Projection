@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RPC_STATUS.ahk" { RPC_STATUS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\RPC_STATUS.ahk" { RPC_STATUS }
 
 /**
  * @namespace Windows.Win32.System.Rpc
@@ -50,10 +50,6 @@ export default struct I_RpcProxyIsValidMachineFn {
             this.value := CallbackCreate(fn, , [PWSTR, PWSTR, UInt32, RPC_STATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

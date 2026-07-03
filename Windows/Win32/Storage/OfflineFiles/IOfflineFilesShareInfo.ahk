@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\OFFLINEFILES_CACHING_MODE.ahk" { OFFLINEFILES_CACHING_MODE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IOfflineFilesShareItem.ahk" { IOfflineFilesShareItem }
+#Import ".\OFFLINEFILES_CACHING_MODE.ahk" { OFFLINEFILES_CACHING_MODE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Presents share-specific information about cached items.

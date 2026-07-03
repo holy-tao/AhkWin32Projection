@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\CERT_CHAIN_ELEMENT.ahk" { CERT_CHAIN_ELEMENT }
 #Import ".\CERT_TRUST_LIST_INFO.ahk" { CERT_TRUST_LIST_INFO }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\CERT_TRUST_STATUS.ahk" { CERT_TRUST_STATUS }
 
 /**

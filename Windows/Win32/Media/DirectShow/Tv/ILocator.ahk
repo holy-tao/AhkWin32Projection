@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\BinaryConvolutionCodeRate.ahk" { BinaryConvolutionCodeRate }
+#Import "..\FECMethod.ahk" { FECMethod }
 #Import "..\ModulationType.ahk" { ModulationType }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\FECMethod.ahk" { FECMethod }
-#Import "..\BinaryConvolutionCodeRate.ahk" { BinaryConvolutionCodeRate }
 
 /**
  * The ILocator interface is implemented (through derived interfaces such as IATSCLocator) on Locator objects that contain tuning information about the tuning space.

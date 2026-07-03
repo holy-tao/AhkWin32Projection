@@ -1,25 +1,24 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\DDE_NAME_SERVICE_CMD.ahk" { DDE_NAME_SERVICE_CMD }
-#Import ".\CONVCONTEXT.ahk" { CONVCONTEXT }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\DDE_CLIENT_TRANSACTION_TYPE.ahk" { DDE_CLIENT_TRANSACTION_TYPE }
-#Import ".\DDE_INITIALIZE_COMMAND.ahk" { DDE_INITIALIZE_COMMAND }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Security\SECURITY_QUALITY_OF_SERVICE.ahk" { SECURITY_QUALITY_OF_SERVICE }
-#Import ".\HCONV.ahk" { HCONV }
-#Import ".\CONVINFO.ahk" { CONVINFO }
-#Import "..\..\Graphics\Gdi\HENHMETAFILE.ahk" { HENHMETAFILE }
-#Import ".\DDE_ENABLE_CALLBACK_CMD.ahk" { DDE_ENABLE_CALLBACK_CMD }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\HDDEDATA.ahk" { HDDEDATA }
-#Import ".\PFNCALLBACK.ahk" { PFNCALLBACK }
-#Import ".\HCONVLIST.ahk" { HCONVLIST }
-#Import ".\HSZ.ahk" { HSZ }
 #Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Graphics\Gdi\HENHMETAFILE.ahk" { HENHMETAFILE }
+#Import "..\..\Security\SECURITY_QUALITY_OF_SERVICE.ahk" { SECURITY_QUALITY_OF_SERVICE }
+#Import ".\CONVCONTEXT.ahk" { CONVCONTEXT }
+#Import ".\CONVINFO.ahk" { CONVINFO }
+#Import ".\DDE_CLIENT_TRANSACTION_TYPE.ahk" { DDE_CLIENT_TRANSACTION_TYPE }
+#Import ".\DDE_ENABLE_CALLBACK_CMD.ahk" { DDE_ENABLE_CALLBACK_CMD }
+#Import ".\DDE_INITIALIZE_COMMAND.ahk" { DDE_INITIALIZE_COMMAND }
+#Import ".\DDE_NAME_SERVICE_CMD.ahk" { DDE_NAME_SERVICE_CMD }
+#Import ".\HCONV.ahk" { HCONV }
+#Import ".\HCONVLIST.ahk" { HCONVLIST }
+#Import ".\HDDEDATA.ahk" { HDDEDATA }
+#Import ".\HSZ.ahk" { HSZ }
 #Import ".\METAFILEPICT.ahk" { METAFILEPICT }
 
 /**
@@ -298,7 +297,7 @@ export DdeInitializeA(pidInst, _pfnCallback, afCmd) {
 
     pidInstMarshal := pidInst is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("USER32.dll\DdeInitializeA", pidInstMarshal, pidInst, PFNCALLBACK, _pfnCallback, DDE_INITIALIZE_COMMAND, afCmd, UInt32, ulRes, UInt32)
+    result := DllCall("USER32.dll\DdeInitializeA", pidInstMarshal, pidInst, "ptr", _pfnCallback, DDE_INITIALIZE_COMMAND, afCmd, UInt32, ulRes, UInt32)
     return result
 }
 
@@ -350,7 +349,7 @@ export DdeInitializeW(pidInst, _pfnCallback, afCmd) {
 
     pidInstMarshal := pidInst is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("USER32.dll\DdeInitializeW", pidInstMarshal, pidInst, PFNCALLBACK, _pfnCallback, DDE_INITIALIZE_COMMAND, afCmd, UInt32, ulRes, UInt32)
+    result := DllCall("USER32.dll\DdeInitializeW", pidInstMarshal, pidInst, "ptr", _pfnCallback, DDE_INITIALIZE_COMMAND, afCmd, UInt32, ulRes, UInt32)
     return result
 }
 

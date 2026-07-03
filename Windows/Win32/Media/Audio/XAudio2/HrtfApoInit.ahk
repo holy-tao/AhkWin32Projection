@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HrtfDistanceDecay.ahk" { HrtfDistanceDecay }
 #Import ".\HrtfDirectivity.ahk" { HrtfDirectivity }
+#Import ".\HrtfDistanceDecay.ahk" { HrtfDistanceDecay }
 
 /**
  * Specifies parameters used to initialize HRTF spatial audio.

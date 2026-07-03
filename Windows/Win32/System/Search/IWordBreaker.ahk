@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Storage\IndexServer\IPhraseSink.ahk" { IPhraseSink }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IWordSink.ahk" { IWordSink }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\TEXT_SOURCE.ahk" { TEXT_SOURCE }
-#Import "..\..\Storage\IndexServer\IPhraseSink.ahk" { IPhraseSink }
 
 /**
  * Parses text and identifies individual words and phrases. This interface is a language-specific language resource component. It is used in background processes and must be optimized for both throughput and minimal use of resources.

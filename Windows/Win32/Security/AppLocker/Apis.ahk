@@ -1,14 +1,14 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\SAFER_COMPUTE_TOKEN_FROM_LEVEL_FLAGS.ahk" { SAFER_COMPUTE_TOKEN_FROM_LEVEL_FLAGS }
-#Import ".\SAFER_OBJECT_INFO_CLASS.ahk" { SAFER_OBJECT_INFO_CLASS }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\SAFER_CODE_PROPERTIES_V2.ahk" { SAFER_CODE_PROPERTIES_V2 }
-#Import ".\SAFER_POLICY_INFO_CLASS.ahk" { SAFER_POLICY_INFO_CLASS }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\SAFER_LEVEL_HANDLE.ahk" { SAFER_LEVEL_HANDLE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SAFER_CODE_PROPERTIES_V2.ahk" { SAFER_CODE_PROPERTIES_V2 }
+#Import ".\SAFER_COMPUTE_TOKEN_FROM_LEVEL_FLAGS.ahk" { SAFER_COMPUTE_TOKEN_FROM_LEVEL_FLAGS }
+#Import ".\SAFER_OBJECT_INFO_CLASS.ahk" { SAFER_OBJECT_INFO_CLASS }
+#Import ".\SAFER_POLICY_INFO_CLASS.ahk" { SAFER_POLICY_INFO_CLASS }
+#Import "..\SAFER_LEVEL_HANDLE.ahk" { SAFER_LEVEL_HANDLE }
 
 /**
  * @namespace Windows.Win32.Security.AppLocker

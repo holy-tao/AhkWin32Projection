@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WDSTRANSPORT_SLOW_CLIENT_HANDLING_TYPE.ahk" { WDSTRANSPORT_SLOW_CLIENT_HANDLING_TYPE }
-#Import ".\IWdsTransportCacheable.ahk" { IWdsTransportCacheable }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IWdsTransportCacheable.ahk" { IWdsTransportCacheable }
+#Import ".\WDSTRANSPORT_SLOW_CLIENT_HANDLING_TYPE.ahk" { WDSTRANSPORT_SLOW_CLIENT_HANDLING_TYPE }
 
 /**
  * This interface represents the multicast session policy portion of a WDS Transport server’s configuration.

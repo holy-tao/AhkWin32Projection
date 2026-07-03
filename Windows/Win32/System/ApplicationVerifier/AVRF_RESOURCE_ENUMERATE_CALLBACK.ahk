@@ -51,10 +51,6 @@ export default struct AVRF_RESOURCE_ENUMERATE_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", "uint*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

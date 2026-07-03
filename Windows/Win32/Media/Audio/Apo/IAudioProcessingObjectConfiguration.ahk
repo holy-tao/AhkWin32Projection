@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\APO_CONNECTION_DESCRIPTOR.ahk" { APO_CONNECTION_DESCRIPTOR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\APO_CONNECTION_DESCRIPTOR.ahk" { APO_CONNECTION_DESCRIPTOR }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAudioProcessingObjectConfiguration interface is used to configure the APO. This interface uses its methods to lock and unlock the APO for processing.

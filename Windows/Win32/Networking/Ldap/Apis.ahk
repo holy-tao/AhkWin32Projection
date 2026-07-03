@@ -1,26 +1,25 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\LDAPSortKeyW.ahk" { LDAPSortKeyW }
-#Import ".\LDAP_BERVAL.ahk" { LDAP_BERVAL }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\LDAPModW.ahk" { LDAPModW }
-#Import ".\LDAPSortKeyA.ahk" { LDAPSortKeyA }
+#Import "..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
+#Import ".\BerElement.ahk" { BerElement }
 #Import ".\LDAP.ahk" { LDAP }
 #Import ".\LDAPControlA.ahk" { LDAPControlA }
-#Import ".\BerElement.ahk" { BerElement }
-#Import ".\LDAPModA.ahk" { LDAPModA }
-#Import ".\LDAP_VERSION_INFO.ahk" { LDAP_VERSION_INFO }
-#Import "..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
-#Import ".\LDAPMessage.ahk" { LDAPMessage }
-#Import ".\DBGPRINT.ahk" { DBGPRINT }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 #Import ".\LDAPControlW.ahk" { LDAPControlW }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\LDAP_TIMEVAL.ahk" { LDAP_TIMEVAL }
-#Import ".\PLDAPSearch.ahk" { PLDAPSearch }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\LDAPMessage.ahk" { LDAPMessage }
+#Import ".\LDAPModA.ahk" { LDAPModA }
+#Import ".\LDAPModW.ahk" { LDAPModW }
+#Import ".\LDAPSortKeyA.ahk" { LDAPSortKeyA }
+#Import ".\LDAPSortKeyW.ahk" { LDAPSortKeyW }
 #Import ".\LDAPVLVInfo.ahk" { LDAPVLVInfo }
+#Import ".\LDAP_BERVAL.ahk" { LDAP_BERVAL }
+#Import ".\LDAP_TIMEVAL.ahk" { LDAP_TIMEVAL }
+#Import ".\LDAP_VERSION_INFO.ahk" { LDAP_VERSION_INFO }
+#Import ".\PLDAPSearch.ahk" { PLDAPSearch }
 
 /**
  * @namespace Windows.Win32.Networking.Ldap
@@ -7197,7 +7196,7 @@ export ldap_set_dbg_flags(NewFlags) {
  * @returns {String} Nothing - always returns an empty string
  */
 export ldap_set_dbg_routine(DebugPrintRoutine) {
-    DllCall("WLDAP32.dll\ldap_set_dbg_routine", DBGPRINT, DebugPrintRoutine)
+    DllCall("WLDAP32.dll\ldap_set_dbg_routine", "ptr", DebugPrintRoutine)
 }
 
 /**

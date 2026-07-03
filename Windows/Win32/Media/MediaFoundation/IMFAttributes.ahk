@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\MF_ATTRIBUTES_MATCH_TYPE.ahk" { MF_ATTRIBUTES_MATCH_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\MF_ATTRIBUTE_TYPE.ahk" { MF_ATTRIBUTE_TYPE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 
 /**
  * Provides a generic way to store key/value pairs on an object.

@@ -43,10 +43,6 @@ export default struct PFN_CPD_MEM_ALLOC {
             this.value := CallbackCreate(fn, , [UInt32, "ptr"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

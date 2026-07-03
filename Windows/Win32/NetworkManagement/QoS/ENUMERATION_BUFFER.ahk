@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TC_GEN_FLOW.ahk" { TC_GEN_FLOW }
 #Import ".\TC_GEN_FILTER.ahk" { TC_GEN_FILTER }
+#Import ".\TC_GEN_FLOW.ahk" { TC_GEN_FLOW }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

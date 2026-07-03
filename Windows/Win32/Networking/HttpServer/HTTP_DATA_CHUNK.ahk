@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\HTTP_UNKNOWN_HEADER.ahk" { HTTP_UNKNOWN_HEADER }
-#Import ".\HTTP_BYTE_RANGE.ahk" { HTTP_BYTE_RANGE }
-#Import ".\HTTP_WINHTTP_FAST_FORWARDING_DATA.ahk" { HTTP_WINHTTP_FAST_FORWARDING_DATA }
-#Import ".\HTTP_DATA_CHUNK_TYPE.ahk" { HTTP_DATA_CHUNK_TYPE }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HTTP_BYTE_RANGE.ahk" { HTTP_BYTE_RANGE }
+#Import ".\HTTP_DATA_CHUNK_TYPE.ahk" { HTTP_DATA_CHUNK_TYPE }
+#Import ".\HTTP_UNKNOWN_HEADER.ahk" { HTTP_UNKNOWN_HEADER }
+#Import ".\HTTP_WINHTTP_FAST_FORWARDING_DATA.ahk" { HTTP_WINHTTP_FAST_FORWARDING_DATA }
 
 /**
  * Represents an individual block of data either in memory, in a file, or in the HTTP Server API response-fragment cache.

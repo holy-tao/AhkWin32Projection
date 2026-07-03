@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\VSS_PROVIDER_PROP.ahk" { VSS_PROVIDER_PROP }
 #Import ".\VSS_PROVIDER_TYPE.ahk" { VSS_PROVIDER_TYPE }
-#Import ".\VSS_SNAPSHOT_STATE.ahk" { VSS_SNAPSHOT_STATE }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\VSS_SNAPSHOT_PROP.ahk" { VSS_SNAPSHOT_PROP }
+#Import ".\VSS_SNAPSHOT_STATE.ahk" { VSS_SNAPSHOT_STATE }
 
 /**
  * @namespace Windows.Win32.Storage.Vss

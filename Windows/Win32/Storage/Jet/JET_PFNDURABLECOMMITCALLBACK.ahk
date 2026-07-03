@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\JET_INSTANCE.ahk" { JET_INSTANCE }
 #Import ".\JET_COMMIT_ID.ahk" { JET_COMMIT_ID }
+#Import ".\JET_INSTANCE.ahk" { JET_INSTANCE }
 
 /**
  * Learn more about: JET_PFNDURABLECOMMITCALLBACK delegate
@@ -49,10 +49,6 @@ export default struct JET_PFNDURABLECOMMITCALLBACK {
             this.value := CallbackCreate(fn, , [JET_INSTANCE, JET_COMMIT_ID.Ptr, UInt32, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

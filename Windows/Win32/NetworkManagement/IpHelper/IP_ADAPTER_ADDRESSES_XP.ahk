@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IP_ADAPTER_ANYCAST_ADDRESS_XP.ahk" { IP_ADAPTER_ANYCAST_ADDRESS_XP }
 #Import ".\IP_ADAPTER_DNS_SERVER_ADDRESS_XP.ahk" { IP_ADAPTER_DNS_SERVER_ADDRESS_XP }
 #Import ".\IP_ADAPTER_MULTICAST_ADDRESS_XP.ahk" { IP_ADAPTER_MULTICAST_ADDRESS_XP }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\IP_ADAPTER_PREFIX_XP.ahk" { IP_ADAPTER_PREFIX_XP }
-#Import ".\IP_ADAPTER_ANYCAST_ADDRESS_XP.ahk" { IP_ADAPTER_ANYCAST_ADDRESS_XP }
-#Import "..\Ndis\IF_OPER_STATUS.ahk" { IF_OPER_STATUS }
 #Import ".\IP_ADAPTER_UNICAST_ADDRESS_XP.ahk" { IP_ADAPTER_UNICAST_ADDRESS_XP }
+#Import "..\Ndis\IF_OPER_STATUS.ahk" { IF_OPER_STATUS }
 
 /**
  * The IP_ADAPTER_ADDRESSES_XP structure (iptypes.h) is the header node for a linked list of addresses for a particular adapter.

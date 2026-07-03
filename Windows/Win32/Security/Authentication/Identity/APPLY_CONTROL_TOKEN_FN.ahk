@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SecBufferDesc.ahk" { SecBufferDesc }
 #Import "..\..\Credentials\SecHandle.ahk" { SecHandle }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -47,10 +47,6 @@ export default struct APPLY_CONTROL_TOKEN_FN {
             this.value := CallbackCreate(fn, , [SecHandle.Ptr, SecBufferDesc.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

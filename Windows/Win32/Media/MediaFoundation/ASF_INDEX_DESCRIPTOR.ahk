@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ASF_INDEX_IDENTIFIER.ahk" { ASF_INDEX_IDENTIFIER }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ASF_INDEX_IDENTIFIER.ahk" { ASF_INDEX_IDENTIFIER }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

@@ -45,10 +45,6 @@ export default struct LPWSCWRITENAMESPACEORDER {
             this.value := CallbackCreate(fn, , [Guid.Ptr, UInt32, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

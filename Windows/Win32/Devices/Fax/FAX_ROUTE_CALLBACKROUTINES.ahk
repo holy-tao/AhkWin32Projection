@@ -1,9 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PFAXROUTEADDFILE.ahk" { PFAXROUTEADDFILE }
-#Import ".\PFAXROUTEDELETEFILE.ahk" { PFAXROUTEDELETEFILE }
-#Import ".\PFAXROUTEMODIFYROUTINGDATA.ahk" { PFAXROUTEMODIFYROUTINGDATA }
-#Import ".\PFAXROUTEENUMFILES.ahk" { PFAXROUTEENUMFILES }
-#Import ".\PFAXROUTEGETFILE.ahk" { PFAXROUTEGETFILE }
 
 /**
  * The FAX_ROUTE_CALLBACKROUTINES structure contains pointers to callback functions the fax service provides.
@@ -31,34 +26,34 @@ export default struct FAX_ROUTE_CALLBACKROUTINES {
      * 
      * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxroute/nc-faxroute-pfaxrouteaddfile">FaxRouteAddFile</a> callback function that a fax routing method uses to add a file to the fax file list associated with a received fax document.
      */
-    FaxRouteAddFile : PFAXROUTEADDFILE
+    FaxRouteAddFile : IntPtr
 
     /**
      * Type: <b>PFAXROUTEDELETEFILE</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxroute/nc-faxroute-pfaxroutedeletefile">FaxRouteDeleteFile</a> callback function that a fax routing method uses to delete a file from the fax file list associated with a received fax document.
      */
-    FaxRouteDeleteFile : PFAXROUTEDELETEFILE
+    FaxRouteDeleteFile : IntPtr
 
     /**
      * Type: <b>PFAXROUTEGETFILE</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxroute/nc-faxroute-pfaxroutegetfile">FaxRouteGetFile</a> callback function that a fax routing method uses to retrieve a specific file name from the fax file list associated with a received fax document.
      */
-    FaxRouteGetFile : PFAXROUTEGETFILE
+    FaxRouteGetFile : IntPtr
 
     /**
      * Type: <b>PFAXROUTEENUMFILES</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxroute/nc-faxroute-pfaxrouteenumfiles">FaxRouteEnumFiles</a> callback function that a fax routing method uses to enumerate the files in the fax file list associated with a received fax document.
      */
-    FaxRouteEnumFiles : PFAXROUTEENUMFILES
+    FaxRouteEnumFiles : IntPtr
 
     /**
      * Type: <b>PFAXROUTEMODIFYROUTINGDATA</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxroute/nc-faxroute-pfaxroutemodifyroutingdata">FaxRouteModifyRoutingData</a> callback function that a fax routing method uses to modify the routing data associated with a subsequent fax routing method.
      */
-    FaxRouteModifyRoutingData : PFAXROUTEMODIFYROUTINGDATA
+    FaxRouteModifyRoutingData : IntPtr
 
 }

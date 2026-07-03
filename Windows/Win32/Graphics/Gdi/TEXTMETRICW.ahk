@@ -11,7 +11,7 @@
  * @charset Unicode
  */
 export default struct TEXTMETRICW {
-    #StructPack 8
+    #StructPack 4
 
     /**
      * The height (ascent + descent) of characters.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IHttpNegotiate2.ahk" { IHttpNegotiate2 }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHttpNegotiate2.ahk" { IHttpNegotiate2 }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\NMHDR.ahk" { NMHDR }
 #Import ".\HTREEITEM.ahk" { HTREEITEM }
+#Import ".\NMHDR.ahk" { NMHDR }
 
 /**
  * Contains information about an NM_TVSTATEIMAGECHANGING notification code.

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MEDIA_FLAGS.ahk" { MEDIA_FLAGS }
-#Import ".\RECORDER_TYPES.ahk" { RECORDER_TYPES }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DISC_RECORDER_STATE_FLAGS.ahk" { DISC_RECORDER_STATE_FLAGS }
-#Import "..\..\System\Com\StructuredStorage\IPropertyStorage.ahk" { IPropertyStorage }
+#Import ".\MEDIA_FLAGS.ahk" { MEDIA_FLAGS }
 #Import ".\MEDIA_TYPES.ahk" { MEDIA_TYPES }
+#Import ".\RECORDER_TYPES.ahk" { RECORDER_TYPES }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\StructuredStorage\IPropertyStorage.ahk" { IPropertyStorage }
 
 /**
  * The IDiscRecorder interface enables access to a single disc recorder device, labeled the active disc recorder. An IMAPI object such as MSDiscMasterObj maintains an active disc recorder.

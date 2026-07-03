@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WindowVisualState.ahk" { WindowVisualState }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\WindowInteractionState.ahk" { WindowInteractionState }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WindowVisualState.ahk" { WindowVisualState }
 
 /**
  * Provides access to the fundamental functionality of a window.

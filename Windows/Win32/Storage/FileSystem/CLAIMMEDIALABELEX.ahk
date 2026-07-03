@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MediaLabelInfo.ahk" { MediaLabelInfo }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MediaLabelInfo.ahk" { MediaLabelInfo }
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
@@ -50,10 +50,6 @@ export default struct CLAIMMEDIALABELEX {
             this.value := CallbackCreate(fn, , ["char*", UInt32, MediaLabelInfo.Ptr, Guid.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

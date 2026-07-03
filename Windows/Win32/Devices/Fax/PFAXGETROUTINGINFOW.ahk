@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
@@ -55,10 +55,6 @@ export default struct PFAXGETROUTINGINFOW {
             this.value := CallbackCreate(fn, , [HANDLE, PWSTR, "ptr*", "uint*", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,6 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PDD_PALCB_DESTROYPALETTE.ahk" { PDD_PALCB_DESTROYPALETTE }
-#Import ".\PDD_PALCB_SETENTRIES.ahk" { PDD_PALCB_SETENTRIES }
 
 /**
  * The DD_PALETTECALLBACKS structure contains entry pointers to the DirectDraw palette callback functions that a device driver supports.
@@ -31,11 +29,11 @@ export default struct DD_PALETTECALLBACKS {
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_palcb_destroypalette">DdDestroyPalette</a> palette callback.
      */
-    DestroyPalette : PDD_PALCB_DESTROYPALETTE
+    DestroyPalette : IntPtr
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_palcb_setentries">DdSetEntries</a> palette callback.
      */
-    SetEntries : PDD_PALCB_SETENTRIES
+    SetEntries : IntPtr
 
 }

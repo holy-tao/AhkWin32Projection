@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RPC_STATUS.ahk" { RPC_STATUS }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\RPC_STATUS.ahk" { RPC_STATUS }
 
 /**
  * The RPC_OBJECT_INQ_FN function is a prototype for a function that facilitates replacement of the default object UUID to type UUID mapping.
@@ -54,10 +54,6 @@ export default struct RPC_OBJECT_INQ_FN {
             this.value := CallbackCreate(fn, , [Guid.Ptr, Guid.Ptr, "int*", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

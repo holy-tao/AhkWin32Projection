@@ -47,10 +47,6 @@ export default struct PIMAGE_TLS_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\INetCfgPnpReconfigCallback.ahk" { INetCfgPnpReconfigCallback }
-#Import ".\INetCfgComponent.ahk" { INetCfgComponent }
 #Import ".\INetCfg.ahk" { INetCfg }
+#Import ".\INetCfgComponent.ahk" { INetCfgComponent }
+#Import ".\INetCfgPnpReconfigCallback.ahk" { INetCfgPnpReconfigCallback }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement

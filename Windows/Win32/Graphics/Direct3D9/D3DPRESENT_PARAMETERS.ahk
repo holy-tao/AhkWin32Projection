@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\D3DFORMAT.ahk" { D3DFORMAT }
 #Import ".\D3DMULTISAMPLE_TYPE.ahk" { D3DMULTISAMPLE_TYPE }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\D3DSWAPEFFECT.ahk" { D3DSWAPEFFECT }
 
 /**

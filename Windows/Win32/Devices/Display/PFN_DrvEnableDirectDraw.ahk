@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Graphics\DirectDraw\DD_SURFACECALLBACKS.ahk" { DD_SURFACECALLBACKS }
 #Import ".\DHPDEV.ahk" { DHPDEV }
-#Import "..\..\Graphics\DirectDraw\DD_PALETTECALLBACKS.ahk" { DD_PALETTECALLBACKS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Graphics\DirectDraw\DD_CALLBACKS.ahk" { DD_CALLBACKS }
+#Import "..\..\Graphics\DirectDraw\DD_PALETTECALLBACKS.ahk" { DD_PALETTECALLBACKS }
+#Import "..\..\Graphics\DirectDraw\DD_SURFACECALLBACKS.ahk" { DD_SURFACECALLBACKS }
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -51,10 +51,6 @@ export default struct PFN_DrvEnableDirectDraw {
             this.value := CallbackCreate(fn, , [DHPDEV, DD_CALLBACKS.Ptr, DD_SURFACECALLBACKS.Ptr, DD_PALETTECALLBACKS.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

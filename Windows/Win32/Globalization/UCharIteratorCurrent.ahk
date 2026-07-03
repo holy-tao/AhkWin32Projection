@@ -44,10 +44,6 @@ export default struct UCharIteratorCurrent {
             this.value := CallbackCreate(fn, "cdecl", [UCharIterator.Ptr, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

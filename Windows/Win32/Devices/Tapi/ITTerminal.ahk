@@ -3,10 +3,10 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\TERMINAL_DIRECTION.ahk" { TERMINAL_DIRECTION }
 #Import ".\TERMINAL_STATE.ahk" { TERMINAL_STATE }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\TERMINAL_TYPE.ahk" { TERMINAL_TYPE }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The ITTerminal interface is the base interface for a Terminal object.

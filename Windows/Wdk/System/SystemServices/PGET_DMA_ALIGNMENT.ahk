@@ -44,10 +44,6 @@ export default struct PGET_DMA_ALIGNMENT {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

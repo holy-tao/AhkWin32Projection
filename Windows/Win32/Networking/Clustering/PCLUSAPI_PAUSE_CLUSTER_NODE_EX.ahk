@@ -48,10 +48,6 @@ export default struct PCLUSAPI_PAUSE_CLUSTER_NODE_EX {
             this.value := CallbackCreate(fn, , [HNODE, BOOL, UInt32, HNODE, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

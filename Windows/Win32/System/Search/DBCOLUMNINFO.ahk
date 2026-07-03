@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Storage\IndexServer\DBID.ahk" { DBID }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Com\ITypeInfo.ahk" { ITypeInfo }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Storage\IndexServer\DBID.ahk" { DBID }
+#Import "..\Com\ITypeInfo.ahk" { ITypeInfo }
 
 /**
  * @namespace Windows.Win32.System.Search

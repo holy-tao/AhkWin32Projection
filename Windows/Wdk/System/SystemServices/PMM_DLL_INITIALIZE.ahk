@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -26,7 +26,7 @@ export default struct PMM_DLL_INITIALIZE {
      */
     Call(RegistryPath) {
         result := DllCall(this.value, UNICODE_STRING.Ptr, RegistryPath, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -46,10 +46,6 @@ export default struct PMM_DLL_INITIALIZE {
             this.value := CallbackCreate(fn, , [UNICODE_STRING.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

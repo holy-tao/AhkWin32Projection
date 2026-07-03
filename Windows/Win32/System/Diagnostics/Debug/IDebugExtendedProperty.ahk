@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ExtendedDebugPropertyInfo.ahk" { ExtendedDebugPropertyInfo }
-#Import ".\IEnumDebugExtendedPropertyInfo.ahk" { IEnumDebugExtendedPropertyInfo }
-#Import ".\IDebugProperty.ahk" { IDebugProperty }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ExtendedDebugPropertyInfo.ahk" { ExtendedDebugPropertyInfo }
+#Import ".\IDebugProperty.ahk" { IDebugProperty }
+#Import ".\IEnumDebugExtendedPropertyInfo.ahk" { IEnumDebugExtendedPropertyInfo }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug

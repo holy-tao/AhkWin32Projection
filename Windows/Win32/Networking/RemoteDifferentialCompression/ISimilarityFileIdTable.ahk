@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SimilarityFileId.ahk" { SimilarityFileId }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\RdcCreatedTables.ahk" { RdcCreatedTables }
-#Import ".\IRdcFileWriter.ahk" { IRdcFileWriter }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IRdcFileWriter.ahk" { IRdcFileWriter }
+#Import ".\RdcCreatedTables.ahk" { RdcCreatedTables }
+#Import ".\SimilarityFileId.ahk" { SimilarityFileId }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines methods for storing and retrieving similarity file ID information.

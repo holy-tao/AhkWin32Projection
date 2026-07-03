@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ASSOCENUM.ahk" { ASSOCENUM }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\ASSOCF.ahk" { ASSOCF }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ASSOCSTR.ahk" { ASSOCSTR }
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
 #Import ".\ASSOCDATA.ahk" { ASSOCDATA }
+#Import ".\ASSOCENUM.ahk" { ASSOCENUM }
+#Import ".\ASSOCF.ahk" { ASSOCF }
 #Import ".\ASSOCKEY.ahk" { ASSOCKEY }
+#Import ".\ASSOCSTR.ahk" { ASSOCSTR }
 
 /**
  * Exposes methods that simplify the process of retrieving information stored in the registry in association with defining a file type or protocol and associating it with an application.

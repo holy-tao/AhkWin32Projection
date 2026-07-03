@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWMPSubscriptionService.ahk" { IWMPSubscriptionService }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\WMPSubscriptionServiceEvent.ahk" { WMPSubscriptionServiceEvent }
-#Import ".\IWMPSubscriptionServiceCallback.ahk" { IWMPSubscriptionServiceCallback }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMPSubscriptionService.ahk" { IWMPSubscriptionService }
+#Import ".\IWMPSubscriptionServiceCallback.ahk" { IWMPSubscriptionServiceCallback }
+#Import ".\WMPSubscriptionServiceEvent.ahk" { WMPSubscriptionServiceEvent }
 
 /**
  * Note  This section describes functionality designed for use by online stores.

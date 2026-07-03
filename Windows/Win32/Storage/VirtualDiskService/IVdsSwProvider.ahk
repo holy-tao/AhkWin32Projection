@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IVdsPack.ahk" { IVdsPack }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
+#Import ".\IVdsPack.ahk" { IVdsPack }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods to perform operations specific to the software provider.

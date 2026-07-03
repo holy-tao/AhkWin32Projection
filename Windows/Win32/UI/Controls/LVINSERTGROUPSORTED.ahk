@@ -1,8 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LIST_VIEW_GROUP_STATE_FLAGS.ahk" { LIST_VIEW_GROUP_STATE_FLAGS }
-#Import ".\LIST_VIEW_GROUP_ALIGN_FLAGS.ahk" { LIST_VIEW_GROUP_ALIGN_FLAGS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\PFNLVGROUPCOMPARE.ahk" { PFNLVGROUPCOMPARE }
+#Import ".\LIST_VIEW_GROUP_ALIGN_FLAGS.ahk" { LIST_VIEW_GROUP_ALIGN_FLAGS }
+#Import ".\LIST_VIEW_GROUP_STATE_FLAGS.ahk" { LIST_VIEW_GROUP_STATE_FLAGS }
 #Import ".\LVGROUP.ahk" { LVGROUP }
 #Import ".\LVGROUP_MASK.ahk" { LVGROUP_MASK }
 
@@ -19,7 +18,7 @@ export default struct LVINSERTGROUPSORTED {
      * 
      * Pointer to application-defined function <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nc-commctrl-pfnlvgroupcompare">LVGroupCompare</a> that is used to sort the groups.
      */
-    pfnGroupCompare : PFNLVGROUPCOMPARE
+    pfnGroupCompare : IntPtr
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPVOID</a>*</b>

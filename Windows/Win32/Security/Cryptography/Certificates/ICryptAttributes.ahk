@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ICryptAttribute.ahk" { ICryptAttribute }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICryptAttribute.ahk" { ICryptAttribute }
 #Import ".\IObjectId.ahk" { IObjectId }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ICryptAttributes interface contains methods and properties that enable you to manage a collection of ICryptAttribute objects.

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\GPMReportType.ahk" { GPMReportType }
 #Import ".\GPMStarterGPOType.ahk" { GPMStarterGPOType }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IGPMResult.ahk" { IGPMResult }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IGPMSecurityInfo.ahk" { IGPMSecurityInfo }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IGPMStarterGPO interface supports methods that enable you to manage Starter Group Policy Objects (GPOs) in the directory service.

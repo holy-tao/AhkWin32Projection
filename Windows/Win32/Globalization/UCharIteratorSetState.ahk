@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\UErrorCode.ahk" { UErrorCode }
 #Import ".\UCharIterator.ahk" { UCharIterator }
+#Import ".\UErrorCode.ahk" { UErrorCode }
 
 /**
  * @namespace Windows.Win32.Globalization
@@ -48,10 +48,6 @@ export default struct UCharIteratorSetState {
             this.value := CallbackCreate(fn, "cdecl", [UCharIterator.Ptr, UInt32, "int*", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

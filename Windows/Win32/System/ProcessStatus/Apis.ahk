@@ -1,15 +1,13 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ENUM_PROCESS_MODULES_EX_FLAGS.ahk" { ENUM_PROCESS_MODULES_EX_FLAGS }
-#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
 #Import ".\MODULEINFO.ahk" { MODULEINFO }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\PENUM_PAGE_FILE_CALLBACKW.ahk" { PENUM_PAGE_FILE_CALLBACKW }
 #Import ".\PERFORMANCE_INFORMATION.ahk" { PERFORMANCE_INFORMATION }
-#Import ".\PENUM_PAGE_FILE_CALLBACKA.ahk" { PENUM_PAGE_FILE_CALLBACKA }
 
 /**
  * @namespace Windows.Win32.System.ProcessStatus
@@ -1254,7 +1252,7 @@ export EnumPageFilesW(pCallBackRoutine, pContext) {
 
     A_LastError := 0
 
-    result := DllCall("PSAPI.dll\EnumPageFilesW", PENUM_PAGE_FILE_CALLBACKW, pCallBackRoutine, pContextMarshal, pContext, BOOL)
+    result := DllCall("PSAPI.dll\EnumPageFilesW", "ptr", pCallBackRoutine, pContextMarshal, pContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1302,7 +1300,7 @@ export EnumPageFilesA(pCallBackRoutine, pContext) {
 
     A_LastError := 0
 
-    result := DllCall("PSAPI.dll\EnumPageFilesA", PENUM_PAGE_FILE_CALLBACKA, pCallBackRoutine, pContextMarshal, pContext, BOOL)
+    result := DllCall("PSAPI.dll\EnumPageFilesA", "ptr", pCallBackRoutine, pContextMarshal, pContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2510,7 +2508,7 @@ export K32GetPerformanceInfo(pPerformanceInformation, cb) {
 export K32EnumPageFilesW(pCallBackRoutine, pContext) {
     pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("KERNEL32.dll\K32EnumPageFilesW", PENUM_PAGE_FILE_CALLBACKW, pCallBackRoutine, pContextMarshal, pContext, BOOL)
+    result := DllCall("KERNEL32.dll\K32EnumPageFilesW", "ptr", pCallBackRoutine, pContextMarshal, pContext, BOOL)
     return result
 }
 
@@ -2551,7 +2549,7 @@ export K32EnumPageFilesW(pCallBackRoutine, pContext) {
 export K32EnumPageFilesA(pCallBackRoutine, pContext) {
     pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("KERNEL32.dll\K32EnumPageFilesA", PENUM_PAGE_FILE_CALLBACKA, pCallBackRoutine, pContextMarshal, pContext, BOOL)
+    result := DllCall("KERNEL32.dll\K32EnumPageFilesA", "ptr", pCallBackRoutine, pContextMarshal, pContext, BOOL)
     return result
 }
 

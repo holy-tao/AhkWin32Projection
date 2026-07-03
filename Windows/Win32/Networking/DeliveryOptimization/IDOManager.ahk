@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDODownload.ahk" { IDODownload }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DO_DOWNLOAD_ENUM_CATEGORY.ahk" { DO_DOWNLOAD_ENUM_CATEGORY }
-#Import "..\..\System\Com\IEnumUnknown.ahk" { IEnumUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DO_DOWNLOAD_ENUM_CATEGORY.ahk" { DO_DOWNLOAD_ENUM_CATEGORY }
+#Import ".\IDODownload.ahk" { IDODownload }
+#Import "..\..\System\Com\IEnumUnknown.ahk" { IEnumUnknown }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Used to create a new download, and to enumerate existing downloads.

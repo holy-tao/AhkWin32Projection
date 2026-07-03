@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D2D1_EXTEND_MODE.ahk" { D2D1_EXTEND_MODE }
 #Import ".\D2D1_BITMAP_INTERPOLATION_MODE.ahk" { D2D1_BITMAP_INTERPOLATION_MODE }
-#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
+#Import ".\D2D1_EXTEND_MODE.ahk" { D2D1_EXTEND_MODE }
 #Import ".\ID2D1Bitmap.ahk" { ID2D1Bitmap }
+#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
 
 /**
  * Paints an area with a bitmap. (ID2D1BitmapBrush)

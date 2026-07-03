@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IHTMLRenderStyle.ahk" { IHTMLRenderStyle }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDisplayPointer.ahk" { IDisplayPointer }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHTMLRenderStyle.ahk" { IHTMLRenderStyle }
 #Import ".\IHighlightSegment.ahk" { IHighlightSegment }
 
 /**

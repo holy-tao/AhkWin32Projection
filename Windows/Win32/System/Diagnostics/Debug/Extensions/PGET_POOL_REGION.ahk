@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DEBUG_POOL_REGION.ahk" { DEBUG_POOL_REGION }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DEBUG_POOL_REGION.ahk" { DEBUG_POOL_REGION }
 #Import ".\IDebugClient.ahk" { IDebugClient }
 
 /**
@@ -50,10 +50,6 @@ export default struct PGET_POOL_REGION {
             this.value := CallbackCreate(fn, , ["ptr", Int64, "int*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

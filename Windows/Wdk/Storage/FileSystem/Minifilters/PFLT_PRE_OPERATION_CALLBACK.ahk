@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\FLT_CALLBACK_DATA.ahk" { FLT_CALLBACK_DATA }
-#Import ".\FLT_RELATED_OBJECTS.ahk" { FLT_RELATED_OBJECTS }
 #Import ".\FLT_PREOP_CALLBACK_STATUS.ahk" { FLT_PREOP_CALLBACK_STATUS }
+#Import ".\FLT_RELATED_OBJECTS.ahk" { FLT_RELATED_OBJECTS }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters
@@ -50,10 +50,6 @@ export default struct PFLT_PRE_OPERATION_CALLBACK {
             this.value := CallbackCreate(fn, , [FLT_CALLBACK_DATA.Ptr, FLT_RELATED_OBJECTS.Ptr, "ptr*", FLT_PREOP_CALLBACK_STATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

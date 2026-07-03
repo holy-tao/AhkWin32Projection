@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FWPM_APPC_NETWORK_CAPABILITY_TYPE.ahk" { FWPM_APPC_NETWORK_CAPABILITY_TYPE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\FWPM_APPC_NETWORK_CAPABILITY_TYPE.ahk" { FWPM_APPC_NETWORK_CAPABILITY_TYPE }
 
 /**
  * Contains information about network traffic allowed in relation to an app container network capability.

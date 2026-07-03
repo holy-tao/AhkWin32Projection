@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IX509Extensions.ahk" { IX509Extensions }
-#Import ".\IX500DistinguishedName.ahk" { IX500DistinguishedName }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import ".\IObjectId.ahk" { IObjectId }
 #Import ".\IObjectIds.ahk" { IObjectIds }
 #Import ".\ISignerCertificate.ahk" { ISignerCertificate }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\EncodingType.ahk" { EncodingType }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IX500DistinguishedName.ahk" { IX500DistinguishedName }
 #Import ".\IX509CertificateRevocationListEntries.ahk" { IX509CertificateRevocationListEntries }
-#Import ".\IX509SignatureInformation.ahk" { IX509SignatureInformation }
-#Import ".\IObjectId.ahk" { IObjectId }
+#Import ".\IX509Extensions.ahk" { IX509Extensions }
 #Import ".\IX509PublicKey.ahk" { IX509PublicKey }
+#Import ".\IX509SignatureInformation.ahk" { IX509SignatureInformation }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**

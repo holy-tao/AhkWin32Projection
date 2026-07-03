@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import ".\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
+#Import "..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.Foundation
@@ -45,10 +45,6 @@ export default struct DRIVER_FS_NOTIFICATION {
             this.value := CallbackCreate(fn, , [DEVICE_OBJECT.Ptr, BOOLEAN, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

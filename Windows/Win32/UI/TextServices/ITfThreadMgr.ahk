@@ -2,14 +2,14 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ITfFunctionProvider.ahk" { ITfFunctionProvider }
-#Import ".\ITfDocumentMgr.ahk" { ITfDocumentMgr }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\IEnumTfDocumentMgrs.ahk" { IEnumTfDocumentMgrs }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITfCompartmentMgr.ahk" { ITfCompartmentMgr }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumTfDocumentMgrs.ahk" { IEnumTfDocumentMgrs }
 #Import ".\IEnumTfFunctionProviders.ahk" { IEnumTfFunctionProviders }
+#Import ".\ITfCompartmentMgr.ahk" { ITfCompartmentMgr }
+#Import ".\ITfDocumentMgr.ahk" { ITfDocumentMgr }
+#Import ".\ITfFunctionProvider.ahk" { ITfFunctionProvider }
 
 /**
  * The ITfThreadMgr defines the primary object implemented by the TSF manager. ITfThreadMgr is used by applications and text services to activate and deactivate text services, create document managers, and maintain the document context focus.

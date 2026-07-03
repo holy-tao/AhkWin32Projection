@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
-#Import "..\..\..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IIdentityAdvise.ahk" { IIdentityAdvise }
-#Import "..\..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import "..\..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IDENTITY_TYPE.ahk" { IDENTITY_TYPE }
+#Import ".\IIdentityAdvise.ahk" { IIdentityAdvise }
 #Import "..\..\..\..\System\Com\IEnumUnknown.ahk" { IEnumUnknown }
+#Import "..\..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity.Provider

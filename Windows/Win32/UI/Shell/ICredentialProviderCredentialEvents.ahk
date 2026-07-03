@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\CREDENTIAL_PROVIDER_FIELD_STATE.ahk" { CREDENTIAL_PROVIDER_FIELD_STATE }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ICredentialProviderCredential.ahk" { ICredentialProviderCredential }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE.ahk" { CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE }
-#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\CREDENTIAL_PROVIDER_FIELD_STATE.ahk" { CREDENTIAL_PROVIDER_FIELD_STATE }
+#Import ".\ICredentialProviderCredential.ahk" { ICredentialProviderCredential }
 
 /**
  * Provides an asynchronous callback mechanism used by a credential to notify it of state or text change events in the Logon UI or Credential UI.

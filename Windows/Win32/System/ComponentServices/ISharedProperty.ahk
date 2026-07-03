@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Exposes property methods that you can use to set or retrieve the value of a shared property.

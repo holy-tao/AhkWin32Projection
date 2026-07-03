@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\FONT_CHARSET.ahk" { FONT_CHARSET }
-#Import ".\PAN_LETT_FORM.ahk" { PAN_LETT_FORM }
-#Import ".\PAN_WEIGHT.ahk" { PAN_WEIGHT }
-#Import ".\PAN_STROKE_VARIATION.ahk" { PAN_STROKE_VARIATION }
-#Import ".\LOGFONTW.ahk" { LOGFONTW }
-#Import ".\PAN_PROPORTION.ahk" { PAN_PROPORTION }
-#Import ".\PAN_XHEIGHT.ahk" { PAN_XHEIGHT }
-#Import ".\PAN_CONTRAST.ahk" { PAN_CONTRAST }
-#Import ".\FONT_OUTPUT_PRECISION.ahk" { FONT_OUTPUT_PRECISION }
-#Import ".\PAN_FAMILY_TYPE.ahk" { PAN_FAMILY_TYPE }
 #Import ".\FONT_CLIP_PRECISION.ahk" { FONT_CLIP_PRECISION }
+#Import ".\FONT_OUTPUT_PRECISION.ahk" { FONT_OUTPUT_PRECISION }
 #Import ".\FONT_QUALITY.ahk" { FONT_QUALITY }
-#Import ".\PAN_ARM_STYLE.ahk" { PAN_ARM_STYLE }
+#Import ".\LOGFONTW.ahk" { LOGFONTW }
 #Import ".\PANOSE.ahk" { PANOSE }
+#Import ".\PAN_ARM_STYLE.ahk" { PAN_ARM_STYLE }
+#Import ".\PAN_CONTRAST.ahk" { PAN_CONTRAST }
+#Import ".\PAN_FAMILY_TYPE.ahk" { PAN_FAMILY_TYPE }
+#Import ".\PAN_LETT_FORM.ahk" { PAN_LETT_FORM }
 #Import ".\PAN_MIDLINE.ahk" { PAN_MIDLINE }
+#Import ".\PAN_PROPORTION.ahk" { PAN_PROPORTION }
 #Import ".\PAN_SERIF_STYLE.ahk" { PAN_SERIF_STYLE }
+#Import ".\PAN_STROKE_VARIATION.ahk" { PAN_STROKE_VARIATION }
+#Import ".\PAN_WEIGHT.ahk" { PAN_WEIGHT }
+#Import ".\PAN_XHEIGHT.ahk" { PAN_XHEIGHT }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
@@ -27,7 +27,7 @@
  * @charset Unicode
  */
 export default struct EXTLOGFONTW {
-    #StructPack 8
+    #StructPack 4
 
     /**
      * Specifies some of the attributes of the specified font. This member is a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure.

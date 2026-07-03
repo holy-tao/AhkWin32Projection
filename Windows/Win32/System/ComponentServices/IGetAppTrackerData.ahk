@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ApplicationProcessRecycleInfo.ahk" { ApplicationProcessRecycleInfo }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ApplicationProcessRecycleInfo.ahk" { ApplicationProcessRecycleInfo }
+#Import ".\ApplicationProcessStatistics.ahk" { ApplicationProcessStatistics }
 #Import ".\ApplicationProcessSummary.ahk" { ApplicationProcessSummary }
 #Import ".\ApplicationSummary.ahk" { ApplicationSummary }
-#Import ".\ComponentSummary.ahk" { ComponentSummary }
-#Import ".\ApplicationProcessStatistics.ahk" { ApplicationProcessStatistics }
-#Import ".\ComponentStatistics.ahk" { ComponentStatistics }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\ComponentHangMonitorInfo.ahk" { ComponentHangMonitorInfo }
+#Import ".\ComponentStatistics.ahk" { ComponentStatistics }
+#Import ".\ComponentSummary.ahk" { ComponentSummary }
 
 /**
  * Enables administrative applications to retrieve statistical information about running COM+ applications.

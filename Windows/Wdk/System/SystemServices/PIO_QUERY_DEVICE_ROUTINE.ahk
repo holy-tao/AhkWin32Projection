@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\INTERFACE_TYPE.ahk" { INTERFACE_TYPE }
 #Import ".\CONFIGURATION_TYPE.ahk" { CONFIGURATION_TYPE }
-#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
+#Import ".\INTERFACE_TYPE.ahk" { INTERFACE_TYPE }
 #Import ".\KEY_VALUE_FULL_INFORMATION.ahk" { KEY_VALUE_FULL_INFORMATION }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -44,7 +44,7 @@ export default struct PIO_QUERY_DEVICE_ROUTINE {
         PeripheralInformationMarshal := PeripheralInformation is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, UNICODE_STRING.Ptr, _PathName, INTERFACE_TYPE, BusType, UInt32, BusNumber, BusInformationMarshal, BusInformation, CONFIGURATION_TYPE, ControllerType, UInt32, ControllerNumber, ControllerInformationMarshal, ControllerInformation, CONFIGURATION_TYPE, PeripheralType, UInt32, PeripheralNumber, PeripheralInformationMarshal, PeripheralInformation, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -64,10 +64,6 @@ export default struct PIO_QUERY_DEVICE_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", UNICODE_STRING.Ptr, INTERFACE_TYPE, UInt32, "ptr*", CONFIGURATION_TYPE, UInt32, "ptr*", CONFIGURATION_TYPE, UInt32, "ptr*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D10_DRIVER_TYPE.ahk" { D3D10_DRIVER_TYPE }
+#Import ".\D3D10_FEATURE_LEVEL1.ahk" { D3D10_FEATURE_LEVEL1 }
 #Import ".\ID3D10Device1.ahk" { ID3D10Device1 }
 #Import "..\Dxgi\IDXGIAdapter.ahk" { IDXGIAdapter }
-#Import ".\D3D10_FEATURE_LEVEL1.ahk" { D3D10_FEATURE_LEVEL1 }
-#Import ".\D3D10_DRIVER_TYPE.ahk" { D3D10_DRIVER_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D10
@@ -54,10 +54,6 @@ export default struct PFN_D3D10_CREATE_DEVICE1 {
             this.value := CallbackCreate(fn, , ["ptr", D3D10_DRIVER_TYPE, HMODULE, UInt32, D3D10_FEATURE_LEVEL1, UInt32, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

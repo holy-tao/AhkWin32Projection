@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\HCERTSTORE.ahk" { HCERTSTORE }
-#Import ".\IEnroll.ahk" { IEnroll }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnroll.ahk" { IEnroll }
+#Import "..\HCERTSTORE.ahk" { HCERTSTORE }
 
 /**
  * Represents the Certificate Enrollment Control and is used primarily to generate certificate requests. (IEnroll2)

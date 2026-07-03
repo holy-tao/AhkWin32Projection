@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LPPROC_THREAD_ATTRIBUTE_LIST.ahk" { LPPROC_THREAD_ATTRIBUTE_LIST }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\STARTUPINFOW_FLAGS.ahk" { STARTUPINFOW_FLAGS }
+#Import ".\LPPROC_THREAD_ATTRIBUTE_LIST.ahk" { LPPROC_THREAD_ATTRIBUTE_LIST }
 #Import ".\STARTUPINFOA.ahk" { STARTUPINFOA }
+#Import ".\STARTUPINFOW_FLAGS.ahk" { STARTUPINFOW_FLAGS }
 
 /**
  * Specifies the window station, desktop, standard handles, and attributes for a new process. It is used with the CreateProcess and CreateProcessAsUser functions. (ANSI)

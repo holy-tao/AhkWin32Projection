@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WM_READER_CLIENTINFO.ahk" { WM_READER_CLIENTINFO }
-#Import ".\WMT_STREAM_SELECTION.ahk" { WMT_STREAM_SELECTION }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WMT_STREAM_SELECTION.ahk" { WMT_STREAM_SELECTION }
+#Import ".\WM_READER_CLIENTINFO.ahk" { WM_READER_CLIENTINFO }
 #Import ".\WM_READER_STATISTICS.ahk" { WM_READER_STATISTICS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * A call to QueryInterface from a reader object exposes the advanced functionality described in this section.

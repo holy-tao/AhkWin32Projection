@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\XEKL_KEYSPEC.ahk" { XEKL_KEYSPEC }
-#Import ".\PENDING_REQUEST_DESIRED_PROPERTY.ahk" { PENDING_REQUEST_DESIRED_PROPERTY }
-#Import ".\XEKL_KEYSIZE.ahk" { XEKL_KEYSIZE }
-#Import ".\CERT_CREATE_REQUEST_FLAGS.ahk" { CERT_CREATE_REQUEST_FLAGS }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ADDED_CERT_TYPE.ahk" { ADDED_CERT_TYPE }
+#Import ".\CERT_CREATE_REQUEST_FLAGS.ahk" { CERT_CREATE_REQUEST_FLAGS }
 #Import ".\ICEnroll3.ahk" { ICEnroll3 }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\PENDING_REQUEST_DESIRED_PROPERTY.ahk" { PENDING_REQUEST_DESIRED_PROPERTY }
+#Import ".\XEKL_KEYSIZE.ahk" { XEKL_KEYSIZE }
+#Import ".\XEKL_KEYSPEC.ahk" { XEKL_KEYSPEC }
 #Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The ICEnroll4 interface is one of several interfaces that represent the Certificate Enrollment Control.

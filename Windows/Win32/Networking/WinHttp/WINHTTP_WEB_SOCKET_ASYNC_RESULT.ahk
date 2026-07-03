@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WINHTTP_WEB_SOCKET_OPERATION.ahk" { WINHTTP_WEB_SOCKET_OPERATION }
 #Import ".\WINHTTP_ASYNC_RESULT.ahk" { WINHTTP_ASYNC_RESULT }
+#Import ".\WINHTTP_WEB_SOCKET_OPERATION.ahk" { WINHTTP_WEB_SOCKET_OPERATION }
 
 /**
  * The WINHTTP_WEB_SOCKET_ASYNC_RESULT includes the result status of a WebSocket operation.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\FLOWDESCRIPTOR.ahk" { FLOWDESCRIPTOR }
-#Import ".\RSVP_POLICY_INFO.ahk" { RSVP_POLICY_INFO }
 #Import ".\QOS_OBJECT_HDR.ahk" { QOS_OBJECT_HDR }
+#Import ".\RSVP_POLICY_INFO.ahk" { RSVP_POLICY_INFO }
 
 /**
  * The QOS object RSVP_RESERVE_INFO, through the ProviderSpecific buffer, enables RSVP behavior for a given flow to be specified or modified at a granular level, and enables default RSVP style settings for a flow to be overridden.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HDV_PCI_BAR_SELECTOR.ahk" { HDV_PCI_BAR_SELECTOR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\HDV_PCI_BAR_SELECTOR.ahk" { HDV_PCI_BAR_SELECTOR }
 
 /**
  * HDV_PCI_WRITE_INTERCEPTED_MEMORY
@@ -68,10 +68,6 @@ export default struct HDV_PCI_WRITE_INTERCEPTED_MEMORY {
             this.value := CallbackCreate(fn, , ["ptr", HDV_PCI_BAR_SELECTOR, Int64, Int64, "char*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

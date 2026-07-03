@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IUpdateException.ahk" { IUpdateException }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUpdateException.ahk" { IUpdateException }
 
 /**
  * Encapsulates the exception that is thrown when an invalid license is detected for a product.

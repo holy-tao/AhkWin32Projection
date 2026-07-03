@@ -1,8 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PTRANSLATE_RESOURCE_REQUIREMENTS_HANDLER.ahk" { PTRANSLATE_RESOURCE_REQUIREMENTS_HANDLER }
-#Import ".\PTRANSLATE_RESOURCE_HANDLER.ahk" { PTRANSLATE_RESOURCE_HANDLER }
-#Import ".\PINTERFACE_DEREFERENCE.ahk" { PINTERFACE_DEREFERENCE }
-#Import ".\PINTERFACE_REFERENCE.ahk" { PINTERFACE_REFERENCE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -16,12 +12,12 @@ export default struct TRANSLATOR_INTERFACE {
 
     Context : IntPtr
 
-    InterfaceReference : PINTERFACE_REFERENCE
+    InterfaceReference : IntPtr
 
-    InterfaceDereference : PINTERFACE_DEREFERENCE
+    InterfaceDereference : IntPtr
 
-    TranslateResources : PTRANSLATE_RESOURCE_HANDLER
+    TranslateResources : IntPtr
 
-    TranslateResourceRequirements : PTRANSLATE_RESOURCE_REQUIREMENTS_HANDLER
+    TranslateResourceRequirements : IntPtr
 
 }

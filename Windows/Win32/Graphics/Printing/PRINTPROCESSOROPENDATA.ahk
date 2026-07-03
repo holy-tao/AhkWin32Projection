@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Gdi\DEVMODEA.ahk" { DEVMODEA }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Gdi\DEVMODEA.ahk" { DEVMODEA }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

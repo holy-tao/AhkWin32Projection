@@ -47,10 +47,6 @@ export default struct EMFPLAYPROC {
             this.value := CallbackCreate(fn, , [HDC, Int32, HANDLE, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

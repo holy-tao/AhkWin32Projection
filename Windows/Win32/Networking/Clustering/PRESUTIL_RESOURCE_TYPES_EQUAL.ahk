@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HRESOURCE.ahk" { HRESOURCE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HRESOURCE.ahk" { HRESOURCE }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -49,10 +49,6 @@ export default struct PRESUTIL_RESOURCE_TYPES_EQUAL {
             this.value := CallbackCreate(fn, , [PWSTR, HRESOURCE, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

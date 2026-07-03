@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ITimerSink.ahk" { ITimerSink }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ITimerSink.ahk" { ITimerSink }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer

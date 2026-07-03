@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import ".\NPEM_CONTROL_STANDARD_CONTROL_BIT.ahk" { NPEM_CONTROL_STANDARD_CONTROL_BIT }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
@@ -31,7 +31,7 @@ export default struct NPEM_CONTROL_SET_STANDARD_CONTROL {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, NPEM_CONTROL_STANDARD_CONTROL_BIT, StandardControl, BOOLEAN, Set, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -51,10 +51,6 @@ export default struct NPEM_CONTROL_SET_STANDARD_CONTROL {
             this.value := CallbackCreate(fn, , ["ptr", NPEM_CONTROL_STANDARD_CONTROL_BIT, BOOLEAN, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

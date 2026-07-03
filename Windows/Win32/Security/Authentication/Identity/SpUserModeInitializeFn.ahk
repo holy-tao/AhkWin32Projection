@@ -44,7 +44,7 @@ export default struct SpUserModeInitializeFn {
         pcTablesMarshal := pcTables is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, UInt32, LsaVersion, PackageVersionMarshal, PackageVersion, ppTablesMarshal, ppTables, pcTablesMarshal, pcTables, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -64,10 +64,6 @@ export default struct SpUserModeInitializeFn {
             this.value := CallbackCreate(fn, , [UInt32, "uint*", "ptr*", "uint*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

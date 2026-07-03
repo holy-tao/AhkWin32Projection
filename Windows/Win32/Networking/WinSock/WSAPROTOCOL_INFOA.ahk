@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WSAPROTOCOLCHAIN.ahk" { WSAPROTOCOLCHAIN }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WSAPROTOCOLCHAIN.ahk" { WSAPROTOCOLCHAIN }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**

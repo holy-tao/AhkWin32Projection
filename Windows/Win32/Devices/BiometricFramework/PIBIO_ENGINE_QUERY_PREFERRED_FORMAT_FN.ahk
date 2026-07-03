@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WINBIO_PIPELINE.ahk" { WINBIO_PIPELINE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WINBIO_PIPELINE.ahk" { WINBIO_PIPELINE }
 #Import ".\WINBIO_REGISTERED_FORMAT.ahk" { WINBIO_REGISTERED_FORMAT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Determines the input data format preferred by the engine adapter.
@@ -71,10 +71,6 @@ export default struct PIBIO_ENGINE_QUERY_PREFERRED_FORMAT_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, WINBIO_REGISTERED_FORMAT.Ptr, Guid.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

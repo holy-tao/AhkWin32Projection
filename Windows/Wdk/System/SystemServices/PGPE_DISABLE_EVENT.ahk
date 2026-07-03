@@ -29,7 +29,7 @@ export default struct PGPE_DISABLE_EVENT {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, DEVICE_OBJECT.Ptr, param0, param1Marshal, param1, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -49,10 +49,6 @@ export default struct PGPE_DISABLE_EVENT {
             this.value := CallbackCreate(fn, , [DEVICE_OBJECT.Ptr, "ptr", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

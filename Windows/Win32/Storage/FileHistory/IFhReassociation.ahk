@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\FH_DEVICE_VALIDATION_RESULT.ahk" { FH_DEVICE_VALIDATION_RESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This interface allows client applications to reassociate a File History configuration from a File History target with the current user.

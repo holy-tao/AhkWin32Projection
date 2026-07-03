@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ASF_STATUSFLAGS.ahk" { ASF_STATUSFLAGS }
+#Import ".\IMFASFContentInfo.ahk" { IMFASFContentInfo }
+#Import ".\IMFMediaBuffer.ahk" { IMFMediaBuffer }
 #Import ".\IMFSample.ahk" { IMFSample }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ASF_STATUSFLAGS.ahk" { ASF_STATUSFLAGS }
-#Import ".\IMFMediaBuffer.ahk" { IMFMediaBuffer }
-#Import ".\IMFASFContentInfo.ahk" { IMFASFContentInfo }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides methods to read data from an Advanced Systems Format (ASF) file.

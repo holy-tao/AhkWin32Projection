@@ -43,10 +43,6 @@ export default struct PDEBUG_EXTENSION_CANUNLOAD {
             this.value := CallbackCreate(fn, , ["int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

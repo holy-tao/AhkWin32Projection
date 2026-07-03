@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\D3D12_GPU_BASED_VALIDATION_FLAGS.ahk" { D3D12_GPU_BASED_VALIDATION_FLAGS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Adds configurable levels of GPU-based validation to the debug layer. (ID3D12Debug2)

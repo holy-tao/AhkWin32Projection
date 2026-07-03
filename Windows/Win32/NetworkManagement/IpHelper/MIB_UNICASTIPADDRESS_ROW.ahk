@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Networking\WinSock\NL_DAD_STATE.ahk" { NL_DAD_STATE }
-#Import "..\..\Networking\WinSock\SOCKADDR_INET.ahk" { SOCKADDR_INET }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\Ndis\NET_LUID_LH.ahk" { NET_LUID_LH }
-#Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
-#Import "..\..\Networking\WinSock\NL_PREFIX_ORIGIN.ahk" { NL_PREFIX_ORIGIN }
-#Import "..\..\Networking\WinSock\SOCKADDR_IN6.ahk" { SOCKADDR_IN6 }
+#Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
 #Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
+#Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
+#Import "..\..\Networking\WinSock\NL_DAD_STATE.ahk" { NL_DAD_STATE }
+#Import "..\..\Networking\WinSock\NL_PREFIX_ORIGIN.ahk" { NL_PREFIX_ORIGIN }
+#Import "..\..\Networking\WinSock\NL_SUFFIX_ORIGIN.ahk" { NL_SUFFIX_ORIGIN }
 #Import "..\..\Networking\WinSock\SCOPE_ID.ahk" { SCOPE_ID }
 #Import "..\..\Networking\WinSock\SOCKADDR_IN.ahk" { SOCKADDR_IN }
-#Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
-#Import "..\..\Networking\WinSock\NL_SUFFIX_ORIGIN.ahk" { NL_SUFFIX_ORIGIN }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Networking\WinSock\SOCKADDR_IN6.ahk" { SOCKADDR_IN6 }
+#Import "..\..\Networking\WinSock\SOCKADDR_INET.ahk" { SOCKADDR_INET }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**

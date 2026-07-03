@@ -1,16 +1,16 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Security\SID.ahk" { SID }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\HELPER_ATTRIBUTE.ahk" { HELPER_ATTRIBUTE }
 #Import ".\RepairInfoEx.ahk" { RepairInfoEx }
 #Import ".\RootCauseInfo.ahk" { RootCauseInfo }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Networking\WinSock\SOCKET_ADDRESS_LIST.ahk" { SOCKET_ADDRESS_LIST }
 #Import "..\..\Networking\WinSock\SOCKET.ahk" { SOCKET }
+#Import "..\..\Networking\WinSock\SOCKET_ADDRESS_LIST.ahk" { SOCKET_ADDRESS_LIST }
+#Import "..\..\Security\SID.ahk" { SID }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework

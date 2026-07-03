@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\APO_FLAG.ahk" { APO_FLAG }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\APO_FLAG.ahk" { APO_FLAG }
 #Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

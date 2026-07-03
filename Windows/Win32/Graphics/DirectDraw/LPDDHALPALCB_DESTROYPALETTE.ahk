@@ -44,10 +44,6 @@ export default struct LPDDHALPALCB_DESTROYPALETTE {
             this.value := CallbackCreate(fn, , [DDHAL_DESTROYPALETTEDATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

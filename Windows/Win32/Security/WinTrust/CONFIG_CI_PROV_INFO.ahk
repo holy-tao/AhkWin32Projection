@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import "..\Cryptography\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\CONFIG_CI_PROV_INFO_RESULT2.ahk" { CONFIG_CI_PROV_INFO_RESULT2 }
+#Import "..\Cryptography\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 #Import ".\CONFIG_CI_PROV_INFO_RESULT.ahk" { CONFIG_CI_PROV_INFO_RESULT }
+#Import ".\CONFIG_CI_PROV_INFO_RESULT2.ahk" { CONFIG_CI_PROV_INFO_RESULT2 }
 
 /**
  * @namespace Windows.Win32.Security.WinTrust

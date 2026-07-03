@@ -44,10 +44,6 @@ export default struct PRESUTIL_GET_ENVIRONMENT_WITH_NET_NAME {
             this.value := CallbackCreate(fn, , [HRESOURCE, "ptr"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

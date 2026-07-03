@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FOLDER_ENUM_MODE.ahk" { FOLDER_ENUM_MODE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\FOLDER_ENUM_MODE.ahk" { FOLDER_ENUM_MODE }
 
 /**
  * Exposes methods that get and set enumeration modes of a parsed item.

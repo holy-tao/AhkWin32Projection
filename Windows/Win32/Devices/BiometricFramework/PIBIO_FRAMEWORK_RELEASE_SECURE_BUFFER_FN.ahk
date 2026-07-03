@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WINBIO_PIPELINE.ahk" { WINBIO_PIPELINE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WINBIO_PIPELINE.ahk" { WINBIO_PIPELINE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -47,10 +47,6 @@ export default struct PIBIO_FRAMEWORK_RELEASE_SECURE_BUFFER_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, Guid, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

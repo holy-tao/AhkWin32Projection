@@ -45,10 +45,6 @@ export default struct VBS_BASIC_ENCLAVE_BASIC_CALL_TERMINATE_THREAD {
             this.value := CallbackCreate(fn, , [VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR64.Ptr, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -154,10 +154,6 @@ export default struct LPWSPBIND {
             this.value := CallbackCreate(fn, , [SOCKET, IntPtr, Int32, "int*", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

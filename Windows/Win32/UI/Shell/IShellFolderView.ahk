@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IShellFolderViewCB.ahk" { IShellFolderViewCB }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\System\Ole\IDropTarget.ahk" { IDropTarget }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
-#Import ".\ITEMSPACING.ahk" { ITEMSPACING }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Ole\IDropTarget.ahk" { IDropTarget }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import ".\IShellFolderViewCB.ahk" { IShellFolderViewCB }
+#Import ".\ITEMSPACING.ahk" { ITEMSPACING }
 
 /**
  * Exposes methods that manipulate Shell folder views.

@@ -84,10 +84,6 @@ export default struct PFNPEER_FREE_SECURITY_DATA {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", PEER_DATA.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

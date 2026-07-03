@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDCompositionFilterEffect.ahk" { IDCompositionFilterEffect }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
+#Import ".\IDCompositionFilterEffect.ahk" { IDCompositionFilterEffect }
 
 /**
  * This effect is used to alter the saturation of an image. The saturation effect is a specialization of the color matrix effect.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains information to register a cloud backup provider with Windows Server Backup.

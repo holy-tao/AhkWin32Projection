@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SecBufferDesc.ahk" { SecBufferDesc }
 #Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\SecBuffer.ahk" { SecBuffer }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\SecBuffer.ahk" { SecBuffer }
+#Import ".\SecBufferDesc.ahk" { SecBufferDesc }
 
 /**
  * Server dispatch function used to create a security context shared by a server and client.
@@ -212,7 +212,7 @@ export default struct SpAcceptLsaModeContextFn {
         MappedContextMarshal := MappedContext is VarRef ? "char*" : "ptr"
 
         result := DllCall(this.value, IntPtr, CredentialHandle, IntPtr, ContextHandle, SecBufferDesc.Ptr, InputBuffer, UInt32, ContextRequirements, UInt32, TargetDataRep, NewContextHandleMarshal, NewContextHandle, SecBufferDesc.Ptr, OutputBuffer, ContextAttributesMarshal, ContextAttributes, ExpirationTimeMarshal, ExpirationTime, MappedContextMarshal, MappedContext, SecBuffer.Ptr, ContextData, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -232,10 +232,6 @@ export default struct SpAcceptLsaModeContextFn {
             this.value := CallbackCreate(fn, , [IntPtr, IntPtr, SecBufferDesc.Ptr, UInt32, UInt32, "ptr*", SecBufferDesc.Ptr, "uint*", "int64*", BOOLEAN.Ptr, SecBuffer.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

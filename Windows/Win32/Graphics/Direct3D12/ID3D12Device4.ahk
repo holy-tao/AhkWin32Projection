@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_CLEAR_VALUE.ahk" { D3D12_CLEAR_VALUE }
+#Import ".\D3D12_COMMAND_LIST_FLAGS.ahk" { D3D12_COMMAND_LIST_FLAGS }
 #Import ".\D3D12_COMMAND_LIST_TYPE.ahk" { D3D12_COMMAND_LIST_TYPE }
-#Import ".\D3D12_RESOURCE_ALLOCATION_INFO1.ahk" { D3D12_RESOURCE_ALLOCATION_INFO1 }
-#Import ".\D3D12_RESOURCE_STATES.ahk" { D3D12_RESOURCE_STATES }
-#Import ".\D3D12_RESOURCE_DESC.ahk" { D3D12_RESOURCE_DESC }
+#Import ".\D3D12_HEAP_DESC.ahk" { D3D12_HEAP_DESC }
 #Import ".\D3D12_HEAP_FLAGS.ahk" { D3D12_HEAP_FLAGS }
 #Import ".\D3D12_HEAP_PROPERTIES.ahk" { D3D12_HEAP_PROPERTIES }
-#Import ".\D3D12_CLEAR_VALUE.ahk" { D3D12_CLEAR_VALUE }
-#Import ".\ID3D12Device3.ahk" { ID3D12Device3 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D12_COMMAND_LIST_FLAGS.ahk" { D3D12_COMMAND_LIST_FLAGS }
-#Import ".\ID3D12ProtectedResourceSession.ahk" { ID3D12ProtectedResourceSession }
-#Import ".\D3D12_RESOURCE_ALLOCATION_INFO.ahk" { D3D12_RESOURCE_ALLOCATION_INFO }
-#Import ".\D3D12_HEAP_DESC.ahk" { D3D12_HEAP_DESC }
 #Import ".\D3D12_PROTECTED_RESOURCE_SESSION_DESC.ahk" { D3D12_PROTECTED_RESOURCE_SESSION_DESC }
+#Import ".\D3D12_RESOURCE_ALLOCATION_INFO.ahk" { D3D12_RESOURCE_ALLOCATION_INFO }
+#Import ".\D3D12_RESOURCE_ALLOCATION_INFO1.ahk" { D3D12_RESOURCE_ALLOCATION_INFO1 }
+#Import ".\D3D12_RESOURCE_DESC.ahk" { D3D12_RESOURCE_DESC }
+#Import ".\D3D12_RESOURCE_STATES.ahk" { D3D12_RESOURCE_STATES }
+#Import ".\ID3D12Device3.ahk" { ID3D12Device3 }
+#Import ".\ID3D12ProtectedResourceSession.ahk" { ID3D12ProtectedResourceSession }
 
 /**
  * Represents a virtual adapter. This interface extends [ID3D12Device3](../d3d12/nn-d3d12-id3d12device3.md).

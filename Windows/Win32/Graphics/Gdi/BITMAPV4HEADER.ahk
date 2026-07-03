@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\BI_COMPRESSION.ahk" { BI_COMPRESSION }
-#Import ".\CIEXYZTRIPLE.ahk" { CIEXYZTRIPLE }
 #Import ".\CIEXYZ.ahk" { CIEXYZ }
+#Import ".\CIEXYZTRIPLE.ahk" { CIEXYZTRIPLE }
 
 /**
  * The BITMAPV4HEADER structure is the bitmap information header file. It is an extended version of the BITMAPINFOHEADER structure.Applications can use the BITMAPV5HEADER structure for added functionality.

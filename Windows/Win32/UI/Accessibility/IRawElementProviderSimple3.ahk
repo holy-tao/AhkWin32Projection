@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IRawElementProviderSimple2.ahk" { IRawElementProviderSimple2 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\UIA_METADATA_ID.ahk" { UIA_METADATA_ID }
 
 /**

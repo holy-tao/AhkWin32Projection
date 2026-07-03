@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WMT_ATTR_DATATYPE.ahk" { WMT_ATTR_DATATYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IWMWriterAdvanced.ahk" { IWMWriterAdvanced }
+#Import ".\WMT_ATTR_DATATYPE.ahk" { WMT_ATTR_DATATYPE }
 
 /**
  * The IWMWriterAdvanced2 interface provides the ability to set and retrieve named settings for an input.IWMWriterAdvanced2 exists for every instance of the writer object. To obtain a pointer to this interface, call QueryInterface on the writer object.

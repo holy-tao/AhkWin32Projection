@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CHOOSEFONT_FLAGS.ahk" { CHOOSEFONT_FLAGS }
+#Import "..\..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\CHOOSEFONT_FONT_TYPE.ahk" { CHOOSEFONT_FONT_TYPE }
-#Import "..\..\..\Graphics\Gdi\LOGFONTA.ahk" { LOGFONTA }
-#Import ".\LPCFHOOKPROC.ahk" { LPCFHOOKPROC }
-#Import "..\..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import "..\..\..\Graphics\Gdi\HDC.ahk" { HDC }
-#Import "..\..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\..\Graphics\Gdi\LOGFONTA.ahk" { LOGFONTA }
+#Import ".\CHOOSEFONT_FLAGS.ahk" { CHOOSEFONT_FLAGS }
+#Import ".\CHOOSEFONT_FONT_TYPE.ahk" { CHOOSEFONT_FONT_TYPE }
 
 /**
  * Contains information that the ChooseFont function uses to initialize the Font dialog box. After the user closes the dialog box, the system returns information about the user's selection in this structure. (ANSI)
@@ -84,7 +83,7 @@ export default struct CHOOSEFONTA {
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nc-commdlg-lpcfhookproc">CFHookProc</a> hook procedure that can process messages intended for the dialog box. This member is ignored unless the <b>CF_ENABLEHOOK</b> flag is set in the <b>Flags</b> member.
      */
-    lpfnHook : LPCFHOOKPROC
+    lpfnHook : IntPtr
 
     /**
      * Type: <b>LPCTSTR</b>

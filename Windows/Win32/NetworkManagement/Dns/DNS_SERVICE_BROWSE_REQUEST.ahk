@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PDNS_QUERY_COMPLETION_ROUTINE.ahk" { PDNS_QUERY_COMPLETION_ROUTINE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\PDNS_SERVICE_BROWSE_CALLBACK.ahk" { PDNS_SERVICE_BROWSE_CALLBACK }
 
 /**
  * Contains the query parameters used in a call to [DnsServiceBrowse](../windns/nf-windns-dnsservicebrowse.md).
@@ -26,7 +24,7 @@ export default struct DNS_SERVICE_BROWSE_REQUEST {
      */
     QueryName : PWSTR
 
-    pBrowseCallback : PDNS_SERVICE_BROWSE_CALLBACK
+    pBrowseCallback : IntPtr
 
     /**
      * A pointer to a user context.
@@ -34,7 +32,7 @@ export default struct DNS_SERVICE_BROWSE_REQUEST {
     pQueryContext : IntPtr
 
     static __New() {
-        DefineProp(this.Prototype, 'pBrowseCallbackV2', { type: PDNS_QUERY_COMPLETION_ROUTINE, offset: 16 })
+        DefineProp(this.Prototype, 'pBrowseCallbackV2', { type: IntPtr, offset: 16 })
         this.DeleteProp("__New")
     }
 }

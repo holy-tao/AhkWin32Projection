@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DXCoreAdapterState.ahk" { DXCoreAdapterState }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DXCoreAdapterProperty.ahk" { DXCoreAdapterProperty }
+#Import ".\DXCoreAdapterState.ahk" { DXCoreAdapterState }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The **IDXCoreAdapter** interface implements methods for retrieving details about an adapter item.

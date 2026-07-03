@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import "..\Dxgi\Common\DXGI_SAMPLE_DESC.ahk" { DXGI_SAMPLE_DESC }
 #Import ".\D3D11_TEXTURE_LAYOUT.ahk" { D3D11_TEXTURE_LAYOUT }
 #Import ".\D3D11_USAGE.ahk" { D3D11_USAGE }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import "..\Dxgi\Common\DXGI_SAMPLE_DESC.ahk" { DXGI_SAMPLE_DESC }
 
 /**
  * Describes a 2D texture. (D3D11_TEXTURE2D_DESC1)

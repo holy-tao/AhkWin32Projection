@@ -43,10 +43,6 @@ export default struct PFN_FSRTLTEARDOWNPERSTREAMCONTEXTS {
             this.value := CallbackCreate(fn, , [FSRTL_ADVANCED_FCB_HEADER.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -49,10 +49,6 @@ export default struct XA_COMPLETE_EPT {
             this.value := CallbackCreate(fn, "cdecl", ["int*", "int*", Int32, Int32, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

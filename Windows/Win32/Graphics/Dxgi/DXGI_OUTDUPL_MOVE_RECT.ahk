@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * The DXGI_OUTDUPL_MOVE_RECT structure describes the movement of a rectangle.

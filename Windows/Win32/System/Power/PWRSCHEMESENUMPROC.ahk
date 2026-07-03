@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import ".\POWER_POLICY.ahk" { POWER_POLICY }
 
 /**
@@ -52,10 +52,6 @@ export default struct PWRSCHEMESENUMPROC {
             this.value := CallbackCreate(fn, , [UInt32, UInt32, IntPtr, UInt32, IntPtr, POWER_POLICY.Ptr, LPARAM, BOOLEAN])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

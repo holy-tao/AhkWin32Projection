@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VMR9_SampleFormat.ahk" { VMR9_SampleFormat }
 #Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
 #Import ".\VMR9NormalizedRect.ahk" { VMR9NormalizedRect }
+#Import ".\VMR9_SampleFormat.ahk" { VMR9_SampleFormat }
 
 /**
  * The VMR9VideoStreamInfo structure describes the rendering parameters for a video compositing operation in the VRM-9 filter. This structure is used in the IVMRImageCompositor9::CompositeImage method.

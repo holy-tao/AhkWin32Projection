@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDirectInputDeviceW.ahk" { IDirectInputDeviceW }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\LPDIENUMCREATEDEFFECTOBJECTSCALLBACK.ahk" { LPDIENUMCREATEDEFFECTOBJECTSCALLBACK }
-#Import ".\IDirectInputEffect.ahk" { IDirectInputEffect }
-#Import ".\DIEFFECTINFOW.ahk" { DIEFFECTINFOW }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\LPDIENUMEFFECTSCALLBACKW.ahk" { LPDIENUMEFFECTSCALLBACKW }
-#Import ".\DIEFFECT.ahk" { DIEFFECT }
-#Import ".\DIEFFESCAPE.ahk" { DIEFFESCAPE }
 #Import ".\DIDEVICEOBJECTDATA.ahk" { DIDEVICEOBJECTDATA }
+#Import ".\DIEFFECT.ahk" { DIEFFECT }
+#Import ".\DIEFFECTINFOW.ahk" { DIEFFECTINFOW }
+#Import ".\DIEFFESCAPE.ahk" { DIEFFESCAPE }
+#Import ".\IDirectInputDeviceW.ahk" { IDirectInputDeviceW }
+#Import ".\IDirectInputEffect.ahk" { IDirectInputEffect }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
@@ -74,7 +72,7 @@ export default struct IDirectInputDevice2W extends IDirectInputDeviceW {
     EnumEffects(param0, param1, param2) {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(19, this, LPDIENUMEFFECTSCALLBACKW, param0, param1Marshal, param1, UInt32, param2, "HRESULT")
+        result := ComCall(19, this, "ptr", param0, param1Marshal, param1, UInt32, param2, "HRESULT")
         return result
     }
 
@@ -121,7 +119,7 @@ export default struct IDirectInputDevice2W extends IDirectInputDeviceW {
     EnumCreatedEffectObjects(param0, param1, param2) {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(23, this, LPDIENUMCREATEDEFFECTOBJECTSCALLBACK, param0, param1Marshal, param1, UInt32, param2, "HRESULT")
+        result := ComCall(23, this, "ptr", param0, param1Marshal, param1, UInt32, param2, "HRESULT")
         return result
     }
 

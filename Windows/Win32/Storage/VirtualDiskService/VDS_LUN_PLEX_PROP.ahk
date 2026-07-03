@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VDS_TRANSITION_STATE.ahk" { VDS_TRANSITION_STATE }
-#Import ".\VDS_LUN_PLEX_TYPE.ahk" { VDS_LUN_PLEX_TYPE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\VDS_HEALTH.ahk" { VDS_HEALTH }
 #Import ".\VDS_LUN_PLEX_STATUS.ahk" { VDS_LUN_PLEX_STATUS }
+#Import ".\VDS_LUN_PLEX_TYPE.ahk" { VDS_LUN_PLEX_TYPE }
+#Import ".\VDS_TRANSITION_STATE.ahk" { VDS_TRANSITION_STATE }
 
 /**
  * The VDS_LUN_PLEX_PROP structure (vdshwprv.h) defines the properties of a LUN plex object.

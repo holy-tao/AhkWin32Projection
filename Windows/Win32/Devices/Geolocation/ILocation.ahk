@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\LOCATION_REPORT_STATUS.ahk" { LOCATION_REPORT_STATUS }
-#Import ".\ILocationReport.ahk" { ILocationReport }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Sensors\LOCATION_DESIRED_ACCURACY.ahk" { LOCATION_DESIRED_ACCURACY }
 #Import ".\ILocationEvents.ahk" { ILocationEvents }
+#Import ".\ILocationReport.ahk" { ILocationReport }
+#Import ".\LOCATION_REPORT_STATUS.ahk" { LOCATION_REPORT_STATUS }
+#Import "..\Sensors\LOCATION_DESIRED_ACCURACY.ahk" { LOCATION_DESIRED_ACCURACY }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods used to manage location reports, event registration, and sensor permissions.

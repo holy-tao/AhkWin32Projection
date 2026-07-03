@@ -62,10 +62,6 @@ export default struct PENUM_PAGE_FILE_CALLBACKW {
             this.value := CallbackCreate(fn, , ["ptr", ENUM_PAGE_FILE_INFORMATION.Ptr, PWSTR, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

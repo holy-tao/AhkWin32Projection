@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\CERT_OTHER_NAME.ahk" { CERT_OTHER_NAME }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CERT_ALT_NAME_ENTRY.ahk" { CERT_ALT_NAME_ENTRY }
+#Import ".\CERT_OTHER_NAME.ahk" { CERT_OTHER_NAME }
 #Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 
 /**

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\HCERTSTORE.ahk" { HCERTSTORE }
-#Import "..\CRYPT_ATTRIBUTES.ahk" { CRYPT_ATTRIBUTES }
-#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import "..\CERT_EXTENSIONS.ahk" { CERT_EXTENSIONS }
+#Import "..\CRYPT_ATTRIBUTES.ahk" { CRYPT_ATTRIBUTES }
+#Import "..\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import "..\HCERTSTORE.ahk" { HCERTSTORE }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents the Certificate Enrollment Control and is used primarily to generate certificate requests. (IEnroll)

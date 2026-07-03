@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FA_ENTRY.ahk" { FA_ENTRY }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FA_ENTRY.ahk" { FA_ENTRY }
 #Import ".\IDebugClient4.ahk" { IDebugClient4 }
 
 /**
@@ -51,10 +51,6 @@ export default struct EXT_GET_FA_ENTRIES_DATA {
             this.value := CallbackCreate(fn, , ["ptr", "uint*", "ptr*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

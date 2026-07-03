@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\HrtfOrientation.ahk" { HrtfOrientation }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\HrtfPosition.ahk" { HrtfPosition }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\HrtfEnvironment.ahk" { HrtfEnvironment }
+#Import ".\HrtfOrientation.ahk" { HrtfOrientation }
+#Import ".\HrtfPosition.ahk" { HrtfPosition }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The interface used to set parameters that control how head-related transfer function (HRTF) is applied to a sound.

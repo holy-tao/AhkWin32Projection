@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WLX_CLIENT_CREDENTIALS_INFO_V1_0.ahk" { WLX_CLIENT_CREDENTIALS_INFO_V1_0 }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\WLX_CLIENT_CREDENTIALS_INFO_V1_0.ahk" { WLX_CLIENT_CREDENTIALS_INFO_V1_0 }
 
 /**
  * Called by a replacement GINA DLL if Terminal Services is enabled. GINA calls this function to determine whether the terminal server is using Internet connector licensing and to retrieve credentials information.
@@ -91,10 +91,6 @@ export default struct PWLX_QUERY_IC_CREDENTIALS {
             this.value := CallbackCreate(fn, , [WLX_CLIENT_CREDENTIALS_INFO_V1_0.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

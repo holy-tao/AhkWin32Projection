@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\AM_ASPECT_RATIO_MODE.ahk" { AM_ASPECT_RATIO_MODE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\COLORKEY.ahk" { COLORKEY }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\AM_ASPECT_RATIO_MODE.ahk" { AM_ASPECT_RATIO_MODE }
+#Import ".\COLORKEY.ahk" { COLORKEY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IMixerPinConfig interface is exposed on the input pins of the Overlay Mixer filter and contains methods that manipulate video streams in various ways.

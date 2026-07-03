@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\PROPSHEETPAGEA.ahk" { PROPSHEETPAGEA }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import ".\PFNPROPSHEETCALLBACK.ahk" { PFNPROPSHEETCALLBACK }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\HPROPSHEETPAGE.ahk" { HPROPSHEETPAGE }
+#Import ".\PROPSHEETPAGEA.ahk" { PROPSHEETPAGEA }
 #Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
 
 /**
@@ -31,7 +30,7 @@ export default struct PROPSHEETHEADERA_V1 {
 
     ppsp : PROPSHEETPAGEA.Ptr
 
-    pfnCallback : PFNPROPSHEETCALLBACK
+    pfnCallback : IntPtr
 
     static __New() {
         DefineProp(this.Prototype, 'pszIcon', { type: PSTR, offset: 24 })

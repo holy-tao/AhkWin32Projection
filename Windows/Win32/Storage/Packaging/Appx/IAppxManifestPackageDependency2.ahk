@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IAppxManifestPackageDependency.ahk" { IAppxManifestPackageDependency }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAppxManifestPackageDependency.ahk" { IAppxManifestPackageDependency }
 
 /**
  * Describes the dependency of one package on another package. (IAppxManifestPackageDependency2)

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\alljoyn_proxybusobject.ahk" { alljoyn_proxybusobject }
 #Import ".\alljoyn_msgarg.ahk" { alljoyn_msgarg }
+#Import ".\alljoyn_proxybusobject.ahk" { alljoyn_proxybusobject }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.Devices.AllJoyn
@@ -53,10 +53,6 @@ export default struct alljoyn_proxybusobject_listener_propertieschanged_ptr {
             this.value := CallbackCreate(fn, , [alljoyn_proxybusobject, PSTR, alljoyn_msgarg, alljoyn_msgarg, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

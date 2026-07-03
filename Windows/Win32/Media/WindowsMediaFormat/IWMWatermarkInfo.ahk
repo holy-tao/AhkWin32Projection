@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WMT_WATERMARK_ENTRY.ahk" { WMT_WATERMARK_ENTRY }
 #Import ".\WMT_WATERMARK_ENTRY_TYPE.ahk" { WMT_WATERMARK_ENTRY_TYPE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\WMT_WATERMARK_ENTRY.ahk" { WMT_WATERMARK_ENTRY }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMWatermarkInfo interface retrieves information about available watermarking systems.

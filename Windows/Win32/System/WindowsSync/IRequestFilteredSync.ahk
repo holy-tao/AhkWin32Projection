@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IFilterRequestCallback.ahk" { IFilterRequestCallback }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * When implemented by a derived class, represents a destination provider that can specify a filter to be used by the source provider during change enumeration.

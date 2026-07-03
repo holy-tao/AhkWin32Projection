@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RIO_CQ.ahk" { RIO_CQ }
 #Import ".\RIORESULT.ahk" { RIORESULT }
+#Import ".\RIO_CQ.ahk" { RIO_CQ }
 
 /**
  * Removes entries from an I/O completion queue for use with the Winsock registered I/O extensions.
@@ -75,10 +75,6 @@ export default struct LPFN_RIODEQUEUECOMPLETION {
             this.value := CallbackCreate(fn, , [RIO_CQ, RIORESULT.Ptr, UInt32, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

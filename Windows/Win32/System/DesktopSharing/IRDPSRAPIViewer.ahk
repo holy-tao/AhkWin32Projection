@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IRDPSRAPIVirtualChannelManager.ahk" { IRDPSRAPIVirtualChannelManager }
-#Import ".\IRDPSRAPIApplicationFilter.ahk" { IRDPSRAPIApplicationFilter }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\CTRL_LEVEL.ahk" { CTRL_LEVEL }
+#Import ".\IRDPSRAPIApplicationFilter.ahk" { IRDPSRAPIApplicationFilter }
 #Import ".\IRDPSRAPIAttendeeManager.ahk" { IRDPSRAPIAttendeeManager }
 #Import ".\IRDPSRAPIInvitationManager.ahk" { IRDPSRAPIInvitationManager }
-#Import ".\CTRL_LEVEL.ahk" { CTRL_LEVEL }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IRDPSRAPISessionProperties.ahk" { IRDPSRAPISessionProperties }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IRDPSRAPIVirtualChannelManager.ahk" { IRDPSRAPIVirtualChannelManager }
 
 /**
  * The ActiveX interface that is used on the viewer side.

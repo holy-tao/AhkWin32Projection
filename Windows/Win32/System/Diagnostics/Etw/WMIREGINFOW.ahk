@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WMIREGGUIDW.ahk" { WMIREGGUIDW }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WMIREGGUIDW.ahk" { WMIREGGUIDW }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw

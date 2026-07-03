@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFMediaTypeHandler.ahk" { IMFMediaTypeHandler }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import ".\IMFMediaTypeHandler.ahk" { IMFMediaTypeHandler }
 
 /**
  * Gets information about one stream in a media source.

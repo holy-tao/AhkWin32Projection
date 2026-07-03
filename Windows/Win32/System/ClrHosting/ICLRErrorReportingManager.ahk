@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\BucketParameters.ahk" { BucketParameters }
+#Import ".\CustomDumpItem.ahk" { CustomDumpItem }
 #Import ".\ECustomDumpFlavor.ahk" { ECustomDumpFlavor }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\CustomDumpItem.ahk" { CustomDumpItem }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting

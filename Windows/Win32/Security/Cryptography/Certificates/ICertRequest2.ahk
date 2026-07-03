@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CERT_PROPERTY_TYPE.ahk" { CERT_PROPERTY_TYPE }
+#Import ".\CERT_REQUEST_OUT_TYPE.ahk" { CERT_REQUEST_OUT_TYPE }
+#Import ".\CR_DISP.ahk" { CR_DISP }
+#Import ".\FULL_RESPONSE_PROPERTY_ID.ahk" { FULL_RESPONSE_PROPERTY_ID }
 #Import ".\ICertRequest.ahk" { ICertRequest }
 #Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\CERT_REQUEST_OUT_TYPE.ahk" { CERT_REQUEST_OUT_TYPE }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\FULL_RESPONSE_PROPERTY_ID.ahk" { FULL_RESPONSE_PROPERTY_ID }
-#Import ".\CERT_PROPERTY_TYPE.ahk" { CERT_PROPERTY_TYPE }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\CR_DISP.ahk" { CR_DISP }
 
 /**
  * Provide communications between a client or intermediary application and Certificate Services. (ICertRequest2)

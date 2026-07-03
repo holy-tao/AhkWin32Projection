@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MIB_TCP_STATE.ahk" { MIB_TCP_STATE }
 #Import ".\MIB_TCPROW_LH.ahk" { MIB_TCPROW_LH }
+#Import ".\MIB_TCP_STATE.ahk" { MIB_TCP_STATE }
 
 /**
  * Contains a table of TCP connections for IPv4 on the local computer.

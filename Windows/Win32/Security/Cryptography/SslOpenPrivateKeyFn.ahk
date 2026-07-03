@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CERT_CONTEXT.ahk" { CERT_CONTEXT }
-#Import ".\NCRYPT_PROV_HANDLE.ahk" { NCRYPT_PROV_HANDLE }
-#Import ".\NCRYPT_KEY_HANDLE.ahk" { NCRYPT_KEY_HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import ".\NCRYPT_KEY_HANDLE.ahk" { NCRYPT_KEY_HANDLE }
+#Import ".\NCRYPT_PROV_HANDLE.ahk" { NCRYPT_PROV_HANDLE }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -50,10 +50,6 @@ export default struct SslOpenPrivateKeyFn {
             this.value := CallbackCreate(fn, , [NCRYPT_PROV_HANDLE, CERT_CONTEXT.Ptr, UInt32, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

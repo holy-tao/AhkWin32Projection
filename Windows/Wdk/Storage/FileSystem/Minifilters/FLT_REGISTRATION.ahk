@@ -1,16 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PFLT_NORMALIZE_CONTEXT_CLEANUP.ahk" { PFLT_NORMALIZE_CONTEXT_CLEANUP }
-#Import ".\PFLT_FILTER_UNLOAD_CALLBACK.ahk" { PFLT_FILTER_UNLOAD_CALLBACK }
-#Import ".\PFLT_INSTANCE_QUERY_TEARDOWN_CALLBACK.ahk" { PFLT_INSTANCE_QUERY_TEARDOWN_CALLBACK }
 #Import ".\FLT_CONTEXT_REGISTRATION.ahk" { FLT_CONTEXT_REGISTRATION }
-#Import ".\PFLT_INSTANCE_TEARDOWN_CALLBACK.ahk" { PFLT_INSTANCE_TEARDOWN_CALLBACK }
 #Import ".\FLT_OPERATION_REGISTRATION.ahk" { FLT_OPERATION_REGISTRATION }
-#Import ".\PFLT_TRANSACTION_NOTIFICATION_CALLBACK.ahk" { PFLT_TRANSACTION_NOTIFICATION_CALLBACK }
-#Import ".\PFLT_NORMALIZE_NAME_COMPONENT.ahk" { PFLT_NORMALIZE_NAME_COMPONENT }
-#Import ".\PFLT_NORMALIZE_NAME_COMPONENT_EX.ahk" { PFLT_NORMALIZE_NAME_COMPONENT_EX }
-#Import ".\PFLT_INSTANCE_SETUP_CALLBACK.ahk" { PFLT_INSTANCE_SETUP_CALLBACK }
-#Import ".\PFLT_SECTION_CONFLICT_NOTIFICATION_CALLBACK.ahk" { PFLT_SECTION_CONFLICT_NOTIFICATION_CALLBACK }
-#Import ".\PFLT_GENERATE_FILE_NAME.ahk" { PFLT_GENERATE_FILE_NAME }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters
@@ -28,26 +18,26 @@ export default struct FLT_REGISTRATION {
 
     OperationRegistration : FLT_OPERATION_REGISTRATION.Ptr
 
-    FilterUnloadCallback : PFLT_FILTER_UNLOAD_CALLBACK
+    FilterUnloadCallback : IntPtr
 
-    InstanceSetupCallback : PFLT_INSTANCE_SETUP_CALLBACK
+    InstanceSetupCallback : IntPtr
 
-    InstanceQueryTeardownCallback : PFLT_INSTANCE_QUERY_TEARDOWN_CALLBACK
+    InstanceQueryTeardownCallback : IntPtr
 
-    InstanceTeardownStartCallback : PFLT_INSTANCE_TEARDOWN_CALLBACK
+    InstanceTeardownStartCallback : IntPtr
 
-    InstanceTeardownCompleteCallback : PFLT_INSTANCE_TEARDOWN_CALLBACK
+    InstanceTeardownCompleteCallback : IntPtr
 
-    GenerateFileNameCallback : PFLT_GENERATE_FILE_NAME
+    GenerateFileNameCallback : IntPtr
 
-    NormalizeNameComponentCallback : PFLT_NORMALIZE_NAME_COMPONENT
+    NormalizeNameComponentCallback : IntPtr
 
-    NormalizeContextCleanupCallback : PFLT_NORMALIZE_CONTEXT_CLEANUP
+    NormalizeContextCleanupCallback : IntPtr
 
-    TransactionNotificationCallback : PFLT_TRANSACTION_NOTIFICATION_CALLBACK
+    TransactionNotificationCallback : IntPtr
 
-    NormalizeNameComponentExCallback : PFLT_NORMALIZE_NAME_COMPONENT_EX
+    NormalizeNameComponentExCallback : IntPtr
 
-    SectionNotificationCallback : PFLT_SECTION_CONFLICT_NOTIFICATION_CALLBACK
+    SectionNotificationCallback : IntPtr
 
 }

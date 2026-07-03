@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IXpsSignatureBlockCollection.ahk" { IXpsSignatureBlockCollection }
-#Import ".\IXpsSignatureBlock.ahk" { IXpsSignatureBlock }
-#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
-#Import "..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
-#Import ".\IXpsSigningOptions.ahk" { IXpsSigningOptions }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IXpsSignatureCollection.ahk" { IXpsSignatureCollection }
-#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
 #Import ".\IXpsSignature.ahk" { IXpsSignature }
+#Import ".\IXpsSignatureBlock.ahk" { IXpsSignatureBlock }
+#Import ".\IXpsSignatureBlockCollection.ahk" { IXpsSignatureBlockCollection }
+#Import ".\IXpsSignatureCollection.ahk" { IXpsSignatureCollection }
+#Import ".\IXpsSigningOptions.ahk" { IXpsSigningOptions }
 #Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Manages the digital signatures and digital signature requests of an XPS document.

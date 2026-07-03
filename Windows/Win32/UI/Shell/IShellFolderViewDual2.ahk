@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IShellFolderViewDual.ahk" { IShellFolderViewDual }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IShellFolderViewDual.ahk" { IShellFolderViewDual }
 
 /**
  * Exposes methods that modify the view and select items in the current folder. (IShellFolderViewDual2)

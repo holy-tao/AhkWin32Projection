@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CUSTDATA.ahk" { CUSTDATA }
 #Import ".\ITypeLib.ahk" { ITypeLib }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\CUSTDATA.ahk" { CUSTDATA }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a type library, the data that describes a set of objects. (ITypeLib2)

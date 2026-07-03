@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\EapSimCredential.ahk" { EapSimCredential }
-#Import ".\EapUsernamePasswordCredential.ahk" { EapUsernamePasswordCredential }
-#Import ".\EapCredentialType.ahk" { EapCredentialType }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\EapCertificateCredential.ahk" { EapCertificateCredential }
+#Import ".\EapCredentialType.ahk" { EapCredentialType }
 #Import ".\EapCredentialTypeData.ahk" { EapCredentialTypeData }
+#Import ".\EapSimCredential.ahk" { EapSimCredential }
+#Import ".\EapUsernamePasswordCredential.ahk" { EapUsernamePasswordCredential }
 
 /**
  * Contains information about the credentials type and the appropriate credentials. This is passed as an input to the EapPeerGetConfigBlobAndUserBlob API.

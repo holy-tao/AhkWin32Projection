@@ -1,239 +1,198 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\URegexMatchCallback.ahk" { URegexMatchCallback }
-#Import ".\CALDATETIME_DATEUNIT.ahk" { CALDATETIME_DATEUNIT }
-#Import ".\URegularExpression.ahk" { URegularExpression }
-#Import ".\UFormattedNumberRange.ahk" { UFormattedNumberRange }
-#Import ".\HSAVEDUILANGUAGES.ahk" { HSAVEDUILANGUAGES }
-#Import ".\LOCALE_ENUMPROCA.ahk" { LOCALE_ENUMPROCA }
-#Import ".\SYSGEOTYPE.ahk" { SYSGEOTYPE }
-#Import ".\CALINFO_ENUMPROCEXEX.ahk" { CALINFO_ENUMPROCEXEX }
-#Import ".\UNormalization2Mode.ahk" { UNormalization2Mode }
-#Import ".\UDateFormatBooleanAttribute.ahk" { UDateFormatBooleanAttribute }
-#Import "..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\UConverterToUCallback.ahk" { UConverterToUCallback }
-#Import ".\UCharIterator.ahk" { UCharIterator }
-#Import ".\UBiDiReorderingMode.ahk" { UBiDiReorderingMode }
-#Import ".\UDialectHandling.ahk" { UDialectHandling }
-#Import ".\TRANSLATE_CHARSET_INFO_FLAGS.ahk" { TRANSLATE_CHARSET_INFO_FLAGS }
-#Import ".\UILANGUAGE_ENUMPROCA.ahk" { UILANGUAGE_ENUMPROCA }
-#Import ".\MAPPING_ENUM_OPTIONS.ahk" { MAPPING_ENUM_OPTIONS }
-#Import ".\UPluralType.ahk" { UPluralType }
-#Import ".\TIME_FORMAT_FLAGS.ahk" { TIME_FORMAT_FLAGS }
-#Import ".\UDateRelativeDateTimeFormatterStyle.ahk" { UDateRelativeDateTimeFormatterStyle }
-#Import ".\UProperty.ahk" { UProperty }
-#Import ".\SCRIPT_STATE.ahk" { SCRIPT_STATE }
-#Import ".\CALINFO_ENUMPROCEXA.ahk" { CALINFO_ENUMPROCEXA }
-#Import ".\CALDATETIME.ahk" { CALDATETIME }
-#Import ".\URelativeDateTimeFormatter.ahk" { URelativeDateTimeFormatter }
-#Import ".\LOCALE_ENUMPROCW.ahk" { LOCALE_ENUMPROCW }
-#Import ".\UCharNameChoice.ahk" { UCharNameChoice }
-#Import ".\UCalendarWeekdayType.ahk" { UCalendarWeekdayType }
-#Import ".\NUMBERFMTW.ahk" { NUMBERFMTW }
-#Import ".\UConverterFromUCallback.ahk" { UConverterFromUCallback }
-#Import ".\TEXTRANGE_PROPERTIES.ahk" { TEXTRANGE_PROPERTIES }
-#Import ".\URegion.ahk" { URegion }
-#Import "..\Graphics\Gdi\HDC.ahk" { HDC }
-#Import ".\UDateTimePatternField.ahk" { UDateTimePatternField }
-#Import ".\UBiDiMirroring.ahk" { UBiDiMirroring }
-#Import ".\NORM_FORM.ahk" { NORM_FORM }
-#Import ".\UTransPosition.ahk" { UTransPosition }
-#Import ".\LANGGROUPLOCALE_ENUMPROCW.ahk" { LANGGROUPLOCALE_ENUMPROCW }
-#Import ".\ENUM_DATE_FORMATS_FLAGS.ahk" { ENUM_DATE_FORMATS_FLAGS }
-#Import ".\UDateTimePatternMatchOptions.ahk" { UDateTimePatternMatchOptions }
-#Import ".\ULayoutType.ahk" { ULayoutType }
-#Import ".\DATEFMT_ENUMPROCA.ahk" { DATEFMT_ENUMPROCA }
-#Import ".\UListFormatterType.ahk" { UListFormatterType }
-#Import ".\UCPMapValueFilter.ahk" { UCPMapValueFilter }
-#Import ".\UCollator.ahk" { UCollator }
-#Import ".\GEO_ENUMPROC.ahk" { GEO_ENUMPROC }
-#Import ".\USearchAttributeValue.ahk" { USearchAttributeValue }
-#Import ".\CPINFOEXA.ahk" { CPINFOEXA }
-#Import ".\URegionType.ahk" { URegionType }
-#Import ".\SCRIPT_CHARPROP.ahk" { SCRIPT_CHARPROP }
-#Import ".\UNumberFormatTextAttribute.ahk" { UNumberFormatTextAttribute }
-#Import ".\GEO_ENUMNAMEPROC.ahk" { GEO_ENUMNAMEPROC }
-#Import ".\UDisplayContext.ahk" { UDisplayContext }
-#Import ".\UAcceptResult.ahk" { UAcceptResult }
-#Import ".\UColAttributeValue.ahk" { UColAttributeValue }
-#Import ".\SCRIPT_LOGATTR.ahk" { SCRIPT_LOGATTR }
-#Import ".\SCRIPT_DIGITSUBSTITUTE.ahk" { SCRIPT_DIGITSUBSTITUTE }
-#Import ".\USystemTimeZoneType.ahk" { USystemTimeZoneType }
-#Import ".\UCPMapRangeOption.ahk" { UCPMapRangeOption }
-#Import ".\COMPARE_STRING_FLAGS.ahk" { COMPARE_STRING_FLAGS }
-#Import ".\FOLD_STRING_MAP_FLAGS.ahk" { FOLD_STRING_MAP_FLAGS }
-#Import ".\IS_VALID_LOCALE_FLAGS.ahk" { IS_VALID_LOCALE_FLAGS }
-#Import ".\UBreakIteratorType.ahk" { UBreakIteratorType }
-#Import ".\UCollationElements.ahk" { UCollationElements }
-#Import ".\UFormattedValue.ahk" { UFormattedValue }
-#Import ".\UConverterCallbackReason.ahk" { UConverterCallbackReason }
-#Import ".\UCalendarDisplayNameType.ahk" { UCalendarDisplayNameType }
-#Import ".\UMutableCPTrie.ahk" { UMutableCPTrie }
-#Import ".\CALINFO_ENUMPROCA.ahk" { CALINFO_ENUMPROCA }
-#Import ".\UMemAllocFn.ahk" { UMemAllocFn }
-#Import ".\UNumberRangeFormatter.ahk" { UNumberRangeFormatter }
-#Import ".\UScriptUsage.ahk" { UScriptUsage }
-#Import ".\UCurrNameStyle.ahk" { UCurrNameStyle }
-#Import ".\UListFormatter.ahk" { UListFormatter }
-#Import "..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\NLSVERSIONINFOEX.ahk" { NLSVERSIONINFOEX }
-#Import "..\Foundation\RECT.ahk" { RECT }
-#Import ".\UNumberFormatSymbol.ahk" { UNumberFormatSymbol }
-#Import ".\UFieldPositionIterator.ahk" { UFieldPositionIterator }
-#Import ".\UErrorCode.ahk" { UErrorCode }
-#Import ".\CODEPAGE_ENUMPROCW.ahk" { CODEPAGE_ENUMPROCW }
-#Import ".\SYSGEOCLASS.ahk" { SYSGEOCLASS }
-#Import ".\UDateTimePGDisplayWidth.ahk" { UDateTimePGDisplayWidth }
-#Import "..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\UTraceExit.ahk" { UTraceExit }
-#Import ".\UNumberFormatStyle.ahk" { UNumberFormatStyle }
-#Import ".\UColBoundMode.ahk" { UColBoundMode }
-#Import ".\SCRIPT_FONTPROPERTIES.ahk" { SCRIPT_FONTPROPERTIES }
-#Import ".\LOCALE_ENUMPROCEX.ahk" { LOCALE_ENUMPROCEX }
-#Import ".\UBiDiClassCallback.ahk" { UBiDiClassCallback }
-#Import ".\UResourceBundle.ahk" { UResourceBundle }
-#Import ".\UConverterFromUnicodeArgs.ahk" { UConverterFromUnicodeArgs }
-#Import "..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SCRIPT_ITEM.ahk" { SCRIPT_ITEM }
-#Import ".\UMemFreeFn.ahk" { UMemFreeFn }
-#Import ".\UCPTrieValueWidth.ahk" { UCPTrieValueWidth }
-#Import ".\LANGUAGEGROUP_ENUMPROCW.ahk" { LANGUAGEGROUP_ENUMPROCW }
-#Import ".\UCalendarLimitType.ahk" { UCalendarLimitType }
-#Import ".\UNumberRangeCollapse.ahk" { UNumberRangeCollapse }
-#Import ".\UConstrainedFieldPosition.ahk" { UConstrainedFieldPosition }
-#Import ".\SCRIPT_IS_COMPLEX_FLAGS.ahk" { SCRIPT_IS_COMPLEX_FLAGS }
-#Import ".\UBiDiTransform.ahk" { UBiDiTransform }
-#Import ".\UCPTrie.ahk" { UCPTrie }
-#Import ".\UConverterSelector.ahk" { UConverterSelector }
-#Import ".\NLSVERSIONINFO.ahk" { NLSVERSIONINFO }
-#Import ".\UDateTimePatternConflict.ahk" { UDateTimePatternConflict }
-#Import ".\CURRENCYFMTA.ahk" { CURRENCYFMTA }
-#Import "..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
-#Import "..\Foundation\SIZE.ahk" { SIZE }
-#Import ".\UDisplayContextType.ahk" { UDisplayContextType }
-#Import ".\UTimeScaleValue.ahk" { UTimeScaleValue }
-#Import ".\UFormattableType.ahk" { UFormattableType }
-#Import ".\TIMEFMT_ENUMPROCW.ahk" { TIMEFMT_ENUMPROCW }
-#Import ".\UTimeZoneTransitionType.ahk" { UTimeZoneTransitionType }
-#Import ".\MULTI_BYTE_TO_WIDE_CHAR_FLAGS.ahk" { MULTI_BYTE_TO_WIDE_CHAR_FLAGS }
-#Import ".\UCalendarAttribute.ahk" { UCalendarAttribute }
-#Import ".\UCPTrieType.ahk" { UCPTrieType }
-#Import ".\CHARSETINFO.ahk" { CHARSETINFO }
-#Import ".\UBiDiDirection.ahk" { UBiDiDirection }
-#Import ".\USearchAttribute.ahk" { USearchAttribute }
-#Import ".\UFormattedList.ahk" { UFormattedList }
-#Import ".\UEnumCharNamesFn.ahk" { UEnumCharNamesFn }
-#Import ".\UFormattedNumber.ahk" { UFormattedNumber }
-#Import ".\UGender.ahk" { UGender }
-#Import ".\ULocaleDataDelimiterType.ahk" { ULocaleDataDelimiterType }
-#Import ".\UNormalizationCheckResult.ahk" { UNormalizationCheckResult }
-#Import ".\UBiDi.ahk" { UBiDi }
-#Import ".\URegexFindProgressCallback.ahk" { URegexFindProgressCallback }
-#Import ".\SCRIPT_VISATTR.ahk" { SCRIPT_VISATTR }
-#Import ".\DATEFMT_ENUMPROCW.ahk" { DATEFMT_ENUMPROCW }
-#Import ".\UNumberFormatAttribute.ahk" { UNumberFormatAttribute }
-#Import ".\UEnumeration.ahk" { UEnumeration }
-#Import ".\UCalendarDateFields.ahk" { UCalendarDateFields }
-#Import ".\LANGUAGEGROUP_ENUMPROCA.ahk" { LANGUAGEGROUP_ENUMPROCA }
-#Import ".\TIMEFMT_ENUMPROCEX.ahk" { TIMEFMT_ENUMPROCEX }
-#Import ".\ULocaleDisplayNames.ahk" { ULocaleDisplayNames }
-#Import ".\USerializedSet.ahk" { USerializedSet }
-#Import ".\UBlockCode.ahk" { UBlockCode }
-#Import ".\UDateFormatStyle.ahk" { UDateFormatStyle }
-#Import ".\UScriptCode.ahk" { UScriptCode }
-#Import ".\UConverterToUnicodeArgs.ahk" { UConverterToUnicodeArgs }
-#Import ".\CPINFOEXW.ahk" { CPINFOEXW }
-#Import ".\URelativeDateTimeUnit.ahk" { URelativeDateTimeUnit }
-#Import ".\ULocDataLocaleType.ahk" { ULocDataLocaleType }
-#Import ".\UFieldPosition.ahk" { UFieldPosition }
-#Import ".\UIDNA.ahk" { UIDNA }
-#Import ".\UTimeZoneLocalOption.ahk" { UTimeZoneLocalOption }
-#Import ".\UParseError.ahk" { UParseError }
-#Import ".\UConverter.ahk" { UConverter }
-#Import ".\ULocAvailableType.ahk" { ULocAvailableType }
-#Import ".\UConverterType.ahk" { UConverterType }
-#Import ".\URestrictionLevel.ahk" { URestrictionLevel }
-#Import ".\UDateTimeScale.ahk" { UDateTimeScale }
-#Import ".\UDateFormatSymbolType.ahk" { UDateFormatSymbolType }
-#Import ".\TIMEFMT_ENUMPROCA.ahk" { TIMEFMT_ENUMPROCA }
-#Import ".\SCRIPT_TABDEF.ahk" { SCRIPT_TABDEF }
-#Import ".\CALINFO_ENUMPROCW.ahk" { CALINFO_ENUMPROCW }
-#Import ".\USet.ahk" { USet }
-#Import ".\DATEFMT_ENUMPROCEXEX.ahk" { DATEFMT_ENUMPROCEXEX }
-#Import ".\UNumberRangeIdentityFallback.ahk" { UNumberRangeIdentityFallback }
-#Import ".\UCollationResult.ahk" { UCollationResult }
-#Import ".\UColReorderCode.ahk" { UColReorderCode }
-#Import "..\Graphics\Gdi\ETO_OPTIONS.ahk" { ETO_OPTIONS }
-#Import ".\UNumberRangeIdentityResult.ahk" { UNumberRangeIdentityResult }
-#Import ".\COMPARESTRING_RESULT.ahk" { COMPARESTRING_RESULT }
-#Import ".\UStringSearch.ahk" { UStringSearch }
-#Import ".\UListFormatterWidth.ahk" { UListFormatterWidth }
-#Import ".\FONTSIGNATURE.ahk" { FONTSIGNATURE }
-#Import ".\UText.ahk" { UText }
-#Import ".\MAPPING_SERVICE_INFO.ahk" { MAPPING_SERVICE_INFO }
-#Import ".\SCRIPT_ANALYSIS.ahk" { SCRIPT_ANALYSIS }
-#Import ".\UStringPrepProfile.ahk" { UStringPrepProfile }
-#Import ".\UCharEnumTypeRange.ahk" { UCharEnumTypeRange }
-#Import ".\UStringPrepProfileType.ahk" { UStringPrepProfileType }
-#Import ".\UNumberFormatter.ahk" { UNumberFormatter }
-#Import ".\UDateFormatField.ahk" { UDateFormatField }
-#Import ".\USetSpanCondition.ahk" { USetSpanCondition }
-#Import ".\UNumberingSystem.ahk" { UNumberingSystem }
-#Import ".\UResType.ahk" { UResType }
-#Import ".\UCurrencyUsage.ahk" { UCurrencyUsage }
-#Import ".\UMemReallocFn.ahk" { UMemReallocFn }
-#Import ".\UDateIntervalFormat.ahk" { UDateIntervalFormat }
-#Import ".\CURRENCYFMTW.ahk" { CURRENCYFMTW }
-#Import ".\SCRIPT_PROPERTIES.ahk" { SCRIPT_PROPERTIES }
-#Import ".\DATEFMT_ENUMPROCEXW.ahk" { DATEFMT_ENUMPROCEXW }
-#Import ".\ULocaleDataExemplarSetType.ahk" { ULocaleDataExemplarSetType }
-#Import ".\UCharsetDetector.ahk" { UCharsetDetector }
-#Import ".\UReplaceableCallbacks.ahk" { UReplaceableCallbacks }
-#Import ".\UPropertyNameChoice.ahk" { UPropertyNameChoice }
-#Import ".\UFormattedRelativeDateTime.ahk" { UFormattedRelativeDateTime }
-#Import ".\CPINFO.ahk" { CPINFO }
-#Import ".\UBiDiOrder.ahk" { UBiDiOrder }
 #Import "..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IS_TEXT_UNICODE_RESULT.ahk" { IS_TEXT_UNICODE_RESULT }
-#Import ".\UCharsetMatch.ahk" { UCharsetMatch }
-#Import ".\SCRIPT_CONTROL.ahk" { SCRIPT_CONTROL }
-#Import ".\UMeasurementSystem.ahk" { UMeasurementSystem }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Foundation\RECT.ahk" { RECT }
+#Import "..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import ".\CALDATETIME.ahk" { CALDATETIME }
+#Import ".\CALDATETIME_DATEUNIT.ahk" { CALDATETIME_DATEUNIT }
+#Import ".\CHARSETINFO.ahk" { CHARSETINFO }
+#Import ".\COMPARESTRING_RESULT.ahk" { COMPARESTRING_RESULT }
+#Import ".\COMPARE_STRING_FLAGS.ahk" { COMPARE_STRING_FLAGS }
+#Import ".\CPINFO.ahk" { CPINFO }
+#Import ".\CPINFOEXA.ahk" { CPINFOEXA }
+#Import ".\CPINFOEXW.ahk" { CPINFOEXW }
+#Import ".\CURRENCYFMTA.ahk" { CURRENCYFMTA }
+#Import ".\CURRENCYFMTW.ahk" { CURRENCYFMTW }
+#Import ".\ENUM_DATE_FORMATS_FLAGS.ahk" { ENUM_DATE_FORMATS_FLAGS }
 #Import ".\ENUM_SYSTEM_CODE_PAGES_FLAGS.ahk" { ENUM_SYSTEM_CODE_PAGES_FLAGS }
-#Import ".\UConverterPlatform.ahk" { UConverterPlatform }
-#Import ".\UTraceEntry.ahk" { UTraceEntry }
-#Import ".\UPluralRules.ahk" { UPluralRules }
-#Import ".\UDateFormatHourCycle.ahk" { UDateFormatHourCycle }
-#Import ".\NUMBERFMTA.ahk" { NUMBERFMTA }
-#Import ".\UConverterUnicodeSet.ahk" { UConverterUnicodeSet }
-#Import ".\UCalendarType.ahk" { UCalendarType }
-#Import ".\USpoofChecker.ahk" { USpoofChecker }
-#Import ".\UTransDirection.ahk" { UTransDirection }
-#Import "..\Graphics\Gdi\ABC.ahk" { ABC }
-#Import ".\MAPPING_PROPERTY_BAG.ahk" { MAPPING_PROPERTY_BAG }
-#Import ".\UILANGUAGE_ENUMPROCW.ahk" { UILANGUAGE_ENUMPROCW }
-#Import ".\ULocaleData.ahk" { ULocaleData }
-#Import ".\CODEPAGE_ENUMPROCA.ahk" { CODEPAGE_ENUMPROCA }
-#Import ".\UCalendarDaysOfWeek.ahk" { UCalendarDaysOfWeek }
-#Import ".\USpoofCheckResult.ahk" { USpoofCheckResult }
 #Import ".\ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS.ahk" { ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS }
-#Import ".\UGenderInfo.ahk" { UGenderInfo }
-#Import ".\UNormalizer2.ahk" { UNormalizer2 }
-#Import ".\MAPPING_OPTIONS.ahk" { MAPPING_OPTIONS }
-#Import ".\CALINFO_ENUMPROCEXW.ahk" { CALINFO_ENUMPROCEXW }
-#Import ".\UFormattedDateInterval.ahk" { UFormattedDateInterval }
-#Import ".\UIDNAInfo.ahk" { UIDNAInfo }
+#Import ".\FOLD_STRING_MAP_FLAGS.ahk" { FOLD_STRING_MAP_FLAGS }
+#Import ".\FONTSIGNATURE.ahk" { FONTSIGNATURE }
 #Import ".\GOFFSET.ahk" { GOFFSET }
-#Import ".\DATEFMT_ENUMPROCEXA.ahk" { DATEFMT_ENUMPROCEXA }
-#Import ".\UCaseMap.ahk" { UCaseMap }
-#Import ".\UTraceData.ahk" { UTraceData }
-#Import ".\UNESCAPE_CHAR_AT.ahk" { UNESCAPE_CHAR_AT }
-#Import ".\UCPMap.ahk" { UCPMap }
+#Import ".\HSAVEDUILANGUAGES.ahk" { HSAVEDUILANGUAGES }
+#Import ".\IS_TEXT_UNICODE_RESULT.ahk" { IS_TEXT_UNICODE_RESULT }
+#Import ".\IS_VALID_LOCALE_FLAGS.ahk" { IS_VALID_LOCALE_FLAGS }
+#Import ".\MAPPING_ENUM_OPTIONS.ahk" { MAPPING_ENUM_OPTIONS }
+#Import ".\MAPPING_OPTIONS.ahk" { MAPPING_OPTIONS }
+#Import ".\MAPPING_PROPERTY_BAG.ahk" { MAPPING_PROPERTY_BAG }
+#Import ".\MAPPING_SERVICE_INFO.ahk" { MAPPING_SERVICE_INFO }
+#Import ".\MULTI_BYTE_TO_WIDE_CHAR_FLAGS.ahk" { MULTI_BYTE_TO_WIDE_CHAR_FLAGS }
+#Import ".\NLSVERSIONINFO.ahk" { NLSVERSIONINFO }
+#Import ".\NLSVERSIONINFOEX.ahk" { NLSVERSIONINFOEX }
+#Import ".\NORM_FORM.ahk" { NORM_FORM }
+#Import ".\NUMBERFMTA.ahk" { NUMBERFMTA }
+#Import ".\NUMBERFMTW.ahk" { NUMBERFMTW }
+#Import ".\SCRIPT_ANALYSIS.ahk" { SCRIPT_ANALYSIS }
+#Import ".\SCRIPT_CHARPROP.ahk" { SCRIPT_CHARPROP }
+#Import ".\SCRIPT_CONTROL.ahk" { SCRIPT_CONTROL }
+#Import ".\SCRIPT_DIGITSUBSTITUTE.ahk" { SCRIPT_DIGITSUBSTITUTE }
+#Import ".\SCRIPT_FONTPROPERTIES.ahk" { SCRIPT_FONTPROPERTIES }
 #Import ".\SCRIPT_GLYPHPROP.ahk" { SCRIPT_GLYPHPROP }
-#Import ".\LANGGROUPLOCALE_ENUMPROCA.ahk" { LANGGROUPLOCALE_ENUMPROCA }
+#Import ".\SCRIPT_IS_COMPLEX_FLAGS.ahk" { SCRIPT_IS_COMPLEX_FLAGS }
+#Import ".\SCRIPT_ITEM.ahk" { SCRIPT_ITEM }
+#Import ".\SCRIPT_LOGATTR.ahk" { SCRIPT_LOGATTR }
+#Import ".\SCRIPT_PROPERTIES.ahk" { SCRIPT_PROPERTIES }
+#Import ".\SCRIPT_STATE.ahk" { SCRIPT_STATE }
+#Import ".\SCRIPT_TABDEF.ahk" { SCRIPT_TABDEF }
+#Import ".\SCRIPT_VISATTR.ahk" { SCRIPT_VISATTR }
+#Import ".\SYSGEOCLASS.ahk" { SYSGEOCLASS }
+#Import ".\SYSGEOTYPE.ahk" { SYSGEOTYPE }
+#Import ".\TEXTRANGE_PROPERTIES.ahk" { TEXTRANGE_PROPERTIES }
+#Import ".\TIME_FORMAT_FLAGS.ahk" { TIME_FORMAT_FLAGS }
+#Import ".\TRANSLATE_CHARSET_INFO_FLAGS.ahk" { TRANSLATE_CHARSET_INFO_FLAGS }
+#Import ".\UAcceptResult.ahk" { UAcceptResult }
+#Import ".\UBiDi.ahk" { UBiDi }
+#Import ".\UBiDiDirection.ahk" { UBiDiDirection }
+#Import ".\UBiDiMirroring.ahk" { UBiDiMirroring }
+#Import ".\UBiDiOrder.ahk" { UBiDiOrder }
+#Import ".\UBiDiReorderingMode.ahk" { UBiDiReorderingMode }
+#Import ".\UBiDiTransform.ahk" { UBiDiTransform }
+#Import ".\UBlockCode.ahk" { UBlockCode }
 #Import ".\UBreakIterator.ahk" { UBreakIterator }
-#Import ".\UColAttribute.ahk" { UColAttribute }
+#Import ".\UBreakIteratorType.ahk" { UBreakIteratorType }
+#Import ".\UCPMap.ahk" { UCPMap }
+#Import ".\UCPMapRangeOption.ahk" { UCPMapRangeOption }
+#Import ".\UCPTrie.ahk" { UCPTrie }
+#Import ".\UCPTrieType.ahk" { UCPTrieType }
+#Import ".\UCPTrieValueWidth.ahk" { UCPTrieValueWidth }
+#Import ".\UCalendarAttribute.ahk" { UCalendarAttribute }
+#Import ".\UCalendarDateFields.ahk" { UCalendarDateFields }
+#Import ".\UCalendarDaysOfWeek.ahk" { UCalendarDaysOfWeek }
+#Import ".\UCalendarDisplayNameType.ahk" { UCalendarDisplayNameType }
+#Import ".\UCalendarLimitType.ahk" { UCalendarLimitType }
+#Import ".\UCalendarType.ahk" { UCalendarType }
+#Import ".\UCalendarWeekdayType.ahk" { UCalendarWeekdayType }
+#Import ".\UCaseMap.ahk" { UCaseMap }
 #Import ".\UCharDirection.ahk" { UCharDirection }
+#Import ".\UCharIterator.ahk" { UCharIterator }
+#Import ".\UCharNameChoice.ahk" { UCharNameChoice }
+#Import ".\UCharsetDetector.ahk" { UCharsetDetector }
+#Import ".\UCharsetMatch.ahk" { UCharsetMatch }
+#Import ".\UColAttribute.ahk" { UColAttribute }
+#Import ".\UColAttributeValue.ahk" { UColAttributeValue }
+#Import ".\UColBoundMode.ahk" { UColBoundMode }
+#Import ".\UColReorderCode.ahk" { UColReorderCode }
 #Import ".\UColRuleOption.ahk" { UColRuleOption }
+#Import ".\UCollationElements.ahk" { UCollationElements }
+#Import ".\UCollationResult.ahk" { UCollationResult }
+#Import ".\UCollator.ahk" { UCollator }
+#Import ".\UConstrainedFieldPosition.ahk" { UConstrainedFieldPosition }
+#Import ".\UConverter.ahk" { UConverter }
+#Import ".\UConverterCallbackReason.ahk" { UConverterCallbackReason }
+#Import ".\UConverterFromUnicodeArgs.ahk" { UConverterFromUnicodeArgs }
+#Import ".\UConverterPlatform.ahk" { UConverterPlatform }
+#Import ".\UConverterSelector.ahk" { UConverterSelector }
+#Import ".\UConverterToUnicodeArgs.ahk" { UConverterToUnicodeArgs }
+#Import ".\UConverterType.ahk" { UConverterType }
+#Import ".\UConverterUnicodeSet.ahk" { UConverterUnicodeSet }
+#Import ".\UCurrNameStyle.ahk" { UCurrNameStyle }
+#Import ".\UCurrencyUsage.ahk" { UCurrencyUsage }
+#Import ".\UDateFormatBooleanAttribute.ahk" { UDateFormatBooleanAttribute }
+#Import ".\UDateFormatField.ahk" { UDateFormatField }
+#Import ".\UDateFormatHourCycle.ahk" { UDateFormatHourCycle }
+#Import ".\UDateFormatStyle.ahk" { UDateFormatStyle }
+#Import ".\UDateFormatSymbolType.ahk" { UDateFormatSymbolType }
+#Import ".\UDateIntervalFormat.ahk" { UDateIntervalFormat }
+#Import ".\UDateRelativeDateTimeFormatterStyle.ahk" { UDateRelativeDateTimeFormatterStyle }
+#Import ".\UDateTimePGDisplayWidth.ahk" { UDateTimePGDisplayWidth }
+#Import ".\UDateTimePatternConflict.ahk" { UDateTimePatternConflict }
+#Import ".\UDateTimePatternField.ahk" { UDateTimePatternField }
+#Import ".\UDateTimePatternMatchOptions.ahk" { UDateTimePatternMatchOptions }
+#Import ".\UDateTimeScale.ahk" { UDateTimeScale }
+#Import ".\UDialectHandling.ahk" { UDialectHandling }
+#Import ".\UDisplayContext.ahk" { UDisplayContext }
+#Import ".\UDisplayContextType.ahk" { UDisplayContextType }
+#Import ".\UEnumeration.ahk" { UEnumeration }
+#Import ".\UErrorCode.ahk" { UErrorCode }
+#Import ".\UFieldPosition.ahk" { UFieldPosition }
+#Import ".\UFieldPositionIterator.ahk" { UFieldPositionIterator }
+#Import ".\UFormattableType.ahk" { UFormattableType }
+#Import ".\UFormattedDateInterval.ahk" { UFormattedDateInterval }
+#Import ".\UFormattedList.ahk" { UFormattedList }
+#Import ".\UFormattedNumber.ahk" { UFormattedNumber }
+#Import ".\UFormattedNumberRange.ahk" { UFormattedNumberRange }
+#Import ".\UFormattedRelativeDateTime.ahk" { UFormattedRelativeDateTime }
+#Import ".\UFormattedValue.ahk" { UFormattedValue }
+#Import ".\UGender.ahk" { UGender }
+#Import ".\UGenderInfo.ahk" { UGenderInfo }
+#Import ".\UIDNA.ahk" { UIDNA }
+#Import ".\UIDNAInfo.ahk" { UIDNAInfo }
+#Import ".\ULayoutType.ahk" { ULayoutType }
+#Import ".\UListFormatter.ahk" { UListFormatter }
+#Import ".\UListFormatterType.ahk" { UListFormatterType }
+#Import ".\UListFormatterWidth.ahk" { UListFormatterWidth }
+#Import ".\ULocAvailableType.ahk" { ULocAvailableType }
+#Import ".\ULocDataLocaleType.ahk" { ULocDataLocaleType }
+#Import ".\ULocaleData.ahk" { ULocaleData }
+#Import ".\ULocaleDataDelimiterType.ahk" { ULocaleDataDelimiterType }
+#Import ".\ULocaleDataExemplarSetType.ahk" { ULocaleDataExemplarSetType }
+#Import ".\ULocaleDisplayNames.ahk" { ULocaleDisplayNames }
+#Import ".\UMeasurementSystem.ahk" { UMeasurementSystem }
+#Import ".\UMutableCPTrie.ahk" { UMutableCPTrie }
+#Import ".\UNormalization2Mode.ahk" { UNormalization2Mode }
+#Import ".\UNormalizationCheckResult.ahk" { UNormalizationCheckResult }
+#Import ".\UNormalizer2.ahk" { UNormalizer2 }
+#Import ".\UNumberFormatAttribute.ahk" { UNumberFormatAttribute }
+#Import ".\UNumberFormatStyle.ahk" { UNumberFormatStyle }
+#Import ".\UNumberFormatSymbol.ahk" { UNumberFormatSymbol }
+#Import ".\UNumberFormatTextAttribute.ahk" { UNumberFormatTextAttribute }
+#Import ".\UNumberFormatter.ahk" { UNumberFormatter }
+#Import ".\UNumberRangeCollapse.ahk" { UNumberRangeCollapse }
+#Import ".\UNumberRangeFormatter.ahk" { UNumberRangeFormatter }
+#Import ".\UNumberRangeIdentityFallback.ahk" { UNumberRangeIdentityFallback }
+#Import ".\UNumberRangeIdentityResult.ahk" { UNumberRangeIdentityResult }
+#Import ".\UNumberingSystem.ahk" { UNumberingSystem }
+#Import ".\UParseError.ahk" { UParseError }
+#Import ".\UPluralRules.ahk" { UPluralRules }
+#Import ".\UPluralType.ahk" { UPluralType }
+#Import ".\UProperty.ahk" { UProperty }
+#Import ".\UPropertyNameChoice.ahk" { UPropertyNameChoice }
+#Import ".\URegion.ahk" { URegion }
+#Import ".\URegionType.ahk" { URegionType }
+#Import ".\URegularExpression.ahk" { URegularExpression }
+#Import ".\URelativeDateTimeFormatter.ahk" { URelativeDateTimeFormatter }
+#Import ".\URelativeDateTimeUnit.ahk" { URelativeDateTimeUnit }
+#Import ".\UReplaceableCallbacks.ahk" { UReplaceableCallbacks }
+#Import ".\UResType.ahk" { UResType }
+#Import ".\UResourceBundle.ahk" { UResourceBundle }
+#Import ".\URestrictionLevel.ahk" { URestrictionLevel }
+#Import ".\UScriptCode.ahk" { UScriptCode }
+#Import ".\UScriptUsage.ahk" { UScriptUsage }
+#Import ".\USearchAttribute.ahk" { USearchAttribute }
+#Import ".\USearchAttributeValue.ahk" { USearchAttributeValue }
+#Import ".\USerializedSet.ahk" { USerializedSet }
+#Import ".\USet.ahk" { USet }
+#Import ".\USetSpanCondition.ahk" { USetSpanCondition }
+#Import ".\USpoofCheckResult.ahk" { USpoofCheckResult }
+#Import ".\USpoofChecker.ahk" { USpoofChecker }
+#Import ".\UStringPrepProfile.ahk" { UStringPrepProfile }
+#Import ".\UStringPrepProfileType.ahk" { UStringPrepProfileType }
+#Import ".\UStringSearch.ahk" { UStringSearch }
+#Import ".\USystemTimeZoneType.ahk" { USystemTimeZoneType }
+#Import ".\UText.ahk" { UText }
+#Import ".\UTimeScaleValue.ahk" { UTimeScaleValue }
+#Import ".\UTimeZoneLocalOption.ahk" { UTimeZoneLocalOption }
+#Import ".\UTimeZoneTransitionType.ahk" { UTimeZoneTransitionType }
+#Import ".\UTransDirection.ahk" { UTransDirection }
+#Import ".\UTransPosition.ahk" { UTransPosition }
+#Import "..\Graphics\Gdi\ABC.ahk" { ABC }
+#Import "..\Graphics\Gdi\ETO_OPTIONS.ahk" { ETO_OPTIONS }
+#Import "..\Graphics\Gdi\HDC.ahk" { HDC }
 
 /**
  * @namespace Windows.Win32.Globalization
@@ -3868,7 +3827,7 @@ export GetCurrencyFormatW(Locale, dwFlags, lpValue, lpFormat, lpCurrencyStr, cch
 export EnumCalendarInfoA(lpCalInfoEnumProc, Locale, Calendar, CalType) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumCalendarInfoA", CALINFO_ENUMPROCA, lpCalInfoEnumProc, UInt32, Locale, UInt32, Calendar, UInt32, CalType, BOOL)
+    result := DllCall("KERNEL32.dll\EnumCalendarInfoA", "ptr", lpCalInfoEnumProc, UInt32, Locale, UInt32, Calendar, UInt32, CalType, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3924,7 +3883,7 @@ export EnumCalendarInfoA(lpCalInfoEnumProc, Locale, Calendar, CalType) {
 export EnumCalendarInfoW(lpCalInfoEnumProc, Locale, Calendar, CalType) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumCalendarInfoW", CALINFO_ENUMPROCW, lpCalInfoEnumProc, UInt32, Locale, UInt32, Calendar, UInt32, CalType, BOOL)
+    result := DllCall("KERNEL32.dll\EnumCalendarInfoW", "ptr", lpCalInfoEnumProc, UInt32, Locale, UInt32, Calendar, UInt32, CalType, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3988,7 +3947,7 @@ export EnumCalendarInfoW(lpCalInfoEnumProc, Locale, Calendar, CalType) {
 export EnumCalendarInfoExA(lpCalInfoEnumProcEx, Locale, Calendar, CalType) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumCalendarInfoExA", CALINFO_ENUMPROCEXA, lpCalInfoEnumProcEx, UInt32, Locale, UInt32, Calendar, UInt32, CalType, BOOL)
+    result := DllCall("KERNEL32.dll\EnumCalendarInfoExA", "ptr", lpCalInfoEnumProcEx, UInt32, Locale, UInt32, Calendar, UInt32, CalType, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4052,7 +4011,7 @@ export EnumCalendarInfoExA(lpCalInfoEnumProcEx, Locale, Calendar, CalType) {
 export EnumCalendarInfoExW(lpCalInfoEnumProcEx, Locale, Calendar, CalType) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumCalendarInfoExW", CALINFO_ENUMPROCEXW, lpCalInfoEnumProcEx, UInt32, Locale, UInt32, Calendar, UInt32, CalType, BOOL)
+    result := DllCall("KERNEL32.dll\EnumCalendarInfoExW", "ptr", lpCalInfoEnumProcEx, UInt32, Locale, UInt32, Calendar, UInt32, CalType, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4113,7 +4072,7 @@ export EnumCalendarInfoExW(lpCalInfoEnumProcEx, Locale, Calendar, CalType) {
 export EnumTimeFormatsA(lpTimeFmtEnumProc, Locale, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumTimeFormatsA", TIMEFMT_ENUMPROCA, lpTimeFmtEnumProc, UInt32, Locale, TIME_FORMAT_FLAGS, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\EnumTimeFormatsA", "ptr", lpTimeFmtEnumProc, UInt32, Locale, TIME_FORMAT_FLAGS, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4174,7 +4133,7 @@ export EnumTimeFormatsA(lpTimeFmtEnumProc, Locale, dwFlags) {
 export EnumTimeFormatsW(lpTimeFmtEnumProc, Locale, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumTimeFormatsW", TIMEFMT_ENUMPROCW, lpTimeFmtEnumProc, UInt32, Locale, TIME_FORMAT_FLAGS, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\EnumTimeFormatsW", "ptr", lpTimeFmtEnumProc, UInt32, Locale, TIME_FORMAT_FLAGS, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4233,7 +4192,7 @@ export EnumTimeFormatsW(lpTimeFmtEnumProc, Locale, dwFlags) {
 export EnumDateFormatsA(lpDateFmtEnumProc, Locale, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumDateFormatsA", DATEFMT_ENUMPROCA, lpDateFmtEnumProc, UInt32, Locale, UInt32, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\EnumDateFormatsA", "ptr", lpDateFmtEnumProc, UInt32, Locale, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4292,7 +4251,7 @@ export EnumDateFormatsA(lpDateFmtEnumProc, Locale, dwFlags) {
 export EnumDateFormatsW(lpDateFmtEnumProc, Locale, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumDateFormatsW", DATEFMT_ENUMPROCW, lpDateFmtEnumProc, UInt32, Locale, UInt32, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\EnumDateFormatsW", "ptr", lpDateFmtEnumProc, UInt32, Locale, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4361,7 +4320,7 @@ export EnumDateFormatsW(lpDateFmtEnumProc, Locale, dwFlags) {
 export EnumDateFormatsExA(lpDateFmtEnumProcEx, Locale, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumDateFormatsExA", DATEFMT_ENUMPROCEXA, lpDateFmtEnumProcEx, UInt32, Locale, UInt32, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\EnumDateFormatsExA", "ptr", lpDateFmtEnumProcEx, UInt32, Locale, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4430,7 +4389,7 @@ export EnumDateFormatsExA(lpDateFmtEnumProcEx, Locale, dwFlags) {
 export EnumDateFormatsExW(lpDateFmtEnumProcEx, Locale, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumDateFormatsExW", DATEFMT_ENUMPROCEXW, lpDateFmtEnumProcEx, UInt32, Locale, UInt32, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\EnumDateFormatsExW", "ptr", lpDateFmtEnumProcEx, UInt32, Locale, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4775,7 +4734,7 @@ export GetGeoInfoEx(_location, geoType, geoData, geoDataCount) {
 export EnumSystemGeoID(GeoClass, ParentGeoId, lpGeoEnumProc) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumSystemGeoID", UInt32, GeoClass, Int32, ParentGeoId, GEO_ENUMPROC, lpGeoEnumProc, BOOL)
+    result := DllCall("KERNEL32.dll\EnumSystemGeoID", UInt32, GeoClass, Int32, ParentGeoId, "ptr", lpGeoEnumProc, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4826,7 +4785,7 @@ export EnumSystemGeoID(GeoClass, ParentGeoId, lpGeoEnumProc) {
 export EnumSystemGeoNames(geoClass, geoEnumProc, data) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumSystemGeoNames", UInt32, geoClass, GEO_ENUMNAMEPROC, geoEnumProc, LPARAM, data, BOOL)
+    result := DllCall("KERNEL32.dll\EnumSystemGeoNames", UInt32, geoClass, "ptr", geoEnumProc, LPARAM, data, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6751,7 +6710,7 @@ export FoldStringA(dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchDest) {
 export EnumSystemLocalesA(lpLocaleEnumProc, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumSystemLocalesA", LOCALE_ENUMPROCA, lpLocaleEnumProc, UInt32, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\EnumSystemLocalesA", "ptr", lpLocaleEnumProc, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6822,7 +6781,7 @@ export EnumSystemLocalesA(lpLocaleEnumProc, dwFlags) {
 export EnumSystemLocalesW(lpLocaleEnumProc, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumSystemLocalesW", LOCALE_ENUMPROCW, lpLocaleEnumProc, UInt32, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\EnumSystemLocalesW", "ptr", lpLocaleEnumProc, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6857,7 +6816,7 @@ export EnumSystemLocalesW(lpLocaleEnumProc, dwFlags) {
 export EnumSystemLanguageGroupsA(lpLanguageGroupEnumProc, dwFlags, _lParam) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumSystemLanguageGroupsA", LANGUAGEGROUP_ENUMPROCA, lpLanguageGroupEnumProc, ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS, dwFlags, IntPtr, _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumSystemLanguageGroupsA", "ptr", lpLanguageGroupEnumProc, ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS, dwFlags, IntPtr, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6892,7 +6851,7 @@ export EnumSystemLanguageGroupsA(lpLanguageGroupEnumProc, dwFlags, _lParam) {
 export EnumSystemLanguageGroupsW(lpLanguageGroupEnumProc, dwFlags, _lParam) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumSystemLanguageGroupsW", LANGUAGEGROUP_ENUMPROCW, lpLanguageGroupEnumProc, ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS, dwFlags, IntPtr, _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumSystemLanguageGroupsW", "ptr", lpLanguageGroupEnumProc, ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS, dwFlags, IntPtr, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6928,7 +6887,7 @@ export EnumSystemLanguageGroupsW(lpLanguageGroupEnumProc, dwFlags, _lParam) {
 export EnumLanguageGroupLocalesA(lpLangGroupLocaleEnumProc, LanguageGroup, dwFlags, _lParam) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumLanguageGroupLocalesA", LANGGROUPLOCALE_ENUMPROCA, lpLangGroupLocaleEnumProc, UInt32, LanguageGroup, UInt32, dwFlags, IntPtr, _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumLanguageGroupLocalesA", "ptr", lpLangGroupLocaleEnumProc, UInt32, LanguageGroup, UInt32, dwFlags, IntPtr, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6964,7 +6923,7 @@ export EnumLanguageGroupLocalesA(lpLangGroupLocaleEnumProc, LanguageGroup, dwFla
 export EnumLanguageGroupLocalesW(lpLangGroupLocaleEnumProc, LanguageGroup, dwFlags, _lParam) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumLanguageGroupLocalesW", LANGGROUPLOCALE_ENUMPROCW, lpLangGroupLocaleEnumProc, UInt32, LanguageGroup, UInt32, dwFlags, IntPtr, _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumLanguageGroupLocalesW", "ptr", lpLangGroupLocaleEnumProc, UInt32, LanguageGroup, UInt32, dwFlags, IntPtr, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7093,7 +7052,7 @@ export EnumLanguageGroupLocalesW(lpLangGroupLocaleEnumProc, LanguageGroup, dwFla
 export EnumUILanguagesA(lpUILanguageEnumProc, dwFlags, _lParam) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumUILanguagesA", UILANGUAGE_ENUMPROCA, lpUILanguageEnumProc, UInt32, dwFlags, IntPtr, _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumUILanguagesA", "ptr", lpUILanguageEnumProc, UInt32, dwFlags, IntPtr, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7222,7 +7181,7 @@ export EnumUILanguagesA(lpUILanguageEnumProc, dwFlags, _lParam) {
 export EnumUILanguagesW(lpUILanguageEnumProc, dwFlags, _lParam) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumUILanguagesW", UILANGUAGE_ENUMPROCW, lpUILanguageEnumProc, UInt32, dwFlags, IntPtr, _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumUILanguagesW", "ptr", lpUILanguageEnumProc, UInt32, dwFlags, IntPtr, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7258,7 +7217,7 @@ export EnumUILanguagesW(lpUILanguageEnumProc, dwFlags, _lParam) {
 export EnumSystemCodePagesA(lpCodePageEnumProc, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumSystemCodePagesA", CODEPAGE_ENUMPROCA, lpCodePageEnumProc, ENUM_SYSTEM_CODE_PAGES_FLAGS, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\EnumSystemCodePagesA", "ptr", lpCodePageEnumProc, ENUM_SYSTEM_CODE_PAGES_FLAGS, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7294,7 +7253,7 @@ export EnumSystemCodePagesA(lpCodePageEnumProc, dwFlags) {
 export EnumSystemCodePagesW(lpCodePageEnumProc, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumSystemCodePagesW", CODEPAGE_ENUMPROCW, lpCodePageEnumProc, ENUM_SYSTEM_CODE_PAGES_FLAGS, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\EnumSystemCodePagesW", "ptr", lpCodePageEnumProc, ENUM_SYSTEM_CODE_PAGES_FLAGS, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8813,7 +8772,7 @@ export EnumCalendarInfoExEx(pCalInfoEnumProcExEx, lpLocaleName, Calendar, CalTyp
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumCalendarInfoExEx", CALINFO_ENUMPROCEXEX, pCalInfoEnumProcExEx, "ptr", lpLocaleName, UInt32, Calendar, "ptr", lpReserved, UInt32, CalType, LPARAM, _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumCalendarInfoExEx", "ptr", pCalInfoEnumProcExEx, "ptr", lpLocaleName, UInt32, Calendar, "ptr", lpReserved, UInt32, CalType, LPARAM, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8860,7 +8819,7 @@ export EnumDateFormatsExEx(lpDateFmtEnumProcExEx, lpLocaleName, dwFlags, _lParam
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumDateFormatsExEx", DATEFMT_ENUMPROCEXEX, lpDateFmtEnumProcExEx, "ptr", lpLocaleName, ENUM_DATE_FORMATS_FLAGS, dwFlags, LPARAM, _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumDateFormatsExEx", "ptr", lpDateFmtEnumProcExEx, "ptr", lpLocaleName, ENUM_DATE_FORMATS_FLAGS, dwFlags, LPARAM, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8904,7 +8863,7 @@ export EnumTimeFormatsEx(lpTimeFmtEnumProcEx, lpLocaleName, dwFlags, _lParam) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumTimeFormatsEx", TIMEFMT_ENUMPROCEX, lpTimeFmtEnumProcEx, "ptr", lpLocaleName, UInt32, dwFlags, LPARAM, _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumTimeFormatsEx", "ptr", lpTimeFmtEnumProcEx, "ptr", lpLocaleName, UInt32, dwFlags, LPARAM, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8956,7 +8915,7 @@ export EnumSystemLocalesEx(lpLocaleEnumProcEx, dwFlags, _lParam) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumSystemLocalesEx", LOCALE_ENUMPROCEX, lpLocaleEnumProcEx, UInt32, dwFlags, LPARAM, _lParam, "ptr", lpReserved, BOOL)
+    result := DllCall("KERNEL32.dll\EnumSystemLocalesEx", "ptr", lpLocaleEnumProcEx, UInt32, dwFlags, LPARAM, _lParam, "ptr", lpReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10953,7 +10912,7 @@ export utrace_getLevel() {
 export utrace_setFunctions(_context, e, x, d) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    DllCall("icuuc.dll\utrace_setFunctions", _contextMarshal, _context, UTraceEntry, e, UTraceExit, x, UTraceData, d)
+    DllCall("icuuc.dll\utrace_setFunctions", _contextMarshal, _context, "ptr", e, "ptr", x, "ptr", d)
 }
 
 /**
@@ -13828,7 +13787,7 @@ export ucnv_setToUCallBack(converter, newAction, newContext, oldAction, oldConte
     oldContextMarshal := oldContext is VarRef ? "ptr*" : "ptr"
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\ucnv_setToUCallBack", converterMarshal, converter, UConverterToUCallback, newAction, newContextMarshal, newContext, oldActionMarshal, oldAction, oldContextMarshal, oldContext, errMarshal, err)
+    DllCall("icuuc.dll\ucnv_setToUCallBack", converterMarshal, converter, "ptr", newAction, newContextMarshal, newContext, oldActionMarshal, oldAction, oldContextMarshal, oldContext, errMarshal, err)
 }
 
 /**
@@ -13848,7 +13807,7 @@ export ucnv_setFromUCallBack(converter, newAction, newContext, oldAction, oldCon
     oldContextMarshal := oldContext is VarRef ? "ptr*" : "ptr"
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\ucnv_setFromUCallBack", converterMarshal, converter, UConverterFromUCallback, newAction, newContextMarshal, newContext, oldActionMarshal, oldAction, oldContextMarshal, oldContext, errMarshal, err)
+    DllCall("icuuc.dll\ucnv_setFromUCallBack", converterMarshal, converter, "ptr", newAction, newContextMarshal, newContext, oldActionMarshal, oldAction, oldContextMarshal, oldContext, errMarshal, err)
 }
 
 /**
@@ -15701,7 +15660,7 @@ export ubidi_setClassCallback(pBiDi, newFn, newContext, oldFn, oldContext, pErro
     oldContextMarshal := oldContext is VarRef ? "ptr*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\ubidi_setClassCallback", pBiDiMarshal, pBiDi, UBiDiClassCallback, newFn, newContextMarshal, newContext, oldFnMarshal, oldFn, oldContextMarshal, oldContext, pErrorCodeMarshal, pErrorCode)
+    DllCall("icuuc.dll\ubidi_setClassCallback", pBiDiMarshal, pBiDi, "ptr", newFn, newContextMarshal, newContext, oldFnMarshal, oldFn, oldContextMarshal, oldContext, pErrorCodeMarshal, pErrorCode)
 }
 
 /**
@@ -18066,7 +18025,7 @@ export u_unescapeAt(charAt, offset, length, _context) {
     offsetMarshal := offset is VarRef ? "int*" : "ptr"
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("icuuc.dll\u_unescapeAt", UNESCAPE_CHAR_AT, charAt, offsetMarshal, offset, Int32, length, _contextMarshal, _context, Int32)
+    result := DllCall("icuuc.dll\u_unescapeAt", "ptr", charAt, offsetMarshal, offset, Int32, length, _contextMarshal, _context, Int32)
     return result
 }
 
@@ -25108,7 +25067,7 @@ export uregex_setMatchCallback(regexp, callback, _context, _status) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\uregex_setMatchCallback", regexpMarshal, regexp, URegexMatchCallback, callback, _contextMarshal, _context, _statusMarshal, _status)
+    DllCall("icuin.dll\uregex_setMatchCallback", regexpMarshal, regexp, "ptr", callback, _contextMarshal, _context, _statusMarshal, _status)
 }
 
 /**
@@ -25141,7 +25100,7 @@ export uregex_setFindProgressCallback(regexp, callback, _context, _status) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\uregex_setFindProgressCallback", regexpMarshal, regexp, URegexFindProgressCallback, callback, _contextMarshal, _context, _statusMarshal, _status)
+    DllCall("icuin.dll\uregex_setFindProgressCallback", regexpMarshal, regexp, "ptr", callback, _contextMarshal, _context, _statusMarshal, _status)
 }
 
 /**

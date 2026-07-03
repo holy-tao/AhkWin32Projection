@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\Gdi\HMONITOR.ahk" { HMONITOR }
 #Import "Common\DXGI_MODE_ROTATION.ahk" { DXGI_MODE_ROTATION }
+#Import "..\Gdi\HMONITOR.ahk" { HMONITOR }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

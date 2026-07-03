@@ -27,7 +27,7 @@ export default struct PFLT_INSTANCE_QUERY_TEARDOWN_CALLBACK {
      */
     Call(FltObjects, Flags) {
         result := DllCall(this.value, FLT_RELATED_OBJECTS.Ptr, FltObjects, UInt32, Flags, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -47,10 +47,6 @@ export default struct PFLT_INSTANCE_QUERY_TEARDOWN_CALLBACK {
             this.value := CallbackCreate(fn, , [FLT_RELATED_OBJECTS.Ptr, UInt32, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

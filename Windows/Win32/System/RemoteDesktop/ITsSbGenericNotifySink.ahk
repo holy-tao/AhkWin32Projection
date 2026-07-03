@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that reports completion to and gets wait time from the Remote Desktop Connection Broker (RD Connection Broker).

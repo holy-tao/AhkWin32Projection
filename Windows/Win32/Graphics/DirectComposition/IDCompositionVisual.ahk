@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Direct2D\Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DCOMPOSITION_BITMAP_INTERPOLATION_MODE.ahk" { DCOMPOSITION_BITMAP_INTERPOLATION_MODE }
-#Import ".\IDCompositionClip.ahk" { IDCompositionClip }
-#Import "..\Direct2D\Common\D2D_RECT_F.ahk" { D2D_RECT_F }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
-#Import ".\IDCompositionTransform.ahk" { IDCompositionTransform }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DCOMPOSITION_COMPOSITE_MODE.ahk" { DCOMPOSITION_COMPOSITE_MODE }
-#Import ".\IDCompositionEffect.ahk" { IDCompositionEffect }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Direct2D\Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
+#Import "..\Direct2D\Common\D2D_RECT_F.ahk" { D2D_RECT_F }
+#Import ".\DCOMPOSITION_BITMAP_INTERPOLATION_MODE.ahk" { DCOMPOSITION_BITMAP_INTERPOLATION_MODE }
 #Import ".\DCOMPOSITION_BORDER_MODE.ahk" { DCOMPOSITION_BORDER_MODE }
+#Import ".\DCOMPOSITION_COMPOSITE_MODE.ahk" { DCOMPOSITION_COMPOSITE_MODE }
+#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
+#Import ".\IDCompositionClip.ahk" { IDCompositionClip }
+#Import ".\IDCompositionEffect.ahk" { IDCompositionEffect }
+#Import ".\IDCompositionTransform.ahk" { IDCompositionTransform }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a Microsoft DirectComposition visual.

@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\MONITOR_APP_VISIBILITY.ahk" { MONITOR_APP_VISIBILITY }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IAppVisibilityEvents.ahk" { IAppVisibilityEvents }
 #Import "..\..\Graphics\Gdi\HMONITOR.ahk" { HMONITOR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IAppVisibilityEvents.ahk" { IAppVisibilityEvents }
+#Import ".\MONITOR_APP_VISIBILITY.ahk" { MONITOR_APP_VISIBILITY }
 
 /**
  * Provides functionality to determine whether the display is showing Universal Windows Platform apps.

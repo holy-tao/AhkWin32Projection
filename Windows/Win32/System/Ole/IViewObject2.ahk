@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IViewObject.ahk" { IViewObject }
-#Import "..\Com\DVASPECT.ahk" { DVASPECT }
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
-#Import "..\Com\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\Com\DVASPECT.ahk" { DVASPECT }
+#Import "..\Com\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
+#Import ".\IViewObject.ahk" { IViewObject }
 
 /**
  * An extension to the IViewObject interface which returns the size of the drawing for a given view of an object. You can prevent the object from being run if it isn't already running by calling this method instead of IOleObject::GetExtent.

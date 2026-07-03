@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\ACE_FLAGS.ahk" { ACE_FLAGS }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\ACE_FLAGS.ahk" { ACE_FLAGS }
 
 /**
  * Contains information about how access control entries (ACEs) can be inherited by child objects.

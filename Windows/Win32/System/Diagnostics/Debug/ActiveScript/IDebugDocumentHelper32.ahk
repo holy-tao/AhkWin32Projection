@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDebugDocumentContext.ahk" { IDebugDocumentContext }
-#Import ".\IDebugApplicationNode.ahk" { IDebugApplicationNode }
-#Import ".\IDebugApplication32.ahk" { IDebugApplication32 }
-#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IActiveScript.ahk" { IActiveScript }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IActiveScript.ahk" { IActiveScript }
+#Import ".\IDebugApplication32.ahk" { IDebugApplication32 }
+#Import ".\IDebugApplicationNode.ahk" { IDebugApplicationNode }
+#Import ".\IDebugDocumentContext.ahk" { IDebugDocumentContext }
 #Import ".\IDebugDocumentHost.ahk" { IDebugDocumentHost }
 
 /**

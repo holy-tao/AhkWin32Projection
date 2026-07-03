@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MapiRecipDesc.ahk" { MapiRecipDesc }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\MapiFileDesc.ahk" { MapiFileDesc }
+#Import ".\MapiRecipDesc.ahk" { MapiRecipDesc }
 
 /**
  * A MapiMessage structure contains information about a message. For Unicode support, use the MapiMessageW structure.

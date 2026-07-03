@@ -54,10 +54,6 @@ export default struct FN_PROGRESS {
             this.value := CallbackCreate(fn, , [PWSTR, UInt32, "int*", "ptr", BOOL, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

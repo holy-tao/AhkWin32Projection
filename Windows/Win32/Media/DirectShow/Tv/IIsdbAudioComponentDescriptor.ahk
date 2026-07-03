@@ -2,10 +2,10 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\DVB_STRCONV_MODE.ahk" { DVB_STRCONV_MODE }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DVB_STRCONV_MODE.ahk" { DVB_STRCONV_MODE }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Implements methods that get data from an Integrated Services Digital Broadcasting (ISDB) audio component descriptor.

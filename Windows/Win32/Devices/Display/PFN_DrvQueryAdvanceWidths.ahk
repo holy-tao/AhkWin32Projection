@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DHPDEV.ahk" { DHPDEV }
 #Import ".\FONTOBJ.ahk" { FONTOBJ }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DHPDEV.ahk" { DHPDEV }
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -54,10 +54,6 @@ export default struct PFN_DrvQueryAdvanceWidths {
             this.value := CallbackCreate(fn, , [DHPDEV, FONTOBJ.Ptr, UInt32, "uint*", "ptr", UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

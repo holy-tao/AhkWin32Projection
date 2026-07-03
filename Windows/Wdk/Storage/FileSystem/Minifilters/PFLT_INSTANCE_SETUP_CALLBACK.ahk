@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Win32\Storage\InstallableFileSystems\FLT_FILESYSTEM_TYPE.ahk" { FLT_FILESYSTEM_TYPE }
 #Import ".\FLT_RELATED_OBJECTS.ahk" { FLT_RELATED_OBJECTS }
 #Import "..\..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\..\..\Win32\Storage\InstallableFileSystems\FLT_FILESYSTEM_TYPE.ahk" { FLT_FILESYSTEM_TYPE }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters
@@ -30,7 +30,7 @@ export default struct PFLT_INSTANCE_SETUP_CALLBACK {
      */
     Call(FltObjects, Flags, VolumeDeviceType, VolumeFilesystemType) {
         result := DllCall(this.value, FLT_RELATED_OBJECTS.Ptr, FltObjects, UInt32, Flags, UInt32, VolumeDeviceType, FLT_FILESYSTEM_TYPE, VolumeFilesystemType, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -50,10 +50,6 @@ export default struct PFLT_INSTANCE_SETUP_CALLBACK {
             this.value := CallbackCreate(fn, , [FLT_RELATED_OBJECTS.Ptr, UInt32, UInt32, FLT_FILESYSTEM_TYPE, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

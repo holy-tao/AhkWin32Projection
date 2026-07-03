@@ -45,10 +45,6 @@ export default struct PCLUSAPI_CLOSE_CLUSTER {
             this.value := CallbackCreate(fn, , [HCLUSTER, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

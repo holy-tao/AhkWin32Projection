@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FILE_STORAGE_TIER_REGION.ahk" { FILE_STORAGE_TIER_REGION }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FILE_STORAGE_TIER_REGION.ahk" { FILE_STORAGE_TIER_REGION }
 
 /**
  * Contains information for one or more regions.

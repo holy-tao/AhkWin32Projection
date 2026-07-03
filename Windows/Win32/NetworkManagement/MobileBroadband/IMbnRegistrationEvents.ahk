@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMbnRegistration.ahk" { IMbnRegistration }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMbnRegistration.ahk" { IMbnRegistration }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Notification interface used to indicate when registration events have occurred.

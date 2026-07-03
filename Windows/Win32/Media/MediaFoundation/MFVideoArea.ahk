@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MFOffset.ahk" { MFOffset }
 #Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import ".\MFOffset.ahk" { MFOffset }
 
 /**
  * Specifies a rectangular area within a video frame.

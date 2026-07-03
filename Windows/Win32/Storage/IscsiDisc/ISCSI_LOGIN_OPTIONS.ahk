@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ISCSI_DIGEST_TYPES.ahk" { ISCSI_DIGEST_TYPES }
 #Import ".\ISCSI_AUTH_TYPES.ahk" { ISCSI_AUTH_TYPES }
+#Import ".\ISCSI_DIGEST_TYPES.ahk" { ISCSI_DIGEST_TYPES }
 
 /**
  * ISCSI_LOGIN_OPTIONS structure is used by initiators to specify the characteristics of a login session.

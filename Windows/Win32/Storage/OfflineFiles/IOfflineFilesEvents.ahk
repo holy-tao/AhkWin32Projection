@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\OFFLINEFILES_SYNC_STATE.ahk" { OFFLINEFILES_SYNC_STATE }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\OFFLINEFILES_ITEM_TYPE.ahk" { OFFLINEFILES_ITEM_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\OFFLINEFILES_SYNC_STATE.ahk" { OFFLINEFILES_SYNC_STATE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Used to report significant events associated with Offline Files.

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\BG_FILE_RANGE.ahk" { BG_FILE_RANGE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\BG_FILE_RANGE.ahk" { BG_FILE_RANGE }
 #Import ".\IBackgroundCopyCallback2.ahk" { IBackgroundCopyCallback2 }
-#Import ".\IBackgroundCopyJob.ahk" { IBackgroundCopyJob }
 #Import ".\IBackgroundCopyFile.ahk" { IBackgroundCopyFile }
+#Import ".\IBackgroundCopyJob.ahk" { IBackgroundCopyJob }
 
 /**
  * Clients implement the IBackgroundCopyCallback3 interface to receive notification that ranges of a file have completed downloading.

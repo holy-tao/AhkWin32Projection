@@ -77,10 +77,6 @@ export default struct PDD_VPORTCB_GETBANDWIDTH {
             this.value := CallbackCreate(fn, , [DD_GETVPORTBANDWIDTHDATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

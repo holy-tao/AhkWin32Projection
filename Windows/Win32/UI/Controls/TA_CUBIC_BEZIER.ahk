@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TA_TIMINGFUNCTION_TYPE.ahk" { TA_TIMINGFUNCTION_TYPE }
 #Import ".\TA_TIMINGFUNCTION.ahk" { TA_TIMINGFUNCTION }
+#Import ".\TA_TIMINGFUNCTION_TYPE.ahk" { TA_TIMINGFUNCTION_TYPE }
 
 /**
  * @namespace Windows.Win32.UI.Controls

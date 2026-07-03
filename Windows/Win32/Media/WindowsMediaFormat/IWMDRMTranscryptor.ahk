@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\INSSBuffer.ahk" { INSSBuffer }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IWMStatusCallback.ahk" { IWMStatusCallback }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\INSSBuffer.ahk" { INSSBuffer }
+#Import ".\IWMStatusCallback.ahk" { IWMStatusCallback }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMDRMTranscryptor interface transforms a DRM-protected ASF file into a secure data stream conforming to the Windows Media DRM 10 for Network Devices protocol.

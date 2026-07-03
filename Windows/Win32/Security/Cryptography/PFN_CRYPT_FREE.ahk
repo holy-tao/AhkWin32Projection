@@ -44,10 +44,6 @@ export default struct PFN_CRYPT_FREE {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

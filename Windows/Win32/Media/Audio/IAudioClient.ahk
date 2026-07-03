@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\WAVEFORMATEX.ahk" { WAVEFORMATEX }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\AUDCLNT_SHAREMODE.ahk" { AUDCLNT_SHAREMODE }
+#Import ".\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAudioClient interface enables a client to create and initialize an audio stream between an audio application and the audio engine (for a shared-mode stream) or the hardware buffer of an audio endpoint device (for an exclusive-mode stream).

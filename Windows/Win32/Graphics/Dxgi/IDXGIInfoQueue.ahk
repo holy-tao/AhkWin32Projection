@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\DXGI_INFO_QUEUE_FILTER.ahk" { DXGI_INFO_QUEUE_FILTER }
+#Import ".\DXGI_INFO_QUEUE_MESSAGE_CATEGORY.ahk" { DXGI_INFO_QUEUE_MESSAGE_CATEGORY }
 #Import ".\DXGI_INFO_QUEUE_MESSAGE_SEVERITY.ahk" { DXGI_INFO_QUEUE_MESSAGE_SEVERITY }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DXGI_INFO_QUEUE_MESSAGE_CATEGORY.ahk" { DXGI_INFO_QUEUE_MESSAGE_CATEGORY }
-#Import ".\DXGI_INFO_QUEUE_FILTER.ahk" { DXGI_INFO_QUEUE_FILTER }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This interface controls the debug information queue, and can only be used if the debug layer is turned on.

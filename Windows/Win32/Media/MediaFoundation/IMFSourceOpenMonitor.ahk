@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMFMediaEvent.ahk" { IMFMediaEvent }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFMediaEvent.ahk" { IMFMediaEvent }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Callback interface to receive notifications from a network source on the progress of an asynchronous open operation.

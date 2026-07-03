@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * An application-defined callback function that processes enumerated language group locale information provided by the EnumLanguageGroupLocales function. (ANSI)
@@ -62,10 +62,6 @@ export default struct LANGGROUPLOCALE_ENUMPROCA {
             this.value := CallbackCreate(fn, , [UInt32, UInt32, PSTR, IntPtr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

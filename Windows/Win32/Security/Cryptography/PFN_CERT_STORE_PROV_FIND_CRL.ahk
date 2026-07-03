@@ -55,10 +55,6 @@ export default struct PFN_CERT_STORE_PROV_FIND_CRL {
             this.value := CallbackCreate(fn, , [HCERTSTOREPROV, CERT_STORE_PROV_FIND_INFO.Ptr, CRL_CONTEXT.Ptr, UInt32, "ptr*", "ptr*", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

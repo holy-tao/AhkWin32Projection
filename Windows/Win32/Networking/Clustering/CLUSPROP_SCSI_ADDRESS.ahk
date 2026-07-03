@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CLUS_SCSI_ADDRESS.ahk" { CLUS_SCSI_ADDRESS }
 #Import ".\CLUSPROP_SYNTAX.ahk" { CLUSPROP_SYNTAX }
 #Import ".\CLUSPROP_VALUE.ahk" { CLUSPROP_VALUE }
+#Import ".\CLUS_SCSI_ADDRESS.ahk" { CLUS_SCSI_ADDRESS }
 
 /**
  * Describes an address for a SCSI device.

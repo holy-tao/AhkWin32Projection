@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\Guid.ahk" { Guid }
-#Import "..\System\Com\IEnumString.ahk" { IEnumString }
 #Import "..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ISpellChecker.ahk" { ISpellChecker }
-#Import "..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\System\Com\IEnumString.ahk" { IEnumString }
+#Import "..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * A factory for instantiating a spell checker (ISpellChecker) as well as providing functionality for determining which languages are supported.

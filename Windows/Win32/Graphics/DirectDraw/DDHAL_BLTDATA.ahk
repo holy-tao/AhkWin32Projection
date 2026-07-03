@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
 #Import "..\..\Foundation\RECTL.ahk" { RECTL }
-#Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
-#Import ".\IDirectDrawSurface.ahk" { IDirectDrawSurface }
-#Import ".\LPDDHALSURFCB_BLT.ahk" { LPDDHALSURFCB_BLT }
-#Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DDBLTFX.ahk" { DDBLTFX }
+#Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
+#Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
+#Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
+#Import ".\IDirectDrawSurface.ahk" { IDirectDrawSurface }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -34,7 +33,7 @@ export default struct DDHAL_BLTDATA {
 
     ddRVal : HRESULT
 
-    Blt : LPDDHALSURFCB_BLT
+    Blt : IntPtr
 
     IsClipped : BOOL
 

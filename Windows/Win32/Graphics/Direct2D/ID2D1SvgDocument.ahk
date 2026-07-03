@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
-#Import ".\ID2D1SvgElement.ahk" { ID2D1SvgElement }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "Common\D2D_SIZE_F.ahk" { D2D_SIZE_F }
-#Import ".\ID2D1Resource.ahk" { ID2D1Resource }
-#Import ".\ID2D1SvgPaint.ahk" { ID2D1SvgPaint }
-#Import ".\D2D1_SVG_PAINT_TYPE.ahk" { D2D1_SVG_PAINT_TYPE }
-#Import ".\D2D1_SVG_LENGTH.ahk" { D2D1_SVG_LENGTH }
-#Import "Common\D2D1_COLOR_F.ahk" { D2D1_COLOR_F }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import ".\ID2D1SvgStrokeDashArray.ahk" { ID2D1SvgStrokeDashArray }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "Common\D2D1_COLOR_F.ahk" { D2D1_COLOR_F }
+#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
+#Import "Common\D2D_SIZE_F.ahk" { D2D_SIZE_F }
+#Import ".\D2D1_SVG_LENGTH.ahk" { D2D1_SVG_LENGTH }
+#Import ".\D2D1_SVG_PAINT_TYPE.ahk" { D2D1_SVG_PAINT_TYPE }
 #Import ".\D2D1_SVG_PATH_COMMAND.ahk" { D2D1_SVG_PATH_COMMAND }
-#Import ".\ID2D1SvgPointCollection.ahk" { ID2D1SvgPointCollection }
+#Import ".\ID2D1Resource.ahk" { ID2D1Resource }
+#Import ".\ID2D1SvgElement.ahk" { ID2D1SvgElement }
+#Import ".\ID2D1SvgPaint.ahk" { ID2D1SvgPaint }
 #Import ".\ID2D1SvgPathData.ahk" { ID2D1SvgPathData }
+#Import ".\ID2D1SvgPointCollection.ahk" { ID2D1SvgPointCollection }
+#Import ".\ID2D1SvgStrokeDashArray.ahk" { ID2D1SvgStrokeDashArray }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * Represents an SVG document.

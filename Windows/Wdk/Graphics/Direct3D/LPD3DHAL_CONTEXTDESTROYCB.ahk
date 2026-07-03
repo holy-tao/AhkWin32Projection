@@ -44,10 +44,6 @@ export default struct LPD3DHAL_CONTEXTDESTROYCB {
             this.value := CallbackCreate(fn, , [D3DHAL_CONTEXTDESTROYDATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

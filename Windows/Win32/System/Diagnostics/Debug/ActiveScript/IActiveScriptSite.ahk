@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\SCRIPTSTATE.ahk" { SCRIPTSTATE }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Com\EXCEPINFO.ahk" { EXCEPINFO }
 #Import "..\..\..\Com\ITypeInfo.ahk" { ITypeInfo }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IActiveScriptError.ahk" { IActiveScriptError }
+#Import ".\SCRIPTSTATE.ahk" { SCRIPTSTATE }
 #Import "..\..\..\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\..\Com\EXCEPINFO.ahk" { EXCEPINFO }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

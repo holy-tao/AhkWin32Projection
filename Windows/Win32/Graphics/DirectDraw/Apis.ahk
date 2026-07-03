@@ -1,14 +1,10 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\LPDDENUMCALLBACKEXW.ahk" { LPDDENUMCALLBACKEXW }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\LPDDENUMCALLBACKW.ahk" { LPDDENUMCALLBACKW }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDirectDrawClipper.ahk" { IDirectDrawClipper }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDirectDraw.ahk" { IDirectDraw }
-#Import ".\LPDDENUMCALLBACKA.ahk" { LPDDENUMCALLBACKA }
-#Import ".\LPDDENUMCALLBACKEXA.ahk" { LPDDENUMCALLBACKEXA }
+#Import ".\IDirectDrawClipper.ahk" { IDirectDrawClipper }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -29,7 +25,7 @@
 export DirectDrawEnumerateW(lpCallback, lpContext) {
     lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("DDRAW.dll\DirectDrawEnumerateW", LPDDENUMCALLBACKW, lpCallback, lpContextMarshal, lpContext, "HRESULT")
+    result := DllCall("DDRAW.dll\DirectDrawEnumerateW", "ptr", lpCallback, lpContextMarshal, lpContext, "HRESULT")
     return result
 }
 
@@ -47,7 +43,7 @@ export DirectDrawEnumerateW(lpCallback, lpContext) {
 export DirectDrawEnumerateA(lpCallback, lpContext) {
     lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("DDRAW.dll\DirectDrawEnumerateA", LPDDENUMCALLBACKA, lpCallback, lpContextMarshal, lpContext, "HRESULT")
+    result := DllCall("DDRAW.dll\DirectDrawEnumerateA", "ptr", lpCallback, lpContextMarshal, lpContext, "HRESULT")
     return result
 }
 
@@ -78,7 +74,7 @@ export DirectDrawEnumerateA(lpCallback, lpContext) {
 export DirectDrawEnumerateExW(lpCallback, lpContext, dwFlags) {
     lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("DDRAW.dll\DirectDrawEnumerateExW", LPDDENUMCALLBACKEXW, lpCallback, lpContextMarshal, lpContext, UInt32, dwFlags, "HRESULT")
+    result := DllCall("DDRAW.dll\DirectDrawEnumerateExW", "ptr", lpCallback, lpContextMarshal, lpContext, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -109,7 +105,7 @@ export DirectDrawEnumerateExW(lpCallback, lpContext, dwFlags) {
 export DirectDrawEnumerateExA(lpCallback, lpContext, dwFlags) {
     lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("DDRAW.dll\DirectDrawEnumerateExA", LPDDENUMCALLBACKEXA, lpCallback, lpContextMarshal, lpContext, UInt32, dwFlags, "HRESULT")
+    result := DllCall("DDRAW.dll\DirectDrawEnumerateExA", "ptr", lpCallback, lpContextMarshal, lpContext, UInt32, dwFlags, "HRESULT")
     return result
 }
 

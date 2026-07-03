@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DWRITE_GLYPH_OFFSET.ahk" { DWRITE_GLYPH_OFFSET }
+#Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
 
 /**
  * Contains the information needed by renderers to draw glyph runs.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\MediaFoundation\DXVA2_VideoDesc.ahk" { DXVA2_VideoDesc }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\MediaFoundation\DXVA2_VideoDesc.ahk" { DXVA2_VideoDesc }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
@@ -45,10 +45,6 @@ export default struct PDXVA2SW_GETVIDEOPROCESSORRENDERTARGETCOUNT {
             this.value := CallbackCreate(fn, , [DXVA2_VideoDesc.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

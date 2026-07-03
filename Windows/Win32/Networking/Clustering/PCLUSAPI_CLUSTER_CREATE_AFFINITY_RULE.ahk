@@ -50,10 +50,6 @@ export default struct PCLUSAPI_CLUSTER_CREATE_AFFINITY_RULE {
             this.value := CallbackCreate(fn, , [HCLUSTER, PWSTR, CLUS_AFFINITY_RULE_TYPE, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDot11AdHocSecuritySettings.ahk" { IDot11AdHocSecuritySettings }
-#Import ".\IDot11AdHocInterface.ahk" { IDot11AdHocInterface }
-#Import ".\IEnumDot11AdHocNetworks.ahk" { IEnumDot11AdHocNetworks }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\IEnumDot11AdHocInterfaces.ahk" { IEnumDot11AdHocInterfaces }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IDot11AdHocNetwork.ahk" { IDot11AdHocNetwork }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDot11AdHocInterface.ahk" { IDot11AdHocInterface }
+#Import ".\IDot11AdHocNetwork.ahk" { IDot11AdHocNetwork }
+#Import ".\IDot11AdHocSecuritySettings.ahk" { IDot11AdHocSecuritySettings }
+#Import ".\IEnumDot11AdHocInterfaces.ahk" { IEnumDot11AdHocInterfaces }
+#Import ".\IEnumDot11AdHocNetworks.ahk" { IEnumDot11AdHocNetworks }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Creates and manages 802.11 ad hoc networks.

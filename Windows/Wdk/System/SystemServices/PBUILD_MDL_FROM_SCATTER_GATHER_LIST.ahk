@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DMA_ADAPTER.ahk" { DMA_ADAPTER }
 #Import "..\..\Foundation\MDL.ahk" { MDL }
+#Import ".\DMA_ADAPTER.ahk" { DMA_ADAPTER }
 #Import ".\SCATTER_GATHER_LIST.ahk" { SCATTER_GATHER_LIST }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
@@ -33,7 +33,7 @@ export default struct PBUILD_MDL_FROM_SCATTER_GATHER_LIST {
         TargetMdlMarshal := TargetMdl is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, SCATTER_GATHER_LIST.Ptr, ScatterGather, MDL.Ptr, OriginalMdl, TargetMdlMarshal, TargetMdl, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -53,10 +53,6 @@ export default struct PBUILD_MDL_FROM_SCATTER_GATHER_LIST {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, SCATTER_GATHER_LIST.Ptr, MDL.Ptr, "ptr*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

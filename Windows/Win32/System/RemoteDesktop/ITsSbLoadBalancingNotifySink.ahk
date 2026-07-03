@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ITsSbLoadBalanceResult.ahk" { ITsSbLoadBalanceResult }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITsSbBaseNotifySink.ahk" { ITsSbBaseNotifySink }
+#Import ".\ITsSbLoadBalanceResult.ahk" { ITsSbLoadBalanceResult }
 
 /**
  * Exposes methods that return the result of a load-balancing algorithm to Remote Desktop Connection Broker (RD Connection Broker).

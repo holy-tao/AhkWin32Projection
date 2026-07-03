@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * Contains information used by Shell_NotifyIconGetRect to identify the icon for which to retrieve the bounding rectangle.

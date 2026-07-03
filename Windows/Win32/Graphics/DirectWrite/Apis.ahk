@@ -1,8 +1,8 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\DWRITE_FACTORY_TYPE.ahk" { DWRITE_FACTORY_TYPE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_FACTORY_TYPE.ahk" { DWRITE_FACTORY_TYPE }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectWrite

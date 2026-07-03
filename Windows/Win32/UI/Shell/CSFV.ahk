@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LPFNVIEWCALLBACK.ahk" { LPFNVIEWCALLBACK }
-#Import ".\IShellView.ahk" { IShellView }
 #Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import ".\FOLDERVIEWMODE.ahk" { FOLDERVIEWMODE }
 #Import ".\IShellFolder.ahk" { IShellFolder }
+#Import ".\IShellView.ahk" { IShellView }
 
 /**
  * Used with the SHCreateShellFolderViewEx function.
@@ -51,7 +50,7 @@ export default struct CSFV {
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nc-shlobj_core-lpfnviewcallback">LPFNVIEWCALLBACK</a> function used by this folder view to handle callback messages. This parameter can be <b>NULL</b>.
      */
-    pfnCallback : LPFNVIEWCALLBACK
+    pfnCallback : IntPtr
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderviewmode">FOLDERVIEWMODE</a></b>

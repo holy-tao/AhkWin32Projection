@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\ID3D12Fence.ahk" { ID3D12Fence }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3D12_MULTIPLE_FENCE_WAIT_FLAGS.ahk" { D3D12_MULTIPLE_FENCE_WAIT_FLAGS }
-#Import ".\ID3D12Pageable.ahk" { ID3D12Pageable }
 #Import ".\D3D12_RESIDENCY_PRIORITY.ahk" { D3D12_RESIDENCY_PRIORITY }
 #Import ".\ID3D12Device.ahk" { ID3D12Device }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D12Fence.ahk" { ID3D12Fence }
+#Import ".\ID3D12Pageable.ahk" { ID3D12Pageable }
 
 /**
  * Represents a virtual adapter, and expands on the range of methods provided by ID3D12Device.

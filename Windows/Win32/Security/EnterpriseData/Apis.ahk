@@ -1,17 +1,17 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Storage\Packaging\Appx\PACKAGE_ID.ahk" { PACKAGE_ID }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\FILE_UNPROTECT_OPTIONS.ahk" { FILE_UNPROTECT_OPTIONS }
-#Import ".\_SRP_REQUEST.ahk" { _SRP_REQUEST }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
-#Import ".\SRPHOSTING_VERSION.ahk" { SRPHOSTING_VERSION }
-#Import ".\SRPHOSTING_TYPE.ahk" { SRPHOSTING_TYPE }
-#Import ".\ENTERPRISE_DATA_POLICIES.ahk" { ENTERPRISE_DATA_POLICIES }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ENTERPRISE_DATA_POLICIES.ahk" { ENTERPRISE_DATA_POLICIES }
+#Import ".\FILE_UNPROTECT_OPTIONS.ahk" { FILE_UNPROTECT_OPTIONS }
 #Import ".\HTHREAD_NETWORK_CONTEXT.ahk" { HTHREAD_NETWORK_CONTEXT }
+#Import ".\SRPHOSTING_TYPE.ahk" { SRPHOSTING_TYPE }
+#Import ".\SRPHOSTING_VERSION.ahk" { SRPHOSTING_VERSION }
+#Import ".\_SRP_REQUEST.ahk" { _SRP_REQUEST }
+#Import "..\..\Storage\Packaging\Appx\PACKAGE_ID.ahk" { PACKAGE_ID }
 
 /**
  * @namespace Windows.Win32.Security.EnterpriseData
@@ -129,7 +129,7 @@ export SrpIsTokenService(TokenHandle, IsTokenService) {
     IsTokenServiceMarshal := IsTokenService is VarRef ? "char*" : "ptr"
 
     result := DllCall("srpapi.dll\SrpIsTokenService", HANDLE, TokenHandle, IsTokenServiceMarshal, IsTokenService, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 
@@ -154,7 +154,7 @@ export SrpIsAllowed(FileInfo) {
     FileInfoMarshal := FileInfo is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("srpapi.dll\SrpIsAllowed", FileInfoMarshal, FileInfo, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 

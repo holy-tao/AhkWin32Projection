@@ -50,10 +50,6 @@ export default struct PWINDBG_EXTENSION_ROUTINE {
             this.value := CallbackCreate(fn, , [HANDLE, HANDLE, UInt32, UInt32, PSTR, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

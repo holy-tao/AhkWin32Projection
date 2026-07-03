@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWMDMProgress.ahk" { IWMDMProgress }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\WMDMID.ahk" { WMDMID }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMDMProgress.ahk" { IWMDMProgress }
+#Import ".\WMDMID.ahk" { WMDMID }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMDMStorageGlobals interface provides methods for retrieving global information about a storage medium (such as a flash ROM card) on a device.

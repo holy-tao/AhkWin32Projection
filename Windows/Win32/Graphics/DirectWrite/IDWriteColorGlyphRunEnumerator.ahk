@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DWRITE_COLOR_GLYPH_RUN.ahk" { DWRITE_COLOR_GLYPH_RUN }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This interface allows the application to enumerate through the color glyph runs.

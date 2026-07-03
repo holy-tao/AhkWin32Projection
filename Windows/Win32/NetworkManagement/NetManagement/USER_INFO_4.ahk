@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\USER_ACCOUNT_FLAGS.ahk" { USER_ACCOUNT_FLAGS }
 #Import ".\AF_OP.ahk" { AF_OP }
+#Import ".\USER_ACCOUNT_FLAGS.ahk" { USER_ACCOUNT_FLAGS }
 #Import ".\USER_PRIV.ahk" { USER_PRIV }
 #Import "..\..\Security\PSID.ahk" { PSID }
 

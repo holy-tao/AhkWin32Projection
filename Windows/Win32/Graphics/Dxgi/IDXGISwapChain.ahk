@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "Common\DXGI_MODE_DESC.ahk" { DXGI_MODE_DESC }
-#Import ".\DXGI_PRESENT.ahk" { DXGI_PRESENT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDXGIOutput.ahk" { IDXGIOutput }
-#Import ".\IDXGIDeviceSubObject.ahk" { IDXGIDeviceSubObject }
-#Import ".\DXGI_FRAME_STATISTICS.ahk" { DXGI_FRAME_STATISTICS }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DXGI_SWAP_CHAIN_DESC.ahk" { DXGI_SWAP_CHAIN_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import "Common\DXGI_MODE_DESC.ahk" { DXGI_MODE_DESC }
+#Import ".\DXGI_FRAME_STATISTICS.ahk" { DXGI_FRAME_STATISTICS }
+#Import ".\DXGI_PRESENT.ahk" { DXGI_PRESENT }
+#Import ".\DXGI_SWAP_CHAIN_DESC.ahk" { DXGI_SWAP_CHAIN_DESC }
+#Import ".\IDXGIDeviceSubObject.ahk" { IDXGIDeviceSubObject }
+#Import ".\IDXGIOutput.ahk" { IDXGIOutput }
 
 /**
  * An IDXGISwapChain interface implements one or more surfaces for storing rendered data before presenting it to an output.

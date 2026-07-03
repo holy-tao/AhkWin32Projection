@@ -1,13 +1,13 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\HGESTUREINFO.ahk" { HGESTUREINFO }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\GESTUREINFO.ahk" { GESTUREINFO }
-#Import ".\GESTURECONFIG.ahk" { GESTURECONFIG }
-#Import ".\HTOUCHINPUT.ahk" { HTOUCHINPUT }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\TOUCHINPUT.ahk" { TOUCHINPUT }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\GESTURECONFIG.ahk" { GESTURECONFIG }
+#Import ".\GESTUREINFO.ahk" { GESTUREINFO }
+#Import ".\HGESTUREINFO.ahk" { HGESTUREINFO }
+#Import ".\HTOUCHINPUT.ahk" { HTOUCHINPUT }
 #Import ".\REGISTER_TOUCH_WINDOW_FLAGS.ahk" { REGISTER_TOUCH_WINDOW_FLAGS }
+#Import ".\TOUCHINPUT.ahk" { TOUCHINPUT }
 
 /**
  * @namespace Windows.Win32.UI.Input.Touch

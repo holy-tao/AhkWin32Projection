@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CFE_EFFECTS.ahk" { CFE_EFFECTS }
 #Import "..\..\..\Foundation\COLORREF.ahk" { COLORREF }
-#Import ".\CFM_MASK.ahk" { CFM_MASK }
 #Import "..\..\..\Graphics\Gdi\FONT_CHARSET.ahk" { FONT_CHARSET }
+#Import ".\CFE_EFFECTS.ahk" { CFE_EFFECTS }
+#Import ".\CFM_MASK.ahk" { CFM_MASK }
 #Import ".\CHARFORMATA.ahk" { CHARFORMATA }
 #Import "..\..\..\Foundation\CHAR.ahk" { CHAR }
 
@@ -22,7 +22,7 @@
  * @charset ANSI
  */
 export default struct CHARFORMAT2A {
-    #StructPack 8
+    #StructPack 4
 
     Base : CHARFORMATA
 
@@ -114,7 +114,7 @@ export default struct CHARFORMAT2A {
     bUnderlineColor : Int8
 
     static __New() {
-        DefineProp(this.Prototype, 'dwCookie', { type: UInt32, offset: 84 })
+        DefineProp(this.Prototype, 'dwCookie', { type: UInt32, offset: 72 })
         this.DeleteProp("__New")
     }
 }

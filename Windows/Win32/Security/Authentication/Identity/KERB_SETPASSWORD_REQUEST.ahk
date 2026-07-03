@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 #Import "..\..\..\Foundation\LUID.ahk" { LUID }
-#Import "..\..\Credentials\SecHandle.ahk" { SecHandle }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\KERB_PROTOCOL_MESSAGE_TYPE.ahk" { KERB_PROTOCOL_MESSAGE_TYPE }
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\Credentials\SecHandle.ahk" { SecHandle }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity

@@ -31,7 +31,7 @@ export default struct RTL_AVL_MATCH_FUNCTION {
         MatchDataMarshal := MatchData is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, RTL_AVL_TABLE.Ptr, Table, _UserDataMarshal, _UserData, MatchDataMarshal, MatchData, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -51,10 +51,6 @@ export default struct RTL_AVL_MATCH_FUNCTION {
             this.value := CallbackCreate(fn, , [RTL_AVL_TABLE.Ptr, "ptr", "ptr", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\AsnObjectIdentifier.ahk" { AsnObjectIdentifier }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Snmp
@@ -48,10 +48,6 @@ export default struct PFNSNMPEXTENSIONINIT {
             this.value := CallbackCreate(fn, , [UInt32, HANDLE.Ptr, AsnObjectIdentifier.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

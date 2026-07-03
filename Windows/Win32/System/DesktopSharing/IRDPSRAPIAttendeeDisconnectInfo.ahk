@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IRDPSRAPIAttendee.ahk" { IRDPSRAPIAttendee }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\ATTENDEE_DISCONNECT_REASON.ahk" { ATTENDEE_DISCONNECT_REASON }
+#Import ".\IRDPSRAPIAttendee.ahk" { IRDPSRAPIAttendee }
 
 /**
  * Contains information about the reason an attendee disconnected.

@@ -46,10 +46,6 @@ export default struct PDD_KERNELCB_SYNCVIDEOPORT {
             this.value := CallbackCreate(fn, , [DD_SYNCVIDEOPORTDATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

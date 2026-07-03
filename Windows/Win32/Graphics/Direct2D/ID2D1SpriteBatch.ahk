@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\D2D1_COLOR_F.ahk" { D2D1_COLOR_F }
+#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
 #Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
 #Import "Common\D2D_RECT_U.ahk" { D2D_RECT_U }
 #Import ".\ID2D1Resource.ahk" { ID2D1Resource }
-#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "Common\D2D1_COLOR_F.ahk" { D2D1_COLOR_F }
 
 /**
  * Represents a single group of sprites with their associated drawing properties.

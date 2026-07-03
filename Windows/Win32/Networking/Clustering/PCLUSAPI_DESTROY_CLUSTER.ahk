@@ -1,5 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PCLUSTER_SETUP_PROGRESS_CALLBACK.ahk" { PCLUSTER_SETUP_PROGRESS_CALLBACK }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\HCLUSTER.ahk" { HCLUSTER }
 
@@ -31,7 +30,7 @@ export default struct PCLUSAPI_DESTROY_CLUSTER {
     Call(_hCluster, pfnProgressCallback, pvCallbackArg, fdeleteVirtualComputerObjects) {
         pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
 
-        result := DllCall(this.value, HCLUSTER, _hCluster, PCLUSTER_SETUP_PROGRESS_CALLBACK, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, BOOL, fdeleteVirtualComputerObjects, UInt32)
+        result := DllCall(this.value, HCLUSTER, _hCluster, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, BOOL, fdeleteVirtualComputerObjects, UInt32)
         return result
     }
 
@@ -42,19 +41,15 @@ export default struct PCLUSAPI_DESTROY_CLUSTER {
     struct From extends PCLUSAPI_DESTROY_CLUSTER {
         /**
          * Creates a PCLUSAPI_DESTROY_CLUSTER pointer that invokes the given AHK function when called.
-         * @param {Func(HCLUSTER, PCLUSTER_SETUP_PROGRESS_CALLBACK, "ptr", BOOL) => UInt32} fn the function to invoke.
+         * @param {Func(HCLUSTER, "ptr", "ptr", BOOL) => UInt32} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 4)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 4 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [HCLUSTER, PCLUSTER_SETUP_PROGRESS_CALLBACK, "ptr", BOOL, UInt32])
+            this.value := CallbackCreate(fn, , [HCLUSTER, "ptr", "ptr", BOOL, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

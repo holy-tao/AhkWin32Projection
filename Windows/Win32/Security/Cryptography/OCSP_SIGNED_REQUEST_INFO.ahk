@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\OCSP_SIGNATURE_INFO.ahk" { OCSP_SIGNATURE_INFO }
 #Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\OCSP_SIGNATURE_INFO.ahk" { OCSP_SIGNATURE_INFO }
 
 /**
  * Contains information for an online certificate status protocol (OCSP) request with optional signature information.

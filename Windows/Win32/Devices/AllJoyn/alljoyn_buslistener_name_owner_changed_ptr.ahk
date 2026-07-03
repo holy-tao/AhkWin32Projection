@@ -52,10 +52,6 @@ export default struct alljoyn_buslistener_name_owner_changed_ptr {
             this.value := CallbackCreate(fn, , ["ptr", PSTR, PSTR, PSTR, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

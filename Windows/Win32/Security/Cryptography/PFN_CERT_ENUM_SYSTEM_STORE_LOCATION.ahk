@@ -58,10 +58,6 @@ export default struct PFN_CERT_ENUM_SYSTEM_STORE_LOCATION {
             this.value := CallbackCreate(fn, , [PWSTR, UInt32, "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

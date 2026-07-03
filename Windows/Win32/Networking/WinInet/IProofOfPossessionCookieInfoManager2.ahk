@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\WinRT\IInspectable.ahk" { IInspectable }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ProofOfPossessionCookieInfo.ahk" { ProofOfPossessionCookieInfo }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\WinRT\IInspectable.ahk" { IInspectable }
 
 /**
  * Supports the creation of proof-of-possession cookies, for a WebAccount.

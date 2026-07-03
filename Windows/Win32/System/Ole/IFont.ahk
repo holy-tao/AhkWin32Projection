@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\CY.ahk" { CY }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Graphics\Gdi\HFONT.ahk" { HFONT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Graphics\Gdi\TEXTMETRICW.ahk" { TEXTMETRICW }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Graphics\Gdi\HFONT.ahk" { HFONT }
+#Import "..\..\Graphics\Gdi\TEXTMETRICW.ahk" { TEXTMETRICW }
+#Import "..\Com\CY.ahk" { CY }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides a wrapper around a Windows font object.

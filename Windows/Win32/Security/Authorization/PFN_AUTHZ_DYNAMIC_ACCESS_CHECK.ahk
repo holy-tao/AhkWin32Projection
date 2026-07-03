@@ -52,10 +52,6 @@ export default struct PFN_AUTHZ_DYNAMIC_ACCESS_CHECK {
             this.value := CallbackCreate(fn, , [AUTHZ_CLIENT_CONTEXT_HANDLE, ACE_HEADER.Ptr, "ptr", BOOL.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

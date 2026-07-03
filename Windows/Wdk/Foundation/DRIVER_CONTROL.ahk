@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
-#Import "..\System\SystemServices\IO_ALLOCATION_ACTION.ahk" { IO_ALLOCATION_ACTION }
 #Import ".\IRP.ahk" { IRP }
+#Import "..\System\SystemServices\IO_ALLOCATION_ACTION.ahk" { IO_ALLOCATION_ACTION }
 
 /**
  * @namespace Windows.Wdk.Foundation
@@ -52,10 +52,6 @@ export default struct DRIVER_CONTROL {
             this.value := CallbackCreate(fn, , [DEVICE_OBJECT.Ptr, IRP.Ptr, "ptr", "ptr", IO_ALLOCATION_ACTION])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\WNDOBJ.ahk" { WNDOBJ }
 #Import ".\SURFOBJ.ahk" { SURFOBJ }
+#Import ".\WNDOBJ.ahk" { WNDOBJ }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -47,10 +47,6 @@ export default struct PFN_DrvSwapBuffers {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, WNDOBJ.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 
 /**
  * Sends metadata to a security support provider.
@@ -202,7 +202,7 @@ export default struct SpExchangeMetaDataFn {
         ContextHandleMarshal := ContextHandle is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, IntPtr, CredentialHandle, LSA_UNICODE_STRING.Ptr, TargetName, UInt32, ContextRequirements, UInt32, MetaDataLength, IntPtr, MetaData, ContextHandleMarshal, ContextHandle, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -222,10 +222,6 @@ export default struct SpExchangeMetaDataFn {
             this.value := CallbackCreate(fn, , [IntPtr, LSA_UNICODE_STRING.Ptr, UInt32, UInt32, IntPtr, "ptr*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

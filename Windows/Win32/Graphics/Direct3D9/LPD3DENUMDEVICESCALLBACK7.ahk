@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\D3DDEVICEDESC7.ahk" { D3DDEVICEDESC7 }
 
 /**
@@ -54,10 +54,6 @@ export default struct LPD3DENUMDEVICESCALLBACK7 {
             this.value := CallbackCreate(fn, , [PSTR, PSTR, D3DDEVICEDESC7.Ptr, "ptr", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MFT_OUTPUT_STREAM_INFO.ahk" { MFT_OUTPUT_STREAM_INFO }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MFT_MESSAGE_TYPE.ahk" { MFT_MESSAGE_TYPE }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import ".\IMFMediaEvent.ahk" { IMFMediaEvent }
+#Import ".\IMFMediaType.ahk" { IMFMediaType }
 #Import ".\IMFSample.ahk" { IMFSample }
 #Import ".\MFT_INPUT_STREAM_INFO.ahk" { MFT_INPUT_STREAM_INFO }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMFMediaType.ahk" { IMFMediaType }
+#Import ".\MFT_MESSAGE_TYPE.ahk" { MFT_MESSAGE_TYPE }
 #Import ".\MFT_OUTPUT_DATA_BUFFER.ahk" { MFT_OUTPUT_DATA_BUFFER }
-#Import ".\IMFMediaEvent.ahk" { IMFMediaEvent }
-#Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import ".\MFT_OUTPUT_STREAM_INFO.ahk" { MFT_OUTPUT_STREAM_INFO }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Implemented by all Media Foundation Transforms (MFTs).

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IKeyStore.ahk" { IKeyStore }
-#Import ".\IDebugHostContext.ahk" { IDebugHostContext }
-#Import ".\IModelObject.ahk" { IModelObject }
-#Import ".\IDataModelManager.ahk" { IDataModelManager }
-#Import ".\IDebugHostType.ahk" { IDebugHostType }
-#Import "..\..\..\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDataModelManager.ahk" { IDataModelManager }
+#Import ".\IDebugHostContext.ahk" { IDebugHostContext }
+#Import ".\IDebugHostType.ahk" { IDebugHostType }
+#Import ".\IKeyStore.ahk" { IKeyStore }
+#Import ".\IModelObject.ahk" { IModelObject }
+#Import "..\..\..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\ID3D11DeviceChild.ahk" { ID3D11DeviceChild }
-#Import ".\ID3D11ClassInstance.ahk" { ID3D11ClassInstance }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\ID3D11ClassInstance.ahk" { ID3D11ClassInstance }
+#Import ".\ID3D11DeviceChild.ahk" { ID3D11DeviceChild }
 
 /**
  * This interface encapsulates an HLSL dynamic linkage.

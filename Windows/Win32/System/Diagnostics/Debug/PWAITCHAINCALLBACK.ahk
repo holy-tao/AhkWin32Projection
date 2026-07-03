@@ -55,10 +55,6 @@ export default struct PWAITCHAINCALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr, UInt32, "uint*", WAITCHAIN_NODE_INFO.Ptr, BOOL.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

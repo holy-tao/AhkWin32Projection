@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HNETWORK.ahk" { HNETWORK }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\HCLUSTER.ahk" { HCLUSTER }
+#Import ".\HNETWORK.ahk" { HNETWORK }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -49,10 +49,6 @@ export default struct PCLUSAPI_OPEN_CLUSTER_NETWORK {
             this.value := CallbackCreate(fn, , [HCLUSTER, PWSTR, HNETWORK])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\USE_INFO_ASG_TYPE.ahk" { USE_INFO_ASG_TYPE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\USE_INFO_ASG_TYPE.ahk" { USE_INFO_ASG_TYPE }
 
 /**
  * Contains information about the connection between a local device and a shared resource.

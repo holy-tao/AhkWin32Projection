@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\CRYPT_ATTRIBUTE.ahk" { CRYPT_ATTRIBUTE }
-#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
-#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
-#Import ".\CRYPT_BIT_BLOB.ahk" { CRYPT_BIT_BLOB }
 #Import ".\CERT_PUBLIC_KEY_INFO.ahk" { CERT_PUBLIC_KEY_INFO }
+#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
+#Import ".\CRYPT_ATTRIBUTE.ahk" { CRYPT_ATTRIBUTE }
+#Import ".\CRYPT_BIT_BLOB.ahk" { CRYPT_BIT_BLOB }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 
 /**
  * The CERT_REQUEST_INFO structure contains information for a certificate request. The subject, subject public key, and attribute BLOBs are encoded.

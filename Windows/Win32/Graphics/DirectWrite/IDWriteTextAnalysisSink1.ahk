@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IDWriteTextAnalysisSink.ahk" { IDWriteTextAnalysisSink }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DWRITE_GLYPH_ORIENTATION_ANGLE.ahk" { DWRITE_GLYPH_ORIENTATION_ANGLE }
+#Import ".\IDWriteTextAnalysisSink.ahk" { IDWriteTextAnalysisSink }
 
 /**
  * The interface you implement to receive the output of the text analyzers.

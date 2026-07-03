@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITextRow.ahk" { ITextRow }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IStream.ahk" { IStream }
-#Import ".\ITextPara2.ahk" { ITextPara2 }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ITextSelection.ahk" { ITextSelection }
 #Import ".\ITextFont2.ahk" { ITextFont2 }
+#Import ".\ITextPara2.ahk" { ITextPara2 }
+#Import ".\ITextRow.ahk" { ITextRow }
+#Import ".\ITextSelection.ahk" { ITextSelection }
 
 /**
  * The ITextRange2 interface is derived from ITextRange, and its objects are powerful editing and data-binding tools that enable a program to select text in a story and then examine or change that text.

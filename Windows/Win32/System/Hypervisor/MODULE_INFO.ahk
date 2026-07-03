@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DOS_IMAGE_INFO.ahk" { DOS_IMAGE_INFO }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\DOS_IMAGE_INFO.ahk" { DOS_IMAGE_INFO }
 
 /**
  * @namespace Windows.Win32.System.Hypervisor

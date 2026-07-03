@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\CLIENT_MESSAGE_TYPE.ahk" { CLIENT_MESSAGE_TYPE }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\CLIENT_MESSAGE_TYPE.ahk" { CLIENT_MESSAGE_TYPE }
 
 /**
  * Exposes methods that report status and error messages to Remote Desktop Connection Broker (RD Connection Broker).

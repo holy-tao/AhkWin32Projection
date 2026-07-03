@@ -1,29 +1,29 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Graphics\Gdi\HMONITOR.ahk" { HMONITOR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\BASEBROWSERDATALH.ahk" { BASEBROWSERDATALH }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
-#Import ".\IBrowserService.ahk" { IBrowserService }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ITravelLog.ahk" { ITravelLog }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\Graphics\Gdi\HMONITOR.ahk" { HMONITOR }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import ".\TOOLBARITEM.ahk" { TOOLBARITEM }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Controls\NMHDR.ahk" { NMHDR }
-#Import "..\WindowsAndMessaging\MSG.ahk" { MSG }
+#Import ".\BASEBROWSERDATALH.ahk" { BASEBROWSERDATALH }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import ".\FOLDERSETDATA.ahk" { FOLDERSETDATA }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\IBrowserService.ahk" { IBrowserService }
+#Import ".\IShellView.ahk" { IShellView }
+#Import ".\ITravelLog.ahk" { ITravelLog }
+#Import ".\TOOLBARITEM.ahk" { TOOLBARITEM }
 #Import "..\WindowsAndMessaging\CREATESTRUCTW.ahk" { CREATESTRUCTW }
 #Import "..\WindowsAndMessaging\HACCEL.ahk" { HACCEL }
-#Import ".\IShellView.ahk" { IShellView }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\WindowsAndMessaging\MSG.ahk" { MSG }
 
 /**
  * Deprecated. (IBrowserService2)

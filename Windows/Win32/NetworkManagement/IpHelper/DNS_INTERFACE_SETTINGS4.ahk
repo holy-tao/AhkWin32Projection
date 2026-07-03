@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DNS_SERVER_PROPERTY.ahk" { DNS_SERVER_PROPERTY }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DNS_SERVER_PROPERTY.ahk" { DNS_SERVER_PROPERTY }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper

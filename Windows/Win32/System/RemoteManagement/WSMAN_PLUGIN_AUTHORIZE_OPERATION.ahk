@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WSMAN_SENDER_DETAILS.ahk" { WSMAN_SENDER_DETAILS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WSMAN_SENDER_DETAILS.ahk" { WSMAN_SENDER_DETAILS }
 
 /**
  * Authorizes a specific operation.
@@ -58,10 +58,6 @@ export default struct WSMAN_PLUGIN_AUTHORIZE_OPERATION {
             this.value := CallbackCreate(fn, , ["ptr", WSMAN_SENDER_DETAILS.Ptr, UInt32, UInt32, PWSTR, PWSTR, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

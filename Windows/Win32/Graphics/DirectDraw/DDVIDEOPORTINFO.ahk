@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
 
 /**
  * The DDVIDEOPORTINFO structure describes how the driver should transfer video data to a surface (or to surfaces); DDVIDEOPORTINFO is a member of the DD_VIDEOPORT_LOCAL structure.

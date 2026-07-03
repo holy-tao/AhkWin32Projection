@@ -53,10 +53,6 @@ export default struct PFAXROUTEGETROUTINGINFO {
             this.value := CallbackCreate(fn, , [PWSTR, UInt32, "char*", "uint*", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

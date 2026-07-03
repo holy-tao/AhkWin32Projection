@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Storage\FileSystem\CLS_LSN.ahk" { CLS_LSN }
-#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import "..\..\Foundation\FILE_OBJECT.ahk" { FILE_OBJECT }
+#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\..\Win32\Storage\FileSystem\CLS_LSN.ahk" { CLS_LSN }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -31,7 +31,7 @@ export default struct PCLFS_CLIENT_ADVANCE_TAIL_CALLBACK {
         ClientDataMarshal := ClientData is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, FILE_OBJECT.Ptr, LogFile, CLS_LSN.Ptr, TargetLsn, ClientDataMarshal, ClientData, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -51,10 +51,6 @@ export default struct PCLFS_CLIENT_ADVANCE_TAIL_CALLBACK {
             this.value := CallbackCreate(fn, , [FILE_OBJECT.Ptr, CLS_LSN.Ptr, "ptr", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

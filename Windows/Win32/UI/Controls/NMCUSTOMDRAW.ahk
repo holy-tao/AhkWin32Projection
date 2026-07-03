@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\NMHDR.ahk" { NMHDR }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
 #Import ".\NMCUSTOMDRAW_DRAW_STAGE.ahk" { NMCUSTOMDRAW_DRAW_STAGE }
 #Import ".\NMCUSTOMDRAW_DRAW_STATE_FLAGS.ahk" { NMCUSTOMDRAW_DRAW_STATE_FLAGS }
-#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import ".\NMHDR.ahk" { NMHDR }
 
 /**
  * Contains information specific to an NM_CUSTOMDRAW notification code.

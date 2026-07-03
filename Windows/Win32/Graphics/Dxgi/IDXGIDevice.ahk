@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DXGI_USAGE.ahk" { DXGI_USAGE }
-#Import ".\DXGI_RESIDENCY.ahk" { DXGI_RESIDENCY }
-#Import ".\IDXGISurface.ahk" { IDXGISurface }
-#Import ".\IDXGIAdapter.ahk" { IDXGIAdapter }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDXGIObject.ahk" { IDXGIObject }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXGI_RESIDENCY.ahk" { DXGI_RESIDENCY }
 #Import ".\DXGI_SHARED_RESOURCE.ahk" { DXGI_SHARED_RESOURCE }
 #Import ".\DXGI_SURFACE_DESC.ahk" { DXGI_SURFACE_DESC }
+#Import ".\DXGI_USAGE.ahk" { DXGI_USAGE }
+#Import ".\IDXGIAdapter.ahk" { IDXGIAdapter }
+#Import ".\IDXGIObject.ahk" { IDXGIObject }
+#Import ".\IDXGISurface.ahk" { IDXGISurface }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * An IDXGIDevice interface implements a derived class for DXGI objects that produce image data.

@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID3D11BlendState1.ahk" { ID3D11BlendState1 }
-#Import ".\D3D11_RASTERIZER_DESC1.ahk" { D3D11_RASTERIZER_DESC1 }
-#Import ".\ID3D11Device.ahk" { ID3D11Device }
-#Import ".\D3D11_BLEND_DESC1.ahk" { D3D11_BLEND_DESC1 }
-#Import ".\ID3DDeviceContextState.ahk" { ID3DDeviceContextState }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\ID3D11RasterizerState1.ahk" { ID3D11RasterizerState1 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Direct3D\D3D_FEATURE_LEVEL.ahk" { D3D_FEATURE_LEVEL }
+#Import ".\D3D11_BLEND_DESC1.ahk" { D3D11_BLEND_DESC1 }
+#Import ".\D3D11_RASTERIZER_DESC1.ahk" { D3D11_RASTERIZER_DESC1 }
+#Import ".\ID3D11BlendState1.ahk" { ID3D11BlendState1 }
+#Import ".\ID3D11Device.ahk" { ID3D11Device }
 #Import ".\ID3D11DeviceContext1.ahk" { ID3D11DeviceContext1 }
+#Import ".\ID3D11RasterizerState1.ahk" { ID3D11RasterizerState1 }
+#Import ".\ID3DDeviceContextState.ahk" { ID3DDeviceContextState }
 
 /**
  * The device interface represents a virtual adapter; it is used to create resources. ID3D11Device1 adds new methods to those in ID3D11Device.

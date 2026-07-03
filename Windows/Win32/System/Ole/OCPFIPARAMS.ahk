@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Contains parameters used to invoke a property sheet dialog box through the OleCreatePropertyFrameIndirect function.

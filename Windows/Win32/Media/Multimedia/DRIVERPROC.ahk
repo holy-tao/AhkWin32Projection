@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
 #Import ".\HDRVR.ahk" { HDRVR }
 
 /**
@@ -173,10 +173,6 @@ export default struct DRIVERPROC {
             this.value := CallbackCreate(fn, , [IntPtr, HDRVR, UInt32, LPARAM, LPARAM, LRESULT])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

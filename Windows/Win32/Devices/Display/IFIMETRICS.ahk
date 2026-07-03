@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Graphics\Gdi\PAN_CONTRAST.ahk" { PAN_CONTRAST }
-#Import "..\..\Graphics\Gdi\PAN_XHEIGHT.ahk" { PAN_XHEIGHT }
-#Import "..\..\Graphics\Gdi\PAN_STROKE_VARIATION.ahk" { PAN_STROKE_VARIATION }
-#Import "..\..\Graphics\Gdi\PAN_LETT_FORM.ahk" { PAN_LETT_FORM }
-#Import "..\..\Graphics\Gdi\PAN_WEIGHT.ahk" { PAN_WEIGHT }
-#Import "..\..\Graphics\Gdi\PAN_PROPORTION.ahk" { PAN_PROPORTION }
-#Import "..\..\Graphics\Gdi\PAN_ARM_STYLE.ahk" { PAN_ARM_STYLE }
-#Import "..\..\Graphics\Gdi\PAN_FAMILY_TYPE.ahk" { PAN_FAMILY_TYPE }
-#Import "..\..\Graphics\Gdi\PAN_MIDLINE.ahk" { PAN_MIDLINE }
-#Import "..\..\Graphics\Gdi\PAN_SERIF_STYLE.ahk" { PAN_SERIF_STYLE }
 #Import "..\..\Foundation\POINTL.ahk" { POINTL }
 #Import "..\..\Foundation\RECTL.ahk" { RECTL }
 #Import "..\..\Graphics\Gdi\PANOSE.ahk" { PANOSE }
+#Import "..\..\Graphics\Gdi\PAN_ARM_STYLE.ahk" { PAN_ARM_STYLE }
+#Import "..\..\Graphics\Gdi\PAN_CONTRAST.ahk" { PAN_CONTRAST }
+#Import "..\..\Graphics\Gdi\PAN_FAMILY_TYPE.ahk" { PAN_FAMILY_TYPE }
+#Import "..\..\Graphics\Gdi\PAN_LETT_FORM.ahk" { PAN_LETT_FORM }
+#Import "..\..\Graphics\Gdi\PAN_MIDLINE.ahk" { PAN_MIDLINE }
+#Import "..\..\Graphics\Gdi\PAN_PROPORTION.ahk" { PAN_PROPORTION }
+#Import "..\..\Graphics\Gdi\PAN_SERIF_STYLE.ahk" { PAN_SERIF_STYLE }
+#Import "..\..\Graphics\Gdi\PAN_STROKE_VARIATION.ahk" { PAN_STROKE_VARIATION }
+#Import "..\..\Graphics\Gdi\PAN_WEIGHT.ahk" { PAN_WEIGHT }
+#Import "..\..\Graphics\Gdi\PAN_XHEIGHT.ahk" { PAN_XHEIGHT }
 
 /**
  * The IFIMETRICS structure defines information for a given typeface that GDI can use.

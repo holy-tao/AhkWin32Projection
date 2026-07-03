@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMSVidGraphSegmentContainer.ahk" { IMSVidGraphSegmentContainer }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\IEnumFilters.ahk" { IEnumFilters }
+#Import ".\IMSVidGraphSegmentContainer.ahk" { IMSVidGraphSegmentContainer }
+#Import ".\MSVidSegmentType.ahk" { MSVidSegmentType }
 #Import "..\..\..\System\Com\IPersist.ahk" { IPersist }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\MSVidSegmentType.ahk" { MSVidSegmentType }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv

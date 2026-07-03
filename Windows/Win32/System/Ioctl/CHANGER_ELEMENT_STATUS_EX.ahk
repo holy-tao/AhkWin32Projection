@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CHANGER_ELEMENT.ahk" { CHANGER_ELEMENT }
 #Import ".\CHANGER_ELEMENT_STATUS_FLAGS.ahk" { CHANGER_ELEMENT_STATUS_FLAGS }
 #Import ".\ELEMENT_TYPE.ahk" { ELEMENT_TYPE }
-#Import ".\CHANGER_ELEMENT.ahk" { CHANGER_ELEMENT }
 
 /**
  * Represents the status of the specified element. (CHANGER_ELEMENT_STATUS_EX)

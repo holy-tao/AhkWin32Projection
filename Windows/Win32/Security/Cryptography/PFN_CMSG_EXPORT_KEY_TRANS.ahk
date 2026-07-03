@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CMSG_CONTENT_ENCRYPT_INFO.ahk" { CMSG_CONTENT_ENCRYPT_INFO }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\CMSG_KEY_TRANS_RECIPIENT_ENCODE_INFO.ahk" { CMSG_KEY_TRANS_RECIPIENT_ENCODE_INFO }
+#Import ".\CMSG_CONTENT_ENCRYPT_INFO.ahk" { CMSG_CONTENT_ENCRYPT_INFO }
 #Import ".\CMSG_KEY_TRANS_ENCRYPT_INFO.ahk" { CMSG_KEY_TRANS_ENCRYPT_INFO }
+#Import ".\CMSG_KEY_TRANS_RECIPIENT_ENCODE_INFO.ahk" { CMSG_KEY_TRANS_RECIPIENT_ENCODE_INFO }
 
 /**
  * Encrypts and exports the content encryption key for a key transport recipient of an enveloped message.
@@ -80,10 +80,6 @@ export default struct PFN_CMSG_EXPORT_KEY_TRANS {
             this.value := CallbackCreate(fn, , [CMSG_CONTENT_ENCRYPT_INFO.Ptr, CMSG_KEY_TRANS_RECIPIENT_ENCODE_INFO.Ptr, CMSG_KEY_TRANS_ENCRYPT_INFO.Ptr, UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

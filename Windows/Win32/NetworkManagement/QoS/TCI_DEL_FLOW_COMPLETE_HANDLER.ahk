@@ -56,10 +56,6 @@ export default struct TCI_DEL_FLOW_COMPLETE_HANDLER {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

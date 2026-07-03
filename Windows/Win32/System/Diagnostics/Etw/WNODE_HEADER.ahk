@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * The WNODE\_HEADER structure is a member of the EVENT\_TRACE\_PROPERTIES structure.

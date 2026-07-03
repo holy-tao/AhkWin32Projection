@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\SecBuffer.ahk" { SecBuffer }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\SecBuffer.ahk" { SecBuffer }
 
 /**
  * Exports a security context to another process.
@@ -78,7 +78,7 @@ export default struct SpExportSecurityContextFn {
      */
     Call(phContext, fFlags, pPackedContext, pToken) {
         result := DllCall(this.value, IntPtr, phContext, UInt32, fFlags, SecBuffer.Ptr, pPackedContext, HANDLE.Ptr, pToken, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -98,10 +98,6 @@ export default struct SpExportSecurityContextFn {
             this.value := CallbackCreate(fn, , [IntPtr, UInt32, SecBuffer.Ptr, HANDLE.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

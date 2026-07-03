@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VIRTUAL_ALLOCATION_TYPE.ahk" { VIRTUAL_ALLOCATION_TYPE }
-#Import ".\PAGE_TYPE.ahk" { PAGE_TYPE }
 #Import ".\PAGE_PROTECTION_FLAGS.ahk" { PAGE_PROTECTION_FLAGS }
+#Import ".\PAGE_TYPE.ahk" { PAGE_TYPE }
+#Import ".\VIRTUAL_ALLOCATION_TYPE.ahk" { VIRTUAL_ALLOCATION_TYPE }
 
 /**
  * @namespace Windows.Win32.System.Memory

@@ -44,10 +44,6 @@ export default struct LPDDHAL_SETMODE {
             this.value := CallbackCreate(fn, , [DDHAL_SETMODEDATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

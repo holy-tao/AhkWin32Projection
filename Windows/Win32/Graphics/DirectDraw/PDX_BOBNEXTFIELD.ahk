@@ -59,10 +59,6 @@ export default struct PDX_BOBNEXTFIELD {
             this.value := CallbackCreate(fn, , ["ptr", DDBOBNEXTFIELDINFO.Ptr, "ptr", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

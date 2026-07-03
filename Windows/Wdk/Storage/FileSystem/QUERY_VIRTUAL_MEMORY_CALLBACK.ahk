@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\HEAP_MEMORY_INFO_CLASS.ahk" { HEAP_MEMORY_INFO_CLASS }
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
@@ -36,7 +36,7 @@ export default struct QUERY_VIRTUAL_MEMORY_CALLBACK {
         ReturnLengthMarshal := ReturnLength is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, HANDLE, CallbackContext, HANDLE, ProcessHandle, BaseAddressMarshal, BaseAddress, HEAP_MEMORY_INFO_CLASS, MemoryInformationClass, IntPtr, MemoryInformation, IntPtr, MemoryInformationLength, ReturnLengthMarshal, ReturnLength, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -56,10 +56,6 @@ export default struct QUERY_VIRTUAL_MEMORY_CALLBACK {
             this.value := CallbackCreate(fn, , [HANDLE, HANDLE, "ptr", HEAP_MEMORY_INFO_CLASS, IntPtr, IntPtr, "ptr*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

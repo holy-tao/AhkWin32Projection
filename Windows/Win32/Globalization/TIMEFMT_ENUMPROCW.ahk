@@ -48,10 +48,6 @@ export default struct TIMEFMT_ENUMPROCW {
             this.value := CallbackCreate(fn, , [PWSTR, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

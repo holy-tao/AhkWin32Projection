@@ -44,10 +44,6 @@ export default struct LPDDHALVPORTCB_CANCREATEVIDEOPORT {
             this.value := CallbackCreate(fn, , [DDHAL_CANCREATEVPORTDATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MetafileType.ahk" { MetafileType }
-#Import "..\Gdi\METAHEADER.ahk" { METAHEADER }
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
-#Import ".\ENHMETAHEADER3.ahk" { ENHMETAHEADER3 }
 #Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\Gdi\METAHEADER.ahk" { METAHEADER }
+#Import ".\ENHMETAHEADER3.ahk" { ENHMETAHEADER3 }
+#Import ".\MetafileType.ahk" { MetafileType }
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus

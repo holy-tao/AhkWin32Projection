@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\BATTERY_TYPE.ahk" { BATTERY_TYPE }
 #Import ".\BATTERY_LEVEL.ahk" { BATTERY_LEVEL }
+#Import ".\BATTERY_TYPE.ahk" { BATTERY_TYPE }
 
 /**
  * Contains information on battery type and charge state.
@@ -8,7 +8,7 @@
  * @namespace Windows.Win32.UI.Input.XboxController
  */
 export default struct XINPUT_BATTERY_INFORMATION {
-    #StructPack 8
+    #StructPack 1
 
     BatteryType : BATTERY_TYPE
 

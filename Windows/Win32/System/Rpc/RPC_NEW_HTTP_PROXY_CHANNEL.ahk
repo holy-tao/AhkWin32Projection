@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RPC_STATUS.ahk" { RPC_STATUS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\RPC_HTTP_REDIRECTOR_STAGE.ahk" { RPC_HTTP_REDIRECTOR_STAGE }
+#Import ".\RPC_STATUS.ahk" { RPC_STATUS }
 
 /**
  * @namespace Windows.Win32.System.Rpc
@@ -69,10 +69,6 @@ export default struct RPC_NEW_HTTP_PROXY_CHANNEL {
             this.value := CallbackCreate(fn, , [RPC_HTTP_REDIRECTOR_STAGE, PWSTR, PWSTR, PWSTR, PWSTR, "ptr", "ptr", "ptr", "ptr", UInt32, PWSTR.Ptr, PWSTR.Ptr, RPC_STATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

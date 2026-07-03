@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
-#Import ".\IShellFolder.ahk" { IShellFolder }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
-#Import ".\IContextMenuCB.ahk" { IContextMenuCB }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import ".\DEFAULT_FOLDER_MENU_RESTRICTIONS.ahk" { DEFAULT_FOLDER_MENU_RESTRICTIONS }
+#Import ".\IContextMenuCB.ahk" { IContextMenuCB }
+#Import ".\IShellFolder.ahk" { IShellFolder }
 
 /**
  * Provides methods used to get and set shortcut menu information. This information is the same as that provided to SHCreateDefaultContextMenu through the DEFCONTEXTMENU structure.

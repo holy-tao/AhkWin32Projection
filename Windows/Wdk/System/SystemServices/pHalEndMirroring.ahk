@@ -25,7 +25,7 @@ export default struct pHalEndMirroring {
      */
     Call(PassNumber) {
         result := DllCall(this.value, UInt32, PassNumber, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -45,10 +45,6 @@ export default struct pHalEndMirroring {
             this.value := CallbackCreate(fn, , [UInt32, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

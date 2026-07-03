@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\UiaRect.ahk" { UiaRect }
-#Import ".\IRawElementProviderFragmentRoot.ahk" { IRawElementProviderFragmentRoot }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRawElementProviderFragmentRoot.ahk" { IRawElementProviderFragmentRoot }
 #Import ".\NavigateDirection.ahk" { NavigateDirection }
+#Import ".\UiaRect.ahk" { UiaRect }
 
 /**
  * Exposes methods and properties on UI elements that are part of a structure more than one level deep, such as a list box or list item. Implemented by Microsoft UI Automation provider.

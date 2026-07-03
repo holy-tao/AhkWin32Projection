@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
-#Import ".\WMDMDATETIME.ahk" { WMDMDATETIME }
-#Import ".\IWMDMStorageGlobals.ahk" { IWMDMStorageGlobals }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\OPAQUECOMMAND.ahk" { OPAQUECOMMAND }
-#Import ".\WMDMRIGHTS.ahk" { WMDMRIGHTS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 #Import ".\IWMDMEnumStorage.ahk" { IWMDMEnumStorage }
+#Import ".\IWMDMStorageGlobals.ahk" { IWMDMStorageGlobals }
+#Import ".\OPAQUECOMMAND.ahk" { OPAQUECOMMAND }
+#Import ".\WMDMDATETIME.ahk" { WMDMDATETIME }
+#Import ".\WMDMRIGHTS.ahk" { WMDMRIGHTS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * An instance of the IWMDMStorage interface provides methods to examine and explore a storage (a generic name for a data or collection object, such as a file, folder, or playlist) on a device.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\MFSampleAllocatorUsage.ahk" { MFSampleAllocatorUsage }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MFSampleAllocatorUsage.ahk" { MFSampleAllocatorUsage }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Implemented by video capture sources and transforms. Allows the system to provide components with a sample allocator to allocate samples using memory that is accessible from within a container.

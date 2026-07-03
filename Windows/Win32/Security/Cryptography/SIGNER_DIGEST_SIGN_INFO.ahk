@@ -1,9 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PFN_AUTHENTICODE_DIGEST_SIGN_WITHFILEHANDLE.ahk" { PFN_AUTHENTICODE_DIGEST_SIGN_WITHFILEHANDLE }
-#Import ".\PFN_AUTHENTICODE_DIGEST_SIGN_EX.ahk" { PFN_AUTHENTICODE_DIGEST_SIGN_EX }
-#Import ".\PFN_AUTHENTICODE_DIGEST_SIGN.ahk" { PFN_AUTHENTICODE_DIGEST_SIGN }
 #Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
-#Import ".\PFN_AUTHENTICODE_DIGEST_SIGN_EX_WITHFILEHANDLE.ahk" { PFN_AUTHENTICODE_DIGEST_SIGN_EX_WITHFILEHANDLE }
 
 /**
  * contains information about digest signing.
@@ -32,7 +28,7 @@ export default struct SIGNER_DIGEST_SIGN_INFO {
      */
     dwDigestSignChoice : UInt32
 
-    pfnAuthenticodeDigestSign : PFN_AUTHENTICODE_DIGEST_SIGN
+    pfnAuthenticodeDigestSign : IntPtr
 
     /**
      * Optional pointer to [**CRYPT_DATA_BLOB**](/windows/win32/api/wincrypt/ns-wincrypt-crypt_integer_blob) specifying metadata.
@@ -55,9 +51,9 @@ export default struct SIGNER_DIGEST_SIGN_INFO {
     dwReserved3 : UInt32
 
     static __New() {
-        DefineProp(this.Prototype, 'pfnAuthenticodeDigestSignWithFileHandle', { type: PFN_AUTHENTICODE_DIGEST_SIGN_WITHFILEHANDLE, offset: 8 })
-        DefineProp(this.Prototype, 'pfnAuthenticodeDigestSignEx', { type: PFN_AUTHENTICODE_DIGEST_SIGN_EX, offset: 8 })
-        DefineProp(this.Prototype, 'pfnAuthenticodeDigestSignExWithFileHandle', { type: PFN_AUTHENTICODE_DIGEST_SIGN_EX_WITHFILEHANDLE, offset: 8 })
+        DefineProp(this.Prototype, 'pfnAuthenticodeDigestSignWithFileHandle', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'pfnAuthenticodeDigestSignEx', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'pfnAuthenticodeDigestSignExWithFileHandle', { type: IntPtr, offset: 8 })
         this.DeleteProp("__New")
     }
 }

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\NET_FW_PROFILE_TYPE.ahk" { NET_FW_PROFILE_TYPE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\INetFwAuthorizedApplications.ahk" { INetFwAuthorizedApplications }
+#Import ".\INetFwIcmpSettings.ahk" { INetFwIcmpSettings }
+#Import ".\INetFwOpenPorts.ahk" { INetFwOpenPorts }
 #Import ".\INetFwRemoteAdminSettings.ahk" { INetFwRemoteAdminSettings }
 #Import ".\INetFwServices.ahk" { INetFwServices }
-#Import ".\INetFwIcmpSettings.ahk" { INetFwIcmpSettings }
+#Import ".\NET_FW_PROFILE_TYPE.ahk" { NET_FW_PROFILE_TYPE }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\INetFwOpenPorts.ahk" { INetFwOpenPorts }
 
 /**
  * The INetFwProfile interface provides access to the firewall settings profile.

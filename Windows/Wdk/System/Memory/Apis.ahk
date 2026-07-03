@@ -1,9 +1,9 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\SECTION_INHERIT.ahk" { SECTION_INHERIT }
-#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import "..\..\Foundation\OBJECT_ATTRIBUTES.ahk" { OBJECT_ATTRIBUTES }
+#Import ".\SECTION_INHERIT.ahk" { SECTION_INHERIT }
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Wdk.System.Memory
@@ -19,7 +19,7 @@
  */
 export NtOpenSection(SectionHandle, DesiredAccess, ObjectAttributes) {
     result := DllCall("ntdll.dll\NtOpenSection", HANDLE.Ptr, SectionHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 
@@ -43,7 +43,7 @@ export NtMapViewOfSection(SectionHandle, ProcessHandle, BaseAddress, ZeroBits, C
     ViewSizeMarshal := ViewSize is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntdll.dll\NtMapViewOfSection", HANDLE, SectionHandle, HANDLE, ProcessHandle, BaseAddressMarshal, BaseAddress, IntPtr, ZeroBits, IntPtr, CommitSize, SectionOffsetMarshal, SectionOffset, ViewSizeMarshal, ViewSize, SECTION_INHERIT, InheritDisposition, UInt32, AllocationType, UInt32, Win32Protect, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 
@@ -57,7 +57,7 @@ export NtUnmapViewOfSection(ProcessHandle, BaseAddress) {
     BaseAddressMarshal := BaseAddress is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntdll.dll\NtUnmapViewOfSection", HANDLE, ProcessHandle, BaseAddressMarshal, BaseAddress, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 
@@ -70,7 +70,7 @@ export NtUnmapViewOfSection(ProcessHandle, BaseAddress) {
  */
 export ZwOpenSection(SectionHandle, DesiredAccess, ObjectAttributes) {
     result := DllCall("ntdll.dll\ZwOpenSection", HANDLE.Ptr, SectionHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 
@@ -94,7 +94,7 @@ export ZwMapViewOfSection(SectionHandle, ProcessHandle, BaseAddress, ZeroBits, C
     ViewSizeMarshal := ViewSize is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ntdll.dll\ZwMapViewOfSection", HANDLE, SectionHandle, HANDLE, ProcessHandle, BaseAddressMarshal, BaseAddress, IntPtr, ZeroBits, IntPtr, CommitSize, SectionOffsetMarshal, SectionOffset, ViewSizeMarshal, ViewSize, SECTION_INHERIT, InheritDisposition, UInt32, AllocationType, UInt32, Win32Protect, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 
@@ -108,7 +108,7 @@ export ZwUnmapViewOfSection(ProcessHandle, BaseAddress) {
     BaseAddressMarshal := BaseAddress is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ntdll.dll\ZwUnmapViewOfSection", HANDLE, ProcessHandle, BaseAddressMarshal, BaseAddress, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 

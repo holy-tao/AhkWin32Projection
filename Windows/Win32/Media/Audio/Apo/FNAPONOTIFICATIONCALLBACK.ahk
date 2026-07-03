@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\APO_REG_PROPERTIES.ahk" { APO_REG_PROPERTIES }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\APO_REG_PROPERTIES.ahk" { APO_REG_PROPERTIES }
 
 /**
  * @namespace Windows.Win32.Media.Audio.Apo
@@ -48,10 +48,6 @@ export default struct FNAPONOTIFICATIONCALLBACK {
             this.value := CallbackCreate(fn, , [APO_REG_PROPERTIES.Ptr, "ptr", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

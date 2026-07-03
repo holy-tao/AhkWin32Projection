@@ -1,8 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DOT11EXT_SET_VIRTUAL_STATION_AP_PROPERTIES.ahk" { DOT11EXT_SET_VIRTUAL_STATION_AP_PROPERTIES }
-#Import ".\DOT11EXT_QUERY_VIRTUAL_STATION_PROPERTIES.ahk" { DOT11EXT_QUERY_VIRTUAL_STATION_PROPERTIES }
-#Import ".\DOT11EXT_RELEASE_VIRTUAL_STATION.ahk" { DOT11EXT_RELEASE_VIRTUAL_STATION }
-#Import ".\DOT11EXT_REQUEST_VIRTUAL_STATION.ahk" { DOT11EXT_REQUEST_VIRTUAL_STATION }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -10,12 +6,12 @@
 export default struct DOT11EXT_VIRTUAL_STATION_APIS {
     #StructPack 8
 
-    Dot11ExtRequestVirtualStation : DOT11EXT_REQUEST_VIRTUAL_STATION
+    Dot11ExtRequestVirtualStation : IntPtr
 
-    Dot11ExtReleaseVirtualStation : DOT11EXT_RELEASE_VIRTUAL_STATION
+    Dot11ExtReleaseVirtualStation : IntPtr
 
-    Dot11ExtQueryVirtualStationProperties : DOT11EXT_QUERY_VIRTUAL_STATION_PROPERTIES
+    Dot11ExtQueryVirtualStationProperties : IntPtr
 
-    Dot11ExtSetVirtualStationAPProperties : DOT11EXT_SET_VIRTUAL_STATION_AP_PROPERTIES
+    Dot11ExtSetVirtualStationAPProperties : IntPtr
 
 }

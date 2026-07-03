@@ -1,32 +1,32 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDCompositionTranslateTransform.ahk" { IDCompositionTranslateTransform }
-#Import ".\IDCompositionVisual.ahk" { IDCompositionVisual }
-#Import ".\IDCompositionRotateTransform.ahk" { IDCompositionRotateTransform }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import ".\IDCompositionRotateTransform3D.ahk" { IDCompositionRotateTransform3D }
-#Import ".\IDCompositionRectangleClip.ahk" { IDCompositionRectangleClip }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IDCompositionSurface.ahk" { IDCompositionSurface }
-#Import ".\IDCompositionTranslateTransform3D.ahk" { IDCompositionTranslateTransform3D }
-#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDCompositionVirtualSurface.ahk" { IDCompositionVirtualSurface }
-#Import ".\IDCompositionTransform.ahk" { IDCompositionTransform }
-#Import ".\IDCompositionMatrixTransform3D.ahk" { IDCompositionMatrixTransform3D }
-#Import ".\DCOMPOSITION_FRAME_STATISTICS.ahk" { DCOMPOSITION_FRAME_STATISTICS }
-#Import ".\IDCompositionScaleTransform3D.ahk" { IDCompositionScaleTransform3D }
-#Import ".\IDCompositionEffectGroup.ahk" { IDCompositionEffectGroup }
-#Import "..\Dxgi\Common\DXGI_ALPHA_MODE.ahk" { DXGI_ALPHA_MODE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\IDCompositionSkewTransform.ahk" { IDCompositionSkewTransform }
+#Import ".\DCOMPOSITION_FRAME_STATISTICS.ahk" { DCOMPOSITION_FRAME_STATISTICS }
+#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
+#Import ".\IDCompositionEffectGroup.ahk" { IDCompositionEffectGroup }
 #Import ".\IDCompositionMatrixTransform.ahk" { IDCompositionMatrixTransform }
-#Import ".\IDCompositionTransform3D.ahk" { IDCompositionTransform3D }
-#Import ".\IDCompositionTarget.ahk" { IDCompositionTarget }
+#Import ".\IDCompositionMatrixTransform3D.ahk" { IDCompositionMatrixTransform3D }
+#Import ".\IDCompositionRectangleClip.ahk" { IDCompositionRectangleClip }
+#Import ".\IDCompositionRotateTransform.ahk" { IDCompositionRotateTransform }
+#Import ".\IDCompositionRotateTransform3D.ahk" { IDCompositionRotateTransform3D }
 #Import ".\IDCompositionScaleTransform.ahk" { IDCompositionScaleTransform }
+#Import ".\IDCompositionScaleTransform3D.ahk" { IDCompositionScaleTransform3D }
+#Import ".\IDCompositionSkewTransform.ahk" { IDCompositionSkewTransform }
+#Import ".\IDCompositionSurface.ahk" { IDCompositionSurface }
+#Import ".\IDCompositionTarget.ahk" { IDCompositionTarget }
+#Import ".\IDCompositionTransform.ahk" { IDCompositionTransform }
+#Import ".\IDCompositionTransform3D.ahk" { IDCompositionTransform3D }
+#Import ".\IDCompositionTranslateTransform.ahk" { IDCompositionTranslateTransform }
+#Import ".\IDCompositionTranslateTransform3D.ahk" { IDCompositionTranslateTransform3D }
+#Import ".\IDCompositionVirtualSurface.ahk" { IDCompositionVirtualSurface }
+#Import ".\IDCompositionVisual.ahk" { IDCompositionVisual }
+#Import "..\Dxgi\Common\DXGI_ALPHA_MODE.ahk" { DXGI_ALPHA_MODE }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Serves as a factory for all other Microsoft DirectComposition objects and provides methods to control transactional composition. (IDCompositionDevice)

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DSBCAPS.ahk" { DSBCAPS }
+#Import ".\DSBUFFERDESC.ahk" { DSBUFFERDESC }
+#Import ".\IDirectSound.ahk" { IDirectSound }
 #Import "..\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DSBUFFERDESC.ahk" { DSBUFFERDESC }
-#Import ".\DSBCAPS.ahk" { DSBCAPS }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDirectSound.ahk" { IDirectSound }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound

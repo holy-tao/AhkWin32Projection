@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IPortableDeviceServiceCapabilities.ahk" { IPortableDeviceServiceCapabilities }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IPortableDeviceEventCallback.ahk" { IPortableDeviceEventCallback }
-#Import ".\IPortableDeviceServiceMethods.ahk" { IPortableDeviceServiceMethods }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IPortableDeviceValues.ahk" { IPortableDeviceValues }
 #Import ".\IPortableDeviceContent2.ahk" { IPortableDeviceContent2 }
+#Import ".\IPortableDeviceEventCallback.ahk" { IPortableDeviceEventCallback }
+#Import ".\IPortableDeviceServiceCapabilities.ahk" { IPortableDeviceServiceCapabilities }
+#Import ".\IPortableDeviceServiceMethods.ahk" { IPortableDeviceServiceMethods }
+#Import ".\IPortableDeviceValues.ahk" { IPortableDeviceValues }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides access to a service.

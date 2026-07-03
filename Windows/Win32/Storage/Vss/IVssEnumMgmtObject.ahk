@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\VSS_MGMT_OBJECT_PROP.ahk" { VSS_MGMT_OBJECT_PROP }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Contains methods to iterate over and perform other operations on a list of enumerated objects. (IVssEnumMgmtObject)

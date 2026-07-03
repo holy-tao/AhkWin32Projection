@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
 #Import ".\WS_POLICY_EXTENSION.ahk" { WS_POLICY_EXTENSION }
 #Import ".\WS_POLICY_EXTENSION_TYPE.ahk" { WS_POLICY_EXTENSION_TYPE }
 #Import ".\WS_XML_BUFFER.ahk" { WS_XML_BUFFER }
+#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
 
 /**
  * This structure is used to specify an endpoint policy extension.

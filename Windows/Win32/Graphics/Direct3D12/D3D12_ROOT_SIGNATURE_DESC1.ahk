@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_STATIC_SAMPLER_DESC.ahk" { D3D12_STATIC_SAMPLER_DESC }
-#Import ".\D3D12_ROOT_SIGNATURE_FLAGS.ahk" { D3D12_ROOT_SIGNATURE_FLAGS }
 #Import ".\D3D12_ROOT_PARAMETER1.ahk" { D3D12_ROOT_PARAMETER1 }
+#Import ".\D3D12_ROOT_SIGNATURE_FLAGS.ahk" { D3D12_ROOT_SIGNATURE_FLAGS }
+#Import ".\D3D12_STATIC_SAMPLER_DESC.ahk" { D3D12_STATIC_SAMPLER_DESC }
 
 /**
  * Describes the layout of a root signature version 1.1.

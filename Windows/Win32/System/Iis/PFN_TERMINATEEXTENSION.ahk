@@ -44,10 +44,6 @@ export default struct PFN_TERMINATEEXTENSION {
             this.value := CallbackCreate(fn, , [UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

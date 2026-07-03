@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\PSS_OBJECT_TYPE.ahk" { PSS_OBJECT_TYPE }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\PSS_HANDLE_FLAGS.ahk" { PSS_HANDLE_FLAGS }
+#Import ".\PSS_OBJECT_TYPE.ahk" { PSS_OBJECT_TYPE }
 
 /**
  * Holds information about a handle returned by PssWalkSnapshot.

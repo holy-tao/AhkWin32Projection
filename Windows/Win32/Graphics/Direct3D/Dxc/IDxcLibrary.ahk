@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDxcBlob.ahk" { IDxcBlob }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DXC_CP.ahk" { DXC_CP }
+#Import ".\IDxcBlob.ahk" { IDxcBlob }
 #Import ".\IDxcBlobEncoding.ahk" { IDxcBlobEncoding }
 #Import ".\IDxcIncludeHandler.ahk" { IDxcIncludeHandler }
-#Import ".\DXC_CP.ahk" { DXC_CP }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\..\System\Com\IMalloc.ahk" { IMalloc }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc

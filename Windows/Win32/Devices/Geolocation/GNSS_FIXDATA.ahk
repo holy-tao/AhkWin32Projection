@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\GNSS_FIXDATA_BASIC.ahk" { GNSS_FIXDATA_BASIC }
 #Import ".\GNSS_FIXDATA_ACCURACY.ahk" { GNSS_FIXDATA_ACCURACY }
-#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
-#Import ".\GNSS_SATELLITEINFO.ahk" { GNSS_SATELLITEINFO }
+#Import ".\GNSS_FIXDATA_BASIC.ahk" { GNSS_FIXDATA_BASIC }
 #Import ".\GNSS_FIXDATA_SATELLITE.ahk" { GNSS_FIXDATA_SATELLITE }
+#Import ".\GNSS_SATELLITEINFO.ahk" { GNSS_SATELLITEINFO }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation

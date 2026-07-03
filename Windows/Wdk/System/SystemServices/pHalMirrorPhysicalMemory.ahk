@@ -26,7 +26,7 @@ export default struct pHalMirrorPhysicalMemory {
      */
     Call(PhysicalAddress, NumberOfBytes) {
         result := DllCall(this.value, Int64, PhysicalAddress, Int64, NumberOfBytes, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -46,10 +46,6 @@ export default struct pHalMirrorPhysicalMemory {
             this.value := CallbackCreate(fn, , [Int64, Int64, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

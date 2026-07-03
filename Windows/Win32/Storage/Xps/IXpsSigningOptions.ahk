@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\XPS_SIGN_FLAGS.ahk" { XPS_SIGN_FLAGS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Packaging\Opc\IOpcCertificateSet.ahk" { IOpcCertificateSet }
 #Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
 #Import "..\Packaging\Opc\IOpcSignatureCustomObjectSet.ahk" { IOpcSignatureCustomObjectSet }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Packaging\Opc\IOpcSignatureReferenceSet.ahk" { IOpcSignatureReferenceSet }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\XPS_SIGN_POLICY.ahk" { XPS_SIGN_POLICY }
 #Import "..\Packaging\Opc\OPC_SIGNATURE_TIME_FORMAT.ahk" { OPC_SIGNATURE_TIME_FORMAT }
+#Import ".\XPS_SIGN_FLAGS.ahk" { XPS_SIGN_FLAGS }
+#Import ".\XPS_SIGN_POLICY.ahk" { XPS_SIGN_POLICY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides access to the individual signing options that are used by new signatures.

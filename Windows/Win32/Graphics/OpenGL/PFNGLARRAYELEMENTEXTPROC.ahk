@@ -42,10 +42,6 @@ export default struct PFNGLARRAYELEMENTEXTPROC {
             this.value := CallbackCreate(fn, , [Int32, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -44,10 +44,6 @@ export default struct HTTP_POLICY_EXTENSION_SHUTDOWN {
             this.value := CallbackCreate(fn, , [HTTP_POLICY_EXTENSION_TYPE, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

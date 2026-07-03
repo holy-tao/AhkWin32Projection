@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\AM_WST_PAGE.ahk" { AM_WST_PAGE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\AM_WST_DRAWBGMODE.ahk" { AM_WST_DRAWBGMODE }
-#Import "..\..\Graphics\Gdi\BITMAPINFO.ahk" { BITMAPINFO }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Gdi\BITMAPINFO.ahk" { BITMAPINFO }
 #Import "..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
+#Import ".\AM_WST_DRAWBGMODE.ahk" { AM_WST_DRAWBGMODE }
+#Import ".\AM_WST_LEVEL.ahk" { AM_WST_LEVEL }
+#Import ".\AM_WST_PAGE.ahk" { AM_WST_PAGE }
 #Import ".\AM_WST_SERVICE.ahk" { AM_WST_SERVICE }
 #Import ".\AM_WST_STATE.ahk" { AM_WST_STATE }
-#Import ".\AM_WST_LEVEL.ahk" { AM_WST_LEVEL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAMWstDecoder interface sets and retrieves information about World Standard Teletext (WST). The WST Decoder filter implements this interface.

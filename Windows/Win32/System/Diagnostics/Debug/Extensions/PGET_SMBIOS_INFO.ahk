@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DEBUG_SMBIOS_INFO.ahk" { DEBUG_SMBIOS_INFO }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DEBUG_SMBIOS_INFO.ahk" { DEBUG_SMBIOS_INFO }
 #Import ".\IDebugClient.ahk" { IDebugClient }
 
 /**
@@ -47,10 +47,6 @@ export default struct PGET_SMBIOS_INFO {
             this.value := CallbackCreate(fn, , ["ptr", DEBUG_SMBIOS_INFO.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

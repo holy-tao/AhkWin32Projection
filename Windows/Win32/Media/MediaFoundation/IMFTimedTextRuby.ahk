@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MF_TIMED_TEXT_RUBY_POSITION.ahk" { MF_TIMED_TEXT_RUBY_POSITION }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\MF_TIMED_TEXT_RUBY_ALIGN.ahk" { MF_TIMED_TEXT_RUBY_ALIGN }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MF_TIMED_TEXT_RUBY_ALIGN.ahk" { MF_TIMED_TEXT_RUBY_ALIGN }
+#Import ".\MF_TIMED_TEXT_RUBY_POSITION.ahk" { MF_TIMED_TEXT_RUBY_POSITION }
 #Import ".\MF_TIMED_TEXT_RUBY_RESERVE.ahk" { MF_TIMED_TEXT_RUBY_RESERVE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation

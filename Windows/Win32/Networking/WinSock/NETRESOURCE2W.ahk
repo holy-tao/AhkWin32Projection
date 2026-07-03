@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\NS_INFOA.ahk" { NS_INFOA }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\NS_INFOA.ahk" { NS_INFOA }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock

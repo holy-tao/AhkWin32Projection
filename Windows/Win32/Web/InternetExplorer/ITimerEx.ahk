@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITimer.ahk" { ITimer }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITimer.ahk" { ITimer }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer

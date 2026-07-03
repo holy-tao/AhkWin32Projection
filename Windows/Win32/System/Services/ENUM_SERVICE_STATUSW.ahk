@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SERVICE_STATUS.ahk" { SERVICE_STATUS }
-#Import ".\ENUM_SERVICE_TYPE.ahk" { ENUM_SERVICE_TYPE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ENUM_SERVICE_TYPE.ahk" { ENUM_SERVICE_TYPE }
+#Import ".\SERVICE_STATUS.ahk" { SERVICE_STATUS }
 #Import ".\SERVICE_STATUS_CURRENT_STATE.ahk" { SERVICE_STATUS_CURRENT_STATE }
 
 /**

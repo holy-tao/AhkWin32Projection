@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ISnapinPropertiesCallback.ahk" { ISnapinPropertiesCallback }
 #Import ".\MMC_SNAPIN_PROPERTY.ahk" { MMC_SNAPIN_PROPERTY }
 #Import ".\Properties.ahk" { Properties }
-#Import ".\ISnapinPropertiesCallback.ahk" { ISnapinPropertiesCallback }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ISnapinProperties interface enables a snap-in to initialize the snap-in's properties and receive notification when a property is added, changed, or deleted.

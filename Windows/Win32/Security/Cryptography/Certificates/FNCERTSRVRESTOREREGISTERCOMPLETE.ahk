@@ -47,10 +47,6 @@ export default struct FNCERTSRVRESTOREREGISTERCOMPLETE {
             this.value := CallbackCreate(fn, , ["ptr", "int", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

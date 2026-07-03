@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IRDPSRAPIWindowList.ahk" { IRDPSRAPIWindowList }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IRDPSRAPIApplicationList.ahk" { IRDPSRAPIApplicationList }
+#Import ".\IRDPSRAPIWindowList.ahk" { IRDPSRAPIWindowList }
 
 /**
  * Manages the shared desktop area at the window and process level. Applications can use the enumerators to display lists of objects in the session that can be shared.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\WINDOW_EX_STYLE.ahk" { WINDOW_EX_STYLE }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\HMENU.ahk" { HMENU }
+#Import ".\WINDOW_EX_STYLE.ahk" { WINDOW_EX_STYLE }
 
 /**
  * Defines the initialization parameters passed to the window procedure of an application. These members are identical to the parameters of the CreateWindowEx function. (ANSI)

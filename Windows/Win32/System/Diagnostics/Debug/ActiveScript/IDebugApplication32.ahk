@@ -1,24 +1,24 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDebugStackFrameSniffer.ahk" { IDebugStackFrameSniffer }
-#Import ".\IDebugAsyncOperation.ahk" { IDebugAsyncOperation }
-#Import ".\IDebugSyncOperation.ahk" { IDebugSyncOperation }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\BREAKRESUMEACTION.ahk" { BREAKRESUMEACTION }
 #Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ERRORRESUMEACTION.ahk" { ERRORRESUMEACTION }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\BREAKREASON.ahk" { BREAKREASON }
+#Import ".\BREAKRESUMEACTION.ahk" { BREAKRESUMEACTION }
+#Import ".\ERRORRESUMEACTION.ahk" { ERRORRESUMEACTION }
+#Import ".\IActiveScriptErrorDebug.ahk" { IActiveScriptErrorDebug }
+#Import ".\IActiveScriptSite.ahk" { IActiveScriptSite }
+#Import ".\IDebugApplicationNode.ahk" { IDebugApplicationNode }
+#Import ".\IDebugApplicationThread.ahk" { IDebugApplicationThread }
+#Import ".\IDebugAsyncOperation.ahk" { IDebugAsyncOperation }
+#Import ".\IDebugStackFrameSniffer.ahk" { IDebugStackFrameSniffer }
+#Import ".\IDebugSyncOperation.ahk" { IDebugSyncOperation }
 #Import ".\IDebugThreadCall32.ahk" { IDebugThreadCall32 }
 #Import ".\IProvideExpressionContexts.ahk" { IProvideExpressionContexts }
-#Import ".\IActiveScriptErrorDebug.ahk" { IActiveScriptErrorDebug }
-#Import ".\IRemoteDebugApplicationThread.ahk" { IRemoteDebugApplicationThread }
 #Import ".\IRemoteDebugApplication.ahk" { IRemoteDebugApplication }
-#Import ".\IActiveScriptSite.ahk" { IActiveScriptSite }
-#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\BREAKREASON.ahk" { BREAKREASON }
-#Import ".\IDebugApplicationThread.ahk" { IDebugApplicationThread }
-#Import ".\IDebugApplicationNode.ahk" { IDebugApplicationNode }
+#Import ".\IRemoteDebugApplicationThread.ahk" { IRemoteDebugApplicationThread }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

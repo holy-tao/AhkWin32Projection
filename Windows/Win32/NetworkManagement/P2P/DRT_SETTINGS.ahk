@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DRT_SECURITY_MODE.ahk" { DRT_SECURITY_MODE }
-#Import ".\DRT_SECURITY_PROVIDER.ahk" { DRT_SECURITY_PROVIDER }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DRT_BOOTSTRAP_PROVIDER.ahk" { DRT_BOOTSTRAP_PROVIDER }
+#Import ".\DRT_SECURITY_MODE.ahk" { DRT_SECURITY_MODE }
+#Import ".\DRT_SECURITY_PROVIDER.ahk" { DRT_SECURITY_PROVIDER }
 
 /**
  * DRT_SETTINGS structure contains the settings utilized by the local Distributed Routing Table.

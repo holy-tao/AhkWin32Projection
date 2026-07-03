@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WSD_METADATA_SECTION_LIST.ahk" { WSD_METADATA_SECTION_LIST }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWSDAddress.ahk" { IWSDAddress }
+#Import ".\IWSDAsyncResult.ahk" { IWSDAsyncResult }
+#Import ".\IWSDEndpointProxy.ahk" { IWSDEndpointProxy }
 #Import ".\IWSDServiceProxy.ahk" { IWSDServiceProxy }
 #Import ".\IWSDXMLContext.ahk" { IWSDXMLContext }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WSDXML_NAME.ahk" { WSDXML_NAME }
 #Import ".\WSD_HOST_METADATA.ahk" { WSD_HOST_METADATA }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\WSD_THIS_MODEL_METADATA.ahk" { WSD_THIS_MODEL_METADATA }
-#Import ".\IWSDEndpointProxy.ahk" { IWSDEndpointProxy }
+#Import ".\WSD_METADATA_SECTION_LIST.ahk" { WSD_METADATA_SECTION_LIST }
 #Import ".\WSD_THIS_DEVICE_METADATA.ahk" { WSD_THIS_DEVICE_METADATA }
-#Import ".\IWSDAsyncResult.ahk" { IWSDAsyncResult }
-#Import ".\IWSDAddress.ahk" { IWSDAddress }
+#Import ".\WSD_THIS_MODEL_METADATA.ahk" { WSD_THIS_MODEL_METADATA }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a remote Devices Profile for Web Services (DPWS) device for client applications and middleware.

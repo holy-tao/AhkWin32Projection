@@ -60,10 +60,6 @@ export default struct PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FLUSH {
             this.value := CallbackCreate(fn, , ["ptr", "ptr*", UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

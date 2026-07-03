@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\DirectDraw\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\DirectDraw\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
@@ -48,10 +48,6 @@ export default struct LPD3DENUMPIXELFORMATSCALLBACK {
             this.value := CallbackCreate(fn, , [DDPIXELFORMAT.Ptr, "ptr", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

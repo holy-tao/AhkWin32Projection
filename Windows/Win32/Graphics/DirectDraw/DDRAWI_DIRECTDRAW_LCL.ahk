@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DDRAWI_DDRAWSURFACE_INT.ahk" { DDRAWI_DDRAWSURFACE_INT }
-#Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
-#Import ".\LPDDGAMMACALIBRATORPROC.ahk" { LPDDGAMMACALIBRATORPROC }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import ".\DDHAL_CALLBACKS.ahk" { DDHAL_CALLBACKS }
+#Import ".\DDRAWI_DDRAWSURFACE_INT.ahk" { DDRAWI_DDRAWSURFACE_INT }
+#Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -74,6 +73,6 @@ export default struct DDRAWI_DIRECTDRAW_LCL {
 
     hGammaCalibrator : IntPtr
 
-    lpGammaCalibrator : LPDDGAMMACALIBRATORPROC
+    lpGammaCalibrator : IntPtr
 
 }

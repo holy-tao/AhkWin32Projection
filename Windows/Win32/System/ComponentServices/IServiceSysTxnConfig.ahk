@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITransactionProxy.ahk" { ITransactionProxy }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IServiceTransactionConfig.ahk" { IServiceTransactionConfig }
+#Import ".\ITransactionProxy.ahk" { ITransactionProxy }
 
 /**
  * Enables you to run a set of code in the scope of an existing transaction that you specify with a transaction proxy.

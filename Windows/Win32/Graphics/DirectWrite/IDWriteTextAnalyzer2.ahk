@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
-#Import ".\DWRITE_FONT_FEATURE_TAG.ahk" { DWRITE_FONT_FEATURE_TAG }
-#Import ".\DWRITE_SCRIPT_ANALYSIS.ahk" { DWRITE_SCRIPT_ANALYSIS }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IDWriteTextAnalyzer1.ahk" { IDWriteTextAnalyzer1 }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DWRITE_FONT_FEATURE_TAG.ahk" { DWRITE_FONT_FEATURE_TAG }
 #Import ".\DWRITE_GLYPH_ORIENTATION_ANGLE.ahk" { DWRITE_GLYPH_ORIENTATION_ANGLE }
+#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
+#Import ".\DWRITE_SCRIPT_ANALYSIS.ahk" { DWRITE_SCRIPT_ANALYSIS }
+#Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
+#Import ".\IDWriteTextAnalyzer1.ahk" { IDWriteTextAnalyzer1 }
 
 /**
  * Analyzes various text properties for complex script processing.

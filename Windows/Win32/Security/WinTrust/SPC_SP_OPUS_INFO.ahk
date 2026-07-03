@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SPC_LINK.ahk" { SPC_LINK }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SPC_LINK.ahk" { SPC_LINK }
 
 /**
  * @namespace Windows.Win32.Security.WinTrust

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
-#Import ".\DD_SURFACE_LOCAL.ahk" { DD_SURFACE_LOCAL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
 #Import ".\DD_DIRECTDRAW_GLOBAL.ahk" { DD_DIRECTDRAW_GLOBAL }
+#Import ".\DD_SURFACE_LOCAL.ahk" { DD_SURFACE_LOCAL }
 
 /**
  * The DD_SETCOLORKEYDATA structure contains information necessary to set the color key value for the specified surface.

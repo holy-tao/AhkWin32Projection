@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HGROUP.ahk" { HGROUP }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\HGROUP.ahk" { HGROUP }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -45,10 +45,6 @@ export default struct PCLUSAPI_CLOSE_CLUSTER_GROUP {
             this.value := CallbackCreate(fn, , [HGROUP, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

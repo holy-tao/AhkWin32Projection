@@ -2,12 +2,12 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IEventObjectCollection.ahk" { IEventObjectCollection }
+#Import "..\IDispatch.ahk" { IDispatch }
+#Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Specifies information about the relationship between an event subscriber and an event to which it is subscribing. It is used by publisher filters.

@@ -44,10 +44,6 @@ export default struct LPDDHALSURFCB_SETCLIPLIST {
             this.value := CallbackCreate(fn, , [DDHAL_SETCLIPLISTDATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\BLOB.ahk" { BLOB }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\BLOB.ahk" { BLOB }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Is the means by which the CRM Worker and CRM Compensator write records to the log and make them durable.

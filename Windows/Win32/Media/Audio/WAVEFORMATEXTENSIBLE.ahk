@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 
 /**
  * The WAVEFORMATEXTENSIBLE structure defines the format of waveform-audio data for formats having more than two channels or higher sample resolutions than allowed by WAVEFORMATEX.

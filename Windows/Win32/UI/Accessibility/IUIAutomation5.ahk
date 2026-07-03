@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
-#Import ".\TreeScope.ahk" { TreeScope }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUIAutomation4.ahk" { IUIAutomation4 }
 #Import ".\IUIAutomationCacheRequest.ahk" { IUIAutomationCacheRequest }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
 #Import ".\IUIAutomationNotificationEventHandler.ahk" { IUIAutomationNotificationEventHandler }
+#Import ".\TreeScope.ahk" { TreeScope }
 
 /**
  * Extends the IUIAutomation4 interface to expose additional methods for controlling Microsoft UI Automation functionality.

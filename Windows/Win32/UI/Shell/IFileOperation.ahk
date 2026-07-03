@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IOperationsProgressDialog.ahk" { IOperationsProgressDialog }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "PropertiesSystem\IPropertyChangeArray.ahk" { IPropertyChangeArray }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IFileOperationProgressSink.ahk" { IFileOperationProgressSink }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\FILEOPERATION_FLAGS.ahk" { FILEOPERATION_FLAGS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFileOperationProgressSink.ahk" { IFileOperationProgressSink }
+#Import ".\IOperationsProgressDialog.ahk" { IOperationsProgressDialog }
 #Import ".\IShellItem.ahk" { IShellItem }
+#Import "PropertiesSystem\IPropertyChangeArray.ahk" { IPropertyChangeArray }
 
 /**
  * Exposes methods to copy, move, rename, create, and delete Shell items as well as methods to provide progress and error dialogs. This interface replaces the SHFileOperation function.

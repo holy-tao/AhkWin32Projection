@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\FAX_COVERPAGE_INFOW.ahk" { FAX_COVERPAGE_INFOW }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\FAX_JOB_PARAMW.ahk" { FAX_JOB_PARAMW }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
@@ -57,10 +57,6 @@ export default struct PFAXSENDDOCUMENTW {
             this.value := CallbackCreate(fn, , [HANDLE, PWSTR, FAX_JOB_PARAMW.Ptr, FAX_COVERPAGE_INFOW.Ptr, "uint*", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

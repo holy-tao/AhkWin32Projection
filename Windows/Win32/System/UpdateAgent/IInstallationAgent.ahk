@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IStringCollection.ahk" { IStringCollection }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Records the result for an update.

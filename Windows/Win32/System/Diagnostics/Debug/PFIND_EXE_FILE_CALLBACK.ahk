@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * PFIND_EXE_FILE_CALLBACK (dbghelp.h) is an application-defined callback function used with the FindExecutableImageEx function.
@@ -55,10 +55,6 @@ export default struct PFIND_EXE_FILE_CALLBACK {
             this.value := CallbackCreate(fn, , [HANDLE, PSTR, "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\IReferenceClock.ahk" { IReferenceClock }
-#Import ".\IDirectMusic.ahk" { IDirectMusic }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDirectMusic.ahk" { IDirectMusic }
+#Import "..\..\IReferenceClock.ahk" { IReferenceClock }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic

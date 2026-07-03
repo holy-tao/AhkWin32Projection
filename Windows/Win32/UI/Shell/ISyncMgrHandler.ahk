@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SYNCMGR_HANDLER_CAPABILITIES.ahk" { SYNCMGR_HANDLER_CAPABILITIES }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ISyncMgrSessionCreator.ahk" { ISyncMgrSessionCreator }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\SYNCMGR_HANDLER_POLICIES.ahk" { SYNCMGR_HANDLER_POLICIES }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ISyncMgrHandlerInfo.ahk" { ISyncMgrHandlerInfo }
+#Import ".\ISyncMgrSessionCreator.ahk" { ISyncMgrSessionCreator }
+#Import ".\SYNCMGR_HANDLER_CAPABILITIES.ahk" { SYNCMGR_HANDLER_CAPABILITIES }
+#Import ".\SYNCMGR_HANDLER_POLICIES.ahk" { SYNCMGR_HANDLER_POLICIES }
 
 /**
  * Exposes methods that make up the primary interface implemented by a sync handler.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\HCLUSTER.ahk" { HCLUSTER }
 #Import ".\CLUSTERVERSIONINFO.ahk" { CLUSTERVERSIONINFO }
+#Import ".\HCLUSTER.ahk" { HCLUSTER }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -53,10 +53,6 @@ export default struct PCLUSAPI_GET_CLUSTER_INFORMATION {
             this.value := CallbackCreate(fn, , [HCLUSTER, PWSTR, "uint*", CLUSTERVERSIONINFO.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

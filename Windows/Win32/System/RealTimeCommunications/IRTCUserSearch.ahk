@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IRTCUserSearchQuery.ahk" { IRTCUserSearchQuery }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IRTCProfile.ahk" { IRTCProfile }
+#Import ".\IRTCUserSearchQuery.ahk" { IRTCUserSearchQuery }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

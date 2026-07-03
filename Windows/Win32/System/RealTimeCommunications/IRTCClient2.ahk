@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\RTC_LISTEN_MODE.ahk" { RTC_LISTEN_MODE }
-#Import ".\IRTCClient.ahk" { IRTCClient }
-#Import ".\RTC_SECURITY_TYPE.ahk" { RTC_SECURITY_TYPE }
-#Import ".\IRTCSessionDescriptionManager.ahk" { IRTCSessionDescriptionManager }
-#Import ".\RTC_SESSION_TYPE.ahk" { RTC_SESSION_TYPE }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\RTC_ANSWER_MODE.ahk" { RTC_ANSWER_MODE }
-#Import ".\RTC_SECURITY_LEVEL.ahk" { RTC_SECURITY_LEVEL }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IRTCClient.ahk" { IRTCClient }
 #Import ".\IRTCProfile.ahk" { IRTCProfile }
 #Import ".\IRTCSession2.ahk" { IRTCSession2 }
+#Import ".\IRTCSessionDescriptionManager.ahk" { IRTCSessionDescriptionManager }
+#Import ".\RTC_ANSWER_MODE.ahk" { RTC_ANSWER_MODE }
+#Import ".\RTC_LISTEN_MODE.ahk" { RTC_LISTEN_MODE }
+#Import ".\RTC_SECURITY_LEVEL.ahk" { RTC_SECURITY_LEVEL }
+#Import ".\RTC_SECURITY_TYPE.ahk" { RTC_SECURITY_TYPE }
+#Import ".\RTC_SESSION_TYPE.ahk" { RTC_SESSION_TYPE }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PFLT_CONTEXT.ahk" { PFLT_CONTEXT }
 #Import ".\FLT_RELATED_OBJECTS.ahk" { FLT_RELATED_OBJECTS }
+#Import ".\PFLT_CONTEXT.ahk" { PFLT_CONTEXT }
 #Import "..\..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
@@ -29,7 +29,7 @@ export default struct PFLT_TRANSACTION_NOTIFICATION_CALLBACK {
      */
     Call(FltObjects, _TransactionContext, NotificationMask) {
         result := DllCall(this.value, FLT_RELATED_OBJECTS.Ptr, FltObjects, PFLT_CONTEXT, _TransactionContext, UInt32, NotificationMask, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -49,10 +49,6 @@ export default struct PFLT_TRANSACTION_NOTIFICATION_CALLBACK {
             this.value := CallbackCreate(fn, , [FLT_RELATED_OBJECTS.Ptr, PFLT_CONTEXT, UInt32, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -51,10 +51,6 @@ export default struct PCHANGE_RES_TYPE_PROCESS_FOR_DUMPS {
             this.value := CallbackCreate(fn, , [PWSTR, PWSTR, UInt32, BOOL, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

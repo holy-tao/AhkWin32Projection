@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DXGI_OFFER_RESOURCE_PRIORITY.ahk" { DXGI_OFFER_RESOURCE_PRIORITY }
-#Import ".\IDXGIResource.ahk" { IDXGIResource }
-#Import ".\IDXGIDevice1.ahk" { IDXGIDevice1 }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXGI_OFFER_RESOURCE_PRIORITY.ahk" { DXGI_OFFER_RESOURCE_PRIORITY }
+#Import ".\IDXGIDevice1.ahk" { IDXGIDevice1 }
+#Import ".\IDXGIResource.ahk" { IDXGIResource }
 
 /**
  * The IDXGIDevice2 interface implements a derived class for DXGI objects that produce image data. The interface exposes methods to block CPU processing until the GPU completes processing, and to offer resources to the operating system.

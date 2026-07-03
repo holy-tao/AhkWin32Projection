@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FEEDS_BACKGROUNDSYNC_ACTION.ahk" { FEEDS_BACKGROUNDSYNC_ACTION }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\FEEDS_BACKGROUNDSYNC_STATUS.ahk" { FEEDS_BACKGROUNDSYNC_STATUS }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\FEEDS_BACKGROUNDSYNC_ACTION.ahk" { FEEDS_BACKGROUNDSYNC_ACTION }
+#Import ".\FEEDS_BACKGROUNDSYNC_STATUS.ahk" { FEEDS_BACKGROUNDSYNC_STATUS }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PRJ_CALLBACK_DATA.ahk" { PRJ_CALLBACK_DATA }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PRJ_CALLBACK_DATA.ahk" { PRJ_CALLBACK_DATA }
 
 /**
  * Determines whether a given file path exists in the provider's backing store.
@@ -93,10 +93,6 @@ export default struct PRJ_QUERY_FILE_NAME_CB {
             this.value := CallbackCreate(fn, , [PRJ_CALLBACK_DATA.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

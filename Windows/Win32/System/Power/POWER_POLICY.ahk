@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\POWER_ACTION_POLICY_EVENT_CODE.ahk" { POWER_ACTION_POLICY_EVENT_CODE }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\POWER_ACTION_POLICY.ahk" { POWER_ACTION_POLICY }
-#Import ".\SYSTEM_POWER_STATE.ahk" { SYSTEM_POWER_STATE }
-#Import ".\USER_POWER_POLICY.ahk" { USER_POWER_POLICY }
 #Import ".\MACHINE_POWER_POLICY.ahk" { MACHINE_POWER_POLICY }
 #Import ".\POWER_ACTION.ahk" { POWER_ACTION }
+#Import ".\POWER_ACTION_POLICY.ahk" { POWER_ACTION_POLICY }
+#Import ".\POWER_ACTION_POLICY_EVENT_CODE.ahk" { POWER_ACTION_POLICY_EVENT_CODE }
+#Import ".\SYSTEM_POWER_STATE.ahk" { SYSTEM_POWER_STATE }
+#Import ".\USER_POWER_POLICY.ahk" { USER_POWER_POLICY }
 
 /**
  * Contains power policy settings that are unique to each power scheme.

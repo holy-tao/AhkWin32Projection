@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IErrorInfo.ahk" { IErrorInfo }
-#Import ".\ERRORINFO.ahk" { ERRORINFO }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Com\DISPPARAMS.ahk" { DISPPARAMS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\DISPPARAMS.ahk" { DISPPARAMS }
+#Import "..\Com\IErrorInfo.ahk" { IErrorInfo }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ERRORINFO.ahk" { ERRORINFO }
 
 /**
  * @namespace Windows.Win32.System.Search

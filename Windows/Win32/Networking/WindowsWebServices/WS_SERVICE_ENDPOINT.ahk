@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_SECURITY_DESCRIPTION.ahk" { WS_SECURITY_DESCRIPTION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WS_CHANNEL_BINDING.ahk" { WS_CHANNEL_BINDING }
+#Import ".\WS_CHANNEL_PROPERTIES.ahk" { WS_CHANNEL_PROPERTIES }
+#Import ".\WS_CHANNEL_PROPERTY.ahk" { WS_CHANNEL_PROPERTY }
+#Import ".\WS_CHANNEL_TYPE.ahk" { WS_CHANNEL_TYPE }
 #Import ".\WS_ENDPOINT_ADDRESS.ahk" { WS_ENDPOINT_ADDRESS }
 #Import ".\WS_ENDPOINT_IDENTITY.ahk" { WS_ENDPOINT_IDENTITY }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WS_SECURITY_DESCRIPTION.ahk" { WS_SECURITY_DESCRIPTION }
 #Import ".\WS_SERVICE_CONTRACT.ahk" { WS_SERVICE_CONTRACT }
-#Import ".\WS_XML_BUFFER.ahk" { WS_XML_BUFFER }
-#Import ".\WS_CHANNEL_TYPE.ahk" { WS_CHANNEL_TYPE }
-#Import ".\WS_CHANNEL_PROPERTY.ahk" { WS_CHANNEL_PROPERTY }
-#Import ".\WS_CHANNEL_PROPERTIES.ahk" { WS_CHANNEL_PROPERTIES }
-#Import ".\WS_SERVICE_SECURITY_CALLBACK.ahk" { WS_SERVICE_SECURITY_CALLBACK }
-#Import ".\WS_CHANNEL_BINDING.ahk" { WS_CHANNEL_BINDING }
 #Import ".\WS_SERVICE_ENDPOINT_PROPERTY.ahk" { WS_SERVICE_ENDPOINT_PROPERTY }
 #Import ".\WS_STRING.ahk" { WS_STRING }
+#Import ".\WS_XML_BUFFER.ahk" { WS_XML_BUFFER }
 
 /**
  * Represents an individual endpoint on a service host. The properties on the endpoint are used to specify the address, binding and contract.
@@ -49,7 +48,7 @@ export default struct WS_SERVICE_ENDPOINT {
     /**
      * Authorization callback for the service endpoint.
      */
-    authorizationCallback : WS_SERVICE_SECURITY_CALLBACK
+    authorizationCallback : IntPtr
 
     /**
      * An array of properties to configure the service endpoint.

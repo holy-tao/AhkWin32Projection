@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MSIPATCHDATATYPE.ahk" { MSIPATCHDATATYPE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MSIPATCHDATATYPE.ahk" { MSIPATCHDATATYPE }
 
 /**
  * The MSIPATCHSEQUENCEINFO structure is used by the MsiDeterminePatchSequence and MsiDetermineApplicablePatches functions. (Unicode)

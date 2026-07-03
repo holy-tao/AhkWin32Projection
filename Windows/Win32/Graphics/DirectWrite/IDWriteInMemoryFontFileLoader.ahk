@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteFactory.ahk" { IDWriteFactory }
 #Import ".\IDWriteFontFile.ahk" { IDWriteFontFile }
 #Import ".\IDWriteFontFileLoader.ahk" { IDWriteFontFileLoader }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDWriteFactory.ahk" { IDWriteFactory }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a font file loader that can access in-memory fonts.

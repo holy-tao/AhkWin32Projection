@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IInkExtendedProperties.ahk" { IInkExtendedProperties }
-#Import ".\TabletPropertyMetricUnit.ahk" { TabletPropertyMetricUnit }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IInkDrawingAttributes.ahk" { IInkDrawingAttributes }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\InkBoundingBoxMode.ahk" { InkBoundingBoxMode }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IInkTransform.ahk" { IInkTransform }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IInkDisp.ahk" { IInkDisp }
+#Import ".\IInkDrawingAttributes.ahk" { IInkDrawingAttributes }
+#Import ".\IInkExtendedProperties.ahk" { IInkExtendedProperties }
 #Import ".\IInkRectangle.ahk" { IInkRectangle }
 #Import ".\IInkStrokes.ahk" { IInkStrokes }
+#Import ".\IInkTransform.ahk" { IInkTransform }
+#Import ".\InkBoundingBoxMode.ahk" { InkBoundingBoxMode }
+#Import ".\TabletPropertyMetricUnit.ahk" { TabletPropertyMetricUnit }
 
 /**
  * Represents a single ink stroke.A stroke is a set of properties and point data that the digitizer captures that represent the coordinates and properties of a known ink mark.

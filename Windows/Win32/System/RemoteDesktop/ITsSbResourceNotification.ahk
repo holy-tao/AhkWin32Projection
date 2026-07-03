@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITsSbClientConnection.ahk" { ITsSbClientConnection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\CONNECTION_CHANGE_NOTIFICATION.ahk" { CONNECTION_CHANGE_NOTIFICATION }
-#Import ".\ITsSbTarget.ahk" { ITsSbTarget }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITsSbClientConnection.ahk" { ITsSbClientConnection }
 #Import ".\ITsSbSession.ahk" { ITsSbSession }
+#Import ".\ITsSbTarget.ahk" { ITsSbTarget }
 #Import ".\TSSESSION_STATE.ahk" { TSSESSION_STATE }
 
 /**

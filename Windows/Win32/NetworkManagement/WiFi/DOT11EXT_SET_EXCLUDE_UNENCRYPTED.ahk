@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -46,10 +46,6 @@ export default struct DOT11EXT_SET_EXCLUDE_UNENCRYPTED {
             this.value := CallbackCreate(fn, , [HANDLE, BOOL, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

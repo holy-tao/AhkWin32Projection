@@ -46,10 +46,6 @@ export default struct PCLUSAPI_GET_NOTIFY_EVENT_HANDLE_V2 {
             this.value := CallbackCreate(fn, , [HCHANGE, HANDLE.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

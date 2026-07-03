@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IPortableDeviceContent.ahk" { IPortableDeviceContent }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IPortableDeviceEventCallback.ahk" { IPortableDeviceEventCallback }
 #Import ".\IPortableDeviceCapabilities.ahk" { IPortableDeviceCapabilities }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPortableDeviceContent.ahk" { IPortableDeviceContent }
+#Import ".\IPortableDeviceEventCallback.ahk" { IPortableDeviceEventCallback }
 #Import ".\IPortableDeviceValues.ahk" { IPortableDeviceValues }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IPortableDevice interface provides access to a portable device.

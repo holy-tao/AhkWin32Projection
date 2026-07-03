@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HRESTYPEENUM.ahk" { HRESTYPEENUM }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HRESTYPEENUM.ahk" { HRESTYPEENUM }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -54,10 +54,6 @@ export default struct PCLUSAPI_CLUSTER_RESOURCE_TYPE_ENUM {
             this.value := CallbackCreate(fn, , [HRESTYPEENUM, UInt32, "uint*", PWSTR, "uint*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VDS_NF_LUN.ahk" { VDS_NF_LUN }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VDS_NF_LUN.ahk" { VDS_NF_LUN }
 
 /**
  * The VDS_LUN_NOTIFICATION structure (vdshwprv.h) defines the details of a LUN notification.

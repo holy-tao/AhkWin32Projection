@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\RTC_RING_TYPE.ahk" { RTC_RING_TYPE }
-#Import "..\..\Media\DirectShow\IVideoWindow.ahk" { IVideoWindow }
-#Import ".\RTC_VIDEO_DEVICE.ahk" { RTC_VIDEO_DEVICE }
-#Import ".\IRTCSession.ahk" { IRTCSession }
-#Import ".\IRTCProfile.ahk" { IRTCProfile }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\RTC_LISTEN_MODE.ahk" { RTC_LISTEN_MODE }
+#Import "..\..\Media\DirectShow\IVideoWindow.ahk" { IVideoWindow }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\RTC_T120_APPLET.ahk" { RTC_T120_APPLET }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IRTCProfile.ahk" { IRTCProfile }
+#Import ".\IRTCSession.ahk" { IRTCSession }
 #Import ".\RTC_AUDIO_DEVICE.ahk" { RTC_AUDIO_DEVICE }
 #Import ".\RTC_DTMF.ahk" { RTC_DTMF }
+#Import ".\RTC_LISTEN_MODE.ahk" { RTC_LISTEN_MODE }
+#Import ".\RTC_RING_TYPE.ahk" { RTC_RING_TYPE }
 #Import ".\RTC_SESSION_TYPE.ahk" { RTC_SESSION_TYPE }
+#Import ".\RTC_T120_APPLET.ahk" { RTC_T120_APPLET }
+#Import ".\RTC_VIDEO_DEVICE.ahk" { RTC_VIDEO_DEVICE }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

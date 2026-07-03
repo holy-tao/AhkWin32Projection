@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D12Heap.ahk" { ID3D12Heap }
-#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import ".\D3D12_RESOURCE_DESC.ahk" { D3D12_RESOURCE_DESC }
-#Import ".\D3D12_HEAP_FLAGS.ahk" { D3D12_HEAP_FLAGS }
-#Import ".\D3D12_BARRIER_LAYOUT.ahk" { D3D12_BARRIER_LAYOUT }
-#Import ".\D3D12_HEAP_PROPERTIES.ahk" { D3D12_HEAP_PROPERTIES }
-#Import ".\D3D12_CLEAR_VALUE.ahk" { D3D12_CLEAR_VALUE }
-#Import ".\ID3D12Device9.ahk" { ID3D12Device9 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID3D12ProtectedResourceSession.ahk" { ID3D12ProtectedResourceSession }
+#Import ".\D3D12_BARRIER_LAYOUT.ahk" { D3D12_BARRIER_LAYOUT }
+#Import ".\D3D12_CLEAR_VALUE.ahk" { D3D12_CLEAR_VALUE }
+#Import ".\D3D12_HEAP_FLAGS.ahk" { D3D12_HEAP_FLAGS }
+#Import ".\D3D12_HEAP_PROPERTIES.ahk" { D3D12_HEAP_PROPERTIES }
+#Import ".\D3D12_RESOURCE_DESC.ahk" { D3D12_RESOURCE_DESC }
 #Import ".\D3D12_RESOURCE_DESC1.ahk" { D3D12_RESOURCE_DESC1 }
+#Import ".\ID3D12Device9.ahk" { ID3D12Device9 }
+#Import ".\ID3D12Heap.ahk" { ID3D12Heap }
+#Import ".\ID3D12ProtectedResourceSession.ahk" { ID3D12ProtectedResourceSession }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 
 /**
  * TBD

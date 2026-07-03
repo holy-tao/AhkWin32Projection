@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WINBIO_POLICY_SOURCE.ahk" { WINBIO_POLICY_SOURCE }
 #Import ".\WINBIO_ANTI_SPOOF_POLICY_ACTION.ahk" { WINBIO_ANTI_SPOOF_POLICY_ACTION }
+#Import ".\WINBIO_POLICY_SOURCE.ahk" { WINBIO_POLICY_SOURCE }
 
 /**
  * Represents the antispoofing policy for a user.

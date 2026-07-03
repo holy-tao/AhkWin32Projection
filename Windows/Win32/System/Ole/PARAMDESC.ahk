@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PARAMFLAGS.ahk" { PARAMFLAGS }
 #Import ".\PARAMDESCEX.ahk" { PARAMDESCEX }
+#Import ".\PARAMFLAGS.ahk" { PARAMFLAGS }
 
 /**
  * Contains information needed for transferring a structure element, parameter, or function return value between processes.

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IPSEC_PFS_GROUP.ahk" { IPSEC_PFS_GROUP }
+#Import ".\FWP_IP_VERSION.ahk" { FWP_IP_VERSION }
+#Import ".\IPSEC_ID0.ahk" { IPSEC_ID0 }
 #Import ".\IPSEC_KEYMODULE_STATE0.ahk" { IPSEC_KEYMODULE_STATE0 }
+#Import ".\IPSEC_PFS_GROUP.ahk" { IPSEC_PFS_GROUP }
 #Import ".\IPSEC_SA0.ahk" { IPSEC_SA0 }
 #Import ".\IPSEC_SA_BUNDLE_FLAGS.ahk" { IPSEC_SA_BUNDLE_FLAGS }
-#Import ".\IPSEC_ID0.ahk" { IPSEC_ID0 }
 #Import ".\IPSEC_SA_LIFETIME0.ahk" { IPSEC_SA_LIFETIME0 }
-#Import ".\FWP_IP_VERSION.ahk" { FWP_IP_VERSION }
 
 /**
  * Is used to store information about an IPsec security association (SA) bundle. (IPSEC_SA_BUNDLE0)

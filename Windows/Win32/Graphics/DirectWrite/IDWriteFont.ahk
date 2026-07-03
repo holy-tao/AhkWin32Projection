@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DWRITE_FONT_METRICS.ahk" { DWRITE_FONT_METRICS }
-#Import ".\IDWriteFontFamily.ahk" { IDWriteFontFamily }
-#Import ".\IDWriteLocalizedStrings.ahk" { IDWriteLocalizedStrings }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_FONT_METRICS.ahk" { DWRITE_FONT_METRICS }
 #Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DWRITE_FONT_STRETCH.ahk" { DWRITE_FONT_STRETCH }
 #Import ".\DWRITE_FONT_STYLE.ahk" { DWRITE_FONT_STYLE }
+#Import ".\DWRITE_FONT_WEIGHT.ahk" { DWRITE_FONT_WEIGHT }
 #Import ".\DWRITE_INFORMATIONAL_STRING_ID.ahk" { DWRITE_INFORMATIONAL_STRING_ID }
 #Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
-#Import ".\DWRITE_FONT_WEIGHT.ahk" { DWRITE_FONT_WEIGHT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DWRITE_FONT_STRETCH.ahk" { DWRITE_FONT_STRETCH }
+#Import ".\IDWriteFontFamily.ahk" { IDWriteFontFamily }
+#Import ".\IDWriteLocalizedStrings.ahk" { IDWriteLocalizedStrings }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a physical font in a font collection. This interface is used to create font faces from physical fonts, or to retrieve information such as font face metrics or face names from existing font faces.

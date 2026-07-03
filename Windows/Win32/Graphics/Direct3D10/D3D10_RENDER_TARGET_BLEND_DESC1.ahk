@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\D3D10_BLEND_OP.ahk" { D3D10_BLEND_OP }
 #Import ".\D3D10_BLEND.ahk" { D3D10_BLEND }
+#Import ".\D3D10_BLEND_OP.ahk" { D3D10_BLEND_OP }
 
 /**
  * Describes the blend state for a render target for a Direct3D 10.1 device

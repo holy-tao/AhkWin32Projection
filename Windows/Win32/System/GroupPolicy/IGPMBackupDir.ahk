@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IGPMBackupCollection.ahk" { IGPMBackupCollection }
-#Import ".\IGPMBackup.ahk" { IGPMBackup }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IGPMBackup.ahk" { IGPMBackup }
+#Import ".\IGPMBackupCollection.ahk" { IGPMBackupCollection }
 #Import ".\IGPMSearchCriteria.ahk" { IGPMSearchCriteria }
 
 /**

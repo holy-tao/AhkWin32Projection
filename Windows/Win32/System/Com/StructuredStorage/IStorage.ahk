@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IEnumSTATSTG.ahk" { IEnumSTATSTG }
 #Import "..\..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\IStream.ahk" { IStream }
 #Import "..\IUnknown.ahk" { IUnknown }
-#Import "..\STGM.ahk" { STGM }
 #Import "..\STATSTG.ahk" { STATSTG }
+#Import "..\STGM.ahk" { STGM }
+#Import ".\IEnumSTATSTG.ahk" { IEnumSTATSTG }
 
 /**
  * The IStorage interface supports the creation and management of structured storage objects.

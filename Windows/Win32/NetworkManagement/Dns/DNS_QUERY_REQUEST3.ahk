@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DNS_CUSTOM_SERVER.ahk" { DNS_CUSTOM_SERVER }
-#Import ".\PDNS_QUERY_COMPLETION_ROUTINE.ahk" { PDNS_QUERY_COMPLETION_ROUTINE }
-#Import ".\DNS_ADDR_ARRAY.ahk" { DNS_ADDR_ARRAY }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DNS_ADDR_ARRAY.ahk" { DNS_ADDR_ARRAY }
+#Import ".\DNS_CUSTOM_SERVER.ahk" { DNS_CUSTOM_SERVER }
 
 /**
  * Contains the DNS query parameters used in a call to [DnsQueryEx](/windows/win32/api/windns/nf-windns-dnsqueryex).
@@ -70,7 +69,7 @@ export default struct DNS_QUERY_REQUEST3 {
      * > [!NOTE]
      * > If **NULL**, then [DnsQueryEx](/windows/win32/api/windns/nf-windns-dnsqueryex) is called synchronously.
      */
-    pQueryCompletionCallback : PDNS_QUERY_COMPLETION_ROUTINE
+    pQueryCompletionCallback : IntPtr
 
     /**
      * Type: **[PVOID](/windows/win32/winprog/windows-data-types)**

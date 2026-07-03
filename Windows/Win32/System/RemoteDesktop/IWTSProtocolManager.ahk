@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWTSProtocolListener.ahk" { IWTSProtocolListener }
-#Import ".\WTS_SESSION_ID.ahk" { WTS_SESSION_ID }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWTSProtocolListener.ahk" { IWTSProtocolListener }
 #Import ".\WTS_SERVICE_STATE.ahk" { WTS_SERVICE_STATE }
+#Import ".\WTS_SESSION_ID.ahk" { WTS_SESSION_ID }
 
 /**
  * IWTSProtocolManager is no longer available. Instead, use IWRdsProtocolManager.

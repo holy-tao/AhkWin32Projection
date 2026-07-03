@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\OFFLINEFILES_ITEM_COPY.ahk" { OFFLINEFILES_ITEM_COPY }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\OFFLINEFILES_ITEM_COPY.ahk" { OFFLINEFILES_ITEM_COPY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents the standard information associated with a file system item in the Offline Files cache.

@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\KSDATAFORMAT.ahk" { KSDATAFORMAT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\KSDATAFORMAT.ahk" { KSDATAFORMAT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IKsFormatSupport interface provides information about the audio data formats that are supported by a software-configured I/O connection (typically a DMA channel) between an audio adapter device and system memory.

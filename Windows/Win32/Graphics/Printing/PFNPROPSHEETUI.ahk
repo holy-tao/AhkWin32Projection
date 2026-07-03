@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PROPSHEETUI_INFO.ahk" { PROPSHEETUI_INFO }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\PROPSHEETUI_INFO.ahk" { PROPSHEETUI_INFO }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -46,10 +46,6 @@ export default struct PFNPROPSHEETUI {
             this.value := CallbackCreate(fn, , [PROPSHEETUI_INFO.Ptr, LPARAM, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

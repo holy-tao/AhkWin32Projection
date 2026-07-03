@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The MCI_DGV_WINDOW_PARMSA (ANSI) structure contains parameters for MCI_WINDOW command for digital-video devices.

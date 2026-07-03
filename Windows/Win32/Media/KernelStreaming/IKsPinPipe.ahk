@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FRAMING_CACHE_OPS.ahk" { FRAMING_CACHE_OPS }
-#Import ".\KSPEEKOPERATION.ahk" { KSPEEKOPERATION }
-#Import ".\KSALLOCATOR_FRAMING_EX.ahk" { KSALLOCATOR_FRAMING_EX }
-#Import ".\FRAMING_PROP.ahk" { FRAMING_PROP }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\DirectShow\IPin.ahk" { IPin }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IKsAllocatorEx.ahk" { IKsAllocatorEx }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\DirectShow\IPin.ahk" { IPin }
+#Import ".\FRAMING_CACHE_OPS.ahk" { FRAMING_CACHE_OPS }
+#Import ".\FRAMING_PROP.ahk" { FRAMING_PROP }
+#Import ".\IKsAllocatorEx.ahk" { IKsAllocatorEx }
+#Import ".\KSALLOCATOR_FRAMING_EX.ahk" { KSALLOCATOR_FRAMING_EX }
+#Import ".\KSPEEKOPERATION.ahk" { KSPEEKOPERATION }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

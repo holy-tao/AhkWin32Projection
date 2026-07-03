@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WINDOW_STYLE.ahk" { WINDOW_STYLE }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import ".\WINDOW_EX_STYLE.ahk" { WINDOW_EX_STYLE }
+#Import ".\WINDOW_STYLE.ahk" { WINDOW_STYLE }
 
 /**
  * Contains window information.

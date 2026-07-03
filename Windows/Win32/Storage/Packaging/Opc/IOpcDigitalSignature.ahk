@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IOpcSignatureRelationshipReferenceEnumerator.ahk" { IOpcSignatureRelationshipReferenceEnumerator }
-#Import ".\IOpcSignatureReference.ahk" { IOpcSignatureReference }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IOpcSignatureReferenceEnumerator.ahk" { IOpcSignatureReferenceEnumerator }
-#Import ".\IOpcSignaturePartReferenceEnumerator.ahk" { IOpcSignaturePartReferenceEnumerator }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IOpcCertificateEnumerator.ahk" { IOpcCertificateEnumerator }
+#Import ".\IOpcPartUri.ahk" { IOpcPartUri }
 #Import ".\IOpcSignatureCustomObjectEnumerator.ahk" { IOpcSignatureCustomObjectEnumerator }
+#Import ".\IOpcSignaturePartReferenceEnumerator.ahk" { IOpcSignaturePartReferenceEnumerator }
+#Import ".\IOpcSignatureReference.ahk" { IOpcSignatureReference }
+#Import ".\IOpcSignatureReferenceEnumerator.ahk" { IOpcSignatureReferenceEnumerator }
+#Import ".\IOpcSignatureRelationshipReferenceEnumerator.ahk" { IOpcSignatureRelationshipReferenceEnumerator }
+#Import ".\OPC_CANONICALIZATION_METHOD.ahk" { OPC_CANONICALIZATION_METHOD }
 #Import ".\OPC_SIGNATURE_TIME_FORMAT.ahk" { OPC_SIGNATURE_TIME_FORMAT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\OPC_CANONICALIZATION_METHOD.ahk" { OPC_CANONICALIZATION_METHOD }
-#Import ".\IOpcPartUri.ahk" { IOpcPartUri }
-#Import ".\IOpcCertificateEnumerator.ahk" { IOpcCertificateEnumerator }
 
 /**
  * Represents a package digital signature.

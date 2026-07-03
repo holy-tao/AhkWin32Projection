@@ -1,17 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LPFN_RIOSENDEX.ahk" { LPFN_RIOSENDEX }
-#Import ".\LPFN_RIORECEIVE.ahk" { LPFN_RIORECEIVE }
-#Import ".\LPFN_RIORESIZECOMPLETIONQUEUE.ahk" { LPFN_RIORESIZECOMPLETIONQUEUE }
-#Import ".\LPFN_RIOSEND.ahk" { LPFN_RIOSEND }
-#Import ".\LPFN_RIODEQUEUECOMPLETION.ahk" { LPFN_RIODEQUEUECOMPLETION }
-#Import ".\LPFN_RIODEREGISTERBUFFER.ahk" { LPFN_RIODEREGISTERBUFFER }
-#Import ".\LPFN_RIONOTIFY.ahk" { LPFN_RIONOTIFY }
-#Import ".\LPFN_RIOCREATECOMPLETIONQUEUE.ahk" { LPFN_RIOCREATECOMPLETIONQUEUE }
-#Import ".\LPFN_RIOCREATEREQUESTQUEUE.ahk" { LPFN_RIOCREATEREQUESTQUEUE }
-#Import ".\LPFN_RIOCLOSECOMPLETIONQUEUE.ahk" { LPFN_RIOCLOSECOMPLETIONQUEUE }
-#Import ".\LPFN_RIOREGISTERBUFFER.ahk" { LPFN_RIOREGISTERBUFFER }
-#Import ".\LPFN_RIORECEIVEEX.ahk" { LPFN_RIORECEIVEEX }
-#Import ".\LPFN_RIORESIZEREQUESTQUEUE.ahk" { LPFN_RIORESIZEREQUESTQUEUE }
 
 /**
  * Contains information on the functions that implement the Winsock registered I/O extensions.
@@ -35,66 +22,66 @@ export default struct RIO_EXTENSION_FUNCTION_TABLE {
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_rioreceive">RIOReceive</a> function.
      */
-    RIOReceive : LPFN_RIORECEIVE
+    RIOReceive : IntPtr
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_rioreceiveex">RIOReceiveEx</a> function.
      */
-    RIOReceiveEx : LPFN_RIORECEIVEEX
+    RIOReceiveEx : IntPtr
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_riosend">RIOSend</a> function.
      */
-    RIOSend : LPFN_RIOSEND
+    RIOSend : IntPtr
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/hh437216(v=vs.85)">RIOSendEx</a> function.
      */
-    RIOSendEx : LPFN_RIOSENDEX
+    RIOSendEx : IntPtr
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/hh448837(v=vs.85)">RIOCloseCompletionQueue</a> function.
      */
-    RIOCloseCompletionQueue : LPFN_RIOCLOSECOMPLETIONQUEUE
+    RIOCloseCompletionQueue : IntPtr
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_riocreatecompletionqueue">RIOCreateCompletionQueue</a> function.
      */
-    RIOCreateCompletionQueue : LPFN_RIOCREATECOMPLETIONQUEUE
+    RIOCreateCompletionQueue : IntPtr
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_riocreaterequestqueue">RIOCreateRequestQueue</a> function.
      */
-    RIOCreateRequestQueue : LPFN_RIOCREATEREQUESTQUEUE
+    RIOCreateRequestQueue : IntPtr
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_riodequeuecompletion">RIODequeueCompletion</a> function.
      */
-    RIODequeueCompletion : LPFN_RIODEQUEUECOMPLETION
+    RIODequeueCompletion : IntPtr
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_rioderegisterbuffer">RIODeregisterBuffer</a> function.
      */
-    RIODeregisterBuffer : LPFN_RIODEREGISTERBUFFER
+    RIODeregisterBuffer : IntPtr
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_rionotify">RIONotify</a> function.
      */
-    RIONotify : LPFN_RIONOTIFY
+    RIONotify : IntPtr
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/hh437199(v=vs.85)">RIORegisterBuffer</a> function.
      */
-    RIORegisterBuffer : LPFN_RIOREGISTERBUFFER
+    RIORegisterBuffer : IntPtr
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/hh437202(v=vs.85)">RIOResizeCompletionQueue</a> function.
      */
-    RIOResizeCompletionQueue : LPFN_RIORESIZECOMPLETIONQUEUE
+    RIOResizeCompletionQueue : IntPtr
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/hh437204(v=vs.85)">RIOResizeRequestQueue</a> function.
      */
-    RIOResizeRequestQueue : LPFN_RIORESIZEREQUESTQUEUE
+    RIOResizeRequestQueue : IntPtr
 
 }

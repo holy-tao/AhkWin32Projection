@@ -1,5 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PASYNC_READ_COMPLETION_CALLBACK.ahk" { PASYNC_READ_COMPLETION_CALLBACK }
 #Import "..\..\Foundation\MDL.ahk" { MDL }
 
 /**
@@ -8,7 +7,7 @@
 export default struct CC_ASYNC_READ_CONTEXT {
     #StructPack 8
 
-    CompletionRoutine : PASYNC_READ_COMPLETION_CALLBACK
+    CompletionRoutine : IntPtr
 
     Context : IntPtr
 

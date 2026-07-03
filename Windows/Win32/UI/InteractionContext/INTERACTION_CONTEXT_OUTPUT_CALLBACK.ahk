@@ -48,10 +48,6 @@ export default struct INTERACTION_CONTEXT_OUTPUT_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", INTERACTION_CONTEXT_OUTPUT.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

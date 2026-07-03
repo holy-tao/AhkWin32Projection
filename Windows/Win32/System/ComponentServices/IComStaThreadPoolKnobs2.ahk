@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IComStaThreadPoolKnobs.ahk" { IComStaThreadPoolKnobs }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IComStaThreadPoolKnobs.ahk" { IComStaThreadPoolKnobs }
 
 /**
  * @namespace Windows.Win32.System.ComponentServices

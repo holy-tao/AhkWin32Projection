@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDebugThreadCall32.ahk" { IDebugThreadCall32 }
-#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IRemoteDebugApplicationThread.ahk" { IRemoteDebugApplicationThread }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDebugThreadCall32.ahk" { IDebugThreadCall32 }
+#Import ".\IRemoteDebugApplicationThread.ahk" { IRemoteDebugApplicationThread }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

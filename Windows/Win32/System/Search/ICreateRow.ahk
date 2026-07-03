@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DBIMPLICITSESSION.ahk" { DBIMPLICITSESSION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Com\IAuthenticate.ahk" { IAuthenticate }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DBIMPLICITSESSION.ahk" { DBIMPLICITSESSION }
 
 /**
  * @namespace Windows.Win32.System.Search

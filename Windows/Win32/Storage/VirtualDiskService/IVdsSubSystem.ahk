@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\VDS_SUB_SYSTEM_PROP.ahk" { VDS_SUB_SYSTEM_PROP }
-#Import ".\VDS_HINTS.ahk" { VDS_HINTS }
-#Import ".\VDS_SUB_SYSTEM_STATUS.ahk" { VDS_SUB_SYSTEM_STATUS }
-#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\VDS_LUN_TYPE.ahk" { VDS_LUN_TYPE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
 #Import ".\IVdsAsync.ahk" { IVdsAsync }
 #Import ".\IVdsDrive.ahk" { IVdsDrive }
 #Import ".\IVdsProvider.ahk" { IVdsProvider }
+#Import ".\VDS_HINTS.ahk" { VDS_HINTS }
+#Import ".\VDS_LUN_TYPE.ahk" { VDS_LUN_TYPE }
+#Import ".\VDS_SUB_SYSTEM_PROP.ahk" { VDS_SUB_SYSTEM_PROP }
+#Import ".\VDS_SUB_SYSTEM_STATUS.ahk" { VDS_SUB_SYSTEM_STATUS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVdsSubSystem interface (vdshwprv.h) provides methods for performing query and configuration operations on a subsystem.

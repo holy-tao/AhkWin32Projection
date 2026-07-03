@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WINML_TENSOR_BINDING_DESC.ahk" { WINML_TENSOR_BINDING_DESC }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WINML_BINDING_TYPE.ahk" { WINML_BINDING_TYPE }
 #Import ".\WINML_IMAGE_BINDING_DESC.ahk" { WINML_IMAGE_BINDING_DESC }
 #Import ".\WINML_MAP_BINDING_DESC.ahk" { WINML_MAP_BINDING_DESC }
 #Import ".\WINML_RESOURCE_BINDING_DESC.ahk" { WINML_RESOURCE_BINDING_DESC }
-#Import ".\WINML_BINDING_TYPE.ahk" { WINML_BINDING_TYPE }
-#Import ".\WINML_TENSOR_DATA_TYPE.ahk" { WINML_TENSOR_DATA_TYPE }
-#Import "..\..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
 #Import ".\WINML_SEQUENCE_BINDING_DESC.ahk" { WINML_SEQUENCE_BINDING_DESC }
+#Import ".\WINML_TENSOR_BINDING_DESC.ahk" { WINML_TENSOR_BINDING_DESC }
+#Import ".\WINML_TENSOR_DATA_TYPE.ahk" { WINML_TENSOR_DATA_TYPE }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
 
 /**
  * Contains a description of the WinML binding.

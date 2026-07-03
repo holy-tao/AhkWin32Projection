@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\DXVA2_VIDEOPROCESSBLT.ahk" { DXVA2_VIDEOPROCESSBLT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXVA2_VIDEOPROCESSBLT.ahk" { DXVA2_VIDEOPROCESSBLT }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
@@ -47,10 +47,6 @@ export default struct PDXVA2SW_VIDEOPROCESSBLT {
             this.value := CallbackCreate(fn, , [HANDLE, DXVA2_VIDEOPROCESSBLT.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

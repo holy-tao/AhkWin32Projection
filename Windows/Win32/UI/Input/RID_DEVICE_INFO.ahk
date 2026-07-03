@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RID_DEVICE_INFO_KEYBOARD.ahk" { RID_DEVICE_INFO_KEYBOARD }
-#Import ".\RID_DEVICE_INFO_TYPE.ahk" { RID_DEVICE_INFO_TYPE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\RID_DEVICE_INFO_MOUSE.ahk" { RID_DEVICE_INFO_MOUSE }
 #Import ".\RID_DEVICE_INFO_HID.ahk" { RID_DEVICE_INFO_HID }
+#Import ".\RID_DEVICE_INFO_KEYBOARD.ahk" { RID_DEVICE_INFO_KEYBOARD }
+#Import ".\RID_DEVICE_INFO_MOUSE.ahk" { RID_DEVICE_INFO_MOUSE }
+#Import ".\RID_DEVICE_INFO_TYPE.ahk" { RID_DEVICE_INFO_TYPE }
 
 /**
  * Defines the raw input data coming from any device.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DML_GRAPH_NODE_DESC.ahk" { DML_GRAPH_NODE_DESC }
 #Import ".\DML_GRAPH_EDGE_DESC.ahk" { DML_GRAPH_EDGE_DESC }
+#Import ".\DML_GRAPH_NODE_DESC.ahk" { DML_GRAPH_NODE_DESC }
 
 /**
  * Describes a graph of DirectML operators used to compile a combined, optimized operator.

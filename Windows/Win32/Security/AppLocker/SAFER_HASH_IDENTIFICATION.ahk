@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SAFER_IDENTIFICATION_TYPES.ahk" { SAFER_IDENTIFICATION_TYPES }
-#Import ".\SAFER_IDENTIFICATION_HEADER.ahk" { SAFER_IDENTIFICATION_HEADER }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import "..\Cryptography\ALG_ID.ahk" { ALG_ID }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\SAFER_IDENTIFICATION_HEADER.ahk" { SAFER_IDENTIFICATION_HEADER }
+#Import ".\SAFER_IDENTIFICATION_TYPES.ahk" { SAFER_IDENTIFICATION_TYPES }
+#Import "..\Cryptography\ALG_ID.ahk" { ALG_ID }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

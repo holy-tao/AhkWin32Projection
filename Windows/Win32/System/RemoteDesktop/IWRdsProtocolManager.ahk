@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WTS_SESSION_ID.ahk" { WTS_SESSION_ID }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IWRdsProtocolSettings.ahk" { IWRdsProtocolSettings }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WRDS_SETTINGS.ahk" { WRDS_SETTINGS }
-#Import ".\IWRdsProtocolListener.ahk" { IWRdsProtocolListener }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWRdsProtocolListener.ahk" { IWRdsProtocolListener }
+#Import ".\IWRdsProtocolSettings.ahk" { IWRdsProtocolSettings }
+#Import ".\WRDS_SETTINGS.ahk" { WRDS_SETTINGS }
 #Import ".\WTS_SERVICE_STATE.ahk" { WTS_SERVICE_STATE }
+#Import ".\WTS_SESSION_ID.ahk" { WTS_SESSION_ID }
 
 /**
  * Exposes methods that the Remote Desktop Services service uses to communicate with the protocol provider.

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\D3D11_FUNCTION_DESC.ahk" { D3D11_FUNCTION_DESC }
 #Import ".\D3D11_SHADER_INPUT_BIND_DESC.ahk" { D3D11_SHADER_INPUT_BIND_DESC }
 #Import ".\ID3D11FunctionParameterReflection.ahk" { ID3D11FunctionParameterReflection }
-#Import ".\ID3D11ShaderReflectionVariable.ahk" { ID3D11ShaderReflectionVariable }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID3D11ShaderReflectionConstantBuffer.ahk" { ID3D11ShaderReflectionConstantBuffer }
+#Import ".\ID3D11ShaderReflectionVariable.ahk" { ID3D11ShaderReflectionVariable }
 
 /**
  * A function-reflection interface accesses function info. (ID3D11FunctionReflection)

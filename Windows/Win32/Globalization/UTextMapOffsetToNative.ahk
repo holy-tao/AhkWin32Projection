@@ -44,10 +44,6 @@ export default struct UTextMapOffsetToNative {
             this.value := CallbackCreate(fn, "cdecl", [UText.Ptr, Int64])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

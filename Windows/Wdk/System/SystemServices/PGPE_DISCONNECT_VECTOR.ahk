@@ -27,7 +27,7 @@ export default struct PGPE_DISCONNECT_VECTOR {
         param0Marshal := param0 is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, param0Marshal, param0, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -47,10 +47,6 @@ export default struct PGPE_DISCONNECT_VECTOR {
             this.value := CallbackCreate(fn, , ["ptr", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

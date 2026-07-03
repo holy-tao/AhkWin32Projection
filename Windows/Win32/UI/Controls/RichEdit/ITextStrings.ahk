@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\ITextRange2.ahk" { ITextRange2 }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITextStrings interface represents a collection of rich-text strings that are useful for manipulating rich text.

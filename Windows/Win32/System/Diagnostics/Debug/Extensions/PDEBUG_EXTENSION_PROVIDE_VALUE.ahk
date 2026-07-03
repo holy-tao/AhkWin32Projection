@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IDebugClient.ahk" { IDebugClient }
 
 /**
@@ -59,10 +59,6 @@ export default struct PDEBUG_EXTENSION_PROVIDE_VALUE {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, PWSTR, "uint*", "uint*", "uint*", "uint*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

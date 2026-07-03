@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IFunctionDiscoveryProviderQuery.ahk" { IFunctionDiscoveryProviderQuery }
 #Import ".\IFunctionDiscoveryNotification.ahk" { IFunctionDiscoveryNotification }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IFunctionDiscoveryProviderFactory.ahk" { IFunctionDiscoveryProviderFactory }
+#Import ".\IFunctionDiscoveryProviderQuery.ahk" { IFunctionDiscoveryProviderQuery }
 #Import ".\IFunctionInstance.ahk" { IFunctionInstance }
 #Import ".\IFunctionInstanceCollection.ahk" { IFunctionInstanceCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
 
 /**
  * This is the main interface implemented by a discovery provider. It is the primary interface the Function Discovery infrastructure uses to communicate with the provider and its resources.

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITsSbTarget.ahk" { ITsSbTarget }
 #Import ".\ITsSbBaseNotifySink.ahk" { ITsSbBaseNotifySink }
+#Import ".\ITsSbTarget.ahk" { ITsSbTarget }
 
 /**
  * Exposes methods that return an ITsSbTarget object to Remote Desktop Connection Broker (RD Connection Broker) after the target is successfully prepared for a connection.

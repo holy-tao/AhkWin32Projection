@@ -47,10 +47,6 @@ export default struct LPDRVCALLBACK {
             this.value := CallbackCreate(fn, , [HDRVR, UInt32, IntPtr, IntPtr, IntPtr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

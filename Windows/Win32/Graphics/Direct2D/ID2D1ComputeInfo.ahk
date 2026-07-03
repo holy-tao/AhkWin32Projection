@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID2D1ResourceTexture.ahk" { ID2D1ResourceTexture }
-#Import ".\ID2D1RenderInfo.ahk" { ID2D1RenderInfo }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID2D1RenderInfo.ahk" { ID2D1RenderInfo }
+#Import ".\ID2D1ResourceTexture.ahk" { ID2D1ResourceTexture }
 
 /**
  * Enables specification of information for a compute-shader rendering pass.

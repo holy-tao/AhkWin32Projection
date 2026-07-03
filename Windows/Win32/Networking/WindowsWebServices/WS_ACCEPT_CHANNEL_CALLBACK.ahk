@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WS_ASYNC_CONTEXT.ahk" { WS_ASYNC_CONTEXT }
 #Import ".\WS_ERROR.ahk" { WS_ERROR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Handles the WsAcceptChannel call for a WS_CUSTOM_CHANNEL_BINDING.
@@ -213,10 +213,6 @@ export default struct WS_ACCEPT_CHANNEL_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", WS_ASYNC_CONTEXT.Ptr, WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

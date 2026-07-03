@@ -43,10 +43,6 @@ export default struct WHEA_SIGNAL_HANDLER_OVERRIDE_CALLBACK {
             this.value := CallbackCreate(fn, , [BOOLEAN])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -138,10 +138,6 @@ export default struct LPDHCP_DROP_SEND {
             this.value := CallbackCreate(fn, , ["ptr*", "uint*", UInt32, UInt32, "ptr", "ptr", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

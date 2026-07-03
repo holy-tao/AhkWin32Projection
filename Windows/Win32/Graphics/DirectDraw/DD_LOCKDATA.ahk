@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DD_SURFACE_LOCAL.ahk" { DD_SURFACE_LOCAL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECTL.ahk" { RECTL }
 #Import ".\DD_DIRECTDRAW_GLOBAL.ahk" { DD_DIRECTDRAW_GLOBAL }
+#Import ".\DD_SURFACE_LOCAL.ahk" { DD_SURFACE_LOCAL }
 
 /**
  * The DD_LOCKDATA structure contains information necessary to do a lock as defined by the Microsoft DirectDraw parameter structures.

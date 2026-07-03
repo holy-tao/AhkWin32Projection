@@ -1,8 +1,8 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Graphics\Dxgi\IDXGIDevice.ahk" { IDXGIDevice }
 #Import "..\..\..\Graphics\Dxgi\IDXGISurface.ahk" { IDXGISurface }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\IInspectable.ahk" { IInspectable }
 
 /**

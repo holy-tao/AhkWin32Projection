@@ -48,10 +48,6 @@ export default struct DOT11EXTIHV_STOP_POST_ASSOCIATE {
             this.value := CallbackCreate(fn, , [HANDLE, "ptr*", UInt32, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

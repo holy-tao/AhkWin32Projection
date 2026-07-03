@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\System\Com\IMoniker.ahk" { IMoniker }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IEnumHLITEM.ahk" { IEnumHLITEM }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\HLBWINFO.ahk" { HLBWINFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumHLITEM.ahk" { IEnumHLITEM }
 #Import ".\IHlink.ahk" { IHlink }
 
 /**

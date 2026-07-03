@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IClassFactory.ahk" { IClassFactory }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\LICINFO.ahk" { LICINFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enables a class factory object, in any sort of object server, to control object creation through licensing.

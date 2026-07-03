@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\NMHDR.ahk" { NMHDR }
 #Import ".\TOOLTIP_FLAGS.ahk" { TOOLTIP_FLAGS }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }

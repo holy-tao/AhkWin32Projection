@@ -50,10 +50,6 @@ export default struct PINSPECT_MEMORY_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr, UInt32, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

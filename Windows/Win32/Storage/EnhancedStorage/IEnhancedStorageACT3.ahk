@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IEnhancedStorageACT2.ahk" { IEnhancedStorageACT2 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnhancedStorageACT2.ahk" { IEnhancedStorageACT2 }
 
 /**
  * @namespace Windows.Win32.Storage.EnhancedStorage

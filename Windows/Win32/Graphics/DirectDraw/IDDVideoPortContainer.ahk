@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DDVIDEOPORTCAPS.ahk" { DDVIDEOPORTCAPS }
-#Import ".\IDirectDrawVideoPort.ahk" { IDirectDrawVideoPort }
-#Import ".\DDVIDEOPORTDESC.ahk" { DDVIDEOPORTDESC }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\LPDDENUMVIDEOCALLBACK.ahk" { LPDDENUMVIDEOCALLBACK }
-#Import ".\DDVIDEOPORTSTATUS.ahk" { DDVIDEOPORTSTATUS }
-#Import ".\DDVIDEOPORTCONNECT.ahk" { DDVIDEOPORTCONNECT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DDVIDEOPORTCAPS.ahk" { DDVIDEOPORTCAPS }
+#Import ".\DDVIDEOPORTCONNECT.ahk" { DDVIDEOPORTCONNECT }
+#Import ".\DDVIDEOPORTDESC.ahk" { DDVIDEOPORTDESC }
+#Import ".\DDVIDEOPORTSTATUS.ahk" { DDVIDEOPORTSTATUS }
+#Import ".\IDirectDrawVideoPort.ahk" { IDirectDrawVideoPort }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -67,7 +66,7 @@ export default struct IDDVideoPortContainer extends IUnknown {
     EnumVideoPorts(param0, param1, param2, param3) {
         param2Marshal := param2 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, UInt32, param0, DDVIDEOPORTCAPS.Ptr, param1, param2Marshal, param2, LPDDENUMVIDEOCALLBACK, param3, "HRESULT")
+        result := ComCall(4, this, UInt32, param0, DDVIDEOPORTCAPS.Ptr, param1, param2Marshal, param2, "ptr", param3, "HRESULT")
         return result
     }
 

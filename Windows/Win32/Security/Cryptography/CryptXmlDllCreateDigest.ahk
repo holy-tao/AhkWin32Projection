@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CRYPT_XML_ALGORITHM.ahk" { CRYPT_XML_ALGORITHM }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CRYPT_XML_ALGORITHM.ahk" { CRYPT_XML_ALGORITHM }
 
 /**
  * Creates a digest object for the specified method.
@@ -52,10 +52,6 @@ export default struct CryptXmlDllCreateDigest {
             this.value := CallbackCreate(fn, , [CRYPT_XML_ALGORITHM.Ptr, "uint*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,22 +1,22 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\D3DX11_FFT_BUFFER_INFO.ahk" { D3DX11_FFT_BUFFER_INFO }
-#Import "..\Dxgi\IDXGIAdapter.ahk" { IDXGIAdapter }
-#Import ".\ID3D11ShaderTrace.ahk" { ID3D11ShaderTrace }
 #Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
-#Import "..\Dxgi\IDXGISwapChain.ahk" { IDXGISwapChain }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Direct3D\D3D_DRIVER_TYPE.ahk" { D3D_DRIVER_TYPE }
-#Import ".\ID3D11DeviceContext.ahk" { ID3D11DeviceContext }
-#Import "..\Direct3D\ID3DBlob.ahk" { ID3DBlob }
-#Import ".\ID3DX11Scan.ahk" { ID3DX11Scan }
-#Import ".\ID3D11Device.ahk" { ID3D11Device }
-#Import ".\ID3DX11SegmentedScan.ahk" { ID3DX11SegmentedScan }
-#Import ".\D3D11_CREATE_DEVICE_FLAG.ahk" { D3D11_CREATE_DEVICE_FLAG }
-#Import ".\ID3DX11FFT.ahk" { ID3DX11FFT }
-#Import ".\D3DX11_FFT_DESC.ahk" { D3DX11_FFT_DESC }
 #Import "..\Direct3D\D3D_FEATURE_LEVEL.ahk" { D3D_FEATURE_LEVEL }
+#Import "..\Direct3D\ID3DBlob.ahk" { ID3DBlob }
+#Import ".\D3D11_CREATE_DEVICE_FLAG.ahk" { D3D11_CREATE_DEVICE_FLAG }
+#Import ".\D3DX11_FFT_BUFFER_INFO.ahk" { D3DX11_FFT_BUFFER_INFO }
+#Import ".\D3DX11_FFT_DESC.ahk" { D3DX11_FFT_DESC }
+#Import ".\ID3D11Device.ahk" { ID3D11Device }
+#Import ".\ID3D11DeviceContext.ahk" { ID3D11DeviceContext }
+#Import ".\ID3D11ShaderTrace.ahk" { ID3D11ShaderTrace }
+#Import ".\ID3DX11FFT.ahk" { ID3DX11FFT }
+#Import ".\ID3DX11Scan.ahk" { ID3DX11Scan }
+#Import ".\ID3DX11SegmentedScan.ahk" { ID3DX11SegmentedScan }
 #Import "..\Dxgi\DXGI_SWAP_CHAIN_DESC.ahk" { DXGI_SWAP_CHAIN_DESC }
+#Import "..\Dxgi\IDXGIAdapter.ahk" { IDXGIAdapter }
+#Import "..\Dxgi\IDXGISwapChain.ahk" { IDXGISwapChain }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D11

@@ -52,10 +52,6 @@ export default struct PFN_CARD_GET_FILE_INFO {
             this.value := CallbackCreate(fn, , [CARD_DATA.Ptr, PSTR, PSTR, CARD_FILE_INFO.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RPC_SYNTAX_IDENTIFIER.ahk" { RPC_SYNTAX_IDENTIFIER }
 #Import ".\MIDL_STUB_DESC.ahk" { MIDL_STUB_DESC }
 #Import ".\MIDL_SYNTAX_INFO.ahk" { MIDL_SYNTAX_INFO }
+#Import ".\RPC_SYNTAX_IDENTIFIER.ahk" { RPC_SYNTAX_IDENTIFIER }
 
 /**
  * @namespace Windows.Win32.System.Rpc

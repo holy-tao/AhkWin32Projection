@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\DXVA_VideoSample2.ahk" { DXVA_VideoSample2 }
 #Import ".\DXVA_AYUVsample2.ahk" { DXVA_AYUVsample2 }
+#Import ".\DXVA_VideoSample2.ahk" { DXVA_VideoSample2 }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation

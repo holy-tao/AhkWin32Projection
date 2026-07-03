@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\CERT_INFO.ahk" { CERT_INFO }
-#Import ".\CTL_USAGE.ahk" { CTL_USAGE }
 #Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\CTL_USAGE.ahk" { CTL_USAGE }
 
 /**
  * A member of the CTL_FIND_SUBJECT_PARA structure and it is used by CertFindCTLInStore.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D11Query.ahk" { ID3D11Query }
 #Import ".\D3D11_QUERY_DESC1.ahk" { D3D11_QUERY_DESC1 }
+#Import ".\ID3D11Query.ahk" { ID3D11Query }
 
 /**
  * Represents a query object for querying information from the graphics processing unit (GPU).

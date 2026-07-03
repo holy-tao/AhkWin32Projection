@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CRYPT_XML_ALGORITHM.ahk" { CRYPT_XML_ALGORITHM }
 #Import ".\CRYPT_XML_DATA_PROVIDER.ahk" { CRYPT_XML_DATA_PROVIDER }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Creates a transform for a specified data provider.
@@ -56,10 +56,6 @@ export default struct PFN_CRYPT_XML_CREATE_TRANSFORM {
             this.value := CallbackCreate(fn, , [CRYPT_XML_ALGORITHM.Ptr, CRYPT_XML_DATA_PROVIDER.Ptr, CRYPT_XML_DATA_PROVIDER.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

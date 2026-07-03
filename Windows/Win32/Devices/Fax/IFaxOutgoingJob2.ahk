@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IFaxOutgoingJob.ahk" { IFaxOutgoingJob }
 #Import ".\FAX_SCHEDULE_TYPE_ENUM.ahk" { FAX_SCHEDULE_TYPE_ENUM }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IFaxOutgoingJob.ahk" { IFaxOutgoingJob }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Describes an object that is used by a fax client application to retrieve information about an outgoing fax job in a fax server's queue.

@@ -1,8 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_ASYNC_CONTEXT.ahk" { WS_ASYNC_CONTEXT }
-#Import ".\WS_WRITE_CALLBACK.ahk" { WS_WRITE_CALLBACK }
-#Import ".\WS_ERROR.ahk" { WS_ERROR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WS_ASYNC_CONTEXT.ahk" { WS_ASYNC_CONTEXT }
+#Import ".\WS_ERROR.ahk" { WS_ERROR }
 
 /**
  * Used by the WsPushBytes function to request that data be written.
@@ -39,7 +38,7 @@ export default struct WS_PUSH_BYTES_CALLBACK {
         writeCallbackStateMarshal := writeCallbackState is VarRef ? "ptr" : "ptr"
         _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall(this.value, callbackStateMarshal, callbackState, WS_WRITE_CALLBACK, writeCallback, writeCallbackStateMarshal, writeCallbackState, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
+        result := DllCall(this.value, callbackStateMarshal, callbackState, "ptr", writeCallback, writeCallbackStateMarshal, writeCallbackState, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
         return result
     }
 
@@ -50,19 +49,15 @@ export default struct WS_PUSH_BYTES_CALLBACK {
     struct From extends WS_PUSH_BYTES_CALLBACK {
         /**
          * Creates a WS_PUSH_BYTES_CALLBACK pointer that invokes the given AHK function when called.
-         * @param {Func("ptr", WS_WRITE_CALLBACK, "ptr", WS_ASYNC_CONTEXT, WS_ERROR) => "int"} fn the function to invoke.
+         * @param {Func("ptr", "ptr", "ptr", WS_ASYNC_CONTEXT, WS_ERROR) => "int"} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 5)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 5 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , ["ptr", WS_WRITE_CALLBACK, "ptr", WS_ASYNC_CONTEXT.Ptr, WS_ERROR.Ptr, "int"])
+            this.value := CallbackCreate(fn, , ["ptr", "ptr", "ptr", WS_ASYNC_CONTEXT.Ptr, WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

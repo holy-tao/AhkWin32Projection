@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MXDC_PRINTTICKET_DATA_T.ahk" { MXDC_PRINTTICKET_DATA_T }
 #Import ".\MXDC_ESCAPE_HEADER_T.ahk" { MXDC_ESCAPE_HEADER_T }
+#Import ".\MXDC_PRINTTICKET_DATA_T.ahk" { MXDC_PRINTTICKET_DATA_T }
 
 /**
  * The MXDC\_PRINTTICKET\_ESCAPE\_T structure is a MXDC\_ESCAPE\_HEADER\_T structure concatenated with a MXDC\_PRINTTICKET\_DATA\_T structure.

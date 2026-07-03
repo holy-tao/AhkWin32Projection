@@ -53,10 +53,6 @@ export default struct LPFNDEVCAPS {
             this.value := CallbackCreate(fn, , [PSTR, PSTR, UInt32, PSTR, DEVMODEA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

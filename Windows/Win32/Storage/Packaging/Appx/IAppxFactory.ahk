@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IAppxManifestReader.ahk" { IAppxManifestReader }
-#Import ".\IAppxBlockMapReader.ahk" { IAppxBlockMapReader }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IAppxPackageWriter.ahk" { IAppxPackageWriter }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\APPX_PACKAGE_SETTINGS.ahk" { APPX_PACKAGE_SETTINGS }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAppxBlockMapReader.ahk" { IAppxBlockMapReader }
+#Import ".\IAppxManifestReader.ahk" { IAppxManifestReader }
 #Import ".\IAppxPackageReader.ahk" { IAppxPackageReader }
+#Import ".\IAppxPackageWriter.ahk" { IAppxPackageWriter }
 #Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Creates objects for reading and writing app packages. (IAppxFactory)

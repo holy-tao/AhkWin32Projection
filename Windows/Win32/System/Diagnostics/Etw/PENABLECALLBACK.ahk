@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ENABLECALLBACK_ENABLED_STATE.ahk" { ENABLECALLBACK_ENABLED_STATE }
 #Import ".\EVENT_FILTER_DESCRIPTOR.ahk" { EVENT_FILTER_DESCRIPTOR }
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * ETW event providers optionally define an EnableCallback function to receive configuration change notifications. The PENABLECALLBACK type defines a pointer to this callback function. EnableCallback is a placeholder for the application-defined function name.
@@ -252,10 +252,6 @@ export default struct PENABLECALLBACK {
             this.value := CallbackCreate(fn, , [Guid.Ptr, ENABLECALLBACK_ENABLED_STATE, Int8, Int64, Int64, EVENT_FILTER_DESCRIPTOR.Ptr, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\IDebugThreadCall32.ahk" { IDebugThreadCall32 }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDebugThreadCall32.ahk" { IDebugThreadCall32 }
 #Import ".\IRemoteDebugApplication110.ahk" { IRemoteDebugApplication110 }
 
 /**

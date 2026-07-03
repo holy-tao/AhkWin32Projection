@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WRDS_CONNECTION_SETTINGS.ahk" { WRDS_CONNECTION_SETTINGS }
-#Import ".\WTS_PROPERTY_VALUE.ahk" { WTS_PROPERTY_VALUE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HANDLE_PTR.ahk" { HANDLE_PTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WTS_SESSION_ID.ahk" { WTS_SESSION_ID }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\WTS_PROTOCOL_STATUS.ahk" { WTS_PROTOCOL_STATUS }
-#Import ".\IWRdsProtocolShadowConnection.ahk" { IWRdsProtocolShadowConnection }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IWRdsProtocolLicenseConnection.ahk" { IWRdsProtocolLicenseConnection }
-#Import ".\WTS_CLIENT_DATA.ahk" { WTS_CLIENT_DATA }
 #Import ".\IWRdsProtocolLogonErrorRedirector.ahk" { IWRdsProtocolLogonErrorRedirector }
+#Import ".\IWRdsProtocolShadowConnection.ahk" { IWRdsProtocolShadowConnection }
+#Import ".\WRDS_CONNECTION_SETTINGS.ahk" { WRDS_CONNECTION_SETTINGS }
+#Import ".\WTS_CLIENT_DATA.ahk" { WTS_CLIENT_DATA }
+#Import ".\WTS_PROPERTY_VALUE.ahk" { WTS_PROPERTY_VALUE }
+#Import ".\WTS_PROTOCOL_STATUS.ahk" { WTS_PROTOCOL_STATUS }
+#Import ".\WTS_SESSION_ID.ahk" { WTS_SESSION_ID }
 #Import ".\WTS_USER_CREDENTIAL.ahk" { WTS_USER_CREDENTIAL }
 
 /**

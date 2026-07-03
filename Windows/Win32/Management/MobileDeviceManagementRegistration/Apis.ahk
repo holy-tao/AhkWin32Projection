@@ -1,11 +1,11 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\REGISTRATION_INFORMATION_CLASS.ahk" { REGISTRATION_INFORMATION_CLASS }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\MANAGEMENT_SERVICE_INFO.ahk" { MANAGEMENT_SERVICE_INFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\REGISTRATION_INFORMATION_CLASS.ahk" { REGISTRATION_INFORMATION_CLASS }
 
 /**
  * @namespace Windows.Win32.Management.MobileDeviceManagementRegistration

@@ -50,10 +50,6 @@ export default struct PFSCE_LOG_INFO {
             this.value := CallbackCreate(fn, "cdecl", [SCE_LOG_ERR_LEVEL, UInt32, "char*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

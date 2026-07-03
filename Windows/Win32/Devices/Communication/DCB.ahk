@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\CHAR.ahk" { CHAR }
-#Import ".\DCB_STOP_BITS.ahk" { DCB_STOP_BITS }
 #Import ".\DCB_PARITY.ahk" { DCB_PARITY }
+#Import ".\DCB_STOP_BITS.ahk" { DCB_STOP_BITS }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Defines the control setting for a serial communications device.
@@ -19,7 +19,7 @@
  * @namespace Windows.Win32.Devices.Communication
  */
 export default struct DCB {
-    #StructPack 8
+    #StructPack 4
 
     /**
      * The length of the structure, in bytes. The caller must set this member to 

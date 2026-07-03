@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMDSPStorageGlobals.ahk" { IMDSPStorageGlobals }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IMDSPStorageGlobals.ahk" { IMDSPStorageGlobals }
 #Import ".\ISCPSecureExchange.ahk" { ISCPSecureExchange }
 #Import ".\ISCPSecureQuery.ahk" { ISCPSecureQuery }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ISCPSecureQuery2 interface extends ISCPSecureQuery through functionality that determines whether the secure content provider is responsible for the content, and if so, providing a URL for updating revoked components and determining which components have been revoked.

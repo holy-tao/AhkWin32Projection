@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\GameInputForceFeedbackParams.ahk" { GameInputForceFeedbackParams }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\GameInputFeedbackEffectState.ahk" { GameInputFeedbackEffectState }
+#Import ".\GameInputForceFeedbackParams.ahk" { GameInputForceFeedbackParams }
 #Import ".\IGameInputDevice.ahk" { IGameInputDevice }
 
 /**

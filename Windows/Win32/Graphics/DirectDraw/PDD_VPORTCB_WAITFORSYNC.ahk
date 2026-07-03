@@ -50,10 +50,6 @@ export default struct PDD_VPORTCB_WAITFORSYNC {
             this.value := CallbackCreate(fn, , [DD_WAITFORVPORTSYNCDATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

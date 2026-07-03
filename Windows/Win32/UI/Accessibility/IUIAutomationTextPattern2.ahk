@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
-#Import ".\IUIAutomationTextRange.ahk" { IUIAutomationTextRange }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
 #Import ".\IUIAutomationTextPattern.ahk" { IUIAutomationTextPattern }
+#Import ".\IUIAutomationTextRange.ahk" { IUIAutomationTextRange }
 
 /**
  * Extends the IUIAutomationTextPattern interface.

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TVITEMEXW_CHILDREN.ahk" { TVITEMEXW_CHILDREN }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\TVITEMEXA.ahk" { TVITEMEXA }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\TVITEM_MASK.ahk" { TVITEM_MASK }
-#Import ".\NMHDR.ahk" { NMHDR }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\HTREEITEM.ahk" { HTREEITEM }
+#Import ".\NMHDR.ahk" { NMHDR }
+#Import ".\TVITEMEXA.ahk" { TVITEMEXA }
+#Import ".\TVITEMEXW_CHILDREN.ahk" { TVITEMEXW_CHILDREN }
+#Import ".\TVITEM_MASK.ahk" { TVITEM_MASK }
 
 /**
  * Contains information pertaining to extended TreeView notification information. (ANSI)

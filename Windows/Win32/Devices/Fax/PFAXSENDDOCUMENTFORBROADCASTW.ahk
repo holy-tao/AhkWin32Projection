@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PFAX_RECIPIENT_CALLBACKW.ahk" { PFAX_RECIPIENT_CALLBACKW }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
@@ -37,7 +36,7 @@ export default struct PFAXSENDDOCUMENTFORBROADCASTW {
         FaxJobIdMarshal := FaxJobId is VarRef ? "uint*" : "ptr"
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall(this.value, HANDLE, FaxHandle, "ptr", FileName, FaxJobIdMarshal, FaxJobId, PFAX_RECIPIENT_CALLBACKW, FaxRecipientCallback, _ContextMarshal, _Context, BOOL)
+        result := DllCall(this.value, HANDLE, FaxHandle, "ptr", FileName, FaxJobIdMarshal, FaxJobId, "ptr", FaxRecipientCallback, _ContextMarshal, _Context, BOOL)
         return result
     }
 
@@ -48,19 +47,15 @@ export default struct PFAXSENDDOCUMENTFORBROADCASTW {
     struct From extends PFAXSENDDOCUMENTFORBROADCASTW {
         /**
          * Creates a PFAXSENDDOCUMENTFORBROADCASTW pointer that invokes the given AHK function when called.
-         * @param {Func(HANDLE, PWSTR, "uint*", PFAX_RECIPIENT_CALLBACKW, "ptr") => BOOL} fn the function to invoke.
+         * @param {Func(HANDLE, PWSTR, "uint*", "ptr", "ptr") => BOOL} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 5)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 5 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [HANDLE, PWSTR, "uint*", PFAX_RECIPIENT_CALLBACKW, "ptr", BOOL])
+            this.value := CallbackCreate(fn, , [HANDLE, PWSTR, "uint*", "ptr", "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

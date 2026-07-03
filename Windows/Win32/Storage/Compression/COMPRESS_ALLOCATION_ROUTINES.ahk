@@ -1,6 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PFN_COMPRESS_ALLOCATE.ahk" { PFN_COMPRESS_ALLOCATE }
-#Import ".\PFN_COMPRESS_FREE.ahk" { PFN_COMPRESS_FREE }
 
 /**
  * A structure containing optional memory allocation and deallocation routines.
@@ -13,12 +11,12 @@ export default struct COMPRESS_ALLOCATION_ROUTINES {
     /**
      * Callback that allocates memory.
      */
-    Allocate : PFN_COMPRESS_ALLOCATE
+    Allocate : IntPtr
 
     /**
      * Callback that deallocates memory.
      */
-    Free : PFN_COMPRESS_FREE
+    Free : IntPtr
 
     /**
      * A pointer to context information for the allocation or deallocation routine defined by the user.

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\CRYPT_PROVUI_DATA.ahk" { CRYPT_PROVUI_DATA }
-#Import ".\PFN_PROVUI_CALL.ahk" { PFN_PROVUI_CALL }
 
 /**
  * Provides information about the user interface (UI) functions of a provider. This structure is used by the CRYPT_PROVIDER_FUNCTIONS structure.
@@ -28,21 +27,21 @@ export default struct CRYPT_PROVUI_FUNCS {
     /**
      * A pointer to the  function called when the <b>More Info</b> button is clicked.
      */
-    pfnOnMoreInfoClick : PFN_PROVUI_CALL
+    pfnOnMoreInfoClick : IntPtr
 
     /**
      * A pointer to the  default function called when the <b>More Info</b> button is clicked.
      */
-    pfnOnMoreInfoClickDefault : PFN_PROVUI_CALL
+    pfnOnMoreInfoClickDefault : IntPtr
 
     /**
      * A pointer to the  function called when the <b>Advanced</b> button is clicked.
      */
-    pfnOnAdvancedClick : PFN_PROVUI_CALL
+    pfnOnAdvancedClick : IntPtr
 
     /**
      * A pointer to the  default function called when the <b>Advanced</b> button is clicked.
      */
-    pfnOnAdvancedClickDefault : PFN_PROVUI_CALL
+    pfnOnAdvancedClickDefault : IntPtr
 
 }

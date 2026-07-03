@@ -52,10 +52,6 @@ export default struct EventPipeProviderCallback {
             this.value := CallbackCreate(fn, , ["char*", UInt32, Int8, Int64, Int64, COR_PRF_FILTER_DATA.Ptr, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

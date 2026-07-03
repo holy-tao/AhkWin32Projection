@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DKMT_BRIGHTNESS_INFO_TYPE.ahk" { D3DKMT_BRIGHTNESS_INFO_TYPE }
 #Import ".\DXGK_BACKLIGHT_OPTIMIZATION_LEVEL.ahk" { DXGK_BACKLIGHT_OPTIMIZATION_LEVEL }
 #Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\D3DKMT_BRIGHTNESS_INFO_TYPE.ahk" { D3DKMT_BRIGHTNESS_INFO_TYPE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

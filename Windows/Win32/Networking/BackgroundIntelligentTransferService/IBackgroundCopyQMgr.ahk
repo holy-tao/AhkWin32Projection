@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IBackgroundCopyGroup.ahk" { IBackgroundCopyGroup }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IEnumBackgroundCopyGroups.ahk" { IEnumBackgroundCopyGroups }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IBackgroundCopyGroup.ahk" { IBackgroundCopyGroup }
+#Import ".\IEnumBackgroundCopyGroups.ahk" { IEnumBackgroundCopyGroups }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Use the IBackgroundCopyQMgr interface to create a new group, retrieve an existing group, or enumerate all groups in the queue. A group contains a download job.

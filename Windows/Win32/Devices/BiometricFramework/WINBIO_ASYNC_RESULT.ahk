@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WINBIO_UNIT_SCHEMA.ahk" { WINBIO_UNIT_SCHEMA }
-#Import ".\WINBIO_BSP_SCHEMA.ahk" { WINBIO_BSP_SCHEMA }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WINBIO_STORAGE_SCHEMA.ahk" { WINBIO_STORAGE_SCHEMA }
-#Import ".\WINBIO_PRESENCE.ahk" { WINBIO_PRESENCE }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\WINBIO_PROTECTION_POLICY.ahk" { WINBIO_PROTECTION_POLICY }
-#Import ".\WINBIO_COMPONENT.ahk" { WINBIO_COMPONENT }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\WINBIO_BIR.ahk" { WINBIO_BIR }
+#Import ".\WINBIO_BSP_SCHEMA.ahk" { WINBIO_BSP_SCHEMA }
+#Import ".\WINBIO_COMPONENT.ahk" { WINBIO_COMPONENT }
 #Import ".\WINBIO_EVENT.ahk" { WINBIO_EVENT }
 #Import ".\WINBIO_EXTENDED_UNIT_STATUS.ahk" { WINBIO_EXTENDED_UNIT_STATUS }
 #Import ".\WINBIO_IDENTITY.ahk" { WINBIO_IDENTITY }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WINBIO_PRESENCE.ahk" { WINBIO_PRESENCE }
+#Import ".\WINBIO_PROTECTION_POLICY.ahk" { WINBIO_PROTECTION_POLICY }
+#Import ".\WINBIO_STORAGE_SCHEMA.ahk" { WINBIO_STORAGE_SCHEMA }
+#Import ".\WINBIO_UNIT_SCHEMA.ahk" { WINBIO_UNIT_SCHEMA }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Contains the results of an asynchronous operation.

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MFARGB.ahk" { MFARGB }
-#Import ".\MF_VIDEO_PROCESSOR_ROTATION.ahk" { MF_VIDEO_PROCESSOR_ROTATION }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import ".\MFARGB.ahk" { MFARGB }
 #Import ".\MF_VIDEO_PROCESSOR_MIRROR.ahk" { MF_VIDEO_PROCESSOR_MIRROR }
+#Import ".\MF_VIDEO_PROCESSOR_ROTATION.ahk" { MF_VIDEO_PROCESSOR_ROTATION }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Configures the Video Processor MFT. (IMFVideoProcessorControl)

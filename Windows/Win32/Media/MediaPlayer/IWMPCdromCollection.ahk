@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IWMPCdrom.ahk" { IWMPCdrom }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMPCdrom.ahk" { IWMPCdrom }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The IWMPCdromCollection interface provides a way to organize and access a collection of CD or DVD drives.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VPB.ahk" { VPB }
-#Import ".\IO_COMPLETION_CONTEXT.ahk" { IO_COMPLETION_CONTEXT }
-#Import "..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import ".\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
+#Import ".\IO_COMPLETION_CONTEXT.ahk" { IO_COMPLETION_CONTEXT }
 #Import ".\SECTION_OBJECT_POINTERS.ahk" { SECTION_OBJECT_POINTERS }
+#Import ".\VPB.ahk" { VPB }
+#Import "..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**

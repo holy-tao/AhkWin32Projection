@@ -45,10 +45,6 @@ export default struct PROTOCOL_CM_DEACTIVATE_VC_COMPLETE {
             this.value := CallbackCreate(fn, , [Int32, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

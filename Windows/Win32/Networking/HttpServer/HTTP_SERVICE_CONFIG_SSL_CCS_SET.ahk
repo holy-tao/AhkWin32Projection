@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\WinSock\SOCKADDR_STORAGE.ahk" { SOCKADDR_STORAGE }
-#Import ".\HTTP_SERVICE_CONFIG_SSL_PARAM.ahk" { HTTP_SERVICE_CONFIG_SSL_PARAM }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\HTTP_SERVICE_CONFIG_SSL_CCS_KEY.ahk" { HTTP_SERVICE_CONFIG_SSL_CCS_KEY }
+#Import ".\HTTP_SERVICE_CONFIG_SSL_PARAM.ahk" { HTTP_SERVICE_CONFIG_SSL_PARAM }
+#Import "..\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import "..\WinSock\SOCKADDR_STORAGE.ahk" { SOCKADDR_STORAGE }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**

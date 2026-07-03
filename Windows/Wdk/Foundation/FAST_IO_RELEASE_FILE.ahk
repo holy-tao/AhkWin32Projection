@@ -43,10 +43,6 @@ export default struct FAST_IO_RELEASE_FILE {
             this.value := CallbackCreate(fn, , [FILE_OBJECT.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

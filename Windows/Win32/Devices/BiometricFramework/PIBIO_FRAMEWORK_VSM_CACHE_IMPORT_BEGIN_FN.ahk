@@ -46,10 +46,6 @@ export default struct PIBIO_FRAMEWORK_VSM_CACHE_IMPORT_BEGIN_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, IntPtr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

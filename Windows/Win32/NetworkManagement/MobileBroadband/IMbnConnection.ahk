@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MBN_VOICE_CALL_STATE.ahk" { MBN_VOICE_CALL_STATE }
-#Import ".\MBN_ACTIVATION_STATE.ahk" { MBN_ACTIVATION_STATE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\MBN_CONNECTION_MODE.ahk" { MBN_CONNECTION_MODE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MBN_ACTIVATION_STATE.ahk" { MBN_ACTIVATION_STATE }
+#Import ".\MBN_CONNECTION_MODE.ahk" { MBN_CONNECTION_MODE }
+#Import ".\MBN_VOICE_CALL_STATE.ahk" { MBN_VOICE_CALL_STATE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents the network connectivity of a device.

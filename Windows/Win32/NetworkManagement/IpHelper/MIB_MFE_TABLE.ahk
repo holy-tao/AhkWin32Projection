@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MIB_IPMCAST_OIF_XP.ahk" { MIB_IPMCAST_OIF_XP }
 #Import ".\MIB_IPMCAST_MFE.ahk" { MIB_IPMCAST_MFE }
+#Import ".\MIB_IPMCAST_OIF_XP.ahk" { MIB_IPMCAST_OIF_XP }
 
 /**
  * Contains a table of Multicast Forwarding Entries (MFEs).

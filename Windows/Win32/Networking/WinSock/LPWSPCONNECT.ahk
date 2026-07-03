@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WSABUF.ahk" { WSABUF }
 #Import ".\QOS.ahk" { QOS }
 #Import ".\SOCKET.ahk" { SOCKET }
+#Import ".\WSABUF.ahk" { WSABUF }
 
 /**
  * The LPWSPConnect function establishes a connection to a peer, exchanges connect data, and specifies needed quality of service based on the supplied flow specification.
@@ -298,10 +298,6 @@ export default struct LPWSPCONNECT {
             this.value := CallbackCreate(fn, , [SOCKET, IntPtr, Int32, WSABUF.Ptr, WSABUF.Ptr, QOS.Ptr, QOS.Ptr, "int*", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -27,7 +27,7 @@ export default struct PLSA_CLOSE_SAM_USER {
         UserHandleMarshal := UserHandle is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, UserHandleMarshal, UserHandle, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -47,10 +47,6 @@ export default struct PLSA_CLOSE_SAM_USER {
             this.value := CallbackCreate(fn, , ["ptr", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

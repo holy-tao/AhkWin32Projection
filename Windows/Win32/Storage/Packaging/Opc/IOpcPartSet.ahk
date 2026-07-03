@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IOpcPart.ahk" { IOpcPart }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOpcPartEnumerator.ahk" { IOpcPartEnumerator }
+#Import ".\IOpcPartUri.ahk" { IOpcPartUri }
 #Import ".\OPC_COMPRESSION_OPTIONS.ahk" { OPC_COMPRESSION_OPTIONS }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IOpcPartUri.ahk" { IOpcPartUri }
-#Import ".\IOpcPartEnumerator.ahk" { IOpcPartEnumerator }
 
 /**
  * An unordered set of IOpcPart interface pointers to part objects that represent the parts in a package that are not Relationships parts.

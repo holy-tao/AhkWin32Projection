@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DWRITE_CARET_METRICS.ahk" { DWRITE_CARET_METRICS }
 #Import ".\DWRITE_FONT_METRICS1.ahk" { DWRITE_FONT_METRICS1 }
-#Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
-#Import ".\DWRITE_UNICODE_RANGE.ahk" { DWRITE_UNICODE_RANGE }
-#Import ".\DWRITE_RENDERING_MODE.ahk" { DWRITE_RENDERING_MODE }
-#Import ".\DWRITE_OUTLINE_THRESHOLD.ahk" { DWRITE_OUTLINE_THRESHOLD }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
+#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import ".\DWRITE_OUTLINE_THRESHOLD.ahk" { DWRITE_OUTLINE_THRESHOLD }
+#Import ".\DWRITE_RENDERING_MODE.ahk" { DWRITE_RENDERING_MODE }
+#Import ".\DWRITE_UNICODE_RANGE.ahk" { DWRITE_UNICODE_RANGE }
+#Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
 
 /**
  * Contains font face type, appropriate file references, and face identification data. (IDWriteFontFace1)

@@ -1,5 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RPCLT_PDU_FILTER_FUNC.ahk" { RPCLT_PDU_FILTER_FUNC }
 
 /**
  * @namespace Windows.Win32.System.Rpc
@@ -24,7 +23,7 @@ export default struct RPC_SETFILTER_FUNC {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(pfnFilter) {
-        DllCall(this.value, RPCLT_PDU_FILTER_FUNC, pfnFilter)
+        DllCall(this.value, "ptr", pfnFilter)
     }
 
     /**
@@ -34,19 +33,15 @@ export default struct RPC_SETFILTER_FUNC {
     struct From extends RPC_SETFILTER_FUNC {
         /**
          * Creates a RPC_SETFILTER_FUNC pointer that invokes the given AHK function when called.
-         * @param {Func(RPCLT_PDU_FILTER_FUNC) => IntPtr} fn the function to invoke.
+         * @param {Func("ptr") => IntPtr} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 1)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 1 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, "cdecl", [RPCLT_PDU_FILTER_FUNC, IntPtr])
+            this.value := CallbackCreate(fn, "cdecl", ["ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

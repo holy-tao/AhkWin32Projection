@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\WS_DURATION.ahk" { WS_DURATION }
-#Import ".\WS_DURATION_COMPARISON_CALLBACK.ahk" { WS_DURATION_COMPARISON_CALLBACK }
 
 /**
  * An optional type description used with WS_DURATION_TYPE. It is used to specify constraints on the set of values which can be deserialized.
@@ -31,6 +30,6 @@ export default struct WS_DURATION_DESCRIPTION {
      *                     years and months (but no other components), or durations that specify no years or months (but any other
      *                     component).
      */
-    comparer : WS_DURATION_COMPARISON_CALLBACK
+    comparer : IntPtr
 
 }

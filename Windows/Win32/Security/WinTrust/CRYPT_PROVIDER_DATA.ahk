@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PROVDATA_SIP.ahk" { PROVDATA_SIP }
-#Import "..\Cryptography\HCERTSTORE.ahk" { HCERTSTORE }
-#Import ".\CRYPT_PROVIDER_SIGSTATE.ahk" { CRYPT_PROVIDER_SIGSTATE }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\CRYPT_PROVIDER_SGNR.ahk" { CRYPT_PROVIDER_SGNR }
-#Import ".\CRYPT_PROVIDER_PRIVDATA.ahk" { CRYPT_PROVIDER_PRIVDATA }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WINTRUST_SIGNATURE_SETTINGS.ahk" { WINTRUST_SIGNATURE_SETTINGS }
-#Import ".\WINTRUST_DATA.ahk" { WINTRUST_DATA }
-#Import "..\Cryptography\CERT_USAGE_MATCH.ahk" { CERT_USAGE_MATCH }
-#Import ".\CRYPT_PROVIDER_FUNCTIONS.ahk" { CRYPT_PROVIDER_FUNCTIONS }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\Cryptography\CERT_USAGE_MATCH.ahk" { CERT_USAGE_MATCH }
+#Import "..\Cryptography\HCERTSTORE.ahk" { HCERTSTORE }
+#Import ".\CRYPT_PROVIDER_FUNCTIONS.ahk" { CRYPT_PROVIDER_FUNCTIONS }
+#Import ".\CRYPT_PROVIDER_PRIVDATA.ahk" { CRYPT_PROVIDER_PRIVDATA }
+#Import ".\CRYPT_PROVIDER_SGNR.ahk" { CRYPT_PROVIDER_SGNR }
+#Import ".\CRYPT_PROVIDER_SIGSTATE.ahk" { CRYPT_PROVIDER_SIGSTATE }
+#Import ".\PROVDATA_SIP.ahk" { PROVDATA_SIP }
+#Import ".\WINTRUST_DATA.ahk" { WINTRUST_DATA }
+#Import ".\WINTRUST_SIGNATURE_SETTINGS.ahk" { WINTRUST_SIGNATURE_SETTINGS }
 
 /**
  * Used to pass data between WinVerifyTrust and trust providers.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
@@ -51,10 +51,6 @@ export default struct LPMMIOPROC {
             this.value := CallbackCreate(fn, , [PSTR, UInt32, LPARAM, LPARAM, LRESULT])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

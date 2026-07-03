@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\WindowsAndMessaging\SHOW_WINDOW_CMD.ahk" { SHOW_WINDOW_CMD }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Storage\FileSystem\WIN32_FIND_DATAW.ahk" { WIN32_FIND_DATAW }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\WindowsAndMessaging\SHOW_WINDOW_CMD.ahk" { SHOW_WINDOW_CMD }
 
 /**
  * Exposes methods that create, modify, and resolve Shell links. (Unicode)

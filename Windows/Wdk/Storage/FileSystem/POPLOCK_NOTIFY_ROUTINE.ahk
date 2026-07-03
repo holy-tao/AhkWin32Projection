@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\OPLOCK_NOTIFY_PARAMS.ahk" { OPLOCK_NOTIFY_PARAMS }
+#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
@@ -26,7 +26,7 @@ export default struct POPLOCK_NOTIFY_ROUTINE {
      */
     Call(NotifyParams) {
         result := DllCall(this.value, OPLOCK_NOTIFY_PARAMS.Ptr, NotifyParams, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -46,10 +46,6 @@ export default struct POPLOCK_NOTIFY_ROUTINE {
             this.value := CallbackCreate(fn, , [OPLOCK_NOTIFY_PARAMS.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

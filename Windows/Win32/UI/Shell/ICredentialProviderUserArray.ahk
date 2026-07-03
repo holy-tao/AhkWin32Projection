@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ICredentialProviderUser.ahk" { ICredentialProviderUser }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\CREDENTIAL_PROVIDER_ACCOUNT_OPTIONS.ahk" { CREDENTIAL_PROVIDER_ACCOUNT_OPTIONS }
+#Import ".\ICredentialProviderUser.ahk" { ICredentialProviderUser }
 
 /**
  * Represents the set of users that will appear in the logon or credential UI. This information enables the credential provider to enumerate the set to retrieve property information about each user to populate fields or filter the set.

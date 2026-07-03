@@ -48,10 +48,6 @@ export default struct POB_PRE_OPERATION_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", OB_PRE_OPERATION_INFORMATION.Ptr, OB_PREOP_CALLBACK_STATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -49,10 +49,6 @@ export default struct PFN_CMSG_STREAM_OUTPUT {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr, UInt32, BOOL, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

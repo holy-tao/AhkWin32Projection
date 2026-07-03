@@ -44,10 +44,6 @@ export default struct SILO_CONTEXT_CLEANUP_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

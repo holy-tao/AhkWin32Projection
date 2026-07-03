@@ -1,17 +1,16 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\PRINT_WINDOW_FLAGS.ahk" { PRINT_WINDOW_FLAGS }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DOCINFOW.ahk" { DOCINFOW }
-#Import "..\..\Graphics\Gdi\DEVMODEA.ahk" { DEVMODEA }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Graphics\Gdi\DEVMODEA.ahk" { DEVMODEA }
 #Import "..\..\Graphics\Gdi\DEVMODEW.ahk" { DEVMODEW }
-#Import ".\ABORTPROC.ahk" { ABORTPROC }
-#Import ".\DOCINFOA.ahk" { DOCINFOA }
 #Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import ".\DOCINFOA.ahk" { DOCINFOA }
+#Import ".\DOCINFOW.ahk" { DOCINFOW }
 #Import ".\PRINTER_DEVICE_CAPABILITIES.ahk" { PRINTER_DEVICE_CAPABILITIES }
+#Import ".\PRINT_WINDOW_FLAGS.ahk" { PRINT_WINDOW_FLAGS }
 
 /**
  * @namespace Windows.Win32.Storage.Xps
@@ -547,7 +546,7 @@ export AbortDoc(_hdc) {
  * @since windows5.0
  */
 export SetAbortProc(_hdc, _proc) {
-    result := DllCall("GDI32.dll\SetAbortProc", HDC, _hdc, ABORTPROC, _proc, Int32)
+    result := DllCall("GDI32.dll\SetAbortProc", HDC, _hdc, "ptr", _proc, Int32)
     return result
 }
 

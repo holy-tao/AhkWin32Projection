@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\BIDI_RESPONSE_CONTAINER.ahk" { BIDI_RESPONSE_CONTAINER }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\BIDI_REQUEST_CONTAINER.ahk" { BIDI_REQUEST_CONTAINER }
+#Import ".\BIDI_RESPONSE_CONTAINER.ahk" { BIDI_RESPONSE_CONTAINER }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -55,10 +55,6 @@ export default struct PFN_PRINTING_SENDRECVBIDIDATAFROMPORT2 {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, PWSTR, BIDI_REQUEST_CONTAINER.Ptr, "ptr*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

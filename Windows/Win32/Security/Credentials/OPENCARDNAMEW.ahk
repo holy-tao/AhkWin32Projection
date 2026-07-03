@@ -1,10 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LPOCNCONNPROCW.ahk" { LPOCNCONNPROCW }
-#Import ".\LPOCNCHKPROC.ahk" { LPOCNCHKPROC }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\LPOCNDSCPROC.ahk" { LPOCNDSCPROC }
 
 /**
  * Contains the information that the GetOpenCardName function uses to initialize a smart card Select Card dialog box. (Unicode)
@@ -178,7 +175,7 @@ export default struct OPENCARDNAMEW {
      * 
      * ```
      */
-    lpfnConnect : LPOCNCONNPROCW
+    lpfnConnect : IntPtr
 
     /**
      * A pointer to the card verify routine of the caller. If no special card verification is required, this pointer is <b>NULL</b>. 
@@ -202,7 +199,7 @@ export default struct OPENCARDNAMEW {
      * 
      * ```
      */
-    lpfnCheck : LPOCNCHKPROC
+    lpfnCheck : IntPtr
 
     /**
      * A pointer to the card disconnect routine of the caller. 
@@ -226,7 +223,7 @@ export default struct OPENCARDNAMEW {
      * <div class="alert"><b>Note</b>  When using <b>lpfnConnect</b>, <b>lpfnCheck</b>, and <b>lpfnDisconnect</b>, all three callback procedures should be present. Using these callbacks allows further verification that the calling application has found the appropriate card. This is the best way to ensure the appropriate card is selected.</div>
      * <div> </div>
      */
-    lpfnDisconnect : LPOCNDSCPROC
+    lpfnDisconnect : IntPtr
 
     /**
      * A handle of the connected card (either through an internal dialog box connect or an <b>lpfnConnect</b> callback).

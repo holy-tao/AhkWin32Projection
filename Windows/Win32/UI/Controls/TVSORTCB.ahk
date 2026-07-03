@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\PFNTVCOMPARE.ahk" { PFNTVCOMPARE }
 #Import ".\HTREEITEM.ahk" { HTREEITEM }
 
 /**
@@ -37,7 +36,7 @@ export default struct TVSORTCB {
      * 
      * Address of an application-defined callback function, which is called during a sort operation each time the relative order of two list items needs to be compared.
      */
-    lpfnCompare : PFNTVCOMPARE
+    lpfnCompare : IntPtr
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>

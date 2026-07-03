@@ -46,10 +46,6 @@ export default struct GLUtessVertexDataProc {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

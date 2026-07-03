@@ -46,10 +46,6 @@ export default struct FNCERTSRVBACKUPTRUNCATELOGS {
             this.value := CallbackCreate(fn, , ["ptr", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

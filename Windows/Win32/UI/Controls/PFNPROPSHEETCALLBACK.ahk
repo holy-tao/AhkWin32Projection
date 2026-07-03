@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 
 /**
  * An application-defined callback function that the system calls when the property sheet is being created and initialized.
@@ -90,10 +90,6 @@ export default struct PFNPROPSHEETCALLBACK {
             this.value := CallbackCreate(fn, , [HWND, UInt32, LPARAM, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

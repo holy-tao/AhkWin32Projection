@@ -1,16 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\BCryptCloseAlgorithmProviderFn.ahk" { BCryptCloseAlgorithmProviderFn }
-#Import ".\BCryptSetPropertyFn.ahk" { BCryptSetPropertyFn }
-#Import ".\BCryptGetPropertyFn.ahk" { BCryptGetPropertyFn }
-#Import ".\BCryptDestroyHashFn.ahk" { BCryptDestroyHashFn }
-#Import ".\BCryptProcessMultiOperationsFn.ahk" { BCryptProcessMultiOperationsFn }
-#Import ".\BCryptCreateMultiHashFn.ahk" { BCryptCreateMultiHashFn }
-#Import ".\BCryptHashDataFn.ahk" { BCryptHashDataFn }
-#Import ".\BCryptOpenAlgorithmProviderFn.ahk" { BCryptOpenAlgorithmProviderFn }
 #Import ".\BCRYPT_INTERFACE_VERSION.ahk" { BCRYPT_INTERFACE_VERSION }
-#Import ".\BCryptCreateHashFn.ahk" { BCryptCreateHashFn }
-#Import ".\BCryptDuplicateHashFn.ahk" { BCryptDuplicateHashFn }
-#Import ".\BCryptFinishHashFn.ahk" { BCryptFinishHashFn }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -20,26 +9,26 @@ export default struct BCRYPT_HASH_FUNCTION_TABLE {
 
     Version : BCRYPT_INTERFACE_VERSION
 
-    OpenAlgorithmProvider : BCryptOpenAlgorithmProviderFn
+    OpenAlgorithmProvider : IntPtr
 
-    GetProperty : BCryptGetPropertyFn
+    GetProperty : IntPtr
 
-    SetProperty : BCryptSetPropertyFn
+    SetProperty : IntPtr
 
-    CloseAlgorithmProvider : BCryptCloseAlgorithmProviderFn
+    CloseAlgorithmProvider : IntPtr
 
-    CreateHash : BCryptCreateHashFn
+    CreateHash : IntPtr
 
-    HashData : BCryptHashDataFn
+    HashData : IntPtr
 
-    FinishHash : BCryptFinishHashFn
+    FinishHash : IntPtr
 
-    DuplicateHash : BCryptDuplicateHashFn
+    DuplicateHash : IntPtr
 
-    DestroyHash : BCryptDestroyHashFn
+    DestroyHash : IntPtr
 
-    CreateMultiHash : BCryptCreateMultiHashFn
+    CreateMultiHash : IntPtr
 
-    ProcessMultiOperations : BCryptProcessMultiOperationsFn
+    ProcessMultiOperations : IntPtr
 
 }

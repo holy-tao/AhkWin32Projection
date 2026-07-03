@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IXpsOMShareable.ahk" { IXpsOMShareable }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsOMShareable.ahk" { IXpsOMShareable }
 
 /**
  * Defines objects that are used to paint graphical objects. Classes that derive from IXpsOMBrush describe how the area is painted.

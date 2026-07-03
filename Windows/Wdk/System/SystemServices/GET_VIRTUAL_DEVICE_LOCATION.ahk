@@ -34,7 +34,7 @@ export default struct GET_VIRTUAL_DEVICE_LOCATION {
         FunctionNumberMarshal := FunctionNumber is VarRef ? "char*" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, UInt16, VirtualFunction, SegmentNumberMarshal, SegmentNumber, BusNumberMarshal, BusNumber, FunctionNumberMarshal, FunctionNumber, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -54,10 +54,6 @@ export default struct GET_VIRTUAL_DEVICE_LOCATION {
             this.value := CallbackCreate(fn, , ["ptr", UInt16, "ushort*", "char*", "char*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

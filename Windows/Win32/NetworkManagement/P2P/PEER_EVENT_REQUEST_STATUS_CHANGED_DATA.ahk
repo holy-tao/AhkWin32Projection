@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PEER_ENDPOINT.ahk" { PEER_ENDPOINT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PEER_ENDPOINT.ahk" { PEER_ENDPOINT }
 
 /**
  * The PEER_EVENT_REQUEST_STATUS_CHANGED_DATA structure contains information returned when a PEER_EVENT_REQUEST_STATUS_CHANGED event is raised on a peer participating in a peer collaboration network.

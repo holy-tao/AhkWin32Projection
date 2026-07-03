@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDSURFACEDESC2.ahk" { DDSURFACEDESC2 }
 #Import ".\IDirectDrawSurface4.ahk" { IDirectDrawSurface4 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The LPDDENUMSURFACESCALLBACK2 function (ddraw.h) is superseded by the EnumSurfacesCallback7 function.
@@ -56,10 +56,6 @@ export default struct LPDDENUMSURFACESCALLBACK2 {
             this.value := CallbackCreate(fn, , ["ptr", DDSURFACEDESC2.Ptr, "ptr", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

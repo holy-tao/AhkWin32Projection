@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\D3D12_MESSAGE_SEVERITY.ahk" { D3D12_MESSAGE_SEVERITY }
-#Import ".\D3D12_MESSAGE_ID.ahk" { D3D12_MESSAGE_ID }
 #Import ".\D3D12_MESSAGE_CATEGORY.ahk" { D3D12_MESSAGE_CATEGORY }
+#Import ".\D3D12_MESSAGE_ID.ahk" { D3D12_MESSAGE_ID }
+#Import ".\D3D12_MESSAGE_SEVERITY.ahk" { D3D12_MESSAGE_SEVERITY }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -54,10 +54,6 @@ export default struct D3D12MessageFunc {
             this.value := CallbackCreate(fn, , [D3D12_MESSAGE_CATEGORY, D3D12_MESSAGE_SEVERITY, D3D12_MESSAGE_ID, PSTR, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

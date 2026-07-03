@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ISCSI_TARGET_PORTALA.ahk" { ISCSI_TARGET_PORTALA }
-#Import ".\ISCSI_DIGEST_TYPES.ahk" { ISCSI_DIGEST_TYPES }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import ".\ISCSI_AUTH_TYPES.ahk" { ISCSI_AUTH_TYPES }
+#Import ".\ISCSI_DIGEST_TYPES.ahk" { ISCSI_DIGEST_TYPES }
 #Import ".\ISCSI_LOGIN_OPTIONS.ahk" { ISCSI_LOGIN_OPTIONS }
 #Import ".\ISCSI_TARGET_MAPPINGA.ahk" { ISCSI_TARGET_MAPPINGA }
+#Import ".\ISCSI_TARGET_PORTALA.ahk" { ISCSI_TARGET_PORTALA }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**

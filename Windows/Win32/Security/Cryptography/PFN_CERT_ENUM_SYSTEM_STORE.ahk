@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\CERT_SYSTEM_STORE_INFO.ahk" { CERT_SYSTEM_STORE_INFO }
 #Import ".\CERT_SYSTEM_STORE_FLAGS.ahk" { CERT_SYSTEM_STORE_FLAGS }
+#Import ".\CERT_SYSTEM_STORE_INFO.ahk" { CERT_SYSTEM_STORE_INFO }
 
 /**
  * The CertEnumSystemStoreCallback callback function formats and presents information on each system store found by a call to CertEnumSystemStore.
@@ -62,10 +62,6 @@ export default struct PFN_CERT_ENUM_SYSTEM_STORE {
             this.value := CallbackCreate(fn, , ["ptr", CERT_SYSTEM_STORE_FLAGS, CERT_SYSTEM_STORE_INFO.Ptr, "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

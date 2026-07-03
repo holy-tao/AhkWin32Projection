@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\D3DKMT_SCHEDULINGPRIORITYCLASS.ahk" { D3DKMT_SCHEDULINGPRIORITYCLASS }
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
@@ -30,7 +30,7 @@ export default struct PFND3DKMT_GETPROCESSSCHEDULINGPRIORITYCLASS {
         param1Marshal := param1 is VarRef ? "int*" : "ptr"
 
         result := DllCall(this.value, HANDLE, param0, param1Marshal, param1, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -50,10 +50,6 @@ export default struct PFND3DKMT_GETPROCESSSCHEDULINGPRIORITYCLASS {
             this.value := CallbackCreate(fn, , [HANDLE, "int*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

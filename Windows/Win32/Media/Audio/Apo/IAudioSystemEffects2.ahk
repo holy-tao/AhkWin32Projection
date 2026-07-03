@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\IAudioSystemEffects.ahk" { IAudioSystemEffects }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAudioSystemEffects.ahk" { IAudioSystemEffects }
 
 /**
  * The IAudioSystemEffects2 interface was introduced with Windows 8.1 for retrieving information about the processing objects in a given mode.

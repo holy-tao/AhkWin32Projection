@@ -1,10 +1,10 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\SI_PAGE_TYPE.ahk" { SI_PAGE_TYPE }
-#Import ".\ISecurityInformation.ahk" { ISecurityInformation }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\ISecurityInformation.ahk" { ISecurityInformation }
+#Import ".\SI_PAGE_TYPE.ahk" { SI_PAGE_TYPE }
 #Import "..\..\..\UI\Controls\HPROPSHEETPAGE.ahk" { HPROPSHEETPAGE }
 
 /**

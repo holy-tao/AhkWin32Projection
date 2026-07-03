@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SYNC_REGISTRATION_EVENT.ahk" { SYNC_REGISTRATION_EVENT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SYNC_REGISTRATION_EVENT.ahk" { SYNC_REGISTRATION_EVENT }
 
 /**
  * Represents a change to the registration of a synchronization provider or a synchronization provider configuration UI. The changes are reported as registration events.

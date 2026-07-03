@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\D2D_RECT_U.ahk" { D2D_RECT_U }
 #Import ".\ID2D1ImageSource.ahk" { ID2D1ImageSource }
 #Import "..\Imaging\IWICBitmapSource.ahk" { IWICBitmapSource }
-#Import "Common\D2D_RECT_U.ahk" { D2D_RECT_U }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Produces 2D pixel data that has been sourced from WIC.

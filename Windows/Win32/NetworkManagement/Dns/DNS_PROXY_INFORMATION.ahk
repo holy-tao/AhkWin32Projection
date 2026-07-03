@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DNS_PROXY_INFORMATION_TYPE.ahk" { DNS_PROXY_INFORMATION_TYPE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DNS_PROXY_INFORMATION_TYPE.ahk" { DNS_PROXY_INFORMATION_TYPE }
 
 /**
  * Contains the proxy information for a DNS server's name resolution policy table.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WSABUF.ahk" { WSABUF }
 #Import ".\QOS.ahk" { QOS }
+#Import ".\WSABUF.ahk" { WSABUF }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
@@ -54,10 +54,6 @@ export default struct LPCONDITIONPROC {
             this.value := CallbackCreate(fn, , [WSABUF.Ptr, WSABUF.Ptr, QOS.Ptr, QOS.Ptr, WSABUF.Ptr, WSABUF.Ptr, "uint*", IntPtr, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

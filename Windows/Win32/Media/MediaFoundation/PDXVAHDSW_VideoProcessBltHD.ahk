@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\DXVAHD_STREAM_DATA.ahk" { DXVAHD_STREAM_DATA }
-#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
+#Import ".\DXVAHD_STREAM_DATA.ahk" { DXVAHD_STREAM_DATA }
 
 /**
  * Performs a video processing blit.
@@ -53,10 +53,6 @@ export default struct PDXVAHDSW_VideoProcessBltHD {
             this.value := CallbackCreate(fn, , [HANDLE, "ptr", UInt32, UInt32, DXVAHD_STREAM_DATA.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

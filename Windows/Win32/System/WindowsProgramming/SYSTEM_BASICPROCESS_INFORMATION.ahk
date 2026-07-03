@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming

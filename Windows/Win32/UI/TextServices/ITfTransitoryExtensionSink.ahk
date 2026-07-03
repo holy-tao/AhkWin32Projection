@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITfRange.ahk" { ITfRange }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ITfContext.ahk" { ITfContext }
+#Import ".\ITfRange.ahk" { ITfRange }
 
 /**
  * The ITfTransitoryExtensionSink interface is implemented by the application that uses Transitory Extension dim. The application can track the changes that happened in the transitory extension by using this sink interface.

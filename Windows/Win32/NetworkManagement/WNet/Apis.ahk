@@ -1,25 +1,25 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\NETINFOSTRUCT.ahk" { NETINFOSTRUCT }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\NETRESOURCEA.ahk" { NETRESOURCEA }
-#Import "..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
-#Import ".\DISCDLGSTRUCTW.ahk" { DISCDLGSTRUCTW }
-#Import ".\CONNECTDLGSTRUCTW.ahk" { CONNECTDLGSTRUCTW }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\NETRESOURCEW.ahk" { NETRESOURCEW }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
+#Import ".\CONNECTDLGSTRUCTA.ahk" { CONNECTDLGSTRUCTA }
+#Import ".\CONNECTDLGSTRUCTW.ahk" { CONNECTDLGSTRUCTW }
+#Import ".\DISCDLGSTRUCTA.ahk" { DISCDLGSTRUCTA }
+#Import ".\DISCDLGSTRUCTW.ahk" { DISCDLGSTRUCTW }
+#Import ".\NETCONNECTINFOSTRUCT.ahk" { NETCONNECTINFOSTRUCT }
+#Import ".\NETINFOSTRUCT.ahk" { NETINFOSTRUCT }
+#Import ".\NETRESOURCEA.ahk" { NETRESOURCEA }
+#Import ".\NETRESOURCEW.ahk" { NETRESOURCEW }
+#Import ".\NETWORK_NAME_FORMAT_FLAGS.ahk" { NETWORK_NAME_FORMAT_FLAGS }
 #Import ".\NET_CONNECT_FLAGS.ahk" { NET_CONNECT_FLAGS }
 #Import ".\NET_RESOURCE_SCOPE.ahk" { NET_RESOURCE_SCOPE }
 #Import ".\NET_RESOURCE_TYPE.ahk" { NET_RESOURCE_TYPE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WNET_OPEN_ENUM_USAGE.ahk" { WNET_OPEN_ENUM_USAGE }
 #Import ".\UNC_INFO_LEVEL.ahk" { UNC_INFO_LEVEL }
-#Import ".\NETCONNECTINFOSTRUCT.ahk" { NETCONNECTINFOSTRUCT }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\CONNECTDLGSTRUCTA.ahk" { CONNECTDLGSTRUCTA }
-#Import ".\DISCDLGSTRUCTA.ahk" { DISCDLGSTRUCTA }
-#Import ".\NETWORK_NAME_FORMAT_FLAGS.ahk" { NETWORK_NAME_FORMAT_FLAGS }
+#Import ".\WNET_OPEN_ENUM_USAGE.ahk" { WNET_OPEN_ENUM_USAGE }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WNet

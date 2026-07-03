@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DL_OUI.ahk" { DL_OUI }
-#Import ".\DL_EI64.ahk" { DL_EI64 }
 #Import ".\DL_EI48.ahk" { DL_EI48 }
+#Import ".\DL_EI64.ahk" { DL_EI64 }
+#Import ".\DL_OUI.ahk" { DL_OUI }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock

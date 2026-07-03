@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USBUSER_REQUEST_HEADER.ahk" { USBUSER_REQUEST_HEADER }
 #Import ".\USB_BANDWIDTH_INFO.ahk" { USB_BANDWIDTH_INFO }
 #Import ".\USB_USER_ERROR_CODE.ahk" { USB_USER_ERROR_CODE }
-#Import ".\USBUSER_REQUEST_HEADER.ahk" { USBUSER_REQUEST_HEADER }
 
 /**
  * The USBUSER_BANDWIDTH_INFO_REQUEST structure is used with the IOCTL_USB_USER_REQUEST I/O control request to retrieve information about the allocated bandwidth.

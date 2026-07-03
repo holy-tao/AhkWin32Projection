@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\REPARSE_DATA_BUFFER.ahk" { REPARSE_DATA_BUFFER }
 #Import ".\FILE_TIMESTAMPS.ahk" { FILE_TIMESTAMPS }
+#Import ".\REPARSE_DATA_BUFFER.ahk" { REPARSE_DATA_BUFFER }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem

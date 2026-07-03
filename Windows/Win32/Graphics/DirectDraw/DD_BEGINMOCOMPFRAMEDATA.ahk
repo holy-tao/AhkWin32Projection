@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DD_DIRECTDRAW_LOCAL.ahk" { DD_DIRECTDRAW_LOCAL }
-#Import ".\DD_SURFACE_LOCAL.ahk" { DD_SURFACE_LOCAL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DD_DIRECTDRAW_LOCAL.ahk" { DD_DIRECTDRAW_LOCAL }
 #Import ".\DD_MOTIONCOMP_LOCAL.ahk" { DD_MOTIONCOMP_LOCAL }
+#Import ".\DD_SURFACE_LOCAL.ahk" { DD_SURFACE_LOCAL }
 
 /**
  * The DDHAL_BEGINMOCOMPFRAMEDATA structure contains the frame information required to start decoding.

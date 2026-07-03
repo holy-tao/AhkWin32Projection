@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ICLRSyncManager.ahk" { ICLRSyncManager }
-#Import ".\IHostSemaphore.ahk" { IHostSemaphore }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IHostAutoEvent.ahk" { IHostAutoEvent }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IHostManualEvent.ahk" { IHostManualEvent }
-#Import ".\IHostCrst.ahk" { IHostCrst }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICLRSyncManager.ahk" { ICLRSyncManager }
+#Import ".\IHostAutoEvent.ahk" { IHostAutoEvent }
+#Import ".\IHostCrst.ahk" { IHostCrst }
+#Import ".\IHostManualEvent.ahk" { IHostManualEvent }
+#Import ".\IHostSemaphore.ahk" { IHostSemaphore }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting

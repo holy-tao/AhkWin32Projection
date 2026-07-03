@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWMStreamList.ahk" { IWMStreamList }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMStreamList.ahk" { IWMStreamList }
 
 /**
  * The IWMMutualExclusion interface represents a group of streams, of which only one at a time can be played.IWMMutualExclusion is the base interface for mutual exclusion objects.

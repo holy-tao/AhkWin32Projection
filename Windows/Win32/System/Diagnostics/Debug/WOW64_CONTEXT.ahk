@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WOW64_FLOATING_SAVE_AREA.ahk" { WOW64_FLOATING_SAVE_AREA }
 #Import ".\WOW64_CONTEXT_FLAGS.ahk" { WOW64_CONTEXT_FLAGS }
+#Import ".\WOW64_FLOATING_SAVE_AREA.ahk" { WOW64_FLOATING_SAVE_AREA }
 
 /**
  * Represents a context frame on WOW64.

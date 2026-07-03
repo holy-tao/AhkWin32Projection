@@ -45,10 +45,6 @@ export default struct DeviceDialogFunction {
             this.value := CallbackCreate(fn, , [DEVICEDIALOGDATA.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

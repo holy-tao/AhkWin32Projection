@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\D3DAUTHENTICATEDCHANNEL_QUERY_INPUT.ahk" { D3DAUTHENTICATEDCHANNEL_QUERY_INPUT }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains input data for a D3DAUTHENTICATEDQUERY\_OUTPUTIDCOUNT query.

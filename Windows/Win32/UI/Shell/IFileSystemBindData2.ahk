@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IFileSystemBindData.ahk" { IFileSystemBindData }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFileSystemBindData.ahk" { IFileSystemBindData }
 
 /**
  * Extends IFileSystemBindData, which stores file system information for optimizing calls to IShellFolder::ParseDisplayName. This interface adds the ability set or get file ID or junction class identifier (CLSID).

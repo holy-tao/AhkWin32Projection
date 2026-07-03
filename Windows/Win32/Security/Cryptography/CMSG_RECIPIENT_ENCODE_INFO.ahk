@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CMSG_KEY_AGREE_RECIPIENT_ENCODE_INFO.ahk" { CMSG_KEY_AGREE_RECIPIENT_ENCODE_INFO }
 #Import ".\CMSG_KEY_TRANS_RECIPIENT_ENCODE_INFO.ahk" { CMSG_KEY_TRANS_RECIPIENT_ENCODE_INFO }
 #Import ".\CMSG_MAIL_LIST_RECIPIENT_ENCODE_INFO.ahk" { CMSG_MAIL_LIST_RECIPIENT_ENCODE_INFO }
-#Import ".\CMSG_KEY_AGREE_RECIPIENT_ENCODE_INFO.ahk" { CMSG_KEY_AGREE_RECIPIENT_ENCODE_INFO }
 
 /**
  * Contains information a message recipient's content encryption key management type.

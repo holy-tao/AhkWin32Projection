@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\NCRYPT_KEY_HANDLE.ahk" { NCRYPT_KEY_HANDLE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\CERT_QUERY_ENCODING_TYPE.ahk" { CERT_QUERY_ENCODING_TYPE }
+#Import ".\NCRYPT_KEY_HANDLE.ahk" { NCRYPT_KEY_HANDLE }
 
 /**
  * Called by CryptExportPublicKeyInfoEx to export a public key BLOB and encode it.
@@ -94,10 +94,6 @@ export default struct PFN_CRYPT_EXPORT_PUBLIC_KEY_INFO_EX2_FUNC {
             this.value := CallbackCreate(fn, , [NCRYPT_KEY_HANDLE, CERT_QUERY_ENCODING_TYPE, PSTR, UInt32, "ptr", IntPtr, "uint*", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

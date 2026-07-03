@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IORING_REGISTERED_BUFFER.ahk" { IORING_REGISTERED_BUFFER }
 #Import ".\IORING_REF_KIND.ahk" { IORING_REF_KIND }
+#Import ".\IORING_REGISTERED_BUFFER.ahk" { IORING_REGISTERED_BUFFER }
 
 /**
  * IORING_BUFFER_REF represents a reference to a buffer used in an I/O ring operation.

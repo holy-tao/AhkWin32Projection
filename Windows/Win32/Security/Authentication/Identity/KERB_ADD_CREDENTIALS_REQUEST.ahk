@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
-#Import ".\KERB_REQUEST_FLAGS.ahk" { KERB_REQUEST_FLAGS }
 #Import "..\..\..\Foundation\LUID.ahk" { LUID }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\KERB_PROTOCOL_MESSAGE_TYPE.ahk" { KERB_PROTOCOL_MESSAGE_TYPE }
+#Import ".\KERB_REQUEST_FLAGS.ahk" { KERB_REQUEST_FLAGS }
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 
 /**
  * Specifies a message to add, remove, or replace an extra server credential for a logon session.

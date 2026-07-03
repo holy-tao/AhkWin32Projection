@@ -51,10 +51,6 @@ export default struct PF_NPPropertyDialog {
             this.value := CallbackCreate(fn, , [HWND, UInt32, UInt32, PWSTR, UInt32, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

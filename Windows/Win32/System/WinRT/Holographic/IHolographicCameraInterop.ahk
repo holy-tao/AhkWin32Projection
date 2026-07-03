@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\IInspectable.ahk" { IInspectable }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Graphics\Direct3D12\ID3D12Device.ahk" { ID3D12Device }
+#Import "..\..\..\Graphics\Direct3D12\D3D12_RESOURCE_DESC.ahk" { D3D12_RESOURCE_DESC }
 #Import "..\..\..\Graphics\Direct3D12\ID3D12CommandQueue.ahk" { ID3D12CommandQueue }
+#Import "..\..\..\Graphics\Direct3D12\ID3D12Device.ahk" { ID3D12Device }
 #Import "..\..\..\Graphics\Direct3D12\ID3D12ProtectedResourceSession.ahk" { ID3D12ProtectedResourceSession }
 #Import "..\..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
-#Import "..\..\..\Graphics\Direct3D12\D3D12_RESOURCE_DESC.ahk" { D3D12_RESOURCE_DESC }
+#Import "..\IInspectable.ahk" { IInspectable }
 
 /**
  * Extends [HolographicCamera](/uwp/api/windows.graphics.holographic.holographiccamera) to allow 2D texture resources to be created and used as back buffers for holographic rendering in Direct3D 12.

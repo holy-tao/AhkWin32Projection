@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IValueMap.ahk" { IValueMap }
-#Import ".\IDataManager.ahk" { IDataManager }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DataCollectorSetStatus.ahk" { DataCollectorSetStatus }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\CommitMode.ahk" { CommitMode }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\AutoPathFormat.ahk" { AutoPathFormat }
-#Import ".\IDataCollectorCollection.ahk" { IDataCollectorCollection }
-#Import ".\IScheduleCollection.ahk" { IScheduleCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import ".\AutoPathFormat.ahk" { AutoPathFormat }
+#Import ".\CommitMode.ahk" { CommitMode }
+#Import ".\DataCollectorSetStatus.ahk" { DataCollectorSetStatus }
+#Import ".\IDataCollectorCollection.ahk" { IDataCollectorCollection }
+#Import ".\IDataManager.ahk" { IDataManager }
+#Import ".\IScheduleCollection.ahk" { IScheduleCollection }
+#Import ".\IValueMap.ahk" { IValueMap }
 
 /**
  * Manages the configuration information that is common to all data collector objects in the set; adds and removes data collectors from the set; and starts data collection. This is the primary PLA interface that you use.

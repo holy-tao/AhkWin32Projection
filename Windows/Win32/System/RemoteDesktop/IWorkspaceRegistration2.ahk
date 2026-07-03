@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IWorkspaceRegistration.ahk" { IWorkspaceRegistration }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWorkspaceClientExt.ahk" { IWorkspaceClientExt }
+#Import ".\IWorkspaceRegistration.ahk" { IWorkspaceRegistration }
 
 /**
  * Exposes methods that add and remove references to custom clients in RemoteApp and Desktop Connection. (IWorkspaceRegistration2)

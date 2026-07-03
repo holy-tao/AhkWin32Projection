@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CURSORINFO_FLAGS.ahk" { CURSORINFO_FLAGS }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\CURSORINFO_FLAGS.ahk" { CURSORINFO_FLAGS }
 #Import ".\HCURSOR.ahk" { HCURSOR }
 
 /**

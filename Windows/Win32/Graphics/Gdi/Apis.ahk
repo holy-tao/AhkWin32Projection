@@ -1,131 +1,117 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\CREATE_FONT_PACKAGE_SUBSET_PLATFORM.ahk" { CREATE_FONT_PACKAGE_SUBSET_PLATFORM }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import ".\ABC.ahk" { ABC }
+#Import ".\ABCFLOAT.ahk" { ABCFLOAT }
+#Import ".\ARC_DIRECTION.ahk" { ARC_DIRECTION }
+#Import ".\BITMAP.ahk" { BITMAP }
+#Import ".\BITMAPINFO.ahk" { BITMAPINFO }
+#Import ".\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
+#Import ".\BLENDFUNCTION.ahk" { BLENDFUNCTION }
+#Import ".\CDS_TYPE.ahk" { CDS_TYPE }
+#Import ".\COLORADJUSTMENT.ahk" { COLORADJUSTMENT }
+#Import ".\CREATE_FONT_PACKAGE_SUBSET_ENCODING.ahk" { CREATE_FONT_PACKAGE_SUBSET_ENCODING }
+#Import ".\CREATE_FONT_PACKAGE_SUBSET_PLATFORM.ahk" { CREATE_FONT_PACKAGE_SUBSET_PLATFORM }
+#Import ".\CREATE_POLYGON_RGN_MODE.ahk" { CREATE_POLYGON_RGN_MODE }
+#Import ".\DC_LAYOUT.ahk" { DC_LAYOUT }
+#Import ".\DEVMODEA.ahk" { DEVMODEA }
+#Import ".\DEVMODEW.ahk" { DEVMODEW }
+#Import ".\DIB_USAGE.ahk" { DIB_USAGE }
+#Import ".\DISPLAY_DEVICEA.ahk" { DISPLAY_DEVICEA }
+#Import ".\DISPLAY_DEVICEW.ahk" { DISPLAY_DEVICEW }
+#Import ".\DISP_CHANGE.ahk" { DISP_CHANGE }
+#Import ".\DRAWEDGE_FLAGS.ahk" { DRAWEDGE_FLAGS }
+#Import ".\DRAWSTATE_FLAGS.ahk" { DRAWSTATE_FLAGS }
+#Import ".\DRAWTEXTPARAMS.ahk" { DRAWTEXTPARAMS }
+#Import ".\DRAW_CAPTION_FLAGS.ahk" { DRAW_CAPTION_FLAGS }
+#Import ".\DRAW_EDGE_FLAGS.ahk" { DRAW_EDGE_FLAGS }
+#Import ".\DRAW_TEXT_FORMAT.ahk" { DRAW_TEXT_FORMAT }
+#Import ".\EMBEDDED_FONT_PRIV_STATUS.ahk" { EMBEDDED_FONT_PRIV_STATUS }
+#Import ".\EMBED_FONT_CHARSET.ahk" { EMBED_FONT_CHARSET }
+#Import ".\ENHMETARECORD.ahk" { ENHMETARECORD }
+#Import ".\ENUMLOGFONTEXDVA.ahk" { ENUMLOGFONTEXDVA }
+#Import ".\ENUMLOGFONTEXDVW.ahk" { ENUMLOGFONTEXDVW }
+#Import ".\ENUM_DISPLAY_SETTINGS_FLAGS.ahk" { ENUM_DISPLAY_SETTINGS_FLAGS }
+#Import ".\ENUM_DISPLAY_SETTINGS_MODE.ahk" { ENUM_DISPLAY_SETTINGS_MODE }
+#Import ".\ETO_OPTIONS.ahk" { ETO_OPTIONS }
+#Import ".\EXT_FLOOD_FILL_TYPE.ahk" { EXT_FLOOD_FILL_TYPE }
+#Import ".\FONT_LICENSE_PRIVS.ahk" { FONT_LICENSE_PRIVS }
+#Import ".\FONT_RESOURCE_CHARACTERISTICS.ahk" { FONT_RESOURCE_CHARACTERISTICS }
+#Import ".\GCP_RESULTSA.ahk" { GCP_RESULTSA }
+#Import ".\GCP_RESULTSW.ahk" { GCP_RESULTSW }
+#Import ".\GDI_REGION_TYPE.ahk" { GDI_REGION_TYPE }
+#Import ".\GET_CHARACTER_PLACEMENT_FLAGS.ahk" { GET_CHARACTER_PLACEMENT_FLAGS }
+#Import ".\GET_DCX_FLAGS.ahk" { GET_DCX_FLAGS }
+#Import ".\GET_GLYPH_OUTLINE_FORMAT.ahk" { GET_GLYPH_OUTLINE_FORMAT }
+#Import ".\GET_STOCK_OBJECT_FLAGS.ahk" { GET_STOCK_OBJECT_FLAGS }
+#Import ".\GLYPHMETRICS.ahk" { GLYPHMETRICS }
+#Import ".\GLYPHSET.ahk" { GLYPHSET }
 #Import ".\GRADIENT_FILL.ahk" { GRADIENT_FILL }
 #Import ".\GRAPHICS_MODE.ahk" { GRAPHICS_MODE }
-#Import ".\SYS_COLOR_INDEX.ahk" { SYS_COLOR_INDEX }
-#Import ".\LOGBRUSH.ahk" { LOGBRUSH }
-#Import ".\READEMBEDPROC.ahk" { READEMBEDPROC }
-#Import ".\HBITMAP.ahk" { HBITMAP }
-#Import ".\MONITOR_FROM_FLAGS.ahk" { MONITOR_FROM_FLAGS }
-#Import ".\BLENDFUNCTION.ahk" { BLENDFUNCTION }
-#Import ".\KERNINGPAIR.ahk" { KERNINGPAIR }
-#Import ".\TRIVERTEX.ahk" { TRIVERTEX }
-#Import ".\DRAW_EDGE_FLAGS.ahk" { DRAW_EDGE_FLAGS }
-#Import ".\HRGN.ahk" { HRGN }
-#Import ".\CFP_FREEPROC.ahk" { CFP_FREEPROC }
-#Import ".\DRAW_CAPTION_FLAGS.ahk" { DRAW_CAPTION_FLAGS }
-#Import ".\HPALETTE.ahk" { HPALETTE }
-#Import ".\PAINTSTRUCT.ahk" { PAINTSTRUCT }
-#Import ".\TTVALIDATIONTESTSPARAMSEX.ahk" { TTVALIDATIONTESTSPARAMSEX }
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
-#Import ".\PALETTEENTRY.ahk" { PALETTEENTRY }
-#Import ".\BITMAPINFO.ahk" { BITMAPINFO }
-#Import ".\FONT_RESOURCE_CHARACTERISTICS.ahk" { FONT_RESOURCE_CHARACTERISTICS }
-#Import ".\ROP_CODE.ahk" { ROP_CODE }
-#Import ".\GET_DCX_FLAGS.ahk" { GET_DCX_FLAGS }
-#Import ".\LOGPALETTE.ahk" { LOGPALETTE }
-#Import ".\DEVMODEA.ahk" { DEVMODEA }
-#Import ".\COLORADJUSTMENT.ahk" { COLORADJUSTMENT }
-#Import ".\LINEDDAPROC.ahk" { LINEDDAPROC }
-#Import ".\DISPLAY_DEVICEW.ahk" { DISPLAY_DEVICEW }
-#Import ".\FONTENUMPROCW.ahk" { FONTENUMPROCW }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\HGDIOBJ.ahk" { HGDIOBJ }
-#Import ".\HDC_MAP_MODE.ahk" { HDC_MAP_MODE }
-#Import ".\ENHMFENUMPROC.ahk" { ENHMFENUMPROC }
-#Import ".\ENUMLOGFONTEXDVW.ahk" { ENUMLOGFONTEXDVW }
-#Import ".\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
-#Import ".\HPEN.ahk" { HPEN }
-#Import ".\POLYTEXTW.ahk" { POLYTEXTW }
-#Import ".\DRAWSTATE_FLAGS.ahk" { DRAWSTATE_FLAGS }
-#Import ".\MAT2.ahk" { MAT2 }
-#Import ".\LOGPEN.ahk" { LOGPEN }
-#Import ".\RGBQUAD.ahk" { RGBQUAD }
-#Import ".\ETO_OPTIONS.ahk" { ETO_OPTIONS }
-#Import ".\ENUM_DISPLAY_SETTINGS_MODE.ahk" { ENUM_DISPLAY_SETTINGS_MODE }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import ".\MFENUMPROC.ahk" { MFENUMPROC }
-#Import ".\LOGFONTW.ahk" { LOGFONTW }
-#Import ".\DIB_USAGE.ahk" { DIB_USAGE }
-#Import ".\TTEMBEDINFO.ahk" { TTEMBEDINFO }
-#Import ".\RGN_COMBINE_MODE.ahk" { RGN_COMBINE_MODE }
-#Import ".\GLYPHSET.ahk" { GLYPHSET }
-#Import ".\TEXT_ALIGN_OPTIONS.ahk" { TEXT_ALIGN_OPTIONS }
-#Import ".\ABCFLOAT.ahk" { ABCFLOAT }
-#Import ".\GCP_RESULTSA.ahk" { GCP_RESULTSA }
-#Import ".\OBJ_TYPE.ahk" { OBJ_TYPE }
-#Import ".\HENHMETAFILE.ahk" { HENHMETAFILE }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\TTEMBED_FLAGS.ahk" { TTEMBED_FLAGS }
 #Import ".\HANDLETABLE.ahk" { HANDLETABLE }
-#Import ".\REDRAW_WINDOW_FLAGS.ahk" { REDRAW_WINDOW_FLAGS }
-#Import ".\HDC.ahk" { HDC }
-#Import ".\GCP_RESULTSW.ahk" { GCP_RESULTSW }
-#Import ".\MODIFY_WORLD_TRANSFORM_MODE.ahk" { MODIFY_WORLD_TRANSFORM_MODE }
-#Import ".\HMONITOR.ahk" { HMONITOR }
-#Import ".\ENHMETARECORD.ahk" { ENHMETARECORD }
-#Import ".\METARECORD.ahk" { METARECORD }
-#Import ".\GOBJENUMPROC.ahk" { GOBJENUMPROC }
-#Import ".\FONTENUMPROCA.ahk" { FONTENUMPROCA }
-#Import ".\GET_GLYPH_OUTLINE_FORMAT.ahk" { GET_GLYPH_OUTLINE_FORMAT }
-#Import ".\EXT_FLOOD_FILL_TYPE.ahk" { EXT_FLOOD_FILL_TYPE }
-#Import ".\GET_CHARACTER_PLACEMENT_FLAGS.ahk" { GET_CHARACTER_PLACEMENT_FLAGS }
-#Import ".\SYSTEM_PALETTE_USE.ahk" { SYSTEM_PALETTE_USE }
-#Import ".\MONITORINFO.ahk" { MONITORINFO }
-#Import ".\DRAW_TEXT_FORMAT.ahk" { DRAW_TEXT_FORMAT }
-#Import ".\ARC_DIRECTION.ahk" { ARC_DIRECTION }
-#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
-#Import ".\GDI_REGION_TYPE.ahk" { GDI_REGION_TYPE }
-#Import ".\XFORM.ahk" { XFORM }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\LOGFONTA.ahk" { LOGFONTA }
-#Import ".\ENUM_DISPLAY_SETTINGS_FLAGS.ahk" { ENUM_DISPLAY_SETTINGS_FLAGS }
-#Import ".\MONITORENUMPROC.ahk" { MONITORENUMPROC }
-#Import ".\TTVALIDATIONTESTSPARAMS.ahk" { TTVALIDATIONTESTSPARAMS }
-#Import ".\BITMAP.ahk" { BITMAP }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DISPLAY_DEVICEA.ahk" { DISPLAY_DEVICEA }
-#Import ".\DRAWTEXTPARAMS.ahk" { DRAWTEXTPARAMS }
-#Import ".\DISP_CHANGE.ahk" { DISP_CHANGE }
-#Import ".\EMBEDDED_FONT_PRIV_STATUS.ahk" { EMBEDDED_FONT_PRIV_STATUS }
-#Import ".\STRETCH_BLT_MODE.ahk" { STRETCH_BLT_MODE }
-#Import ".\POLYTEXTA.ahk" { POLYTEXTA }
-#Import ".\ABC.ahk" { ABC }
-#Import ".\ENUMLOGFONTEXDVA.ahk" { ENUMLOGFONTEXDVA }
-#Import ".\TTLOADINFO.ahk" { TTLOADINFO }
-#Import ".\R2_MODE.ahk" { R2_MODE }
-#Import ".\DRAWSTATEPROC.ahk" { DRAWSTATEPROC }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\TEXTMETRICW.ahk" { TEXTMETRICW }
-#Import ".\DEVMODEW.ahk" { DEVMODEW }
-#Import ".\SET_BOUNDS_RECT_FLAGS.ahk" { SET_BOUNDS_RECT_FLAGS }
-#Import ".\DRAWEDGE_FLAGS.ahk" { DRAWEDGE_FLAGS }
-#Import ".\HBRUSH.ahk" { HBRUSH }
-#Import ".\GLYPHMETRICS.ahk" { GLYPHMETRICS }
-#Import ".\PEN_STYLE.ahk" { PEN_STYLE }
-#Import ".\GRAYSTRINGPROC.ahk" { GRAYSTRINGPROC }
-#Import ".\WRITEEMBEDPROC.ahk" { WRITEEMBEDPROC }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\CREATE_POLYGON_RGN_MODE.ahk" { CREATE_POLYGON_RGN_MODE }
-#Import ".\TEXTMETRICA.ahk" { TEXTMETRICA }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\EMBED_FONT_CHARSET.ahk" { EMBED_FONT_CHARSET }
-#Import ".\CFP_REALLOCPROC.ahk" { CFP_REALLOCPROC }
 #Import ".\HATCH_BRUSH_STYLE.ahk" { HATCH_BRUSH_STYLE }
-#Import ".\DC_LAYOUT.ahk" { DC_LAYOUT }
+#Import ".\HBITMAP.ahk" { HBITMAP }
+#Import ".\HBRUSH.ahk" { HBRUSH }
+#Import ".\HDC.ahk" { HDC }
+#Import ".\HDC_MAP_MODE.ahk" { HDC_MAP_MODE }
+#Import ".\HENHMETAFILE.ahk" { HENHMETAFILE }
 #Import ".\HFONT.ahk" { HFONT }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\TTLOAD_EMBEDDED_FONT_STATUS.ahk" { TTLOAD_EMBEDDED_FONT_STATUS }
-#Import ".\FONT_LICENSE_PRIVS.ahk" { FONT_LICENSE_PRIVS }
-#Import ".\GET_STOCK_OBJECT_FLAGS.ahk" { GET_STOCK_OBJECT_FLAGS }
-#Import ".\CDS_TYPE.ahk" { CDS_TYPE }
-#Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
-#Import ".\WGLSWAP.ahk" { WGLSWAP }
-#Import ".\CFP_ALLOCPROC.ahk" { CFP_ALLOCPROC }
+#Import ".\HGDIOBJ.ahk" { HGDIOBJ }
 #Import ".\HMETAFILE.ahk" { HMETAFILE }
-#Import ".\CREATE_FONT_PACKAGE_SUBSET_ENCODING.ahk" { CREATE_FONT_PACKAGE_SUBSET_ENCODING }
+#Import ".\HMONITOR.ahk" { HMONITOR }
+#Import ".\HPALETTE.ahk" { HPALETTE }
+#Import ".\HPEN.ahk" { HPEN }
+#Import ".\HRGN.ahk" { HRGN }
+#Import ".\KERNINGPAIR.ahk" { KERNINGPAIR }
+#Import ".\LOGBRUSH.ahk" { LOGBRUSH }
+#Import ".\LOGFONTA.ahk" { LOGFONTA }
+#Import ".\LOGFONTW.ahk" { LOGFONTW }
+#Import ".\LOGPALETTE.ahk" { LOGPALETTE }
+#Import ".\LOGPEN.ahk" { LOGPEN }
+#Import ".\MAT2.ahk" { MAT2 }
+#Import ".\METARECORD.ahk" { METARECORD }
+#Import ".\MODIFY_WORLD_TRANSFORM_MODE.ahk" { MODIFY_WORLD_TRANSFORM_MODE }
+#Import ".\MONITORINFO.ahk" { MONITORINFO }
+#Import ".\MONITOR_FROM_FLAGS.ahk" { MONITOR_FROM_FLAGS }
+#Import ".\OBJ_TYPE.ahk" { OBJ_TYPE }
+#Import ".\PAINTSTRUCT.ahk" { PAINTSTRUCT }
+#Import ".\PALETTEENTRY.ahk" { PALETTEENTRY }
+#Import ".\PEN_STYLE.ahk" { PEN_STYLE }
+#Import ".\POLYTEXTA.ahk" { POLYTEXTA }
+#Import ".\POLYTEXTW.ahk" { POLYTEXTW }
+#Import ".\R2_MODE.ahk" { R2_MODE }
+#Import ".\REDRAW_WINDOW_FLAGS.ahk" { REDRAW_WINDOW_FLAGS }
+#Import ".\RGBQUAD.ahk" { RGBQUAD }
+#Import ".\RGN_COMBINE_MODE.ahk" { RGN_COMBINE_MODE }
+#Import ".\ROP_CODE.ahk" { ROP_CODE }
+#Import ".\SET_BOUNDS_RECT_FLAGS.ahk" { SET_BOUNDS_RECT_FLAGS }
+#Import ".\STRETCH_BLT_MODE.ahk" { STRETCH_BLT_MODE }
+#Import ".\SYSTEM_PALETTE_USE.ahk" { SYSTEM_PALETTE_USE }
+#Import ".\SYS_COLOR_INDEX.ahk" { SYS_COLOR_INDEX }
+#Import ".\TEXTMETRICA.ahk" { TEXTMETRICA }
+#Import ".\TEXTMETRICW.ahk" { TEXTMETRICW }
+#Import ".\TEXT_ALIGN_OPTIONS.ahk" { TEXT_ALIGN_OPTIONS }
+#Import ".\TRIVERTEX.ahk" { TRIVERTEX }
+#Import ".\TTEMBEDINFO.ahk" { TTEMBEDINFO }
+#Import ".\TTEMBED_FLAGS.ahk" { TTEMBED_FLAGS }
+#Import ".\TTLOADINFO.ahk" { TTLOADINFO }
+#Import ".\TTLOAD_EMBEDDED_FONT_STATUS.ahk" { TTLOAD_EMBEDDED_FONT_STATUS }
+#Import ".\TTVALIDATIONTESTSPARAMS.ahk" { TTVALIDATIONTESTSPARAMS }
+#Import ".\TTVALIDATIONTESTSPARAMSEX.ahk" { TTVALIDATIONTESTSPARAMSEX }
+#Import ".\WGLSWAP.ahk" { WGLSWAP }
+#Import ".\XFORM.ahk" { XFORM }
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
@@ -2680,7 +2666,7 @@ export Ellipse(_hdc, left, top, right, bottom) {
  * @since windows5.0
  */
 export EnumFontFamiliesExA(_hdc, lpLogfont, lpProc, _lParam, dwFlags) {
-    result := DllCall("GDI32.dll\EnumFontFamiliesExA", HDC, _hdc, LOGFONTA.Ptr, lpLogfont, FONTENUMPROCA, lpProc, LPARAM, _lParam, UInt32, dwFlags, Int32)
+    result := DllCall("GDI32.dll\EnumFontFamiliesExA", HDC, _hdc, LOGFONTA.Ptr, lpLogfont, "ptr", lpProc, LPARAM, _lParam, UInt32, dwFlags, Int32)
     return result
 }
 
@@ -2831,7 +2817,7 @@ export EnumFontFamiliesExA(_hdc, lpLogfont, lpProc, _lParam, dwFlags) {
  * @since windows5.0
  */
 export EnumFontFamiliesExW(_hdc, lpLogfont, lpProc, _lParam, dwFlags) {
-    result := DllCall("GDI32.dll\EnumFontFamiliesExW", HDC, _hdc, LOGFONTW.Ptr, lpLogfont, FONTENUMPROCW, lpProc, LPARAM, _lParam, UInt32, dwFlags, Int32)
+    result := DllCall("GDI32.dll\EnumFontFamiliesExW", HDC, _hdc, LOGFONTW.Ptr, lpLogfont, "ptr", lpProc, LPARAM, _lParam, UInt32, dwFlags, Int32)
     return result
 }
 
@@ -2854,7 +2840,7 @@ export EnumFontFamiliesExW(_hdc, lpLogfont, lpProc, _lParam, dwFlags) {
 export EnumFontFamiliesA(_hdc, lpLogfont, lpProc, _lParam) {
     lpLogfont := lpLogfont is String ? StrPtr(lpLogfont) : lpLogfont
 
-    result := DllCall("GDI32.dll\EnumFontFamiliesA", HDC, _hdc, "ptr", lpLogfont, FONTENUMPROCA, lpProc, LPARAM, _lParam, Int32)
+    result := DllCall("GDI32.dll\EnumFontFamiliesA", HDC, _hdc, "ptr", lpLogfont, "ptr", lpProc, LPARAM, _lParam, Int32)
     return result
 }
 
@@ -2877,7 +2863,7 @@ export EnumFontFamiliesA(_hdc, lpLogfont, lpProc, _lParam) {
 export EnumFontFamiliesW(_hdc, lpLogfont, lpProc, _lParam) {
     lpLogfont := lpLogfont is String ? StrPtr(lpLogfont) : lpLogfont
 
-    result := DllCall("GDI32.dll\EnumFontFamiliesW", HDC, _hdc, "ptr", lpLogfont, FONTENUMPROCW, lpProc, LPARAM, _lParam, Int32)
+    result := DllCall("GDI32.dll\EnumFontFamiliesW", HDC, _hdc, "ptr", lpLogfont, "ptr", lpProc, LPARAM, _lParam, Int32)
     return result
 }
 
@@ -2905,7 +2891,7 @@ export EnumFontFamiliesW(_hdc, lpLogfont, lpProc, _lParam) {
 export EnumFontsA(_hdc, lpLogfont, lpProc, _lParam) {
     lpLogfont := lpLogfont is String ? StrPtr(lpLogfont) : lpLogfont
 
-    result := DllCall("GDI32.dll\EnumFontsA", HDC, _hdc, "ptr", lpLogfont, FONTENUMPROCA, lpProc, LPARAM, _lParam, Int32)
+    result := DllCall("GDI32.dll\EnumFontsA", HDC, _hdc, "ptr", lpLogfont, "ptr", lpProc, LPARAM, _lParam, Int32)
     return result
 }
 
@@ -2933,7 +2919,7 @@ export EnumFontsA(_hdc, lpLogfont, lpProc, _lParam) {
 export EnumFontsW(_hdc, lpLogfont, lpProc, _lParam) {
     lpLogfont := lpLogfont is String ? StrPtr(lpLogfont) : lpLogfont
 
-    result := DllCall("GDI32.dll\EnumFontsW", HDC, _hdc, "ptr", lpLogfont, FONTENUMPROCW, lpProc, LPARAM, _lParam, Int32)
+    result := DllCall("GDI32.dll\EnumFontsW", HDC, _hdc, "ptr", lpLogfont, "ptr", lpProc, LPARAM, _lParam, Int32)
     return result
 }
 
@@ -2950,7 +2936,7 @@ export EnumFontsW(_hdc, lpLogfont, lpProc, _lParam) {
  * @since windows5.0
  */
 export EnumObjects(_hdc, nType, lpFunc, _lParam) {
-    result := DllCall("GDI32.dll\EnumObjects", HDC, _hdc, OBJ_TYPE, nType, GOBJENUMPROC, lpFunc, LPARAM, _lParam, Int32)
+    result := DllCall("GDI32.dll\EnumObjects", HDC, _hdc, OBJ_TYPE, nType, "ptr", lpFunc, LPARAM, _lParam, Int32)
     return result
 }
 
@@ -6095,7 +6081,7 @@ export InvertRgn(_hdc, _hrgn) {
  * @since windows5.0
  */
 export LineDDA(xStart, yStart, xEnd, yEnd, lpProc, data) {
-    result := DllCall("GDI32.dll\LineDDA", Int32, xStart, Int32, yStart, Int32, xEnd, Int32, yEnd, LINEDDAPROC, lpProc, LPARAM, data, BOOL)
+    result := DllCall("GDI32.dll\LineDDA", Int32, xStart, Int32, yStart, Int32, xEnd, Int32, yEnd, "ptr", lpProc, LPARAM, data, BOOL)
     return result
 }
 
@@ -8418,7 +8404,7 @@ export PlayMetaFileRecord(_hdc, lpHandleTable, lpMR, noObjs) {
  * @since windows5.0
  */
 export EnumMetaFile(_hdc, hmf, _proc, param3) {
-    result := DllCall("GDI32.dll\EnumMetaFile", HDC, _hdc, HMETAFILE, hmf, MFENUMPROC, _proc, LPARAM, param3, BOOL)
+    result := DllCall("GDI32.dll\EnumMetaFile", HDC, _hdc, HMETAFILE, hmf, "ptr", _proc, LPARAM, param3, BOOL)
     return result
 }
 
@@ -8624,7 +8610,7 @@ export DeleteEnhMetaFile(hmf) {
 export EnumEnhMetaFile(_hdc, hmf, _proc, param3, lpRect) {
     param3Marshal := param3 is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("GDI32.dll\EnumEnhMetaFile", HDC, _hdc, HENHMETAFILE, hmf, ENHMFENUMPROC, _proc, param3Marshal, param3, RECT.Ptr, lpRect, BOOL)
+    result := DllCall("GDI32.dll\EnumEnhMetaFile", HDC, _hdc, HENHMETAFILE, hmf, "ptr", _proc, param3Marshal, param3, RECT.Ptr, lpRect, BOOL)
     return result
 }
 
@@ -11350,7 +11336,7 @@ export CreateFontPackage(puchSrcBuffer, ulSrcBufferSize, ppuchFontPackageBuffer,
     pusSubsetKeepListMarshal := pusSubsetKeepList is VarRef ? "ushort*" : "ptr"
     lpvReservedMarshal := lpvReserved is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("FONTSUB.dll\CreateFontPackage", puchSrcBufferMarshal, puchSrcBuffer, UInt32, ulSrcBufferSize, ppuchFontPackageBufferMarshal, ppuchFontPackageBuffer, pulFontPackageBufferSizeMarshal, pulFontPackageBufferSize, pulBytesWrittenMarshal, pulBytesWritten, UInt16, usFlag, UInt16, usTTCIndex, UInt16, usSubsetFormat, UInt16, usSubsetLanguage, CREATE_FONT_PACKAGE_SUBSET_PLATFORM, usSubsetPlatform, CREATE_FONT_PACKAGE_SUBSET_ENCODING, usSubsetEncoding, pusSubsetKeepListMarshal, pusSubsetKeepList, UInt16, usSubsetListCount, CFP_ALLOCPROC, lpfnAllocate, CFP_REALLOCPROC, lpfnReAllocate, CFP_FREEPROC, lpfnFree, lpvReservedMarshal, lpvReserved, UInt32)
+    result := DllCall("FONTSUB.dll\CreateFontPackage", puchSrcBufferMarshal, puchSrcBuffer, UInt32, ulSrcBufferSize, ppuchFontPackageBufferMarshal, ppuchFontPackageBuffer, pulFontPackageBufferSizeMarshal, pulFontPackageBufferSize, pulBytesWrittenMarshal, pulBytesWritten, UInt16, usFlag, UInt16, usTTCIndex, UInt16, usSubsetFormat, UInt16, usSubsetLanguage, CREATE_FONT_PACKAGE_SUBSET_PLATFORM, usSubsetPlatform, CREATE_FONT_PACKAGE_SUBSET_ENCODING, usSubsetEncoding, pusSubsetKeepListMarshal, pusSubsetKeepList, UInt16, usSubsetListCount, "ptr", lpfnAllocate, "ptr", lpfnReAllocate, "ptr", lpfnFree, lpvReservedMarshal, lpvReserved, UInt32)
     return result
 }
 
@@ -11458,7 +11444,7 @@ export MergeFontPackage(puchMergeFontBuffer, ulMergeFontBufferSize, puchFontPack
     pulBytesWrittenMarshal := pulBytesWritten is VarRef ? "uint*" : "ptr"
     lpvReservedMarshal := lpvReserved is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("FONTSUB.dll\MergeFontPackage", puchMergeFontBufferMarshal, puchMergeFontBuffer, UInt32, ulMergeFontBufferSize, puchFontPackageBufferMarshal, puchFontPackageBuffer, UInt32, ulFontPackageBufferSize, ppuchDestBufferMarshal, ppuchDestBuffer, pulDestBufferSizeMarshal, pulDestBufferSize, pulBytesWrittenMarshal, pulBytesWritten, UInt16, usMode, CFP_ALLOCPROC, lpfnAllocate, CFP_REALLOCPROC, lpfnReAllocate, CFP_FREEPROC, lpfnFree, lpvReservedMarshal, lpvReserved, UInt32)
+    result := DllCall("FONTSUB.dll\MergeFontPackage", puchMergeFontBufferMarshal, puchMergeFontBuffer, UInt32, ulMergeFontBufferSize, puchFontPackageBufferMarshal, puchFontPackageBuffer, UInt32, ulFontPackageBufferSize, ppuchDestBufferMarshal, ppuchDestBuffer, pulDestBufferSizeMarshal, pulDestBufferSize, pulBytesWrittenMarshal, pulBytesWritten, UInt16, usMode, "ptr", lpfnAllocate, "ptr", lpfnReAllocate, "ptr", lpfnFree, lpvReservedMarshal, lpvReserved, UInt32)
     return result
 }
 
@@ -11493,7 +11479,7 @@ export TTEmbedFont(_hDC, ulFlags, ulCharSet, pulPrivStatus, pulStatus, lpfnWrite
     lpvWriteStreamMarshal := lpvWriteStream is VarRef ? "ptr" : "ptr"
     pusCharCodeSetMarshal := pusCharCodeSet is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("t2embed.dll\TTEmbedFont", HDC, _hDC, TTEMBED_FLAGS, ulFlags, EMBED_FONT_CHARSET, ulCharSet, pulPrivStatusMarshal, pulPrivStatus, pulStatusMarshal, pulStatus, WRITEEMBEDPROC, lpfnWriteToStream, lpvWriteStreamMarshal, lpvWriteStream, pusCharCodeSetMarshal, pusCharCodeSet, UInt16, usCharCodeCount, UInt16, usLanguage, TTEMBEDINFO.Ptr, pTTEmbedInfo, Int32)
+    result := DllCall("t2embed.dll\TTEmbedFont", HDC, _hDC, TTEMBED_FLAGS, ulFlags, EMBED_FONT_CHARSET, ulCharSet, pulPrivStatusMarshal, pulPrivStatus, pulStatusMarshal, pulStatus, "ptr", lpfnWriteToStream, lpvWriteStreamMarshal, lpvWriteStream, pusCharCodeSetMarshal, pusCharCodeSet, UInt16, usCharCodeCount, UInt16, usLanguage, TTEMBEDINFO.Ptr, pTTEmbedInfo, Int32)
     return result
 }
 
@@ -11534,7 +11520,7 @@ export TTEmbedFontFromFileA(_hDC, szFontFileName, usTTCIndex, ulFlags, ulCharSet
     lpvWriteStreamMarshal := lpvWriteStream is VarRef ? "ptr" : "ptr"
     pusCharCodeSetMarshal := pusCharCodeSet is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("t2embed.dll\TTEmbedFontFromFileA", HDC, _hDC, "ptr", szFontFileName, UInt16, usTTCIndex, TTEMBED_FLAGS, ulFlags, EMBED_FONT_CHARSET, ulCharSet, pulPrivStatusMarshal, pulPrivStatus, pulStatusMarshal, pulStatus, WRITEEMBEDPROC, lpfnWriteToStream, lpvWriteStreamMarshal, lpvWriteStream, pusCharCodeSetMarshal, pusCharCodeSet, UInt16, usCharCodeCount, UInt16, usLanguage, TTEMBEDINFO.Ptr, pTTEmbedInfo, Int32)
+    result := DllCall("t2embed.dll\TTEmbedFontFromFileA", HDC, _hDC, "ptr", szFontFileName, UInt16, usTTCIndex, TTEMBED_FLAGS, ulFlags, EMBED_FONT_CHARSET, ulCharSet, pulPrivStatusMarshal, pulPrivStatus, pulStatusMarshal, pulStatus, "ptr", lpfnWriteToStream, lpvWriteStreamMarshal, lpvWriteStream, pusCharCodeSetMarshal, pusCharCodeSet, UInt16, usCharCodeCount, UInt16, usLanguage, TTEMBEDINFO.Ptr, pTTEmbedInfo, Int32)
     return result
 }
 
@@ -11593,7 +11579,7 @@ export TTLoadEmbeddedFont(phFontReference, ulFlags, pulPrivStatus, ulPrivs, pulS
     pulStatusMarshal := pulStatus is VarRef ? "uint*" : "ptr"
     lpvReadStreamMarshal := lpvReadStream is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("t2embed.dll\TTLoadEmbeddedFont", HANDLE.Ptr, phFontReference, UInt32, ulFlags, pulPrivStatusMarshal, pulPrivStatus, FONT_LICENSE_PRIVS, ulPrivs, pulStatusMarshal, pulStatus, READEMBEDPROC, lpfnReadFromStream, lpvReadStreamMarshal, lpvReadStream, "ptr", szWinFamilyName, "ptr", szMacFamilyName, TTLOADINFO.Ptr, pTTLoadInfo, Int32)
+    result := DllCall("t2embed.dll\TTLoadEmbeddedFont", HANDLE.Ptr, phFontReference, UInt32, ulFlags, pulPrivStatusMarshal, pulPrivStatus, FONT_LICENSE_PRIVS, ulPrivs, pulStatusMarshal, pulStatus, "ptr", lpfnReadFromStream, lpvReadStreamMarshal, lpvReadStream, "ptr", szWinFamilyName, "ptr", szMacFamilyName, TTLOADINFO.Ptr, pTTLoadInfo, Int32)
     return result
 }
 
@@ -11683,7 +11669,7 @@ export TTGetEmbeddedFontInfo(ulFlags, pulPrivStatus, ulPrivs, pulStatus, lpfnRea
     pulStatusMarshal := pulStatus is VarRef ? "uint*" : "ptr"
     lpvReadStreamMarshal := lpvReadStream is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("t2embed.dll\TTGetEmbeddedFontInfo", TTEMBED_FLAGS, ulFlags, pulPrivStatusMarshal, pulPrivStatus, FONT_LICENSE_PRIVS, ulPrivs, pulStatusMarshal, pulStatus, READEMBEDPROC, lpfnReadFromStream, lpvReadStreamMarshal, lpvReadStream, TTLOADINFO.Ptr, pTTLoadInfo, Int32)
+    result := DllCall("t2embed.dll\TTGetEmbeddedFontInfo", TTEMBED_FLAGS, ulFlags, pulPrivStatusMarshal, pulPrivStatus, FONT_LICENSE_PRIVS, ulPrivs, pulStatusMarshal, pulStatus, "ptr", lpfnReadFromStream, lpvReadStreamMarshal, lpvReadStream, TTLOADINFO.Ptr, pTTLoadInfo, Int32)
     return result
 }
 
@@ -11977,7 +11963,7 @@ export TTEmbedFontEx(_hDC, ulFlags, ulCharSet, pulPrivStatus, pulStatus, lpfnWri
     lpvWriteStreamMarshal := lpvWriteStream is VarRef ? "ptr" : "ptr"
     pulCharCodeSetMarshal := pulCharCodeSet is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("t2embed.dll\TTEmbedFontEx", HDC, _hDC, TTEMBED_FLAGS, ulFlags, EMBED_FONT_CHARSET, ulCharSet, pulPrivStatusMarshal, pulPrivStatus, pulStatusMarshal, pulStatus, WRITEEMBEDPROC, lpfnWriteToStream, lpvWriteStreamMarshal, lpvWriteStream, pulCharCodeSetMarshal, pulCharCodeSet, UInt16, usCharCodeCount, UInt16, usLanguage, TTEMBEDINFO.Ptr, pTTEmbedInfo, Int32)
+    result := DllCall("t2embed.dll\TTEmbedFontEx", HDC, _hDC, TTEMBED_FLAGS, ulFlags, EMBED_FONT_CHARSET, ulCharSet, pulPrivStatusMarshal, pulPrivStatus, pulStatusMarshal, pulStatus, "ptr", lpfnWriteToStream, lpvWriteStreamMarshal, lpvWriteStream, pulCharCodeSetMarshal, pulCharCodeSet, UInt16, usCharCodeCount, UInt16, usLanguage, TTEMBEDINFO.Ptr, pTTEmbedInfo, Int32)
     return result
 }
 
@@ -12373,7 +12359,7 @@ export DrawTextExW(_hdc, lpchText, cchText, lprc, format, lpdtp) {
  * @since windows5.0
  */
 export GrayStringA(_hDC, _hBrush, lpOutputFunc, lpData, nCount, X, Y, nWidth, nHeight) {
-    result := DllCall("USER32.dll\GrayStringA", HDC, _hDC, HBRUSH, _hBrush, GRAYSTRINGPROC, lpOutputFunc, LPARAM, lpData, Int32, nCount, Int32, X, Int32, Y, Int32, nWidth, Int32, nHeight, BOOL)
+    result := DllCall("USER32.dll\GrayStringA", HDC, _hDC, HBRUSH, _hBrush, "ptr", lpOutputFunc, LPARAM, lpData, Int32, nCount, Int32, X, Int32, Y, Int32, nWidth, Int32, nHeight, BOOL)
     return result
 }
 
@@ -12404,7 +12390,7 @@ export GrayStringA(_hDC, _hBrush, lpOutputFunc, lpData, nCount, X, Y, nWidth, nH
  * @since windows5.0
  */
 export GrayStringW(_hDC, _hBrush, lpOutputFunc, lpData, nCount, X, Y, nWidth, nHeight) {
-    result := DllCall("USER32.dll\GrayStringW", HDC, _hDC, HBRUSH, _hBrush, GRAYSTRINGPROC, lpOutputFunc, LPARAM, lpData, Int32, nCount, Int32, X, Int32, Y, Int32, nWidth, Int32, nHeight, BOOL)
+    result := DllCall("USER32.dll\GrayStringW", HDC, _hDC, HBRUSH, _hBrush, "ptr", lpOutputFunc, LPARAM, lpData, Int32, nCount, Int32, X, Int32, Y, Int32, nWidth, Int32, nHeight, BOOL)
     return result
 }
 
@@ -12570,7 +12556,7 @@ export GrayStringW(_hDC, _hBrush, lpOutputFunc, lpData, nCount, X, Y, nWidth, nH
  * @since windows5.0
  */
 export DrawStateA(_hdc, hbrFore, qfnCallBack, lData, wData, x, y, cx, _cy, uFlags) {
-    result := DllCall("USER32.dll\DrawStateA", HDC, _hdc, HBRUSH, hbrFore, DRAWSTATEPROC, qfnCallBack, LPARAM, lData, WPARAM, wData, Int32, x, Int32, y, Int32, cx, Int32, _cy, DRAWSTATE_FLAGS, uFlags, BOOL)
+    result := DllCall("USER32.dll\DrawStateA", HDC, _hdc, HBRUSH, hbrFore, "ptr", qfnCallBack, LPARAM, lData, WPARAM, wData, Int32, x, Int32, y, Int32, cx, Int32, _cy, DRAWSTATE_FLAGS, uFlags, BOOL)
     return result
 }
 
@@ -12736,7 +12722,7 @@ export DrawStateA(_hdc, hbrFore, qfnCallBack, lData, wData, x, y, cx, _cy, uFlag
  * @since windows5.0
  */
 export DrawStateW(_hdc, hbrFore, qfnCallBack, lData, wData, x, y, cx, _cy, uFlags) {
-    result := DllCall("USER32.dll\DrawStateW", HDC, _hdc, HBRUSH, hbrFore, DRAWSTATEPROC, qfnCallBack, LPARAM, lData, WPARAM, wData, Int32, x, Int32, y, Int32, cx, Int32, _cy, DRAWSTATE_FLAGS, uFlags, BOOL)
+    result := DllCall("USER32.dll\DrawStateW", HDC, _hdc, HBRUSH, hbrFore, "ptr", qfnCallBack, LPARAM, lData, WPARAM, wData, Int32, x, Int32, y, Int32, cx, Int32, _cy, DRAWSTATE_FLAGS, uFlags, BOOL)
     return result
 }
 
@@ -15482,7 +15468,7 @@ export GetMonitorInfoW(_hMonitor, lpmi) {
  * @since windows5.0
  */
 export EnumDisplayMonitors(_hdc, lprcClip, lpfnEnum, dwData) {
-    result := DllCall("USER32.dll\EnumDisplayMonitors", HDC, _hdc, RECT.Ptr, lprcClip, MONITORENUMPROC, lpfnEnum, LPARAM, dwData, BOOL)
+    result := DllCall("USER32.dll\EnumDisplayMonitors", HDC, _hdc, RECT.Ptr, lprcClip, "ptr", lpfnEnum, LPARAM, dwData, BOOL)
     return result
 }
 

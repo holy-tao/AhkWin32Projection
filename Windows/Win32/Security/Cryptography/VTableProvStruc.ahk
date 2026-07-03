@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\CRYPT_RETURN_HWND.ahk" { CRYPT_RETURN_HWND }
-#Import ".\CRYPT_VERIFY_IMAGE_A.ahk" { CRYPT_VERIFY_IMAGE_A }
 
 /**
  * Contains pointers to callback functions that can be used by cryptographic service provider (CSP) functions.
@@ -28,7 +26,7 @@ export default struct VTableProvStruc {
      * 
      * This is a version 1 member.
      */
-    FuncVerifyImage : CRYPT_VERIFY_IMAGE_A
+    FuncVerifyImage : IntPtr
 
     /**
      * The address of a [**FuncReturnhWnd**](funcreturnhwnd.md) callback function that returns the window handle that the CSP should use as the parent or owner of any user interface that is displayed. CSPs that do not communicate directly with the user and CSPs that use dedicated hardware for this purpose can ignore this entry. This window handle is zero by default, but an application can set this to a different value by using the [**CryptSetProvParam**](/windows/desktop/api/Wincrypt/nf-wincrypt-cryptsetprovparam) function to set the **PP\_CLIENT\_HWND** property.
@@ -37,7 +35,7 @@ export default struct VTableProvStruc {
      * 
      * This is a version 1 member.
      */
-    FuncReturnhWnd : CRYPT_RETURN_HWND
+    FuncReturnhWnd : IntPtr
 
     /**
      * A **DWORD** value that specifies the type of provider to acquire. The following [*provider types*](../secgloss/p-gly.md) are predefined and are discussed in detail in [CSP Interoperability](https://www.bing.com/search?q=CSP+Interoperability):

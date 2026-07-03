@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\BCRYPT_HANDLE.ahk" { BCRYPT_HANDLE }
 
 /**
@@ -33,7 +33,7 @@ export default struct BCryptSetPropertyFn {
         pszProperty := pszProperty is String ? StrPtr(pszProperty) : pszProperty
 
         result := DllCall(this.value, BCRYPT_HANDLE, hObject, "ptr", pszProperty, IntPtr, pbInput, UInt32, cbInput, UInt32, dwFlags, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -53,10 +53,6 @@ export default struct BCryptSetPropertyFn {
             this.value := CallbackCreate(fn, , [BCRYPT_HANDLE, PWSTR, IntPtr, UInt32, UInt32, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

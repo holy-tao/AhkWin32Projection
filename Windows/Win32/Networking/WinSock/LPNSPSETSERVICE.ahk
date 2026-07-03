@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WSAESETSERVICEOP.ahk" { WSAESETSERVICEOP }
-#Import ".\WSASERVICECLASSINFOW.ahk" { WSASERVICECLASSINFOW }
-#Import ".\WSAQUERYSETW.ahk" { WSAQUERYSETW }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WSAESETSERVICEOP.ahk" { WSAESETSERVICEOP }
+#Import ".\WSAQUERYSETW.ahk" { WSAQUERYSETW }
+#Import ".\WSASERVICECLASSINFOW.ahk" { WSASERVICECLASSINFOW }
 
 /**
  * Registers or deregisters a service instance within a namespace.
@@ -320,10 +320,6 @@ export default struct LPNSPSETSERVICE {
             this.value := CallbackCreate(fn, , [Guid.Ptr, WSASERVICECLASSINFOW.Ptr, WSAQUERYSETW.Ptr, WSAESETSERVICEOP, UInt32, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMSVidVideoInputDevice.ahk" { IMSVidVideoInputDevice }
 #Import ".\ITuneRequest.ahk" { ITuneRequest }
 #Import ".\ITuningSpace.ahk" { ITuningSpace }
-#Import ".\IMSVidVideoInputDevice.ahk" { IMSVidVideoInputDevice }
 
 /**
  * The IMSVidTuner interface manages tuning devices.

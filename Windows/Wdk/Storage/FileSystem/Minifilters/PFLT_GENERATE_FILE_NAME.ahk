@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\FILE_OBJECT.ahk" { FILE_OBJECT }
 #Import ".\FLT_CALLBACK_DATA.ahk" { FLT_CALLBACK_DATA }
 #Import ".\FLT_NAME_CONTROL.ahk" { FLT_NAME_CONTROL }
+#Import ".\PFLT_INSTANCE.ahk" { PFLT_INSTANCE }
 #Import "..\..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
-#Import ".\PFLT_INSTANCE.ahk" { PFLT_INSTANCE }
-#Import "..\..\..\Foundation\FILE_OBJECT.ahk" { FILE_OBJECT }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters
@@ -37,7 +37,7 @@ export default struct PFLT_GENERATE_FILE_NAME {
         CacheFileNameInformationMarshal := CacheFileNameInformation is VarRef ? "char*" : "ptr"
 
         result := DllCall(this.value, PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, FLT_CALLBACK_DATA.Ptr, CallbackData, UInt32, NameOptions, CacheFileNameInformationMarshal, CacheFileNameInformation, FLT_NAME_CONTROL.Ptr, FileName, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -57,10 +57,6 @@ export default struct PFLT_GENERATE_FILE_NAME {
             this.value := CallbackCreate(fn, , [PFLT_INSTANCE, FILE_OBJECT.Ptr, FLT_CALLBACK_DATA.Ptr, UInt32, BOOLEAN.Ptr, FLT_NAME_CONTROL.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

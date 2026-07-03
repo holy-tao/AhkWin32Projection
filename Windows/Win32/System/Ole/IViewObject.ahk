@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Graphics\Gdi\LOGPALETTE.ahk" { LOGPALETTE }
+#Import "..\Com\DVASPECT.ahk" { DVASPECT }
+#Import "..\Com\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
 #Import "..\Com\IAdviseSink.ahk" { IAdviseSink }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Com\DVASPECT.ahk" { DVASPECT }
-#Import "..\..\Graphics\Gdi\LOGPALETTE.ahk" { LOGPALETTE }
-#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
 
 /**
  * Enables an object to display itself directly without passing a data object to the caller. In addition, this interface can create and manage a connection with an advise sink so the caller can be notified of changes in the view object.

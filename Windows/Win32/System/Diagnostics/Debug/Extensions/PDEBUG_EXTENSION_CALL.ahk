@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\IDebugClient.ahk" { IDebugClient }
 
 /**
@@ -49,10 +49,6 @@ export default struct PDEBUG_EXTENSION_CALL {
             this.value := CallbackCreate(fn, , ["ptr", PSTR, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\STACK_SYM_FRAME_INFO.ahk" { STACK_SYM_FRAME_INFO }
-#Import ".\DEBUG_STACK_FRAME_EX.ahk" { DEBUG_STACK_FRAME_EX }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DEBUG_STACK_FRAME_EX.ahk" { DEBUG_STACK_FRAME_EX }
+#Import ".\STACK_SYM_FRAME_INFO.ahk" { STACK_SYM_FRAME_INFO }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -53,10 +53,6 @@ export default struct PDEBUG_STACK_PROVIDER_RECONSTRUCTSTACK {
             this.value := CallbackCreate(fn, , [UInt32, DEBUG_STACK_FRAME_EX.Ptr, UInt32, "ptr*", "uint*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

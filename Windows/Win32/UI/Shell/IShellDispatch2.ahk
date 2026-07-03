@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IShellDispatch.ahk" { IShellDispatch }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IShellDispatch.ahk" { IShellDispatch }
 
 /**
  * Extends the IShellDispatch object with a variety of new functionality.

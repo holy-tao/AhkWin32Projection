@@ -43,10 +43,6 @@ export default struct RPC_DISPATCH_FUNCTION {
             this.value := CallbackCreate(fn, , [RPC_MESSAGE.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

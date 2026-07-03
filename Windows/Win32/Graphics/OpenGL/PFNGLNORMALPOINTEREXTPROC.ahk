@@ -47,10 +47,6 @@ export default struct PFNGLNORMALPOINTEREXTPROC {
             this.value := CallbackCreate(fn, , [UInt32, Int32, Int32, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

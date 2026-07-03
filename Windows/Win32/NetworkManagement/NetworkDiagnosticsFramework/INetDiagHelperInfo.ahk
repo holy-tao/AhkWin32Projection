@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\HelperAttributeInfo.ahk" { HelperAttributeInfo }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\HelperAttributeInfo.ahk" { HelperAttributeInfo }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The INetDiagHelperInfo interface provides a method that is called by the Network Diagnostics Framework (NDF) when it needs to validate that it has the necessary information for a helper class and that it has chosen the correct helper class.

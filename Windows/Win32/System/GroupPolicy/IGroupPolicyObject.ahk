@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\UI\Controls\HPROPSHEETPAGE.ahk" { HPROPSHEETPAGE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\GPO_OPEN_FLAGS.ahk" { GPO_OPEN_FLAGS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Registry\HKEY.ahk" { HKEY }
-#Import ".\GROUP_POLICY_OBJECT_TYPE.ahk" { GROUP_POLICY_OBJECT_TYPE }
-#Import ".\GPO_OPTIONS.ahk" { GPO_OPTIONS }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\GPO_OPEN_FLAGS.ahk" { GPO_OPEN_FLAGS }
+#Import ".\GPO_OPTIONS.ahk" { GPO_OPTIONS }
 #Import ".\GPO_SECTION.ahk" { GPO_SECTION }
+#Import ".\GROUP_POLICY_OBJECT_TYPE.ahk" { GROUP_POLICY_OBJECT_TYPE }
+#Import "..\Registry\HKEY.ahk" { HKEY }
+#Import "..\..\UI\Controls\HPROPSHEETPAGE.ahk" { HPROPSHEETPAGE }
 
 /**
  * The IGroupPolicyObject interface provides methods to create and modify a GPO directly, without using the Group Policy Object Editor.

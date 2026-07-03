@@ -54,10 +54,6 @@ export default struct PHONECALLBACK {
             this.value := CallbackCreate(fn, , [UInt32, UInt32, IntPtr, IntPtr, IntPtr, IntPtr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

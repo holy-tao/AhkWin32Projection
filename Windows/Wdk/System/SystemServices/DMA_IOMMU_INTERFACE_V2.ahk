@@ -1,26 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PIOMMU_DOMAIN_DELETE.ahk" { PIOMMU_DOMAIN_DELETE }
-#Import ".\PIOMMU_UNMAP_LOGICAL_RANGE.ahk" { PIOMMU_UNMAP_LOGICAL_RANGE }
-#Import ".\PIOMMU_DOMAIN_CREATE_EX.ahk" { PIOMMU_DOMAIN_CREATE_EX }
-#Import ".\PIOMMU_QUERY_INPUT_MAPPINGS.ahk" { PIOMMU_QUERY_INPUT_MAPPINGS }
-#Import ".\PIOMMU_FLUSH_DOMAIN_VA_LIST.ahk" { PIOMMU_FLUSH_DOMAIN_VA_LIST }
-#Import ".\PIOMMU_UNMAP_RESERVED_LOGICAL_RANGE.ahk" { PIOMMU_UNMAP_RESERVED_LOGICAL_RANGE }
-#Import ".\PIOMMU_FREE_RESERVED_LOGICAL_ADDRESS_RANGE.ahk" { PIOMMU_FREE_RESERVED_LOGICAL_ADDRESS_RANGE }
-#Import ".\PIOMMU_MAP_IDENTITY_RANGE_EX.ahk" { PIOMMU_MAP_IDENTITY_RANGE_EX }
-#Import ".\PIOMMU_SET_DEVICE_FAULT_REPORTING_EX.ahk" { PIOMMU_SET_DEVICE_FAULT_REPORTING_EX }
-#Import ".\PIOMMU_UNREGISTER_INTERFACE_STATE_CHANGE_CALLBACK.ahk" { PIOMMU_UNREGISTER_INTERFACE_STATE_CHANGE_CALLBACK }
-#Import ".\PIOMMU_DEVICE_CREATE.ahk" { PIOMMU_DEVICE_CREATE }
-#Import ".\PIOMMU_DOMAIN_DETACH_DEVICE_EX.ahk" { PIOMMU_DOMAIN_DETACH_DEVICE_EX }
-#Import ".\PIOMMU_REGISTER_INTERFACE_STATE_CHANGE_CALLBACK.ahk" { PIOMMU_REGISTER_INTERFACE_STATE_CHANGE_CALLBACK }
-#Import ".\PIOMMU_DEVICE_QUERY_DOMAIN_TYPES.ahk" { PIOMMU_DEVICE_QUERY_DOMAIN_TYPES }
-#Import ".\PIOMMU_DOMAIN_CONFIGURE.ahk" { PIOMMU_DOMAIN_CONFIGURE }
-#Import ".\PIOMMU_DEVICE_DELETE.ahk" { PIOMMU_DEVICE_DELETE }
-#Import ".\PIOMMU_FLUSH_DOMAIN.ahk" { PIOMMU_FLUSH_DOMAIN }
-#Import ".\PIOMMU_MAP_LOGICAL_RANGE_EX.ahk" { PIOMMU_MAP_LOGICAL_RANGE_EX }
-#Import ".\PIOMMU_MAP_RESERVED_LOGICAL_RANGE.ahk" { PIOMMU_MAP_RESERVED_LOGICAL_RANGE }
-#Import ".\PIOMMU_RESERVE_LOGICAL_ADDRESS_RANGE.ahk" { PIOMMU_RESERVE_LOGICAL_ADDRESS_RANGE }
-#Import ".\PIOMMU_DOMAIN_ATTACH_DEVICE_EX.ahk" { PIOMMU_DOMAIN_ATTACH_DEVICE_EX }
-#Import ".\PIOMMU_UNMAP_IDENTITY_RANGE_EX.ahk" { PIOMMU_UNMAP_IDENTITY_RANGE_EX }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -28,48 +6,48 @@
 export default struct DMA_IOMMU_INTERFACE_V2 {
     #StructPack 8
 
-    CreateDomainEx : PIOMMU_DOMAIN_CREATE_EX
+    CreateDomainEx : IntPtr
 
-    DeleteDomain : PIOMMU_DOMAIN_DELETE
+    DeleteDomain : IntPtr
 
-    AttachDeviceEx : PIOMMU_DOMAIN_ATTACH_DEVICE_EX
+    AttachDeviceEx : IntPtr
 
-    DetachDeviceEx : PIOMMU_DOMAIN_DETACH_DEVICE_EX
+    DetachDeviceEx : IntPtr
 
-    FlushDomain : PIOMMU_FLUSH_DOMAIN
+    FlushDomain : IntPtr
 
-    FlushDomainByVaList : PIOMMU_FLUSH_DOMAIN_VA_LIST
+    FlushDomainByVaList : IntPtr
 
-    QueryInputMappings : PIOMMU_QUERY_INPUT_MAPPINGS
+    QueryInputMappings : IntPtr
 
-    MapLogicalRangeEx : PIOMMU_MAP_LOGICAL_RANGE_EX
+    MapLogicalRangeEx : IntPtr
 
-    UnmapLogicalRange : PIOMMU_UNMAP_LOGICAL_RANGE
+    UnmapLogicalRange : IntPtr
 
-    MapIdentityRangeEx : PIOMMU_MAP_IDENTITY_RANGE_EX
+    MapIdentityRangeEx : IntPtr
 
-    UnmapIdentityRangeEx : PIOMMU_UNMAP_IDENTITY_RANGE_EX
+    UnmapIdentityRangeEx : IntPtr
 
-    SetDeviceFaultReportingEx : PIOMMU_SET_DEVICE_FAULT_REPORTING_EX
+    SetDeviceFaultReportingEx : IntPtr
 
-    ConfigureDomain : PIOMMU_DOMAIN_CONFIGURE
+    ConfigureDomain : IntPtr
 
-    QueryAvailableDomainTypes : PIOMMU_DEVICE_QUERY_DOMAIN_TYPES
+    QueryAvailableDomainTypes : IntPtr
 
-    RegisterInterfaceStateChangeCallback : PIOMMU_REGISTER_INTERFACE_STATE_CHANGE_CALLBACK
+    RegisterInterfaceStateChangeCallback : IntPtr
 
-    UnregisterInterfaceStateChangeCallback : PIOMMU_UNREGISTER_INTERFACE_STATE_CHANGE_CALLBACK
+    UnregisterInterfaceStateChangeCallback : IntPtr
 
-    ReserveLogicalAddressRange : PIOMMU_RESERVE_LOGICAL_ADDRESS_RANGE
+    ReserveLogicalAddressRange : IntPtr
 
-    FreeReservedLogicalAddressRange : PIOMMU_FREE_RESERVED_LOGICAL_ADDRESS_RANGE
+    FreeReservedLogicalAddressRange : IntPtr
 
-    MapReservedLogicalRange : PIOMMU_MAP_RESERVED_LOGICAL_RANGE
+    MapReservedLogicalRange : IntPtr
 
-    UnmapReservedLogicalRange : PIOMMU_UNMAP_RESERVED_LOGICAL_RANGE
+    UnmapReservedLogicalRange : IntPtr
 
-    CreateDevice : PIOMMU_DEVICE_CREATE
+    CreateDevice : IntPtr
 
-    DeleteDevice : PIOMMU_DEVICE_DELETE
+    DeleteDevice : IntPtr
 
 }

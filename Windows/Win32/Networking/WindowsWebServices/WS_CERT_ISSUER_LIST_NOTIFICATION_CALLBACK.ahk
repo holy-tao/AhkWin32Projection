@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Security\Authentication\Identity\SecPkgContext_IssuerListInfoEx.ahk" { SecPkgContext_IssuerListInfoEx }
-#Import ".\WS_ERROR.ahk" { WS_ERROR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WS_ERROR.ahk" { WS_ERROR }
+#Import "..\..\Security\Authentication\Identity\SecPkgContext_IssuerListInfoEx.ahk" { SecPkgContext_IssuerListInfoEx }
 
 /**
  * Notifies the client of the list of certificate issuers that are acceptable to the server.
@@ -53,10 +53,6 @@ export default struct WS_CERT_ISSUER_LIST_NOTIFICATION_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", SecPkgContext_IssuerListInfoEx.Ptr, WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,10 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\PFNWRITEOBJECTSECURITY.ahk" { PFNWRITEOBJECTSECURITY }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\PFNREADOBJECTSECURITY.ahk" { PFNREADOBJECTSECURITY }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Security.DirectoryServices
@@ -40,7 +38,7 @@ export default struct PFNDSEDITSECURITY {
         param2 := param2 is String ? StrPtr(param2) : param2
         param4 := param4 is String ? StrPtr(param4) : param4
 
-        result := DllCall(this.value, HWND, param0, "ptr", param1, "ptr", param2, UInt32, param3, "ptr", param4, PFNREADOBJECTSECURITY, param5, PFNWRITEOBJECTSECURITY, param6, LPARAM, param7, "HRESULT")
+        result := DllCall(this.value, HWND, param0, "ptr", param1, "ptr", param2, UInt32, param3, "ptr", param4, "ptr", param5, "ptr", param6, LPARAM, param7, "HRESULT")
         return result
     }
 
@@ -51,19 +49,15 @@ export default struct PFNDSEDITSECURITY {
     struct From extends PFNDSEDITSECURITY {
         /**
          * Creates a PFNDSEDITSECURITY pointer that invokes the given AHK function when called.
-         * @param {Func(HWND, PWSTR, PWSTR, UInt32, PWSTR, PFNREADOBJECTSECURITY, PFNWRITEOBJECTSECURITY, LPARAM) => "int"} fn the function to invoke.
+         * @param {Func(HWND, PWSTR, PWSTR, UInt32, PWSTR, "ptr", "ptr", LPARAM) => "int"} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 8)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 8 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [HWND, PWSTR, PWSTR, UInt32, PWSTR, PFNREADOBJECTSECURITY, PFNWRITEOBJECTSECURITY, LPARAM, "int"])
+            this.value := CallbackCreate(fn, , [HWND, PWSTR, PWSTR, UInt32, PWSTR, "ptr", "ptr", LPARAM, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

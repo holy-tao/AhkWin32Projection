@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SYNC_VERSION.ahk" { SYNC_VERSION }
 #Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
+#Import ".\SYNC_VERSION.ahk" { SYNC_VERSION }
 
 /**
  * Represents knowledge that has been forgotten because of tombstone cleanup.

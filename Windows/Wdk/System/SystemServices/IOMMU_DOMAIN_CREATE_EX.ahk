@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IOMMU_DMA_DOMAIN_CREATION_FLAGS.ahk" { IOMMU_DMA_DOMAIN_CREATION_FLAGS }
-#Import ".\IOMMU_DMA_RESERVED_REGION.ahk" { IOMMU_DMA_RESERVED_REGION }
 #Import "..\..\Foundation\IOMMU_DMA_DOMAIN.ahk" { IOMMU_DMA_DOMAIN }
+#Import ".\IOMMU_DMA_DOMAIN_CREATION_FLAGS.ahk" { IOMMU_DMA_DOMAIN_CREATION_FLAGS }
 #Import ".\IOMMU_DMA_DOMAIN_TYPE.ahk" { IOMMU_DMA_DOMAIN_TYPE }
-#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\IOMMU_DMA_LOGICAL_ALLOCATOR_CONFIG.ahk" { IOMMU_DMA_LOGICAL_ALLOCATOR_CONFIG }
+#Import ".\IOMMU_DMA_RESERVED_REGION.ahk" { IOMMU_DMA_RESERVED_REGION }
+#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -36,7 +36,7 @@ export default struct IOMMU_DOMAIN_CREATE_EX {
         DomainOutMarshal := DomainOut is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, IOMMU_DMA_DOMAIN_TYPE, DomainType, IOMMU_DMA_DOMAIN_CREATION_FLAGS, Flags, IOMMU_DMA_LOGICAL_ALLOCATOR_CONFIG.Ptr, LogicalAllocatorConfig, IOMMU_DMA_RESERVED_REGION.Ptr, ReservedRegions, DomainOutMarshal, DomainOut, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -56,10 +56,6 @@ export default struct IOMMU_DOMAIN_CREATE_EX {
             this.value := CallbackCreate(fn, , [IOMMU_DMA_DOMAIN_TYPE, IOMMU_DMA_DOMAIN_CREATION_FLAGS, IOMMU_DMA_LOGICAL_ALLOCATOR_CONFIG.Ptr, IOMMU_DMA_RESERVED_REGION.Ptr, "ptr*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

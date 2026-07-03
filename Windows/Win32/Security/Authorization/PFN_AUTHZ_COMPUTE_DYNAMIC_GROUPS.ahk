@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\SID_AND_ATTRIBUTES.ahk" { SID_AND_ATTRIBUTES }
 #Import ".\AUTHZ_CLIENT_CONTEXT_HANDLE.ahk" { AUTHZ_CLIENT_CONTEXT_HANDLE }
+#Import "..\SID_AND_ATTRIBUTES.ahk" { SID_AND_ATTRIBUTES }
 
 /**
  * @namespace Windows.Win32.Security.Authorization
@@ -57,10 +57,6 @@ export default struct PFN_AUTHZ_COMPUTE_DYNAMIC_GROUPS {
             this.value := CallbackCreate(fn, , [AUTHZ_CLIENT_CONTEXT_HANDLE, "ptr", "ptr*", "uint*", "ptr*", "uint*", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

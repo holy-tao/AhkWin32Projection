@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D12VideoDecodeCommandList2.ahk" { ID3D12VideoDecodeCommandList2 }
 #Import "..\..\Graphics\Direct3D12\D3D12_BARRIER_GROUP.ahk" { D3D12_BARRIER_GROUP }
+#Import ".\ID3D12VideoDecodeCommandList2.ahk" { ID3D12VideoDecodeCommandList2 }
 
 /**
  * Encapsulates a list of graphics commands for video decoding.

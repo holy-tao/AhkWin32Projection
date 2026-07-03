@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
 
 /**
  * The POPEN_ROUTINE callback function opens a resource. The POPEN_ROUTINE type defines a pointer to this function.
@@ -72,10 +72,6 @@ export default struct POPEN_ROUTINE {
             this.value := CallbackCreate(fn, , [PWSTR, HKEY, IntPtr, "ptr"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

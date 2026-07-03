@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SecBufferDesc.ahk" { SecBufferDesc }
 #Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SecBufferDesc.ahk" { SecBufferDesc }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -60,10 +60,6 @@ export default struct CHANGE_PASSWORD_FN_A {
             this.value := CallbackCreate(fn, , ["char*", "char*", "char*", "char*", "char*", BOOLEAN, UInt32, SecBufferDesc.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

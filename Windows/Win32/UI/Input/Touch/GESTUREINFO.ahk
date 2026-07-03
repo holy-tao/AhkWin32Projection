@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\POINTS.ahk" { POINTS }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\POINTS.ahk" { POINTS }
 
 /**
  * Stores information about a gesture.

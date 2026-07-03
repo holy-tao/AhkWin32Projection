@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IEnhancedStorageSilo.ahk" { IEnhancedStorageSilo }
-#Import ".\ACT_AUTHORIZATION_STATE.ahk" { ACT_AUTHORIZATION_STATE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ACT_AUTHORIZATION_STATE.ahk" { ACT_AUTHORIZATION_STATE }
+#Import ".\IEnhancedStorageSilo.ahk" { IEnhancedStorageSilo }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This interface to obtain information and perform operations for a 1667 Addressable Contact Target (ACT).

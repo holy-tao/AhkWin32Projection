@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IBaseFilter.ahk" { IBaseFilter }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IAMCopyCaptureFileProgress.ahk" { IAMCopyCaptureFileProgress }
+#Import ".\IBaseFilter.ahk" { IBaseFilter }
+#Import ".\IFileSinkFilter.ahk" { IFileSinkFilter }
 #Import ".\IGraphBuilder.ahk" { IGraphBuilder }
+#Import ".\IPin.ahk" { IPin }
 #Import ".\PIN_DIRECTION.ahk" { PIN_DIRECTION }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IPin.ahk" { IPin }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IAMCopyCaptureFileProgress.ahk" { IAMCopyCaptureFileProgress }
-#Import ".\IFileSinkFilter.ahk" { IFileSinkFilter }
 
 /**
  * The ICaptureGraphBuilder2 interface builds capture graphs and other custom filter graphs.

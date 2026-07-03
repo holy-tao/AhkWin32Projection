@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HRESOURCE.ahk" { HRESOURCE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\CLUS_RESOURCE_CLASS_INFO.ahk" { CLUS_RESOURCE_CLASS_INFO }
+#Import ".\HRESOURCE.ahk" { HRESOURCE }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -47,10 +47,6 @@ export default struct PRESUTIL_IS_RESOURCE_CLASS_EQUAL {
             this.value := CallbackCreate(fn, , [CLUS_RESOURCE_CLASS_INFO.Ptr, HRESOURCE, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\AMBISONICS_CHANNEL_ORDERING.ahk" { AMBISONICS_CHANNEL_ORDERING }
-#Import ".\AMBISONICS_TYPE.ahk" { AMBISONICS_TYPE }
 #Import ".\AMBISONICS_NORMALIZATION.ahk" { AMBISONICS_NORMALIZATION }
+#Import ".\AMBISONICS_TYPE.ahk" { AMBISONICS_TYPE }
 
 /**
  * @namespace Windows.Win32.Media.Audio

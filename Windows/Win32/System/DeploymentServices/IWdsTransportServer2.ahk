@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWdsTransportTftpManager.ahk" { IWdsTransportTftpManager }
 #Import ".\IWdsTransportServer.ahk" { IWdsTransportServer }
+#Import ".\IWdsTransportTftpManager.ahk" { IWdsTransportTftpManager }
 
 /**
  * This interface inherits from the IWdsTransportServer interface and extends it. It is available beginning with Windows Server 2012.

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WSManDataType.ahk" { WSManDataType }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\WSMAN_CONNECT_DATA.ahk" { WSMAN_CONNECT_DATA }
-#Import ".\WSMAN_DATA_TEXT.ahk" { WSMAN_DATA_TEXT }
-#Import ".\WSMAN_RECEIVE_DATA_RESULT.ahk" { WSMAN_RECEIVE_DATA_RESULT }
-#Import ".\WSMAN_DATA_BINARY.ahk" { WSMAN_DATA_BINARY }
 #Import ".\WSMAN_CREATE_SHELL_DATA.ahk" { WSMAN_CREATE_SHELL_DATA }
 #Import ".\WSMAN_DATA.ahk" { WSMAN_DATA }
+#Import ".\WSMAN_DATA_BINARY.ahk" { WSMAN_DATA_BINARY }
+#Import ".\WSMAN_DATA_TEXT.ahk" { WSMAN_DATA_TEXT }
+#Import ".\WSMAN_RECEIVE_DATA_RESULT.ahk" { WSMAN_RECEIVE_DATA_RESULT }
+#Import ".\WSManDataType.ahk" { WSManDataType }
 
 /**
  * Represents the output data received from a WSMan operation.

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
 #Import ".\IFunctionDiscoveryProvider.ahk" { IFunctionDiscoveryProvider }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IFunctionInstanceCollection.ahk" { IFunctionInstanceCollection }
 #Import ".\IFunctionInstance.ahk" { IFunctionInstance }
+#Import ".\IFunctionInstanceCollection.ahk" { IFunctionInstanceCollection }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
 
 /**
  * Provides factory methods to create Function Discovery objects.

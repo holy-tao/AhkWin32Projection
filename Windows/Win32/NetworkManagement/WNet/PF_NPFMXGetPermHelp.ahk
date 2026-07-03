@@ -56,10 +56,6 @@ export default struct PF_NPFMXGetPermHelp {
             this.value := CallbackCreate(fn, , [PWSTR, UInt32, BOOL, "ptr", "uint*", "uint*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

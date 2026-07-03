@@ -51,10 +51,6 @@ export default struct FNCERTSRVBACKUPREAD {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", UInt32, "uint*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FOLDERSETTINGS.ahk" { FOLDERSETTINGS }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FOLDERSETTINGS.ahk" { FOLDERSETTINGS }
 
 /**
  * Deprecated. Data used in IBrowserService2::GetFolderSetData.

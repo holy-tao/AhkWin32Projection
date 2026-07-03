@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE.ahk" { IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IDiscRecorder2.ahk" { IDiscRecorder2 }
-#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IDiscFormat2.ahk" { IDiscFormat2 }
+#Import ".\IDiscRecorder2.ahk" { IDiscRecorder2 }
+#Import ".\IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE.ahk" { IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE }
 #Import ".\IMAPI_MEDIA_PHYSICAL_TYPE.ahk" { IMAPI_MEDIA_PHYSICAL_TYPE }
 #Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import ".\IDiscFormat2.ahk" { IDiscFormat2 }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Use this interface to write raw images to a disc device using Disc At Once (DAO) mode (also known as uninterrupted recording).

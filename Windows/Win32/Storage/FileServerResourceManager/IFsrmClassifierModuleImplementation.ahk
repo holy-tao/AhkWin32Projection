@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IFsrmPropertyBag.ahk" { IFsrmPropertyBag }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\IFsrmCollection.ahk" { IFsrmCollection }
 #Import ".\IFsrmPipelineModuleImplementation.ahk" { IFsrmPipelineModuleImplementation }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IFsrmPropertyBag.ahk" { IFsrmPropertyBag }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Classifier modules implement this interface. FSRM calls the module's implementation when it runs classification.

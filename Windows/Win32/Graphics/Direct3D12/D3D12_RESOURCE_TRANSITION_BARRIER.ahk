@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
 #Import ".\D3D12_RESOURCE_STATES.ahk" { D3D12_RESOURCE_STATES }
+#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
 
 /**
  * Describes the transition of subresources between different usages.

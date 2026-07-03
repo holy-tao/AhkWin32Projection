@@ -1,14 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D12_PIPELINE_STATE_STREAM_DESC.ahk" { D3D12_PIPELINE_STATE_STREAM_DESC }
-#Import ".\D3D12ApplicationDescFunc.ahk" { D3D12ApplicationDescFunc }
-#Import ".\D3D12_STATE_OBJECT_DESC.ahk" { D3D12_STATE_OBJECT_DESC }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\D3D12PipelineStateFunc.ahk" { D3D12PipelineStateFunc }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3D12_APPLICATION_DESC.ahk" { D3D12_APPLICATION_DESC }
-#Import ".\D3D12StateObjectFunc.ahk" { D3D12StateObjectFunc }
+#Import ".\D3D12_PIPELINE_STATE_STREAM_DESC.ahk" { D3D12_PIPELINE_STATE_STREAM_DESC }
+#Import ".\D3D12_STATE_OBJECT_DESC.ahk" { D3D12_STATE_OBJECT_DESC }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -66,7 +63,7 @@ export default struct ID3D12StateObjectDatabase extends IUnknown {
     GetApplicationDesc(CallbackFunc, pContext) {
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, D3D12ApplicationDescFunc, CallbackFunc, pContextMarshal, pContext, "HRESULT")
+        result := ComCall(4, this, "ptr", CallbackFunc, pContextMarshal, pContext, "HRESULT")
         return result
     }
 
@@ -97,7 +94,7 @@ export default struct ID3D12StateObjectDatabase extends IUnknown {
         pKeyMarshal := pKey is VarRef ? "ptr" : "ptr"
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, pKeyMarshal, pKey, UInt32, KeySize, D3D12PipelineStateFunc, CallbackFunc, pContextMarshal, pContext, "HRESULT")
+        result := ComCall(6, this, pKeyMarshal, pKey, UInt32, KeySize, "ptr", CallbackFunc, pContextMarshal, pContext, "HRESULT")
         return result
     }
 
@@ -131,7 +128,7 @@ export default struct ID3D12StateObjectDatabase extends IUnknown {
         pKeyMarshal := pKey is VarRef ? "ptr" : "ptr"
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(8, this, pKeyMarshal, pKey, UInt32, KeySize, D3D12StateObjectFunc, CallbackFunc, pContextMarshal, pContext, "HRESULT")
+        result := ComCall(8, this, pKeyMarshal, pKey, UInt32, KeySize, "ptr", CallbackFunc, pContextMarshal, pContext, "HRESULT")
         return result
     }
 

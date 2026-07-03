@@ -48,10 +48,6 @@ export default struct PF_NPCancelConnection {
             this.value := CallbackCreate(fn, , [PWSTR, BOOL, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

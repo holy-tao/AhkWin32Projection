@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ID3D11CryptoSession.ahk" { ID3D11CryptoSession }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID3D11CryptoSession.ahk" { ID3D11CryptoSession }
 
 /**
  * Provides data to the ID3D11VideoContext::DecoderBeginFrame method.

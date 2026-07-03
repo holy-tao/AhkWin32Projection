@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\CERT_EXIT_EVENT_MASK.ahk" { CERT_EXIT_EVENT_MASK }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CERT_EXIT_EVENT_MASK.ahk" { CERT_EXIT_EVENT_MASK }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * Provides communications between the Certificate Services server and an exit module.

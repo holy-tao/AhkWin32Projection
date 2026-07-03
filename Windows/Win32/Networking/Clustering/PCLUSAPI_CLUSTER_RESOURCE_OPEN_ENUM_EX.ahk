@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HRESENUMEX.ahk" { HRESENUMEX }
 #Import ".\HCLUSTER.ahk" { HCLUSTER }
+#Import ".\HRESENUMEX.ahk" { HRESENUMEX }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -50,10 +50,6 @@ export default struct PCLUSAPI_CLUSTER_RESOURCE_OPEN_ENUM_EX {
             this.value := CallbackCreate(fn, , [HCLUSTER, IntPtr, UInt32, IntPtr, UInt32, UInt32, HRESENUMEX])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -27,7 +27,7 @@ export default struct PLSA_GET_EXTENDED_CALL_FLAGS {
         FlagsMarshal := Flags is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, FlagsMarshal, Flags, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -47,10 +47,6 @@ export default struct PLSA_GET_EXTENDED_CALL_FLAGS {
             this.value := CallbackCreate(fn, , ["uint*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

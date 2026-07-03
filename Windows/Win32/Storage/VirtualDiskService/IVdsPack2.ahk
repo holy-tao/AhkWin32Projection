@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\VDS_INPUT_DISK.ahk" { VDS_INPUT_DISK }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\VDS_VOLUME_TYPE.ahk" { VDS_VOLUME_TYPE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IVdsAsync.ahk" { IVdsAsync }
+#Import ".\VDS_INPUT_DISK.ahk" { VDS_INPUT_DISK }
+#Import ".\VDS_VOLUME_TYPE.ahk" { VDS_VOLUME_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides a method to create aligned volumes on a pack.

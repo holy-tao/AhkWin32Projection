@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDMLPageable.ahk" { IDMLPageable }
 #Import ".\DML_BINDING_PROPERTIES.ahk" { DML_BINDING_PROPERTIES }
+#Import ".\IDMLPageable.ahk" { IDMLPageable }
 
 /**
  * Implemented by objects that can be recorded into a command list for dispatch on the GPU, using IDMLCommandRecorder::RecordDispatch.

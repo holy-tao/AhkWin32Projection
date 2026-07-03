@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\ISwapChainPanelNative.ahk" { ISwapChainPanelNative }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISwapChainPanelNative.ahk" { ISwapChainPanelNative }
 
 /**
  * The ISwapChainPanelNative2 interface (windows.ui.xaml.media.dxinterop.h) provides interoperation between XAML and a DirectX swap chain.

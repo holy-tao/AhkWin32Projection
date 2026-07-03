@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\SECURITY_STRING.ahk" { SECURITY_STRING }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\SECPKG_NAME_TYPE.ahk" { SECPKG_NAME_TYPE }
+#Import ".\SECURITY_STRING.ahk" { SECURITY_STRING }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -35,7 +35,7 @@ export default struct PLSA_OPEN_SAM_USER {
         UserHandleMarshal := UserHandle is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, SECURITY_STRING.Ptr, Name, SECPKG_NAME_TYPE, NameType, SECURITY_STRING.Ptr, Prefix, BOOLEAN, AllowGuest, UInt32, Reserved, UserHandleMarshal, UserHandle, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -55,10 +55,6 @@ export default struct PLSA_OPEN_SAM_USER {
             this.value := CallbackCreate(fn, , [SECURITY_STRING.Ptr, SECPKG_NAME_TYPE, SECURITY_STRING.Ptr, BOOLEAN, UInt32, "ptr*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

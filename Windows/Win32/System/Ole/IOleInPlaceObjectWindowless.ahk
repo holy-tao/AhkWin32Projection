@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
 #Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import ".\IDropTarget.ahk" { IDropTarget }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IOleInPlaceObject.ahk" { IOleInPlaceObject }
 
 /**

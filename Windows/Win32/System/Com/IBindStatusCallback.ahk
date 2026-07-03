@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\BINDINFO.ahk" { BINDINFO }
 #Import ".\FORMATETC.ahk" { FORMATETC }
 #Import ".\IBinding.ahk" { IBinding }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\STGMEDIUM.ahk" { STGMEDIUM }
 #Import ".\IUnknown.ahk" { IUnknown }
-#Import ".\BINDINFO.ahk" { BINDINFO }
+#Import ".\STGMEDIUM.ahk" { STGMEDIUM }
 
 /**
  * @namespace Windows.Win32.System.Com

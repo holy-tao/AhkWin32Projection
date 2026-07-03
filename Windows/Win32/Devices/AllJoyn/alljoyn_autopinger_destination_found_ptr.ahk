@@ -50,10 +50,6 @@ export default struct alljoyn_autopinger_destination_found_ptr {
             this.value := CallbackCreate(fn, , ["ptr", PSTR, PSTR, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

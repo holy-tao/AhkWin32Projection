@@ -65,10 +65,6 @@ export default struct PFN_CRYPT_ENUM_KEYID_PROP {
             this.value := CallbackCreate(fn, , [CRYPT_INTEGER_BLOB.Ptr, UInt32, "ptr", UInt32, "uint*", "ptr*", "uint*", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

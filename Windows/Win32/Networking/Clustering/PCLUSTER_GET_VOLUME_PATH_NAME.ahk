@@ -50,10 +50,6 @@ export default struct PCLUSTER_GET_VOLUME_PATH_NAME {
             this.value := CallbackCreate(fn, , [PWSTR, PWSTR, UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMetaDataDispenser.ahk" { IMetaDataDispenser }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Com\ITypeInfo.ahk" { ITypeInfo }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IMetaDataDispenser.ahk" { IMetaDataDispenser }
 
 /**
  * Extends the IMetaDataDispenser interface to provide the capability to control how the metadata APIs operate on the current metadata scope.

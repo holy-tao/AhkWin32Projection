@@ -4,8 +4,8 @@
 #Import ".\IXMLDOMDocument2.ahk" { IXMLDOMDocument2 }
 #Import ".\IXMLDOMNode.ahk" { IXMLDOMNode }
 #Import ".\IXMLDOMParseError.ahk" { IXMLDOMParseError }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\SPWORDTYPE.ahk" { SPWORDTYPE }
 #Import ".\SPWORDPRONUNCIATION.ahk" { SPWORDPRONUNCIATION }
+#Import ".\SPWORDTYPE.ahk" { SPWORDTYPE }
 
 /**
  * @namespace Windows.Win32.Media.Speech

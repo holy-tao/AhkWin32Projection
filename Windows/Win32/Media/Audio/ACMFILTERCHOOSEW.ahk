@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WAVEFILTER.ahk" { WAVEFILTER }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\ACMFILTERCHOOSEHOOKPROCW.ahk" { ACMFILTERCHOOSEHOOKPROCW }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WAVEFILTER.ahk" { WAVEFILTER }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
@@ -44,6 +43,6 @@ export default struct ACMFILTERCHOOSEW {
 
     lCustData : LPARAM
 
-    pfnHook : ACMFILTERCHOOSEHOOKPROCW
+    pfnHook : IntPtr
 
 }

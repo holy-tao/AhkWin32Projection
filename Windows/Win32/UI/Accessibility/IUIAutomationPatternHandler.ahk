@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUIAutomationPatternInstance.ahk" { IUIAutomationPatternInstance }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\UIAutomationParameter.ahk" { UIAutomationParameter }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IUIAutomationPatternInstance.ahk" { IUIAutomationPatternInstance }
+#Import ".\UIAutomationParameter.ahk" { UIAutomationParameter }
 
 /**
  * Returns a client API wrapper object and to unmarshal property and method requests to an actual provider instance.

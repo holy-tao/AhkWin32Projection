@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DATA_OBJECT_TYPES.ahk" { DATA_OBJECT_TYPES }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Com\IDataObject.ahk" { IDataObject }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\RESULTDATAITEM.ahk" { RESULTDATAITEM }
-#Import ".\MMC_NOTIFY_TYPE.ahk" { MMC_NOTIFY_TYPE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IDataObject.ahk" { IDataObject }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DATA_OBJECT_TYPES.ahk" { DATA_OBJECT_TYPES }
 #Import ".\IConsole.ahk" { IConsole }
+#Import ".\MMC_NOTIFY_TYPE.ahk" { MMC_NOTIFY_TYPE }
+#Import ".\RESULTDATAITEM.ahk" { RESULTDATAITEM }
 
 /**
  * The IComponent interface a base class for all derived interfaces such as IMPEG2Component and it describes the general characteristics of a component, which is an elementary stream within the program stream.

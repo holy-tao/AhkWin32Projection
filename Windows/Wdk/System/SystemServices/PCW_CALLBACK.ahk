@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\PCW_CALLBACK_INFORMATION.ahk" { PCW_CALLBACK_INFORMATION }
-#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\PCW_CALLBACK_TYPE.ahk" { PCW_CALLBACK_TYPE }
+#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -31,7 +31,7 @@ export default struct PCW_CALLBACK {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, PCW_CALLBACK_TYPE, Type, PCW_CALLBACK_INFORMATION.Ptr, Info, _ContextMarshal, _Context, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -51,10 +51,6 @@ export default struct PCW_CALLBACK {
             this.value := CallbackCreate(fn, , [PCW_CALLBACK_TYPE, PCW_CALLBACK_INFORMATION.Ptr, "ptr", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

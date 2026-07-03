@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IMFCaptureSink.ahk" { IMFCaptureSink }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFMediaSink.ahk" { IMFMediaSink }
-#Import ".\IMFCaptureEngineOnSampleCallback.ahk" { IMFCaptureEngineOnSampleCallback }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IMFByteStream.ahk" { IMFByteStream }
+#Import ".\IMFCaptureEngineOnSampleCallback.ahk" { IMFCaptureEngineOnSampleCallback }
+#Import ".\IMFCaptureSink.ahk" { IMFCaptureSink }
+#Import ".\IMFMediaSink.ahk" { IMFMediaSink }
 
 /**
  * Controls the recording sink.

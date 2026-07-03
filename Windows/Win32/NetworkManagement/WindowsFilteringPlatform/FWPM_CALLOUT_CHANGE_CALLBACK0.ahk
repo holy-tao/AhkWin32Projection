@@ -56,10 +56,6 @@ export default struct FWPM_CALLOUT_CHANGE_CALLBACK0 {
             this.value := CallbackCreate(fn, , ["ptr", FWPM_CALLOUT_CHANGE0.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\NLM_DATAPLAN_STATUS.ahk" { NLM_DATAPLAN_STATUS }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\NLM_DATAPLAN_STATUS.ahk" { NLM_DATAPLAN_STATUS }
 #Import ".\NLM_SOCKADDR.ahk" { NLM_SOCKADDR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Use this interface to query for machine-wide cost and data plan status information associated with either a connection used for machine-wide Internet connectivity, or the first-hop of routing to a specific destination on a connection.

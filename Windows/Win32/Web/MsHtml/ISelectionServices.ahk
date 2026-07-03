@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMarkupPointer.ahk" { IMarkupPointer }
-#Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IElementSegment.ahk" { IElementSegment }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
 #Import ".\IMarkupContainer.ahk" { IMarkupContainer }
+#Import ".\IMarkupPointer.ahk" { IMarkupPointer }
 #Import ".\ISegment.ahk" { ISegment }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISelectionServicesListener.ahk" { ISelectionServicesListener }
 #Import ".\SELECTION_TYPE.ahk" { SELECTION_TYPE }
 

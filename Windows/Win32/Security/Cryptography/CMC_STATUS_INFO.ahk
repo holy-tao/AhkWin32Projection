@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CMC_PEND_INFO.ahk" { CMC_PEND_INFO }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CMC_PEND_INFO.ahk" { CMC_PEND_INFO }
 
 /**
  * Contains status information about Certificate Management Messages over CMS.

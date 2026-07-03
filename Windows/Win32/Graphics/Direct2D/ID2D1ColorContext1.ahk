@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D2D1_COLOR_CONTEXT_TYPE.ahk" { D2D1_COLOR_CONTEXT_TYPE }
-#Import "..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk" { DXGI_COLOR_SPACE_TYPE }
-#Import ".\D2D1_SIMPLE_COLOR_PROFILE.ahk" { D2D1_SIMPLE_COLOR_PROFILE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D2D1_COLOR_CONTEXT_TYPE.ahk" { D2D1_COLOR_CONTEXT_TYPE }
+#Import ".\D2D1_SIMPLE_COLOR_PROFILE.ahk" { D2D1_SIMPLE_COLOR_PROFILE }
 #Import ".\ID2D1ColorContext.ahk" { ID2D1ColorContext }
+#Import "..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk" { DXGI_COLOR_SPACE_TYPE }
 
 /**
  * Represents a color context to be used with the Color Management Effect.

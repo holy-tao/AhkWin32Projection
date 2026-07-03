@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DMUS_VOICE_STATE.ahk" { DMUS_VOICE_STATE }
 #Import ".\IDirectMusicSynth.ahk" { IDirectMusicSynth }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * IDirectMusicSynth8is unsupported and may be altered or unavailable in the future.

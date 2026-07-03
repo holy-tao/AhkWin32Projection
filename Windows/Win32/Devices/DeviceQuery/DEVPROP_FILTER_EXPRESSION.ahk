@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Properties\DEVPROPSTORE.ahk" { DEVPROPSTORE }
-#Import "..\..\Foundation\DEVPROPKEY.ahk" { DEVPROPKEY }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Properties\DEVPROPTYPE.ahk" { DEVPROPTYPE }
-#Import "..\Properties\DEVPROPERTY.ahk" { DEVPROPERTY }
 #Import ".\DEVPROP_OPERATOR.ahk" { DEVPROP_OPERATOR }
 #Import "..\Properties\DEVPROPCOMPKEY.ahk" { DEVPROPCOMPKEY }
+#Import "..\Properties\DEVPROPERTY.ahk" { DEVPROPERTY }
+#Import "..\Properties\DEVPROPSTORE.ahk" { DEVPROPSTORE }
+#Import "..\Properties\DEVPROPTYPE.ahk" { DEVPROPTYPE }
+#Import "..\..\Foundation\DEVPROPKEY.ahk" { DEVPROPKEY }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Devices.DeviceQuery

@@ -54,10 +54,6 @@ export default struct PCLUSAPI_PFN_REASON_HANDLER {
             this.value := CallbackCreate(fn, , ["ptr", HCLUSTER, PWSTR, "uint*", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

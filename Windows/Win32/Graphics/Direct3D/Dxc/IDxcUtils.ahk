@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IDxcBlobEncoding.ahk" { IDxcBlobEncoding }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DxcDefine.ahk" { DxcDefine }
-#Import "..\..\..\System\Com\IStream.ahk" { IStream }
-#Import ".\IDxcIncludeHandler.ahk" { IDxcIncludeHandler }
-#Import ".\DxcBuffer.ahk" { DxcBuffer }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDxcBlobUtf8.ahk" { IDxcBlobUtf8 }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DXC_CP.ahk" { DXC_CP }
-#Import ".\IDxcBlobUtf16.ahk" { IDxcBlobUtf16 }
-#Import ".\IDxcCompilerArgs.ahk" { IDxcCompilerArgs }
-#Import "..\..\..\System\Com\IMalloc.ahk" { IMalloc }
+#Import ".\DxcBuffer.ahk" { DxcBuffer }
+#Import ".\DxcDefine.ahk" { DxcDefine }
 #Import ".\IDxcBlob.ahk" { IDxcBlob }
+#Import ".\IDxcBlobEncoding.ahk" { IDxcBlobEncoding }
+#Import ".\IDxcBlobUtf16.ahk" { IDxcBlobUtf16 }
+#Import ".\IDxcBlobUtf8.ahk" { IDxcBlobUtf8 }
+#Import ".\IDxcCompilerArgs.ahk" { IDxcCompilerArgs }
+#Import ".\IDxcIncludeHandler.ahk" { IDxcIncludeHandler }
+#Import "..\..\..\System\Com\IMalloc.ahk" { IMalloc }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc

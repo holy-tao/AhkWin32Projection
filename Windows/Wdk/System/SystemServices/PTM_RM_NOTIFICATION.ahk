@@ -38,7 +38,7 @@ export default struct PTM_RM_NOTIFICATION {
         ArgumentMarshal := Argument is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, EnlistmentObjectMarshal, EnlistmentObject, RMContextMarshal, RMContext, _TransactionContextMarshal, _TransactionContext, UInt32, TransactionNotification, TmVirtualClockMarshal, TmVirtualClock, UInt32, ArgumentLength, ArgumentMarshal, Argument, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -58,10 +58,6 @@ export default struct PTM_RM_NOTIFICATION {
             this.value := CallbackCreate(fn, , [KENLISTMENT.Ptr, "ptr", "ptr", UInt32, "int64*", UInt32, "ptr", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

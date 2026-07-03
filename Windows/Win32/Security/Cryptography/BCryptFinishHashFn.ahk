@@ -29,7 +29,7 @@ export default struct BCryptFinishHashFn {
      */
     Call(hHash, pbOutput, cbOutput, dwFlags) {
         result := DllCall(this.value, BCRYPT_HASH_HANDLE, hHash, IntPtr, pbOutput, UInt32, cbOutput, UInt32, dwFlags, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -49,10 +49,6 @@ export default struct BCryptFinishHashFn {
             this.value := CallbackCreate(fn, , [BCRYPT_HASH_HANDLE, IntPtr, UInt32, UInt32, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

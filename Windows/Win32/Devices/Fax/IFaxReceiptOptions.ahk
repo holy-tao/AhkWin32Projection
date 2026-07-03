@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\FAX_SMTP_AUTHENTICATION_TYPE_ENUM.ahk" { FAX_SMTP_AUTHENTICATION_TYPE_ENUM }
 #Import ".\FAX_RECEIPT_TYPE_ENUM.ahk" { FAX_RECEIPT_TYPE_ENUM }
+#Import ".\FAX_SMTP_AUTHENTICATION_TYPE_ENUM.ahk" { FAX_SMTP_AUTHENTICATION_TYPE_ENUM }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The IFaxReceiptOptions interface defines a FaxReceiptOptions configuration object used by a fax client application to set and retrieve the receipt configuration that the fax service uses to send delivery receipts for fax transmissions.

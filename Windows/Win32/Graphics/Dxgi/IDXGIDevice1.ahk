@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDXGIDevice.ahk" { IDXGIDevice }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDXGIDevice.ahk" { IDXGIDevice }
 
 /**
  * An IDXGIDevice1 interface implements a derived class for DXGI objects that produce image data.

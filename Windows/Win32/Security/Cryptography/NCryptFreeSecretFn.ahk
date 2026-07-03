@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\NCRYPT_PROV_HANDLE.ahk" { NCRYPT_PROV_HANDLE }
 #Import ".\NCRYPT_SECRET_HANDLE.ahk" { NCRYPT_SECRET_HANDLE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -47,10 +47,6 @@ export default struct NCryptFreeSecretFn {
             this.value := CallbackCreate(fn, , [NCRYPT_PROV_HANDLE, NCRYPT_SECRET_HANDLE, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -43,10 +43,6 @@ export default struct EXPR_EVAL {
             this.value := CallbackCreate(fn, , [MIDL_STUB_MESSAGE.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

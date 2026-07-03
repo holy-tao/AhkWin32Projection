@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SnmpVarBindList.ahk" { SnmpVarBindList }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\SnmpVarBindList.ahk" { SnmpVarBindList }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Snmp
@@ -51,10 +51,6 @@ export default struct PFNSNMPEXTENSIONQUERY {
             this.value := CallbackCreate(fn, , [Int8, SnmpVarBindList.Ptr, "int*", "int*", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

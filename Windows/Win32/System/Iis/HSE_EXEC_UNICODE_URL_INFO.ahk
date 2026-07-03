@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HSE_EXEC_UNICODE_URL_USER_INFO.ahk" { HSE_EXEC_UNICODE_URL_USER_INFO }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\HSE_EXEC_URL_ENTITY_INFO.ahk" { HSE_EXEC_URL_ENTITY_INFO }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HSE_EXEC_UNICODE_URL_USER_INFO.ahk" { HSE_EXEC_UNICODE_URL_USER_INFO }
+#Import ".\HSE_EXEC_URL_ENTITY_INFO.ahk" { HSE_EXEC_URL_ENTITY_INFO }
 
 /**
  * @namespace Windows.Win32.System.Iis

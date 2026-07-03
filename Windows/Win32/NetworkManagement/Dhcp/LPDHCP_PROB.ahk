@@ -82,10 +82,6 @@ export default struct LPDHCP_PROB {
             this.value := CallbackCreate(fn, , ["char*", UInt32, UInt32, UInt32, UInt32, "ptr", "ptr", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\GLYPHDATA.ahk" { GLYPHDATA }
-#Import ".\FONTOBJ.ahk" { FONTOBJ }
 #Import ".\DHPDEV.ahk" { DHPDEV }
+#Import ".\FONTOBJ.ahk" { FONTOBJ }
+#Import ".\GLYPHDATA.ahk" { GLYPHDATA }
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -54,10 +54,6 @@ export default struct PFN_DrvQueryFontData {
             this.value := CallbackCreate(fn, , [DHPDEV, FONTOBJ.Ptr, UInt32, UInt32, GLYPHDATA.Ptr, "ptr", UInt32, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

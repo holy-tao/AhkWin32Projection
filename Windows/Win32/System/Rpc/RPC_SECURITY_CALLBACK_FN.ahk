@@ -44,10 +44,6 @@ export default struct RPC_SECURITY_CALLBACK_FN {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

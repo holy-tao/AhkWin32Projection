@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HCERTSTORE.ahk" { HCERTSTORE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HCERTSTORE.ahk" { HCERTSTORE }
 
 /**
  * Specifies a Software Publisher Certificate (SPC) and certificate chain used to sign a document.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\RM_UNIQUE_PROCESS.ahk" { RM_UNIQUE_PROCESS }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import ".\RM_APP_TYPE.ahk" { RM_APP_TYPE }
+#Import ".\RM_UNIQUE_PROCESS.ahk" { RM_UNIQUE_PROCESS }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\WER_SUBMIT_RESULT.ahk" { WER_SUBMIT_RESULT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\WER_SUBMIT_RESULT.ahk" { WER_SUBMIT_RESULT }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

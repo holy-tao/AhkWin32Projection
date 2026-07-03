@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ICallFrameEvents.ahk" { ICallFrameEvents }
 #Import ".\ICallIndirect.ahk" { ICallIndirect }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Supports the registration and un-registering of event sinks wishing to be notified of calls made directly on the interface.

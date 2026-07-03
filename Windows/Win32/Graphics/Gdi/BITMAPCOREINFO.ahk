@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RGBTRIPLE.ahk" { RGBTRIPLE }
 #Import ".\BITMAPCOREHEADER.ahk" { BITMAPCOREHEADER }
+#Import ".\RGBTRIPLE.ahk" { RGBTRIPLE }
 
 /**
  * The BITMAPCOREINFO structure defines the dimensions and color information for a DIB.

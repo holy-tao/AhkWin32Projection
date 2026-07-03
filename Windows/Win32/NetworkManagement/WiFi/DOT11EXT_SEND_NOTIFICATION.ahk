@@ -46,10 +46,6 @@ export default struct DOT11EXT_SEND_NOTIFICATION {
             this.value := CallbackCreate(fn, , [HANDLE, L2_NOTIFICATION_DATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

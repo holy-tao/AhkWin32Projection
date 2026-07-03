@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IEnumTfRanges.ahk" { IEnumTfRanges }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\GET_TEXT_AND_PROPERTY_UPDATES_FLAGS.ahk" { GET_TEXT_AND_PROPERTY_UPDATES_FLAGS }
+#Import ".\IEnumTfRanges.ahk" { IEnumTfRanges }
 
 /**
  * The ITfEditRecord interface is implemented by the TSF manager and is used by a text edit sink to determine what was changed during an edit session.

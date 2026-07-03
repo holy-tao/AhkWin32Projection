@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import ".\LDAP.ahk" { LDAP }
+#Import "..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 
 /**
  * Allows a client to evaluate the certificate chain of the server to which it is connected.
@@ -81,10 +81,6 @@ export default struct VERIFYSERVERCERT {
             this.value := CallbackCreate(fn, "cdecl", [LDAP.Ptr, "ptr*", BOOLEAN])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

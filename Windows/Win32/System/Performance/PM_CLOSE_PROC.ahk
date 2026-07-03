@@ -44,10 +44,6 @@ export default struct PM_CLOSE_PROC {
             this.value := CallbackCreate(fn, , [UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

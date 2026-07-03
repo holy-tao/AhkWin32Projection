@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
@@ -28,7 +28,7 @@ export default struct PFN_NT_COMMIT_TRANSACTION {
      */
     Call(TransactionHandle, Wait) {
         result := DllCall(this.value, HANDLE, TransactionHandle, BOOLEAN, Wait, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -48,10 +48,6 @@ export default struct PFN_NT_COMMIT_TRANSACTION {
             this.value := CallbackCreate(fn, , [HANDLE, BOOLEAN, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\BRUSH_STYLE.ahk" { BRUSH_STYLE }
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import ".\BRUSH_STYLE.ahk" { BRUSH_STYLE }
 
 /**
  * The LOGBRUSH structure defines the style, color, and pattern of a physical brush. It is used by the CreateBrushIndirect and ExtCreatePen functions.

@@ -44,10 +44,6 @@ export default struct LPDDHALMOCOMPCB_GETGUIDS {
             this.value := CallbackCreate(fn, , [DDHAL_GETMOCOMPGUIDSDATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

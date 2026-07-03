@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DNS_CONNECTION_PROXY_INFO.ahk" { DNS_CONNECTION_PROXY_INFO }
-#Import ".\DNS_CONNECTION_PROXY_TYPE.ahk" { DNS_CONNECTION_PROXY_TYPE }
 #Import ".\DNS_CONNECTION_PROXY_INFO_SWITCH.ahk" { DNS_CONNECTION_PROXY_INFO_SWITCH }
+#Import ".\DNS_CONNECTION_PROXY_TYPE.ahk" { DNS_CONNECTION_PROXY_TYPE }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns

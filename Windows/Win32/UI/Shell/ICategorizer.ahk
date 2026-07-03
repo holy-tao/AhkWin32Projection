@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\CATSORT_FLAGS.ahk" { CATSORT_FLAGS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\CATEGORY_INFO.ahk" { CATEGORY_INFO }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CATSORT_FLAGS.ahk" { CATSORT_FLAGS }
 #Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that are used to obtain information about item identifier lists.

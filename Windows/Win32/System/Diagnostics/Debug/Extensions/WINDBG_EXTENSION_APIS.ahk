@@ -1,15 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PWINDBG_STACKTRACE_ROUTINE.ahk" { PWINDBG_STACKTRACE_ROUTINE }
-#Import ".\PWINDBG_SET_THREAD_CONTEXT_ROUTINE.ahk" { PWINDBG_SET_THREAD_CONTEXT_ROUTINE }
-#Import ".\PWINDBG_IOCTL_ROUTINE.ahk" { PWINDBG_IOCTL_ROUTINE }
-#Import ".\PWINDBG_CHECK_CONTROL_C.ahk" { PWINDBG_CHECK_CONTROL_C }
-#Import ".\PWINDBG_GET_SYMBOL.ahk" { PWINDBG_GET_SYMBOL }
-#Import ".\PWINDBG_OUTPUT_ROUTINE.ahk" { PWINDBG_OUTPUT_ROUTINE }
-#Import ".\PWINDBG_WRITE_PROCESS_MEMORY_ROUTINE.ahk" { PWINDBG_WRITE_PROCESS_MEMORY_ROUTINE }
-#Import ".\PWINDBG_DISASM.ahk" { PWINDBG_DISASM }
-#Import ".\PWINDBG_GET_THREAD_CONTEXT_ROUTINE.ahk" { PWINDBG_GET_THREAD_CONTEXT_ROUTINE }
-#Import ".\PWINDBG_READ_PROCESS_MEMORY_ROUTINE.ahk" { PWINDBG_READ_PROCESS_MEMORY_ROUTINE }
-#Import ".\PWINDBG_GET_EXPRESSION.ahk" { PWINDBG_GET_EXPRESSION }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -19,26 +8,26 @@ export default struct WINDBG_EXTENSION_APIS {
 
     nSize : UInt32
 
-    lpOutputRoutine : PWINDBG_OUTPUT_ROUTINE
+    lpOutputRoutine : IntPtr
 
-    lpGetExpressionRoutine : PWINDBG_GET_EXPRESSION
+    lpGetExpressionRoutine : IntPtr
 
-    lpGetSymbolRoutine : PWINDBG_GET_SYMBOL
+    lpGetSymbolRoutine : IntPtr
 
-    lpDisasmRoutine : PWINDBG_DISASM
+    lpDisasmRoutine : IntPtr
 
-    lpCheckControlCRoutine : PWINDBG_CHECK_CONTROL_C
+    lpCheckControlCRoutine : IntPtr
 
-    lpReadProcessMemoryRoutine : PWINDBG_READ_PROCESS_MEMORY_ROUTINE
+    lpReadProcessMemoryRoutine : IntPtr
 
-    lpWriteProcessMemoryRoutine : PWINDBG_WRITE_PROCESS_MEMORY_ROUTINE
+    lpWriteProcessMemoryRoutine : IntPtr
 
-    lpGetThreadContextRoutine : PWINDBG_GET_THREAD_CONTEXT_ROUTINE
+    lpGetThreadContextRoutine : IntPtr
 
-    lpSetThreadContextRoutine : PWINDBG_SET_THREAD_CONTEXT_ROUTINE
+    lpSetThreadContextRoutine : IntPtr
 
-    lpIoctlRoutine : PWINDBG_IOCTL_ROUTINE
+    lpIoctlRoutine : IntPtr
 
-    lpStackTraceRoutine : PWINDBG_STACKTRACE_ROUTINE
+    lpStackTraceRoutine : IntPtr
 
 }

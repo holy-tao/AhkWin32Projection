@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IWSManConnectionOptionsEx.ahk" { IWSManConnectionOptionsEx }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWSManConnectionOptionsEx.ahk" { IWSManConnectionOptionsEx }
 
 /**
  * The IWSManConnectionOptionsEx2 object is passed to the IWSMan::CreateSession method to provide the authentication mechanism, access type, and credentials to connect to a proxy server.

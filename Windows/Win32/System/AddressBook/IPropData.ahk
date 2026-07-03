@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SPropProblemArray.ahk" { SPropProblemArray }
-#Import ".\IMAPIProp.ahk" { IMAPIProp }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMAPIProp.ahk" { IMAPIProp }
+#Import ".\SPropProblemArray.ahk" { SPropProblemArray }
 #Import ".\SPropTagArray.ahk" { SPropTagArray }
 
 /**

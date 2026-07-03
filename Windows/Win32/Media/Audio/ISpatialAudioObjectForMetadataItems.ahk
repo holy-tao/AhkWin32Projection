@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISpatialAudioObjectBase.ahk" { ISpatialAudioObjectBase }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISpatialAudioMetadataItems.ahk" { ISpatialAudioMetadataItems }
+#Import ".\ISpatialAudioObjectBase.ahk" { ISpatialAudioObjectBase }
 
 /**
  * Used to write spatial audio metadata for applications that require multiple metadata items per buffer with frame-accurate placement.

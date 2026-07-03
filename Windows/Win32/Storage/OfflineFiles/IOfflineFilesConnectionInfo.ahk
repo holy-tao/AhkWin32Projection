@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\OFFLINEFILES_OFFLINE_REASON.ahk" { OFFLINEFILES_OFFLINE_REASON }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\OFFLINEFILES_CONNECT_STATE.ahk" { OFFLINEFILES_CONNECT_STATE }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\OFFLINEFILES_CONNECT_STATE.ahk" { OFFLINEFILES_CONNECT_STATE }
+#Import ".\OFFLINEFILES_OFFLINE_REASON.ahk" { OFFLINEFILES_OFFLINE_REASON }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Presents query and action capabilities associated with the online-offline transition behavior of Offline Files.

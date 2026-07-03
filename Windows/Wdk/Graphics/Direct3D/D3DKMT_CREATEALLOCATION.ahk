@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\D3DDDI_ALLOCATIONINFO.ahk" { D3DDDI_ALLOCATIONINFO }
 #Import ".\D3DDDI_ALLOCATIONINFO2.ahk" { D3DDDI_ALLOCATIONINFO2 }
 #Import ".\D3DKMT_CREATESTANDARDALLOCATION.ahk" { D3DKMT_CREATESTANDARDALLOCATION }
-#Import ".\D3DDDI_ALLOCATIONINFO.ahk" { D3DDDI_ALLOCATIONINFO }
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RFX_GFX_RECT.ahk" { RFX_GFX_RECT }
 #Import ".\RFX_GFX_MSG_HEADER.ahk" { RFX_GFX_MSG_HEADER }
+#Import ".\RFX_GFX_RECT.ahk" { RFX_GFX_RECT }
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop

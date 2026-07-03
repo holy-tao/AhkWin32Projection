@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WICBitmapPaletteType.ahk" { WICBitmapPaletteType }
-#Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IWICPalette.ahk" { IWICPalette }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
+#Import ".\IWICPalette.ahk" { IWICPalette }
 #Import ".\WICBitmapDitherType.ahk" { WICBitmapDitherType }
+#Import ".\WICBitmapPaletteType.ahk" { WICBitmapPaletteType }
 
 /**
  * Represents an IWICBitmapSource that converts the image data from one pixel format to another, handling dithering and halftoning to indexed formats, palette translation and alpha thresholding.

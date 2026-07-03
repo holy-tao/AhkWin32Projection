@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DDVIDEOPORTDATA.ahk" { DDVIDEOPORTDATA }
 #Import ".\DDSURFACEDATA.ahk" { DDSURFACEDATA }
+#Import ".\DDVIDEOPORTDATA.ahk" { DDVIDEOPORTDATA }
 
 /**
  * The DDSETSTATEININFO structure contains the surface and video port extensions (VPE) object information.

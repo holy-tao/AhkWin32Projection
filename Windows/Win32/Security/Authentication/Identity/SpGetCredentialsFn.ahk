@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SecBuffer.ahk" { SecBuffer }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\SecBuffer.ahk" { SecBuffer }
 
 /**
  * Retrieves the primary and supplemental credentials from the user object.
@@ -67,7 +67,7 @@ export default struct SpGetCredentialsFn {
      */
     Call(CredentialHandle, Credentials) {
         result := DllCall(this.value, IntPtr, CredentialHandle, SecBuffer.Ptr, Credentials, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -87,10 +87,6 @@ export default struct SpGetCredentialsFn {
             this.value := CallbackCreate(fn, , [IntPtr, SecBuffer.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

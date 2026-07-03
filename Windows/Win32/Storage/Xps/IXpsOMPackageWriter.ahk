@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IXpsOMSignatureBlockResourceCollection.ahk" { IXpsOMSignatureBlockResourceCollection }
-#Import ".\IXpsOMPrintTicketResource.ahk" { IXpsOMPrintTicketResource }
-#Import ".\XPS_SIZE.ahk" { XPS_SIZE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
+#Import ".\IXpsOMDocumentStructureResource.ahk" { IXpsOMDocumentStructureResource }
 #Import ".\IXpsOMImageResource.ahk" { IXpsOMImageResource }
 #Import ".\IXpsOMPage.ahk" { IXpsOMPage }
-#Import ".\IXpsOMDocumentStructureResource.ahk" { IXpsOMDocumentStructureResource }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IXpsOMResource.ahk" { IXpsOMResource }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IXpsOMPartUriCollection.ahk" { IXpsOMPartUriCollection }
+#Import ".\IXpsOMPrintTicketResource.ahk" { IXpsOMPrintTicketResource }
+#Import ".\IXpsOMResource.ahk" { IXpsOMResource }
+#Import ".\IXpsOMSignatureBlockResourceCollection.ahk" { IXpsOMSignatureBlockResourceCollection }
 #Import ".\IXpsOMStoryFragmentsResource.ahk" { IXpsOMStoryFragmentsResource }
-#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
+#Import ".\XPS_SIZE.ahk" { XPS_SIZE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Incrementally writes the parts of an XPS document to a package file.

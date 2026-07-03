@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IObjectId.ahk" { IObjectId }
 #Import ".\IPolicyQualifiers.ahk" { IPolicyQualifiers }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * Can be used to specify a certificate policy that identifies a purpose for which the certificate can be used.

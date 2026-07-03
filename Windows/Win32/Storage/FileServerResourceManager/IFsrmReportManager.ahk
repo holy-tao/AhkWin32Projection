@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FsrmReportType.ahk" { FsrmReportType }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\FsrmReportGenerationContext.ahk" { FsrmReportGenerationContext }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\FsrmEnumOptions.ahk" { FsrmEnumOptions }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\FsrmReportFilter.ahk" { FsrmReportFilter }
+#Import ".\FsrmReportGenerationContext.ahk" { FsrmReportGenerationContext }
+#Import ".\FsrmReportLimit.ahk" { FsrmReportLimit }
+#Import ".\FsrmReportType.ahk" { FsrmReportType }
 #Import ".\IFsrmCollection.ahk" { IFsrmCollection }
 #Import ".\IFsrmReportJob.ahk" { IFsrmReportJob }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\FsrmReportLimit.ahk" { FsrmReportLimit }
-#Import ".\FsrmReportFilter.ahk" { FsrmReportFilter }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Used to manage report jobs.

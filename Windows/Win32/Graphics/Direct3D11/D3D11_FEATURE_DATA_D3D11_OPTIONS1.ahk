@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D11_TILED_RESOURCES_TIER.ahk" { D3D11_TILED_RESOURCES_TIER }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D11_TILED_RESOURCES_TIER.ahk" { D3D11_TILED_RESOURCES_TIER }
 
 /**
  * Describes Direct3D 11.2 feature options in the current graphics driver.

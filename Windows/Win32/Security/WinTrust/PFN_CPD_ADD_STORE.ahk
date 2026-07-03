@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Cryptography\HCERTSTORE.ahk" { HCERTSTORE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Cryptography\HCERTSTORE.ahk" { HCERTSTORE }
 #Import ".\CRYPT_PROVIDER_DATA.ahk" { CRYPT_PROVIDER_DATA }
 
 /**
@@ -47,10 +47,6 @@ export default struct PFN_CPD_ADD_STORE {
             this.value := CallbackCreate(fn, , [CRYPT_PROVIDER_DATA.Ptr, HCERTSTORE, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

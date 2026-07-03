@@ -1,17 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\EXPR_EVAL.ahk" { EXPR_EVAL }
-#Import ".\NDR_CS_ROUTINES.ahk" { NDR_CS_ROUTINES }
-#Import ".\NDR_NOTIFY_ROUTINE.ahk" { NDR_NOTIFY_ROUTINE }
-#Import ".\MALLOC_FREE_STRUCT.ahk" { MALLOC_FREE_STRUCT }
 #Import ".\COMM_FAULT_OFFSETS.ahk" { COMM_FAULT_OFFSETS }
-#Import ".\XMIT_ROUTINE_QUINTUPLE.ahk" { XMIT_ROUTINE_QUINTUPLE }
-#Import ".\NDR_EXPR_DESC.ahk" { NDR_EXPR_DESC }
 #Import ".\GENERIC_BINDING_INFO.ahk" { GENERIC_BINDING_INFO }
-#Import ".\USER_MARSHAL_ROUTINE_QUADRUPLE.ahk" { USER_MARSHAL_ROUTINE_QUADRUPLE }
-#Import ".\PFN_RPC_FREE.ahk" { PFN_RPC_FREE }
 #Import ".\GENERIC_BINDING_ROUTINE_PAIR.ahk" { GENERIC_BINDING_ROUTINE_PAIR }
-#Import ".\NDR_RUNDOWN.ahk" { NDR_RUNDOWN }
-#Import ".\PFN_RPC_ALLOCATE.ahk" { PFN_RPC_ALLOCATE }
+#Import ".\MALLOC_FREE_STRUCT.ahk" { MALLOC_FREE_STRUCT }
+#Import ".\NDR_CS_ROUTINES.ahk" { NDR_CS_ROUTINES }
+#Import ".\NDR_EXPR_DESC.ahk" { NDR_EXPR_DESC }
+#Import ".\USER_MARSHAL_ROUTINE_QUADRUPLE.ahk" { USER_MARSHAL_ROUTINE_QUADRUPLE }
+#Import ".\XMIT_ROUTINE_QUINTUPLE.ahk" { XMIT_ROUTINE_QUINTUPLE }
 
 /**
  * The MIDL_STUB_DESC structure is a MIDL-generated structure that contains information about the interface stub regarding RPC calls between the client and server.
@@ -40,12 +35,12 @@ export default struct MIDL_STUB_DESC {
     /**
      * Memory allocation function to be used by the stub. Set to <a href="https://msdn.microsoft.com/">midl_user_allocate</a> for nonobject interface and <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/nf-rpcndr-ndroleallocate"> NdrOleAllocate</a> for object interface.
      */
-    pfnAllocate : PFN_RPC_ALLOCATE
+    pfnAllocate : IntPtr
 
     /**
      * Memory-free function to be used by the stub. Set to <a href="https://docs.microsoft.com/windows/desktop/Midl/midl-user-free-1">midl_user_free</a> for nonobject interface and <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/nf-rpcndr-ndrolefree"> NdrOleFree</a> for object interface.
      */
-    pfnFree : PFN_RPC_FREE
+    pfnFree : IntPtr
 
     /**
      * The union contains one of the following handles.

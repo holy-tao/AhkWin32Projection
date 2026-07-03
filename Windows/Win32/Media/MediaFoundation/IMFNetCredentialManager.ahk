@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
 #Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IMFNetCredential.ahk" { IMFNetCredential }
 #Import ".\MFNetCredentialManagerGetParam.ahk" { MFNetCredentialManagerGetParam }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Implemented by applications to provide user credentials for a network source.

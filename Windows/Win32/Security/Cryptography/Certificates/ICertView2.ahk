@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ICertView.ahk" { ICertView }
-#Import ".\CVRC_TABLE.ahk" { CVRC_TABLE }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CVRC_TABLE.ahk" { CVRC_TABLE }
+#Import ".\ICertView.ahk" { ICertView }
 
 /**
  * Allow properly authorized clients to create a customized or complete view of the Certificate Services database.

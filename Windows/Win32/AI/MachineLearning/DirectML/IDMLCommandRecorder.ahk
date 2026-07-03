@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Graphics\Direct3D12\ID3D12CommandList.ahk" { ID3D12CommandList }
-#Import ".\IDMLDispatchable.ahk" { IDMLDispatchable }
 #Import ".\IDMLBindingTable.ahk" { IDMLBindingTable }
 #Import ".\IDMLDeviceChild.ahk" { IDMLDeviceChild }
+#Import ".\IDMLDispatchable.ahk" { IDMLDispatchable }
+#Import "..\..\..\Graphics\Direct3D12\ID3D12CommandList.ahk" { ID3D12CommandList }
 
 /**
  * Records dispatches of DirectML work into a Direct3D 12 command list.

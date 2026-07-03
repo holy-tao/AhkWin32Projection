@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IOMMU_MAP_PHYSICAL_ADDRESS.ahk" { IOMMU_MAP_PHYSICAL_ADDRESS }
 #Import "..\..\Foundation\IOMMU_DMA_DOMAIN.ahk" { IOMMU_DMA_DOMAIN }
+#Import ".\IOMMU_MAP_PHYSICAL_ADDRESS.ahk" { IOMMU_MAP_PHYSICAL_ADDRESS }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
@@ -39,7 +39,7 @@ export default struct IOMMU_MAP_LOGICAL_RANGE_EX {
         LogicalAddressOutMarshal := LogicalAddressOut is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, DomainMarshal, Domain, UInt32, Permissions, IOMMU_MAP_PHYSICAL_ADDRESS.Ptr, PhysicalAddressToMap, ExplicitLogicalAddressMarshal, ExplicitLogicalAddress, MinLogicalAddressMarshal, MinLogicalAddress, MaxLogicalAddressMarshal, MaxLogicalAddress, LogicalAddressOutMarshal, LogicalAddressOut, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -59,10 +59,6 @@ export default struct IOMMU_MAP_LOGICAL_RANGE_EX {
             this.value := CallbackCreate(fn, , [IOMMU_DMA_DOMAIN.Ptr, UInt32, IOMMU_MAP_PHYSICAL_ADDRESS.Ptr, "uint*", "uint*", "uint*", "uint*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

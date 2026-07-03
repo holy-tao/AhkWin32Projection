@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISpatialAudioMetadataWriter.ahk" { ISpatialAudioMetadataWriter }
-#Import ".\ISpatialAudioMetadataItemsBuffer.ahk" { ISpatialAudioMetadataItemsBuffer }
-#Import ".\ISpatialAudioMetadataCopier.ahk" { ISpatialAudioMetadataCopier }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SpatialAudioMetadataWriterOverflowMode.ahk" { SpatialAudioMetadataWriterOverflowMode }
+#Import ".\ISpatialAudioMetadataCopier.ahk" { ISpatialAudioMetadataCopier }
 #Import ".\ISpatialAudioMetadataItems.ahk" { ISpatialAudioMetadataItems }
+#Import ".\ISpatialAudioMetadataItemsBuffer.ahk" { ISpatialAudioMetadataItemsBuffer }
 #Import ".\ISpatialAudioMetadataReader.ahk" { ISpatialAudioMetadataReader }
+#Import ".\ISpatialAudioMetadataWriter.ahk" { ISpatialAudioMetadataWriter }
+#Import ".\SpatialAudioMetadataWriterOverflowMode.ahk" { SpatialAudioMetadataWriterOverflowMode }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides a class factory for creating ISpatialAudioMetadataItems, ISpatialAudioMetadataWriter, ISpatialAudioMetadataReader, and ISpatialAudioMetadataCopier objects.

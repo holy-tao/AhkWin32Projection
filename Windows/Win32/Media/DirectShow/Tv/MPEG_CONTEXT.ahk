@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MPEG_CONTEXT_TYPE.ahk" { MPEG_CONTEXT_TYPE }
 #Import ".\MPEG_BCS_DEMUX.ahk" { MPEG_BCS_DEMUX }
+#Import ".\MPEG_CONTEXT_TYPE.ahk" { MPEG_CONTEXT_TYPE }
 #Import ".\MPEG_WINSOCK.ahk" { MPEG_WINSOCK }
 
 /**

@@ -1,25 +1,25 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISClusNode.ahk" { ISClusNode }
-#Import ".\ISClusRegistryKeys.ahk" { ISClusRegistryKeys }
-#Import ".\ISClusResGroup.ahk" { ISClusResGroup }
-#Import ".\ISClusResDependents.ahk" { ISClusResDependents }
-#Import ".\ISCluster.ahk" { ISCluster }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISClusProperties.ahk" { ISClusProperties }
-#Import ".\CLUSTER_RESOURCE_STATE.ahk" { CLUSTER_RESOURCE_STATE }
-#Import ".\ISClusResType.ahk" { ISClusResType }
-#Import ".\ISClusCryptoKeys.ahk" { ISClusCryptoKeys }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\CLUS_FLAGS.ahk" { CLUS_FLAGS }
-#Import ".\CLUSTER_RESOURCE_CLASS.ahk" { CLUSTER_RESOURCE_CLASS }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\ISClusResDependencies.ahk" { ISClusResDependencies }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CLUSTER_RESOURCE_CLASS.ahk" { CLUSTER_RESOURCE_CLASS }
+#Import ".\CLUSTER_RESOURCE_STATE.ahk" { CLUSTER_RESOURCE_STATE }
+#Import ".\CLUS_FLAGS.ahk" { CLUS_FLAGS }
+#Import ".\ISClusCryptoKeys.ahk" { ISClusCryptoKeys }
 #Import ".\ISClusDisk.ahk" { ISClusDisk }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ISClusNode.ahk" { ISClusNode }
+#Import ".\ISClusProperties.ahk" { ISClusProperties }
+#Import ".\ISClusRegistryKeys.ahk" { ISClusRegistryKeys }
+#Import ".\ISClusResDependencies.ahk" { ISClusResDependencies }
+#Import ".\ISClusResDependents.ahk" { ISClusResDependents }
+#Import ".\ISClusResGroup.ahk" { ISClusResGroup }
 #Import ".\ISClusResPossibleOwnerNodes.ahk" { ISClusResPossibleOwnerNodes }
+#Import ".\ISClusResType.ahk" { ISClusResType }
+#Import ".\ISCluster.ahk" { ISCluster }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering

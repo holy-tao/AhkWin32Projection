@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DVD_MENU_ID.ahk" { DVD_MENU_ID }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IDvdCmd.ahk" { IDvdCmd }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\DVD_RELATIVE_BUTTON.ahk" { DVD_RELATIVE_BUTTON }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DVD_OPTION_FLAG.ahk" { DVD_OPTION_FLAG }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DVD_AUDIO_LANG_EXT.ahk" { DVD_AUDIO_LANG_EXT }
-#Import ".\IDvdState.ahk" { IDvdState }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DVD_AUDIO_LANG_EXT.ahk" { DVD_AUDIO_LANG_EXT }
 #Import ".\DVD_HMSF_TIMECODE.ahk" { DVD_HMSF_TIMECODE }
+#Import ".\DVD_MENU_ID.ahk" { DVD_MENU_ID }
+#Import ".\DVD_OPTION_FLAG.ahk" { DVD_OPTION_FLAG }
+#Import ".\DVD_RELATIVE_BUTTON.ahk" { DVD_RELATIVE_BUTTON }
 #Import ".\DVD_SUBPICTURE_LANG_EXT.ahk" { DVD_SUBPICTURE_LANG_EXT }
+#Import ".\IDvdCmd.ahk" { IDvdCmd }
+#Import ".\IDvdState.ahk" { IDvdState }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDvdControl2 interface navigates and plays DVD-Video titles.

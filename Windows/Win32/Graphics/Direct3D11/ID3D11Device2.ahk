@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D11Device1.ahk" { ID3D11Device1 }
-#Import ".\D3D11_TILE_SHAPE.ahk" { D3D11_TILE_SHAPE }
-#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import ".\ID3D11Resource.ahk" { ID3D11Resource }
-#Import ".\ID3D11DeviceContext2.ahk" { ID3D11DeviceContext2 }
-#Import ".\D3D11_SUBRESOURCE_TILING.ahk" { D3D11_SUBRESOURCE_TILING }
-#Import ".\D3D11_PACKED_MIP_DESC.ahk" { D3D11_PACKED_MIP_DESC }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D11_PACKED_MIP_DESC.ahk" { D3D11_PACKED_MIP_DESC }
+#Import ".\D3D11_SUBRESOURCE_TILING.ahk" { D3D11_SUBRESOURCE_TILING }
+#Import ".\D3D11_TILE_SHAPE.ahk" { D3D11_TILE_SHAPE }
+#Import ".\ID3D11Device1.ahk" { ID3D11Device1 }
+#Import ".\ID3D11DeviceContext2.ahk" { ID3D11DeviceContext2 }
+#Import ".\ID3D11Resource.ahk" { ID3D11Resource }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 
 /**
  * The device interface represents a virtual adapter; it is used to create resources. ID3D11Device2 adds new methods to those in ID3D11Device1.

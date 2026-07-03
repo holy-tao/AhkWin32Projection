@@ -1,5 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\LPTIMECALLBACK.ahk" { LPTIMECALLBACK }
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
@@ -11,7 +10,7 @@ export default struct TIMEREVENT {
 
     wResolution : UInt16
 
-    lpFunction : LPTIMECALLBACK
+    lpFunction : IntPtr
 
     dwUser : UInt32
 

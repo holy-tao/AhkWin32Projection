@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IAudioProcessingObjectNotifications.ahk" { IAudioProcessingObjectNotifications }
-#Import ".\APO_NOTIFICATION_DESCRIPTOR.ahk" { APO_NOTIFICATION_DESCRIPTOR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\APO_NOTIFICATION_DESCRIPTOR.ahk" { APO_NOTIFICATION_DESCRIPTOR }
 #Import ".\APO_NOTIFICATION_TYPE.ahk" { APO_NOTIFICATION_TYPE }
+#Import ".\IAudioProcessingObjectNotifications.ahk" { IAudioProcessingObjectNotifications }
 
 /**
  * Implemented by clients to register for and receive common audio-related notifications for APO endpoint and system effect notifications. This interface adds the ability to determine the notifications types supported on the on the version of Windows running on the current device.

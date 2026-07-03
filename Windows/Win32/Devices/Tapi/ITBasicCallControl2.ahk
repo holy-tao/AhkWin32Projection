@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITBasicCallControl.ahk" { ITBasicCallControl }
 #Import ".\ITTerminal.ahk" { ITTerminal }
 #Import ".\TERMINAL_DIRECTION.ahk" { TERMINAL_DIRECTION }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITBasicCallControl.ahk" { ITBasicCallControl }
 
 /**
  * The ITBasicCallControl2 interface is an extension of the ITBasicCallControl interface.

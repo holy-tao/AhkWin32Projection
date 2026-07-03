@@ -1,143 +1,137 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\SHELL_AUTOCOMPLETE_FLAGS.ahk" { SHELL_AUTOCOMPLETE_FLAGS }
-#Import "Common\DEVICE_SCALE_FACTOR.ahk" { DEVICE_SCALE_FACTOR }
-#Import ".\HPSXA.ahk" { HPSXA }
-#Import "..\..\System\Com\IBindStatusCallback.ahk" { IBindStatusCallback }
-#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
-#Import "..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
-#Import ".\SSF_MASK.ahk" { SSF_MASK }
-#Import "..\..\System\Com\IConnectionPoint.ahk" { IConnectionPoint }
-#Import ".\OS.ahk" { OS }
-#Import ".\DEFCONTEXTMENU.ahk" { DEFCONTEXTMENU }
-#Import ".\IHlinkBrowseContext.ahk" { IHlinkBrowseContext }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
-#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
-#Import "..\..\System\Com\IMalloc.ahk" { IMalloc }
-#Import ".\GPFIDL_FLAGS.ahk" { GPFIDL_FLAGS }
-#Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
-#Import ".\DATAOBJ_GET_ITEM_FLAGS.ahk" { DATAOBJ_GET_ITEM_FLAGS }
-#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import ".\SHELLEXECUTEINFOW.ahk" { SHELLEXECUTEINFOW }
-#Import ".\MM_FLAGS.ahk" { MM_FLAGS }
-#Import ".\SHELLFLAGSTATE.ahk" { SHELLFLAGSTATE }
-#Import ".\IFileOperationProgressSink.ahk" { IFileOperationProgressSink }
-#Import ".\IShellItemArray.ahk" { IShellItemArray }
-#Import ".\PAPPCONSTRAIN_CHANGE_ROUTINE.ahk" { PAPPCONSTRAIN_CHANGE_ROUTINE }
-#Import "..\..\Storage\FileSystem\FILE_FLAGS_AND_ATTRIBUTES.ahk" { FILE_FLAGS_AND_ATTRIBUTES }
-#Import ".\KNOWN_FOLDER_FLAG.ahk" { KNOWN_FOLDER_FLAG }
-#Import ".\SHSTOCKICONID.ahk" { SHSTOCKICONID }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\NOTIFYICONDATAA.ahk" { NOTIFYICONDATAA }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\RESTRICTIONS.ahk" { RESTRICTIONS }
-#Import "..\..\Foundation\CHAR.ahk" { CHAR }
-#Import ".\PAPPCONSTRAIN_REGISTRATION.ahk" { PAPPCONSTRAIN_REGISTRATION }
-#Import "..\Controls\LPFNSVADDPROPSHEETPAGE.ahk" { LPFNSVADDPROPSHEETPAGE }
-#Import ".\ASSOCF.ahk" { ASSOCF }
-#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
-#Import ".\SHELL_UI_COMPONENT.ahk" { SHELL_UI_COMPONENT }
-#Import ".\IEnumAssocHandlers.ahk" { IEnumAssocHandlers }
-#Import "..\..\System\Threading\LPTHREAD_START_ROUTINE.ahk" { LPTHREAD_START_ROUTINE }
-#Import ".\SHChangeNotifyEntry.ahk" { SHChangeNotifyEntry }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import ".\SIGDN.ahk" { SIGDN }
-#Import ".\IFileOperation.ahk" { IFileOperation }
-#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
-#Import ".\IHlinkFrame.ahk" { IHlinkFrame }
-#Import ".\ASSOCIATIONELEMENT.ahk" { ASSOCIATIONELEMENT }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import ".\SHCREATEPROCESSINFOW.ahk" { SHCREATEPROCESSINFOW }
-#Import ".\PATHCCH_OPTIONS.ahk" { PATHCCH_OPTIONS }
-#Import ".\IContextMenu.ahk" { IContextMenu }
-#Import ".\NOTIFYICONIDENTIFIER.ahk" { NOTIFYICONIDENTIFIER }
-#Import ".\SHFILEOPSTRUCTA.ahk" { SHFILEOPSTRUCTA }
-#Import ".\AUTO_SCROLL_DATA.ahk" { AUTO_SCROLL_DATA }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\QUERY_USER_NOTIFICATION_STATE.ahk" { QUERY_USER_NOTIFICATION_STATE }
-#Import "..\..\System\Com\IEnumFORMATETC.ahk" { IEnumFORMATETC }
-#Import ".\LPFNDFMCALLBACK.ahk" { LPFNDFMCALLBACK }
-#Import "Common\PERCEIVED.ahk" { PERCEIVED }
-#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
-#Import "..\WindowsAndMessaging\MESSAGEBOX_STYLE.ahk" { MESSAGEBOX_STYLE }
-#Import ".\IShellView.ahk" { IShellView }
-#Import "..\WindowsAndMessaging\HMENU.ahk" { HMENU }
-#Import ".\URLIS.ahk" { URLIS }
-#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
-#Import ".\SHCNRF_SOURCE.ahk" { SHCNRF_SOURCE }
-#Import ".\SHELLEXECUTEINFOA.ahk" { SHELLEXECUTEINFOA }
-#Import ".\PAPPSTATE_CHANGE_ROUTINE.ahk" { PAPPSTATE_CHANGE_ROUTINE }
-#Import "..\..\Graphics\Gdi\HMONITOR.ahk" { HMONITOR }
-#Import "..\..\System\Com\StructuredStorage\IStorage.ahk" { IStorage }
-#Import "Common\STRRET.ahk" { STRRET }
-#Import "..\..\System\Ole\IDropSource.ahk" { IDropSource }
-#Import ".\ASSOCSTR.ahk" { ASSOCSTR }
-#Import ".\CABINETSTATE.ahk" { CABINETSTATE }
-#Import ".\SHREGENUM_FLAGS.ahk" { SHREGENUM_FLAGS }
-#Import ".\ASSOCKEY.ahk" { ASSOCKEY }
-#Import ".\CSFV.ahk" { CSFV }
-#Import "Common\SHITEMID.ahk" { SHITEMID }
-#Import ".\SCNRT_STATUS.ahk" { SCNRT_STATUS }
-#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
-#Import ".\SHELLSTATEA.ahk" { SHELLSTATEA }
-#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
-#Import ".\IHlinkSite.ahk" { IHlinkSite }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\PROFILEINFOA.ahk" { PROFILEINFOA }
-#Import ".\SHGSI_FLAGS.ahk" { SHGSI_FLAGS }
-#Import ".\LIBRARYMANAGEDIALOGOPTIONS.ahk" { LIBRARYMANAGEDIALOGOPTIONS }
-#Import ".\SHGLOBALCOUNTER.ahk" { SHGLOBALCOUNTER }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\BROWSEINFOA.ahk" { BROWSEINFOA }
-#Import ".\QITAB.ahk" { QITAB }
-#Import "..\Controls\HIMAGELIST.ahk" { HIMAGELIST }
-#Import ".\SHCNF_FLAGS.ahk" { SHCNF_FLAGS }
-#Import ".\SFV_CREATE.ahk" { SFV_CREATE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\SHGDFIL_FORMAT.ahk" { SHGDFIL_FORMAT }
-#Import ".\IShellItem.ahk" { IShellItem }
-#Import ".\SFBS_FLAGS.ahk" { SFBS_FLAGS }
-#Import "..\WindowsAndMessaging\SHOW_WINDOW_CMD.ahk" { SHOW_WINDOW_CMD }
-#Import ".\IHlink.ahk" { IHlink }
-#Import ".\SHFILEOPSTRUCTW.ahk" { SHFILEOPSTRUCTW }
-#Import ".\NOTIFY_ICON_MESSAGE.ahk" { NOTIFY_ICON_MESSAGE }
-#Import "..\..\System\Com\FORMATETC.ahk" { FORMATETC }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\NOTIFYICONDATAW.ahk" { NOTIFYICONDATAW }
-#Import ".\SHQUERYRBINFO.ahk" { SHQUERYRBINFO }
-#Import "..\..\System\Ole\DROPEFFECT.ahk" { DROPEFFECT }
-#Import ".\BROWSEINFOW.ahk" { BROWSEINFOW }
-#Import ".\SHFOLDERCUSTOMSETTINGS.ahk" { SHFOLDERCUSTOMSETTINGS }
-#Import ".\SHGFI_FLAGS.ahk" { SHGFI_FLAGS }
-#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
-#Import ".\HDROP.ahk" { HDROP }
-#Import ".\IShellFolder.ahk" { IShellFolder }
-#Import ".\SHFMT_ID.ahk" { SHFMT_ID }
-#Import ".\SHSTOCKICONINFO.ahk" { SHSTOCKICONINFO }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\IShellBrowser.ahk" { IShellBrowser }
-#Import ".\SHREGDEL_FLAGS.ahk" { SHREGDEL_FLAGS }
-#Import ".\ASSOC_FILTER.ahk" { ASSOC_FILTER }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\PARSEDURLW.ahk" { PARSEDURLW }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Graphics\Gdi\HMONITOR.ahk" { HMONITOR }
+#Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import "..\..\Storage\FileSystem\FILE_FLAGS_AND_ATTRIBUTES.ahk" { FILE_FLAGS_AND_ATTRIBUTES }
+#Import "..\..\System\Com\FORMATETC.ahk" { FORMATETC }
+#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
+#Import "..\..\System\Com\IBindStatusCallback.ahk" { IBindStatusCallback }
+#Import "..\..\System\Com\IConnectionPoint.ahk" { IConnectionPoint }
+#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\System\Com\IEnumFORMATETC.ahk" { IEnumFORMATETC }
+#Import "..\..\System\Com\IMalloc.ahk" { IMalloc }
+#Import "..\..\System\Com\IMoniker.ahk" { IMoniker }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\StructuredStorage\IStorage.ahk" { IStorage }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\System\Com\Urlmon\SOFTDISTINFO.ahk" { SOFTDISTINFO }
+#Import "..\..\System\Ole\DROPEFFECT.ahk" { DROPEFFECT }
+#Import "..\..\System\Ole\IDropSource.ahk" { IDropSource }
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Controls\HIMAGELIST.ahk" { HIMAGELIST }
+#Import ".\APPBARDATA.ahk" { APPBARDATA }
+#Import ".\ASSOCF.ahk" { ASSOCF }
+#Import ".\ASSOCIATIONELEMENT.ahk" { ASSOCIATIONELEMENT }
+#Import ".\ASSOCKEY.ahk" { ASSOCKEY }
+#Import ".\ASSOCSTR.ahk" { ASSOCSTR }
+#Import ".\ASSOC_FILTER.ahk" { ASSOC_FILTER }
+#Import ".\AUTO_SCROLL_DATA.ahk" { AUTO_SCROLL_DATA }
+#Import ".\BROWSEINFOA.ahk" { BROWSEINFOA }
+#Import ".\BROWSEINFOW.ahk" { BROWSEINFOW }
+#Import ".\CABINETSTATE.ahk" { CABINETSTATE }
+#Import ".\CSFV.ahk" { CSFV }
+#Import "Common\DEVICE_SCALE_FACTOR.ahk" { DEVICE_SCALE_FACTOR }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "Common\PERCEIVED.ahk" { PERCEIVED }
+#Import "Common\SHITEMID.ahk" { SHITEMID }
+#Import "Common\STRRET.ahk" { STRRET }
+#Import ".\DATAOBJ_GET_ITEM_FLAGS.ahk" { DATAOBJ_GET_ITEM_FLAGS }
+#Import ".\DEFCONTEXTMENU.ahk" { DEFCONTEXTMENU }
+#Import ".\DISPLAY_DEVICE_TYPE.ahk" { DISPLAY_DEVICE_TYPE }
+#Import ".\GPFIDL_FLAGS.ahk" { GPFIDL_FLAGS }
+#Import ".\HDROP.ahk" { HDROP }
+#Import ".\HPSXA.ahk" { HPSXA }
+#Import ".\IContextMenu.ahk" { IContextMenu }
+#Import ".\IEnumAssocHandlers.ahk" { IEnumAssocHandlers }
+#Import ".\IFileOperation.ahk" { IFileOperation }
+#Import ".\IFileOperationProgressSink.ahk" { IFileOperationProgressSink }
+#Import ".\IHlink.ahk" { IHlink }
+#Import ".\IHlinkBrowseContext.ahk" { IHlinkBrowseContext }
+#Import ".\IHlinkFrame.ahk" { IHlinkFrame }
+#Import ".\IHlinkSite.ahk" { IHlinkSite }
+#Import ".\IShellBrowser.ahk" { IShellBrowser }
+#Import ".\IShellFolder.ahk" { IShellFolder }
+#Import ".\IShellItem.ahk" { IShellItem }
+#Import ".\IShellItemArray.ahk" { IShellItemArray }
+#Import ".\IShellView.ahk" { IShellView }
+#Import ".\KNOWN_FOLDER_FLAG.ahk" { KNOWN_FOLDER_FLAG }
+#Import ".\LIBRARYMANAGEDIALOGOPTIONS.ahk" { LIBRARYMANAGEDIALOGOPTIONS }
+#Import ".\MM_FLAGS.ahk" { MM_FLAGS }
+#Import ".\NOTIFYICONDATAA.ahk" { NOTIFYICONDATAA }
+#Import ".\NOTIFYICONDATAW.ahk" { NOTIFYICONDATAW }
+#Import ".\NOTIFYICONIDENTIFIER.ahk" { NOTIFYICONIDENTIFIER }
+#Import ".\NOTIFY_ICON_MESSAGE.ahk" { NOTIFY_ICON_MESSAGE }
+#Import ".\OPENASINFO.ahk" { OPENASINFO }
+#Import ".\OS.ahk" { OS }
+#Import ".\PAPPCONSTRAIN_REGISTRATION.ahk" { PAPPCONSTRAIN_REGISTRATION }
 #Import ".\PAPPSTATE_REGISTRATION.ahk" { PAPPSTATE_REGISTRATION }
 #Import ".\PARSEDURLA.ahk" { PARSEDURLA }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\APPBARDATA.ahk" { APPBARDATA }
-#Import "..\..\System\Com\Urlmon\SOFTDISTINFO.ahk" { SOFTDISTINFO }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
-#Import ".\OPENASINFO.ahk" { OPENASINFO }
+#Import ".\PARSEDURLW.ahk" { PARSEDURLW }
+#Import ".\PATHCCH_OPTIONS.ahk" { PATHCCH_OPTIONS }
+#Import ".\PROFILEINFOA.ahk" { PROFILEINFOA }
 #Import ".\PROFILEINFOW.ahk" { PROFILEINFOW }
-#Import ".\DISPLAY_DEVICE_TYPE.ahk" { DISPLAY_DEVICE_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IMoniker.ahk" { IMoniker }
-#Import ".\SUBCLASSPROC.ahk" { SUBCLASSPROC }
-#Import "..\..\System\LibraryLoader\Apis.ahk" { LoadLibraryW, GetProcAddress }
+#Import ".\QITAB.ahk" { QITAB }
+#Import ".\QUERY_USER_NOTIFICATION_STATE.ahk" { QUERY_USER_NOTIFICATION_STATE }
+#Import ".\RESTRICTIONS.ahk" { RESTRICTIONS }
+#Import ".\SCNRT_STATUS.ahk" { SCNRT_STATUS }
+#Import ".\SFBS_FLAGS.ahk" { SFBS_FLAGS }
+#Import ".\SFV_CREATE.ahk" { SFV_CREATE }
+#Import ".\SHCNF_FLAGS.ahk" { SHCNF_FLAGS }
+#Import ".\SHCNRF_SOURCE.ahk" { SHCNRF_SOURCE }
+#Import ".\SHCREATEPROCESSINFOW.ahk" { SHCREATEPROCESSINFOW }
+#Import ".\SHChangeNotifyEntry.ahk" { SHChangeNotifyEntry }
+#Import ".\SHELLEXECUTEINFOA.ahk" { SHELLEXECUTEINFOA }
+#Import ".\SHELLEXECUTEINFOW.ahk" { SHELLEXECUTEINFOW }
+#Import ".\SHELLFLAGSTATE.ahk" { SHELLFLAGSTATE }
+#Import ".\SHELLSTATEA.ahk" { SHELLSTATEA }
+#Import ".\SHELL_AUTOCOMPLETE_FLAGS.ahk" { SHELL_AUTOCOMPLETE_FLAGS }
+#Import ".\SHELL_UI_COMPONENT.ahk" { SHELL_UI_COMPONENT }
+#Import ".\SHFILEOPSTRUCTA.ahk" { SHFILEOPSTRUCTA }
+#Import ".\SHFILEOPSTRUCTW.ahk" { SHFILEOPSTRUCTW }
+#Import ".\SHFMT_ID.ahk" { SHFMT_ID }
+#Import ".\SHFOLDERCUSTOMSETTINGS.ahk" { SHFOLDERCUSTOMSETTINGS }
+#Import ".\SHGDFIL_FORMAT.ahk" { SHGDFIL_FORMAT }
+#Import ".\SHGFI_FLAGS.ahk" { SHGFI_FLAGS }
+#Import ".\SHGLOBALCOUNTER.ahk" { SHGLOBALCOUNTER }
+#Import ".\SHGSI_FLAGS.ahk" { SHGSI_FLAGS }
+#Import ".\SHQUERYRBINFO.ahk" { SHQUERYRBINFO }
+#Import ".\SHREGDEL_FLAGS.ahk" { SHREGDEL_FLAGS }
+#Import ".\SHREGENUM_FLAGS.ahk" { SHREGENUM_FLAGS }
+#Import ".\SHSTOCKICONID.ahk" { SHSTOCKICONID }
+#Import ".\SHSTOCKICONINFO.ahk" { SHSTOCKICONINFO }
+#Import ".\SIGDN.ahk" { SIGDN }
+#Import ".\SSF_MASK.ahk" { SSF_MASK }
+#Import ".\URLIS.ahk" { URLIS }
+#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import "..\WindowsAndMessaging\HMENU.ahk" { HMENU }
+#Import "..\WindowsAndMessaging\MESSAGEBOX_STYLE.ahk" { MESSAGEBOX_STYLE }
+#Import "..\WindowsAndMessaging\SHOW_WINDOW_CMD.ahk" { SHOW_WINDOW_CMD }
 #Import "..\..\Foundation\Apis.ahk" { FreeLibrary }
 #Import "..\..\System\Com\Apis.ahk" { CoTaskMemFree }
+#Import "..\..\System\LibraryLoader\Apis.ahk" { GetProcAddress, LoadLibraryW }
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -164,7 +158,7 @@ export FileIconInit(fRestoreCache) {
     hModule := LoadLibraryW("SHELL32.dll")
     procAddr := GetProcAddress(hModule, 660)
 
-    result := DllCall(procAddr.value, BOOL, fRestoreCache, BOOL)
+    result := DllCall(procAddr, BOOL, fRestoreCache, BOOL)
 
     FreeLibrary(hModule)
 
@@ -1072,7 +1066,7 @@ export VariantToStrRet(varIn, pstrret) {
  * @since windows5.1.2600
  */
 export SetWindowSubclass(_hWnd, pfnSubclass, uIdSubclass, dwRefData) {
-    result := DllCall("COMCTL32.dll\SetWindowSubclass", HWND, _hWnd, SUBCLASSPROC, pfnSubclass, IntPtr, uIdSubclass, IntPtr, dwRefData, BOOL)
+    result := DllCall("COMCTL32.dll\SetWindowSubclass", HWND, _hWnd, "ptr", pfnSubclass, IntPtr, uIdSubclass, IntPtr, dwRefData, BOOL)
     return result
 }
 
@@ -1128,7 +1122,7 @@ export SetWindowSubclass(_hWnd, pfnSubclass, uIdSubclass, dwRefData) {
 export GetWindowSubclass(_hWnd, pfnSubclass, uIdSubclass, pdwRefData) {
     pdwRefDataMarshal := pdwRefData is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("COMCTL32.dll\GetWindowSubclass", HWND, _hWnd, SUBCLASSPROC, pfnSubclass, IntPtr, uIdSubclass, pdwRefDataMarshal, pdwRefData, BOOL)
+    result := DllCall("COMCTL32.dll\GetWindowSubclass", HWND, _hWnd, "ptr", pfnSubclass, IntPtr, uIdSubclass, pdwRefDataMarshal, pdwRefData, BOOL)
     return result
 }
 
@@ -1159,7 +1153,7 @@ export GetWindowSubclass(_hWnd, pfnSubclass, uIdSubclass, pdwRefData) {
  * @since windows5.1.2600
  */
 export RemoveWindowSubclass(_hWnd, pfnSubclass, uIdSubclass) {
-    result := DllCall("COMCTL32.dll\RemoveWindowSubclass", HWND, _hWnd, SUBCLASSPROC, pfnSubclass, IntPtr, uIdSubclass, BOOL)
+    result := DllCall("COMCTL32.dll\RemoveWindowSubclass", HWND, _hWnd, "ptr", pfnSubclass, IntPtr, uIdSubclass, BOOL)
     return result
 }
 
@@ -5725,7 +5719,7 @@ export SHDestroyPropSheetExtArray(_hpsxa) {
  * @since windows5.0
  */
 export SHAddFromPropSheetExtArray(_hpsxa, lpfnAddPage, _lParam) {
-    result := DllCall("SHELL32.dll\SHAddFromPropSheetExtArray", HPSXA, _hpsxa, LPFNSVADDPROPSHEETPAGE, lpfnAddPage, LPARAM, _lParam, UInt32)
+    result := DllCall("SHELL32.dll\SHAddFromPropSheetExtArray", HPSXA, _hpsxa, "ptr", lpfnAddPage, LPARAM, _lParam, UInt32)
     return result
 }
 
@@ -5750,7 +5744,7 @@ export SHAddFromPropSheetExtArray(_hpsxa, lpfnAddPage, _lParam) {
  * @since windows5.1.2600
  */
 export SHReplaceFromPropSheetExtArray(_hpsxa, uPageID, lpfnReplaceWith, _lParam) {
-    result := DllCall("SHELL32.dll\SHReplaceFromPropSheetExtArray", HPSXA, _hpsxa, UInt32, uPageID, LPFNSVADDPROPSHEETPAGE, lpfnReplaceWith, LPARAM, _lParam, UInt32)
+    result := DllCall("SHELL32.dll\SHReplaceFromPropSheetExtArray", HPSXA, _hpsxa, UInt32, uPageID, "ptr", lpfnReplaceWith, LPARAM, _lParam, UInt32)
     return result
 }
 
@@ -6499,7 +6493,7 @@ export SHCreateShellFolderView(pcsfv) {
 export CDefFolderMenu_Create2(pidlFolder, _hwnd, cidl, apidl, psf, _pfn, nKeys, ahkeys) {
     apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("SHELL32.dll\CDefFolderMenu_Create2", ITEMIDLIST.Ptr, pidlFolder, HWND, _hwnd, UInt32, cidl, apidlMarshal, apidl, "ptr", psf, LPFNDFMCALLBACK, _pfn, UInt32, nKeys, HKEY.Ptr, ahkeys, "ptr*", &ppcm := 0, "HRESULT")
+    result := DllCall("SHELL32.dll\CDefFolderMenu_Create2", ITEMIDLIST.Ptr, pidlFolder, HWND, _hwnd, UInt32, cidl, apidlMarshal, apidl, "ptr", psf, "ptr", _pfn, UInt32, nKeys, HKEY.Ptr, ahkeys, "ptr*", &ppcm := 0, "HRESULT")
     return IContextMenu(ppcm)
 }
 
@@ -23045,7 +23039,7 @@ export SHCreateThread(pfnThreadProc, pData, flags, _pfnCallback) {
 
     A_LastError := 0
 
-    result := DllCall("SHLWAPI.dll\SHCreateThread", LPTHREAD_START_ROUTINE, pfnThreadProc, pDataMarshal, pData, UInt32, flags, LPTHREAD_START_ROUTINE, _pfnCallback, BOOL)
+    result := DllCall("SHLWAPI.dll\SHCreateThread", "ptr", pfnThreadProc, pDataMarshal, pData, UInt32, flags, "ptr", _pfnCallback, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23098,7 +23092,7 @@ export SHCreateThreadWithHandle(pfnThreadProc, pData, flags, _pfnCallback, pHand
 
     A_LastError := 0
 
-    result := DllCall("SHLWAPI.dll\SHCreateThreadWithHandle", LPTHREAD_START_ROUTINE, pfnThreadProc, pDataMarshal, pData, UInt32, flags, LPTHREAD_START_ROUTINE, _pfnCallback, HANDLE.Ptr, pHandle, BOOL)
+    result := DllCall("SHLWAPI.dll\SHCreateThreadWithHandle", "ptr", pfnThreadProc, pDataMarshal, pData, UInt32, flags, "ptr", _pfnCallback, HANDLE.Ptr, pHandle, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -25007,7 +25001,7 @@ export RegisterAppStateChangeNotification(Routine, _Context, Registration) {
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
     RegistrationMarshal := Registration is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("api-ms-win-core-psm-appnotify-l1-1-0.dll\RegisterAppStateChangeNotification", PAPPSTATE_CHANGE_ROUTINE, Routine, _ContextMarshal, _Context, RegistrationMarshal, Registration, UInt32)
+    result := DllCall("api-ms-win-core-psm-appnotify-l1-1-0.dll\RegisterAppStateChangeNotification", "ptr", Routine, _ContextMarshal, _Context, RegistrationMarshal, Registration, UInt32)
     return result
 }
 
@@ -25032,7 +25026,7 @@ export RegisterAppConstrainedChangeNotification(Routine, _Context, Registration)
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
     RegistrationMarshal := Registration is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("api-ms-win-core-psm-appnotify-l1-1-1.dll\RegisterAppConstrainedChangeNotification", PAPPCONSTRAIN_CHANGE_ROUTINE, Routine, _ContextMarshal, _Context, RegistrationMarshal, Registration, UInt32)
+    result := DllCall("api-ms-win-core-psm-appnotify-l1-1-1.dll\RegisterAppConstrainedChangeNotification", "ptr", Routine, _ContextMarshal, _Context, RegistrationMarshal, Registration, UInt32)
     return result
 }
 

@@ -48,10 +48,6 @@ export default struct PROCESSOR_CALLBACK_FUNCTION {
             this.value := CallbackCreate(fn, , ["ptr", KE_PROCESSOR_CHANGE_NOTIFY_CONTEXT.Ptr, "int*", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

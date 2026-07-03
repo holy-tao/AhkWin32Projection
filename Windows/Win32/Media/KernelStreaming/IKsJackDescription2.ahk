@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\KSJACK_DESCRIPTION2.ahk" { KSJACK_DESCRIPTION2 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\KSJACK_DESCRIPTION2.ahk" { KSJACK_DESCRIPTION2 }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IKsJackDescription2 interface provides information about the jacks or internal connectors that provide a physical connection between a device on an audio adapter and an external or internal endpoint device (for example, a microphone or CD player).

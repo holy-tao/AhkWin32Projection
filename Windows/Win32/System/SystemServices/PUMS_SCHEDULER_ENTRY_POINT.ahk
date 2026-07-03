@@ -47,10 +47,6 @@ export default struct PUMS_SCHEDULER_ENTRY_POINT {
             this.value := CallbackCreate(fn, , [RTL_UMS_SCHEDULER_REASON, IntPtr, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

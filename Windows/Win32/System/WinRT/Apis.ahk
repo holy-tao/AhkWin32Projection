@@ -1,30 +1,26 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\AgileReferenceOptions.ahk" { AgileReferenceOptions }
-#Import ".\PINSPECT_HSTRING_CALLBACK2.ahk" { PINSPECT_HSTRING_CALLBACK2 }
-#Import ".\IAgileReference.ahk" { IAgileReference }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IApartmentShutdown.ahk" { IApartmentShutdown }
-#Import ".\IRestrictedErrorInfo.ahk" { IRestrictedErrorInfo }
-#Import ".\APARTMENT_SHUTDOWN_REGISTRATION_COOKIE.ahk" { APARTMENT_SHUTDOWN_REGISTRATION_COOKIE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IInspectable.ahk" { IInspectable }
-#Import ".\DispatcherQueueOptions.ahk" { DispatcherQueueOptions }
-#Import "..\Com\Marshal\IMarshal.ahk" { IMarshal }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IStream.ahk" { IStream }
-#Import ".\HSTRING_HEADER.ahk" { HSTRING_HEADER }
-#Import ".\ServerInformation.ahk" { ServerInformation }
-#Import ".\RO_INIT_TYPE.ahk" { RO_INIT_TYPE }
-#Import ".\HSTRING.ahk" { HSTRING }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\PINSPECT_HSTRING_CALLBACK.ahk" { PINSPECT_HSTRING_CALLBACK }
-#Import ".\PFNGETACTIVATIONFACTORY.ahk" { PFNGETACTIVATIONFACTORY }
-#Import ".\RO_REGISTRATION_COOKIE.ahk" { RO_REGISTRATION_COOKIE }
-#Import ".\PINSPECT_MEMORY_CALLBACK.ahk" { PINSPECT_MEMORY_CALLBACK }
-#Import ".\HSTRING_BUFFER.ahk" { HSTRING_BUFFER }
+#Import "..\Com\IStream.ahk" { IStream }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\Marshal\IMarshal.ahk" { IMarshal }
+#Import ".\APARTMENT_SHUTDOWN_REGISTRATION_COOKIE.ahk" { APARTMENT_SHUTDOWN_REGISTRATION_COOKIE }
+#Import ".\AgileReferenceOptions.ahk" { AgileReferenceOptions }
 #Import ".\BSOS_OPTIONS.ahk" { BSOS_OPTIONS }
+#Import ".\DispatcherQueueOptions.ahk" { DispatcherQueueOptions }
+#Import ".\HSTRING.ahk" { HSTRING }
+#Import ".\HSTRING_BUFFER.ahk" { HSTRING_BUFFER }
+#Import ".\HSTRING_HEADER.ahk" { HSTRING_HEADER }
+#Import ".\IAgileReference.ahk" { IAgileReference }
+#Import ".\IApartmentShutdown.ahk" { IApartmentShutdown }
+#Import ".\IInspectable.ahk" { IInspectable }
+#Import ".\IRestrictedErrorInfo.ahk" { IRestrictedErrorInfo }
+#Import ".\RO_INIT_TYPE.ahk" { RO_INIT_TYPE }
+#Import ".\RO_REGISTRATION_COOKIE.ahk" { RO_REGISTRATION_COOKIE }
+#Import ".\ServerInformation.ahk" { ServerInformation }
 
 /**
  * @namespace Windows.Win32.System.WinRT
@@ -858,7 +854,7 @@ export WindowsInspectString(targetHString, machine, callback, _context, length, 
     lengthMarshal := length is VarRef ? "uint*" : "ptr"
     targetStringAddressMarshal := targetStringAddress is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsInspectString", IntPtr, targetHString, UInt16, machine, PINSPECT_HSTRING_CALLBACK, callback, _contextMarshal, _context, lengthMarshal, length, targetStringAddressMarshal, targetStringAddress, "HRESULT")
+    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsInspectString", IntPtr, targetHString, UInt16, machine, "ptr", callback, _contextMarshal, _context, lengthMarshal, length, targetStringAddressMarshal, targetStringAddress, "HRESULT")
     return result
 }
 
@@ -915,7 +911,7 @@ export WindowsInspectString2(targetHString, machine, callback, _context, length,
     lengthMarshal := length is VarRef ? "uint*" : "ptr"
     targetStringAddressMarshal := targetStringAddress is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("api-ms-win-core-winrt-string-l1-1-1.dll\WindowsInspectString2", Int64, targetHString, UInt16, machine, PINSPECT_HSTRING_CALLBACK2, callback, _contextMarshal, _context, lengthMarshal, length, targetStringAddressMarshal, targetStringAddress, "HRESULT")
+    result := DllCall("api-ms-win-core-winrt-string-l1-1-1.dll\WindowsInspectString2", Int64, targetHString, UInt16, machine, "ptr", callback, _contextMarshal, _context, lengthMarshal, length, targetStringAddressMarshal, targetStringAddress, "HRESULT")
     return result
 }
 
@@ -1678,7 +1674,7 @@ export RoReportUnhandledError(pRestrictedErrorInfo) {
 export RoInspectThreadErrorInfo(targetTebAddress, machine, readMemoryCallback, _context) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoInspectThreadErrorInfo", IntPtr, targetTebAddress, UInt16, machine, PINSPECT_MEMORY_CALLBACK, readMemoryCallback, _contextMarshal, _context, "ptr*", &targetErrorInfoAddress := 0, "HRESULT")
+    result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoInspectThreadErrorInfo", IntPtr, targetTebAddress, UInt16, machine, "ptr", readMemoryCallback, _contextMarshal, _context, "ptr*", &targetErrorInfoAddress := 0, "HRESULT")
     return targetErrorInfoAddress
 }
 
@@ -1703,7 +1699,7 @@ export RoInspectCapturedStackBackTrace(targetErrorInfoAddress, machine, readMemo
     frameCountMarshal := frameCount is VarRef ? "uint*" : "ptr"
     targetBackTraceAddressMarshal := targetBackTraceAddress is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoInspectCapturedStackBackTrace", IntPtr, targetErrorInfoAddress, UInt16, machine, PINSPECT_MEMORY_CALLBACK, readMemoryCallback, _contextMarshal, _context, frameCountMarshal, frameCount, targetBackTraceAddressMarshal, targetBackTraceAddress, "HRESULT")
+    result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoInspectCapturedStackBackTrace", IntPtr, targetErrorInfoAddress, UInt16, machine, "ptr", readMemoryCallback, _contextMarshal, _context, frameCountMarshal, frameCount, targetBackTraceAddressMarshal, targetBackTraceAddress, "HRESULT")
     return result
 }
 

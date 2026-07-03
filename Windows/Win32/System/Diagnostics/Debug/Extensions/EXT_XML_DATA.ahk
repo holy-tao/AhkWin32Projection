@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\EXT_CAB_XML_DATA.ahk" { EXT_CAB_XML_DATA }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\EXT_CAB_XML_DATA.ahk" { EXT_CAB_XML_DATA }
 #Import ".\IDebugClient4.ahk" { IDebugClient4 }
 
 /**
@@ -47,10 +47,6 @@ export default struct EXT_XML_DATA {
             this.value := CallbackCreate(fn, , ["ptr", EXT_CAB_XML_DATA.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

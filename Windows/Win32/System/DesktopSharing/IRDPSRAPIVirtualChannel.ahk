@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\CHANNEL_PRIORITY.ahk" { CHANNEL_PRIORITY }
-#Import ".\CHANNEL_ACCESS_ENUM.ahk" { CHANNEL_ACCESS_ENUM }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\CHANNEL_ACCESS_ENUM.ahk" { CHANNEL_ACCESS_ENUM }
+#Import ".\CHANNEL_PRIORITY.ahk" { CHANNEL_PRIORITY }
 
 /**
  * Manages the virtual channel.

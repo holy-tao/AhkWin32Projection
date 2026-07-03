@@ -1,82 +1,78 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\SP_DEVINSTALL_PARAMS_A.ahk" { SP_DEVINSTALL_PARAMS_A }
-#Import ".\FILE_COMPRESSION_TYPE.ahk" { FILE_COMPRESSION_TYPE }
-#Import ".\DIINSTALLDRIVER_FLAGS.ahk" { DIINSTALLDRIVER_FLAGS }
-#Import ".\HCMNOTIFICATION.ahk" { HCMNOTIFICATION }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\HWPROFILEINFO_A.ahk" { HWPROFILEINFO_A }
-#Import ".\CONFIGRET.ahk" { CONFIGRET }
-#Import ".\DIINSTALLDEVICE_FLAGS.ahk" { DIINSTALLDEVICE_FLAGS }
-#Import ".\SP_CLASSIMAGELIST_DATA.ahk" { SP_CLASSIMAGELIST_DATA }
-#Import ".\DIUNINSTALLDRIVER_FLAGS.ahk" { DIUNINSTALLDRIVER_FLAGS }
-#Import ".\OEM_SOURCE_MEDIA_TYPE.ahk" { OEM_SOURCE_MEDIA_TYPE }
-#Import "..\..\UI\Controls\HPROPSHEETPAGE.ahk" { HPROPSHEETPAGE }
-#Import ".\SP_FILE_COPY_PARAMS_A.ahk" { SP_FILE_COPY_PARAMS_A }
-#Import ".\SP_INSTALLWIZARD_DATA.ahk" { SP_INSTALLWIZARD_DATA }
-#Import ".\CM_PROB.ahk" { CM_PROB }
-#Import ".\CM_DEVNODE_STATUS_FLAGS.ahk" { CM_DEVNODE_STATUS_FLAGS }
-#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
-#Import ".\SP_FILE_COPY_PARAMS_W.ahk" { SP_FILE_COPY_PARAMS_W }
-#Import ".\SP_DRVINFO_DATA_V2_A.ahk" { SP_DRVINFO_DATA_V2_A }
-#Import ".\PNP_VETO_TYPE.ahk" { PNP_VETO_TYPE }
-#Import ".\CM_RESTYPE.ahk" { CM_RESTYPE }
-#Import ".\CONFLICT_DETAILS_A.ahk" { CONFLICT_DETAILS_A }
-#Import "..\..\Data\HtmlHelp\PRIORITY.ahk" { PRIORITY }
-#Import ".\SP_DEVINSTALL_PARAMS_W.ahk" { SP_DEVINSTALL_PARAMS_W }
-#Import ".\SP_COPY_STYLE.ahk" { SP_COPY_STYLE }
-#Import ".\SETUP_FILE_OPERATION.ahk" { SETUP_FILE_OPERATION }
-#Import ".\SETUP_DI_REGISTRY_PROPERTY.ahk" { SETUP_DI_REGISTRY_PROPERTY }
-#Import "..\Properties\DEVPROPTYPE.ahk" { DEVPROPTYPE }
-#Import "..\..\Foundation\DEVPROPKEY.ahk" { DEVPROPKEY }
-#Import ".\CONFLICT_DETAILS_W.ahk" { CONFLICT_DETAILS_W }
-#Import ".\SP_BACKUP_QUEUE_PARAMS_V2_A.ahk" { SP_BACKUP_QUEUE_PARAMS_V2_A }
-#Import ".\SP_ORIGINAL_FILE_INFO_A.ahk" { SP_ORIGINAL_FILE_INFO_A }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\PCM_NOTIFY_CALLBACK.ahk" { PCM_NOTIFY_CALLBACK }
-#Import ".\SETUP_DI_GET_CLASS_DEVS_FLAGS.ahk" { SETUP_DI_GET_CLASS_DEVS_FLAGS }
-#Import ".\CM_GET_DEVICE_INTERFACE_LIST_FLAGS.ahk" { CM_GET_DEVICE_INTERFACE_LIST_FLAGS }
-#Import ".\SETUP_DI_DRIVER_TYPE.ahk" { SETUP_DI_DRIVER_TYPE }
-#Import ".\PSP_DETSIG_CMPPROC.ahk" { PSP_DETSIG_CMPPROC }
-#Import ".\DI_FUNCTION.ahk" { DI_FUNCTION }
-#Import ".\SP_ALTPLATFORM_INFO_V2.ahk" { SP_ALTPLATFORM_INFO_V2 }
-#Import ".\CM_NOTIFY_FILTER.ahk" { CM_NOTIFY_FILTER }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Data\HtmlHelp\PRIORITY.ahk" { PRIORITY }
+#Import ".\CM_DEVNODE_STATUS_FLAGS.ahk" { CM_DEVNODE_STATUS_FLAGS }
+#Import ".\CM_ENUMERATE_FLAGS.ahk" { CM_ENUMERATE_FLAGS }
+#Import ".\CM_GET_DEVICE_INTERFACE_LIST_FLAGS.ahk" { CM_GET_DEVICE_INTERFACE_LIST_FLAGS }
+#Import ".\CM_LOCATE_DEVNODE_FLAGS.ahk" { CM_LOCATE_DEVNODE_FLAGS }
+#Import ".\CM_LOG_CONF.ahk" { CM_LOG_CONF }
+#Import ".\CM_NOTIFY_FILTER.ahk" { CM_NOTIFY_FILTER }
+#Import ".\CM_PROB.ahk" { CM_PROB }
+#Import ".\CM_REENUMERATE_FLAGS.ahk" { CM_REENUMERATE_FLAGS }
+#Import ".\CM_RESTYPE.ahk" { CM_RESTYPE }
+#Import ".\CONFIGRET.ahk" { CONFIGRET }
+#Import ".\CONFLICT_DETAILS_A.ahk" { CONFLICT_DETAILS_A }
+#Import ".\CONFLICT_DETAILS_W.ahk" { CONFLICT_DETAILS_W }
+#Import ".\DIINSTALLDEVICE_FLAGS.ahk" { DIINSTALLDEVICE_FLAGS }
+#Import ".\DIINSTALLDRIVER_FLAGS.ahk" { DIINSTALLDRIVER_FLAGS }
+#Import ".\DIROLLBACKDRIVER_FLAGS.ahk" { DIROLLBACKDRIVER_FLAGS }
+#Import ".\DIUNINSTALLDRIVER_FLAGS.ahk" { DIUNINSTALLDRIVER_FLAGS }
+#Import ".\DI_FUNCTION.ahk" { DI_FUNCTION }
+#Import ".\FILE_COMPRESSION_TYPE.ahk" { FILE_COMPRESSION_TYPE }
+#Import ".\HCMNOTIFICATION.ahk" { HCMNOTIFICATION }
+#Import ".\HDEVINFO.ahk" { HDEVINFO }
+#Import ".\HWPROFILEINFO_A.ahk" { HWPROFILEINFO_A }
+#Import ".\HWPROFILEINFO_W.ahk" { HWPROFILEINFO_W }
 #Import ".\INFCONTEXT.ahk" { INFCONTEXT }
 #Import ".\INF_STYLE.ahk" { INF_STYLE }
-#Import ".\HWPROFILEINFO_W.ahk" { HWPROFILEINFO_W }
-#Import ".\CM_LOCATE_DEVNODE_FLAGS.ahk" { CM_LOCATE_DEVNODE_FLAGS }
-#Import ".\SP_INF_INFORMATION.ahk" { SP_INF_INFORMATION }
-#Import "..\..\UI\Controls\PROPSHEETHEADERW_V2.ahk" { PROPSHEETHEADERW_V2 }
-#Import ".\SP_DRVINFO_DATA_V2_W.ahk" { SP_DRVINFO_DATA_V2_W }
+#Import ".\OEM_SOURCE_MEDIA_TYPE.ahk" { OEM_SOURCE_MEDIA_TYPE }
+#Import ".\PNP_VETO_TYPE.ahk" { PNP_VETO_TYPE }
 #Import ".\SETUPSCANFILEQUEUE_FLAGS.ahk" { SETUPSCANFILEQUEUE_FLAGS }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\PSP_FILE_CALLBACK_W.ahk" { PSP_FILE_CALLBACK_W }
-#Import ".\CM_REENUMERATE_FLAGS.ahk" { CM_REENUMERATE_FLAGS }
-#Import ".\SPSVCINST_FLAGS.ahk" { SPSVCINST_FLAGS }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\SP_DEVICE_INTERFACE_DATA.ahk" { SP_DEVICE_INTERFACE_DATA }
-#Import "..\..\UI\Controls\PROPSHEETHEADERA_V2.ahk" { PROPSHEETHEADERA_V2 }
 #Import ".\SETUP_DI_DEVICE_CREATION_FLAGS.ahk" { SETUP_DI_DEVICE_CREATION_FLAGS }
-#Import ".\SP_DEVINFO_LIST_DETAIL_DATA_A.ahk" { SP_DEVINFO_LIST_DETAIL_DATA_A }
-#Import ".\PSP_FILE_CALLBACK_A.ahk" { PSP_FILE_CALLBACK_A }
+#Import ".\SETUP_DI_DRIVER_TYPE.ahk" { SETUP_DI_DRIVER_TYPE }
+#Import ".\SETUP_DI_GET_CLASS_DEVS_FLAGS.ahk" { SETUP_DI_GET_CLASS_DEVS_FLAGS }
+#Import ".\SETUP_DI_REGISTRY_PROPERTY.ahk" { SETUP_DI_REGISTRY_PROPERTY }
+#Import ".\SETUP_FILE_OPERATION.ahk" { SETUP_FILE_OPERATION }
+#Import ".\SPSVCINST_FLAGS.ahk" { SPSVCINST_FLAGS }
+#Import ".\SP_ALTPLATFORM_INFO_V2.ahk" { SP_ALTPLATFORM_INFO_V2 }
+#Import ".\SP_BACKUP_QUEUE_PARAMS_V2_A.ahk" { SP_BACKUP_QUEUE_PARAMS_V2_A }
 #Import ".\SP_BACKUP_QUEUE_PARAMS_V2_W.ahk" { SP_BACKUP_QUEUE_PARAMS_V2_W }
-#Import ".\DIROLLBACKDRIVER_FLAGS.ahk" { DIROLLBACKDRIVER_FLAGS }
+#Import ".\SP_CLASSIMAGELIST_DATA.ahk" { SP_CLASSIMAGELIST_DATA }
+#Import ".\SP_COPY_STYLE.ahk" { SP_COPY_STYLE }
+#Import ".\SP_DEVICE_INTERFACE_DATA.ahk" { SP_DEVICE_INTERFACE_DATA }
 #Import ".\SP_DEVINFO_DATA.ahk" { SP_DEVINFO_DATA }
-#Import ".\HDEVINFO.ahk" { HDEVINFO }
-#Import ".\SP_DRVINSTALL_PARAMS.ahk" { SP_DRVINSTALL_PARAMS }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
-#Import ".\SP_INF_SIGNER_INFO_V2_W.ahk" { SP_INF_SIGNER_INFO_V2_W }
+#Import ".\SP_DEVINFO_LIST_DETAIL_DATA_A.ahk" { SP_DEVINFO_LIST_DETAIL_DATA_A }
 #Import ".\SP_DEVINFO_LIST_DETAIL_DATA_W.ahk" { SP_DEVINFO_LIST_DETAIL_DATA_W }
-#Import ".\SetupFileLogInfo.ahk" { SetupFileLogInfo }
+#Import ".\SP_DEVINSTALL_PARAMS_A.ahk" { SP_DEVINSTALL_PARAMS_A }
+#Import ".\SP_DEVINSTALL_PARAMS_W.ahk" { SP_DEVINSTALL_PARAMS_W }
+#Import ".\SP_DRVINFO_DATA_V2_A.ahk" { SP_DRVINFO_DATA_V2_A }
+#Import ".\SP_DRVINFO_DATA_V2_W.ahk" { SP_DRVINFO_DATA_V2_W }
+#Import ".\SP_DRVINSTALL_PARAMS.ahk" { SP_DRVINSTALL_PARAMS }
+#Import ".\SP_FILE_COPY_PARAMS_A.ahk" { SP_FILE_COPY_PARAMS_A }
+#Import ".\SP_FILE_COPY_PARAMS_W.ahk" { SP_FILE_COPY_PARAMS_W }
+#Import ".\SP_INF_INFORMATION.ahk" { SP_INF_INFORMATION }
 #Import ".\SP_INF_SIGNER_INFO_V2_A.ahk" { SP_INF_SIGNER_INFO_V2_A }
+#Import ".\SP_INF_SIGNER_INFO_V2_W.ahk" { SP_INF_SIGNER_INFO_V2_W }
+#Import ".\SP_INSTALLWIZARD_DATA.ahk" { SP_INSTALLWIZARD_DATA }
+#Import ".\SP_ORIGINAL_FILE_INFO_A.ahk" { SP_ORIGINAL_FILE_INFO_A }
 #Import ".\SP_ORIGINAL_FILE_INFO_W.ahk" { SP_ORIGINAL_FILE_INFO_W }
-#Import ".\CM_LOG_CONF.ahk" { CM_LOG_CONF }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import ".\SetupFileLogInfo.ahk" { SetupFileLogInfo }
 #Import ".\UPDATEDRIVERFORPLUGANDPLAYDEVICES_FLAGS.ahk" { UPDATEDRIVERFORPLUGANDPLAYDEVICES_FLAGS }
-#Import ".\CM_ENUMERATE_FLAGS.ahk" { CM_ENUMERATE_FLAGS }
+#Import "..\Properties\DEVPROPTYPE.ahk" { DEVPROPTYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\DEVPROPKEY.ahk" { DEVPROPKEY }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
 #Import "..\..\System\Registry\HKEY.ahk" { HKEY }
+#Import "..\..\UI\Controls\HPROPSHEETPAGE.ahk" { HPROPSHEETPAGE }
+#Import "..\..\UI\Controls\PROPSHEETHEADERA_V2.ahk" { PROPSHEETHEADERA_V2 }
+#Import "..\..\UI\Controls\PROPSHEETHEADERW_V2.ahk" { PROPSHEETHEADERW_V2 }
+#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
@@ -3350,7 +3346,7 @@ export SetupInstallFileA(InfHandle, _InfContext, _SourceFile, SourcePathRoot, De
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupInstallFileA", InfHandleMarshal, InfHandle, INFCONTEXT.Ptr, _InfContext, "ptr", _SourceFile, "ptr", SourcePathRoot, "ptr", DestinationName, SP_COPY_STYLE, CopyStyle, PSP_FILE_CALLBACK_A, CopyMsgHandler, _ContextMarshal, _Context, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupInstallFileA", InfHandleMarshal, InfHandle, INFCONTEXT.Ptr, _InfContext, "ptr", _SourceFile, "ptr", SourcePathRoot, "ptr", DestinationName, SP_COPY_STYLE, CopyStyle, "ptr", CopyMsgHandler, _ContextMarshal, _Context, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3397,7 +3393,7 @@ export SetupInstallFileW(InfHandle, _InfContext, _SourceFile, SourcePathRoot, De
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupInstallFileW", InfHandleMarshal, InfHandle, INFCONTEXT.Ptr, _InfContext, "ptr", _SourceFile, "ptr", SourcePathRoot, "ptr", DestinationName, SP_COPY_STYLE, CopyStyle, PSP_FILE_CALLBACK_W, CopyMsgHandler, _ContextMarshal, _Context, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupInstallFileW", InfHandleMarshal, InfHandle, INFCONTEXT.Ptr, _InfContext, "ptr", _SourceFile, "ptr", SourcePathRoot, "ptr", DestinationName, SP_COPY_STYLE, CopyStyle, "ptr", CopyMsgHandler, _ContextMarshal, _Context, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3448,7 +3444,7 @@ export SetupInstallFileExA(InfHandle, _InfContext, _SourceFile, SourcePathRoot, 
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupInstallFileExA", InfHandleMarshal, InfHandle, INFCONTEXT.Ptr, _InfContext, "ptr", _SourceFile, "ptr", SourcePathRoot, "ptr", DestinationName, SP_COPY_STYLE, CopyStyle, PSP_FILE_CALLBACK_A, CopyMsgHandler, _ContextMarshal, _Context, FileWasInUseMarshal, FileWasInUse, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupInstallFileExA", InfHandleMarshal, InfHandle, INFCONTEXT.Ptr, _InfContext, "ptr", _SourceFile, "ptr", SourcePathRoot, "ptr", DestinationName, SP_COPY_STYLE, CopyStyle, "ptr", CopyMsgHandler, _ContextMarshal, _Context, FileWasInUseMarshal, FileWasInUse, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3499,7 +3495,7 @@ export SetupInstallFileExW(InfHandle, _InfContext, _SourceFile, SourcePathRoot, 
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupInstallFileExW", InfHandleMarshal, InfHandle, INFCONTEXT.Ptr, _InfContext, "ptr", _SourceFile, "ptr", SourcePathRoot, "ptr", DestinationName, SP_COPY_STYLE, CopyStyle, PSP_FILE_CALLBACK_W, CopyMsgHandler, _ContextMarshal, _Context, FileWasInUseMarshal, FileWasInUse, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupInstallFileExW", InfHandleMarshal, InfHandle, INFCONTEXT.Ptr, _InfContext, "ptr", _SourceFile, "ptr", SourcePathRoot, "ptr", DestinationName, SP_COPY_STYLE, CopyStyle, "ptr", CopyMsgHandler, _ContextMarshal, _Context, FileWasInUseMarshal, FileWasInUse, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4392,7 +4388,7 @@ export SetupCommitFileQueueA(Owner, QueueHandle, MsgHandler, _Context) {
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupCommitFileQueueA", HWND, Owner, QueueHandleMarshal, QueueHandle, PSP_FILE_CALLBACK_A, MsgHandler, _ContextMarshal, _Context, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupCommitFileQueueA", HWND, Owner, QueueHandleMarshal, QueueHandle, "ptr", MsgHandler, _ContextMarshal, _Context, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4437,7 +4433,7 @@ export SetupCommitFileQueueW(Owner, QueueHandle, MsgHandler, _Context) {
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupCommitFileQueueW", HWND, Owner, QueueHandleMarshal, QueueHandle, PSP_FILE_CALLBACK_W, MsgHandler, _ContextMarshal, _Context, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupCommitFileQueueW", HWND, Owner, QueueHandleMarshal, QueueHandle, "ptr", MsgHandler, _ContextMarshal, _Context, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4618,7 +4614,7 @@ export SetupScanFileQueueA(FileQueue, Flags, Window, CallbackRoutine, CallbackCo
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupScanFileQueueA", FileQueueMarshal, FileQueue, SETUPSCANFILEQUEUE_FLAGS, Flags, HWND, Window, PSP_FILE_CALLBACK_A, CallbackRoutine, CallbackContextMarshal, CallbackContext, ResultMarshal, Result, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupScanFileQueueA", FileQueueMarshal, FileQueue, SETUPSCANFILEQUEUE_FLAGS, Flags, HWND, Window, "ptr", CallbackRoutine, CallbackContextMarshal, CallbackContext, ResultMarshal, Result, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4799,7 +4795,7 @@ export SetupScanFileQueueW(FileQueue, Flags, Window, CallbackRoutine, CallbackCo
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupScanFileQueueW", FileQueueMarshal, FileQueue, SETUPSCANFILEQUEUE_FLAGS, Flags, HWND, Window, PSP_FILE_CALLBACK_W, CallbackRoutine, CallbackContextMarshal, CallbackContext, ResultMarshal, Result, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupScanFileQueueW", FileQueueMarshal, FileQueue, SETUPSCANFILEQUEUE_FLAGS, Flags, HWND, Window, "ptr", CallbackRoutine, CallbackContextMarshal, CallbackContext, ResultMarshal, Result, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6312,7 +6308,7 @@ export SetupIterateCabinetA(CabinetFile, MsgHandler, _Context) {
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupIterateCabinetA", "ptr", CabinetFile, UInt32, Reserved, PSP_FILE_CALLBACK_A, MsgHandler, _ContextMarshal, _Context, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupIterateCabinetA", "ptr", CabinetFile, UInt32, Reserved, "ptr", MsgHandler, _ContextMarshal, _Context, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6345,7 +6341,7 @@ export SetupIterateCabinetW(CabinetFile, MsgHandler, _Context) {
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupIterateCabinetW", "ptr", CabinetFile, UInt32, Reserved, PSP_FILE_CALLBACK_W, MsgHandler, _ContextMarshal, _Context, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupIterateCabinetW", "ptr", CabinetFile, UInt32, Reserved, "ptr", MsgHandler, _ContextMarshal, _Context, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7119,7 +7115,7 @@ export SetupInstallFromInfSectionA(Owner, InfHandle, SectionName, Flags, Relativ
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupInstallFromInfSectionA", HWND, Owner, InfHandleMarshal, InfHandle, "ptr", SectionName, UInt32, Flags, HKEY, RelativeKeyRoot, "ptr", SourceRootPath, UInt32, CopyFlags, PSP_FILE_CALLBACK_A, MsgHandler, _ContextMarshal, _Context, HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupInstallFromInfSectionA", HWND, Owner, InfHandleMarshal, InfHandle, "ptr", SectionName, UInt32, Flags, HKEY, RelativeKeyRoot, "ptr", SourceRootPath, UInt32, CopyFlags, "ptr", MsgHandler, _ContextMarshal, _Context, HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7206,7 +7202,7 @@ export SetupInstallFromInfSectionW(Owner, InfHandle, SectionName, Flags, Relativ
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupInstallFromInfSectionW", HWND, Owner, InfHandleMarshal, InfHandle, "ptr", SectionName, UInt32, Flags, HKEY, RelativeKeyRoot, "ptr", SourceRootPath, UInt32, CopyFlags, PSP_FILE_CALLBACK_W, MsgHandler, _ContextMarshal, _Context, HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupInstallFromInfSectionW", HWND, Owner, InfHandleMarshal, InfHandle, "ptr", SectionName, UInt32, Flags, HKEY, RelativeKeyRoot, "ptr", SourceRootPath, UInt32, CopyFlags, "ptr", MsgHandler, _ContextMarshal, _Context, HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10204,7 +10200,7 @@ export SetupDiRegisterDeviceInfo(DeviceInfoSet, DeviceInfoData, Flags, ComparePr
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiRegisterDeviceInfo", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, UInt32, Flags, PSP_DETSIG_CMPPROC, CompareProc, CompareContextMarshal, CompareContext, SP_DEVINFO_DATA.Ptr, DupDeviceInfoData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiRegisterDeviceInfo", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, UInt32, Flags, "ptr", CompareProc, CompareContextMarshal, CompareContext, SP_DEVINFO_DATA.Ptr, DupDeviceInfoData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23297,7 +23293,7 @@ export CMP_WaitNoPendingInstallEvents(dwTimeout) {
 export CM_Register_Notification(pFilter, pContext, pCallback, pNotifyContext) {
     pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CFGMGR32.dll\CM_Register_Notification", CM_NOTIFY_FILTER.Ptr, pFilter, pContextMarshal, pContext, PCM_NOTIFY_CALLBACK, pCallback, HCMNOTIFICATION.Ptr, pNotifyContext, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Register_Notification", CM_NOTIFY_FILTER.Ptr, pFilter, pContextMarshal, pContext, "ptr", pCallback, HCMNOTIFICATION.Ptr, pNotifyContext, CONFIGRET)
     return result
 }
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WSD_NAME_LIST.ahk" { WSD_NAME_LIST }
 #Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
+#Import ".\WSD_NAME_LIST.ahk" { WSD_NAME_LIST }
 #Import ".\WSD_SCOPES.ahk" { WSD_SCOPES }
 
 /**

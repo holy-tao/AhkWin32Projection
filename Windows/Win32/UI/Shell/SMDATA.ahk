@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
-#Import "..\WindowsAndMessaging\HMENU.ahk" { HMENU }
 #Import ".\IShellFolder.ahk" { IShellFolder }
+#Import "..\WindowsAndMessaging\HMENU.ahk" { HMENU }
 
 /**
  * Contains information from a menu band.

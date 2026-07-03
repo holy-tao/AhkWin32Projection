@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISharedBitmap.ahk" { ISharedBitmap }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WTS_FLAGS.ahk" { WTS_FLAGS }
-#Import ".\WTS_CACHEFLAGS.ahk" { WTS_CACHEFLAGS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ISharedBitmap.ahk" { ISharedBitmap }
 #Import ".\IShellItem.ahk" { IShellItem }
+#Import ".\WTS_CACHEFLAGS.ahk" { WTS_CACHEFLAGS }
+#Import ".\WTS_FLAGS.ahk" { WTS_FLAGS }
 #Import ".\WTS_THUMBNAILID.ahk" { WTS_THUMBNAILID }
 
 /**

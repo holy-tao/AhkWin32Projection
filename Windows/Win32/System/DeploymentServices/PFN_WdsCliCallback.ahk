@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 #Import ".\PFN_WDS_CLI_CALLBACK_MESSAGE_ID.ahk" { PFN_WDS_CLI_CALLBACK_MESSAGE_ID }
 
 /**
@@ -63,10 +63,6 @@ export default struct PFN_WdsCliCallback {
             this.value := CallbackCreate(fn, , [PFN_WDS_CLI_CALLBACK_MESSAGE_ID, WPARAM, LPARAM, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

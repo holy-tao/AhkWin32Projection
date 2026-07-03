@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IItemEnumerator.ahk" { IItemEnumerator }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IStream.ahk" { IStream }
-#Import ".\WcmUserStatus.ahk" { WcmUserStatus }
-#Import ".\ITargetInfo.ahk" { ITargetInfo }
-#Import ".\ISettingsNamespace.ahk" { ISettingsNamespace }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\WcmNamespaceAccess.ahk" { WcmNamespaceAccess }
-#Import ".\ISettingsIdentity.ahk" { ISettingsIdentity }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\ISettingsContext.ahk" { ISettingsContext }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IStream.ahk" { IStream }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IItemEnumerator.ahk" { IItemEnumerator }
+#Import ".\ISettingsContext.ahk" { ISettingsContext }
+#Import ".\ISettingsIdentity.ahk" { ISettingsIdentity }
+#Import ".\ISettingsNamespace.ahk" { ISettingsNamespace }
+#Import ".\ITargetInfo.ahk" { ITargetInfo }
+#Import ".\WcmNamespaceAccess.ahk" { WcmNamespaceAccess }
 #Import ".\WcmNamespaceEnumerationFlags.ahk" { WcmNamespaceEnumerationFlags }
+#Import ".\WcmUserStatus.ahk" { WcmUserStatus }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The central interface for opening namespaces and controlling how they are opened.

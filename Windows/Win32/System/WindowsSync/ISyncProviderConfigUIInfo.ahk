@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISyncProviderConfigUI.ahk" { ISyncProviderConfigUI }
+#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
 
 /**
  * Represents the information and properties needed to create an instance of a synchronization provider configuration UI.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HCERTSTORE.ahk" { HCERTSTORE }
 #Import ".\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import ".\CERT_INFO.ahk" { CERT_INFO }
 #Import ".\CERT_QUERY_ENCODING_TYPE.ahk" { CERT_QUERY_ENCODING_TYPE }
+#Import ".\HCERTSTORE.ahk" { HCERTSTORE }
 
 /**
  * The CryptGetSignerCertificateCallback user supplied callback function is used with the CRYPT_VERIFY_MESSAGE_PARA structure to get and verify a message signer's certificate.
@@ -65,10 +65,6 @@ export default struct PFN_CRYPT_GET_SIGNER_CERTIFICATE {
             this.value := CallbackCreate(fn, , ["ptr", CERT_QUERY_ENCODING_TYPE, CERT_INFO.Ptr, HCERTSTORE, CERT_CONTEXT.Ptr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

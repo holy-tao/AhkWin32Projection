@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

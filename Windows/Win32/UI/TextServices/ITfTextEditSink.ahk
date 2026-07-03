@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITfEditRecord.ahk" { ITfEditRecord }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ITfContext.ahk" { ITfContext }
+#Import ".\ITfEditRecord.ahk" { ITfEditRecord }
 
 /**
  * The ITfTextEditSink interface supports completion of an edit session that involves read/write access.

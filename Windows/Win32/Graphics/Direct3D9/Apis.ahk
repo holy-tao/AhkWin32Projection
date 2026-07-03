@@ -1,10 +1,10 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\IDirect3D9.ahk" { IDirect3D9 }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IDirect3D9Ex.ahk" { IDirect3D9Ex }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDirect3D9.ahk" { IDirect3D9 }
+#Import ".\IDirect3D9Ex.ahk" { IDirect3D9Ex }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FA_ENTRY.ahk" { FA_ENTRY }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DEBUG_FLR_PARAM_TYPE.ahk" { DEBUG_FLR_PARAM_TYPE }
 #Import ".\DEBUG_FAILURE_TYPE.ahk" { DEBUG_FAILURE_TYPE }
+#Import ".\DEBUG_FLR_PARAM_TYPE.ahk" { DEBUG_FLR_PARAM_TYPE }
+#Import ".\FA_ENTRY.ahk" { FA_ENTRY }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

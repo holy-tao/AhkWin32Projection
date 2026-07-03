@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT.ahk" { KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT.ahk" { KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

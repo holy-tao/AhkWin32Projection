@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
-#Import ".\DDVIDEOPORTINFO.ahk" { DDVIDEOPORTINFO }
-#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\DDVIDEOPORTDESC.ahk" { DDVIDEOPORTDESC }
-#Import ".\DDRAWI_DDRAWSURFACE_INT.ahk" { DDRAWI_DDRAWSURFACE_INT }
-#Import ".\DDVIDEOPORTCONNECT.ahk" { DDVIDEOPORTCONNECT }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
+#Import ".\DDRAWI_DDRAWSURFACE_INT.ahk" { DDRAWI_DDRAWSURFACE_INT }
 #Import ".\DDRAWI_DDVIDEOPORT_INT.ahk" { DDRAWI_DDVIDEOPORT_INT }
+#Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
+#Import ".\DDVIDEOPORTCONNECT.ahk" { DDVIDEOPORTCONNECT }
+#Import ".\DDVIDEOPORTDESC.ahk" { DDVIDEOPORTDESC }
+#Import ".\DDVIDEOPORTINFO.ahk" { DDVIDEOPORTINFO }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

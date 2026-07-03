@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Graphics\DirectDraw\DD_HALINFO.ahk" { DD_HALINFO }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DHPDEV.ahk" { DHPDEV }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Graphics\DirectDraw\DD_HALINFO.ahk" { DD_HALINFO }
 #Import "..\..\Graphics\DirectDraw\VIDEOMEMORY.ahk" { VIDEOMEMORY }
 
 /**
@@ -56,10 +56,6 @@ export default struct PFN_DrvGetDirectDrawInfo {
             this.value := CallbackCreate(fn, , [DHPDEV, DD_HALINFO.Ptr, "uint*", VIDEOMEMORY.Ptr, "uint*", "uint*", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

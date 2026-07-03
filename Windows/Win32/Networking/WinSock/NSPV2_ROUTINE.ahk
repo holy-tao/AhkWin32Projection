@@ -1,11 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LPNSPV2CLIENTSESSIONRUNDOWN.ahk" { LPNSPV2CLIENTSESSIONRUNDOWN }
-#Import ".\LPNSPV2LOOKUPSERVICEEND.ahk" { LPNSPV2LOOKUPSERVICEEND }
-#Import ".\LPNSPV2SETSERVICEEX.ahk" { LPNSPV2SETSERVICEEX }
-#Import ".\LPNSPV2LOOKUPSERVICENEXTEX.ahk" { LPNSPV2LOOKUPSERVICENEXTEX }
-#Import ".\LPNSPV2LOOKUPSERVICEBEGIN.ahk" { LPNSPV2LOOKUPSERVICEBEGIN }
-#Import ".\LPNSPV2CLEANUP.ahk" { LPNSPV2CLEANUP }
-#Import ".\LPNSPV2STARTUP.ahk" { LPNSPV2STARTUP }
 
 /**
  * Contains information on the functions implemented by a namespace service provider version-2 (NSPv2) provider.
@@ -73,48 +66,48 @@ export default struct NSPV2_ROUTINE {
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnspv2startup">NSPv2Startup</a> function for this NSPv2 provider.
      */
-    NSPv2Startup : LPNSPV2STARTUP
+    NSPv2Startup : IntPtr
 
     /**
      * Type: **LPNSPV2CLEANUP**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnspv2cleanup">NSPv2Cleanup</a> function for this NSPv2 provider.
      */
-    NSPv2Cleanup : LPNSPV2CLEANUP
+    NSPv2Cleanup : IntPtr
 
     /**
      * Type: **LPNSPV2LOOKUPSERVICEBEGIN**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnsplookupservicebegin">NSPv2LookupServiceBegin</a> function for this NSPv2 provider.
      */
-    NSPv2LookupServiceBegin : LPNSPV2LOOKUPSERVICEBEGIN
+    NSPv2LookupServiceBegin : IntPtr
 
     /**
      * Type: **LPNSPV2LOOKUPSERVICENEXTEX**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnspv2lookupservicenextex">NSPv2LookupServiceNextEx</a> function for this NSPv2 provider.
      */
-    NSPv2LookupServiceNextEx : LPNSPV2LOOKUPSERVICENEXTEX
+    NSPv2LookupServiceNextEx : IntPtr
 
     /**
      * Type: **LPNSPV2LOOKUPSERVICEEND**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnspv2lookupserviceend">NSPv2LookupServiceEnd</a> function for this NSPv2 provider.
      */
-    NSPv2LookupServiceEnd : LPNSPV2LOOKUPSERVICEEND
+    NSPv2LookupServiceEnd : IntPtr
 
     /**
      * Type: **LPNSPV2SETSERVICEEX**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnspv2setserviceex">NSPv2SetServiceEx</a> function for this NSPv2 provider.
      */
-    NSPv2SetServiceEx : LPNSPV2SETSERVICEEX
+    NSPv2SetServiceEx : IntPtr
 
     /**
      * Type: **LPNSPV2CLIENTSESSIONRUNDOWN**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnspv2clientsessionrundown">NSPv2ClientSessionRundown</a> function for this NSPv2 provider.
      */
-    NSPv2ClientSessionRundown : LPNSPV2CLIENTSESSIONRUNDOWN
+    NSPv2ClientSessionRundown : IntPtr
 
 }

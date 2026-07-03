@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\CERTADMIN_GET_ROLES_FLAGS.ahk" { CERTADMIN_GET_ROLES_FLAGS }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\CERT_PROPERTY_TYPE.ahk" { CERT_PROPERTY_TYPE }
-#Import ".\CERT_IMPORT_FLAGS.ahk" { CERT_IMPORT_FLAGS }
-#Import ".\CERT_DELETE_ROW_FLAGS.ahk" { CERT_DELETE_ROW_FLAGS }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CERTADMIN_GET_ROLES_FLAGS.ahk" { CERTADMIN_GET_ROLES_FLAGS }
+#Import ".\CERT_DELETE_ROW_FLAGS.ahk" { CERT_DELETE_ROW_FLAGS }
+#Import ".\CERT_IMPORT_FLAGS.ahk" { CERT_IMPORT_FLAGS }
+#Import ".\CERT_PROPERTY_TYPE.ahk" { CERT_PROPERTY_TYPE }
 #Import ".\CVRC_TABLE.ahk" { CVRC_TABLE }
 #Import ".\ICertAdmin.ahk" { ICertAdmin }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Provide administration functionality for properly authorized clients.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IMAGE_FILE_HEADER.ahk" { IMAGE_FILE_HEADER }
 #Import ".\IMAGE_FILE_CHARACTERISTICS.ahk" { IMAGE_FILE_CHARACTERISTICS }
-#Import "..\..\SystemInformation\IMAGE_FILE_MACHINE.ahk" { IMAGE_FILE_MACHINE }
+#Import ".\IMAGE_FILE_HEADER.ahk" { IMAGE_FILE_HEADER }
 #Import ".\IMAGE_ROM_OPTIONAL_HEADER.ahk" { IMAGE_ROM_OPTIONAL_HEADER }
+#Import "..\..\SystemInformation\IMAGE_FILE_MACHINE.ahk" { IMAGE_FILE_MACHINE }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug

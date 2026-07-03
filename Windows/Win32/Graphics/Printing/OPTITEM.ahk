@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\OPTTYPE.ahk" { OPTTYPE }
-#Import ".\OIEXT.ahk" { OIEXT }
-#Import ".\EXTPUSH.ahk" { EXTPUSH }
 #Import ".\EXTCHKBOX.ahk" { EXTCHKBOX }
+#Import ".\EXTPUSH.ahk" { EXTPUSH }
+#Import ".\OIEXT.ahk" { OIEXT }
+#Import ".\OPTTYPE.ahk" { OPTTYPE }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

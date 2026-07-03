@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\OPENFILENAMEA.ahk" { OPENFILENAMEA }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\OPENFILENAMEA.ahk" { OPENFILENAMEA }
 #Import "..\NMHDR.ahk" { NMHDR }
 
 /**

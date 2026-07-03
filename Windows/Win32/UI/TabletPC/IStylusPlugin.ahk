@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\IRealTimeStylus.ahk" { IRealTimeStylus }
-#Import ".\StylusInfo.ahk" { StylusInfo }
-#Import ".\IInkTablet.ahk" { IInkTablet }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IInkTablet.ahk" { IInkTablet }
+#Import ".\IRealTimeStylus.ahk" { IRealTimeStylus }
 #Import ".\RealTimeStylusDataInterest.ahk" { RealTimeStylusDataInterest }
 #Import ".\SYSTEM_EVENT_DATA.ahk" { SYSTEM_EVENT_DATA }
+#Import ".\StylusInfo.ahk" { StylusInfo }
 
 /**
  * Receives notifications of RealTimeStylus Class events to enable you to perform custom processing based on those events.

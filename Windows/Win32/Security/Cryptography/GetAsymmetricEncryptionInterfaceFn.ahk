@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\BCRYPT_ASYMMETRIC_ENCRYPTION_FUNCTION_TABLE.ahk" { BCRYPT_ASYMMETRIC_ENCRYPTION_FUNCTION_TABLE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\BCRYPT_ASYMMETRIC_ENCRYPTION_FUNCTION_TABLE.ahk" { BCRYPT_ASYMMETRIC_ENCRYPTION_FUNCTION_TABLE }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -35,7 +35,7 @@ export default struct GetAsymmetricEncryptionInterfaceFn {
         ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, "ptr", pszProviderName, "ptr", pszAlgId, ppFunctionTableMarshal, ppFunctionTable, UInt32, dwFlags, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -55,10 +55,6 @@ export default struct GetAsymmetricEncryptionInterfaceFn {
             this.value := CallbackCreate(fn, , [PWSTR, PWSTR, "ptr*", UInt32, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

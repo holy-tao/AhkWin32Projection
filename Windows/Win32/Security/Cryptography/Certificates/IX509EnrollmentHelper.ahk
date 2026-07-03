@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\X509EnrollmentAuthFlags.ahk" { X509EnrollmentAuthFlags }
-#Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\EncodingType.ahk" { EncodingType }
 #Import ".\PolicyServerUrlFlags.ahk" { PolicyServerUrlFlags }
 #Import ".\WebEnrollmentFlags.ahk" { WebEnrollmentFlags }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
+#Import ".\X509EnrollmentAuthFlags.ahk" { X509EnrollmentAuthFlags }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**

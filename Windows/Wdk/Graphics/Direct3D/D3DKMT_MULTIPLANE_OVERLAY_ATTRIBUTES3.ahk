@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\RECT.ahk" { RECT }
-#Import ".\D3DKMT_MULTIPLANE_OVERLAY_BLEND.ahk" { D3DKMT_MULTIPLANE_OVERLAY_BLEND }
 #Import ".\D3DDDI_COLOR_SPACE_TYPE.ahk" { D3DDDI_COLOR_SPACE_TYPE }
 #Import ".\D3DDDI_ROTATION.ahk" { D3DDDI_ROTATION }
+#Import ".\D3DKMT_MULTIPLANE_OVERLAY_BLEND.ahk" { D3DKMT_MULTIPLANE_OVERLAY_BLEND }
 #Import ".\DXGKMT_MULTIPLANE_OVERLAY_STRETCH_QUALITY.ahk" { DXGKMT_MULTIPLANE_OVERLAY_STRETCH_QUALITY }
+#Import "..\..\..\Win32\Foundation\RECT.ahk" { RECT }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

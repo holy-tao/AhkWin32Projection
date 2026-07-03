@@ -1,18 +1,17 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\GLYPHMETRICSFLOAT.ahk" { GLYPHMETRICSFLOAT }
-#Import ".\GLUtesselator.ahk" { GLUtesselator }
+#Import "..\Gdi\HDC.ahk" { HDC }
+#Import "..\Gdi\HENHMETAFILE.ahk" { HENHMETAFILE }
 #Import ".\GLUnurbs.ahk" { GLUnurbs }
 #Import ".\GLUquadric.ahk" { GLUquadric }
-#Import ".\LAYERPLANEDESCRIPTOR.ahk" { LAYERPLANEDESCRIPTOR }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\Gdi\HENHMETAFILE.ahk" { HENHMETAFILE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PROC.ahk" { PROC }
+#Import ".\GLUtesselator.ahk" { GLUtesselator }
+#Import ".\GLYPHMETRICSFLOAT.ahk" { GLYPHMETRICSFLOAT }
 #Import ".\HGLRC.ahk" { HGLRC }
-#Import "..\Gdi\HDC.ahk" { HDC }
-#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import ".\LAYERPLANEDESCRIPTOR.ahk" { LAYERPLANEDESCRIPTOR }
 #Import ".\PIXELFORMATDESCRIPTOR.ahk" { PIXELFORMATDESCRIPTOR }
 
 /**
@@ -421,7 +420,7 @@ export wglGetProcAddress(param0) {
 
     A_LastError := 0
 
-    result := DllCall("OPENGL32.dll\wglGetProcAddress", "ptr", param0, PROC)
+    result := DllCall("OPENGL32.dll\wglGetProcAddress", "ptr", param0, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }

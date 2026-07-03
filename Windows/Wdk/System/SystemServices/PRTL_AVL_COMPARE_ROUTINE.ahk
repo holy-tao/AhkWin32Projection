@@ -43,10 +43,6 @@ export default struct PRTL_AVL_COMPARE_ROUTINE {
             this.value := CallbackCreate(fn, , [RTL_GENERIC_COMPARE_RESULTS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

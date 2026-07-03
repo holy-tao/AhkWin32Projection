@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PEER_INVITATION.ahk" { PEER_INVITATION }
 #Import ".\PEER_CONTACT.ahk" { PEER_CONTACT }
 #Import ".\PEER_ENDPOINT.ahk" { PEER_ENDPOINT }
+#Import ".\PEER_INVITATION.ahk" { PEER_INVITATION }
 
 /**
  * The PEER_APP_LAUNCH_INFO structure contains the peer application application launch information provided by a contact in a previous peer invite request.

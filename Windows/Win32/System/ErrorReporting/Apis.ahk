@@ -1,32 +1,32 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\WER_REPORT_METADATA_V1.ahk" { WER_REPORT_METADATA_V1 }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WER_REPORT_METADATA_V2.ahk" { WER_REPORT_METADATA_V2 }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\REPORT_STORE_TYPES.ahk" { REPORT_STORE_TYPES }
-#Import ".\WER_REPORT_INFORMATION.ahk" { WER_REPORT_INFORMATION }
-#Import ".\HREPORTSTORE.ahk" { HREPORTSTORE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WER_FILE.ahk" { WER_FILE }
-#Import ".\WER_REGISTER_FILE_TYPE.ahk" { WER_REGISTER_FILE_TYPE }
-#Import ".\WER_SUBMIT_RESULT.ahk" { WER_SUBMIT_RESULT }
-#Import ".\WER_CONSENT.ahk" { WER_CONSENT }
-#Import ".\WER_REPORT_UI.ahk" { WER_REPORT_UI }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\EFaultRepRetVal.ahk" { EFaultRepRetVal }
-#Import ".\WER_DUMP_CUSTOM_OPTIONS.ahk" { WER_DUMP_CUSTOM_OPTIONS }
-#Import "..\Diagnostics\Debug\EXCEPTION_POINTERS.ahk" { EXCEPTION_POINTERS }
-#Import ".\WER_REPORT_METADATA_V3.ahk" { WER_REPORT_METADATA_V3 }
-#Import ".\WER_DUMP_TYPE.ahk" { WER_DUMP_TYPE }
-#Import ".\WER_REPORT_TYPE.ahk" { WER_REPORT_TYPE }
-#Import ".\WER_FILE_TYPE.ahk" { WER_FILE_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Diagnostics\Debug\EXCEPTION_POINTERS.ahk" { EXCEPTION_POINTERS }
+#Import ".\EFaultRepRetVal.ahk" { EFaultRepRetVal }
+#Import ".\HREPORT.ahk" { HREPORT }
+#Import ".\HREPORTSTORE.ahk" { HREPORTSTORE }
+#Import ".\REPORT_STORE_TYPES.ahk" { REPORT_STORE_TYPES }
+#Import ".\WER_CONSENT.ahk" { WER_CONSENT }
+#Import ".\WER_DUMP_CUSTOM_OPTIONS.ahk" { WER_DUMP_CUSTOM_OPTIONS }
+#Import ".\WER_DUMP_TYPE.ahk" { WER_DUMP_TYPE }
 #Import ".\WER_EXCEPTION_INFORMATION.ahk" { WER_EXCEPTION_INFORMATION }
 #Import ".\WER_FAULT_REPORTING.ahk" { WER_FAULT_REPORTING }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\WER_FILE.ahk" { WER_FILE }
+#Import ".\WER_FILE_TYPE.ahk" { WER_FILE_TYPE }
+#Import ".\WER_REGISTER_FILE_TYPE.ahk" { WER_REGISTER_FILE_TYPE }
+#Import ".\WER_REPORT_INFORMATION.ahk" { WER_REPORT_INFORMATION }
+#Import ".\WER_REPORT_METADATA_V1.ahk" { WER_REPORT_METADATA_V1 }
+#Import ".\WER_REPORT_METADATA_V2.ahk" { WER_REPORT_METADATA_V2 }
+#Import ".\WER_REPORT_METADATA_V3.ahk" { WER_REPORT_METADATA_V3 }
+#Import ".\WER_REPORT_TYPE.ahk" { WER_REPORT_TYPE }
+#Import ".\WER_REPORT_UI.ahk" { WER_REPORT_UI }
 #Import ".\WER_SUBMIT_FLAGS.ahk" { WER_SUBMIT_FLAGS }
-#Import ".\HREPORT.ahk" { HREPORT }
+#Import ".\WER_SUBMIT_RESULT.ahk" { WER_SUBMIT_RESULT }
 
 /**
  * @namespace Windows.Win32.System.ErrorReporting

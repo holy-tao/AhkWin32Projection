@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\APPX_PACKAGE_WRITER_PAYLOAD_STREAM.ahk" { APPX_PACKAGE_WRITER_PAYLOAD_STREAM }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides a write-only object model for app packages. (IAppxPackageWriter3)

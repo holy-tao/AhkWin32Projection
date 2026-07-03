@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D10_TEXTURE2D_DESC.ahk" { D3D10_TEXTURE2D_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3D10_MAP.ahk" { D3D10_MAP }
 #Import ".\D3D10_MAPPED_TEXTURE2D.ahk" { D3D10_MAPPED_TEXTURE2D }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D10_TEXTURE2D_DESC.ahk" { D3D10_TEXTURE2D_DESC }
 #Import ".\ID3D10Resource.ahk" { ID3D10Resource }
 
 /**

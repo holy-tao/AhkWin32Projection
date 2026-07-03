@@ -46,10 +46,6 @@ export default struct CLFS_BLOCK_ALLOCATION {
             this.value := CallbackCreate(fn, , [UInt32, "ptr", "ptr"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

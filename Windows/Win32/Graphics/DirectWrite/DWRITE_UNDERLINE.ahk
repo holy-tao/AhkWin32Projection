@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DWRITE_FLOW_DIRECTION.ahk" { DWRITE_FLOW_DIRECTION }
+#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
 #Import ".\DWRITE_READING_DIRECTION.ahk" { DWRITE_READING_DIRECTION }
 
 /**

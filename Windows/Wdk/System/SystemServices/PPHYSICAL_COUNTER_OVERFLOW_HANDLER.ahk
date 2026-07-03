@@ -44,10 +44,6 @@ export default struct PPHYSICAL_COUNTER_OVERFLOW_HANDLER {
             this.value := CallbackCreate(fn, , [Int64, HANDLE, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

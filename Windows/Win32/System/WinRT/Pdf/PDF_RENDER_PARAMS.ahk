@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Graphics\Direct2D\Common\D2D_RECT_F.ahk" { D2D_RECT_F }
 #Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\..\Graphics\Direct2D\Common\D2D_COLOR_F.ahk" { D2D_COLOR_F }
+#Import "..\..\..\Graphics\Direct2D\Common\D2D_RECT_F.ahk" { D2D_RECT_F }
 
 /**
  * Represents a set of properties for outputting a single page of a Portable Document Format (PDF) file.

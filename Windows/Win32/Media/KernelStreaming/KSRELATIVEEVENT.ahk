@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\KSEVENTDATA.ahk" { KSEVENTDATA }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\KSEVENTDATA.ahk" { KSEVENTDATA }
 #Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
 
 /**

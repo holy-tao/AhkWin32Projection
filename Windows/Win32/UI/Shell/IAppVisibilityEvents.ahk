@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\MONITOR_APP_VISIBILITY.ahk" { MONITOR_APP_VISIBILITY }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Graphics\Gdi\HMONITOR.ahk" { HMONITOR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MONITOR_APP_VISIBILITY.ahk" { MONITOR_APP_VISIBILITY }
 
 /**
  * Enables applications to receive notifications of state changes in a display and of changes in Start screen visibility.

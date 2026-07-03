@@ -30,7 +30,7 @@ export default struct BCryptDuplicateKeyFn {
      */
     Call(_hKey, phNewKey, pbKeyObject, cbKeyObject, dwFlags) {
         result := DllCall(this.value, BCRYPT_KEY_HANDLE, _hKey, BCRYPT_KEY_HANDLE.Ptr, phNewKey, IntPtr, pbKeyObject, UInt32, cbKeyObject, UInt32, dwFlags, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -50,10 +50,6 @@ export default struct BCryptDuplicateKeyFn {
             this.value := CallbackCreate(fn, , [BCRYPT_KEY_HANDLE, BCRYPT_KEY_HANDLE.Ptr, IntPtr, UInt32, UInt32, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WICRawParameterSet.ahk" { WICRawParameterSet }
-#Import ".\IWICColorContext.ahk" { IWICColorContext }
-#Import "..\..\System\Com\StructuredStorage\IPropertyBag2.ahk" { IPropertyBag2 }
-#Import ".\WICRawCapabilitiesInfo.ahk" { WICRawCapabilitiesInfo }
-#Import ".\WICNamedWhitePoint.ahk" { WICNamedWhitePoint }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWICBitmapFrameDecode.ahk" { IWICBitmapFrameDecode }
+#Import ".\IWICColorContext.ahk" { IWICColorContext }
 #Import ".\IWICDevelopRawNotificationCallback.ahk" { IWICDevelopRawNotificationCallback }
+#Import ".\WICNamedWhitePoint.ahk" { WICNamedWhitePoint }
+#Import ".\WICRawCapabilitiesInfo.ahk" { WICRawCapabilitiesInfo }
+#Import ".\WICRawParameterSet.ahk" { WICRawParameterSet }
 #Import ".\WICRawRenderMode.ahk" { WICRawRenderMode }
+#Import "..\..\System\Com\StructuredStorage\IPropertyBag2.ahk" { IPropertyBag2 }
 
 /**
  * Exposes methods that provide access to the capabilities of a raw codec format.

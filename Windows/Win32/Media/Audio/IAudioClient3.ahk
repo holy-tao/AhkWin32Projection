@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IAudioClient2.ahk" { IAudioClient2 }
+#Import ".\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 
 /**
  * The IAudioClient3 interface is derived from the IAudioClient2 interface, with a set of additional methods that enable a Windows Audio Session API (WASAPI) audio client to query for the audio engine's supported periodicities and current periodicity as well as request initialization of a shared audio stream with a specified periodicity.

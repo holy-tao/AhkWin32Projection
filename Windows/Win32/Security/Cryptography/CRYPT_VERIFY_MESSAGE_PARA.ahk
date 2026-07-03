@@ -1,5 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PFN_CRYPT_GET_SIGNER_CERTIFICATE.ahk" { PFN_CRYPT_GET_SIGNER_CERTIFICATE }
 #Import ".\HCRYPTPROV_LEGACY.ahk" { HCRYPTPROV_LEGACY }
 
 /**
@@ -62,7 +61,7 @@ export default struct CRYPT_VERIFY_MESSAGE_PARA {
      * 
      * See <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_crypt_get_signer_certificate">CryptGetSignerCertificateCallback</a> for the callback functions signature and arguments.
      */
-    pfnGetSignerCertificate : PFN_CRYPT_GET_SIGNER_CERTIFICATE
+    pfnGetSignerCertificate : IntPtr
 
     /**
      * Argument to pass to the callback function. Typically, this gets and verifies the message signer's certificate.

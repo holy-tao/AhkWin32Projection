@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ERROR_ADVISE_RESULT.ahk" { ERROR_ADVISE_RESULT }
-#Import ".\ERROR_ADVISE_MESSAGE_TYPE.ahk" { ERROR_ADVISE_MESSAGE_TYPE }
-#Import ".\IPhotoAcquireItem.ahk" { IPhotoAcquireItem }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ERROR_ADVISE_MESSAGE_TYPE.ahk" { ERROR_ADVISE_MESSAGE_TYPE }
+#Import ".\ERROR_ADVISE_RESULT.ahk" { ERROR_ADVISE_RESULT }
+#Import ".\IPhotoAcquireItem.ahk" { IPhotoAcquireItem }
 #Import ".\IPhotoAcquireSource.ahk" { IPhotoAcquireSource }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 
 /**
  * The IPhotoAcquireProgressCB interface may be implemented if you wish to do extra processing at various stages in the acquisition process.

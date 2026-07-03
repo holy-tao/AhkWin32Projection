@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HGROUPSET.ahk" { HGROUPSET }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HGROUPSET.ahk" { HGROUPSET }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -48,10 +48,6 @@ export default struct PCLUSAPI_SET_CLUSTER_GROUP_GROUPSET_DEPENDENCY_EXPRESSION 
             this.value := CallbackCreate(fn, , [HGROUPSET, PWSTR, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

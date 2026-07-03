@@ -1,18 +1,17 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\CRYPTCATMEMBER.ahk" { CRYPTCATMEMBER }
-#Import ".\PFN_CDF_PARSE_ERROR_CALLBACK.ahk" { PFN_CDF_PARSE_ERROR_CALLBACK }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\CRYPTCATSTORE.ahk" { CRYPTCATSTORE }
-#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\CRYPTCATATTRIBUTE.ahk" { CRYPTCATATTRIBUTE }
-#Import "..\CERT_STRONG_SIGN_PARA.ahk" { CERT_STRONG_SIGN_PARA }
-#Import ".\CRYPTCAT_VERSION.ahk" { CRYPTCAT_VERSION }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\CRYPTCAT_OPEN_FLAGS.ahk" { CRYPTCAT_OPEN_FLAGS }
-#Import ".\CRYPTCATCDF.ahk" { CRYPTCATCDF }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\CERT_STRONG_SIGN_PARA.ahk" { CERT_STRONG_SIGN_PARA }
 #Import ".\CATALOG_INFO.ahk" { CATALOG_INFO }
+#Import ".\CRYPTCATATTRIBUTE.ahk" { CRYPTCATATTRIBUTE }
+#Import ".\CRYPTCATCDF.ahk" { CRYPTCATCDF }
+#Import ".\CRYPTCATMEMBER.ahk" { CRYPTCATMEMBER }
+#Import ".\CRYPTCATSTORE.ahk" { CRYPTCATSTORE }
+#Import ".\CRYPTCAT_OPEN_FLAGS.ahk" { CRYPTCAT_OPEN_FLAGS }
+#Import ".\CRYPTCAT_VERSION.ahk" { CRYPTCAT_VERSION }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Catalog
@@ -758,7 +757,7 @@ export CryptCATEnumerateAttr(hCatalog, pCatMember, pPrevAttr) {
 export CryptCATCDFOpen(pwszFilePath, pfnParseError) {
     pwszFilePath := pwszFilePath is String ? StrPtr(pwszFilePath) : pwszFilePath
 
-    result := DllCall("WINTRUST.dll\CryptCATCDFOpen", "ptr", pwszFilePath, PFN_CDF_PARSE_ERROR_CALLBACK, pfnParseError, CRYPTCATCDF.Ptr)
+    result := DllCall("WINTRUST.dll\CryptCATCDFOpen", "ptr", pwszFilePath, "ptr", pfnParseError, CRYPTCATCDF.Ptr)
     return result
 }
 
@@ -788,7 +787,7 @@ export CryptCATCDFClose(pCDF) {
  * @since windows5.1.2600
  */
 export CryptCATCDFEnumCatAttributes(pCDF, pPrevAttr, pfnParseError) {
-    result := DllCall("WINTRUST.dll\CryptCATCDFEnumCatAttributes", CRYPTCATCDF.Ptr, pCDF, CRYPTCATATTRIBUTE.Ptr, pPrevAttr, PFN_CDF_PARSE_ERROR_CALLBACK, pfnParseError, CRYPTCATATTRIBUTE.Ptr)
+    result := DllCall("WINTRUST.dll\CryptCATCDFEnumCatAttributes", CRYPTCATCDF.Ptr, pCDF, CRYPTCATATTRIBUTE.Ptr, pPrevAttr, "ptr", pfnParseError, CRYPTCATATTRIBUTE.Ptr)
     return result
 }
 
@@ -800,7 +799,7 @@ export CryptCATCDFEnumCatAttributes(pCDF, pPrevAttr, pfnParseError) {
  * @returns {Pointer<CRYPTCATMEMBER>} 
  */
 export CryptCATCDFEnumMembers(pCDF, pPrevMember, pfnParseError) {
-    result := DllCall("WINTRUST.dll\CryptCATCDFEnumMembers", CRYPTCATCDF.Ptr, pCDF, CRYPTCATMEMBER.Ptr, pPrevMember, PFN_CDF_PARSE_ERROR_CALLBACK, pfnParseError, CRYPTCATMEMBER.Ptr)
+    result := DllCall("WINTRUST.dll\CryptCATCDFEnumMembers", CRYPTCATCDF.Ptr, pCDF, CRYPTCATMEMBER.Ptr, pPrevMember, "ptr", pfnParseError, CRYPTCATMEMBER.Ptr)
     return result
 }
 
@@ -813,7 +812,7 @@ export CryptCATCDFEnumMembers(pCDF, pPrevMember, pfnParseError) {
  * @returns {Pointer<CRYPTCATATTRIBUTE>} 
  */
 export CryptCATCDFEnumAttributes(pCDF, pMember, pPrevAttr, pfnParseError) {
-    result := DllCall("WINTRUST.dll\CryptCATCDFEnumAttributes", CRYPTCATCDF.Ptr, pCDF, CRYPTCATMEMBER.Ptr, pMember, CRYPTCATATTRIBUTE.Ptr, pPrevAttr, PFN_CDF_PARSE_ERROR_CALLBACK, pfnParseError, CRYPTCATATTRIBUTE.Ptr)
+    result := DllCall("WINTRUST.dll\CryptCATCDFEnumAttributes", CRYPTCATCDF.Ptr, pCDF, CRYPTCATMEMBER.Ptr, pMember, CRYPTCATATTRIBUTE.Ptr, pPrevAttr, "ptr", pfnParseError, CRYPTCATATTRIBUTE.Ptr)
     return result
 }
 
@@ -1221,7 +1220,7 @@ export CryptCATCDFEnumMembersByCDFTagEx(pCDF, pwszPrevCDFTag, pfnParseError, ppM
     ppMemberMarshal := ppMember is VarRef ? "ptr*" : "ptr"
     pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WINTRUST.dll\CryptCATCDFEnumMembersByCDFTagEx", CRYPTCATCDF.Ptr, pCDF, "ptr", pwszPrevCDFTag, PFN_CDF_PARSE_ERROR_CALLBACK, pfnParseError, ppMemberMarshal, ppMember, BOOL, fContinueOnError, pvReservedMarshal, pvReserved, PWSTR)
+    result := DllCall("WINTRUST.dll\CryptCATCDFEnumMembersByCDFTagEx", CRYPTCATCDF.Ptr, pCDF, "ptr", pwszPrevCDFTag, "ptr", pfnParseError, ppMemberMarshal, ppMember, BOOL, fContinueOnError, pvReservedMarshal, pvReserved, PWSTR)
     return result
 }
 
@@ -1240,7 +1239,7 @@ export CryptCATCDFEnumMembersByCDFTagEx(pCDF, pwszPrevCDFTag, pfnParseError, ppM
 export CryptCATCDFEnumAttributesWithCDFTag(pCDF, pwszMemberTag, pMember, pPrevAttr, pfnParseError) {
     pwszMemberTag := pwszMemberTag is String ? StrPtr(pwszMemberTag) : pwszMemberTag
 
-    result := DllCall("WINTRUST.dll\CryptCATCDFEnumAttributesWithCDFTag", CRYPTCATCDF.Ptr, pCDF, "ptr", pwszMemberTag, CRYPTCATMEMBER.Ptr, pMember, CRYPTCATATTRIBUTE.Ptr, pPrevAttr, PFN_CDF_PARSE_ERROR_CALLBACK, pfnParseError, CRYPTCATATTRIBUTE.Ptr)
+    result := DllCall("WINTRUST.dll\CryptCATCDFEnumAttributesWithCDFTag", CRYPTCATCDF.Ptr, pCDF, "ptr", pwszMemberTag, CRYPTCATMEMBER.Ptr, pMember, CRYPTCATATTRIBUTE.Ptr, pPrevAttr, "ptr", pfnParseError, CRYPTCATATTRIBUTE.Ptr)
     return result
 }
 

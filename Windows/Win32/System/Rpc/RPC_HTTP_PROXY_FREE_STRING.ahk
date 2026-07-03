@@ -45,10 +45,6 @@ export default struct RPC_HTTP_PROXY_FREE_STRING {
             this.value := CallbackCreate(fn, , [PWSTR, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

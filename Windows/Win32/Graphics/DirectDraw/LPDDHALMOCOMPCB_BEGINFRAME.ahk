@@ -44,10 +44,6 @@ export default struct LPDDHALMOCOMPCB_BEGINFRAME {
             this.value := CallbackCreate(fn, , [DDHAL_BEGINMOCOMPFRAMEDATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

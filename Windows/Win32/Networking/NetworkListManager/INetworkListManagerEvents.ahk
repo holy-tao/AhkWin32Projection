@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\NLM_CONNECTIVITY.ahk" { NLM_CONNECTIVITY }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\NLM_CONNECTIVITY.ahk" { NLM_CONNECTIVITY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * INetworkListManagerEvents is a message sink interface that a client implements to get overall machine state related events. Applications that are interested on higher-level events, for example internet connectivity, implement this interface.

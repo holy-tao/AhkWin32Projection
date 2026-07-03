@@ -54,10 +54,6 @@ export default struct ICMENUMPROCW {
             this.value := CallbackCreate(fn, , [PWSTR, LPARAM, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

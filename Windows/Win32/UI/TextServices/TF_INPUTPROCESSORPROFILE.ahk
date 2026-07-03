@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Input\KeyboardAndMouse\HKL.ahk" { HKL }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Input\KeyboardAndMouse\HKL.ahk" { HKL }
 
 /**
  * This structure contains data for the input processor profile.

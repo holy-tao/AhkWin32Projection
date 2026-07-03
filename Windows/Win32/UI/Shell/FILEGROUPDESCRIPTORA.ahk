@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FILEDESCRIPTORA.ahk" { FILEDESCRIPTORA }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\Foundation\POINTL.ahk" { POINTL }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import ".\FILEDESCRIPTORA.ahk" { FILEDESCRIPTORA }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\UConverterCallbackReason.ahk" { UConverterCallbackReason }
-#Import ".\UErrorCode.ahk" { UErrorCode }
 #Import ".\UConverterFromUnicodeArgs.ahk" { UConverterFromUnicodeArgs }
+#Import ".\UErrorCode.ahk" { UErrorCode }
 
 /**
  * @namespace Windows.Win32.Globalization
@@ -55,10 +55,6 @@ export default struct UConverterFromUCallback {
             this.value := CallbackCreate(fn, "cdecl", ["ptr", UConverterFromUnicodeArgs.Ptr, "ushort*", Int32, Int32, UConverterCallbackReason, "int*", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

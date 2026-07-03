@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SPAUDIOBUFFERINFO.ahk" { SPAUDIOBUFFERINFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\ISpStreamFormat.ahk" { ISpStreamFormat }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
-#Import ".\SPAUDIOSTATUS.ahk" { SPAUDIOSTATUS }
+#Import ".\ISpStreamFormat.ahk" { ISpStreamFormat }
+#Import ".\SPAUDIOBUFFERINFO.ahk" { SPAUDIOBUFFERINFO }
 #Import ".\SPAUDIOSTATE.ahk" { SPAUDIOSTATE }
+#Import ".\SPAUDIOSTATUS.ahk" { SPAUDIOSTATUS }
 
 /**
  * @namespace Windows.Win32.Media.Speech

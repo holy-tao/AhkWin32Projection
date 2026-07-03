@@ -52,10 +52,6 @@ export default struct PLOG_TAIL_ADVANCE_CALLBACK {
             this.value := CallbackCreate(fn, , [HANDLE, CLS_LSN, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

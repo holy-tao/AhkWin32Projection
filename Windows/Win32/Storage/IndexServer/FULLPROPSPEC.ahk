@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\System\Com\StructuredStorage\PROPSPEC.ahk" { PROPSPEC }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Com\StructuredStorage\PROPSPEC_KIND.ahk" { PROPSPEC_KIND }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\StructuredStorage\PROPSPEC.ahk" { PROPSPEC }
+#Import "..\..\System\Com\StructuredStorage\PROPSPEC_KIND.ahk" { PROPSPEC_KIND }
 
 /**
  * Specifies a property set and a property within the property set.

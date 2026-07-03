@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DRM_MINIMUM_OUTPUT_PROTECTION_LEVELS.ahk" { DRM_MINIMUM_OUTPUT_PROTECTION_LEVELS }
 #Import ".\DRM_OPL_OUTPUT_IDS.ahk" { DRM_OPL_OUTPUT_IDS }
-#Import ".\DRM_VIDEO_OUTPUT_PROTECTION_IDS.ahk" { DRM_VIDEO_OUTPUT_PROTECTION_IDS }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DRM_OUTPUT_PROTECTION.ahk" { DRM_OUTPUT_PROTECTION }
+#Import ".\DRM_VIDEO_OUTPUT_PROTECTION_IDS.ahk" { DRM_VIDEO_OUTPUT_PROTECTION_IDS }
 
 /**
  * The DRM_PLAY_OPL structure holds information about the output protection levels (OPL) specified in a license for play actions.

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDWriteNumberSubstitution.ahk" { IDWriteNumberSubstitution }
-#Import ".\DWRITE_SCRIPT_ANALYSIS.ahk" { DWRITE_SCRIPT_ANALYSIS }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DWRITE_LINE_BREAKPOINT.ahk" { DWRITE_LINE_BREAKPOINT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_LINE_BREAKPOINT.ahk" { DWRITE_LINE_BREAKPOINT }
+#Import ".\DWRITE_SCRIPT_ANALYSIS.ahk" { DWRITE_SCRIPT_ANALYSIS }
+#Import ".\IDWriteNumberSubstitution.ahk" { IDWriteNumberSubstitution }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This interface is implemented by the text analyzer's client to receive the output of a given text analysis.

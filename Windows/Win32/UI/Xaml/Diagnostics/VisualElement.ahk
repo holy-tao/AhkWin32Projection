@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SourceInfo.ahk" { SourceInfo }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\SourceInfo.ahk" { SourceInfo }
 
 /**
  * Represents a XAML element in the Live Visual Tree in Microsoft Visual Studio.

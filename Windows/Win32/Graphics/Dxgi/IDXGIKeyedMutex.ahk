@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDXGIDeviceSubObject.ahk" { IDXGIDeviceSubObject }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDXGIDeviceSubObject.ahk" { IDXGIDeviceSubObject }
 
 /**
  * Represents a keyed mutex, which allows exclusive access to a shared resource that is used by multiple devices.

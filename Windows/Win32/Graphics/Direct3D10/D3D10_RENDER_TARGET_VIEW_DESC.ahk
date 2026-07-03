@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\D3D10_BUFFER_RTV.ahk" { D3D10_BUFFER_RTV }
+#Import ".\D3D10_RTV_DIMENSION.ahk" { D3D10_RTV_DIMENSION }
+#Import ".\D3D10_TEX1D_ARRAY_RTV.ahk" { D3D10_TEX1D_ARRAY_RTV }
+#Import ".\D3D10_TEX1D_RTV.ahk" { D3D10_TEX1D_RTV }
+#Import ".\D3D10_TEX2DMS_ARRAY_RTV.ahk" { D3D10_TEX2DMS_ARRAY_RTV }
+#Import ".\D3D10_TEX2DMS_RTV.ahk" { D3D10_TEX2DMS_RTV }
+#Import ".\D3D10_TEX2D_ARRAY_RTV.ahk" { D3D10_TEX2D_ARRAY_RTV }
 #Import ".\D3D10_TEX2D_RTV.ahk" { D3D10_TEX2D_RTV }
 #Import ".\D3D10_TEX3D_RTV.ahk" { D3D10_TEX3D_RTV }
-#Import ".\D3D10_RTV_DIMENSION.ahk" { D3D10_RTV_DIMENSION }
-#Import ".\D3D10_TEX2DMS_RTV.ahk" { D3D10_TEX2DMS_RTV }
-#Import ".\D3D10_TEX2DMS_ARRAY_RTV.ahk" { D3D10_TEX2DMS_ARRAY_RTV }
-#Import ".\D3D10_TEX2D_ARRAY_RTV.ahk" { D3D10_TEX2D_ARRAY_RTV }
-#Import ".\D3D10_TEX1D_ARRAY_RTV.ahk" { D3D10_TEX1D_ARRAY_RTV }
 #Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import ".\D3D10_TEX1D_RTV.ahk" { D3D10_TEX1D_RTV }
 
 /**
  * Specifies the subresource(s) from a resource that are accessible using a render-target view.

@@ -1,27 +1,25 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WINHTTP_QUERY_CONNECTION_GROUP_RESULT.ahk" { WINHTTP_QUERY_CONNECTION_GROUP_RESULT }
-#Import ".\WINHTTP_STATUS_CALLBACK.ahk" { WINHTTP_STATUS_CALLBACK }
-#Import ".\WINHTTP_PROXY_INFO.ahk" { WINHTTP_PROXY_INFO }
-#Import ".\WINHTTP_PROXY_CHANGE_CALLBACK.ahk" { WINHTTP_PROXY_CHANGE_CALLBACK }
-#Import ".\WINHTTP_PROXY_RESULT_EX.ahk" { WINHTTP_PROXY_RESULT_EX }
-#Import ".\WINHTTP_PROXY_SETTINGS_PARAM.ahk" { WINHTTP_PROXY_SETTINGS_PARAM }
-#Import ".\WINHTTP_EXTENDED_HEADER.ahk" { WINHTTP_EXTENDED_HEADER }
-#Import ".\WINHTTP_ACCESS_TYPE.ahk" { WINHTTP_ACCESS_TYPE }
-#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
-#Import ".\WINHTTP_WEB_SOCKET_BUFFER_TYPE.ahk" { WINHTTP_WEB_SOCKET_BUFFER_TYPE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WINHTTP_CURRENT_USER_IE_PROXY_CONFIG.ahk" { WINHTTP_CURRENT_USER_IE_PROXY_CONFIG }
-#Import ".\URL_COMPONENTS.ahk" { URL_COMPONENTS }
-#Import ".\WINHTTP_PROXY_RESULT.ahk" { WINHTTP_PROXY_RESULT }
-#Import ".\WINHTTP_AUTOPROXY_OPTIONS.ahk" { WINHTTP_AUTOPROXY_OPTIONS }
-#Import ".\WINHTTP_OPEN_REQUEST_FLAGS.ahk" { WINHTTP_OPEN_REQUEST_FLAGS }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\WINHTTP_PROXY_SETTINGS.ahk" { WINHTTP_PROXY_SETTINGS }
-#Import ".\WINHTTP_PROXY_SETTINGS_TYPE.ahk" { WINHTTP_PROXY_SETTINGS_TYPE }
-#Import ".\WIN_HTTP_CREATE_URL_FLAGS.ahk" { WIN_HTTP_CREATE_URL_FLAGS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import ".\URL_COMPONENTS.ahk" { URL_COMPONENTS }
+#Import ".\WINHTTP_ACCESS_TYPE.ahk" { WINHTTP_ACCESS_TYPE }
+#Import ".\WINHTTP_AUTOPROXY_OPTIONS.ahk" { WINHTTP_AUTOPROXY_OPTIONS }
+#Import ".\WINHTTP_CURRENT_USER_IE_PROXY_CONFIG.ahk" { WINHTTP_CURRENT_USER_IE_PROXY_CONFIG }
+#Import ".\WINHTTP_EXTENDED_HEADER.ahk" { WINHTTP_EXTENDED_HEADER }
 #Import ".\WINHTTP_HEADER_NAME.ahk" { WINHTTP_HEADER_NAME }
+#Import ".\WINHTTP_OPEN_REQUEST_FLAGS.ahk" { WINHTTP_OPEN_REQUEST_FLAGS }
+#Import ".\WINHTTP_PROXY_INFO.ahk" { WINHTTP_PROXY_INFO }
+#Import ".\WINHTTP_PROXY_RESULT.ahk" { WINHTTP_PROXY_RESULT }
+#Import ".\WINHTTP_PROXY_RESULT_EX.ahk" { WINHTTP_PROXY_RESULT_EX }
+#Import ".\WINHTTP_PROXY_SETTINGS.ahk" { WINHTTP_PROXY_SETTINGS }
+#Import ".\WINHTTP_PROXY_SETTINGS_PARAM.ahk" { WINHTTP_PROXY_SETTINGS_PARAM }
+#Import ".\WINHTTP_PROXY_SETTINGS_TYPE.ahk" { WINHTTP_PROXY_SETTINGS_TYPE }
+#Import ".\WINHTTP_QUERY_CONNECTION_GROUP_RESULT.ahk" { WINHTTP_QUERY_CONNECTION_GROUP_RESULT }
+#Import ".\WINHTTP_WEB_SOCKET_BUFFER_TYPE.ahk" { WINHTTP_WEB_SOCKET_BUFFER_TYPE }
+#Import ".\WIN_HTTP_CREATE_URL_FLAGS.ahk" { WIN_HTTP_CREATE_URL_FLAGS }
 
 /**
  * @namespace Windows.Win32.Networking.WinHttp
@@ -319,7 +317,7 @@ export WinHttpSetStatusCallback(hInternet, lpfnInternetCallback, dwNotificationF
 
     A_LastError := 0
 
-    result := DllCall("WINHTTP.dll\WinHttpSetStatusCallback", hInternetMarshal, hInternet, WINHTTP_STATUS_CALLBACK, lpfnInternetCallback, UInt32, dwNotificationFlags, IntPtr, dwReserved, WINHTTP_STATUS_CALLBACK)
+    result := DllCall("WINHTTP.dll\WinHttpSetStatusCallback", hInternetMarshal, hInternet, "ptr", lpfnInternetCallback, UInt32, dwNotificationFlags, IntPtr, dwReserved, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5148,7 +5146,7 @@ export WinHttpRegisterProxyChangeNotification(ullFlags, _pfnCallback, pvContext,
     pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
     hRegistrationMarshal := hRegistration is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WINHTTP.dll\WinHttpRegisterProxyChangeNotification", Int64, ullFlags, WINHTTP_PROXY_CHANGE_CALLBACK, _pfnCallback, pvContextMarshal, pvContext, hRegistrationMarshal, hRegistration, UInt32)
+    result := DllCall("WINHTTP.dll\WinHttpRegisterProxyChangeNotification", Int64, ullFlags, "ptr", _pfnCallback, pvContextMarshal, pvContext, hRegistrationMarshal, hRegistration, UInt32)
     return result
 }
 

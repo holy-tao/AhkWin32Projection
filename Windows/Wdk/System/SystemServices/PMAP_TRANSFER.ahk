@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\MDL.ahk" { MDL }
 #Import ".\DMA_ADAPTER.ahk" { DMA_ADAPTER }
 #Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import "..\..\Foundation\MDL.ahk" { MDL }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -55,10 +55,6 @@ export default struct PMAP_TRANSFER {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, MDL.Ptr, "ptr", "ptr", "uint*", BOOLEAN, Int64])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

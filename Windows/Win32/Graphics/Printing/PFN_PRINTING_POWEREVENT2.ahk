@@ -47,10 +47,6 @@ export default struct PFN_PRINTING_POWEREVENT2 {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, POWERBROADCAST_SETTING.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

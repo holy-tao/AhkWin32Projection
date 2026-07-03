@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\MFVideoAlphaBitmapParams.ahk" { MFVideoAlphaBitmapParams }
 #Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
-#Import ".\MFVideoNormalizedRect.ahk" { MFVideoNormalizedRect }
 #Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import ".\MFVideoAlphaBitmapParams.ahk" { MFVideoAlphaBitmapParams }
+#Import ".\MFVideoNormalizedRect.ahk" { MFVideoNormalizedRect }
 
 /**
  * Specifies a bitmap for the enhanced video renderer (EVR) to alpha-blend with the video.

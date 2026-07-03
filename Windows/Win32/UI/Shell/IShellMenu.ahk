@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
-#Import ".\IShellMenuCallback.ahk" { IShellMenuCallback }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\SMDATA.ahk" { SMDATA }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
-#Import "..\WindowsAndMessaging\HMENU.ahk" { HMENU }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import ".\IShellFolder.ahk" { IShellFolder }
+#Import ".\IShellMenuCallback.ahk" { IShellMenuCallback }
+#Import ".\SMDATA.ahk" { SMDATA }
+#Import "..\WindowsAndMessaging\HMENU.ahk" { HMENU }
 
 /**
  * Exposes methods that interact with Shell menus such as the Start menu, and the Favorites menu.

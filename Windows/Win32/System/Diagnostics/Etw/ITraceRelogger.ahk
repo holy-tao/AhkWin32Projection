@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITraceEvent.ahk" { ITraceEvent }
 #Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ITraceEventCallback.ahk" { ITraceEventCallback }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITraceEvent.ahk" { ITraceEvent }
+#Import ".\ITraceEventCallback.ahk" { ITraceEventCallback }
 
 /**
  * Provides access to the relogging functionality, allowing you to manipulate and relog events from an ETW trace stream.

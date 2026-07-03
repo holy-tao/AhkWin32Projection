@@ -1,25 +1,25 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IXpsOMPrintTicketResource.ahk" { IXpsOMPrintTicketResource }
-#Import ".\XPS_SIZE.ahk" { XPS_SIZE }
-#Import ".\XPS_DOCUMENT_TYPE.ahk" { XPS_DOCUMENT_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IXpsOMImageResource.ahk" { IXpsOMImageResource }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import ".\IXpsOMRemoteDictionaryResource.ahk" { IXpsOMRemoteDictionaryResource }
-#Import ".\IXpsOMPartResources.ahk" { IXpsOMPartResources }
-#Import ".\XPS_INTERLEAVING.ahk" { XPS_INTERLEAVING }
-#Import ".\IXpsOMPackage1.ahk" { IXpsOMPackage1 }
-#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
-#Import ".\IXpsOMPackageWriter.ahk" { IXpsOMPackageWriter }
-#Import ".\IXpsOMCoreProperties.ahk" { IXpsOMCoreProperties }
-#Import ".\IXpsOMObjectFactory.ahk" { IXpsOMObjectFactory }
-#Import ".\IXpsOMPage1.ahk" { IXpsOMPage1 }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\ISequentialStream.ahk" { ISequentialStream }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
 #Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
+#Import ".\IXpsOMCoreProperties.ahk" { IXpsOMCoreProperties }
+#Import ".\IXpsOMImageResource.ahk" { IXpsOMImageResource }
+#Import ".\IXpsOMObjectFactory.ahk" { IXpsOMObjectFactory }
+#Import ".\IXpsOMPackage1.ahk" { IXpsOMPackage1 }
+#Import ".\IXpsOMPackageWriter.ahk" { IXpsOMPackageWriter }
+#Import ".\IXpsOMPage1.ahk" { IXpsOMPage1 }
+#Import ".\IXpsOMPartResources.ahk" { IXpsOMPartResources }
+#Import ".\IXpsOMPrintTicketResource.ahk" { IXpsOMPrintTicketResource }
+#Import ".\IXpsOMRemoteDictionaryResource.ahk" { IXpsOMRemoteDictionaryResource }
+#Import ".\XPS_DOCUMENT_TYPE.ahk" { XPS_DOCUMENT_TYPE }
+#Import ".\XPS_INTERLEAVING.ahk" { XPS_INTERLEAVING }
+#Import ".\XPS_SIZE.ahk" { XPS_SIZE }
+#Import "..\..\System\Com\ISequentialStream.ahk" { ISequentialStream }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * Inherits from IXpsOMObjectFactory.

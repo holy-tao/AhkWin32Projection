@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_ERROR.ahk" { WS_ERROR }
-#Import ".\WS_CHANNEL_TYPE.ahk" { WS_CHANNEL_TYPE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WS_CHANNEL_TYPE.ahk" { WS_CHANNEL_TYPE }
+#Import ".\WS_ERROR.ahk" { WS_ERROR }
 
 /**
  * Handles the WsCreateChannel call for a WS_CUSTOM_CHANNEL_BINDING.
@@ -71,10 +71,6 @@ export default struct WS_CREATE_CHANNEL_CALLBACK {
             this.value := CallbackCreate(fn, , [WS_CHANNEL_TYPE, IntPtr, UInt32, WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

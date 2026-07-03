@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Graphics\Direct3D9\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
-#Import ".\VMR9AllocationInfo.ahk" { VMR9AllocationInfo }
-#Import ".\IVMRSurfaceAllocator9.ahk" { IVMRSurfaceAllocator9 }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Direct3D9\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
+#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
 #Import "..\..\Graphics\Gdi\HMONITOR.ahk" { HMONITOR }
+#Import ".\IVMRSurfaceAllocator9.ahk" { IVMRSurfaceAllocator9 }
+#Import ".\VMR9AllocationInfo.ahk" { VMR9AllocationInfo }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVMRSurfaceAllocatorNotify9 interface is implemented by the Video Mixing Renderer Filter 9 (VMR-9).

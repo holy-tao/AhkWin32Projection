@@ -1,14 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LPDDHAL_SETEXCLUSIVEMODE.ahk" { LPDDHAL_SETEXCLUSIVEMODE }
-#Import ".\LPDDHAL_CREATEPALETTE.ahk" { LPDDHAL_CREATEPALETTE }
-#Import ".\LPDDHAL_GETSCANLINE.ahk" { LPDDHAL_GETSCANLINE }
-#Import ".\LPDDHAL_SETCOLORKEY.ahk" { LPDDHAL_SETCOLORKEY }
-#Import ".\LPDDHAL_SETMODE.ahk" { LPDDHAL_SETMODE }
-#Import ".\LPDDHAL_FLIPTOGDISURFACE.ahk" { LPDDHAL_FLIPTOGDISURFACE }
-#Import ".\LPDDHAL_DESTROYDRIVER.ahk" { LPDDHAL_DESTROYDRIVER }
-#Import ".\LPDDHAL_CANCREATESURFACE.ahk" { LPDDHAL_CANCREATESURFACE }
-#Import ".\LPDDHAL_CREATESURFACE.ahk" { LPDDHAL_CREATESURFACE }
-#Import ".\LPDDHAL_WAITFORVERTICALBLANK.ahk" { LPDDHAL_WAITFORVERTICALBLANK }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -20,24 +10,24 @@ export default struct DDHAL_DDCALLBACKS {
 
     dwFlags : UInt32
 
-    DestroyDriver : LPDDHAL_DESTROYDRIVER
+    DestroyDriver : IntPtr
 
-    CreateSurface : LPDDHAL_CREATESURFACE
+    CreateSurface : IntPtr
 
-    SetColorKey : LPDDHAL_SETCOLORKEY
+    SetColorKey : IntPtr
 
-    SetMode : LPDDHAL_SETMODE
+    SetMode : IntPtr
 
-    WaitForVerticalBlank : LPDDHAL_WAITFORVERTICALBLANK
+    WaitForVerticalBlank : IntPtr
 
-    CanCreateSurface : LPDDHAL_CANCREATESURFACE
+    CanCreateSurface : IntPtr
 
-    CreatePalette : LPDDHAL_CREATEPALETTE
+    CreatePalette : IntPtr
 
-    GetScanLine : LPDDHAL_GETSCANLINE
+    GetScanLine : IntPtr
 
-    SetExclusiveMode : LPDDHAL_SETEXCLUSIVEMODE
+    SetExclusiveMode : IntPtr
 
-    FlipToGDISurface : LPDDHAL_FLIPTOGDISURFACE
+    FlipToGDISurface : IntPtr
 
 }

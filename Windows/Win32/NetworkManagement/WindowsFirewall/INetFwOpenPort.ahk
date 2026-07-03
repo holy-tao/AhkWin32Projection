@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\NET_FW_IP_VERSION.ahk" { NET_FW_IP_VERSION }
-#Import ".\NET_FW_IP_PROTOCOL.ahk" { NET_FW_IP_PROTOCOL }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\NET_FW_IP_PROTOCOL.ahk" { NET_FW_IP_PROTOCOL }
+#Import ".\NET_FW_IP_VERSION.ahk" { NET_FW_IP_VERSION }
 #Import ".\NET_FW_SCOPE.ahk" { NET_FW_SCOPE }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The INetFwOpenPort interface provides access to the properties of a port that has been opened in the firewall.

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
-#Import ".\DXVA2_VideoProcessorCaps.ahk" { DXVA2_VideoProcessorCaps }
 #Import ".\DXVA2_ValueRange.ahk" { DXVA2_ValueRange }
 #Import ".\DXVA2_VideoDesc.ahk" { DXVA2_VideoDesc }
+#Import ".\DXVA2_VideoProcessorCaps.ahk" { DXVA2_VideoProcessorCaps }
 #Import ".\IDirectXVideoAccelerationService.ahk" { IDirectXVideoAccelerationService }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDirectXVideoProcessor.ahk" { IDirectXVideoProcessor }
 
 /**

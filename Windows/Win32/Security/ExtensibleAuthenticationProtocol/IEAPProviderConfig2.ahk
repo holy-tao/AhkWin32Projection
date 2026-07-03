@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IEAPProviderConfig.ahk" { IEAPProviderConfig }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\IEAPProviderConfig.ahk" { IEAPProviderConfig }
 
 /**
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol

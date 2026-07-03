@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FONT_OUTPUT_PRECISION.ahk" { FONT_OUTPUT_PRECISION }
 #Import ".\FONT_CHARSET.ahk" { FONT_CHARSET }
-#Import ".\FONT_QUALITY.ahk" { FONT_QUALITY }
 #Import ".\FONT_CLIP_PRECISION.ahk" { FONT_CLIP_PRECISION }
+#Import ".\FONT_OUTPUT_PRECISION.ahk" { FONT_OUTPUT_PRECISION }
+#Import ".\FONT_QUALITY.ahk" { FONT_QUALITY }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
@@ -30,7 +30,7 @@
  * @charset Unicode
  */
 export default struct LOGFONTW {
-    #StructPack 8
+    #StructPack 4
 
     /**
      * Type: <b>LONG</b>

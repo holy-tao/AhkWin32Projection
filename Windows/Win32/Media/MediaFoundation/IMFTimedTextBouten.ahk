@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MFARGB.ahk" { MFARGB }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MF_TIMED_TEXT_BOUTEN_TYPE.ahk" { MF_TIMED_TEXT_BOUTEN_TYPE }
+#Import ".\MFARGB.ahk" { MFARGB }
 #Import ".\MF_TIMED_TEXT_BOUTEN_POSITION.ahk" { MF_TIMED_TEXT_BOUTEN_POSITION }
+#Import ".\MF_TIMED_TEXT_BOUTEN_TYPE.ahk" { MF_TIMED_TEXT_BOUTEN_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation

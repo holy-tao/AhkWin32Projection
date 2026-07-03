@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PDNS_QUERY_COMPLETION_ROUTINE.ahk" { PDNS_QUERY_COMPLETION_ROUTINE }
-#Import ".\DNS_ADDR_ARRAY.ahk" { DNS_ADDR_ARRAY }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DNS_ADDR_ARRAY.ahk" { DNS_ADDR_ARRAY }
 
 /**
  * The DNS_QUERY_REQUEST structure contains the DNS query parameters used in a call to DnsQueryEx.
@@ -50,7 +49,7 @@ export default struct DNS_QUERY_REQUEST {
      * <div class="alert"><b>Note</b>  If NULL, <a href="https://docs.microsoft.com/windows/desktop/api/windns/nf-windns-dnsqueryex">DnsQueryEx</a> is called synchronously.</div>
      * <div> </div>
      */
-    pQueryCompletionCallback : PDNS_QUERY_COMPLETION_ROUTINE
+    pQueryCompletionCallback : IntPtr
 
     /**
      * A pointer to a user context.

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IGPMResult.ahk" { IGPMResult }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\GPMEntryType.ahk" { GPMEntryType }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IGPMMapEntryCollection.ahk" { IGPMMapEntryCollection }
 #Import ".\IGPMMapEntry.ahk" { IGPMMapEntry }
+#Import ".\IGPMMapEntryCollection.ahk" { IGPMMapEntryCollection }
+#Import ".\IGPMResult.ahk" { IGPMResult }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IGPMMigrationTable interface provides an interface to a migration table.

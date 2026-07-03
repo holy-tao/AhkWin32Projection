@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDirect3DResource9.ahk" { IDirect3DResource9 }
-#Import ".\D3DVERTEXBUFFER_DESC.ahk" { D3DVERTEXBUFFER_DESC }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3DVERTEXBUFFER_DESC.ahk" { D3DVERTEXBUFFER_DESC }
+#Import ".\IDirect3DResource9.ahk" { IDirect3DResource9 }
 
 /**
  * The IDirect3DVertexBuffer9 (d3d9.h) interface is used by applications to manipulate vertex buffer resources.

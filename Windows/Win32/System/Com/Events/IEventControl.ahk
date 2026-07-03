@@ -3,10 +3,10 @@
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IPublisherFilter.ahk" { IPublisherFilter }
 #Import ".\IEventObjectCollection.ahk" { IEventObjectCollection }
+#Import ".\IPublisherFilter.ahk" { IPublisherFilter }
+#Import "..\IDispatch.ahk" { IDispatch }
 
 /**
  * Controls the behavior of an event object, the object that fires an event to its subscribers. (IEventControl)

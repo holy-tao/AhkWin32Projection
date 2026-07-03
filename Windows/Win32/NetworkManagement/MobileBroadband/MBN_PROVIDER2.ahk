@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\MBN_PROVIDER.ahk" { MBN_PROVIDER }
 #Import ".\MBN_CELLULAR_CLASS.ahk" { MBN_CELLULAR_CLASS }
+#Import ".\MBN_PROVIDER.ahk" { MBN_PROVIDER }
 
 /**
  * The MBN_PROVIDER2 structure represents a network service provider. It is used by many of the provider-specific methods of the IMbnMultiCarrier interface and provides an extension to MBN_PROVIDER to support multi-carrier.

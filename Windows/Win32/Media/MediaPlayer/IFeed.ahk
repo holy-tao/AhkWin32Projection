@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FEEDS_XML_SORT_PROPERTY.ahk" { FEEDS_XML_SORT_PROPERTY }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\FEEDS_DOWNLOAD_ERROR.ahk" { FEEDS_DOWNLOAD_ERROR }
+#Import ".\FEEDS_DOWNLOAD_STATUS.ahk" { FEEDS_DOWNLOAD_STATUS }
+#Import ".\FEEDS_EVENTS_MASK.ahk" { FEEDS_EVENTS_MASK }
+#Import ".\FEEDS_EVENTS_SCOPE.ahk" { FEEDS_EVENTS_SCOPE }
+#Import ".\FEEDS_SYNC_SETTING.ahk" { FEEDS_SYNC_SETTING }
 #Import ".\FEEDS_XML_FILTER_FLAGS.ahk" { FEEDS_XML_FILTER_FLAGS }
 #Import ".\FEEDS_XML_INCLUDE_FLAGS.ahk" { FEEDS_XML_INCLUDE_FLAGS }
 #Import ".\FEEDS_XML_SORT_ORDER.ahk" { FEEDS_XML_SORT_ORDER }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\FEEDS_EVENTS_MASK.ahk" { FEEDS_EVENTS_MASK }
+#Import ".\FEEDS_XML_SORT_PROPERTY.ahk" { FEEDS_XML_SORT_PROPERTY }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\FEEDS_DOWNLOAD_STATUS.ahk" { FEEDS_DOWNLOAD_STATUS }
-#Import ".\FEEDS_EVENTS_SCOPE.ahk" { FEEDS_EVENTS_SCOPE }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\FEEDS_DOWNLOAD_ERROR.ahk" { FEEDS_DOWNLOAD_ERROR }
-#Import ".\FEEDS_SYNC_SETTING.ahk" { FEEDS_SYNC_SETTING }
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer

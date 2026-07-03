@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFaxOutgoingMessage.ahk" { IFaxOutgoingMessage }
 #Import ".\IFaxOutgoingMessageIterator.ahk" { IFaxOutgoingMessageIterator }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IFaxOutgoingMessage.ahk" { IFaxOutgoingMessage }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * Used by a fax client application to access a specified fax account's archive of successfully sent outbound fax messages. Use this interface to retrieve messages and get the size of the archive.

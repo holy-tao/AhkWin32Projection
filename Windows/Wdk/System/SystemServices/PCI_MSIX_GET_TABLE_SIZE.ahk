@@ -29,7 +29,7 @@ export default struct PCI_MSIX_GET_TABLE_SIZE {
         TableSizeMarshal := TableSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, TableSizeMarshal, TableSize, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -49,10 +49,6 @@ export default struct PCI_MSIX_GET_TABLE_SIZE {
             this.value := CallbackCreate(fn, , ["ptr", "uint*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

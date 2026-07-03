@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SYNCMGR_PRESENTER_NEXT_STEP.ahk" { SYNCMGR_PRESENTER_NEXT_STEP }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\SYNCMGR_PRESENTER_CHOICE.ahk" { SYNCMGR_PRESENTER_CHOICE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SYNCMGR_PRESENTER_CHOICE.ahk" { SYNCMGR_PRESENTER_CHOICE }
+#Import ".\SYNCMGR_PRESENTER_NEXT_STEP.ahk" { SYNCMGR_PRESENTER_NEXT_STEP }
 
 /**
  * Exposes methods that get and set information about sync manager conflict resolution.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\RPCOLEMESSAGE.ahk" { RPCOLEMESSAGE }
-#Import ".\ISynchronize.ahk" { ISynchronize }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IRpcChannelBuffer2.ahk" { IRpcChannelBuffer2 }
+#Import ".\ISynchronize.ahk" { ISynchronize }
+#Import ".\RPCOLEMESSAGE.ahk" { RPCOLEMESSAGE }
 
 /**
  * @namespace Windows.Win32.System.Com

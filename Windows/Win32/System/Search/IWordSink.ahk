@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Storage\IndexServer\WORDREP_BREAK_TYPE.ahk" { WORDREP_BREAK_TYPE }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Handles words identified by word breaks during both index time and query time.

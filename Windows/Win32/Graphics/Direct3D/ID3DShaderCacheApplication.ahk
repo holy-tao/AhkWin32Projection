@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D_SHADER_CACHE_PSDB_PROPERTIES.ahk" { D3D_SHADER_CACHE_PSDB_PROPERTIES }
-#Import ".\D3D_SHADER_CACHE_APPLICATION_DESC.ahk" { D3D_SHADER_CACHE_APPLICATION_DESC }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ID3DShaderCacheComponent.ahk" { ID3DShaderCacheComponent }
-#Import ".\D3D_SHADER_CACHE_COMPILER_PROPERTIES.ahk" { D3D_SHADER_CACHE_COMPILER_PROPERTIES }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\D3D_SHADER_CACHE_TARGET_FLAGS.ahk" { D3D_SHADER_CACHE_TARGET_FLAGS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\D3D_SHADER_CACHE_APPLICATION_DESC.ahk" { D3D_SHADER_CACHE_APPLICATION_DESC }
+#Import ".\D3D_SHADER_CACHE_COMPILER_PROPERTIES.ahk" { D3D_SHADER_CACHE_COMPILER_PROPERTIES }
+#Import ".\D3D_SHADER_CACHE_PSDB_PROPERTIES.ahk" { D3D_SHADER_CACHE_PSDB_PROPERTIES }
+#Import ".\D3D_SHADER_CACHE_TARGET_FLAGS.ahk" { D3D_SHADER_CACHE_TARGET_FLAGS }
+#Import ".\ID3DShaderCacheComponent.ahk" { ID3DShaderCacheComponent }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D

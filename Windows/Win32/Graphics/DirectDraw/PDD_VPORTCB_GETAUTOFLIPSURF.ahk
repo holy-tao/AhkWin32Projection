@@ -44,10 +44,6 @@ export default struct PDD_VPORTCB_GETAUTOFLIPSURF {
             this.value := CallbackCreate(fn, , [PDD_GETVPORTAUTOFLIPSURFACEDATA, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

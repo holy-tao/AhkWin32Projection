@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\VARDESC.ahk" { VARDESC }
-#Import ".\FUNCDESC.ahk" { FUNCDESC }
-#Import ".\ITypeLib.ahk" { ITypeLib }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IMPLTYPEFLAGS.ahk" { IMPLTYPEFLAGS }
-#Import ".\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\DISPATCH_FLAGS.ahk" { DISPATCH_FLAGS }
-#Import ".\ITypeComp.ahk" { ITypeComp }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DISPPARAMS.ahk" { DISPPARAMS }
-#Import ".\INVOKEKIND.ahk" { INVOKEKIND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\TYPEATTR.ahk" { TYPEATTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DISPATCH_FLAGS.ahk" { DISPATCH_FLAGS }
+#Import ".\DISPPARAMS.ahk" { DISPPARAMS }
 #Import ".\EXCEPINFO.ahk" { EXCEPINFO }
+#Import ".\FUNCDESC.ahk" { FUNCDESC }
+#Import ".\IMPLTYPEFLAGS.ahk" { IMPLTYPEFLAGS }
+#Import ".\INVOKEKIND.ahk" { INVOKEKIND }
+#Import ".\ITypeComp.ahk" { ITypeComp }
+#Import ".\ITypeLib.ahk" { ITypeLib }
+#Import ".\IUnknown.ahk" { IUnknown }
+#Import ".\TYPEATTR.ahk" { TYPEATTR }
+#Import ".\VARDESC.ahk" { VARDESC }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Used for reading information about objects. (ITypeInfo)

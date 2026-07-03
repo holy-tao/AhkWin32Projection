@@ -49,10 +49,6 @@ export default struct PCLUSTER_REG_CLOSE_BATCH {
             this.value := CallbackCreate(fn, , [HREGBATCH, BOOL, "int*", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFVideoMixerControl.ahk" { IMFVideoMixerControl }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFVideoMixerControl.ahk" { IMFVideoMixerControl }
 
 /**
  * Controls preferences for video deinterlacing.

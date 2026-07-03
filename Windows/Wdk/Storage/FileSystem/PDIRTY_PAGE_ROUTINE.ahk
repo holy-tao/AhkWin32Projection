@@ -55,10 +55,6 @@ export default struct PDIRTY_PAGE_ROUTINE {
             this.value := CallbackCreate(fn, , [FILE_OBJECT.Ptr, "int64*", UInt32, "int64*", "int64*", "ptr", "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

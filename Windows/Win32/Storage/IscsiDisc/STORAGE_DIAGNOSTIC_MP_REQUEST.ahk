@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\MP_STORAGE_DIAGNOSTIC_LEVEL.ahk" { MP_STORAGE_DIAGNOSTIC_LEVEL }
 #Import ".\MP_STORAGE_DIAGNOSTIC_TARGET_TYPE.ahk" { MP_STORAGE_DIAGNOSTIC_TARGET_TYPE }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc

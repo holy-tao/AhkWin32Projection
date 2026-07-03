@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LVFOOTERITEM_MASK.ahk" { LVFOOTERITEM_MASK }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\LVFOOTERITEM_MASK.ahk" { LVFOOTERITEM_MASK }
 
 /**
  * Contains information on a footer item.

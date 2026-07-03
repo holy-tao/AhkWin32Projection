@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\UIA_EVENT_ID.ahk" { UIA_EVENT_ID }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IRawElementProviderSimple.ahk" { IRawElementProviderSimple }
-#Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
-#Import ".\StructureChangeType.ahk" { StructureChangeType }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IRawElementProviderSimple.ahk" { IRawElementProviderSimple }
+#Import ".\StructureChangeType.ahk" { StructureChangeType }
+#Import ".\UIA_EVENT_ID.ahk" { UIA_EVENT_ID }
+#Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
 
 /**
  * Exposes methods used by proxy providers to raise events.

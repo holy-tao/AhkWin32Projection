@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\AUTHENTICATION_LEVEL.ahk" { AUTHENTICATION_LEVEL }
-#Import ".\IDtcNetworkAccessConfig.ahk" { IDtcNetworkAccessConfig }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\AUTHENTICATION_LEVEL.ahk" { AUTHENTICATION_LEVEL }
+#Import ".\IDtcNetworkAccessConfig.ahk" { IDtcNetworkAccessConfig }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator

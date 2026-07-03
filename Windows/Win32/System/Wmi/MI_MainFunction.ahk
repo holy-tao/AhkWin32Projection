@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MI_Server.ahk" { MI_Server }
 #Import ".\MI_Module.ahk" { MI_Module }
+#Import ".\MI_Server.ahk" { MI_Server }
 
 /**
  * @namespace Windows.Win32.System.Wmi
@@ -45,10 +45,6 @@ export default struct MI_MainFunction {
             this.value := CallbackCreate(fn, "cdecl", [MI_Server.Ptr, MI_Module.Ptr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

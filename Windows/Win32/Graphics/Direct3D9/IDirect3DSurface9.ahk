@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDirect3DResource9.ahk" { IDirect3DResource9 }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\D3DSURFACE_DESC.ahk" { D3DSURFACE_DESC }
-#Import ".\D3DLOCKED_RECT.ahk" { D3DLOCKED_RECT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\D3DLOCKED_RECT.ahk" { D3DLOCKED_RECT }
+#Import ".\D3DSURFACE_DESC.ahk" { D3DSURFACE_DESC }
+#Import ".\IDirect3DResource9.ahk" { IDirect3DResource9 }
 #Import "..\Gdi\HDC.ahk" { HDC }
 
 /**

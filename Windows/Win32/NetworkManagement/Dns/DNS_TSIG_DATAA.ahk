@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The DNS_TSIG_DATA structure represents a secret key transaction authentication (TSIG) resource record (RR) as specified in RFC 2845 and RFC 3645. (ANSI)

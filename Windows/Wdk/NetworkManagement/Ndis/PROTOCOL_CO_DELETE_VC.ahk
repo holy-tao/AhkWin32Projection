@@ -45,10 +45,6 @@ export default struct PROTOCOL_CO_DELETE_VC {
             this.value := CallbackCreate(fn, , ["ptr", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

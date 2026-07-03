@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFSample.ahk" { IMFSample }
-#Import ".\ASF_MUX_STATISTICS.ahk" { ASF_MUX_STATISTICS }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMFASFContentInfo.ahk" { IMFASFContentInfo }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ASF_MUX_STATISTICS.ahk" { ASF_MUX_STATISTICS }
+#Import ".\IMFASFContentInfo.ahk" { IMFASFContentInfo }
+#Import ".\IMFSample.ahk" { IMFSample }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods to create Advanced Systems Format (ASF) data packets.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Transforms a marshaled string back into its original form, and decrypts the unmarshaled string.
@@ -43,7 +43,7 @@ export default struct CrediUnmarshalandDecodeStringFn {
         IsFailureFatalMarshal := IsFailureFatal is VarRef ? "char*" : "ptr"
 
         result := DllCall(this.value, "ptr", MarshaledString, _BlobMarshal, _Blob, BlobSizeMarshal, BlobSize, IsFailureFatalMarshal, IsFailureFatal, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -63,10 +63,6 @@ export default struct CrediUnmarshalandDecodeStringFn {
             this.value := CallbackCreate(fn, , [PWSTR, "ptr*", "uint*", "char*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

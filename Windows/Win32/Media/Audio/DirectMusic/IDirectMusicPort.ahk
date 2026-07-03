@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\DirectSound\IDirectSoundBuffer.ahk" { IDirectSoundBuffer }
-#Import ".\DMUS_SYNTHSTATS.ahk" { DMUS_SYNTHSTATS }
-#Import ".\IDirectMusicInstrument.ahk" { IDirectMusicInstrument }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DMUS_PORTCAPS.ahk" { DMUS_PORTCAPS }
-#Import ".\IDirectMusicBuffer.ahk" { IDirectMusicBuffer }
-#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
-#Import ".\DMUS_NOTERANGE.ahk" { DMUS_NOTERANGE }
-#Import ".\IDirectMusicDownloadedInstrument.ahk" { IDirectMusicDownloadedInstrument }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DMUS_NOTERANGE.ahk" { DMUS_NOTERANGE }
+#Import ".\DMUS_PORTCAPS.ahk" { DMUS_PORTCAPS }
+#Import ".\DMUS_SYNTHSTATS.ahk" { DMUS_SYNTHSTATS }
+#Import ".\IDirectMusicBuffer.ahk" { IDirectMusicBuffer }
+#Import ".\IDirectMusicDownloadedInstrument.ahk" { IDirectMusicDownloadedInstrument }
+#Import ".\IDirectMusicInstrument.ahk" { IDirectMusicInstrument }
 #Import "..\DirectSound\IDirectSound.ahk" { IDirectSound }
+#Import "..\DirectSound\IDirectSoundBuffer.ahk" { IDirectSoundBuffer }
+#Import "..\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 #Import "..\..\IReferenceClock.ahk" { IReferenceClock }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic

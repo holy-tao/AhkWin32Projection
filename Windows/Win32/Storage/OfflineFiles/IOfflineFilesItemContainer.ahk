@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IOfflineFilesItemFilter.ahk" { IOfflineFilesItemFilter }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IEnumOfflineFilesItems.ahk" { IEnumOfflineFilesItems }
+#Import ".\IOfflineFilesItemFilter.ahk" { IOfflineFilesItemFilter }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Used to access item enumeration functionality in the Offline Files cache.

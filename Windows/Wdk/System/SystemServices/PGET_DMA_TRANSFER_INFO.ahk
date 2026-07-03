@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DMA_ADAPTER.ahk" { DMA_ADAPTER }
-#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\Foundation\MDL.ahk" { MDL }
-#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\DMA_ADAPTER.ahk" { DMA_ADAPTER }
 #Import ".\DMA_TRANSFER_INFO.ahk" { DMA_TRANSFER_INFO }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -34,7 +34,7 @@ export default struct PGET_DMA_TRANSFER_INFO {
      */
     Call(DmaAdapter, _Mdl, Offset, Length, WriteOnly, TransferInfo) {
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, MDL.Ptr, _Mdl, Int64, Offset, UInt32, Length, BOOLEAN, WriteOnly, DMA_TRANSFER_INFO.Ptr, TransferInfo, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -54,10 +54,6 @@ export default struct PGET_DMA_TRANSFER_INFO {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, MDL.Ptr, Int64, UInt32, BOOLEAN, DMA_TRANSFER_INFO.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

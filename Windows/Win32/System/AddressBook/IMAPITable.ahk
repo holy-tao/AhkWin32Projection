@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MAPIERROR.ahk" { MAPIERROR }
-#Import ".\SRowSet.ahk" { SRowSet }
-#Import ".\IMAPIAdviseSink.ahk" { IMAPIAdviseSink }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\SSortOrderSet.ahk" { SSortOrderSet }
-#Import ".\SRestriction.ahk" { SRestriction }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMAPIAdviseSink.ahk" { IMAPIAdviseSink }
+#Import ".\MAPIERROR.ahk" { MAPIERROR }
 #Import ".\SPropTagArray.ahk" { SPropTagArray }
+#Import ".\SRestriction.ahk" { SRestriction }
+#Import ".\SRowSet.ahk" { SRowSet }
+#Import ".\SSortOrderSet.ahk" { SSortOrderSet }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Do not use. This interface is used for content tables of Windows Address Book (WAB) containers and distribution lists.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\DEVICE_WAKE_DEPTH.ahk" { DEVICE_WAKE_DEPTH }
-#Import "..\..\..\Win32\System\Power\SYSTEM_POWER_STATE.ahk" { SYSTEM_POWER_STATE }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\..\Win32\System\Power\SYSTEM_POWER_STATE.ahk" { SYSTEM_POWER_STATE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -32,7 +32,7 @@ export default struct GET_IDLE_WAKE_INFO {
         DeepestWakeableDstateMarshal := DeepestWakeableDstate is VarRef ? "int*" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, SYSTEM_POWER_STATE, SystemPowerState, DeepestWakeableDstateMarshal, DeepestWakeableDstate, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -52,10 +52,6 @@ export default struct GET_IDLE_WAKE_INFO {
             this.value := CallbackCreate(fn, , ["ptr", SYSTEM_POWER_STATE, "int*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

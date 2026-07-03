@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Credentials\SecHandle.ahk" { SecHandle }
-#Import ".\SecBuffer.ahk" { SecBuffer }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SecBuffer.ahk" { SecBuffer }
+#Import "..\..\Credentials\SecHandle.ahk" { SecHandle }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -53,10 +53,6 @@ export default struct IMPORT_SECURITY_CONTEXT_FN_W {
             this.value := CallbackCreate(fn, , ["ushort*", SecBuffer.Ptr, "ptr", SecHandle.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

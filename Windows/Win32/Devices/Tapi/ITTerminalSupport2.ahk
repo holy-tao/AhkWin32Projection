@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IEnumPluggableTerminalClassInfo.ahk" { IEnumPluggableTerminalClassInfo }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IEnumPluggableSuperclassInfo.ahk" { IEnumPluggableSuperclassInfo }
+#Import ".\IEnumPluggableTerminalClassInfo.ahk" { IEnumPluggableTerminalClassInfo }
 #Import ".\ITTerminalSupport.ahk" { ITTerminalSupport }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ITTerminalSupport2 interface is derived from the ITTerminalSupport interface. ITTerminalSupport2 supports the retrieval of information about pluggable terminal classes and superclasses by C, C++, and scripting applications.

@@ -49,10 +49,6 @@ export default struct MIDL_ES_WRITE {
             this.value := CallbackCreate(fn, , ["ptr", PSTR, UInt32, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

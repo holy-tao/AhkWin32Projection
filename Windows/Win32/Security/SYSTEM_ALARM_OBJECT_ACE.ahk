@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ACE_HEADER.ahk" { ACE_HEADER }
 #Import "..\..\..\Guid.ahk" { Guid }
+#Import ".\ACE_HEADER.ahk" { ACE_HEADER }
 
 /**
  * The SYSTEM_ALARM_OBJECT_ACE structure is reserved for future use.

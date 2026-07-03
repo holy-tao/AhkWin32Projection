@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DHCP_CALLOUT_TABLE.ahk" { DHCP_CALLOUT_TABLE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DHCP_CALLOUT_TABLE.ahk" { DHCP_CALLOUT_TABLE }
 
 /**
  * The DhcpServerCalloutEntry function is called by Microsoft DHCP Server to initialize a third-party DLL, and to discover for which events the third-party DLL wants notification. The DhcpServerCalloutEntry function is implemented by third-party DLLs.
@@ -67,10 +67,6 @@ export default struct LPDHCP_ENTRY_POINT_FUNC {
             this.value := CallbackCreate(fn, , [PWSTR, UInt32, DHCP_CALLOUT_TABLE.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

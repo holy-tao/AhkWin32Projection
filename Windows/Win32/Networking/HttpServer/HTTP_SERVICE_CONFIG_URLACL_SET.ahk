@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HTTP_SERVICE_CONFIG_URLACL_PARAM.ahk" { HTTP_SERVICE_CONFIG_URLACL_PARAM }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\HTTP_SERVICE_CONFIG_URLACL_KEY.ahk" { HTTP_SERVICE_CONFIG_URLACL_KEY }
+#Import ".\HTTP_SERVICE_CONFIG_URLACL_PARAM.ahk" { HTTP_SERVICE_CONFIG_URLACL_PARAM }
 
 /**
  * Used to add a new record to the URL reservation store or retrieve an existing record from it.

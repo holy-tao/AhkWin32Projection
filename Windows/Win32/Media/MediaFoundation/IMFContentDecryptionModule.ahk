@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
+#Import ".\IMFCdmSuspendNotify.ahk" { IMFCdmSuspendNotify }
+#Import ".\IMFContentDecryptionModuleSession.ahk" { IMFContentDecryptionModuleSession }
+#Import ".\IMFContentDecryptionModuleSessionCallbacks.ahk" { IMFContentDecryptionModuleSessionCallbacks }
+#Import ".\IMFContentEnabler.ahk" { IMFContentEnabler }
+#Import ".\IMFPMPHostApp.ahk" { IMFPMPHostApp }
 #Import ".\IMFTrustedInput.ahk" { IMFTrustedInput }
 #Import ".\MF_MEDIAKEYSESSION_TYPE.ahk" { MF_MEDIAKEYSESSION_TYPE }
-#Import ".\IMFCdmSuspendNotify.ahk" { IMFCdmSuspendNotify }
-#Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMFContentEnabler.ahk" { IMFContentEnabler }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFContentDecryptionModuleSessionCallbacks.ahk" { IMFContentDecryptionModuleSessionCallbacks }
-#Import ".\IMFContentDecryptionModuleSession.ahk" { IMFContentDecryptionModuleSession }
-#Import ".\IMFPMPHostApp.ahk" { IMFPMPHostApp }
 
 /**
  * Represents a Content Decryption Module (CDM) for a DRM key system.

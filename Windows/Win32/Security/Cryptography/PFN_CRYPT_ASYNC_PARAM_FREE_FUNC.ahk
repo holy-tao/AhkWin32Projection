@@ -48,10 +48,6 @@ export default struct PFN_CRYPT_ASYNC_PARAM_FREE_FUNC {
             this.value := CallbackCreate(fn, , [PSTR, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

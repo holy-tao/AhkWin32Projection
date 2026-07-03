@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SCOPE_MIB_INFO.ahk" { SCOPE_MIB_INFO }
 #Import ".\DATE_TIME.ahk" { DATE_TIME }
+#Import ".\SCOPE_MIB_INFO.ahk" { SCOPE_MIB_INFO }
 
 /**
  * Defines information returned from the DHCP-specific SNMP Management Information Block (MIB) about the current DHCP service.

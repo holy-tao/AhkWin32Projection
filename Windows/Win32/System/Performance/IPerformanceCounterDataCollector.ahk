@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IDataCollector.ahk" { IDataCollector }
-#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 #Import ".\FileFormat.ahk" { FileFormat }
+#Import ".\IDataCollector.ahk" { IDataCollector }
 
 /**
  * Specifies the performance counters to query and the log file to which the counter data is written.To create this data collector, call the IDataCollectorCollection::CreateDataCollector or IDataCollectorCollection::CreateDataCollectorFromXml method.

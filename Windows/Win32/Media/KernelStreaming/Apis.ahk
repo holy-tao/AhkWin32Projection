@@ -1,15 +1,15 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\KSPIN_CONNECT.ahk" { KSPIN_CONNECT }
-#Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\KSALLOCATOR_FRAMING.ahk" { KSALLOCATOR_FRAMING }
+#Import ".\KSCLOCK_CREATE.ahk" { KSCLOCK_CREATE }
 #Import ".\KSDATAFORMAT.ahk" { KSDATAFORMAT }
 #Import ".\KSMULTIPLE_ITEM.ahk" { KSMULTIPLE_ITEM }
-#Import ".\KSCLOCK_CREATE.ahk" { KSCLOCK_CREATE }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\KSNODE_CREATE.ahk" { KSNODE_CREATE }
-#Import ".\KSALLOCATOR_FRAMING.ahk" { KSALLOCATOR_FRAMING }
+#Import ".\KSPIN_CONNECT.ahk" { KSPIN_CONNECT }
+#Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

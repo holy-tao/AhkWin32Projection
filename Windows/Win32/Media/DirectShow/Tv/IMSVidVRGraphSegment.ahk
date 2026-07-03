@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\..\Foundation\SIZE.ahk" { SIZE }
-#Import ".\IMSVidGraphSegment.ahk" { IMSVidGraphSegment }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import ".\IMSVidGraphSegment.ahk" { IMSVidGraphSegment }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv

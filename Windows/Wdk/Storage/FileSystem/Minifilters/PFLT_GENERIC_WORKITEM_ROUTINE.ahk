@@ -48,10 +48,6 @@ export default struct PFLT_GENERIC_WORKITEM_ROUTINE {
             this.value := CallbackCreate(fn, , [PFLT_GENERIC_WORKITEM, "ptr", "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IWMPClosedCaption.ahk" { IWMPClosedCaption }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMPClosedCaption.ahk" { IWMPClosedCaption }
 
 /**
  * The IWMPClosedCaption2 interface provides closed captioning methods that supplement the IWMPClosedCaption interface.

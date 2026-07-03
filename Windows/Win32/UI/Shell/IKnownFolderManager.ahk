@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\KNOWNFOLDER_DEFINITION.ahk" { KNOWNFOLDER_DEFINITION }
-#Import ".\IKnownFolder.ahk" { IKnownFolder }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\FFFP_MODE.ahk" { FFFP_MODE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import ".\FFFP_MODE.ahk" { FFFP_MODE }
+#Import ".\IKnownFolder.ahk" { IKnownFolder }
+#Import ".\KNOWNFOLDER_DEFINITION.ahk" { KNOWNFOLDER_DEFINITION }
 
 /**
  * Exposes methods that create, enumerate or manage existing known folders.

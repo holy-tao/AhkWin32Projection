@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MINIDUMP_MEMORY_DESCRIPTOR.ahk" { MINIDUMP_MEMORY_DESCRIPTOR }
 #Import ".\MINIDUMP_LOCATION_DESCRIPTOR.ahk" { MINIDUMP_LOCATION_DESCRIPTOR }
+#Import ".\MINIDUMP_MEMORY_DESCRIPTOR.ahk" { MINIDUMP_MEMORY_DESCRIPTOR }
 
 /**
  * Contains extended information for a specific thread.

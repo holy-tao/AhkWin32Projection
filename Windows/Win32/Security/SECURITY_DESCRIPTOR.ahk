@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SECURITY_DESCRIPTOR_CONTROL.ahk" { SECURITY_DESCRIPTOR_CONTROL }
 #Import ".\ACL.ahk" { ACL }
 #Import ".\PSID.ahk" { PSID }
+#Import ".\SECURITY_DESCRIPTOR_CONTROL.ahk" { SECURITY_DESCRIPTOR_CONTROL }
 
 /**
  * Contains the security information associated with an object.

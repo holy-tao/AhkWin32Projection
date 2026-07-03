@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 #Import ".\ISyncMgrConflictItems.ahk" { ISyncMgrConflictItems }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\SYNCMGR_CONFLICT_ID_INFO.ahk" { SYNCMGR_CONFLICT_ID_INFO }
 #Import ".\ISyncMgrConflictResolveInfo.ahk" { ISyncMgrConflictResolveInfo }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SYNCMGR_CONFLICT_ID_INFO.ahk" { SYNCMGR_CONFLICT_ID_INFO }
 
 /**
  * Exposes methods that provide information about a conflict retrieved from a conflict store, and allows the conflict to be resolved.

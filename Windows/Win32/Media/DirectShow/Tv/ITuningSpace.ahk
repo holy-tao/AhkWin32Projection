@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\System\Com\IEnumGUID.ahk" { IEnumGUID }
-#Import ".\ITuneRequest.ahk" { ITuneRequest }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IEnumMoniker.ahk" { IEnumMoniker }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ILocator.ahk" { ILocator }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IComponentTypes.ahk" { IComponentTypes }
+#Import ".\ILocator.ahk" { ILocator }
+#Import ".\ITuneRequest.ahk" { ITuneRequest }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\System\Com\IEnumGUID.ahk" { IEnumGUID }
+#Import "..\..\..\System\Com\IEnumMoniker.ahk" { IEnumMoniker }
 
 /**
  * The ITuningSpace interface provides the common functionality for all network-specific tuning spaces.

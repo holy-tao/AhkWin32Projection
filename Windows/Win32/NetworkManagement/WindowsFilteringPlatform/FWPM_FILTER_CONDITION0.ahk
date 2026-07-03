@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Security\SID.ahk" { SID }
-#Import ".\FWP_BYTE_ARRAY6.ahk" { FWP_BYTE_ARRAY6 }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\FWP_BYTE_ARRAY16.ahk" { FWP_BYTE_ARRAY16 }
+#Import ".\FWP_BYTE_ARRAY6.ahk" { FWP_BYTE_ARRAY6 }
+#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
+#Import ".\FWP_CONDITION_VALUE0.ahk" { FWP_CONDITION_VALUE0 }
+#Import ".\FWP_DATA_TYPE.ahk" { FWP_DATA_TYPE }
 #Import ".\FWP_MATCH_TYPE.ahk" { FWP_MATCH_TYPE }
 #Import ".\FWP_RANGE0.ahk" { FWP_RANGE0 }
 #Import ".\FWP_TOKEN_INFORMATION.ahk" { FWP_TOKEN_INFORMATION }
-#Import ".\FWP_DATA_TYPE.ahk" { FWP_DATA_TYPE }
-#Import ".\FWP_CONDITION_VALUE0.ahk" { FWP_CONDITION_VALUE0 }
-#Import ".\FWP_BYTE_ARRAY16.ahk" { FWP_BYTE_ARRAY16 }
 #Import ".\FWP_V4_ADDR_AND_MASK.ahk" { FWP_V4_ADDR_AND_MASK }
 #Import ".\FWP_V6_ADDR_AND_MASK.ahk" { FWP_V6_ADDR_AND_MASK }
-#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
+#Import "..\..\Security\SID.ahk" { SID }
 
 /**
  * Expresses a filter condition that must be true for the action to be taken.

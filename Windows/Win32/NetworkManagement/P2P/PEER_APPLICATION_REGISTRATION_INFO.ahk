@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PEER_APPLICATION.ahk" { PEER_APPLICATION }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PEER_APPLICATION.ahk" { PEER_APPLICATION }
 #Import ".\PEER_DATA.ahk" { PEER_DATA }
 
 /**

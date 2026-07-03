@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUnknown.ahk" { IUnknown }
-#Import ".\ISynchronize.ahk" { ISynchronize }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISynchronize.ahk" { ISynchronize }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Com

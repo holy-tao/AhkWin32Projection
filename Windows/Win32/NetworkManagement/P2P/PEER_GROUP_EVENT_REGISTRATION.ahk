@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PEER_GROUP_EVENT_TYPE.ahk" { PEER_GROUP_EVENT_TYPE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\PEER_GROUP_EVENT_TYPE.ahk" { PEER_GROUP_EVENT_TYPE }
 
 /**
  * The PEER_GROUP_EVENT_REGISTRATION structure defines the particular peer group event a member can register for.

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IASDATASTORE.ahk" { IASDATASTORE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IASDOMAINTYPE.ahk" { IASDOMAINTYPE }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IASDATASTORE.ahk" { IASDATASTORE }
+#Import ".\IASDOMAINTYPE.ahk" { IASDOMAINTYPE }
 #Import ".\IASOSTYPE.ahk" { IASOSTYPE }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Use the ISdoMachine interface to attach to an SDO computer, obtain information about the SDO computer, and obtain interfaces to other SDO objects.

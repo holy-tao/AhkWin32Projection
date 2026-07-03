@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\OFFLINEFILES_SETTING_VALUE_TYPE.ahk" { OFFLINEFILES_SETTING_VALUE_TYPE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\OFFLINEFILES_SETTING_VALUE_TYPE.ahk" { OFFLINEFILES_SETTING_VALUE_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Represents a setting that controls the behavior the Offline Files service.

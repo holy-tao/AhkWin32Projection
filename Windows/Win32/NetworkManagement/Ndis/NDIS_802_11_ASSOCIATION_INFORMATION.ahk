@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NDIS_802_11_AI_RESFI.ahk" { NDIS_802_11_AI_RESFI }
 #Import ".\NDIS_802_11_AI_REQFI.ahk" { NDIS_802_11_AI_REQFI }
+#Import ".\NDIS_802_11_AI_RESFI.ahk" { NDIS_802_11_AI_RESFI }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\USB_USER_ERROR_CODE.ahk" { USB_USER_ERROR_CODE }
 #Import ".\USBUSER_REQUEST_HEADER.ahk" { USBUSER_REQUEST_HEADER }
 #Import ".\USB_USB2HW_VERSION_PARAMETERS.ahk" { USB_USB2HW_VERSION_PARAMETERS }
+#Import ".\USB_USER_ERROR_CODE.ahk" { USB_USER_ERROR_CODE }
 
 /**
  * @namespace Windows.Win32.Devices.Usb

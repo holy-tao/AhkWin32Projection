@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MI_Qualifier.ahk" { MI_Qualifier }
-#Import ".\MI_PropertyDecl.ahk" { MI_PropertyDecl }
 #Import ".\MI_Class.ahk" { MI_Class }
 #Import ".\MI_MethodDecl.ahk" { MI_MethodDecl }
-#Import ".\MI_SchemaDecl.ahk" { MI_SchemaDecl }
+#Import ".\MI_PropertyDecl.ahk" { MI_PropertyDecl }
 #Import ".\MI_ProviderFT.ahk" { MI_ProviderFT }
+#Import ".\MI_Qualifier.ahk" { MI_Qualifier }
+#Import ".\MI_SchemaDecl.ahk" { MI_SchemaDecl }
 
 /**
  * This structure outlines the class declaration. It contains class name and hierarchy, properties, qualifiers, and methods.

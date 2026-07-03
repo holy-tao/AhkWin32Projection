@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
-#Import "..\..\..\System\PasswordManagement\CYPHER_BLOCK.ahk" { CYPHER_BLOCK }
-#Import ".\NETLOGON_LOGON_IDENTITY_INFO.ahk" { NETLOGON_LOGON_IDENTITY_INFO }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import ".\NETLOGON_LOGON_IDENTITY_INFO.ahk" { NETLOGON_LOGON_IDENTITY_INFO }
+#Import "..\..\..\System\PasswordManagement\CYPHER_BLOCK.ahk" { CYPHER_BLOCK }
 #Import "..\..\..\System\PasswordManagement\LM_OWF_PASSWORD.ahk" { LM_OWF_PASSWORD }
 #Import "..\..\..\Foundation\CHAR.ahk" { CHAR }
 

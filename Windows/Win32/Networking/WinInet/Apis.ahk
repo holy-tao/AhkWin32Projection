@@ -1,58 +1,55 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\CACHE_OPERATOR.ahk" { CACHE_OPERATOR }
-#Import ".\APP_CACHE_STATE.ahk" { APP_CACHE_STATE }
-#Import ".\INTERNET_COOKIE_FLAGS.ahk" { INTERNET_COOKIE_FLAGS }
-#Import ".\WININET_PROXY_INFO_LIST.ahk" { WININET_PROXY_INFO_LIST }
-#Import ".\INTERNET_CACHE_CONFIG_INFOW.ahk" { INTERNET_CACHE_CONFIG_INFOW }
-#Import ".\URLCACHE_ENTRY_INFO.ahk" { URLCACHE_ENTRY_INFO }
-#Import ".\LPINTERNET_STATUS_CALLBACK.ahk" { LPINTERNET_STATUS_CALLBACK }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\INTERNET_CACHE_GROUP_INFOW.ahk" { INTERNET_CACHE_GROUP_INFOW }
-#Import ".\INTERNET_CACHE_ENTRY_INFOW.ahk" { INTERNET_CACHE_ENTRY_INFOW }
-#Import ".\INTERNET_CACHE_CONFIG_INFOA.ahk" { INTERNET_CACHE_CONFIG_INFOA }
-#Import ".\INTERNET_BUFFERSA.ahk" { INTERNET_BUFFERSA }
-#Import ".\FTP_FLAGS.ahk" { FTP_FLAGS }
-#Import ".\INTERNET_AUTODIAL.ahk" { INTERNET_AUTODIAL }
-#Import ".\INTERNET_COOKIE2.ahk" { INTERNET_COOKIE2 }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import ".\PROXY_AUTO_DETECT_TYPE.ahk" { PROXY_AUTO_DETECT_TYPE }
-#Import ".\INTERNET_CACHE_GROUP_INFOA.ahk" { INTERNET_CACHE_GROUP_INFOA }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\INTERNET_SECURITY_INFO.ahk" { INTERNET_SECURITY_INFO }
-#Import "..\..\Security\Cryptography\ALG_ID.ahk" { ALG_ID }
-#Import ".\URL_CACHE_LIMIT_TYPE.ahk" { URL_CACHE_LIMIT_TYPE }
-#Import "..\..\Storage\FileSystem\WIN32_FIND_DATAA.ahk" { WIN32_FIND_DATAA }
-#Import ".\APP_CACHE_FINALIZE_STATE.ahk" { APP_CACHE_FINALIZE_STATE }
-#Import ".\CACHE_CONFIG.ahk" { CACHE_CONFIG }
-#Import ".\HTTP_PUSH_TRANSPORT_SETTING.ahk" { HTTP_PUSH_TRANSPORT_SETTING }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\GOPHER_ATTRIBUTE_ENUMERATOR.ahk" { GOPHER_ATTRIBUTE_ENUMERATOR }
-#Import ".\WPAD_CACHE_DELETE.ahk" { WPAD_CACHE_DELETE }
-#Import ".\INTERNET_CONNECTION.ahk" { INTERNET_CONNECTION }
-#Import ".\HTTP_PUSH_WAIT_HANDLE.ahk" { HTTP_PUSH_WAIT_HANDLE }
-#Import ".\APP_CACHE_GROUP_INFO.ahk" { APP_CACHE_GROUP_INFO }
-#Import ".\HTTP_PUSH_NOTIFICATION_STATUS.ahk" { HTTP_PUSH_NOTIFICATION_STATUS }
-#Import ".\APP_CACHE_GROUP_LIST.ahk" { APP_CACHE_GROUP_LIST }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\INTERNET_BUFFERSW.ahk" { INTERNET_BUFFERSW }
-#Import ".\INTERNET_CACHE_ENTRY_INFOA.ahk" { INTERNET_CACHE_ENTRY_INFOA }
-#Import ".\GOPHER_FIND_DATAW.ahk" { GOPHER_FIND_DATAW }
-#Import ".\APP_CACHE_DOWNLOAD_LIST.ahk" { APP_CACHE_DOWNLOAD_LIST }
-#Import ".\HTTP_WEB_SOCKET_BUFFER_TYPE.ahk" { HTTP_WEB_SOCKET_BUFFER_TYPE }
-#Import "..\..\Storage\FileSystem\WIN32_FIND_DATAW.ahk" { WIN32_FIND_DATAW }
-#Import ".\INTERNET_SCHEME.ahk" { INTERNET_SCHEME }
-#Import ".\GOPHER_FIND_DATAA.ahk" { GOPHER_FIND_DATAA }
-#Import ".\HTTP_PUSH_WAIT_TYPE.ahk" { HTTP_PUSH_WAIT_TYPE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Security\Cryptography\CERT_CHAIN_CONTEXT.ahk" { CERT_CHAIN_CONTEXT }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\URL_COMPONENTSW.ahk" { URL_COMPONENTSW }
-#Import ".\URL_COMPONENTSA.ahk" { URL_COMPONENTSA }
-#Import ".\HTTP_ADDREQ_FLAG.ahk" { HTTP_ADDREQ_FLAG }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 #Import "..\WinHttp\WIN_HTTP_CREATE_URL_FLAGS.ahk" { WIN_HTTP_CREATE_URL_FLAGS }
+#Import ".\APP_CACHE_DOWNLOAD_LIST.ahk" { APP_CACHE_DOWNLOAD_LIST }
+#Import ".\APP_CACHE_FINALIZE_STATE.ahk" { APP_CACHE_FINALIZE_STATE }
+#Import ".\APP_CACHE_GROUP_INFO.ahk" { APP_CACHE_GROUP_INFO }
+#Import ".\APP_CACHE_GROUP_LIST.ahk" { APP_CACHE_GROUP_LIST }
+#Import ".\APP_CACHE_STATE.ahk" { APP_CACHE_STATE }
+#Import ".\CACHE_CONFIG.ahk" { CACHE_CONFIG }
+#Import ".\FTP_FLAGS.ahk" { FTP_FLAGS }
+#Import ".\GOPHER_FIND_DATAA.ahk" { GOPHER_FIND_DATAA }
+#Import ".\GOPHER_FIND_DATAW.ahk" { GOPHER_FIND_DATAW }
+#Import ".\HTTP_ADDREQ_FLAG.ahk" { HTTP_ADDREQ_FLAG }
+#Import ".\HTTP_PUSH_NOTIFICATION_STATUS.ahk" { HTTP_PUSH_NOTIFICATION_STATUS }
+#Import ".\HTTP_PUSH_TRANSPORT_SETTING.ahk" { HTTP_PUSH_TRANSPORT_SETTING }
+#Import ".\HTTP_PUSH_WAIT_HANDLE.ahk" { HTTP_PUSH_WAIT_HANDLE }
+#Import ".\HTTP_PUSH_WAIT_TYPE.ahk" { HTTP_PUSH_WAIT_TYPE }
+#Import ".\HTTP_WEB_SOCKET_BUFFER_TYPE.ahk" { HTTP_WEB_SOCKET_BUFFER_TYPE }
+#Import ".\INTERNET_AUTODIAL.ahk" { INTERNET_AUTODIAL }
+#Import ".\INTERNET_BUFFERSA.ahk" { INTERNET_BUFFERSA }
+#Import ".\INTERNET_BUFFERSW.ahk" { INTERNET_BUFFERSW }
+#Import ".\INTERNET_CACHE_CONFIG_INFOA.ahk" { INTERNET_CACHE_CONFIG_INFOA }
+#Import ".\INTERNET_CACHE_CONFIG_INFOW.ahk" { INTERNET_CACHE_CONFIG_INFOW }
+#Import ".\INTERNET_CACHE_ENTRY_INFOA.ahk" { INTERNET_CACHE_ENTRY_INFOA }
+#Import ".\INTERNET_CACHE_ENTRY_INFOW.ahk" { INTERNET_CACHE_ENTRY_INFOW }
+#Import ".\INTERNET_CACHE_GROUP_INFOA.ahk" { INTERNET_CACHE_GROUP_INFOA }
+#Import ".\INTERNET_CACHE_GROUP_INFOW.ahk" { INTERNET_CACHE_GROUP_INFOW }
+#Import ".\INTERNET_CONNECTION.ahk" { INTERNET_CONNECTION }
+#Import ".\INTERNET_COOKIE2.ahk" { INTERNET_COOKIE2 }
+#Import ".\INTERNET_COOKIE_FLAGS.ahk" { INTERNET_COOKIE_FLAGS }
+#Import ".\INTERNET_SCHEME.ahk" { INTERNET_SCHEME }
+#Import ".\INTERNET_SECURITY_INFO.ahk" { INTERNET_SECURITY_INFO }
+#Import ".\PROXY_AUTO_DETECT_TYPE.ahk" { PROXY_AUTO_DETECT_TYPE }
+#Import ".\URLCACHE_ENTRY_INFO.ahk" { URLCACHE_ENTRY_INFO }
+#Import ".\URL_CACHE_LIMIT_TYPE.ahk" { URL_CACHE_LIMIT_TYPE }
+#Import ".\URL_COMPONENTSA.ahk" { URL_COMPONENTSA }
+#Import ".\URL_COMPONENTSW.ahk" { URL_COMPONENTSW }
+#Import ".\WININET_PROXY_INFO_LIST.ahk" { WININET_PROXY_INFO_LIST }
+#Import ".\WPAD_CACHE_DELETE.ahk" { WPAD_CACHE_DELETE }
+#Import "..\..\Security\Cryptography\ALG_ID.ahk" { ALG_ID }
+#Import "..\..\Security\Cryptography\CERT_CHAIN_CONTEXT.ahk" { CERT_CHAIN_CONTEXT }
+#Import "..\..\Storage\FileSystem\WIN32_FIND_DATAA.ahk" { WIN32_FIND_DATAA }
+#Import "..\..\Storage\FileSystem\WIN32_FIND_DATAW.ahk" { WIN32_FIND_DATAW }
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
@@ -2193,7 +2190,7 @@ export InternetGetLastResponseInfoW(lpdwError, lpszBuffer, lpdwBufferLength) {
 export InternetSetStatusCallbackA(hInternet, lpfnInternetCallback) {
     hInternetMarshal := hInternet is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WININET.dll\InternetSetStatusCallbackA", hInternetMarshal, hInternet, LPINTERNET_STATUS_CALLBACK, lpfnInternetCallback, LPINTERNET_STATUS_CALLBACK)
+    result := DllCall("WININET.dll\InternetSetStatusCallbackA", hInternetMarshal, hInternet, "ptr", lpfnInternetCallback, IntPtr)
     return result
 }
 
@@ -2234,7 +2231,7 @@ export InternetSetStatusCallbackA(hInternet, lpfnInternetCallback) {
 export InternetSetStatusCallbackW(hInternet, lpfnInternetCallback) {
     hInternetMarshal := hInternet is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WININET.dll\InternetSetStatusCallbackW", hInternetMarshal, hInternet, LPINTERNET_STATUS_CALLBACK, lpfnInternetCallback, LPINTERNET_STATUS_CALLBACK)
+    result := DllCall("WININET.dll\InternetSetStatusCallbackW", hInternetMarshal, hInternet, "ptr", lpfnInternetCallback, IntPtr)
     return result
 }
 
@@ -2270,7 +2267,7 @@ export InternetSetStatusCallbackW(hInternet, lpfnInternetCallback) {
 export InternetSetStatusCallback(hInternet, lpfnInternetCallback) {
     hInternetMarshal := hInternet is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WININET.dll\InternetSetStatusCallback", hInternetMarshal, hInternet, LPINTERNET_STATUS_CALLBACK, lpfnInternetCallback, LPINTERNET_STATUS_CALLBACK)
+    result := DllCall("WININET.dll\InternetSetStatusCallback", hInternetMarshal, hInternet, "ptr", lpfnInternetCallback, IntPtr)
     return result
 }
 
@@ -4104,7 +4101,7 @@ export GopherGetAttributeA(hConnect, lpszLocator, lpszAttributeName, lpBuffer, d
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\GopherGetAttributeA", hConnectMarshal, hConnect, "ptr", lpszLocator, "ptr", lpszAttributeName, lpBufferMarshal, lpBuffer, UInt32, dwBufferLength, lpdwCharactersReturnedMarshal, lpdwCharactersReturned, GOPHER_ATTRIBUTE_ENUMERATOR, lpfnEnumerator, IntPtr, dwContext, BOOL)
+    result := DllCall("WININET.dll\GopherGetAttributeA", hConnectMarshal, hConnect, "ptr", lpszLocator, "ptr", lpszAttributeName, lpBufferMarshal, lpBuffer, UInt32, dwBufferLength, lpdwCharactersReturnedMarshal, lpdwCharactersReturned, "ptr", lpfnEnumerator, IntPtr, dwContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4168,7 +4165,7 @@ export GopherGetAttributeW(hConnect, lpszLocator, lpszAttributeName, lpBuffer, d
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\GopherGetAttributeW", hConnectMarshal, hConnect, "ptr", lpszLocator, "ptr", lpszAttributeName, lpBufferMarshal, lpBuffer, UInt32, dwBufferLength, lpdwCharactersReturnedMarshal, lpdwCharactersReturned, GOPHER_ATTRIBUTE_ENUMERATOR, lpfnEnumerator, IntPtr, dwContext, BOOL)
+    result := DllCall("WININET.dll\GopherGetAttributeW", hConnectMarshal, hConnect, "ptr", lpszLocator, "ptr", lpszAttributeName, lpBufferMarshal, lpBuffer, UInt32, dwBufferLength, lpdwCharactersReturnedMarshal, lpdwCharactersReturned, "ptr", lpfnEnumerator, IntPtr, dwContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11402,7 +11399,7 @@ export PerformOperationOverUrlCacheA(pszUrlSearchPattern, dwFlags, dwFilter, Gro
 
     pOperatorDataMarshal := pOperatorData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WININET.dll\PerformOperationOverUrlCacheA", "ptr", pszUrlSearchPattern, UInt32, dwFlags, UInt32, dwFilter, Int64, GroupId, "ptr", pReserved1, "uint*", pdwReserved2, "ptr", pReserved3, CACHE_OPERATOR, op, pOperatorDataMarshal, pOperatorData, BOOL)
+    result := DllCall("WININET.dll\PerformOperationOverUrlCacheA", "ptr", pszUrlSearchPattern, UInt32, dwFlags, UInt32, dwFilter, Int64, GroupId, "ptr", pReserved1, "uint*", pdwReserved2, "ptr", pReserved3, "ptr", op, pOperatorDataMarshal, pOperatorData, BOOL)
     return result
 }
 

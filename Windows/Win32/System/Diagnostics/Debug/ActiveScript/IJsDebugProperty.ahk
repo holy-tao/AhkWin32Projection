@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\JsDebugPropertyInfo.ahk" { JsDebugPropertyInfo }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\JS_PROPERTY_MEMBERS.ahk" { JS_PROPERTY_MEMBERS }
-#Import ".\IJsEnumDebugProperty.ahk" { IJsEnumDebugProperty }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IJsEnumDebugProperty.ahk" { IJsEnumDebugProperty }
+#Import ".\JS_PROPERTY_MEMBERS.ahk" { JS_PROPERTY_MEMBERS }
+#Import ".\JsDebugPropertyInfo.ahk" { JsDebugPropertyInfo }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\KS_H264VIDEOINFO.ahk" { KS_H264VIDEOINFO }
-#Import ".\KSDATAFORMAT.ahk" { KSDATAFORMAT }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\KSDATAFORMAT.ahk" { KSDATAFORMAT }
+#Import ".\KS_H264VIDEOINFO.ahk" { KS_H264VIDEOINFO }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

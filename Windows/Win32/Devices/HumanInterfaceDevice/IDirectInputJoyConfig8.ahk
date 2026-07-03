@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
-#Import ".\LPDIJOYTYPECALLBACK.ahk" { LPDIJOYTYPECALLBACK }
+#Import ".\DIJOYCONFIG.ahk" { DIJOYCONFIG }
 #Import ".\DIJOYTYPEINFO.ahk" { DIJOYTYPEINFO }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DIJOYUSERVALUES.ahk" { DIJOYUSERVALUES }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DIJOYCONFIG.ahk" { DIJOYCONFIG }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
 
 /**
  * IDirectInputJoyConfig8 interface contains methods that allow hardware developers who are writing property sheets to write and read information to and from the registry.
@@ -237,7 +236,7 @@ export default struct IDirectInputJoyConfig8 extends IUnknown {
     EnumTypes(param0, param1) {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, LPDIJOYTYPECALLBACK, param0, param1Marshal, param1, "HRESULT")
+        result := ComCall(7, this, "ptr", param0, param1Marshal, param1, "HRESULT")
         return result
     }
 

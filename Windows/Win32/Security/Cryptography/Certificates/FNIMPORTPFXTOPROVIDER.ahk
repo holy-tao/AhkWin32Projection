@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import ".\ImportPFXFlags.ahk" { ImportPFXFlags }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
@@ -69,10 +69,6 @@ export default struct FNIMPORTPFXTOPROVIDER {
             this.value := CallbackCreate(fn, , [HWND, IntPtr, UInt32, ImportPFXFlags, PWSTR, PWSTR, PWSTR, PWSTR, PWSTR, PWSTR, "uint*", "ptr*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

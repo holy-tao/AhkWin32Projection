@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IOfflineFilesItem.ahk" { IOfflineFilesItem }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOfflineFilesItem.ahk" { IOfflineFilesItem }
 
 /**
  * Represents a file item in the Offline Files cache.

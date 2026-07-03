@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DHCP_SUBNET_STATE.ahk" { DHCP_SUBNET_STATE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DHCP_HOST_INFO.ahk" { DHCP_HOST_INFO }
+#Import ".\DHCP_SUBNET_STATE.ahk" { DHCP_SUBNET_STATE }
 
 /**
  * The DHCP_SUBNET_INFO structure defines information describing a subnet.

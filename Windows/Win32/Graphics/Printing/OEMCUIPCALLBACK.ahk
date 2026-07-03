@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\OEMCUIPPARAM.ahk" { OEMCUIPPARAM }
 #Import ".\CPSUICBPARAM.ahk" { CPSUICBPARAM }
+#Import ".\OEMCUIPPARAM.ahk" { OEMCUIPPARAM }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -46,10 +46,6 @@ export default struct OEMCUIPCALLBACK {
             this.value := CallbackCreate(fn, , [CPSUICBPARAM.Ptr, OEMCUIPPARAM.Ptr, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

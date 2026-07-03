@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SAFEARRAYBOUND.ahk" { SAFEARRAYBOUND }
 #Import ".\ADVANCED_FEATURE_FLAGS.ahk" { ADVANCED_FEATURE_FLAGS }
+#Import ".\SAFEARRAYBOUND.ahk" { SAFEARRAYBOUND }
 
 /**
  * Represents a safe array.

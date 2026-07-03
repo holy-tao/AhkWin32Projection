@@ -64,10 +64,6 @@ export default struct LPDHCP_NEWPKT {
             this.value := CallbackCreate(fn, , ["ptr*", "uint*", UInt32, "ptr", "ptr*", BOOL.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

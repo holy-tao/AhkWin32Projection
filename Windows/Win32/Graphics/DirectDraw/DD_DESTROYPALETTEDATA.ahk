@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DD_PALETTE_GLOBAL.ahk" { DD_PALETTE_GLOBAL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DD_DIRECTDRAW_GLOBAL.ahk" { DD_DIRECTDRAW_GLOBAL }
+#Import ".\DD_PALETTE_GLOBAL.ahk" { DD_PALETTE_GLOBAL }
 
 /**
  * The DD_DESTROYPALETTEDATA structure contains information necessary to destroy the specified palette.

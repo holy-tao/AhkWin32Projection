@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IRDPSRAPIWindowList.ahk" { IRDPSRAPIWindowList }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IRDPSRAPIWindowList.ahk" { IRDPSRAPIWindowList }
 
 /**
  * Groups the sharable windows within a process. Each application object contains a list of window objects. If an application object is shared, all its windows are shared.

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\RASAPIVERSION.ahk" { RASAPIVERSION }
-#Import ".\RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA.ahk" { RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA }
-#Import ".\RASIKEV_PROJECTION_INFO_FLAGS.ahk" { RASIKEV_PROJECTION_INFO_FLAGS }
 #Import ".\RASIKEV2_PROJECTION_INFO.ahk" { RASIKEV2_PROJECTION_INFO }
-#Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
-#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
+#Import ".\RASIKEV_PROJECTION_INFO_FLAGS.ahk" { RASIKEV_PROJECTION_INFO_FLAGS }
+#Import ".\RASPPP_PROJECTION_INFO.ahk" { RASPPP_PROJECTION_INFO }
+#Import ".\RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA.ahk" { RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA }
 #Import ".\RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL.ahk" { RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL }
 #Import ".\RASPROJECTION_INFO_TYPE.ahk" { RASPROJECTION_INFO_TYPE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\RASPPP_PROJECTION_INFO.ahk" { RASPPP_PROJECTION_INFO }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
+#Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
 
 /**
  * Contains the Point-to-Point (PPP) or Internet Key Exchange version 2 (IKEv2) projection information for a RAS connection.

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IEnumDiscMasterFormats.ahk" { IEnumDiscMasterFormats }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDiscRecorder.ahk" { IDiscRecorder }
-#Import ".\IEnumDiscRecorders.ahk" { IEnumDiscRecorders }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDiscMasterProgressEvents.ahk" { IDiscMasterProgressEvents }
+#Import ".\IDiscRecorder.ahk" { IDiscRecorder }
+#Import ".\IEnumDiscMasterFormats.ahk" { IEnumDiscMasterFormats }
+#Import ".\IEnumDiscRecorders.ahk" { IEnumDiscRecorders }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDiscMaster interface allows an application to reserve an image mastering API, enumerate disc mastering formats and disc recorders supported by an image mastering object, and start a simulated or actual burn of a disc.

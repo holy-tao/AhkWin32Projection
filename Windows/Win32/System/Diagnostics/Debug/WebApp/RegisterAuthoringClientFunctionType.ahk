@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IWebApplicationHost.ahk" { IWebApplicationHost }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWebApplicationAuthoringMode.ahk" { IWebApplicationAuthoringMode }
+#Import ".\IWebApplicationHost.ahk" { IWebApplicationHost }
 
 /**
  * Defines a pointer to an application-defined function in a dynamic-link library (DLL) that will be used as the authoring binary. When the app host starts in authoring mode, this function is called to initialize the authoring binary.
@@ -55,10 +55,6 @@ export default struct RegisterAuthoringClientFunctionType {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

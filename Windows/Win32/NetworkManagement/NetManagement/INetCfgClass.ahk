@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\INetCfgComponent.ahk" { INetCfgComponent }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IEnumNetCfgComponent.ahk" { IEnumNetCfgComponent }
+#Import ".\INetCfgComponent.ahk" { INetCfgComponent }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement

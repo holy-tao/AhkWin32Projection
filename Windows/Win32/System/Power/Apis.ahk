@@ -1,35 +1,33 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\Threading\REASON_CONTEXT.ahk" { REASON_CONTEXT }
-#Import ".\PWRSCHEMESENUMPROC.ahk" { PWRSCHEMESENUMPROC }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import "..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
-#Import "..\..\UI\WindowsAndMessaging\REGISTER_NOTIFICATION_FLAGS.ahk" { REGISTER_NOTIFICATION_FLAGS }
-#Import ".\POWER_REQUEST_TYPE.ahk" { POWER_REQUEST_TYPE }
-#Import ".\MACHINE_PROCESSOR_POWER_POLICY.ahk" { MACHINE_PROCESSOR_POWER_POLICY }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\POWER_POLICY.ahk" { POWER_POLICY }
-#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
-#Import ".\SYSTEM_POWER_CAPABILITIES.ahk" { SYSTEM_POWER_CAPABILITIES }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\POWER_PLATFORM_ROLE.ahk" { POWER_PLATFORM_ROLE }
-#Import ".\ADMINISTRATOR_POWER_POLICY.ahk" { ADMINISTRATOR_POWER_POLICY }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\POWER_PLATFORM_ROLE_VERSION.ahk" { POWER_PLATFORM_ROLE_VERSION }
-#Import ".\SYSTEM_POWER_STATUS.ahk" { SYSTEM_POWER_STATUS }
-#Import ".\GLOBAL_POWER_POLICY.ahk" { GLOBAL_POWER_POLICY }
-#Import ".\THERMAL_EVENT.ahk" { THERMAL_EVENT }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\EXECUTION_STATE.ahk" { EXECUTION_STATE }
-#Import ".\POWER_INFORMATION_LEVEL.ahk" { POWER_INFORMATION_LEVEL }
-#Import ".\LATENCY_TIME.ahk" { LATENCY_TIME }
-#Import "..\Registry\REG_SAM_FLAGS.ahk" { REG_SAM_FLAGS }
-#Import ".\HPOWERNOTIFY.ahk" { HPOWERNOTIFY }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\EFFECTIVE_POWER_MODE_CALLBACK.ahk" { EFFECTIVE_POWER_MODE_CALLBACK }
-#Import "..\Registry\HKEY.ahk" { HKEY }
+#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
+#Import ".\ADMINISTRATOR_POWER_POLICY.ahk" { ADMINISTRATOR_POWER_POLICY }
+#Import ".\EXECUTION_STATE.ahk" { EXECUTION_STATE }
+#Import ".\GLOBAL_POWER_POLICY.ahk" { GLOBAL_POWER_POLICY }
+#Import ".\HPOWERNOTIFY.ahk" { HPOWERNOTIFY }
+#Import ".\LATENCY_TIME.ahk" { LATENCY_TIME }
+#Import ".\MACHINE_PROCESSOR_POWER_POLICY.ahk" { MACHINE_PROCESSOR_POWER_POLICY }
 #Import ".\POWER_DATA_ACCESSOR.ahk" { POWER_DATA_ACCESSOR }
+#Import ".\POWER_INFORMATION_LEVEL.ahk" { POWER_INFORMATION_LEVEL }
+#Import ".\POWER_PLATFORM_ROLE.ahk" { POWER_PLATFORM_ROLE }
+#Import ".\POWER_PLATFORM_ROLE_VERSION.ahk" { POWER_PLATFORM_ROLE_VERSION }
+#Import ".\POWER_POLICY.ahk" { POWER_POLICY }
+#Import ".\POWER_REQUEST_TYPE.ahk" { POWER_REQUEST_TYPE }
+#Import ".\SYSTEM_POWER_CAPABILITIES.ahk" { SYSTEM_POWER_CAPABILITIES }
+#Import ".\SYSTEM_POWER_STATUS.ahk" { SYSTEM_POWER_STATUS }
+#Import ".\THERMAL_EVENT.ahk" { THERMAL_EVENT }
+#Import "..\Registry\HKEY.ahk" { HKEY }
+#Import "..\Registry\REG_SAM_FLAGS.ahk" { REG_SAM_FLAGS }
+#Import "..\Threading\REASON_CONTEXT.ahk" { REASON_CONTEXT }
+#Import "..\..\UI\WindowsAndMessaging\REGISTER_NOTIFICATION_FLAGS.ahk" { REGISTER_NOTIFICATION_FLAGS }
 
 /**
  * @namespace Windows.Win32.System.Power
@@ -232,7 +230,7 @@
  */
 export CallNtPowerInformation(InformationLevel, InputBuffer, InputBufferLength, OutputBuffer, OutputBufferLength) {
     result := DllCall("POWRPROF.dll\CallNtPowerInformation", POWER_INFORMATION_LEVEL, InformationLevel, IntPtr, InputBuffer, UInt32, InputBufferLength, IntPtr, OutputBuffer, UInt32, OutputBufferLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 
@@ -500,7 +498,7 @@ export PowerSettingUnregisterNotification(RegistrationHandle) {
 export PowerRegisterForEffectivePowerModeNotifications(_Version, Callback, _Context) {
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("POWRPROF.dll\PowerRegisterForEffectivePowerModeNotifications", UInt32, _Version, EFFECTIVE_POWER_MODE_CALLBACK, Callback, _ContextMarshal, _Context, "ptr*", &RegistrationHandle := 0, "HRESULT")
+    result := DllCall("POWRPROF.dll\PowerRegisterForEffectivePowerModeNotifications", UInt32, _Version, "ptr", Callback, _ContextMarshal, _Context, "ptr*", &RegistrationHandle := 0, "HRESULT")
     return RegistrationHandle
 }
 
@@ -584,7 +582,7 @@ export GetPwrDiskSpindownRange(puiMax, puiMin) {
 export EnumPwrSchemes(lpfn, _lParam) {
     A_LastError := 0
 
-    result := DllCall("POWRPROF.dll\EnumPwrSchemes", PWRSCHEMESENUMPROC, lpfn, LPARAM, _lParam, BOOLEAN)
+    result := DllCall("POWRPROF.dll\EnumPwrSchemes", "ptr", lpfn, LPARAM, _lParam, BOOLEAN)
     if(A_LastError) {
         throw OSError(A_LastError)
     }

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HiFiCOLOR.ahk" { HiFiCOLOR }
+#Import ".\CMYKCOLOR.ahk" { CMYKCOLOR }
 #Import ".\GENERIC3CHANNEL.ahk" { GENERIC3CHANNEL }
-#Import ".\YxyCOLOR.ahk" { YxyCOLOR }
-#Import ".\LabCOLOR.ahk" { LabCOLOR }
 #Import ".\GRAYCOLOR.ahk" { GRAYCOLOR }
+#Import ".\HiFiCOLOR.ahk" { HiFiCOLOR }
+#Import ".\LabCOLOR.ahk" { LabCOLOR }
 #Import ".\NAMEDCOLOR.ahk" { NAMEDCOLOR }
 #Import ".\RGBCOLOR.ahk" { RGBCOLOR }
 #Import ".\XYZCOLOR.ahk" { XYZCOLOR }
-#Import ".\CMYKCOLOR.ahk" { CMYKCOLOR }
+#Import ".\YxyCOLOR.ahk" { YxyCOLOR }
 
 /**
  * Description of the COLOR union.

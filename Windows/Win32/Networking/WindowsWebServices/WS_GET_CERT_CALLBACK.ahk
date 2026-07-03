@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_ENDPOINT_ADDRESS.ahk" { WS_ENDPOINT_ADDRESS }
-#Import "..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
-#Import ".\WS_ERROR.ahk" { WS_ERROR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WS_ENDPOINT_ADDRESS.ahk" { WS_ENDPOINT_ADDRESS }
+#Import ".\WS_ERROR.ahk" { WS_ERROR }
 #Import ".\WS_STRING.ahk" { WS_STRING }
+#Import "..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 
 /**
  * Provides a certificate to the security runtime.
@@ -57,10 +57,6 @@ export default struct WS_GET_CERT_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", WS_ENDPOINT_ADDRESS.Ptr, WS_STRING.Ptr, WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

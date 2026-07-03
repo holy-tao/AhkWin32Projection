@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\AAAuthSchemes.ahk" { AAAuthSchemes }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HANDLE_PTR.ahk" { HANDLE_PTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\AAAuthSchemes.ahk" { AAAuthSchemes }
 #Import ".\ITSGAuthorizeConnectionSink.ahk" { ITSGAuthorizeConnectionSink }
 #Import ".\ITSGAuthorizeResourceSink.ahk" { ITSGAuthorizeResourceSink }
-#Import "..\..\Foundation\HANDLE_PTR.ahk" { HANDLE_PTR }
 
 /**
  * Exposes methods that authorize connections and resources.

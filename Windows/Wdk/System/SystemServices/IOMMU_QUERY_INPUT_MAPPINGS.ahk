@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\INPUT_MAPPING_ELEMENT.ahk" { INPUT_MAPPING_ELEMENT }
 #Import "..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
+#Import ".\INPUT_MAPPING_ELEMENT.ahk" { INPUT_MAPPING_ELEMENT }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
@@ -32,7 +32,7 @@ export default struct IOMMU_QUERY_INPUT_MAPPINGS {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, DEVICE_OBJECT.Ptr, PhysicalDeviceObject, INPUT_MAPPING_ELEMENT.Ptr, _Buffer, UInt32, BufferLength, ReturnLengthMarshal, ReturnLength, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -52,10 +52,6 @@ export default struct IOMMU_QUERY_INPUT_MAPPINGS {
             this.value := CallbackCreate(fn, , [DEVICE_OBJECT.Ptr, INPUT_MAPPING_ELEMENT.Ptr, UInt32, "uint*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

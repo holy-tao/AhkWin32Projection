@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\TOC_POS_TYPE.ahk" { TOC_POS_TYPE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IToc.ahk" { IToc }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITocCollection.ahk" { ITocCollection }
+#Import ".\TOC_POS_TYPE.ahk" { TOC_POS_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITocParser interface represents a TOC Parser object. It provides methods for storing tables of contents in a video file and retrieving tables of contents from a video file.

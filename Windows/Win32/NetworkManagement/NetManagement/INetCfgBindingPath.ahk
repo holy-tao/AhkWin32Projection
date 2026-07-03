@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\INetCfgComponent.ahk" { INetCfgComponent }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IEnumNetCfgBindingInterface.ahk" { IEnumNetCfgBindingInterface }
+#Import ".\INetCfgComponent.ahk" { INetCfgComponent }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement

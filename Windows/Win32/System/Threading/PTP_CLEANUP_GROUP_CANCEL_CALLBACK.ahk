@@ -48,10 +48,6 @@ export default struct PTP_CLEANUP_GROUP_CANCEL_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

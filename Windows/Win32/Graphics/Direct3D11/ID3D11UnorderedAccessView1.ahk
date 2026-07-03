@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D11UnorderedAccessView.ahk" { ID3D11UnorderedAccessView }
 #Import ".\D3D11_UNORDERED_ACCESS_VIEW_DESC1.ahk" { D3D11_UNORDERED_ACCESS_VIEW_DESC1 }
+#Import ".\ID3D11UnorderedAccessView.ahk" { ID3D11UnorderedAccessView }
 
 /**
  * An unordered-access-view interface represents the parts of a resource the pipeline can access during rendering.

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Graphics\Dwm\MilMatrix3x2D.ahk" { MilMatrix3x2D }
 #Import "..\..\Graphics\Imaging\IWICBitmapSource.ahk" { IWICBitmapSource }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IMILBitmapEffectRenderContext.ahk" { IMILBitmapEffectRenderContext }
-#Import "..\..\Graphics\Dwm\MilMatrix3x2D.ahk" { MilMatrix3x2D }
 #Import ".\MilPoint2D.ahk" { MilPoint2D }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\MilRectD.ahk" { MilRectD }
 
 /**

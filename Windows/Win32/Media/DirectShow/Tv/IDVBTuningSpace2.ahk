@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDVBTuningSpace.ahk" { IDVBTuningSpace }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDVBTuningSpace.ahk" { IDVBTuningSpace }
 
 /**
  * The IDVBTuningSpace2 interface is implemented on the DVBTuningSpace object. It provides methods for working with tuning spaces with a network type of DVB.

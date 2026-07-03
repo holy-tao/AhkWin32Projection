@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\AUTHENTICATION_INFO.ahk" { AUTHENTICATION_INFO }
+#Import ".\INCREMENTAL_ACCESS_INFO.ahk" { INCREMENTAL_ACCESS_INFO }
+#Import ".\IProtocolHandlerSite.ahk" { IProtocolHandlerSite }
+#Import ".\ITEM_INFO.ahk" { ITEM_INFO }
+#Import ".\IUrlAccessor.ahk" { IUrlAccessor }
 #Import ".\PROXY_INFO.ahk" { PROXY_INFO }
 #Import ".\TIMEOUT_INFO.ahk" { TIMEOUT_INFO }
-#Import ".\AUTHENTICATION_INFO.ahk" { AUTHENTICATION_INFO }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\INCREMENTAL_ACCESS_INFO.ahk" { INCREMENTAL_ACCESS_INFO }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IProtocolHandlerSite.ahk" { IProtocolHandlerSite }
-#Import ".\IUrlAccessor.ahk" { IUrlAccessor }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITEM_INFO.ahk" { ITEM_INFO }
 
 /**
  * Provides methods for invoking, initializing, and managing IUrlAccessor objects. (ISearchProtocol)

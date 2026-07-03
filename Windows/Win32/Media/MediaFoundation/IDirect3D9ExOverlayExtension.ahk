@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Graphics\Direct3D9\D3DDEVTYPE.ahk" { D3DDEVTYPE }
-#Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Graphics\Direct3D9\D3DDISPLAYMODEEX.ahk" { D3DDISPLAYMODEEX }
-#Import ".\D3DOVERLAYCAPS.ahk" { D3DOVERLAYCAPS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Direct3D9\D3DDEVTYPE.ahk" { D3DDEVTYPE }
+#Import "..\..\Graphics\Direct3D9\D3DDISPLAYMODEEX.ahk" { D3DDISPLAYMODEEX }
 #Import "..\..\Graphics\Direct3D9\D3DDISPLAYROTATION.ahk" { D3DDISPLAYROTATION }
+#Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
+#Import ".\D3DOVERLAYCAPS.ahk" { D3DOVERLAYCAPS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Queries the overlay hardware capabilities of a Direct3D device. (IDirect3D9ExOverlayExtension)

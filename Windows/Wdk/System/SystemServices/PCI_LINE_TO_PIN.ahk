@@ -47,10 +47,6 @@ export default struct PCI_LINE_TO_PIN {
             this.value := CallbackCreate(fn, , ["ptr", PCI_COMMON_CONFIG.Ptr, PCI_COMMON_CONFIG.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

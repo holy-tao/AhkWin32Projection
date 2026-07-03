@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMILBitmapEffectInputConnector.ahk" { IMILBitmapEffectInputConnector }
-#Import ".\IMILBitmapEffectConnector.ahk" { IMILBitmapEffectConnector }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMILBitmapEffectConnector.ahk" { IMILBitmapEffectConnector }
+#Import ".\IMILBitmapEffectInputConnector.ahk" { IMILBitmapEffectInputConnector }
 
 /**
  * Exposes methods that define an output connector. (IMILBitmapEffectOutputConnector)

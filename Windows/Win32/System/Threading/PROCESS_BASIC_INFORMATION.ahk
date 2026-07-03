@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PEB.ahk" { PEB }
 #Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\PEB.ahk" { PEB }
 
 /**
  * @namespace Windows.Win32.System.Threading

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CRITICAL_SECTION.ahk" { CRITICAL_SECTION }
 #Import "..\Kernel\LIST_ENTRY.ahk" { LIST_ENTRY }
+#Import ".\CRITICAL_SECTION.ahk" { CRITICAL_SECTION }
 
 /**
  * @namespace Windows.Win32.System.Threading

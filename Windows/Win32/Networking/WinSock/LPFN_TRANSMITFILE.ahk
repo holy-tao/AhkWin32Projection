@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\TRANSMIT_FILE_BUFFERS.ahk" { TRANSMIT_FILE_BUFFERS }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\SOCKET.ahk" { SOCKET }
+#Import ".\TRANSMIT_FILE_BUFFERS.ahk" { TRANSMIT_FILE_BUFFERS }
 #Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
 
 /**
@@ -54,10 +54,6 @@ export default struct LPFN_TRANSMITFILE {
             this.value := CallbackCreate(fn, , [SOCKET, HANDLE, UInt32, UInt32, OVERLAPPED.Ptr, TRANSMIT_FILE_BUFFERS.Ptr, UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

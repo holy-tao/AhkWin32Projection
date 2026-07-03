@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IHTMLTxtRange.ahk" { IHTMLTxtRange }
-#Import ".\IHTMLElement.ahk" { IHTMLElement }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ELEMENT_TAG_ID.ahk" { ELEMENT_TAG_ID }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ELEMENT_TAG_ID.ahk" { ELEMENT_TAG_ID }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import ".\IHTMLTxtRange.ahk" { IHTMLTxtRange }
 #Import ".\IMarkupContainer.ahk" { IMarkupContainer }
 #Import ".\IMarkupPointer.ahk" { IMarkupPointer }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DIRECTMANIPULATION_STATUS.ahk" { DIRECTMANIPULATION_STATUS }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\IDirectManipulationContent.ahk" { IDirectManipulationContent }
-#Import ".\DIRECTMANIPULATION_GESTURE_CONFIGURATION.ahk" { DIRECTMANIPULATION_GESTURE_CONFIGURATION }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\DIRECTMANIPULATION_MOTION_TYPES.ahk" { DIRECTMANIPULATION_MOTION_TYPES }
-#Import ".\DIRECTMANIPULATION_VIEWPORT_OPTIONS.ahk" { DIRECTMANIPULATION_VIEWPORT_OPTIONS }
-#Import ".\DIRECTMANIPULATION_CONFIGURATION.ahk" { DIRECTMANIPULATION_CONFIGURATION }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDirectManipulationViewportEventHandler.ahk" { IDirectManipulationViewportEventHandler }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\DIRECTMANIPULATION_CONFIGURATION.ahk" { DIRECTMANIPULATION_CONFIGURATION }
+#Import ".\DIRECTMANIPULATION_GESTURE_CONFIGURATION.ahk" { DIRECTMANIPULATION_GESTURE_CONFIGURATION }
 #Import ".\DIRECTMANIPULATION_INPUT_MODE.ahk" { DIRECTMANIPULATION_INPUT_MODE }
+#Import ".\DIRECTMANIPULATION_MOTION_TYPES.ahk" { DIRECTMANIPULATION_MOTION_TYPES }
+#Import ".\DIRECTMANIPULATION_STATUS.ahk" { DIRECTMANIPULATION_STATUS }
+#Import ".\DIRECTMANIPULATION_VIEWPORT_OPTIONS.ahk" { DIRECTMANIPULATION_VIEWPORT_OPTIONS }
+#Import ".\IDirectManipulationContent.ahk" { IDirectManipulationContent }
+#Import ".\IDirectManipulationViewportEventHandler.ahk" { IDirectManipulationViewportEventHandler }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines a region within a window (referred to as a viewport) that is able to receive and process input from user interactions.

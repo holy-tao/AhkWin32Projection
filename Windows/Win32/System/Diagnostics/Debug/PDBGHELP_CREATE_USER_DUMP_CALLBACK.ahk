@@ -51,10 +51,6 @@ export default struct PDBGHELP_CREATE_USER_DUMP_CALLBACK {
             this.value := CallbackCreate(fn, , [UInt32, "ptr*", "uint*", "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

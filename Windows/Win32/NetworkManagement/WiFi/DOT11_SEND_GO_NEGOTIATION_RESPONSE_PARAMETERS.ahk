@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DOT11_WFD_GROUP_ID.ahk" { DOT11_WFD_GROUP_ID }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\DOT11_WFD_CONFIGURATION_TIMEOUT.ahk" { DOT11_WFD_CONFIGURATION_TIMEOUT }
-#Import ".\DOT11_SSID.ahk" { DOT11_SSID }
-#Import ".\DOT11_WFD_GO_INTENT.ahk" { DOT11_WFD_GO_INTENT }
 #Import "..\Ndis\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
+#Import ".\DOT11_SSID.ahk" { DOT11_SSID }
+#Import ".\DOT11_WFD_CONFIGURATION_TIMEOUT.ahk" { DOT11_WFD_CONFIGURATION_TIMEOUT }
+#Import ".\DOT11_WFD_GO_INTENT.ahk" { DOT11_WFD_GO_INTENT }
+#Import ".\DOT11_WFD_GROUP_ID.ahk" { DOT11_WFD_GROUP_ID }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi

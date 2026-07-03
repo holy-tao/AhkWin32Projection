@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WTS_CERT_TYPE.ahk" { WTS_CERT_TYPE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\WTS_CERT_TYPE.ahk" { WTS_CERT_TYPE }
 
 /**
  * Contains information about the licensing capabilities of the client.

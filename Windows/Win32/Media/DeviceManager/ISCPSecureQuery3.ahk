@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISCPSecureQuery2.ahk" { ISCPSecureQuery2 }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMDSPStorageGlobals.ahk" { IMDSPStorageGlobals }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WMDMRIGHTS.ahk" { WMDMRIGHTS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWMDMProgress3.ahk" { IWMDMProgress3 }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IMDSPStorageGlobals.ahk" { IMDSPStorageGlobals }
 #Import ".\ISCPSecureExchange.ahk" { ISCPSecureExchange }
+#Import ".\ISCPSecureQuery2.ahk" { ISCPSecureQuery2 }
+#Import ".\IWMDMProgress3.ahk" { IWMDMProgress3 }
+#Import ".\WMDMRIGHTS.ahk" { WMDMRIGHTS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ISCPSecureQuery3 interface extends ISCPSecureQuery2 by providing a set of new methods for retrieving the rights and making decision on a clear channel.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IAnalogRadioTuningSpace.ahk" { IAnalogRadioTuningSpace }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAnalogRadioTuningSpace.ahk" { IAnalogRadioTuningSpace }
 
 /**
  * This topic applies to Windows XP Media Center Edition 2004 and later.

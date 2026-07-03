@@ -49,10 +49,6 @@ export default struct PFN_CSP_UNPAD_DATA {
             this.value := CallbackCreate(fn, , [CARD_RSA_DECRYPT_INFO.Ptr, "uint*", "ptr*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

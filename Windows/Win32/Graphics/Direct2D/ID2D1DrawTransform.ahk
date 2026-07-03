@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID2D1DrawInfo.ahk" { ID2D1DrawInfo }
 #Import ".\ID2D1Transform.ahk" { ID2D1Transform }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * A specialized implementation of the Shantzis calculations to a transform implemented on the GPU.

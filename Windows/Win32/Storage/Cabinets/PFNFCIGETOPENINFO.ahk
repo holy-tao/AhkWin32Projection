@@ -57,10 +57,6 @@ export default struct PFNFCIGETOPENINFO {
             this.value := CallbackCreate(fn, "cdecl", [PSTR, "ushort*", "ushort*", "ushort*", "int*", "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\IOleUILinkContainerW.ahk" { IOleUILinkContainerW }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOleUILinkContainerW.ahk" { IOleUILinkContainerW }
 
 /**
  * An extension of the IOleUILinkContainer interface. It returns the time that an object was last updated, which is link information that IOleUILinkContainer does not provide. (Unicode)

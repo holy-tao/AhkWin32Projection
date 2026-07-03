@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\KDEXTS_LOCK_INFO.ahk" { KDEXTS_LOCK_INFO }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\KDEXTS_LOCK_INFO.ahk" { KDEXTS_LOCK_INFO }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -48,10 +48,6 @@ export default struct KDEXTS_LOCK_CALLBACKROUTINE {
             this.value := CallbackCreate(fn, , [KDEXTS_LOCK_INFO.Ptr, "ptr", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

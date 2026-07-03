@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IEnumBitsPeerCacheRecords.ahk" { IEnumBitsPeerCacheRecords }
-#Import ".\IBitsPeerCacheRecord.ahk" { IBitsPeerCacheRecord }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IBitsPeerCacheRecord.ahk" { IBitsPeerCacheRecord }
+#Import ".\IEnumBitsPeerCacheRecords.ahk" { IEnumBitsPeerCacheRecords }
 #Import ".\IEnumBitsPeers.ahk" { IEnumBitsPeers }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 

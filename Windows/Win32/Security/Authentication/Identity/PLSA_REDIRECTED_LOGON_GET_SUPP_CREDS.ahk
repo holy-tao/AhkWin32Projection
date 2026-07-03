@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\SECPKG_SUPPLEMENTAL_CRED_ARRAY.ahk" { SECPKG_SUPPLEMENTAL_CRED_ARRAY }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\SECPKG_SUPPLEMENTAL_CRED_ARRAY.ahk" { SECPKG_SUPPLEMENTAL_CRED_ARRAY }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -30,7 +30,7 @@ export default struct PLSA_REDIRECTED_LOGON_GET_SUPP_CREDS {
         SupplementalCredentialsMarshal := SupplementalCredentials is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, HANDLE, RedirectedLogonHandle, SupplementalCredentialsMarshal, SupplementalCredentials, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -50,10 +50,6 @@ export default struct PLSA_REDIRECTED_LOGON_GET_SUPP_CREDS {
             this.value := CallbackCreate(fn, , [HANDLE, "ptr*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

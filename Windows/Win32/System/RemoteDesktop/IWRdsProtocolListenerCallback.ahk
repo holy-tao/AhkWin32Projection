@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWRdsProtocolConnection.ahk" { IWRdsProtocolConnection }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\WRDS_CONNECTION_SETTINGS.ahk" { WRDS_CONNECTION_SETTINGS }
-#Import ".\IWRdsProtocolConnectionCallback.ahk" { IWRdsProtocolConnectionCallback }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWRdsProtocolConnection.ahk" { IWRdsProtocolConnection }
+#Import ".\IWRdsProtocolConnectionCallback.ahk" { IWRdsProtocolConnectionCallback }
+#Import ".\WRDS_CONNECTION_SETTINGS.ahk" { WRDS_CONNECTION_SETTINGS }
 
 /**
  * Exposes methods that notify the Remote Desktop Services service that a client has connected.

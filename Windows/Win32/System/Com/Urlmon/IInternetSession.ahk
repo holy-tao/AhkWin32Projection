@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\IClassFactory.ahk" { IClassFactory }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IInternetProtocol.ahk" { IInternetProtocol }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\IBindCtx.ahk" { IBindCtx }
+#Import "..\IClassFactory.ahk" { IClassFactory }
 #Import "..\IUnknown.ahk" { IUnknown }
+#Import ".\IInternetProtocol.ahk" { IInternetProtocol }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon

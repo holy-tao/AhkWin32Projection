@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISpRecognizer.ahk" { ISpRecognizer }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\SPAUDIOOPTIONS.ahk" { SPAUDIOOPTIONS }
-#Import ".\SPSERIALIZEDRESULT.ahk" { SPSERIALIZEDRESULT }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\SPCONTEXTSTATE.ahk" { SPCONTEXTSTATE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISpEventSource.ahk" { ISpEventSource }
-#Import ".\ISpVoice.ahk" { ISpVoice }
-#Import ".\SPRECOCONTEXTSTATUS.ahk" { SPRECOCONTEXTSTATUS }
-#Import ".\ISpRecoResult.ahk" { ISpRecoResult }
-#Import ".\SPBOOKMARKOPTIONS.ahk" { SPBOOKMARKOPTIONS }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ISpRecoGrammar.ahk" { ISpRecoGrammar }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\ISpEventSource.ahk" { ISpEventSource }
+#Import ".\ISpRecoGrammar.ahk" { ISpRecoGrammar }
+#Import ".\ISpRecoResult.ahk" { ISpRecoResult }
+#Import ".\ISpRecognizer.ahk" { ISpRecognizer }
+#Import ".\ISpVoice.ahk" { ISpVoice }
+#Import ".\SPAUDIOOPTIONS.ahk" { SPAUDIOOPTIONS }
+#Import ".\SPBOOKMARKOPTIONS.ahk" { SPBOOKMARKOPTIONS }
+#Import ".\SPCONTEXTSTATE.ahk" { SPCONTEXTSTATE }
+#Import ".\SPRECOCONTEXTSTATUS.ahk" { SPRECOCONTEXTSTATUS }
+#Import ".\SPSERIALIZEDRESULT.ahk" { SPSERIALIZEDRESULT }
 
 /**
  * @namespace Windows.Win32.Media.Speech

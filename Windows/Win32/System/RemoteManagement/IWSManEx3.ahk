@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWSManEx2.ahk" { IWSManEx2 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWSManEx2.ahk" { IWSManEx2 }
 
 /**
  * Extends the methods and properties of the IWSManEx interface to include a method that returns a session flag value related to authentication using the Credential Security Support Provider (CredSSP).

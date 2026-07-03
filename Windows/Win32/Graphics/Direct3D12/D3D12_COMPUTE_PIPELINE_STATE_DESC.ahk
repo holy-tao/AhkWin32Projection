@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ID3D12RootSignature.ahk" { ID3D12RootSignature }
 #Import ".\D3D12_CACHED_PIPELINE_STATE.ahk" { D3D12_CACHED_PIPELINE_STATE }
 #Import ".\D3D12_PIPELINE_STATE_FLAGS.ahk" { D3D12_PIPELINE_STATE_FLAGS }
 #Import ".\D3D12_SHADER_BYTECODE.ahk" { D3D12_SHADER_BYTECODE }
+#Import ".\ID3D12RootSignature.ahk" { ID3D12RootSignature }
 
 /**
  * Describes a compute pipeline state object.

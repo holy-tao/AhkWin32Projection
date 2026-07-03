@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\COR_PRF_EVENTPIPE_PARAM_DESC.ahk" { COR_PRF_EVENTPIPE_PARAM_DESC }
+#Import ".\COR_PRF_EVENTPIPE_PROVIDER_CONFIG.ahk" { COR_PRF_EVENTPIPE_PROVIDER_CONFIG }
 #Import ".\COR_PRF_EVENT_DATA.ahk" { COR_PRF_EVENT_DATA }
 #Import ".\ICorProfilerInfo11.ahk" { ICorProfilerInfo11 }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\COR_PRF_EVENTPIPE_PARAM_DESC.ahk" { COR_PRF_EVENTPIPE_PARAM_DESC }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\COR_PRF_EVENTPIPE_PROVIDER_CONFIG.ahk" { COR_PRF_EVENTPIPE_PROVIDER_CONFIG }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling

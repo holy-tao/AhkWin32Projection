@@ -29,7 +29,7 @@ export default struct PCI_SET_ATS {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, BOOLEAN, EnableAts, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -49,10 +49,6 @@ export default struct PCI_SET_ATS {
             this.value := CallbackCreate(fn, , ["ptr", BOOLEAN, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

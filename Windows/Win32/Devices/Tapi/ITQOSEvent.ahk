@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ITCallInfo.ahk" { ITCallInfo }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\QOS_EVENT.ahk" { QOS_EVENT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The ITQOSEvent interface contains methods that retrieve the description of quality of service (QOS) events.

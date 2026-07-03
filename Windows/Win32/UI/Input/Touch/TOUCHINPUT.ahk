@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\TOUCHINPUTMASKF_MASK.ahk" { TOUCHINPUTMASKF_MASK }
 #Import ".\TOUCHEVENTF_FLAGS.ahk" { TOUCHEVENTF_FLAGS }
+#Import ".\TOUCHINPUTMASKF_MASK.ahk" { TOUCHINPUTMASKF_MASK }
 
 /**
  * Encapsulates data for touch input.

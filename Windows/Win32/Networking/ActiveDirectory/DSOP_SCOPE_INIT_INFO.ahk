@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DSOP_FILTER_FLAGS.ahk" { DSOP_FILTER_FLAGS }
 #Import ".\DSOP_UPLEVEL_FILTER_FLAGS.ahk" { DSOP_UPLEVEL_FILTER_FLAGS }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The DSOP_SCOPE_INIT_INFO structure describes one or more scope types that have the same attributes.

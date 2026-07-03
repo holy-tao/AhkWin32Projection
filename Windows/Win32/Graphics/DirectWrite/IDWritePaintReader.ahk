@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Direct2D\Common\D2D_RECT_F.ahk" { D2D_RECT_F }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DWRITE_PAINT_ATTRIBUTES.ahk" { DWRITE_PAINT_ATTRIBUTES }
-#Import ".\DWRITE_COLOR_F.ahk" { DWRITE_COLOR_F }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Direct2D\Common\D2D1_GRADIENT_STOP.ahk" { D2D1_GRADIENT_STOP }
+#Import "..\Direct2D\Common\D2D_RECT_F.ahk" { D2D_RECT_F }
+#Import ".\DWRITE_COLOR_F.ahk" { DWRITE_COLOR_F }
+#Import ".\DWRITE_PAINT_ATTRIBUTES.ahk" { DWRITE_PAINT_ATTRIBUTES }
 #Import ".\DWRITE_PAINT_COLOR.ahk" { DWRITE_PAINT_COLOR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectWrite

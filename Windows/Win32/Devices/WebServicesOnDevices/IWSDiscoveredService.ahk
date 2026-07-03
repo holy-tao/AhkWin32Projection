@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WSD_NAME_LIST.ahk" { WSD_NAME_LIST }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\WSD_URI_LIST.ahk" { WSD_URI_LIST }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
 #Import ".\WSD_ENDPOINT_REFERENCE.ahk" { WSD_ENDPOINT_REFERENCE }
+#Import ".\WSD_NAME_LIST.ahk" { WSD_NAME_LIST }
+#Import ".\WSD_URI_LIST.ahk" { WSD_URI_LIST }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This interface represents a remotely discovered host.

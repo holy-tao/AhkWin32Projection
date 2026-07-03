@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\BANDINFOSFB.ahk" { BANDINFOSFB }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\BANDINFOSFB.ahk" { BANDINFOSFB }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import ".\IShellFolder.ahk" { IShellFolder }
 
 /**

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DDBLTFX.ahk" { DDBLTFX }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\DDBLTFX.ahk" { DDBLTFX }
 #Import ".\IDirectDrawSurface.ahk" { IDirectDrawSurface }
 
 /**

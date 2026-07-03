@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWMDMMetaData.ahk" { IWMDMMetaData }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WMDM_FIND_SCOPE.ahk" { WMDM_FIND_SCOPE }
+#Import ".\IWMDMMetaData.ahk" { IWMDMMetaData }
+#Import ".\IWMDMProgress3.ahk" { IWMDMProgress3 }
+#Import ".\IWMDMStorage.ahk" { IWMDMStorage }
 #Import ".\IWMDMStorage3.ahk" { IWMDMStorage3 }
 #Import ".\WMDMRIGHTS.ahk" { WMDMRIGHTS }
-#Import ".\IWMDMProgress3.ahk" { IWMDMProgress3 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWMDMStorage.ahk" { IWMDMStorage }
+#Import ".\WMDM_FIND_SCOPE.ahk" { WMDM_FIND_SCOPE }
 
 /**
  * The IWMDMStorage4 interface extends IWMDMStorage3 by providing methods for retrieving a subset of available metadata for a storage, and for setting and retrieving a list of references to other storages.

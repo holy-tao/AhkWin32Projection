@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SRowSet.ahk" { SRowSet }
-#Import ".\SRow.ahk" { SRow }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\SSortOrderSet.ahk" { SSortOrderSet }
-#Import ".\CALLERRELEASE.ahk" { CALLERRELEASE }
-#Import ".\SPropValue.ahk" { SPropValue }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMAPITable.ahk" { IMAPITable }
+#Import ".\SPropValue.ahk" { SPropValue }
+#Import ".\SRow.ahk" { SRow }
+#Import ".\SRowSet.ahk" { SRowSet }
+#Import ".\SSortOrderSet.ahk" { SSortOrderSet }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides utility methods for working with tables. MAPI provides objects that implement ITableData to help service providers perform table maintenance.

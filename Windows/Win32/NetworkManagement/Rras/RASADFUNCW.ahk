@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\RASADPARAMS.ahk" { RASADPARAMS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\RASADPARAMS.ahk" { RASADPARAMS }
 
 /**
  * The RASADFunc function is an application-defined callback function that is used to provide a customized user interface for autodialing. (Unicode)
@@ -85,10 +85,6 @@ export default struct RASADFUNCW {
             this.value := CallbackCreate(fn, , [PWSTR, PWSTR, RASADPARAMS.Ptr, "uint*", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

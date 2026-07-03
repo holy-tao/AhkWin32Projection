@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SPEVENTEX.ahk" { SPEVENTEX }
 #Import ".\ISpEventSource.ahk" { ISpEventSource }
+#Import ".\SPEVENTEX.ahk" { SPEVENTEX }
 
 /**
  * @namespace Windows.Win32.Media.Speech

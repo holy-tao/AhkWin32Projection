@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DMA_ADAPTER.ahk" { DMA_ADAPTER }
 #Import "..\..\Foundation\DMA_COMMON_BUFFER_VECTOR.ahk" { DMA_COMMON_BUFFER_VECTOR }
+#Import ".\DMA_ADAPTER.ahk" { DMA_ADAPTER }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -52,10 +52,6 @@ export default struct PGET_COMMON_BUFFER_FROM_VECTOR_BY_INDEX {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, DMA_COMMON_BUFFER_VECTOR.Ptr, UInt32, "ptr*", "int64*", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

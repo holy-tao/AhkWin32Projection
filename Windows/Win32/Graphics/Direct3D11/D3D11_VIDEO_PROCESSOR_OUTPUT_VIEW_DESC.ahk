@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D11_TEX2D_VPOV.ahk" { D3D11_TEX2D_VPOV }
 #Import ".\D3D11_TEX2D_ARRAY_VPOV.ahk" { D3D11_TEX2D_ARRAY_VPOV }
+#Import ".\D3D11_TEX2D_VPOV.ahk" { D3D11_TEX2D_VPOV }
 #Import ".\D3D11_VPOV_DIMENSION.ahk" { D3D11_VPOV_DIMENSION }
 
 /**

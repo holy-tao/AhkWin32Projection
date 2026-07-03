@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NMLVEMPTYMARKUP_FLAGS.ahk" { NMLVEMPTYMARKUP_FLAGS }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\NMHDR.ahk" { NMHDR }
+#Import ".\NMLVEMPTYMARKUP_FLAGS.ahk" { NMLVEMPTYMARKUP_FLAGS }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

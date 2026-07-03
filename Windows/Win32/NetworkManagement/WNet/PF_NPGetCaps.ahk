@@ -43,10 +43,6 @@ export default struct PF_NPGetCaps {
             this.value := CallbackCreate(fn, , [UInt32, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

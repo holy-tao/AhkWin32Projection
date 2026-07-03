@@ -1,8 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DAV_CALLBACK_CRED.ahk" { DAV_CALLBACK_CRED }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\AUTHNEXTSTEP.ahk" { AUTHNEXTSTEP }
-#Import ".\PFNDAVAUTHCALLBACK_FREECRED.ahk" { PFNDAVAUTHCALLBACK_FREECRED }
+#Import ".\DAV_CALLBACK_CRED.ahk" { DAV_CALLBACK_CRED }
 
 /**
  * The WebDAV client calls the application-defined DavAuthCallback callback function to prompt the user for credentials.
@@ -157,10 +156,6 @@ export default struct PFNDAVAUTHCALLBACK {
             this.value := CallbackCreate(fn, , [PWSTR, PWSTR, UInt32, UInt32, DAV_CALLBACK_CRED.Ptr, "int*", "ptr*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

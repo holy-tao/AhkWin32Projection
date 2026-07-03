@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TVITEMEXW_CHILDREN.ahk" { TVITEMEXW_CHILDREN }
-#Import ".\TREE_VIEW_ITEM_STATE_FLAGS.ahk" { TREE_VIEW_ITEM_STATE_FLAGS }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\TVITEM_MASK.ahk" { TVITEM_MASK }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\NMHDR.ahk" { NMHDR }
-#Import ".\TVITEMW.ahk" { TVITEMW }
-#Import ".\NM_TREEVIEW_ACTION.ahk" { NM_TREEVIEW_ACTION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\HTREEITEM.ahk" { HTREEITEM }
+#Import ".\NMHDR.ahk" { NMHDR }
+#Import ".\NM_TREEVIEW_ACTION.ahk" { NM_TREEVIEW_ACTION }
+#Import ".\TREE_VIEW_ITEM_STATE_FLAGS.ahk" { TREE_VIEW_ITEM_STATE_FLAGS }
+#Import ".\TVITEMEXW_CHILDREN.ahk" { TVITEMEXW_CHILDREN }
+#Import ".\TVITEMW.ahk" { TVITEMW }
+#Import ".\TVITEM_MASK.ahk" { TVITEM_MASK }
 
 /**
  * Contains information about a tree-view notification message. This structure is identical to the NM_TREEVIEW structure, but it has been renamed to follow current naming conventions. (Unicode)

@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
 
 /**

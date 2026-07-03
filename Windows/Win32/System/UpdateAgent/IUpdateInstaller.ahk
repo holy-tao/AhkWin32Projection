@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IInstallationResult.ahk" { IInstallationResult }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IInstallationJob.ahk" { IInstallationJob }
-#Import ".\IUpdateCollection.ahk" { IUpdateCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IInstallationJob.ahk" { IInstallationJob }
+#Import ".\IInstallationResult.ahk" { IInstallationResult }
+#Import ".\IUpdateCollection.ahk" { IUpdateCollection }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Installs or uninstalls updates from or onto a computer.

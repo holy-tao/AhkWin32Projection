@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DNS_RECORDW.ahk" { DNS_RECORDW }
-#Import ".\DNS_OPT_DATA.ahk" { DNS_OPT_DATA }
-#Import ".\DNS_HEADER_EXT.ahk" { DNS_HEADER_EXT }
-#Import ".\DNS_RECORD_FLAGS.ahk" { DNS_RECORD_FLAGS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DNS_HEADER_EXT.ahk" { DNS_HEADER_EXT }
+#Import ".\DNS_OPT_DATA.ahk" { DNS_OPT_DATA }
+#Import ".\DNS_RECORDW.ahk" { DNS_RECORDW }
+#Import ".\DNS_RECORD_FLAGS.ahk" { DNS_RECORD_FLAGS }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns

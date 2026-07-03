@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\APTTYPE.ahk" { APTTYPE }
 #Import ".\IUnknown.ahk" { IUnknown }
 #Import ".\THDTYPE.ahk" { THDTYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IComThreadingInfo (objidlbase.h) interface enables you to obtain the following information about the apartment and thread that the caller is executing.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SOCKET.ahk" { SOCKET }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\SOCKET.ahk" { SOCKET }
 
 /**
  * The LPWSPAsyncSelect function requests Windows message-based event notification of network events for a socket.
@@ -606,10 +606,6 @@ export default struct LPWSPASYNCSELECT {
             this.value := CallbackCreate(fn, , [SOCKET, HWND, UInt32, Int32, "int*", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

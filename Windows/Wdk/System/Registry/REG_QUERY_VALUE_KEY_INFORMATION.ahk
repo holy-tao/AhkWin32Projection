@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 #Import ".\KEY_VALUE_INFORMATION_CLASS.ahk" { KEY_VALUE_INFORMATION_CLASS }
+#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 
 /**
  * @namespace Windows.Wdk.System.Registry

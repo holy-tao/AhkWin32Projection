@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITextStoryRanges.ahk" { ITextStoryRanges }
-#Import ".\ITextRange2.ahk" { ITextRange2 }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITextRange2.ahk" { ITextRange2 }
+#Import ".\ITextStoryRanges.ahk" { ITextStoryRanges }
 
 /**
  * The ITextStoryRanges2 interface enumerates the stories in an ITextDocument.

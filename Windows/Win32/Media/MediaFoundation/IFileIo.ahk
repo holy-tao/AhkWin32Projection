@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SEEK_ORIGIN.ahk" { SEEK_ORIGIN }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\FILE_ACCESSMODE.ahk" { FILE_ACCESSMODE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\FILE_ACCESSMODE.ahk" { FILE_ACCESSMODE }
 #Import ".\FILE_OPENMODE.ahk" { FILE_OPENMODE }
+#Import ".\SEEK_ORIGIN.ahk" { SEEK_ORIGIN }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation

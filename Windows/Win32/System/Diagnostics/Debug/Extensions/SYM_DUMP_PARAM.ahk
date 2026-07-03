@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\FIELD_INFO.ahk" { FIELD_INFO }
-#Import ".\PSYM_DUMP_FIELD_CALLBACK.ahk" { PSYM_DUMP_FIELD_CALLBACK }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -20,7 +19,7 @@ export default struct SYM_DUMP_PARAM {
 
     Context : IntPtr
 
-    CallbackRoutine : PSYM_DUMP_FIELD_CALLBACK
+    CallbackRoutine : IntPtr
 
     nFields : UInt32
 

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\CERT_PROPERTY_TYPE.ahk" { CERT_PROPERTY_TYPE }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CERT_PROPERTY_TYPE.ahk" { CERT_PROPERTY_TYPE }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Allows the policy module to communicate with Certificate Services.

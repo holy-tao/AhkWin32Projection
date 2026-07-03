@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Graphics\Gdi\FONT_CHARSET.ahk" { FONT_CHARSET }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\..\Foundation\POINT.ahk" { POINT }
-#Import "..\..\..\Graphics\Gdi\LOGFONTW.ahk" { LOGFONTW }
-#Import ".\HIMCC.ahk" { HIMCC }
-#Import ".\CANDIDATEFORM.ahk" { CANDIDATEFORM }
 #Import "..\..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\..\Graphics\Gdi\FONT_OUTPUT_PRECISION.ahk" { FONT_OUTPUT_PRECISION }
-#Import "..\..\..\Graphics\Gdi\LOGFONTA.ahk" { LOGFONTA }
+#Import "..\..\..\Graphics\Gdi\FONT_CHARSET.ahk" { FONT_CHARSET }
 #Import "..\..\..\Graphics\Gdi\FONT_CLIP_PRECISION.ahk" { FONT_CLIP_PRECISION }
+#Import "..\..\..\Graphics\Gdi\FONT_OUTPUT_PRECISION.ahk" { FONT_OUTPUT_PRECISION }
 #Import "..\..\..\Graphics\Gdi\FONT_QUALITY.ahk" { FONT_QUALITY }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Graphics\Gdi\LOGFONTA.ahk" { LOGFONTA }
+#Import "..\..\..\Graphics\Gdi\LOGFONTW.ahk" { LOGFONTW }
+#Import ".\CANDIDATEFORM.ahk" { CANDIDATEFORM }
 #Import ".\COMPOSITIONFORM.ahk" { COMPOSITIONFORM }
+#Import ".\HIMCC.ahk" { HIMCC }
 #Import "..\..\..\Foundation\CHAR.ahk" { CHAR }
 #Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 

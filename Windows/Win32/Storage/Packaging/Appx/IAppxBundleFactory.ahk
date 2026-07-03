@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IAppxBundleReader.ahk" { IAppxBundleReader }
-#Import ".\IAppxBundleManifestReader.ahk" { IAppxBundleManifestReader }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\IAppxBundleManifestReader.ahk" { IAppxBundleManifestReader }
+#Import ".\IAppxBundleReader.ahk" { IAppxBundleReader }
 #Import ".\IAppxBundleWriter.ahk" { IAppxBundleWriter }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Creates objects for reading and writing bundle packages.

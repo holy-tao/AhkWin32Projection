@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import "..\..\Foundation\IRP.ahk" { IRP }
+#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
@@ -29,7 +29,7 @@ export default struct PCOMPLETE_LOCK_IRP_ROUTINE {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, IRP.Ptr, _Irp, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -49,10 +49,6 @@ export default struct PCOMPLETE_LOCK_IRP_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", IRP.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

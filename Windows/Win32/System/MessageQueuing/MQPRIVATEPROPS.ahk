@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITsSbClientConnection.ahk" { ITsSbClientConnection }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITsSbPlugin.ahk" { ITsSbPlugin }
+#Import ".\ITsSbClientConnection.ahk" { ITsSbClientConnection }
 #Import ".\ITsSbPlacementNotifySink.ahk" { ITsSbPlacementNotifySink }
+#Import ".\ITsSbPlugin.ahk" { ITsSbPlugin }
 
 /**
  * Exposes methods that prepare the environment (the computer that hosts the virtual machine).

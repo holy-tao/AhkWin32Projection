@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VDS_IPADDRESS.ahk" { VDS_IPADDRESS }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VDS_IPADDRESS.ahk" { VDS_IPADDRESS }
 #Import ".\VDS_IPADDRESS_TYPE.ahk" { VDS_IPADDRESS_TYPE }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDWriteFontFace5.ahk" { IDWriteFontFace5 }
-#Import ".\DWRITE_FONT_FAMILY_MODEL.ahk" { DWRITE_FONT_FAMILY_MODEL }
-#Import ".\IDWriteLocalizedStrings.ahk" { IDWriteLocalizedStrings }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_FONT_FAMILY_MODEL.ahk" { DWRITE_FONT_FAMILY_MODEL }
+#Import ".\IDWriteFontFace5.ahk" { IDWriteFontFace5 }
+#Import ".\IDWriteLocalizedStrings.ahk" { IDWriteLocalizedStrings }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectWrite

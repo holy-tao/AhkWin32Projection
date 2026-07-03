@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IProvideClassInfo2.ahk" { IProvideClassInfo2 }
-#Import "..\Com\ITypeInfo.ahk" { ITypeInfo }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\ITypeInfo.ahk" { ITypeInfo }
+#Import ".\IProvideClassInfo2.ahk" { IProvideClassInfo2 }
 #Import ".\MULTICLASSINFO_FLAGS.ahk" { MULTICLASSINFO_FLAGS }
 
 /**

@@ -48,10 +48,6 @@ export default struct LPMAPIDETAILS {
             this.value := CallbackCreate(fn, , [IntPtr, IntPtr, MapiRecipDesc.Ptr, UInt32, UInt32, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

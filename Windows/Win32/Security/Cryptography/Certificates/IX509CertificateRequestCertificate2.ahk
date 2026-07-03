@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IX509EnrollmentPolicyServer.ahk" { IX509EnrollmentPolicyServer }
-#Import ".\IX509CertificateTemplate.ahk" { IX509CertificateTemplate }
-#Import ".\IX509CertificateRequestCertificate.ahk" { IX509CertificateRequestCertificate }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IX509CertificateRequestCertificate.ahk" { IX509CertificateRequestCertificate }
+#Import ".\IX509CertificateTemplate.ahk" { IX509CertificateTemplate }
+#Import ".\IX509EnrollmentPolicyServer.ahk" { IX509EnrollmentPolicyServer }
 #Import ".\IX509PrivateKey.ahk" { IX509PrivateKey }
 #Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
 

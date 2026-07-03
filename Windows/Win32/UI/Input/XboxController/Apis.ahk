@@ -1,14 +1,14 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\XINPUT_CAPABILITIES.ahk" { XINPUT_CAPABILITIES }
-#Import ".\XINPUT_KEYSTROKE.ahk" { XINPUT_KEYSTROKE }
-#Import ".\XINPUT_VIBRATION.ahk" { XINPUT_VIBRATION }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\XINPUT_FLAG.ahk" { XINPUT_FLAG }
 #Import ".\BATTERY_DEVTYPE.ahk" { BATTERY_DEVTYPE }
 #Import ".\XINPUT_BATTERY_INFORMATION.ahk" { XINPUT_BATTERY_INFORMATION }
+#Import ".\XINPUT_CAPABILITIES.ahk" { XINPUT_CAPABILITIES }
+#Import ".\XINPUT_FLAG.ahk" { XINPUT_FLAG }
+#Import ".\XINPUT_KEYSTROKE.ahk" { XINPUT_KEYSTROKE }
 #Import ".\XINPUT_STATE.ahk" { XINPUT_STATE }
+#Import ".\XINPUT_VIBRATION.ahk" { XINPUT_VIBRATION }
 
 /**
  * @namespace Windows.Win32.UI.Input.XboxController

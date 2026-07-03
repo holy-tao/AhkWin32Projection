@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MIB_IFROW.ahk" { MIB_IFROW }
 #Import ".\INTERNAL_IF_OPER_STATUS.ahk" { INTERNAL_IF_OPER_STATUS }
+#Import ".\MIB_IFROW.ahk" { MIB_IFROW }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

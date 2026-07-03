@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\EXCEPTION_RECORD.ahk" { EXCEPTION_RECORD }
 #Import ".\CONTEXT.ahk" { CONTEXT }
+#Import ".\EXCEPTION_RECORD.ahk" { EXCEPTION_RECORD }
 
 /**
  * Contains an exception record with a machine-independent description of an exception and a context record with a machine-dependent description of the processor context at the time of the exception.

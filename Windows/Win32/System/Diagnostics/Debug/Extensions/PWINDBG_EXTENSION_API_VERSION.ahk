@@ -43,10 +43,6 @@ export default struct PWINDBG_EXTENSION_API_VERSION {
             this.value := CallbackCreate(fn, , [EXT_API_VERSION.Ptr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

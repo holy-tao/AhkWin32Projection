@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 
 /**
  * Is implemented by a password filter DLL. It notifies the DLL that a password was changed.
@@ -85,7 +85,7 @@ export default struct PSAM_PASSWORD_NOTIFICATION_ROUTINE {
      */
     Call(UserName, RelativeId, NewPassword) {
         result := DllCall(this.value, LSA_UNICODE_STRING.Ptr, UserName, UInt32, RelativeId, LSA_UNICODE_STRING.Ptr, NewPassword, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -105,10 +105,6 @@ export default struct PSAM_PASSWORD_NOTIFICATION_ROUTINE {
             this.value := CallbackCreate(fn, , [LSA_UNICODE_STRING.Ptr, UInt32, LSA_UNICODE_STRING.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

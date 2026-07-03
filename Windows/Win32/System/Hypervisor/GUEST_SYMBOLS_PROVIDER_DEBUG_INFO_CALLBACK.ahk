@@ -45,10 +45,6 @@ export default struct GUEST_SYMBOLS_PROVIDER_DEBUG_INFO_CALLBACK {
             this.value := CallbackCreate(fn, , [PSTR, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

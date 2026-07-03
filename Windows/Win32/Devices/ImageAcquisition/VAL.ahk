@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\SCANINFO.ahk" { SCANINFO }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**

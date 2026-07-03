@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Direct2D\ID2D1Image.ahk" { ID2D1Image }
+#Import "..\IWICBitmapEncoder.ahk" { IWICBitmapEncoder }
+#Import "..\IWICBitmapFrameEncode.ahk" { IWICBitmapFrameEncode }
 #Import "..\WICImageParameters.ahk" { WICImageParameters }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\IWICBitmapFrameEncode.ahk" { IWICBitmapFrameEncode }
-#Import "..\..\Direct2D\ID2D1Image.ahk" { ID2D1Image }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\IWICBitmapEncoder.ahk" { IWICBitmapEncoder }
 
 /**
  * Encodes ID2D1Image interfaces to an IWICBitmapEncoder.

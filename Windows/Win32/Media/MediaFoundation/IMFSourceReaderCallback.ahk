@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFMediaEvent.ahk" { IMFMediaEvent }
 #Import ".\IMFSample.ahk" { IMFSample }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMFMediaEvent.ahk" { IMFMediaEvent }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Callback interface for the Microsoft Media Foundation source reader.

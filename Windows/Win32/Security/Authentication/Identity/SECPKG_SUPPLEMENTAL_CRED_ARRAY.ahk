@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 #Import ".\SECPKG_SUPPLEMENTAL_CRED.ahk" { SECPKG_SUPPLEMENTAL_CRED }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The SECPKG_SUPPLEMENTAL_CRED_ARRAY structure contains supplemental credentials information. This structure is used by the LsaApLogonUserEx2 and UpdateCredentials functions.

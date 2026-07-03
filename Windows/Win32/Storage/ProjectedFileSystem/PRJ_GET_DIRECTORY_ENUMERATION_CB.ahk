@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PRJ_CALLBACK_DATA.ahk" { PRJ_CALLBACK_DATA }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PRJ_CALLBACK_DATA.ahk" { PRJ_CALLBACK_DATA }
 #Import ".\PRJ_DIR_ENTRY_BUFFER_HANDLE.ahk" { PRJ_DIR_ENTRY_BUFFER_HANDLE }
 
 /**
@@ -137,10 +137,6 @@ export default struct PRJ_GET_DIRECTORY_ENUMERATION_CB {
             this.value := CallbackCreate(fn, , [PRJ_CALLBACK_DATA.Ptr, Guid.Ptr, PWSTR, PRJ_DIR_ENTRY_BUFFER_HANDLE, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

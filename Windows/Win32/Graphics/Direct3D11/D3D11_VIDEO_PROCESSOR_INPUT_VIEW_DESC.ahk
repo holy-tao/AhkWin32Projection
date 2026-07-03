@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D11_VPIV_DIMENSION.ahk" { D3D11_VPIV_DIMENSION }
 #Import ".\D3D11_TEX2D_VPIV.ahk" { D3D11_TEX2D_VPIV }
+#Import ".\D3D11_VPIV_DIMENSION.ahk" { D3D11_VPIV_DIMENSION }
 
 /**
  * Describes a video processor input view.

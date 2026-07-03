@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RFX_GFX_MONITOR_INFO.ahk" { RFX_GFX_MONITOR_INFO }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\RFX_GFX_MONITOR_INFO.ahk" { RFX_GFX_MONITOR_INFO }
 #Import ".\RFX_GFX_MSG_HEADER.ahk" { RFX_GFX_MSG_HEADER }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 

@@ -41,10 +41,6 @@ export default struct CM_ACTIVATE_VC_COMPLETE_HANDLER {
             this.value := CallbackCreate(fn, , [IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

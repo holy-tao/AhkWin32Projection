@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\HACMDRIVERID.ahk" { HACMDRIVERID }
 #Import ".\ACMFORMATTAGDETAILSW.ahk" { ACMFORMATTAGDETAILSW }
+#Import ".\HACMDRIVERID.ahk" { HACMDRIVERID }
 
 /**
  * The ACMFORMATTAGENUMCBW (Unicode) callback function specifies a callback function used with the acmFormatTagEnum function.
@@ -63,10 +63,6 @@ export default struct ACMFORMATTAGENUMCBW {
             this.value := CallbackCreate(fn, , [HACMDRIVERID, ACMFORMATTAGDETAILSW.Ptr, IntPtr, UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

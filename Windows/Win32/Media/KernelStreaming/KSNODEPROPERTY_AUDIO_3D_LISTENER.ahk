@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\KSNODEPROPERTY.ahk" { KSNODEPROPERTY }
 #Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import ".\KSNODEPROPERTY.ahk" { KSNODEPROPERTY }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

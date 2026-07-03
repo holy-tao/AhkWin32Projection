@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IGPMStatusMsgCollection.ahk" { IGPMStatusMsgCollection }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IGPMResult interface contains methods to retrieve status message information while performing various types of GPO processing operations such as restore, import, copy and backup.

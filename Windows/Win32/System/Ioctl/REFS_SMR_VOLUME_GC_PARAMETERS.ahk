@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\REFS_SMR_VOLUME_GC_METHOD.ahk" { REFS_SMR_VOLUME_GC_METHOD }
 #Import ".\REFS_SMR_VOLUME_GC_ACTION.ahk" { REFS_SMR_VOLUME_GC_ACTION }
+#Import ".\REFS_SMR_VOLUME_GC_METHOD.ahk" { REFS_SMR_VOLUME_GC_METHOD }
 
 /**
  * @namespace Windows.Win32.System.Ioctl

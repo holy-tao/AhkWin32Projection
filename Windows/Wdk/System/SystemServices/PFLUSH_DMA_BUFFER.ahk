@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\MDL.ahk" { MDL }
 #Import ".\DMA_ADAPTER.ahk" { DMA_ADAPTER }
 #Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import "..\..\Foundation\MDL.ahk" { MDL }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
@@ -30,7 +30,7 @@ export default struct PFLUSH_DMA_BUFFER {
      */
     Call(DmaAdapter, _Mdl, ReadOperation) {
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, MDL.Ptr, _Mdl, BOOLEAN, ReadOperation, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -50,10 +50,6 @@ export default struct PFLUSH_DMA_BUFFER {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, MDL.Ptr, BOOLEAN, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

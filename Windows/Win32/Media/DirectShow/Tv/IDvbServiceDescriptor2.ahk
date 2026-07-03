@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDvbServiceDescriptor.ahk" { IDvbServiceDescriptor }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\DVB_STRCONV_MODE.ahk" { DVB_STRCONV_MODE }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DVB_STRCONV_MODE.ahk" { DVB_STRCONV_MODE }
+#Import ".\IDvbServiceDescriptor.ahk" { IDvbServiceDescriptor }
 
 /**
  * Implements methods that get the string values from fields in a Digital Video Broadcast (DVB) service descriptor. The service descriptor describes the service type, and provides the names of the service provider and the service in text form.

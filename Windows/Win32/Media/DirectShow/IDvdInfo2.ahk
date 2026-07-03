@@ -1,29 +1,29 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DVD_AUDIO_LANG_EXT.ahk" { DVD_AUDIO_LANG_EXT }
-#Import ".\DVD_HMSF_TIMECODE.ahk" { DVD_HMSF_TIMECODE }
-#Import ".\IDvdState.ahk" { IDvdState }
-#Import ".\DVD_DISC_SIDE.ahk" { DVD_DISC_SIDE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DVD_PLAYBACK_LOCATION2.ahk" { DVD_PLAYBACK_LOCATION2 }
-#Import ".\IDvdCmd.ahk" { IDvdCmd }
-#Import ".\DVD_TextStringType.ahk" { DVD_TextStringType }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DVD_SubpictureAttributes.ahk" { DVD_SubpictureAttributes }
-#Import ".\DVD_MenuAttributes.ahk" { DVD_MenuAttributes }
-#Import ".\DVD_TitleAttributes.ahk" { DVD_TitleAttributes }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DVD_AudioAttributes.ahk" { DVD_AudioAttributes }
-#Import ".\DVD_DOMAIN.ahk" { DVD_DOMAIN }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\DVD_SUBPICTURE_LANG_EXT.ahk" { DVD_SUBPICTURE_LANG_EXT }
-#Import ".\DVD_VideoAttributes.ahk" { DVD_VideoAttributes }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\DVD_AUDIO_LANG_EXT.ahk" { DVD_AUDIO_LANG_EXT }
+#Import ".\DVD_AudioAttributes.ahk" { DVD_AudioAttributes }
 #Import ".\DVD_DECODER_CAPS.ahk" { DVD_DECODER_CAPS }
-#Import ".\DVD_TextCharSet.ahk" { DVD_TextCharSet }
+#Import ".\DVD_DISC_SIDE.ahk" { DVD_DISC_SIDE }
+#Import ".\DVD_DOMAIN.ahk" { DVD_DOMAIN }
+#Import ".\DVD_HMSF_TIMECODE.ahk" { DVD_HMSF_TIMECODE }
 #Import ".\DVD_KaraokeAttributes.ahk" { DVD_KaraokeAttributes }
+#Import ".\DVD_MenuAttributes.ahk" { DVD_MenuAttributes }
+#Import ".\DVD_PLAYBACK_LOCATION2.ahk" { DVD_PLAYBACK_LOCATION2 }
+#Import ".\DVD_SUBPICTURE_LANG_EXT.ahk" { DVD_SUBPICTURE_LANG_EXT }
+#Import ".\DVD_SubpictureAttributes.ahk" { DVD_SubpictureAttributes }
+#Import ".\DVD_TextCharSet.ahk" { DVD_TextCharSet }
+#Import ".\DVD_TextStringType.ahk" { DVD_TextStringType }
+#Import ".\DVD_TitleAttributes.ahk" { DVD_TitleAttributes }
+#Import ".\DVD_VideoAttributes.ahk" { DVD_VideoAttributes }
+#Import ".\IDvdCmd.ahk" { IDvdCmd }
+#Import ".\IDvdState.ahk" { IDvdState }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDvdInfo2 interface reports attributes of a DVD disc or the current state of DVD playback and navigation.

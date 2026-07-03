@@ -1,25 +1,25 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
-#Import ".\DWM_TAB_WINDOW_REQUIREMENTS.ahk" { DWM_TAB_WINDOW_REQUIREMENTS }
-#Import "..\..\UI\Controls\MARGINS.ahk" { MARGINS }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\DWM_PRESENT_PARAMETERS.ahk" { DWM_PRESENT_PARAMETERS }
-#Import ".\GESTURE_TYPE.ahk" { GESTURE_TYPE }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
-#Import ".\DWMTRANSITION_OWNEDWINDOW_TARGET.ahk" { DWMTRANSITION_OWNEDWINDOW_TARGET }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import ".\DWMTRANSITION_OWNEDWINDOW_TARGET.ahk" { DWMTRANSITION_OWNEDWINDOW_TARGET }
+#Import ".\DWM_BLURBEHIND.ahk" { DWM_BLURBEHIND }
+#Import ".\DWM_PRESENT_PARAMETERS.ahk" { DWM_PRESENT_PARAMETERS }
+#Import ".\DWM_SHOWCONTACT.ahk" { DWM_SHOWCONTACT }
+#Import ".\DWM_TAB_WINDOW_REQUIREMENTS.ahk" { DWM_TAB_WINDOW_REQUIREMENTS }
 #Import ".\DWM_THUMBNAIL_PROPERTIES.ahk" { DWM_THUMBNAIL_PROPERTIES }
+#Import ".\DWM_TIMING_INFO.ahk" { DWM_TIMING_INFO }
+#Import ".\GESTURE_TYPE.ahk" { GESTURE_TYPE }
 #Import ".\MilMatrix3x2D.ahk" { MilMatrix3x2D }
 #Import "..\Gdi\HBITMAP.ahk" { HBITMAP }
-#Import ".\DWM_TIMING_INFO.ahk" { DWM_TIMING_INFO }
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
-#Import ".\DWM_BLURBEHIND.ahk" { DWM_BLURBEHIND }
-#Import ".\DWM_SHOWCONTACT.ahk" { DWM_SHOWCONTACT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\UI\Controls\MARGINS.ahk" { MARGINS }
 
 /**
  * @namespace Windows.Win32.Graphics.Dwm

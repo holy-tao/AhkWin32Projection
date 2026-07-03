@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DWRITE_AUTOMATIC_FONT_AXES.ahk" { DWRITE_AUTOMATIC_FONT_AXES }
-#Import ".\IDWriteTextLayout3.ahk" { IDWriteTextLayout3 }
 #Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
 #Import ".\DWRITE_TEXT_RANGE.ahk" { DWRITE_TEXT_RANGE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteTextLayout3.ahk" { IDWriteTextLayout3 }
 
 /**
  * Represents a block of text after it has been fully analyzed and formatted.

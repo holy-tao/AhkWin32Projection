@@ -46,10 +46,6 @@ export default struct PREGISTER_APPINSTANCE_VERSION {
             this.value := CallbackCreate(fn, , [Guid.Ptr, Int64, Int64, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

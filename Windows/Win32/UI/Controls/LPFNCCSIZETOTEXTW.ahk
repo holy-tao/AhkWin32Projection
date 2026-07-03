@@ -51,10 +51,6 @@ export default struct LPFNCCSIZETOTEXTW {
             this.value := CallbackCreate(fn, , [UInt32, UInt32, HFONT, PWSTR, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

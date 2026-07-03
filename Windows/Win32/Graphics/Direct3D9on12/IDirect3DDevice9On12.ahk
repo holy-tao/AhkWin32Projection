@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Direct3D12\ID3D12CommandQueue.ahk" { ID3D12CommandQueue }
 #Import "..\Direct3D12\ID3D12Fence.ahk" { ID3D12Fence }
 #Import "..\Direct3D9\IDirect3DResource9.ahk" { IDirect3DResource9 }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Direct3D12\ID3D12CommandQueue.ahk" { ID3D12CommandQueue }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9on12

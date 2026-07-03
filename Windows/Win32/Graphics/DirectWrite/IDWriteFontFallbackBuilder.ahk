@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
-#Import ".\DWRITE_UNICODE_RANGE.ahk" { DWRITE_UNICODE_RANGE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DWRITE_UNICODE_RANGE.ahk" { DWRITE_UNICODE_RANGE }
+#Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
 #Import ".\IDWriteFontFallback.ahk" { IDWriteFontFallback }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Allows you to create Unicode font fallback mappings and create a font fall back object from those mappings.

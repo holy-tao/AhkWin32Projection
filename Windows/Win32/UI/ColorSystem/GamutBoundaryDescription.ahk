@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PrimaryJabColors.ahk" { PrimaryJabColors }
-#Import ".\JabColorF.ahk" { JabColorF }
 #Import ".\GamutShell.ahk" { GamutShell }
+#Import ".\JabColorF.ahk" { JabColorF }
+#Import ".\PrimaryJabColors.ahk" { PrimaryJabColors }
 
 /**
  * Defines a gamut boundary.

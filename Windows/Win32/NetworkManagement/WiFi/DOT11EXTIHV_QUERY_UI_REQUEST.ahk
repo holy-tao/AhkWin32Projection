@@ -50,10 +50,6 @@ export default struct DOT11EXTIHV_QUERY_UI_REQUEST {
             this.value := CallbackCreate(fn, , [HANDLE, DOT11EXT_IHV_CONNECTION_PHASE, "ptr*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

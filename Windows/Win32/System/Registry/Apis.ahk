@@ -1,24 +1,24 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\REG_SAM_FLAGS.ahk" { REG_SAM_FLAGS }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\REG_SAVE_FORMAT.ahk" { REG_SAVE_FORMAT }
-#Import "..\..\Security\OBJECT_SECURITY_INFORMATION.ahk" { OBJECT_SECURITY_INFORMATION }
-#Import ".\REG_CREATE_KEY_DISPOSITION.ahk" { REG_CREATE_KEY_DISPOSITION }
-#Import ".\VALENTA.ahk" { VALENTA }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\REG_NOTIFY_FILTER.ahk" { REG_NOTIFY_FILTER }
-#Import "..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
-#Import ".\HKEY.ahk" { HKEY }
-#Import ".\REG_OPEN_CREATE_OPTIONS.ahk" { REG_OPEN_CREATE_OPTIONS }
-#Import "..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
-#Import ".\REG_VALUE_TYPE.ahk" { REG_VALUE_TYPE }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\VALENTW.ahk" { VALENTW }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
+#Import "..\..\Security\OBJECT_SECURITY_INFORMATION.ahk" { OBJECT_SECURITY_INFORMATION }
+#Import "..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import ".\HKEY.ahk" { HKEY }
+#Import ".\REG_CREATE_KEY_DISPOSITION.ahk" { REG_CREATE_KEY_DISPOSITION }
+#Import ".\REG_NOTIFY_FILTER.ahk" { REG_NOTIFY_FILTER }
+#Import ".\REG_OPEN_CREATE_OPTIONS.ahk" { REG_OPEN_CREATE_OPTIONS }
 #Import ".\REG_ROUTINE_FLAGS.ahk" { REG_ROUTINE_FLAGS }
+#Import ".\REG_SAM_FLAGS.ahk" { REG_SAM_FLAGS }
+#Import ".\REG_SAVE_FORMAT.ahk" { REG_SAVE_FORMAT }
+#Import ".\REG_VALUE_TYPE.ahk" { REG_VALUE_TYPE }
+#Import ".\VALENTA.ahk" { VALENTA }
+#Import ".\VALENTW.ahk" { VALENTW }
 
 /**
  * @namespace Windows.Win32.System.Registry

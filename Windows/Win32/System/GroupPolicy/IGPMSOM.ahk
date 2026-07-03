@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\GPMSOMType.ahk" { GPMSOMType }
-#Import ".\IGPMGPOLinksCollection.ahk" { IGPMGPOLinksCollection }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IGPMSecurityInfo.ahk" { IGPMSecurityInfo }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IGPMGPOLink.ahk" { IGPMGPOLink }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\GPMSOMType.ahk" { GPMSOMType }
 #Import ".\IGPMGPO.ahk" { IGPMGPO }
+#Import ".\IGPMGPOLink.ahk" { IGPMGPOLink }
+#Import ".\IGPMGPOLinksCollection.ahk" { IGPMGPOLinksCollection }
+#Import ".\IGPMSecurityInfo.ahk" { IGPMSecurityInfo }
 
 /**
  * The IGPMSOM interface contains methods that allow you to create and retrieve GPO links for a scope of management (SOM), and to set and retrieve security attributes and various properties for a SOM. A SOM can be a site, domain or OU.

@@ -78,10 +78,6 @@ export default struct PFAXROUTEMODIFYROUTINGDATA {
             this.value := CallbackCreate(fn, , [UInt32, PWSTR, "char*", UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

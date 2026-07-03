@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\PROPERTY_UNITS.ahk" { PROPERTY_UNITS }
 #Import ".\PROPERTY_METRICS.ahk" { PROPERTY_METRICS }
+#Import ".\PROPERTY_UNITS.ahk" { PROPERTY_UNITS }
 
 /**
  * Describes a packet property that is reported by the tablet driver.

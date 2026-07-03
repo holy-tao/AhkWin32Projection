@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMFMediaSource.ahk" { IMFMediaSource }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import ".\IMFMediaSource.ahk" { IMFMediaSource }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Extends the IMFMediaSource interface to provide additional capabilities for a media source.

@@ -44,10 +44,6 @@ export default struct LPDDHALMOCOMPCB_QUERYSTATUS {
             this.value := CallbackCreate(fn, , [DDHAL_QUERYMOCOMPSTATUSDATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

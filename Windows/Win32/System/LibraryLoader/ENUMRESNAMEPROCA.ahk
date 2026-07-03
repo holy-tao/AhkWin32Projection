@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * An application-defined callback function used with the EnumResourceNames and EnumResourceNamesEx functions. (ANSI)
@@ -76,10 +76,6 @@ export default struct ENUMRESNAMEPROCA {
             this.value := CallbackCreate(fn, , [HMODULE, PSTR, PSTR, IntPtr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

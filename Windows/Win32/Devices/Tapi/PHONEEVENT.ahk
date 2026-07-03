@@ -58,10 +58,6 @@ export default struct PHONEEVENT {
             this.value := CallbackCreate(fn, , [HTAPIPHONE, UInt32, IntPtr, IntPtr, IntPtr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

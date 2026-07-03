@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IPropertyStorage.ahk" { IPropertyStorage }
+#Import "..\IUnknown.ahk" { IUnknown }
 #Import ".\IEnumSTATPROPSETSTG.ahk" { IEnumSTATPROPSETSTG }
+#Import ".\IPropertyStorage.ahk" { IPropertyStorage }
 
 /**
  * The IPropertySetStorage interface creates, opens, deletes, and enumerates property set storages that support instances of the IPropertyStorage interface.

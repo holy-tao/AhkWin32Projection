@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -38,7 +38,7 @@ export default struct PSAM_CREDENTIAL_UPDATE_NOTIFY_ROUTINE {
         NewCredentialSizeMarshal := NewCredentialSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, LSA_UNICODE_STRING.Ptr, ClearPassword, IntPtr, OldCredentials, UInt32, OldCredentialSize, UInt32, UserAccountControl, LSA_UNICODE_STRING.Ptr, UPN, LSA_UNICODE_STRING.Ptr, UserName, LSA_UNICODE_STRING.Ptr, NetbiosDomainName, LSA_UNICODE_STRING.Ptr, DnsDomainName, NewCredentialsMarshal, NewCredentials, NewCredentialSizeMarshal, NewCredentialSize, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -58,10 +58,6 @@ export default struct PSAM_CREDENTIAL_UPDATE_NOTIFY_ROUTINE {
             this.value := CallbackCreate(fn, , [LSA_UNICODE_STRING.Ptr, IntPtr, UInt32, UInt32, LSA_UNICODE_STRING.Ptr, LSA_UNICODE_STRING.Ptr, LSA_UNICODE_STRING.Ptr, LSA_UNICODE_STRING.Ptr, "ptr*", "uint*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -2,13 +2,13 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\SEARCH_TERM_EXPANSION.ahk" { SEARCH_TERM_EXPANSION }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\SEARCH_COLUMN_PROPERTIES.ahk" { SEARCH_COLUMN_PROPERTIES }
 #Import ".\SEARCH_QUERY_SYNTAX.ahk" { SEARCH_QUERY_SYNTAX }
+#Import ".\SEARCH_TERM_EXPANSION.ahk" { SEARCH_TERM_EXPANSION }
 
 /**
  * Provides methods for building a query from user input, converting a query to Windows Search SQL, and obtaining a connection string to initialize a connection to the Window Search index.

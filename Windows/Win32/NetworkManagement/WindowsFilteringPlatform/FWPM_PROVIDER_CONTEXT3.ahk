@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\FWPM_CLASSIFY_OPTIONS0.ahk" { FWPM_CLASSIFY_OPTIONS0 }
-#Import ".\IPSEC_DOSP_OPTIONS0.ahk" { IPSEC_DOSP_OPTIONS0 }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FWPM_DISPLAY_DATA0.ahk" { FWPM_DISPLAY_DATA0 }
 #Import ".\FWPM_NETWORK_CONNECTION_POLICY_SETTINGS0.ahk" { FWPM_NETWORK_CONNECTION_POLICY_SETTINGS0 }
 #Import ".\FWPM_PROVIDER_CONTEXT_TYPE.ahk" { FWPM_PROVIDER_CONTEXT_TYPE }
+#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
 #Import ".\IKEEXT_POLICY2.ahk" { IKEEXT_POLICY2 }
+#Import ".\IPSEC_DOSP_OPTIONS0.ahk" { IPSEC_DOSP_OPTIONS0 }
 #Import ".\IPSEC_KEYING_POLICY1.ahk" { IPSEC_KEYING_POLICY1 }
 #Import ".\IPSEC_TRANSPORT_POLICY2.ahk" { IPSEC_TRANSPORT_POLICY2 }
 #Import ".\IPSEC_TUNNEL_POLICY3.ahk" { IPSEC_TUNNEL_POLICY3 }
-#Import ".\FWPM_DISPLAY_DATA0.ahk" { FWPM_DISPLAY_DATA0 }
-#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform

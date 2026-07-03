@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDVB_RST.ahk" { IDVB_RST }
-#Import ".\ITSDT.ahk" { ITSDT }
-#Import ".\IDVB_SIT.ahk" { IDVB_SIT }
-#Import ".\IDVB_DIT.ahk" { IDVB_DIT }
-#Import ".\IDVB_TDT.ahk" { IDVB_TDT }
-#Import ".\ICAT.ahk" { ICAT }
-#Import ".\IDVB_ST.ahk" { IDVB_ST }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDVB_EIT.ahk" { IDVB_EIT }
-#Import ".\IDVB_SDT.ahk" { IDVB_SDT }
-#Import ".\IDVB_TOT.ahk" { IDVB_TOT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDVB_NIT.ahk" { IDVB_NIT }
+#Import ".\ICAT.ahk" { ICAT }
 #Import ".\IDVB_BAT.ahk" { IDVB_BAT }
+#Import ".\IDVB_DIT.ahk" { IDVB_DIT }
+#Import ".\IDVB_EIT.ahk" { IDVB_EIT }
+#Import ".\IDVB_NIT.ahk" { IDVB_NIT }
+#Import ".\IDVB_RST.ahk" { IDVB_RST }
+#Import ".\IDVB_SDT.ahk" { IDVB_SDT }
+#Import ".\IDVB_SIT.ahk" { IDVB_SIT }
+#Import ".\IDVB_ST.ahk" { IDVB_ST }
+#Import ".\IDVB_TDT.ahk" { IDVB_TDT }
+#Import ".\IDVB_TOT.ahk" { IDVB_TOT }
 #Import ".\IPAT.ahk" { IPAT }
 #Import ".\IPMT.ahk" { IPMT }
+#Import ".\ITSDT.ahk" { ITSDT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later. The IDvbSiParser retrieves program specific information (PSI) and service information (SI) tables from a DVB transport stream.

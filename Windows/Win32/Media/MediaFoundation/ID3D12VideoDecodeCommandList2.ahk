@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D12VideoExtensionCommand.ahk" { ID3D12VideoExtensionCommand }
 #Import "..\..\Graphics\Direct3D12\ID3D12ProtectedResourceSession.ahk" { ID3D12ProtectedResourceSession }
 #Import ".\ID3D12VideoDecodeCommandList1.ahk" { ID3D12VideoDecodeCommandList1 }
+#Import ".\ID3D12VideoExtensionCommand.ahk" { ID3D12VideoExtensionCommand }
 
 /**
  * Adds support for video extension commands. (ID3D12VideoDecodeCommandList2)

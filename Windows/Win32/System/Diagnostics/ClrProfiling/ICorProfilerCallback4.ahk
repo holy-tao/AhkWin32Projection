@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ICorProfilerFunctionControl.ahk" { ICorProfilerFunctionControl }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ICorProfilerCallback3.ahk" { ICorProfilerCallback3 }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICorProfilerCallback3.ahk" { ICorProfilerCallback3 }
+#Import ".\ICorProfilerFunctionControl.ahk" { ICorProfilerFunctionControl }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling

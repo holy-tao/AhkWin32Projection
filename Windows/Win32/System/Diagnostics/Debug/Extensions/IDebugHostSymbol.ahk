@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\SymbolKind.ahk" { SymbolKind }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDebugHostContext.ahk" { IDebugHostContext }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IDebugHostType.ahk" { IDebugHostType }
-#Import ".\IDebugHostSymbolEnumerator.ahk" { IDebugHostSymbolEnumerator }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDebugHostContext.ahk" { IDebugHostContext }
 #Import ".\IDebugHostModule.ahk" { IDebugHostModule }
+#Import ".\IDebugHostSymbolEnumerator.ahk" { IDebugHostSymbolEnumerator }
+#Import ".\IDebugHostType.ahk" { IDebugHostType }
+#Import ".\SymbolKind.ahk" { SymbolKind }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

@@ -3,9 +3,9 @@
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\IESEvent.ahk" { IESEvent }
+#Import "..\..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Implements methods that get information from a LicenseRenewalResult event.

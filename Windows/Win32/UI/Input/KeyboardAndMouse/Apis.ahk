@@ -1,22 +1,22 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\LASTINPUTINFO.ahk" { LASTINPUTINFO }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\CHAR.ahk" { CHAR }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\INPUT.ahk" { INPUT }
-#Import ".\TRACKMOUSEEVENT.ahk" { TRACKMOUSEEVENT as TRACKMOUSEEVENT_struct }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ACTIVATE_KEYBOARD_LAYOUT_FLAGS.ahk" { ACTIVATE_KEYBOARD_LAYOUT_FLAGS }
+#Import ".\GET_MOUSE_MOVE_POINTS_EX_RESOLUTION.ahk" { GET_MOUSE_MOVE_POINTS_EX_RESOLUTION }
 #Import ".\HKL.ahk" { HKL }
 #Import ".\HOT_KEY_MODIFIERS.ahk" { HOT_KEY_MODIFIERS }
-#Import ".\ACTIVATE_KEYBOARD_LAYOUT_FLAGS.ahk" { ACTIVATE_KEYBOARD_LAYOUT_FLAGS }
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\..\Foundation\CHAR.ahk" { CHAR }
-#Import ".\MOUSEMOVEPOINT.ahk" { MOUSEMOVEPOINT }
+#Import ".\INPUT.ahk" { INPUT }
 #Import ".\KEYBD_EVENT_FLAGS.ahk" { KEYBD_EVENT_FLAGS }
-#Import ".\MOUSE_EVENT_FLAGS.ahk" { MOUSE_EVENT_FLAGS }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\LASTINPUTINFO.ahk" { LASTINPUTINFO }
 #Import ".\MAP_VIRTUAL_KEY_TYPE.ahk" { MAP_VIRTUAL_KEY_TYPE }
-#Import ".\GET_MOUSE_MOVE_POINTS_EX_RESOLUTION.ahk" { GET_MOUSE_MOVE_POINTS_EX_RESOLUTION }
+#Import ".\MOUSEMOVEPOINT.ahk" { MOUSEMOVEPOINT }
+#Import ".\MOUSE_EVENT_FLAGS.ahk" { MOUSE_EVENT_FLAGS }
+#Import ".\TRACKMOUSEEVENT.ahk" { TRACKMOUSEEVENT as TRACKMOUSEEVENT_struct }
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse

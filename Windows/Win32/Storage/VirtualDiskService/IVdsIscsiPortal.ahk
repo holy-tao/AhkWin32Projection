@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\VDS_IPADDRESS.ahk" { VDS_IPADDRESS }
-#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IVdsSubSystem.ahk" { IVdsSubSystem }
-#Import ".\VDS_ISCSI_IPSEC_KEY.ahk" { VDS_ISCSI_IPSEC_KEY }
-#Import ".\VDS_ISCSI_PORTAL_STATUS.ahk" { VDS_ISCSI_PORTAL_STATUS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
+#Import ".\IVdsSubSystem.ahk" { IVdsSubSystem }
+#Import ".\VDS_IPADDRESS.ahk" { VDS_IPADDRESS }
+#Import ".\VDS_ISCSI_IPSEC_KEY.ahk" { VDS_ISCSI_IPSEC_KEY }
 #Import ".\VDS_ISCSI_PORTAL_PROP.ahk" { VDS_ISCSI_PORTAL_PROP }
+#Import ".\VDS_ISCSI_PORTAL_STATUS.ahk" { VDS_ISCSI_PORTAL_STATUS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVdsIscsiPortal interface (vdshwprv.h) provides methods for performing query and configuration operations on an iSCSI portal.

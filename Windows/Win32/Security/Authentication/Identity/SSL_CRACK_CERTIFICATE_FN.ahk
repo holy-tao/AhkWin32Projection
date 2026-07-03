@@ -51,10 +51,6 @@ export default struct SSL_CRACK_CERTIFICATE_FN {
             this.value := CallbackCreate(fn, , ["char*", UInt32, BOOL, "ptr*", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

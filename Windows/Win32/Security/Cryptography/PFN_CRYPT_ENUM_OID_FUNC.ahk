@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
@@ -78,10 +78,6 @@ export default struct PFN_CRYPT_ENUM_OID_FUNC {
             this.value := CallbackCreate(fn, , [UInt32, PSTR, PSTR, UInt32, "uint*", PWSTR.Ptr, "ptr*", "uint*", "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

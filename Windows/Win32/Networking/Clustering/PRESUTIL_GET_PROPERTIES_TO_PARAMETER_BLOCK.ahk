@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\RESUTIL_PROPERTY_ITEM.ahk" { RESUTIL_PROPERTY_ITEM }
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -54,10 +54,6 @@ export default struct PRESUTIL_GET_PROPERTIES_TO_PARAMETER_BLOCK {
             this.value := CallbackCreate(fn, , [HKEY, RESUTIL_PROPERTY_ITEM.Ptr, "char*", BOOL, PWSTR.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

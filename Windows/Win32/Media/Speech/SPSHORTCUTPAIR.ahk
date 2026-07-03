@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SPSHORTCUTTYPE.ahk" { SPSHORTCUTTYPE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SPSHORTCUTTYPE.ahk" { SPSHORTCUTTYPE }
 
 /**
  * @namespace Windows.Win32.Media.Speech

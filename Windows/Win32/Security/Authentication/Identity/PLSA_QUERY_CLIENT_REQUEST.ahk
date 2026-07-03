@@ -30,7 +30,7 @@ export default struct PLSA_QUERY_CLIENT_REQUEST {
         ReplyBufferMarshal := ReplyBuffer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, ClientRequestMarshal, ClientRequest, UInt32, QueryType, ReplyBufferMarshal, ReplyBuffer, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -50,10 +50,6 @@ export default struct PLSA_QUERY_CLIENT_REQUEST {
             this.value := CallbackCreate(fn, , ["ptr*", UInt32, "ptr*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

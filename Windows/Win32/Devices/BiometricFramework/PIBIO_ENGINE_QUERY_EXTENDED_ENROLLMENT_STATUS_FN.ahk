@@ -82,10 +82,6 @@ export default struct PIBIO_ENGINE_QUERY_EXTENDED_ENROLLMENT_STATUS_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, IntPtr, IntPtr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IPersistSerializedPropStorage.ahk" { IPersistSerializedPropStorage }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPersistSerializedPropStorage.ahk" { IPersistSerializedPropStorage }
 
 /**
  * Exposes methods to persist serialized property storage data for later use and to restore persisted data to a new property store instance. (IPersistSerializedPropStorage2)

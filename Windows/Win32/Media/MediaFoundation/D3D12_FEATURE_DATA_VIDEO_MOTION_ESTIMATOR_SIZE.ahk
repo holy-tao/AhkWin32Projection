@@ -2,8 +2,8 @@
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 #Import ".\D3D12_VIDEO_MOTION_ESTIMATOR_SEARCH_BLOCK_SIZE.ahk" { D3D12_VIDEO_MOTION_ESTIMATOR_SEARCH_BLOCK_SIZE }
-#Import ".\D3D12_VIDEO_SIZE_RANGE.ahk" { D3D12_VIDEO_SIZE_RANGE }
 #Import ".\D3D12_VIDEO_MOTION_ESTIMATOR_VECTOR_PRECISION.ahk" { D3D12_VIDEO_MOTION_ESTIMATOR_VECTOR_PRECISION }
+#Import ".\D3D12_VIDEO_SIZE_RANGE.ahk" { D3D12_VIDEO_SIZE_RANGE }
 
 /**
  * Describes the allocation size of a video motion estimator heap.

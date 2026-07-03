@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 #Import ".\WLDP_SECURE_SETTING_VALUE_TYPE.ahk" { WLDP_SECURE_SETTING_VALUE_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
@@ -52,10 +52,6 @@ export default struct PWLDP_QUERYSECURITYPOLICY_API {
             this.value := CallbackCreate(fn, , [UNICODE_STRING.Ptr, UNICODE_STRING.Ptr, UNICODE_STRING.Ptr, IntPtr, "uint*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

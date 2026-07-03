@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\EVENT_DESCRIPTOR.ahk" { EVENT_DESCRIPTOR }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\EVENT_DESCRIPTOR.ahk" { EVENT_DESCRIPTOR }
 
 /**
  * The EVENT_HEADER structure (evntcons.h) defines information about the event.

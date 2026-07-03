@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
 #Import ".\WINSAT_ASSESSMENT_STATE.ahk" { WINSAT_ASSESSMENT_STATE }
 #Import ".\WINSAT_BITMAP_SIZE.ahk" { WINSAT_BITMAP_SIZE }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
 
 /**
  * Retrieves elements that can be used in a user interface to graphically represent the WinSAT assessment.

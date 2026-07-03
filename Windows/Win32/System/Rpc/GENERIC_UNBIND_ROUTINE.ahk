@@ -46,10 +46,6 @@ export default struct GENERIC_UNBIND_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", "char*", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

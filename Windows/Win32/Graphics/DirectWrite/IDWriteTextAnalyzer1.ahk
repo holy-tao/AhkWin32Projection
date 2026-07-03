@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDWriteTextAnalysisSink1.ahk" { IDWriteTextAnalysisSink1 }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DWRITE_GLYPH_ORIENTATION_ANGLE.ahk" { DWRITE_GLYPH_ORIENTATION_ANGLE }
-#Import ".\IDWriteTextAnalyzer.ahk" { IDWriteTextAnalyzer }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DWRITE_SCRIPT_ANALYSIS.ahk" { DWRITE_SCRIPT_ANALYSIS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DWRITE_BASELINE.ahk" { DWRITE_BASELINE }
 #Import ".\DWRITE_GLYPH_OFFSET.ahk" { DWRITE_GLYPH_OFFSET }
+#Import ".\DWRITE_GLYPH_ORIENTATION_ANGLE.ahk" { DWRITE_GLYPH_ORIENTATION_ANGLE }
+#Import ".\DWRITE_JUSTIFICATION_OPPORTUNITY.ahk" { DWRITE_JUSTIFICATION_OPPORTUNITY }
+#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
+#Import ".\DWRITE_SCRIPT_ANALYSIS.ahk" { DWRITE_SCRIPT_ANALYSIS }
 #Import ".\DWRITE_SCRIPT_PROPERTIES.ahk" { DWRITE_SCRIPT_PROPERTIES }
 #Import ".\DWRITE_SHAPING_GLYPH_PROPERTIES.ahk" { DWRITE_SHAPING_GLYPH_PROPERTIES }
 #Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
+#Import ".\IDWriteTextAnalysisSink1.ahk" { IDWriteTextAnalysisSink1 }
 #Import ".\IDWriteTextAnalysisSource1.ahk" { IDWriteTextAnalysisSource1 }
-#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DWRITE_BASELINE.ahk" { DWRITE_BASELINE }
-#Import ".\DWRITE_JUSTIFICATION_OPPORTUNITY.ahk" { DWRITE_JUSTIFICATION_OPPORTUNITY }
+#Import ".\IDWriteTextAnalyzer.ahk" { IDWriteTextAnalyzer }
 
 /**
  * Analyzes various text properties for complex script processing. (IDWriteTextAnalyzer1)

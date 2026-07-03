@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SID_AND_ATTRIBUTES.ahk" { SID_AND_ATTRIBUTES }
 #Import ".\PSID.ahk" { PSID }
+#Import ".\SID_AND_ATTRIBUTES.ahk" { SID_AND_ATTRIBUTES }
 
 /**
  * Contains information about the group security identifiers (SIDs) in an access token.

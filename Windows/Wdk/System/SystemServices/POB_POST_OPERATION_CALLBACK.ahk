@@ -46,10 +46,6 @@ export default struct POB_POST_OPERATION_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", OB_POST_OPERATION_INFORMATION.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

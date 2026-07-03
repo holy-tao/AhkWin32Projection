@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FsrmFileManagementType.ahk" { FsrmFileManagementType }
-#Import ".\FsrmActionType.ahk" { FsrmActionType }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\FsrmActionType.ahk" { FsrmActionType }
+#Import ".\FsrmFileManagementType.ahk" { FsrmFileManagementType }
 #Import ".\FsrmReportGenerationContext.ahk" { FsrmReportGenerationContext }
 #Import ".\FsrmReportRunningStatus.ahk" { FsrmReportRunningStatus }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IFsrmActionCommand.ahk" { IFsrmActionCommand }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IFsrmCollection.ahk" { IFsrmCollection }
-#Import ".\IFsrmPropertyCondition.ahk" { IFsrmPropertyCondition }
-#Import ".\IFsrmObject.ahk" { IFsrmObject }
 #Import ".\IFsrmAction.ahk" { IFsrmAction }
+#Import ".\IFsrmActionCommand.ahk" { IFsrmActionCommand }
+#Import ".\IFsrmCollection.ahk" { IFsrmCollection }
+#Import ".\IFsrmObject.ahk" { IFsrmObject }
+#Import ".\IFsrmPropertyCondition.ahk" { IFsrmPropertyCondition }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**

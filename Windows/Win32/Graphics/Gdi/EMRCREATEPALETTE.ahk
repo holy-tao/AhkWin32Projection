@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
-#Import ".\PALETTEENTRY.ahk" { PALETTEENTRY }
-#Import ".\LOGPALETTE.ahk" { LOGPALETTE }
 #Import ".\EMR.ahk" { EMR }
+#Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
+#Import ".\LOGPALETTE.ahk" { LOGPALETTE }
+#Import ".\PALETTEENTRY.ahk" { PALETTEENTRY }
 
 /**
  * The EMRCREATEPALETTE structure contains members for the CreatePalette enhanced metafile record.

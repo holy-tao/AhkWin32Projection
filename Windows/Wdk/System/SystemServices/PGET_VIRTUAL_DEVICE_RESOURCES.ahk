@@ -41,10 +41,6 @@ export default struct PGET_VIRTUAL_DEVICE_RESOURCES {
             this.value := CallbackCreate(fn, , [IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

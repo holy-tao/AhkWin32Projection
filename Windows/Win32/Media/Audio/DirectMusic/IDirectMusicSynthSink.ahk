@@ -2,12 +2,12 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\IReferenceClock.ahk" { IReferenceClock }
-#Import ".\IDirectMusicSynth.ahk" { IDirectMusicSynth }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDirectMusicSynth.ahk" { IDirectMusicSynth }
 #Import "..\DirectSound\IDirectSound.ahk" { IDirectSound }
 #Import "..\DirectSound\IDirectSoundBuffer.ahk" { IDirectSoundBuffer }
+#Import "..\..\IReferenceClock.ahk" { IReferenceClock }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDirectMusicSynthSink interface is now largely obsolete and is supported only by versions of DirectMusic before DirectX 8.

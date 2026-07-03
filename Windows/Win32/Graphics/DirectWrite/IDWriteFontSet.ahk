@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DWRITE_FONT_PROPERTY_ID.ahk" { DWRITE_FONT_PROPERTY_ID }
-#Import ".\IDWriteLocalizedStrings.ahk" { IDWriteLocalizedStrings }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DWRITE_FONT_PROPERTY.ahk" { DWRITE_FONT_PROPERTY }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDWriteFontFaceReference.ahk" { IDWriteFontFaceReference }
+#Import ".\DWRITE_FONT_PROPERTY_ID.ahk" { DWRITE_FONT_PROPERTY_ID }
+#Import ".\DWRITE_FONT_STRETCH.ahk" { DWRITE_FONT_STRETCH }
 #Import ".\DWRITE_FONT_STYLE.ahk" { DWRITE_FONT_STYLE }
 #Import ".\DWRITE_FONT_WEIGHT.ahk" { DWRITE_FONT_WEIGHT }
 #Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
+#Import ".\IDWriteFontFaceReference.ahk" { IDWriteFontFaceReference }
+#Import ".\IDWriteLocalizedStrings.ahk" { IDWriteLocalizedStrings }
 #Import ".\IDWriteStringList.ahk" { IDWriteStringList }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DWRITE_FONT_STRETCH.ahk" { DWRITE_FONT_STRETCH }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a font set. (IDWriteFontSet)

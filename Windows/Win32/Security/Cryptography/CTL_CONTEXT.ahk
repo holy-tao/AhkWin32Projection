@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HCERTSTORE.ahk" { HCERTSTORE }
 #Import ".\CTL_INFO.ahk" { CTL_INFO }
+#Import ".\HCERTSTORE.ahk" { HCERTSTORE }
 
 /**
  * The CTL_CONTEXT structure contains both the encoded and decoded representations of a CTL.

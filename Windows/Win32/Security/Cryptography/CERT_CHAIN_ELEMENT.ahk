@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import ".\CERT_REVOCATION_INFO.ahk" { CERT_REVOCATION_INFO }
-#Import ".\CTL_USAGE.ahk" { CTL_USAGE }
 #Import ".\CERT_TRUST_STATUS.ahk" { CERT_TRUST_STATUS }
+#Import ".\CTL_USAGE.ahk" { CTL_USAGE }
 
 /**
  * The CERT_CHAIN_ELEMENT structure is a single element in a simple certificate chain.

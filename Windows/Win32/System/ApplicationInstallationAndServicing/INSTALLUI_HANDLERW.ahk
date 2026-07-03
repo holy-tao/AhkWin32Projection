@@ -420,10 +420,6 @@ export default struct INSTALLUI_HANDLERW {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, PWSTR, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,14 +1,14 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ENCLAVE_SEALING_IDENTITY_POLICY.ahk" { ENCLAVE_SEALING_IDENTITY_POLICY }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\TRUSTLET_BINDING_DATA.ahk" { TRUSTLET_BINDING_DATA }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ENCLAVE_IDENTITY.ahk" { ENCLAVE_IDENTITY }
+#Import ".\ENCLAVE_SEALING_IDENTITY_POLICY.ahk" { ENCLAVE_SEALING_IDENTITY_POLICY }
+#Import ".\TRUSTLET_BINDING_DATA.ahk" { TRUSTLET_BINDING_DATA }
 
 /**
  * @namespace Windows.Win32.System.Environment

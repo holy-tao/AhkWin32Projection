@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
 
 /**
  * Exposes methods to manage input/output (I/O) to an asynchronous stream.

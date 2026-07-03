@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RM_FILTER_ACTION.ahk" { RM_FILTER_ACTION }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\RM_UNIQUE_PROCESS.ahk" { RM_UNIQUE_PROCESS }
-#Import ".\RM_FILTER_TRIGGER.ahk" { RM_FILTER_TRIGGER }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\RM_FILTER_ACTION.ahk" { RM_FILTER_ACTION }
+#Import ".\RM_FILTER_TRIGGER.ahk" { RM_FILTER_TRIGGER }
+#Import ".\RM_UNIQUE_PROCESS.ahk" { RM_UNIQUE_PROCESS }
 
 /**
  * Contains information about modifications to restart or shutdown actions.

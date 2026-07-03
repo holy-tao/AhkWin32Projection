@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\ADDRINFO_DNS_SERVER.ahk" { ADDRINFO_DNS_SERVER }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ADDRINFOEX5.ahk" { ADDRINFOEX5 }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ADDRINFO_DNS_SERVER.ahk" { ADDRINFO_DNS_SERVER }
 #Import ".\SOCKADDR.ahk" { SOCKADDR }
 
 /**

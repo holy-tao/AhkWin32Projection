@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISVGAnimatedNumberList.ahk" { ISVGAnimatedNumberList }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\ISVGAnimatedLengthList.ahk" { ISVGAnimatedLengthList }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISVGAnimatedNumberList.ahk" { ISVGAnimatedNumberList }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

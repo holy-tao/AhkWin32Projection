@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\KS_H264VIDEOINFO.ahk" { KS_H264VIDEOINFO }
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
-#Import ".\KS_VIDEO_STREAM_CONFIG_CAPS.ahk" { KS_VIDEO_STREAM_CONFIG_CAPS }
-#Import ".\KSDATAFORMAT.ahk" { KSDATAFORMAT }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import ".\KSDATAFORMAT.ahk" { KSDATAFORMAT }
+#Import ".\KS_H264VIDEOINFO.ahk" { KS_H264VIDEOINFO }
+#Import ".\KS_VIDEO_STREAM_CONFIG_CAPS.ahk" { KS_VIDEO_STREAM_CONFIG_CAPS }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

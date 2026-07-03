@@ -49,10 +49,6 @@ export default struct pHalGetAcpiTable {
             this.value := CallbackCreate(fn, , [UInt32, PSTR, PSTR, "ptr"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

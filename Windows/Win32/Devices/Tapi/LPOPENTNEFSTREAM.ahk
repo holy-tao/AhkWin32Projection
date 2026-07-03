@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\ITnef.ahk" { ITnef }
-#Import "..\..\System\AddressBook\IMessage.ahk" { IMessage }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\AddressBook\IMessage.ahk" { IMessage }
 #Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
@@ -55,10 +55,6 @@ export default struct LPOPENTNEFSTREAM {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", "char*", UInt32, "ptr", UInt16, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

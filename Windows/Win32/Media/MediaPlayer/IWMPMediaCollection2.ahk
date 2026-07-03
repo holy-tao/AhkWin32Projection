@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWMPMediaCollection.ahk" { IWMPMediaCollection }
-#Import ".\IWMPStringCollection.ahk" { IWMPStringCollection }
-#Import ".\IWMPPlaylist.ahk" { IWMPPlaylist }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IWMPMediaCollection.ahk" { IWMPMediaCollection }
+#Import ".\IWMPPlaylist.ahk" { IWMPPlaylist }
 #Import ".\IWMPQuery.ahk" { IWMPQuery }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IWMPStringCollection.ahk" { IWMPStringCollection }
 
 /**
  * The IWMPMediaCollection2 interface provides methods that supplement the IWMPMediaCollection interface.

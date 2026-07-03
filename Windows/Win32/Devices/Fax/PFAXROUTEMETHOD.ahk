@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\FAX_ROUTE.ahk" { FAX_ROUTE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The FaxRouteMethod function is a placeholder for a function name defined by the fax routing extension DLL. This function executes a defined fax routing procedure.
@@ -73,10 +73,6 @@ export default struct PFAXROUTEMETHOD {
             this.value := CallbackCreate(fn, , [FAX_ROUTE.Ptr, "ptr*", "uint*", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

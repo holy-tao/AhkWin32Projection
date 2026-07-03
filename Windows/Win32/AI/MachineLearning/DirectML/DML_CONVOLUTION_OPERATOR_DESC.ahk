@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DML_CONVOLUTION_DIRECTION.ahk" { DML_CONVOLUTION_DIRECTION }
 #Import ".\DML_CONVOLUTION_MODE.ahk" { DML_CONVOLUTION_MODE }
 #Import ".\DML_OPERATOR_DESC.ahk" { DML_OPERATOR_DESC }
 #Import ".\DML_TENSOR_DESC.ahk" { DML_TENSOR_DESC }
-#Import ".\DML_CONVOLUTION_DIRECTION.ahk" { DML_CONVOLUTION_DIRECTION }
 
 /**
  * Performs a convolution of the *FilterTensor* with the *InputTensor*. This operator supports a number of standard convolution configurations.

@@ -57,10 +57,6 @@ export default struct alljoyn_authlistener_requestcredentials_ptr {
             this.value := CallbackCreate(fn, , ["ptr", PSTR, PSTR, UInt16, PSTR, UInt16, alljoyn_credentials, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import "..\..\Foundation\DECIMAL.ahk" { DECIMAL }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\DECIMAL.ahk" { DECIMAL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\System\Ole\IRecordInfo.ahk" { IRecordInfo }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 #Import "..\..\System\Com\CY.ahk" { CY }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\System\Ole\IRecordInfo.ahk" { IRecordInfo }
 #Import "..\..\System\Variant\VARENUM.ahk" { VARENUM }
-#Import ".\PropertyConditionFlags.ahk" { PropertyConditionFlags }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\ConditionType.ahk" { ConditionType }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\PropertyConditionFlags.ahk" { PropertyConditionFlags }
 #Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
-#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Note  This structure is deprecated.  Contains information about a condition used to find UI Automation elements that have a matching property.

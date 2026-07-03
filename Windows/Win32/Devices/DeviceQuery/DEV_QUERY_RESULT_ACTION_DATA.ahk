@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Properties\DEVPROPERTY.ahk" { DEVPROPERTY }
 #Import ".\DEV_OBJECT.ahk" { DEV_OBJECT }
-#Import ".\DEV_QUERY_RESULT_ACTION.ahk" { DEV_QUERY_RESULT_ACTION }
 #Import ".\DEV_OBJECT_TYPE.ahk" { DEV_OBJECT_TYPE }
+#Import ".\DEV_QUERY_RESULT_ACTION.ahk" { DEV_QUERY_RESULT_ACTION }
 #Import ".\DEV_QUERY_STATE.ahk" { DEV_QUERY_STATE }
+#Import "..\Properties\DEVPROPERTY.ahk" { DEVPROPERTY }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**

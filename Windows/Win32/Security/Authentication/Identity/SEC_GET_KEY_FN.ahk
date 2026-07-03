@@ -52,10 +52,6 @@ export default struct SEC_GET_KEY_FN {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", UInt32, "ptr*", "int*", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

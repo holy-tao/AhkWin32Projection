@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DML_TENSOR_DATA_TYPE.ahk" { DML_TENSOR_DATA_TYPE }
 #Import ".\DML_PADDING_MODE.ahk" { DML_PADDING_MODE }
-#Import ".\DML_TENSOR_DESC.ahk" { DML_TENSOR_DESC }
 #Import ".\DML_SCALAR_UNION.ahk" { DML_SCALAR_UNION }
+#Import ".\DML_TENSOR_DATA_TYPE.ahk" { DML_TENSOR_DATA_TYPE }
+#Import ".\DML_TENSOR_DESC.ahk" { DML_TENSOR_DESC }
 
 /**
  * The DML_PADDING1_OPERATOR_DESC structure (directml.h) inflates the input tensor with constant or mirrored values on the edges, and writes the result to the output.

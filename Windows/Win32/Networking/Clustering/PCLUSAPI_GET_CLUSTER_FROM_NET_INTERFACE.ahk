@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HNETINTERFACE.ahk" { HNETINTERFACE }
 #Import ".\HCLUSTER.ahk" { HCLUSTER }
+#Import ".\HNETINTERFACE.ahk" { HNETINTERFACE }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -45,10 +45,6 @@ export default struct PCLUSAPI_GET_CLUSTER_FROM_NET_INTERFACE {
             this.value := CallbackCreate(fn, , [HNETINTERFACE, HCLUSTER])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

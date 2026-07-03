@@ -49,10 +49,6 @@ export default struct PFAXROUTEDEVICEENABLE {
             this.value := CallbackCreate(fn, , [PWSTR, UInt32, Int32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

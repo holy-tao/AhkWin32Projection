@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFMediaEvent.ahk" { IMFMediaEvent }
-#Import ".\IMFCaptureEngineOnSampleCallback.ahk" { IMFCaptureEngineOnSampleCallback }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFCaptureEngineOnSampleCallback.ahk" { IMFCaptureEngineOnSampleCallback }
+#Import ".\IMFMediaEvent.ahk" { IMFMediaEvent }
 
 /**
  * Extensions for the IMFCaptureEngineOnSampleCallback callback interface that is used to receive data from the capture engine.

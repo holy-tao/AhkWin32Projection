@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Dxgi\IDXGISwapChain.ahk" { IDXGISwapChain }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3D11_RLDO_FLAGS.ahk" { D3D11_RLDO_FLAGS }
 #Import ".\ID3D11DeviceContext.ahk" { ID3D11DeviceContext }
+#Import "..\Dxgi\IDXGISwapChain.ahk" { IDXGISwapChain }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * A debug interface controls debug settings, validates pipeline state and can only be used if the debug layer is turned on. (ID3D11Debug)

@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Storage\IndexServer\FILTERREGION.ahk" { FILTERREGION }
+#Import "..\..\Storage\IndexServer\IFilter.ahk" { IFilter }
 #Import "..\Com\IMoniker.ahk" { IMoniker }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Storage\IndexServer\IFilter.ahk" { IFilter }
 
 /**
  * @namespace Windows.Win32.System.Search

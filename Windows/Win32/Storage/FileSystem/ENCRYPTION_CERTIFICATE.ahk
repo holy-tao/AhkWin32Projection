@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\EFS_CERTIFICATE_BLOB.ahk" { EFS_CERTIFICATE_BLOB }
 #Import "..\..\Security\SID.ahk" { SID }
+#Import ".\EFS_CERTIFICATE_BLOB.ahk" { EFS_CERTIFICATE_BLOB }
 
 /**
  * Contains a certificate and the SID of its owner.

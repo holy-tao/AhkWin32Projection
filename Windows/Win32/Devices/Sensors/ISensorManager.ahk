@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISensorManagerEvents.ahk" { ISensorManagerEvents }
-#Import ".\ISensorCollection.ahk" { ISensorCollection }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\ISensor.ahk" { ISensor }
+#Import ".\ISensorCollection.ahk" { ISensorCollection }
+#Import ".\ISensorManagerEvents.ahk" { ISensorManagerEvents }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods for discovering and retrieving available sensors and a method to request sensor manager events.

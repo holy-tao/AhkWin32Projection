@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDCompositionSurface.ahk" { IDCompositionSurface }
+#Import ".\IDCompositionVirtualSurface.ahk" { IDCompositionVirtualSurface }
 #Import "..\Dxgi\Common\DXGI_ALPHA_MODE.ahk" { DXGI_ALPHA_MODE }
 #Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDCompositionVirtualSurface.ahk" { IDCompositionVirtualSurface }
-#Import ".\IDCompositionSurface.ahk" { IDCompositionSurface }
 
 /**
  * Creates surface and virtual surface objects associated with an application-provided rendering device.

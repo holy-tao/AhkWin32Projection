@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 
 /**
  * Receives event notifications from the Active Directory Domain Services container browser dialog box.
@@ -55,10 +55,6 @@ export default struct BFFCALLBACK {
             this.value := CallbackCreate(fn, , [HWND, UInt32, LPARAM, LPARAM, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISWbemQualifierSet.ahk" { ISWbemQualifierSet }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISWbemObjectSet.ahk" { ISWbemObjectSet }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\ISWbemPropertySet.ahk" { ISWbemPropertySet }
-#Import ".\ISWbemObjectPath.ahk" { ISWbemObjectPath }
-#Import ".\ISWbemMethodSet.ahk" { ISWbemMethodSet }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ISWbemSecurity.ahk" { ISWbemSecurity }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ISWbemMethodSet.ahk" { ISWbemMethodSet }
+#Import ".\ISWbemObjectPath.ahk" { ISWbemObjectPath }
+#Import ".\ISWbemObjectSet.ahk" { ISWbemObjectSet }
+#Import ".\ISWbemPropertySet.ahk" { ISWbemPropertySet }
+#Import ".\ISWbemQualifierSet.ahk" { ISWbemQualifierSet }
+#Import ".\ISWbemSecurity.ahk" { ISWbemSecurity }
 
 /**
  * @namespace Windows.Win32.System.Wmi

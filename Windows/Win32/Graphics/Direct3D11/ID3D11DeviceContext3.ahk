@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\D3D11_CONTEXT_TYPE.ahk" { D3D11_CONTEXT_TYPE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\ID3D11DeviceContext2.ahk" { ID3D11DeviceContext2 }
 
 /**

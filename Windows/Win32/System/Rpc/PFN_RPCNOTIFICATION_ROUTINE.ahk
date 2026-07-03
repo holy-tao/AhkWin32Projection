@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RPC_ASYNC_STATE.ahk" { RPC_ASYNC_STATE }
 #Import ".\RPC_ASYNC_EVENT.ahk" { RPC_ASYNC_EVENT }
+#Import ".\RPC_ASYNC_STATE.ahk" { RPC_ASYNC_STATE }
 
 /**
  * @namespace Windows.Win32.System.Rpc
@@ -48,10 +48,6 @@ export default struct PFN_RPCNOTIFICATION_ROUTINE {
             this.value := CallbackCreate(fn, , [RPC_ASYNC_STATE.Ptr, "ptr", RPC_ASYNC_EVENT, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

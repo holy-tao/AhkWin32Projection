@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\FS_FILTER_CALLBACK_DATA.ahk" { FS_FILTER_CALLBACK_DATA }
+#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
@@ -48,10 +48,6 @@ export default struct PFS_FILTER_COMPLETION_CALLBACK {
             this.value := CallbackCreate(fn, , [FS_FILTER_CALLBACK_DATA.Ptr, NTSTATUS, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

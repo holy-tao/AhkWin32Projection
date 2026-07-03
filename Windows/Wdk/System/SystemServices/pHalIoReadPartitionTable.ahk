@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\System\Ioctl\DRIVE_LAYOUT_INFORMATION.ahk" { DRIVE_LAYOUT_INFORMATION }
-#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\..\Win32\System\Ioctl\DRIVE_LAYOUT_INFORMATION.ahk" { DRIVE_LAYOUT_INFORMATION }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -33,7 +33,7 @@ export default struct pHalIoReadPartitionTable {
         PartitionBufferMarshal := PartitionBuffer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, DEVICE_OBJECT.Ptr, DeviceObject, UInt32, SectorSize, BOOLEAN, ReturnRecognizedPartitions, PartitionBufferMarshal, PartitionBuffer, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -53,10 +53,6 @@ export default struct pHalIoReadPartitionTable {
             this.value := CallbackCreate(fn, , [DEVICE_OBJECT.Ptr, UInt32, BOOLEAN, "ptr*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

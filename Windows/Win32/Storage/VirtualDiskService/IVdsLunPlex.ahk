@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\VDS_HINTS.ahk" { VDS_HINTS }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\VDS_DRIVE_EXTENT.ahk" { VDS_DRIVE_EXTENT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\VDS_LUN_PLEX_PROP.ahk" { VDS_LUN_PLEX_PROP }
 #Import ".\IVdsLun.ahk" { IVdsLun }
+#Import ".\VDS_DRIVE_EXTENT.ahk" { VDS_DRIVE_EXTENT }
+#Import ".\VDS_HINTS.ahk" { VDS_HINTS }
+#Import ".\VDS_LUN_PLEX_PROP.ahk" { VDS_LUN_PLEX_PROP }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVdsLunPlex interface (vdshwprv.h) provides methods for performing query and configuration operations on a LUN plex.

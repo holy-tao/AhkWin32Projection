@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\SHELL_ITEM_RESOURCE.ahk" { SHELL_ITEM_RESOURCE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IEnumResources.ahk" { IEnumResources }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumResources.ahk" { IEnumResources }
+#Import ".\SHELL_ITEM_RESOURCE.ahk" { SHELL_ITEM_RESOURCE }
 
 /**
  * Exposes methods to manipulate and query Shell item resources.

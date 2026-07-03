@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DWRITE_FONT_METRICS1.ahk" { DWRITE_FONT_METRICS1 }
 #Import ".\DWRITE_PANOSE.ahk" { DWRITE_PANOSE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DWRITE_UNICODE_RANGE.ahk" { DWRITE_UNICODE_RANGE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDWriteFont.ahk" { IDWriteFont }
 
 /**

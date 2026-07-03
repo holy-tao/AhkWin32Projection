@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\XPS_SPREAD_METHOD.ahk" { XPS_SPREAD_METHOD }
-#Import ".\IXpsOMMatrixTransform.ahk" { IXpsOMMatrixTransform }
-#Import ".\IXpsOMBrush.ahk" { IXpsOMBrush }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\XPS_COLOR_INTERPOLATION.ahk" { XPS_COLOR_INTERPOLATION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IXpsOMBrush.ahk" { IXpsOMBrush }
 #Import ".\IXpsOMGradientStopCollection.ahk" { IXpsOMGradientStopCollection }
+#Import ".\IXpsOMMatrixTransform.ahk" { IXpsOMMatrixTransform }
+#Import ".\XPS_COLOR_INTERPOLATION.ahk" { XPS_COLOR_INTERPOLATION }
+#Import ".\XPS_SPREAD_METHOD.ahk" { XPS_SPREAD_METHOD }
 
 /**
  * This interface describes a gradient that is made up of gradient stops. Classes that inherit from IXpsOMGradientBrush specify different ways of interpreting gradient stops.

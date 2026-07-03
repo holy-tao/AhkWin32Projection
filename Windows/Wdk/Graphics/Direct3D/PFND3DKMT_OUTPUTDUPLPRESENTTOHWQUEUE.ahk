@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\D3DKMT_OUTPUTDUPLPRESENTTOHWQUEUE.ahk" { D3DKMT_OUTPUTDUPLPRESENTTOHWQUEUE }
+#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
@@ -26,7 +26,7 @@ export default struct PFND3DKMT_OUTPUTDUPLPRESENTTOHWQUEUE {
      */
     Call(param0) {
         result := DllCall(this.value, D3DKMT_OUTPUTDUPLPRESENTTOHWQUEUE.Ptr, param0, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -46,10 +46,6 @@ export default struct PFND3DKMT_OUTPUTDUPLPRESENTTOHWQUEUE {
             this.value := CallbackCreate(fn, , [D3DKMT_OUTPUTDUPLPRESENTTOHWQUEUE.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

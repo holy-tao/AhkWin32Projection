@@ -48,10 +48,6 @@ export default struct PTP_TIMER_CALLBACK {
             this.value := CallbackCreate(fn, , [PTP_CALLBACK_INSTANCE, "ptr", PTP_TIMER, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

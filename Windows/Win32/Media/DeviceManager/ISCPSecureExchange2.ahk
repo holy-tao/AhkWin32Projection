@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWMDMProgress3.ahk" { IWMDMProgress3 }
 #Import ".\ISCPSecureExchange.ahk" { ISCPSecureExchange }
+#Import ".\IWMDMProgress3.ahk" { IWMDMProgress3 }
 
 /**
  * The ISCPSecureExchange2 interface extends ISCPSecureExchange by providing a new version of the TransferContainerData method.

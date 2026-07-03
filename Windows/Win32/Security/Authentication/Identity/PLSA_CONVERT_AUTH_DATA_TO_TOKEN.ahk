@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\Foundation\LUID.ahk" { LUID }
+#Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 #Import ".\SECURITY_LOGON_TYPE.ahk" { SECURITY_LOGON_TYPE }
-#Import "..\..\..\Foundation\LUID.ahk" { LUID }
 #Import "..\..\SECURITY_IMPERSONATION_LEVEL.ahk" { SECURITY_IMPERSONATION_LEVEL }
-#Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import "..\..\TOKEN_SOURCE.ahk" { TOKEN_SOURCE }
 
 /**
@@ -43,7 +43,7 @@ export default struct PLSA_CONVERT_AUTH_DATA_TO_TOKEN {
         SubStatusMarshal := SubStatus is VarRef ? "int*" : "ptr"
 
         result := DllCall(this.value, UserAuthDataMarshal, UserAuthData, UInt32, UserAuthDataSize, SECURITY_IMPERSONATION_LEVEL, ImpersonationLevel, TOKEN_SOURCE.Ptr, TokenSource, SECURITY_LOGON_TYPE, LogonType, LSA_UNICODE_STRING.Ptr, AuthorityName, HANDLE.Ptr, Token, LUID.Ptr, LogonId, LSA_UNICODE_STRING.Ptr, AccountName, SubStatusMarshal, SubStatus, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -63,10 +63,6 @@ export default struct PLSA_CONVERT_AUTH_DATA_TO_TOKEN {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, SECURITY_IMPERSONATION_LEVEL, TOKEN_SOURCE.Ptr, SECURITY_LOGON_TYPE, LSA_UNICODE_STRING.Ptr, HANDLE.Ptr, LUID.Ptr, LSA_UNICODE_STRING.Ptr, "int*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -126,10 +126,6 @@ export default struct LPWSPGETOVERLAPPEDRESULT {
             this.value := CallbackCreate(fn, , [SOCKET, OVERLAPPED.Ptr, "uint*", BOOL, "uint*", "int*", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

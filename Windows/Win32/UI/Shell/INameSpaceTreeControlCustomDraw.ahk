@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\NSTCCUSTOMDRAW.ahk" { NSTCCUSTOMDRAW }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
 
 /**
  * Exposes methods that enable the user to draw a custom namespace tree control and its items.

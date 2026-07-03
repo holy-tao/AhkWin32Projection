@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HNODEENUM.ahk" { HNODEENUM }
 #Import ".\HNODE.ahk" { HNODE }
+#Import ".\HNODEENUM.ahk" { HNODEENUM }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -46,10 +46,6 @@ export default struct PCLUSAPI_CLUSTER_NODE_OPEN_ENUM {
             this.value := CallbackCreate(fn, , [HNODE, UInt32, HNODEENUM])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

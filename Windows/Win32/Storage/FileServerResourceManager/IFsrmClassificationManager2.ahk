@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IFsrmClassificationManager.ahk" { IFsrmClassificationManager }
-#Import ".\FsrmGetFilePropertyOptions.ahk" { FsrmGetFilePropertyOptions }
-#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FsrmGetFilePropertyOptions.ahk" { FsrmGetFilePropertyOptions }
+#Import ".\IFsrmClassificationManager.ahk" { IFsrmClassificationManager }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Manages file classification. Use this interface to define properties to use in classification, add classification rules for classifying files, define classification and storage modules, and enable classification reporting. (IFsrmClassificationManager2)

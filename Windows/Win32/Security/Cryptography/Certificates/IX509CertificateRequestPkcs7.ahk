@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISignerCertificate.ahk" { ISignerCertificate }
-#Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\EncodingType.ahk" { EncodingType }
-#Import ".\X509RequestInheritOptions.ahk" { X509RequestInheritOptions }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import ".\ISignerCertificate.ahk" { ISignerCertificate }
 #Import ".\IX509CertificateRequest.ahk" { IX509CertificateRequest }
+#Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
+#Import ".\X509RequestInheritOptions.ahk" { X509RequestInheritOptions }
 
 /**
  * The IX509CertificateRequestPkcs7 interface represents a PKCS

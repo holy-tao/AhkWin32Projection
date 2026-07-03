@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SURFACEALIGNMENT.ahk" { SURFACEALIGNMENT }
 #Import ".\DDSCAPS.ahk" { DDSCAPS }
+#Import ".\SURFACEALIGNMENT.ahk" { SURFACEALIGNMENT }
 
 /**
  * The HEAPALIGNMENT structure contains data specifying the alignment requirements for a given display memory heap.

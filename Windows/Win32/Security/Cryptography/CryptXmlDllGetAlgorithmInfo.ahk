@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CRYPT_XML_ALGORITHM.ahk" { CRYPT_XML_ALGORITHM }
 #Import ".\CRYPT_XML_ALGORITHM_INFO.ahk" { CRYPT_XML_ALGORITHM_INFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Decodes the XML algorithm and returns information about the algorithm.
@@ -50,10 +50,6 @@ export default struct CryptXmlDllGetAlgorithmInfo {
             this.value := CallbackCreate(fn, , [CRYPT_XML_ALGORITHM.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Registry\HKEY.ahk" { HKEY }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\PFNSTATUSMESSAGECALLBACK.ahk" { PFNSTATUSMESSAGECALLBACK }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\GROUP_POLICY_OBJECTA.ahk" { GROUP_POLICY_OBJECTA }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\GROUP_POLICY_OBJECTA.ahk" { GROUP_POLICY_OBJECTA }
+#Import "..\Registry\HKEY.ahk" { HKEY }
 #Import "..\Wmi\IWbemServices.ahk" { IWbemServices }
 
 /**
@@ -82,7 +81,7 @@ export default struct PFNPROCESSGROUPPOLICYEX {
         pbAbortMarshal := pbAbort is VarRef ? "int*" : "ptr"
         pRsopStatusMarshal := pRsopStatus is VarRef ? "int*" : "ptr"
 
-        result := DllCall(this.value, UInt32, dwFlags, HANDLE, hToken, HKEY, hKeyRoot, GROUP_POLICY_OBJECTA.Ptr, pDeletedGPOList, GROUP_POLICY_OBJECTA.Ptr, pChangedGPOList, IntPtr, pHandle, pbAbortMarshal, pbAbort, PFNSTATUSMESSAGECALLBACK, pStatusCallback, "ptr", pWbemServices, pRsopStatusMarshal, pRsopStatus, UInt32)
+        result := DllCall(this.value, UInt32, dwFlags, HANDLE, hToken, HKEY, hKeyRoot, GROUP_POLICY_OBJECTA.Ptr, pDeletedGPOList, GROUP_POLICY_OBJECTA.Ptr, pChangedGPOList, IntPtr, pHandle, pbAbortMarshal, pbAbort, "ptr", pStatusCallback, "ptr", pWbemServices, pRsopStatusMarshal, pRsopStatus, UInt32)
         return result
     }
 
@@ -93,19 +92,15 @@ export default struct PFNPROCESSGROUPPOLICYEX {
     struct From extends PFNPROCESSGROUPPOLICYEX {
         /**
          * Creates a PFNPROCESSGROUPPOLICYEX pointer that invokes the given AHK function when called.
-         * @param {Func(UInt32, HANDLE, HKEY, GROUP_POLICY_OBJECTA, GROUP_POLICY_OBJECTA, IntPtr, BOOL, PFNSTATUSMESSAGECALLBACK, "ptr", "int*") => UInt32} fn the function to invoke.
+         * @param {Func(UInt32, HANDLE, HKEY, GROUP_POLICY_OBJECTA, GROUP_POLICY_OBJECTA, IntPtr, BOOL, "ptr", "ptr", "int*") => UInt32} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 10)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 10 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [UInt32, HANDLE, HKEY, GROUP_POLICY_OBJECTA.Ptr, GROUP_POLICY_OBJECTA.Ptr, IntPtr, BOOL.Ptr, PFNSTATUSMESSAGECALLBACK, "ptr", "int*", UInt32])
+            this.value := CallbackCreate(fn, , [UInt32, HANDLE, HKEY, GROUP_POLICY_OBJECTA.Ptr, GROUP_POLICY_OBJECTA.Ptr, IntPtr, BOOL.Ptr, "ptr", "ptr", "int*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

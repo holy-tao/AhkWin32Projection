@@ -1,19 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PDD_VPORTCB_WAITFORSYNC.ahk" { PDD_VPORTCB_WAITFORSYNC }
-#Import ".\PDD_VPORTCB_GETLINE.ahk" { PDD_VPORTCB_GETLINE }
-#Import ".\PDD_VPORTCB_FLIP.ahk" { PDD_VPORTCB_FLIP }
-#Import ".\PDD_VPORTCB_COLORCONTROL.ahk" { PDD_VPORTCB_COLORCONTROL }
-#Import ".\PDD_VPORTCB_GETOUTPUTFORMATS.ahk" { PDD_VPORTCB_GETOUTPUTFORMATS }
-#Import ".\PDD_VPORTCB_DESTROYVPORT.ahk" { PDD_VPORTCB_DESTROYVPORT }
-#Import ".\PDD_VPORTCB_GETFIELD.ahk" { PDD_VPORTCB_GETFIELD }
-#Import ".\PDD_VPORTCB_CREATEVIDEOPORT.ahk" { PDD_VPORTCB_CREATEVIDEOPORT }
-#Import ".\PDD_VPORTCB_GETSIGNALSTATUS.ahk" { PDD_VPORTCB_GETSIGNALSTATUS }
-#Import ".\PDD_VPORTCB_UPDATE.ahk" { PDD_VPORTCB_UPDATE }
-#Import ".\PDD_VPORTCB_GETVPORTCONNECT.ahk" { PDD_VPORTCB_GETVPORTCONNECT }
-#Import ".\PDD_VPORTCB_GETBANDWIDTH.ahk" { PDD_VPORTCB_GETBANDWIDTH }
-#Import ".\PDD_VPORTCB_GETFLIPSTATUS.ahk" { PDD_VPORTCB_GETFLIPSTATUS }
-#Import ".\PDD_VPORTCB_GETINPUTFORMATS.ahk" { PDD_VPORTCB_GETINPUTFORMATS }
-#Import ".\PDD_VPORTCB_CANCREATEVIDEOPORT.ahk" { PDD_VPORTCB_CANCREATEVIDEOPORT }
 
 /**
  * The DD_VIDEOPORTCALLBACKS structure contains entry pointers to Microsoft DirectDraw video port extensions (VPE) callback functions that a device driver supports.
@@ -58,32 +43,32 @@ export default struct DD_VIDEOPORTCALLBACKS {
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_cancreatevideoport">DdVideoPortCanCreate</a> callback.
      */
-    CanCreateVideoPort : PDD_VPORTCB_CANCREATEVIDEOPORT
+    CanCreateVideoPort : IntPtr
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_createvideoport">DdVideoPortCreate</a> callback.
      */
-    CreateVideoPort : PDD_VPORTCB_CREATEVIDEOPORT
+    CreateVideoPort : IntPtr
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_flip">DdVideoPortFlip</a> callback.
      */
-    FlipVideoPort : PDD_VPORTCB_FLIP
+    FlipVideoPort : IntPtr
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_getbandwidth">DdVideoPortGetBandwidth</a> callback.
      */
-    GetVideoPortBandwidth : PDD_VPORTCB_GETBANDWIDTH
+    GetVideoPortBandwidth : IntPtr
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_getinputformats">DdVideoPortGetInputFormats</a> callback.
      */
-    GetVideoPortInputFormats : PDD_VPORTCB_GETINPUTFORMATS
+    GetVideoPortInputFormats : IntPtr
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_getoutputformats">DdVideoPortGetOutputFormats</a> callback.
      */
-    GetVideoPortOutputFormats : PDD_VPORTCB_GETOUTPUTFORMATS
+    GetVideoPortOutputFormats : IntPtr
 
     /**
      * Reserved for system use and should be ignored by the driver.
@@ -93,46 +78,46 @@ export default struct DD_VIDEOPORTCALLBACKS {
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_getfield">DdVideoPortGetField</a> callback.
      */
-    GetVideoPortField : PDD_VPORTCB_GETFIELD
+    GetVideoPortField : IntPtr
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_getline">DdVideoPortGetLine</a> callback.
      */
-    GetVideoPortLine : PDD_VPORTCB_GETLINE
+    GetVideoPortLine : IntPtr
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_getvportconnect">DdVideoPortGetConnectInfo</a> callback.
      */
-    GetVideoPortConnectInfo : PDD_VPORTCB_GETVPORTCONNECT
+    GetVideoPortConnectInfo : IntPtr
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_destroyvport">DdVideoPortDestroy</a> callback.
      */
-    DestroyVideoPort : PDD_VPORTCB_DESTROYVPORT
+    DestroyVideoPort : IntPtr
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_getflipstatus">DdVideoPortGetFlipStatus</a> callback.
      */
-    GetVideoPortFlipStatus : PDD_VPORTCB_GETFLIPSTATUS
+    GetVideoPortFlipStatus : IntPtr
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_update">DdVideoPortUpdate</a> callback.
      */
-    UpdateVideoPort : PDD_VPORTCB_UPDATE
+    UpdateVideoPort : IntPtr
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_waitforsync">DdVideoPortWaitForSync</a> callback.
      */
-    WaitForVideoPortSync : PDD_VPORTCB_WAITFORSYNC
+    WaitForVideoPortSync : IntPtr
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_getsignalstatus">DdVideoPortGetSignalStatus</a> callback.
      */
-    GetVideoSignalStatus : PDD_VPORTCB_GETSIGNALSTATUS
+    GetVideoSignalStatus : IntPtr
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_vportcb_colorcontrol">DdVideoPortColorControl</a> callback.
      */
-    ColorControl : PDD_VPORTCB_COLORCONTROL
+    ColorControl : IntPtr
 
 }

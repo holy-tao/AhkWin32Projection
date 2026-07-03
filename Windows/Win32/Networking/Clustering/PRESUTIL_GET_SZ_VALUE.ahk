@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -48,10 +48,6 @@ export default struct PRESUTIL_GET_SZ_VALUE {
             this.value := CallbackCreate(fn, , [HKEY, PWSTR, PWSTR])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

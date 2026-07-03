@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\EnTvRat_GenericLevel.ahk" { EnTvRat_GenericLevel }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\EnTvRat_System.ahk" { EnTvRat_System }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\EnTvRat_GenericLevel.ahk" { EnTvRat_GenericLevel }
+#Import ".\EnTvRat_System.ahk" { EnTvRat_System }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDTFilter interface is exposed by the Decrypter/Detagger filter. Applications can use this interface to set the ratings permissions.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\SURFOBJ.ahk" { SURFOBJ }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -49,10 +49,6 @@ export default struct PFN_DrvStartDxInterop {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, BOOL, "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

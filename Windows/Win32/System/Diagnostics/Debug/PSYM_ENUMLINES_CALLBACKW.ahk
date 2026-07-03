@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SRCCODEINFOW.ahk" { SRCCODEINFOW }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\SRCCODEINFOW.ahk" { SRCCODEINFOW }
 
 /**
  * PSYM_ENUMLINES_CALLBACKW (Unicode) is an application-defined callback function used with the SymEnumLines and SymEnumSourceLines functions.
@@ -55,10 +55,6 @@ export default struct PSYM_ENUMLINES_CALLBACKW {
             this.value := CallbackCreate(fn, , [SRCCODEINFOW.Ptr, "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D2D1_ARC_SEGMENT.ahk" { D2D1_ARC_SEGMENT }
-#Import "Common\ID2D1SimplifiedGeometrySink.ahk" { ID2D1SimplifiedGeometrySink }
 #Import "Common\D2D1_BEZIER_SEGMENT.ahk" { D2D1_BEZIER_SEGMENT }
-#Import ".\D2D1_QUADRATIC_BEZIER_SEGMENT.ahk" { D2D1_QUADRATIC_BEZIER_SEGMENT }
 #Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
+#Import "Common\ID2D1SimplifiedGeometrySink.ahk" { ID2D1SimplifiedGeometrySink }
+#Import ".\D2D1_ARC_SEGMENT.ahk" { D2D1_ARC_SEGMENT }
+#Import ".\D2D1_QUADRATIC_BEZIER_SEGMENT.ahk" { D2D1_QUADRATIC_BEZIER_SEGMENT }
 
 /**
  * Describes a geometric path that can contain lines, arcs, cubic Bezier curves, and quadratic Bezier curves.

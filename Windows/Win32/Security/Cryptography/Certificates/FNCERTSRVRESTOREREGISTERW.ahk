@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CSEDB_RSTMAPW.ahk" { CSEDB_RSTMAPW }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
@@ -59,10 +59,6 @@ export default struct FNCERTSRVRESTOREREGISTERW {
             this.value := CallbackCreate(fn, , ["ptr", PWSTR, PWSTR, CSEDB_RSTMAPW.Ptr, Int32, PWSTR, UInt32, UInt32, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

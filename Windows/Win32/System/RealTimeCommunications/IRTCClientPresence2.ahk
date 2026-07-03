@@ -1,23 +1,23 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IRTCClientPresence.ahk" { IRTCClientPresence }
-#Import ".\RTC_PRESENCE_STATUS.ahk" { RTC_PRESENCE_STATUS }
-#Import ".\IRTCProfile.ahk" { IRTCProfile }
-#Import ".\IRTCBuddyGroup.ahk" { IRTCBuddyGroup }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\RTC_ACE_SCOPE.ahk" { RTC_ACE_SCOPE }
 #Import ".\IRTCBuddy2.ahk" { IRTCBuddy2 }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\RTC_WATCHER_MATCH_MODE.ahk" { RTC_WATCHER_MATCH_MODE }
+#Import ".\IRTCBuddyGroup.ahk" { IRTCBuddyGroup }
+#Import ".\IRTCClientPresence.ahk" { IRTCClientPresence }
 #Import ".\IRTCCollection.ahk" { IRTCCollection }
+#Import ".\IRTCEnumGroups.ahk" { IRTCEnumGroups }
+#Import ".\IRTCProfile.ahk" { IRTCProfile }
+#Import ".\IRTCWatcher2.ahk" { IRTCWatcher2 }
+#Import ".\RTC_ACE_SCOPE.ahk" { RTC_ACE_SCOPE }
+#Import ".\RTC_BUDDY_SUBSCRIPTION_TYPE.ahk" { RTC_BUDDY_SUBSCRIPTION_TYPE }
 #Import ".\RTC_PRESENCE_PROPERTY.ahk" { RTC_PRESENCE_PROPERTY }
+#Import ".\RTC_PRESENCE_STATUS.ahk" { RTC_PRESENCE_STATUS }
+#Import ".\RTC_WATCHER_MATCH_MODE.ahk" { RTC_WATCHER_MATCH_MODE }
 #Import ".\RTC_WATCHER_STATE.ahk" { RTC_WATCHER_STATE }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\RTC_BUDDY_SUBSCRIPTION_TYPE.ahk" { RTC_BUDDY_SUBSCRIPTION_TYPE }
-#Import ".\IRTCEnumGroups.ahk" { IRTCEnumGroups }
-#Import ".\IRTCWatcher2.ahk" { IRTCWatcher2 }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

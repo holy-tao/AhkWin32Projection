@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MFSTREAMSINK_MARKER_TYPE.ahk" { MFSTREAMSINK_MARKER_TYPE }
 #Import ".\IMFMediaEventGenerator.ahk" { IMFMediaEventGenerator }
-#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import ".\IMFSample.ahk" { IMFSample }
 #Import ".\IMFMediaSink.ahk" { IMFMediaSink }
 #Import ".\IMFMediaTypeHandler.ahk" { IMFMediaTypeHandler }
+#Import ".\IMFSample.ahk" { IMFSample }
+#Import ".\MFSTREAMSINK_MARKER_TYPE.ahk" { MFSTREAMSINK_MARKER_TYPE }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 
 /**
  * Represents a stream on a media sink object.

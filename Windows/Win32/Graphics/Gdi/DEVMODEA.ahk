@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\POINTL.ahk" { POINTL }
+#Import ".\DEVMODE_COLLATE.ahk" { DEVMODE_COLLATE }
+#Import ".\DEVMODE_COLOR.ahk" { DEVMODE_COLOR }
+#Import ".\DEVMODE_DISPLAY_FIXED_OUTPUT.ahk" { DEVMODE_DISPLAY_FIXED_OUTPUT }
 #Import ".\DEVMODE_DISPLAY_ORIENTATION.ahk" { DEVMODE_DISPLAY_ORIENTATION }
 #Import ".\DEVMODE_DUPLEX.ahk" { DEVMODE_DUPLEX }
 #Import ".\DEVMODE_FIELD_FLAGS.ahk" { DEVMODE_FIELD_FLAGS }
-#Import ".\DEVMODE_COLLATE.ahk" { DEVMODE_COLLATE }
-#Import ".\DEVMODE_DISPLAY_FIXED_OUTPUT.ahk" { DEVMODE_DISPLAY_FIXED_OUTPUT }
 #Import ".\DEVMODE_TRUETYPE_OPTION.ahk" { DEVMODE_TRUETYPE_OPTION }
-#Import ".\DEVMODE_COLOR.ahk" { DEVMODE_COLOR }
-#Import "..\..\Foundation\POINTL.ahk" { POINTL }
 
 /**
  * The DEVMODE data structure contains information about the initialization and environment of a printer or a display device.

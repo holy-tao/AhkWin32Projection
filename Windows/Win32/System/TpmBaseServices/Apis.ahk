@@ -1,11 +1,11 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\TBS_CONTEXT_PARAMS.ahk" { TBS_CONTEXT_PARAMS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\TBS_COMMAND_PRIORITY.ahk" { TBS_COMMAND_PRIORITY }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\TBS_COMMAND_LOCALITY.ahk" { TBS_COMMAND_LOCALITY }
+#Import ".\TBS_COMMAND_PRIORITY.ahk" { TBS_COMMAND_PRIORITY }
+#Import ".\TBS_CONTEXT_PARAMS.ahk" { TBS_CONTEXT_PARAMS }
 
 /**
  * @namespace Windows.Win32.System.TpmBaseServices

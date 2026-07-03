@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_NODE.ahk" { D3D12_NODE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\D3D12_NODE.ahk" { D3D12_NODE }
 #Import ".\D3D12_NODE_ID.ahk" { D3D12_NODE_ID }
 #Import ".\D3D12_WORK_GRAPH_FLAGS.ahk" { D3D12_WORK_GRAPH_FLAGS }
 

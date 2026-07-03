@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TfAnchor.ahk" { TfAnchor }
 #Import ".\ITfRange.ahk" { ITfRange }
+#Import ".\TfAnchor.ahk" { TfAnchor }
 
 /**
  * The TF_HALTCOND structure is used to contain conditions of a range shift.

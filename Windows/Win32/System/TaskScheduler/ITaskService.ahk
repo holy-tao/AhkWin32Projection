@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IRunningTaskCollection.ahk" { IRunningTaskCollection }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\ITaskDefinition.ahk" { ITaskDefinition }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ITaskFolder.ahk" { ITaskFolder }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IRunningTaskCollection.ahk" { IRunningTaskCollection }
+#Import ".\ITaskDefinition.ahk" { ITaskDefinition }
+#Import ".\ITaskFolder.ahk" { ITaskFolder }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Provides access to the Task Scheduler service for managing registered tasks.

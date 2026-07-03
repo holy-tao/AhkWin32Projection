@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VSS_PROVIDER_TYPE.ahk" { VSS_PROVIDER_TYPE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VSS_PROVIDER_TYPE.ahk" { VSS_PROVIDER_TYPE }
 
 /**
  * Specifies shadow copy provider properties.

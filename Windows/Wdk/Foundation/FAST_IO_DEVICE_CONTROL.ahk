@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
+#Import ".\FILE_OBJECT.ahk" { FILE_OBJECT }
 #Import "..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\Win32\System\IO\IO_STATUS_BLOCK.ahk" { IO_STATUS_BLOCK }
-#Import ".\FILE_OBJECT.ahk" { FILE_OBJECT }
 
 /**
  * @namespace Windows.Wdk.Foundation
@@ -58,10 +58,6 @@ export default struct FAST_IO_DEVICE_CONTROL {
             this.value := CallbackCreate(fn, , [FILE_OBJECT.Ptr, BOOLEAN, "ptr", UInt32, "ptr", UInt32, UInt32, IO_STATUS_BLOCK.Ptr, DEVICE_OBJECT.Ptr, BOOLEAN])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

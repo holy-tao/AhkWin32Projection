@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\SpectralInversion.ahk" { SpectralInversion }
-#Import "..\Pilot.ahk" { Pilot }
-#Import "..\LNB_Source.ahk" { LNB_Source }
-#Import "..\RollOff.ahk" { RollOff }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\LNB_Source.ahk" { LNB_Source }
+#Import "..\Pilot.ahk" { Pilot }
+#Import "..\RollOff.ahk" { RollOff }
+#Import "..\SpectralInversion.ahk" { SpectralInversion }
 #Import ".\IDVBSLocator.ahk" { IDVBSLocator }
 
 /**

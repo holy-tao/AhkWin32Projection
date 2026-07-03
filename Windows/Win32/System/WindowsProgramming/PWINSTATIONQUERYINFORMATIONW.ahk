@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\WINSTATIONINFOCLASS.ahk" { WINSTATIONINFOCLASS }
 
 /**
@@ -54,10 +54,6 @@ export default struct PWINSTATIONQUERYINFORMATIONW {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, WINSTATIONINFOCLASS, "ptr", UInt32, "uint*", BOOLEAN])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

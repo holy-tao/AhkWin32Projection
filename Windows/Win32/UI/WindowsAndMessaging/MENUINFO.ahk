@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MENUINFO_STYLE.ahk" { MENUINFO_STYLE }
-#Import ".\MENUINFO_MASK.ahk" { MENUINFO_MASK }
 #Import "..\..\Graphics\Gdi\HBRUSH.ahk" { HBRUSH }
+#Import ".\MENUINFO_MASK.ahk" { MENUINFO_MASK }
+#Import ".\MENUINFO_STYLE.ahk" { MENUINFO_STYLE }
 
 /**
  * Contains information about a menu.

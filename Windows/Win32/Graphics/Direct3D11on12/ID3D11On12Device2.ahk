@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Direct3D12\ID3D12Fence.ahk" { ID3D12Fence }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Direct3D11\ID3D11Resource.ahk" { ID3D11Resource }
 #Import ".\ID3D11On12Device1.ahk" { ID3D11On12Device1 }
 #Import "..\Direct3D12\ID3D12CommandQueue.ahk" { ID3D12CommandQueue }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Direct3D12\ID3D12Fence.ahk" { ID3D12Fence }
 
 /**
  * Enables you to take resources created through the Direct3D 11 APIs, and use them in Direct3D 12.

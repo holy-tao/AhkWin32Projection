@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\DECIMAL.ahk" { DECIMAL }
-#Import ".\MMC_PROPERTY_ACTION.ahk" { MMC_PROPERTY_ACTION }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Ole\IRecordInfo.ahk" { IRecordInfo }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
-#Import "..\Com\CY.ahk" { CY }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Variant\VARENUM.ahk" { VARENUM }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import "..\..\Foundation\DECIMAL.ahk" { DECIMAL }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\CY.ahk" { CY }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import ".\MMC_PROPERTY_ACTION.ahk" { MMC_PROPERTY_ACTION }
+#Import "..\Ole\IRecordInfo.ahk" { IRecordInfo }
+#Import "..\Variant\VARENUM.ahk" { VARENUM }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The MMC_SNAPIN_PROPERTY structure is introduced in MMC 2.0.

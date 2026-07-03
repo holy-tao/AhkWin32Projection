@@ -50,10 +50,6 @@ export default struct DOT11EXT_SET_VIRTUAL_STATION_AP_PROPERTIES {
             this.value := CallbackCreate(fn, , [HANDLE, HANDLE, UInt32, DOT11EXT_VIRTUAL_STATION_AP_PROPERTY.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

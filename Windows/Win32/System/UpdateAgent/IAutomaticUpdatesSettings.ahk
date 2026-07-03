@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\AutomaticUpdatesNotificationLevel.ahk" { AutomaticUpdatesNotificationLevel }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\AutomaticUpdatesScheduledInstallationDay.ahk" { AutomaticUpdatesScheduledInstallationDay }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\AutomaticUpdatesNotificationLevel.ahk" { AutomaticUpdatesNotificationLevel }
+#Import ".\AutomaticUpdatesScheduledInstallationDay.ahk" { AutomaticUpdatesScheduledInstallationDay }
 
 /**
  * Contains the settings that are available in Automatic Updates. (IAutomaticUpdatesSettings)

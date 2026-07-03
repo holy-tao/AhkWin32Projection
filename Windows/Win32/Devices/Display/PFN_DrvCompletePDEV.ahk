@@ -45,10 +45,6 @@ export default struct PFN_DrvCompletePDEV {
             this.value := CallbackCreate(fn, , [DHPDEV, HDEV, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

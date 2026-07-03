@@ -49,10 +49,6 @@ export default struct PFN_CARD_AUTHENTICATE_CHALLENGE {
             this.value := CallbackCreate(fn, , [CARD_DATA.Ptr, IntPtr, UInt32, "uint*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

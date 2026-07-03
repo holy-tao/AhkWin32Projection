@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
-#Import ".\VMR9ProcAmpControlRange.ahk" { VMR9ProcAmpControlRange }
-#Import ".\VMR9ProcAmpControl.ahk" { VMR9ProcAmpControl }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\VMR9NormalizedRect.ahk" { VMR9NormalizedRect }
+#Import ".\VMR9ProcAmpControl.ahk" { VMR9ProcAmpControl }
+#Import ".\VMR9ProcAmpControlRange.ahk" { VMR9ProcAmpControlRange }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVMRMixerControl9 interface enables an application to manipulate the incoming video streams on the Video Mixing Renderer Filter 9 (VMR-9). This interface is intended for use by applications only; it should not be used by upstream filters.

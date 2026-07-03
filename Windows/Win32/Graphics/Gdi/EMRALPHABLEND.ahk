@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\XFORM.ahk" { XFORM }
-#Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
-#Import ".\EMR.ahk" { EMR }
 #Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import ".\EMR.ahk" { EMR }
+#Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
+#Import ".\XFORM.ahk" { XFORM }
 
 /**
  * The EMRALPHABLEND structure contains members for the AlphaBlend enhanced metafile record.

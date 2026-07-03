@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWiaTransferCallback.ahk" { IWiaTransferCallback }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWiaItem2.ahk" { IWiaItem2 }
+#Import ".\IWiaTransferCallback.ahk" { IWiaTransferCallback }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWiaPreview interface caches unfiltered images internally and passes them through image processing filters.

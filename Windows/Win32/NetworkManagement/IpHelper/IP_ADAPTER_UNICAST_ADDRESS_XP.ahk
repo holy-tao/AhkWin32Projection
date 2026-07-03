@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Networking\WinSock\NL_DAD_STATE.ahk" { NL_DAD_STATE }
-#Import "..\..\Networking\WinSock\SOCKET_ADDRESS.ahk" { SOCKET_ADDRESS }
 #Import "..\..\Networking\WinSock\NL_PREFIX_ORIGIN.ahk" { NL_PREFIX_ORIGIN }
-#Import "..\..\Networking\WinSock\SOCKADDR.ahk" { SOCKADDR }
 #Import "..\..\Networking\WinSock\NL_SUFFIX_ORIGIN.ahk" { NL_SUFFIX_ORIGIN }
+#Import "..\..\Networking\WinSock\SOCKADDR.ahk" { SOCKADDR }
+#Import "..\..\Networking\WinSock\SOCKET_ADDRESS.ahk" { SOCKET_ADDRESS }
 
 /**
  * The IP_ADAPTER_UNICAST_ADDRESS_XP structure (iptypes.h) stores a single unicast IP address in a linked list of IP addresses for a particular adapter.

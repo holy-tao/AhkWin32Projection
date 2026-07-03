@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\OFFLINEFILES_SYNC_STATE.ahk" { OFFLINEFILES_SYNC_STATE }
-#Import ".\OFFLINEFILES_SYNC_CONFLICT_RESOLVE.ahk" { OFFLINEFILES_SYNC_CONFLICT_RESOLVE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\OFFLINEFILES_SYNC_CONFLICT_RESOLVE.ahk" { OFFLINEFILES_SYNC_CONFLICT_RESOLVE }
+#Import ".\OFFLINEFILES_SYNC_STATE.ahk" { OFFLINEFILES_SYNC_STATE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Used by a client calling the IOfflineFilesCache::Synchronize method to prescribe a conflict resolution strategy for sync conflicts as they are detected.

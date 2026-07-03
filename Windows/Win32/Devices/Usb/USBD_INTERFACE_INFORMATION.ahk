@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\USBD_PIPE_TYPE.ahk" { USBD_PIPE_TYPE }
 #Import ".\USBD_PIPE_INFORMATION.ahk" { USBD_PIPE_INFORMATION }
+#Import ".\USBD_PIPE_TYPE.ahk" { USBD_PIPE_TYPE }
 
 /**
  * @namespace Windows.Win32.Devices.Usb

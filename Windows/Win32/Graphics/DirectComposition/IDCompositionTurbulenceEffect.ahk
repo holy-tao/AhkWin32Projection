@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDCompositionFilterEffect.ahk" { IDCompositionFilterEffect }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Direct2D\Common\D2D_VECTOR_2F.ahk" { D2D_VECTOR_2F }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Direct2D\Common\D2D1_TURBULENCE_NOISE.ahk" { D2D1_TURBULENCE_NOISE }
+#Import "..\Direct2D\Common\D2D_VECTOR_2F.ahk" { D2D_VECTOR_2F }
+#Import ".\IDCompositionFilterEffect.ahk" { IDCompositionFilterEffect }
 
 /**
  * The turbulence effect is used to generate a bitmap based on the Perlin noise function. The turbulence effect has no input image.

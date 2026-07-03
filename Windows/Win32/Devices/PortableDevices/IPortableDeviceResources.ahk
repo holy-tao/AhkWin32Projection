@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IPortableDeviceKeyCollection.ahk" { IPortableDeviceKeyCollection }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import ".\IPortableDeviceValues.ahk" { IPortableDeviceValues }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IPortableDeviceValues.ahk" { IPortableDeviceValues }
 
 /**
  * The IPortableDeviceResources interface provides access to an object's raw data. Use this interface to read or write resources in an object. To get this interface, call IPortableDeviceContent::Transfer.

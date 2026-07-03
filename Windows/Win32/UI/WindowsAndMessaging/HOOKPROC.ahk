@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
 #Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 
 /**
  * An application-defined or library-defined callback function used with the SetWindowsHookEx function. The system calls this function after the SendMessage function is called. The hook procedure can examine the message; it cannot modify it.
@@ -60,10 +60,6 @@ export default struct HOOKPROC {
             this.value := CallbackCreate(fn, , [Int32, WPARAM, LPARAM, LRESULT])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

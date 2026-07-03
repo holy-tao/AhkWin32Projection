@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\KERB_PROTOCOL_MESSAGE_TYPE.ahk" { KERB_PROTOCOL_MESSAGE_TYPE }
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 
 /**
  * Contains information used to query the domain for the extended policies.

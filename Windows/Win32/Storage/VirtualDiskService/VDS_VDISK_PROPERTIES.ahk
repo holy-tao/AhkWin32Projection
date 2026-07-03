@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\VDS_VDISK_STATE.ahk" { VDS_VDISK_STATE }
-#Import "..\Vhd\VIRTUAL_STORAGE_TYPE.ahk" { VIRTUAL_STORAGE_TYPE }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\Vhd\DEPENDENT_DISK_FLAG.ahk" { DEPENDENT_DISK_FLAG }
+#Import "..\Vhd\VIRTUAL_STORAGE_TYPE.ahk" { VIRTUAL_STORAGE_TYPE }
+#Import ".\VDS_VDISK_STATE.ahk" { VDS_VDISK_STATE }
 
 /**
  * Defines the properties of a virtual disk.

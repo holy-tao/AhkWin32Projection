@@ -51,10 +51,6 @@ export default struct PFN_CERT_CREATE_CONTEXT_SORT_FUNC {
             this.value := CallbackCreate(fn, , [UInt32, UInt32, UInt32, "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

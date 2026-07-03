@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\ITextRange.ahk" { ITextRange }
 #Import ".\ITextSelection.ahk" { ITextSelection }
 #Import ".\ITextStoryRanges.ahk" { ITextStoryRanges }
-#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\tomConstants.ahk" { tomConstants }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITextDocument interface is the Text Object Model (TOM) top-level interface, which retrieves the active selection and range objects for any story in the document�whether active or not.

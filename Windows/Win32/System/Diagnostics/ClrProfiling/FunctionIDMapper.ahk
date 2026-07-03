@@ -47,10 +47,6 @@ export default struct FunctionIDMapper {
             this.value := CallbackCreate(fn, , [IntPtr, BOOL.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

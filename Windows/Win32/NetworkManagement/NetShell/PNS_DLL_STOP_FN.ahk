@@ -43,10 +43,6 @@ export default struct PNS_DLL_STOP_FN {
             this.value := CallbackCreate(fn, , [UInt32, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

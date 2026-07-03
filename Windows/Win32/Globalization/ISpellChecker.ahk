@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\Guid.ahk" { Guid }
-#Import "..\System\Com\IEnumString.ahk" { IEnumString }
-#Import ".\IEnumSpellingError.ahk" { IEnumSpellingError }
-#Import "..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ISpellCheckerChangedEventHandler.ahk" { ISpellCheckerChangedEventHandler }
 #Import "..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IEnumSpellingError.ahk" { IEnumSpellingError }
 #Import ".\IOptionDescription.ahk" { IOptionDescription }
+#Import ".\ISpellCheckerChangedEventHandler.ahk" { ISpellCheckerChangedEventHandler }
+#Import "..\System\Com\IEnumString.ahk" { IEnumString }
+#Import "..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a particular spell checker for a particular language.

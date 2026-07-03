@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IRDPSRAPIApplicationFilter.ahk" { IRDPSRAPIApplicationFilter }
 #Import ".\IRDPSRAPIAttendeeManager.ahk" { IRDPSRAPIAttendeeManager }
-#Import ".\IRDPSRAPIVirtualChannelManager.ahk" { IRDPSRAPIVirtualChannelManager }
 #Import ".\IRDPSRAPIInvitationManager.ahk" { IRDPSRAPIInvitationManager }
 #Import ".\IRDPSRAPISessionProperties.ahk" { IRDPSRAPISessionProperties }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IRDPSRAPIApplicationFilter.ahk" { IRDPSRAPIApplicationFilter }
+#Import ".\IRDPSRAPIVirtualChannelManager.ahk" { IRDPSRAPIVirtualChannelManager }
 
 /**
  * The main object that an application must create to start a collaboration session. (IRDPSRAPISharingSession)

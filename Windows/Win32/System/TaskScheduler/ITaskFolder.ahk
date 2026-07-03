@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITaskDefinition.ahk" { ITaskDefinition }
-#Import ".\IRegisteredTaskCollection.ahk" { IRegisteredTaskCollection }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\TASK_LOGON_TYPE.ahk" { TASK_LOGON_TYPE }
-#Import ".\IRegisteredTask.ahk" { IRegisteredTask }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ITaskFolderCollection.ahk" { ITaskFolderCollection }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IRegisteredTask.ahk" { IRegisteredTask }
+#Import ".\IRegisteredTaskCollection.ahk" { IRegisteredTaskCollection }
+#Import ".\ITaskDefinition.ahk" { ITaskDefinition }
+#Import ".\ITaskFolderCollection.ahk" { ITaskFolderCollection }
+#Import ".\TASK_LOGON_TYPE.ahk" { TASK_LOGON_TYPE }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Provides the methods that are used to register (create) tasks in the folder, remove tasks from the folder, and create or remove subfolders from the folder.

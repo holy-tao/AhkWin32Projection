@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SYNC_VERSION.ahk" { SYNC_VERSION }
 #Import ".\ISyncChangeBuilder.ahk" { ISyncChangeBuilder }
 #Import ".\ISyncFullEnumerationChangeBatch.ahk" { ISyncFullEnumerationChangeBatch }
+#Import ".\SYNC_VERSION.ahk" { SYNC_VERSION }
 
 /**
  * @namespace Windows.Win32.System.WindowsSync

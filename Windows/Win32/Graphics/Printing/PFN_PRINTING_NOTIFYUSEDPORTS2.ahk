@@ -49,10 +49,6 @@ export default struct PFN_PRINTING_NOTIFYUSEDPORTS2 {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, PWSTR, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

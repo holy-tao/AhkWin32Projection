@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IWTSVirtualChannelCallback.ahk" { IWTSVirtualChannelCallback }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IWTSVirtualChannel.ahk" { IWTSVirtualChannel }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWTSVirtualChannel.ahk" { IWTSVirtualChannel }
+#Import ".\IWTSVirtualChannelCallback.ahk" { IWTSVirtualChannelCallback }
 
 /**
  * Used to notify the Remote Desktop Connection (RDC) client plug-in about incoming requests on a particular listener.

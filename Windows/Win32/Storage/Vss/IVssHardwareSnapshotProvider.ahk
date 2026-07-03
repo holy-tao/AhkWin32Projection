@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\VirtualDiskService\VDS_LUN_INFORMATION.ahk" { VDS_LUN_INFORMATION }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\VirtualDiskService\VDS_LUN_INFORMATION.ahk" { VDS_LUN_INFORMATION }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Contains the methods used by VSS to map volumes to LUNs, discover LUNs created during the shadow copy process, and transport LUNs on a SAN.

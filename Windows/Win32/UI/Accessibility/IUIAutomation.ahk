@@ -1,32 +1,32 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUIAutomationProxyFactory.ahk" { IUIAutomationProxyFactory }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
-#Import ".\IUIAutomationTreeWalker.ahk" { IUIAutomationTreeWalker }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\IUIAutomationEventHandler.ahk" { IUIAutomationEventHandler }
-#Import ".\UIA_PATTERN_ID.ahk" { UIA_PATTERN_ID }
-#Import ".\UIA_EVENT_ID.ahk" { UIA_EVENT_ID }
-#Import ".\IUIAutomationProxyFactoryMapping.ahk" { IUIAutomationProxyFactoryMapping }
-#Import ".\IUIAutomationCondition.ahk" { IUIAutomationCondition }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\PropertyConditionFlags.ahk" { PropertyConditionFlags }
-#Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
-#Import ".\TreeScope.ahk" { TreeScope }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IUIAutomationCacheRequest.ahk" { IUIAutomationCacheRequest }
-#Import ".\IUIAutomationProxyFactoryEntry.ahk" { IUIAutomationProxyFactoryEntry }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IUIAutomationPropertyChangedEventHandler.ahk" { IUIAutomationPropertyChangedEventHandler }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IAccessible.ahk" { IAccessible }
-#Import ".\IUIAutomationStructureChangedEventHandler.ahk" { IUIAutomationStructureChangedEventHandler }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IAccessible.ahk" { IAccessible }
+#Import ".\IUIAutomationCacheRequest.ahk" { IUIAutomationCacheRequest }
+#Import ".\IUIAutomationCondition.ahk" { IUIAutomationCondition }
+#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
+#Import ".\IUIAutomationEventHandler.ahk" { IUIAutomationEventHandler }
 #Import ".\IUIAutomationFocusChangedEventHandler.ahk" { IUIAutomationFocusChangedEventHandler }
+#Import ".\IUIAutomationPropertyChangedEventHandler.ahk" { IUIAutomationPropertyChangedEventHandler }
+#Import ".\IUIAutomationProxyFactory.ahk" { IUIAutomationProxyFactory }
+#Import ".\IUIAutomationProxyFactoryEntry.ahk" { IUIAutomationProxyFactoryEntry }
+#Import ".\IUIAutomationProxyFactoryMapping.ahk" { IUIAutomationProxyFactoryMapping }
+#Import ".\IUIAutomationStructureChangedEventHandler.ahk" { IUIAutomationStructureChangedEventHandler }
+#Import ".\IUIAutomationTreeWalker.ahk" { IUIAutomationTreeWalker }
+#Import ".\PropertyConditionFlags.ahk" { PropertyConditionFlags }
+#Import ".\TreeScope.ahk" { TreeScope }
+#Import ".\UIA_EVENT_ID.ahk" { UIA_EVENT_ID }
+#Import ".\UIA_PATTERN_ID.ahk" { UIA_PATTERN_ID }
+#Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
 
 /**
  * Exposes methods that enable Microsoft UI Automation client applications to discover, access, and filter UI Automation elements.

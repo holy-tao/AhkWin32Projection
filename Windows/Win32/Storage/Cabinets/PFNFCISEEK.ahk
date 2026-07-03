@@ -50,10 +50,6 @@ export default struct PFNFCISEEK {
             this.value := CallbackCreate(fn, "cdecl", [IntPtr, Int32, Int32, "int*", "ptr", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

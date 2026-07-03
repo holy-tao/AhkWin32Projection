@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DMUS_CLOCKTYPE.ahk" { DMUS_CLOCKTYPE }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DMUS_CLOCKTYPE.ahk" { DMUS_CLOCKTYPE }
 #Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

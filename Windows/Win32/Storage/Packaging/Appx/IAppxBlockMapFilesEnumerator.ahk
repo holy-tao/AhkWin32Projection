@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IAppxBlockMapFile.ahk" { IAppxBlockMapFile }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAppxBlockMapFile.ahk" { IAppxBlockMapFile }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enumerates the files from a block map.

@@ -50,10 +50,6 @@ export default struct PDD_MOCOMPCB_CREATE {
             this.value := CallbackCreate(fn, , [DD_CREATEMOCOMPDATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

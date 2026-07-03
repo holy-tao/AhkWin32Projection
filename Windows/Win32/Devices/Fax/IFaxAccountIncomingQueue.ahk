@@ -4,8 +4,8 @@
 #Import ".\IFaxIncomingJob.ahk" { IFaxIncomingJob }
 #Import ".\IFaxIncomingJobs.ahk" { IFaxIncomingJobs }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * Used by a fax client application to retrieve the inbound fax jobs (FaxIncomingJobs object) in the job queue for a particular fax account.

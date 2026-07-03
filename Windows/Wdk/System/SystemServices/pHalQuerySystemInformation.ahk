@@ -31,7 +31,7 @@ export default struct pHalQuerySystemInformation {
         ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, HAL_QUERY_INFORMATION_CLASS, InformationClass, UInt32, BufferSize, IntPtr, _Buffer, ReturnedLengthMarshal, ReturnedLength, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -51,10 +51,6 @@ export default struct pHalQuerySystemInformation {
             this.value := CallbackCreate(fn, , [HAL_QUERY_INFORMATION_CLASS, UInt32, IntPtr, "uint*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

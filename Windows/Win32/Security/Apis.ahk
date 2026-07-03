@@ -1,44 +1,44 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
-#Import "..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\ACL.ahk" { ACL }
-#Import ".\SID_IDENTIFIER_AUTHORITY.ahk" { SID_IDENTIFIER_AUTHORITY }
-#Import ".\LUID_AND_ATTRIBUTES.ahk" { LUID_AND_ATTRIBUTES }
+#Import "..\..\..\Guid.ahk" { Guid }
+#Import "..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\WELL_KNOWN_SID_TYPE.ahk" { WELL_KNOWN_SID_TYPE }
+#Import "..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\Foundation\LUID.ahk" { LUID }
+#Import "..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
+#Import ".\ACE_FLAGS.ahk" { ACE_FLAGS }
+#Import ".\ACE_REVISION.ahk" { ACE_REVISION }
+#Import ".\ACL.ahk" { ACL }
+#Import ".\ACL_INFORMATION_CLASS.ahk" { ACL_INFORMATION_CLASS }
+#Import ".\AUDIT_EVENT_TYPE.ahk" { AUDIT_EVENT_TYPE }
+#Import ".\CLAIM_SECURITY_ATTRIBUTES_INFORMATION.ahk" { CLAIM_SECURITY_ATTRIBUTES_INFORMATION }
+#Import ".\CREATE_RESTRICTED_TOKEN_FLAGS.ahk" { CREATE_RESTRICTED_TOKEN_FLAGS }
+#Import ".\GENERIC_MAPPING.ahk" { GENERIC_MAPPING }
+#Import ".\LOGON32_LOGON.ahk" { LOGON32_LOGON }
+#Import ".\LOGON32_PROVIDER.ahk" { LOGON32_PROVIDER }
+#Import ".\LUID_AND_ATTRIBUTES.ahk" { LUID_AND_ATTRIBUTES }
+#Import ".\OBJECT_SECURITY_INFORMATION.ahk" { OBJECT_SECURITY_INFORMATION }
+#Import ".\OBJECT_TYPE_LIST.ahk" { OBJECT_TYPE_LIST }
+#Import ".\PRIVILEGE_SET.ahk" { PRIVILEGE_SET }
+#Import ".\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
+#Import ".\PSID.ahk" { PSID }
+#Import ".\QUOTA_LIMITS.ahk" { QUOTA_LIMITS }
+#Import ".\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import ".\SECURITY_AUTO_INHERIT_FLAGS.ahk" { SECURITY_AUTO_INHERIT_FLAGS }
 #Import ".\SECURITY_DESCRIPTOR_CONTROL.ahk" { SECURITY_DESCRIPTOR_CONTROL }
 #Import ".\SECURITY_IMPERSONATION_LEVEL.ahk" { SECURITY_IMPERSONATION_LEVEL }
-#Import ".\GENERIC_MAPPING.ahk" { GENERIC_MAPPING }
-#Import ".\PRIVILEGE_SET.ahk" { PRIVILEGE_SET }
-#Import "..\Foundation\NTSTATUS.ahk" { NTSTATUS }
-#Import ".\TOKEN_GROUPS.ahk" { TOKEN_GROUPS }
-#Import ".\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
-#Import ".\LOGON32_LOGON.ahk" { LOGON32_LOGON }
-#Import "..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\CLAIM_SECURITY_ATTRIBUTES_INFORMATION.ahk" { CLAIM_SECURITY_ATTRIBUTES_INFORMATION }
-#Import "..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\LOGON32_PROVIDER.ahk" { LOGON32_PROVIDER }
-#Import ".\TOKEN_PRIVILEGES.ahk" { TOKEN_PRIVILEGES }
-#Import ".\ACL_INFORMATION_CLASS.ahk" { ACL_INFORMATION_CLASS }
-#Import ".\TOKEN_ACCESS_MASK.ahk" { TOKEN_ACCESS_MASK }
-#Import "..\..\..\Guid.ahk" { Guid }
-#Import ".\AUDIT_EVENT_TYPE.ahk" { AUDIT_EVENT_TYPE }
-#Import ".\QUOTA_LIMITS.ahk" { QUOTA_LIMITS }
-#Import "..\Foundation\LUID.ahk" { LUID }
-#Import ".\TOKEN_INFORMATION_CLASS.ahk" { TOKEN_INFORMATION_CLASS }
-#Import ".\CREATE_RESTRICTED_TOKEN_FLAGS.ahk" { CREATE_RESTRICTED_TOKEN_FLAGS }
 #Import ".\SID_AND_ATTRIBUTES.ahk" { SID_AND_ATTRIBUTES }
-#Import ".\SECURITY_AUTO_INHERIT_FLAGS.ahk" { SECURITY_AUTO_INHERIT_FLAGS }
-#Import "..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\OBJECT_SECURITY_INFORMATION.ahk" { OBJECT_SECURITY_INFORMATION }
-#Import ".\TOKEN_TYPE.ahk" { TOKEN_TYPE }
-#Import ".\ACE_REVISION.ahk" { ACE_REVISION }
-#Import ".\ACE_FLAGS.ahk" { ACE_FLAGS }
-#Import ".\OBJECT_TYPE_LIST.ahk" { OBJECT_TYPE_LIST }
+#Import ".\SID_IDENTIFIER_AUTHORITY.ahk" { SID_IDENTIFIER_AUTHORITY }
 #Import ".\SID_NAME_USE.ahk" { SID_NAME_USE }
-#Import ".\PSID.ahk" { PSID }
-#Import ".\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import ".\TOKEN_ACCESS_MASK.ahk" { TOKEN_ACCESS_MASK }
+#Import ".\TOKEN_GROUPS.ahk" { TOKEN_GROUPS }
+#Import ".\TOKEN_INFORMATION_CLASS.ahk" { TOKEN_INFORMATION_CLASS }
+#Import ".\TOKEN_PRIVILEGES.ahk" { TOKEN_PRIVILEGES }
+#Import ".\TOKEN_TYPE.ahk" { TOKEN_TYPE }
+#Import ".\WELL_KNOWN_SID_TYPE.ahk" { WELL_KNOWN_SID_TYPE }
 
 /**
  * @namespace Windows.Win32.Security
@@ -5952,7 +5952,7 @@ export LogonUserExW(lpszUsername, lpszDomain, lpszPassword, dwLogonType, dwLogon
  */
 export RtlConvertSidToUnicodeString(UnicodeString, _Sid, AllocateDestinationString) {
     result := DllCall("ntdll.dll\RtlConvertSidToUnicodeString", UNICODE_STRING.Ptr, UnicodeString, PSID, _Sid, BOOLEAN, AllocateDestinationString, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 

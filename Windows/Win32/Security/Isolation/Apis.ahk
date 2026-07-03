@@ -1,12 +1,12 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\SID_AND_ATTRIBUTES.ahk" { SID_AND_ATTRIBUTES }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\PSID.ahk" { PSID }
+#Import "..\SID_AND_ATTRIBUTES.ahk" { SID_AND_ATTRIBUTES }
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
 
 /**
  * @namespace Windows.Win32.Security.Isolation

@@ -46,10 +46,6 @@ export default struct PFN_DrvGetTrueTypeFile {
             this.value := CallbackCreate(fn, , [IntPtr, "uint*", "ptr"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

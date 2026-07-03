@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FAX_JOB_STATUS_ENUM.ahk" { FAX_JOB_STATUS_ENUM }
-#Import ".\FAX_PRIORITY_TYPE_ENUM.ahk" { FAX_PRIORITY_TYPE_ENUM }
-#Import ".\IFaxRecipient.ahk" { IFaxRecipient }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\FAX_JOB_EXTENDED_STATUS_ENUM.ahk" { FAX_JOB_EXTENDED_STATUS_ENUM }
 #Import ".\FAX_JOB_OPERATIONS_ENUM.ahk" { FAX_JOB_OPERATIONS_ENUM }
-#Import ".\IFaxSender.ahk" { IFaxSender }
+#Import ".\FAX_JOB_STATUS_ENUM.ahk" { FAX_JOB_STATUS_ENUM }
+#Import ".\FAX_PRIORITY_TYPE_ENUM.ahk" { FAX_PRIORITY_TYPE_ENUM }
 #Import ".\FAX_RECEIPT_TYPE_ENUM.ahk" { FAX_RECEIPT_TYPE_ENUM }
+#Import ".\IFaxRecipient.ahk" { IFaxRecipient }
+#Import ".\IFaxSender.ahk" { IFaxSender }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The IFaxOutgoingJob interface describes an object that is used by a fax client application to retrieve information about an outgoing fax job in a fax server's queue.

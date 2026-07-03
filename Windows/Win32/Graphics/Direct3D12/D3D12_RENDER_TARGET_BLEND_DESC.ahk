@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_LOGIC_OP.ahk" { D3D12_LOGIC_OP }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\D3D12_BLEND_OP.ahk" { D3D12_BLEND_OP }
 #Import ".\D3D12_BLEND.ahk" { D3D12_BLEND }
+#Import ".\D3D12_BLEND_OP.ahk" { D3D12_BLEND_OP }
+#Import ".\D3D12_LOGIC_OP.ahk" { D3D12_LOGIC_OP }
 
 /**
  * Describes the blend state for a render target. (D3D12_RENDER_TARGET_BLEND_DESC)

@@ -60,10 +60,6 @@ export default struct REGISTERWORDENUMPROCW {
             this.value := CallbackCreate(fn, , [PWSTR, UInt32, PWSTR, "ptr", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

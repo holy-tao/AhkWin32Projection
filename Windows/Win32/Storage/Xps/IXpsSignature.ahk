@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\XPS_SIGNATURE_STATUS.ahk" { XPS_SIGNATURE_STATUS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Packaging\Opc\IOpcSignatureReferenceEnumerator.ahk" { IOpcSignatureReferenceEnumerator }
-#Import ".\XPS_SIGN_POLICY.ahk" { XPS_SIGN_POLICY }
-#Import "..\Packaging\Opc\IOpcSignatureCustomObjectEnumerator.ahk" { IOpcSignatureCustomObjectEnumerator }
-#Import "..\Packaging\Opc\OPC_SIGNATURE_TIME_FORMAT.ahk" { OPC_SIGNATURE_TIME_FORMAT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
 #Import "..\Packaging\Opc\IOpcCertificateEnumerator.ahk" { IOpcCertificateEnumerator }
+#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
+#Import "..\Packaging\Opc\IOpcSignatureCustomObjectEnumerator.ahk" { IOpcSignatureCustomObjectEnumerator }
+#Import "..\Packaging\Opc\IOpcSignatureReferenceEnumerator.ahk" { IOpcSignatureReferenceEnumerator }
+#Import "..\Packaging\Opc\OPC_SIGNATURE_TIME_FORMAT.ahk" { OPC_SIGNATURE_TIME_FORMAT }
+#Import ".\XPS_SIGNATURE_STATUS.ahk" { XPS_SIGNATURE_STATUS }
+#Import ".\XPS_SIGN_POLICY.ahk" { XPS_SIGN_POLICY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a single digital signature.

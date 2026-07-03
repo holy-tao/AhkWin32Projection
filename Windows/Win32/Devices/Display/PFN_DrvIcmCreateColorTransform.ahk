@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\DHPDEV.ahk" { DHPDEV }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\UI\ColorSystem\LOGCOLORSPACEW.ahk" { LOGCOLORSPACEW }
 
 /**
@@ -58,10 +58,6 @@ export default struct PFN_DrvIcmCreateColorTransform {
             this.value := CallbackCreate(fn, , [DHPDEV, LOGCOLORSPACEW.Ptr, "ptr", UInt32, "ptr", UInt32, "ptr", UInt32, UInt32, HANDLE])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

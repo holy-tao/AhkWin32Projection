@@ -52,10 +52,6 @@ export default struct PIBIO_SENSOR_ASYNC_IMPORT_RAW_BUFFER_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, IntPtr, IntPtr, "ptr*", "ptr*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

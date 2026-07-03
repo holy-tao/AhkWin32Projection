@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WSDXML_NAME.ahk" { WSDXML_NAME }
-#Import ".\WSDXML_PREFIX_MAPPING.ahk" { WSDXML_PREFIX_MAPPING }
-#Import ".\WSDXML_NODE.ahk" { WSDXML_NODE }
 #Import ".\WSDXML_ATTRIBUTE.ahk" { WSDXML_ATTRIBUTE }
+#Import ".\WSDXML_NAME.ahk" { WSDXML_NAME }
+#Import ".\WSDXML_NODE.ahk" { WSDXML_NODE }
+#Import ".\WSDXML_PREFIX_MAPPING.ahk" { WSDXML_PREFIX_MAPPING }
 
 /**
  * Describes an XML element.

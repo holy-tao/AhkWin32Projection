@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\DirectDraw\DD_DIRECTDRAW_GLOBAL.ahk" { DD_DIRECTDRAW_GLOBAL }
 #Import "..\..\Graphics\DirectDraw\DD_SURFACE_LOCAL.ahk" { DD_SURFACE_LOCAL }
 #Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
-#Import "..\..\Graphics\DirectDraw\DD_DIRECTDRAW_GLOBAL.ahk" { DD_DIRECTDRAW_GLOBAL }
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -47,10 +47,6 @@ export default struct PFN_DrvDeriveSurface {
             this.value := CallbackCreate(fn, , [DD_DIRECTDRAW_GLOBAL.Ptr, DD_SURFACE_LOCAL.Ptr, HBITMAP])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

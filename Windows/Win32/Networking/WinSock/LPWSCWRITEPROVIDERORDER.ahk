@@ -46,10 +46,6 @@ export default struct LPWSCWRITEPROVIDERORDER {
             this.value := CallbackCreate(fn, , ["uint*", UInt32, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID2D1TessellationSink.ahk" { ID2D1TessellationSink }
-#Import ".\ID2D1Resource.ahk" { ID2D1Resource }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID2D1Resource.ahk" { ID2D1Resource }
+#Import ".\ID2D1TessellationSink.ahk" { ID2D1TessellationSink }
 
 /**
  * Represents a set of vertices that form a list of triangles.

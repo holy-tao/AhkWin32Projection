@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Diagnostics\Debug\EXCEPTION_RECORD.ahk" { EXCEPTION_RECORD }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Diagnostics\Debug\CONTEXT_FLAGS.ahk" { CONTEXT_FLAGS }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Diagnostics\Debug\ARM64_NT_NEON128.ahk" { ARM64_NT_NEON128 }
 #Import "..\Diagnostics\Debug\CONTEXT.ahk" { CONTEXT }
+#Import "..\Diagnostics\Debug\CONTEXT_FLAGS.ahk" { CONTEXT_FLAGS }
+#Import "..\Diagnostics\Debug\EXCEPTION_RECORD.ahk" { EXCEPTION_RECORD }
 
 /**
  * Contains the exception information that you use to determine whether you want to claim the crash.

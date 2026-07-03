@@ -81,10 +81,6 @@ export default struct PCLUSTER_UPGRADE_PROGRESS_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", CLUSTER_UPGRADE_PHASE, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

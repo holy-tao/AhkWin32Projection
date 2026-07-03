@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ID2D1Geometry.ahk" { ID2D1Geometry }
-#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
-#Import ".\D2D1_LAYER_OPTIONS.ahk" { D2D1_LAYER_OPTIONS }
-#Import ".\D2D1_ANTIALIAS_MODE.ahk" { D2D1_ANTIALIAS_MODE }
 #Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
+#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
+#Import ".\D2D1_ANTIALIAS_MODE.ahk" { D2D1_ANTIALIAS_MODE }
+#Import ".\D2D1_LAYER_OPTIONS.ahk" { D2D1_LAYER_OPTIONS }
 #Import ".\ID2D1Brush.ahk" { ID2D1Brush }
+#Import ".\ID2D1Geometry.ahk" { ID2D1Geometry }
 
 /**
  * Contains the content bounds, mask information, opacity settings, and other options for a layer resource. (D2D1_LAYER_PARAMETERS)

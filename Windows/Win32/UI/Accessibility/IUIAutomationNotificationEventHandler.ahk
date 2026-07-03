@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
-#Import ".\NotificationProcessing.ahk" { NotificationProcessing }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\NotificationKind.ahk" { NotificationKind }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
+#Import ".\NotificationKind.ahk" { NotificationKind }
+#Import ".\NotificationProcessing.ahk" { NotificationProcessing }
 
 /**
  * Exposes a method to handle Microsoft UI Automation notification events.

@@ -47,10 +47,6 @@ export default struct PDNS_SERVICE_REGISTER_COMPLETE {
             this.value := CallbackCreate(fn, , [UInt32, "ptr", DNS_SERVICE_INSTANCE.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

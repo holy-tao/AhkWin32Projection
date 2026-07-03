@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FWPM_ACTION0.ahk" { FWPM_ACTION0 }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\FWP_ACTION_TYPE.ahk" { FWP_ACTION_TYPE }
-#Import "..\..\Security\SID.ahk" { SID }
-#Import ".\FWP_BYTE_ARRAY6.ahk" { FWP_BYTE_ARRAY6 }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FWP_VALUE0.ahk" { FWP_VALUE0 }
-#Import ".\FWPM_FILTER_FLAGS.ahk" { FWPM_FILTER_FLAGS }
-#Import ".\FWP_TOKEN_INFORMATION.ahk" { FWP_TOKEN_INFORMATION }
-#Import ".\FWP_DATA_TYPE.ahk" { FWP_DATA_TYPE }
-#Import ".\FWP_BYTE_ARRAY16.ahk" { FWP_BYTE_ARRAY16 }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\FWPM_ACTION0.ahk" { FWPM_ACTION0 }
 #Import ".\FWPM_DISPLAY_DATA0.ahk" { FWPM_DISPLAY_DATA0 }
-#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
 #Import ".\FWPM_FILTER_CONDITION0.ahk" { FWPM_FILTER_CONDITION0 }
+#Import ".\FWPM_FILTER_FLAGS.ahk" { FWPM_FILTER_FLAGS }
+#Import ".\FWP_ACTION_TYPE.ahk" { FWP_ACTION_TYPE }
+#Import ".\FWP_BYTE_ARRAY16.ahk" { FWP_BYTE_ARRAY16 }
+#Import ".\FWP_BYTE_ARRAY6.ahk" { FWP_BYTE_ARRAY6 }
+#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
+#Import ".\FWP_DATA_TYPE.ahk" { FWP_DATA_TYPE }
+#Import ".\FWP_TOKEN_INFORMATION.ahk" { FWP_TOKEN_INFORMATION }
+#Import ".\FWP_VALUE0.ahk" { FWP_VALUE0 }
+#Import "..\..\Security\SID.ahk" { SID }
 
 /**
  * Stores the state associated with a filter.

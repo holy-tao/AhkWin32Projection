@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\KnownCompiler.ahk" { KnownCompiler }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDebugHostModule4.ahk" { IDebugHostModule4 }
+#Import ".\KnownCompiler.ahk" { KnownCompiler }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

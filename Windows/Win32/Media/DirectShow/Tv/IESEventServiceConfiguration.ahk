@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\IFilterGraph.ahk" { IFilterGraph }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IESEventService.ahk" { IESEventService }
 #Import "..\IESEvents.ahk" { IESEvents }
+#Import "..\IFilterGraph.ahk" { IFilterGraph }
+#Import ".\IESEventService.ahk" { IESEventService }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Contains methods that configure an event service that implements the IESEventService interface.

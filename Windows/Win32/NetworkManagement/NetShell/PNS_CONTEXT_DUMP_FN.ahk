@@ -52,10 +52,6 @@ export default struct PNS_CONTEXT_DUMP_FN {
             this.value := CallbackCreate(fn, , [PWSTR, PWSTR.Ptr, UInt32, "ptr", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

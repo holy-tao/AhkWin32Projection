@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\SystemServices\userHBITMAP.ahk" { userHBITMAP }
-#Import "..\SystemServices\userHPALETTE.ahk" { userHPALETTE }
 #Import "..\SystemServices\userHGLOBAL.ahk" { userHGLOBAL }
+#Import "..\SystemServices\userHPALETTE.ahk" { userHPALETTE }
 
 /**
  * @namespace Windows.Win32.System.Com

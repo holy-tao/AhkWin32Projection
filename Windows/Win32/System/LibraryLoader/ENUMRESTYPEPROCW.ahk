@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * An application-defined callback function used with the EnumResourceTypes and EnumResourceTypesEx functions. (Unicode)
@@ -72,10 +72,6 @@ export default struct ENUMRESTYPEPROCW {
             this.value := CallbackCreate(fn, , [HMODULE, PWSTR, IntPtr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

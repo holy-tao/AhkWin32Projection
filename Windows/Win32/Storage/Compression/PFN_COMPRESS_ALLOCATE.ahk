@@ -46,10 +46,6 @@ export default struct PFN_COMPRESS_ALLOCATE {
             this.value := CallbackCreate(fn, "cdecl", ["ptr", IntPtr, "ptr"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

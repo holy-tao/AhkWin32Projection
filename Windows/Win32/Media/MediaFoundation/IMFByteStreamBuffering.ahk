@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\MFBYTESTREAM_BUFFERING_PARAMS.ahk" { MFBYTESTREAM_BUFFERING_PARAMS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MFBYTESTREAM_BUFFERING_PARAMS.ahk" { MFBYTESTREAM_BUFFERING_PARAMS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Controls how a byte stream buffers data from a network.

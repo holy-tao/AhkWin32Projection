@@ -1,59 +1,57 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\WHV_REGISTER_VALUE.ahk" { WHV_REGISTER_VALUE }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\WHV_TRANSLATE_GVA_RESULT.ahk" { WHV_TRANSLATE_GVA_RESULT }
-#Import ".\WHV_VPCI_DEVICE_PROPERTY_CODE.ahk" { WHV_VPCI_DEVICE_PROPERTY_CODE }
-#Import ".\MODULE_INFO.ahk" { MODULE_INFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Power\DEVICE_POWER_STATE.ahk" { DEVICE_POWER_STATE }
-#Import ".\WHV_ACCESS_GPA_CONTROLS.ahk" { WHV_ACCESS_GPA_CONTROLS }
-#Import ".\WHV_VIRTUAL_PROCESSOR_STATE_TYPE.ahk" { WHV_VIRTUAL_PROCESSOR_STATE_TYPE }
-#Import "..\HostComputeSystem\HCS_SYSTEM.ahk" { HCS_SYSTEM }
-#Import ".\WHV_MAP_GPA_RANGE_FLAGS.ahk" { WHV_MAP_GPA_RANGE_FLAGS }
-#Import ".\VIRTUAL_PROCESSOR_REGISTER.ahk" { VIRTUAL_PROCESSOR_REGISTER }
-#Import ".\WHV_INTERRUPT_DESTINATION_MODE.ahk" { WHV_INTERRUPT_DESTINATION_MODE }
-#Import ".\WHV_TRIGGER_PARAMETERS.ahk" { WHV_TRIGGER_PARAMETERS }
-#Import ".\WHV_MEMORY_ACCESS_CONTEXT.ahk" { WHV_MEMORY_ACCESS_CONTEXT }
-#Import ".\PAGING_MODE.ahk" { PAGING_MODE }
-#Import ".\WHV_VP_EXIT_CONTEXT.ahk" { WHV_VP_EXIT_CONTEXT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\WHV_REGISTER_NAME.ahk" { WHV_REGISTER_NAME }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\WHV_VPCI_MMIO_MAPPING.ahk" { WHV_VPCI_MMIO_MAPPING }
-#Import ".\WHV_ALLOCATE_VPCI_RESOURCE_FLAGS.ahk" { WHV_ALLOCATE_VPCI_RESOURCE_FLAGS }
-#Import ".\WHV_ADVISE_GPA_RANGE_CODE.ahk" { WHV_ADVISE_GPA_RANGE_CODE }
-#Import ".\WHV_EMULATOR_CALLBACKS.ahk" { WHV_EMULATOR_CALLBACKS }
-#Import ".\WHV_PARTITION_PROPERTY_CODE.ahk" { WHV_PARTITION_PROPERTY_CODE }
-#Import ".\WHV_X64_IO_PORT_ACCESS_CONTEXT.ahk" { WHV_X64_IO_PORT_ACCESS_CONTEXT }
-#Import ".\WHV_CPUID_OUTPUT.ahk" { WHV_CPUID_OUTPUT }
-#Import ".\WHV_DOORBELL_MATCH_DATA.ahk" { WHV_DOORBELL_MATCH_DATA }
-#Import ".\WHV_PROCESSOR_COUNTER_SET.ahk" { WHV_PROCESSOR_COUNTER_SET }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WHV_INTERRUPT_CONTROL.ahk" { WHV_INTERRUPT_CONTROL }
-#Import ".\WHV_NOTIFICATION_PORT_PARAMETERS.ahk" { WHV_NOTIFICATION_PORT_PARAMETERS }
-#Import ".\GPA_MEMORY_CHUNK.ahk" { GPA_MEMORY_CHUNK }
-#Import ".\WHV_CREATE_VPCI_DEVICE_FLAGS.ahk" { WHV_CREATE_VPCI_DEVICE_FLAGS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\HDV_MMIO_MAPPING_FLAGS.ahk" { HDV_MMIO_MAPPING_FLAGS }
-#Import ".\HDV_DEVICE_HOST_FLAGS.ahk" { HDV_DEVICE_HOST_FLAGS }
-#Import ".\WHV_PARTITION_COUNTER_SET.ahk" { WHV_PARTITION_COUNTER_SET }
-#Import ".\WHV_VPCI_INTERRUPT_TARGET.ahk" { WHV_VPCI_INTERRUPT_TARGET }
-#Import ".\WHV_MEMORY_RANGE_ENTRY.ahk" { WHV_MEMORY_RANGE_ENTRY }
-#Import ".\WHV_PARTITION_HANDLE.ahk" { WHV_PARTITION_HANDLE }
+#Import "..\HostComputeSystem\HCS_SYSTEM.ahk" { HCS_SYSTEM }
+#Import ".\GPA_MEMORY_CHUNK.ahk" { GPA_MEMORY_CHUNK }
 #Import ".\GUEST_OS_INFO.ahk" { GUEST_OS_INFO }
+#Import ".\HDV_DEVICE_HOST_FLAGS.ahk" { HDV_DEVICE_HOST_FLAGS }
 #Import ".\HDV_DEVICE_TYPE.ahk" { HDV_DEVICE_TYPE }
-#Import ".\VIRTUAL_PROCESSOR_ARCH.ahk" { VIRTUAL_PROCESSOR_ARCH }
-#Import ".\WHV_TRANSLATE_GVA_FLAGS.ahk" { WHV_TRANSLATE_GVA_FLAGS }
-#Import ".\WHV_EMULATOR_STATUS.ahk" { WHV_EMULATOR_STATUS }
-#Import ".\WHV_NOTIFICATION_PORT_PROPERTY_CODE.ahk" { WHV_NOTIFICATION_PORT_PROPERTY_CODE }
-#Import ".\WHV_VPCI_DEVICE_REGISTER.ahk" { WHV_VPCI_DEVICE_REGISTER }
-#Import ".\FOUND_IMAGE_CALLBACK.ahk" { FOUND_IMAGE_CALLBACK }
-#Import ".\WHV_VIRTUAL_PROCESSOR_PROPERTY.ahk" { WHV_VIRTUAL_PROCESSOR_PROPERTY }
-#Import ".\WHV_CAPABILITY_CODE.ahk" { WHV_CAPABILITY_CODE }
+#Import ".\HDV_MMIO_MAPPING_FLAGS.ahk" { HDV_MMIO_MAPPING_FLAGS }
 #Import ".\HDV_PCI_BAR_SELECTOR.ahk" { HDV_PCI_BAR_SELECTOR }
-#Import ".\GUEST_SYMBOLS_PROVIDER_DEBUG_INFO_CALLBACK.ahk" { GUEST_SYMBOLS_PROVIDER_DEBUG_INFO_CALLBACK }
+#Import ".\MODULE_INFO.ahk" { MODULE_INFO }
+#Import ".\PAGING_MODE.ahk" { PAGING_MODE }
+#Import ".\VIRTUAL_PROCESSOR_ARCH.ahk" { VIRTUAL_PROCESSOR_ARCH }
+#Import ".\VIRTUAL_PROCESSOR_REGISTER.ahk" { VIRTUAL_PROCESSOR_REGISTER }
+#Import ".\WHV_ACCESS_GPA_CONTROLS.ahk" { WHV_ACCESS_GPA_CONTROLS }
+#Import ".\WHV_ADVISE_GPA_RANGE_CODE.ahk" { WHV_ADVISE_GPA_RANGE_CODE }
+#Import ".\WHV_ALLOCATE_VPCI_RESOURCE_FLAGS.ahk" { WHV_ALLOCATE_VPCI_RESOURCE_FLAGS }
+#Import ".\WHV_CAPABILITY_CODE.ahk" { WHV_CAPABILITY_CODE }
+#Import ".\WHV_CPUID_OUTPUT.ahk" { WHV_CPUID_OUTPUT }
+#Import ".\WHV_CREATE_VPCI_DEVICE_FLAGS.ahk" { WHV_CREATE_VPCI_DEVICE_FLAGS }
+#Import ".\WHV_DOORBELL_MATCH_DATA.ahk" { WHV_DOORBELL_MATCH_DATA }
+#Import ".\WHV_EMULATOR_CALLBACKS.ahk" { WHV_EMULATOR_CALLBACKS }
+#Import ".\WHV_EMULATOR_STATUS.ahk" { WHV_EMULATOR_STATUS }
+#Import ".\WHV_INTERRUPT_CONTROL.ahk" { WHV_INTERRUPT_CONTROL }
+#Import ".\WHV_INTERRUPT_DESTINATION_MODE.ahk" { WHV_INTERRUPT_DESTINATION_MODE }
+#Import ".\WHV_MAP_GPA_RANGE_FLAGS.ahk" { WHV_MAP_GPA_RANGE_FLAGS }
+#Import ".\WHV_MEMORY_ACCESS_CONTEXT.ahk" { WHV_MEMORY_ACCESS_CONTEXT }
+#Import ".\WHV_MEMORY_RANGE_ENTRY.ahk" { WHV_MEMORY_RANGE_ENTRY }
+#Import ".\WHV_NOTIFICATION_PORT_PARAMETERS.ahk" { WHV_NOTIFICATION_PORT_PARAMETERS }
+#Import ".\WHV_NOTIFICATION_PORT_PROPERTY_CODE.ahk" { WHV_NOTIFICATION_PORT_PROPERTY_CODE }
+#Import ".\WHV_PARTITION_COUNTER_SET.ahk" { WHV_PARTITION_COUNTER_SET }
+#Import ".\WHV_PARTITION_HANDLE.ahk" { WHV_PARTITION_HANDLE }
+#Import ".\WHV_PARTITION_PROPERTY_CODE.ahk" { WHV_PARTITION_PROPERTY_CODE }
+#Import ".\WHV_PROCESSOR_COUNTER_SET.ahk" { WHV_PROCESSOR_COUNTER_SET }
+#Import ".\WHV_REGISTER_NAME.ahk" { WHV_REGISTER_NAME }
+#Import ".\WHV_REGISTER_VALUE.ahk" { WHV_REGISTER_VALUE }
 #Import ".\WHV_SYNIC_EVENT_PARAMETERS.ahk" { WHV_SYNIC_EVENT_PARAMETERS }
+#Import ".\WHV_TRANSLATE_GVA_FLAGS.ahk" { WHV_TRANSLATE_GVA_FLAGS }
+#Import ".\WHV_TRANSLATE_GVA_RESULT.ahk" { WHV_TRANSLATE_GVA_RESULT }
+#Import ".\WHV_TRIGGER_PARAMETERS.ahk" { WHV_TRIGGER_PARAMETERS }
+#Import ".\WHV_VIRTUAL_PROCESSOR_PROPERTY.ahk" { WHV_VIRTUAL_PROCESSOR_PROPERTY }
+#Import ".\WHV_VIRTUAL_PROCESSOR_STATE_TYPE.ahk" { WHV_VIRTUAL_PROCESSOR_STATE_TYPE }
+#Import ".\WHV_VPCI_DEVICE_PROPERTY_CODE.ahk" { WHV_VPCI_DEVICE_PROPERTY_CODE }
+#Import ".\WHV_VPCI_DEVICE_REGISTER.ahk" { WHV_VPCI_DEVICE_REGISTER }
+#Import ".\WHV_VPCI_INTERRUPT_TARGET.ahk" { WHV_VPCI_INTERRUPT_TARGET }
+#Import ".\WHV_VPCI_MMIO_MAPPING.ahk" { WHV_VPCI_MMIO_MAPPING }
+#Import ".\WHV_VP_EXIT_CONTEXT.ahk" { WHV_VP_EXIT_CONTEXT }
+#Import ".\WHV_X64_IO_PORT_ACCESS_CONTEXT.ahk" { WHV_X64_IO_PORT_ACCESS_CONTEXT }
+#Import "..\Power\DEVICE_POWER_STATE.ahk" { DEVICE_POWER_STATE }
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
@@ -1676,7 +1674,7 @@ export GetSavedStateSymbolProviderHandle(vmSavedStateDumpHandle) {
 export SetSavedStateSymbolProviderDebugInfoCallback(vmSavedStateDumpHandle, Callback) {
     vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\SetSavedStateSymbolProviderDebugInfoCallback", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, GUEST_SYMBOLS_PROVIDER_DEBUG_INFO_CALLBACK, Callback, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\SetSavedStateSymbolProviderDebugInfoCallback", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "ptr", Callback, "HRESULT")
     return result
 }
 
@@ -1829,7 +1827,7 @@ export ScanMemoryForDosImages(vmSavedStateDumpHandle, vpId, startAddress, endAdd
     callbackContextMarshal := callbackContext is VarRef ? "ptr" : "ptr"
     standaloneAddressMarshal := standaloneAddress is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\ScanMemoryForDosImages", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, UInt32, vpId, Int64, startAddress, Int64, endAddress, callbackContextMarshal, callbackContext, FOUND_IMAGE_CALLBACK, foundImageCallback, standaloneAddressMarshal, standaloneAddress, UInt32, standaloneAddressCount, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\ScanMemoryForDosImages", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, UInt32, vpId, Int64, startAddress, Int64, endAddress, callbackContextMarshal, callbackContext, "ptr", foundImageCallback, standaloneAddressMarshal, standaloneAddress, UInt32, standaloneAddressCount, "HRESULT")
     return result
 }
 

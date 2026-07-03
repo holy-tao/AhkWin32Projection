@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\DNS_HEADER_EXT.ahk" { DNS_HEADER_EXT }
 #Import ".\DNS_OPT_DATA.ahk" { DNS_OPT_DATA }
 #Import ".\DNS_RECORDA.ahk" { DNS_RECORDA }
-#Import ".\DNS_HEADER_EXT.ahk" { DNS_HEADER_EXT }
 #Import ".\DNS_RECORD_FLAGS.ahk" { DNS_RECORD_FLAGS }
 
 /**

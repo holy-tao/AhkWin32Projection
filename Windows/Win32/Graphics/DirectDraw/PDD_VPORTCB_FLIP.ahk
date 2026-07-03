@@ -52,10 +52,6 @@ export default struct PDD_VPORTCB_FLIP {
             this.value := CallbackCreate(fn, , [DD_FLIPVPORTDATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

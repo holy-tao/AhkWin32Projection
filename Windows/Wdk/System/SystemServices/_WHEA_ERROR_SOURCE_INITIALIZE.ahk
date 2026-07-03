@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\System\Diagnostics\Debug\WHEA_ERROR_SOURCE_DESCRIPTOR.ahk" { WHEA_ERROR_SOURCE_DESCRIPTOR }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\..\Win32\System\Diagnostics\Debug\WHEA_ERROR_SOURCE_DESCRIPTOR.ahk" { WHEA_ERROR_SOURCE_DESCRIPTOR }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -30,7 +30,7 @@ export default struct _WHEA_ERROR_SOURCE_INITIALIZE {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, UInt32, Phase, WHEA_ERROR_SOURCE_DESCRIPTOR.Ptr, ErrorSource, _ContextMarshal, _Context, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -50,10 +50,6 @@ export default struct _WHEA_ERROR_SOURCE_INITIALIZE {
             this.value := CallbackCreate(fn, , [UInt32, WHEA_ERROR_SOURCE_DESCRIPTOR.Ptr, "ptr", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DOT11_ADHOC_NETWORK_CONNECTION_STATUS.ahk" { DOT11_ADHOC_NETWORK_CONNECTION_STATUS }
-#Import ".\IEnumDot11AdHocSecuritySettings.ahk" { IEnumDot11AdHocSecuritySettings }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDot11AdHocNetwork.ahk" { IDot11AdHocNetwork }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IEnumDot11AdHocNetworks.ahk" { IEnumDot11AdHocNetworks }
+#Import ".\IEnumDot11AdHocSecuritySettings.ahk" { IEnumDot11AdHocSecuritySettings }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a wireless network interface card (NIC).

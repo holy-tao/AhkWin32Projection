@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MI_Qualifier.ahk" { MI_Qualifier }
 #Import ".\MI_PropertyDecl.ahk" { MI_PropertyDecl }
+#Import ".\MI_Qualifier.ahk" { MI_Qualifier }
 
 /**
  * Contains properties common to the MI_ClassDecl and MI_PropertyDecl structures.

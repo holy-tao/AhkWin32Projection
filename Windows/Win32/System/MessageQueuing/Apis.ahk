@@ -1,23 +1,22 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Security\OBJECT_SECURITY_INFORMATION.ahk" { OBJECT_SECURITY_INFORMATION }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
+#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\DistributedTransactionCoordinator\ITransaction.ahk" { ITransaction }
+#Import "..\IO\OVERLAPPED.ahk" { OVERLAPPED }
+#Import ".\MQCOLUMNSET.ahk" { MQCOLUMNSET }
+#Import ".\MQMGMTPROPS.ahk" { MQMGMTPROPS }
 #Import ".\MQMSGPROPS.ahk" { MQMSGPROPS }
 #Import ".\MQPRIVATEPROPS.ahk" { MQPRIVATEPROPS }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import ".\MQCOLUMNSET.ahk" { MQCOLUMNSET }
 #Import ".\MQQMPROPS.ahk" { MQQMPROPS }
 #Import ".\MQQUEUEPROPS.ahk" { MQQUEUEPROPS }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\IO\OVERLAPPED.ahk" { OVERLAPPED }
 #Import ".\MQRESTRICTION.ahk" { MQRESTRICTION }
-#Import ".\MQMGMTPROPS.ahk" { MQMGMTPROPS }
-#Import "..\DistributedTransactionCoordinator\ITransaction.ahk" { ITransaction }
 #Import ".\MQSORTSET.ahk" { MQSORTSET }
-#Import ".\PMQRECEIVECALLBACK.ahk" { PMQRECEIVECALLBACK }
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
@@ -132,7 +131,7 @@ export MQSendMessage(hDestinationQueue, pMessageProps, pTransaction) {
  * @returns {HRESULT} 
  */
 export MQReceiveMessage(hSource, dwTimeout, dwAction, pMessageProps, lpOverlapped, fnReceiveCallback, _hCursor, pTransaction) {
-    result := DllCall("mqrt.dll\MQReceiveMessage", IntPtr, hSource, UInt32, dwTimeout, UInt32, dwAction, MQMSGPROPS.Ptr, pMessageProps, OVERLAPPED.Ptr, lpOverlapped, PMQRECEIVECALLBACK, fnReceiveCallback, HANDLE, _hCursor, "ptr", pTransaction, "HRESULT")
+    result := DllCall("mqrt.dll\MQReceiveMessage", IntPtr, hSource, UInt32, dwTimeout, UInt32, dwAction, MQMSGPROPS.Ptr, pMessageProps, OVERLAPPED.Ptr, lpOverlapped, "ptr", fnReceiveCallback, HANDLE, _hCursor, "ptr", pTransaction, "HRESULT")
     return result
 }
 
@@ -148,7 +147,7 @@ export MQReceiveMessage(hSource, dwTimeout, dwAction, pMessageProps, lpOverlappe
  * @returns {HRESULT} 
  */
 export MQReceiveMessageByLookupId(hSource, ullLookupId, dwLookupAction, pMessageProps, lpOverlapped, fnReceiveCallback, pTransaction) {
-    result := DllCall("mqrt.dll\MQReceiveMessageByLookupId", IntPtr, hSource, Int64, ullLookupId, UInt32, dwLookupAction, MQMSGPROPS.Ptr, pMessageProps, OVERLAPPED.Ptr, lpOverlapped, PMQRECEIVECALLBACK, fnReceiveCallback, "ptr", pTransaction, "HRESULT")
+    result := DllCall("mqrt.dll\MQReceiveMessageByLookupId", IntPtr, hSource, Int64, ullLookupId, UInt32, dwLookupAction, MQMSGPROPS.Ptr, pMessageProps, OVERLAPPED.Ptr, lpOverlapped, "ptr", fnReceiveCallback, "ptr", pTransaction, "HRESULT")
     return result
 }
 

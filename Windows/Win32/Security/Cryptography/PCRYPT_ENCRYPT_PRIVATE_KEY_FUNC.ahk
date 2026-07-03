@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 #Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 
 /**
  * Encrypts the private key and returns the encrypted contents in the pbEncryptedKey parameter.
@@ -61,10 +61,6 @@ export default struct PCRYPT_ENCRYPT_PRIVATE_KEY_FUNC {
             this.value := CallbackCreate(fn, , [CRYPT_ALGORITHM_IDENTIFIER.Ptr, CRYPT_INTEGER_BLOB.Ptr, IntPtr, "uint*", "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

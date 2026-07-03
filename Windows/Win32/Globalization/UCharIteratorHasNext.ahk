@@ -44,10 +44,6 @@ export default struct UCharIteratorHasNext {
             this.value := CallbackCreate(fn, "cdecl", [UCharIterator.Ptr, Int8])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CERT_LOGOTYPE_DATA.ahk" { CERT_LOGOTYPE_DATA }
 #Import ".\CERT_LOGOTYPE_OPTION.ahk" { CERT_LOGOTYPE_OPTION }
 #Import ".\CERT_LOGOTYPE_REFERENCE.ahk" { CERT_LOGOTYPE_REFERENCE }
-#Import ".\CERT_LOGOTYPE_DATA.ahk" { CERT_LOGOTYPE_DATA }
 
 /**
  * Contains information about logotype data.

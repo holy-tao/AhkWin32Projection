@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\BCRYPT_KEY_DERIVATION_FUNCTION_TABLE.ahk" { BCRYPT_KEY_DERIVATION_FUNCTION_TABLE }
 
 /**
@@ -35,7 +35,7 @@ export default struct GetKeyDerivationInterfaceFn {
         ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, "ptr", pszProviderName, "ptr", pszAlgId, ppFunctionTableMarshal, ppFunctionTable, UInt32, dwFlags, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -55,10 +55,6 @@ export default struct GetKeyDerivationInterfaceFn {
             this.value := CallbackCreate(fn, , [PWSTR, PWSTR, "ptr*", UInt32, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

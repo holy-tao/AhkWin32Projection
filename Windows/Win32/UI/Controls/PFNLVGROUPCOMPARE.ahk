@@ -57,10 +57,6 @@ export default struct PFNLVGROUPCOMPARE {
             this.value := CallbackCreate(fn, , [Int32, Int32, "ptr", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

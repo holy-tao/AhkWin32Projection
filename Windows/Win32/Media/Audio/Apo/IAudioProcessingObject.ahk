@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\APO_REG_PROPERTIES.ahk" { APO_REG_PROPERTIES }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IAudioMediaType.ahk" { IAudioMediaType }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\APO_REG_PROPERTIES.ahk" { APO_REG_PROPERTIES }
+#Import ".\IAudioMediaType.ahk" { IAudioMediaType }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * System Effects Audio Processing Objects (sAPOs) are typically used in or called from real-time process threads.

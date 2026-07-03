@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SPAUDIOSTATUS.ahk" { SPAUDIOSTATUS }
-#Import ".\SPAUDIOSTATE.ahk" { SPAUDIOSTATE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SPAUDIOSTATE.ahk" { SPAUDIOSTATE }
+#Import ".\SPAUDIOSTATUS.ahk" { SPAUDIOSTATUS }
 
 /**
  * @namespace Windows.Win32.Media.Speech

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMarkupPointer.ahk" { IMarkupPointer }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IHTMLElement.ahk" { IHTMLElement }
-#Import ".\IMarkupContainer.ahk" { IMarkupContainer }
-#Import ".\IHTMLChangeSink.ahk" { IHTMLChangeSink }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IHTMLChangeLog.ahk" { IHTMLChangeLog }
+#Import ".\IHTMLChangeSink.ahk" { IHTMLChangeSink }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import ".\IMarkupContainer.ahk" { IMarkupContainer }
+#Import ".\IMarkupPointer.ahk" { IMarkupPointer }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WTS_TIME_ZONE_INFORMATION.ahk" { WTS_TIME_ZONE_INFORMATION }
 #Import ".\WTS_SYSTEMTIME.ahk" { WTS_SYSTEMTIME }
+#Import ".\WTS_TIME_ZONE_INFORMATION.ahk" { WTS_TIME_ZONE_INFORMATION }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

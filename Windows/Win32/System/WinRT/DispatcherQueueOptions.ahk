@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DISPATCHERQUEUE_THREAD_TYPE.ahk" { DISPATCHERQUEUE_THREAD_TYPE }
 #Import ".\DISPATCHERQUEUE_THREAD_APARTMENTTYPE.ahk" { DISPATCHERQUEUE_THREAD_APARTMENTTYPE }
+#Import ".\DISPATCHERQUEUE_THREAD_TYPE.ahk" { DISPATCHERQUEUE_THREAD_TYPE }
 
 /**
  * Specifies the threading and apartment type for a new DispatcherQueueController.

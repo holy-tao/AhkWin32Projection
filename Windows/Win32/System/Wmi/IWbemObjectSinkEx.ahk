@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IWbemObjectSink.ahk" { IWbemObjectSink }
-#Import ".\IWbemClassObject.ahk" { IWbemClassObject }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IWbemClassObject.ahk" { IWbemClassObject }
+#Import ".\IWbemObjectSink.ahk" { IWbemObjectSink }
 
 /**
  * @namespace Windows.Win32.System.Wmi

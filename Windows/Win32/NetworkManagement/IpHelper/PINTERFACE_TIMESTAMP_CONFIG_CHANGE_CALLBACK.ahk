@@ -44,10 +44,6 @@ export default struct PINTERFACE_TIMESTAMP_CONFIG_CHANGE_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

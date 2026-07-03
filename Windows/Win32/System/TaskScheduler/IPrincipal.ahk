@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\TASK_LOGON_TYPE.ahk" { TASK_LOGON_TYPE }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\TASK_LOGON_TYPE.ahk" { TASK_LOGON_TYPE }
 #Import ".\TASK_RUNLEVEL_TYPE.ahk" { TASK_RUNLEVEL_TYPE }
 
 /**

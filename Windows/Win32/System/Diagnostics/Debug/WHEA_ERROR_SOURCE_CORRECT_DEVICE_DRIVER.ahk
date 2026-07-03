@@ -29,7 +29,7 @@ export default struct WHEA_ERROR_SOURCE_CORRECT_DEVICE_DRIVER {
         MaximumSectionLengthMarshal := MaximumSectionLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, ErrorSourceDescMarshal, ErrorSourceDesc, MaximumSectionLengthMarshal, MaximumSectionLength, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -49,10 +49,6 @@ export default struct WHEA_ERROR_SOURCE_CORRECT_DEVICE_DRIVER {
             this.value := CallbackCreate(fn, , ["ptr", "uint*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

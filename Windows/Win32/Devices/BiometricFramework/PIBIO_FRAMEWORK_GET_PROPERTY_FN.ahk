@@ -55,10 +55,6 @@ export default struct PIBIO_FRAMEWORK_GET_PROPERTY_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, UInt32, UInt32, WINBIO_IDENTITY.Ptr, Int8, "ptr*", "ptr*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

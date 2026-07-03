@@ -223,10 +223,6 @@ export default struct LPWSPSOCKET {
             this.value := CallbackCreate(fn, , [Int32, Int32, Int32, WSAPROTOCOL_INFOW.Ptr, UInt32, UInt32, "int*", SOCKET])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

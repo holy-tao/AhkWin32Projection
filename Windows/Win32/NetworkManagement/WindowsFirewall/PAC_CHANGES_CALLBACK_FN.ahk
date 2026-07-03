@@ -54,10 +54,6 @@ export default struct PAC_CHANGES_CALLBACK_FN {
             this.value := CallbackCreate(fn, , ["ptr", INET_FIREWALL_AC_CHANGE.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

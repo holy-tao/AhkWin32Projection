@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWiaTransferCallback.ahk" { IWiaTransferCallback }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IEnumWIA_FORMAT_INFO.ahk" { IEnumWIA_FORMAT_INFO }
+#Import ".\IWiaTransferCallback.ahk" { IWiaTransferCallback }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWiaTransfer interface provides stream-based transfer of data.

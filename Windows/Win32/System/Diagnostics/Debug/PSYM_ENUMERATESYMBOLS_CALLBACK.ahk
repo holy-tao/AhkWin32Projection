@@ -60,10 +60,6 @@ export default struct PSYM_ENUMERATESYMBOLS_CALLBACK {
             this.value := CallbackCreate(fn, , [SYMBOL_INFO.Ptr, UInt32, "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SECPKG_EXTENDED_INFORMATION_CLASS.ahk" { SECPKG_EXTENDED_INFORMATION_CLASS }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\SECPKG_EXTENDED_INFORMATION.ahk" { SECPKG_EXTENDED_INFORMATION }
+#Import ".\SECPKG_EXTENDED_INFORMATION_CLASS.ahk" { SECPKG_EXTENDED_INFORMATION_CLASS }
 
 /**
  * Sets extended information about the security package.
@@ -43,7 +43,7 @@ export default struct SpSetExtendedInformationFn {
      */
     Call(_Class, Info) {
         result := DllCall(this.value, SECPKG_EXTENDED_INFORMATION_CLASS, _Class, SECPKG_EXTENDED_INFORMATION.Ptr, Info, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -63,10 +63,6 @@ export default struct SpSetExtendedInformationFn {
             this.value := CallbackCreate(fn, , [SECPKG_EXTENDED_INFORMATION_CLASS, SECPKG_EXTENDED_INFORMATION.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

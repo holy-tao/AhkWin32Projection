@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\EmulationType.ahk" { EmulationType }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\EmulationType.ahk" { EmulationType }
 #Import ".\PlatformId.ahk" { PlatformId }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * Use this interface to specify the boot image to add to the optical disc. A boot image contains one or more sectors of code used to start the computer.

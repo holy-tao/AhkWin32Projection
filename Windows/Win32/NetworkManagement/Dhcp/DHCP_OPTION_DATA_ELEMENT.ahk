@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DHCP_OPTION_DATA_TYPE.ahk" { DHCP_OPTION_DATA_TYPE }
-#Import ".\DHCP_BINARY_DATA.ahk" { DHCP_BINARY_DATA }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DHCP_BINARY_DATA.ahk" { DHCP_BINARY_DATA }
+#Import ".\DHCP_OPTION_DATA_TYPE.ahk" { DHCP_OPTION_DATA_TYPE }
 #Import ".\DWORD_DWORD.ahk" { DWORD_DWORD }
 
 /**

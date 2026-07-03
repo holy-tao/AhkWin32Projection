@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\INSSBuffer3.ahk" { INSSBuffer3 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\INSSBuffer3.ahk" { INSSBuffer3 }
 
 /**
  * The INSSBuffer4 interface provides methods to enumerate buffer properties.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HREGBATCHNOTIFICATION.ahk" { HREGBATCHNOTIFICATION }
 #Import ".\CLUSTER_BATCH_COMMAND.ahk" { CLUSTER_BATCH_COMMAND }
+#Import ".\HREGBATCHNOTIFICATION.ahk" { HREGBATCHNOTIFICATION }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -46,10 +46,6 @@ export default struct PCLUSTER_REG_BATCH_READ_COMMAND {
             this.value := CallbackCreate(fn, , [HREGBATCHNOTIFICATION, CLUSTER_BATCH_COMMAND.Ptr, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

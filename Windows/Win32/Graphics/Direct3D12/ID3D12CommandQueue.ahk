@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D12CommandList.ahk" { ID3D12CommandList }
-#Import ".\ID3D12Heap.ahk" { ID3D12Heap }
-#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
-#Import ".\ID3D12Fence.ahk" { ID3D12Fence }
-#Import ".\ID3D12Pageable.ahk" { ID3D12Pageable }
-#Import ".\D3D12_COMMAND_QUEUE_DESC.ahk" { D3D12_COMMAND_QUEUE_DESC }
-#Import ".\D3D12_TILE_MAPPING_FLAGS.ahk" { D3D12_TILE_MAPPING_FLAGS }
-#Import ".\D3D12_TILED_RESOURCE_COORDINATE.ahk" { D3D12_TILED_RESOURCE_COORDINATE }
-#Import ".\D3D12_TILE_REGION_SIZE.ahk" { D3D12_TILE_REGION_SIZE }
-#Import ".\D3D12_TILE_RANGE_FLAGS.ahk" { D3D12_TILE_RANGE_FLAGS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_COMMAND_QUEUE_DESC.ahk" { D3D12_COMMAND_QUEUE_DESC }
+#Import ".\D3D12_TILED_RESOURCE_COORDINATE.ahk" { D3D12_TILED_RESOURCE_COORDINATE }
+#Import ".\D3D12_TILE_MAPPING_FLAGS.ahk" { D3D12_TILE_MAPPING_FLAGS }
+#Import ".\D3D12_TILE_RANGE_FLAGS.ahk" { D3D12_TILE_RANGE_FLAGS }
+#Import ".\D3D12_TILE_REGION_SIZE.ahk" { D3D12_TILE_REGION_SIZE }
+#Import ".\ID3D12CommandList.ahk" { ID3D12CommandList }
+#Import ".\ID3D12Fence.ahk" { ID3D12Fence }
+#Import ".\ID3D12Heap.ahk" { ID3D12Heap }
+#Import ".\ID3D12Pageable.ahk" { ID3D12Pageable }
+#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
 
 /**
  * Provides methods for submitting command lists, synchronizing command list execution, instrumenting the command queue, and updating resource tile mappings.

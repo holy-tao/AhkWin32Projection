@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * Describes a set of retrieved disks that can be used as log disks for the specified data disk.

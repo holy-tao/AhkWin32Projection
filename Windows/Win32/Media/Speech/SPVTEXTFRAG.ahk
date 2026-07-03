@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SPVPITCH.ahk" { SPVPITCH }
-#Import ".\SPPARTOFSPEECH.ahk" { SPPARTOFSPEECH }
-#Import ".\SPVSTATE.ahk" { SPVSTATE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SPPARTOFSPEECH.ahk" { SPPARTOFSPEECH }
 #Import ".\SPVACTIONS.ahk" { SPVACTIONS }
 #Import ".\SPVCONTEXT.ahk" { SPVCONTEXT }
+#Import ".\SPVPITCH.ahk" { SPVPITCH }
+#Import ".\SPVSTATE.ahk" { SPVSTATE }
 
 /**
  * @namespace Windows.Win32.Media.Speech

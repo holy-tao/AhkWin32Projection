@@ -1,62 +1,57 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\INHERITED_FROMA.ahk" { INHERITED_FROMA }
-#Import ".\PROG_INVOKE_SETTING.ahk" { PROG_INVOKE_SETTING }
-#Import ".\AUDIT_PARAMS.ahk" { AUDIT_PARAMS }
-#Import ".\PFN_AUTHZ_COMPUTE_DYNAMIC_GROUPS.ahk" { PFN_AUTHZ_COMPUTE_DYNAMIC_GROUPS }
-#Import ".\AUTHZ_ACCESS_CHECK_RESULTS_HANDLE.ahk" { AUTHZ_ACCESS_CHECK_RESULTS_HANDLE }
-#Import ".\SE_OBJECT_TYPE.ahk" { SE_OBJECT_TYPE }
-#Import "..\PSID.ahk" { PSID }
-#Import ".\AUTHZ_RPC_INIT_INFO_CLIENT.ahk" { AUTHZ_RPC_INIT_INFO_CLIENT }
-#Import ".\AUTHZ_CLIENT_CONTEXT_HANDLE.ahk" { AUTHZ_CLIENT_CONTEXT_HANDLE }
-#Import ".\AUTHZ_INIT_INFO.ahk" { AUTHZ_INIT_INFO }
-#Import "..\ACL.ahk" { ACL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\OBJECTS_AND_SID.ahk" { OBJECTS_AND_SID }
-#Import ".\AUTHZ_CAP_CHANGE_SUBSCRIPTION_HANDLE.ahk" { AUTHZ_CAP_CHANGE_SUBSCRIPTION_HANDLE }
-#Import ".\AUTHZ_CONTEXT_INFORMATION_CLASS.ahk" { AUTHZ_CONTEXT_INFORMATION_CLASS }
-#Import ".\AUTHZ_RESOURCE_MANAGER_FLAGS.ahk" { AUTHZ_RESOURCE_MANAGER_FLAGS }
-#Import ".\PFN_AUTHZ_DYNAMIC_ACCESS_CHECK.ahk" { PFN_AUTHZ_DYNAMIC_ACCESS_CHECK }
-#Import "..\SID_AND_ATTRIBUTES.ahk" { SID_AND_ATTRIBUTES }
 #Import "..\..\Foundation\LUID.ahk" { LUID }
-#Import ".\OBJECTS_AND_NAME_A.ahk" { OBJECTS_AND_NAME_A }
-#Import ".\TREE_SEC_INFO.ahk" { TREE_SEC_INFO }
-#Import ".\PFN_AUTHZ_FREE_DYNAMIC_GROUPS.ahk" { PFN_AUTHZ_FREE_DYNAMIC_GROUPS }
-#Import "..\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
-#Import ".\INHERITED_FROMW.ahk" { INHERITED_FROMW }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
-#Import ".\AUTHZ_AUDIT_EVENT_HANDLE.ahk" { AUTHZ_AUDIT_EVENT_HANDLE }
-#Import ".\MULTIPLE_TRUSTEE_OPERATION.ahk" { MULTIPLE_TRUSTEE_OPERATION }
-#Import ".\AUTHZ_SECURITY_ATTRIBUTES_INFORMATION.ahk" { AUTHZ_SECURITY_ATTRIBUTES_INFORMATION }
-#Import ".\ACCESS_MODE.ahk" { ACCESS_MODE }
-#Import ".\TRUSTEE_TYPE.ahk" { TRUSTEE_TYPE }
 #Import "..\ACE_FLAGS.ahk" { ACE_FLAGS }
+#Import "..\ACL.ahk" { ACL }
+#Import ".\ACCESS_MODE.ahk" { ACCESS_MODE }
+#Import ".\AUDIT_PARAMS.ahk" { AUDIT_PARAMS }
+#Import ".\AUTHZ_ACCESS_CHECK_FLAGS.ahk" { AUTHZ_ACCESS_CHECK_FLAGS }
+#Import ".\AUTHZ_ACCESS_CHECK_RESULTS_HANDLE.ahk" { AUTHZ_ACCESS_CHECK_RESULTS_HANDLE }
+#Import ".\AUTHZ_ACCESS_REPLY.ahk" { AUTHZ_ACCESS_REPLY }
+#Import ".\AUTHZ_ACCESS_REQUEST.ahk" { AUTHZ_ACCESS_REQUEST }
+#Import ".\AUTHZ_AUDIT_EVENT_HANDLE.ahk" { AUTHZ_AUDIT_EVENT_HANDLE }
+#Import ".\AUTHZ_AUDIT_EVENT_TYPE_HANDLE.ahk" { AUTHZ_AUDIT_EVENT_TYPE_HANDLE }
+#Import ".\AUTHZ_CAP_CHANGE_SUBSCRIPTION_HANDLE.ahk" { AUTHZ_CAP_CHANGE_SUBSCRIPTION_HANDLE }
+#Import ".\AUTHZ_CLIENT_CONTEXT_HANDLE.ahk" { AUTHZ_CLIENT_CONTEXT_HANDLE }
+#Import ".\AUTHZ_CONTEXT_INFORMATION_CLASS.ahk" { AUTHZ_CONTEXT_INFORMATION_CLASS }
+#Import ".\AUTHZ_INITIALIZE_OBJECT_ACCESS_AUDIT_EVENT_FLAGS.ahk" { AUTHZ_INITIALIZE_OBJECT_ACCESS_AUDIT_EVENT_FLAGS }
+#Import ".\AUTHZ_INIT_INFO.ahk" { AUTHZ_INIT_INFO }
+#Import ".\AUTHZ_RESOURCE_MANAGER_FLAGS.ahk" { AUTHZ_RESOURCE_MANAGER_FLAGS }
+#Import ".\AUTHZ_RESOURCE_MANAGER_HANDLE.ahk" { AUTHZ_RESOURCE_MANAGER_HANDLE }
+#Import ".\AUTHZ_RPC_INIT_INFO_CLIENT.ahk" { AUTHZ_RPC_INIT_INFO_CLIENT }
+#Import ".\AUTHZ_SECURITY_ATTRIBUTES_INFORMATION.ahk" { AUTHZ_SECURITY_ATTRIBUTES_INFORMATION }
+#Import ".\AUTHZ_SECURITY_ATTRIBUTE_OPERATION.ahk" { AUTHZ_SECURITY_ATTRIBUTE_OPERATION }
+#Import ".\AUTHZ_SECURITY_EVENT_PROVIDER_HANDLE.ahk" { AUTHZ_SECURITY_EVENT_PROVIDER_HANDLE }
+#Import ".\AUTHZ_SID_OPERATION.ahk" { AUTHZ_SID_OPERATION }
+#Import ".\AUTHZ_SOURCE_SCHEMA_REGISTRATION.ahk" { AUTHZ_SOURCE_SCHEMA_REGISTRATION }
 #Import ".\EXPLICIT_ACCESS_A.ahk" { EXPLICIT_ACCESS_A }
-#Import ".\FN_PROGRESS.ahk" { FN_PROGRESS }
+#Import ".\EXPLICIT_ACCESS_W.ahk" { EXPLICIT_ACCESS_W }
+#Import ".\FN_OBJECT_MGR_FUNCTS.ahk" { FN_OBJECT_MGR_FUNCTS }
+#Import ".\INHERITED_FROMA.ahk" { INHERITED_FROMA }
+#Import ".\INHERITED_FROMW.ahk" { INHERITED_FROMW }
+#Import ".\MULTIPLE_TRUSTEE_OPERATION.ahk" { MULTIPLE_TRUSTEE_OPERATION }
+#Import ".\OBJECTS_AND_NAME_A.ahk" { OBJECTS_AND_NAME_A }
+#Import ".\OBJECTS_AND_NAME_W.ahk" { OBJECTS_AND_NAME_W }
+#Import ".\OBJECTS_AND_SID.ahk" { OBJECTS_AND_SID }
+#Import ".\PROG_INVOKE_SETTING.ahk" { PROG_INVOKE_SETTING }
+#Import ".\SE_OBJECT_TYPE.ahk" { SE_OBJECT_TYPE }
+#Import ".\TREE_SEC_INFO.ahk" { TREE_SEC_INFO }
+#Import ".\TRUSTEE_A.ahk" { TRUSTEE_A }
+#Import ".\TRUSTEE_FORM.ahk" { TRUSTEE_FORM }
+#Import ".\TRUSTEE_TYPE.ahk" { TRUSTEE_TYPE }
 #Import ".\TRUSTEE_W.ahk" { TRUSTEE_W }
 #Import "..\GENERIC_MAPPING.ahk" { GENERIC_MAPPING }
-#Import ".\AUTHZ_ACCESS_REPLY.ahk" { AUTHZ_ACCESS_REPLY }
-#Import "..\TOKEN_GROUPS.ahk" { TOKEN_GROUPS }
-#Import ".\AUTHZ_ACCESS_REQUEST.ahk" { AUTHZ_ACCESS_REQUEST }
-#Import ".\FN_OBJECT_MGR_FUNCTS.ahk" { FN_OBJECT_MGR_FUNCTS }
-#Import ".\AUTHZ_ACCESS_CHECK_FLAGS.ahk" { AUTHZ_ACCESS_CHECK_FLAGS }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\EXPLICIT_ACCESS_W.ahk" { EXPLICIT_ACCESS_W }
-#Import ".\AUTHZ_SECURITY_EVENT_PROVIDER_HANDLE.ahk" { AUTHZ_SECURITY_EVENT_PROVIDER_HANDLE }
-#Import ".\OBJECTS_AND_NAME_W.ahk" { OBJECTS_AND_NAME_W }
-#Import ".\AUTHZ_SOURCE_SCHEMA_REGISTRATION.ahk" { AUTHZ_SOURCE_SCHEMA_REGISTRATION }
-#Import ".\TRUSTEE_FORM.ahk" { TRUSTEE_FORM }
-#Import ".\AUTHZ_SID_OPERATION.ahk" { AUTHZ_SID_OPERATION }
-#Import ".\AUTHZ_RESOURCE_MANAGER_HANDLE.ahk" { AUTHZ_RESOURCE_MANAGER_HANDLE }
-#Import ".\AUTHZ_INITIALIZE_OBJECT_ACCESS_AUDIT_EVENT_FLAGS.ahk" { AUTHZ_INITIALIZE_OBJECT_ACCESS_AUDIT_EVENT_FLAGS }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\System\Threading\LPTHREAD_START_ROUTINE.ahk" { LPTHREAD_START_ROUTINE }
-#Import ".\TRUSTEE_A.ahk" { TRUSTEE_A }
 #Import "..\OBJECT_SECURITY_INFORMATION.ahk" { OBJECT_SECURITY_INFORMATION }
-#Import ".\AUTHZ_SECURITY_ATTRIBUTE_OPERATION.ahk" { AUTHZ_SECURITY_ATTRIBUTE_OPERATION }
-#Import ".\AUTHZ_AUDIT_EVENT_TYPE_HANDLE.ahk" { AUTHZ_AUDIT_EVENT_TYPE_HANDLE }
+#Import "..\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
+#Import "..\PSID.ahk" { PSID }
+#Import "..\SID_AND_ATTRIBUTES.ahk" { SID_AND_ATTRIBUTES }
+#Import "..\TOKEN_GROUPS.ahk" { TOKEN_GROUPS }
 
 /**
  * @namespace Windows.Win32.Security.Authorization
@@ -327,7 +322,7 @@ export AuthzInitializeResourceManager(Flags, pfnDynamicAccessCheck, pfnComputeDy
 
     A_LastError := 0
 
-    result := DllCall("AUTHZ.dll\AuthzInitializeResourceManager", UInt32, Flags, PFN_AUTHZ_DYNAMIC_ACCESS_CHECK, pfnDynamicAccessCheck, PFN_AUTHZ_COMPUTE_DYNAMIC_GROUPS, pfnComputeDynamicGroups, PFN_AUTHZ_FREE_DYNAMIC_GROUPS, pfnFreeDynamicGroups, "ptr", szResourceManagerName, AUTHZ_RESOURCE_MANAGER_HANDLE.Ptr, phAuthzResourceManager, BOOL)
+    result := DllCall("AUTHZ.dll\AuthzInitializeResourceManager", UInt32, Flags, "ptr", pfnDynamicAccessCheck, "ptr", pfnComputeDynamicGroups, "ptr", pfnFreeDynamicGroups, "ptr", szResourceManagerName, AUTHZ_RESOURCE_MANAGER_HANDLE.Ptr, phAuthzResourceManager, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1191,7 +1186,7 @@ export AuthzRegisterCapChangeNotification(phCapChangeSubscription, pfnCapChangeC
 
     A_LastError := 0
 
-    result := DllCall("AUTHZ.dll\AuthzRegisterCapChangeNotification", AUTHZ_CAP_CHANGE_SUBSCRIPTION_HANDLE.Ptr, phCapChangeSubscription, LPTHREAD_START_ROUTINE, pfnCapChangeCallback, pCallbackContextMarshal, pCallbackContext, BOOL)
+    result := DllCall("AUTHZ.dll\AuthzRegisterCapChangeNotification", AUTHZ_CAP_CHANGE_SUBSCRIPTION_HANDLE.Ptr, phCapChangeSubscription, "ptr", pfnCapChangeCallback, pCallbackContextMarshal, pCallbackContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2027,7 +2022,7 @@ export TreeResetNamedSecurityInfoA(pObjectName, _ObjectType, SecurityInfo, pOwne
 
     ArgsMarshal := Args is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\TreeResetNamedSecurityInfoA", "ptr", pObjectName, SE_OBJECT_TYPE, _ObjectType, OBJECT_SECURITY_INFORMATION, SecurityInfo, PSID, pOwner, PSID, pGroup, ACL.Ptr, pDacl, ACL.Ptr, pSacl, BOOL, KeepExplicit, FN_PROGRESS, fnProgress, PROG_INVOKE_SETTING, ProgressInvokeSetting, ArgsMarshal, Args, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\TreeResetNamedSecurityInfoA", "ptr", pObjectName, SE_OBJECT_TYPE, _ObjectType, OBJECT_SECURITY_INFORMATION, SecurityInfo, PSID, pOwner, PSID, pGroup, ACL.Ptr, pDacl, ACL.Ptr, pSacl, BOOL, KeepExplicit, "ptr", fnProgress, PROG_INVOKE_SETTING, ProgressInvokeSetting, ArgsMarshal, Args, WIN32_ERROR)
     return result
 }
 
@@ -2077,7 +2072,7 @@ export TreeResetNamedSecurityInfoW(pObjectName, _ObjectType, SecurityInfo, pOwne
 
     ArgsMarshal := Args is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\TreeResetNamedSecurityInfoW", "ptr", pObjectName, SE_OBJECT_TYPE, _ObjectType, OBJECT_SECURITY_INFORMATION, SecurityInfo, PSID, pOwner, PSID, pGroup, ACL.Ptr, pDacl, ACL.Ptr, pSacl, BOOL, KeepExplicit, FN_PROGRESS, fnProgress, PROG_INVOKE_SETTING, ProgressInvokeSetting, ArgsMarshal, Args, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\TreeResetNamedSecurityInfoW", "ptr", pObjectName, SE_OBJECT_TYPE, _ObjectType, OBJECT_SECURITY_INFORMATION, SecurityInfo, PSID, pOwner, PSID, pGroup, ACL.Ptr, pDacl, ACL.Ptr, pSacl, BOOL, KeepExplicit, "ptr", fnProgress, PROG_INVOKE_SETTING, ProgressInvokeSetting, ArgsMarshal, Args, WIN32_ERROR)
     return result
 }
 
@@ -2129,7 +2124,7 @@ export TreeSetNamedSecurityInfoA(pObjectName, _ObjectType, SecurityInfo, pOwner,
 
     ArgsMarshal := Args is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\TreeSetNamedSecurityInfoA", "ptr", pObjectName, SE_OBJECT_TYPE, _ObjectType, OBJECT_SECURITY_INFORMATION, SecurityInfo, PSID, pOwner, PSID, pGroup, ACL.Ptr, pDacl, ACL.Ptr, pSacl, TREE_SEC_INFO, dwAction, FN_PROGRESS, fnProgress, PROG_INVOKE_SETTING, ProgressInvokeSetting, ArgsMarshal, Args, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\TreeSetNamedSecurityInfoA", "ptr", pObjectName, SE_OBJECT_TYPE, _ObjectType, OBJECT_SECURITY_INFORMATION, SecurityInfo, PSID, pOwner, PSID, pGroup, ACL.Ptr, pDacl, ACL.Ptr, pSacl, TREE_SEC_INFO, dwAction, "ptr", fnProgress, PROG_INVOKE_SETTING, ProgressInvokeSetting, ArgsMarshal, Args, WIN32_ERROR)
     return result
 }
 
@@ -2181,7 +2176,7 @@ export TreeSetNamedSecurityInfoW(pObjectName, _ObjectType, SecurityInfo, pOwner,
 
     ArgsMarshal := Args is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\TreeSetNamedSecurityInfoW", "ptr", pObjectName, SE_OBJECT_TYPE, _ObjectType, OBJECT_SECURITY_INFORMATION, SecurityInfo, PSID, pOwner, PSID, pGroup, ACL.Ptr, pDacl, ACL.Ptr, pSacl, TREE_SEC_INFO, dwAction, FN_PROGRESS, fnProgress, PROG_INVOKE_SETTING, ProgressInvokeSetting, ArgsMarshal, Args, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\TreeSetNamedSecurityInfoW", "ptr", pObjectName, SE_OBJECT_TYPE, _ObjectType, OBJECT_SECURITY_INFORMATION, SecurityInfo, PSID, pOwner, PSID, pGroup, ACL.Ptr, pDacl, ACL.Ptr, pSacl, TREE_SEC_INFO, dwAction, "ptr", fnProgress, PROG_INVOKE_SETTING, ProgressInvokeSetting, ArgsMarshal, Args, WIN32_ERROR)
     return result
 }
 

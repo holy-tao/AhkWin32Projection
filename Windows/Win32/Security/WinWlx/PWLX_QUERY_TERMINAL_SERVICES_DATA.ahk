@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\WLX_TERMINAL_SERVICES_DATA.ahk" { WLX_TERMINAL_SERVICES_DATA }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WLX_TERMINAL_SERVICES_DATA.ahk" { WLX_TERMINAL_SERVICES_DATA }
 
 /**
  * Called by GINA to retrieve Terminal Services user configuration information after a user has logged on.
@@ -62,10 +62,6 @@ export default struct PWLX_QUERY_TERMINAL_SERVICES_DATA {
             this.value := CallbackCreate(fn, , [HANDLE, WLX_TERMINAL_SERVICES_DATA.Ptr, PWSTR, PWSTR, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

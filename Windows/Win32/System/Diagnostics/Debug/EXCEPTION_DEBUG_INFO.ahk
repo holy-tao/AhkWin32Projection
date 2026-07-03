@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\EXCEPTION_RECORD.ahk" { EXCEPTION_RECORD }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\EXCEPTION_RECORD.ahk" { EXCEPTION_RECORD }
 
 /**
  * Contains exception information that can be used by a debugger.

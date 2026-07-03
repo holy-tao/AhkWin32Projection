@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Credentials\CREDENTIAL_ATTRIBUTEW.ahk" { CREDENTIAL_ATTRIBUTEW }
 #Import "..\..\Credentials\CREDENTIALW.ahk" { CREDENTIALW }
-#Import "..\..\Credentials\CRED_TYPE.ahk" { CRED_TYPE }
+#Import "..\..\Credentials\CREDENTIAL_ATTRIBUTEW.ahk" { CREDENTIAL_ATTRIBUTEW }
 #Import "..\..\Credentials\CRED_FLAGS.ahk" { CRED_FLAGS }
 #Import "..\..\Credentials\CRED_PERSIST.ahk" { CRED_PERSIST }
+#Import "..\..\Credentials\CRED_TYPE.ahk" { CRED_TYPE }
 
 /**
  * Represents an encrypted credential.

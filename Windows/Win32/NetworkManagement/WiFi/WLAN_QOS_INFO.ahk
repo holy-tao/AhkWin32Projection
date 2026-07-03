@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\WLAN_QOS_CAPABILITIES.ahk" { WLAN_QOS_CAPABILITIES }
 #Import ".\WLAN_CONNECTION_QOS_INFO.ahk" { WLAN_CONNECTION_QOS_INFO }
+#Import ".\WLAN_QOS_CAPABILITIES.ahk" { WLAN_QOS_CAPABILITIES }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi

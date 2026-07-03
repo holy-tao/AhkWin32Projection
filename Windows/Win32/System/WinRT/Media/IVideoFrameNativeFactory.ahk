@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Media\MediaFoundation\IMFSample.ahk" { IMFSample }
-#Import "..\..\..\Media\MediaFoundation\IMFDXGIDeviceManager.ahk" { IMFDXGIDeviceManager }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\Media\MediaFoundation\MFVideoArea.ahk" { MFVideoArea }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Media\MediaFoundation\IMFDXGIDeviceManager.ahk" { IMFDXGIDeviceManager }
+#Import "..\..\..\Media\MediaFoundation\IMFSample.ahk" { IMFSample }
+#Import "..\..\..\Media\MediaFoundation\MFVideoArea.ahk" { MFVideoArea }
 #Import "..\IInspectable.ahk" { IInspectable }
 
 /**

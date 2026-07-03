@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\USBUSER_REQUEST_HEADER.ahk" { USBUSER_REQUEST_HEADER }
+#Import ".\USB_POWER_INFO.ahk" { USB_POWER_INFO }
 #Import ".\USB_USER_ERROR_CODE.ahk" { USB_USER_ERROR_CODE }
 #Import ".\WDMUSB_POWER_STATE.ahk" { WDMUSB_POWER_STATE }
-#Import ".\USB_POWER_INFO.ahk" { USB_POWER_INFO }
-#Import ".\USBUSER_REQUEST_HEADER.ahk" { USBUSER_REQUEST_HEADER }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * The USBUSER_POWER_INFO_REQUEST structure is used in conjunction with the IOCTL_USB_USER_REQUEST I/O control request to retrieve power policy information concerning the relationship of a specific system state to the power state of the host controller and the root hub.

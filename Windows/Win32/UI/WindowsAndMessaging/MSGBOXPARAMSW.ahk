@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MSGBOXCALLBACK.ahk" { MSGBOXCALLBACK }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\MESSAGEBOX_STYLE.ahk" { MESSAGEBOX_STYLE }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 
 /**
  * Contains information used to display a message box. The MessageBoxIndirect function uses this structure. (Unicode)
@@ -97,7 +96,7 @@ export default struct MSGBOXPARAMSW {
      * 
      * If this member is <b>NULL</b>, then the message box sends <a href="https://docs.microsoft.com/windows/desktop/shell/wm-help">WM_HELP</a> messages to the owner window when help events occur.
      */
-    lpfnMsgBoxCallback : MSGBOXCALLBACK
+    lpfnMsgBoxCallback : IntPtr
 
     /**
      * Type: <b>DWORD</b>

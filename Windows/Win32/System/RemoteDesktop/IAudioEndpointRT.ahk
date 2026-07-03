@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\AE_CURRENT_POSITION.ahk" { AE_CURRENT_POSITION }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\AE_CURRENT_POSITION.ahk" { AE_CURRENT_POSITION }
 
 /**
  * Gets the difference between the current read and write positions in the endpoint buffer.

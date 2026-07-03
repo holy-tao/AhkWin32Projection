@@ -1,8 +1,8 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\DXGI_CREATE_FACTORY_FLAGS.ahk" { DXGI_CREATE_FACTORY_FLAGS }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXGI_CREATE_FACTORY_FLAGS.ahk" { DXGI_CREATE_FACTORY_FLAGS }
 
 /**
  * @namespace Windows.Win32.Graphics.Dxgi

@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IUpdateServiceRegistration.ahk" { IUpdateServiceRegistration }
 #Import ".\IUpdateServiceManager.ahk" { IUpdateServiceManager }
+#Import ".\IUpdateServiceRegistration.ahk" { IUpdateServiceRegistration }
 
 /**
  * Adds or removes the registration of the update service with Windows Update Agent or Automatic Updates. (IUpdateServiceManager2)

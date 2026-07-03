@@ -1,9 +1,9 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\MCAST_LEASE_RESPONSE.ahk" { MCAST_LEASE_RESPONSE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\MCAST_CLIENT_UID.ahk" { MCAST_CLIENT_UID }
 #Import ".\MCAST_LEASE_REQUEST.ahk" { MCAST_LEASE_REQUEST }
+#Import ".\MCAST_LEASE_RESPONSE.ahk" { MCAST_LEASE_RESPONSE }
 #Import ".\MCAST_SCOPE_CTX.ahk" { MCAST_SCOPE_CTX }
 #Import ".\MCAST_SCOPE_ENTRY.ahk" { MCAST_SCOPE_ENTRY }
 

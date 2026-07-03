@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DODownloadProperty.ahk" { DODownloadProperty }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DODownloadProperty.ahk" { DODownloadProperty }
 
 /**
  * Used by **IDOManager::EnumDownloads** to filter the downloads enumeration by the specific property's value.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\IMAGEHLP_STATUS_REASON.ahk" { IMAGEHLP_STATUS_REASON }
 
 /**
@@ -53,10 +53,6 @@ export default struct PIMAGEHLP_STATUS_ROUTINE64 {
             this.value := CallbackCreate(fn, , [IMAGEHLP_STATUS_REASON, PSTR, PSTR, Int64, IntPtr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

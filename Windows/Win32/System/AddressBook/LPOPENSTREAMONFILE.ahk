@@ -1,6 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LPALLOCATEBUFFER.ahk" { LPALLOCATEBUFFER }
-#Import ".\LPFREEBUFFER.ahk" { LPFREEBUFFER }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IStream.ahk" { IStream }
 
@@ -34,7 +32,7 @@ export default struct LPOPENSTREAMONFILE {
         lpszFileNameMarshal := lpszFileName is VarRef ? "char*" : "ptr"
         lpszPrefixMarshal := lpszPrefix is VarRef ? "char*" : "ptr"
 
-        result := DllCall(this.value, LPALLOCATEBUFFER, _lpAllocateBuffer, LPFREEBUFFER, _lpFreeBuffer, UInt32, ulFlags, lpszFileNameMarshal, lpszFileName, lpszPrefixMarshal, lpszPrefix, "ptr*", &lppStream := 0, "HRESULT")
+        result := DllCall(this.value, "ptr", _lpAllocateBuffer, "ptr", _lpFreeBuffer, UInt32, ulFlags, lpszFileNameMarshal, lpszFileName, lpszPrefixMarshal, lpszPrefix, "ptr*", &lppStream := 0, "HRESULT")
         return IStream(lppStream)
     }
 
@@ -45,19 +43,15 @@ export default struct LPOPENSTREAMONFILE {
     struct From extends LPOPENSTREAMONFILE {
         /**
          * Creates a LPOPENSTREAMONFILE pointer that invokes the given AHK function when called.
-         * @param {Func(LPALLOCATEBUFFER, LPFREEBUFFER, UInt32, "char*", "char*") => "int"} fn the function to invoke.
+         * @param {Func("ptr", "ptr", UInt32, "char*", "char*") => "int"} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 5)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 5 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [LPALLOCATEBUFFER, LPFREEBUFFER, UInt32, "char*", "char*", "int"])
+            this.value := CallbackCreate(fn, , ["ptr", "ptr", UInt32, "char*", "char*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

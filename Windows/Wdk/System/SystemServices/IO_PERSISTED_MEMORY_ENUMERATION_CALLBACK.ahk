@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 #Import "..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
 #Import "..\..\Foundation\DRIVER_OBJECT.ahk" { DRIVER_OBJECT }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -37,7 +37,7 @@ export default struct IO_PERSISTED_MEMORY_ENUMERATION_CALLBACK {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, DRIVER_OBJECT.Ptr, DriverObject, DEVICE_OBJECT.Ptr, PhysicalDeviceObject, UNICODE_STRING.Ptr, PhysicalDeviceId, DataTagMarshal, DataTag, DataVersionMarshal, DataVersion, _ContextMarshal, _Context, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -57,10 +57,6 @@ export default struct IO_PERSISTED_MEMORY_ENUMERATION_CALLBACK {
             this.value := CallbackCreate(fn, , [DRIVER_OBJECT.Ptr, DEVICE_OBJECT.Ptr, UNICODE_STRING.Ptr, "ushort*", "uint*", "ptr", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

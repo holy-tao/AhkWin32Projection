@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDirect3DDevice9Ex.ahk" { IDirect3DDevice9Ex }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LUID.ahk" { LUID }
+#Import ".\D3DDEVTYPE.ahk" { D3DDEVTYPE }
+#Import ".\D3DDISPLAYMODEEX.ahk" { D3DDISPLAYMODEEX }
+#Import ".\D3DDISPLAYMODEFILTER.ahk" { D3DDISPLAYMODEFILTER }
+#Import ".\D3DDISPLAYROTATION.ahk" { D3DDISPLAYROTATION }
 #Import ".\D3DPRESENT_PARAMETERS.ahk" { D3DPRESENT_PARAMETERS }
 #Import ".\IDirect3D9.ahk" { IDirect3D9 }
-#Import ".\D3DDISPLAYMODEEX.ahk" { D3DDISPLAYMODEEX }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\LUID.ahk" { LUID }
-#Import ".\D3DDISPLAYROTATION.ahk" { D3DDISPLAYROTATION }
-#Import ".\D3DDEVTYPE.ahk" { D3DDEVTYPE }
-#Import ".\D3DDISPLAYMODEFILTER.ahk" { D3DDISPLAYMODEFILTER }
+#Import ".\IDirect3DDevice9Ex.ahk" { IDirect3DDevice9Ex }
 
 /**
  * Applications use the methods of the IDirect3D9Ex interface (which inherits from IDirect3D9) to create Microsoft Direct3D 9Ex objects and set up the environment.

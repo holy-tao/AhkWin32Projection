@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\DEADKEY.ahk" { DEADKEY }
-#Import ".\VK_TO_WCHAR_TABLE.ahk" { VK_TO_WCHAR_TABLE }
 #Import ".\LIGATURE1.ahk" { LIGATURE1 }
-#Import ".\VSC_VK.ahk" { VSC_VK }
 #Import ".\MODIFIERS.ahk" { MODIFIERS }
+#Import ".\VK_TO_WCHAR_TABLE.ahk" { VK_TO_WCHAR_TABLE }
 #Import ".\VSC_LPWSTR.ahk" { VSC_LPWSTR }
+#Import ".\VSC_VK.ahk" { VSC_VK }
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ID3D12Debug.ahk" { ID3D12Debug }
 #Import ".\D3D12_GPU_BASED_VALIDATION_FLAGS.ahk" { D3D12_GPU_BASED_VALIDATION_FLAGS }
+#Import ".\ID3D12Debug.ahk" { ID3D12Debug }
 
 /**
  * Adds configurable levels of GPU-based validation to the debug layer. (ID3D12Debug3)

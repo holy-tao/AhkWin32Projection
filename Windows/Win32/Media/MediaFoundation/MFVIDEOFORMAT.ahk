@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MFPaletteEntry.ahk" { MFPaletteEntry }
-#Import ".\MFVideoPrimaries.ahk" { MFVideoPrimaries }
-#Import ".\MFVideoArea.ahk" { MFVideoArea }
-#Import ".\MFVideoInfo.ahk" { MFVideoInfo }
-#Import ".\MFRatio.ahk" { MFRatio }
-#Import ".\MFVideoLighting.ahk" { MFVideoLighting }
-#Import ".\MFARGB.ahk" { MFARGB }
-#Import ".\MFVideoTransferMatrix.ahk" { MFVideoTransferMatrix }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MFVideoCompressedInfo.ahk" { MFVideoCompressedInfo }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import ".\MFARGB.ahk" { MFARGB }
 #Import ".\MFAYUVSample.ahk" { MFAYUVSample }
 #Import ".\MFNominalRange.ahk" { MFNominalRange }
 #Import ".\MFOffset.ahk" { MFOffset }
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import ".\MFPaletteEntry.ahk" { MFPaletteEntry }
+#Import ".\MFRatio.ahk" { MFRatio }
+#Import ".\MFVideoArea.ahk" { MFVideoArea }
 #Import ".\MFVideoChromaSubsampling.ahk" { MFVideoChromaSubsampling }
+#Import ".\MFVideoCompressedInfo.ahk" { MFVideoCompressedInfo }
+#Import ".\MFVideoInfo.ahk" { MFVideoInfo }
 #Import ".\MFVideoInterlaceMode.ahk" { MFVideoInterlaceMode }
-#Import ".\MFVideoTransferFunction.ahk" { MFVideoTransferFunction }
+#Import ".\MFVideoLighting.ahk" { MFVideoLighting }
+#Import ".\MFVideoPrimaries.ahk" { MFVideoPrimaries }
 #Import ".\MFVideoSurfaceInfo.ahk" { MFVideoSurfaceInfo }
+#Import ".\MFVideoTransferFunction.ahk" { MFVideoTransferFunction }
+#Import ".\MFVideoTransferMatrix.ahk" { MFVideoTransferMatrix }
 
 /**
  * Describes a video format.

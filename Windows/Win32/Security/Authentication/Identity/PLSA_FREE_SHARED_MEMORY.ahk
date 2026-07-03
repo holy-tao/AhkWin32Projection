@@ -46,10 +46,6 @@ export default struct PLSA_FREE_SHARED_MEMORY {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

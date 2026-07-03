@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID_PARAMETERS.ahk" { ID_PARAMETERS }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ILoadChangeContext.ahk" { ILoadChangeContext }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ID_PARAMETERS.ahk" { ID_PARAMETERS }
+#Import ".\ILoadChangeContext.ahk" { ILoadChangeContext }
 
 /**
  * Represents the mechanism by which the destination provider retrieves item data from the source provider.

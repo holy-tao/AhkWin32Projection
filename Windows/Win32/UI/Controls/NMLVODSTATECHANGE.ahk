@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\NMHDR.ahk" { NMHDR }
 #Import ".\LIST_VIEW_ITEM_STATE_FLAGS.ahk" { LIST_VIEW_ITEM_STATE_FLAGS }
+#Import ".\NMHDR.ahk" { NMHDR }
 
 /**
  * Structure that contains information for use in processing the LVN_ODSTATECHANGED notification code.

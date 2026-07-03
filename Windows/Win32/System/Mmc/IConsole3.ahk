@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IConsole2.ahk" { IConsole2 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IConsole2.ahk" { IConsole2 }
 
 /**
  * The IConsole3 interface supersedes the IConsole2 interface. The IConsole3 interface contains the IConsole3::RenameScopeItem method, which allows a scope node to programmatically be placed in rename mode.

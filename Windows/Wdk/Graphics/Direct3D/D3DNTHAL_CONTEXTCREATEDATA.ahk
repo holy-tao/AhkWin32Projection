@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Graphics\DirectDraw\DD_DIRECTDRAW_LOCAL.ahk" { DD_DIRECTDRAW_LOCAL }
-#Import "..\..\..\Win32\Graphics\DirectDraw\DD_SURFACE_LOCAL.ahk" { DD_SURFACE_LOCAL }
 #Import "..\..\..\Win32\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Win32\Graphics\DirectDraw\DD_DIRECTDRAW_GLOBAL.ahk" { DD_DIRECTDRAW_GLOBAL }
+#Import "..\..\..\Win32\Graphics\DirectDraw\DD_DIRECTDRAW_LOCAL.ahk" { DD_DIRECTDRAW_LOCAL }
+#Import "..\..\..\Win32\Graphics\DirectDraw\DD_SURFACE_LOCAL.ahk" { DD_SURFACE_LOCAL }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

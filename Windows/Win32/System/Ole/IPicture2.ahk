@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\Com\IStream.ahk" { IStream }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Ole

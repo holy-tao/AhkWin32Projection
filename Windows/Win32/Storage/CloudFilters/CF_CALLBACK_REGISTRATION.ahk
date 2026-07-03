@@ -1,5 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CF_CALLBACK.ahk" { CF_CALLBACK }
 #Import ".\CF_CALLBACK_TYPE.ahk" { CF_CALLBACK_TYPE }
 
 /**
@@ -22,6 +21,6 @@ export default struct CF_CALLBACK_REGISTRATION {
     /**
      * A pointer to the callback function.
      */
-    Callback : CF_CALLBACK
+    Callback : IntPtr
 
 }

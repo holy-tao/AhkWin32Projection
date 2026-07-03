@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Input\KeyboardAndMouse\HKL.ahk" { HKL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\TF_INPUTPROCESSORPROFILE.ahk" { TF_INPUTPROCESSORPROFILE }
 #Import ".\IEnumTfInputProcessorProfiles.ahk" { IEnumTfInputProcessorProfiles }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TF_INPUTPROCESSORPROFILE.ahk" { TF_INPUTPROCESSORPROFILE }
 
 /**
  * The ITfInputProcessorProfileMgr interface is implemented by the TSF manager and used by an application or text service to manipulate the language profile of one or more text services.

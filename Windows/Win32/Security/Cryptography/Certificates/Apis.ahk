@@ -1,20 +1,20 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\HCERTSTORE.ahk" { HCERTSTORE }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\CSBACKUP_TYPE.ahk" { CSBACKUP_TYPE }
+#Import "..\..\..\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 #Import "..\..\Authentication\Identity\LSA_TOKEN_INFORMATION_TYPE.ahk" { LSA_TOKEN_INFORMATION_TYPE }
 #Import "..\..\Authentication\Identity\SecPkgContext_IssuerListInfoEx.ahk" { SecPkgContext_IssuerListInfoEx }
-#Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
-#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\CERT_CHAIN_CONTEXT.ahk" { CERT_CHAIN_CONTEXT }
+#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import "..\CERT_SELECT_CRITERIA.ahk" { CERT_SELECT_CRITERIA }
-#Import ".\CSEDB_RSTMAPW.ahk" { CSEDB_RSTMAPW }
 #Import "..\CERT_USAGE_MATCH.ahk" { CERT_USAGE_MATCH }
-#Import "..\..\..\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\CSBACKUP_TYPE.ahk" { CSBACKUP_TYPE }
+#Import ".\CSEDB_RSTMAPW.ahk" { CSEDB_RSTMAPW }
+#Import "..\HCERTSTORE.ahk" { HCERTSTORE }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
@@ -534,7 +534,7 @@ export PstGetTrustAnchors(pTargetName, cCriteria, rgpCriteria, ppTrustedIssuers)
     ppTrustedIssuersMarshal := ppTrustedIssuers is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("certpoleng.dll\PstGetTrustAnchors", UNICODE_STRING.Ptr, pTargetName, UInt32, cCriteria, CERT_SELECT_CRITERIA.Ptr, rgpCriteria, ppTrustedIssuersMarshal, ppTrustedIssuers, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 
@@ -551,7 +551,7 @@ export PstGetTrustAnchorsEx(pTargetName, cCriteria, rgpCriteria, pCertContext, p
     ppTrustedIssuersMarshal := ppTrustedIssuers is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("certpoleng.dll\PstGetTrustAnchorsEx", UNICODE_STRING.Ptr, pTargetName, UInt32, cCriteria, CERT_SELECT_CRITERIA.Ptr, rgpCriteria, CERT_CONTEXT.Ptr, pCertContext, ppTrustedIssuersMarshal, ppTrustedIssuers, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 
@@ -566,7 +566,7 @@ export PstGetCertificateChain(pCert, pTrustedIssuers, ppCertChainContext) {
     ppCertChainContextMarshal := ppCertChainContext is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("certpoleng.dll\PstGetCertificateChain", CERT_CONTEXT.Ptr, pCert, SecPkgContext_IssuerListInfoEx.Ptr, pTrustedIssuers, ppCertChainContextMarshal, ppCertChainContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 
@@ -589,7 +589,7 @@ export PstGetCertificates(pTargetName, cCriteria, rgpCriteria, bIsClient, pdwCer
     ppCertChainContextsMarshal := ppCertChainContexts is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("certpoleng.dll\PstGetCertificates", UNICODE_STRING.Ptr, pTargetName, UInt32, cCriteria, CERT_SELECT_CRITERIA.Ptr, rgpCriteria, BOOL, bIsClient, pdwCertChainContextCountMarshal, pdwCertChainContextCount, ppCertChainContextsMarshal, ppCertChainContexts, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 
@@ -604,7 +604,7 @@ export PstGetCertificates(pTargetName, cCriteria, rgpCriteria, bIsClient, pdwCer
  */
 export PstAcquirePrivateKey(pCert) {
     result := DllCall("certpoleng.dll\PstAcquirePrivateKey", CERT_CONTEXT.Ptr, pCert, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 
@@ -624,7 +624,7 @@ export PstAcquirePrivateKey(pCert) {
  */
 export PstValidate(pTargetName, bIsClient, pRequestedIssuancePolicy, phAdditionalCertStore, pCert, pProvGUID) {
     result := DllCall("certpoleng.dll\PstValidate", UNICODE_STRING.Ptr, pTargetName, BOOL, bIsClient, CERT_USAGE_MATCH.Ptr, pRequestedIssuancePolicy, HCERTSTORE.Ptr, phAdditionalCertStore, CERT_CONTEXT.Ptr, pCert, Guid.Ptr, pProvGUID, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 
@@ -644,7 +644,7 @@ export PstMapCertificate(pCert, pTokenInformationType, ppTokenInformation) {
     ppTokenInformationMarshal := ppTokenInformation is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("certpoleng.dll\PstMapCertificate", CERT_CONTEXT.Ptr, pCert, pTokenInformationTypeMarshal, pTokenInformationType, ppTokenInformationMarshal, ppTokenInformation, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 
@@ -660,7 +660,7 @@ export PstMapCertificate(pCert, pTokenInformationType, ppTokenInformation) {
  */
 export PstGetUserNameForCertificate(pCertContext, UserName) {
     result := DllCall("certpoleng.dll\PstGetUserNameForCertificate", CERT_CONTEXT.Ptr, pCertContext, UNICODE_STRING.Ptr, UserName, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 

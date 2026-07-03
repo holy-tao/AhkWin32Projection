@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\D3D12_VIDEO_ENCODER_DIRTY_REGIONS_MAP_VALUES_MODE.ahk" { D3D12_VIDEO_ENCODER_DIRTY_REGIONS_MAP_VALUES_MODE }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\D3D12_VIDEO_ENCODER_DIRTY_REGIONS_MAP_VALUES_MODE.ahk" { D3D12_VIDEO_ENCODER_DIRTY_REGIONS_MAP_VALUES_MODE }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation

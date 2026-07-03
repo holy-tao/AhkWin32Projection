@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IStream.ahk" { IStream }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\Com\IStream.ahk" { IStream }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\OLE_HANDLE.ahk" { OLE_HANDLE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\PICTYPE.ahk" { PICTYPE }
-#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
 
 /**
  * Manages a picture object and its properties. Picture objects provide a language-neutral abstraction for bitmaps, icons, and metafiles.

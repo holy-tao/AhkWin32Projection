@@ -44,10 +44,6 @@ export default struct FunctionTailcall2 {
             this.value := CallbackCreate(fn, , [IntPtr, IntPtr, IntPtr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

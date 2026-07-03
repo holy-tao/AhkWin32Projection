@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMbnInterface.ahk" { IMbnInterface }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This notification interface signals an application about the arrival and removal of devices in the system.

@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\StructuredStorage\IPropertySetStorage.ahk" { IPropertySetStorage }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Graphics\GdiPlus\InterpolationMode.ahk" { InterpolationMode }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\StructuredStorage\IPropertyBag.ahk" { IPropertyBag }
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Graphics\GdiPlus\InterpolationMode.ahk" { InterpolationMode }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\StructuredStorage\IPropertySetStorage.ahk" { IPropertySetStorage }
 #Import ".\IShellImageDataAbort.ahk" { IShellImageDataAbort }
-#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
 
 /**
  * Exposes methods and properties that display, manipulate, and describe image data.

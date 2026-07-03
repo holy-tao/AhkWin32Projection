@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HRESOURCE.ahk" { HRESOURCE }
 #Import ".\HCLUSTER.ahk" { HCLUSTER }
+#Import ".\HRESOURCE.ahk" { HRESOURCE }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -53,10 +53,6 @@ export default struct PRESUTIL_GET_CORE_CLUSTER_RESOURCES_EX {
             this.value := CallbackCreate(fn, , [HCLUSTER, HRESOURCE.Ptr, HRESOURCE.Ptr, HRESOURCE.Ptr, UInt32, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

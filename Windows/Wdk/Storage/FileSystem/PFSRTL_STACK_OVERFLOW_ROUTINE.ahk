@@ -46,10 +46,6 @@ export default struct PFSRTL_STACK_OVERFLOW_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", KEVENT.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

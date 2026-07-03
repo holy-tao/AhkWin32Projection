@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FOLDERSETTINGS.ahk" { FOLDERSETTINGS }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\IShellView.ahk" { IShellView }
-#Import ".\IShellBrowser.ahk" { IShellBrowser }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\FOLDERSETTINGS.ahk" { FOLDERSETTINGS }
+#Import ".\IShellBrowser.ahk" { IShellBrowser }
+#Import ".\IShellView.ahk" { IShellView }
 
 /**
  * Holds the parameters for the IShellView2::CreateViewWindow2 method.

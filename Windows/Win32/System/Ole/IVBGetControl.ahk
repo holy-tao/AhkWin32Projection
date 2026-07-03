@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ENUM_CONTROLS_WHICH_FLAGS.ahk" { ENUM_CONTROLS_WHICH_FLAGS }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Com\IEnumUnknown.ahk" { IEnumUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IEnumUnknown.ahk" { IEnumUnknown }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ENUM_CONTROLS_WHICH_FLAGS.ahk" { ENUM_CONTROLS_WHICH_FLAGS }
 
 /**
  * Provides access to all the controls on a Visual Basic container.

@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IResourceConsumer.ahk" { IResourceConsumer }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IResourceConsumer.ahk" { IResourceConsumer }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IResourceManager interface resolves contentions for system resources.The filter graph manager exposes this interface.

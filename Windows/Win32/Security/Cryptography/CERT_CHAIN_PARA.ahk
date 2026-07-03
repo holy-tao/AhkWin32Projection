@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CERT_USAGE_MATCH.ahk" { CERT_USAGE_MATCH }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\CERT_STRONG_SIGN_PARA.ahk" { CERT_STRONG_SIGN_PARA }
+#Import ".\CERT_USAGE_MATCH.ahk" { CERT_USAGE_MATCH }
 #Import ".\CTL_USAGE.ahk" { CTL_USAGE }
 
 /**

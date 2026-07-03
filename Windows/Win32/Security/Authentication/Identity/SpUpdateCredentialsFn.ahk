@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * Updates the credentials associated with the specified context. (SpUpdateCredentialsFn)
@@ -37,7 +37,7 @@ export default struct SpUpdateCredentialsFn {
      */
     Call(ContextHandle, CredType, FlatCredUIContextLength, FlatCredUIContext) {
         result := DllCall(this.value, IntPtr, ContextHandle, Guid.Ptr, CredType, UInt32, FlatCredUIContextLength, IntPtr, FlatCredUIContext, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -57,10 +57,6 @@ export default struct SpUpdateCredentialsFn {
             this.value := CallbackCreate(fn, , [IntPtr, Guid.Ptr, UInt32, IntPtr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFMediaBuffer.ahk" { IMFMediaBuffer }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFASFContentInfo.ahk" { IMFASFContentInfo }
-#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMFSample.ahk" { IMFSample }
-#Import ".\ASF_INDEX_IDENTIFIER.ahk" { ASF_INDEX_IDENTIFIER }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ASF_INDEX_IDENTIFIER.ahk" { ASF_INDEX_IDENTIFIER }
+#Import ".\IMFASFContentInfo.ahk" { IMFASFContentInfo }
 #Import ".\IMFByteStream.ahk" { IMFByteStream }
+#Import ".\IMFMediaBuffer.ahk" { IMFMediaBuffer }
+#Import ".\IMFSample.ahk" { IMFSample }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 
 /**
  * Provides methods to work with indexes in Systems Format (ASF) files.

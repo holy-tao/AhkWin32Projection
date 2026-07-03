@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MSV1_0_PROFILE_BUFFER_TYPE.ahk" { MSV1_0_PROFILE_BUFFER_TYPE }
-#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import ".\MSV1_0_PROFILE_BUFFER_TYPE.ahk" { MSV1_0_PROFILE_BUFFER_TYPE }
 
 /**
  * The MSV1_0_INTERACTIVE_PROFILE structure contains information about an interactive logon profile. This structure is used by the LsaLogonUser function.

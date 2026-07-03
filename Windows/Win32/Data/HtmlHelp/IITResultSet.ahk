@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ROWSTATUS.ahk" { ROWSTATUS }
 #Import ".\COLUMNSTATUS.ahk" { COLUMNSTATUS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CProperty.ahk" { CProperty }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\PFNCOLHEAPFREE.ahk" { PFNCOLHEAPFREE }
 #Import ".\PRIORITY.ahk" { PRIORITY }
+#Import ".\ROWSTATUS.ahk" { ROWSTATUS }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Use this interface in run-time applications to initialize, build, and obtain information about result sets.
@@ -94,7 +93,7 @@ export default struct IITResultSet extends IUnknown {
     SetColumnHeap(lColumnIndex, lpvHeap, _pfnColHeapFree) {
         lpvHeapMarshal := lpvHeap is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, Int32, lColumnIndex, lpvHeapMarshal, lpvHeap, PFNCOLHEAPFREE, _pfnColHeapFree, "HRESULT")
+        result := ComCall(4, this, Int32, lColumnIndex, lpvHeapMarshal, lpvHeap, "ptr", _pfnColHeapFree, "HRESULT")
         return result
     }
 

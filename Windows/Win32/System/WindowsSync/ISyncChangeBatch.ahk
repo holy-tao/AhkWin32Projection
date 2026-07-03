@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ISyncChangeBatchBase.ahk" { ISyncChangeBatchBase }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SYNC_VERSION.ahk" { SYNC_VERSION }
+#Import ".\ISyncChangeBatchBase.ahk" { ISyncChangeBatchBase }
 #Import ".\ISyncChangeBuilder.ahk" { ISyncChangeBuilder }
 #Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
+#Import ".\SYNC_VERSION.ahk" { SYNC_VERSION }
 
 /**
  * Represents metadata for a set of changes. (ISyncChangeBatch)

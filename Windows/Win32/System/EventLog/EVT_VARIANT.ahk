@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\EVT_HANDLE.ahk" { EVT_HANDLE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Security\PSID.ahk" { PSID }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import "..\..\Security\PSID.ahk" { PSID }
+#Import ".\EVT_HANDLE.ahk" { EVT_HANDLE }
 
 /**
  * Contains event data or property values.

@@ -1,65 +1,61 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\IN6_ADDR.ahk" { IN6_ADDR }
-#Import ".\WSAPROTOCOL_INFOA.ahk" { WSAPROTOCOL_INFOA }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\SOCKET_ADDRESS.ahk" { SOCKET_ADDRESS }
-#Import "..\..\System\Com\BLOB.ahk" { BLOB }
-#Import "..\..\System\IO\OVERLAPPED_ENTRY.ahk" { OVERLAPPED_ENTRY }
-#Import ".\WSC_PROVIDER_INFO_TYPE.ahk" { WSC_PROVIDER_INFO_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\WAIT_EVENT.ahk" { WAIT_EVENT }
+#Import ".\ADDRINFOA.ahk" { ADDRINFOA }
+#Import ".\ADDRINFOEXA.ahk" { ADDRINFOEXA }
+#Import ".\ADDRINFOEXW.ahk" { ADDRINFOEXW }
+#Import ".\ADDRINFOW.ahk" { ADDRINFOW }
+#Import ".\DL_EUI48.ahk" { DL_EUI48 }
 #Import ".\FD_SET.ahk" { FD_SET }
+#Import ".\HOSTENT.ahk" { HOSTENT }
+#Import ".\IN6_ADDR.ahk" { IN6_ADDR }
+#Import ".\IN_ADDR.ahk" { IN_ADDR }
+#Import ".\NSPV2_ROUTINE.ahk" { NSPV2_ROUTINE }
+#Import ".\PROTOENT.ahk" { PROTOENT }
+#Import ".\QOS.ahk" { QOS }
+#Import ".\SEND_RECV_FLAGS.ahk" { SEND_RECV_FLAGS }
+#Import ".\SERVENT.ahk" { SERVENT }
+#Import ".\SERVICE_ASYNC_INFO.ahk" { SERVICE_ASYNC_INFO }
+#Import ".\SERVICE_INFOA.ahk" { SERVICE_INFOA }
+#Import ".\SERVICE_INFOW.ahk" { SERVICE_INFOW }
+#Import ".\SET_SERVICE_OPERATION.ahk" { SET_SERVICE_OPERATION }
+#Import ".\SOCKADDR.ahk" { SOCKADDR }
+#Import ".\SOCKET.ahk" { SOCKET as SOCKET_handle }
+#Import ".\SOCKET_ADDRESS.ahk" { SOCKET_ADDRESS }
+#Import ".\SOCKET_ADDRESS_LIST.ahk" { SOCKET_ADDRESS_LIST }
+#Import ".\SOCK_NOTIFY_REGISTRATION.ahk" { SOCK_NOTIFY_REGISTRATION }
+#Import ".\TIMEVAL.ahk" { TIMEVAL }
+#Import ".\TRANSMIT_FILE_BUFFERS.ahk" { TRANSMIT_FILE_BUFFERS }
+#Import ".\WINSOCK_SHUTDOWN_HOW.ahk" { WINSOCK_SHUTDOWN_HOW }
+#Import ".\WINSOCK_SOCKET_TYPE.ahk" { WINSOCK_SOCKET_TYPE }
+#Import ".\WSABUF.ahk" { WSABUF }
 #Import ".\WSACOMPLETION.ahk" { WSACOMPLETION }
 #Import ".\WSADATA.ahk" { WSADATA }
-#Import ".\TRANSMIT_FILE_BUFFERS.ahk" { TRANSMIT_FILE_BUFFERS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WSAEVENT.ahk" { WSAEVENT }
-#Import ".\WINSOCK_SHUTDOWN_HOW.ahk" { WINSOCK_SHUTDOWN_HOW }
-#Import ".\WSASERVICECLASSINFOW.ahk" { WSASERVICECLASSINFOW }
-#Import ".\SERVICE_INFOW.ahk" { SERVICE_INFOW }
-#Import ".\LPCONDITIONPROC.ahk" { LPCONDITIONPROC }
-#Import ".\WSASERVICECLASSINFOA.ahk" { WSASERVICECLASSINFOA }
-#Import ".\WSAQUERYSETW.ahk" { WSAQUERYSETW }
-#Import ".\WSAPROTOCOL_INFOW.ahk" { WSAPROTOCOL_INFOW }
-#Import ".\NSPV2_ROUTINE.ahk" { NSPV2_ROUTINE }
-#Import ".\WSA_ERROR.ahk" { WSA_ERROR }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\FARPROC.ahk" { FARPROC }
-#Import ".\IN_ADDR.ahk" { IN_ADDR }
-#Import ".\ADDRINFOA.ahk" { ADDRINFOA }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\SOCKET_ADDRESS_LIST.ahk" { SOCKET_ADDRESS_LIST }
-#Import ".\QOS.ahk" { QOS }
-#Import ".\WSANETWORKEVENTS.ahk" { WSANETWORKEVENTS }
-#Import ".\socklen_t.ahk" { socklen_t }
-#Import ".\SERVICE_ASYNC_INFO.ahk" { SERVICE_ASYNC_INFO }
-#Import ".\WSABUF.ahk" { WSABUF }
-#Import ".\DL_EUI48.ahk" { DL_EUI48 }
-#Import ".\WSAQUERYSETA.ahk" { WSAQUERYSETA }
-#Import ".\PROTOENT.ahk" { PROTOENT }
-#Import ".\WSAMSG.ahk" { WSAMSG }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WSAPOLLFD.ahk" { WSAPOLLFD }
-#Import ".\LPLOOKUPSERVICE_COMPLETION_ROUTINE.ahk" { LPLOOKUPSERVICE_COMPLETION_ROUTINE }
-#Import ".\ADDRINFOW.ahk" { ADDRINFOW }
-#Import ".\TIMEVAL.ahk" { TIMEVAL }
-#Import ".\SOCKADDR.ahk" { SOCKADDR }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\SET_SERVICE_OPERATION.ahk" { SET_SERVICE_OPERATION }
-#Import ".\ADDRINFOEXW.ahk" { ADDRINFOEXW }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\ADDRINFOEXA.ahk" { ADDRINFOEXA }
-#Import ".\SOCK_NOTIFY_REGISTRATION.ahk" { SOCK_NOTIFY_REGISTRATION }
-#Import "..\..\Foundation\WAIT_EVENT.ahk" { WAIT_EVENT }
 #Import ".\WSAESETSERVICEOP.ahk" { WSAESETSERVICEOP }
-#Import ".\SERVICE_INFOA.ahk" { SERVICE_INFOA }
-#Import ".\SEND_RECV_FLAGS.ahk" { SEND_RECV_FLAGS }
-#Import ".\HOSTENT.ahk" { HOSTENT }
-#Import ".\SOCKET.ahk" { SOCKET as SOCKET_handle }
-#Import ".\WINSOCK_SOCKET_TYPE.ahk" { WINSOCK_SOCKET_TYPE }
-#Import ".\LPWSAOVERLAPPED_COMPLETION_ROUTINE.ahk" { LPWSAOVERLAPPED_COMPLETION_ROUTINE }
-#Import ".\SERVENT.ahk" { SERVENT }
+#Import ".\WSAEVENT.ahk" { WSAEVENT }
+#Import ".\WSAMSG.ahk" { WSAMSG }
+#Import ".\WSANETWORKEVENTS.ahk" { WSANETWORKEVENTS }
+#Import ".\WSAPOLLFD.ahk" { WSAPOLLFD }
+#Import ".\WSAPROTOCOL_INFOA.ahk" { WSAPROTOCOL_INFOA }
+#Import ".\WSAPROTOCOL_INFOW.ahk" { WSAPROTOCOL_INFOW }
+#Import ".\WSAQUERYSETA.ahk" { WSAQUERYSETA }
+#Import ".\WSAQUERYSETW.ahk" { WSAQUERYSETW }
+#Import ".\WSASERVICECLASSINFOA.ahk" { WSASERVICECLASSINFOA }
+#Import ".\WSASERVICECLASSINFOW.ahk" { WSASERVICECLASSINFOW }
+#Import ".\WSA_ERROR.ahk" { WSA_ERROR }
+#Import ".\WSC_PROVIDER_INFO_TYPE.ahk" { WSC_PROVIDER_INFO_TYPE }
+#Import ".\socklen_t.ahk" { socklen_t }
+#Import "..\..\System\Com\BLOB.ahk" { BLOB }
+#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
+#Import "..\..\System\IO\OVERLAPPED_ENTRY.ahk" { OVERLAPPED_ENTRY }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
@@ -7859,7 +7855,7 @@ export WSAUnhookBlockingHook() {
 export WSASetBlockingHook(lpBlockFunc) {
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSASetBlockingHook", FARPROC, lpBlockFunc, FARPROC)
+    result := DllCall("WS2_32.dll\WSASetBlockingHook", "ptr", lpBlockFunc, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9344,7 +9340,7 @@ export WSAAccept(s, addr, addrlen, lpfnCondition, dwCallbackData) {
 
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSAAccept", SOCKET_handle, s, IntPtr, addr, addrlenMarshal, addrlen, LPCONDITIONPROC, lpfnCondition, IntPtr, dwCallbackData, SOCKET.Owned)
+    result := DllCall("WS2_32.dll\WSAAccept", SOCKET_handle, s, IntPtr, addr, addrlenMarshal, addrlen, "ptr", lpfnCondition, IntPtr, dwCallbackData, SOCKET.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -12341,7 +12337,7 @@ export WSAIoctl(s, dwIoControlCode, lpvInBuffer, cbInBuffer, lpvOutBuffer, cbOut
 
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSAIoctl", SOCKET_handle, s, UInt32, dwIoControlCode, IntPtr, lpvInBuffer, UInt32, cbInBuffer, IntPtr, lpvOutBuffer, UInt32, cbOutBuffer, lpcbBytesReturnedMarshal, lpcbBytesReturned, OVERLAPPED.Ptr, lpOverlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, Int32)
+    result := DllCall("WS2_32.dll\WSAIoctl", SOCKET_handle, s, UInt32, dwIoControlCode, IntPtr, lpvInBuffer, UInt32, cbInBuffer, IntPtr, lpvOutBuffer, UInt32, cbOutBuffer, lpcbBytesReturnedMarshal, lpcbBytesReturned, OVERLAPPED.Ptr, lpOverlapped, "ptr", lpCompletionRoutine, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -13330,7 +13326,7 @@ export WSARecv(s, lpBuffers, dwBufferCount, lpNumberOfBytesRecvd, lpFlags, lpOve
 
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSARecv", SOCKET_handle, s, WSABUF.Ptr, lpBuffers, UInt32, dwBufferCount, lpNumberOfBytesRecvdMarshal, lpNumberOfBytesRecvd, lpFlagsMarshal, lpFlags, OVERLAPPED.Ptr, lpOverlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, Int32)
+    result := DllCall("WS2_32.dll\WSARecv", SOCKET_handle, s, WSABUF.Ptr, lpBuffers, UInt32, dwBufferCount, lpNumberOfBytesRecvdMarshal, lpNumberOfBytesRecvd, lpFlagsMarshal, lpFlags, OVERLAPPED.Ptr, lpOverlapped, "ptr", lpCompletionRoutine, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -13803,7 +13799,7 @@ export WSARecvFrom(s, lpBuffers, dwBufferCount, lpNumberOfBytesRecvd, lpFlags, l
 
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSARecvFrom", SOCKET_handle, s, WSABUF.Ptr, lpBuffers, UInt32, dwBufferCount, lpNumberOfBytesRecvdMarshal, lpNumberOfBytesRecvd, lpFlagsMarshal, lpFlags, IntPtr, lpFrom, lpFromlenMarshal, lpFromlen, OVERLAPPED.Ptr, lpOverlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, Int32)
+    result := DllCall("WS2_32.dll\WSARecvFrom", SOCKET_handle, s, WSABUF.Ptr, lpBuffers, UInt32, dwBufferCount, lpNumberOfBytesRecvdMarshal, lpNumberOfBytesRecvd, lpFlagsMarshal, lpFlags, IntPtr, lpFrom, lpFromlenMarshal, lpFromlen, OVERLAPPED.Ptr, lpOverlapped, "ptr", lpCompletionRoutine, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14258,7 +14254,7 @@ export WSASend(s, lpBuffers, dwBufferCount, lpNumberOfBytesSent, dwFlags, lpOver
 
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSASend", SOCKET_handle, s, WSABUF.Ptr, lpBuffers, UInt32, dwBufferCount, lpNumberOfBytesSentMarshal, lpNumberOfBytesSent, UInt32, dwFlags, OVERLAPPED.Ptr, lpOverlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, Int32)
+    result := DllCall("WS2_32.dll\WSASend", SOCKET_handle, s, WSABUF.Ptr, lpBuffers, UInt32, dwBufferCount, lpNumberOfBytesSentMarshal, lpNumberOfBytesSent, UInt32, dwFlags, OVERLAPPED.Ptr, lpOverlapped, "ptr", lpCompletionRoutine, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14638,7 +14634,7 @@ export WSASendMsg(_Handle, lpMsg, dwFlags, lpNumberOfBytesSent, lpOverlapped, lp
 
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSASendMsg", SOCKET_handle, _Handle, WSAMSG.Ptr, lpMsg, UInt32, dwFlags, lpNumberOfBytesSentMarshal, lpNumberOfBytesSent, OVERLAPPED.Ptr, lpOverlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, Int32)
+    result := DllCall("WS2_32.dll\WSASendMsg", SOCKET_handle, _Handle, WSAMSG.Ptr, lpMsg, UInt32, dwFlags, lpNumberOfBytesSentMarshal, lpNumberOfBytesSent, OVERLAPPED.Ptr, lpOverlapped, "ptr", lpCompletionRoutine, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -15201,7 +15197,7 @@ export WSASendTo(s, lpBuffers, dwBufferCount, lpNumberOfBytesSent, dwFlags, lpTo
 
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSASendTo", SOCKET_handle, s, WSABUF.Ptr, lpBuffers, UInt32, dwBufferCount, lpNumberOfBytesSentMarshal, lpNumberOfBytesSent, UInt32, dwFlags, IntPtr, lpTo, Int32, iTolen, OVERLAPPED.Ptr, lpOverlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, Int32)
+    result := DllCall("WS2_32.dll\WSASendTo", SOCKET_handle, s, WSABUF.Ptr, lpBuffers, UInt32, dwBufferCount, lpNumberOfBytesSentMarshal, lpNumberOfBytesSent, UInt32, dwFlags, IntPtr, lpTo, Int32, iTolen, OVERLAPPED.Ptr, lpOverlapped, "ptr", lpCompletionRoutine, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -21218,7 +21214,7 @@ export WSASetServiceW(lpqsRegInfo, essoperation, dwControlFlags) {
 export WSAProviderConfigChange(lpNotificationHandle, lpOverlapped, lpCompletionRoutine) {
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSAProviderConfigChange", HANDLE.Ptr, lpNotificationHandle, OVERLAPPED.Ptr, lpOverlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, Int32)
+    result := DllCall("WS2_32.dll\WSAProviderConfigChange", HANDLE.Ptr, lpNotificationHandle, OVERLAPPED.Ptr, lpOverlapped, "ptr", lpCompletionRoutine, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -28191,7 +28187,7 @@ export GetAddrInfoExA(pName, pServiceName, dwNameSpace, lpNspId, hints, ppResult
 
     ppResultMarshal := ppResult is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WS2_32.dll\GetAddrInfoExA", "ptr", pName, "ptr", pServiceName, UInt32, dwNameSpace, Guid.Ptr, lpNspId, ADDRINFOEXA.Ptr, hints, ppResultMarshal, ppResult, TIMEVAL.Ptr, timeout, OVERLAPPED.Ptr, lpOverlapped, LPLOOKUPSERVICE_COMPLETION_ROUTINE, lpCompletionRoutine, HANDLE.Ptr, lpNameHandle, Int32)
+    result := DllCall("WS2_32.dll\GetAddrInfoExA", "ptr", pName, "ptr", pServiceName, UInt32, dwNameSpace, Guid.Ptr, lpNspId, ADDRINFOEXA.Ptr, hints, ppResultMarshal, ppResult, TIMEVAL.Ptr, timeout, OVERLAPPED.Ptr, lpOverlapped, "ptr", lpCompletionRoutine, HANDLE.Ptr, lpNameHandle, Int32)
     return result
 }
 
@@ -28667,7 +28663,7 @@ export GetAddrInfoExW(pName, pServiceName, dwNameSpace, lpNspId, hints, ppResult
 
     ppResultMarshal := ppResult is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WS2_32.dll\GetAddrInfoExW", "ptr", pName, "ptr", pServiceName, UInt32, dwNameSpace, Guid.Ptr, lpNspId, ADDRINFOEXW.Ptr, hints, ppResultMarshal, ppResult, TIMEVAL.Ptr, timeout, OVERLAPPED.Ptr, lpOverlapped, LPLOOKUPSERVICE_COMPLETION_ROUTINE, lpCompletionRoutine, HANDLE.Ptr, lpHandle, Int32)
+    result := DllCall("WS2_32.dll\GetAddrInfoExW", "ptr", pName, "ptr", pServiceName, UInt32, dwNameSpace, Guid.Ptr, lpNspId, ADDRINFOEXW.Ptr, hints, ppResultMarshal, ppResult, TIMEVAL.Ptr, timeout, OVERLAPPED.Ptr, lpOverlapped, "ptr", lpCompletionRoutine, HANDLE.Ptr, lpHandle, Int32)
     return result
 }
 
@@ -28920,7 +28916,7 @@ export SetAddrInfoExA(pName, pServiceName, pAddresses, dwAddressCount, lpBlob, d
     pName := pName is String ? StrPtr(pName) : pName
     pServiceName := pServiceName is String ? StrPtr(pServiceName) : pServiceName
 
-    result := DllCall("WS2_32.dll\SetAddrInfoExA", "ptr", pName, "ptr", pServiceName, SOCKET_ADDRESS.Ptr, pAddresses, UInt32, dwAddressCount, BLOB.Ptr, lpBlob, UInt32, dwFlags, UInt32, dwNameSpace, Guid.Ptr, lpNspId, TIMEVAL.Ptr, timeout, OVERLAPPED.Ptr, lpOverlapped, LPLOOKUPSERVICE_COMPLETION_ROUTINE, lpCompletionRoutine, HANDLE.Ptr, lpNameHandle, Int32)
+    result := DllCall("WS2_32.dll\SetAddrInfoExA", "ptr", pName, "ptr", pServiceName, SOCKET_ADDRESS.Ptr, pAddresses, UInt32, dwAddressCount, BLOB.Ptr, lpBlob, UInt32, dwFlags, UInt32, dwNameSpace, Guid.Ptr, lpNspId, TIMEVAL.Ptr, timeout, OVERLAPPED.Ptr, lpOverlapped, "ptr", lpCompletionRoutine, HANDLE.Ptr, lpNameHandle, Int32)
     return result
 }
 
@@ -29126,7 +29122,7 @@ export SetAddrInfoExW(pName, pServiceName, pAddresses, dwAddressCount, lpBlob, d
     pName := pName is String ? StrPtr(pName) : pName
     pServiceName := pServiceName is String ? StrPtr(pServiceName) : pServiceName
 
-    result := DllCall("WS2_32.dll\SetAddrInfoExW", "ptr", pName, "ptr", pServiceName, SOCKET_ADDRESS.Ptr, pAddresses, UInt32, dwAddressCount, BLOB.Ptr, lpBlob, UInt32, dwFlags, UInt32, dwNameSpace, Guid.Ptr, lpNspId, TIMEVAL.Ptr, timeout, OVERLAPPED.Ptr, lpOverlapped, LPLOOKUPSERVICE_COMPLETION_ROUTINE, lpCompletionRoutine, HANDLE.Ptr, lpNameHandle, Int32)
+    result := DllCall("WS2_32.dll\SetAddrInfoExW", "ptr", pName, "ptr", pServiceName, SOCKET_ADDRESS.Ptr, pAddresses, UInt32, dwAddressCount, BLOB.Ptr, lpBlob, UInt32, dwFlags, UInt32, dwNameSpace, Guid.Ptr, lpNspId, TIMEVAL.Ptr, timeout, OVERLAPPED.Ptr, lpOverlapped, "ptr", lpCompletionRoutine, HANDLE.Ptr, lpNameHandle, Int32)
     return result
 }
 
@@ -30165,7 +30161,7 @@ export InetNtopW(Family, pAddr, pStringBuf, StringBufSize) {
 export WSASetSocketSecurity(_Socket, SecuritySettings, SecuritySettingsLen, _Overlapped, CompletionRoutine) {
     A_LastError := 0
 
-    result := DllCall("fwpuclnt.dll\WSASetSocketSecurity", SOCKET_handle, _Socket, IntPtr, SecuritySettings, UInt32, SecuritySettingsLen, OVERLAPPED.Ptr, _Overlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, CompletionRoutine, Int32)
+    result := DllCall("fwpuclnt.dll\WSASetSocketSecurity", SOCKET_handle, _Socket, IntPtr, SecuritySettings, UInt32, SecuritySettingsLen, OVERLAPPED.Ptr, _Overlapped, "ptr", CompletionRoutine, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -30296,7 +30292,7 @@ export WSAQuerySocketSecurity(_Socket, SecurityQueryTemplate, SecurityQueryTempl
 
     A_LastError := 0
 
-    result := DllCall("fwpuclnt.dll\WSAQuerySocketSecurity", SOCKET_handle, _Socket, IntPtr, SecurityQueryTemplate, UInt32, SecurityQueryTemplateLen, IntPtr, SecurityQueryInfo, SecurityQueryInfoLenMarshal, SecurityQueryInfoLen, OVERLAPPED.Ptr, _Overlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, CompletionRoutine, Int32)
+    result := DllCall("fwpuclnt.dll\WSAQuerySocketSecurity", SOCKET_handle, _Socket, IntPtr, SecurityQueryTemplate, UInt32, SecurityQueryTemplateLen, IntPtr, SecurityQueryInfo, SecurityQueryInfoLenMarshal, SecurityQueryInfoLen, OVERLAPPED.Ptr, _Overlapped, "ptr", CompletionRoutine, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -30405,7 +30401,7 @@ export WSAQuerySocketSecurity(_Socket, SecurityQueryTemplate, SecurityQueryTempl
 export WSASetSocketPeerTargetName(_Socket, PeerTargetName, PeerTargetNameLen, _Overlapped, CompletionRoutine) {
     A_LastError := 0
 
-    result := DllCall("fwpuclnt.dll\WSASetSocketPeerTargetName", SOCKET_handle, _Socket, IntPtr, PeerTargetName, UInt32, PeerTargetNameLen, OVERLAPPED.Ptr, _Overlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, CompletionRoutine, Int32)
+    result := DllCall("fwpuclnt.dll\WSASetSocketPeerTargetName", SOCKET_handle, _Socket, IntPtr, PeerTargetName, UInt32, PeerTargetNameLen, OVERLAPPED.Ptr, _Overlapped, "ptr", CompletionRoutine, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -30501,7 +30497,7 @@ export WSASetSocketPeerTargetName(_Socket, PeerTargetName, PeerTargetNameLen, _O
 export WSADeleteSocketPeerTargetName(_Socket, PeerAddr, PeerAddrLen, _Overlapped, CompletionRoutine) {
     A_LastError := 0
 
-    result := DllCall("fwpuclnt.dll\WSADeleteSocketPeerTargetName", SOCKET_handle, _Socket, IntPtr, PeerAddr, UInt32, PeerAddrLen, OVERLAPPED.Ptr, _Overlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, CompletionRoutine, Int32)
+    result := DllCall("fwpuclnt.dll\WSADeleteSocketPeerTargetName", SOCKET_handle, _Socket, IntPtr, PeerAddr, UInt32, PeerAddrLen, OVERLAPPED.Ptr, _Overlapped, "ptr", CompletionRoutine, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }

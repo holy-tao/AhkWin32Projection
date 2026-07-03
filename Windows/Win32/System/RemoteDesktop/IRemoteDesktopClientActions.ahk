@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\RemoteActionType.ahk" { RemoteActionType }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\SnapshotFormatType.ahk" { SnapshotFormatType }
-#Import ".\SnapshotEncodingType.ahk" { SnapshotEncodingType }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\RemoteActionType.ahk" { RemoteActionType }
+#Import ".\SnapshotEncodingType.ahk" { SnapshotEncodingType }
+#Import ".\SnapshotFormatType.ahk" { SnapshotFormatType }
 
 /**
  * Provides the methods used to interact with the Remote Desktop Protocol (RDP) app container client control.

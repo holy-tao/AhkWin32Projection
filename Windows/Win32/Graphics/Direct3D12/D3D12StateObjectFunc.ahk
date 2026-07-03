@@ -51,10 +51,6 @@ export default struct D3D12StateObjectFunc {
             this.value := CallbackCreate(fn, , [IntPtr, UInt32, UInt32, D3D12_STATE_OBJECT_DESC.Ptr, IntPtr, UInt32, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

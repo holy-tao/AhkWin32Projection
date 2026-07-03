@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\IInspectable.ahk" { IInspectable }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Graphics\Direct3D12\ID3D12Device.ahk" { ID3D12Device }
+#Import "..\..\..\Graphics\Direct3D12\D3D12_RESOURCE_DESC.ahk" { D3D12_RESOURCE_DESC }
 #Import "..\..\..\Graphics\Direct3D12\ID3D12CommandQueue.ahk" { ID3D12CommandQueue }
+#Import "..\..\..\Graphics\Direct3D12\ID3D12Device.ahk" { ID3D12Device }
 #Import "..\..\..\Graphics\Direct3D12\ID3D12ProtectedResourceSession.ahk" { ID3D12ProtectedResourceSession }
 #Import "..\..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
-#Import "..\..\..\Graphics\Direct3D12\D3D12_RESOURCE_DESC.ahk" { D3D12_RESOURCE_DESC }
+#Import "..\IInspectable.ahk" { IInspectable }
 
 /**
  * A nano-COM interface that allows COM interop with the [HolographicQuadLayer](/uwp/api/windows.graphics.holographic.holographicquadlayer) Windows Runtime class for apps that use Direct3D 12 for holographic rendering.

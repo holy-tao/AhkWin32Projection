@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\FsrmPropertyConditionType.ahk" { FsrmPropertyConditionType }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * Defines a property condition that the file management job uses to determine if the file is expired.

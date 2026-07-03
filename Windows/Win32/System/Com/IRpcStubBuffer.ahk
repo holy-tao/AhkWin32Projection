@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\RPCOLEMESSAGE.ahk" { RPCOLEMESSAGE }
-#Import ".\IUnknown.ahk" { IUnknown }
-#Import ".\IRpcChannelBuffer.ahk" { IRpcChannelBuffer }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRpcChannelBuffer.ahk" { IRpcChannelBuffer }
+#Import ".\IUnknown.ahk" { IUnknown }
+#Import ".\RPCOLEMESSAGE.ahk" { RPCOLEMESSAGE }
 
 /**
  * The IRpcStubBuffer (objidlbase.h) interface controls the RPC stub used to marshal data between COM components.

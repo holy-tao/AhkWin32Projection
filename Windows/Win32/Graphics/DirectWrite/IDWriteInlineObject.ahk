@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDWriteTextRenderer.ahk" { IDWriteTextRenderer }
-#Import ".\DWRITE_BREAK_CONDITION.ahk" { DWRITE_BREAK_CONDITION }
-#Import ".\DWRITE_OVERHANG_METRICS.ahk" { DWRITE_OVERHANG_METRICS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_BREAK_CONDITION.ahk" { DWRITE_BREAK_CONDITION }
 #Import ".\DWRITE_INLINE_OBJECT_METRICS.ahk" { DWRITE_INLINE_OBJECT_METRICS }
+#Import ".\DWRITE_OVERHANG_METRICS.ahk" { DWRITE_OVERHANG_METRICS }
+#Import ".\IDWriteTextRenderer.ahk" { IDWriteTextRenderer }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Wraps an application-defined inline graphic, allowing DWrite to query metrics as if the graphic were a glyph inline with the text.

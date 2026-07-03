@@ -46,10 +46,6 @@ export default struct alljoyn_observer_object_discovered_ptr {
             this.value := CallbackCreate(fn, , ["ptr", alljoyn_proxybusobject_ref, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

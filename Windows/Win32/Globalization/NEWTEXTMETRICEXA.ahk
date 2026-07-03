@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Graphics\Gdi\TMPF_FLAGS.ahk" { TMPF_FLAGS }
-#Import "..\Graphics\Gdi\NEWTEXTMETRICA.ahk" { NEWTEXTMETRICA }
 #Import ".\FONTSIGNATURE.ahk" { FONTSIGNATURE }
+#Import "..\Graphics\Gdi\NEWTEXTMETRICA.ahk" { NEWTEXTMETRICA }
+#Import "..\Graphics\Gdi\TMPF_FLAGS.ahk" { TMPF_FLAGS }
 
 /**
  * The NEWTEXTMETRICEX structure contains information about a physical font. (ANSI)
@@ -13,7 +13,7 @@
  * @charset ANSI
  */
 export default struct NEWTEXTMETRICEXA {
-    #StructPack 8
+    #StructPack 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-newtextmetrica">NEWTEXTMETRIC</a> structure.

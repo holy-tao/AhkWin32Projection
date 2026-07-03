@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DisplayTypeConstants.ahk" { DisplayTypeConstants }
-#Import ".\ReportValueTypeConstants.ahk" { ReportValueTypeConstants }
-#Import ".\ICounters.ahk" { ICounters }
-#Import ".\SysmonBatchReason.ahk" { SysmonBatchReason }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\ICounterItem.ahk" { ICounterItem }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Ole\IFontDisp.ahk" { IFontDisp }
-#Import ".\ILogFiles.ahk" { ILogFiles }
 #Import ".\DataSourceTypeConstants.ahk" { DataSourceTypeConstants }
+#Import ".\DisplayTypeConstants.ahk" { DisplayTypeConstants }
+#Import ".\ICounterItem.ahk" { ICounterItem }
+#Import ".\ICounters.ahk" { ICounters }
+#Import ".\ILogFiles.ahk" { ILogFiles }
+#Import ".\ReportValueTypeConstants.ahk" { ReportValueTypeConstants }
+#Import ".\SysmonBatchReason.ahk" { SysmonBatchReason }
 #Import ".\SysmonFileType.ahk" { SysmonFileType }
 
 /**

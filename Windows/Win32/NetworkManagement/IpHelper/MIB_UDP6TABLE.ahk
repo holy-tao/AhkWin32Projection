@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
 #Import ".\MIB_UDP6ROW.ahk" { MIB_UDP6ROW }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
 
 /**
  * Contains the User Datagram Protocol (UDP) listener table for IPv6 on the local computer.

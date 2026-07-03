@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\D3D12_BUFFER_UAV.ahk" { D3D12_BUFFER_UAV }
+#Import ".\D3D12_BUFFER_UAV_BYTE_OFFSET.ahk" { D3D12_BUFFER_UAV_BYTE_OFFSET }
+#Import ".\D3D12_BUFFER_UAV_FLAGS.ahk" { D3D12_BUFFER_UAV_FLAGS }
 #Import ".\D3D12_TEX1D_ARRAY_UAV.ahk" { D3D12_TEX1D_ARRAY_UAV }
-#Import ".\D3D12_TEX2D_ARRAY_UAV.ahk" { D3D12_TEX2D_ARRAY_UAV }
-#Import ".\D3D12_TEX2DMS_UAV.ahk" { D3D12_TEX2DMS_UAV }
+#Import ".\D3D12_TEX1D_UAV.ahk" { D3D12_TEX1D_UAV }
 #Import ".\D3D12_TEX2DMS_ARRAY_UAV.ahk" { D3D12_TEX2DMS_ARRAY_UAV }
+#Import ".\D3D12_TEX2DMS_UAV.ahk" { D3D12_TEX2DMS_UAV }
+#Import ".\D3D12_TEX2D_ARRAY_UAV.ahk" { D3D12_TEX2D_ARRAY_UAV }
 #Import ".\D3D12_TEX2D_UAV.ahk" { D3D12_TEX2D_UAV }
 #Import ".\D3D12_TEX3D_UAV.ahk" { D3D12_TEX3D_UAV }
-#Import ".\D3D12_BUFFER_UAV_BYTE_OFFSET.ahk" { D3D12_BUFFER_UAV_BYTE_OFFSET }
-#Import ".\D3D12_TEX1D_UAV.ahk" { D3D12_TEX1D_UAV }
-#Import ".\D3D12_BUFFER_UAV.ahk" { D3D12_BUFFER_UAV }
-#Import ".\D3D12_BUFFER_UAV_FLAGS.ahk" { D3D12_BUFFER_UAV_FLAGS }
 #Import ".\D3D12_UAV_DIMENSION.ahk" { D3D12_UAV_DIMENSION }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 
 /**
  * Describes the subresources from a resource that are accessible by using an unordered-access view.

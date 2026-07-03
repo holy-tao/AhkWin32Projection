@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SecBuffer.ahk" { SecBuffer }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\SecBuffer.ahk" { SecBuffer }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -30,7 +30,7 @@ export default struct KspInitContextFn {
         NewContextIdMarshal := NewContextId is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, IntPtr, ContextId, SecBuffer.Ptr, ContextData, NewContextIdMarshal, NewContextId, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -50,10 +50,6 @@ export default struct KspInitContextFn {
             this.value := CallbackCreate(fn, , [IntPtr, SecBuffer.Ptr, "ptr*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

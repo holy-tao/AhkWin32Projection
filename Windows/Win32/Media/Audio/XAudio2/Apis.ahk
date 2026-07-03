@@ -1,11 +1,11 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\IXAudio2.ahk" { IXAudio2 }
-#Import ".\IXAPO.ahk" { IXAPO }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\HrtfApoInit.ahk" { HrtfApoInit }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\HrtfApoInit.ahk" { HrtfApoInit }
+#Import ".\IXAPO.ahk" { IXAPO }
+#Import ".\IXAudio2.ahk" { IXAudio2 }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.Audio.XAudio2

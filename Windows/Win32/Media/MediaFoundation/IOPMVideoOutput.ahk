@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\OPM_CONFIGURE_PARAMETERS.ahk" { OPM_CONFIGURE_PARAMETERS }
+#Import ".\OPM_COPP_COMPATIBLE_GET_INFO_PARAMETERS.ahk" { OPM_COPP_COMPATIBLE_GET_INFO_PARAMETERS }
+#Import ".\OPM_ENCRYPTED_INITIALIZATION_PARAMETERS.ahk" { OPM_ENCRYPTED_INITIALIZATION_PARAMETERS }
 #Import ".\OPM_GET_INFO_PARAMETERS.ahk" { OPM_GET_INFO_PARAMETERS }
+#Import ".\OPM_RANDOM_NUMBER.ahk" { OPM_RANDOM_NUMBER }
 #Import ".\OPM_REQUESTED_INFORMATION.ahk" { OPM_REQUESTED_INFORMATION }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\OPM_CONFIGURE_PARAMETERS.ahk" { OPM_CONFIGURE_PARAMETERS }
-#Import ".\OPM_RANDOM_NUMBER.ahk" { OPM_RANDOM_NUMBER }
-#Import ".\OPM_COPP_COMPATIBLE_GET_INFO_PARAMETERS.ahk" { OPM_COPP_COMPATIBLE_GET_INFO_PARAMETERS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\OPM_ENCRYPTED_INITIALIZATION_PARAMETERS.ahk" { OPM_ENCRYPTED_INITIALIZATION_PARAMETERS }
 
 /**
  * Represents a video output for an Output Protection Manager (OPM) session.

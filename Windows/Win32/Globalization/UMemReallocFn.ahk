@@ -48,10 +48,6 @@ export default struct UMemReallocFn {
             this.value := CallbackCreate(fn, "cdecl", ["ptr", "ptr", IntPtr, "ptr"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

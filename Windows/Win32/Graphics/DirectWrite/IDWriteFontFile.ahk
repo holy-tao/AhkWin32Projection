@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DWRITE_FONT_FILE_TYPE.ahk" { DWRITE_FONT_FILE_TYPE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_FONT_FACE_TYPE.ahk" { DWRITE_FONT_FACE_TYPE }
+#Import ".\DWRITE_FONT_FILE_TYPE.ahk" { DWRITE_FONT_FILE_TYPE }
 #Import ".\IDWriteFontFileLoader.ahk" { IDWriteFontFileLoader }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DWRITE_FONT_FACE_TYPE.ahk" { DWRITE_FONT_FACE_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a font file. Applications such as font managers or font viewers can call IDWriteFontFile::Analyze to find out if a particular file is a font file, and whether it is a font type that is supported by the font system.

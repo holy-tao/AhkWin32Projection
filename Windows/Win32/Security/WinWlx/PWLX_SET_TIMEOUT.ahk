@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * Called by GINA to change the time-out associated with a dialog box. The default time-out is two minutes.
@@ -78,10 +78,6 @@ export default struct PWLX_SET_TIMEOUT {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

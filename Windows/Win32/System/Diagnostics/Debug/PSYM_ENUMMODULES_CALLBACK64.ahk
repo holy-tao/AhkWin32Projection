@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * PSYM_ENUMMODULES_CALLBACK64 (dbghelp.h) is an application-defined callback function used with the SymEnumerateModules64 function.
@@ -63,10 +63,6 @@ export default struct PSYM_ENUMMODULES_CALLBACK64 {
             this.value := CallbackCreate(fn, , [PSTR, Int64, "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

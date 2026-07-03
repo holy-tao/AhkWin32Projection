@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MF_STREAM_STATE.ahk" { MF_STREAM_STATE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFMediaStream.ahk" { IMFMediaStream }
+#Import ".\MF_STREAM_STATE.ahk" { MF_STREAM_STATE }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation

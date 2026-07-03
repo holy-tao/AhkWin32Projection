@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IRTCParticipant.ahk" { IRTCParticipant }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IRTCSession2.ahk" { IRTCSession2 }
 
 /**

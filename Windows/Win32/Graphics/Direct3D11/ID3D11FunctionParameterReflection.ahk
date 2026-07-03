@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D11_PARAMETER_DESC.ahk" { D3D11_PARAMETER_DESC }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D11_PARAMETER_DESC.ahk" { D3D11_PARAMETER_DESC }
 
 /**
  * A function-parameter-reflection interface accesses function-parameter info. (ID3D11FunctionParameterReflection)

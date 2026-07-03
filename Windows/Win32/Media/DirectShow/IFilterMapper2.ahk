@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\REGFILTER2.ahk" { REGFILTER2 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\REGPINMEDIUM.ahk" { REGPINMEDIUM }
+#Import "..\..\System\Com\IEnumMoniker.ahk" { IEnumMoniker }
 #Import "..\..\System\Com\IMoniker.ahk" { IMoniker }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\System\Com\IEnumMoniker.ahk" { IEnumMoniker }
-#Import ".\REGPINMEDIUM.ahk" { REGPINMEDIUM }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Registers and unregisters filters, and locates filters in the registry.

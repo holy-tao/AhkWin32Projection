@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\INetFwRule.ahk" { INetFwRule }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\INetFwRule.ahk" { INetFwRule }
 
 /**
  * Allows an application or service to access all the properties of INetFwRule as well as the four edge properties of a firewall rule specified by NET_FW_EDGE_TRAVERSAL_TYPE.

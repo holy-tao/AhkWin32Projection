@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\HCHANGE.ahk" { HCHANGE }
-#Import ".\NOTIFY_FILTER_AND_TYPE.ahk" { NOTIFY_FILTER_AND_TYPE }
 #Import ".\HCLUSTER.ahk" { HCLUSTER }
+#Import ".\NOTIFY_FILTER_AND_TYPE.ahk" { NOTIFY_FILTER_AND_TYPE }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -50,10 +50,6 @@ export default struct PCLUSAPI_CREATE_CLUSTER_NOTIFY_PORT_V2 {
             this.value := CallbackCreate(fn, , [HCHANGE, HCLUSTER, NOTIFY_FILTER_AND_TYPE.Ptr, UInt32, IntPtr, HCHANGE])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\EapSimCredential.ahk" { EapSimCredential }
-#Import ".\EapUsernamePasswordCredential.ahk" { EapUsernamePasswordCredential }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\EapCertificateCredential.ahk" { EapCertificateCredential }
+#Import ".\EapSimCredential.ahk" { EapSimCredential }
+#Import ".\EapUsernamePasswordCredential.ahk" { EapUsernamePasswordCredential }
 
 /**
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol

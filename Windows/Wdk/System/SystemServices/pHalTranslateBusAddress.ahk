@@ -52,10 +52,6 @@ export default struct pHalTranslateBusAddress {
             this.value := CallbackCreate(fn, , [INTERFACE_TYPE, UInt32, Int64, "uint*", "int64*", BOOLEAN])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

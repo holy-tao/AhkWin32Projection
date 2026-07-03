@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Graphics\Gdi\AXISINFOW.ahk" { AXISINFOW }
-#Import "..\Graphics\Gdi\AXESLISTW.ahk" { AXESLISTW }
-#Import "..\Graphics\Gdi\TMPF_FLAGS.ahk" { TMPF_FLAGS }
-#Import "..\Graphics\Gdi\NEWTEXTMETRICW.ahk" { NEWTEXTMETRICW }
 #Import ".\FONTSIGNATURE.ahk" { FONTSIGNATURE }
 #Import ".\NEWTEXTMETRICEXW.ahk" { NEWTEXTMETRICEXW }
+#Import "..\Graphics\Gdi\AXESLISTW.ahk" { AXESLISTW }
+#Import "..\Graphics\Gdi\AXISINFOW.ahk" { AXISINFOW }
+#Import "..\Graphics\Gdi\NEWTEXTMETRICW.ahk" { NEWTEXTMETRICW }
+#Import "..\Graphics\Gdi\TMPF_FLAGS.ahk" { TMPF_FLAGS }
 #Import "..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
@@ -25,7 +25,7 @@
  * @charset Unicode
  */
 export default struct ENUMTEXTMETRICW {
-    #StructPack 8
+    #StructPack 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-newtextmetricexa">NEWTEXTMETRICEX</a> structure, containing information about a physical font.

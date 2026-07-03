@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\System\Com\BLOB.ahk" { BLOB }
-#Import ".\CSADDR_INFO.ahk" { CSADDR_INFO }
-#Import ".\AFPROTOCOLS.ahk" { AFPROTOCOLS }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\AFPROTOCOLS.ahk" { AFPROTOCOLS }
+#Import ".\CSADDR_INFO.ahk" { CSADDR_INFO }
 #Import ".\WSAVERSION.ahk" { WSAVERSION }
+#Import "..\..\System\Com\BLOB.ahk" { BLOB }
 
 /**
  * Provides relevant information about a given service, including service class ID, service name, applicable namespace identifier and protocol information, as well as a set of transport addresses at which the service listens. (Unicode)

@@ -164,10 +164,6 @@ export default struct LPNSPV2LOOKUPSERVICENEXTEX {
             this.value := CallbackCreate(fn, , [HANDLE, HANDLE, UInt32, "uint*", WSAQUERYSET2W.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

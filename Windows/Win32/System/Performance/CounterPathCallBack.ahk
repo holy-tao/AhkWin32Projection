@@ -53,10 +53,6 @@ export default struct CounterPathCallBack {
             this.value := CallbackCreate(fn, , [IntPtr, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

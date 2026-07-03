@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\SIZE.ahk" { SIZE }
-#Import ".\UPDATE_LAYERED_WINDOW_FLAGS.ahk" { UPDATE_LAYERED_WINDOW_FLAGS }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\Graphics\Gdi\BLENDFUNCTION.ahk" { BLENDFUNCTION }
 #Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import ".\UPDATE_LAYERED_WINDOW_FLAGS.ahk" { UPDATE_LAYERED_WINDOW_FLAGS }
 
 /**
  * Used by UpdateLayeredWindowIndirect to provide position, size, shape, content, and translucency information for a layered window.

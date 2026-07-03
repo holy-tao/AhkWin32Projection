@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SecBufferDesc.ahk" { SecBufferDesc }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\SecBufferDesc.ahk" { SecBufferDesc }
 
 /**
  * Decrypts a message that was previously encrypted with the SpSealMessage function.
@@ -42,7 +42,7 @@ export default struct SpUnsealMessageFn {
         QualityOfProtectionMarshal := QualityOfProtection is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, IntPtr, ContextHandle, SecBufferDesc.Ptr, MessageBuffers, UInt32, MessageSequenceNumber, QualityOfProtectionMarshal, QualityOfProtection, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -62,10 +62,6 @@ export default struct SpUnsealMessageFn {
             this.value := CallbackCreate(fn, , [IntPtr, SecBufferDesc.Ptr, UInt32, "uint*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -52,10 +52,6 @@ export default struct FWPM_DYNAMIC_KEYWORD_CALLBACK0 {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

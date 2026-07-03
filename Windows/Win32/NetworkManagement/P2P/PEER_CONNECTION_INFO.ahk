@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Networking\WinSock\SOCKADDR_IN6.ahk" { SOCKADDR_IN6 }
-#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
 #Import ".\PEER_ADDRESS.ahk" { PEER_ADDRESS }
-#Import "..\..\Networking\WinSock\SCOPE_ID.ahk" { SCOPE_ID }
 #Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
+#Import "..\..\Networking\WinSock\SCOPE_ID.ahk" { SCOPE_ID }
+#Import "..\..\Networking\WinSock\SOCKADDR_IN6.ahk" { SOCKADDR_IN6 }
 
 /**
  * The PEER_CONNECTION_INFO structure contains information about a connection. This structure is returned when you are enumerating peer graphing or grouping connections.

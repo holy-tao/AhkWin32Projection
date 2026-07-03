@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWICEnumMetadataItem.ahk" { IWICEnumMetadataItem }
 #Import ".\IWICMetadataHandlerInfo.ahk" { IWICMetadataHandlerInfo }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IWICEnumMetadataItem.ahk" { IWICEnumMetadataItem }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 
 /**
  * Exposes methods that provide access to underlining metadata content. This interface is implemented by independent software vendors (ISVs) to create new metadata readers.

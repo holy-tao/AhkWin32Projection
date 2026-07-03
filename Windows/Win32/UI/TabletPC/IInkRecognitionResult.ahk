@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\InkRecognitionConfidence.ahk" { InkRecognitionConfidence }
-#Import ".\IInkRecognitionAlternate.ahk" { IInkRecognitionAlternate }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IInkRecognitionAlternates.ahk" { IInkRecognitionAlternates }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IInkRecognitionAlternate.ahk" { IInkRecognitionAlternate }
+#Import ".\IInkRecognitionAlternates.ahk" { IInkRecognitionAlternates }
 #Import ".\IInkStrokes.ahk" { IInkStrokes }
+#Import ".\InkRecognitionConfidence.ahk" { InkRecognitionConfidence }
 
 /**
  * Represents the result of the recognition. The results of recognizing handwritten ink are returned in an IInkRecognitionResult object.

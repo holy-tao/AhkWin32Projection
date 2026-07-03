@@ -47,10 +47,6 @@ export default struct PFN_D3D12_CREATE_ROOT_SIGNATURE_DESERIALIZER {
             this.value := CallbackCreate(fn, , [IntPtr, IntPtr, Guid.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

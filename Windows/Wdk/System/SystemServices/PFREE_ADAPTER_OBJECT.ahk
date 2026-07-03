@@ -45,10 +45,6 @@ export default struct PFREE_ADAPTER_OBJECT {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, IO_ALLOCATION_ACTION, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

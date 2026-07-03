@@ -48,10 +48,6 @@ export default struct PPHYSICAL_COUNTER_EVENT_BUFFER_OVERFLOW_HANDLER {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr, IntPtr, HANDLE, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

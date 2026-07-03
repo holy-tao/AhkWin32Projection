@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\INK_HIGH_CONTRAST_ADJUSTMENT.ahk" { INK_HIGH_CONTRAST_ADJUSTMENT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\INK_HIGH_CONTRAST_ADJUSTMENT.ahk" { INK_HIGH_CONTRAST_ADJUSTMENT }
 
 /**
  * An IInkD2DRenderer2 object enables the rendering of ink strokes onto the designated Direct2D device context of a Universal Windows app, instead of the default InkCanvas control.

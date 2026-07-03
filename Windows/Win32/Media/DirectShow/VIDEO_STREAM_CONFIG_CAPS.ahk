@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * The VIDEO_STREAM_CONFIG_CAPS structure describes a range of video formats. Video compression and video capture filters use this structure to describe what formats they can produce.

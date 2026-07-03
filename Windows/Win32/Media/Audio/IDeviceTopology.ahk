@@ -2,13 +2,13 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IConnector.ahk" { IConnector }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IPartsList.ahk" { IPartsList }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISubunit.ahk" { ISubunit }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IConnector.ahk" { IConnector }
 #Import ".\IPart.ahk" { IPart }
+#Import ".\IPartsList.ahk" { IPartsList }
+#Import ".\ISubunit.ahk" { ISubunit }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDeviceTopology interface provides access to the topology of an audio device.

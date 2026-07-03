@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\CERT_HASHED_URL.ahk" { CERT_HASHED_URL }
-#Import ".\CERT_BIOMETRIC_DATA_TYPE.ahk" { CERT_BIOMETRIC_DATA_TYPE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\CERT_BIOMETRIC_DATA_TYPE.ahk" { CERT_BIOMETRIC_DATA_TYPE }
+#Import ".\CERT_HASHED_URL.ahk" { CERT_HASHED_URL }
 #Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 
 /**
  * Contains information about biometric data.

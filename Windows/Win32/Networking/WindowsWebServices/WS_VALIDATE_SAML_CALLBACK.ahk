@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WS_ERROR.ahk" { WS_ERROR }
 #Import ".\WS_XML_BUFFER.ahk" { WS_XML_BUFFER }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Validates a SAML assertion.
@@ -54,10 +54,6 @@ export default struct WS_VALIDATE_SAML_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", WS_XML_BUFFER.Ptr, WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IWebApplicationHost.ahk" { IWebApplicationHost }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWebApplicationHost.ahk" { IWebApplicationHost }
 
 /**
  * Unregisters the application-defined function that was registered with the RegisterAuthoringClientFunctionType function. This function is called when the app host terminates.
@@ -51,10 +51,6 @@ export default struct UnregisterAuthoringClientFunctionType {
             this.value := CallbackCreate(fn, , ["ptr", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

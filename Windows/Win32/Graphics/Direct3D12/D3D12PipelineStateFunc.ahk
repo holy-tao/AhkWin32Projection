@@ -49,10 +49,6 @@ export default struct D3D12PipelineStateFunc {
             this.value := CallbackCreate(fn, , [IntPtr, UInt32, UInt32, D3D12_PIPELINE_STATE_STREAM_DESC.Ptr, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

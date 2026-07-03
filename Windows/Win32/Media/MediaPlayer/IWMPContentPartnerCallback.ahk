@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\WMPCallbackNotification.ahk" { WMPCallbackNotification }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WMPCallbackNotification.ahk" { WMPCallbackNotification }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Note  This section describes functionality designed for use by online stores.

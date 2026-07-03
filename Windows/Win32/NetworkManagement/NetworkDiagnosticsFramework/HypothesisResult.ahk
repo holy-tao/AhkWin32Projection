@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HELPER_ATTRIBUTE.ahk" { HELPER_ATTRIBUTE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DIAGNOSIS_STATUS.ahk" { DIAGNOSIS_STATUS }
+#Import ".\HELPER_ATTRIBUTE.ahk" { HELPER_ATTRIBUTE }
 #Import ".\HYPOTHESIS.ahk" { HYPOTHESIS }
 
 /**

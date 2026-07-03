@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWICMetadataQueryWriter.ahk" { IWICMetadataQueryWriter }
-#Import "..\..\System\Com\StructuredStorage\IPropertyBag2.ahk" { IPropertyBag2 }
-#Import ".\IWICMetadataWriter.ahk" { IWICMetadataWriter }
-#Import ".\IWICMetadataReader.ahk" { IWICMetadataReader }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWICImagingFactory.ahk" { IWICImagingFactory }
 #Import ".\IWICMetadataBlockReader.ahk" { IWICMetadataBlockReader }
 #Import ".\IWICMetadataBlockWriter.ahk" { IWICMetadataBlockWriter }
 #Import ".\IWICMetadataQueryReader.ahk" { IWICMetadataQueryReader }
-#Import "..\..\System\Com\StructuredStorage\PROPBAG2.ahk" { PROPBAG2 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWICMetadataQueryWriter.ahk" { IWICMetadataQueryWriter }
+#Import ".\IWICMetadataReader.ahk" { IWICMetadataReader }
+#Import ".\IWICMetadataWriter.ahk" { IWICMetadataWriter }
 #Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import ".\IWICImagingFactory.ahk" { IWICImagingFactory }
+#Import "..\..\System\Com\StructuredStorage\IPropertyBag2.ahk" { IPropertyBag2 }
+#Import "..\..\System\Com\StructuredStorage\PROPBAG2.ahk" { PROPBAG2 }
 
 /**
  * Exposes methods that create components used by component developers. This includes metadata readers, writers and other services for use by codec and metadata handler developers.

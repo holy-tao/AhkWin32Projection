@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NET_RESOURCE_SCOPE.ahk" { NET_RESOURCE_SCOPE }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\NET_RESOURCE_SCOPE.ahk" { NET_RESOURCE_SCOPE }
 #Import ".\NET_RESOURCE_TYPE.ahk" { NET_RESOURCE_TYPE }
 
 /**

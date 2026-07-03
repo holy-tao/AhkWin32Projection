@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\NgcTicketContext.ahk" { NgcTicketContext }
 #Import ".\PPP_EAP_ACTION.ahk" { PPP_EAP_ACTION }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\RAS_AUTH_ATTRIBUTE.ahk" { RAS_AUTH_ATTRIBUTE }
 
 /**

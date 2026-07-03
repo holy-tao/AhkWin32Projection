@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MI_InstanceFT.ahk" { MI_InstanceFT }
 #Import ".\MI_ClassDecl.ahk" { MI_ClassDecl }
+#Import ".\MI_InstanceFT.ahk" { MI_InstanceFT }
 
 /**
  * This structure represents a CIM instance. This object should not be accessed directly. Instead, the MI_Instance_* functions should be used.

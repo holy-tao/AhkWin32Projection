@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\pluginResource2FileAssociation.ahk" { pluginResource2FileAssociation }
-#Import ".\pluginResource.ahk" { pluginResource }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\pluginResource.ahk" { pluginResource }
+#Import ".\pluginResource2FileAssociation.ahk" { pluginResource2FileAssociation }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

@@ -44,10 +44,6 @@ export default struct PF_NPDeviceMode {
             this.value := CallbackCreate(fn, , [HWND, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

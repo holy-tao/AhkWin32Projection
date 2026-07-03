@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\XINPUT_VIRTUAL_KEY.ahk" { XINPUT_VIRTUAL_KEY }
 #Import ".\XINPUT_KEYSTROKE_FLAGS.ahk" { XINPUT_KEYSTROKE_FLAGS }
+#Import ".\XINPUT_VIRTUAL_KEY.ahk" { XINPUT_VIRTUAL_KEY }
 
 /**
  * Specifies keystroke data returned by XInputGetKeystroke.

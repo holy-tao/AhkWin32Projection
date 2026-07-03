@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WSMAN_SHELL_STARTUP_INFO_V11.ahk" { WSMAN_SHELL_STARTUP_INFO_V11 }
 #Import ".\WSMAN_DATA.ahk" { WSMAN_DATA }
 #Import ".\WSMAN_PLUGIN_REQUEST.ahk" { WSMAN_PLUGIN_REQUEST }
+#Import ".\WSMAN_SHELL_STARTUP_INFO_V11.ahk" { WSMAN_SHELL_STARTUP_INFO_V11 }
 
 /**
  * Defines the shell callback for a plug-in.
@@ -55,10 +55,6 @@ export default struct WSMAN_PLUGIN_SHELL {
             this.value := CallbackCreate(fn, , ["ptr", WSMAN_PLUGIN_REQUEST.Ptr, UInt32, WSMAN_SHELL_STARTUP_INFO_V11.Ptr, WSMAN_DATA.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\LUID.ahk" { LUID }
+#Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 #Import ".\SECURITY_LOGON_TYPE.ahk" { SECURITY_LOGON_TYPE }
-#Import "..\..\..\Foundation\LUID.ahk" { LUID }
-#Import "..\..\SECURITY_IMPERSONATION_LEVEL.ahk" { SECURITY_IMPERSONATION_LEVEL }
-#Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import "..\..\PSID.ahk" { PSID }
+#Import "..\..\SECURITY_IMPERSONATION_LEVEL.ahk" { SECURITY_IMPERSONATION_LEVEL }
 #Import "..\..\TOKEN_SOURCE.ahk" { TOKEN_SOURCE }
 
 /**
@@ -58,10 +58,6 @@ export default struct PLSA_AUDIT_LOGON_EX {
             this.value := CallbackCreate(fn, , [NTSTATUS, NTSTATUS, LSA_UNICODE_STRING.Ptr, LSA_UNICODE_STRING.Ptr, LSA_UNICODE_STRING.Ptr, PSID, SECURITY_LOGON_TYPE, SECURITY_IMPERSONATION_LEVEL, TOKEN_SOURCE.Ptr, LUID.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

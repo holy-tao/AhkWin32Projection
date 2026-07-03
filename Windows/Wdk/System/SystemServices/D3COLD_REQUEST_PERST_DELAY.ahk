@@ -28,7 +28,7 @@ export default struct D3COLD_REQUEST_PERST_DELAY {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, UInt32, DelayInMicroSeconds, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -48,10 +48,6 @@ export default struct D3COLD_REQUEST_PERST_DELAY {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

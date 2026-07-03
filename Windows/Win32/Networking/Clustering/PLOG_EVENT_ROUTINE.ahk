@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LOG_LEVEL.ahk" { LOG_LEVEL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\LOG_LEVEL.ahk" { LOG_LEVEL }
 
 /**
  * Records an event in the cluster log.
@@ -79,10 +79,6 @@ export default struct PLOG_EVENT_ROUTINE {
             this.value := CallbackCreate(fn, "cdecl", [IntPtr, LOG_LEVEL, PWSTR, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

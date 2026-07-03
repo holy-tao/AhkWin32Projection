@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CRYPT_XML_ALGORITHM.ahk" { CRYPT_XML_ALGORITHM }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\BCRYPT_KEY_HANDLE.ahk" { BCRYPT_KEY_HANDLE }
+#Import ".\CRYPT_XML_ALGORITHM.ahk" { CRYPT_XML_ALGORITHM }
 
 /**
  * Verifies a signature.
@@ -55,10 +55,6 @@ export default struct CryptXmlDllVerifySignature {
             this.value := CallbackCreate(fn, , [CRYPT_XML_ALGORITHM.Ptr, BCRYPT_KEY_HANDLE, IntPtr, UInt32, IntPtr, UInt32, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

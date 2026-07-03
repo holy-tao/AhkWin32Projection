@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
+#Import "..\..\Foundation\IOMMU_DMA_DEVICE.ahk" { IOMMU_DMA_DEVICE }
 #Import ".\IOMMU_DEVICE_CREATION_CONFIGURATION.ahk" { IOMMU_DEVICE_CREATION_CONFIGURATION }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
-#Import "..\..\Foundation\IOMMU_DMA_DEVICE.ahk" { IOMMU_DMA_DEVICE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -32,7 +32,7 @@ export default struct IOMMU_DEVICE_CREATE {
         DmaDeviceOutMarshal := DmaDeviceOut is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, DEVICE_OBJECT.Ptr, DeviceObject, IOMMU_DEVICE_CREATION_CONFIGURATION.Ptr, DeviceConfig, DmaDeviceOutMarshal, DmaDeviceOut, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -52,10 +52,6 @@ export default struct IOMMU_DEVICE_CREATE {
             this.value := CallbackCreate(fn, , [DEVICE_OBJECT.Ptr, IOMMU_DEVICE_CREATION_CONFIGURATION.Ptr, "ptr*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DFS_TARGET_PRIORITY_CLASS.ahk" { DFS_TARGET_PRIORITY_CLASS }
 #Import ".\DFS_TARGET_PRIORITY.ahk" { DFS_TARGET_PRIORITY }
+#Import ".\DFS_TARGET_PRIORITY_CLASS.ahk" { DFS_TARGET_PRIORITY_CLASS }
 
 /**
  * Contains the priority of a DFS root target or link target.

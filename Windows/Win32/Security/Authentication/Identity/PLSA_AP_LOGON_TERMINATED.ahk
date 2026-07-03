@@ -43,10 +43,6 @@ export default struct PLSA_AP_LOGON_TERMINATED {
             this.value := CallbackCreate(fn, , [LUID.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

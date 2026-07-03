@@ -1,20 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\EXCEPTION_RECORD.ahk" { EXCEPTION_RECORD }
-#Import ".\DEBUG_EVENT_CODE.ahk" { DEBUG_EVENT_CODE }
-#Import ".\UNLOAD_DLL_DEBUG_INFO.ahk" { UNLOAD_DLL_DEBUG_INFO }
-#Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
-#Import ".\EXIT_THREAD_DEBUG_INFO.ahk" { EXIT_THREAD_DEBUG_INFO }
-#Import "..\..\Threading\LPTHREAD_START_ROUTINE.ahk" { LPTHREAD_START_ROUTINE }
-#Import ".\CREATE_THREAD_DEBUG_INFO.ahk" { CREATE_THREAD_DEBUG_INFO }
-#Import ".\CREATE_PROCESS_DEBUG_INFO.ahk" { CREATE_PROCESS_DEBUG_INFO }
-#Import ".\RIP_INFO_TYPE.ahk" { RIP_INFO_TYPE }
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\OUTPUT_DEBUG_STRING_INFO.ahk" { OUTPUT_DEBUG_STRING_INFO }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\LOAD_DLL_DEBUG_INFO.ahk" { LOAD_DLL_DEBUG_INFO }
+#Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\CREATE_PROCESS_DEBUG_INFO.ahk" { CREATE_PROCESS_DEBUG_INFO }
+#Import ".\CREATE_THREAD_DEBUG_INFO.ahk" { CREATE_THREAD_DEBUG_INFO }
+#Import ".\DEBUG_EVENT_CODE.ahk" { DEBUG_EVENT_CODE }
 #Import ".\EXCEPTION_DEBUG_INFO.ahk" { EXCEPTION_DEBUG_INFO }
-#Import ".\RIP_INFO.ahk" { RIP_INFO }
+#Import ".\EXCEPTION_RECORD.ahk" { EXCEPTION_RECORD }
 #Import ".\EXIT_PROCESS_DEBUG_INFO.ahk" { EXIT_PROCESS_DEBUG_INFO }
+#Import ".\EXIT_THREAD_DEBUG_INFO.ahk" { EXIT_THREAD_DEBUG_INFO }
+#Import ".\LOAD_DLL_DEBUG_INFO.ahk" { LOAD_DLL_DEBUG_INFO }
+#Import ".\OUTPUT_DEBUG_STRING_INFO.ahk" { OUTPUT_DEBUG_STRING_INFO }
+#Import ".\RIP_INFO.ahk" { RIP_INFO }
+#Import ".\RIP_INFO_TYPE.ahk" { RIP_INFO_TYPE }
+#Import ".\UNLOAD_DLL_DEBUG_INFO.ahk" { UNLOAD_DLL_DEBUG_INFO }
 
 /**
  * Describes a debugging event.

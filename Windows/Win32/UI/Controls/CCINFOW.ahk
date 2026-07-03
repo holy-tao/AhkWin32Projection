@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\CCSTYLEFLAGW.ahk" { CCSTYLEFLAGW }
-#Import ".\LPFNCCSIZETOTEXTW.ahk" { LPFNCCSIZETOTEXTW }
-#Import ".\LPFNCCSTYLEW.ahk" { LPFNCCSTYLEW }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
@@ -33,9 +31,9 @@ export default struct CCINFOW {
 
     szTextDefault : WCHAR[256]
 
-    lpfnStyle : LPFNCCSTYLEW
+    lpfnStyle : IntPtr
 
-    lpfnSizeToText : LPFNCCSIZETOTEXTW
+    lpfnSizeToText : IntPtr
 
     dwReserved1 : UInt32
 

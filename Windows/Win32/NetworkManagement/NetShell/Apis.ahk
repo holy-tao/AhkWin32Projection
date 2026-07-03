@@ -1,13 +1,13 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\TOKEN_VALUE.ahk" { TOKEN_VALUE }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\NS_CONTEXT_ATTRIBUTES.ahk" { NS_CONTEXT_ATTRIBUTES }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\NS_CONTEXT_ATTRIBUTES.ahk" { NS_CONTEXT_ATTRIBUTES }
 #Import ".\NS_HELPER_ATTRIBUTES.ahk" { NS_HELPER_ATTRIBUTES }
 #Import ".\TAG_TYPE.ahk" { TAG_TYPE }
+#Import ".\TOKEN_VALUE.ahk" { TOKEN_VALUE }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetShell

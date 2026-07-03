@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_HEAP.ahk" { WS_HEAP }
-#Import ".\WS_XML_READER.ahk" { WS_XML_READER }
-#Import ".\WS_ERROR.ahk" { WS_ERROR }
-#Import ".\WS_TYPE_MAPPING.ahk" { WS_TYPE_MAPPING }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WS_ERROR.ahk" { WS_ERROR }
+#Import ".\WS_HEAP.ahk" { WS_HEAP }
+#Import ".\WS_TYPE_MAPPING.ahk" { WS_TYPE_MAPPING }
+#Import ".\WS_XML_READER.ahk" { WS_XML_READER }
 
 /**
  * Reads a value when WS_TYPEhas been specified.
@@ -82,10 +82,6 @@ export default struct WS_READ_TYPE_CALLBACK {
             this.value := CallbackCreate(fn, , [WS_XML_READER.Ptr, WS_TYPE_MAPPING, "ptr", WS_HEAP.Ptr, IntPtr, UInt32, WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

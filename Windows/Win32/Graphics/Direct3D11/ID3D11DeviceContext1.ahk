@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D11DeviceContext.ahk" { ID3D11DeviceContext }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\ID3D11Resource.ahk" { ID3D11Resource }
-#Import ".\ID3DDeviceContextState.ahk" { ID3DDeviceContextState }
-#Import ".\ID3D11View.ahk" { ID3D11View }
 #Import ".\D3D11_BOX.ahk" { D3D11_BOX }
 #Import ".\ID3D11Buffer.ahk" { ID3D11Buffer }
+#Import ".\ID3D11DeviceContext.ahk" { ID3D11DeviceContext }
+#Import ".\ID3D11Resource.ahk" { ID3D11Resource }
+#Import ".\ID3D11View.ahk" { ID3D11View }
+#Import ".\ID3DDeviceContextState.ahk" { ID3DDeviceContextState }
 
 /**
  * The device context interface represents a device context; it is used to render commands. ID3D11DeviceContext1 adds new methods to those in ID3D11DeviceContext.

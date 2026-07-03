@@ -52,10 +52,6 @@ export default struct PDD_FREEDRIVERMEMORY {
             this.value := CallbackCreate(fn, , [DD_FREEDRIVERMEMORYDATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

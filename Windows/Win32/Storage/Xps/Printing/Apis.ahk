@@ -1,11 +1,11 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\IXpsPrintJob.ahk" { IXpsPrintJob }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IXpsPrintJobStream.ahk" { IXpsPrintJobStream }
-#Import "..\IXpsOMPackageTarget.ahk" { IXpsOMPackageTarget }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\IXpsOMPackageTarget.ahk" { IXpsOMPackageTarget }
+#Import ".\IXpsPrintJob.ahk" { IXpsPrintJob }
+#Import ".\IXpsPrintJobStream.ahk" { IXpsPrintJobStream }
 
 /**
  * @namespace Windows.Win32.Storage.Xps.Printing

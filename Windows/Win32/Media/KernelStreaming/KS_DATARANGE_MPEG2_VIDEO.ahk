@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\KS_MPEGVIDEOINFO2.ahk" { KS_MPEGVIDEOINFO2 }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import ".\KSDATAFORMAT.ahk" { KSDATAFORMAT }
+#Import ".\KS_BITMAPINFOHEADER.ahk" { KS_BITMAPINFOHEADER }
+#Import ".\KS_MPEGVIDEOINFO2.ahk" { KS_MPEGVIDEOINFO2 }
 #Import ".\KS_VIDEOINFOHEADER2.ahk" { KS_VIDEOINFOHEADER2 }
 #Import ".\KS_VIDEO_STREAM_CONFIG_CAPS.ahk" { KS_VIDEO_STREAM_CONFIG_CAPS }
-#Import ".\KSDATAFORMAT.ahk" { KSDATAFORMAT }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\KS_BITMAPINFOHEADER.ahk" { KS_BITMAPINFOHEADER }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

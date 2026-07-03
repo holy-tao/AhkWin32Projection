@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
 #Import ".\ACCESSRECTLIST.ahk" { ACCESSRECTLIST }
-#Import ".\VMEMHEAP.ahk" { VMEMHEAP }
 #Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
+#Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
+#Import ".\VMEMHEAP.ahk" { VMEMHEAP }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

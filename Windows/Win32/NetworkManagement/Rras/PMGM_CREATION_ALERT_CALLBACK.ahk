@@ -84,10 +84,6 @@ export default struct PMGM_CREATION_ALERT_CALLBACK {
             this.value := CallbackCreate(fn, , [UInt32, UInt32, UInt32, UInt32, UInt32, UInt32, UInt32, MGM_IF_ENTRY.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

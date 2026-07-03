@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SID_AND_ATTRIBUTES.ahk" { SID_AND_ATTRIBUTES }
 #Import ".\PSID.ahk" { PSID }
+#Import ".\SID_AND_ATTRIBUTES.ahk" { SID_AND_ATTRIBUTES }
 
 /**
  * Defines the security capabilities of the app container.

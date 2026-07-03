@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\RIO_CQ.ahk" { RIO_CQ }
-#Import ".\SOCKET.ahk" { SOCKET }
 #Import ".\RIO_RQ.ahk" { RIO_RQ }
+#Import ".\SOCKET.ahk" { SOCKET }
 
 /**
  * Creates a registered I/O socket descriptor using a specified socket and I/O completion queues for use with the Winsock registered I/O extensions.
@@ -98,10 +98,6 @@ export default struct LPFN_RIOCREATEREQUESTQUEUE {
             this.value := CallbackCreate(fn, , [SOCKET, UInt32, UInt32, UInt32, UInt32, RIO_CQ, RIO_CQ, "ptr", RIO_RQ])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

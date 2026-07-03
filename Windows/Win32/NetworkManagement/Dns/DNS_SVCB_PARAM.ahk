@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\DNS_SVCB_PARAM_MANDATORY.ahk" { DNS_SVCB_PARAM_MANDATORY }
-#Import ".\DNS_SVCB_PARAM_UNKNOWN.ahk" { DNS_SVCB_PARAM_UNKNOWN }
 #Import ".\DNS_SVCB_PARAM_ALPN.ahk" { DNS_SVCB_PARAM_ALPN }
 #Import ".\DNS_SVCB_PARAM_IPV4.ahk" { DNS_SVCB_PARAM_IPV4 }
 #Import ".\DNS_SVCB_PARAM_IPV6.ahk" { DNS_SVCB_PARAM_IPV6 }
+#Import ".\DNS_SVCB_PARAM_MANDATORY.ahk" { DNS_SVCB_PARAM_MANDATORY }
+#Import ".\DNS_SVCB_PARAM_UNKNOWN.ahk" { DNS_SVCB_PARAM_UNKNOWN }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns

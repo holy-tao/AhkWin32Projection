@@ -51,10 +51,6 @@ export default struct PFLT_POST_OPERATION_CALLBACK {
             this.value := CallbackCreate(fn, , [FLT_CALLBACK_DATA.Ptr, FLT_RELATED_OBJECTS.Ptr, "ptr", UInt32, FLT_POSTOP_CALLBACK_STATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

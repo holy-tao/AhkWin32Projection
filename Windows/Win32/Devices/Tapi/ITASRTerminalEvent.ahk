@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITTerminal.ahk" { ITTerminal }
 #Import ".\ITCallInfo.ahk" { ITCallInfo }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ITTerminal.ahk" { ITTerminal }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The ITASRTerminalEvent interface contains methods that retrieve the description of Automatic Speech Recognition terminal events that have occurred.

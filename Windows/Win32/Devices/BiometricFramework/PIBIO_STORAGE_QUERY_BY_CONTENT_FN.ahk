@@ -158,10 +158,6 @@ export default struct PIBIO_STORAGE_QUERY_BY_CONTENT_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, Int8, "uint*", IntPtr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IVdsPack.ahk" { IVdsPack }
+#Import ".\VDS_DISK_EXTENT.ahk" { VDS_DISK_EXTENT }
+#Import ".\VDS_DISK_PROP.ahk" { VDS_DISK_PROP }
+#Import ".\VDS_LUN_INFORMATION.ahk" { VDS_LUN_INFORMATION }
 #Import ".\VDS_PARTITION_STYLE.ahk" { VDS_PARTITION_STYLE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\VDS_LUN_INFORMATION.ahk" { VDS_LUN_INFORMATION }
-#Import ".\VDS_DISK_EXTENT.ahk" { VDS_DISK_EXTENT }
-#Import ".\IVdsPack.ahk" { IVdsPack }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\VDS_DISK_PROP.ahk" { VDS_DISK_PROP }
 
 /**
  * Provides methods to query and configure basic and dynamic disks.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * A callback function that is used to create items in the cache. (FCACHE_RICHCREATE_CALLBACK)
@@ -65,10 +65,6 @@ export default struct FCACHE_RICHCREATE_CALLBACK {
             this.value := CallbackCreate(fn, , [PSTR, "ptr", "uint*", "uint*", BOOL.Ptr, BOOL.Ptr, BOOL.Ptr, BOOL.Ptr, HANDLE])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

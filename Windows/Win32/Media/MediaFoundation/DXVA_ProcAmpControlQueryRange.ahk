@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DXVA_ProcAmpControlProp.ahk" { DXVA_ProcAmpControlProp }
-#Import ".\DXVA_Frequency.ahk" { DXVA_Frequency }
 #Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
+#Import ".\DXVA_Frequency.ahk" { DXVA_Frequency }
+#Import ".\DXVA_ProcAmpControlProp.ahk" { DXVA_ProcAmpControlProp }
 #Import ".\DXVA_VideoDesc.ahk" { DXVA_VideoDesc }
 
 /**

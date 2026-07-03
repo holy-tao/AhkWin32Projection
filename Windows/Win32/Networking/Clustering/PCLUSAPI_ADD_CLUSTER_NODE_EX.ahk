@@ -1,8 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PCLUSTER_SETUP_PROGRESS_CALLBACK.ahk" { PCLUSTER_SETUP_PROGRESS_CALLBACK }
-#Import ".\HNODE.ahk" { HNODE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\HCLUSTER.ahk" { HCLUSTER }
+#Import ".\HNODE.ahk" { HNODE }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -35,7 +34,7 @@ export default struct PCLUSAPI_ADD_CLUSTER_NODE_EX {
 
         pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
 
-        result := DllCall(this.value, HCLUSTER, _hCluster, "ptr", lpszNodeName, UInt32, dwFlags, PCLUSTER_SETUP_PROGRESS_CALLBACK, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, HNODE)
+        result := DllCall(this.value, HCLUSTER, _hCluster, "ptr", lpszNodeName, UInt32, dwFlags, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, HNODE)
         return result
     }
 
@@ -46,19 +45,15 @@ export default struct PCLUSAPI_ADD_CLUSTER_NODE_EX {
     struct From extends PCLUSAPI_ADD_CLUSTER_NODE_EX {
         /**
          * Creates a PCLUSAPI_ADD_CLUSTER_NODE_EX pointer that invokes the given AHK function when called.
-         * @param {Func(HCLUSTER, PWSTR, UInt32, PCLUSTER_SETUP_PROGRESS_CALLBACK, "ptr") => HNODE} fn the function to invoke.
+         * @param {Func(HCLUSTER, PWSTR, UInt32, "ptr", "ptr") => HNODE} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 5)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 5 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [HCLUSTER, PWSTR, UInt32, PCLUSTER_SETUP_PROGRESS_CALLBACK, "ptr", HNODE])
+            this.value := CallbackCreate(fn, , [HCLUSTER, PWSTR, UInt32, "ptr", "ptr", HNODE])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

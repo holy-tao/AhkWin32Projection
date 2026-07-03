@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\GLYPHBITS.ahk" { GLYPHBITS }
 #Import ".\GLYPHDEF.ahk" { GLYPHDEF }
-#Import ".\POINTQF.ahk" { POINTQF }
 #Import ".\PATHOBJ.ahk" { PATHOBJ }
+#Import ".\POINTQF.ahk" { POINTQF }
 #Import "..\..\Foundation\RECTL.ahk" { RECTL }
 
 /**

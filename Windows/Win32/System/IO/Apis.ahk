@@ -1,8 +1,7 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\LPOVERLAPPED_COMPLETION_ROUTINE.ahk" { LPOVERLAPPED_COMPLETION_ROUTINE }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\OVERLAPPED.ahk" { OVERLAPPED }
 #Import ".\OVERLAPPED_ENTRY.ahk" { OVERLAPPED_ENTRY }
 
@@ -1139,7 +1138,7 @@ export CancelSynchronousIo(hThread) {
 export BindIoCompletionCallback(FileHandle, Function, Flags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\BindIoCompletionCallback", HANDLE, FileHandle, LPOVERLAPPED_COMPLETION_ROUTINE, Function, UInt32, Flags, BOOL)
+    result := DllCall("KERNEL32.dll\BindIoCompletionCallback", HANDLE, FileHandle, "ptr", Function, UInt32, Flags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }

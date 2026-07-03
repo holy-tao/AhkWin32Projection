@@ -1,8 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\JET_PFNSTATUS.ahk" { JET_PFNSTATUS }
-#Import ".\JET_RSTMAP_W.ahk" { JET_RSTMAP_W }
-#Import ".\JET_LOGTIME.ahk" { JET_LOGTIME }
 #Import ".\JET_LGPOS.ahk" { JET_LGPOS }
+#Import ".\JET_LOGTIME.ahk" { JET_LOGTIME }
+#Import ".\JET_RSTMAP_W.ahk" { JET_RSTMAP_W }
 
 /**
  * @namespace Windows.Win32.Storage.Jet
@@ -21,6 +20,6 @@ export default struct JET_RSTINFO_W {
 
     logtimeStop : JET_LOGTIME
 
-    pfnStatus : JET_PFNSTATUS
+    pfnStatus : IntPtr
 
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RASCONNSTATE.ahk" { RASCONNSTATE }
 #Import ".\HRASCONN.ahk" { HRASCONN }
+#Import ".\RASCONNSTATE.ahk" { RASCONNSTATE }
 
 /**
  * A RasDialFunc2 callback function is called by the RasDial function calls when a change of state occurs during a remote access connection process.
@@ -87,10 +87,6 @@ export default struct RASDIALFUNC2 {
             this.value := CallbackCreate(fn, , [IntPtr, UInt32, HRASCONN, UInt32, RASCONNSTATE, UInt32, UInt32, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

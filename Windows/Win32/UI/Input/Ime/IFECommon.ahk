@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\IMEDLG.ahk" { IMEDLG }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMEDLG.ahk" { IMEDLG }
 
 /**
  * The IFECommon interface provides IME-related services that are common for different languages.

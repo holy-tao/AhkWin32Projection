@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID3D12ShaderReflectionVariable.ahk" { ID3D12ShaderReflectionVariable }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\D3D12_SHADER_DESC.ahk" { D3D12_SHADER_DESC }
-#Import ".\ID3D12ShaderReflectionConstantBuffer.ahk" { ID3D12ShaderReflectionConstantBuffer }
-#Import "..\Direct3D\D3D_PRIMITIVE.ahk" { D3D_PRIMITIVE }
-#Import "..\Direct3D\D3D_FEATURE_LEVEL.ahk" { D3D_FEATURE_LEVEL }
-#Import ".\D3D12_SHADER_INPUT_BIND_DESC.ahk" { D3D12_SHADER_INPUT_BIND_DESC }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\Direct3D\D3D_FEATURE_LEVEL.ahk" { D3D_FEATURE_LEVEL }
+#Import "..\Direct3D\D3D_PRIMITIVE.ahk" { D3D_PRIMITIVE }
+#Import ".\D3D12_SHADER_DESC.ahk" { D3D12_SHADER_DESC }
+#Import ".\D3D12_SHADER_INPUT_BIND_DESC.ahk" { D3D12_SHADER_INPUT_BIND_DESC }
 #Import ".\D3D12_SIGNATURE_PARAMETER_DESC.ahk" { D3D12_SIGNATURE_PARAMETER_DESC }
+#Import ".\ID3D12ShaderReflectionConstantBuffer.ahk" { ID3D12ShaderReflectionConstantBuffer }
+#Import ".\ID3D12ShaderReflectionVariable.ahk" { ID3D12ShaderReflectionVariable }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * A shader-reflection interface accesses shader information. (ID3D12ShaderReflection)

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\DEVINFO.ahk" { DEVINFO }
+#Import ".\DHPDEV.ahk" { DHPDEV }
+#Import ".\GDIINFO.ahk" { GDIINFO }
+#Import ".\HDEV.ahk" { HDEV }
 #Import ".\HSURF.ahk" { HSURF }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Graphics\Gdi\DEVMODEW.ahk" { DEVMODEW }
-#Import ".\DHPDEV.ahk" { DHPDEV }
-#Import ".\DEVINFO.ahk" { DEVINFO }
-#Import ".\HDEV.ahk" { HDEV }
-#Import ".\GDIINFO.ahk" { GDIINFO }
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -64,10 +64,6 @@ export default struct PFN_DrvEnablePDEV {
             this.value := CallbackCreate(fn, , [DEVMODEW.Ptr, PWSTR, UInt32, HSURF.Ptr, UInt32, GDIINFO.Ptr, UInt32, DEVINFO.Ptr, HDEV, PWSTR, HANDLE, DHPDEV])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -46,10 +46,6 @@ export default struct DEVICE_RESET_COMPLETION {
             this.value := CallbackCreate(fn, , [NTSTATUS, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,6 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LPDDHALPALCB_SETENTRIES.ahk" { LPDDHALPALCB_SETENTRIES }
-#Import ".\LPDDHALPALCB_DESTROYPALETTE.ahk" { LPDDHALPALCB_DESTROYPALETTE }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -12,8 +10,8 @@ export default struct DDHAL_DDPALETTECALLBACKS {
 
     dwFlags : UInt32
 
-    DestroyPalette : LPDDHALPALCB_DESTROYPALETTE
+    DestroyPalette : IntPtr
 
-    SetEntries : LPDDHALPALCB_SETENTRIES
+    SetEntries : IntPtr
 
 }

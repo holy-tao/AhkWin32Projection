@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IPresentStatistics.ahk" { IPresentStatistics }
 #Import ".\CompositionFrameDisplayInstance.ahk" { CompositionFrameDisplayInstance }
+#Import ".\IPresentStatistics.ahk" { IPresentStatistics }
 
 /**
  * Describes how the system displayed an instance of a particular piece of content within a particular present.

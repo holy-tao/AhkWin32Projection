@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\Guid.ahk" { Guid }
-#Import "..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IMLangConvertCharset.ahk" { IMLangConvertCharset }
-#Import ".\RFC1766INFO.ahk" { RFC1766INFO }
-#Import ".\IEnumRfc1766.ahk" { IEnumRfc1766 }
-#Import "..\Foundation\HWND.ahk" { HWND }
-#Import ".\MIMECPINFO.ahk" { MIMECPINFO }
-#Import "..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\System\Com\IStream.ahk" { IStream }
-#Import ".\MIMECONTF.ahk" { MIMECONTF }
-#Import "..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\MIMECSETINFO.ahk" { MIMECSETINFO }
-#Import ".\IEnumScript.ahk" { IEnumScript }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Foundation\HWND.ahk" { HWND }
+#Import "..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DetectEncodingInfo.ahk" { DetectEncodingInfo }
 #Import ".\IEnumCodePage.ahk" { IEnumCodePage }
+#Import ".\IEnumRfc1766.ahk" { IEnumRfc1766 }
+#Import ".\IEnumScript.ahk" { IEnumScript }
+#Import ".\IMLangConvertCharset.ahk" { IMLangConvertCharset }
+#Import ".\MIMECONTF.ahk" { MIMECONTF }
+#Import ".\MIMECPINFO.ahk" { MIMECPINFO }
+#Import ".\MIMECSETINFO.ahk" { MIMECSETINFO }
+#Import ".\RFC1766INFO.ahk" { RFC1766INFO }
+#Import "..\System\Com\IStream.ahk" { IStream }
+#Import "..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Globalization

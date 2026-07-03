@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Com\IDataObject.ahk" { IDataObject }
-#Import "..\Com\STGMEDIUM.ahk" { STGMEDIUM }
-#Import "..\Com\IEnumSTATDATA.ahk" { IEnumSTATDATA }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\FORMATETC.ahk" { FORMATETC }
+#Import "..\Com\IDataObject.ahk" { IDataObject }
+#Import "..\Com\IEnumSTATDATA.ahk" { IEnumSTATDATA }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\STGMEDIUM.ahk" { STGMEDIUM }
 
 /**
  * Provides control of the presentation data that gets cached inside of an object. Cached presentation data is available to the container of the object even when the server application is not running or is unavailable.

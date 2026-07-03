@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DWRITE_LOCALITY.ahk" { DWRITE_LOCALITY }
-#Import ".\IDWriteFontResource.ahk" { IDWriteFontResource }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DWRITE_FONT_PROPERTY.ahk" { DWRITE_FONT_PROPERTY }
-#Import ".\IDWriteFontFace5.ahk" { IDWriteFontFace5 }
 #Import ".\DWRITE_FONT_AXIS_RANGE.ahk" { DWRITE_FONT_AXIS_RANGE }
 #Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
+#Import ".\DWRITE_FONT_PROPERTY.ahk" { DWRITE_FONT_PROPERTY }
+#Import ".\DWRITE_LOCALITY.ahk" { DWRITE_LOCALITY }
+#Import ".\IDWriteFontFace5.ahk" { IDWriteFontFace5 }
 #Import ".\IDWriteFontFaceReference1.ahk" { IDWriteFontFaceReference1 }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDWriteFontResource.ahk" { IDWriteFontResource }
 #Import ".\IDWriteFontSet.ahk" { IDWriteFontSet }
 
 /**

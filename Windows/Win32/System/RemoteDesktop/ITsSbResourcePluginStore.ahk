@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\TS_SB_SORT_BY.ahk" { TS_SB_SORT_BY }
-#Import ".\TARGET_STATE.ahk" { TARGET_STATE }
-#Import ".\ITsSbEnvironment.ahk" { ITsSbEnvironment }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITsSbTarget.ahk" { ITsSbTarget }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import ".\ITsSbEnvironment.ahk" { ITsSbEnvironment }
 #Import ".\ITsSbSession.ahk" { ITsSbSession }
+#Import ".\ITsSbTarget.ahk" { ITsSbTarget }
+#Import ".\TARGET_STATE.ahk" { TARGET_STATE }
 #Import ".\TSSESSION_STATE.ahk" { TSSESSION_STATE }
+#Import ".\TS_SB_SORT_BY.ahk" { TS_SB_SORT_BY }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Exposes methods that enable resource plug-ins to store objects such as sessions and targets.

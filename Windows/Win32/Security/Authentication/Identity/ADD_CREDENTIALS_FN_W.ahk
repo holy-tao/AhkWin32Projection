@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Credentials\SecHandle.ahk" { SecHandle }
-#Import ".\SEC_GET_KEY_FN.ahk" { SEC_GET_KEY_FN }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Credentials\SecHandle.ahk" { SecHandle }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -40,7 +39,7 @@ export default struct ADD_CREDENTIALS_FN_W {
         param6Marshal := param6 is VarRef ? "ptr" : "ptr"
         param7Marshal := param7 is VarRef ? "int64*" : "ptr"
 
-        result := DllCall(this.value, SecHandle.Ptr, param0, param1Marshal, param1, param2Marshal, param2, UInt32, param3, param4Marshal, param4, SEC_GET_KEY_FN, param5, param6Marshal, param6, param7Marshal, param7, "HRESULT")
+        result := DllCall(this.value, SecHandle.Ptr, param0, param1Marshal, param1, param2Marshal, param2, UInt32, param3, param4Marshal, param4, "ptr", param5, param6Marshal, param6, param7Marshal, param7, "HRESULT")
         return result
     }
 
@@ -51,19 +50,15 @@ export default struct ADD_CREDENTIALS_FN_W {
     struct From extends ADD_CREDENTIALS_FN_W {
         /**
          * Creates a ADD_CREDENTIALS_FN_W pointer that invokes the given AHK function when called.
-         * @param {Func(SecHandle, "ushort*", "ushort*", UInt32, "ptr", SEC_GET_KEY_FN, "ptr", "int64*") => "int"} fn the function to invoke.
+         * @param {Func(SecHandle, "ushort*", "ushort*", UInt32, "ptr", "ptr", "ptr", "int64*") => "int"} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 8)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 8 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [SecHandle.Ptr, "ushort*", "ushort*", UInt32, "ptr", SEC_GET_KEY_FN, "ptr", "int64*", "int"])
+            this.value := CallbackCreate(fn, , [SecHandle.Ptr, "ushort*", "ushort*", UInt32, "ptr", "ptr", "ptr", "int64*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

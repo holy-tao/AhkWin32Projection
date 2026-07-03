@@ -47,10 +47,6 @@ export default struct ENTRY_CALLBACK {
             this.value := CallbackCreate(fn, , [Int64, "ptr", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

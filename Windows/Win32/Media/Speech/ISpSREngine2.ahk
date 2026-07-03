@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ISpPhrase.ahk" { ISpPhrase }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SPRULEHANDLE.ahk" { SPRULEHANDLE }
-#Import ".\SPBINARYGRAMMAR.ahk" { SPBINARYGRAMMAR }
 #Import ".\ISpSREngine.ahk" { ISpSREngine }
-#Import ".\SPADAPTATIONSETTINGS.ahk" { SPADAPTATIONSETTINGS }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\SPADAPTATIONRELEVANCE.ahk" { SPADAPTATIONRELEVANCE }
+#Import ".\SPADAPTATIONSETTINGS.ahk" { SPADAPTATIONSETTINGS }
+#Import ".\SPBINARYGRAMMAR.ahk" { SPBINARYGRAMMAR }
+#Import ".\SPRULEHANDLE.ahk" { SPRULEHANDLE }
 
 /**
  * @namespace Windows.Win32.Media.Speech

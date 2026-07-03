@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SRestriction.ahk" { SRestriction }
 #Import ".\SPropValue.ahk" { SPropValue }
+#Import ".\SRestriction.ahk" { SRestriction }
 
 /**
  * Describes a comment restriction, which is used to annotate a restriction. Comment restrictions are unlike other restrictions because they are not evaluated.

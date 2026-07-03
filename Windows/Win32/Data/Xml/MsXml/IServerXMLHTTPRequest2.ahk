@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IServerXMLHTTPRequest.ahk" { IServerXMLHTTPRequest }
+#Import ".\SXH_PROXY_SETTING.ahk" { SXH_PROXY_SETTING }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SXH_PROXY_SETTING.ahk" { SXH_PROXY_SETTING }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml

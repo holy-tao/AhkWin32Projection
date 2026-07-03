@@ -65,7 +65,7 @@ export default struct SpQueryContextAttributesFn {
         _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, IntPtr, ContextHandle, UInt32, ContextAttribute, _BufferMarshal, _Buffer, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -85,10 +85,6 @@ export default struct SpQueryContextAttributesFn {
             this.value := CallbackCreate(fn, , [IntPtr, UInt32, "ptr", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

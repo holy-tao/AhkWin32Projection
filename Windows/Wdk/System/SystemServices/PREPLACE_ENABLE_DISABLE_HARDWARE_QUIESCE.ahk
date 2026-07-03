@@ -29,7 +29,7 @@ export default struct PREPLACE_ENABLE_DISABLE_HARDWARE_QUIESCE {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, BOOLEAN, Enable, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -49,10 +49,6 @@ export default struct PREPLACE_ENABLE_DISABLE_HARDWARE_QUIESCE {
             this.value := CallbackCreate(fn, , ["ptr", BOOLEAN, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

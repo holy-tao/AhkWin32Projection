@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NET_SERVER_TYPE.ahk" { NET_SERVER_TYPE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\NET_SERVER_TYPE.ahk" { NET_SERVER_TYPE }
 #Import ".\SERVER_INFO_HIDDEN.ahk" { SERVER_INFO_HIDDEN }
 
 /**

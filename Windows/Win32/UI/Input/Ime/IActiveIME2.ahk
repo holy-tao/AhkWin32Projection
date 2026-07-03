@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IActiveIME.ahk" { IActiveIME }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IActiveIME.ahk" { IActiveIME }
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime

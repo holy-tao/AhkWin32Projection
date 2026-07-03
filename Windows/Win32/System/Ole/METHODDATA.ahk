@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Com\CALLCONV.ahk" { CALLCONV }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\CALLCONV.ahk" { CALLCONV }
 #Import ".\PARAMDATA.ahk" { PARAMDATA }
 #Import "..\Variant\VARENUM.ahk" { VARENUM }
 

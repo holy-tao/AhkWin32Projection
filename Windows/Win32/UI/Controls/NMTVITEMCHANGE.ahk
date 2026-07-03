@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\NMHDR.ahk" { NMHDR }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import ".\HTREEITEM.ahk" { HTREEITEM }
+#Import ".\NMHDR.ahk" { NMHDR }
 
 /**
  * Contains information on a tree-view item change. This structure is sent with the TVN_ITEMCHANGED and TVN_ITEMCHANGING notifications.

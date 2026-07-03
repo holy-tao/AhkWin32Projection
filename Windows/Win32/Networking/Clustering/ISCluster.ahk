@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISClusResource.ahk" { ISClusResource }
-#Import ".\ISClusResTypes.ahk" { ISClusResTypes }
-#Import ".\ISClusVersion.ahk" { ISClusVersion }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISClusNetInterfaces.ahk" { ISClusNetInterfaces }
-#Import ".\ISClusProperties.ahk" { ISClusProperties }
-#Import ".\ISClusNodes.ahk" { ISClusNodes }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\ISClusNetworks.ahk" { ISClusNetworks }
+#Import ".\ISClusNodes.ahk" { ISClusNodes }
+#Import ".\ISClusProperties.ahk" { ISClusProperties }
 #Import ".\ISClusResGroups.ahk" { ISClusResGroups }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ISClusResTypes.ahk" { ISClusResTypes }
+#Import ".\ISClusResource.ahk" { ISClusResource }
 #Import ".\ISClusResources.ahk" { ISClusResources }
+#Import ".\ISClusVersion.ahk" { ISClusVersion }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering

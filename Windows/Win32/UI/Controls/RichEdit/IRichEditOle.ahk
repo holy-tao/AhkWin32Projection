@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\System\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\System\Com\StructuredStorage\IStorage.ahk" { IStorage }
 #Import "..\..\..\System\Ole\IOleClientSite.ahk" { IOleClientSite }
-#Import "..\..\..\System\Com\IDataObject.ahk" { IDataObject }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CHARRANGE.ahk" { CHARRANGE }
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\REOBJECT.ahk" { REOBJECT }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\RICH_EDIT_GET_OBJECT_FLAGS.ahk" { RICH_EDIT_GET_OBJECT_FLAGS }
 
 /**

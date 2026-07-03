@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
-#Import ".\TextEditChangeType.ahk" { TextEditChangeType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
+#Import ".\TextEditChangeType.ahk" { TextEditChangeType }
 
 /**
  * Exposes a method to handle events that occur when Microsoft UI Automation reports a text-changed event from text edit controls.

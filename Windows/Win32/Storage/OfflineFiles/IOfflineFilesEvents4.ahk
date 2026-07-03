@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IOfflineFilesEvents3.ahk" { IOfflineFilesEvents3 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOfflineFilesEvents3.ahk" { IOfflineFilesEvents3 }
 
 /**
  * @namespace Windows.Win32.Storage.OfflineFiles

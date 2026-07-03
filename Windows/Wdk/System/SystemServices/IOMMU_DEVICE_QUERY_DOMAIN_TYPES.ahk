@@ -47,10 +47,6 @@ export default struct IOMMU_DEVICE_QUERY_DOMAIN_TYPES {
             this.value := CallbackCreate(fn, , [IOMMU_DMA_DEVICE.Ptr, "uint*", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

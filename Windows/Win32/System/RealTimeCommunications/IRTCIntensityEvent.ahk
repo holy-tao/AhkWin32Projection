@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\RTC_AUDIO_DEVICE.ahk" { RTC_AUDIO_DEVICE }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\RTC_AUDIO_DEVICE.ahk" { RTC_AUDIO_DEVICE }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

@@ -1,31 +1,31 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Imaging\IWICColorContext.ahk" { IWICColorContext }
-#Import ".\D2D1_VERTEX_BUFFER_PROPERTIES.ahk" { D2D1_VERTEX_BUFFER_PROPERTIES }
-#Import ".\D2D1_BUFFER_PRECISION.ahk" { D2D1_BUFFER_PRECISION }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\D2D1_EXTEND_MODE.ahk" { D2D1_EXTEND_MODE }
-#Import ".\ID2D1BorderTransform.ahk" { ID2D1BorderTransform }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\D2D1_COLOR_SPACE.ahk" { D2D1_COLOR_SPACE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import ".\D2D1_BLEND_DESCRIPTION.ahk" { D2D1_BLEND_DESCRIPTION }
+#Import ".\D2D1_BUFFER_PRECISION.ahk" { D2D1_BUFFER_PRECISION }
+#Import ".\D2D1_COLOR_SPACE.ahk" { D2D1_COLOR_SPACE }
+#Import ".\D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES.ahk" { D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES }
+#Import ".\D2D1_EXTEND_MODE.ahk" { D2D1_EXTEND_MODE }
+#Import ".\D2D1_FEATURE.ahk" { D2D1_FEATURE }
+#Import ".\D2D1_RESOURCE_TEXTURE_PROPERTIES.ahk" { D2D1_RESOURCE_TEXTURE_PROPERTIES }
+#Import ".\D2D1_VERTEX_BUFFER_PROPERTIES.ahk" { D2D1_VERTEX_BUFFER_PROPERTIES }
 #Import ".\ID2D1BlendTransform.ahk" { ID2D1BlendTransform }
+#Import ".\ID2D1BorderTransform.ahk" { ID2D1BorderTransform }
+#Import ".\ID2D1BoundsAdjustmentTransform.ahk" { ID2D1BoundsAdjustmentTransform }
+#Import ".\ID2D1ColorContext.ahk" { ID2D1ColorContext }
+#Import ".\ID2D1Effect.ahk" { ID2D1Effect }
+#Import ".\ID2D1OffsetTransform.ahk" { ID2D1OffsetTransform }
+#Import ".\ID2D1ResourceTexture.ahk" { ID2D1ResourceTexture }
 #Import ".\ID2D1TransformNode.ahk" { ID2D1TransformNode }
 #Import ".\ID2D1VertexBuffer.ahk" { ID2D1VertexBuffer }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES.ahk" { D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Direct3D\D3D_FEATURE_LEVEL.ahk" { D3D_FEATURE_LEVEL }
-#Import ".\ID2D1BoundsAdjustmentTransform.ahk" { ID2D1BoundsAdjustmentTransform }
-#Import ".\D2D1_FEATURE.ahk" { D2D1_FEATURE }
-#Import ".\ID2D1OffsetTransform.ahk" { ID2D1OffsetTransform }
-#Import ".\ID2D1Effect.ahk" { ID2D1Effect }
-#Import ".\D2D1_RESOURCE_TEXTURE_PROPERTIES.ahk" { D2D1_RESOURCE_TEXTURE_PROPERTIES }
-#Import ".\ID2D1ColorContext.ahk" { ID2D1ColorContext }
-#Import ".\ID2D1ResourceTexture.ahk" { ID2D1ResourceTexture }
+#Import "..\Imaging\IWICColorContext.ahk" { IWICColorContext }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides factory methods and other state management for effect and transform authors. (ID2D1EffectContext)

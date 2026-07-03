@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\LUID.ahk" { LUID }
+#Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\LSA_TOKEN_INFORMATION_TYPE.ahk" { LSA_TOKEN_INFORMATION_TYPE }
 #Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 #Import ".\SECURITY_LOGON_TYPE.ahk" { SECURITY_LOGON_TYPE }
-#Import "..\..\..\Foundation\LUID.ahk" { LUID }
-#Import ".\LSA_TOKEN_INFORMATION_TYPE.ahk" { LSA_TOKEN_INFORMATION_TYPE }
-#Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -51,7 +51,7 @@ export default struct PLSA_AP_LOGON_USER {
         AuthenticatingAuthorityMarshal := AuthenticatingAuthority is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, ClientRequestMarshal, ClientRequest, SECURITY_LOGON_TYPE, LogonType, IntPtr, AuthenticationInformation, ClientAuthenticationBaseMarshal, ClientAuthenticationBase, UInt32, AuthenticationInformationLength, ProfileBufferMarshal, ProfileBuffer, ProfileBufferLengthMarshal, ProfileBufferLength, LUID.Ptr, LogonId, SubStatusMarshal, SubStatus, TokenInformationTypeMarshal, TokenInformationType, TokenInformationMarshal, TokenInformation, AccountNameMarshal, AccountName, AuthenticatingAuthorityMarshal, AuthenticatingAuthority, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -71,10 +71,6 @@ export default struct PLSA_AP_LOGON_USER {
             this.value := CallbackCreate(fn, , ["ptr*", SECURITY_LOGON_TYPE, IntPtr, "ptr", UInt32, "ptr*", "uint*", LUID.Ptr, "int*", "int*", "ptr*", "ptr*", "ptr*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

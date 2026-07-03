@@ -46,10 +46,6 @@ export default struct IO_CSQ_ACQUIRE_LOCK {
             this.value := CallbackCreate(fn, , [IO_CSQ.Ptr, "char*", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\ISCSI_UNIQUE_SESSION_ID.ahk" { ISCSI_UNIQUE_SESSION_ID }
 #Import ".\ISCSI_CONNECTION_INFO_EX.ahk" { ISCSI_CONNECTION_INFO_EX }
+#Import ".\ISCSI_UNIQUE_SESSION_ID.ahk" { ISCSI_UNIQUE_SESSION_ID }
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc

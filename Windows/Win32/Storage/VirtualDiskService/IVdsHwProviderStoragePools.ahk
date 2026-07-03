@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\VDS_POOL_ATTRIBUTES.ahk" { VDS_POOL_ATTRIBUTES }
-#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
 #Import ".\VDS_HINTS2.ahk" { VDS_HINTS2 }
 #Import ".\VDS_LUN_TYPE.ahk" { VDS_LUN_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IVdsAsync.ahk" { IVdsAsync }
+#Import ".\VDS_POOL_ATTRIBUTES.ahk" { VDS_POOL_ATTRIBUTES }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVdsHwProviderStoragePools interface (vdshwprv.h) provides methods to create LUNs in a storage pool and enumerate the storage pools managed by a hardware provider.

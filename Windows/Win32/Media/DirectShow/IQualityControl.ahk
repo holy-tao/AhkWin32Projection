@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\Quality.ahk" { Quality }
-#Import ".\IBaseFilter.ahk" { IBaseFilter }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IBaseFilter.ahk" { IBaseFilter }
+#Import ".\Quality.ahk" { Quality }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IQualityControl interface provides support for quality control.

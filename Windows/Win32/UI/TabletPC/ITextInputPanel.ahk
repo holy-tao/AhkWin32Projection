@@ -2,17 +2,17 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ITextInputPanelEventSink.ahk" { ITextInputPanelEventSink }
-#Import ".\CorrectionPosition.ahk" { CorrectionPosition }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\InPlaceDirection.ahk" { InPlaceDirection }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\CorrectionMode.ahk" { CorrectionMode }
-#Import ".\PanelInputArea.ahk" { PanelInputArea }
+#Import ".\CorrectionPosition.ahk" { CorrectionPosition }
+#Import ".\ITextInputPanelEventSink.ahk" { ITextInputPanelEventSink }
+#Import ".\InPlaceDirection.ahk" { InPlaceDirection }
 #Import ".\InPlaceState.ahk" { InPlaceState }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\InteractionMode.ahk" { InteractionMode }
+#Import ".\PanelInputArea.ahk" { PanelInputArea }
 
 /**
  * Provides control of appearance and behavior of the Tablet PC Input Panel.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\SYSTEM_POWER_STATE.ahk" { SYSTEM_POWER_STATE }
 #Import ".\BATTERY_REPORTING_SCALE.ahk" { BATTERY_REPORTING_SCALE }
+#Import ".\SYSTEM_POWER_STATE.ahk" { SYSTEM_POWER_STATE }
 
 /**
  * Contains information about the power capabilities of the system.

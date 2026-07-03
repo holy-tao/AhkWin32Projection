@@ -44,10 +44,6 @@ export default struct LPDDHAL_WAITFORVERTICALBLANK {
             this.value := CallbackCreate(fn, , [DDHAL_WAITFORVERTICALBLANKDATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

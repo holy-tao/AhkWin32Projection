@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\PDNS_SERVICE_REGISTER_COMPLETE.ahk" { PDNS_SERVICE_REGISTER_COMPLETE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\DNS_SERVICE_INSTANCE.ahk" { DNS_SERVICE_INSTANCE }
 
 /**
@@ -30,7 +29,7 @@ export default struct DNS_SERVICE_REGISTER_REQUEST {
     /**
      * A pointer to a function (of type [DNS_SERVICE_REGISTER_COMPLETE](nc-windns-dns_service_register_complete.md)) that represents the callback to be invoked asynchronously.
      */
-    pRegisterCompletionCallback : PDNS_SERVICE_REGISTER_COMPLETE
+    pRegisterCompletionCallback : IntPtr
 
     /**
      * A pointer to a user context.

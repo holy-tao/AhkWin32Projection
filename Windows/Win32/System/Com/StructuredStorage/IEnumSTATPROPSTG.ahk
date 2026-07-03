@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\STATPROPSTG.ahk" { STATPROPSTG }
-#Import "..\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\IUnknown.ahk" { IUnknown }
+#Import ".\STATPROPSTG.ahk" { STATPROPSTG }
 
 /**
  * The IEnumSTATPROPSTG interface iterates through an array of STATPROPSTG structures containing statistical data about properties in a property set.

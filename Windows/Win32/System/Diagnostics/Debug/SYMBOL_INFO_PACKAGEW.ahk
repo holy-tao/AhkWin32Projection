@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SYMBOL_INFO_FLAGS.ahk" { SYMBOL_INFO_FLAGS }
 #Import ".\SYMBOL_INFOW.ahk" { SYMBOL_INFOW }
+#Import ".\SYMBOL_INFO_FLAGS.ahk" { SYMBOL_INFO_FLAGS }
 #Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

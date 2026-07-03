@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWICMetadataReader.ahk" { IWICMetadataReader }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\System\Com\IEnumUnknown.ahk" { IEnumUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWICMetadataReader.ahk" { IWICMetadataReader }
+#Import "..\..\System\Com\IEnumUnknown.ahk" { IEnumUnknown }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that provide access to all of the codec's top level metadata blocks.

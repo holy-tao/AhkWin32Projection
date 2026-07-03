@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SecBuffer.ahk" { SecBuffer }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\SecBuffer.ahk" { SecBuffer }
 
 /**
  * Deletes credentials from a security package's list of primary or supplemental credentials.
@@ -38,7 +38,7 @@ export default struct SpDeleteCredentialsFn {
      */
     Call(CredentialHandle, Key) {
         result := DllCall(this.value, IntPtr, CredentialHandle, SecBuffer.Ptr, Key, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -58,10 +58,6 @@ export default struct SpDeleteCredentialsFn {
             this.value := CallbackCreate(fn, , [IntPtr, SecBuffer.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

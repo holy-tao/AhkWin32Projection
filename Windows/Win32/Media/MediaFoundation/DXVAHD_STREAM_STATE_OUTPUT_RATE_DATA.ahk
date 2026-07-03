@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DXVAHD_RATIONAL.ahk" { DXVAHD_RATIONAL }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DXVAHD_OUTPUT_RATE.ahk" { DXVAHD_OUTPUT_RATE }
+#Import ".\DXVAHD_RATIONAL.ahk" { DXVAHD_RATIONAL }
 
 /**
  * Specifies the output frame rate for an input stream when using Microsoft DirectX Video Acceleration High Definition (DXVA-HD).

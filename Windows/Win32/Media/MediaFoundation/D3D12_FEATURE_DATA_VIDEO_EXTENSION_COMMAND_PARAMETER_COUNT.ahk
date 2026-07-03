@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE.ahk" { D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE.ahk" { D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE }
 
 /**
  * Retrieves the supported number of parameters for the specified parameter stage.

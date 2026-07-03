@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Security\GENERIC_MAPPING.ahk" { GENERIC_MAPPING }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
 #Import "..\..\Security\PRIVILEGE_SET.ahk" { PRIVILEGE_SET }
+#Import "..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
@@ -59,10 +59,6 @@ export default struct CACHE_ACCESS_CHECK {
             this.value := CallbackCreate(fn, , [PSECURITY_DESCRIPTOR, HANDLE, UInt32, GENERIC_MAPPING.Ptr, PRIVILEGE_SET.Ptr, "uint*", "uint*", BOOL.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

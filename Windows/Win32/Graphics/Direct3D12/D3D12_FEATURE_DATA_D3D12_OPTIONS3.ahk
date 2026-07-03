@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\D3D12_VIEW_INSTANCING_TIER.ahk" { D3D12_VIEW_INSTANCING_TIER }
 #Import ".\D3D12_COMMAND_LIST_SUPPORT_FLAGS.ahk" { D3D12_COMMAND_LIST_SUPPORT_FLAGS }
+#Import ".\D3D12_VIEW_INSTANCING_TIER.ahk" { D3D12_VIEW_INSTANCING_TIER }
 
 /**
  * Indicates the level of support that the adapter provides for timestamp queries, format-casting, immediate write, view instancing, and barycentrics.

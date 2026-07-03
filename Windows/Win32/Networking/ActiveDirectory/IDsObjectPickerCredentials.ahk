@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDsObjectPicker.ahk" { IDsObjectPicker }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDsObjectPicker.ahk" { IDsObjectPicker }
 
 /**
  * The IDsObjectPickerCredentials interface allows you to override credentials for the IDsObjectPicker object implementing this interface.

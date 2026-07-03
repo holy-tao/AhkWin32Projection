@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ACMFILTERTAGDETAILSW.ahk" { ACMFILTERTAGDETAILSW }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ACMFILTERTAGDETAILSW.ahk" { ACMFILTERTAGDETAILSW }
 #Import ".\HACMDRIVERID.ahk" { HACMDRIVERID }
 
 /**
@@ -63,10 +63,6 @@ export default struct ACMFILTERTAGENUMCBW {
             this.value := CallbackCreate(fn, , [HACMDRIVERID, ACMFILTERTAGDETAILSW.Ptr, IntPtr, UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

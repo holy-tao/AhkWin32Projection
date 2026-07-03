@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IGPMPermission.ahk" { IGPMPermission }
-#Import ".\IGPMMigrationTable.ahk" { IGPMMigrationTable }
-#Import ".\IGPMSitesContainer.ahk" { IGPMSitesContainer }
-#Import ".\IGPMRSOP.ahk" { IGPMRSOP }
-#Import ".\IGPMBackupDir.ahk" { IGPMBackupDir }
-#Import ".\IGPMConstants.ahk" { IGPMConstants }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\GPMRSOPMode.ahk" { GPMRSOPMode }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\GPMPermissionType.ahk" { GPMPermissionType }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IGPMDomain.ahk" { IGPMDomain }
-#Import ".\IGPMSearchCriteria.ahk" { IGPMSearchCriteria }
-#Import ".\IGPMCSECollection.ahk" { IGPMCSECollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\GPMPermissionType.ahk" { GPMPermissionType }
+#Import ".\GPMRSOPMode.ahk" { GPMRSOPMode }
+#Import ".\IGPMBackupDir.ahk" { IGPMBackupDir }
+#Import ".\IGPMCSECollection.ahk" { IGPMCSECollection }
+#Import ".\IGPMConstants.ahk" { IGPMConstants }
+#Import ".\IGPMDomain.ahk" { IGPMDomain }
+#Import ".\IGPMMigrationTable.ahk" { IGPMMigrationTable }
+#Import ".\IGPMPermission.ahk" { IGPMPermission }
+#Import ".\IGPMRSOP.ahk" { IGPMRSOP }
+#Import ".\IGPMSearchCriteria.ahk" { IGPMSearchCriteria }
+#Import ".\IGPMSitesContainer.ahk" { IGPMSitesContainer }
 #Import ".\IGPMTrustee.ahk" { IGPMTrustee }
 
 /**

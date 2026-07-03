@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Web\MsHtml\IHTMLDocument2.ahk" { IHTMLDocument2 }
-#Import "..\..\..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods and properties that are implemented by the WWAHost.

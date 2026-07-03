@@ -50,10 +50,6 @@ export default struct GET_DMA_ADAPTER {
             this.value := CallbackCreate(fn, , ["ptr", DEVICE_DESCRIPTION.Ptr, "uint*", DMA_ADAPTER.Ptr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

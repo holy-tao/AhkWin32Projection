@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\CALL_STATE.ahk" { CALL_STATE }
-#Import ".\ITCallInfo.ahk" { ITCallInfo }
 #Import ".\CALL_STATE_EVENT_CAUSE.ahk" { CALL_STATE_EVENT_CAUSE }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ITCallInfo.ahk" { ITCallInfo }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The ITCallStateEvent interface contains methods that retrieve the description of call state events.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\RASDIALDLG.ahk" { RASDIALDLG }
 
 /**
@@ -103,10 +103,6 @@ export default struct RasCustomDialDlgFn {
             this.value := CallbackCreate(fn, , [HINSTANCE, UInt32, PWSTR, PWSTR, PWSTR, RASDIALDLG.Ptr, "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

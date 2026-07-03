@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 #Import ".\DSCEFFECTDESC.ahk" { DSCEFFECTDESC }
+#Import "..\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound

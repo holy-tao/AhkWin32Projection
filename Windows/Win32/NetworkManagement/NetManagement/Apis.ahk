@@ -1,26 +1,26 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\NETSETUP_JOIN_STATUS.ahk" { NETSETUP_JOIN_STATUS }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\HLOG.ahk" { HLOG }
-#Import ".\FORCE_LEVEL_FLAGS.ahk" { FORCE_LEVEL_FLAGS }
-#Import ".\NETSETUP_PROVISION.ahk" { NETSETUP_PROVISION }
-#Import ".\DSREG_JOIN_INFO.ahk" { DSREG_JOIN_INFO }
-#Import ".\NET_VALIDATE_PASSWORD_TYPE.ahk" { NET_VALIDATE_PASSWORD_TYPE }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\NET_REQUEST_PROVISION_OPTIONS.ahk" { NET_REQUEST_PROVISION_OPTIONS }
-#Import ".\NET_REMOTE_COMPUTER_SUPPORTS_OPTIONS.ahk" { NET_REMOTE_COMPUTER_SUPPORTS_OPTIONS }
-#Import ".\MSA_INFO_ACCOUNT_TYPE.ahk" { MSA_INFO_ACCOUNT_TYPE }
-#Import ".\NET_SERVER_TYPE.ahk" { NET_SERVER_TYPE }
-#Import ".\NET_JOIN_DOMAIN_JOIN_OPTIONS.ahk" { NET_JOIN_DOMAIN_JOIN_OPTIONS }
-#Import ".\NET_COMPUTER_NAME_TYPE.ahk" { NET_COMPUTER_NAME_TYPE }
-#Import ".\NETSETUP_NAME_TYPE.ahk" { NETSETUP_NAME_TYPE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DSREG_JOIN_INFO.ahk" { DSREG_JOIN_INFO }
+#Import ".\FORCE_LEVEL_FLAGS.ahk" { FORCE_LEVEL_FLAGS }
+#Import ".\HLOG.ahk" { HLOG }
+#Import ".\MSA_INFO_ACCOUNT_TYPE.ahk" { MSA_INFO_ACCOUNT_TYPE }
+#Import ".\NETSETUP_JOIN_STATUS.ahk" { NETSETUP_JOIN_STATUS }
+#Import ".\NETSETUP_NAME_TYPE.ahk" { NETSETUP_NAME_TYPE }
+#Import ".\NETSETUP_PROVISION.ahk" { NETSETUP_PROVISION }
 #Import ".\NETSETUP_PROVISIONING_PARAMS.ahk" { NETSETUP_PROVISIONING_PARAMS }
+#Import ".\NET_COMPUTER_NAME_TYPE.ahk" { NET_COMPUTER_NAME_TYPE }
+#Import ".\NET_JOIN_DOMAIN_JOIN_OPTIONS.ahk" { NET_JOIN_DOMAIN_JOIN_OPTIONS }
+#Import ".\NET_REMOTE_COMPUTER_SUPPORTS_OPTIONS.ahk" { NET_REMOTE_COMPUTER_SUPPORTS_OPTIONS }
+#Import ".\NET_REQUEST_PROVISION_OPTIONS.ahk" { NET_REQUEST_PROVISION_OPTIONS }
+#Import ".\NET_SERVER_TYPE.ahk" { NET_SERVER_TYPE }
 #Import ".\NET_USER_ENUM_FILTER_FLAGS.ahk" { NET_USER_ENUM_FILTER_FLAGS }
+#Import ".\NET_VALIDATE_PASSWORD_TYPE.ahk" { NET_VALIDATE_PASSWORD_TYPE }
 #Import "..\..\Security\PSID.ahk" { PSID }
 
 /**
@@ -4714,7 +4714,7 @@ export NetAddServiceAccount(ServerName, AccountName, Password, Flags) {
     Password := Password is String ? StrPtr(Password) : Password
 
     result := DllCall("NETAPI32.dll\NetAddServiceAccount", "ptr", ServerName, "ptr", AccountName, "ptr", Password, UInt32, Flags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 
@@ -4752,7 +4752,7 @@ export NetRemoveServiceAccount(ServerName, AccountName, Flags) {
     AccountName := AccountName is String ? StrPtr(AccountName) : AccountName
 
     result := DllCall("NETAPI32.dll\NetRemoveServiceAccount", "ptr", ServerName, "ptr", AccountName, UInt32, Flags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 
@@ -4777,7 +4777,7 @@ export NetEnumerateServiceAccounts(ServerName, Flags, AccountsCount, Accounts) {
     AccountsMarshal := Accounts is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("NETAPI32.dll\NetEnumerateServiceAccounts", "ptr", ServerName, UInt32, Flags, AccountsCountMarshal, AccountsCount, AccountsMarshal, Accounts, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 
@@ -4799,7 +4799,7 @@ export NetIsServiceAccount(ServerName, AccountName, IsService) {
     IsServiceMarshal := IsService is VarRef ? "int*" : "ptr"
 
     result := DllCall("NETAPI32.dll\NetIsServiceAccount", "ptr", ServerName, "ptr", AccountName, IsServiceMarshal, IsService, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 
@@ -4819,7 +4819,7 @@ export NetIsServiceAccount2(ServerName, AccountName, IsService, AccountType) {
     AccountTypeMarshal := AccountType is VarRef ? "int*" : "ptr"
 
     result := DllCall("NETAPI32.dll\NetIsServiceAccount2", "ptr", ServerName, "ptr", AccountName, IsServiceMarshal, IsService, AccountTypeMarshal, AccountType, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 
@@ -4862,7 +4862,7 @@ export NetQueryServiceAccount(ServerName, AccountName, InfoLevel, _Buffer) {
     _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("NETAPI32.dll\NetQueryServiceAccount", "ptr", ServerName, "ptr", AccountName, UInt32, InfoLevel, _BufferMarshal, _Buffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 

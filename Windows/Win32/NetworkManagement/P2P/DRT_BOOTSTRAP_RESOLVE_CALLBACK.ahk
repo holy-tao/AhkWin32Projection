@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Networking\WinSock\SOCKET_ADDRESS_LIST.ahk" { SOCKET_ADDRESS_LIST }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Networking\WinSock\SOCKET_ADDRESS_LIST.ahk" { SOCKET_ADDRESS_LIST }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.P2P
@@ -50,10 +50,6 @@ export default struct DRT_BOOTSTRAP_RESOLVE_CALLBACK {
             this.value := CallbackCreate(fn, , ["int", "ptr", SOCKET_ADDRESS_LIST.Ptr, BOOL, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

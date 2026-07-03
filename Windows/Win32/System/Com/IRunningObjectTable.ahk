@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ROT_FLAGS.ahk" { ROT_FLAGS }
-#Import ".\IEnumMoniker.ahk" { IEnumMoniker }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumMoniker.ahk" { IEnumMoniker }
 #Import ".\IMoniker.ahk" { IMoniker }
 #Import ".\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ROT_FLAGS.ahk" { ROT_FLAGS }
 
 /**
  * Manages access to the running object table (ROT), a globally accessible look-up table on each workstation.

@@ -1,19 +1,19 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\D2D1_COLOR_SPACE.ahk" { D2D1_COLOR_SPACE }
-#Import ".\ID2D1DeviceContext.ahk" { ID2D1DeviceContext }
-#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
-#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
-#Import "..\Dxgi\IDXGIDevice.ahk" { IDXGIDevice }
-#Import "..\Dxgi\IDXGISurface.ahk" { IDXGISurface }
-#Import ".\D2D1_FACTORY_OPTIONS.ahk" { D2D1_FACTORY_OPTIONS }
-#Import "Common\D2D1_COLOR_F.ahk" { D2D1_COLOR_F }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\D2D1_COLOR_F.ahk" { D2D1_COLOR_F }
+#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
+#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
+#Import ".\D2D1_COLOR_SPACE.ahk" { D2D1_COLOR_SPACE }
+#Import ".\D2D1_CREATION_PROPERTIES.ahk" { D2D1_CREATION_PROPERTIES }
+#Import ".\D2D1_FACTORY_OPTIONS.ahk" { D2D1_FACTORY_OPTIONS }
 #Import ".\D2D1_FACTORY_TYPE.ahk" { D2D1_FACTORY_TYPE }
 #Import ".\ID2D1Device.ahk" { ID2D1Device }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\D2D1_CREATION_PROPERTIES.ahk" { D2D1_CREATION_PROPERTIES }
+#Import ".\ID2D1DeviceContext.ahk" { ID2D1DeviceContext }
+#Import "..\Dxgi\IDXGIDevice.ahk" { IDXGIDevice }
+#Import "..\Dxgi\IDXGISurface.ahk" { IDXGISurface }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct2D

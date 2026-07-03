@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\HCERTSTORE.ahk" { HCERTSTORE }
 #Import "..\CERT_CHAIN_CONTEXT.ahk" { CERT_CHAIN_CONTEXT }
+#Import "..\HCERTSTORE.ahk" { HCERTSTORE }
 
 /**
  * Used by the CertSelectionGetSerializedBlob function to serialize the certificates contained in a store or an array of certificate chains. The returned serialized BLOB can be passed to the CredUIPromptForWindowsCredentials function.

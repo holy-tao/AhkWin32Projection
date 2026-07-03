@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\HACCESSOR.ahk" { HACCESSOR }
-#Import ".\DBBINDING.ahk" { DBBINDING }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DBBINDING.ahk" { DBBINDING }
+#Import ".\HACCESSOR.ahk" { HACCESSOR }
 
 /**
  * @namespace Windows.Win32.System.Search

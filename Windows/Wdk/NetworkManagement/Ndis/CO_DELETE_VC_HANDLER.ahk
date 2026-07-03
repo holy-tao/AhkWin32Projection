@@ -42,10 +42,6 @@ export default struct CO_DELETE_VC_HANDLER {
             this.value := CallbackCreate(fn, , [Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

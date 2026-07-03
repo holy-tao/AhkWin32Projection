@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IVdsAsync.ahk" { IVdsAsync }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
 #Import ".\IVdsIscsiTarget.ahk" { IVdsIscsiTarget }
 #Import ".\VDS_ISCSI_PORTALGROUP_PROP.ahk" { VDS_ISCSI_PORTALGROUP_PROP }
-#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVdsIscsiPortalGroup interface (vdshwprv.h) provides methods for performing query and configuration services on an iSCSI portal group.

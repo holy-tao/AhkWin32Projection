@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PEER_MEMBER_CHANGE_TYPE.ahk" { PEER_MEMBER_CHANGE_TYPE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PEER_MEMBER_CHANGE_TYPE.ahk" { PEER_MEMBER_CHANGE_TYPE }
 
 /**
  * The PEER_EVENT_MEMBER_CHANGE_DATA structure contains data that describes a change in the status of a peer group member.

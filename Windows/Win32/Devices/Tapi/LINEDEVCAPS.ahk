@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LINEDIALPARAMS.ahk" { LINEDIALPARAMS }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\LINEDIALPARAMS.ahk" { LINEDIALPARAMS }
 
 /**
  * The LINEDEVCAPS structure describes the capabilities of a line device. The lineGetDevCaps function and the TSPI_lineGetDevCaps function return the LINEDEVCAPS structure.

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DXGI_QUERY_VIDEO_MEMORY_INFO.ahk" { DXGI_QUERY_VIDEO_MEMORY_INFO }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\IDXGIAdapter2.ahk" { IDXGIAdapter2 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DXGI_MEMORY_SEGMENT_GROUP.ahk" { DXGI_MEMORY_SEGMENT_GROUP }
+#Import ".\DXGI_QUERY_VIDEO_MEMORY_INFO.ahk" { DXGI_QUERY_VIDEO_MEMORY_INFO }
+#Import ".\IDXGIAdapter2.ahk" { IDXGIAdapter2 }
 
 /**
  * This interface adds some memory residency methods, for budgeting and reserving physical memory.

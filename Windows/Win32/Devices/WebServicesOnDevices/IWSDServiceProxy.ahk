@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WSD_METADATA_SECTION_LIST.ahk" { WSD_METADATA_SECTION_LIST }
-#Import ".\WSD_SERVICE_METADATA.ahk" { WSD_SERVICE_METADATA }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
+#Import ".\IWSDAsyncResult.ahk" { IWSDAsyncResult }
+#Import ".\IWSDEndpointProxy.ahk" { IWSDEndpointProxy }
 #Import ".\IWSDEventingStatus.ahk" { IWSDEventingStatus }
 #Import ".\IWSDMetadataExchange.ahk" { IWSDMetadataExchange }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IWSDEndpointProxy.ahk" { IWSDEndpointProxy }
+#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
+#Import ".\WSD_METADATA_SECTION_LIST.ahk" { WSD_METADATA_SECTION_LIST }
 #Import ".\WSD_OPERATION.ahk" { WSD_OPERATION }
-#Import ".\IWSDAsyncResult.ahk" { IWSDAsyncResult }
+#Import ".\WSD_SERVICE_METADATA.ahk" { WSD_SERVICE_METADATA }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a remote WSD service for client applications and middleware.

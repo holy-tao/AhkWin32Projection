@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUnknown.ahk" { IUnknown }
-#Import ".\ContextProperty.ahk" { ContextProperty }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ContextProperty.ahk" { ContextProperty }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * The IEnumContextProps (objidlbase.h) interface provides a mechanism for enumerating the context properties associated with a COM+ object context.

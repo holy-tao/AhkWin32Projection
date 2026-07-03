@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\COR_DEBUG_IL_TO_NATIVE_MAP.ahk" { COR_DEBUG_IL_TO_NATIVE_MAP }
-#Import ".\ICorProfilerFunctionEnum.ahk" { ICorProfilerFunctionEnum }
-#Import ".\ICorProfilerThreadEnum.ahk" { ICorProfilerThreadEnum }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ICorProfilerInfo3.ahk" { ICorProfilerInfo3 }
+#Import ".\COR_DEBUG_IL_TO_NATIVE_MAP.ahk" { COR_DEBUG_IL_TO_NATIVE_MAP }
 #Import ".\COR_PRF_CODE_INFO.ahk" { COR_PRF_CODE_INFO }
+#Import ".\ICorProfilerFunctionEnum.ahk" { ICorProfilerFunctionEnum }
+#Import ".\ICorProfilerInfo3.ahk" { ICorProfilerInfo3 }
+#Import ".\ICorProfilerThreadEnum.ahk" { ICorProfilerThreadEnum }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling

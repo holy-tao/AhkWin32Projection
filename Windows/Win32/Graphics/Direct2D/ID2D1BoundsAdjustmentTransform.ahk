@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID2D1TransformNode.ahk" { ID2D1TransformNode }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\ID2D1TransformNode.ahk" { ID2D1TransformNode }
 
 /**
  * A support transform for effects to modify the output rectangle of the previous effect or bitmap.

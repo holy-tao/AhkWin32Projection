@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CARET_FLAGS.ahk" { CARET_FLAGS }
 #Import "..\..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import ".\CARET_FLAGS.ahk" { CARET_FLAGS }
 
 /**
  * @namespace Windows.Win32.UI.Controls.RichEdit

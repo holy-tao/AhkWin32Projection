@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Storage\FileSystem\STORAGE_BUS_TYPE.ahk" { STORAGE_BUS_TYPE }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Storage\FileSystem\STORAGE_BUS_TYPE.ahk" { STORAGE_BUS_TYPE }
 
 /**
  * Used in conjunction with the IOCTL_STORAGE_QUERY_PROPERTY control code to retrieve the storage device descriptor data for a device.

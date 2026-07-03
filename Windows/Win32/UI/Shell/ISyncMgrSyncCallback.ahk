@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IEnumString.ahk" { IEnumString }
-#Import ".\SYNCMGR_EVENT_LEVEL.ahk" { SYNCMGR_EVENT_LEVEL }
-#Import ".\SYNCMGR_EVENT_FLAGS.ahk" { SYNCMGR_EVENT_FLAGS }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\System\Com\IEnumUnknown.ahk" { IEnumUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\SYNCMGR_PROGRESS_STATUS.ahk" { SYNCMGR_PROGRESS_STATUS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IEnumString.ahk" { IEnumString }
+#Import "..\..\System\Com\IEnumUnknown.ahk" { IEnumUnknown }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ISyncMgrSyncItem.ahk" { ISyncMgrSyncItem }
 #Import ".\SYNCMGR_CANCEL_REQUEST.ahk" { SYNCMGR_CANCEL_REQUEST }
+#Import ".\SYNCMGR_EVENT_FLAGS.ahk" { SYNCMGR_EVENT_FLAGS }
+#Import ".\SYNCMGR_EVENT_LEVEL.ahk" { SYNCMGR_EVENT_LEVEL }
+#Import ".\SYNCMGR_PROGRESS_STATUS.ahk" { SYNCMGR_PROGRESS_STATUS }
 
 /**
  * Exposes methods that allow a synchronization process to report progress and events to Sync Center, or to query whether the process has been canceled.

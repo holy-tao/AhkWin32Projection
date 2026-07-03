@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFByteStream.ahk" { IMFByteStream }
+#Import ".\IMFMediaSource.ahk" { IMFMediaSource }
 #Import ".\IMFMediaSourceExtension.ahk" { IMFMediaSourceExtension }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMFMediaSource.ahk" { IMFMediaSource }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enables the media source to be transferred between the media engine and the sharing engine for Play To.

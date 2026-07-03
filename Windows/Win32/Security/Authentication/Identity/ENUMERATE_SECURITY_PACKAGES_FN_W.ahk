@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SecPkgInfoW.ahk" { SecPkgInfoW }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SecPkgInfoW.ahk" { SecPkgInfoW }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -50,10 +50,6 @@ export default struct ENUMERATE_SECURITY_PACKAGES_FN_W {
             this.value := CallbackCreate(fn, , ["uint*", "ptr*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

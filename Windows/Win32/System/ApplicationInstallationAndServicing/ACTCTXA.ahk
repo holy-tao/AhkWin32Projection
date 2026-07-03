@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The ACTCTX structure is used by the CreateActCtx function to create the activation context. (ANSI)

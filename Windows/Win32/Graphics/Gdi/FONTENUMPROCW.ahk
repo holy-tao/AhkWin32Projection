@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\TEXTMETRICW.ahk" { TEXTMETRICW }
 #Import ".\LOGFONTW.ahk" { LOGFONTW }
+#Import ".\TEXTMETRICW.ahk" { TEXTMETRICW }
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
@@ -50,10 +50,6 @@ export default struct FONTENUMPROCW {
             this.value := CallbackCreate(fn, , [LOGFONTW.Ptr, TEXTMETRICW.Ptr, UInt32, LPARAM, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

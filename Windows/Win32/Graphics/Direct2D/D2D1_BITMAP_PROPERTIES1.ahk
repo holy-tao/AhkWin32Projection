@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import ".\D2D1_BITMAP_OPTIONS.ahk" { D2D1_BITMAP_OPTIONS }
 #Import "Common\D2D1_ALPHA_MODE.ahk" { D2D1_ALPHA_MODE }
-#Import ".\ID2D1ColorContext.ahk" { ID2D1ColorContext }
 #Import "Common\D2D1_PIXEL_FORMAT.ahk" { D2D1_PIXEL_FORMAT }
+#Import ".\D2D1_BITMAP_OPTIONS.ahk" { D2D1_BITMAP_OPTIONS }
+#Import ".\ID2D1ColorContext.ahk" { ID2D1ColorContext }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 
 /**
  * This structure allows a ID2D1Bitmap1 to be created with bitmap options and color context information available.

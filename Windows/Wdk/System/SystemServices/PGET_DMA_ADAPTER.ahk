@@ -43,10 +43,6 @@ export default struct PGET_DMA_ADAPTER {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

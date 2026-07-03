@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SCARD_STATE.ahk" { SCARD_STATE }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\SCARD_STATE.ahk" { SCARD_STATE }
 
 /**
  * Used by functions for tracking smart cards within readers. (ANSI)

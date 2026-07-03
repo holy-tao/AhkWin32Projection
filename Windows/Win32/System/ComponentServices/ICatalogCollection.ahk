@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Represents any collection in the COM+ catalog. ICatalogCollection enables you to enumerate, add, remove, and retrieve items in a collection and to access related collections.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\System\Com\IEnumGUID.ahk" { IEnumGUID }
-#Import ".\ITfCompartment.ahk" { ITfCompartment }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IEnumGUID.ahk" { IEnumGUID }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITfCompartment.ahk" { ITfCompartment }
 
 /**
  * The ITfCompartmentMgr interface is implemented by the TSF manager and used by clients (applications and text services) to obtain and manipulate TSF compartments.

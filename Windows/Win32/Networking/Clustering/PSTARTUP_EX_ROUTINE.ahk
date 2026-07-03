@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CLRES_CALLBACK_FUNCTION_TABLE.ahk" { CLRES_CALLBACK_FUNCTION_TABLE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CLRES_CALLBACK_FUNCTION_TABLE.ahk" { CLRES_CALLBACK_FUNCTION_TABLE }
 #Import ".\CLRES_FUNCTION_TABLE.ahk" { CLRES_FUNCTION_TABLE }
 
 /**
@@ -54,10 +54,6 @@ export default struct PSTARTUP_EX_ROUTINE {
             this.value := CallbackCreate(fn, , [PWSTR, UInt32, UInt32, CLRES_CALLBACK_FUNCTION_TABLE.Ptr, "ptr*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

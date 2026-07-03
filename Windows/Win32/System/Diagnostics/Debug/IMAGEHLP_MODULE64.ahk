@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SYM_TYPE.ahk" { SYM_TYPE }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\SYM_TYPE.ahk" { SYM_TYPE }
 #Import "..\..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**

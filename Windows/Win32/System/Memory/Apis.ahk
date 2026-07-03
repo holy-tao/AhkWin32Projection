@@ -1,37 +1,34 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\PSECURE_MEMORY_CACHE_CALLBACK.ahk" { PSECURE_MEMORY_CACHE_CALLBACK }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\GLOBAL_ALLOC_FLAGS.ahk" { GLOBAL_ALLOC_FLAGS }
-#Import ".\HEAP_INFORMATION_CLASS.ahk" { HEAP_INFORMATION_CLASS }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\VIRTUAL_FREE_TYPE.ahk" { VIRTUAL_FREE_TYPE }
-#Import ".\PBAD_MEMORY_CALLBACK_ROUTINE.ahk" { PBAD_MEMORY_CALLBACK_ROUTINE }
-#Import ".\OFFER_PRIORITY.ahk" { OFFER_PRIORITY }
-#Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\FARPROC.ahk" { FARPROC }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\PROCESS_HEAP_ENTRY.ahk" { PROCESS_HEAP_ENTRY }
+#Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
+#Import "..\..\Foundation\HLOCAL.ahk" { HLOCAL }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
 #Import ".\CFG_CALL_TARGET_INFO.ahk" { CFG_CALL_TARGET_INFO }
-#Import ".\UNMAP_VIEW_OF_FILE_FLAGS.ahk" { UNMAP_VIEW_OF_FILE_FLAGS }
-#Import ".\WIN32_MEMORY_INFORMATION_CLASS.ahk" { WIN32_MEMORY_INFORMATION_CLASS }
+#Import ".\FILE_MAP.ahk" { FILE_MAP }
+#Import ".\GLOBAL_ALLOC_FLAGS.ahk" { GLOBAL_ALLOC_FLAGS }
+#Import ".\HEAP_FLAGS.ahk" { HEAP_FLAGS }
+#Import ".\HEAP_INFORMATION_CLASS.ahk" { HEAP_INFORMATION_CLASS }
+#Import ".\HEAP_SUMMARY.ahk" { HEAP_SUMMARY }
+#Import ".\LOCAL_ALLOC_FLAGS.ahk" { LOCAL_ALLOC_FLAGS }
+#Import ".\MEMORY_MAPPED_VIEW_ADDRESS.ahk" { MEMORY_MAPPED_VIEW_ADDRESS }
 #Import ".\MEMORY_RESOURCE_NOTIFICATION_TYPE.ahk" { MEMORY_RESOURCE_NOTIFICATION_TYPE }
 #Import ".\MEM_EXTENDED_PARAMETER.ahk" { MEM_EXTENDED_PARAMETER }
-#Import ".\HEAP_SUMMARY.ahk" { HEAP_SUMMARY }
+#Import ".\OFFER_PRIORITY.ahk" { OFFER_PRIORITY }
 #Import ".\PAGE_PROTECTION_FLAGS.ahk" { PAGE_PROTECTION_FLAGS }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\FILE_MAP.ahk" { FILE_MAP }
-#Import ".\VIRTUAL_ALLOCATION_TYPE.ahk" { VIRTUAL_ALLOCATION_TYPE }
-#Import ".\HEAP_FLAGS.ahk" { HEAP_FLAGS }
-#Import ".\WIN32_MEMORY_NUMA_PERFORMANCE_INFORMATION_OUTPUT.ahk" { WIN32_MEMORY_NUMA_PERFORMANCE_INFORMATION_OUTPUT }
-#Import "..\..\Foundation\HLOCAL.ahk" { HLOCAL }
+#Import ".\PROCESS_HEAP_ENTRY.ahk" { PROCESS_HEAP_ENTRY }
 #Import ".\SETPROCESSWORKINGSETSIZEEX_FLAGS.ahk" { SETPROCESSWORKINGSETSIZEEX_FLAGS }
-#Import ".\MEMORY_MAPPED_VIEW_ADDRESS.ahk" { MEMORY_MAPPED_VIEW_ADDRESS }
-#Import ".\LOCAL_ALLOC_FLAGS.ahk" { LOCAL_ALLOC_FLAGS }
-#Import ".\WIN32_MEMORY_RANGE_ENTRY.ahk" { WIN32_MEMORY_RANGE_ENTRY }
-#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import ".\UNMAP_VIEW_OF_FILE_FLAGS.ahk" { UNMAP_VIEW_OF_FILE_FLAGS }
+#Import ".\VIRTUAL_ALLOCATION_TYPE.ahk" { VIRTUAL_ALLOCATION_TYPE }
+#Import ".\VIRTUAL_FREE_TYPE.ahk" { VIRTUAL_FREE_TYPE }
+#Import ".\WIN32_MEMORY_INFORMATION_CLASS.ahk" { WIN32_MEMORY_INFORMATION_CLASS }
+#Import ".\WIN32_MEMORY_NUMA_PERFORMANCE_INFORMATION_OUTPUT.ahk" { WIN32_MEMORY_NUMA_PERFORMANCE_INFORMATION_OUTPUT }
 #Import ".\WIN32_MEMORY_PARTITION_INFORMATION_CLASS.ahk" { WIN32_MEMORY_PARTITION_INFORMATION_CLASS }
+#Import ".\WIN32_MEMORY_RANGE_ENTRY.ahk" { WIN32_MEMORY_RANGE_ENTRY }
 
 /**
  * @namespace Windows.Win32.System.Memory
@@ -3685,7 +3682,7 @@ export GetMemoryErrorHandlingCapabilities(Capabilities) {
  * @since windows8.0
  */
 export RegisterBadMemoryNotification(Callback) {
-    result := DllCall("KERNEL32.dll\RegisterBadMemoryNotification", PBAD_MEMORY_CALLBACK_ROUTINE, Callback, IntPtr)
+    result := DllCall("KERNEL32.dll\RegisterBadMemoryNotification", "ptr", Callback, IntPtr)
     return result
 }
 
@@ -6234,7 +6231,7 @@ export IsBadWritePtr(lp, ucb) {
 export IsBadCodePtr(lpfn) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\IsBadCodePtr", FARPROC, lpfn, BOOL)
+    result := DllCall("KERNEL32.dll\IsBadCodePtr", "ptr", lpfn, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6416,7 +6413,7 @@ export MapUserPhysicalPagesScatter(VirtualAddresses, NumberOfPages, PageArray) {
 export AddSecureMemoryCacheCallback(_pfnCallBack) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\AddSecureMemoryCacheCallback", PSECURE_MEMORY_CACHE_CALLBACK, _pfnCallBack, BOOL)
+    result := DllCall("KERNEL32.dll\AddSecureMemoryCacheCallback", "ptr", _pfnCallBack, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6436,7 +6433,7 @@ export AddSecureMemoryCacheCallback(_pfnCallBack) {
  * @since windows6.0.6000
  */
 export RemoveSecureMemoryCacheCallback(_pfnCallBack) {
-    result := DllCall("KERNEL32.dll\RemoveSecureMemoryCacheCallback", PSECURE_MEMORY_CACHE_CALLBACK, _pfnCallBack, BOOL)
+    result := DllCall("KERNEL32.dll\RemoveSecureMemoryCacheCallback", "ptr", _pfnCallBack, BOOL)
     return result
 }
 

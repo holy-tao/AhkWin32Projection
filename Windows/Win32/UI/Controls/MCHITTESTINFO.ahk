@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MCHITTESTINFO_HIT_FLAGS.ahk" { MCHITTESTINFO_HIT_FLAGS }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import ".\MCHITTESTINFO_HIT_FLAGS.ahk" { MCHITTESTINFO_HIT_FLAGS }
 
 /**
  * Carries information specific to hit-testing points for a month calendar control. This structure is used with the MCM_HITTEST message and the corresponding MonthCal_HitTest macro.

@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_COLOR_F.ahk" { DWRITE_COLOR_F }
+#Import ".\DWRITE_GRID_FIT_MODE.ahk" { DWRITE_GRID_FIT_MODE }
+#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
 #Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
 #Import ".\DWRITE_OUTLINE_THRESHOLD.ahk" { DWRITE_OUTLINE_THRESHOLD }
-#Import ".\DWRITE_COLOR_F.ahk" { DWRITE_COLOR_F }
 #Import ".\DWRITE_RENDERING_MODE.ahk" { DWRITE_RENDERING_MODE }
-#Import ".\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
-#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
-#Import ".\DWRITE_GRID_FIT_MODE.ahk" { DWRITE_GRID_FIT_MODE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IDWriteFontFace1.ahk" { IDWriteFontFace1 }
+#Import ".\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
 
 /**
  * Contains font face type, appropriate file references, and face identification data. (IDWriteFontFace2)

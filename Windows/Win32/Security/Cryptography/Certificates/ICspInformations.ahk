@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\AlgorithmOperationFlags.ahk" { AlgorithmOperationFlags }
+#Import ".\ICspAlgorithms.ahk" { ICspAlgorithms }
+#Import ".\ICspInformation.ahk" { ICspInformation }
 #Import ".\ICspStatus.ahk" { ICspStatus }
 #Import ".\ICspStatuses.ahk" { ICspStatuses }
-#Import ".\AlgorithmOperationFlags.ahk" { AlgorithmOperationFlags }
 #Import ".\IObjectIds.ahk" { IObjectIds }
 #Import ".\X509KeySpec.ahk" { X509KeySpec }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ICspInformation.ahk" { ICspInformation }
-#Import ".\ICspAlgorithms.ahk" { ICspAlgorithms }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ICspInformations interface defines the following methods and properties to manage a collection of ICspInformation objects.

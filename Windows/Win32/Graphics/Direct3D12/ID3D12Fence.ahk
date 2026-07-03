@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\ID3D12Pageable.ahk" { ID3D12Pageable }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D12Pageable.ahk" { ID3D12Pageable }
 
 /**
  * Represents a fence, an object used for synchronization of the CPU and one or more GPUs. (ID3D12Fence)

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\..\Graphics\Dxgi\IDXGIDevice.ahk" { IDXGIDevice }
 #Import "..\..\..\Graphics\Dxgi\IDXGISurface.ahk" { IDXGISurface }
-#Import "..\..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\Foundation\POINT.ahk" { POINT }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides the implementation of a shared fixed-size surface for Direct2D drawing.

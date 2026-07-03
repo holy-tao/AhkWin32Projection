@@ -47,10 +47,6 @@ export default struct XA_RECOVER_EPT {
             this.value := CallbackCreate(fn, "cdecl", [XID.Ptr, Int32, Int32, Int32, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

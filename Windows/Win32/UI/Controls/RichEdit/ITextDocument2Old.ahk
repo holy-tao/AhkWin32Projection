@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITextDocument.ahk" { ITextDocument }
-#Import ".\ITextSelection.ahk" { ITextSelection }
-#Import "..\..\..\Foundation\COLORREF.ahk" { COLORREF }
-#Import ".\ITextFont.ahk" { ITextFont }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\COLORREF.ahk" { COLORREF }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITextDocument.ahk" { ITextDocument }
+#Import ".\ITextFont.ahk" { ITextFont }
 #Import ".\ITextPara.ahk" { ITextPara }
+#Import ".\ITextSelection.ahk" { ITextSelection }
 
 /**
  * @namespace Windows.Win32.UI.Controls.RichEdit

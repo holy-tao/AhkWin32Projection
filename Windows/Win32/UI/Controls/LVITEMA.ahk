@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LIST_VIEW_ITEM_FLAGS.ahk" { LIST_VIEW_ITEM_FLAGS }
-#Import ".\LIST_VIEW_ITEM_COLUMN_FORMAT_FLAGS.ahk" { LIST_VIEW_ITEM_COLUMN_FORMAT_FLAGS }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\LIST_VIEW_ITEM_COLUMN_FORMAT_FLAGS.ahk" { LIST_VIEW_ITEM_COLUMN_FORMAT_FLAGS }
+#Import ".\LIST_VIEW_ITEM_FLAGS.ahk" { LIST_VIEW_ITEM_FLAGS }
 #Import ".\LIST_VIEW_ITEM_STATE_FLAGS.ahk" { LIST_VIEW_ITEM_STATE_FLAGS }
 
 /**

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\StructuredStorage\IPropertyBag2.ahk" { IPropertyBag2 }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\WICBitmapChainType.ahk" { WICBitmapChainType }
-#Import ".\IWICBitmapFrameEncode.ahk" { IWICBitmapFrameEncode }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWICBitmapFrameEncode.ahk" { IWICBitmapFrameEncode }
+#Import ".\WICBitmapChainType.ahk" { WICBitmapChainType }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\StructuredStorage\IPropertyBag2.ahk" { IPropertyBag2 }
 
 /**
  * @namespace Windows.Win32.Graphics.Imaging

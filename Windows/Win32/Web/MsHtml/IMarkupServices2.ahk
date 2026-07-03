@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMarkupPointer.ahk" { IMarkupPointer }
-#Import ".\IHTMLElement.ahk" { IHTMLElement }
 #Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
 #Import ".\IMarkupContainer.ahk" { IMarkupContainer }
+#Import ".\IMarkupPointer.ahk" { IMarkupPointer }
 #Import ".\IMarkupServices.ahk" { IMarkupServices }
 #Import ".\ISegmentList.ahk" { ISegmentList }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

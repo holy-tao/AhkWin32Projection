@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITTerminal.ahk" { ITTerminal }
-#Import ".\ITAddress.ahk" { ITAddress }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\ADDRESS_EVENT.ahk" { ADDRESS_EVENT }
+#Import ".\ITAddress.ahk" { ITAddress }
+#Import ".\ITTerminal.ahk" { ITTerminal }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The ITAddressEvent interface contains methods that retrieve the description of address events.

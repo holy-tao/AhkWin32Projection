@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\RDC_ErrorCode.ahk" { RDC_ErrorCode }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\RdcBufferPointer.ahk" { RdcBufferPointer }
-#Import ".\IRdcGeneratorParameters.ahk" { IRdcGeneratorParameters }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRdcGeneratorParameters.ahk" { IRdcGeneratorParameters }
+#Import ".\RDC_ErrorCode.ahk" { RDC_ErrorCode }
+#Import ".\RdcBufferPointer.ahk" { RdcBufferPointer }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Used to process the input data and read the parameters used by the generator.

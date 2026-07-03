@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IOfflineFilesItem.ahk" { IOfflineFilesItem }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IEnumOfflineFilesSettings.ahk" { IEnumOfflineFilesSettings }
+#Import ".\IOfflineFilesItem.ahk" { IOfflineFilesItem }
 #Import ".\IOfflineFilesItemFilter.ahk" { IOfflineFilesItemFilter }
 #Import ".\IOfflineFilesSetting.ahk" { IOfflineFilesSetting }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IOfflineFilesSimpleProgress.ahk" { IOfflineFilesSimpleProgress }
-#Import ".\IOfflineFilesSyncProgress.ahk" { IOfflineFilesSyncProgress }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IOfflineFilesSyncConflictHandler.ahk" { IOfflineFilesSyncConflictHandler }
-#Import ".\IEnumOfflineFilesSettings.ahk" { IEnumOfflineFilesSettings }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IOfflineFilesSyncProgress.ahk" { IOfflineFilesSyncProgress }
 #Import ".\OFFLINEFILES_CACHING_MODE.ahk" { OFFLINEFILES_CACHING_MODE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Used to manage the Offline Files cache.

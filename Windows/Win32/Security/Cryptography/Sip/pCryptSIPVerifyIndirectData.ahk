@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SIP_INDIRECT_DATA.ahk" { SIP_INDIRECT_DATA }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\SIP_INDIRECT_DATA.ahk" { SIP_INDIRECT_DATA }
 #Import ".\SIP_SUBJECTINFO.ahk" { SIP_SUBJECTINFO }
 
 /**
@@ -47,10 +47,6 @@ export default struct pCryptSIPVerifyIndirectData {
             this.value := CallbackCreate(fn, , [SIP_SUBJECTINFO.Ptr, SIP_INDIRECT_DATA.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

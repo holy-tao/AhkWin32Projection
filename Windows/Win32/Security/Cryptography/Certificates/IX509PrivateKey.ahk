@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ICspStatus.ahk" { ICspStatus }
-#Import ".\X509PrivateKeyExportFlags.ahk" { X509PrivateKeyExportFlags }
-#Import ".\ICspInformations.ahk" { ICspInformations }
-#Import ".\X509KeySpec.ahk" { X509KeySpec }
-#Import ".\X509ProviderType.ahk" { X509ProviderType }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\EncodingType.ahk" { EncodingType }
-#Import ".\X509PrivateKeyVerify.ahk" { X509PrivateKeyVerify }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\X509PrivateKeyUsageFlags.ahk" { X509PrivateKeyUsageFlags }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import ".\ICspInformations.ahk" { ICspInformations }
+#Import ".\ICspStatus.ahk" { ICspStatus }
 #Import ".\IObjectId.ahk" { IObjectId }
 #Import ".\IX509PublicKey.ahk" { IX509PublicKey }
+#Import ".\X509KeySpec.ahk" { X509KeySpec }
+#Import ".\X509PrivateKeyExportFlags.ahk" { X509PrivateKeyExportFlags }
 #Import ".\X509PrivateKeyProtection.ahk" { X509PrivateKeyProtection }
+#Import ".\X509PrivateKeyUsageFlags.ahk" { X509PrivateKeyUsageFlags }
+#Import ".\X509PrivateKeyVerify.ahk" { X509PrivateKeyVerify }
+#Import ".\X509ProviderType.ahk" { X509ProviderType }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**

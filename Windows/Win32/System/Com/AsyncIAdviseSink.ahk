@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FORMATETC.ahk" { FORMATETC }
 #Import ".\IMoniker.ahk" { IMoniker }
 #Import ".\IUnknown.ahk" { IUnknown }
 #Import ".\STGMEDIUM.ahk" { STGMEDIUM }
-#Import ".\FORMATETC.ahk" { FORMATETC }
 
 /**
  * @namespace Windows.Win32.System.Com

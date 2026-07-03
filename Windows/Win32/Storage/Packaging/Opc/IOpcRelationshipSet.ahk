@@ -2,14 +2,14 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IOpcRelationship.ahk" { IOpcRelationship }
 #Import ".\IOpcRelationshipEnumerator.ahk" { IOpcRelationshipEnumerator }
 #Import ".\OPC_URI_TARGET_MODE.ahk" { OPC_URI_TARGET_MODE }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\System\Com\IUri.ahk" { IUri }
-#Import ".\IOpcRelationship.ahk" { IOpcRelationship }
 
 /**
  * Represents a Relationships part as an unordered set of IOpcRelationship interface pointers to relationship objects.

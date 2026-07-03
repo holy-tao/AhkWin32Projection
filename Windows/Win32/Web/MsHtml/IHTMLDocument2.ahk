@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IHTMLElement.ahk" { IHTMLElement }
-#Import ".\IHTMLStyleSheet.ahk" { IHTMLStyleSheet }
-#Import ".\IHTMLFramesCollection2.ahk" { IHTMLFramesCollection2 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IHTMLLocation.ahk" { IHTMLLocation }
-#Import ".\IHTMLDocument.ahk" { IHTMLDocument }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IHTMLWindow2.ahk" { IHTMLWindow2 }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IHTMLSelectionObject.ahk" { IHTMLSelectionObject }
-#Import ".\IHTMLStyleSheetsCollection.ahk" { IHTMLStyleSheetsCollection }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IHTMLElementCollection.ahk" { IHTMLElementCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IHTMLDocument.ahk" { IHTMLDocument }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import ".\IHTMLElementCollection.ahk" { IHTMLElementCollection }
+#Import ".\IHTMLFramesCollection2.ahk" { IHTMLFramesCollection2 }
+#Import ".\IHTMLLocation.ahk" { IHTMLLocation }
+#Import ".\IHTMLSelectionObject.ahk" { IHTMLSelectionObject }
+#Import ".\IHTMLStyleSheet.ahk" { IHTMLStyleSheet }
+#Import ".\IHTMLStyleSheetsCollection.ahk" { IHTMLStyleSheetsCollection }
+#Import ".\IHTMLWindow2.ahk" { IHTMLWindow2 }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDirectManipulationViewport2.ahk" { IDirectManipulationViewport2 }
-#Import ".\DIRECTMANIPULATION_INTERACTION_TYPE.ahk" { DIRECTMANIPULATION_INTERACTION_TYPE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DIRECTMANIPULATION_INTERACTION_TYPE.ahk" { DIRECTMANIPULATION_INTERACTION_TYPE }
+#Import ".\IDirectManipulationViewport2.ahk" { IDirectManipulationViewport2 }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines methods to handle interactions when they are detected.

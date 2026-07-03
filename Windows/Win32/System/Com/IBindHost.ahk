@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMoniker.ahk" { IMoniker }
-#Import ".\IBindCtx.ahk" { IBindCtx }
-#Import ".\IUnknown.ahk" { IUnknown }
-#Import ".\IBindStatusCallback.ahk" { IBindStatusCallback }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IBindCtx.ahk" { IBindCtx }
+#Import ".\IBindStatusCallback.ahk" { IBindStatusCallback }
+#Import ".\IMoniker.ahk" { IMoniker }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Com

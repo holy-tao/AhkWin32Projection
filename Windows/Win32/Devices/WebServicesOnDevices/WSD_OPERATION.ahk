@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\WSDXML_TYPE.ahk" { WSDXML_TYPE }
-#Import ".\WSD_STUB_FUNCTION.ahk" { WSD_STUB_FUNCTION }
 
 /**
  * Describes an operation as defined by WSDL in terms of one or two messages.
@@ -23,6 +22,6 @@ export default struct WSD_OPERATION {
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/nc-wsdtypes-wsd_stub_function">WSD_STUB_FUNCTION</a> function that specifies the address of a stub function which translates a generic SOAP message structure into a method call with a signature specific to the incoming message of the operation.
      */
-    RequestStubFunction : WSD_STUB_FUNCTION
+    RequestStubFunction : IntPtr
 
 }

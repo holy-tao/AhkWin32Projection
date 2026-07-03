@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWICBitmapDecoder.ahk" { IWICBitmapDecoder }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IWICBitmapCodecInfo.ahk" { IWICBitmapCodecInfo }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWICBitmapCodecInfo.ahk" { IWICBitmapCodecInfo }
+#Import ".\IWICBitmapDecoder.ahk" { IWICBitmapDecoder }
 #Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**

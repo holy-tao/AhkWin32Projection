@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CoalesceEventsOptions.ahk" { CoalesceEventsOptions }
 #Import ".\ConnectionRecoveryBehaviorOptions.ahk" { ConnectionRecoveryBehaviorOptions }
 #Import ".\IUIAutomation5.ahk" { IUIAutomation5 }
+#Import ".\IUIAutomationActiveTextPositionChangedEventHandler.ahk" { IUIAutomationActiveTextPositionChangedEventHandler }
+#Import ".\IUIAutomationCacheRequest.ahk" { IUIAutomationCacheRequest }
 #Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
 #Import ".\IUIAutomationEventHandlerGroup.ahk" { IUIAutomationEventHandlerGroup }
 #Import ".\TreeScope.ahk" { TreeScope }
-#Import ".\CoalesceEventsOptions.ahk" { CoalesceEventsOptions }
-#Import ".\IUIAutomationActiveTextPositionChangedEventHandler.ahk" { IUIAutomationActiveTextPositionChangedEventHandler }
-#Import ".\IUIAutomationCacheRequest.ahk" { IUIAutomationCacheRequest }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Extends the IUIAutomation5 interface to expose additional methods for controlling Microsoft UI Automation functionality.

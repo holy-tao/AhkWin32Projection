@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\DXVAHD_STREAM_STATE.ahk" { DXVAHD_STREAM_STATE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXVAHD_STREAM_STATE.ahk" { DXVAHD_STREAM_STATE }
 
 /**
  * Sets a state parameter for an input stream on a software Microsoft DirectX Video Acceleration High Definition (DXVA-HD) video processor.
@@ -52,10 +52,6 @@ export default struct PDXVAHDSW_SetVideoProcessStreamState {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, DXVAHD_STREAM_STATE, UInt32, IntPtr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

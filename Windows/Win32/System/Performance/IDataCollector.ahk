@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IValueMap.ahk" { IValueMap }
-#Import ".\IDataCollectorSet.ahk" { IDataCollectorSet }
-#Import ".\DataCollectorType.ahk" { DataCollectorType }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\AutoPathFormat.ahk" { AutoPathFormat }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\AutoPathFormat.ahk" { AutoPathFormat }
+#Import ".\DataCollectorType.ahk" { DataCollectorType }
+#Import ".\IDataCollectorSet.ahk" { IDataCollectorSet }
+#Import ".\IValueMap.ahk" { IValueMap }
 
 /**
  * Sets and retrieves collector properties using XML, specifies the log file name, and retrieves the location of the log file.This interface is an abstract class from which the following data collectors derive:IAlertDataCollectorIApiTracingDataCollectorIConfigurationDataCollectorIPerformanceCounterDataCollectorITraceDataCollector

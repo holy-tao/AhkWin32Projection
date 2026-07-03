@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DRVENABLEDATA.ahk" { DRVENABLEDATA }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -47,10 +47,6 @@ export default struct PFN_DrvEnableDriver {
             this.value := CallbackCreate(fn, , [UInt32, UInt32, DRVENABLEDATA.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

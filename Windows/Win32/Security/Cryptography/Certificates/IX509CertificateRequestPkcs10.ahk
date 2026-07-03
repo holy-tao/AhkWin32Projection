@@ -1,24 +1,24 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ICspStatuses.ahk" { ICspStatuses }
-#Import ".\IX509Extensions.ahk" { IX509Extensions }
-#Import ".\IX500DistinguishedName.ahk" { IX500DistinguishedName }
-#Import ".\IObjectIds.ahk" { IObjectIds }
-#Import ".\X509KeySpec.ahk" { X509KeySpec }
-#Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\EncodingType.ahk" { EncodingType }
-#Import ".\Pkcs10AllowedSignatureTypes.ahk" { Pkcs10AllowedSignatureTypes }
-#Import ".\ICryptAttributes.ahk" { ICryptAttributes }
-#Import ".\X509RequestInheritOptions.ahk" { X509RequestInheritOptions }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IX509PrivateKey.ahk" { IX509PrivateKey }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import ".\ICryptAttributes.ahk" { ICryptAttributes }
+#Import ".\ICspStatuses.ahk" { ICspStatuses }
 #Import ".\IObjectId.ahk" { IObjectId }
-#Import ".\IX509SignatureInformation.ahk" { IX509SignatureInformation }
-#Import ".\IX509PublicKey.ahk" { IX509PublicKey }
+#Import ".\IObjectIds.ahk" { IObjectIds }
+#Import ".\IX500DistinguishedName.ahk" { IX500DistinguishedName }
 #Import ".\IX509CertificateRequest.ahk" { IX509CertificateRequest }
+#Import ".\IX509Extensions.ahk" { IX509Extensions }
+#Import ".\IX509PrivateKey.ahk" { IX509PrivateKey }
+#Import ".\IX509PublicKey.ahk" { IX509PublicKey }
+#Import ".\IX509SignatureInformation.ahk" { IX509SignatureInformation }
+#Import ".\Pkcs10AllowedSignatureTypes.ahk" { Pkcs10AllowedSignatureTypes }
+#Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
+#Import ".\X509KeySpec.ahk" { X509KeySpec }
+#Import ".\X509RequestInheritOptions.ahk" { X509RequestInheritOptions }
 
 /**
  * The IX509CertificateRequestPkcs10 interface represents a PKCS

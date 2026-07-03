@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWMPSyncDevice.ahk" { IWMPSyncDevice }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWMPEvents3.ahk" { IWMPEvents3 }
+#Import ".\IWMPSyncDevice.ahk" { IWMPSyncDevice }
 
 /**
  * The IWMPEvents4 interface provides access to an event originating from the Windows Media Player 12 control so that an application that has this control embedded in it can respond to the event.

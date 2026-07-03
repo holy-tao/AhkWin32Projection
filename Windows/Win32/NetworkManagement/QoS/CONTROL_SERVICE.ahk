@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\AD_GENERAL_PARAMS.ahk" { AD_GENERAL_PARAMS }
 #Import ".\AD_GUARANTEED.ahk" { AD_GUARANTEED }
 #Import ".\PARAM_BUFFER.ahk" { PARAM_BUFFER }
-#Import ".\AD_GENERAL_PARAMS.ahk" { AD_GENERAL_PARAMS }
 
 /**
  * The CONTROL_SERVICE structure contains supported RSVP service types.

@@ -41,10 +41,6 @@ export default struct PIO_DPC_ROUTINE {
             this.value := CallbackCreate(fn, , [IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

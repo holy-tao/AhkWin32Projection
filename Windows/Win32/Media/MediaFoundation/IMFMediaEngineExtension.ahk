@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\MF_MEDIA_ENGINE_CANPLAY.ahk" { MF_MEDIA_ENGINE_CANPLAY }
-#Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
-#Import ".\MF_OBJECT_TYPE.ahk" { MF_OBJECT_TYPE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
+#Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
 #Import ".\IMFByteStream.ahk" { IMFByteStream }
+#Import ".\MF_MEDIA_ENGINE_CANPLAY.ahk" { MF_MEDIA_ENGINE_CANPLAY }
+#Import ".\MF_OBJECT_TYPE.ahk" { MF_OBJECT_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables an application to load media resources in the Media Engine.

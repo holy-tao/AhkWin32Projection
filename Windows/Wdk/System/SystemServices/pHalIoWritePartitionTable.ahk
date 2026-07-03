@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\System\Ioctl\DRIVE_LAYOUT_INFORMATION.ahk" { DRIVE_LAYOUT_INFORMATION }
 #Import "..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\..\Win32\System\Ioctl\DRIVE_LAYOUT_INFORMATION.ahk" { DRIVE_LAYOUT_INFORMATION }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -31,7 +31,7 @@ export default struct pHalIoWritePartitionTable {
      */
     Call(DeviceObject, SectorSize, SectorsPerTrack, NumberOfHeads, PartitionBuffer) {
         result := DllCall(this.value, DEVICE_OBJECT.Ptr, DeviceObject, UInt32, SectorSize, UInt32, SectorsPerTrack, UInt32, NumberOfHeads, DRIVE_LAYOUT_INFORMATION.Ptr, PartitionBuffer, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -51,10 +51,6 @@ export default struct pHalIoWritePartitionTable {
             this.value := CallbackCreate(fn, , [DEVICE_OBJECT.Ptr, UInt32, UInt32, UInt32, DRIVE_LAYOUT_INFORMATION.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

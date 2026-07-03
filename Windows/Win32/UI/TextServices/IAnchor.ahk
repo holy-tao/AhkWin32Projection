@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\TsGravity.ahk" { TsGravity }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\TsShiftDir.ahk" { TsShiftDir }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ANCHOR_CHANGE_HISTORY_FLAGS.ahk" { ANCHOR_CHANGE_HISTORY_FLAGS }
+#Import ".\TsGravity.ahk" { TsGravity }
+#Import ".\TsShiftDir.ahk" { TsShiftDir }
 
 /**
  * The IAnchor interface is implemented by the TSF manager. Clients of Microsoft Active Accessibility use IAnchor anchor objects to delimit a range of text within a text stream.

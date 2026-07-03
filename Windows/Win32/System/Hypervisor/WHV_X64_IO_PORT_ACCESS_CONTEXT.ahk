@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WHV_X64_SEGMENT_REGISTER.ahk" { WHV_X64_SEGMENT_REGISTER }
 #Import ".\WHV_X64_IO_PORT_ACCESS_INFO.ahk" { WHV_X64_IO_PORT_ACCESS_INFO }
+#Import ".\WHV_X64_SEGMENT_REGISTER.ahk" { WHV_X64_SEGMENT_REGISTER }
 
 /**
  * @namespace Windows.Win32.System.Hypervisor

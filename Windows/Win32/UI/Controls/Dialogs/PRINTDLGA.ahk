@@ -1,13 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
-#Import ".\LPPRINTHOOKPROC.ahk" { LPPRINTHOOKPROC }
+#Import "..\..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\LPSETUPHOOKPROC.ahk" { LPSETUPHOOKPROC }
 #Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import ".\PRINTDLGEX_FLAGS.ahk" { PRINTDLGEX_FLAGS }
 #Import "..\..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import ".\PRINTDLGEX_FLAGS.ahk" { PRINTDLGEX_FLAGS }
 
 /**
  * Contains information that the PrintDlg function uses to initialize the Print Dialog Box. After the user closes the dialog box, the system uses this structure to return information about the user's selections. (ANSI)
@@ -143,14 +141,14 @@ export default struct PRINTDLGA {
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nc-commdlg-lpprinthookproc">PrintHookProc</a> hook procedure that can process messages intended for the <b>Print</b> dialog box. This member is ignored unless the <b>PD_ENABLEPRINTHOOK</b> flag is set in the <b>Flags</b> member.
      */
-    lpfnPrintHook : LPPRINTHOOKPROC
+    lpfnPrintHook : IntPtr
 
     /**
      * Type: <b>LPSETUPHOOKPROC</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nc-commdlg-lpsetuphookproc">SetupHookProc</a> hook procedure that can process messages intended for the <b>Print Setup</b> dialog box. This member is ignored unless the <b>PD_ENABLESETUPHOOK</b> flag is set in the <b>Flags</b> member.
      */
-    lpfnSetupHook : LPSETUPHOOKPROC
+    lpfnSetupHook : IntPtr
 
     /**
      * Type: <b>LPCTSTR</b>

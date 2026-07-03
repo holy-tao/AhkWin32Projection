@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\WPARAM.ahk" { WPARAM }
-#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\..\Foundation\WPARAM.ahk" { WPARAM }
 #Import "..\NMHDR.ahk" { NMHDR }
 
 /**

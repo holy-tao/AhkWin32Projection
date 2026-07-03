@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IUIAutomationActiveTextPositionChangedEventHandler.ahk" { IUIAutomationActiveTextPositionChangedEventHandler }
+#Import ".\IUIAutomationCacheRequest.ahk" { IUIAutomationCacheRequest }
 #Import ".\IUIAutomationChangesEventHandler.ahk" { IUIAutomationChangesEventHandler }
+#Import ".\IUIAutomationEventHandler.ahk" { IUIAutomationEventHandler }
+#Import ".\IUIAutomationNotificationEventHandler.ahk" { IUIAutomationNotificationEventHandler }
+#Import ".\IUIAutomationPropertyChangedEventHandler.ahk" { IUIAutomationPropertyChangedEventHandler }
 #Import ".\IUIAutomationStructureChangedEventHandler.ahk" { IUIAutomationStructureChangedEventHandler }
+#Import ".\IUIAutomationTextEditTextChangedEventHandler.ahk" { IUIAutomationTextEditTextChangedEventHandler }
 #Import ".\TextEditChangeType.ahk" { TextEditChangeType }
 #Import ".\TreeScope.ahk" { TreeScope }
-#Import ".\IUIAutomationActiveTextPositionChangedEventHandler.ahk" { IUIAutomationActiveTextPositionChangedEventHandler }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IUIAutomationCacheRequest.ahk" { IUIAutomationCacheRequest }
-#Import ".\IUIAutomationEventHandler.ahk" { IUIAutomationEventHandler }
-#Import ".\IUIAutomationTextEditTextChangedEventHandler.ahk" { IUIAutomationTextEditTextChangedEventHandler }
-#Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IUIAutomationPropertyChangedEventHandler.ahk" { IUIAutomationPropertyChangedEventHandler }
-#Import ".\IUIAutomationNotificationEventHandler.ahk" { IUIAutomationNotificationEventHandler }
 #Import ".\UIA_EVENT_ID.ahk" { UIA_EVENT_ID }
+#Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
 
 /**
  * Exposes methods for adding one or more events to a collection for bulk registration through the CreateEventHandlerGroup and AddEventHandlerGroup methods defined in IUIAutomation6.

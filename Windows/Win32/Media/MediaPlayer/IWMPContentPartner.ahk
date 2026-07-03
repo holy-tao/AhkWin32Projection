@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WMPTemplateSize.ahk" { WMPTemplateSize }
-#Import ".\IWMPContentContainerList.ahk" { IWMPContentContainerList }
-#Import "..\..\System\Com\BLOB.ahk" { BLOB }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\WMPPartnerNotification.ahk" { WMPPartnerNotification }
-#Import ".\WMPContextMenuInfo.ahk" { WMPContextMenuInfo }
-#Import ".\IWMPContentPartnerCallback.ahk" { IWMPContentPartnerCallback }
-#Import ".\WMPStreamingType.ahk" { WMPStreamingType }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IWMPContentContainerList.ahk" { IWMPContentContainerList }
+#Import ".\IWMPContentPartnerCallback.ahk" { IWMPContentPartnerCallback }
+#Import ".\WMPContextMenuInfo.ahk" { WMPContextMenuInfo }
+#Import ".\WMPPartnerNotification.ahk" { WMPPartnerNotification }
+#Import ".\WMPStreamingType.ahk" { WMPStreamingType }
 #Import ".\WMPTaskType.ahk" { WMPTaskType }
+#Import ".\WMPTemplateSize.ahk" { WMPTemplateSize }
+#Import "..\..\System\Com\BLOB.ahk" { BLOB }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Note  This section describes functionality designed for use by online stores.

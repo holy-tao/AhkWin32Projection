@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\OA_BOOL.ahk" { OA_BOOL }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\UI\WindowsAndMessaging\SHOW_WINDOW_CMD.ahk" { SHOW_WINDOW_CMD }
-#Import ".\OA_BOOL.ahk" { OA_BOOL }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IVideoWindow interface sets properties on the video window.

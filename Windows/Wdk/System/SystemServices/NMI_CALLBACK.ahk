@@ -47,10 +47,6 @@ export default struct NMI_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", BOOLEAN, BOOLEAN])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

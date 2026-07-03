@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\EncodingType.ahk" { EncodingType }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\X509KeyUsageFlags.ahk" { X509KeyUsageFlags }
-#Import ".\IX509Extension.ahk" { IX509Extension }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import ".\IX509Extension.ahk" { IX509Extension }
+#Import ".\X509KeyUsageFlags.ahk" { X509KeyUsageFlags }
 
 /**
  * Can be used to define restrictions on the operations that can be performed by the public key contained in the certificate.

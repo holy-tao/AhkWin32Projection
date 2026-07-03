@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\IDCompositionTarget.ahk" { IDCompositionTarget }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDCompositionDevice2.ahk" { IDCompositionDevice2 }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\IDCompositionDevice2.ahk" { IDCompositionDevice2 }
+#Import ".\IDCompositionTarget.ahk" { IDCompositionTarget }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * An application must use the IDCompositionDesktopDevice interface in order to use DirectComposition in a Win32 desktop application.

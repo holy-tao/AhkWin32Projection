@@ -42,10 +42,6 @@ export default struct CM_ADD_PARTY_HANDLER {
             this.value := CallbackCreate(fn, , [Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

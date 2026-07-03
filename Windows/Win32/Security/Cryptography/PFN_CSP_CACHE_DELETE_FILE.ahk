@@ -50,10 +50,6 @@ export default struct PFN_CSP_CACHE_DELETE_FILE {
             this.value := CallbackCreate(fn, , ["ptr", PWSTR, UInt32, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

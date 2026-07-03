@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SECPKG_FUNCTION_TABLE.ahk" { SECPKG_FUNCTION_TABLE }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\SECPKG_FUNCTION_TABLE.ahk" { SECPKG_FUNCTION_TABLE }
 
 /**
  * Provides the LSA with pointers to the functions implemented by each security package in the SSP/AP DLL.
@@ -43,7 +43,7 @@ export default struct SpLsaModeInitializeFn {
         pcTablesMarshal := pcTables is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, UInt32, LsaVersion, PackageVersionMarshal, PackageVersion, ppTablesMarshal, ppTables, pcTablesMarshal, pcTables, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -63,10 +63,6 @@ export default struct SpLsaModeInitializeFn {
             this.value := CallbackCreate(fn, , [UInt32, "uint*", "ptr*", "uint*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

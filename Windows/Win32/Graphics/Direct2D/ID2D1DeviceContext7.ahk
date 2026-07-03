@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID2D1DeviceContext6.ahk" { ID2D1DeviceContext6 }
-#Import "..\DirectWrite\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
-#Import "..\DirectWrite\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
-#Import ".\ID2D1SvgGlyphStyle.ahk" { ID2D1SvgGlyphStyle }
-#Import "..\DirectWrite\DWRITE_GLYPH_RUN_DESCRIPTION.ahk" { DWRITE_GLYPH_RUN_DESCRIPTION }
-#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
-#Import ".\D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION.ahk" { D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION }
-#Import "..\DirectWrite\DWRITE_PAINT_FEATURE_LEVEL.ahk" { DWRITE_PAINT_FEATURE_LEVEL }
 #Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
+#Import ".\D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION.ahk" { D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION }
+#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
+#Import ".\ID2D1DeviceContext6.ahk" { ID2D1DeviceContext6 }
+#Import ".\ID2D1SvgGlyphStyle.ahk" { ID2D1SvgGlyphStyle }
+#Import "..\DirectWrite\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
+#Import "..\DirectWrite\DWRITE_GLYPH_RUN_DESCRIPTION.ahk" { DWRITE_GLYPH_RUN_DESCRIPTION }
+#Import "..\DirectWrite\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import "..\DirectWrite\DWRITE_PAINT_FEATURE_LEVEL.ahk" { DWRITE_PAINT_FEATURE_LEVEL }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct2D

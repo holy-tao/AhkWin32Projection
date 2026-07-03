@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Security\TOKEN_USER.ahk" { TOKEN_USER }
-#Import "..\..\Security\SID_AND_ATTRIBUTES.ahk" { SID_AND_ATTRIBUTES }
-#Import "..\..\Security\SID.ahk" { SID }
-#Import "..\..\Security\SID_IDENTIFIER_AUTHORITY.ahk" { SID_IDENTIFIER_AUTHORITY }
 #Import "..\..\Security\PSID.ahk" { PSID }
+#Import "..\..\Security\SID.ahk" { SID }
+#Import "..\..\Security\SID_AND_ATTRIBUTES.ahk" { SID_AND_ATTRIBUTES }
+#Import "..\..\Security\SID_IDENTIFIER_AUTHORITY.ahk" { SID_IDENTIFIER_AUTHORITY }
+#Import "..\..\Security\TOKEN_USER.ahk" { TOKEN_USER }
 
 /**
  * @namespace Windows.Win32.System.SystemServices

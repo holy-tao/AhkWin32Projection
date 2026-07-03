@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Com\IDataObject.ahk" { IDataObject }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IDataObject.ahk" { IDataObject }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The INodeProperties interface retrieves text-only properties for a node.

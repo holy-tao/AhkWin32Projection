@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\IUnknown.ahk" { IUnknown }
-#Import "..\IErrorLog.ahk" { IErrorLog }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\PROPBAG2.ahk" { PROPBAG2 }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\IErrorLog.ahk" { IErrorLog }
+#Import "..\IUnknown.ahk" { IUnknown }
+#Import ".\PROPBAG2.ahk" { PROPBAG2 }
+#Import "..\..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.Com.StructuredStorage

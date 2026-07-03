@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\KERB_PROTOCOL_MESSAGE_TYPE.ahk" { KERB_PROTOCOL_MESSAGE_TYPE }
 #Import ".\KERB_BINDING_CACHE_ENTRY_DATA.ahk" { KERB_BINDING_CACHE_ENTRY_DATA }
+#Import ".\KERB_PROTOCOL_MESSAGE_TYPE.ahk" { KERB_PROTOCOL_MESSAGE_TYPE }
 
 /**
  * Contains the results of querying the binding cache.

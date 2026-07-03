@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\IOMMU_DMA_LOGICAL_ADDRESS_TOKEN_MAPPED_SEGMENT.ahk" { IOMMU_DMA_LOGICAL_ADDRESS_TOKEN_MAPPED_SEGMENT }
+#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -26,7 +26,7 @@ export default struct IOMMU_UNMAP_RESERVED_LOGICAL_RANGE {
      */
     Call(MappedSegment) {
         result := DllCall(this.value, IOMMU_DMA_LOGICAL_ADDRESS_TOKEN_MAPPED_SEGMENT.Ptr, MappedSegment, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -46,10 +46,6 @@ export default struct IOMMU_UNMAP_RESERVED_LOGICAL_RANGE {
             this.value := CallbackCreate(fn, , [IOMMU_DMA_LOGICAL_ADDRESS_TOKEN_MAPPED_SEGMENT.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

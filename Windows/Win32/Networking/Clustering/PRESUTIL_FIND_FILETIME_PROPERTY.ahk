@@ -50,10 +50,6 @@ export default struct PRESUTIL_FIND_FILETIME_PROPERTY {
             this.value := CallbackCreate(fn, , [IntPtr, UInt32, PWSTR, FILETIME.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IFsiItem.ahk" { IFsiItem }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFsiItem.ahk" { IFsiItem }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Use this interface to enumerate the child directory and file items for a FsiDirectoryItem object.

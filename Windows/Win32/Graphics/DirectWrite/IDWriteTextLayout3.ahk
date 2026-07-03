@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DWRITE_LINE_SPACING.ahk" { DWRITE_LINE_SPACING }
-#Import ".\IDWriteTextLayout2.ahk" { IDWriteTextLayout2 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DWRITE_LINE_METRICS1.ahk" { DWRITE_LINE_METRICS1 }
+#Import ".\DWRITE_LINE_SPACING.ahk" { DWRITE_LINE_SPACING }
+#Import ".\IDWriteTextLayout2.ahk" { IDWriteTextLayout2 }
 
 /**
  * Represents a block of text after it has been fully analyzed and formatted. | IDWriteTextLayout3 interface

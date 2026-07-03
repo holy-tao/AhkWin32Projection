@@ -54,10 +54,6 @@ export default struct LPMAPIFINDNEXT {
             this.value := CallbackCreate(fn, , [IntPtr, IntPtr, PSTR, PSTR, UInt32, UInt32, PSTR, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

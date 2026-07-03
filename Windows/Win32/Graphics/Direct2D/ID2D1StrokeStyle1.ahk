@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID2D1StrokeStyle.ahk" { ID2D1StrokeStyle }
 #Import ".\D2D1_STROKE_TRANSFORM_TYPE.ahk" { D2D1_STROKE_TRANSFORM_TYPE }
+#Import ".\ID2D1StrokeStyle.ahk" { ID2D1StrokeStyle }
 
 /**
  * Describes the caps, miter limit, line join, and dash information for a stroke. (ID2D1StrokeStyle1)

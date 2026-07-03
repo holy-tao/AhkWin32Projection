@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID2D1Resource.ahk" { ID2D1Resource }
 #Import ".\D2D1_CAP_STYLE.ahk" { D2D1_CAP_STYLE }
-#Import ".\D2D1_LINE_JOIN.ahk" { D2D1_LINE_JOIN }
 #Import ".\D2D1_DASH_STYLE.ahk" { D2D1_DASH_STYLE }
+#Import ".\D2D1_LINE_JOIN.ahk" { D2D1_LINE_JOIN }
+#Import ".\ID2D1Resource.ahk" { ID2D1Resource }
 
 /**
  * Describes the caps, miter limit, line join, and dash information for a stroke. (ID2D1StrokeStyle)

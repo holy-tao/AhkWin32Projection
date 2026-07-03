@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\DXVAHD_BLT_STATE.ahk" { DXVAHD_BLT_STATE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXVAHD_BLT_STATE.ahk" { DXVAHD_BLT_STATE }
 
 /**
  * Sets a state parameter for blit operations by a software Microsoft DirectX Video Acceleration High Definition (DXVA-HD) video processor.
@@ -51,10 +51,6 @@ export default struct PDXVAHDSW_SetVideoProcessBltState {
             this.value := CallbackCreate(fn, , [HANDLE, DXVAHD_BLT_STATE, UInt32, IntPtr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

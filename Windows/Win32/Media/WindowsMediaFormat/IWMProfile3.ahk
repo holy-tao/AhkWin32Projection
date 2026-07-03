@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWMStreamPrioritization.ahk" { IWMStreamPrioritization }
-#Import ".\IWMBandwidthSharing.ahk" { IWMBandwidthSharing }
-#Import ".\WMT_STORAGE_FORMAT.ahk" { WMT_STORAGE_FORMAT }
-#Import ".\IWMProfile2.ahk" { IWMProfile2 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMBandwidthSharing.ahk" { IWMBandwidthSharing }
+#Import ".\IWMProfile2.ahk" { IWMProfile2 }
+#Import ".\IWMStreamPrioritization.ahk" { IWMStreamPrioritization }
+#Import ".\WMT_STORAGE_FORMAT.ahk" { WMT_STORAGE_FORMAT }
 
 /**
  * The IWMProfile3 interface provides enhanced features for profiles.

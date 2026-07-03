@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\LOCATION_REPORT_STATUS.ahk" { LOCATION_REPORT_STATUS }
 #Import ".\ILocationReport.ahk" { ILocationReport }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\LOCATION_REPORT_STATUS.ahk" { LOCATION_REPORT_STATUS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * ILocationEvents provides callback methods that you must implement if you want to receive event notifications.

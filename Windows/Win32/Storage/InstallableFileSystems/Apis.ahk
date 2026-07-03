@@ -1,14 +1,14 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\HFILTER_INSTANCE.ahk" { HFILTER_INSTANCE }
-#Import ".\HFILTER.ahk" { HFILTER }
-#Import ".\FILTER_INFORMATION_CLASS.ahk" { FILTER_INFORMATION_CLASS }
-#Import ".\INSTANCE_INFORMATION_CLASS.ahk" { INSTANCE_INFORMATION_CLASS }
-#Import ".\FILTER_VOLUME_INFORMATION_CLASS.ahk" { FILTER_VOLUME_INFORMATION_CLASS }
-#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import ".\FILTER_INFORMATION_CLASS.ahk" { FILTER_INFORMATION_CLASS }
+#Import ".\FILTER_VOLUME_INFORMATION_CLASS.ahk" { FILTER_VOLUME_INFORMATION_CLASS }
+#Import ".\HFILTER.ahk" { HFILTER }
+#Import ".\HFILTER_INSTANCE.ahk" { HFILTER_INSTANCE }
+#Import ".\INSTANCE_INFORMATION_CLASS.ahk" { INSTANCE_INFORMATION_CLASS }
 #Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
 
 /**

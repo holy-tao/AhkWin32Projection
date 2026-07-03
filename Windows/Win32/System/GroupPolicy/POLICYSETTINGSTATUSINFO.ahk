@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SETTINGSTATUS.ahk" { SETTINGSTATUS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import ".\SETTINGSTATUS.ahk" { SETTINGSTATUS }
 
 /**
  * The POLICYSETTINGSTATUSINFO structure provides information about a policy-setting event.

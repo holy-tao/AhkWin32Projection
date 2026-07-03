@@ -45,10 +45,6 @@ export default struct PFLT_CONTEXT_FREE_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", UInt16, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\DMUS_BUFFERDESC.ahk" { DMUS_BUFFERDESC }
 #Import ".\DMUS_CLOCKINFO8.ahk" { DMUS_CLOCKINFO8 }
-#Import ".\DMUS_PORTPARAMS8.ahk" { DMUS_PORTPARAMS8 }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DMUS_PORTCAPS.ahk" { DMUS_PORTCAPS }
+#Import ".\DMUS_PORTPARAMS8.ahk" { DMUS_PORTPARAMS8 }
 #Import ".\IDirectMusicBuffer.ahk" { IDirectMusicBuffer }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\DirectSound\IDirectSound.ahk" { IDirectSound }
 #Import ".\IDirectMusicPort.ahk" { IDirectMusicPort }
+#Import "..\DirectSound\IDirectSound.ahk" { IDirectSound }
 #Import "..\..\IReferenceClock.ahk" { IReferenceClock }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic

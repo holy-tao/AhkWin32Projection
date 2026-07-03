@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PRJ_STARTVIRTUALIZING_FLAGS.ahk" { PRJ_STARTVIRTUALIZING_FLAGS }
 #Import ".\PRJ_NOTIFICATION_MAPPING.ahk" { PRJ_NOTIFICATION_MAPPING }
+#Import ".\PRJ_STARTVIRTUALIZING_FLAGS.ahk" { PRJ_STARTVIRTUALIZING_FLAGS }
 
 /**
  * Options to provide when starting a virtualization instance.

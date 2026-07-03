@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HRESOURCE.ahk" { HRESOURCE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CLUSTER_RESOURCE_STATE.ahk" { CLUSTER_RESOURCE_STATE }
+#Import ".\HRESOURCE.ahk" { HRESOURCE }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -56,10 +56,6 @@ export default struct PCLUSAPI_GET_CLUSTER_RESOURCE_STATE {
             this.value := CallbackCreate(fn, , [HRESOURCE, PWSTR, "uint*", PWSTR, "uint*", CLUSTER_RESOURCE_STATE])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

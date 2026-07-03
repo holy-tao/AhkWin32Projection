@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IMEFMT.ahk" { IMEFMT }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\IMEREL.ahk" { IMEREL }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\IMEWRD.ahk" { IMEWRD }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\PFNLOG.ahk" { PFNLOG }
-#Import ".\POSTBL.ahk" { POSTBL }
-#Import ".\IMESHF.ahk" { IMESHF }
 #Import ".\IMEDP.ahk" { IMEDP }
+#Import ".\IMEFMT.ahk" { IMEFMT }
 #Import ".\IMEREG.ahk" { IMEREG }
+#Import ".\IMEREL.ahk" { IMEREL }
+#Import ".\IMESHF.ahk" { IMESHF }
+#Import ".\IMEWRD.ahk" { IMEWRD }
+#Import ".\POSTBL.ahk" { POSTBL }
 
 /**
  * The IFEDictionary interface allows clients to access a Microsoft IME user dictionary.
@@ -699,7 +698,7 @@ export default struct IFEDictionary extends IUnknown {
     ConvertFromOldMSIME(pchDic, _pfnLog, reg) {
         pchDic := pchDic is String ? StrPtr(pchDic) : pchDic
 
-        result := ComCall(18, this, "ptr", pchDic, PFNLOG, _pfnLog, IMEREG, reg, "HRESULT")
+        result := ComCall(18, this, "ptr", pchDic, "ptr", _pfnLog, IMEREG, reg, "HRESULT")
         return result
     }
 

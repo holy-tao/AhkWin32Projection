@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\EVENT_DESCRIPTOR.ahk" { EVENT_DESCRIPTOR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\EVENT_RECORD.ahk" { EVENT_RECORD }
 
 /**

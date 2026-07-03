@@ -1,103 +1,95 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\IORING_OP_CODE.ahk" { IORING_OP_CODE }
-#Import ".\PFE_IMPORT_FUNC.ahk" { PFE_IMPORT_FUNC }
-#Import ".\CLFS_BLOCK_ALLOCATION.ahk" { CLFS_BLOCK_ALLOCATION }
-#Import ".\FIND_FIRST_EX_FLAGS.ahk" { FIND_FIRST_EX_FLAGS }
-#Import ".\IORING_BUFFER_REF.ahk" { IORING_BUFFER_REF }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\ERASE_TAPE_TYPE.ahk" { ERASE_TAPE_TYPE }
-#Import ".\FILE_FLUSH_MODE.ahk" { FILE_FLUSH_MODE }
-#Import ".\GET_FILE_VERSION_INFO_FLAGS.ahk" { GET_FILE_VERSION_INFO_FLAGS }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
-#Import ".\HIORING.ahk" { HIORING }
-#Import ".\PFE_EXPORT_FUNC.ahk" { PFE_EXPORT_FUNC }
-#Import ".\CLS_ARCHIVE_DESCRIPTOR.ahk" { CLS_ARCHIVE_DESCRIPTOR }
-#Import ".\WIN32_FIND_DATAW.ahk" { WIN32_FIND_DATAW }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\READ_DIRECTORY_NOTIFY_INFORMATION_CLASS.ahk" { READ_DIRECTORY_NOTIFY_INFORMATION_CLASS }
-#Import ".\OFSTRUCT.ahk" { OFSTRUCT }
-#Import ".\IORING_BUFFER_INFO.ahk" { IORING_BUFFER_INFO }
-#Import ".\STREAM_INFO_LEVELS.ahk" { STREAM_INFO_LEVELS }
-#Import ".\FILE_NOTIFY_CHANGE.ahk" { FILE_NOTIFY_CHANGE }
-#Import ".\FILE_INFO_BY_HANDLE_CLASS.ahk" { FILE_INFO_BY_HANDLE_CLASS }
-#Import ".\SYMBOLIC_LINK_FLAGS.ahk" { SYMBOLIC_LINK_FLAGS }
-#Import ".\TAPE_INFORMATION_TYPE.ahk" { TAPE_INFORMATION_TYPE }
-#Import ".\ENCRYPTION_CERTIFICATE.ahk" { ENCRYPTION_CERTIFICATE }
-#Import ".\REPLACE_FILE_FLAGS.ahk" { REPLACE_FILE_FLAGS }
-#Import ".\LZOPENFILE_STYLE.ahk" { LZOPENFILE_STYLE }
-#Import ".\DIRECTORY_FLAGS.ahk" { DIRECTORY_FLAGS }
-#Import ".\IORING_VERSION.ahk" { IORING_VERSION }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IORING_INFO.ahk" { IORING_INFO }
-#Import ".\IORING_SQE_FLAGS.ahk" { IORING_SQE_FLAGS }
-#Import ".\ENCRYPTION_CERTIFICATE_HASH_LIST.ahk" { ENCRYPTION_CERTIFICATE_HASH_LIST }
-#Import ".\CLFS_LOG_ARCHIVE_MODE.ahk" { CLFS_LOG_ARCHIVE_MODE }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\IORING_HANDLE_REF.ahk" { IORING_HANDLE_REF }
-#Import ".\COPYFILE_FLAGS.ahk" { COPYFILE_FLAGS }
-#Import ".\CLS_LSN.ahk" { CLS_LSN }
-#Import ".\CREATEFILE3_EXTENDED_PARAMETERS.ahk" { CREATEFILE3_EXTENDED_PARAMETERS }
-#Import ".\MOVE_FILE_FLAGS.ahk" { MOVE_FILE_FLAGS }
-#Import ".\CLFS_IOSTATS_CLASS.ahk" { CLFS_IOSTATS_CLASS }
-#Import ".\WIN32_FIND_DATAA.ahk" { WIN32_FIND_DATAA }
-#Import ".\FILE_TYPE.ahk" { FILE_TYPE }
-#Import ".\SET_FILE_POINTER_MOVE_METHOD.ahk" { SET_FILE_POINTER_MOVE_METHOD }
-#Import ".\CREATE_TAPE_PARTITION_METHOD.ahk" { CREATE_TAPE_PARTITION_METHOD }
-#Import ".\LOG_MANAGEMENT_CALLBACKS.ahk" { LOG_MANAGEMENT_CALLBACKS }
-#Import ".\PREPARE_TAPE_OPERATION.ahk" { PREPARE_TAPE_OPERATION }
-#Import ".\BY_HANDLE_FILE_INFORMATION.ahk" { BY_HANDLE_FILE_INFORMATION }
-#Import ".\VER_FIND_FILE_FLAGS.ahk" { VER_FIND_FILE_FLAGS }
-#Import ".\CLS_SCAN_CONTEXT.ahk" { CLS_SCAN_CONTEXT }
-#Import ".\GETFINALPATHNAMEBYHANDLE_FLAGS.ahk" { GETFINALPATHNAMEBYHANDLE_FLAGS }
-#Import ".\CLFS_MGMT_NOTIFICATION.ahk" { CLFS_MGMT_NOTIFICATION }
-#Import ".\GET_TAPE_DRIVE_PARAMETERS_OPERATION.ahk" { GET_TAPE_DRIVE_PARAMETERS_OPERATION }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ENCRYPTION_CERTIFICATE_HASH.ahk" { ENCRYPTION_CERTIFICATE_HASH }
-#Import ".\FINDEX_INFO_LEVELS.ahk" { FINDEX_INFO_LEVELS }
-#Import ".\CLFS_MGMT_POLICY_TYPE.ahk" { CLFS_MGMT_POLICY_TYPE }
-#Import ".\DEFINE_DOS_DEVICE_FLAGS.ahk" { DEFINE_DOS_DEVICE_FLAGS }
-#Import ".\LOCK_FILE_FLAGS.ahk" { LOCK_FILE_FLAGS }
-#Import ".\FINDEX_SEARCH_OPS.ahk" { FINDEX_SEARCH_OPS }
-#Import ".\CREATE_BIND_LINK_FLAGS.ahk" { CREATE_BIND_LINK_FLAGS }
-#Import ".\CLFS_CONTEXT_MODE.ahk" { CLFS_CONTEXT_MODE }
-#Import ".\VER_INSTALL_FILE_STATUS.ahk" { VER_INSTALL_FILE_STATUS }
-#Import ".\CLS_WRITE_ENTRY.ahk" { CLS_WRITE_ENTRY }
-#Import ".\FILE_SHARE_MODE.ahk" { FILE_SHARE_MODE }
-#Import ".\FILE_ID_DESCRIPTOR.ahk" { FILE_ID_DESCRIPTOR }
-#Import ".\IORING_CAPABILITIES.ahk" { IORING_CAPABILITIES }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\TAPE_POSITION_METHOD.ahk" { TAPE_POSITION_METHOD }
-#Import ".\CLFS_FLAG.ahk" { CLFS_FLAG }
-#Import ".\CLFS_MGMT_POLICY.ahk" { CLFS_MGMT_POLICY }
-#Import ".\FILE_FLAGS_AND_ATTRIBUTES.ahk" { FILE_FLAGS_AND_ATTRIBUTES }
-#Import ".\FILE_WRITE_FLAGS.ahk" { FILE_WRITE_FLAGS }
-#Import ".\VER_FIND_FILE_STATUS.ahk" { VER_FIND_FILE_STATUS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\COPYFILE2_EXTENDED_PARAMETERS.ahk" { COPYFILE2_EXTENDED_PARAMETERS }
-#Import "..\..\System\IO\LPOVERLAPPED_COMPLETION_ROUTINE.ahk" { LPOVERLAPPED_COMPLETION_ROUTINE }
-#Import ".\ENCRYPTION_CERTIFICATE_LIST.ahk" { ENCRYPTION_CERTIFICATE_LIST }
-#Import ".\FILE_SEGMENT_ELEMENT.ahk" { FILE_SEGMENT_ELEMENT }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import ".\BY_HANDLE_FILE_INFORMATION.ahk" { BY_HANDLE_FILE_INFORMATION }
+#Import ".\CLFS_CONTEXT_MODE.ahk" { CLFS_CONTEXT_MODE }
+#Import ".\CLFS_FLAG.ahk" { CLFS_FLAG }
+#Import ".\CLFS_IOSTATS_CLASS.ahk" { CLFS_IOSTATS_CLASS }
+#Import ".\CLFS_LOG_ARCHIVE_MODE.ahk" { CLFS_LOG_ARCHIVE_MODE }
+#Import ".\CLFS_MGMT_NOTIFICATION.ahk" { CLFS_MGMT_NOTIFICATION }
+#Import ".\CLFS_MGMT_POLICY.ahk" { CLFS_MGMT_POLICY }
+#Import ".\CLFS_MGMT_POLICY_TYPE.ahk" { CLFS_MGMT_POLICY_TYPE }
+#Import ".\CLS_ARCHIVE_DESCRIPTOR.ahk" { CLS_ARCHIVE_DESCRIPTOR }
 #Import ".\CLS_INFORMATION.ahk" { CLS_INFORMATION }
-#Import ".\TXF_ID.ahk" { TXF_ID }
-#Import ".\WofEnumFilesProc.ahk" { WofEnumFilesProc }
+#Import ".\CLS_LSN.ahk" { CLS_LSN }
+#Import ".\CLS_SCAN_CONTEXT.ahk" { CLS_SCAN_CONTEXT }
+#Import ".\CLS_WRITE_ENTRY.ahk" { CLS_WRITE_ENTRY }
+#Import ".\COPYFILE2_EXTENDED_PARAMETERS.ahk" { COPYFILE2_EXTENDED_PARAMETERS }
+#Import ".\COPYFILE_FLAGS.ahk" { COPYFILE_FLAGS }
+#Import ".\CREATEFILE2_EXTENDED_PARAMETERS.ahk" { CREATEFILE2_EXTENDED_PARAMETERS }
+#Import ".\CREATEFILE3_EXTENDED_PARAMETERS.ahk" { CREATEFILE3_EXTENDED_PARAMETERS }
+#Import ".\CREATE_BIND_LINK_FLAGS.ahk" { CREATE_BIND_LINK_FLAGS }
+#Import ".\CREATE_TAPE_PARTITION_METHOD.ahk" { CREATE_TAPE_PARTITION_METHOD }
+#Import ".\DEFINE_DOS_DEVICE_FLAGS.ahk" { DEFINE_DOS_DEVICE_FLAGS }
+#Import ".\DIRECTORY_FLAGS.ahk" { DIRECTORY_FLAGS }
+#Import ".\DISK_SPACE_INFORMATION.ahk" { DISK_SPACE_INFORMATION }
+#Import ".\ENCRYPTION_CERTIFICATE.ahk" { ENCRYPTION_CERTIFICATE }
+#Import ".\ENCRYPTION_CERTIFICATE_HASH.ahk" { ENCRYPTION_CERTIFICATE_HASH }
+#Import ".\ENCRYPTION_CERTIFICATE_HASH_LIST.ahk" { ENCRYPTION_CERTIFICATE_HASH_LIST }
+#Import ".\ENCRYPTION_CERTIFICATE_LIST.ahk" { ENCRYPTION_CERTIFICATE_LIST }
+#Import ".\ERASE_TAPE_TYPE.ahk" { ERASE_TAPE_TYPE }
+#Import ".\FILE_CREATION_DISPOSITION.ahk" { FILE_CREATION_DISPOSITION }
+#Import ".\FILE_FLAGS_AND_ATTRIBUTES.ahk" { FILE_FLAGS_AND_ATTRIBUTES }
+#Import ".\FILE_FLUSH_MODE.ahk" { FILE_FLUSH_MODE }
+#Import ".\FILE_ID_DESCRIPTOR.ahk" { FILE_ID_DESCRIPTOR }
+#Import ".\FILE_INFO_BY_HANDLE_CLASS.ahk" { FILE_INFO_BY_HANDLE_CLASS }
+#Import ".\FILE_INFO_BY_NAME_CLASS.ahk" { FILE_INFO_BY_NAME_CLASS }
+#Import ".\FILE_NOTIFY_CHANGE.ahk" { FILE_NOTIFY_CHANGE }
+#Import ".\FILE_SEGMENT_ELEMENT.ahk" { FILE_SEGMENT_ELEMENT }
+#Import ".\FILE_SHARE_MODE.ahk" { FILE_SHARE_MODE }
+#Import ".\FILE_TYPE.ahk" { FILE_TYPE }
+#Import ".\FILE_WRITE_FLAGS.ahk" { FILE_WRITE_FLAGS }
+#Import ".\FINDEX_INFO_LEVELS.ahk" { FINDEX_INFO_LEVELS }
+#Import ".\FINDEX_SEARCH_OPS.ahk" { FINDEX_SEARCH_OPS }
+#Import ".\FIND_FIRST_EX_FLAGS.ahk" { FIND_FIRST_EX_FLAGS }
+#Import ".\GETFINALPATHNAMEBYHANDLE_FLAGS.ahk" { GETFINALPATHNAMEBYHANDLE_FLAGS }
+#Import ".\GET_FILEEX_INFO_LEVELS.ahk" { GET_FILEEX_INFO_LEVELS }
+#Import ".\GET_FILE_VERSION_INFO_FLAGS.ahk" { GET_FILE_VERSION_INFO_FLAGS }
+#Import ".\GET_TAPE_DRIVE_PARAMETERS_OPERATION.ahk" { GET_TAPE_DRIVE_PARAMETERS_OPERATION }
+#Import ".\HIORING.ahk" { HIORING }
+#Import ".\IORING_BUFFER_INFO.ahk" { IORING_BUFFER_INFO }
+#Import ".\IORING_BUFFER_REF.ahk" { IORING_BUFFER_REF }
+#Import ".\IORING_CAPABILITIES.ahk" { IORING_CAPABILITIES }
+#Import ".\IORING_CQE.ahk" { IORING_CQE }
+#Import ".\IORING_CREATE_FLAGS.ahk" { IORING_CREATE_FLAGS }
+#Import ".\IORING_HANDLE_REF.ahk" { IORING_HANDLE_REF }
+#Import ".\IORING_INFO.ahk" { IORING_INFO }
+#Import ".\IORING_OP_CODE.ahk" { IORING_OP_CODE }
+#Import ".\IORING_SQE_FLAGS.ahk" { IORING_SQE_FLAGS }
+#Import ".\IORING_VERSION.ahk" { IORING_VERSION }
+#Import ".\LOCK_FILE_FLAGS.ahk" { LOCK_FILE_FLAGS }
+#Import ".\LOG_MANAGEMENT_CALLBACKS.ahk" { LOG_MANAGEMENT_CALLBACKS }
+#Import ".\LZOPENFILE_STYLE.ahk" { LZOPENFILE_STYLE }
+#Import ".\MOVE_FILE_FLAGS.ahk" { MOVE_FILE_FLAGS }
+#Import ".\OFSTRUCT.ahk" { OFSTRUCT }
+#Import ".\PREPARE_TAPE_OPERATION.ahk" { PREPARE_TAPE_OPERATION }
+#Import ".\READ_DIRECTORY_NOTIFY_INFORMATION_CLASS.ahk" { READ_DIRECTORY_NOTIFY_INFORMATION_CLASS }
+#Import ".\REPLACE_FILE_FLAGS.ahk" { REPLACE_FILE_FLAGS }
+#Import ".\SET_FILE_POINTER_MOVE_METHOD.ahk" { SET_FILE_POINTER_MOVE_METHOD }
+#Import ".\STREAM_INFO_LEVELS.ahk" { STREAM_INFO_LEVELS }
+#Import ".\SYMBOLIC_LINK_FLAGS.ahk" { SYMBOLIC_LINK_FLAGS }
+#Import ".\TAPEMARK_TYPE.ahk" { TAPEMARK_TYPE }
+#Import ".\TAPE_INFORMATION_TYPE.ahk" { TAPE_INFORMATION_TYPE }
+#Import ".\TAPE_POSITION_METHOD.ahk" { TAPE_POSITION_METHOD }
 #Import ".\TAPE_POSITION_TYPE.ahk" { TAPE_POSITION_TYPE }
 #Import ".\TRANSACTION_NOTIFICATION.ahk" { TRANSACTION_NOTIFICATION }
-#Import ".\IORING_CQE.ahk" { IORING_CQE }
-#Import ".\WofEnumEntryProc.ahk" { WofEnumEntryProc }
-#Import ".\TAPEMARK_TYPE.ahk" { TAPEMARK_TYPE }
-#Import ".\CLFS_BLOCK_DEALLOCATION.ahk" { CLFS_BLOCK_DEALLOCATION }
 #Import ".\TXFS_MINIVERSION.ahk" { TXFS_MINIVERSION }
-#Import ".\CREATEFILE2_EXTENDED_PARAMETERS.ahk" { CREATEFILE2_EXTENDED_PARAMETERS }
-#Import ".\DISK_SPACE_INFORMATION.ahk" { DISK_SPACE_INFORMATION }
-#Import ".\FILE_INFO_BY_NAME_CLASS.ahk" { FILE_INFO_BY_NAME_CLASS }
-#Import ".\IORING_CREATE_FLAGS.ahk" { IORING_CREATE_FLAGS }
-#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
-#Import ".\FILE_CREATION_DISPOSITION.ahk" { FILE_CREATION_DISPOSITION }
+#Import ".\TXF_ID.ahk" { TXF_ID }
+#Import ".\VER_FIND_FILE_FLAGS.ahk" { VER_FIND_FILE_FLAGS }
+#Import ".\VER_FIND_FILE_STATUS.ahk" { VER_FIND_FILE_STATUS }
 #Import ".\VER_INSTALL_FILE_FLAGS.ahk" { VER_INSTALL_FILE_FLAGS }
-#Import ".\GET_FILEEX_INFO_LEVELS.ahk" { GET_FILEEX_INFO_LEVELS }
-#Import ".\LPPROGRESS_ROUTINE.ahk" { LPPROGRESS_ROUTINE }
+#Import ".\VER_INSTALL_FILE_STATUS.ahk" { VER_INSTALL_FILE_STATUS }
+#Import ".\WIN32_FIND_DATAA.ahk" { WIN32_FIND_DATAA }
+#Import ".\WIN32_FIND_DATAW.ahk" { WIN32_FIND_DATAW }
+#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
@@ -10101,7 +10093,7 @@ export ReadFile(hFile, lpBuffer, nNumberOfBytesToRead, lpNumberOfBytesRead, lpOv
 export ReadFileEx(hFile, lpBuffer, nNumberOfBytesToRead, lpOverlapped, lpCompletionRoutine) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\ReadFileEx", HANDLE, hFile, IntPtr, lpBuffer, UInt32, nNumberOfBytesToRead, OVERLAPPED.Ptr, lpOverlapped, LPOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, BOOL)
+    result := DllCall("KERNEL32.dll\ReadFileEx", HANDLE, hFile, IntPtr, lpBuffer, UInt32, nNumberOfBytesToRead, OVERLAPPED.Ptr, lpOverlapped, "ptr", lpCompletionRoutine, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -12605,7 +12597,7 @@ export WriteFile(hFile, lpBuffer, nNumberOfBytesToWrite, lpNumberOfBytesWritten,
 export WriteFileEx(hFile, lpBuffer, nNumberOfBytesToWrite, lpOverlapped, lpCompletionRoutine) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\WriteFileEx", HANDLE, hFile, IntPtr, lpBuffer, UInt32, nNumberOfBytesToWrite, OVERLAPPED.Ptr, lpOverlapped, LPOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, BOOL)
+    result := DllCall("KERNEL32.dll\WriteFileEx", HANDLE, hFile, IntPtr, lpBuffer, UInt32, nNumberOfBytesToWrite, OVERLAPPED.Ptr, lpOverlapped, "ptr", lpCompletionRoutine, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -19259,7 +19251,7 @@ export CreateLogMarshallingArea(_hLog, pfnAllocBuffer, pfnFreeBuffer, pvBlockAll
 
     A_LastError := 0
 
-    result := DllCall("clfsw32.dll\CreateLogMarshallingArea", HANDLE, _hLog, CLFS_BLOCK_ALLOCATION, pfnAllocBuffer, CLFS_BLOCK_DEALLOCATION, pfnFreeBuffer, pvBlockAllocContextMarshal, pvBlockAllocContext, UInt32, cbMarshallingBuffer, UInt32, cMaxWriteBuffers, UInt32, cMaxReadBuffers, ppvMarshalMarshal, ppvMarshal, BOOL)
+    result := DllCall("clfsw32.dll\CreateLogMarshallingArea", HANDLE, _hLog, "ptr", pfnAllocBuffer, "ptr", pfnFreeBuffer, pvBlockAllocContextMarshal, pvBlockAllocContext, UInt32, cbMarshallingBuffer, UInt32, cMaxWriteBuffers, UInt32, cMaxReadBuffers, ppvMarshalMarshal, ppvMarshal, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -22378,7 +22370,7 @@ export WofEnumEntries(VolumeName, Provider, EnumProc, _UserData) {
 
     _UserDataMarshal := _UserData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WOFUTIL.dll\WofEnumEntries", "ptr", VolumeName, UInt32, Provider, WofEnumEntryProc, EnumProc, _UserDataMarshal, _UserData, "HRESULT")
+    result := DllCall("WOFUTIL.dll\WofEnumEntries", "ptr", VolumeName, UInt32, Provider, "ptr", EnumProc, _UserDataMarshal, _UserData, "HRESULT")
     return result
 }
 
@@ -22413,7 +22405,7 @@ export WofWimEnumFiles(VolumeName, DataSourceId, EnumProc, _UserData) {
 
     _UserDataMarshal := _UserData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WOFUTIL.dll\WofWimEnumFiles", "ptr", VolumeName, Int64, DataSourceId, WofEnumFilesProc, EnumProc, _UserDataMarshal, _UserData, "HRESULT")
+    result := DllCall("WOFUTIL.dll\WofWimEnumFiles", "ptr", VolumeName, Int64, DataSourceId, "ptr", EnumProc, _UserDataMarshal, _UserData, "HRESULT")
     return result
 }
 
@@ -22479,7 +22471,7 @@ export WofFileEnumFiles(VolumeName, Algorithm, EnumProc, _UserData) {
 
     _UserDataMarshal := _UserData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WOFUTIL.dll\WofFileEnumFiles", "ptr", VolumeName, UInt32, Algorithm, WofEnumFilesProc, EnumProc, _UserDataMarshal, _UserData, "HRESULT")
+    result := DllCall("WOFUTIL.dll\WofFileEnumFiles", "ptr", VolumeName, UInt32, Algorithm, "ptr", EnumProc, _UserDataMarshal, _UserData, "HRESULT")
     return result
 }
 
@@ -30488,7 +30480,7 @@ export ReadEncryptedFileRaw(pfExportCallback, pvCallbackContext, pvContext) {
     pvCallbackContextMarshal := pvCallbackContext is VarRef ? "ptr" : "ptr"
     pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\ReadEncryptedFileRaw", PFE_EXPORT_FUNC, pfExportCallback, pvCallbackContextMarshal, pvCallbackContext, pvContextMarshal, pvContext, UInt32)
+    result := DllCall("ADVAPI32.dll\ReadEncryptedFileRaw", "ptr", pfExportCallback, pvCallbackContextMarshal, pvCallbackContext, pvContextMarshal, pvContext, UInt32)
     return result
 }
 
@@ -30609,7 +30601,7 @@ export WriteEncryptedFileRaw(pfImportCallback, pvCallbackContext, pvContext) {
     pvCallbackContextMarshal := pvCallbackContext is VarRef ? "ptr" : "ptr"
     pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\WriteEncryptedFileRaw", PFE_IMPORT_FUNC, pfImportCallback, pvCallbackContextMarshal, pvCallbackContext, pvContextMarshal, pvContext, UInt32)
+    result := DllCall("ADVAPI32.dll\WriteEncryptedFileRaw", "ptr", pfImportCallback, pvCallbackContextMarshal, pvCallbackContext, pvContextMarshal, pvContext, UInt32)
     return result
 }
 
@@ -36643,7 +36635,7 @@ export CopyFileExA(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData,
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CopyFileExA", "ptr", lpExistingFileName, "ptr", lpNewFileName, LPPROGRESS_ROUTINE, lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, COPYFILE_FLAGS, dwCopyFlags, BOOL)
+    result := DllCall("KERNEL32.dll\CopyFileExA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, COPYFILE_FLAGS, dwCopyFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -36932,7 +36924,7 @@ export CopyFileExW(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData,
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CopyFileExW", "ptr", lpExistingFileName, "ptr", lpNewFileName, LPPROGRESS_ROUTINE, lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, COPYFILE_FLAGS, dwCopyFlags, BOOL)
+    result := DllCall("KERNEL32.dll\CopyFileExW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, COPYFILE_FLAGS, dwCopyFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -37166,7 +37158,7 @@ export CopyFileTransactedA(lpExistingFileName, lpNewFileName, lpProgressRoutine,
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CopyFileTransactedA", "ptr", lpExistingFileName, "ptr", lpNewFileName, LPPROGRESS_ROUTINE, lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, UInt32, dwCopyFlags, HANDLE, hTransaction, BOOL)
+    result := DllCall("KERNEL32.dll\CopyFileTransactedA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, UInt32, dwCopyFlags, HANDLE, hTransaction, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -37400,7 +37392,7 @@ export CopyFileTransactedW(lpExistingFileName, lpNewFileName, lpProgressRoutine,
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CopyFileTransactedW", "ptr", lpExistingFileName, "ptr", lpNewFileName, LPPROGRESS_ROUTINE, lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, UInt32, dwCopyFlags, HANDLE, hTransaction, BOOL)
+    result := DllCall("KERNEL32.dll\CopyFileTransactedW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, UInt32, dwCopyFlags, HANDLE, hTransaction, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -38373,7 +38365,7 @@ export MoveFileWithProgressA(lpExistingFileName, lpNewFileName, lpProgressRoutin
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\MoveFileWithProgressA", "ptr", lpExistingFileName, "ptr", lpNewFileName, LPPROGRESS_ROUTINE, lpProgressRoutine, lpDataMarshal, lpData, MOVE_FILE_FLAGS, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\MoveFileWithProgressA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, MOVE_FILE_FLAGS, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -38535,7 +38527,7 @@ export MoveFileWithProgressW(lpExistingFileName, lpNewFileName, lpProgressRoutin
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\MoveFileWithProgressW", "ptr", lpExistingFileName, "ptr", lpNewFileName, LPPROGRESS_ROUTINE, lpProgressRoutine, lpDataMarshal, lpData, MOVE_FILE_FLAGS, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\MoveFileWithProgressW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, MOVE_FILE_FLAGS, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -38694,7 +38686,7 @@ export MoveFileTransactedA(lpExistingFileName, lpNewFileName, lpProgressRoutine,
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\MoveFileTransactedA", "ptr", lpExistingFileName, "ptr", lpNewFileName, LPPROGRESS_ROUTINE, lpProgressRoutine, lpDataMarshal, lpData, MOVE_FILE_FLAGS, dwFlags, HANDLE, hTransaction, BOOL)
+    result := DllCall("KERNEL32.dll\MoveFileTransactedA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, MOVE_FILE_FLAGS, dwFlags, HANDLE, hTransaction, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -38853,7 +38845,7 @@ export MoveFileTransactedW(lpExistingFileName, lpNewFileName, lpProgressRoutine,
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\MoveFileTransactedW", "ptr", lpExistingFileName, "ptr", lpNewFileName, LPPROGRESS_ROUTINE, lpProgressRoutine, lpDataMarshal, lpData, MOVE_FILE_FLAGS, dwFlags, HANDLE, hTransaction, BOOL)
+    result := DllCall("KERNEL32.dll\MoveFileTransactedW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, MOVE_FILE_FLAGS, dwFlags, HANDLE, hTransaction, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -40620,7 +40612,7 @@ export ReadDirectoryChangesW(hDirectory, lpBuffer, nBufferLength, bWatchSubtree,
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\ReadDirectoryChangesW", HANDLE, hDirectory, IntPtr, lpBuffer, UInt32, nBufferLength, BOOL, bWatchSubtree, FILE_NOTIFY_CHANGE, dwNotifyFilter, lpBytesReturnedMarshal, lpBytesReturned, OVERLAPPED.Ptr, lpOverlapped, LPOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, BOOL)
+    result := DllCall("KERNEL32.dll\ReadDirectoryChangesW", HANDLE, hDirectory, IntPtr, lpBuffer, UInt32, nBufferLength, BOOL, bWatchSubtree, FILE_NOTIFY_CHANGE, dwNotifyFilter, lpBytesReturnedMarshal, lpBytesReturned, OVERLAPPED.Ptr, lpOverlapped, "ptr", lpCompletionRoutine, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -40741,7 +40733,7 @@ export ReadDirectoryChangesExW(hDirectory, lpBuffer, nBufferLength, bWatchSubtre
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\ReadDirectoryChangesExW", HANDLE, hDirectory, IntPtr, lpBuffer, UInt32, nBufferLength, BOOL, bWatchSubtree, FILE_NOTIFY_CHANGE, dwNotifyFilter, lpBytesReturnedMarshal, lpBytesReturned, OVERLAPPED.Ptr, lpOverlapped, LPOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, READ_DIRECTORY_NOTIFY_INFORMATION_CLASS, ReadDirectoryNotifyInformationClass, BOOL)
+    result := DllCall("KERNEL32.dll\ReadDirectoryChangesExW", HANDLE, hDirectory, IntPtr, lpBuffer, UInt32, nBufferLength, BOOL, bWatchSubtree, FILE_NOTIFY_CHANGE, dwNotifyFilter, lpBytesReturnedMarshal, lpBytesReturned, OVERLAPPED.Ptr, lpOverlapped, "ptr", lpCompletionRoutine, READ_DIRECTORY_NOTIFY_INFORMATION_CLASS, ReadDirectoryNotifyInformationClass, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }

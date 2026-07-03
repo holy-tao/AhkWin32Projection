@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\HDRVDIALOGINSTANCE.ahk" { HDRVDIALOGINSTANCE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The TUISPI data structure is defined below.

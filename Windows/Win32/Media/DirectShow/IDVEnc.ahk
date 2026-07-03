@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DVINFO.ahk" { DVINFO }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DVINFO.ahk" { DVINFO }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDVEnc interface sets and retrieves properties on the DV Video Encoder filter.

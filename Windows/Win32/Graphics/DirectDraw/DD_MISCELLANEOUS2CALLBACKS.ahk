@@ -1,8 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PDD_CREATESURFACEEX.ahk" { PDD_CREATESURFACEEX }
-#Import ".\PDD_GETDRIVERSTATE.ahk" { PDD_GETDRIVERSTATE }
-#Import ".\PDD_ALPHABLT.ahk" { PDD_ALPHABLT }
-#Import ".\PDD_DESTROYDDLOCAL.ahk" { PDD_DESTROYDDLOCAL }
 
 /**
  * The DD_MISCELLANEOUS2CALLBACKS structure is used to return the addresses of miscellaneous callback routines.
@@ -32,21 +28,21 @@ export default struct DD_MISCELLANEOUS2CALLBACKS {
     /**
      * Unused and must be set to <b>NULL</b>.
      */
-    AlphaBlt : PDD_ALPHABLT
+    AlphaBlt : IntPtr
 
     /**
      * Points to the driver's <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_createsurfaceex">D3dCreateSurfaceEx</a> implementation. This callback creates an association between a DirectDraw surface and a small integer handle.
      */
-    CreateSurfaceEx : PDD_CREATESURFACEEX
+    CreateSurfaceEx : IntPtr
 
     /**
      * Points to the driver's <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_getdriverstate">D3dGetDriverState</a> implementation.
      */
-    GetDriverState : PDD_GETDRIVERSTATE
+    GetDriverState : IntPtr
 
     /**
      * Points to the driver's <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_destroyddlocal">D3dDestroyDDLocal</a> implementation. Used to destroy the local copy of the device context.
      */
-    DestroyDDLocal : PDD_DESTROYDDLOCAL
+    DestroyDDLocal : IntPtr
 
 }

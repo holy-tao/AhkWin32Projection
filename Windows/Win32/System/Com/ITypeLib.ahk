@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\TYPEKIND.ahk" { TYPEKIND }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ITypeComp.ahk" { ITypeComp }
 #Import ".\ITypeInfo.ahk" { ITypeInfo }
 #Import ".\IUnknown.ahk" { IUnknown }
 #Import ".\TLIBATTR.ahk" { TLIBATTR }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ITypeComp.ahk" { ITypeComp }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\TYPEKIND.ahk" { TYPEKIND }
 
 /**
  * Represents a type library, the data that describes a set of objects. (ITypeLib)

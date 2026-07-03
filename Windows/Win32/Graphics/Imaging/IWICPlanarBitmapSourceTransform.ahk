@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WICBitmapPlaneDescription.ahk" { WICBitmapPlaneDescription }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WICRect.ahk" { WICRect }
-#Import ".\WICPlanarOptions.ahk" { WICPlanarOptions }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\WICBitmapPlane.ahk" { WICBitmapPlane }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WICBitmapPlane.ahk" { WICBitmapPlane }
+#Import ".\WICBitmapPlaneDescription.ahk" { WICBitmapPlaneDescription }
 #Import ".\WICBitmapTransformOptions.ahk" { WICBitmapTransformOptions }
+#Import ".\WICPlanarOptions.ahk" { WICPlanarOptions }
+#Import ".\WICRect.ahk" { WICRect }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides access to planar Y’CbCr pixel formats where pixel components are stored in separate component planes.

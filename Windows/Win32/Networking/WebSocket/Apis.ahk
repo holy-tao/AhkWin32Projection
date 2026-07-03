@@ -1,15 +1,15 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\WEB_SOCKET_ACTION.ahk" { WEB_SOCKET_ACTION }
-#Import ".\WEB_SOCKET_HANDLE.ahk" { WEB_SOCKET_HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WEB_SOCKET_PROPERTY_TYPE.ahk" { WEB_SOCKET_PROPERTY_TYPE }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\WEB_SOCKET_BUFFER.ahk" { WEB_SOCKET_BUFFER }
-#Import ".\WEB_SOCKET_HTTP_HEADER.ahk" { WEB_SOCKET_HTTP_HEADER }
+#Import ".\WEB_SOCKET_ACTION.ahk" { WEB_SOCKET_ACTION }
 #Import ".\WEB_SOCKET_ACTION_QUEUE.ahk" { WEB_SOCKET_ACTION_QUEUE }
+#Import ".\WEB_SOCKET_BUFFER.ahk" { WEB_SOCKET_BUFFER }
 #Import ".\WEB_SOCKET_BUFFER_TYPE.ahk" { WEB_SOCKET_BUFFER_TYPE }
+#Import ".\WEB_SOCKET_HANDLE.ahk" { WEB_SOCKET_HANDLE }
+#Import ".\WEB_SOCKET_HTTP_HEADER.ahk" { WEB_SOCKET_HTTP_HEADER }
 #Import ".\WEB_SOCKET_PROPERTY.ahk" { WEB_SOCKET_PROPERTY }
+#Import ".\WEB_SOCKET_PROPERTY_TYPE.ahk" { WEB_SOCKET_PROPERTY_TYPE }
 
 /**
  * @namespace Windows.Win32.Networking.WebSocket

@@ -48,10 +48,6 @@ export default struct USER_MARSHAL_SIZING_ROUTINE {
             this.value := CallbackCreate(fn, , ["uint*", UInt32, "ptr", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

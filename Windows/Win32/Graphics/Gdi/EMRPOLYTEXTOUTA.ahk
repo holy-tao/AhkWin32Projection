@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
-#Import ".\EMRTEXT.ahk" { EMRTEXT }
 #Import "..\..\Foundation\POINTL.ahk" { POINTL }
-#Import ".\EMR.ahk" { EMR }
 #Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import ".\EMR.ahk" { EMR }
+#Import ".\EMRTEXT.ahk" { EMRTEXT }
+#Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
 
 /**
  * The EMRPOLYTEXTOUTA and EMRPOLYTEXTOUTW structures contain members for the PolyTextOut enhanced metafile record.

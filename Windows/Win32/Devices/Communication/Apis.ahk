@@ -1,22 +1,22 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\COMSTAT.ahk" { COMSTAT }
-#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
-#Import ".\COMMTIMEOUTS.ahk" { COMMTIMEOUTS }
-#Import ".\COMMCONFIG.ahk" { COMMCONFIG }
 #Import ".\CLEAR_COMM_ERROR_FLAGS.ahk" { CLEAR_COMM_ERROR_FLAGS }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\PURGE_COMM_FLAGS.ahk" { PURGE_COMM_FLAGS }
-#Import ".\COMM_EVENT_MASK.ahk" { COMM_EVENT_MASK }
-#Import ".\ESCAPE_COMM_FUNCTION.ahk" { ESCAPE_COMM_FUNCTION }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\MODEM_STATUS_FLAGS.ahk" { MODEM_STATUS_FLAGS }
+#Import ".\COMMCONFIG.ahk" { COMMCONFIG }
 #Import ".\COMMPROP.ahk" { COMMPROP }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import ".\COMMTIMEOUTS.ahk" { COMMTIMEOUTS }
+#Import ".\COMM_EVENT_MASK.ahk" { COMM_EVENT_MASK }
+#Import ".\COMSTAT.ahk" { COMSTAT }
 #Import ".\DCB.ahk" { DCB }
+#Import ".\ESCAPE_COMM_FUNCTION.ahk" { ESCAPE_COMM_FUNCTION }
+#Import ".\MODEM_STATUS_FLAGS.ahk" { MODEM_STATUS_FLAGS }
+#Import ".\PURGE_COMM_FLAGS.ahk" { PURGE_COMM_FLAGS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
 
 /**
  * @namespace Windows.Win32.Devices.Communication

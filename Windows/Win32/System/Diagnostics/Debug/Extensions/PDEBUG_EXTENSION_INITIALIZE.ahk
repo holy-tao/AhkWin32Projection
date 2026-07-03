@@ -48,10 +48,6 @@ export default struct PDEBUG_EXTENSION_INITIALIZE {
             this.value := CallbackCreate(fn, , ["uint*", "uint*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

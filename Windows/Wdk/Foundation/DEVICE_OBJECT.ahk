@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VPB.ahk" { VPB }
-#Import ".\PIO_TIMER.ahk" { PIO_TIMER }
-#Import ".\DRIVER_OBJECT.ahk" { DRIVER_OBJECT }
 #Import ".\DEVOBJ_EXTENSION.ahk" { DEVOBJ_EXTENSION }
-#Import "..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
+#Import ".\DRIVER_OBJECT.ahk" { DRIVER_OBJECT }
 #Import ".\IRP.ahk" { IRP }
+#Import ".\PIO_TIMER.ahk" { PIO_TIMER }
+#Import ".\VPB.ahk" { VPB }
+#Import "..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
 
 /**
  * @namespace Windows.Wdk.Foundation

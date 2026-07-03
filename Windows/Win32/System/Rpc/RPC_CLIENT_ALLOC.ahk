@@ -43,10 +43,6 @@ export default struct RPC_CLIENT_ALLOC {
             this.value := CallbackCreate(fn, , [IntPtr, "ptr"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

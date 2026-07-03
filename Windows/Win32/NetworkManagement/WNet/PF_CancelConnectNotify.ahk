@@ -46,10 +46,6 @@ export default struct PF_CancelConnectNotify {
             this.value := CallbackCreate(fn, , [NOTIFYINFO.Ptr, NOTIFYCANCEL.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

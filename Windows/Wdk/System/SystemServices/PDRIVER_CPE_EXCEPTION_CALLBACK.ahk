@@ -46,10 +46,6 @@ export default struct PDRIVER_CPE_EXCEPTION_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", MCA_EXCEPTION.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

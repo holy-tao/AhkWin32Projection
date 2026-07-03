@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMbnRadio.ahk" { IMbnRadio }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMbnRadio.ahk" { IMbnRadio }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Notification interface used to indicate a change in the radio state as well as the completion of a programmatic change in the state .

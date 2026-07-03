@@ -49,10 +49,6 @@ export default struct VBS_BASIC_ENCLAVE_BASIC_CALL_GENERATE_REPORT {
             this.value := CallbackCreate(fn, , ["char*", IntPtr, UInt32, "uint*", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

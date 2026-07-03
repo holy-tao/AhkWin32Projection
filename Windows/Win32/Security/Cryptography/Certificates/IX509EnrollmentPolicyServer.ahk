@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\X509EnrollmentAuthFlags.ahk" { X509EnrollmentAuthFlags }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\ICertificationAuthorities.ahk" { ICertificationAuthorities }
 #Import ".\IObjectIds.ahk" { IObjectIds }
-#Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IX509CertificateTemplate.ahk" { IX509CertificateTemplate }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\X509EnrollmentPolicyExportFlags.ahk" { X509EnrollmentPolicyExportFlags }
-#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IX509CertificateTemplates.ahk" { IX509CertificateTemplates }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
+#Import ".\X509EnrollmentAuthFlags.ahk" { X509EnrollmentAuthFlags }
+#Import ".\X509EnrollmentPolicyExportFlags.ahk" { X509EnrollmentPolicyExportFlags }
 #Import ".\X509EnrollmentPolicyLoadOption.ahk" { X509EnrollmentPolicyLoadOption }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IX509EnrollmentPolicyServer interface represents a certificate enrollment policy (CEP) server.

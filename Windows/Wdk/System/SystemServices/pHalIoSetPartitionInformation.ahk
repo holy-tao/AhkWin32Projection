@@ -29,7 +29,7 @@ export default struct pHalIoSetPartitionInformation {
      */
     Call(DeviceObject, SectorSize, PartitionNumber, PartitionType) {
         result := DllCall(this.value, DEVICE_OBJECT.Ptr, DeviceObject, UInt32, SectorSize, UInt32, PartitionNumber, UInt32, PartitionType, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -49,10 +49,6 @@ export default struct pHalIoSetPartitionInformation {
             this.value := CallbackCreate(fn, , [DEVICE_OBJECT.Ptr, UInt32, UInt32, UInt32, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

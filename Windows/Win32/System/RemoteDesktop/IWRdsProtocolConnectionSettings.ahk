@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WTS_PROPERTY_VALUE.ahk" { WTS_PROPERTY_VALUE }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WTS_PROPERTY_VALUE.ahk" { WTS_PROPERTY_VALUE }
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop

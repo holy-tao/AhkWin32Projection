@@ -46,10 +46,6 @@ export default struct PF_NPFMXGetPermCaps {
             this.value := CallbackCreate(fn, , [PWSTR, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

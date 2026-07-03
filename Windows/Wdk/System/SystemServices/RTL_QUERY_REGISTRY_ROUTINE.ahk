@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\..\Win32\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -36,7 +36,7 @@ export default struct RTL_QUERY_REGISTRY_ROUTINE {
         EntryContextMarshal := EntryContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, "ptr", _ValueName, UInt32, ValueType, IntPtr, ValueData, UInt32, ValueLength, _ContextMarshal, _Context, EntryContextMarshal, EntryContext, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -56,10 +56,6 @@ export default struct RTL_QUERY_REGISTRY_ROUTINE {
             this.value := CallbackCreate(fn, , [PWSTR, UInt32, IntPtr, UInt32, "ptr", "ptr", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,19 +1,19 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\ID3DInclude.ahk" { ID3DInclude }
-#Import ".\D3D_SHADER_DATA.ahk" { D3D_SHADER_DATA }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Direct3D11\ID3D11FunctionLinkingGraph.ahk" { ID3D11FunctionLinkingGraph }
-#Import "..\ID3DBlob.ahk" { ID3DBlob }
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Direct3D10\ID3D10Effect.ahk" { ID3D10Effect }
-#Import "..\D3D_SHADER_MACRO.ahk" { D3D_SHADER_MACRO }
-#Import "..\..\Direct3D11\ID3D11Linker.ahk" { ID3D11Linker }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Direct3D11\ID3D11Module.ahk" { ID3D11Module }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\D3D_SHADER_MACRO.ahk" { D3D_SHADER_MACRO }
 #Import ".\D3D_BLOB_PART.ahk" { D3D_BLOB_PART }
+#Import ".\D3D_SHADER_DATA.ahk" { D3D_SHADER_DATA }
+#Import "..\ID3DBlob.ahk" { ID3DBlob }
+#Import "..\ID3DInclude.ahk" { ID3DInclude }
+#Import "..\..\Direct3D10\ID3D10Effect.ahk" { ID3D10Effect }
+#Import "..\..\Direct3D11\ID3D11FunctionLinkingGraph.ahk" { ID3D11FunctionLinkingGraph }
+#Import "..\..\Direct3D11\ID3D11Linker.ahk" { ID3D11Linker }
+#Import "..\..\Direct3D11\ID3D11Module.ahk" { ID3D11Module }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Fxc

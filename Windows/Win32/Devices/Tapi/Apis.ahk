@@ -1,59 +1,57 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\LINEAGENTSTATUS.ahk" { LINEAGENTSTATUS }
-#Import ".\LINEDEVSTATUS.ahk" { LINEDEVSTATUS }
-#Import ".\LINECALLLIST.ahk" { LINECALLLIST }
-#Import ".\LINEADDRESSSTATUS.ahk" { LINEADDRESSSTATUS }
-#Import ".\LINEEXTENSIONID.ahk" { LINEEXTENSIONID }
-#Import ".\LINEAGENTINFO.ahk" { LINEAGENTINFO }
-#Import ".\PHONEEXTENSIONID.ahk" { PHONEEXTENSIONID }
-#Import ".\LINEMEDIACONTROLMEDIA.ahk" { LINEMEDIACONTROLMEDIA }
-#Import ".\LINECOUNTRYLIST.ahk" { LINECOUNTRYLIST }
-#Import ".\LINECALLBACK.ahk" { LINECALLBACK }
-#Import ".\LINECALLPARAMS.ahk" { LINECALLPARAMS }
-#Import ".\LINEDEVCAPS.ahk" { LINEDEVCAPS }
-#Import ".\LINEMONITORTONE.ahk" { LINEMONITORTONE }
-#Import ".\LINEGENERATETONE.ahk" { LINEGENERATETONE as LINEGENERATETONE_struct }
-#Import ".\LINEAGENTSESSIONLIST.ahk" { LINEAGENTSESSIONLIST }
-#Import ".\LINEPROXYREQUEST.ahk" { LINEPROXYREQUEST }
-#Import ".\LINEFORWARDLIST.ahk" { LINEFORWARDLIST }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import ".\LINEINITIALIZEEXPARAMS.ahk" { LINEINITIALIZEEXPARAMS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITnef.ahk" { ITnef }
 #Import ".\LINEADDRESSCAPS.ahk" { LINEADDRESSCAPS }
+#Import ".\LINEADDRESSSTATUS.ahk" { LINEADDRESSSTATUS }
 #Import ".\LINEAGENTACTIVITYLIST.ahk" { LINEAGENTACTIVITYLIST }
-#Import ".\PHONESTATUS.ahk" { PHONESTATUS }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\LINEQUEUELIST.ahk" { LINEQUEUELIST }
-#Import ".\LINECALLINFO.ahk" { LINECALLINFO }
-#Import ".\LINEMEDIACONTROLDIGIT.ahk" { LINEMEDIACONTROLDIGIT }
-#Import ".\LINEMEDIACONTROLTONE.ahk" { LINEMEDIACONTROLTONE }
-#Import ".\LINEPROXYREQUESTLIST.ahk" { LINEPROXYREQUESTLIST }
-#Import ".\LINECALLSTATUS.ahk" { LINECALLSTATUS }
-#Import "..\..\System\AddressBook\IAddrBook.ahk" { IAddrBook }
 #Import ".\LINEAGENTCAPS.ahk" { LINEAGENTCAPS }
 #Import ".\LINEAGENTGROUPLIST.ahk" { LINEAGENTGROUPLIST }
-#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
-#Import ".\ITnef.ahk" { ITnef }
+#Import ".\LINEAGENTINFO.ahk" { LINEAGENTINFO }
+#Import ".\LINEAGENTSESSIONINFO.ahk" { LINEAGENTSESSIONINFO }
+#Import ".\LINEAGENTSESSIONLIST.ahk" { LINEAGENTSESSIONLIST }
+#Import ".\LINEAGENTSTATUS.ahk" { LINEAGENTSTATUS }
+#Import ".\LINECALLINFO.ahk" { LINECALLINFO }
+#Import ".\LINECALLLIST.ahk" { LINECALLLIST }
+#Import ".\LINECALLPARAMS.ahk" { LINECALLPARAMS }
+#Import ".\LINECALLSTATUS.ahk" { LINECALLSTATUS }
+#Import ".\LINECOUNTRYLIST.ahk" { LINECOUNTRYLIST }
+#Import ".\LINEDEVCAPS.ahk" { LINEDEVCAPS }
+#Import ".\LINEDEVSTATUS.ahk" { LINEDEVSTATUS }
+#Import ".\LINEDIALPARAMS.ahk" { LINEDIALPARAMS }
+#Import ".\LINEEXTENSIONID.ahk" { LINEEXTENSIONID }
+#Import ".\LINEFORWARDLIST.ahk" { LINEFORWARDLIST }
+#Import ".\LINEGENERATETONE.ahk" { LINEGENERATETONE as LINEGENERATETONE_struct }
+#Import ".\LINEINITIALIZEEXPARAMS.ahk" { LINEINITIALIZEEXPARAMS }
+#Import ".\LINEMEDIACONTROLCALLSTATE.ahk" { LINEMEDIACONTROLCALLSTATE }
+#Import ".\LINEMEDIACONTROLDIGIT.ahk" { LINEMEDIACONTROLDIGIT }
+#Import ".\LINEMEDIACONTROLMEDIA.ahk" { LINEMEDIACONTROLMEDIA }
+#Import ".\LINEMEDIACONTROLTONE.ahk" { LINEMEDIACONTROLTONE }
+#Import ".\LINEMESSAGE.ahk" { LINEMESSAGE }
+#Import ".\LINEMONITORTONE.ahk" { LINEMONITORTONE }
 #Import ".\LINEPROVIDERLIST.ahk" { LINEPROVIDERLIST }
+#Import ".\LINEPROXYREQUEST.ahk" { LINEPROXYREQUEST }
+#Import ".\LINEPROXYREQUESTLIST.ahk" { LINEPROXYREQUESTLIST }
 #Import ".\LINEQUEUEINFO.ahk" { LINEQUEUEINFO }
+#Import ".\LINEQUEUELIST.ahk" { LINEQUEUELIST }
 #Import ".\LINETRANSLATECAPS.ahk" { LINETRANSLATECAPS }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import ".\LINETRANSLATEOUTPUT.ahk" { LINETRANSLATEOUTPUT }
 #Import ".\PHONEBUTTONINFO.ahk" { PHONEBUTTONINFO }
-#Import ".\PHONEMESSAGE.ahk" { PHONEMESSAGE }
-#Import "..\..\System\AddressBook\IMessage.ahk" { IMessage }
-#Import ".\LINEDIALPARAMS.ahk" { LINEDIALPARAMS }
-#Import ".\LINEMESSAGE.ahk" { LINEMESSAGE }
-#Import ".\PHONEINITIALIZEEXPARAMS.ahk" { PHONEINITIALIZEEXPARAMS }
 #Import ".\PHONECAPS.ahk" { PHONECAPS }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\PHONECALLBACK.ahk" { PHONECALLBACK }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\PHONEEXTENSIONID.ahk" { PHONEEXTENSIONID }
+#Import ".\PHONEINITIALIZEEXPARAMS.ahk" { PHONEINITIALIZEEXPARAMS }
+#Import ".\PHONEMESSAGE.ahk" { PHONEMESSAGE }
+#Import ".\PHONESTATUS.ahk" { PHONESTATUS }
 #Import ".\VARSTRING.ahk" { VARSTRING }
-#Import ".\LINEAGENTSESSIONINFO.ahk" { LINEAGENTSESSIONINFO }
-#Import ".\LINEMEDIACONTROLCALLSTATE.ahk" { LINEMEDIACONTROLCALLSTATE }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\System\AddressBook\IAddrBook.ahk" { IAddrBook }
+#Import "..\..\System\AddressBook\IMessage.ahk" { IMessage }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
 
 /**
@@ -3942,7 +3940,7 @@ export lineInitialize(lphLineApp, _hInstance, lpfnCallback, lpszAppName, lpdwNum
     lphLineAppMarshal := lphLineApp is VarRef ? "uint*" : "ptr"
     lpdwNumDevsMarshal := lpdwNumDevs is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineInitialize", lphLineAppMarshal, lphLineApp, HINSTANCE, _hInstance, LINECALLBACK, lpfnCallback, "ptr", lpszAppName, lpdwNumDevsMarshal, lpdwNumDevs, Int32)
+    result := DllCall("TAPI32.dll\lineInitialize", lphLineAppMarshal, lphLineApp, HINSTANCE, _hInstance, "ptr", lpfnCallback, "ptr", lpszAppName, lpdwNumDevsMarshal, lpdwNumDevs, Int32)
     return result
 }
 
@@ -4027,7 +4025,7 @@ export lineInitializeExA(lphLineApp, _hInstance, lpfnCallback, lpszFriendlyAppNa
     lpdwNumDevsMarshal := lpdwNumDevs is VarRef ? "uint*" : "ptr"
     lpdwAPIVersionMarshal := lpdwAPIVersion is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineInitializeExA", lphLineAppMarshal, lphLineApp, HINSTANCE, _hInstance, LINECALLBACK, lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, LINEINITIALIZEEXPARAMS.Ptr, lpLineInitializeExParams, Int32)
+    result := DllCall("TAPI32.dll\lineInitializeExA", lphLineAppMarshal, lphLineApp, HINSTANCE, _hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, LINEINITIALIZEEXPARAMS.Ptr, lpLineInitializeExParams, Int32)
     return result
 }
 
@@ -4112,7 +4110,7 @@ export lineInitializeExW(lphLineApp, _hInstance, lpfnCallback, lpszFriendlyAppNa
     lpdwNumDevsMarshal := lpdwNumDevs is VarRef ? "uint*" : "ptr"
     lpdwAPIVersionMarshal := lpdwAPIVersion is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineInitializeExW", lphLineAppMarshal, lphLineApp, HINSTANCE, _hInstance, LINECALLBACK, lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, LINEINITIALIZEEXPARAMS.Ptr, lpLineInitializeExParams, Int32)
+    result := DllCall("TAPI32.dll\lineInitializeExW", lphLineAppMarshal, lphLineApp, HINSTANCE, _hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, LINEINITIALIZEEXPARAMS.Ptr, lpLineInitializeExParams, Int32)
     return result
 }
 
@@ -7604,7 +7602,7 @@ export phoneInitialize(lphPhoneApp, _hInstance, lpfnCallback, lpszAppName, lpdwN
     lphPhoneAppMarshal := lphPhoneApp is VarRef ? "uint*" : "ptr"
     lpdwNumDevsMarshal := lpdwNumDevs is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\phoneInitialize", lphPhoneAppMarshal, lphPhoneApp, HINSTANCE, _hInstance, PHONECALLBACK, lpfnCallback, "ptr", lpszAppName, lpdwNumDevsMarshal, lpdwNumDevs, Int32)
+    result := DllCall("TAPI32.dll\phoneInitialize", lphPhoneAppMarshal, lphPhoneApp, HINSTANCE, _hInstance, "ptr", lpfnCallback, "ptr", lpszAppName, lpdwNumDevsMarshal, lpdwNumDevs, Int32)
     return result
 }
 
@@ -7687,7 +7685,7 @@ export phoneInitializeExA(lphPhoneApp, _hInstance, lpfnCallback, lpszFriendlyApp
     lpdwNumDevsMarshal := lpdwNumDevs is VarRef ? "uint*" : "ptr"
     lpdwAPIVersionMarshal := lpdwAPIVersion is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\phoneInitializeExA", lphPhoneAppMarshal, lphPhoneApp, HINSTANCE, _hInstance, PHONECALLBACK, lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, PHONEINITIALIZEEXPARAMS.Ptr, lpPhoneInitializeExParams, Int32)
+    result := DllCall("TAPI32.dll\phoneInitializeExA", lphPhoneAppMarshal, lphPhoneApp, HINSTANCE, _hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, PHONEINITIALIZEEXPARAMS.Ptr, lpPhoneInitializeExParams, Int32)
     return result
 }
 
@@ -7770,7 +7768,7 @@ export phoneInitializeExW(lphPhoneApp, _hInstance, lpfnCallback, lpszFriendlyApp
     lpdwNumDevsMarshal := lpdwNumDevs is VarRef ? "uint*" : "ptr"
     lpdwAPIVersionMarshal := lpdwAPIVersion is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\phoneInitializeExW", lphPhoneAppMarshal, lphPhoneApp, HINSTANCE, _hInstance, PHONECALLBACK, lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, PHONEINITIALIZEEXPARAMS.Ptr, lpPhoneInitializeExParams, Int32)
+    result := DllCall("TAPI32.dll\phoneInitializeExW", lphPhoneAppMarshal, lphPhoneApp, HINSTANCE, _hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, PHONEINITIALIZEEXPARAMS.Ptr, lpPhoneInitializeExParams, Int32)
     return result
 }
 

@@ -1,45 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SslEnumCipherSuitesFn.ahk" { SslEnumCipherSuitesFn }
-#Import ".\SslDecryptPacketFn.ahk" { SslDecryptPacketFn }
-#Import ".\SslExtractEarlyKeyFn.ahk" { SslExtractEarlyKeyFn }
-#Import ".\SslVerifySignatureFn.ahk" { SslVerifySignatureFn }
-#Import ".\SslCreateHandshakeHashFn.ahk" { SslCreateHandshakeHashFn }
-#Import ".\SslImportMasterKeyFn.ahk" { SslImportMasterKeyFn }
-#Import ".\SslGetProviderPropertyFn.ahk" { SslGetProviderPropertyFn }
-#Import ".\SslFreeBufferFn.ahk" { SslFreeBufferFn }
-#Import ".\SslEnumCipherSuitesExFn.ahk" { SslEnumCipherSuitesExFn }
-#Import ".\SslExpandWriteKeyFn.ahk" { SslExpandWriteKeyFn }
-#Import ".\SslCreateEphemeralKeyFn.ahk" { SslCreateEphemeralKeyFn }
-#Import ".\SslExportKeyFn.ahk" { SslExportKeyFn }
-#Import ".\SslComputeEapKeyBlockFn.ahk" { SslComputeEapKeyBlockFn }
-#Import ".\SslDuplicateTranscriptHashFn.ahk" { SslDuplicateTranscriptHashFn }
-#Import ".\SslGetKeyPropertyFn.ahk" { SslGetKeyPropertyFn }
-#Import ".\SslComputeClientAuthHashFn.ahk" { SslComputeClientAuthHashFn }
-#Import ".\SslExpandExporterMasterKeyFn.ahk" { SslExpandExporterMasterKeyFn }
-#Import ".\SslGenerateMasterKeyFn.ahk" { SslGenerateMasterKeyFn }
-#Import ".\SslExpandBinderKeyFn.ahk" { SslExpandBinderKeyFn }
-#Import ".\SslGeneratePreMasterKeyFn.ahk" { SslGeneratePreMasterKeyFn }
-#Import ".\SslExpandPreSharedKeyFn.ahk" { SslExpandPreSharedKeyFn }
-#Import ".\SslLookupCipherLengthsFn.ahk" { SslLookupCipherLengthsFn }
-#Import ".\SslEncryptPacketFn.ahk" { SslEncryptPacketFn }
-#Import ".\SslCreateClientAuthHashFn.ahk" { SslCreateClientAuthHashFn }
-#Import ".\SslGetCipherSuitePRFHashAlgorithmFn.ahk" { SslGetCipherSuitePRFHashAlgorithmFn }
-#Import ".\SslComputeFinishedHashFn.ahk" { SslComputeFinishedHashFn }
-#Import ".\SslExpandResumptionMasterKeyFn.ahk" { SslExpandResumptionMasterKeyFn }
-#Import ".\SslEnumEccCurvesFn.ahk" { SslEnumEccCurvesFn }
-#Import ".\SslExtractMasterKeyFn.ahk" { SslExtractMasterKeyFn }
-#Import ".\SslComputeSessionHashFn.ahk" { SslComputeSessionHashFn }
-#Import ".\SslExpandTrafficKeysFn.ahk" { SslExpandTrafficKeysFn }
-#Import ".\SslGenerateSessionKeysFn.ahk" { SslGenerateSessionKeysFn }
-#Import ".\SslOpenProviderFn.ahk" { SslOpenProviderFn }
-#Import ".\SslImportKeyFn.ahk" { SslImportKeyFn }
-#Import ".\SslHashHandshakeFn.ahk" { SslHashHandshakeFn }
-#Import ".\SslSignHashFn.ahk" { SslSignHashFn }
-#Import ".\SslOpenPrivateKeyFn.ahk" { SslOpenPrivateKeyFn }
-#Import ".\SslFreeObjectFn.ahk" { SslFreeObjectFn }
-#Import ".\SslExtractHandshakeKeyFn.ahk" { SslExtractHandshakeKeyFn }
-#Import ".\SslLookupCipherSuiteInfoFn.ahk" { SslLookupCipherSuiteInfoFn }
-#Import ".\SslExportKeyingMaterialFn.ahk" { SslExportKeyingMaterialFn }
 #Import ".\BCRYPT_INTERFACE_VERSION.ahk" { BCRYPT_INTERFACE_VERSION }
 
 /**
@@ -50,86 +9,86 @@ export default struct NCRYPT_SSL_FUNCTION_TABLE {
 
     Version : BCRYPT_INTERFACE_VERSION
 
-    ComputeClientAuthHash : SslComputeClientAuthHashFn
+    ComputeClientAuthHash : IntPtr
 
-    ComputeEapKeyBlock : SslComputeEapKeyBlockFn
+    ComputeEapKeyBlock : IntPtr
 
-    ComputeFinishedHash : SslComputeFinishedHashFn
+    ComputeFinishedHash : IntPtr
 
-    CreateEphemeralKey : SslCreateEphemeralKeyFn
+    CreateEphemeralKey : IntPtr
 
-    CreateHandshakeHash : SslCreateHandshakeHashFn
+    CreateHandshakeHash : IntPtr
 
-    DecryptPacket : SslDecryptPacketFn
+    DecryptPacket : IntPtr
 
-    EncryptPacket : SslEncryptPacketFn
+    EncryptPacket : IntPtr
 
-    EnumCipherSuites : SslEnumCipherSuitesFn
+    EnumCipherSuites : IntPtr
 
-    ExportKey : SslExportKeyFn
+    ExportKey : IntPtr
 
-    FreeBuffer : SslFreeBufferFn
+    FreeBuffer : IntPtr
 
-    FreeObject : SslFreeObjectFn
+    FreeObject : IntPtr
 
-    GenerateMasterKey : SslGenerateMasterKeyFn
+    GenerateMasterKey : IntPtr
 
-    GenerateSessionKeys : SslGenerateSessionKeysFn
+    GenerateSessionKeys : IntPtr
 
-    GetKeyProperty : SslGetKeyPropertyFn
+    GetKeyProperty : IntPtr
 
-    GetProviderProperty : SslGetProviderPropertyFn
+    GetProviderProperty : IntPtr
 
-    HashHandshake : SslHashHandshakeFn
+    HashHandshake : IntPtr
 
-    ImportMasterKey : SslImportMasterKeyFn
+    ImportMasterKey : IntPtr
 
-    ImportKey : SslImportKeyFn
+    ImportKey : IntPtr
 
-    LookupCipherSuiteInfo : SslLookupCipherSuiteInfoFn
+    LookupCipherSuiteInfo : IntPtr
 
-    OpenPrivateKey : SslOpenPrivateKeyFn
+    OpenPrivateKey : IntPtr
 
-    OpenProvider : SslOpenProviderFn
+    OpenProvider : IntPtr
 
-    SignHash : SslSignHashFn
+    SignHash : IntPtr
 
-    VerifySignature : SslVerifySignatureFn
+    VerifySignature : IntPtr
 
-    LookupCipherLengths : SslLookupCipherLengthsFn
+    LookupCipherLengths : IntPtr
 
-    CreateClientAuthHash : SslCreateClientAuthHashFn
+    CreateClientAuthHash : IntPtr
 
-    GetCipherSuitePRFHashAlgorithm : SslGetCipherSuitePRFHashAlgorithmFn
+    GetCipherSuitePRFHashAlgorithm : IntPtr
 
-    ComputeSessionHash : SslComputeSessionHashFn
+    ComputeSessionHash : IntPtr
 
-    GeneratePreMasterKey : SslGeneratePreMasterKeyFn
+    GeneratePreMasterKey : IntPtr
 
-    EnumEccCurves : SslEnumEccCurvesFn
+    EnumEccCurves : IntPtr
 
-    ExportKeyingMaterial : SslExportKeyingMaterialFn
+    ExportKeyingMaterial : IntPtr
 
-    ExtractEarlyKey : SslExtractEarlyKeyFn
+    ExtractEarlyKey : IntPtr
 
-    ExtractHandshakeKey : SslExtractHandshakeKeyFn
+    ExtractHandshakeKey : IntPtr
 
-    ExtractMasterKey : SslExtractMasterKeyFn
+    ExtractMasterKey : IntPtr
 
-    ExpandTrafficKeys : SslExpandTrafficKeysFn
+    ExpandTrafficKeys : IntPtr
 
-    ExpandWriteKey : SslExpandWriteKeyFn
+    ExpandWriteKey : IntPtr
 
-    ExpandExporterMasterKey : SslExpandExporterMasterKeyFn
+    ExpandExporterMasterKey : IntPtr
 
-    EnumCipherSuitesEx : SslEnumCipherSuitesExFn
+    EnumCipherSuitesEx : IntPtr
 
-    ExpandResumptionMasterKey : SslExpandResumptionMasterKeyFn
+    ExpandResumptionMasterKey : IntPtr
 
-    DuplicateTranscriptHash : SslDuplicateTranscriptHashFn
+    DuplicateTranscriptHash : IntPtr
 
-    ExpandBinderKey : SslExpandBinderKeyFn
+    ExpandBinderKey : IntPtr
 
-    ExpandPreSharedKey : SslExpandPreSharedKeyFn
+    ExpandPreSharedKey : IntPtr
 
 }

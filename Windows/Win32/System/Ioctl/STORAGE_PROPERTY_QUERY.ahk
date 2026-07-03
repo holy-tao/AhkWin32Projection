@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\STORAGE_QUERY_TYPE.ahk" { STORAGE_QUERY_TYPE }
 #Import ".\STORAGE_PROPERTY_ID.ahk" { STORAGE_PROPERTY_ID }
+#Import ".\STORAGE_QUERY_TYPE.ahk" { STORAGE_QUERY_TYPE }
 
 /**
  * Indicates the properties of a storage device or adapter to retrieve as the input buffer passed to the IOCTL_STORAGE_QUERY_PROPERTY control code.

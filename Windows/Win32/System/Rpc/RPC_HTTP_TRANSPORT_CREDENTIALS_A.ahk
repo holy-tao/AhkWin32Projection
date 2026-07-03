@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RPC_C_HTTP_FLAGS.ahk" { RPC_C_HTTP_FLAGS }
 #Import ".\RPC_C_HTTP_AUTHN_TARGET.ahk" { RPC_C_HTTP_AUTHN_TARGET }
+#Import ".\RPC_C_HTTP_FLAGS.ahk" { RPC_C_HTTP_FLAGS }
 #Import ".\SEC_WINNT_AUTH_IDENTITY_A.ahk" { SEC_WINNT_AUTH_IDENTITY_A }
 
 /**

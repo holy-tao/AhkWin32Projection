@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The DSEnumAttributesCallback function is an application-defined callback function that is called once for each attribute enumerated by the IDsDisplaySpecifier::EnumClassAttributes method.
@@ -54,10 +54,6 @@ export default struct LPDSENUMATTRIBUTES {
             this.value := CallbackCreate(fn, , [LPARAM, PWSTR, PWSTR, UInt32, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

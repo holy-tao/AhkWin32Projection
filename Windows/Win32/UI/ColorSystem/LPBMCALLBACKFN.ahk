@@ -47,10 +47,6 @@ export default struct LPBMCALLBACKFN {
             this.value := CallbackCreate(fn, , [UInt32, UInt32, LPARAM, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMFOutputTrustAuthority.ahk" { IMFOutputTrustAuthority }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFOutputTrustAuthority.ahk" { IMFOutputTrustAuthority }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Implemented by components that provide output trust authorities (OTAs).

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SBinaryArray.ahk" { SBinaryArray }
-#Import ".\IMessage.ahk" { IMessage }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SSortOrderSet.ahk" { SSortOrderSet }
-#Import ".\IMAPIProgress.ahk" { IMAPIProgress }
 #Import ".\IMAPIContainer.ahk" { IMAPIContainer }
+#Import ".\IMAPIProgress.ahk" { IMAPIProgress }
+#Import ".\IMessage.ahk" { IMessage }
+#Import ".\SBinaryArray.ahk" { SBinaryArray }
+#Import ".\SSortOrderSet.ahk" { SSortOrderSet }
 
 /**
  * IMAPIFolderIMAPIContainer performs operations on the messages and subfolders in a folder. This article describes the related properties and members.

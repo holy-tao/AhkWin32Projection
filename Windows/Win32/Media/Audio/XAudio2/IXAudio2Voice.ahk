@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\XAUDIO2_EFFECT_CHAIN.ahk" { XAUDIO2_EFFECT_CHAIN }
-#Import ".\XAUDIO2_VOICE_DETAILS.ahk" { XAUDIO2_VOICE_DETAILS }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\XAUDIO2_VOICE_SENDS.ahk" { XAUDIO2_VOICE_SENDS }
-#Import ".\XAUDIO2_FILTER_PARAMETERS.ahk" { XAUDIO2_FILTER_PARAMETERS }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\XAUDIO2_EFFECT_CHAIN.ahk" { XAUDIO2_EFFECT_CHAIN }
+#Import ".\XAUDIO2_FILTER_PARAMETERS.ahk" { XAUDIO2_FILTER_PARAMETERS }
+#Import ".\XAUDIO2_VOICE_DETAILS.ahk" { XAUDIO2_VOICE_DETAILS }
+#Import ".\XAUDIO2_VOICE_SENDS.ahk" { XAUDIO2_VOICE_SENDS }
 
 /**
  * IXAudio2Voice represents the base interface from which IXAudio2SourceVoice, IXAudio2SubmixVoice and IXAudio2MasteringVoice are derived. The methods listed below are common to all voice subclasses.

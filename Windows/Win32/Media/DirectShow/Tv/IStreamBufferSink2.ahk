@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IStreamBufferSink.ahk" { IStreamBufferSink }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IStreamBufferSink.ahk" { IStreamBufferSink }
 
 /**
  * The IStreamBufferSink2 interface is exposed by the Stream Buffer Sink filter.

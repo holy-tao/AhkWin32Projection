@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Memory\VIRTUAL_ALLOCATION_TYPE.ahk" { VIRTUAL_ALLOCATION_TYPE }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\MINIDUMP_MEMORY_INFO.ahk" { MINIDUMP_MEMORY_INFO }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MINIDUMP_MEMORY_INFO.ahk" { MINIDUMP_MEMORY_INFO }
+#Import "..\..\Memory\VIRTUAL_ALLOCATION_TYPE.ahk" { VIRTUAL_ALLOCATION_TYPE }
 
 /**
  * Contains information returned by the MiniDumpCallback function.

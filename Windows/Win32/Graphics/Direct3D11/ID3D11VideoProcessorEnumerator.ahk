@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D11_VIDEO_PROCESSOR_CAPS.ahk" { D3D11_VIDEO_PROCESSOR_CAPS }
 #Import ".\D3D11_VIDEO_PROCESSOR_CONTENT_DESC.ahk" { D3D11_VIDEO_PROCESSOR_CONTENT_DESC }
 #Import ".\D3D11_VIDEO_PROCESSOR_CUSTOM_RATE.ahk" { D3D11_VIDEO_PROCESSOR_CUSTOM_RATE }
+#Import ".\D3D11_VIDEO_PROCESSOR_FILTER.ahk" { D3D11_VIDEO_PROCESSOR_FILTER }
 #Import ".\D3D11_VIDEO_PROCESSOR_FILTER_RANGE.ahk" { D3D11_VIDEO_PROCESSOR_FILTER_RANGE }
 #Import ".\D3D11_VIDEO_PROCESSOR_RATE_CONVERSION_CAPS.ahk" { D3D11_VIDEO_PROCESSOR_RATE_CONVERSION_CAPS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D11_VIDEO_PROCESSOR_FILTER.ahk" { D3D11_VIDEO_PROCESSOR_FILTER }
-#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 #Import ".\ID3D11DeviceChild.ahk" { ID3D11DeviceChild }
-#Import ".\D3D11_VIDEO_PROCESSOR_CAPS.ahk" { D3D11_VIDEO_PROCESSOR_CAPS }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 
 /**
  * Enumerates the video processor capabilities of a Microsoft Direct3D 11 device. (ID3D11VideoProcessorEnumerator)

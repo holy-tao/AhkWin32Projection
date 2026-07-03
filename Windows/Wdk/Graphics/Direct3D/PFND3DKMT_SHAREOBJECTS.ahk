@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\OBJECT_ATTRIBUTES.ahk" { OBJECT_ATTRIBUTES }
 #Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
-#Import "..\..\Foundation\OBJECT_ATTRIBUTES.ahk" { OBJECT_ATTRIBUTES }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
@@ -33,7 +33,7 @@ export default struct PFND3DKMT_SHAREOBJECTS {
         hObjectsMarshal := hObjects is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, UInt32, cObjects, hObjectsMarshal, hObjects, OBJECT_ATTRIBUTES.Ptr, pObjectAttributes, UInt32, dwDesiredAccess, HANDLE.Ptr, phSharedNtHandle, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -53,10 +53,6 @@ export default struct PFND3DKMT_SHAREOBJECTS {
             this.value := CallbackCreate(fn, , [UInt32, "uint*", OBJECT_ATTRIBUTES.Ptr, UInt32, HANDLE.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

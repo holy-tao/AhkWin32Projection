@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\Gdi\RGNDATA.ahk" { RGNDATA }
-#Import ".\IDirectDraw.ahk" { IDirectDraw }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\IDirectDraw.ahk" { IDirectDraw }
+#Import "..\Gdi\RGNDATA.ahk" { RGNDATA }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Applications use the methods of the IDirectDrawClipper interface to manage clip lists. This section is a reference to the methods of this interface.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\WCT_OBJECT_STATUS.ahk" { WCT_OBJECT_STATUS }
 #Import ".\WCT_OBJECT_TYPE.ahk" { WCT_OBJECT_TYPE }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

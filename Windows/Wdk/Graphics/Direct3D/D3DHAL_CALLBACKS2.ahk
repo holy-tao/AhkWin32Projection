@@ -1,9 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LPD3DHAL_CLEARCB.ahk" { LPD3DHAL_CLEARCB }
-#Import ".\LPD3DHAL_DRAWPRIMITIVESCB.ahk" { LPD3DHAL_DRAWPRIMITIVESCB }
-#Import ".\LPD3DHAL_DRAWONEINDEXEDPRIMITIVECB.ahk" { LPD3DHAL_DRAWONEINDEXEDPRIMITIVECB }
-#Import ".\LPD3DHAL_DRAWONEPRIMITIVECB.ahk" { LPD3DHAL_DRAWONEPRIMITIVECB }
-#Import ".\LPD3DHAL_SETRENDERTARGETCB.ahk" { LPD3DHAL_SETRENDERTARGETCB }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
@@ -15,14 +10,14 @@ export default struct D3DHAL_CALLBACKS2 {
 
     dwFlags : UInt32
 
-    SetRenderTarget : LPD3DHAL_SETRENDERTARGETCB
+    SetRenderTarget : IntPtr
 
-    Clear : LPD3DHAL_CLEARCB
+    Clear : IntPtr
 
-    DrawOnePrimitive : LPD3DHAL_DRAWONEPRIMITIVECB
+    DrawOnePrimitive : IntPtr
 
-    DrawOneIndexedPrimitive : LPD3DHAL_DRAWONEINDEXEDPRIMITIVECB
+    DrawOneIndexedPrimitive : IntPtr
 
-    DrawPrimitives : LPD3DHAL_DRAWPRIMITIVESCB
+    DrawPrimitives : IntPtr
 
 }

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
 
 /**
  * Exposes a method that initializes a handler, such as a property handler, thumbnail handler, or preview handler, with a property store.

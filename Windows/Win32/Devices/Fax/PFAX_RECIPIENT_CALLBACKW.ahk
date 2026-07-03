@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\FAX_COVERPAGE_INFOW.ahk" { FAX_COVERPAGE_INFOW }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\FAX_JOB_PARAMW.ahk" { FAX_JOB_PARAMW }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * The FAX_RECIPIENT_CALLBACK function is an application-defined or library-defined callback function that the FaxSendDocumentForBroadcast function calls to retrieve user-specific information for the transmission. (Unicode)
@@ -87,10 +87,6 @@ export default struct PFAX_RECIPIENT_CALLBACKW {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, "ptr", FAX_JOB_PARAMW.Ptr, FAX_COVERPAGE_INFOW.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

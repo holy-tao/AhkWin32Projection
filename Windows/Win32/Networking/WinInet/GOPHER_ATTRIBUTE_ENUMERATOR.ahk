@@ -54,10 +54,6 @@ export default struct GOPHER_ATTRIBUTE_ENUMERATOR {
             this.value := CallbackCreate(fn, , [GOPHER_ATTRIBUTE_TYPE.Ptr, UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

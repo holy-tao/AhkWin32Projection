@@ -2,13 +2,13 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D12_VERSION_NUMBER.ahk" { D3D12_VERSION_NUMBER }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\D3D12_COMPILER_DATABASE_PATH.ahk" { D3D12_COMPILER_DATABASE_PATH }
-#Import ".\D3D12_APPLICATION_DESC.ahk" { D3D12_APPLICATION_DESC }
-#Import ".\D3D12_COMPILER_TARGET.ahk" { D3D12_COMPILER_TARGET }
-#Import ".\ID3D12CompilerCacheSession.ahk" { ID3D12CompilerCacheSession }
 #Import ".\D3D12_ADAPTER_FAMILY.ahk" { D3D12_ADAPTER_FAMILY }
+#Import ".\D3D12_APPLICATION_DESC.ahk" { D3D12_APPLICATION_DESC }
+#Import ".\D3D12_COMPILER_DATABASE_PATH.ahk" { D3D12_COMPILER_DATABASE_PATH }
+#Import ".\D3D12_COMPILER_TARGET.ahk" { D3D12_COMPILER_TARGET }
+#Import ".\D3D12_VERSION_NUMBER.ahk" { D3D12_VERSION_NUMBER }
+#Import ".\ID3D12CompilerCacheSession.ahk" { ID3D12CompilerCacheSession }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

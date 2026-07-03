@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DEBUG_TRIAGE_FOLLOWUP_INFO.ahk" { DEBUG_TRIAGE_FOLLOWUP_INFO }
 #Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\DEBUG_TRIAGE_FOLLOWUP_INFO.ahk" { DEBUG_TRIAGE_FOLLOWUP_INFO }
 #Import ".\IDebugClient4.ahk" { IDebugClient4 }
 
 /**
@@ -50,10 +50,6 @@ export default struct EXT_TRIAGE_FOLLOWUP {
             this.value := CallbackCreate(fn, , ["ptr", PSTR, DEBUG_TRIAGE_FOLLOWUP_INFO.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

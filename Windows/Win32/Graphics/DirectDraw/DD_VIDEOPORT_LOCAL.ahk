@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DD_SURFACE_INT.ahk" { DD_SURFACE_INT }
-#Import ".\DDVIDEOPORTINFO.ahk" { DDVIDEOPORTINFO }
-#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\DDVIDEOPORTDESC.ahk" { DDVIDEOPORTDESC }
-#Import ".\DD_DIRECTDRAW_LOCAL.ahk" { DD_DIRECTDRAW_LOCAL }
-#Import ".\DDVIDEOPORTCONNECT.ahk" { DDVIDEOPORTCONNECT }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
+#Import ".\DDVIDEOPORTCONNECT.ahk" { DDVIDEOPORTCONNECT }
+#Import ".\DDVIDEOPORTDESC.ahk" { DDVIDEOPORTDESC }
+#Import ".\DDVIDEOPORTINFO.ahk" { DDVIDEOPORTINFO }
+#Import ".\DD_DIRECTDRAW_LOCAL.ahk" { DD_DIRECTDRAW_LOCAL }
+#Import ".\DD_SURFACE_INT.ahk" { DD_SURFACE_INT }
 
 /**
  * The DD_VIDEOPORT_LOCAL structure contains video port extensions (VPE)-related data that is unique to an individual Microsoft DirectDraw VPE object.

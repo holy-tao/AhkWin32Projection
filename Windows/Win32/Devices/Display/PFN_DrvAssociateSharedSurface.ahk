@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 #Import ".\SURFOBJ.ahk" { SURFOBJ }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -50,10 +50,6 @@ export default struct PFN_DrvAssociateSharedSurface {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, HANDLE, HANDLE, SIZE, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

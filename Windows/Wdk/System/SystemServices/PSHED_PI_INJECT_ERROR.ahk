@@ -32,7 +32,7 @@ export default struct PSHED_PI_INJECT_ERROR {
         PluginContextMarshal := PluginContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, PluginContextMarshal, PluginContext, Int64, ErrorType, Int64, Parameter1, Int64, Parameter2, Int64, Parameter3, Int64, Parameter4, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -52,10 +52,6 @@ export default struct PSHED_PI_INJECT_ERROR {
             this.value := CallbackCreate(fn, , ["ptr", Int64, Int64, Int64, Int64, Int64, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

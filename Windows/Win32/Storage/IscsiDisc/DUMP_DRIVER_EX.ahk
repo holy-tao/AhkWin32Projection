@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NTSCSI_UNICODE_STRING.ahk" { NTSCSI_UNICODE_STRING }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\NTSCSI_UNICODE_STRING.ahk" { NTSCSI_UNICODE_STRING }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

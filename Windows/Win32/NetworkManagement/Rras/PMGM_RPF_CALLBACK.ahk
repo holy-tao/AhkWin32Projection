@@ -111,10 +111,6 @@ export default struct PMGM_RPF_CALLBACK {
             this.value := CallbackCreate(fn, , [UInt32, UInt32, UInt32, UInt32, "uint*", "uint*", "uint*", UInt32, "char*", "char*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

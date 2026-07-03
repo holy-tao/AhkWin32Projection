@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ADSVALUE.ahk" { ADSVALUE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ADSTYPE.ahk" { ADSTYPE }
+#Import ".\ADSVALUE.ahk" { ADSVALUE }
 
 /**
  * Used to contain one or more attribute values for use with the IDirectoryObject::CreateDSObject, IDirectoryObject::GetObjectAttributes, or IDirectoryObject::SetObjectAttributes method.

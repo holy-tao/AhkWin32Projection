@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\UI\WindowsAndMessaging\DLGPROC.ahk" { DLGPROC }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -12,7 +11,7 @@ export default struct DLGPAGE {
 
     Flags : UInt16
 
-    DlgProc : DLGPROC
+    DlgProc : IntPtr
 
     pTabName : IntPtr
 

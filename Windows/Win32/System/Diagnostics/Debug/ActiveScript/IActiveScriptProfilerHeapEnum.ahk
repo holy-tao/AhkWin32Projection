@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\PROFILER_HEAP_OBJECT_OPTIONAL_INFO.ahk" { PROFILER_HEAP_OBJECT_OPTIONAL_INFO }
-#Import ".\PROFILER_HEAP_OBJECT.ahk" { PROFILER_HEAP_OBJECT }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\PROFILER_HEAP_OBJECT.ahk" { PROFILER_HEAP_OBJECT }
+#Import ".\PROFILER_HEAP_OBJECT_OPTIONAL_INFO.ahk" { PROFILER_HEAP_OBJECT_OPTIONAL_INFO }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\OPM_OMAC.ahk" { OPM_OMAC }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\OPM_OMAC.ahk" { OPM_OMAC }
 
 /**
  * Contains an Output Protection Manager (OPM) or Certified Output Protection Manager (COPP) command.

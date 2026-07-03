@@ -46,10 +46,6 @@ export default struct PDNS_QUERY_COMPLETION_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", DNS_QUERY_RESULT.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

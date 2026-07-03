@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Gdi\PALETTEENTRY.ahk" { PALETTEENTRY }
-#Import ".\IDirectDraw.ahk" { IDirectDraw }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDirectDraw.ahk" { IDirectDraw }
+#Import "..\Gdi\PALETTEENTRY.ahk" { PALETTEENTRY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Applications use the methods of the IDirectDrawPalette interface to create DirectDrawPalette objects and work with system-level variables. This section is a reference to the methods of this interface.

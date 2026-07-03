@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\HPROPSHEETPAGE.ahk" { HPROPSHEETPAGE }
 #Import "..\..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
+#Import "..\..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import ".\PRINTPAGERANGE.ahk" { PRINTPAGERANGE }
-#Import ".\PRINTDLGEX_FLAGS.ahk" { PRINTDLGEX_FLAGS }
 #Import "..\..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\PRINTDLGEX_FLAGS.ahk" { PRINTDLGEX_FLAGS }
+#Import ".\PRINTPAGERANGE.ahk" { PRINTPAGERANGE }
+#Import "..\HPROPSHEETPAGE.ahk" { HPROPSHEETPAGE }
 
 /**
  * Contains information that the PrintDlgEx function uses to initialize the Print property sheet. After the user closes the property sheet, the system uses this structure to return information about the user's selections. (ANSI)

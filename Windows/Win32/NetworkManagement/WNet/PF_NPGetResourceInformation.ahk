@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NETRESOURCEW.ahk" { NETRESOURCEW }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\NETRESOURCEW.ahk" { NETRESOURCEW }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WNet
@@ -51,10 +51,6 @@ export default struct PF_NPGetResourceInformation {
             this.value := CallbackCreate(fn, , [NETRESOURCEW.Ptr, IntPtr, "uint*", PWSTR.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

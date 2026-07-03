@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import ".\IOleInPlaceUIWindow.ahk" { IOleInPlaceUIWindow }
-#Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
 #Import ".\IOleWindow.ahk" { IOleWindow }
+#Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
 
 /**
  * Provides a direct channel of communication between an in-place object and the associated application's outer-most frame window and the document window within the application that contains the embedded object.

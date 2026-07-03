@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\..\Win32\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -30,7 +30,7 @@ export default struct PGET_LOCATION_STRING {
         LocationStringsMarshal := LocationStrings is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, LocationStringsMarshal, LocationStrings, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -50,10 +50,6 @@ export default struct PGET_LOCATION_STRING {
             this.value := CallbackCreate(fn, , ["ptr", PWSTR.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

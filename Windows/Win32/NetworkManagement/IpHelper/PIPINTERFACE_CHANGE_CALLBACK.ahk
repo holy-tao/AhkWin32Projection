@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MIB_NOTIFICATION_TYPE.ahk" { MIB_NOTIFICATION_TYPE }
 #Import ".\MIB_IPINTERFACE_ROW.ahk" { MIB_IPINTERFACE_ROW }
+#Import ".\MIB_NOTIFICATION_TYPE.ahk" { MIB_NOTIFICATION_TYPE }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
@@ -48,10 +48,6 @@ export default struct PIPINTERFACE_CHANGE_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", MIB_IPINTERFACE_ROW.Ptr, MIB_NOTIFICATION_TYPE, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

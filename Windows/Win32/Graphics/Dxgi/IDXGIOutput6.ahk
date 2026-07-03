@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDXGIOutput5.ahk" { IDXGIOutput5 }
-#Import ".\DXGI_OUTPUT_DESC1.ahk" { DXGI_OUTPUT_DESC1 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXGI_OUTPUT_DESC1.ahk" { DXGI_OUTPUT_DESC1 }
+#Import ".\IDXGIOutput5.ahk" { IDXGIOutput5 }
 
 /**
  * Represents an adapter output (such as a monitor). The IDXGIOutput6 interface exposes methods to provide specific monitor capabilities.

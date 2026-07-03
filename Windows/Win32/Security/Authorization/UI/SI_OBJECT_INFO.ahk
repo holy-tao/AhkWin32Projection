@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import ".\SI_OBJECT_INFO_FLAGS.ahk" { SI_OBJECT_INFO_FLAGS }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SI_OBJECT_INFO_FLAGS.ahk" { SI_OBJECT_INFO_FLAGS }
 
 /**
  * Used to initialize the access control editor.

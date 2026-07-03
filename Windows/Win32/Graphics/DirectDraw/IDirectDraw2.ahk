@@ -1,20 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\LPDDENUMMODESCALLBACK.ahk" { LPDDENUMMODESCALLBACK }
-#Import ".\IDirectDrawPalette.ahk" { IDirectDrawPalette }
-#Import ".\LPDDENUMSURFACESCALLBACK.ahk" { LPDDENUMSURFACESCALLBACK }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Gdi\PALETTEENTRY.ahk" { PALETTEENTRY }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\DDCAPS_DX7.ahk" { DDCAPS_DX7 }
-#Import ".\DDSURFACEDESC.ahk" { DDSURFACEDESC }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDSCAPS.ahk" { DDSCAPS }
+#Import ".\DDSURFACEDESC.ahk" { DDSURFACEDESC }
 #Import ".\IDirectDrawClipper.ahk" { IDirectDrawClipper }
+#Import ".\IDirectDrawPalette.ahk" { IDirectDrawPalette }
 #Import ".\IDirectDrawSurface.ahk" { IDirectDrawSurface }
+#Import "..\Gdi\PALETTEENTRY.ahk" { PALETTEENTRY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -138,7 +136,7 @@ export default struct IDirectDraw2 extends IUnknown {
     EnumDisplayModes(param0, param1, param2, param3) {
         param2Marshal := param2 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(8, this, UInt32, param0, DDSURFACEDESC.Ptr, param1, param2Marshal, param2, LPDDENUMMODESCALLBACK, param3, "HRESULT")
+        result := ComCall(8, this, UInt32, param0, DDSURFACEDESC.Ptr, param1, param2Marshal, param2, "ptr", param3, "HRESULT")
         return result
     }
 
@@ -153,7 +151,7 @@ export default struct IDirectDraw2 extends IUnknown {
     EnumSurfaces(param0, param1, param2, param3) {
         param2Marshal := param2 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, UInt32, param0, DDSURFACEDESC.Ptr, param1, param2Marshal, param2, LPDDENUMSURFACESCALLBACK, param3, "HRESULT")
+        result := ComCall(9, this, UInt32, param0, DDSURFACEDESC.Ptr, param1, param2Marshal, param2, "ptr", param3, "HRESULT")
         return result
     }
 

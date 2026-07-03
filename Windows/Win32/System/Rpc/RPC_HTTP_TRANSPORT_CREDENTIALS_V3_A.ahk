@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RPC_C_HTTP_FLAGS.ahk" { RPC_C_HTTP_FLAGS }
 #Import ".\RPC_C_HTTP_AUTHN_TARGET.ahk" { RPC_C_HTTP_AUTHN_TARGET }
+#Import ".\RPC_C_HTTP_FLAGS.ahk" { RPC_C_HTTP_FLAGS }
 
 /**
  * The RPC_HTTP_TRANSPORT_CREDENTIALS_V3 structure defines additional credentials to authenticate to an RPC proxy server or HTTP proxy server when using RPC/HTTP.RPC_HTTP_TRANSPORT_CREDENTIALS_V3 extends RPC_HTTP_TRANSPORT_CREDENTIALS_V2 by allowing arbitrary credential forms to be used. (ANSI)

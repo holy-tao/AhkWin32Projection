@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HRSRC.ahk" { HRSRC }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\LPFNOLEUIHOOK.ahk" { LPFNOLEUIHOOK }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\UI\Controls\Dialogs\OPENFILENAMEW.ahk" { OPENFILENAMEW }
-#Import ".\IOleUILinkContainerW.ahk" { IOleUILinkContainerW }
-#Import ".\CHANGE_SOURCE_FLAGS.ahk" { CHANGE_SOURCE_FLAGS }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\HRSRC.ahk" { HRSRC }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CHANGE_SOURCE_FLAGS.ahk" { CHANGE_SOURCE_FLAGS }
+#Import ".\IOleUILinkContainerW.ahk" { IOleUILinkContainerW }
+#Import "..\..\UI\Controls\Dialogs\OPENFILENAMEW.ahk" { OPENFILENAMEW }
 
 /**
  * Contains information that is used to initialize the standard Change Source dialog box. (Unicode)
@@ -83,7 +82,7 @@ export default struct OLEUICHANGESOURCEW {
     /**
      * Pointer to a hook function that processes messages intended for the dialog box. The hook function must return zero to pass a message that it didn't process back to the dialog box procedure in the library. The hook function must return a nonzero value to prevent the library's dialog box procedure from processing a message it has already processed.
      */
-    lpfnHook : LPFNOLEUIHOOK
+    lpfnHook : IntPtr
 
     /**
      * Application-defined data that the library passes to the hook function pointed to by the [OLEUICHANGEICON](./nf-oledlg-oleuichangeicona.md) structure in the <i>lParam</i> parameter of the WM_INITDIALOG message; this pointer can be used to retrieve the <b>lCustData</b> member.

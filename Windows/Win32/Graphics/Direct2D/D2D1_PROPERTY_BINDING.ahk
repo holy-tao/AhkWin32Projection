@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PD2D1_PROPERTY_SET_FUNCTION.ahk" { PD2D1_PROPERTY_SET_FUNCTION }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\PD2D1_PROPERTY_GET_FUNCTION.ahk" { PD2D1_PROPERTY_GET_FUNCTION }
 
 /**
  * Defines a property binding to a pair of functions which get and set the corresponding property.
@@ -25,11 +23,11 @@ export default struct D2D1_PROPERTY_BINDING {
     /**
      * The function that will receive the data to set.
      */
-    setFunction : PD2D1_PROPERTY_SET_FUNCTION
+    setFunction : IntPtr
 
     /**
      * The function that will be asked to write the output data.
      */
-    getFunction : PD2D1_PROPERTY_GET_FUNCTION
+    getFunction : IntPtr
 
 }

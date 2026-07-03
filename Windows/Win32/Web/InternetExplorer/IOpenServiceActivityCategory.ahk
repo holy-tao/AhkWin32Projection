@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\IOpenServiceActivity.ahk" { IOpenServiceActivity }
-#Import ".\IOpenServiceActivityOutputContext.ahk" { IOpenServiceActivityOutputContext }
-#Import ".\IOpenServiceActivityInput.ahk" { IOpenServiceActivityInput }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IEnumOpenServiceActivity.ahk" { IEnumOpenServiceActivity }
+#Import ".\IOpenServiceActivity.ahk" { IOpenServiceActivity }
+#Import ".\IOpenServiceActivityInput.ahk" { IOpenServiceActivityInput }
+#Import ".\IOpenServiceActivityOutputContext.ahk" { IOpenServiceActivityOutputContext }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer

@@ -52,10 +52,6 @@ export default struct pCryptSIPPutSignedDataMsg {
             this.value := CallbackCreate(fn, , [SIP_SUBJECTINFO.Ptr, UInt32, "uint*", UInt32, "char*", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

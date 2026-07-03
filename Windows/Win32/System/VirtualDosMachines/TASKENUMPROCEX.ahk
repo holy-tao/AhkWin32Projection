@@ -57,10 +57,6 @@ export default struct TASKENUMPROCEX {
             this.value := CallbackCreate(fn, , [UInt32, UInt16, UInt16, "char*", "char*", LPARAM, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\LUID.ahk" { LUID }
-#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\SE_AUDIT_OPERATION.ahk" { SE_AUDIT_OPERATION }
-#Import "..\..\..\Win32\Security\AUDIT_EVENT_TYPE.ahk" { AUDIT_EVENT_TYPE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SE_AUDIT_OPERATION.ahk" { SE_AUDIT_OPERATION }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\Win32\Foundation\LUID.ahk" { LUID }
+#Import "..\..\..\Win32\Security\AUDIT_EVENT_TYPE.ahk" { AUDIT_EVENT_TYPE }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem

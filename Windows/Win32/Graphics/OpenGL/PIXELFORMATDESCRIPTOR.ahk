@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PFD_PIXEL_TYPE.ahk" { PFD_PIXEL_TYPE }
 #Import ".\PFD_FLAGS.ahk" { PFD_FLAGS }
+#Import ".\PFD_PIXEL_TYPE.ahk" { PFD_PIXEL_TYPE }
 
 /**
  * The PIXELFORMATDESCRIPTOR structure describes the pixel format of a drawing surface.
@@ -10,7 +10,7 @@
  * @namespace Windows.Win32.Graphics.OpenGL
  */
 export default struct PIXELFORMATDESCRIPTOR {
-    #StructPack 8
+    #StructPack 4
 
     /**
      * Specifies the size of this data structure. This value should be set to <b>sizeof</b>(<b>PIXELFORMATDESCRIPTOR</b>).

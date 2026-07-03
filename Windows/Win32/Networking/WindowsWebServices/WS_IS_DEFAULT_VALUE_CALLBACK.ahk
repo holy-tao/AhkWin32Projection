@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\WS_ERROR.ahk" { WS_ERROR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WS_ERROR.ahk" { WS_ERROR }
 
 /**
  * Determines if a value is the default value.
@@ -67,10 +67,6 @@ export default struct WS_IS_DEFAULT_VALUE_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr, IntPtr, UInt32, WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

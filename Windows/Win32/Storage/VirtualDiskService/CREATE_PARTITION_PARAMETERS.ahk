@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VDS_PARTITION_STYLE.ahk" { VDS_PARTITION_STYLE }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\VDS_PARTITION_STYLE.ahk" { VDS_PARTITION_STYLE }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

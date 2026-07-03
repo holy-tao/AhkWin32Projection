@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DBPROPSET.ahk" { DBPROPSET }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DBPROPIDSET.ahk" { DBPROPIDSET }
+#Import ".\DBPROPSET.ahk" { DBPROPSET }
 
 /**
  * @namespace Windows.Win32.System.Search

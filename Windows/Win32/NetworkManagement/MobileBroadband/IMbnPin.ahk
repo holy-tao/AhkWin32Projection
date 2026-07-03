@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IMbnPinManager.ahk" { IMbnPinManager }
 #Import ".\MBN_PIN_FORMAT.ahk" { MBN_PIN_FORMAT }
 #Import ".\MBN_PIN_MODE.ahk" { MBN_PIN_MODE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMbnPinManager.ahk" { IMbnPinManager }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\MBN_PIN_TYPE.ahk" { MBN_PIN_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents the device PIN.

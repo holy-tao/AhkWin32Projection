@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The ACTCTX structure is used by the CreateActCtx function to create the activation context. (Unicode)

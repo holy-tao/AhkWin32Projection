@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HCRYPTPROV_LEGACY.ahk" { HCRYPTPROV_LEGACY }
-#Import ".\CERT_ISSUER_SERIAL_NUMBER.ahk" { CERT_ISSUER_SERIAL_NUMBER }
-#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
-#Import ".\CRYPT_BIT_BLOB.ahk" { CRYPT_BIT_BLOB }
-#Import ".\CERT_ID_OPTION.ahk" { CERT_ID_OPTION }
-#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\CERT_ID.ahk" { CERT_ID }
+#Import ".\CERT_ID_OPTION.ahk" { CERT_ID_OPTION }
+#Import ".\CERT_ISSUER_SERIAL_NUMBER.ahk" { CERT_ISSUER_SERIAL_NUMBER }
+#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
+#Import ".\CRYPT_BIT_BLOB.ahk" { CRYPT_BIT_BLOB }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\HCRYPTPROV_LEGACY.ahk" { HCRYPTPROV_LEGACY }
 
 /**
  * Contains encoded key transport information for a message recipient.

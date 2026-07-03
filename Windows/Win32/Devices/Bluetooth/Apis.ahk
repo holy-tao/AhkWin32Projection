@@ -1,35 +1,31 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\AUTHENTICATION_REQUIREMENTS.ahk" { AUTHENTICATION_REQUIREMENTS }
-#Import ".\BLUETOOTH_DEVICE_INFO.ahk" { BLUETOOTH_DEVICE_INFO }
-#Import ".\BLUETOOTH_FIND_RADIO_PARAMS.ahk" { BLUETOOTH_FIND_RADIO_PARAMS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\PFN_AUTHENTICATION_CALLBACK_EX.ahk" { PFN_AUTHENTICATION_CALLBACK_EX }
-#Import ".\BLUETOOTH_DEVICE_SEARCH_PARAMS.ahk" { BLUETOOTH_DEVICE_SEARCH_PARAMS }
-#Import ".\BLUETOOTH_RADIO_INFO.ahk" { BLUETOOTH_RADIO_INFO }
-#Import ".\BLUETOOTH_LOCAL_SERVICE_INFO.ahk" { BLUETOOTH_LOCAL_SERVICE_INFO }
-#Import ".\BTH_LE_GATT_SERVICE.ahk" { BTH_LE_GATT_SERVICE }
-#Import ".\HBLUETOOTH_RADIO_FIND.ahk" { HBLUETOOTH_RADIO_FIND }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\BLUETOOTH_OOB_DATA_INFO.ahk" { BLUETOOTH_OOB_DATA_INFO }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\PFNBLUETOOTH_GATT_EVENT_CALLBACK.ahk" { PFNBLUETOOTH_GATT_EVENT_CALLBACK }
-#Import ".\BTH_LE_GATT_CHARACTERISTIC.ahk" { BTH_LE_GATT_CHARACTERISTIC }
-#Import ".\PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK.ahk" { PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK }
-#Import ".\HBLUETOOTH_DEVICE_FIND.ahk" { HBLUETOOTH_DEVICE_FIND }
-#Import ".\BLUETOOTH_SELECT_DEVICE_PARAMS.ahk" { BLUETOOTH_SELECT_DEVICE_PARAMS }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\AUTHENTICATION_REQUIREMENTS.ahk" { AUTHENTICATION_REQUIREMENTS }
+#Import ".\BLUETOOTH_ADDRESS.ahk" { BLUETOOTH_ADDRESS }
+#Import ".\BLUETOOTH_AUTHENTICATE_RESPONSE.ahk" { BLUETOOTH_AUTHENTICATE_RESPONSE }
+#Import ".\BLUETOOTH_DEVICE_INFO.ahk" { BLUETOOTH_DEVICE_INFO }
+#Import ".\BLUETOOTH_DEVICE_SEARCH_PARAMS.ahk" { BLUETOOTH_DEVICE_SEARCH_PARAMS }
+#Import ".\BLUETOOTH_FIND_RADIO_PARAMS.ahk" { BLUETOOTH_FIND_RADIO_PARAMS }
+#Import ".\BLUETOOTH_LOCAL_SERVICE_INFO.ahk" { BLUETOOTH_LOCAL_SERVICE_INFO }
+#Import ".\BLUETOOTH_OOB_DATA_INFO.ahk" { BLUETOOTH_OOB_DATA_INFO }
+#Import ".\BLUETOOTH_RADIO_INFO.ahk" { BLUETOOTH_RADIO_INFO }
+#Import ".\BLUETOOTH_SELECT_DEVICE_PARAMS.ahk" { BLUETOOTH_SELECT_DEVICE_PARAMS }
+#Import ".\BTH_LE_GATT_CHARACTERISTIC.ahk" { BTH_LE_GATT_CHARACTERISTIC }
+#Import ".\BTH_LE_GATT_CHARACTERISTIC_VALUE.ahk" { BTH_LE_GATT_CHARACTERISTIC_VALUE }
+#Import ".\BTH_LE_GATT_DESCRIPTOR.ahk" { BTH_LE_GATT_DESCRIPTOR }
+#Import ".\BTH_LE_GATT_DESCRIPTOR_VALUE.ahk" { BTH_LE_GATT_DESCRIPTOR_VALUE }
+#Import ".\BTH_LE_GATT_EVENT_TYPE.ahk" { BTH_LE_GATT_EVENT_TYPE }
+#Import ".\BTH_LE_GATT_SERVICE.ahk" { BTH_LE_GATT_SERVICE }
+#Import ".\HBLUETOOTH_DEVICE_FIND.ahk" { HBLUETOOTH_DEVICE_FIND }
+#Import ".\HBLUETOOTH_RADIO_FIND.ahk" { HBLUETOOTH_RADIO_FIND }
 #Import ".\SDP_ELEMENT_DATA.ahk" { SDP_ELEMENT_DATA }
 #Import ".\SDP_STRING_TYPE_DATA.ahk" { SDP_STRING_TYPE_DATA }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\BLUETOOTH_ADDRESS.ahk" { BLUETOOTH_ADDRESS }
-#Import ".\BTH_LE_GATT_EVENT_TYPE.ahk" { BTH_LE_GATT_EVENT_TYPE }
-#Import ".\BLUETOOTH_AUTHENTICATE_RESPONSE.ahk" { BLUETOOTH_AUTHENTICATE_RESPONSE }
-#Import ".\BTH_LE_GATT_DESCRIPTOR.ahk" { BTH_LE_GATT_DESCRIPTOR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\BTH_LE_GATT_DESCRIPTOR_VALUE.ahk" { BTH_LE_GATT_DESCRIPTOR_VALUE }
-#Import ".\BTH_LE_GATT_CHARACTERISTIC_VALUE.ahk" { BTH_LE_GATT_CHARACTERISTIC_VALUE }
-#Import ".\PFN_AUTHENTICATION_CALLBACK.ahk" { PFN_AUTHENTICATION_CALLBACK }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Devices.Bluetooth
@@ -1054,7 +1050,7 @@ export BluetoothRegisterForAuthentication(pbtdi, phRegHandle, _pfnCallback, pvPa
 
     A_LastError := 0
 
-    result := DllCall("BluetoothApis.dll\BluetoothRegisterForAuthentication", BLUETOOTH_DEVICE_INFO.Ptr, pbtdi, phRegHandleMarshal, phRegHandle, PFN_AUTHENTICATION_CALLBACK, _pfnCallback, pvParamMarshal, pvParam, UInt32)
+    result := DllCall("BluetoothApis.dll\BluetoothRegisterForAuthentication", BLUETOOTH_DEVICE_INFO.Ptr, pbtdi, phRegHandleMarshal, phRegHandle, "ptr", _pfnCallback, pvParamMarshal, pvParam, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1110,7 +1106,7 @@ export BluetoothRegisterForAuthenticationEx(pbtdiIn, phRegHandleOut, pfnCallback
     phRegHandleOutMarshal := phRegHandleOut is VarRef ? "ptr*" : "ptr"
     pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("BluetoothApis.dll\BluetoothRegisterForAuthenticationEx", BLUETOOTH_DEVICE_INFO.Ptr, pbtdiIn, phRegHandleOutMarshal, phRegHandleOut, PFN_AUTHENTICATION_CALLBACK_EX, pfnCallbackIn, pvParamMarshal, pvParam, UInt32)
+    result := DllCall("BluetoothApis.dll\BluetoothRegisterForAuthenticationEx", BLUETOOTH_DEVICE_INFO.Ptr, pbtdiIn, phRegHandleOutMarshal, phRegHandleOut, "ptr", pfnCallbackIn, pvParamMarshal, pvParam, UInt32)
     return result
 }
 
@@ -1489,7 +1485,7 @@ export BluetoothSdpEnumAttributes(pSDPStream, cbStreamSize, _pfnCallback, pvPara
 
     A_LastError := 0
 
-    result := DllCall("BluetoothApis.dll\BluetoothSdpEnumAttributes", IntPtr, pSDPStream, UInt32, cbStreamSize, PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK, _pfnCallback, pvParamMarshal, pvParam, BOOL)
+    result := DllCall("BluetoothApis.dll\BluetoothSdpEnumAttributes", IntPtr, pSDPStream, UInt32, cbStreamSize, "ptr", _pfnCallback, pvParamMarshal, pvParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3689,7 +3685,7 @@ export BluetoothGATTRegisterEvent(hService, EventType, EventParameterIn, Callbac
     EventParameterInMarshal := EventParameterIn is VarRef ? "ptr" : "ptr"
     CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("BluetoothApis.dll\BluetoothGATTRegisterEvent", HANDLE, hService, BTH_LE_GATT_EVENT_TYPE, EventType, EventParameterInMarshal, EventParameterIn, PFNBLUETOOTH_GATT_EVENT_CALLBACK, Callback, CallbackContextMarshal, CallbackContext, "ptr*", &pEventHandle := 0, UInt32, Flags, "HRESULT")
+    result := DllCall("BluetoothApis.dll\BluetoothGATTRegisterEvent", HANDLE, hService, BTH_LE_GATT_EVENT_TYPE, EventType, EventParameterInMarshal, EventParameterIn, "ptr", Callback, CallbackContextMarshal, CallbackContext, "ptr*", &pEventHandle := 0, UInt32, Flags, "HRESULT")
     return pEventHandle
 }
 

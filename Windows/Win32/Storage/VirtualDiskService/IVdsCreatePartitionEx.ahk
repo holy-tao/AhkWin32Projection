@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\CREATE_PARTITION_PARAMETERS.ahk" { CREATE_PARTITION_PARAMETERS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CREATE_PARTITION_PARAMETERS.ahk" { CREATE_PARTITION_PARAMETERS }
 #Import ".\IVdsAsync.ahk" { IVdsAsync }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Creates a partition on a basic disk.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\WINDOW_STYLE.ahk" { WINDOW_STYLE }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 
 /**
  * Contains information about the class, title, owner, location, and size of a multiple-document interface (MDI) child window. (ANSI)

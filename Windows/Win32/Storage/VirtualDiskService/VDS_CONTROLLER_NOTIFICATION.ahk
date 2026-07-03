@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VDS_NF_CONTROLLER.ahk" { VDS_NF_CONTROLLER }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VDS_NF_CONTROLLER.ahk" { VDS_NF_CONTROLLER }
 
 /**
  * The VDS_CONTROLLER_NOTIFICATION structure (vdshwprv.h) defines the details of controller events.

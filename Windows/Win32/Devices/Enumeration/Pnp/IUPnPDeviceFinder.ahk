@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUPnPDevices.ahk" { IUPnPDevices }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IUPnPDevice.ahk" { IUPnPDevice }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IUPnPDevices.ahk" { IUPnPDevices }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IUPnPDeviceFinder interface enables an application to find a device.

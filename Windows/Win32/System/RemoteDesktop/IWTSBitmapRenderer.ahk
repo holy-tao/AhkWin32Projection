@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\BITMAP_RENDERER_STATISTICS.ahk" { BITMAP_RENDERER_STATISTICS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Used by a dynamic virtual channel plug-in to render bitmaps.

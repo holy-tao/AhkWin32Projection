@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\HTTP_SERVICE_CONFIG_SSL_KEY.ahk" { HTTP_SERVICE_CONFIG_SSL_KEY }
 #Import ".\HTTP_SERVICE_CONFIG_SSL_PARAM.ahk" { HTTP_SERVICE_CONFIG_SSL_PARAM }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\WinSock\SOCKADDR.ahk" { SOCKADDR }
 
 /**

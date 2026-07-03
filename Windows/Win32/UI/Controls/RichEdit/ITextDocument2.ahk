@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITextDocument.ahk" { ITextDocument }
-#Import ".\ITextDisplays.ahk" { ITextDisplays }
-#Import ".\ITextSelection2.ahk" { ITextSelection2 }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ITextStory.ahk" { ITextStory }
-#Import ".\ITextRange2.ahk" { ITextRange2 }
-#Import ".\tomConstants.ahk" { tomConstants }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITextStoryRanges2.ahk" { ITextStoryRanges2 }
-#Import ".\ITextStrings.ahk" { ITextStrings }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITextDisplays.ahk" { ITextDisplays }
+#Import ".\ITextDocument.ahk" { ITextDocument }
 #Import ".\ITextFont2.ahk" { ITextFont2 }
 #Import ".\ITextPara2.ahk" { ITextPara2 }
+#Import ".\ITextRange2.ahk" { ITextRange2 }
+#Import ".\ITextSelection2.ahk" { ITextSelection2 }
+#Import ".\ITextStory.ahk" { ITextStory }
+#Import ".\ITextStoryRanges2.ahk" { ITextStoryRanges2 }
+#Import ".\ITextStrings.ahk" { ITextStrings }
+#Import ".\tomConstants.ahk" { tomConstants }
 
 /**
  * Extends the ITextDocument interface, adding methods that enable the Input Method Editor (IME) to drive the rich edit control, and methods to retrieve other interfaces such as ITextDisplays, ITextRange2, ITextFont2, ITextPara2, and so on.

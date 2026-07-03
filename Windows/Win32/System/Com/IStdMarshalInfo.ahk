@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * The IStdMarshalInfo (objidlbase.h) interface retrieves the CLSID identifying the handler to be used in the destination process during standard marshaling.

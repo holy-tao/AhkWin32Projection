@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MFCLOCK_STATE.ahk" { MFCLOCK_STATE }
-#Import ".\MFCLOCK_PROPERTIES.ahk" { MFCLOCK_PROPERTIES }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MFCLOCK_PROPERTIES.ahk" { MFCLOCK_PROPERTIES }
+#Import ".\MFCLOCK_STATE.ahk" { MFCLOCK_STATE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides timing information from a clock in Microsoft Media Foundation.

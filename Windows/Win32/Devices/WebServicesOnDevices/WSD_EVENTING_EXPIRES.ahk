@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WSD_DURATION.ahk" { WSD_DURATION }
 #Import ".\WSD_DATETIME.ahk" { WSD_DATETIME }
+#Import ".\WSD_DURATION.ahk" { WSD_DURATION }
 
 /**
  * Represents the expiration time of a WS-Eventing message.

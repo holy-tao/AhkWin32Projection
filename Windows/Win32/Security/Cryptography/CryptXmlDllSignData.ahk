@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CRYPT_XML_ALGORITHM.ahk" { CRYPT_XML_ALGORITHM }
 #Import ".\HCRYPTPROV_OR_NCRYPT_KEY_HANDLE.ahk" { HCRYPTPROV_OR_NCRYPT_KEY_HANDLE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Signs data. (CryptXmlDllSignData)
@@ -62,10 +62,6 @@ export default struct CryptXmlDllSignData {
             this.value := CallbackCreate(fn, , [CRYPT_XML_ALGORITHM.Ptr, HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, UInt32, IntPtr, UInt32, IntPtr, UInt32, "uint*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

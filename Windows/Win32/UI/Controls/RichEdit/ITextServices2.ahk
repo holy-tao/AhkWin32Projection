@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\..\Foundation\RECTL.ahk" { RECTL }
 #Import "..\..\..\Foundation\SIZE.ahk" { SIZE }
 #Import "..\..\..\Graphics\Direct2D\ID2D1RenderTarget.ahk" { ID2D1RenderTarget }
-#Import "..\..\..\System\Com\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITextServices.ahk" { ITextServices }
 #Import "..\..\..\Graphics\Gdi\HDC.ahk" { HDC }
-#Import "..\..\..\Foundation\RECTL.ahk" { RECTL }
+#Import "..\..\..\System\Com\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
+#Import ".\ITextServices.ahk" { ITextServices }
 
 /**
  * The ITextServices2 interface extends the ITextServices interface.

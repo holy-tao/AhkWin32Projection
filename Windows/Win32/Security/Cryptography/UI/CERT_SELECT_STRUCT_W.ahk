@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\HCERTSTORE.ahk" { HCERTSTORE }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\CERT_SELECT_STRUCT_FLAGS.ahk" { CERT_SELECT_STRUCT_FLAGS }
-#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\PFNCMFILTERPROC.ahk" { PFNCMFILTERPROC }
-#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\PFNCMHOOKPROC.ahk" { PFNCMHOOKPROC }
 #Import "..\..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import "..\HCERTSTORE.ahk" { HCERTSTORE }
+#Import ".\CERT_SELECT_STRUCT_FLAGS.ahk" { CERT_SELECT_STRUCT_FLAGS }
 
 /**
  * Contains criteria upon which to select certificates that are presented in a certificate selection dialog box. This structure is used in the CertSelectCertificate function. (Unicode)
@@ -122,14 +120,14 @@ export default struct CERT_SELECT_STRUCT_W {
      *       callback function. This function is called before messages are processed by the dialog box. For more 
      *       information, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/hooks">Hooks</a>.
      */
-    pfnHook : PFNCMHOOKPROC
+    pfnHook : IntPtr
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/cryptdlg/nc-cryptdlg-pfncmfilterproc">PFNCMFILTERPROC</a> function pointer to the 
      *       filter callback function. This is called to determine which certificates will be displayed by the dialog 
      *       box.
      */
-    pfnFilter : PFNCMFILTERPROC
+    pfnFilter : IntPtr
 
     /**
      * A pointer to a null-terminated string that contains the full path to the Help file.

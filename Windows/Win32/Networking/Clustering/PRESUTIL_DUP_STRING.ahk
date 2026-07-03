@@ -46,10 +46,6 @@ export default struct PRESUTIL_DUP_STRING {
             this.value := CallbackCreate(fn, , [PWSTR, PWSTR])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

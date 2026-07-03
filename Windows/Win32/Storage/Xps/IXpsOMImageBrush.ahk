@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IXpsOMColorProfileResource.ahk" { IXpsOMColorProfileResource }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IXpsOMTileBrush.ahk" { IXpsOMTileBrush }
+#Import ".\IXpsOMColorProfileResource.ahk" { IXpsOMColorProfileResource }
 #Import ".\IXpsOMImageResource.ahk" { IXpsOMImageResource }
+#Import ".\IXpsOMTileBrush.ahk" { IXpsOMTileBrush }
 
 /**
  * A brush that uses a raster image as a source.

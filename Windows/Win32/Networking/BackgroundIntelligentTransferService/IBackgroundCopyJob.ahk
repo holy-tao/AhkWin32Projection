@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\BG_JOB_TIMES.ahk" { BG_JOB_TIMES }
-#Import ".\BG_JOB_PROXY_USAGE.ahk" { BG_JOB_PROXY_USAGE }
-#Import ".\BG_JOB_PROGRESS.ahk" { BG_JOB_PROGRESS }
-#Import ".\BG_JOB_PRIORITY.ahk" { BG_JOB_PRIORITY }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\BG_FILE_INFO.ahk" { BG_FILE_INFO }
+#Import ".\BG_JOB_PRIORITY.ahk" { BG_JOB_PRIORITY }
+#Import ".\BG_JOB_PROGRESS.ahk" { BG_JOB_PROGRESS }
+#Import ".\BG_JOB_PROXY_USAGE.ahk" { BG_JOB_PROXY_USAGE }
+#Import ".\BG_JOB_STATE.ahk" { BG_JOB_STATE }
+#Import ".\BG_JOB_TIMES.ahk" { BG_JOB_TIMES }
+#Import ".\BG_JOB_TYPE.ahk" { BG_JOB_TYPE }
+#Import ".\IBackgroundCopyError.ahk" { IBackgroundCopyError }
 #Import ".\IEnumBackgroundCopyFiles.ahk" { IEnumBackgroundCopyFiles }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IBackgroundCopyError.ahk" { IBackgroundCopyError }
-#Import ".\BG_JOB_TYPE.ahk" { BG_JOB_TYPE }
-#Import ".\BG_FILE_INFO.ahk" { BG_FILE_INFO }
-#Import ".\BG_JOB_STATE.ahk" { BG_JOB_STATE }
 #Import "..\..\System\Com\Apis.ahk" { CoTaskMemFree }
 
 /**

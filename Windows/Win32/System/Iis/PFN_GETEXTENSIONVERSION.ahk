@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HSE_VERSION_INFO.ahk" { HSE_VERSION_INFO }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\HSE_VERSION_INFO.ahk" { HSE_VERSION_INFO }
 
 /**
  * @namespace Windows.Win32.System.Iis
@@ -45,10 +45,6 @@ export default struct PFN_GETEXTENSIONVERSION {
             this.value := CallbackCreate(fn, , [HSE_VERSION_INFO.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

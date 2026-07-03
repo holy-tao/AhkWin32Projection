@@ -47,10 +47,6 @@ export default struct PSET_RESOURCE_INMEMORY_NODELOCAL_PROPERTIES_ROUTINE {
             this.value := CallbackCreate(fn, , [IntPtr, "char*", UInt32, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

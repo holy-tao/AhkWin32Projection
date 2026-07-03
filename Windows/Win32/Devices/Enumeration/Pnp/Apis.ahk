@@ -1,14 +1,13 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\HSWDEVICE.ahk" { HSWDEVICE }
+#Import ".\SW_DEVICE_CREATE_INFO.ahk" { SW_DEVICE_CREATE_INFO }
+#Import ".\SW_DEVICE_LIFETIME.ahk" { SW_DEVICE_LIFETIME }
 #Import "..\..\Properties\DEVPROPERTY.ahk" { DEVPROPERTY }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\HSWDEVICE.ahk" { HSWDEVICE }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SW_DEVICE_CREATE_INFO.ahk" { SW_DEVICE_CREATE_INFO }
-#Import ".\SW_DEVICE_CREATE_CALLBACK.ahk" { SW_DEVICE_CREATE_CALLBACK }
-#Import ".\SW_DEVICE_LIFETIME.ahk" { SW_DEVICE_LIFETIME }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
@@ -59,7 +58,7 @@ export SwDeviceCreate(pszEnumeratorName, pszParentDeviceInstance, pCreateInfo, c
     pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
     phSwDevice := HSWDEVICE.Owned()
-    result := DllCall("CFGMGR32.dll\SwDeviceCreate", "ptr", pszEnumeratorName, "ptr", pszParentDeviceInstance, SW_DEVICE_CREATE_INFO.Ptr, pCreateInfo, UInt32, cPropertyCount, DEVPROPERTY.Ptr, pProperties, SW_DEVICE_CREATE_CALLBACK, pCallback, pContextMarshal, pContext, HSWDEVICE.Ptr, phSwDevice, "HRESULT")
+    result := DllCall("CFGMGR32.dll\SwDeviceCreate", "ptr", pszEnumeratorName, "ptr", pszParentDeviceInstance, SW_DEVICE_CREATE_INFO.Ptr, pCreateInfo, UInt32, cPropertyCount, DEVPROPERTY.Ptr, pProperties, "ptr", pCallback, pContextMarshal, pContext, HSWDEVICE.Ptr, phSwDevice, "HRESULT")
     return phSwDevice
 }
 

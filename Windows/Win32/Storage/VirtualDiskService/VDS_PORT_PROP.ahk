@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\VDS_PORT_STATUS.ahk" { VDS_PORT_STATUS }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The VDS_PORT_PROP structure (vdshwprv.h) defines the properties of a port on a controller object.

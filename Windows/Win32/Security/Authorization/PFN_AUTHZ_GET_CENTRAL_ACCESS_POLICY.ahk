@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\PSID.ahk" { PSID }
 #Import ".\AUTHZ_CLIENT_CONTEXT_HANDLE.ahk" { AUTHZ_CLIENT_CONTEXT_HANDLE }
+#Import "..\PSID.ahk" { PSID }
 
 /**
  * @namespace Windows.Win32.Security.Authorization
@@ -54,10 +54,6 @@ export default struct PFN_AUTHZ_GET_CENTRAL_ACCESS_POLICY {
             this.value := CallbackCreate(fn, , [AUTHZ_CLIENT_CONTEXT_HANDLE, PSID, "ptr", BOOL.Ptr, "ptr*", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

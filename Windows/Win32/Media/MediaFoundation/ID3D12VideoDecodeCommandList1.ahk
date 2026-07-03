@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D12VideoDecodeCommandList.ahk" { ID3D12VideoDecodeCommandList }
-#Import ".\ID3D12VideoDecoder.ahk" { ID3D12VideoDecoder }
 #Import ".\D3D12_VIDEO_DECODE_INPUT_STREAM_ARGUMENTS.ahk" { D3D12_VIDEO_DECODE_INPUT_STREAM_ARGUMENTS }
 #Import ".\D3D12_VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS1.ahk" { D3D12_VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS1 }
+#Import ".\ID3D12VideoDecodeCommandList.ahk" { ID3D12VideoDecodeCommandList }
+#Import ".\ID3D12VideoDecoder.ahk" { ID3D12VideoDecoder }
 
 /**
  * Encapsulates a list of graphics commands for video decoding. This interface inherits from ID3D12VideoDecodeCommandList and adds support for video decode histograms.

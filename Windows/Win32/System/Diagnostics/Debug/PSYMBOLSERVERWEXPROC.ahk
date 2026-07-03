@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\SYMSRV_EXTENDED_OUTPUT_DATA.ahk" { SYMSRV_EXTENDED_OUTPUT_DATA }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SYMSRV_EXTENDED_OUTPUT_DATA.ahk" { SYMSRV_EXTENDED_OUTPUT_DATA }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
@@ -58,10 +58,6 @@ export default struct PSYMBOLSERVERWEXPROC {
             this.value := CallbackCreate(fn, , [PWSTR, PWSTR, "ptr", UInt32, UInt32, PWSTR, SYMSRV_EXTENDED_OUTPUT_DATA.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

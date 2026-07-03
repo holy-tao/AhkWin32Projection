@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MI_Filter.ahk" { MI_Filter }
 #Import ".\MI_Context.ahk" { MI_Context }
-#Import ".\MI_PropertySet.ahk" { MI_PropertySet }
+#Import ".\MI_Filter.ahk" { MI_Filter }
 #Import ".\MI_Instance.ahk" { MI_Instance }
+#Import ".\MI_PropertySet.ahk" { MI_PropertySet }
 
 /**
  * @namespace Windows.Win32.System.Wmi
@@ -63,10 +63,6 @@ export default struct MI_ProviderFT_AssociatorInstances {
             this.value := CallbackCreate(fn, , ["ptr", MI_Context.Ptr, "ushort*", "ushort*", MI_Instance.Ptr, "ushort*", "ushort*", "ushort*", MI_PropertySet.Ptr, Int8, MI_Filter.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

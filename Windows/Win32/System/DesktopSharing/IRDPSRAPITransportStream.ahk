@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IRDPSRAPITransportStreamEvents.ahk" { IRDPSRAPITransportStreamEvents }
-#Import ".\IRDPSRAPITransportStreamBuffer.ahk" { IRDPSRAPITransportStreamBuffer }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IRDPSRAPITransportStreamBuffer.ahk" { IRDPSRAPITransportStreamBuffer }
+#Import ".\IRDPSRAPITransportStreamEvents.ahk" { IRDPSRAPITransportStreamEvents }
 
 /**
  * Exposes methods that perform operations with streams.

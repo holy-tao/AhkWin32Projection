@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION.ahk" { CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION }
-#Import ".\ICredentialProviderCredential.ahk" { ICredentialProviderCredential }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ICredentialProviderEvents.ahk" { ICredentialProviderEvents }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\CREDENTIAL_PROVIDER_USAGE_SCENARIO.ahk" { CREDENTIAL_PROVIDER_USAGE_SCENARIO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION.ahk" { CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION }
 #Import ".\CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR.ahk" { CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR }
+#Import ".\CREDENTIAL_PROVIDER_USAGE_SCENARIO.ahk" { CREDENTIAL_PROVIDER_USAGE_SCENARIO }
+#Import ".\ICredentialProviderCredential.ahk" { ICredentialProviderCredential }
+#Import ".\ICredentialProviderEvents.ahk" { ICredentialProviderEvents }
 
 /**
  * Exposes methods used in the setup and manipulation of a credential provider. All credential providers must implement this interface.

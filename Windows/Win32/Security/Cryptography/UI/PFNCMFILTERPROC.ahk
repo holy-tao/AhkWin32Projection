@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 
 /**
  * Filters each certificate to determine whether it will appear in the certificate selection dialog box that is displayed by the CertSelectCertificate function.
@@ -51,10 +51,6 @@ export default struct PFNCMFILTERPROC {
             this.value := CallbackCreate(fn, , [CERT_CONTEXT.Ptr, LPARAM, UInt32, UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

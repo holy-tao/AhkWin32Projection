@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 #Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 
 /**
  * Implemented by a password filter DLL. The value returned by this function determines whether the new password is accepted by the system.
@@ -112,10 +112,6 @@ export default struct PSAM_PASSWORD_FILTER_ROUTINE {
             this.value := CallbackCreate(fn, , [LSA_UNICODE_STRING.Ptr, LSA_UNICODE_STRING.Ptr, LSA_UNICODE_STRING.Ptr, BOOLEAN, BOOLEAN])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

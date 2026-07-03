@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\HRESOURCE.ahk" { HRESOURCE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\CLUS_RESOURCE_CLASS_INFO.ahk" { CLUS_RESOURCE_CLASS_INFO }
 #Import ".\HCLUSTER.ahk" { HCLUSTER }
+#Import ".\HRESOURCE.ahk" { HRESOURCE }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -51,10 +51,6 @@ export default struct PRESUTIL_GET_RESOURCE_DEPENDENCY_BY_CLASS {
             this.value := CallbackCreate(fn, , [HCLUSTER, HANDLE, CLUS_RESOURCE_CLASS_INFO.Ptr, BOOL, HRESOURCE])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

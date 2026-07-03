@@ -43,10 +43,6 @@ export default struct PFN_DrvDisableDirectDraw {
             this.value := CallbackCreate(fn, , [DHPDEV, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

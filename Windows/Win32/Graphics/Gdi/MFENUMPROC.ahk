@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\METARECORD.ahk" { METARECORD }
-#Import ".\HANDLETABLE.ahk" { HANDLETABLE }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\HANDLETABLE.ahk" { HANDLETABLE }
 #Import ".\HDC.ahk" { HDC }
+#Import ".\METARECORD.ahk" { METARECORD }
 
 /**
  * The EnumMetaFileProc function is an application-defined callback function that processes Windows-format metafile records.
@@ -57,10 +57,6 @@ export default struct MFENUMPROC {
             this.value := CallbackCreate(fn, , [HDC, HANDLETABLE.Ptr, METARECORD.Ptr, Int32, LPARAM, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HGROUP.ahk" { HGROUP }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\HCLUSTER.ahk" { HCLUSTER }
+#Import ".\HGROUP.ahk" { HGROUP }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -50,10 +50,6 @@ export default struct PCLUSAPI_CLUSTER_ADD_GROUP_TO_AFFINITY_RULE {
             this.value := CallbackCreate(fn, , [HCLUSTER, PWSTR, HGROUP, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

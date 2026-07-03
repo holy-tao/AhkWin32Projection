@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IRpcStubBuffer.ahk" { IRpcStubBuffer }
-#Import ".\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IRpcProxyBuffer.ahk" { IRpcProxyBuffer }
+#Import ".\IRpcStubBuffer.ahk" { IRpcStubBuffer }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * The IPSFactoryBuffer (objidlbase.h) interface provides custom methods for the creation of COM object proxies and stubs. This interface is not marshalable.

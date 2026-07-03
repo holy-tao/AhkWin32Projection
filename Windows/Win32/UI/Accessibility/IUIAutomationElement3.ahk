@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IUIAutomationElement2.ahk" { IUIAutomationElement2 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUIAutomationElement2.ahk" { IUIAutomationElement2 }
 
 /**
  * Extends the IUIAutomationElement2 interface.

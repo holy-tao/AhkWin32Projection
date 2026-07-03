@@ -1,43 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PALLOCATE_ADAPTER_CHANNEL.ahk" { PALLOCATE_ADAPTER_CHANNEL }
-#Import ".\PFREE_COMMON_BUFFER_VECTOR.ahk" { PFREE_COMMON_BUFFER_VECTOR }
-#Import ".\PFREE_COMMON_BUFFER.ahk" { PFREE_COMMON_BUFFER }
-#Import ".\PFREE_MAP_REGISTERS.ahk" { PFREE_MAP_REGISTERS }
-#Import ".\PFREE_COMMON_BUFFER_FROM_VECTOR.ahk" { PFREE_COMMON_BUFFER_FROM_VECTOR }
-#Import ".\PFLUSH_DMA_BUFFER.ahk" { PFLUSH_DMA_BUFFER }
-#Import ".\PFREE_ADAPTER_OBJECT.ahk" { PFREE_ADAPTER_OBJECT }
-#Import ".\PGET_SCATTER_GATHER_LIST.ahk" { PGET_SCATTER_GATHER_LIST }
-#Import ".\PALLOCATE_COMMON_BUFFER_VECTOR.ahk" { PALLOCATE_COMMON_BUFFER_VECTOR }
-#Import ".\PGET_DMA_ADAPTER_INFO.ahk" { PGET_DMA_ADAPTER_INFO }
-#Import ".\PBUILD_SCATTER_GATHER_LIST.ahk" { PBUILD_SCATTER_GATHER_LIST }
-#Import ".\PREAD_DMA_COUNTER.ahk" { PREAD_DMA_COUNTER }
-#Import ".\PALLOCATE_COMMON_BUFFER.ahk" { PALLOCATE_COMMON_BUFFER }
-#Import ".\PGET_COMMON_BUFFER_FROM_VECTOR_BY_INDEX.ahk" { PGET_COMMON_BUFFER_FROM_VECTOR_BY_INDEX }
-#Import ".\PALLOCATE_COMMON_BUFFER_EX.ahk" { PALLOCATE_COMMON_BUFFER_EX }
-#Import ".\PINITIALIZE_DMA_TRANSFER_CONTEXT.ahk" { PINITIALIZE_DMA_TRANSFER_CONTEXT }
-#Import ".\PCANCEL_ADAPTER_CHANNEL.ahk" { PCANCEL_ADAPTER_CHANNEL }
-#Import ".\PBUILD_MDL_FROM_SCATTER_GATHER_LIST.ahk" { PBUILD_MDL_FROM_SCATTER_GATHER_LIST }
-#Import ".\PGET_DMA_TRANSFER_INFO.ahk" { PGET_DMA_TRANSFER_INFO }
-#Import ".\PCANCEL_MAPPED_TRANSFER.ahk" { PCANCEL_MAPPED_TRANSFER }
-#Import ".\PMAP_TRANSFER_EX.ahk" { PMAP_TRANSFER_EX }
-#Import ".\PGET_SCATTER_GATHER_LIST_EX.ahk" { PGET_SCATTER_GATHER_LIST_EX }
-#Import ".\PJOIN_DMA_DOMAIN.ahk" { PJOIN_DMA_DOMAIN }
-#Import ".\PALLOCATE_COMMON_BUFFER_WITH_BOUNDS.ahk" { PALLOCATE_COMMON_BUFFER_WITH_BOUNDS }
-#Import ".\PCONFIGURE_ADAPTER_CHANNEL.ahk" { PCONFIGURE_ADAPTER_CHANNEL }
-#Import ".\PBUILD_SCATTER_GATHER_LIST_EX.ahk" { PBUILD_SCATTER_GATHER_LIST_EX }
-#Import ".\PCREATE_COMMON_BUFFER_FROM_MDL.ahk" { PCREATE_COMMON_BUFFER_FROM_MDL }
-#Import ".\PALLOCATE_DOMAIN_COMMON_BUFFER.ahk" { PALLOCATE_DOMAIN_COMMON_BUFFER }
-#Import ".\PPUT_DMA_ADAPTER.ahk" { PPUT_DMA_ADAPTER }
-#Import ".\PFREE_ADAPTER_CHANNEL.ahk" { PFREE_ADAPTER_CHANNEL }
-#Import ".\PPUT_SCATTER_GATHER_LIST.ahk" { PPUT_SCATTER_GATHER_LIST }
-#Import ".\PFLUSH_ADAPTER_BUFFERS_EX.ahk" { PFLUSH_ADAPTER_BUFFERS_EX }
-#Import ".\PALLOCATE_ADAPTER_CHANNEL_EX.ahk" { PALLOCATE_ADAPTER_CHANNEL_EX }
-#Import ".\PLEAVE_DMA_DOMAIN.ahk" { PLEAVE_DMA_DOMAIN }
-#Import ".\PGET_DMA_DOMAIN.ahk" { PGET_DMA_DOMAIN }
-#Import ".\PGET_DMA_ALIGNMENT.ahk" { PGET_DMA_ALIGNMENT }
-#Import ".\PMAP_TRANSFER.ahk" { PMAP_TRANSFER }
-#Import ".\PCALCULATE_SCATTER_GATHER_LIST_SIZE.ahk" { PCALCULATE_SCATTER_GATHER_LIST_SIZE }
-#Import ".\PFLUSH_ADAPTER_BUFFERS.ahk" { PFLUSH_ADAPTER_BUFFERS }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -47,82 +8,82 @@ export default struct DMA_OPERATIONS {
 
     Size : UInt32
 
-    PutDmaAdapter : PPUT_DMA_ADAPTER
+    PutDmaAdapter : IntPtr
 
-    AllocateCommonBuffer : PALLOCATE_COMMON_BUFFER
+    AllocateCommonBuffer : IntPtr
 
-    FreeCommonBuffer : PFREE_COMMON_BUFFER
+    FreeCommonBuffer : IntPtr
 
-    AllocateAdapterChannel : PALLOCATE_ADAPTER_CHANNEL
+    AllocateAdapterChannel : IntPtr
 
-    FlushAdapterBuffers : PFLUSH_ADAPTER_BUFFERS
+    FlushAdapterBuffers : IntPtr
 
-    FreeAdapterChannel : PFREE_ADAPTER_CHANNEL
+    FreeAdapterChannel : IntPtr
 
-    FreeMapRegisters : PFREE_MAP_REGISTERS
+    FreeMapRegisters : IntPtr
 
-    MapTransfer : PMAP_TRANSFER
+    MapTransfer : IntPtr
 
-    GetDmaAlignment : PGET_DMA_ALIGNMENT
+    GetDmaAlignment : IntPtr
 
-    ReadDmaCounter : PREAD_DMA_COUNTER
+    ReadDmaCounter : IntPtr
 
-    GetScatterGatherList : PGET_SCATTER_GATHER_LIST
+    GetScatterGatherList : IntPtr
 
-    PutScatterGatherList : PPUT_SCATTER_GATHER_LIST
+    PutScatterGatherList : IntPtr
 
-    CalculateScatterGatherList : PCALCULATE_SCATTER_GATHER_LIST_SIZE
+    CalculateScatterGatherList : IntPtr
 
-    BuildScatterGatherList : PBUILD_SCATTER_GATHER_LIST
+    BuildScatterGatherList : IntPtr
 
-    BuildMdlFromScatterGatherList : PBUILD_MDL_FROM_SCATTER_GATHER_LIST
+    BuildMdlFromScatterGatherList : IntPtr
 
-    GetDmaAdapterInfo : PGET_DMA_ADAPTER_INFO
+    GetDmaAdapterInfo : IntPtr
 
-    GetDmaTransferInfo : PGET_DMA_TRANSFER_INFO
+    GetDmaTransferInfo : IntPtr
 
-    InitializeDmaTransferContext : PINITIALIZE_DMA_TRANSFER_CONTEXT
+    InitializeDmaTransferContext : IntPtr
 
-    AllocateCommonBufferEx : PALLOCATE_COMMON_BUFFER_EX
+    AllocateCommonBufferEx : IntPtr
 
-    AllocateAdapterChannelEx : PALLOCATE_ADAPTER_CHANNEL_EX
+    AllocateAdapterChannelEx : IntPtr
 
-    ConfigureAdapterChannel : PCONFIGURE_ADAPTER_CHANNEL
+    ConfigureAdapterChannel : IntPtr
 
-    CancelAdapterChannel : PCANCEL_ADAPTER_CHANNEL
+    CancelAdapterChannel : IntPtr
 
-    MapTransferEx : PMAP_TRANSFER_EX
+    MapTransferEx : IntPtr
 
-    GetScatterGatherListEx : PGET_SCATTER_GATHER_LIST_EX
+    GetScatterGatherListEx : IntPtr
 
-    BuildScatterGatherListEx : PBUILD_SCATTER_GATHER_LIST_EX
+    BuildScatterGatherListEx : IntPtr
 
-    FlushAdapterBuffersEx : PFLUSH_ADAPTER_BUFFERS_EX
+    FlushAdapterBuffersEx : IntPtr
 
-    FreeAdapterObject : PFREE_ADAPTER_OBJECT
+    FreeAdapterObject : IntPtr
 
-    CancelMappedTransfer : PCANCEL_MAPPED_TRANSFER
+    CancelMappedTransfer : IntPtr
 
-    AllocateDomainCommonBuffer : PALLOCATE_DOMAIN_COMMON_BUFFER
+    AllocateDomainCommonBuffer : IntPtr
 
-    FlushDmaBuffer : PFLUSH_DMA_BUFFER
+    FlushDmaBuffer : IntPtr
 
-    JoinDmaDomain : PJOIN_DMA_DOMAIN
+    JoinDmaDomain : IntPtr
 
-    LeaveDmaDomain : PLEAVE_DMA_DOMAIN
+    LeaveDmaDomain : IntPtr
 
-    GetDmaDomain : PGET_DMA_DOMAIN
+    GetDmaDomain : IntPtr
 
-    AllocateCommonBufferWithBounds : PALLOCATE_COMMON_BUFFER_WITH_BOUNDS
+    AllocateCommonBufferWithBounds : IntPtr
 
-    AllocateCommonBufferVector : PALLOCATE_COMMON_BUFFER_VECTOR
+    AllocateCommonBufferVector : IntPtr
 
-    GetCommonBufferFromVectorByIndex : PGET_COMMON_BUFFER_FROM_VECTOR_BY_INDEX
+    GetCommonBufferFromVectorByIndex : IntPtr
 
-    FreeCommonBufferFromVector : PFREE_COMMON_BUFFER_FROM_VECTOR
+    FreeCommonBufferFromVector : IntPtr
 
-    FreeCommonBufferVector : PFREE_COMMON_BUFFER_VECTOR
+    FreeCommonBufferVector : IntPtr
 
-    CreateCommonBufferFromMdl : PCREATE_COMMON_BUFFER_FROM_MDL
+    CreateCommonBufferFromMdl : IntPtr
 
 }

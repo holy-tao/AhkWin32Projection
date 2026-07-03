@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\TypeKind.ahk" { TypeKind }
-#Import ".\IntrinsicKind.ahk" { IntrinsicKind }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ArrayDimension.ahk" { ArrayDimension }
-#Import ".\IDebugHostSymbol.ahk" { IDebugHostSymbol }
-#Import ".\PointerKind.ahk" { PointerKind }
 #Import ".\CallingConventionKind.ahk" { CallingConventionKind }
+#Import ".\IDebugHostSymbol.ahk" { IDebugHostSymbol }
+#Import ".\IntrinsicKind.ahk" { IntrinsicKind }
+#Import ".\PointerKind.ahk" { PointerKind }
+#Import ".\TypeKind.ahk" { TypeKind }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

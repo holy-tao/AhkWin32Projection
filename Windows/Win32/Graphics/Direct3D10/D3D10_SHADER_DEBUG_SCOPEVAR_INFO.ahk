@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D10_SHADER_DEBUG_VARTYPE.ahk" { D3D10_SHADER_DEBUG_VARTYPE }
 #Import "..\Direct3D\D3D_SHADER_VARIABLE_CLASS.ahk" { D3D_SHADER_VARIABLE_CLASS }
+#Import ".\D3D10_SHADER_DEBUG_VARTYPE.ahk" { D3D10_SHADER_DEBUG_VARTYPE }
 
 /**
  * Describes a shader scope variable.

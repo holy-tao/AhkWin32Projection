@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DEVICE_STATE.ahk" { DEVICE_STATE }
+#Import "..\..\System\Com\CLSCTX.ahk" { CLSCTX }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\STGM.ahk" { STGM }
-#Import "..\..\System\Com\CLSCTX.ahk" { CLSCTX }
-#Import ".\DEVICE_STATE.ahk" { DEVICE_STATE }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
 
 /**
  * The IMMDevice interface encapsulates the generic features of a multimedia device resource.

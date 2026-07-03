@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RPC_STATUS.ahk" { RPC_STATUS }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\RPC_STATUS.ahk" { RPC_STATUS }
 
 /**
  * @namespace Windows.Win32.System.Rpc
@@ -53,10 +53,6 @@ export default struct I_RpcProxyGetClientSessionAndResourceUUID {
             this.value := CallbackCreate(fn, , ["ptr", "int*", Guid.Ptr, "int*", Guid.Ptr, RPC_STATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

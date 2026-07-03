@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FORMATETC.ahk" { FORMATETC }
 #Import ".\IMoniker.ahk" { IMoniker }
 #Import ".\IUnknown.ahk" { IUnknown }
 #Import ".\STGMEDIUM.ahk" { STGMEDIUM }
-#Import ".\FORMATETC.ahk" { FORMATETC }
 
 /**
  * Enables containers and other objects to receive notifications of data changes, view changes, and compound-document changes occurring in objects of interest.

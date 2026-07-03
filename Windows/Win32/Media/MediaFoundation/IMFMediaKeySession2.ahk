@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\MFMediaKeyStatus.ahk" { MFMediaKeyStatus }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFMediaKeySession.ahk" { IMFMediaKeySession }
+#Import ".\MFMediaKeyStatus.ahk" { MFMediaKeyStatus }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation

@@ -56,10 +56,6 @@ export default struct FCACHE_CREATE_CALLBACK {
             this.value := CallbackCreate(fn, , [PSTR, "ptr", "uint*", "uint*", HANDLE])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

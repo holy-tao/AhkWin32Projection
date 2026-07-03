@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
-#Import "..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import "..\Storage\FileSystem\FILE_BASIC_INFORMATION.ahk" { FILE_BASIC_INFORMATION }
-#Import "..\..\Win32\System\IO\IO_STATUS_BLOCK.ahk" { IO_STATUS_BLOCK }
 #Import ".\FILE_OBJECT.ahk" { FILE_OBJECT }
+#Import "..\Storage\FileSystem\FILE_BASIC_INFORMATION.ahk" { FILE_BASIC_INFORMATION }
+#Import "..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Win32\System\IO\IO_STATUS_BLOCK.ahk" { IO_STATUS_BLOCK }
 
 /**
  * @namespace Windows.Wdk.Foundation
@@ -52,10 +52,6 @@ export default struct FAST_IO_QUERY_BASIC_INFO {
             this.value := CallbackCreate(fn, , [FILE_OBJECT.Ptr, BOOLEAN, FILE_BASIC_INFORMATION.Ptr, IO_STATUS_BLOCK.Ptr, DEVICE_OBJECT.Ptr, BOOLEAN])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

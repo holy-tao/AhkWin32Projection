@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\alljoyn_keystorelistener.ahk" { alljoyn_keystorelistener }
 #Import ".\QStatus.ahk" { QStatus }
+#Import ".\alljoyn_keystorelistener.ahk" { alljoyn_keystorelistener }
 
 /**
  * @namespace Windows.Win32.Devices.AllJoyn
@@ -48,10 +48,6 @@ export default struct alljoyn_keystorelistener_acquireexclusivelock_ptr {
             this.value := CallbackCreate(fn, , ["ptr", alljoyn_keystorelistener, QStatus])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

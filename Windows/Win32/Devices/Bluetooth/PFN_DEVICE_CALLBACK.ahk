@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\BLUETOOTH_DEVICE_INFO.ahk" { BLUETOOTH_DEVICE_INFO }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * A callback prototype used in association with selecting Bluetooth devices.
@@ -57,10 +57,6 @@ export default struct PFN_DEVICE_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", BLUETOOTH_DEVICE_INFO.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

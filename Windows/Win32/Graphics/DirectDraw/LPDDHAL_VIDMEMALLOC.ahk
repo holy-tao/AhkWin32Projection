@@ -47,10 +47,6 @@ export default struct LPDDHAL_VIDMEMALLOC {
             this.value := CallbackCreate(fn, , [DDRAWI_DIRECTDRAW_GBL.Ptr, Int32, UInt32, UInt32, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

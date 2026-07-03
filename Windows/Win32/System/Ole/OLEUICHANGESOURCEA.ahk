@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\UI\Controls\Dialogs\OPENFILENAMEA.ahk" { OPENFILENAMEA }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\IOleUILinkContainerA.ahk" { IOleUILinkContainerA }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRSRC.ahk" { HRSRC }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\HRSRC.ahk" { HRSRC }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\CHANGE_SOURCE_FLAGS.ahk" { CHANGE_SOURCE_FLAGS }
-#Import ".\LPFNOLEUIHOOK.ahk" { LPFNOLEUIHOOK }
+#Import ".\IOleUILinkContainerA.ahk" { IOleUILinkContainerA }
+#Import "..\..\UI\Controls\Dialogs\OPENFILENAMEA.ahk" { OPENFILENAMEA }
 
 /**
  * Contains information that is used to initialize the standard Change Source dialog box. (ANSI)
@@ -83,7 +82,7 @@ export default struct OLEUICHANGESOURCEA {
     /**
      * Pointer to a hook function that processes messages intended for the dialog box. The hook function must return zero to pass a message that it didn't process back to the dialog box procedure in the library. The hook function must return a nonzero value to prevent the library's dialog box procedure from processing a message it has already processed.
      */
-    lpfnHook : LPFNOLEUIHOOK
+    lpfnHook : IntPtr
 
     /**
      * Application-defined data that the library passes to the hook function pointed to by the [OLEUICHANGEICON](./nf-oledlg-oleuichangeicona.md) structure in the <i>lParam</i> parameter of the WM_INITDIALOG message; this pointer can be used to retrieve the <b>lCustData</b> member.

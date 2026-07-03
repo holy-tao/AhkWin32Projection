@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Ole\IEnumVARIANT.ahk" { IEnumVARIANT }
-#Import ".\IFsiItem.ahk" { IFsiItem }
-#Import ".\IEnumFsiItems.ahk" { IEnumFsiItems }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IEnumFsiItems.ahk" { IEnumFsiItems }
+#Import ".\IFsiItem.ahk" { IFsiItem }
 #Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\Ole\IEnumVARIANT.ahk" { IEnumVARIANT }
 
 /**
  * Use this interface to add items to or remove items from the file-system image.

@@ -1,25 +1,25 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\OPENFILENAMEA.ahk" { OPENFILENAMEA }
-#Import ".\CHOOSEFONTA.ahk" { CHOOSEFONTA as CHOOSEFONTA_type }
-#Import ".\CHOOSECOLORA.ahk" { CHOOSECOLORA as CHOOSECOLORA_type }
-#Import ".\PRINTDLGA.ahk" { PRINTDLGA as PRINTDLGA_type }
-#Import ".\PAGESETUPDLGW.ahk" { PAGESETUPDLGW as PAGESETUPDLGW_type }
-#Import ".\FINDREPLACEA.ahk" { FINDREPLACEA }
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\COMMON_DLG_ERRORS.ahk" { COMMON_DLG_ERRORS }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\CHOOSEFONTW.ahk" { CHOOSEFONTW as CHOOSEFONTW_type }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\PRINTDLGW.ahk" { PRINTDLGW as PRINTDLGW_type }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\OPENFILENAMEW.ahk" { OPENFILENAMEW }
-#Import ".\PRINTDLGEXW.ahk" { PRINTDLGEXW as PRINTDLGEXW_type }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\PAGESETUPDLGA.ahk" { PAGESETUPDLGA as PAGESETUPDLGA_type }
-#Import ".\FINDREPLACEW.ahk" { FINDREPLACEW }
-#Import ".\PRINTDLGEXA.ahk" { PRINTDLGEXA as PRINTDLGEXA_type }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CHOOSECOLORA.ahk" { CHOOSECOLORA as CHOOSECOLORA_type }
 #Import ".\CHOOSECOLORW.ahk" { CHOOSECOLORW as CHOOSECOLORW_type }
+#Import ".\CHOOSEFONTA.ahk" { CHOOSEFONTA as CHOOSEFONTA_type }
+#Import ".\CHOOSEFONTW.ahk" { CHOOSEFONTW as CHOOSEFONTW_type }
+#Import ".\COMMON_DLG_ERRORS.ahk" { COMMON_DLG_ERRORS }
+#Import ".\FINDREPLACEA.ahk" { FINDREPLACEA }
+#Import ".\FINDREPLACEW.ahk" { FINDREPLACEW }
+#Import ".\OPENFILENAMEA.ahk" { OPENFILENAMEA }
+#Import ".\OPENFILENAMEW.ahk" { OPENFILENAMEW }
+#Import ".\PAGESETUPDLGA.ahk" { PAGESETUPDLGA as PAGESETUPDLGA_type }
+#Import ".\PAGESETUPDLGW.ahk" { PAGESETUPDLGW as PAGESETUPDLGW_type }
+#Import ".\PRINTDLGA.ahk" { PRINTDLGA as PRINTDLGA_type }
+#Import ".\PRINTDLGEXA.ahk" { PRINTDLGEXA as PRINTDLGEXA_type }
+#Import ".\PRINTDLGEXW.ahk" { PRINTDLGEXW as PRINTDLGEXW_type }
+#Import ".\PRINTDLGW.ahk" { PRINTDLGW as PRINTDLGW_type }
 
 /**
  * @namespace Windows.Win32.UI.Controls.Dialogs

@@ -1,11 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\WindowsAndMessaging\DLGTEMPLATE.ahk" { DLGTEMPLATE }
-#Import "..\WindowsAndMessaging\DLGPROC.ahk" { DLGPROC }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
-#Import ".\LPFNPSPCALLBACKW.ahk" { LPFNPSPCALLBACKW }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 
 /**
  * The PROPSHEETPAGEW_V2 (Unicode) structure defines a page in a property sheet.
@@ -29,11 +27,11 @@ export default struct PROPSHEETPAGEW_V2 {
 
     pszTitle : PWSTR
 
-    pfnDlgProc : DLGPROC
+    pfnDlgProc : IntPtr
 
     lParam : LPARAM
 
-    pfnCallback : LPFNPSPCALLBACKW
+    pfnCallback : IntPtr
 
     pcRefParent : IntPtr
 

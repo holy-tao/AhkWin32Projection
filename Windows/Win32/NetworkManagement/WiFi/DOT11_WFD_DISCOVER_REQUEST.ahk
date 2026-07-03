@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\DOT11_WFD_SCAN_TYPE.ahk" { DOT11_WFD_SCAN_TYPE }
-#Import ".\DOT11_WFD_DISCOVER_TYPE.ahk" { DOT11_WFD_DISCOVER_TYPE }
 #Import "..\Ndis\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
+#Import ".\DOT11_WFD_DISCOVER_TYPE.ahk" { DOT11_WFD_DISCOVER_TYPE }
+#Import ".\DOT11_WFD_SCAN_TYPE.ahk" { DOT11_WFD_SCAN_TYPE }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi

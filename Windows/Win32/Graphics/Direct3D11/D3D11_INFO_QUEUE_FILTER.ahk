@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D11_MESSAGE_ID.ahk" { D3D11_MESSAGE_ID }
-#Import ".\D3D11_MESSAGE_CATEGORY.ahk" { D3D11_MESSAGE_CATEGORY }
-#Import ".\D3D11_MESSAGE_SEVERITY.ahk" { D3D11_MESSAGE_SEVERITY }
 #Import ".\D3D11_INFO_QUEUE_FILTER_DESC.ahk" { D3D11_INFO_QUEUE_FILTER_DESC }
+#Import ".\D3D11_MESSAGE_CATEGORY.ahk" { D3D11_MESSAGE_CATEGORY }
+#Import ".\D3D11_MESSAGE_ID.ahk" { D3D11_MESSAGE_ID }
+#Import ".\D3D11_MESSAGE_SEVERITY.ahk" { D3D11_MESSAGE_SEVERITY }
 
 /**
  * Debug message filter; contains a lists of message types to allow or deny. (D3D11_INFO_QUEUE_FILTER)

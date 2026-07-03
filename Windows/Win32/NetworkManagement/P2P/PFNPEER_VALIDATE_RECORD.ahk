@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PEER_RECORD.ahk" { PEER_RECORD }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PEER_RECORD.ahk" { PEER_RECORD }
 #Import ".\PEER_RECORD_CHANGE_TYPE.ahk" { PEER_RECORD_CHANGE_TYPE }
 
 /**
@@ -99,10 +99,6 @@ export default struct PFNPEER_VALIDATE_RECORD {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", PEER_RECORD.Ptr, PEER_RECORD_CHANGE_TYPE, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

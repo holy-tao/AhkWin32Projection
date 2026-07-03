@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IFileDialog.ahk" { IFileDialog }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\FDE_OVERWRITE_RESPONSE.ahk" { FDE_OVERWRITE_RESPONSE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\FDE_SHAREVIOLATION_RESPONSE.ahk" { FDE_SHAREVIOLATION_RESPONSE }
+#Import ".\IFileDialog.ahk" { IFileDialog }
 #Import ".\IShellItem.ahk" { IShellItem }
 
 /**

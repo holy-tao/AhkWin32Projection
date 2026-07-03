@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\XPS_JOB_COMPLETION.ahk" { XPS_JOB_COMPLETION }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\XPS_JOB_COMPLETION.ahk" { XPS_JOB_COMPLETION }
 
 /**
  * Contains a snapshot of job status.

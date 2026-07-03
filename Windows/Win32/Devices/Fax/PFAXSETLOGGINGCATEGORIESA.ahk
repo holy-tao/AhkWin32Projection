@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\FAX_LOG_CATEGORYA.ahk" { FAX_LOG_CATEGORYA }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Win32.Devices.Fax
@@ -49,10 +49,6 @@ export default struct PFAXSETLOGGINGCATEGORIESA {
             this.value := CallbackCreate(fn, , [HANDLE, FAX_LOG_CATEGORYA.Ptr, UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

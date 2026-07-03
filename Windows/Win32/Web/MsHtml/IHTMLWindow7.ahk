@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IHTMLStyleMedia.ahk" { IHTMLStyleMedia }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IHTMLCSSStyleDeclaration.ahk" { IHTMLCSSStyleDeclaration }
 #Import ".\IHTMLDOMNode.ahk" { IHTMLDOMNode }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IHTMLSelection.ahk" { IHTMLSelection }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHTMLStyleMedia.ahk" { IHTMLStyleMedia }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

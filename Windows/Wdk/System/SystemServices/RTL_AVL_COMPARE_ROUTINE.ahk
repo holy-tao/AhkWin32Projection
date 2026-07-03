@@ -50,10 +50,6 @@ export default struct RTL_AVL_COMPARE_ROUTINE {
             this.value := CallbackCreate(fn, , [RTL_AVL_TABLE.Ptr, "ptr", "ptr", RTL_GENERIC_COMPARE_RESULTS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

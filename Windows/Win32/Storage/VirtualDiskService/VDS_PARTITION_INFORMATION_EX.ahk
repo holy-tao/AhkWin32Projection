@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\VDS_PARTITION_INFO_GPT.ahk" { VDS_PARTITION_INFO_GPT }
 #Import ".\VDS_PARTITION_INFO_MBR.ahk" { VDS_PARTITION_INFO_MBR }
 #Import ".\__VDS_PARTITION_STYLE.ahk" { __VDS_PARTITION_STYLE }
-#Import ".\VDS_PARTITION_INFO_GPT.ahk" { VDS_PARTITION_INFO_GPT }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

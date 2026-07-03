@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IRTCSessionOperationCompleteEvent.ahk" { IRTCSessionOperationCompleteEvent }
-#Import ".\IRTCParticipant.ahk" { IRTCParticipant }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRTCParticipant.ahk" { IRTCParticipant }
+#Import ".\IRTCSessionOperationCompleteEvent.ahk" { IRTCSessionOperationCompleteEvent }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

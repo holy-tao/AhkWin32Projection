@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\Foundation\SIZE.ahk" { SIZE }
-#Import "..\..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Native interoperation interface that allows drawing on a surface object using a RECT to define the area to draw into. This interface is available in C++ only.

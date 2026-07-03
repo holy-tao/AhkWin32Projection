@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import ".\NFC_RF_DISCOVERY_MODE.ahk" { NFC_RF_DISCOVERY_MODE }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.Devices.Nfc

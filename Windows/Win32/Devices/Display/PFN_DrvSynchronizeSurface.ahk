@@ -46,10 +46,6 @@ export default struct PFN_DrvSynchronizeSurface {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, RECTL.Ptr, UInt32, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

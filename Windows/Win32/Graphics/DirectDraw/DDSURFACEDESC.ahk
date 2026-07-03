@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
 #Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
+#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
 #Import ".\DDSCAPS.ahk" { DDSCAPS }
 
 /**

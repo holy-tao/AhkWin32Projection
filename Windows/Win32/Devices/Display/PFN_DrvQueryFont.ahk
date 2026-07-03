@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IFIMETRICS.ahk" { IFIMETRICS }
 #Import ".\DHPDEV.ahk" { DHPDEV }
+#Import ".\IFIMETRICS.ahk" { IFIMETRICS }
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -50,10 +50,6 @@ export default struct PFN_DrvQueryFont {
             this.value := CallbackCreate(fn, , [DHPDEV, IntPtr, UInt32, "ptr*", IFIMETRICS.Ptr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

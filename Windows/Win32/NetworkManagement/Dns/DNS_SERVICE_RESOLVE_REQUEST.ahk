@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\PDNS_SERVICE_RESOLVE_COMPLETE.ahk" { PDNS_SERVICE_RESOLVE_COMPLETE }
 
 /**
  * Contains the query parameters used in a call to [DnsServiceResolve](../windns/nf-windns-dnsserviceresolve.md).
@@ -28,7 +27,7 @@ export default struct DNS_SERVICE_RESOLVE_REQUEST {
     /**
      * A pointer to a function (of type [DNS_SERVICE_RESOLVE_COMPLETE](nc-windns-dns_service_resolve_complete.md)) that represents the callback to be invoked asynchronously.
      */
-    pResolveCompletionCallback : PDNS_SERVICE_RESOLVE_COMPLETE
+    pResolveCompletionCallback : IntPtr
 
     /**
      * A pointer to a user context.

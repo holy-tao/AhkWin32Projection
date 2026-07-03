@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DDTRANSFEROUTINFO.ahk" { DDTRANSFEROUTINFO }
 #Import ".\DDTRANSFERININFO.ahk" { DDTRANSFERININFO }
+#Import ".\DDTRANSFEROUTINFO.ahk" { DDTRANSFEROUTINFO }
 
 /**
  * The DxTransfer callback function informs the driver to bus master data from a surface to the buffer specified in the memory descriptor list (MDL).
@@ -90,10 +90,6 @@ export default struct PDX_TRANSFER {
             this.value := CallbackCreate(fn, , ["ptr", DDTRANSFERININFO.Ptr, DDTRANSFEROUTINFO.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

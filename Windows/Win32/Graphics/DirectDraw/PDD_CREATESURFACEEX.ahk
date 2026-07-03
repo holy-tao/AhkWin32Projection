@@ -216,10 +216,6 @@ export default struct PDD_CREATESURFACEEX {
             this.value := CallbackCreate(fn, , [DD_CREATESURFACEEXDATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

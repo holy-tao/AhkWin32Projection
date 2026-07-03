@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISpLexicon.ahk" { ISpLexicon }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISpLexicon.ahk" { ISpLexicon }
 
 /**
  * @namespace Windows.Win32.Media.Speech

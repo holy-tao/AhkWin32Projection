@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPBDA_EIT.ahk" { IPBDA_EIT }
 #Import ".\IPBDA_Services.ahk" { IPBDA_Services }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IPBDA_EIT.ahk" { IPBDA_EIT }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implements methods that retrieve program and system information protocol (PSIP) and service information (SI) tables from a Protected Broadcast Driver Architecture (PBDA) transport stream.

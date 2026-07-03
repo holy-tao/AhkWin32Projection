@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\LPDIENUMDEVICESCALLBACKA.ahk" { LPDIENUMDEVICESCALLBACKA }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\IDirectInputDeviceA.ahk" { IDirectInputDeviceA }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDirectInputDeviceA.ahk" { IDirectInputDeviceA }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
@@ -66,7 +65,7 @@ export default struct IDirectInputA extends IUnknown {
     EnumDevices(param0, param1, param2, param3) {
         param2Marshal := param2 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, UInt32, param0, LPDIENUMDEVICESCALLBACKA, param1, param2Marshal, param2, UInt32, param3, "HRESULT")
+        result := ComCall(4, this, UInt32, param0, "ptr", param1, param2Marshal, param2, UInt32, param3, "HRESULT")
         return result
     }
 

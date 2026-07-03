@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\KF_CATEGORY.ahk" { KF_CATEGORY }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\KF_CATEGORY.ahk" { KF_CATEGORY }
 
 /**
  * Defines the specifics of a known folder.

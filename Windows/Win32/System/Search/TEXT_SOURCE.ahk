@@ -1,5 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PFNFILLTEXTBUFFER.ahk" { PFNFILLTEXTBUFFER }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
@@ -30,7 +29,7 @@ export default struct TEXT_SOURCE {
      * 
      * Pointer to a function, <b>PFNFILLTEXTBUFFER</b> that refills the <b>awcBuffer</b> with text from the source document.
      */
-    pfnFillTextBuffer : PFNFILLTEXTBUFFER
+    pfnFillTextBuffer : IntPtr
 
     /**
      * Type: <b>WCHAR*</b>

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IShellItem.ahk" { IShellItem }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\LIBRARYSAVEFLAGS.ahk" { LIBRARYSAVEFLAGS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\LIBRARYFOLDERFILTER.ahk" { LIBRARYFOLDERFILTER }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\LIBRARYOPTIONFLAGS.ahk" { LIBRARYOPTIONFLAGS }
 #Import ".\DEFAULTSAVEFOLDERTYPE.ahk" { DEFAULTSAVEFOLDERTYPE }
+#Import ".\IShellItem.ahk" { IShellItem }
+#Import ".\LIBRARYFOLDERFILTER.ahk" { LIBRARYFOLDERFILTER }
+#Import ".\LIBRARYOPTIONFLAGS.ahk" { LIBRARYOPTIONFLAGS }
+#Import ".\LIBRARYSAVEFLAGS.ahk" { LIBRARYSAVEFLAGS }
 
 /**
  * Exposes methods for creating and managing libraries.

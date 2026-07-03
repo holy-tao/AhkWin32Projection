@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
 #Import ".\SOCKADDR_STORAGE.ahk" { SOCKADDR_STORAGE }
 #Import ".\SOCKET_SECURITY_PROTOCOL.ahk" { SOCKET_SECURITY_PROTOCOL }
-#Import ".\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**

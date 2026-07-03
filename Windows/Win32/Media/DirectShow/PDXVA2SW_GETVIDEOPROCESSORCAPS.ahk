@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
-#Import "..\MediaFoundation\DXVA2_VideoProcessorCaps.ahk" { DXVA2_VideoProcessorCaps }
-#Import "..\MediaFoundation\DXVA2_VideoDesc.ahk" { DXVA2_VideoDesc }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
+#Import "..\MediaFoundation\DXVA2_VideoDesc.ahk" { DXVA2_VideoDesc }
+#Import "..\MediaFoundation\DXVA2_VideoProcessorCaps.ahk" { DXVA2_VideoProcessorCaps }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
@@ -49,10 +49,6 @@ export default struct PDXVA2SW_GETVIDEOPROCESSORCAPS {
             this.value := CallbackCreate(fn, , [DXVA2_VideoDesc.Ptr, D3DFORMAT, DXVA2_VideoProcessorCaps.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

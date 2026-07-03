@@ -30,7 +30,7 @@ export default struct PCONFIGURE_ADAPTER_CHANNEL {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, UInt32, FunctionNumber, _ContextMarshal, _Context, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -50,10 +50,6 @@ export default struct PCONFIGURE_ADAPTER_CHANNEL {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, UInt32, "ptr", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

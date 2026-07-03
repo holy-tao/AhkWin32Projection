@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IRQD_FLAGS.ahk" { IRQD_FLAGS }
 #Import ".\IRQ_DES_32.ahk" { IRQ_DES_32 }
 #Import ".\IRQ_RANGE.ahk" { IRQ_RANGE }
-#Import ".\IRQD_FLAGS.ahk" { IRQD_FLAGS }
 
 /**
  * The IRQ_RESOURCE structure is used for specifying either a resource list or a resource requirements list that describes IRQ line usage for a device instance. (32 bit)

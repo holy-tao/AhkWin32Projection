@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\CM_NOTIFY_FILTER_TYPE.ahk" { CM_NOTIFY_FILTER_TYPE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CM_NOTIFY_FILTER_TYPE.ahk" { CM_NOTIFY_FILTER_TYPE }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

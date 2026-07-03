@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\SEC_OBJECT.ahk" { SEC_OBJECT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Security\Authorization\EXPLICIT_ACCESS_W.ahk" { EXPLICIT_ACCESS_W }
 #Import "..\..\Security\Authorization\TRUSTEE_W.ahk" { TRUSTEE_W }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SEC_OBJECT.ahk" { SEC_OBJECT }
 
 /**
  * @namespace Windows.Win32.System.Search

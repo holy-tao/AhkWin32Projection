@@ -2,13 +2,13 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\PresentStatisticsKind.ahk" { PresentStatisticsKind }
-#Import ".\IPresentStatistics.ahk" { IPresentStatistics }
-#Import ".\IPresentationSurface.ahk" { IPresentationSurface }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IPresentationBuffer.ahk" { IPresentationBuffer }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPresentStatistics.ahk" { IPresentStatistics }
+#Import ".\IPresentationBuffer.ahk" { IPresentationBuffer }
+#Import ".\IPresentationSurface.ahk" { IPresentationSurface }
+#Import ".\PresentStatisticsKind.ahk" { PresentStatisticsKind }
 #Import ".\SystemInterruptTime.ahk" { SystemInterruptTime }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines methods for managing presentation.

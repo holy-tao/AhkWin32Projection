@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DXVAHD_COLOR_YCbCrA.ahk" { DXVAHD_COLOR_YCbCrA }
 #Import ".\DXVAHD_COLOR_RGBA.ahk" { DXVAHD_COLOR_RGBA }
+#Import ".\DXVAHD_COLOR_YCbCrA.ahk" { DXVAHD_COLOR_YCbCrA }
 
 /**
  * Defines a color value for DXVA-HD.

@@ -45,10 +45,6 @@ export default struct PSERENUM_WRITEPORT {
             this.value := CallbackCreate(fn, , ["ptr", Int8, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

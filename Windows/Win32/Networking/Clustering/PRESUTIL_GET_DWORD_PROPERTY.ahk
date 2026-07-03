@@ -54,10 +54,6 @@ export default struct PRESUTIL_GET_DWORD_PROPERTY {
             this.value := CallbackCreate(fn, , ["uint*", CLUSPROP_DWORD.Ptr, UInt32, UInt32, UInt32, "ptr*", "uint*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

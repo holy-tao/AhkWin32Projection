@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWMSyncReader.ahk" { IWMSyncReader }
-#Import ".\IWMReaderAllocatorEx.ahk" { IWMReaderAllocatorEx }
-#Import ".\WMT_TIMECODE_EXTENSION_DATA.ahk" { WMT_TIMECODE_EXTENSION_DATA }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMReaderAllocatorEx.ahk" { IWMReaderAllocatorEx }
+#Import ".\IWMSyncReader.ahk" { IWMSyncReader }
+#Import ".\WMT_TIMECODE_EXTENSION_DATA.ahk" { WMT_TIMECODE_EXTENSION_DATA }
 
 /**
  * The IWMSyncReader2 interface provides advanced features for the synchronous reader.

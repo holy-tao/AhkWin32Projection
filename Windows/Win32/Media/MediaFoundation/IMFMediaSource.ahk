@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import ".\IMFPresentationDescriptor.ahk" { IMFPresentationDescriptor }
-#Import ".\IMFMediaEventGenerator.ahk" { IMFMediaEventGenerator }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFMediaEventGenerator.ahk" { IMFMediaEventGenerator }
+#Import ".\IMFPresentationDescriptor.ahk" { IMFPresentationDescriptor }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 
 /**
  * Implemented by media source objects.

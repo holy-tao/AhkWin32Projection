@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\GETPROPERTYSTOREFLAGS.ahk" { GETPROPERTYSTOREFLAGS }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\GETPROPERTYSTOREFLAGS.ahk" { GETPROPERTYSTOREFLAGS }
 
 /**
  * Exposes methods to get an IPropertyStore object.

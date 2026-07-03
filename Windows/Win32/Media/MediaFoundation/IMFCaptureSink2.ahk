@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFMediaType.ahk" { IMFMediaType }
-#Import ".\IMFCaptureSink.ahk" { IMFCaptureSink }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import ".\IMFCaptureSink.ahk" { IMFCaptureSink }
+#Import ".\IMFMediaType.ahk" { IMFMediaType }
 
 /**
  * Extends the IMFCaptureSink interface to provide functionality for dynamically setting the output media type of the record sink or preview sink.

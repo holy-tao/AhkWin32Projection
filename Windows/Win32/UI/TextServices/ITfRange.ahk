@@ -2,15 +2,15 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\TfShiftDir.ahk" { TfShiftDir }
-#Import ".\TfGravity.ahk" { TfGravity }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
-#Import ".\TF_HALTCOND.ahk" { TF_HALTCOND }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\TfAnchor.ahk" { TfAnchor }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ITfContext.ahk" { ITfContext }
+#Import ".\TF_HALTCOND.ahk" { TF_HALTCOND }
+#Import ".\TfAnchor.ahk" { TfAnchor }
+#Import ".\TfGravity.ahk" { TfGravity }
+#Import ".\TfShiftDir.ahk" { TfShiftDir }
 
 /**
  * The ITfRange interface is used by text services and applications to reference and manipulate text within a given context. The interface ID is IID_ITfRange.

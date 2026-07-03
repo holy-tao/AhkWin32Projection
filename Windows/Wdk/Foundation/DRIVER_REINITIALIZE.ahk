@@ -47,10 +47,6 @@ export default struct DRIVER_REINITIALIZE {
             this.value := CallbackCreate(fn, , [DRIVER_OBJECT.Ptr, "ptr", UInt32, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

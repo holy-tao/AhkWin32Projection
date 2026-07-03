@@ -28,7 +28,7 @@ export default struct PLSA_OPEN_TOKEN_BY_LOGON_ID {
      */
     Call(LogonId, RetTokenHandle) {
         result := DllCall(this.value, LUID.Ptr, LogonId, HANDLE.Ptr, RetTokenHandle, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -48,10 +48,6 @@ export default struct PLSA_OPEN_TOKEN_BY_LOGON_ID {
             this.value := CallbackCreate(fn, , [LUID.Ptr, HANDLE.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

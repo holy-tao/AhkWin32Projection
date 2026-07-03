@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NMREBAR_MASK_FLAGS.ahk" { NMREBAR_MASK_FLAGS }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import ".\NMHDR.ahk" { NMHDR }
+#Import ".\NMREBAR_MASK_FLAGS.ahk" { NMREBAR_MASK_FLAGS }
 
 /**
  * Contains information used in handling various rebar notifications.

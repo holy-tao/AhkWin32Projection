@@ -29,7 +29,7 @@ export default struct PREPLACE_BEGIN {
         _ContextMarshal := _Context is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, PNP_REPLACE_PARAMETERS.Ptr, Parameters, _ContextMarshal, _Context, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -49,10 +49,6 @@ export default struct PREPLACE_BEGIN {
             this.value := CallbackCreate(fn, , [PNP_REPLACE_PARAMETERS.Ptr, "ptr*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

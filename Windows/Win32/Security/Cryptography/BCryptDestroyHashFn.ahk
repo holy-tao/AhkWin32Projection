@@ -26,7 +26,7 @@ export default struct BCryptDestroyHashFn {
      */
     Call(hHash) {
         result := DllCall(this.value, BCRYPT_HASH_HANDLE, hHash, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -46,10 +46,6 @@ export default struct BCryptDestroyHashFn {
             this.value := CallbackCreate(fn, , [BCRYPT_HASH_HANDLE, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

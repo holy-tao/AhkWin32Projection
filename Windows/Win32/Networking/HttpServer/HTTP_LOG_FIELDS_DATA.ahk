@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HTTP_LOG_DATA.ahk" { HTTP_LOG_DATA }
-#Import ".\HTTP_LOG_DATA_TYPE.ahk" { HTTP_LOG_DATA_TYPE }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HTTP_LOG_DATA.ahk" { HTTP_LOG_DATA }
+#Import ".\HTTP_LOG_DATA_TYPE.ahk" { HTTP_LOG_DATA_TYPE }
 #Import ".\HTTP_VERB.ahk" { HTTP_VERB }
 
 /**

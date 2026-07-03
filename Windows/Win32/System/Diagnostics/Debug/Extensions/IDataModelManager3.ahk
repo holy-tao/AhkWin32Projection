@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IKeyStore.ahk" { IKeyStore }
-#Import ".\IModelObject.ahk" { IModelObject }
-#Import ".\IFilteredNamespacePropertyToken.ahk" { IFilteredNamespacePropertyToken }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IDataModelManager2.ahk" { IDataModelManager2 }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFilteredNamespacePropertyToken.ahk" { IFilteredNamespacePropertyToken }
+#Import ".\IKeyStore.ahk" { IKeyStore }
 #Import ".\IModelMethod.ahk" { IModelMethod }
+#Import ".\IModelObject.ahk" { IModelObject }
 #Import ".\INamedModelsEnumerator.ahk" { INamedModelsEnumerator }
 
 /**

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\SURFOBJ.ahk" { SURFOBJ }
 #Import ".\BRUSHOBJ.ahk" { BRUSHOBJ }
+#Import ".\SURFOBJ.ahk" { SURFOBJ }
 #Import ".\XLATEOBJ.ahk" { XLATEOBJ }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -52,10 +52,6 @@ export default struct PFN_DrvRealizeBrush {
             this.value := CallbackCreate(fn, , [BRUSHOBJ.Ptr, SURFOBJ.Ptr, SURFOBJ.Ptr, SURFOBJ.Ptr, XLATEOBJ.Ptr, UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

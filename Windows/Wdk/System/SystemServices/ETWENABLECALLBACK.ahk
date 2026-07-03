@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\System\Diagnostics\Etw\EVENT_FILTER_DESCRIPTOR.ahk" { EVENT_FILTER_DESCRIPTOR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32\System\Diagnostics\Etw\EVENT_FILTER_DESCRIPTOR.ahk" { EVENT_FILTER_DESCRIPTOR }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -52,10 +52,6 @@ export default struct ETWENABLECALLBACK {
             this.value := CallbackCreate(fn, , [Guid.Ptr, UInt32, Int8, Int64, Int64, EVENT_FILTER_DESCRIPTOR.Ptr, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

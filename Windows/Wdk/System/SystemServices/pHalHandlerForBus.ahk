@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\INTERFACE_TYPE.ahk" { INTERFACE_TYPE }
 #Import "..\..\Foundation\PBUS_HANDLER.ahk" { PBUS_HANDLER }
+#Import ".\INTERFACE_TYPE.ahk" { INTERFACE_TYPE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -46,10 +46,6 @@ export default struct pHalHandlerForBus {
             this.value := CallbackCreate(fn, , [INTERFACE_TYPE, UInt32, PBUS_HANDLER])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

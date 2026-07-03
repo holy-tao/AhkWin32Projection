@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SCM_INTERLEAVED_PD_INFO.ahk" { SCM_INTERLEAVED_PD_INFO }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SCM_INTERLEAVED_PD_INFO.ahk" { SCM_INTERLEAVED_PD_INFO }
 
 /**
  * @namespace Windows.Win32.System.Ioctl

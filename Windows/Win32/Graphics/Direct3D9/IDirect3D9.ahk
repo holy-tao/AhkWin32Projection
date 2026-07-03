@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
-#Import ".\D3DDEVTYPE.ahk" { D3DDEVTYPE }
-#Import ".\D3DADAPTER_IDENTIFIER9.ahk" { D3DADAPTER_IDENTIFIER9 }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\D3DADAPTER_IDENTIFIER9.ahk" { D3DADAPTER_IDENTIFIER9 }
+#Import ".\D3DCAPS9.ahk" { D3DCAPS9 }
+#Import ".\D3DDEVTYPE.ahk" { D3DDEVTYPE }
+#Import ".\D3DDISPLAYMODE.ahk" { D3DDISPLAYMODE }
 #Import ".\D3DFORMAT.ahk" { D3DFORMAT }
 #Import ".\D3DMULTISAMPLE_TYPE.ahk" { D3DMULTISAMPLE_TYPE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\D3DPRESENT_PARAMETERS.ahk" { D3DPRESENT_PARAMETERS }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\D3DRESOURCETYPE.ahk" { D3DRESOURCETYPE }
-#Import ".\D3DDISPLAYMODE.ahk" { D3DDISPLAYMODE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
 #Import "..\Gdi\HMONITOR.ahk" { HMONITOR }
-#Import ".\D3DCAPS9.ahk" { D3DCAPS9 }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDirect3D9 (d3d9.h) interface applications use the methods of the IDirect3D9 interface to create Microsoft Direct3D objects and set up the environment.

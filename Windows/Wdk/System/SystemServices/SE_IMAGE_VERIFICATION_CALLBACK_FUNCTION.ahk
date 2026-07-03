@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SE_IMAGE_TYPE.ahk" { SE_IMAGE_TYPE }
 #Import ".\BDCB_IMAGE_INFORMATION.ahk" { BDCB_IMAGE_INFORMATION }
+#Import ".\SE_IMAGE_TYPE.ahk" { SE_IMAGE_TYPE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -48,10 +48,6 @@ export default struct SE_IMAGE_VERIFICATION_CALLBACK_FUNCTION {
             this.value := CallbackCreate(fn, , ["ptr", SE_IMAGE_TYPE, BDCB_IMAGE_INFORMATION.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ICorProfilerInfo5.ahk" { ICorProfilerInfo5 }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICorProfilerInfo5.ahk" { ICorProfilerInfo5 }
 #Import ".\ICorProfilerMethodEnum.ahk" { ICorProfilerMethodEnum }
 
 /**

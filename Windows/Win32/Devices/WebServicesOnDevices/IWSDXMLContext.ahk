@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WSDXML_NAMESPACE.ahk" { WSDXML_NAMESPACE }
 #Import ".\WSDXML_NAME.ahk" { WSDXML_NAME }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WSDXML_NAMESPACE.ahk" { WSDXML_NAMESPACE }
 #Import ".\WSDXML_TYPE.ahk" { WSDXML_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Is a collection of namespaces and types used in a WSDAPI stack.

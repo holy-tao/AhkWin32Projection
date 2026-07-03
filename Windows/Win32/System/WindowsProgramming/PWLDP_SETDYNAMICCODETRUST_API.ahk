@@ -45,10 +45,6 @@ export default struct PWLDP_SETDYNAMICCODETRUST_API {
             this.value := CallbackCreate(fn, , [HANDLE, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

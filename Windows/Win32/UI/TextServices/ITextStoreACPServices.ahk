@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\TF_PERSISTENT_PROPERTY_HEADER_ACP.ahk" { TF_PERSISTENT_PROPERTY_HEADER_ACP }
-#Import ".\ITfProperty.ahk" { ITfProperty }
-#Import ".\ITfRangeACP.ahk" { ITfRangeACP }
-#Import ".\ITfPersistentPropertyLoaderACP.ahk" { ITfPersistentPropertyLoaderACP }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITfPersistentPropertyLoaderACP.ahk" { ITfPersistentPropertyLoaderACP }
+#Import ".\ITfProperty.ahk" { ITfProperty }
 #Import ".\ITfRange.ahk" { ITfRange }
+#Import ".\ITfRangeACP.ahk" { ITfRangeACP }
+#Import ".\TF_PERSISTENT_PROPERTY_HEADER_ACP.ahk" { TF_PERSISTENT_PROPERTY_HEADER_ACP }
 
 /**
  * The ITextStoreACPServices interface is implemented by the TSF manager to provide various services to an ACP-based application.

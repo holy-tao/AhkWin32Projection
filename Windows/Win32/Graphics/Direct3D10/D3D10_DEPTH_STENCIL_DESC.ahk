@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D10_COMPARISON_FUNC.ahk" { D3D10_COMPARISON_FUNC }
-#Import ".\D3D10_STENCIL_OP.ahk" { D3D10_STENCIL_OP }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\D3D10_DEPTH_WRITE_MASK.ahk" { D3D10_DEPTH_WRITE_MASK }
+#Import ".\D3D10_COMPARISON_FUNC.ahk" { D3D10_COMPARISON_FUNC }
 #Import ".\D3D10_DEPTH_STENCILOP_DESC.ahk" { D3D10_DEPTH_STENCILOP_DESC }
+#Import ".\D3D10_DEPTH_WRITE_MASK.ahk" { D3D10_DEPTH_WRITE_MASK }
+#Import ".\D3D10_STENCIL_OP.ahk" { D3D10_STENCIL_OP }
 
 /**
  * Describes depth-stencil state. (D3D10_DEPTH_STENCIL_DESC)

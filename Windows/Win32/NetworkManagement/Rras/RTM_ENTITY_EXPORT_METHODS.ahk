@@ -1,5 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RTM_ENTITY_EXPORT_METHOD.ahk" { RTM_ENTITY_EXPORT_METHOD }
 
 /**
  * The RTM_ENTITY_EXPORT_METHODS structure contains the set of methods exported by a client.
@@ -17,6 +16,6 @@ export default struct RTM_ENTITY_EXPORT_METHODS {
     /**
      * Specifies which methods the client is exporting.
      */
-    Methods : RTM_ENTITY_EXPORT_METHOD[1]
+    Methods : IntPtr[1]
 
 }

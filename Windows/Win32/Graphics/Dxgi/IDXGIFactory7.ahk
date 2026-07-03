@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\IDXGIFactory6.ahk" { IDXGIFactory6 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDXGIFactory6.ahk" { IDXGIFactory6 }
 
 /**
  * This interface enables registration for notifications to detect adapter enumeration state changes.

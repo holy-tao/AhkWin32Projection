@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DEBUG_SYMBOL_ENTRY.ahk" { DEBUG_SYMBOL_ENTRY }
-#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DEBUG_SYMBOL_PARAMETERS.ahk" { DEBUG_SYMBOL_PARAMETERS }
-#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DEBUG_SYMBOL_ENTRY.ahk" { DEBUG_SYMBOL_ENTRY }
+#Import ".\DEBUG_SYMBOL_PARAMETERS.ahk" { DEBUG_SYMBOL_PARAMETERS }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

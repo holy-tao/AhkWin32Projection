@@ -80,10 +80,6 @@ export default struct LPSERVICE_MAIN_FUNCTIONA {
             this.value := CallbackCreate(fn, , [UInt32, PSTR.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

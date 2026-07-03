@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IMFCaptureSink.ahk" { IMFCaptureSink }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMFCaptureEngineOnSampleCallback.ahk" { IMFCaptureEngineOnSampleCallback }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MFVideoNormalizedRect.ahk" { MFVideoNormalizedRect }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\IMFCaptureEngineOnSampleCallback.ahk" { IMFCaptureEngineOnSampleCallback }
+#Import ".\IMFCaptureSink.ahk" { IMFCaptureSink }
 #Import ".\IMFMediaSink.ahk" { IMFMediaSink }
+#Import ".\MFVideoNormalizedRect.ahk" { MFVideoNormalizedRect }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Controls the preview sink.

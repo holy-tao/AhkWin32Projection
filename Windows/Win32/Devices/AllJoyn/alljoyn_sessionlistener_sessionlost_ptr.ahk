@@ -47,10 +47,6 @@ export default struct alljoyn_sessionlistener_sessionlost_ptr {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, alljoyn_sessionlostreason, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

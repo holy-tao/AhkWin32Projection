@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DBPARAMS.ahk" { DBPARAMS }
-#Import ".\DBPARAMINFO.ahk" { DBPARAMINFO }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DBPARAMINFO.ahk" { DBPARAMINFO }
+#Import ".\DBPARAMS.ahk" { DBPARAMS }
 
 /**
  * @namespace Windows.Win32.System.Search

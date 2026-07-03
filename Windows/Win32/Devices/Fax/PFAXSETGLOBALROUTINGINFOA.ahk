@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\FAX_GLOBAL_ROUTING_INFOA.ahk" { FAX_GLOBAL_ROUTING_INFOA }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Win32.Devices.Fax
@@ -48,10 +48,6 @@ export default struct PFAXSETGLOBALROUTINGINFOA {
             this.value := CallbackCreate(fn, , [HANDLE, FAX_GLOBAL_ROUTING_INFOA.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

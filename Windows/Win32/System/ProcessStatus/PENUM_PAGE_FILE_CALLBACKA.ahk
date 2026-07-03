@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\ENUM_PAGE_FILE_INFORMATION.ahk" { ENUM_PAGE_FILE_INFORMATION }
 
 /**
@@ -62,10 +62,6 @@ export default struct PENUM_PAGE_FILE_CALLBACKA {
             this.value := CallbackCreate(fn, , ["ptr", ENUM_PAGE_FILE_INFORMATION.Ptr, PSTR, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

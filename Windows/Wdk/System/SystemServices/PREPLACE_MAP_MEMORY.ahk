@@ -33,7 +33,7 @@ export default struct PREPLACE_MAP_MEMORY {
         SpareAddressMarshal := SpareAddress is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, Int64, TargetPhysicalAddress, Int64, SparePhysicalAddress, NumberOfBytesMarshal, NumberOfBytes, TargetAddressMarshal, TargetAddress, SpareAddressMarshal, SpareAddress, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -53,10 +53,6 @@ export default struct PREPLACE_MAP_MEMORY {
             this.value := CallbackCreate(fn, , [Int64, Int64, "int64*", "ptr*", "ptr*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

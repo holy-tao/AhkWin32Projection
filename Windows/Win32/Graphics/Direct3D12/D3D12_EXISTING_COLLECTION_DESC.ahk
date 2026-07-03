@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ID3D12StateObject.ahk" { ID3D12StateObject }
 #Import ".\D3D12_EXPORT_DESC.ahk" { D3D12_EXPORT_DESC }
+#Import ".\ID3D12StateObject.ahk" { ID3D12StateObject }
 
 /**
  * A state subobject describing an existing collection that can be included in a state object.

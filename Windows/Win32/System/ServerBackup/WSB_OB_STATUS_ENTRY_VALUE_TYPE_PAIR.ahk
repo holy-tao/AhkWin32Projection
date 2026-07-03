@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WSB_OB_STATUS_ENTRY_PAIR_TYPE.ahk" { WSB_OB_STATUS_ENTRY_PAIR_TYPE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WSB_OB_STATUS_ENTRY_PAIR_TYPE.ahk" { WSB_OB_STATUS_ENTRY_PAIR_TYPE }
 
 /**
  * Contains the value and value type for a parameter used to expand the value resource string.

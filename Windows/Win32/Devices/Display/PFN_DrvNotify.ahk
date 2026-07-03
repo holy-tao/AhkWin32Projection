@@ -47,10 +47,6 @@ export default struct PFN_DrvNotify {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, UInt32, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

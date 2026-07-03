@@ -1,7 +1,7 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\RESTOREPOINTINFOA.ahk" { RESTOREPOINTINFOA }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\RESTOREPOINTINFOA.ahk" { RESTOREPOINTINFOA }
 #Import ".\RESTOREPOINTINFOW.ahk" { RESTOREPOINTINFOW }
 #Import ".\STATEMGRSTATUS.ahk" { STATEMGRSTATUS }
 

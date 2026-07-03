@@ -123,10 +123,6 @@ export default struct LPWSPSHUTDOWN {
             this.value := CallbackCreate(fn, , [SOCKET, Int32, "int*", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

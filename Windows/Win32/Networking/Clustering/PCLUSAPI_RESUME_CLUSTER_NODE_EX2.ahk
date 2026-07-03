@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CLUSTER_NODE_RESUME_FAILBACK_TYPE.ahk" { CLUSTER_NODE_RESUME_FAILBACK_TYPE }
 #Import ".\HNODE.ahk" { HNODE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -51,10 +51,6 @@ export default struct PCLUSAPI_RESUME_CLUSTER_NODE_EX2 {
             this.value := CallbackCreate(fn, , [HNODE, CLUSTER_NODE_RESUME_FAILBACK_TYPE, UInt32, PWSTR, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

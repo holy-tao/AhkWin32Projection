@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WRDS_CONNECTION_SETTING_LEVEL.ahk" { WRDS_CONNECTION_SETTING_LEVEL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\WRDS_CONNECTION_SETTINGS.ahk" { WRDS_CONNECTION_SETTINGS }
+#Import ".\WRDS_CONNECTION_SETTING_LEVEL.ahk" { WRDS_CONNECTION_SETTING_LEVEL }
 #Import ".\WRDS_SETTINGS.ahk" { WRDS_SETTINGS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WRDS_SETTING_TYPE.ahk" { WRDS_SETTING_TYPE }
 #Import ".\WRDS_SETTING_LEVEL.ahk" { WRDS_SETTING_LEVEL }
+#Import ".\WRDS_SETTING_TYPE.ahk" { WRDS_SETTING_TYPE }
 
 /**
  * Exposes methods for retrieving and adding policy-related settings.

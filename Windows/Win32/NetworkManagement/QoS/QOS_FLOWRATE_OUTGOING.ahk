@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\QOS_SHAPING.ahk" { QOS_SHAPING }
 #Import ".\QOS_FLOWRATE_REASON.ahk" { QOS_FLOWRATE_REASON }
+#Import ".\QOS_SHAPING.ahk" { QOS_SHAPING }
 
 /**
  * The QOS_FLOWRATE_OUTGOING structure is used to set flow rate information in the QOSSetFlow function.

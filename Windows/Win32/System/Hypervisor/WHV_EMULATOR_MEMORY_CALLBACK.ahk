@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WHV_EMULATOR_MEMORY_ACCESS_INFO.ahk" { WHV_EMULATOR_MEMORY_ACCESS_INFO }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WHV_EMULATOR_MEMORY_ACCESS_INFO.ahk" { WHV_EMULATOR_MEMORY_ACCESS_INFO }
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
@@ -48,10 +48,6 @@ export default struct WHV_EMULATOR_MEMORY_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", WHV_EMULATOR_MEMORY_ACCESS_INFO.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

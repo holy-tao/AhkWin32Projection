@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DWRITE_PARAGRAPH_ALIGNMENT.ahk" { DWRITE_PARAGRAPH_ALIGNMENT }
-#Import ".\IDWriteInlineObject.ahk" { IDWriteInlineObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DWRITE_FLOW_DIRECTION.ahk" { DWRITE_FLOW_DIRECTION }
-#Import ".\DWRITE_TEXT_ALIGNMENT.ahk" { DWRITE_TEXT_ALIGNMENT }
-#Import ".\DWRITE_TRIMMING.ahk" { DWRITE_TRIMMING }
-#Import ".\DWRITE_LINE_SPACING_METHOD.ahk" { DWRITE_LINE_SPACING_METHOD }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DWRITE_FONT_STRETCH.ahk" { DWRITE_FONT_STRETCH }
 #Import ".\DWRITE_FONT_STYLE.ahk" { DWRITE_FONT_STYLE }
 #Import ".\DWRITE_FONT_WEIGHT.ahk" { DWRITE_FONT_WEIGHT }
+#Import ".\DWRITE_LINE_SPACING_METHOD.ahk" { DWRITE_LINE_SPACING_METHOD }
+#Import ".\DWRITE_PARAGRAPH_ALIGNMENT.ahk" { DWRITE_PARAGRAPH_ALIGNMENT }
 #Import ".\DWRITE_READING_DIRECTION.ahk" { DWRITE_READING_DIRECTION }
-#Import ".\DWRITE_FONT_STRETCH.ahk" { DWRITE_FONT_STRETCH }
+#Import ".\DWRITE_TEXT_ALIGNMENT.ahk" { DWRITE_TEXT_ALIGNMENT }
+#Import ".\DWRITE_TRIMMING.ahk" { DWRITE_TRIMMING }
 #Import ".\DWRITE_WORD_WRAPPING.ahk" { DWRITE_WORD_WRAPPING }
+#Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
+#Import ".\IDWriteInlineObject.ahk" { IDWriteInlineObject }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDWriteTextFormat interface describes the font and paragraph properties used to format text, and it describes locale information.

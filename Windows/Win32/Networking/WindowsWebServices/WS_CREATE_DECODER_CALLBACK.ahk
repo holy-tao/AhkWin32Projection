@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_READ_CALLBACK.ahk" { WS_READ_CALLBACK }
-#Import ".\WS_ERROR.ahk" { WS_ERROR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WS_ERROR.ahk" { WS_ERROR }
 
 /**
  * Handles creating a decoder instance.
@@ -45,7 +44,7 @@ export default struct WS_CREATE_DECODER_CALLBACK {
         readContextMarshal := readContext is VarRef ? "ptr" : "ptr"
         _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall(this.value, createContextMarshal, createContext, WS_READ_CALLBACK, readCallback, readContextMarshal, readContext, "ptr*", &decoderContext := 0, _errorMarshal, _error, "HRESULT")
+        result := DllCall(this.value, createContextMarshal, createContext, "ptr", readCallback, readContextMarshal, readContext, "ptr*", &decoderContext := 0, _errorMarshal, _error, "HRESULT")
         return decoderContext
     }
 
@@ -56,19 +55,15 @@ export default struct WS_CREATE_DECODER_CALLBACK {
     struct From extends WS_CREATE_DECODER_CALLBACK {
         /**
          * Creates a WS_CREATE_DECODER_CALLBACK pointer that invokes the given AHK function when called.
-         * @param {Func("ptr", WS_READ_CALLBACK, "ptr", WS_ERROR) => "int"} fn the function to invoke.
+         * @param {Func("ptr", "ptr", "ptr", WS_ERROR) => "int"} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 4)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 4 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , ["ptr", WS_READ_CALLBACK, "ptr", WS_ERROR.Ptr, "int"])
+            this.value := CallbackCreate(fn, , ["ptr", "ptr", "ptr", WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

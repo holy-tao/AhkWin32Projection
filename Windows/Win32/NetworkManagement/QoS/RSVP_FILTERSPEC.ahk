@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RSVP_FILTERSPEC_V6_FLOW.ahk" { RSVP_FILTERSPEC_V6_FLOW }
-#Import ".\IN_ADDR_IPV4.ahk" { IN_ADDR_IPV4 }
-#Import ".\RSVP_FILTERSPEC_V6.ahk" { RSVP_FILTERSPEC_V6 }
-#Import ".\RSVP_FILTERSPEC_V4_GPI.ahk" { RSVP_FILTERSPEC_V4_GPI }
 #Import ".\FilterType.ahk" { FilterType }
+#Import ".\IN_ADDR_IPV4.ahk" { IN_ADDR_IPV4 }
 #Import ".\IN_ADDR_IPV6.ahk" { IN_ADDR_IPV6 }
 #Import ".\RSVP_FILTERSPEC_V4.ahk" { RSVP_FILTERSPEC_V4 }
+#Import ".\RSVP_FILTERSPEC_V4_GPI.ahk" { RSVP_FILTERSPEC_V4_GPI }
+#Import ".\RSVP_FILTERSPEC_V6.ahk" { RSVP_FILTERSPEC_V6 }
+#Import ".\RSVP_FILTERSPEC_V6_FLOW.ahk" { RSVP_FILTERSPEC_V6_FLOW }
 #Import ".\RSVP_FILTERSPEC_V6_GPI.ahk" { RSVP_FILTERSPEC_V6_GPI }
 
 /**

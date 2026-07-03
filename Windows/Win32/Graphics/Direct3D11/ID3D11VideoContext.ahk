@@ -1,34 +1,34 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D11VideoProcessor.ahk" { ID3D11VideoProcessor }
-#Import ".\ID3D11AuthenticatedChannel.ahk" { ID3D11AuthenticatedChannel }
-#Import ".\ID3D11Texture2D.ahk" { ID3D11Texture2D }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID3D11CryptoSession.ahk" { ID3D11CryptoSession }
-#Import ".\D3D11_VIDEO_PROCESSOR_OUTPUT_RATE.ahk" { D3D11_VIDEO_PROCESSOR_OUTPUT_RATE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Dxgi\Common\DXGI_RATIONAL.ahk" { DXGI_RATIONAL }
-#Import ".\ID3D11VideoDecoder.ahk" { ID3D11VideoDecoder }
-#Import ".\D3D11_ENCRYPTED_BLOCK_INFO.ahk" { D3D11_ENCRYPTED_BLOCK_INFO }
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
-#Import ".\D3D11_VIDEO_PROCESSOR_ALPHA_FILL_MODE.ahk" { D3D11_VIDEO_PROCESSOR_ALPHA_FILL_MODE }
-#Import ".\D3D11_VIDEO_DECODER_BUFFER_TYPE.ahk" { D3D11_VIDEO_DECODER_BUFFER_TYPE }
-#Import ".\D3D11_VIDEO_PROCESSOR_ROTATION.ahk" { D3D11_VIDEO_PROCESSOR_ROTATION }
-#Import ".\D3D11_VIDEO_FRAME_FORMAT.ahk" { D3D11_VIDEO_FRAME_FORMAT }
-#Import ".\ID3D11VideoProcessorOutputView.ahk" { ID3D11VideoProcessorOutputView }
-#Import ".\D3D11_VIDEO_PROCESSOR_STEREO_FLIP_MODE.ahk" { D3D11_VIDEO_PROCESSOR_STEREO_FLIP_MODE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\D3D11_VIDEO_PROCESSOR_COLOR_SPACE.ahk" { D3D11_VIDEO_PROCESSOR_COLOR_SPACE }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 #Import ".\D3D11_AUTHENTICATED_CONFIGURE_OUTPUT.ahk" { D3D11_AUTHENTICATED_CONFIGURE_OUTPUT }
-#Import ".\D3D11_VIDEO_PROCESSOR_FILTER.ahk" { D3D11_VIDEO_PROCESSOR_FILTER }
-#Import ".\D3D11_VIDEO_DECODER_BUFFER_DESC.ahk" { D3D11_VIDEO_DECODER_BUFFER_DESC }
+#Import ".\D3D11_ENCRYPTED_BLOCK_INFO.ahk" { D3D11_ENCRYPTED_BLOCK_INFO }
 #Import ".\D3D11_VIDEO_COLOR.ahk" { D3D11_VIDEO_COLOR }
+#Import ".\D3D11_VIDEO_DECODER_BUFFER_DESC.ahk" { D3D11_VIDEO_DECODER_BUFFER_DESC }
+#Import ".\D3D11_VIDEO_DECODER_BUFFER_TYPE.ahk" { D3D11_VIDEO_DECODER_BUFFER_TYPE }
+#Import ".\D3D11_VIDEO_DECODER_EXTENSION.ahk" { D3D11_VIDEO_DECODER_EXTENSION }
+#Import ".\D3D11_VIDEO_FRAME_FORMAT.ahk" { D3D11_VIDEO_FRAME_FORMAT }
+#Import ".\D3D11_VIDEO_PROCESSOR_ALPHA_FILL_MODE.ahk" { D3D11_VIDEO_PROCESSOR_ALPHA_FILL_MODE }
+#Import ".\D3D11_VIDEO_PROCESSOR_COLOR_SPACE.ahk" { D3D11_VIDEO_PROCESSOR_COLOR_SPACE }
+#Import ".\D3D11_VIDEO_PROCESSOR_FILTER.ahk" { D3D11_VIDEO_PROCESSOR_FILTER }
+#Import ".\D3D11_VIDEO_PROCESSOR_OUTPUT_RATE.ahk" { D3D11_VIDEO_PROCESSOR_OUTPUT_RATE }
+#Import ".\D3D11_VIDEO_PROCESSOR_ROTATION.ahk" { D3D11_VIDEO_PROCESSOR_ROTATION }
+#Import ".\D3D11_VIDEO_PROCESSOR_STEREO_FLIP_MODE.ahk" { D3D11_VIDEO_PROCESSOR_STEREO_FLIP_MODE }
 #Import ".\D3D11_VIDEO_PROCESSOR_STEREO_FORMAT.ahk" { D3D11_VIDEO_PROCESSOR_STEREO_FORMAT }
 #Import ".\D3D11_VIDEO_PROCESSOR_STREAM.ahk" { D3D11_VIDEO_PROCESSOR_STREAM }
-#Import ".\ID3D11VideoDecoderOutputView.ahk" { ID3D11VideoDecoderOutputView }
+#Import ".\ID3D11AuthenticatedChannel.ahk" { ID3D11AuthenticatedChannel }
+#Import ".\ID3D11CryptoSession.ahk" { ID3D11CryptoSession }
 #Import ".\ID3D11DeviceChild.ahk" { ID3D11DeviceChild }
-#Import ".\D3D11_VIDEO_DECODER_EXTENSION.ahk" { D3D11_VIDEO_DECODER_EXTENSION }
+#Import ".\ID3D11Texture2D.ahk" { ID3D11Texture2D }
+#Import ".\ID3D11VideoDecoder.ahk" { ID3D11VideoDecoder }
+#Import ".\ID3D11VideoDecoderOutputView.ahk" { ID3D11VideoDecoderOutputView }
+#Import ".\ID3D11VideoProcessor.ahk" { ID3D11VideoProcessor }
+#Import ".\ID3D11VideoProcessorOutputView.ahk" { ID3D11VideoProcessorOutputView }
+#Import "..\Dxgi\Common\DXGI_RATIONAL.ahk" { DXGI_RATIONAL }
 
 /**
  * Provides the video functionality of a Microsoft Direct3D 11 device. (ID3D11VideoContext)

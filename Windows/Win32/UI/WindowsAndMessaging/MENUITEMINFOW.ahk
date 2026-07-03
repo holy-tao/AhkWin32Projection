@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MENU_ITEM_TYPE.ahk" { MENU_ITEM_TYPE }
-#Import ".\MENU_ITEM_STATE.ahk" { MENU_ITEM_STATE }
-#Import ".\MENU_ITEM_MASK.ahk" { MENU_ITEM_MASK }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\HMENU.ahk" { HMENU }
 #Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import ".\HMENU.ahk" { HMENU }
+#Import ".\MENU_ITEM_MASK.ahk" { MENU_ITEM_MASK }
+#Import ".\MENU_ITEM_STATE.ahk" { MENU_ITEM_STATE }
+#Import ".\MENU_ITEM_TYPE.ahk" { MENU_ITEM_TYPE }
 
 /**
  * Contains information about a menu item. (MENUITEMINFOW)

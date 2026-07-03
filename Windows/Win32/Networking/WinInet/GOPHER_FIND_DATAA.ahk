@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\GOPHER_TYPE.ahk" { GOPHER_TYPE }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\GOPHER_TYPE.ahk" { GOPHER_TYPE }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**

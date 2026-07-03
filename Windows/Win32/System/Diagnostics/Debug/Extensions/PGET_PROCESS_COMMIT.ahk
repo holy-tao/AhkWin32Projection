@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\PROCESS_COMMIT_USAGE.ahk" { PROCESS_COMMIT_USAGE }
 #Import ".\IDebugClient.ahk" { IDebugClient }
+#Import ".\PROCESS_COMMIT_USAGE.ahk" { PROCESS_COMMIT_USAGE }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -53,10 +53,6 @@ export default struct PGET_PROCESS_COMMIT {
             this.value := CallbackCreate(fn, , ["ptr", "uint*", "uint*", "ptr*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

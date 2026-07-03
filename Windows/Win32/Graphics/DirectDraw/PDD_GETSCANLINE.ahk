@@ -50,10 +50,6 @@ export default struct PDD_GETSCANLINE {
             this.value := CallbackCreate(fn, , [DD_GETSCANLINEDATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

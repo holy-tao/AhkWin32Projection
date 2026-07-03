@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\IDebugClient.ahk" { IDebugClient }
 
 /**
@@ -50,10 +50,6 @@ export default struct PGET_FULL_IMAGE_NAME {
             this.value := CallbackCreate(fn, , ["ptr", Int64, PSTR.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

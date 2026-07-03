@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDWriteRenderingParams2.ahk" { IDWriteRenderingParams2 }
 #Import ".\DWRITE_RENDERING_MODE1.ahk" { DWRITE_RENDERING_MODE1 }
+#Import ".\IDWriteRenderingParams2.ahk" { IDWriteRenderingParams2 }
 
 /**
  * Represents text rendering settings for glyph rasterization and filtering. (IDWriteRenderingParams3)

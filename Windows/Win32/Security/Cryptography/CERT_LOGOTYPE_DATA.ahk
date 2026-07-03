@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CERT_LOGOTYPE_IMAGE.ahk" { CERT_LOGOTYPE_IMAGE }
 #Import ".\CERT_LOGOTYPE_AUDIO.ahk" { CERT_LOGOTYPE_AUDIO }
+#Import ".\CERT_LOGOTYPE_IMAGE.ahk" { CERT_LOGOTYPE_IMAGE }
 
 /**
  * Contains logotype data.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DLLVERSIONINFO.ahk" { DLLVERSIONINFO }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DLLVERSIONINFO.ahk" { DLLVERSIONINFO }
 
 /**
  * Implemented by many of the Windows Shell DLLs to allow applications to obtain DLL-specific version information.
@@ -53,10 +53,6 @@ export default struct DLLGETVERSIONPROC {
             this.value := CallbackCreate(fn, , [DLLVERSIONINFO.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

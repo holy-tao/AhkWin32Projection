@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IBaseFilter.ahk" { IBaseFilter }
+#Import ".\IGraphBuilder.ahk" { IGraphBuilder }
+#Import ".\IPin.ahk" { IPin }
 #Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
 #Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
 #Import "..\..\System\Com\IMoniker.ahk" { IMoniker }
-#Import ".\IPin.ahk" { IPin }
-#Import ".\IBaseFilter.ahk" { IBaseFilter }
-#Import ".\IGraphBuilder.ahk" { IGraphBuilder }
 
 /**
  * The IFilterGraph2 interface extends the IFilterGraph and IGraphBuilder interfaces, which contain methods for building filter graphs.The Filter Graph Manager implements this interface.

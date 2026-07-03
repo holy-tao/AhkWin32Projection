@@ -1,7 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PLOG_TAIL_ADVANCE_CALLBACK.ahk" { PLOG_TAIL_ADVANCE_CALLBACK }
-#Import ".\PLOG_UNPINNED_CALLBACK.ahk" { PLOG_UNPINNED_CALLBACK }
-#Import ".\PLOG_FULL_HANDLER_CALLBACK.ahk" { PLOG_FULL_HANDLER_CALLBACK }
 
 /**
  * The LOG_MANAGEMENT_CALLBACKS structure is used to register with the Common Log File System (CLFS) for the callbacks that a client program requires information from.
@@ -19,16 +16,16 @@ export default struct LOG_MANAGEMENT_CALLBACKS {
     /**
      * Called when the management functionality determines that the client should advance the tail of its log.
      */
-    AdvanceTailCallback : PLOG_TAIL_ADVANCE_CALLBACK
+    AdvanceTailCallback : IntPtr
 
     /**
      * Called when an asynchronous request is initiated when <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmtw32/nf-clfsmgmtw32-handlelogfull">HandleLogFull</a> completes.
      */
-    LogFullHandlerCallback : PLOG_FULL_HANDLER_CALLBACK
+    LogFullHandlerCallback : IntPtr
 
     /**
      * Called when a pinned log becomes unpinned.
      */
-    LogUnpinnedCallback : PLOG_UNPINNED_CALLBACK
+    LogUnpinnedCallback : IntPtr
 
 }

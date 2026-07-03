@@ -79,10 +79,6 @@ export default struct EDITWORDBREAKPROCA {
             this.value := CallbackCreate(fn, , [PSTR, Int32, Int32, WORD_BREAK_ACTION, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

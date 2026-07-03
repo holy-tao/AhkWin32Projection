@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\IExtractImage.ahk" { IExtractImage }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IExtractImage.ahk" { IExtractImage }
 
 /**
  * Extends the capabilities of IExtractImage.

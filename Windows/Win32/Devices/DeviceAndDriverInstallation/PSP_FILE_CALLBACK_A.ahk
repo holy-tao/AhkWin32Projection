@@ -51,10 +51,6 @@ export default struct PSP_FILE_CALLBACK_A {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, IntPtr, IntPtr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

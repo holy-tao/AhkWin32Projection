@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HSURF.ahk" { HSURF }
 #Import ".\DHPDEV.ahk" { DHPDEV }
+#Import ".\HSURF.ahk" { HSURF }
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -45,10 +45,6 @@ export default struct PFN_DrvEnableSurface {
             this.value := CallbackCreate(fn, , [DHPDEV, HSURF])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

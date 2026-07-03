@@ -44,10 +44,6 @@ export default struct PDD_SETMODE {
             this.value := CallbackCreate(fn, , [PDD_SETMODEDATA, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

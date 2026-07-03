@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\SPCOMMITFLAGS.ahk" { SPCOMMITFLAGS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SPPHRASEALTREQUEST.ahk" { SPPHRASEALTREQUEST }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ISpSRAlternates.ahk" { ISpSRAlternates }
+#Import ".\SPCOMMITFLAGS.ahk" { SPCOMMITFLAGS }
+#Import ".\SPPHRASEALTREQUEST.ahk" { SPPHRASEALTREQUEST }
 
 /**
  * @namespace Windows.Win32.Media.Speech

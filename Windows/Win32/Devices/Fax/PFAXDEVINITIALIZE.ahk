@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\PFAX_LINECALLBACK.ahk" { PFAX_LINECALLBACK }
-#Import ".\PFAX_SERVICE_CALLBACK.ahk" { PFAX_SERVICE_CALLBACK }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Win32.Devices.Fax
@@ -32,7 +30,7 @@ export default struct PFAXDEVINITIALIZE {
     Call(param0, param1, param2, param3) {
         param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall(this.value, UInt32, param0, HANDLE, param1, param2Marshal, param2, PFAX_SERVICE_CALLBACK, param3, BOOL)
+        result := DllCall(this.value, UInt32, param0, HANDLE, param1, param2Marshal, param2, "ptr", param3, BOOL)
         return result
     }
 
@@ -43,19 +41,15 @@ export default struct PFAXDEVINITIALIZE {
     struct From extends PFAXDEVINITIALIZE {
         /**
          * Creates a PFAXDEVINITIALIZE pointer that invokes the given AHK function when called.
-         * @param {Func(UInt32, HANDLE, "ptr*", PFAX_SERVICE_CALLBACK) => BOOL} fn the function to invoke.
+         * @param {Func(UInt32, HANDLE, "ptr*", "ptr") => BOOL} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 4)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 4 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [UInt32, HANDLE, "ptr*", PFAX_SERVICE_CALLBACK, BOOL])
+            this.value := CallbackCreate(fn, , [UInt32, HANDLE, "ptr*", "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

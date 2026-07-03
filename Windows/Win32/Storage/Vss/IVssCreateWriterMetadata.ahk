@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\VSS_RESTOREMETHOD_ENUM.ahk" { VSS_RESTOREMETHOD_ENUM }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\VSS_WRITERRESTORE_ENUM.ahk" { VSS_WRITERRESTORE_ENUM }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\VSS_COMPONENT_TYPE.ahk" { VSS_COMPONENT_TYPE }
 #Import "..\..\Data\Xml\MsXml\IXMLDOMDocument.ahk" { IXMLDOMDocument }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\VSS_COMPONENT_TYPE.ahk" { VSS_COMPONENT_TYPE }
+#Import ".\VSS_RESTOREMETHOD_ENUM.ahk" { VSS_RESTOREMETHOD_ENUM }
+#Import ".\VSS_WRITERRESTORE_ENUM.ahk" { VSS_WRITERRESTORE_ENUM }
 
 /**
  * The IVssCreateWriterMetadata interface is a C++ (not COM) interface containing methods to construct the Writer Metadata Document in response to an Identify event. It is used only in the CVssWriter::OnIdentify method.

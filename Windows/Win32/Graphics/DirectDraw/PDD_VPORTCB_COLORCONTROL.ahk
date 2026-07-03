@@ -63,10 +63,6 @@ export default struct PDD_VPORTCB_COLORCONTROL {
             this.value := CallbackCreate(fn, , [DD_VPORTCOLORDATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

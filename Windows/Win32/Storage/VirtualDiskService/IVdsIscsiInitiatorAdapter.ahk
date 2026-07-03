@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\VDS_ISCSI_INITIATOR_ADAPTER_PROP.ahk" { VDS_ISCSI_INITIATOR_ADAPTER_PROP }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\VDS_ISCSI_LOGIN_TYPE.ahk" { VDS_ISCSI_LOGIN_TYPE }
-#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
-#Import ".\VDS_ISCSI_AUTH_TYPE.ahk" { VDS_ISCSI_AUTH_TYPE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
 #Import ".\IVdsAsync.ahk" { IVdsAsync }
+#Import ".\VDS_ISCSI_AUTH_TYPE.ahk" { VDS_ISCSI_AUTH_TYPE }
+#Import ".\VDS_ISCSI_INITIATOR_ADAPTER_PROP.ahk" { VDS_ISCSI_INITIATOR_ADAPTER_PROP }
+#Import ".\VDS_ISCSI_LOGIN_TYPE.ahk" { VDS_ISCSI_LOGIN_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods to query and interact with iSCSI initiator adapters on the local system.

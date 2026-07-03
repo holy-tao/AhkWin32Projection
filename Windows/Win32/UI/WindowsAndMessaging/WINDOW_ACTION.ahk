@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\WINDOW_ACTION_KINDS.ahk" { WINDOW_ACTION_KINDS }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\WINDOW_PLACEMENT_STATE.ahk" { WINDOW_PLACEMENT_STATE }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import ".\WINDOW_ACTION_KINDS.ahk" { WINDOW_ACTION_KINDS }
 #Import ".\WINDOW_ACTION_MODIFIERS.ahk" { WINDOW_ACTION_MODIFIERS }
+#Import ".\WINDOW_PLACEMENT_STATE.ahk" { WINDOW_PLACEMENT_STATE }
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging

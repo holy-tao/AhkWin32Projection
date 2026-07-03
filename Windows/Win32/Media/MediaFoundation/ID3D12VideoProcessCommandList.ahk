@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Graphics\Direct3D12\ID3D12CommandAllocator.ahk" { ID3D12CommandAllocator }
-#Import ".\D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS.ahk" { D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS }
-#Import "..\..\Graphics\Direct3D12\D3D12_PREDICATION_OP.ahk" { D3D12_PREDICATION_OP }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID3D12VideoProcessor.ahk" { ID3D12VideoProcessor }
-#Import ".\D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS.ahk" { D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS }
-#Import "..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
-#Import "..\..\Graphics\Direct3D12\ID3D12CommandList.ahk" { ID3D12CommandList }
 #Import "..\..\Graphics\Direct3D12\D3D12_DISCARD_REGION.ahk" { D3D12_DISCARD_REGION }
+#Import "..\..\Graphics\Direct3D12\D3D12_PREDICATION_OP.ahk" { D3D12_PREDICATION_OP }
 #Import "..\..\Graphics\Direct3D12\D3D12_QUERY_TYPE.ahk" { D3D12_QUERY_TYPE }
-#Import "..\..\Graphics\Direct3D12\D3D12_WRITEBUFFERIMMEDIATE_MODE.ahk" { D3D12_WRITEBUFFERIMMEDIATE_MODE }
 #Import "..\..\Graphics\Direct3D12\D3D12_RESOURCE_BARRIER.ahk" { D3D12_RESOURCE_BARRIER }
+#Import "..\..\Graphics\Direct3D12\D3D12_WRITEBUFFERIMMEDIATE_MODE.ahk" { D3D12_WRITEBUFFERIMMEDIATE_MODE }
 #Import "..\..\Graphics\Direct3D12\D3D12_WRITEBUFFERIMMEDIATE_PARAMETER.ahk" { D3D12_WRITEBUFFERIMMEDIATE_PARAMETER }
+#Import "..\..\Graphics\Direct3D12\ID3D12CommandAllocator.ahk" { ID3D12CommandAllocator }
+#Import "..\..\Graphics\Direct3D12\ID3D12CommandList.ahk" { ID3D12CommandList }
 #Import "..\..\Graphics\Direct3D12\ID3D12QueryHeap.ahk" { ID3D12QueryHeap }
+#Import "..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
+#Import ".\D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS.ahk" { D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS }
+#Import ".\D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS.ahk" { D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS }
+#Import ".\ID3D12VideoProcessor.ahk" { ID3D12VideoProcessor }
 
 /**
  * Encapsulates a list of graphics commands for video processing. (ID3D12VideoProcessCommandList)

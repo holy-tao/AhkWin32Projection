@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDDrawExclModeVideoCallback.ahk" { IDDrawExclModeVideoCallback }
-#Import "..\..\Graphics\DirectDraw\IDirectDraw.ahk" { IDirectDraw }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Graphics\DirectDraw\IDirectDraw.ahk" { IDirectDraw }
 #Import "..\..\Graphics\DirectDraw\IDirectDrawSurface.ahk" { IDirectDrawSurface }
+#Import ".\IDDrawExclModeVideoCallback.ahk" { IDDrawExclModeVideoCallback }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDDrawExclModeVideo interface enables video playback in DirectDraw exclusive full-screen mode.

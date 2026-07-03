@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\GROUP_POLICY_OBJECTA.ahk" { GROUP_POLICY_OBJECTA }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import ".\GROUP_POLICY_OBJECTA.ahk" { GROUP_POLICY_OBJECTA }
 #Import "..\Wmi\IWbemServices.ahk" { IWbemServices }
 
 /**

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\OLEIVERB.ahk" { OLEIVERB }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\OLEIVERB.ahk" { OLEIVERB }
 #Import "..\..\UI\WindowsAndMessaging\MENU_ITEM_FLAGS.ahk" { MENU_ITEM_FLAGS }
 
 /**

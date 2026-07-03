@@ -1,16 +1,16 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\VAR_CHANGE_FLAGS.ahk" { VAR_CHANGE_FLAGS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 #Import ".\PSTIME_FLAGS.ahk" { PSTIME_FLAGS }
 #Import ".\VARENUM.ahk" { VARENUM }
 #Import ".\VARIANT.ahk" { VARIANT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import ".\VAR_CHANGE_FLAGS.ahk" { VAR_CHANGE_FLAGS }
 
 /**
  * @namespace Windows.Win32.System.Variant

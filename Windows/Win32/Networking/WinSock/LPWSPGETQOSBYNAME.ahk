@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\WSABUF.ahk" { WSABUF }
 #Import ".\QOS.ahk" { QOS }
 #Import ".\SOCKET.ahk" { SOCKET }
+#Import ".\WSABUF.ahk" { WSABUF }
 
 /**
  * The LPWSPGetQOSByName function initializes a QOS structure based on a named template, or retrieves an enumeration of the available template names.
@@ -109,10 +109,6 @@ export default struct LPWSPGETQOSBYNAME {
             this.value := CallbackCreate(fn, , [SOCKET, WSABUF.Ptr, QOS.Ptr, "int*", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VDS_PARTITION_STYLE.ahk" { VDS_PARTITION_STYLE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VDS_PARTITION_STYLE.ahk" { VDS_PARTITION_STYLE }
 
 /**
  * Describes parameters to be used when changing a partition's type.

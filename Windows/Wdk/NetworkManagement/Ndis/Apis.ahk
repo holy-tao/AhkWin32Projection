@@ -1,26 +1,23 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\NDIS_EVENT.ahk" { NDIS_EVENT }
-#Import ".\TDI_REGISTER_CALLBACK.ahk" { TDI_REGISTER_CALLBACK }
-#Import ".\PNDIS_TIMER_FUNCTION.ahk" { PNDIS_TIMER_FUNCTION }
-#Import ".\NDIS_MINIPORT_TIMER.ahk" { NDIS_MINIPORT_TIMER }
-#Import ".\LOCK_STATE.ahk" { LOCK_STATE }
-#Import "..\..\System\SystemServices\CM_RESOURCE_LIST.ahk" { CM_RESOURCE_LIST }
-#Import ".\VAR_STRING.ahk" { VAR_STRING }
-#Import ".\NDIS_RW_LOCK.ahk" { NDIS_RW_LOCK }
-#Import ".\CO_ADDRESS_FAMILY.ahk" { CO_ADDRESS_FAMILY }
-#Import ".\NDIS_DMA_DESCRIPTION.ahk" { NDIS_DMA_DESCRIPTION }
-#Import "..\..\Foundation\MDL.ahk" { MDL }
-#Import ".\NDIS_TIMER.ahk" { NDIS_TIMER }
-#Import ".\TDI_PNP_HANDLER.ahk" { TDI_PNP_HANDLER }
-#Import ".\NDIS_PARAMETER_TYPE.ahk" { NDIS_PARAMETER_TYPE }
-#Import ".\NDIS_CALL_MANAGER_CHARACTERISTICS.ahk" { NDIS_CALL_MANAGER_CHARACTERISTICS }
-#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 #Import "..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
-#Import ".\NDIS_CONFIGURATION_PARAMETER.ahk" { NDIS_CONFIGURATION_PARAMETER }
-#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\MDL.ahk" { MDL }
+#Import ".\CO_ADDRESS_FAMILY.ahk" { CO_ADDRESS_FAMILY }
 #Import ".\CO_CALL_PARAMETERS.ahk" { CO_CALL_PARAMETERS }
 #Import ".\CO_SAP.ahk" { CO_SAP }
+#Import ".\LOCK_STATE.ahk" { LOCK_STATE }
+#Import ".\NDIS_CALL_MANAGER_CHARACTERISTICS.ahk" { NDIS_CALL_MANAGER_CHARACTERISTICS }
+#Import ".\NDIS_CONFIGURATION_PARAMETER.ahk" { NDIS_CONFIGURATION_PARAMETER }
+#Import ".\NDIS_DMA_DESCRIPTION.ahk" { NDIS_DMA_DESCRIPTION }
+#Import ".\NDIS_EVENT.ahk" { NDIS_EVENT }
+#Import ".\NDIS_MINIPORT_TIMER.ahk" { NDIS_MINIPORT_TIMER }
+#Import ".\NDIS_PARAMETER_TYPE.ahk" { NDIS_PARAMETER_TYPE }
+#Import ".\NDIS_RW_LOCK.ahk" { NDIS_RW_LOCK }
+#Import ".\NDIS_TIMER.ahk" { NDIS_TIMER }
+#Import ".\VAR_STRING.ahk" { VAR_STRING }
+#Import "..\..\System\SystemServices\CM_RESOURCE_LIST.ahk" { CM_RESOURCE_LIST }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
@@ -359,7 +356,7 @@ export NdisInitializeString(Destination, Source) {
 export NdisInitializeTimer(Timer, TimerFunction, FunctionContext) {
     FunctionContextMarshal := FunctionContext is VarRef ? "ptr" : "ptr"
 
-    DllCall("NDIS.sys\NdisInitializeTimer", NDIS_TIMER.Ptr, Timer, PNDIS_TIMER_FUNCTION, TimerFunction, FunctionContextMarshal, FunctionContext)
+    DllCall("NDIS.sys\NdisInitializeTimer", NDIS_TIMER.Ptr, Timer, "ptr", TimerFunction, FunctionContextMarshal, FunctionContext)
 }
 
 /**
@@ -498,7 +495,7 @@ export NdisQueryBindInstanceName(pAdapterInstanceName, BindingContext) {
  * @returns {String} Nothing - always returns an empty string
  */
 export NdisRegisterTdiCallBack(RegisterCallback, PnPHandler) {
-    DllCall("NDIS.sys\NdisRegisterTdiCallBack", TDI_REGISTER_CALLBACK, RegisterCallback, TDI_PNP_HANDLER, PnPHandler)
+    DllCall("NDIS.sys\NdisRegisterTdiCallBack", "ptr", RegisterCallback, "ptr", PnPHandler)
 }
 
 /**
@@ -719,7 +716,7 @@ export NdisMInitializeTimer(Timer, MiniportAdapterHandle, TimerFunction, Functio
     MiniportAdapterHandleMarshal := MiniportAdapterHandle is VarRef ? "ptr" : "ptr"
     FunctionContextMarshal := FunctionContext is VarRef ? "ptr" : "ptr"
 
-    DllCall("NDIS.sys\NdisMInitializeTimer", NDIS_MINIPORT_TIMER.Ptr, Timer, MiniportAdapterHandleMarshal, MiniportAdapterHandle, PNDIS_TIMER_FUNCTION, TimerFunction, FunctionContextMarshal, FunctionContext)
+    DllCall("NDIS.sys\NdisMInitializeTimer", NDIS_MINIPORT_TIMER.Ptr, Timer, MiniportAdapterHandleMarshal, MiniportAdapterHandle, "ptr", TimerFunction, FunctionContextMarshal, FunctionContext)
 }
 
 /**

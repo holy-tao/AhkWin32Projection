@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DMA_ADAPTER.ahk" { DMA_ADAPTER }
 #Import "..\..\Foundation\MDL.ahk" { MDL }
+#Import ".\DMA_ADAPTER.ahk" { DMA_ADAPTER }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
@@ -36,7 +36,7 @@ export default struct PCALCULATE_SCATTER_GATHER_LIST_SIZE {
         pNumberOfMapRegistersMarshal := pNumberOfMapRegisters is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, MDL.Ptr, _Mdl, CurrentVaMarshal, CurrentVa, UInt32, Length, ScatterGatherListSizeMarshal, ScatterGatherListSize, pNumberOfMapRegistersMarshal, pNumberOfMapRegisters, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -56,10 +56,6 @@ export default struct PCALCULATE_SCATTER_GATHER_LIST_SIZE {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, MDL.Ptr, "ptr", UInt32, "uint*", "uint*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

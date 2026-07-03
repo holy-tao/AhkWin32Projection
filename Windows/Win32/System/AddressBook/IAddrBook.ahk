@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SPropValue.ahk" { SPropValue }
-#Import ".\IMAPIAdviseSink.ahk" { IMAPIAdviseSink }
-#Import ".\ADRPARM.ahk" { ADRPARM }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\LPFNDISMISS.ahk" { LPFNDISMISS }
-#Import ".\SRowSet.ahk" { SRowSet }
-#Import ".\SPropTagArray.ahk" { SPropTagArray }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\LPFNBUTTON.ahk" { LPFNBUTTON }
-#Import ".\ENTRYID.ahk" { ENTRYID }
-#Import ".\IMAPIProp.ahk" { IMAPIProp }
 #Import ".\ADRENTRY.ahk" { ADRENTRY }
 #Import ".\ADRLIST.ahk" { ADRLIST }
+#Import ".\ADRPARM.ahk" { ADRPARM }
+#Import ".\ENTRYID.ahk" { ENTRYID }
+#Import ".\IMAPIAdviseSink.ahk" { IMAPIAdviseSink }
+#Import ".\IMAPIProp.ahk" { IMAPIProp }
+#Import ".\SPropTagArray.ahk" { SPropTagArray }
+#Import ".\SPropValue.ahk" { SPropValue }
+#Import ".\SRowSet.ahk" { SRowSet }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Do not use. (IAddrBook)
@@ -430,7 +428,7 @@ export default struct IAddrBook extends IMAPIProp {
         lpvButtonContextMarshal := lpvButtonContext is VarRef ? "ptr" : "ptr"
         lpszButtonTextMarshal := lpszButtonText is VarRef ? "char*" : "ptr"
 
-        result := ComCall(22, this, lpulUIParamMarshal, lpulUIParam, LPFNDISMISS, _lpfnDismiss, lpvDismissContextMarshal, lpvDismissContext, UInt32, cbEntryID, ENTRYID.Ptr, lpEntryID, LPFNBUTTON, lpfButtonCallback, lpvButtonContextMarshal, lpvButtonContext, lpszButtonTextMarshal, lpszButtonText, UInt32, ulFlags, "HRESULT")
+        result := ComCall(22, this, lpulUIParamMarshal, lpulUIParam, "ptr", _lpfnDismiss, lpvDismissContextMarshal, lpvDismissContext, UInt32, cbEntryID, ENTRYID.Ptr, lpEntryID, "ptr", lpfButtonCallback, lpvButtonContextMarshal, lpvButtonContext, lpszButtonTextMarshal, lpszButtonText, UInt32, ulFlags, "HRESULT")
         return result
     }
 

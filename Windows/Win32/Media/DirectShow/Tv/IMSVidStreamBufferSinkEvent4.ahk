@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMSVidStreamBufferSinkEvent3.ahk" { IMSVidStreamBufferSinkEvent3 }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMSVidStreamBufferSinkEvent3.ahk" { IMSVidStreamBufferSinkEvent3 }
 
 /**
  * The IMSVidStreamBufferSinkEvent4 interface receives events from the MSVidStreamBufferSink object.

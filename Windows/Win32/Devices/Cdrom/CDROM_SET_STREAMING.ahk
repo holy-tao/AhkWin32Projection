@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import ".\CDROM_SPEED_REQUEST.ahk" { CDROM_SPEED_REQUEST }
 #Import ".\WRITE_ROTATION.ahk" { WRITE_ROTATION }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom

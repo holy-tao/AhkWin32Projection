@@ -53,7 +53,7 @@ export default struct SpFreeCredentialsHandleFn {
      */
     Call(CredentialHandle) {
         result := DllCall(this.value, IntPtr, CredentialHandle, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -73,10 +73,6 @@ export default struct SpFreeCredentialsHandleFn {
             this.value := CallbackCreate(fn, , [IntPtr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

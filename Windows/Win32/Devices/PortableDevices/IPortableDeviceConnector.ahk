@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Properties\DEVPROPTYPE.ahk" { DEVPROPTYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IConnectionRequestCallback.ahk" { IConnectionRequestCallback }
+#Import "..\Properties\DEVPROPTYPE.ahk" { DEVPROPTYPE }
 #Import "..\..\Foundation\DEVPROPKEY.ahk" { DEVPROPKEY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines methods used for connection-management and property-retrieval for a paired MTP/Bluetooth device.

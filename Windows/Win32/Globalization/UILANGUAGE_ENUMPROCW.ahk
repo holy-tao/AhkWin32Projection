@@ -77,10 +77,6 @@ export default struct UILANGUAGE_ENUMPROCW {
             this.value := CallbackCreate(fn, , [PWSTR, IntPtr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

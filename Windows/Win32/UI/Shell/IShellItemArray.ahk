@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "PropertiesSystem\GETPROPERTYSTOREFLAGS.ahk" { GETPROPERTYSTOREFLAGS }
-#Import "..\..\System\SystemServices\SFGAO_FLAGS.ahk" { SFGAO_FLAGS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 #Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SIATTRIBFLAGS.ahk" { SIATTRIBFLAGS }
+#Import "..\..\System\SystemServices\SFGAO_FLAGS.ahk" { SFGAO_FLAGS }
 #Import ".\IEnumShellItems.ahk" { IEnumShellItems }
 #Import ".\IShellItem.ahk" { IShellItem }
+#Import "PropertiesSystem\GETPROPERTYSTOREFLAGS.ahk" { GETPROPERTYSTOREFLAGS }
+#Import ".\SIATTRIBFLAGS.ahk" { SIATTRIBFLAGS }
 
 /**
  * Exposes methods that create and manipulate Shell item arrays.

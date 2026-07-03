@@ -51,10 +51,6 @@ export default struct PRESUTIL_GET_PROPERTY_FORMATS {
             this.value := CallbackCreate(fn, , [RESUTIL_PROPERTY_ITEM.Ptr, IntPtr, UInt32, "uint*", "uint*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,10 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import ".\WHEA_ERROR_SOURCE_CONFIGURATION_DD.ahk" { WHEA_ERROR_SOURCE_CONFIGURATION_DD }
-#Import ".\WHEA_ERROR_SOURCE_INITIALIZE_DEVICE_DRIVER.ahk" { WHEA_ERROR_SOURCE_INITIALIZE_DEVICE_DRIVER }
-#Import ".\WHEA_ERROR_SOURCE_CORRECT_DEVICE_DRIVER.ahk" { WHEA_ERROR_SOURCE_CORRECT_DEVICE_DRIVER }
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WHEA_ERROR_SOURCE_UNINITIALIZE_DEVICE_DRIVER.ahk" { WHEA_ERROR_SOURCE_UNINITIALIZE_DEVICE_DRIVER }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug

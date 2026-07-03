@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NSP_ROUTINE.ahk" { NSP_ROUTINE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\NSP_ROUTINE.ahk" { NSP_ROUTINE }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
@@ -46,10 +46,6 @@ export default struct LPNSPSTARTUP {
             this.value := CallbackCreate(fn, , [Guid.Ptr, NSP_ROUTINE.Ptr, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

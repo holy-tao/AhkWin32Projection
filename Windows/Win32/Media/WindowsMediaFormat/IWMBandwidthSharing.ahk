@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWMStreamList.ahk" { IWMStreamList }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMStreamList.ahk" { IWMStreamList }
 
 /**
  * The IWMBandwidthSharing interface contains methods to manage the properties of combined streams.The list of streams that share bandwidth is stored in the bandwidth sharing object.

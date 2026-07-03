@@ -48,10 +48,6 @@ export default struct LPFNDIRECTSOUNDDEVICEENUMERATECALLBACK1 {
             this.value := CallbackCreate(fn, , [DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_1_DATA.Ptr, "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

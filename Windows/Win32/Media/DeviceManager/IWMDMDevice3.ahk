@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWMDMStorage.ahk" { IWMDMStorage }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WMDM_FIND_SCOPE.ahk" { WMDM_FIND_SCOPE }
-#Import ".\WMDM_FORMAT_CAPABILITY.ahk" { WMDM_FORMAT_CAPABILITY }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import ".\WMDM_FORMATCODE.ahk" { WMDM_FORMATCODE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IWMDMDevice2.ahk" { IWMDMDevice2 }
+#Import ".\IWMDMStorage.ahk" { IWMDMStorage }
+#Import ".\WMDM_FIND_SCOPE.ahk" { WMDM_FIND_SCOPE }
+#Import ".\WMDM_FORMATCODE.ahk" { WMDM_FORMATCODE }
+#Import ".\WMDM_FORMAT_CAPABILITY.ahk" { WMDM_FORMAT_CAPABILITY }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 
 /**
  * The IWMDMDevice3 interface extends IWMDMDevice2 by providing methods to query a device for properties, send device I/O control codes, and also providing upgraded methods to search for storages and retrieve device format capabilities.

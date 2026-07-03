@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TS_SELECTIONSTYLE.ahk" { TS_SELECTIONSTYLE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\TS_SELECTIONSTYLE.ahk" { TS_SELECTIONSTYLE }
 #Import ".\TsActiveSelEnd.ahk" { TsActiveSelEnd }
 
 /**

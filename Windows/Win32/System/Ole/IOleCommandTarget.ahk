@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\OLECMD.ahk" { OLECMD }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\OLECMDTEXT.ahk" { OLECMDTEXT }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Enables objects and their containers to dispatch commands to each other. For example, an object's toolbars may contain buttons for commands such as Print, Print Preview, Save, New, and Zoom.

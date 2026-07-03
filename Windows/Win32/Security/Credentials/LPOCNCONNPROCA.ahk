@@ -53,10 +53,6 @@ export default struct LPOCNCONNPROCA {
             this.value := CallbackCreate(fn, , [IntPtr, PSTR, PSTR, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

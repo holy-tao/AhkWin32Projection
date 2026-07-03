@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\SID.ahk" { SID }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\SID.ahk" { SID }
 #Import "..\SYSTEM_AUDIT_OBJECT_ACE_FLAGS.ahk" { SYSTEM_AUDIT_OBJECT_ACE_FLAGS }
 
 /**

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RAS_CONNECTION_2.ahk" { RAS_CONNECTION_2 }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\RAS_CONNECTION_1.ahk" { RAS_CONNECTION_1 }
 #Import ".\RAS_CONNECTION_0.ahk" { RAS_CONNECTION_0 }
+#Import ".\RAS_CONNECTION_1.ahk" { RAS_CONNECTION_1 }
+#Import ".\RAS_CONNECTION_2.ahk" { RAS_CONNECTION_2 }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
@@ -49,10 +49,6 @@ export default struct PMPRADMINACCEPTNEWCONNECTION2 {
             this.value := CallbackCreate(fn, , [RAS_CONNECTION_0.Ptr, RAS_CONNECTION_1.Ptr, RAS_CONNECTION_2.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

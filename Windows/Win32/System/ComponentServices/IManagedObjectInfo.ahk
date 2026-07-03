@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IManagedPooledObj.ahk" { IManagedPooledObj }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IObjectControl.ahk" { IObjectControl }
 
 /**

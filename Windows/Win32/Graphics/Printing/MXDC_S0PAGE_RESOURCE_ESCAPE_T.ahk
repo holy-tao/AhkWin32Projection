@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MXDC_XPS_S0PAGE_RESOURCE_T.ahk" { MXDC_XPS_S0PAGE_RESOURCE_T }
 #Import ".\MXDC_ESCAPE_HEADER_T.ahk" { MXDC_ESCAPE_HEADER_T }
+#Import ".\MXDC_XPS_S0PAGE_RESOURCE_T.ahk" { MXDC_XPS_S0PAGE_RESOURCE_T }
 
 /**
  * The MXDC\_S0PAGE\_RESOURCE\_ESCAPE\_T structure is an MXDC\_ESCAPE\_HEADER\_T structure concatenated with an MXDC\_XPS\_S0PAGE\_RESOURCE\_T structure.

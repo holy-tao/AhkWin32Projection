@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWindowsParentalControlsCore.ahk" { IWindowsParentalControlsCore }
-#Import ".\IWPCGamesSettings.ahk" { IWPCGamesSettings }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWPCGamesSettings.ahk" { IWPCGamesSettings }
+#Import ".\IWindowsParentalControlsCore.ahk" { IWindowsParentalControlsCore }
 
 /**
  * Enables access to all settings interfaces of the Minimum Compliance API.

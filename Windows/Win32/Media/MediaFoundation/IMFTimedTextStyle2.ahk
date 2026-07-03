@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFTimedTextBouten.ahk" { IMFTimedTextBouten }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMFTimedTextRuby.ahk" { IMFTimedTextRuby }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFTimedTextBouten.ahk" { IMFTimedTextBouten }
+#Import ".\IMFTimedTextRuby.ahk" { IMFTimedTextRuby }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation

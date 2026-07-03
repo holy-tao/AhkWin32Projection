@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import ".\WINBIO_PIPELINE.ahk" { WINBIO_PIPELINE }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -47,10 +47,6 @@ export default struct PIBIO_STORAGE_NOTIFY_DATABASE_CHANGE_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, BOOLEAN, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

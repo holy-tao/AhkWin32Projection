@@ -1,19 +1,19 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\POINTER_PEN_INFO.ahk" { POINTER_PEN_INFO }
-#Import ".\POINTER_DEVICE_PROPERTY.ahk" { POINTER_DEVICE_PROPERTY }
-#Import ".\POINTER_DEVICE_INFO.ahk" { POINTER_DEVICE_INFO }
-#Import ".\POINTER_DEVICE_CURSOR_INFO.ahk" { POINTER_DEVICE_CURSOR_INFO }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\HSYNTHETICPOINTERDEVICE.ahk" { HSYNTHETICPOINTERDEVICE }
+#Import ".\INPUT_TRANSFORM.ahk" { INPUT_TRANSFORM }
+#Import ".\POINTER_DEVICE_CURSOR_INFO.ahk" { POINTER_DEVICE_CURSOR_INFO }
+#Import ".\POINTER_DEVICE_INFO.ahk" { POINTER_DEVICE_INFO }
+#Import ".\POINTER_DEVICE_PROPERTY.ahk" { POINTER_DEVICE_PROPERTY }
+#Import ".\POINTER_INFO.ahk" { POINTER_INFO }
+#Import ".\POINTER_PEN_INFO.ahk" { POINTER_PEN_INFO }
 #Import ".\POINTER_TOUCH_INFO.ahk" { POINTER_TOUCH_INFO }
 #Import ".\POINTER_TYPE_INFO.ahk" { POINTER_TYPE_INFO }
 #Import ".\TOUCH_FEEDBACK_MODE.ahk" { TOUCH_FEEDBACK_MODE }
-#Import ".\HSYNTHETICPOINTERDEVICE.ahk" { HSYNTHETICPOINTERDEVICE }
-#Import ".\POINTER_INFO.ahk" { POINTER_INFO }
 #Import "..\..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk" { POINTER_INPUT_TYPE }
-#Import ".\INPUT_TRANSFORM.ahk" { INPUT_TRANSFORM }
 
 /**
  * @namespace Windows.Win32.UI.Input.Pointer

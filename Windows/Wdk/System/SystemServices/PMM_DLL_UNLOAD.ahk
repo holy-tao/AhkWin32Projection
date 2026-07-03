@@ -24,7 +24,7 @@ export default struct PMM_DLL_UNLOAD {
      */
     Call() {
         result := DllCall(this.value, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -44,10 +44,6 @@ export default struct PMM_DLL_UNLOAD {
             this.value := CallbackCreate(fn, , [NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

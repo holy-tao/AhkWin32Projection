@@ -1,20 +1,20 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\HCERTSTORE.ahk" { HCERTSTORE }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\CRYPTUI_WIZ_FLAGS.ahk" { CRYPTUI_WIZ_FLAGS }
-#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
-#Import ".\CRYPTUI_CERT_MGR_STRUCT.ahk" { CRYPTUI_CERT_MGR_STRUCT }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\CRYPTUI_WIZ_IMPORT_SRC_INFO.ahk" { CRYPTUI_WIZ_IMPORT_SRC_INFO }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import "..\HCERTSTORE.ahk" { HCERTSTORE }
+#Import ".\CERT_SELECTUI_INPUT.ahk" { CERT_SELECTUI_INPUT }
+#Import ".\CRYPTUI_CERT_MGR_STRUCT.ahk" { CRYPTUI_CERT_MGR_STRUCT }
+#Import ".\CRYPTUI_VIEWCERTIFICATE_STRUCTA.ahk" { CRYPTUI_VIEWCERTIFICATE_STRUCTA }
 #Import ".\CRYPTUI_VIEWCERTIFICATE_STRUCTW.ahk" { CRYPTUI_VIEWCERTIFICATE_STRUCTW }
 #Import ".\CRYPTUI_WIZ_DIGITAL_SIGN_CONTEXT.ahk" { CRYPTUI_WIZ_DIGITAL_SIGN_CONTEXT }
-#Import ".\CRYPTUI_WIZ_EXPORT_INFO.ahk" { CRYPTUI_WIZ_EXPORT_INFO }
-#Import ".\CERT_SELECTUI_INPUT.ahk" { CERT_SELECTUI_INPUT }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\CRYPTUI_WIZ_DIGITAL_SIGN_INFO.ahk" { CRYPTUI_WIZ_DIGITAL_SIGN_INFO }
-#Import ".\CRYPTUI_VIEWCERTIFICATE_STRUCTA.ahk" { CRYPTUI_VIEWCERTIFICATE_STRUCTA }
+#Import ".\CRYPTUI_WIZ_EXPORT_INFO.ahk" { CRYPTUI_WIZ_EXPORT_INFO }
+#Import ".\CRYPTUI_WIZ_FLAGS.ahk" { CRYPTUI_WIZ_FLAGS }
+#Import ".\CRYPTUI_WIZ_IMPORT_SRC_INFO.ahk" { CRYPTUI_WIZ_IMPORT_SRC_INFO }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.UI

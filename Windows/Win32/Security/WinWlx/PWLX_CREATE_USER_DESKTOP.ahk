@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\WLX_DESKTOP.ahk" { WLX_DESKTOP }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WLX_DESKTOP.ahk" { WLX_DESKTOP }
 
 /**
  * Called by GINA to create alternate application desktops for the user.
@@ -119,10 +119,6 @@ export default struct PWLX_CREATE_USER_DESKTOP {
             this.value := CallbackCreate(fn, , [HANDLE, HANDLE, UInt32, PWSTR, "ptr*", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ICspInformation.ahk" { ICspInformation }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ICspAlgorithm.ahk" { ICspAlgorithm }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IX509EnrollmentStatus.ahk" { IX509EnrollmentStatus }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICspAlgorithm.ahk" { ICspAlgorithm }
+#Import ".\ICspInformation.ahk" { ICspInformation }
+#Import ".\IX509EnrollmentStatus.ahk" { IX509EnrollmentStatus }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * Contains information about a cryptographic provider/algorithm pair. (ICspStatus)

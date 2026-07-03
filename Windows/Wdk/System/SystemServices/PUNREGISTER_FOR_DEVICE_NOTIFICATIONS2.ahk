@@ -44,10 +44,6 @@ export default struct PUNREGISTER_FOR_DEVICE_NOTIFICATIONS2 {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

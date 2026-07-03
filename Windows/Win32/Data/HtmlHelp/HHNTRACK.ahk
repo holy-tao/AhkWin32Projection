@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\UI\Controls\NMHDR.ahk" { NMHDR }
 #Import ".\HH_WINTYPE.ahk" { HH_WINTYPE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\UI\Controls\NMHDR.ahk" { NMHDR }
 
 /**
  * This structure returns the file name of the current topic and a constant that specifies the user action that is about to occur, such as hiding the Navigation pane by clicking the Hide button on the toolbar.

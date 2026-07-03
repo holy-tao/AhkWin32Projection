@@ -44,10 +44,6 @@ export default struct PCLUSAPI_CLUSTER_REG_CLOSE_KEY {
             this.value := CallbackCreate(fn, , [HKEY, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

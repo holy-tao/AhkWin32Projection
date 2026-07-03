@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IPropertyNotifySink.ahk" { IPropertyNotifySink }
-#Import ".\IAdviseSinkEx.ahk" { IAdviseSinkEx }
-#Import "..\Com\IServiceProvider.ahk" { IServiceProvider }
-#Import ".\IOleClientSite.ahk" { IOleClientSite }
-#Import ".\IOleUndoManager.ahk" { IOleUndoManager }
-#Import ".\IOleControlSite.ahk" { IOleControlSite }
-#Import "..\Com\IBindHost.ahk" { IBindHost }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IFont.ahk" { IFont }
 #Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
+#Import "..\Com\IBindHost.ahk" { IBindHost }
+#Import "..\Com\IServiceProvider.ahk" { IServiceProvider }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IAdviseSinkEx.ahk" { IAdviseSinkEx }
+#Import ".\IFont.ahk" { IFont }
+#Import ".\IOleClientSite.ahk" { IOleClientSite }
+#Import ".\IOleControlSite.ahk" { IOleControlSite }
+#Import ".\IOleUndoManager.ahk" { IOleUndoManager }
+#Import ".\IPropertyNotifySink.ahk" { IPropertyNotifySink }
 
 /**
  * Specifies container information for IQuickActivate::QuickActivate.

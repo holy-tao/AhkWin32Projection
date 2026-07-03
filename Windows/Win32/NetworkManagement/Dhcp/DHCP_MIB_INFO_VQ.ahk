@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SCOPE_MIB_INFO_VQ.ahk" { SCOPE_MIB_INFO_VQ }
 #Import ".\DATE_TIME.ahk" { DATE_TIME }
+#Import ".\SCOPE_MIB_INFO_VQ.ahk" { SCOPE_MIB_INFO_VQ }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dhcp

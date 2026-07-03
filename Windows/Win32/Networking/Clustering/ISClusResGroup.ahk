@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISClusNode.ahk" { ISClusNode }
-#Import ".\ISClusResGroupResources.ahk" { ISClusResGroupResources }
-#Import ".\ISCluster.ahk" { ISCluster }
-#Import ".\CLUSTER_GROUP_STATE.ahk" { CLUSTER_GROUP_STATE }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CLUSTER_GROUP_STATE.ahk" { CLUSTER_GROUP_STATE }
+#Import ".\ISClusNode.ahk" { ISClusNode }
 #Import ".\ISClusProperties.ahk" { ISClusProperties }
 #Import ".\ISClusResGroupPreferredOwnerNodes.ahk" { ISClusResGroupPreferredOwnerNodes }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ISClusResGroupResources.ahk" { ISClusResGroupResources }
+#Import ".\ISCluster.ahk" { ISCluster }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering

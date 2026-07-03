@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IStreamBufferMediaSeeking.ahk" { IStreamBufferMediaSeeking }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IStreamBufferMediaSeeking.ahk" { IStreamBufferMediaSeeking }
 
 /**
  * The IStreamBufferMediaSeeking2 interface is exposed by the Stream Buffer Source filter. It provides a method to control the frame rate during fast-forward play (&#0034;trick mode&#0034;).

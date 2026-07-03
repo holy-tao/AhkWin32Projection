@@ -45,10 +45,6 @@ export default struct PFN_PROVIDER_OBJTRUST_CALL {
             this.value := CallbackCreate(fn, , [CRYPT_PROVIDER_DATA.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

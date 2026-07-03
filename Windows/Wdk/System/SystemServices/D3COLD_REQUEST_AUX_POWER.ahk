@@ -30,7 +30,7 @@ export default struct D3COLD_REQUEST_AUX_POWER {
         RetryInSecondsMarshal := RetryInSeconds is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, UInt32, AuxPowerInMilliWatts, RetryInSecondsMarshal, RetryInSeconds, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -50,10 +50,6 @@ export default struct D3COLD_REQUEST_AUX_POWER {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, "uint*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_MESSAGE.ahk" { WS_MESSAGE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WS_ASYNC_CONTEXT.ahk" { WS_ASYNC_CONTEXT }
 #Import ".\WS_ERROR.ahk" { WS_ERROR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WS_MESSAGE.ahk" { WS_MESSAGE }
 
 /**
  * Handles the WsWriteMessageStart call for a WS_CUSTOM_CHANNEL_BINDING.
@@ -451,10 +451,6 @@ export default struct WS_WRITE_MESSAGE_START_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", WS_MESSAGE.Ptr, WS_ASYNC_CONTEXT.Ptr, WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

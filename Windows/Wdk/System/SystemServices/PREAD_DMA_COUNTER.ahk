@@ -44,10 +44,6 @@ export default struct PREAD_DMA_COUNTER {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

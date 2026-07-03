@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WEBAUTHN_EXTENSION.ahk" { WEBAUTHN_EXTENSION }
-#Import ".\WEBAUTHN_EXTENSIONS.ahk" { WEBAUTHN_EXTENSIONS }
-#Import ".\WEBAUTHN_CREDENTIAL.ahk" { WEBAUTHN_CREDENTIAL }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WEBAUTHN_HMAC_SECRET_SALT.ahk" { WEBAUTHN_HMAC_SECRET_SALT }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CTAPCBOR_HYBRID_STORAGE_LINKED_DATA.ahk" { CTAPCBOR_HYBRID_STORAGE_LINKED_DATA }
+#Import ".\WEBAUTHN_CREDENTIAL.ahk" { WEBAUTHN_CREDENTIAL }
 #Import ".\WEBAUTHN_CREDENTIALS.ahk" { WEBAUTHN_CREDENTIALS }
 #Import ".\WEBAUTHN_CREDENTIAL_LIST.ahk" { WEBAUTHN_CREDENTIAL_LIST }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\WEBAUTHN_EXTENSION.ahk" { WEBAUTHN_EXTENSION }
+#Import ".\WEBAUTHN_EXTENSIONS.ahk" { WEBAUTHN_EXTENSIONS }
+#Import ".\WEBAUTHN_HMAC_SECRET_SALT.ahk" { WEBAUTHN_HMAC_SECRET_SALT }
 
 /**
  * The options for the WebAuthNAuthenticatorMakeCredential operation.

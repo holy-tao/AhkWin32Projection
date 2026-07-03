@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LPMMIOPROC.ahk" { LPMMIOPROC }
-#Import ".\HMMIO.ahk" { HMMIO }
 #Import "..\..\Foundation\HTASK.ahk" { HTASK }
+#Import ".\HMMIO.ahk" { HMMIO }
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
@@ -13,7 +12,7 @@ export default struct MMIOINFO {
 
     fccIOProc : UInt32
 
-    pIOProc : LPMMIOPROC
+    pIOProc : IntPtr
 
     wErrorRet : UInt32
 

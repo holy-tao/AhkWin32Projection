@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUIAutomationTextRange.ahk" { IUIAutomationTextRange }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUIAutomationTextRange.ahk" { IUIAutomationTextRange }
 
 /**
  * Extends the IUIAutomationTextRange interface to enable Microsoft UI Automation clients to programmatically invoke context menus.

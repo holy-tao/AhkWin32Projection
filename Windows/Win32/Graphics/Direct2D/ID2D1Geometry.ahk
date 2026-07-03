@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
+#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
+#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
+#Import "Common\ID2D1SimplifiedGeometrySink.ahk" { ID2D1SimplifiedGeometrySink }
+#Import ".\D2D1_COMBINE_MODE.ahk" { D2D1_COMBINE_MODE }
+#Import ".\D2D1_GEOMETRY_RELATION.ahk" { D2D1_GEOMETRY_RELATION }
+#Import ".\D2D1_GEOMETRY_SIMPLIFICATION_OPTION.ahk" { D2D1_GEOMETRY_SIMPLIFICATION_OPTION }
 #Import ".\ID2D1Resource.ahk" { ID2D1Resource }
 #Import ".\ID2D1StrokeStyle.ahk" { ID2D1StrokeStyle }
-#Import "Common\ID2D1SimplifiedGeometrySink.ahk" { ID2D1SimplifiedGeometrySink }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D2D1_GEOMETRY_SIMPLIFICATION_OPTION.ahk" { D2D1_GEOMETRY_SIMPLIFICATION_OPTION }
-#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
-#Import ".\D2D1_GEOMETRY_RELATION.ahk" { D2D1_GEOMETRY_RELATION }
-#Import ".\D2D1_COMBINE_MODE.ahk" { D2D1_COMBINE_MODE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\ID2D1TessellationSink.ahk" { ID2D1TessellationSink }
 
 /**

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\VSS_SOURCE_TYPE.ahk" { VSS_SOURCE_TYPE }
-#Import ".\IVssExamineWriterMetadata.ahk" { IVssExamineWriterMetadata }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IVssExamineWriterMetadata.ahk" { IVssExamineWriterMetadata }
+#Import ".\VSS_SOURCE_TYPE.ahk" { VSS_SOURCE_TYPE }
 #Import ".\VSS_USAGE_TYPE.ahk" { VSS_USAGE_TYPE }
 
 /**

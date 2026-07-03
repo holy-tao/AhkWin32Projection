@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FS_FILTER_SECTION_SYNC_TYPE.ahk" { FS_FILTER_SECTION_SYNC_TYPE }
-#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import "..\..\Foundation\ERESOURCE.ahk" { ERESOURCE }
 #Import "..\..\Foundation\IRP.ahk" { IRP }
-#Import ".\FS_FILTER_SECTION_SYNC_OUTPUT.ahk" { FS_FILTER_SECTION_SYNC_OUTPUT }
 #Import ".\FILE_INFORMATION_CLASS.ahk" { FILE_INFORMATION_CLASS }
+#Import ".\FS_FILTER_SECTION_SYNC_OUTPUT.ahk" { FS_FILTER_SECTION_SYNC_OUTPUT }
+#Import ".\FS_FILTER_SECTION_SYNC_TYPE.ahk" { FS_FILTER_SECTION_SYNC_TYPE }
+#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem

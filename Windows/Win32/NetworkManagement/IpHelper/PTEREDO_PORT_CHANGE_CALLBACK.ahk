@@ -47,10 +47,6 @@ export default struct PTEREDO_PORT_CHANGE_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", UInt16, MIB_NOTIFICATION_TYPE, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

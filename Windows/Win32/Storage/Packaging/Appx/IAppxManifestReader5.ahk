@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IAppxManifestMainPackageDependenciesEnumerator.ahk" { IAppxManifestMainPackageDependenciesEnumerator }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAppxManifestMainPackageDependenciesEnumerator.ahk" { IAppxManifestMainPackageDependenciesEnumerator }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents an object model of the package manifest that provides methods to access manifest elements and attributes. (IAppxManifestReader5)

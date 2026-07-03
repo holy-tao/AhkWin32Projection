@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWMDMMetaData.ahk" { IWMDMMetaData }
-#Import ".\IMDSPStorage2.ahk" { IMDSPStorage2 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMDSPStorage2.ahk" { IMDSPStorage2 }
+#Import ".\IWMDMMetaData.ahk" { IWMDMMetaData }
 
 /**
  * The IMDSPStorage3 interface extends IMDSPStorage2 by supporting metadata.

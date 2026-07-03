@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WICPixelFormatNumericRepresentation.ahk" { WICPixelFormatNumericRepresentation }
 #Import ".\IWICPixelFormatInfo.ahk" { IWICPixelFormatInfo }
+#Import ".\WICPixelFormatNumericRepresentation.ahk" { WICPixelFormatNumericRepresentation }
 
 /**
  * Extends IWICPixelFormatInfo by providing additional information about a pixel format.

@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PNS_HELPER_STOP_FN.ahk" { PNS_HELPER_STOP_FN }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\PNS_HELPER_START_FN.ahk" { PNS_HELPER_START_FN }
 
 /**
  * Provides attributes of a helper.
@@ -24,13 +22,13 @@ export default struct NS_HELPER_ATTRIBUTES {
      * A pointer to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netsh/nc-netsh-ns_helper_start_fn">NS_HELPER_START_FN</a> entry point (the start function) of the helper.
      */
-    pfnStart : PNS_HELPER_START_FN
+    pfnStart : IntPtr
 
     /**
      * A pointer to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netsh/nc-netsh-ns_helper_stop_fn">NS_HELPER_STOP_FN</a> entry point (the stop function) of the helper. Set to null if no stop function is implemented.
      */
-    pfnStop : PNS_HELPER_STOP_FN
+    pfnStop : IntPtr
 
     static __New() {
         DefineProp(this.Prototype, '_ullAlign', { type: Int64, offset: 0 })

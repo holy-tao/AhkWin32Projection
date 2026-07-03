@@ -45,10 +45,6 @@ export default struct PFN_DrvUnlockDisplayArea {
             this.value := CallbackCreate(fn, , [DHPDEV, RECTL.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

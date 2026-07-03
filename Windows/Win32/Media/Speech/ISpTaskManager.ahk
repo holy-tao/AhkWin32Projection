@@ -2,13 +2,13 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\ISpThreadTask.ahk" { ISpThreadTask }
-#Import ".\ISpTask.ahk" { ISpTask }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ISpNotifySink.ahk" { ISpNotifySink }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SPTMTHREADINFO.ahk" { SPTMTHREADINFO }
+#Import ".\ISpNotifySink.ahk" { ISpNotifySink }
+#Import ".\ISpTask.ahk" { ISpTask }
 #Import ".\ISpThreadControl.ahk" { ISpThreadControl }
+#Import ".\ISpThreadTask.ahk" { ISpThreadTask }
+#Import ".\SPTMTHREADINFO.ahk" { SPTMTHREADINFO }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.Speech

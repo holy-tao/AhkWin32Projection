@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\WindowsAndMessaging\HCURSOR.ahk" { HCURSOR }
-#Import ".\ITextHost.ahk" { ITextHost }
-#Import "..\..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
+#Import ".\ITextHost.ahk" { ITextHost }
+#Import "..\..\WindowsAndMessaging\HCURSOR.ahk" { HCURSOR }
 
 /**
  * The ITextHost2 interface extends the ITextHost interface.

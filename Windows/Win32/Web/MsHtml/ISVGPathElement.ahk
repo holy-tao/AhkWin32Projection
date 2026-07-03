@@ -1,30 +1,30 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISVGPathSegCurvetoQuadraticRel.ahk" { ISVGPathSegCurvetoQuadraticRel }
-#Import ".\ISVGPathSegArcAbs.ahk" { ISVGPathSegArcAbs }
-#Import ".\ISVGPoint.ahk" { ISVGPoint }
-#Import ".\ISVGPathSegCurvetoCubicSmoothRel.ahk" { ISVGPathSegCurvetoCubicSmoothRel }
-#Import ".\ISVGPathSegCurvetoCubicAbs.ahk" { ISVGPathSegCurvetoCubicAbs }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISVGPathSegLinetoVerticalAbs.ahk" { ISVGPathSegLinetoVerticalAbs }
-#Import ".\ISVGPathSegLinetoAbs.ahk" { ISVGPathSegLinetoAbs }
-#Import ".\ISVGPathSegLinetoRel.ahk" { ISVGPathSegLinetoRel }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\ISVGPathSegClosePath.ahk" { ISVGPathSegClosePath }
-#Import ".\ISVGPathSegCurvetoQuadraticSmoothAbs.ahk" { ISVGPathSegCurvetoQuadraticSmoothAbs }
-#Import ".\ISVGPathSegArcRel.ahk" { ISVGPathSegArcRel }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\ISVGAnimatedNumber.ahk" { ISVGAnimatedNumber }
-#Import ".\ISVGPathSegCurvetoQuadraticSmoothRel.ahk" { ISVGPathSegCurvetoQuadraticSmoothRel }
-#Import ".\ISVGPathSegLinetoHorizontalAbs.ahk" { ISVGPathSegLinetoHorizontalAbs }
-#Import ".\ISVGPathSegMovetoAbs.ahk" { ISVGPathSegMovetoAbs }
-#Import ".\ISVGPathSegMovetoRel.ahk" { ISVGPathSegMovetoRel }
-#Import ".\ISVGPathSegLinetoVerticalRel.ahk" { ISVGPathSegLinetoVerticalRel }
-#Import ".\ISVGPathSegLinetoHorizontalRel.ahk" { ISVGPathSegLinetoHorizontalRel }
+#Import ".\ISVGPathSegArcAbs.ahk" { ISVGPathSegArcAbs }
+#Import ".\ISVGPathSegArcRel.ahk" { ISVGPathSegArcRel }
+#Import ".\ISVGPathSegClosePath.ahk" { ISVGPathSegClosePath }
+#Import ".\ISVGPathSegCurvetoCubicAbs.ahk" { ISVGPathSegCurvetoCubicAbs }
 #Import ".\ISVGPathSegCurvetoCubicRel.ahk" { ISVGPathSegCurvetoCubicRel }
 #Import ".\ISVGPathSegCurvetoCubicSmoothAbs.ahk" { ISVGPathSegCurvetoCubicSmoothAbs }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ISVGPathSegCurvetoCubicSmoothRel.ahk" { ISVGPathSegCurvetoCubicSmoothRel }
 #Import ".\ISVGPathSegCurvetoQuadraticAbs.ahk" { ISVGPathSegCurvetoQuadraticAbs }
+#Import ".\ISVGPathSegCurvetoQuadraticRel.ahk" { ISVGPathSegCurvetoQuadraticRel }
+#Import ".\ISVGPathSegCurvetoQuadraticSmoothAbs.ahk" { ISVGPathSegCurvetoQuadraticSmoothAbs }
+#Import ".\ISVGPathSegCurvetoQuadraticSmoothRel.ahk" { ISVGPathSegCurvetoQuadraticSmoothRel }
+#Import ".\ISVGPathSegLinetoAbs.ahk" { ISVGPathSegLinetoAbs }
+#Import ".\ISVGPathSegLinetoHorizontalAbs.ahk" { ISVGPathSegLinetoHorizontalAbs }
+#Import ".\ISVGPathSegLinetoHorizontalRel.ahk" { ISVGPathSegLinetoHorizontalRel }
+#Import ".\ISVGPathSegLinetoRel.ahk" { ISVGPathSegLinetoRel }
+#Import ".\ISVGPathSegLinetoVerticalAbs.ahk" { ISVGPathSegLinetoVerticalAbs }
+#Import ".\ISVGPathSegLinetoVerticalRel.ahk" { ISVGPathSegLinetoVerticalRel }
+#Import ".\ISVGPathSegMovetoAbs.ahk" { ISVGPathSegMovetoAbs }
+#Import ".\ISVGPathSegMovetoRel.ahk" { ISVGPathSegMovetoRel }
+#Import ".\ISVGPoint.ahk" { ISVGPoint }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

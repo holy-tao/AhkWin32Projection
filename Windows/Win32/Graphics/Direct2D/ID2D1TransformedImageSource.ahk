@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID2D1ImageSource.ahk" { ID2D1ImageSource }
 #Import ".\D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES.ahk" { D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES }
 #Import ".\ID2D1Image.ahk" { ID2D1Image }
+#Import ".\ID2D1ImageSource.ahk" { ID2D1ImageSource }
 
 /**
  * Represents an image source which shares resources with an original image source.

@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\RTC_REINVITE_STATE.ahk" { RTC_REINVITE_STATE }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IRTCSession2.ahk" { IRTCSession2 }
+#Import ".\RTC_REINVITE_STATE.ahk" { RTC_REINVITE_STATE }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

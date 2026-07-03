@@ -2,8 +2,8 @@
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\HMONITOR.ahk" { HMONITOR }
 #Import ".\HDC.ahk" { HDC }
+#Import ".\HMONITOR.ahk" { HMONITOR }
 
 /**
  * A MonitorEnumProc function is an application-defined callback function that is called by the EnumDisplayMonitors function.
@@ -71,10 +71,6 @@ export default struct MONITORENUMPROC {
             this.value := CallbackCreate(fn, , [HMONITOR, HDC, RECT.Ptr, LPARAM, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,5 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_SERVICE_CLOSE_CHANNEL_CALLBACK.ahk" { WS_SERVICE_CLOSE_CHANNEL_CALLBACK }
 
 /**
  * Specifies the callback which is called when a channel is about to be closed. See, WS_SERVICE_CLOSE_CHANNEL_CALLBACK for details.
@@ -12,6 +11,6 @@ export default struct WS_SERVICE_PROPERTY_CLOSE_CALLBACK {
     /**
      * The close channel callback function reference.
      */
-    callback : WS_SERVICE_CLOSE_CHANNEL_CALLBACK
+    callback : IntPtr
 
 }

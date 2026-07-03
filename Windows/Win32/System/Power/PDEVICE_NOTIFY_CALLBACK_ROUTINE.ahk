@@ -48,10 +48,6 @@ export default struct PDEVICE_NOTIFY_CALLBACK_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, "ptr", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

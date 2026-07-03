@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WINBIO_SECURE_CONNECTION_PARAMS.ahk" { WINBIO_SECURE_CONNECTION_PARAMS }
 #Import ".\WINBIO_PIPELINE.ahk" { WINBIO_PIPELINE }
 #Import ".\WINBIO_SECURE_CONNECTION_DATA.ahk" { WINBIO_SECURE_CONNECTION_DATA }
+#Import ".\WINBIO_SECURE_CONNECTION_PARAMS.ahk" { WINBIO_SECURE_CONNECTION_PARAMS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -48,10 +48,6 @@ export default struct PIBIO_SENSOR_CONNECT_SECURE_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, WINBIO_SECURE_CONNECTION_PARAMS.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

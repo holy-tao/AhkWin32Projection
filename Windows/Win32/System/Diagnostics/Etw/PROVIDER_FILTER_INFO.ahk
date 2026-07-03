@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PROPERTY_FLAGS.ahk" { PROPERTY_FLAGS }
 #Import ".\EVENT_PROPERTY_INFO.ahk" { EVENT_PROPERTY_INFO }
+#Import ".\PROPERTY_FLAGS.ahk" { PROPERTY_FLAGS }
 
 /**
  * Defines a filter and its data.

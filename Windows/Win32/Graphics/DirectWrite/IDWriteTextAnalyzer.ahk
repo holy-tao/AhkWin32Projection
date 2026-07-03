@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDWriteNumberSubstitution.ahk" { IDWriteNumberSubstitution }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IDWriteTextAnalysisSource.ahk" { IDWriteTextAnalysisSource }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DWRITE_SCRIPT_ANALYSIS.ahk" { DWRITE_SCRIPT_ANALYSIS }
-#Import ".\DWRITE_GLYPH_OFFSET.ahk" { DWRITE_GLYPH_OFFSET }
-#Import ".\DWRITE_SHAPING_TEXT_PROPERTIES.ahk" { DWRITE_SHAPING_TEXT_PROPERTIES }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DWRITE_SHAPING_GLYPH_PROPERTIES.ahk" { DWRITE_SHAPING_GLYPH_PROPERTIES }
-#Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
-#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DWRITE_GLYPH_OFFSET.ahk" { DWRITE_GLYPH_OFFSET }
+#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
+#Import ".\DWRITE_SCRIPT_ANALYSIS.ahk" { DWRITE_SCRIPT_ANALYSIS }
+#Import ".\DWRITE_SHAPING_GLYPH_PROPERTIES.ahk" { DWRITE_SHAPING_GLYPH_PROPERTIES }
+#Import ".\DWRITE_SHAPING_TEXT_PROPERTIES.ahk" { DWRITE_SHAPING_TEXT_PROPERTIES }
 #Import ".\DWRITE_TYPOGRAPHIC_FEATURES.ahk" { DWRITE_TYPOGRAPHIC_FEATURES }
+#Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
+#Import ".\IDWriteNumberSubstitution.ahk" { IDWriteNumberSubstitution }
 #Import ".\IDWriteTextAnalysisSink.ahk" { IDWriteTextAnalysisSink }
+#Import ".\IDWriteTextAnalysisSource.ahk" { IDWriteTextAnalysisSource }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Analyzes various text properties for complex script processing such as bidirectional (bidi) support for languages like Arabic, determination of line break opportunities, glyph placement, and number substitution.

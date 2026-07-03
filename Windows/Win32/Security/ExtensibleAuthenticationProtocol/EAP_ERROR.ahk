@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\EAP_METHOD_TYPE.ahk" { EAP_METHOD_TYPE }
 #Import ".\EAP_TYPE.ahk" { EAP_TYPE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains information about an error that occurred during an EAPHost operation.

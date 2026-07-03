@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\D3D12_DEBUG_FEATURE.ahk" { D3D12_DEBUG_FEATURE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_DEBUG_FEATURE.ahk" { D3D12_DEBUG_FEATURE }
+#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods to monitor and debug a command list.

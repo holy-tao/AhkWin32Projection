@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\HTTP_REQUEST_AUTH_TYPE.ahk" { HTTP_REQUEST_AUTH_TYPE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\HTTP_AUTH_STATUS.ahk" { HTTP_AUTH_STATUS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\HTTP_REQUEST_AUTH_TYPE.ahk" { HTTP_REQUEST_AUTH_TYPE }
 
 /**
  * Contains the authentication status of the request with a handle to the client token that the receiving process can use to impersonate the authenticated client.

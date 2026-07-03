@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\HSWDEVICE.ahk" { HSWDEVICE }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Provides a device with backing in the registry and allows the caller to then make calls to Software Device API functions with the hSwDevice handle.
@@ -67,10 +67,6 @@ export default struct SW_DEVICE_CREATE_CALLBACK {
             this.value := CallbackCreate(fn, , [HSWDEVICE, "int", "ptr", PWSTR, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

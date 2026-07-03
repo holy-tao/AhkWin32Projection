@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CRYPT_PROVIDER_SGNR.ahk" { CRYPT_PROVIDER_SGNR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\CRYPT_PROVIDER_DATA.ahk" { CRYPT_PROVIDER_DATA }
+#Import ".\CRYPT_PROVIDER_SGNR.ahk" { CRYPT_PROVIDER_SGNR }
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
@@ -49,10 +49,6 @@ export default struct PFN_CPD_ADD_SGNR {
             this.value := CallbackCreate(fn, , [CRYPT_PROVIDER_DATA.Ptr, BOOL, UInt32, CRYPT_PROVIDER_SGNR.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

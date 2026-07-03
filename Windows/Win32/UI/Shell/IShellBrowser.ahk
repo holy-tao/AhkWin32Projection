@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
-#Import "..\..\System\Ole\OLEMENUGROUPWIDTHS.ahk" { OLEMENUGROUPWIDTHS }
-#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\Controls\TBBUTTON.ahk" { TBBUTTON }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IShellView.ahk" { IShellView }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\WindowsAndMessaging\HMENU.ahk" { HMENU }
-#Import "..\WindowsAndMessaging\MSG.ahk" { MSG }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 #Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\System\Ole\IOleWindow.ahk" { IOleWindow }
+#Import "..\..\System\Ole\OLEMENUGROUPWIDTHS.ahk" { OLEMENUGROUPWIDTHS }
+#Import "..\Controls\TBBUTTON.ahk" { TBBUTTON }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import ".\IShellView.ahk" { IShellView }
+#Import "..\WindowsAndMessaging\HMENU.ahk" { HMENU }
+#Import "..\WindowsAndMessaging\MSG.ahk" { MSG }
 
 /**
  * Implemented by hosts of Shell views (objects that implement IShellView). Exposes methods that provide services for the view it is hosting and other objects that run in the context of the Explorer window.

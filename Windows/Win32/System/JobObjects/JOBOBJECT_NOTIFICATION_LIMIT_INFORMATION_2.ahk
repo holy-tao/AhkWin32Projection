@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\JOB_OBJECT_LIMIT.ahk" { JOB_OBJECT_LIMIT }
 #Import ".\JOBOBJECT_RATE_CONTROL_TOLERANCE.ahk" { JOBOBJECT_RATE_CONTROL_TOLERANCE }
 #Import ".\JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL.ahk" { JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL }
+#Import ".\JOB_OBJECT_LIMIT.ahk" { JOB_OBJECT_LIMIT }
 
 /**
  * Contains extended information about notification limits for a job object. This structure is used by the SetInformationJobObject and QueryInformationJobObject functions with the JobObjectNotificationLimitInformation2 information class.

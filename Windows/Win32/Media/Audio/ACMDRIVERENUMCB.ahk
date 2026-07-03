@@ -53,10 +53,6 @@ export default struct ACMDRIVERENUMCB {
             this.value := CallbackCreate(fn, , [HACMDRIVERID, IntPtr, UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LPDDHALSURFCB_LOCK.ahk" { LPDDHALSURFCB_LOCK }
-#Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
 #Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
+#Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -23,7 +22,7 @@ export default struct DDHAL_LOCKDATA {
 
     ddRVal : HRESULT
 
-    Lock : LPDDHALSURFCB_LOCK
+    Lock : IntPtr
 
     dwFlags : UInt32
 

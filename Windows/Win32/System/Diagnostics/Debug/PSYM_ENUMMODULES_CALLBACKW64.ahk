@@ -63,10 +63,6 @@ export default struct PSYM_ENUMMODULES_CALLBACKW64 {
             this.value := CallbackCreate(fn, , [PWSTR, Int64, "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TRANSPORTCLIENT_SESSION_INFO.ahk" { TRANSPORTCLIENT_SESSION_INFO }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\TRANSPORTCLIENT_SESSION_INFO.ahk" { TRANSPORTCLIENT_SESSION_INFO }
 
 /**
  * @namespace Windows.Win32.System.DeploymentServices
@@ -49,10 +49,6 @@ export default struct PFN_WdsTransportClientSessionNegotiate {
             this.value := CallbackCreate(fn, , [HANDLE, "ptr", TRANSPORTCLIENT_SESSION_INFO.Ptr, HANDLE, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

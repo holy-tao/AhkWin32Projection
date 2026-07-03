@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PctPublicKey.ahk" { PctPublicKey }
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\PctPublicKey.ahk" { PctPublicKey }
 #Import "..\..\Cryptography\ALG_ID.ahk" { ALG_ID }
 
 /**

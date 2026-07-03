@@ -2,14 +2,14 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DML_BINDING_TABLE_DESC.ahk" { DML_BINDING_TABLE_DESC }
+#Import ".\DML_EXECUTION_FLAGS.ahk" { DML_EXECUTION_FLAGS }
 #Import ".\DML_FEATURE.ahk" { DML_FEATURE }
-#Import ".\IDMLObject.ahk" { IDMLObject }
 #Import ".\DML_OPERATOR_DESC.ahk" { DML_OPERATOR_DESC }
 #Import ".\IDMLCompiledOperator.ahk" { IDMLCompiledOperator }
-#Import ".\IDMLPageable.ahk" { IDMLPageable }
-#Import ".\DML_EXECUTION_FLAGS.ahk" { DML_EXECUTION_FLAGS }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDMLObject.ahk" { IDMLObject }
 #Import ".\IDMLOperator.ahk" { IDMLOperator }
+#Import ".\IDMLPageable.ahk" { IDMLPageable }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a DirectML device, which is used to create operators, binding tables, command recorders, and other objects. (IDMLDevice)

@@ -1,11 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDirectInputDevice2W.ahk" { IDirectInputDevice2W }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DIFILEEFFECT.ahk" { DIFILEEFFECT }
+#Import ".\IDirectInputDevice2W.ahk" { IDirectInputDevice2W }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\LPDIENUMEFFECTSINFILECALLBACK.ahk" { LPDIENUMEFFECTSINFILECALLBACK }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
@@ -53,7 +52,7 @@ export default struct IDirectInputDevice7W extends IDirectInputDevice2W {
 
         param2Marshal := param2 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(27, this, "ptr", param0, LPDIENUMEFFECTSINFILECALLBACK, param1, param2Marshal, param2, UInt32, param3, "HRESULT")
+        result := ComCall(27, this, "ptr", param0, "ptr", param1, param2Marshal, param2, UInt32, param3, "HRESULT")
         return result
     }
 

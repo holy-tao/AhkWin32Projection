@@ -1,61 +1,59 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\IpHelper\MIB_IPMCAST_MFE.ahk" { MIB_IPMCAST_MFE }
+#Import ".\HRASCONN.ahk" { HRASCONN }
+#Import ".\MGM_ENUM_TYPES.ahk" { MGM_ENUM_TYPES }
+#Import ".\MPRAPI_OBJECT_HEADER.ahk" { MPRAPI_OBJECT_HEADER }
+#Import ".\MPR_IF_CUSTOMINFOEX2.ahk" { MPR_IF_CUSTOMINFOEX2 }
+#Import ".\MPR_SERVER_EX1.ahk" { MPR_SERVER_EX1 }
+#Import ".\MPR_SERVER_SET_CONFIG_EX1.ahk" { MPR_SERVER_SET_CONFIG_EX1 }
+#Import ".\RASAUTODIALENTRYA.ahk" { RASAUTODIALENTRYA }
+#Import ".\RASAUTODIALENTRYW.ahk" { RASAUTODIALENTRYW }
+#Import ".\RASCONNSTATUSA.ahk" { RASCONNSTATUSA }
+#Import ".\RASCONNSTATUSW.ahk" { RASCONNSTATUSW }
+#Import ".\RASCREDENTIALSA.ahk" { RASCREDENTIALSA }
+#Import ".\RASCREDENTIALSW.ahk" { RASCREDENTIALSW }
 #Import ".\RASCTRYINFO.ahk" { RASCTRYINFO }
 #Import ".\RASDEVINFOA.ahk" { RASDEVINFOA }
 #Import ".\RASDEVINFOW.ahk" { RASDEVINFOW }
-#Import ".\RASEAPUSERIDENTITYW.ahk" { RASEAPUSERIDENTITYW }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\RTM_ENTITY_EXPORT_METHOD.ahk" { RTM_ENTITY_EXPORT_METHOD }
-#Import ".\RASENTRYW.ahk" { RASENTRYW }
-#Import ".\RASDIALPARAMSA.ahk" { RASDIALPARAMSA }
-#Import ".\RTM_EVENT_CALLBACK.ahk" { RTM_EVENT_CALLBACK }
-#Import ".\RASSUBENTRYA.ahk" { RASSUBENTRYA }
-#Import ".\RASAUTODIALENTRYW.ahk" { RASAUTODIALENTRYW }
-#Import ".\RASAUTODIALENTRYA.ahk" { RASAUTODIALENTRYA }
-#Import ".\RAS_CONNECTION_EX.ahk" { RAS_CONNECTION_EX }
-#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
-#Import ".\RASPBDLGA.ahk" { RASPBDLGA }
-#Import ".\RAS_PROJECTION_INFO.ahk" { RAS_PROJECTION_INFO }
-#Import ".\RASPBDLGW.ahk" { RASPBDLGW }
-#Import ".\RTM_ENTITY_EXPORT_METHODS.ahk" { RTM_ENTITY_EXPORT_METHODS }
-#Import ".\RAS_UPDATE_CONNECTION.ahk" { RAS_UPDATE_CONNECTION }
-#Import ".\RTM_ENTITY_INFO.ahk" { RTM_ENTITY_INFO }
-#Import ".\RTM_DEST_INFO.ahk" { RTM_DEST_INFO }
-#Import ".\RASEAPUSERIDENTITYA.ahk" { RASEAPUSERIDENTITYA }
-#Import ".\MGM_ENUM_TYPES.ahk" { MGM_ENUM_TYPES }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\MPR_IF_CUSTOMINFOEX2.ahk" { MPR_IF_CUSTOMINFOEX2 }
-#Import ".\RASENTRYDLGA.ahk" { RASENTRYDLGA as RASENTRYDLGA_type }
-#Import ".\MPR_SERVER_SET_CONFIG_EX1.ahk" { MPR_SERVER_SET_CONFIG_EX1 }
-#Import ".\RTM_NEXTHOP_INFO.ahk" { RTM_NEXTHOP_INFO }
-#Import ".\RASUPDATECONN.ahk" { RASUPDATECONN }
-#Import "..\IpHelper\MIB_IPMCAST_MFE.ahk" { MIB_IPMCAST_MFE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\RASDIALPARAMSW.ahk" { RASDIALPARAMSW }
-#Import ".\MPRAPI_OBJECT_HEADER.ahk" { MPRAPI_OBJECT_HEADER }
-#Import ".\RTM_ENTITY_METHOD_OUTPUT.ahk" { RTM_ENTITY_METHOD_OUTPUT }
-#Import ".\RTM_ENTITY_METHOD_INPUT.ahk" { RTM_ENTITY_METHOD_INPUT }
-#Import ".\RASSUBENTRYW.ahk" { RASSUBENTRYW }
-#Import ".\RASENTRYNAMEW.ahk" { RASENTRYNAMEW }
-#Import ".\RASENTRYA.ahk" { RASENTRYA }
-#Import ".\RASCREDENTIALSW.ahk" { RASCREDENTIALSW }
-#Import ".\RASENTRYDLGW.ahk" { RASENTRYDLGW as RASENTRYDLGW_type }
-#Import ".\RASPROJECTION.ahk" { RASPROJECTION }
-#Import ".\RASCREDENTIALSA.ahk" { RASCREDENTIALSA }
-#Import ".\ROUTING_PROTOCOL_CONFIG.ahk" { ROUTING_PROTOCOL_CONFIG }
-#Import ".\HRASCONN.ahk" { HRASCONN }
-#Import ".\RTM_ROUTE_INFO.ahk" { RTM_ROUTE_INFO }
-#Import ".\RTM_NET_ADDRESS.ahk" { RTM_NET_ADDRESS }
 #Import ".\RASDIALDLG.ahk" { RASDIALDLG }
-#Import ".\MPR_SERVER_EX1.ahk" { MPR_SERVER_EX1 }
-#Import ".\RASENTRYNAMEA.ahk" { RASENTRYNAMEA }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\RASDIALEXTENSIONS.ahk" { RASDIALEXTENSIONS }
-#Import ".\RTM_REGN_PROFILE.ahk" { RTM_REGN_PROFILE }
-#Import ".\RASCONNSTATUSW.ahk" { RASCONNSTATUSW }
-#Import ".\RASCONNSTATUSA.ahk" { RASCONNSTATUSA }
+#Import ".\RASDIALPARAMSA.ahk" { RASDIALPARAMSA }
+#Import ".\RASDIALPARAMSW.ahk" { RASDIALPARAMSW }
+#Import ".\RASEAPUSERIDENTITYA.ahk" { RASEAPUSERIDENTITYA }
+#Import ".\RASEAPUSERIDENTITYW.ahk" { RASEAPUSERIDENTITYW }
+#Import ".\RASENTRYA.ahk" { RASENTRYA }
+#Import ".\RASENTRYDLGA.ahk" { RASENTRYDLGA as RASENTRYDLGA_type }
+#Import ".\RASENTRYDLGW.ahk" { RASENTRYDLGW as RASENTRYDLGW_type }
+#Import ".\RASENTRYNAMEA.ahk" { RASENTRYNAMEA }
+#Import ".\RASENTRYNAMEW.ahk" { RASENTRYNAMEW }
+#Import ".\RASENTRYW.ahk" { RASENTRYW }
+#Import ".\RASPBDLGA.ahk" { RASPBDLGA }
+#Import ".\RASPBDLGW.ahk" { RASPBDLGW }
+#Import ".\RASPROJECTION.ahk" { RASPROJECTION }
+#Import ".\RASSUBENTRYA.ahk" { RASSUBENTRYA }
+#Import ".\RASSUBENTRYW.ahk" { RASSUBENTRYW }
+#Import ".\RASUPDATECONN.ahk" { RASUPDATECONN }
+#Import ".\RAS_CONNECTION_EX.ahk" { RAS_CONNECTION_EX }
+#Import ".\RAS_PROJECTION_INFO.ahk" { RAS_PROJECTION_INFO }
 #Import ".\RAS_STATS.ahk" { RAS_STATS }
+#Import ".\RAS_UPDATE_CONNECTION.ahk" { RAS_UPDATE_CONNECTION }
+#Import ".\ROUTING_PROTOCOL_CONFIG.ahk" { ROUTING_PROTOCOL_CONFIG }
+#Import ".\RTM_DEST_INFO.ahk" { RTM_DEST_INFO }
+#Import ".\RTM_ENTITY_EXPORT_METHODS.ahk" { RTM_ENTITY_EXPORT_METHODS }
+#Import ".\RTM_ENTITY_INFO.ahk" { RTM_ENTITY_INFO }
+#Import ".\RTM_ENTITY_METHOD_INPUT.ahk" { RTM_ENTITY_METHOD_INPUT }
+#Import ".\RTM_ENTITY_METHOD_OUTPUT.ahk" { RTM_ENTITY_METHOD_OUTPUT }
+#Import ".\RTM_NET_ADDRESS.ahk" { RTM_NET_ADDRESS }
+#Import ".\RTM_NEXTHOP_INFO.ahk" { RTM_NEXTHOP_INFO }
+#Import ".\RTM_REGN_PROFILE.ahk" { RTM_REGN_PROFILE }
+#Import ".\RTM_ROUTE_INFO.ahk" { RTM_ROUTE_INFO }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
@@ -18347,7 +18345,7 @@ export RtmConvertIpv6AddressAndLengthToNetAddress(pNetAddress, _Address, dwLengt
 export RtmRegisterEntity(RtmEntityInfo, ExportMethods, EventCallback, ReserveOpaquePointer, RtmRegProfile, RtmRegHandle) {
     RtmRegHandleMarshal := RtmRegHandle is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmRegisterEntity", RTM_ENTITY_INFO.Ptr, RtmEntityInfo, RTM_ENTITY_EXPORT_METHODS.Ptr, ExportMethods, RTM_EVENT_CALLBACK, EventCallback, BOOL, ReserveOpaquePointer, RTM_REGN_PROFILE.Ptr, RtmRegProfile, RtmRegHandleMarshal, RtmRegHandle, UInt32)
+    result := DllCall("rtm.dll\RtmRegisterEntity", RTM_ENTITY_INFO.Ptr, RtmEntityInfo, RTM_ENTITY_EXPORT_METHODS.Ptr, ExportMethods, "ptr", EventCallback, BOOL, ReserveOpaquePointer, RTM_REGN_PROFILE.Ptr, RtmRegProfile, RtmRegHandleMarshal, RtmRegHandle, UInt32)
     return result
 }
 

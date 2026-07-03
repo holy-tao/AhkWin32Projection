@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\COR_FIELD_OFFSET.ahk" { COR_FIELD_OFFSET }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\COR_FIELD_OFFSET.ahk" { COR_FIELD_OFFSET }
 
 /**
  * Provides methods for importing and manipulating existing metadata from a portable executable (PE) file or other source, such as a type library or a stand-alone, run-time metadata binary.

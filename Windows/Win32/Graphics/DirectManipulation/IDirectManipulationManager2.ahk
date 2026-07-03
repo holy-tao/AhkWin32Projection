@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDirectManipulationManager.ahk" { IDirectManipulationManager }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDirectManipulationManager.ahk" { IDirectManipulationManager }
 
 /**
  * Extends the IDirectManipulationManager interface that provides access to all the Direct Manipulation features and APIs available to the client application.

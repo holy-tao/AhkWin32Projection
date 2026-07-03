@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IWMDRMWriter.ahk" { IWMDRMWriter }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMDRMWriter.ahk" { IWMDRMWriter }
 
 /**
  * The IWMDRMWriter2 interface provides a method that enables you to write content encrypted with Windows Media DRM 10 for Network Devices.An IWMDRMWriter2 interface exists for every writer object.

@@ -51,10 +51,6 @@ export default struct UTextCopy {
             this.value := CallbackCreate(fn, "cdecl", [UText.Ptr, Int64, Int64, Int64, Int8, "int*", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

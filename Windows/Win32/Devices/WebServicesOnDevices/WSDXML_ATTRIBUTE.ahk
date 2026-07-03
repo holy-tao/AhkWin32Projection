@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
 #Import ".\WSDXML_NAME.ahk" { WSDXML_NAME }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
 
 /**
  * Describes an XML attribute.

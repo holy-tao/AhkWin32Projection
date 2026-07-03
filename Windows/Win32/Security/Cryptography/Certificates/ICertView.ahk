@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\CVRC_COLUMN.ahk" { CVRC_COLUMN }
-#Import ".\IEnumCERTVIEWROW.ahk" { IEnumCERTVIEWROW }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CERT_VIEW_COLUMN_INDEX.ahk" { CERT_VIEW_COLUMN_INDEX }
 #Import ".\CERT_VIEW_SEEK_OPERATOR_FLAGS.ahk" { CERT_VIEW_SEEK_OPERATOR_FLAGS }
-#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\CVRC_COLUMN.ahk" { CVRC_COLUMN }
 #Import ".\IEnumCERTVIEWCOLUMN.ahk" { IEnumCERTVIEWCOLUMN }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumCERTVIEWROW.ahk" { IEnumCERTVIEWROW }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Allows properly authorized clients to create a customized or complete view of the Certificate Services database.

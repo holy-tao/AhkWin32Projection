@@ -46,10 +46,6 @@ export default struct PFNGLEDGEFLAGPOINTEREXTPROC {
             this.value := CallbackCreate(fn, , [Int32, Int32, "char*", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

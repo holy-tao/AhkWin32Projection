@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DDVIDEOPORTBANDWIDTH.ahk" { DDVIDEOPORTBANDWIDTH }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDirectDrawSurface.ahk" { IDirectDrawSurface }
-#Import ".\DDVIDEOPORTINFO.ahk" { DDVIDEOPORTINFO }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDCOLORCONTROL.ahk" { DDCOLORCONTROL }
+#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
+#Import ".\DDVIDEOPORTBANDWIDTH.ahk" { DDVIDEOPORTBANDWIDTH }
+#Import ".\DDVIDEOPORTINFO.ahk" { DDVIDEOPORTINFO }
+#Import ".\IDirectDrawSurface.ahk" { IDirectDrawSurface }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

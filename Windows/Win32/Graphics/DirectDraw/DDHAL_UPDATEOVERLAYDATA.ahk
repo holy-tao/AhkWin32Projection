@@ -1,11 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
-#Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
-#Import ".\DDOVERLAYFX.ahk" { DDOVERLAYFX }
-#Import ".\LPDDHALSURFCB_UPDATEOVERLAY.ahk" { LPDDHALSURFCB_UPDATEOVERLAY }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
 #Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
+#Import ".\DDOVERLAYFX.ahk" { DDOVERLAYFX }
+#Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
+#Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
 #Import ".\IDirectDrawSurface.ahk" { IDirectDrawSurface }
 
 /**
@@ -30,6 +29,6 @@ export default struct DDHAL_UPDATEOVERLAYDATA {
 
     ddRVal : HRESULT
 
-    UpdateOverlay : LPDDHALSURFCB_UPDATEOVERLAY
+    UpdateOverlay : IntPtr
 
 }

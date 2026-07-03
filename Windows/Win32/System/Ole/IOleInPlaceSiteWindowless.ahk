@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
-#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\IOleInPlaceSiteEx.ahk" { IOleInPlaceSiteEx }
-#Import "..\..\Graphics\Gdi\HRGN.ahk" { HRGN }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 #Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Graphics\Gdi\HRGN.ahk" { HRGN }
+#Import ".\IOleInPlaceSiteEx.ahk" { IOleInPlaceSiteEx }
 
 /**
  * Extends the IOleInPlaceSiteEx interface.

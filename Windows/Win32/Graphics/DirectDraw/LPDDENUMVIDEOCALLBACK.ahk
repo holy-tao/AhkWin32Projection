@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DDVIDEOPORTCAPS.ahk" { DDVIDEOPORTCAPS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DDVIDEOPORTCAPS.ahk" { DDVIDEOPORTCAPS }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -48,10 +48,6 @@ export default struct LPDDENUMVIDEOCALLBACK {
             this.value := CallbackCreate(fn, , [DDVIDEOPORTCAPS.Ptr, "ptr", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

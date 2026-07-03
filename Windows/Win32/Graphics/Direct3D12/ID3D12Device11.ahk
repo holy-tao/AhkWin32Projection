@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\D3D12_CPU_DESCRIPTOR_HANDLE.ahk" { D3D12_CPU_DESCRIPTOR_HANDLE }
-#Import ".\ID3D12Device10.ahk" { ID3D12Device10 }
 #Import ".\D3D12_SAMPLER_DESC2.ahk" { D3D12_SAMPLER_DESC2 }
+#Import ".\ID3D12Device10.ahk" { ID3D12Device10 }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

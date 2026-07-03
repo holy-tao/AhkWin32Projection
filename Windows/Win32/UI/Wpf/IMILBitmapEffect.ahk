@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Graphics\Imaging\IWICBitmapSource.ahk" { IWICBitmapSource }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMILBitmapEffectRenderContext.ahk" { IMILBitmapEffectRenderContext }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMILBitmapEffectGroup.ahk" { IMILBitmapEffectGroup }
+#Import ".\IMILBitmapEffectRenderContext.ahk" { IMILBitmapEffectRenderContext }
 
 /**
  * Exposes methods that define a Windows Presentation Foundation (WPF) bitmap effect.

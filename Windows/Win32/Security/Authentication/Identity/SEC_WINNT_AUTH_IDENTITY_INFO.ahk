@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\SEC_WINNT_AUTH_IDENTITY_EX2.ahk" { SEC_WINNT_AUTH_IDENTITY_EX2 }
-#Import ".\SEC_WINNT_AUTH_IDENTITY_EXW.ahk" { SEC_WINNT_AUTH_IDENTITY_EXW }
 #Import ".\SEC_WINNT_AUTH_IDENTITY_EXA.ahk" { SEC_WINNT_AUTH_IDENTITY_EXA }
+#Import ".\SEC_WINNT_AUTH_IDENTITY_EXW.ahk" { SEC_WINNT_AUTH_IDENTITY_EXW }
 #Import "..\..\..\System\Rpc\SEC_WINNT_AUTH_IDENTITY.ahk" { SEC_WINNT_AUTH_IDENTITY }
-#Import "..\..\..\System\Rpc\SEC_WINNT_AUTH_IDENTITY_W.ahk" { SEC_WINNT_AUTH_IDENTITY_W }
 #Import "..\..\..\System\Rpc\SEC_WINNT_AUTH_IDENTITY_A.ahk" { SEC_WINNT_AUTH_IDENTITY_A }
+#Import "..\..\..\System\Rpc\SEC_WINNT_AUTH_IDENTITY_W.ahk" { SEC_WINNT_AUTH_IDENTITY_W }
 
 /**
  * Contains the identity information for authentication.

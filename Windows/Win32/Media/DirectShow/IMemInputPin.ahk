@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IMemAllocator.ahk" { IMemAllocator }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ALLOCATOR_PROPERTIES.ahk" { ALLOCATOR_PROPERTIES }
 #Import ".\IMediaSample.ahk" { IMediaSample }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMemAllocator.ahk" { IMemAllocator }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IMemInputPin interface delivers media data to an input pin.

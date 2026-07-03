@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\CO_MARSHALING_CONTEXT_ATTRIBUTES.ahk" { CO_MARSHALING_CONTEXT_ATTRIBUTES }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\CO_MARSHALING_CONTEXT_ATTRIBUTES.ahk" { CO_MARSHALING_CONTEXT_ATTRIBUTES }
 #Import "..\IStream.ahk" { IStream }
 
 /**

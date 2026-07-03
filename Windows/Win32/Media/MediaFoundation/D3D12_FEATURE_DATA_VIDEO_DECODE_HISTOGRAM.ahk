@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 #Import ".\D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAGS.ahk" { D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAGS }
 
 /**

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDCompositionFilterEffect.ahk" { IDCompositionFilterEffect }
-#Import "..\Direct2D\Common\D2D_VECTOR_4F.ahk" { D2D_VECTOR_4F }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Direct2D\Common\D2D_VECTOR_4F.ahk" { D2D_VECTOR_4F }
 #Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
+#Import ".\IDCompositionFilterEffect.ahk" { IDCompositionFilterEffect }
 
 /**
  * The shadow effect is used to generate a shadow from the alpha channel of an image. The shadow is more opaque for higher alpha values and more transparent for lower alpha values. You can set the amount of blur and the color of the shadow.

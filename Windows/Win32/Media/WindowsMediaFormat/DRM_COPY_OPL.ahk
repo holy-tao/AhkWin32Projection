@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DRM_OPL_OUTPUT_IDS.ahk" { DRM_OPL_OUTPUT_IDS }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DRM_OPL_OUTPUT_IDS.ahk" { DRM_OPL_OUTPUT_IDS }
 
 /**
  * The DRM_COPY_OPL structure holds information about the output protection levels specified in a license for copy actions.

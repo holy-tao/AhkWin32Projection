@@ -1,36 +1,33 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\SC_STATUS_TYPE.ahk" { SC_STATUS_TYPE }
-#Import ".\SC_HANDLE.ahk" { SC_HANDLE }
-#Import ".\SERVICE_TABLE_ENTRYW.ahk" { SERVICE_TABLE_ENTRYW }
-#Import ".\SERVICE_TABLE_ENTRYA.ahk" { SERVICE_TABLE_ENTRYA }
-#Import ".\ENUM_SERVICE_TYPE.ahk" { ENUM_SERVICE_TYPE }
-#Import ".\SERVICE_SHARED_REGISTRY_STATE_TYPE.ahk" { SERVICE_SHARED_REGISTRY_STATE_TYPE }
-#Import "..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\SERVICE_DIRECTORY_TYPE.ahk" { SERVICE_DIRECTORY_TYPE }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\ENUM_SERVICE_STATE.ahk" { ENUM_SERVICE_STATE }
-#Import ".\SERVICE_NOTIFY.ahk" { SERVICE_NOTIFY }
-#Import ".\SERVICE_SHARED_DIRECTORY_TYPE.ahk" { SERVICE_SHARED_DIRECTORY_TYPE }
-#Import ".\LPHANDLER_FUNCTION.ahk" { LPHANDLER_FUNCTION }
-#Import ".\PSC_NOTIFICATION_REGISTRATION.ahk" { PSC_NOTIFICATION_REGISTRATION }
-#Import ".\SERVICE_STATUS_HANDLE.ahk" { SERVICE_STATUS_HANDLE }
-#Import ".\SERVICE_NOTIFY_2W.ahk" { SERVICE_NOTIFY_2W }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\SC_EVENT_TYPE.ahk" { SC_EVENT_TYPE }
 #Import "..\..\Security\OBJECT_SECURITY_INFORMATION.ahk" { OBJECT_SECURITY_INFORMATION }
-#Import ".\SERVICE_CONFIG.ahk" { SERVICE_CONFIG }
-#Import ".\SC_ENUM_TYPE.ahk" { SC_ENUM_TYPE }
-#Import ".\SERVICE_ERROR.ahk" { SERVICE_ERROR }
-#Import ".\LPHANDLER_FUNCTION_EX.ahk" { LPHANDLER_FUNCTION_EX }
-#Import ".\SERVICE_REGISTRY_STATE_TYPE.ahk" { SERVICE_REGISTRY_STATE_TYPE }
-#Import ".\SERVICE_STATUS.ahk" { SERVICE_STATUS }
-#Import ".\PSC_NOTIFICATION_CALLBACK.ahk" { PSC_NOTIFICATION_CALLBACK }
-#Import ".\SERVICE_START_TYPE.ahk" { SERVICE_START_TYPE }
-#Import ".\SERVICE_NOTIFY_2A.ahk" { SERVICE_NOTIFY_2A }
+#Import "..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
 #Import "..\Registry\HKEY.ahk" { HKEY }
+#Import ".\ENUM_SERVICE_STATE.ahk" { ENUM_SERVICE_STATE }
+#Import ".\ENUM_SERVICE_TYPE.ahk" { ENUM_SERVICE_TYPE }
+#Import ".\PSC_NOTIFICATION_REGISTRATION.ahk" { PSC_NOTIFICATION_REGISTRATION }
+#Import ".\SC_ENUM_TYPE.ahk" { SC_ENUM_TYPE }
+#Import ".\SC_EVENT_TYPE.ahk" { SC_EVENT_TYPE }
+#Import ".\SC_HANDLE.ahk" { SC_HANDLE }
+#Import ".\SC_STATUS_TYPE.ahk" { SC_STATUS_TYPE }
+#Import ".\SERVICE_CONFIG.ahk" { SERVICE_CONFIG }
+#Import ".\SERVICE_DIRECTORY_TYPE.ahk" { SERVICE_DIRECTORY_TYPE }
+#Import ".\SERVICE_ERROR.ahk" { SERVICE_ERROR }
+#Import ".\SERVICE_NOTIFY.ahk" { SERVICE_NOTIFY }
+#Import ".\SERVICE_NOTIFY_2A.ahk" { SERVICE_NOTIFY_2A }
+#Import ".\SERVICE_NOTIFY_2W.ahk" { SERVICE_NOTIFY_2W }
+#Import ".\SERVICE_REGISTRY_STATE_TYPE.ahk" { SERVICE_REGISTRY_STATE_TYPE }
+#Import ".\SERVICE_SHARED_DIRECTORY_TYPE.ahk" { SERVICE_SHARED_DIRECTORY_TYPE }
+#Import ".\SERVICE_SHARED_REGISTRY_STATE_TYPE.ahk" { SERVICE_SHARED_REGISTRY_STATE_TYPE }
+#Import ".\SERVICE_START_TYPE.ahk" { SERVICE_START_TYPE }
+#Import ".\SERVICE_STATUS.ahk" { SERVICE_STATUS }
+#Import ".\SERVICE_STATUS_HANDLE.ahk" { SERVICE_STATUS_HANDLE }
+#Import ".\SERVICE_TABLE_ENTRYA.ahk" { SERVICE_TABLE_ENTRYA }
+#Import ".\SERVICE_TABLE_ENTRYW.ahk" { SERVICE_TABLE_ENTRYW }
 
 /**
  * @namespace Windows.Win32.System.Services
@@ -4007,7 +4004,7 @@ export RegisterServiceCtrlHandlerA(lpServiceName, lpHandlerProc) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerA", "ptr", lpServiceName, LPHANDLER_FUNCTION, lpHandlerProc, SERVICE_STATUS_HANDLE)
+    result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerA", "ptr", lpServiceName, "ptr", lpHandlerProc, SERVICE_STATUS_HANDLE)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4085,7 +4082,7 @@ export RegisterServiceCtrlHandlerW(lpServiceName, lpHandlerProc) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerW", "ptr", lpServiceName, LPHANDLER_FUNCTION, lpHandlerProc, SERVICE_STATUS_HANDLE)
+    result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerW", "ptr", lpServiceName, "ptr", lpHandlerProc, SERVICE_STATUS_HANDLE)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4168,7 +4165,7 @@ export RegisterServiceCtrlHandlerExA(lpServiceName, lpHandlerProc, lpContext) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerExA", "ptr", lpServiceName, LPHANDLER_FUNCTION_EX, lpHandlerProc, lpContextMarshal, lpContext, SERVICE_STATUS_HANDLE)
+    result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerExA", "ptr", lpServiceName, "ptr", lpHandlerProc, lpContextMarshal, lpContext, SERVICE_STATUS_HANDLE)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4251,7 +4248,7 @@ export RegisterServiceCtrlHandlerExW(lpServiceName, lpHandlerProc, lpContext) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerExW", "ptr", lpServiceName, LPHANDLER_FUNCTION_EX, lpHandlerProc, lpContextMarshal, lpContext, SERVICE_STATUS_HANDLE)
+    result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerExW", "ptr", lpServiceName, "ptr", lpHandlerProc, lpContextMarshal, lpContext, SERVICE_STATUS_HANDLE)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5949,7 +5946,7 @@ export SubscribeServiceChangeNotifications(hService, eEventType, pCallback, pCal
     pCallbackContextMarshal := pCallbackContext is VarRef ? "ptr" : "ptr"
     pSubscriptionMarshal := pSubscription is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("SecHost.dll\SubscribeServiceChangeNotifications", SC_HANDLE, hService, SC_EVENT_TYPE, eEventType, PSC_NOTIFICATION_CALLBACK, pCallback, pCallbackContextMarshal, pCallbackContext, pSubscriptionMarshal, pSubscription, UInt32)
+    result := DllCall("SecHost.dll\SubscribeServiceChangeNotifications", SC_HANDLE, hService, SC_EVENT_TYPE, eEventType, "ptr", pCallback, pCallbackContextMarshal, pCallbackContext, pSubscriptionMarshal, pSubscription, UInt32)
     return result
 }
 

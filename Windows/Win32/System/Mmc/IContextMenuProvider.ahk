@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Com\IDataObject.ahk" { IDataObject }
-#Import ".\IContextMenuCallback.ahk" { IContextMenuCallback }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\Com\IDataObject.ahk" { IDataObject }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IContextMenuCallback.ahk" { IContextMenuCallback }
 
 /**
  * The IContextMenuProvider interface implements methods that create new context menus, for the purpose of adding items to those menus, to enable extensions to extend those menus, and to display the resulting context menus.

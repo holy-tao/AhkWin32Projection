@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\NDIS_PORT_AUTHORIZATION_STATE.ahk" { NDIS_PORT_AUTHORIZATION_STATE }
-#Import "..\..\..\Win32\NetworkManagement\Ndis\NET_IF_MEDIA_CONNECT_STATE.ahk" { NET_IF_MEDIA_CONNECT_STATE }
-#Import "..\..\..\Win32\NetworkManagement\Ndis\NET_IF_DIRECTION_TYPE.ahk" { NET_IF_DIRECTION_TYPE }
 #Import ".\NDIS_PORT_CONTROL_STATE.ahk" { NDIS_PORT_CONTROL_STATE }
+#Import "..\..\..\Win32\NetworkManagement\Ndis\NET_IF_DIRECTION_TYPE.ahk" { NET_IF_DIRECTION_TYPE }
+#Import "..\..\..\Win32\NetworkManagement\Ndis\NET_IF_MEDIA_CONNECT_STATE.ahk" { NET_IF_MEDIA_CONNECT_STATE }
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis

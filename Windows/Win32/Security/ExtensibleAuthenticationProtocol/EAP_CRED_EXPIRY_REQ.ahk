@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\EAP_CONFIG_INPUT_FIELD_DATA.ahk" { EAP_CONFIG_INPUT_FIELD_DATA }
 #Import ".\EAP_CONFIG_INPUT_FIELD_ARRAY.ahk" { EAP_CONFIG_INPUT_FIELD_ARRAY }
+#Import ".\EAP_CONFIG_INPUT_FIELD_DATA.ahk" { EAP_CONFIG_INPUT_FIELD_DATA }
 
 /**
  * Contains both the old and new EAP credentials for credential expiry operations.

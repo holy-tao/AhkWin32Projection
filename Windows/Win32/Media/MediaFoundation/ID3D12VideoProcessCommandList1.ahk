@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS.ahk" { D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS }
-#Import ".\ID3D12VideoProcessor.ahk" { ID3D12VideoProcessor }
 #Import ".\D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS1.ahk" { D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS1 }
+#Import ".\D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS.ahk" { D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS }
 #Import ".\ID3D12VideoProcessCommandList.ahk" { ID3D12VideoProcessCommandList }
+#Import ".\ID3D12VideoProcessor.ahk" { ID3D12VideoProcessor }
 
 /**
  * Encapsulates a list of graphics commands for video processing. (ID3D12VideoProcessCommandList1)

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\DEVICE_BUS_SPECIFIC_RESET_INFO.ahk" { DEVICE_BUS_SPECIFIC_RESET_INFO }
+#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -31,7 +31,7 @@ export default struct DEVICE_QUERY_BUS_SPECIFIC_RESET_HANDLER {
         ResetInfoCountMarshal := ResetInfoCount is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, InterfaceContextMarshal, InterfaceContext, ResetInfoCountMarshal, ResetInfoCount, DEVICE_BUS_SPECIFIC_RESET_INFO.Ptr, ResetInfoSupported, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -51,10 +51,6 @@ export default struct DEVICE_QUERY_BUS_SPECIFIC_RESET_HANDLER {
             this.value := CallbackCreate(fn, , ["ptr", "uint*", DEVICE_BUS_SPECIFIC_RESET_INFO.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

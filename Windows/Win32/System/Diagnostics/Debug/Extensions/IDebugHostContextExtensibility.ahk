@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDebugHostContext.ahk" { IDebugHostContext }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDebugHostContextExtension.ahk" { IDebugHostContextExtension }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDebugHostContext.ahk" { IDebugHostContext }
+#Import ".\IDebugHostContextExtension.ahk" { IDebugHostContextExtension }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

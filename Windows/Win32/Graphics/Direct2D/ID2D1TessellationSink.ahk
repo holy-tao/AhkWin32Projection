@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\D2D1_TRIANGLE.ahk" { D2D1_TRIANGLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D2D1_TRIANGLE.ahk" { D2D1_TRIANGLE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Populates an ID2D1Mesh object with triangles.

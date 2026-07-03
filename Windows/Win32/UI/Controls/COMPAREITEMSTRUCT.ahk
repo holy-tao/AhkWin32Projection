@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DRAWITEMSTRUCT_CTL_TYPE.ahk" { DRAWITEMSTRUCT_CTL_TYPE }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\DRAWITEMSTRUCT_CTL_TYPE.ahk" { DRAWITEMSTRUCT_CTL_TYPE }
 
 /**
  * Supplies the identifiers and application-supplied data for two items in a sorted, owner-drawn list box or combo box.

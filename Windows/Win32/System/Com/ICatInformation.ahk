@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUnknown.ahk" { IUnknown }
-#Import ".\IEnumGUID.ahk" { IEnumGUID }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IEnumCATEGORYINFO.ahk" { IEnumCATEGORYINFO }
+#Import ".\IEnumGUID.ahk" { IEnumGUID }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * Obtains information about the categories implemented or required by a certain class, as well as information about the categories registered on the specified computer.

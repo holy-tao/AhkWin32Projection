@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISecurityCallContext.ahk" { ISecurityCallContext }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ISecurityCallContext.ahk" { ISecurityCallContext }
 
 /**
  * Retrieves a reference to an object created from the SecurityCallContext class that is associated with the current call. (IGetSecurityCallContext)

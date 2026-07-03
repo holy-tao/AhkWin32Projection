@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\XPS_GLYPH_INDEX.ahk" { XPS_GLYPH_INDEX }
-#Import ".\XPS_STYLE_SIMULATION.ahk" { XPS_STYLE_SIMULATION }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IXpsOMVisual.ahk" { IXpsOMVisual }
-#Import ".\IXpsOMGlyphsEditor.ahk" { IXpsOMGlyphsEditor }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IXpsOMBrush.ahk" { IXpsOMBrush }
+#Import ".\IXpsOMFontResource.ahk" { IXpsOMFontResource }
+#Import ".\IXpsOMGlyphsEditor.ahk" { IXpsOMGlyphsEditor }
+#Import ".\IXpsOMVisual.ahk" { IXpsOMVisual }
+#Import ".\XPS_GLYPH_INDEX.ahk" { XPS_GLYPH_INDEX }
 #Import ".\XPS_GLYPH_MAPPING.ahk" { XPS_GLYPH_MAPPING }
 #Import ".\XPS_POINT.ahk" { XPS_POINT }
-#Import ".\IXpsOMBrush.ahk" { IXpsOMBrush }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IXpsOMFontResource.ahk" { IXpsOMFontResource }
+#Import ".\XPS_STYLE_SIMULATION.ahk" { XPS_STYLE_SIMULATION }
 
 /**
  * Describes the text that appears on a page.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\CLUADMEX_OBJECT_TYPE.ahk" { CLUADMEX_OBJECT_TYPE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CLUADMEX_OBJECT_TYPE.ahk" { CLUADMEX_OBJECT_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Called by a Failover Cluster Administrator extension to retrieve information about a cluster object.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_SECURITY_ALGORITHM_PROPERTY.ahk" { WS_SECURITY_ALGORITHM_PROPERTY }
 #Import ".\WS_SECURITY_ALGORITHM_ID.ahk" { WS_SECURITY_ALGORITHM_ID }
+#Import ".\WS_SECURITY_ALGORITHM_PROPERTY.ahk" { WS_SECURITY_ALGORITHM_PROPERTY }
 
 /**
  * Defines the security algorithms and key lengths to be used with WS-Security. This setting is relevant to message security bindings and mixed-mode security bindings.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\KDEXT_THREAD_FIND_PARAMS.ahk" { KDEXT_THREAD_FIND_PARAMS }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDebugClient.ahk" { IDebugClient }
+#Import ".\KDEXT_THREAD_FIND_PARAMS.ahk" { KDEXT_THREAD_FIND_PARAMS }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -47,10 +47,6 @@ export default struct PFIND_MATCHING_THREAD {
             this.value := CallbackCreate(fn, , ["ptr", KDEXT_THREAD_FIND_PARAMS.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

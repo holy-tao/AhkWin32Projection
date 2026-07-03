@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\UiaChangeInfo.ahk" { UiaChangeInfo }
-#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
+#Import ".\UiaChangeInfo.ahk" { UiaChangeInfo }
 
 /**
  * Exposes a method to handle one or more Microsoft UI Automation change events.

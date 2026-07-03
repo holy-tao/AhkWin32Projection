@@ -53,10 +53,6 @@ export default struct PCLUSAPI_SET_CLUSTER_SERVICE_ACCOUNT_PASSWORD {
             this.value := CallbackCreate(fn, , [PWSTR, PWSTR, UInt32, IntPtr, "uint*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

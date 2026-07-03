@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 
 /**
  * Serves as the entry point for a Control Panel application. This is a library-defined callback function.
@@ -64,10 +64,6 @@ export default struct APPLET_PROC {
             this.value := CallbackCreate(fn, , [HWND, UInt32, LPARAM, LPARAM, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\TF_LANGBARITEMINFO.ahk" { TF_LANGBARITEMINFO }
-#Import ".\ITfLangBarItemSink.ahk" { ITfLangBarItemSink }
-#Import ".\ITfLangBarItem.ahk" { ITfLangBarItem }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IEnumTfLangBarItems.ahk" { IEnumTfLangBarItems }
+#Import ".\ITfLangBarItem.ahk" { ITfLangBarItem }
+#Import ".\ITfLangBarItemSink.ahk" { ITfLangBarItemSink }
+#Import ".\TF_LANGBARITEMINFO.ahk" { TF_LANGBARITEMINFO }
 
 /**
  * The ITfLangBarItemMgr interface is implemented by the language bar and used by a text service to manage items in the language bar.

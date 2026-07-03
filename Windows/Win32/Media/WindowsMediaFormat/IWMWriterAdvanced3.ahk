@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WM_WRITER_STATISTICS_EX.ahk" { WM_WRITER_STATISTICS_EX }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWMWriterAdvanced2.ahk" { IWMWriterAdvanced2 }
+#Import ".\WM_WRITER_STATISTICS_EX.ahk" { WM_WRITER_STATISTICS_EX }
 
 /**
  * The IWMWriterAdvanced3 interface provides additional functionality for the writer object.IWMWriterAdvanced3 exists for every instance of the writer object. To obtain a pointer to this interface, call QueryInterface on the writer object.

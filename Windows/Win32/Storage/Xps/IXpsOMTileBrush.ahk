@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\XPS_TILE_MODE.ahk" { XPS_TILE_MODE }
-#Import ".\XPS_RECT.ahk" { XPS_RECT }
-#Import ".\IXpsOMMatrixTransform.ahk" { IXpsOMMatrixTransform }
-#Import ".\IXpsOMBrush.ahk" { IXpsOMBrush }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IXpsOMBrush.ahk" { IXpsOMBrush }
+#Import ".\IXpsOMMatrixTransform.ahk" { IXpsOMMatrixTransform }
+#Import ".\XPS_RECT.ahk" { XPS_RECT }
+#Import ".\XPS_TILE_MODE.ahk" { XPS_TILE_MODE }
 
 /**
  * A tile brush uses a visual image to paint a region by repeating the image.

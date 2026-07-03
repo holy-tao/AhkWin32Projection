@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import ".\CQFORM.ahk" { CQFORM }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Called by a query form extension to add a form to the query dialog box.
@@ -49,10 +49,6 @@ export default struct LPCQADDFORMSPROC {
             this.value := CallbackCreate(fn, , [LPARAM, CQFORM.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

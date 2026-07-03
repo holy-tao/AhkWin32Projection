@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DXVAHD_VPDEVCAPS.ahk" { DXVAHD_VPDEVCAPS }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DXVAHD_DEVICE_USAGE.ahk" { DXVAHD_DEVICE_USAGE }
 #Import ".\DXVAHD_CONTENT_DESC.ahk" { DXVAHD_CONTENT_DESC }
+#Import ".\DXVAHD_DEVICE_USAGE.ahk" { DXVAHD_DEVICE_USAGE }
+#Import ".\DXVAHD_VPDEVCAPS.ahk" { DXVAHD_VPDEVCAPS }
 
 /**
  * Gets the capabilities of a software plug-in Microsoft DirectX Video Acceleration High Definition (DXVA-HD) device.
@@ -53,10 +53,6 @@ export default struct PDXVAHDSW_GetVideoProcessorDeviceCaps {
             this.value := CallbackCreate(fn, , [HANDLE, DXVAHD_CONTENT_DESC.Ptr, DXVAHD_DEVICE_USAGE, DXVAHD_VPDEVCAPS.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

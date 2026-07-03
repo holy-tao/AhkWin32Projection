@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
-#Import ".\SECURITY_LOGON_TYPE.ahk" { SECURITY_LOGON_TYPE }
-#Import ".\SECPKG_SUPPLEMENTAL_CRED.ahk" { SECPKG_SUPPLEMENTAL_CRED }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 #Import ".\SECPKG_PRIMARY_CRED.ahk" { SECPKG_PRIMARY_CRED }
+#Import ".\SECPKG_SUPPLEMENTAL_CRED.ahk" { SECPKG_SUPPLEMENTAL_CRED }
+#Import ".\SECURITY_LOGON_TYPE.ahk" { SECURITY_LOGON_TYPE }
 
 /**
  * Called by the Local Security Authority (LSA) to pass the security package any credentials stored for the authenticated security principal.
@@ -49,7 +49,7 @@ export default struct SpAcceptCredentialsFn {
      */
     Call(LogonType, AccountName, PrimaryCredentials, SupplementalCredentials) {
         result := DllCall(this.value, SECURITY_LOGON_TYPE, LogonType, LSA_UNICODE_STRING.Ptr, AccountName, SECPKG_PRIMARY_CRED.Ptr, PrimaryCredentials, SECPKG_SUPPLEMENTAL_CRED.Ptr, SupplementalCredentials, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -69,10 +69,6 @@ export default struct SpAcceptCredentialsFn {
             this.value := CallbackCreate(fn, , [SECURITY_LOGON_TYPE, LSA_UNICODE_STRING.Ptr, SECPKG_PRIMARY_CRED.Ptr, SECPKG_SUPPLEMENTAL_CRED.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

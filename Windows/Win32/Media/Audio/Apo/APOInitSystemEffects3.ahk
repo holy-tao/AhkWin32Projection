@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\System\Com\IServiceProvider.ahk" { IServiceProvider }
-#Import ".\APOInitBaseStruct.ahk" { APOInitBaseStruct }
-#Import "..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
-#Import "..\IMMDeviceCollection.ahk" { IMMDeviceCollection }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\APOInitBaseStruct.ahk" { APOInitBaseStruct }
+#Import "..\IMMDeviceCollection.ahk" { IMMDeviceCollection }
+#Import "..\..\..\System\Com\IServiceProvider.ahk" { IServiceProvider }
+#Import "..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
 
 /**
  * Provides APO initialization parameters, extending APOInitSystemEffects2 to add the ability to specify a service provider for logging.

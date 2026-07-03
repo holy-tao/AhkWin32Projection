@@ -44,10 +44,6 @@ export default struct FAST_IO_DETACH_DEVICE {
             this.value := CallbackCreate(fn, , [DEVICE_OBJECT.Ptr, DEVICE_OBJECT.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

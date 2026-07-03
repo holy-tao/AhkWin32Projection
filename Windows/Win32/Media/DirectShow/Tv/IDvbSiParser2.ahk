@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDvbSiParser.ahk" { IDvbSiParser }
 #Import ".\IDVB_EIT2.ahk" { IDVB_EIT2 }
+#Import ".\IDvbSiParser.ahk" { IDvbSiParser }
 
 /**
  * The IDvbSiParser2 interface retrieves program specific information (PSI) and service information (SI) tables from a DVB transport stream.

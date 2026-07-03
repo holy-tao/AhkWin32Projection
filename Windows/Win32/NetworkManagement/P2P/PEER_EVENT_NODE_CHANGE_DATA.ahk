@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PEER_NODE_CHANGE_TYPE.ahk" { PEER_NODE_CHANGE_TYPE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PEER_NODE_CHANGE_TYPE.ahk" { PEER_NODE_CHANGE_TYPE }
 
 /**
  * The PEER_EVENT_NODE_CHANGE_DATA structure contains a pointer to the data if a PEER_GRAPH_EVENT_NODE_CHANGE event is triggered.

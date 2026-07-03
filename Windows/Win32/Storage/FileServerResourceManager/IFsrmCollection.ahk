@@ -4,9 +4,9 @@
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\FsrmCollectionState.ahk" { FsrmCollectionState }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * Defines a collection of FSRM objects.

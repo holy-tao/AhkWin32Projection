@@ -1,34 +1,34 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import "..\..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\WPARAM.ahk" { WPARAM }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\HIMC.ahk" { HIMC }
-#Import "..\..\..\Graphics\Gdi\LOGFONTW.ahk" { LOGFONTW }
-#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\IEnumRegisterWordA.ahk" { IEnumRegisterWordA }
-#Import ".\HIMCC.ahk" { HIMCC }
-#Import ".\CANDIDATEFORM.ahk" { CANDIDATEFORM }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\KeyboardAndMouse\HKL.ahk" { HKL }
-#Import "..\..\..\Foundation\LRESULT.ahk" { LRESULT }
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\IMEMENUITEMINFOW.ahk" { IMEMENUITEMINFOW }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Graphics\Gdi\LOGFONTA.ahk" { LOGFONTA }
+#Import "..\..\..\Graphics\Gdi\LOGFONTW.ahk" { LOGFONTW }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\CANDIDATEFORM.ahk" { CANDIDATEFORM }
+#Import ".\CANDIDATELIST.ahk" { CANDIDATELIST }
+#Import ".\COMPOSITIONFORM.ahk" { COMPOSITIONFORM }
+#Import ".\HIMC.ahk" { HIMC }
+#Import ".\HIMCC.ahk" { HIMCC }
+#Import ".\IEnumInputContext.ahk" { IEnumInputContext }
+#Import ".\IEnumRegisterWordA.ahk" { IEnumRegisterWordA }
 #Import ".\IEnumRegisterWordW.ahk" { IEnumRegisterWordW }
 #Import ".\IMEMENUITEMINFOA.ahk" { IMEMENUITEMINFOA }
-#Import ".\STYLEBUFW.ahk" { STYLEBUFW }
+#Import ".\IMEMENUITEMINFOW.ahk" { IMEMENUITEMINFOW }
 #Import ".\INPUTCONTEXT.ahk" { INPUTCONTEXT }
 #Import ".\REGISTERWORDA.ahk" { REGISTERWORDA }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\COMPOSITIONFORM.ahk" { COMPOSITIONFORM }
-#Import ".\IEnumInputContext.ahk" { IEnumInputContext }
-#Import ".\CANDIDATELIST.ahk" { CANDIDATELIST }
-#Import ".\STYLEBUFA.ahk" { STYLEBUFA }
 #Import ".\REGISTERWORDW.ahk" { REGISTERWORDW }
+#Import ".\STYLEBUFA.ahk" { STYLEBUFA }
+#Import ".\STYLEBUFW.ahk" { STYLEBUFW }
+#Import "..\KeyboardAndMouse\HKL.ahk" { HKL }
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime

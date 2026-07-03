@@ -46,10 +46,6 @@ export default struct SET_APP_INSTANCE_CSV_FLAGS {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, UInt32, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import "..\..\Foundation\IOMMU_DMA_DEVICE.ahk" { IOMMU_DMA_DEVICE }
+#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -28,7 +28,7 @@ export default struct IOMMU_DEVICE_DELETE {
         DmaDeviceMarshal := DmaDevice is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, DmaDeviceMarshal, DmaDevice, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -48,10 +48,6 @@ export default struct IOMMU_DEVICE_DELETE {
             this.value := CallbackCreate(fn, , [IOMMU_DMA_DEVICE.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

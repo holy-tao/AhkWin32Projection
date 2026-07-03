@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFByteStream.ahk" { IMFByteStream }
-#Import ".\MFVideoNormalizedRect.ahk" { MFVideoNormalizedRect }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MF3DVideoOutputType.ahk" { MF3DVideoOutputType }
-#Import ".\MF_MEDIA_ENGINE_SEEK_MODE.ahk" { MF_MEDIA_ENGINE_SEEK_MODE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IMFMediaEngine.ahk" { IMFMediaEngine }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\IMFByteStream.ahk" { IMFByteStream }
+#Import ".\IMFMediaEngine.ahk" { IMFMediaEngine }
+#Import ".\MF3DVideoOutputType.ahk" { MF3DVideoOutputType }
 #Import ".\MFARGB.ahk" { MFARGB }
+#Import ".\MFVideoNormalizedRect.ahk" { MFVideoNormalizedRect }
+#Import ".\MF_MEDIA_ENGINE_S3D_PACKING_MODE.ahk" { MF_MEDIA_ENGINE_S3D_PACKING_MODE }
+#Import ".\MF_MEDIA_ENGINE_SEEK_MODE.ahk" { MF_MEDIA_ENGINE_SEEK_MODE }
+#Import ".\MF_MEDIA_ENGINE_STATISTIC.ahk" { MF_MEDIA_ENGINE_STATISTIC }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import ".\MF_MEDIA_ENGINE_STATISTIC.ahk" { MF_MEDIA_ENGINE_STATISTIC }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\MF_MEDIA_ENGINE_S3D_PACKING_MODE.ahk" { MF_MEDIA_ENGINE_S3D_PACKING_MODE }
 
 /**
  * Extends the IMFMediaEngine interface.

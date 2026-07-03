@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TXF_ID.ahk" { TXF_ID }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\TXF_ID.ahk" { TXF_ID }
 
 /**
  * Contains the record for a truncate operation.

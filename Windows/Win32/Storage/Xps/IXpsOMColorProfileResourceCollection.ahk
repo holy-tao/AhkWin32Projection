@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IXpsOMColorProfileResource.ahk" { IXpsOMColorProfileResource }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
+#Import ".\IXpsOMColorProfileResource.ahk" { IXpsOMColorProfileResource }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * A collection of IXpsOMColorProfileResource interface pointers.

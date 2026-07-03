@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SHARINGCONNECTION_ENUM_FLAGS.ahk" { SHARINGCONNECTION_ENUM_FLAGS }
-#Import ".\INetSharingPortMapping.ahk" { INetSharingPortMapping }
-#Import ".\ICS_TARGETTYPE.ahk" { ICS_TARGETTYPE }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\SHARINGCONNECTIONTYPE.ahk" { SHARINGCONNECTIONTYPE }
-#Import ".\INetSharingPortMappingCollection.ahk" { INetSharingPortMappingCollection }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\ICS_TARGETTYPE.ahk" { ICS_TARGETTYPE }
+#Import ".\INetSharingPortMapping.ahk" { INetSharingPortMapping }
+#Import ".\INetSharingPortMappingCollection.ahk" { INetSharingPortMappingCollection }
+#Import ".\SHARINGCONNECTIONTYPE.ahk" { SHARINGCONNECTIONTYPE }
+#Import ".\SHARINGCONNECTION_ENUM_FLAGS.ahk" { SHARINGCONNECTION_ENUM_FLAGS }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The INetSharingConfiguration interface provides methods to manage connection sharing, port mapping, and Internet Connection Firewall.

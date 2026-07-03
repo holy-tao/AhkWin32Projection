@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWICMetadataQueryWriter.ahk" { IWICMetadataQueryWriter }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import ".\IWICPalette.ahk" { IWICPalette }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IWICBitmapFrameEncode.ahk" { IWICBitmapFrameEncode }
-#Import ".\IWICColorContext.ahk" { IWICColorContext }
 #Import ".\IWICBitmapEncoderInfo.ahk" { IWICBitmapEncoderInfo }
-#Import "..\..\System\Com\StructuredStorage\IPropertyBag2.ahk" { IPropertyBag2 }
+#Import ".\IWICBitmapFrameEncode.ahk" { IWICBitmapFrameEncode }
+#Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
+#Import ".\IWICColorContext.ahk" { IWICColorContext }
+#Import ".\IWICMetadataQueryWriter.ahk" { IWICMetadataQueryWriter }
+#Import ".\IWICPalette.ahk" { IWICPalette }
 #Import ".\WICBitmapEncoderCacheOption.ahk" { WICBitmapEncoderCacheOption }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\StructuredStorage\IPropertyBag2.ahk" { IPropertyBag2 }
 
 /**
  * Defines methods for setting an encoder's properties such as thumbnails, frames, and palettes.

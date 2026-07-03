@@ -114,10 +114,6 @@ export default struct PIBIO_ENGINE_COMMIT_ENROLLMENT_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, WINBIO_IDENTITY.Ptr, Int8, IntPtr, IntPtr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

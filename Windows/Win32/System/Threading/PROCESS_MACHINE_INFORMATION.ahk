@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MACHINE_ATTRIBUTES.ahk" { MACHINE_ATTRIBUTES }
 #Import "..\SystemInformation\IMAGE_FILE_MACHINE.ahk" { IMAGE_FILE_MACHINE }
+#Import ".\MACHINE_ATTRIBUTES.ahk" { MACHINE_ATTRIBUTES }
 
 /**
  * Specifies the architecture of a process and if that architecture of code can run in user mode, kernel mode, and/or under WoW64 on the host operating system.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\RAS_AUTH_ATTRIBUTE.ahk" { RAS_AUTH_ATTRIBUTE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\RAS_AUTH_ATTRIBUTE.ahk" { RAS_AUTH_ATTRIBUTE }
 
 /**
  * The PPP_EAP_INPUT structure is used in the interaction between the RAS Connection Manager Service PPP implementation and the EAP.

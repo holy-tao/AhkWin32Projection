@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\COPYFILE2_V2_FLAGS.ahk" { COPYFILE2_V2_FLAGS }
-#Import ".\COPYFILE2_CREATE_OPLOCK_KEYS.ahk" { COPYFILE2_CREATE_OPLOCK_KEYS }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\LPPROGRESS_ROUTINE.ahk" { LPPROGRESS_ROUTINE }
-#Import ".\PCOPYFILE2_PROGRESS_ROUTINE.ahk" { PCOPYFILE2_PROGRESS_ROUTINE }
+#Import ".\COPYFILE2_CREATE_OPLOCK_KEYS.ahk" { COPYFILE2_CREATE_OPLOCK_KEYS }
+#Import ".\COPYFILE2_V2_FLAGS.ahk" { COPYFILE2_V2_FLAGS }
 #Import ".\COPYFILE_FLAGS.ahk" { COPYFILE_FLAGS }
 
 /**
@@ -18,7 +16,7 @@ export default struct COPYFILE2_EXTENDED_PARAMETERS_V2 {
 
     pfCancel : BOOL.Ptr
 
-    pProgressRoutine : PCOPYFILE2_PROGRESS_ROUTINE
+    pProgressRoutine : IntPtr
 
     pvCallbackContext : IntPtr
 
@@ -28,7 +26,7 @@ export default struct COPYFILE2_EXTENDED_PARAMETERS_V2 {
 
     ioDesiredRate : UInt32
 
-    pProgressRoutineOld : LPPROGRESS_ROUTINE
+    pProgressRoutineOld : IntPtr
 
     SourceOplockKeys : COPYFILE2_CREATE_OPLOCK_KEYS.Ptr
 

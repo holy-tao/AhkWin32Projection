@@ -48,10 +48,6 @@ export default struct PRESUTIL_START_RESOURCE_SERVICE {
             this.value := CallbackCreate(fn, , [PWSTR, SC_HANDLE.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

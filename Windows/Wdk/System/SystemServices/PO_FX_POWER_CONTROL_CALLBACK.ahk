@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -35,7 +35,7 @@ export default struct PO_FX_POWER_CONTROL_CALLBACK {
         BytesReturnedMarshal := BytesReturned is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, DeviceContextMarshal, DeviceContext, Guid.Ptr, PowerControlCode, IntPtr, InBuffer, IntPtr, InBufferSize, IntPtr, OutBuffer, IntPtr, OutBufferSize, BytesReturnedMarshal, BytesReturned, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -55,10 +55,6 @@ export default struct PO_FX_POWER_CONTROL_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", Guid.Ptr, IntPtr, IntPtr, IntPtr, IntPtr, "ptr*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

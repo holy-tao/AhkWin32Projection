@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\BDA_CONDITIONALACCESS_MMICLOSEREASON.ahk" { BDA_CONDITIONALACCESS_MMICLOSEREASON }
 #Import ".\BDA_CONDITIONALACCESS_REQUESTTYPE.ahk" { BDA_CONDITIONALACCESS_REQUESTTYPE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\BDA_CONDITIONALACCESS_MMICLOSEREASON.ahk" { BDA_CONDITIONALACCESS_MMICLOSEREASON }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides access to a device's Conditional Access Service (CAS), which manages access to protected content.

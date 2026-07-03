@@ -48,10 +48,6 @@ export default struct PDD_COLORCB_COLORCONTROL {
             this.value := CallbackCreate(fn, , [DD_COLORCONTROLDATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

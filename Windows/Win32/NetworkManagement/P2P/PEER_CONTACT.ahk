@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PEER_WATCH_PERMISSION.ahk" { PEER_WATCH_PERMISSION }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\PEER_DATA.ahk" { PEER_DATA }
+#Import ".\PEER_WATCH_PERMISSION.ahk" { PEER_WATCH_PERMISSION }
 
 /**
  * The PEER_CONTACT structure contains information about a specific contact.

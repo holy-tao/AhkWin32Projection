@@ -1,25 +1,25 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\Dxgi\IDXGISwapChain.ahk" { IDXGISwapChain }
-#Import "..\Direct3D\D3D_SHADER_MACRO.ahk" { D3D_SHADER_MACRO }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\Direct3D\D3D_SHADER_MACRO.ahk" { D3D_SHADER_MACRO }
+#Import "..\Direct3D\ID3DBlob.ahk" { ID3DBlob }
+#Import "..\Direct3D\ID3DInclude.ahk" { ID3DInclude }
+#Import ".\D3D10_DEVICE_STATE_TYPES.ahk" { D3D10_DEVICE_STATE_TYPES }
+#Import ".\D3D10_DRIVER_TYPE.ahk" { D3D10_DRIVER_TYPE }
+#Import ".\D3D10_FEATURE_LEVEL1.ahk" { D3D10_FEATURE_LEVEL1 }
+#Import ".\D3D10_STATE_BLOCK_MASK.ahk" { D3D10_STATE_BLOCK_MASK }
+#Import ".\ID3D10Device.ahk" { ID3D10Device }
+#Import ".\ID3D10Device1.ahk" { ID3D10Device1 }
 #Import ".\ID3D10Effect.ahk" { ID3D10Effect }
+#Import ".\ID3D10EffectPool.ahk" { ID3D10EffectPool }
+#Import ".\ID3D10ShaderReflection.ahk" { ID3D10ShaderReflection }
+#Import ".\ID3D10StateBlock.ahk" { ID3D10StateBlock }
 #Import "..\Dxgi\DXGI_SWAP_CHAIN_DESC.ahk" { DXGI_SWAP_CHAIN_DESC }
 #Import "..\Dxgi\IDXGIAdapter.ahk" { IDXGIAdapter }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ID3D10Device1.ahk" { ID3D10Device1 }
-#Import "..\Direct3D\ID3DBlob.ahk" { ID3DBlob }
-#Import ".\D3D10_FEATURE_LEVEL1.ahk" { D3D10_FEATURE_LEVEL1 }
-#Import ".\D3D10_DRIVER_TYPE.ahk" { D3D10_DRIVER_TYPE }
-#Import ".\ID3D10EffectPool.ahk" { ID3D10EffectPool }
-#Import "..\Direct3D\ID3DInclude.ahk" { ID3DInclude }
-#Import ".\ID3D10StateBlock.ahk" { ID3D10StateBlock }
-#Import ".\D3D10_STATE_BLOCK_MASK.ahk" { D3D10_STATE_BLOCK_MASK }
-#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
-#Import ".\ID3D10ShaderReflection.ahk" { ID3D10ShaderReflection }
-#Import ".\D3D10_DEVICE_STATE_TYPES.ahk" { D3D10_DEVICE_STATE_TYPES }
-#Import ".\ID3D10Device.ahk" { ID3D10Device }
+#Import "..\Dxgi\IDXGISwapChain.ahk" { IDXGISwapChain }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D10

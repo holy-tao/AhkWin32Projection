@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFTimedTextTrackList.ahk" { IMFTimedTextTrackList }
-#Import ".\MF_TIMED_TEXT_TRACK_KIND.ahk" { MF_TIMED_TEXT_TRACK_KIND }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IMFByteStream.ahk" { IMFByteStream }
 #Import ".\IMFTimedTextNotify.ahk" { IMFTimedTextNotify }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IMFTimedTextTrack.ahk" { IMFTimedTextTrack }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFTimedTextTrackList.ahk" { IMFTimedTextTrackList }
+#Import ".\MF_TIMED_TEXT_TRACK_KIND.ahk" { MF_TIMED_TEXT_TRACK_KIND }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * A timed-text object represents a component of timed text.

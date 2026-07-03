@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RGBQUAD.ahk" { RGBQUAD }
 #Import ".\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
+#Import ".\RGBQUAD.ahk" { RGBQUAD }
 
 /**
  * The BITMAPINFO structure defines the dimensions and color information for a DIB.

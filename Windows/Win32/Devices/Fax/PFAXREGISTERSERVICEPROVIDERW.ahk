@@ -53,10 +53,6 @@ export default struct PFAXREGISTERSERVICEPROVIDERW {
             this.value := CallbackCreate(fn, , [PWSTR, PWSTR, PWSTR, PWSTR, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

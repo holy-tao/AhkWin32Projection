@@ -1,7 +1,7 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\SLIST_HEADER.ahk" { SLIST_HEADER }
 #Import ".\SLIST_ENTRY.ahk" { SLIST_ENTRY }
+#Import ".\SLIST_HEADER.ahk" { SLIST_HEADER }
 
 /**
  * @namespace Windows.Win32.System.Kernel

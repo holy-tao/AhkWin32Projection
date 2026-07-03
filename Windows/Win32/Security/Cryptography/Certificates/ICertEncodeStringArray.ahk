@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\CERT_RDN_ATTR_VALUE_TYPE.ahk" { CERT_RDN_ATTR_VALUE_TYPE }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\CERT_RDN_ATTR_VALUE_TYPE.ahk" { CERT_RDN_ATTR_VALUE_TYPE }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * Provides methods for handling string arrays used in certificate extensions.

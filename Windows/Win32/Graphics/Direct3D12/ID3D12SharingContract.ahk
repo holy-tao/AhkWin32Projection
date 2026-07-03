@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
-#Import ".\ID3D12Fence.ahk" { ID3D12Fence }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\ID3D12Fence.ahk" { ID3D12Fence }
+#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Part of a contract between D3D11On12 diagnostic layers and graphics diagnostics tools.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Cryptography\HCERTSTORE.ahk" { HCERTSTORE }
-#Import "..\Cryptography\CMSG_SIGNER_INFO.ahk" { CMSG_SIGNER_INFO }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Cryptography\CMSG_SIGNER_INFO.ahk" { CMSG_SIGNER_INFO }
+#Import "..\Cryptography\HCERTSTORE.ahk" { HCERTSTORE }
 
 /**
  * Used when calling WinVerifyTrust to verify a CMSG_SIGNER_INFO structure.

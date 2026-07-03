@@ -41,10 +41,6 @@ export default struct PPCI_PREPARE_MULTISTAGE_RESUME {
             this.value := CallbackCreate(fn, , [IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

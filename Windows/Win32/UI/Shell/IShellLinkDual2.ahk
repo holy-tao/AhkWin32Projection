@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IShellLinkDual.ahk" { IShellLinkDual }
-#Import ".\FolderItem.ahk" { FolderItem }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FolderItem.ahk" { FolderItem }
+#Import ".\IShellLinkDual.ahk" { IShellLinkDual }
 
 /**
  * Extends the ShellLinkObject object and supports one additional property.

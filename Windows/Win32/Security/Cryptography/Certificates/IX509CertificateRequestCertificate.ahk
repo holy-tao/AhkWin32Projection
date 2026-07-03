@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IX509PublicKey.ahk" { IX509PublicKey }
-#Import ".\ISignerCertificate.ahk" { ISignerCertificate }
-#Import ".\EncodingType.ahk" { EncodingType }
-#Import ".\IX509CertificateRequestPkcs10.ahk" { IX509CertificateRequestPkcs10 }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import ".\ISignerCertificate.ahk" { ISignerCertificate }
 #Import ".\IX500DistinguishedName.ahk" { IX500DistinguishedName }
+#Import ".\IX509CertificateRequestPkcs10.ahk" { IX509CertificateRequestPkcs10 }
+#Import ".\IX509PublicKey.ahk" { IX509PublicKey }
 
 /**
  * The IX509CertificateRequestCertificate interface represents a request object for a self-generated certificate, enabling you to create a certificate directly without going through a registration or certification authority.

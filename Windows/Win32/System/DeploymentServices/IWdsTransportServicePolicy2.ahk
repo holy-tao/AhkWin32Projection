@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WDSTRANSPORT_UDP_PORT_POLICY.ahk" { WDSTRANSPORT_UDP_PORT_POLICY }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\IWdsTransportServicePolicy.ahk" { IWdsTransportServicePolicy }
+#Import ".\WDSTRANSPORT_UDP_PORT_POLICY.ahk" { WDSTRANSPORT_UDP_PORT_POLICY }
 
 /**
  * This interface inherits from the IWdsTransportServicePolicy interface and extends it beginning with Windows Server 2012.

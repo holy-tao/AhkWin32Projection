@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WSD_SERVICE_METADATA_LIST.ahk" { WSD_SERVICE_METADATA_LIST }
 #Import ".\WSD_SERVICE_METADATA.ahk" { WSD_SERVICE_METADATA }
+#Import ".\WSD_SERVICE_METADATA_LIST.ahk" { WSD_SERVICE_METADATA_LIST }
 
 /**
  * Provides metadata for all services hosted by a device.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SOCKET_ADDRESS.ahk" { SOCKET_ADDRESS }
 #Import ".\SOCKADDR.ahk" { SOCKADDR }
+#Import ".\SOCKET_ADDRESS.ahk" { SOCKET_ADDRESS }
 
 /**
  * The SOCKET_ADDRESS_LIST structure defines a variable-sized list of transport addresses.

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IAuthenticate.ahk" { IAuthenticate }
 #Import ".\AUTHENTICATEINFO.ahk" { AUTHENTICATEINFO }
+#Import ".\IAuthenticate.ahk" { IAuthenticate }
 
 /**
  * @namespace Windows.Win32.System.Com

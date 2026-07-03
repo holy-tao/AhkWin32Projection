@@ -48,10 +48,6 @@ export default struct PFN_PROVIDER_CERTCHKPOLICY_CALL {
             this.value := CallbackCreate(fn, , [CRYPT_PROVIDER_DATA.Ptr, UInt32, BOOL, UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

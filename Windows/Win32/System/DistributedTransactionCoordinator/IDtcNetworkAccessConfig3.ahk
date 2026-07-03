@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IDtcNetworkAccessConfig2.ahk" { IDtcNetworkAccessConfig2 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDtcNetworkAccessConfig2.ahk" { IDtcNetworkAccessConfig2 }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator

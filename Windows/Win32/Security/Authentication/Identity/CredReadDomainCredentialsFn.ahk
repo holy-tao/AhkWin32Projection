@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Foundation\LUID.ahk" { LUID }
-#Import "..\..\Credentials\CREDENTIAL_TARGET_INFORMATIONW.ahk" { CREDENTIAL_TARGET_INFORMATIONW }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\ENCRYPTED_CREDENTIALW.ahk" { ENCRYPTED_CREDENTIALW }
+#Import "..\..\Credentials\CREDENTIAL_TARGET_INFORMATIONW.ahk" { CREDENTIAL_TARGET_INFORMATIONW }
 
 /**
  * Reads a domain credential from the Credential Manager.
@@ -117,7 +117,7 @@ export default struct CredReadDomainCredentialsFn {
         CredentialMarshal := Credential is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, LUID.Ptr, LogonId, UInt32, CredFlags, CREDENTIAL_TARGET_INFORMATIONW.Ptr, TargetInfo, UInt32, Flags, CountMarshal, Count, CredentialMarshal, Credential, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -137,10 +137,6 @@ export default struct CredReadDomainCredentialsFn {
             this.value := CallbackCreate(fn, , [LUID.Ptr, UInt32, CREDENTIAL_TARGET_INFORMATIONW.Ptr, UInt32, "uint*", "ptr*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

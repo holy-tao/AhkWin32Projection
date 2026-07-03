@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWMDMProgress.ahk" { IWMDMProgress }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\WMDMID.ahk" { WMDMID }
-#Import ".\IMDSPDevice.ahk" { IMDSPDevice }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMDSPDevice.ahk" { IMDSPDevice }
 #Import ".\IMDSPStorage.ahk" { IMDSPStorage }
+#Import ".\IWMDMProgress.ahk" { IWMDMProgress }
+#Import ".\WMDMID.ahk" { WMDMID }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IMDSPStorageGlobals interface, acquired from the IMDSPStorage interface, provides methods for retrieving global information about a storage medium. This might include the amount of free space, serial number of the medium, and so on.

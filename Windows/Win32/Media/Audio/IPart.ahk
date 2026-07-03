@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IControlChangeNotify.ahk" { IControlChangeNotify }
+#Import ".\IControlInterface.ahk" { IControlInterface }
+#Import ".\IDeviceTopology.ahk" { IDeviceTopology }
+#Import ".\IPartsList.ahk" { IPartsList }
 #Import ".\PartType.ahk" { PartType }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDeviceTopology.ahk" { IDeviceTopology }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IPartsList.ahk" { IPartsList }
-#Import ".\IControlInterface.ahk" { IControlInterface }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IControlChangeNotify.ahk" { IControlChangeNotify }
 
 /**
  * The IPart interface represents a part (connector or subunit) of a device topology.

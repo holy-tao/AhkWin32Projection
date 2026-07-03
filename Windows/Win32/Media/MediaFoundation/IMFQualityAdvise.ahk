@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MF_QUALITY_DROP_MODE.ahk" { MF_QUALITY_DROP_MODE }
 #Import ".\MF_QUALITY_LEVEL.ahk" { MF_QUALITY_LEVEL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\MF_QUALITY_DROP_MODE.ahk" { MF_QUALITY_DROP_MODE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enables the quality manager to adjust the audio or video quality of a component in the pipeline.

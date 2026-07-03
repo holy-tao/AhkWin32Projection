@@ -35,7 +35,7 @@ export default struct SpExtractTargetInfoFn {
         pcbTargetInfoMarshal := pcbTargetInfo is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, ClientRequestMarshal, ClientRequest, IntPtr, ProtocolSubmitBuffer, ClientBufferBaseMarshal, ClientBufferBase, UInt32, SubmitBufferLength, ppvTargetInfoMarshal, ppvTargetInfo, pcbTargetInfoMarshal, pcbTargetInfo, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -55,10 +55,6 @@ export default struct SpExtractTargetInfoFn {
             this.value := CallbackCreate(fn, , ["ptr*", IntPtr, "ptr", UInt32, "ptr*", "uint*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

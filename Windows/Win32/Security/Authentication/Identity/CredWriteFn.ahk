@@ -111,7 +111,7 @@ export default struct CredWriteFn {
      */
     Call(LogonId, CredFlags, Credential, Flags) {
         result := DllCall(this.value, LUID.Ptr, LogonId, UInt32, CredFlags, ENCRYPTED_CREDENTIALW.Ptr, Credential, UInt32, Flags, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -131,10 +131,6 @@ export default struct CredWriteFn {
             this.value := CallbackCreate(fn, , [LUID.Ptr, UInt32, ENCRYPTED_CREDENTIALW.Ptr, UInt32, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

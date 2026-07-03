@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SCM_LOGICAL_DEVICE_INSTANCE.ahk" { SCM_LOGICAL_DEVICE_INSTANCE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SCM_LOGICAL_DEVICE_INSTANCE.ahk" { SCM_LOGICAL_DEVICE_INSTANCE }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

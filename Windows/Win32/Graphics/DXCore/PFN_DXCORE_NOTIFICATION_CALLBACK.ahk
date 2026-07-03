@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DXCoreNotificationType.ahk" { DXCoreNotificationType }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * A callback function (implemented by your application), which is called by a DXCore object for notification events.
@@ -56,10 +56,6 @@ export default struct PFN_DXCORE_NOTIFICATION_CALLBACK {
             this.value := CallbackCreate(fn, , [DXCoreNotificationType, "ptr", "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

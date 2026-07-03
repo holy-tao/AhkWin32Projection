@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IEnumItemIds.ahk" { IEnumItemIds }
-#Import ".\SYNC_FILTER_CHANGE.ahk" { SYNC_FILTER_CHANGE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
+#Import ".\SYNC_FILTER_CHANGE.ahk" { SYNC_FILTER_CHANGE }
 
 /**
  * @namespace Windows.Win32.System.WindowsSync

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITACDGroup.ahk" { ITACDGroup }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ACDGROUP_EVENT.ahk" { ACDGROUP_EVENT }
+#Import ".\ITACDGroup.ahk" { ITACDGroup }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The ITACDGroupEvent interface (tapi3cc.h) contains methods that retrieve the description of Automatic Call Distribution (ACD) group events.

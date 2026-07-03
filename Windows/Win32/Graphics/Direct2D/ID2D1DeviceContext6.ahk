@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D2D1_INTERPOLATION_MODE.ahk" { D2D1_INTERPOLATION_MODE }
-#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
 #Import "Common\D2D1_BLEND_MODE.ahk" { D2D1_BLEND_MODE }
-#Import ".\ID2D1Image.ahk" { ID2D1Image }
 #Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
+#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
+#Import ".\D2D1_INTERPOLATION_MODE.ahk" { D2D1_INTERPOLATION_MODE }
 #Import ".\ID2D1DeviceContext5.ahk" { ID2D1DeviceContext5 }
+#Import ".\ID2D1Image.ahk" { ID2D1Image }
 
 /**
  * This interface performs all the same functions as the existing ID2D1DeviceContext5 interface, plus it enables access to the BlendImage method.

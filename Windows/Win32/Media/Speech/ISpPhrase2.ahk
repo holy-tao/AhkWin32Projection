@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISpPhrase.ahk" { ISpPhrase }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ISpPhrase.ahk" { ISpPhrase }
 #Import ".\ISpStreamFormat.ahk" { ISpStreamFormat }
 #Import ".\SPSEMANTICERRORINFO.ahk" { SPSEMANTICERRORINFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SPXMLRESULTOPTIONS.ahk" { SPXMLRESULTOPTIONS }
 
 /**

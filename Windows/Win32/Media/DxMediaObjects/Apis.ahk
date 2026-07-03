@@ -1,10 +1,10 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\DMO_MEDIA_TYPE.ahk" { DMO_MEDIA_TYPE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DMO_PARTIAL_MEDIATYPE.ahk" { DMO_PARTIAL_MEDIATYPE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DMO_MEDIA_TYPE.ahk" { DMO_MEDIA_TYPE }
+#Import ".\DMO_PARTIAL_MEDIATYPE.ahk" { DMO_PARTIAL_MEDIATYPE }
 #Import ".\IEnumDMO.ahk" { IEnumDMO }
 
 /**

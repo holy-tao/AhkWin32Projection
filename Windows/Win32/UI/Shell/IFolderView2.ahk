@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IShellItemArray.ahk" { IShellItemArray }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\FVTEXTTYPE.ahk" { FVTEXTTYPE }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SORTCOLUMN.ahk" { SORTCOLUMN }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import ".\FOLDERVIEWMODE.ahk" { FOLDERVIEWMODE }
-#Import ".\IFolderView.ahk" { IFolderView }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import ".\FOLDERVIEWMODE.ahk" { FOLDERVIEWMODE }
+#Import ".\FVTEXTTYPE.ahk" { FVTEXTTYPE }
+#Import ".\IFolderView.ahk" { IFolderView }
+#Import ".\IShellItemArray.ahk" { IShellItemArray }
+#Import ".\SORTCOLUMN.ahk" { SORTCOLUMN }
 
 /**
  * Exposes methods that retrieve information about a folder's display options, select specified items in that folder, and set the folder's view mode. (IFolderView2)

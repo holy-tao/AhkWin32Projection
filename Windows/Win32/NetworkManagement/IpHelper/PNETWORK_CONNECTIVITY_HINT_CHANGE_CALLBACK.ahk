@@ -48,10 +48,6 @@ export default struct PNETWORK_CONNECTIVITY_HINT_CHANGE_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", NL_NETWORK_CONNECTIVITY_HINT, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

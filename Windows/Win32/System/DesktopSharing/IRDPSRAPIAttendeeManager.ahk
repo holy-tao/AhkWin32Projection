@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IRDPSRAPIAttendee.ahk" { IRDPSRAPIAttendee }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IRDPSRAPIAttendee.ahk" { IRDPSRAPIAttendee }
 
 /**
  * Manages attendee objects.

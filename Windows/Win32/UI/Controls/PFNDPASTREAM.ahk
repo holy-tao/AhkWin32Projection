@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DPASTREAMINFO.ahk" { DPASTREAMINFO }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\DPASTREAMINFO.ahk" { DPASTREAMINFO }
 
 /**
  * Defines the prototype for the callback function used by DPA_LoadStream and DPA_SaveStream.
@@ -60,10 +60,6 @@ export default struct PFNDPASTREAM {
             this.value := CallbackCreate(fn, , [DPASTREAMINFO.Ptr, "ptr", "ptr", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

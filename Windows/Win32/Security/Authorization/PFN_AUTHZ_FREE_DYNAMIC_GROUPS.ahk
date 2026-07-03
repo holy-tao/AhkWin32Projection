@@ -43,10 +43,6 @@ export default struct PFN_AUTHZ_FREE_DYNAMIC_GROUPS {
             this.value := CallbackCreate(fn, , [SID_AND_ATTRIBUTES.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

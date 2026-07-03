@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DPAMM_MESSAGE.ahk" { DPAMM_MESSAGE }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\DPAMM_MESSAGE.ahk" { DPAMM_MESSAGE }
 
 /**
  * Defines the prototype for the merge function used by DPA_Merge.
@@ -61,10 +61,6 @@ export default struct PFNDPAMERGE {
             this.value := CallbackCreate(fn, , [DPAMM_MESSAGE, "ptr", "ptr", LPARAM, "ptr"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

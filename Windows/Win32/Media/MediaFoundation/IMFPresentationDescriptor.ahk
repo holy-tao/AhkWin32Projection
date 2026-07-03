@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IMFStreamDescriptor.ahk" { IMFStreamDescriptor }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import ".\IMFStreamDescriptor.ahk" { IMFStreamDescriptor }
 
 /**
  * Describes the details of a presentation. A presentation is a set of related media streams that share a common presentation time.

@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION.ahk" { CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION }
+#Import ".\CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE.ahk" { CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE }
 #Import ".\CREDENTIAL_PROVIDER_FIELD_STATE.ahk" { CREDENTIAL_PROVIDER_FIELD_STATE }
 #Import ".\CREDENTIAL_PROVIDER_GET_SERIALIZATION_RESPONSE.ahk" { CREDENTIAL_PROVIDER_GET_SERIALIZATION_RESPONSE }
-#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CREDENTIAL_PROVIDER_STATUS_ICON.ahk" { CREDENTIAL_PROVIDER_STATUS_ICON }
-#Import ".\CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION.ahk" { CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION }
 #Import ".\ICredentialProviderCredentialEvents.ahk" { ICredentialProviderCredentialEvents }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE.ahk" { CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE }
-#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Exposes methods that enable the handling of a credential.

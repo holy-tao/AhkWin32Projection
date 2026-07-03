@@ -4,8 +4,8 @@
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITfUIElement.ahk" { ITfUIElement }
 #Import ".\ITfContext.ahk" { ITfContext }
+#Import ".\ITfUIElement.ahk" { ITfUIElement }
 
 /**
  * The ITfCandidateListUIElement interface is implemented by a text service that has a UI for reading information UI at the near caret.

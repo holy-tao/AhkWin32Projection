@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
-#Import ".\DD_DIRECTDRAW_LOCAL.ahk" { DD_DIRECTDRAW_LOCAL }
-#Import ".\DDCOMPBUFFERINFO.ahk" { DDCOMPBUFFERINFO }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DDCOMPBUFFERINFO.ahk" { DDCOMPBUFFERINFO }
+#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
+#Import ".\DD_DIRECTDRAW_LOCAL.ahk" { DD_DIRECTDRAW_LOCAL }
 
 /**
  * The DD_GETMOCOMPCOMPBUFFDATA structure contains the compressed buffer information.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDXGIFactory2.ahk" { IDXGIFactory2 }
 #Import ".\DXGI_CREATE_FACTORY_FLAGS.ahk" { DXGI_CREATE_FACTORY_FLAGS }
+#Import ".\IDXGIFactory2.ahk" { IDXGIFactory2 }
 
 /**
  * Enables creating Microsoft DirectX Graphics Infrastructure (DXGI) objects. (IDXGIFactory3)

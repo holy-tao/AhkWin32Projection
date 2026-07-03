@@ -45,10 +45,6 @@ export default struct PROTOCOL_CM_DEREGISTER_SAP {
             this.value := CallbackCreate(fn, , ["ptr", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

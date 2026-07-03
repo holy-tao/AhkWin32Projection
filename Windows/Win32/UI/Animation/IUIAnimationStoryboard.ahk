@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUIAnimationVariable.ahk" { IUIAnimationVariable }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IUIAnimationStoryboardEventHandler.ahk" { IUIAnimationStoryboardEventHandler }
 #Import ".\IUIAnimationTransition.ahk" { IUIAnimationTransition }
+#Import ".\IUIAnimationVariable.ahk" { IUIAnimationVariable }
 #Import ".\UI_ANIMATION_KEYFRAME.ahk" { UI_ANIMATION_KEYFRAME }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\UI_ANIMATION_SCHEDULING_RESULT.ahk" { UI_ANIMATION_SCHEDULING_RESULT }
 #Import ".\UI_ANIMATION_STORYBOARD_STATUS.ahk" { UI_ANIMATION_STORYBOARD_STATUS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Defines a storyboard, which contains a group of transitions that are synchronized relative to one another.

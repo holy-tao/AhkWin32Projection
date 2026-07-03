@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\KSPIN_DATAFLOW.ahk" { KSPIN_DATAFLOW }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import ".\KSPIN_DATAFLOW.ahk" { KSPIN_DATAFLOW }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

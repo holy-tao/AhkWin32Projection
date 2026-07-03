@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MODEM_SPEAKER_VOLUME.ahk" { MODEM_SPEAKER_VOLUME }
 #Import ".\MODEMSETTINGS_SPEAKER_MODE.ahk" { MODEMSETTINGS_SPEAKER_MODE }
+#Import ".\MODEM_SPEAKER_VOLUME.ahk" { MODEM_SPEAKER_VOLUME }
 
 /**
  * Contains information about a modem's configuration.

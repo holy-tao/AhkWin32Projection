@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import ".\WHEAP_PFA_OFFLINE_DECISION_TYPE.ahk" { WHEAP_PFA_OFFLINE_DECISION_TYPE }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

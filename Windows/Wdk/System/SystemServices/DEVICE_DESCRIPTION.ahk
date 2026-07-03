@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\INTERFACE_TYPE.ahk" { INTERFACE_TYPE }
-#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import ".\DMA_SPEED.ahk" { DMA_SPEED }
 #Import ".\DMA_WIDTH.ahk" { DMA_WIDTH }
+#Import ".\INTERFACE_TYPE.ahk" { INTERFACE_TYPE }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\INSSBuffer.ahk" { INSSBuffer }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\INSSBuffer.ahk" { INSSBuffer }
 
 /**
  * The INSSBuffer2 interface inherits from INSSBuffer and defines two additional methods. Currently, neither of these methods is implemented.

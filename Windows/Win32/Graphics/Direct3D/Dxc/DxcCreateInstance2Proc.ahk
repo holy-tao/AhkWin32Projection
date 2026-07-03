@@ -48,10 +48,6 @@ export default struct DxcCreateInstance2Proc {
             this.value := CallbackCreate(fn, , ["ptr", Guid.Ptr, Guid.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

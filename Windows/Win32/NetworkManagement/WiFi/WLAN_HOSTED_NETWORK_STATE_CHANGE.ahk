@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WLAN_HOSTED_NETWORK_STATE.ahk" { WLAN_HOSTED_NETWORK_STATE }
 #Import ".\WLAN_HOSTED_NETWORK_REASON.ahk" { WLAN_HOSTED_NETWORK_REASON }
+#Import ".\WLAN_HOSTED_NETWORK_STATE.ahk" { WLAN_HOSTED_NETWORK_STATE }
 
 /**
  * Contains information about a network state change on the wireless Hosted Network.

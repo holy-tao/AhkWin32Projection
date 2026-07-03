@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CERT_SERVER_OCSP_RESPONSE_CONTEXT.ahk" { CERT_SERVER_OCSP_RESPONSE_CONTEXT }
 #Import ".\CERT_CHAIN_CONTEXT.ahk" { CERT_CHAIN_CONTEXT }
+#Import ".\CERT_SERVER_OCSP_RESPONSE_CONTEXT.ahk" { CERT_SERVER_OCSP_RESPONSE_CONTEXT }
 #Import ".\CRL_CONTEXT.ahk" { CRL_CONTEXT }
 
 /**
@@ -52,10 +52,6 @@ export default struct PFN_CERT_SERVER_OCSP_RESPONSE_UPDATE_CALLBACK {
             this.value := CallbackCreate(fn, , [CERT_CHAIN_CONTEXT.Ptr, CERT_SERVER_OCSP_RESPONSE_CONTEXT.Ptr, CRL_CONTEXT.Ptr, CRL_CONTEXT.Ptr, "ptr", UInt32, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

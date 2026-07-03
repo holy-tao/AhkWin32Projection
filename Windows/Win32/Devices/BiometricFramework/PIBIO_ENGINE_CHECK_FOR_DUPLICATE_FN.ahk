@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\WINBIO_IDENTITY.ahk" { WINBIO_IDENTITY }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import ".\WINBIO_PIPELINE.ahk" { WINBIO_PIPELINE }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -91,10 +91,6 @@ export default struct PIBIO_ENGINE_CHECK_FOR_DUPLICATE_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, WINBIO_IDENTITY.Ptr, "char*", BOOLEAN.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

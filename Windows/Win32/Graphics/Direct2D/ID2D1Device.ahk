@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D2D1_DEVICE_CONTEXT_OPTIONS.ahk" { D2D1_DEVICE_CONTEXT_OPTIONS }
+#Import ".\D2D1_PRINT_CONTROL_PROPERTIES.ahk" { D2D1_PRINT_CONTROL_PROPERTIES }
 #Import ".\ID2D1DeviceContext.ahk" { ID2D1DeviceContext }
 #Import ".\ID2D1PrintControl.ahk" { ID2D1PrintControl }
-#Import ".\D2D1_PRINT_CONTROL_PROPERTIES.ahk" { D2D1_PRINT_CONTROL_PROPERTIES }
 #Import ".\ID2D1Resource.ahk" { ID2D1Resource }
 #Import "..\Imaging\IWICImagingFactory.ahk" { IWICImagingFactory }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Storage\Xps\Printing\IPrintDocumentPackageTarget.ahk" { IPrintDocumentPackageTarget }
-#Import ".\D2D1_DEVICE_CONTEXT_OPTIONS.ahk" { D2D1_DEVICE_CONTEXT_OPTIONS }
 
 /**
  * Represents a resource domain whose objects and device contexts can be used together. (ID2D1Device)

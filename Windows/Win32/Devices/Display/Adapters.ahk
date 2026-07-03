@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\Sources.ahk" { Sources }
 #Import ".\Adapter.ahk" { Adapter }
+#Import ".\Sources.ahk" { Sources }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\PropertyConditionFlags.ahk" { PropertyConditionFlags }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IUIAutomationCondition.ahk" { IUIAutomationCondition }
+#Import ".\PropertyConditionFlags.ahk" { PropertyConditionFlags }
+#Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
 
 /**
  * Represents a condition based on a property value that is used to find UI Automation elements.

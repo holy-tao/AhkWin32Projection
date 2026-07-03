@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IPartFont.ahk" { IPartFont }
-#Import ".\EXpsFontRestriction.ahk" { EXpsFontRestriction }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\EXpsFontRestriction.ahk" { EXpsFontRestriction }
+#Import ".\IPartFont.ahk" { IPartFont }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

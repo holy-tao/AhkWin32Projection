@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\RDPSRAPI_MOUSE_BUTTON_TYPE.ahk" { RDPSRAPI_MOUSE_BUTTON_TYPE }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\RDPSRAPI_KBD_CODE_TYPE.ahk" { RDPSRAPI_KBD_CODE_TYPE }
+#Import ".\RDPSRAPI_MOUSE_BUTTON_TYPE.ahk" { RDPSRAPI_MOUSE_BUTTON_TYPE }
 
 /**
  * Sends mouse and keyboard events, and supports touch input.

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IFsrmMutableCollection.ahk" { IFsrmMutableCollection }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFsrmMutableCollection.ahk" { IFsrmMutableCollection }
 #Import ".\IFsrmObject.ahk" { IFsrmObject }
 
 /**

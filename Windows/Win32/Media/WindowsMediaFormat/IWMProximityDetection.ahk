@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\INSSBuffer.ahk" { INSSBuffer }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IWMStatusCallback.ahk" { IWMStatusCallback }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\INSSBuffer.ahk" { INSSBuffer }
+#Import ".\IWMStatusCallback.ahk" { IWMStatusCallback }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMProximityDetection interface validates a playback device for receiving media data.

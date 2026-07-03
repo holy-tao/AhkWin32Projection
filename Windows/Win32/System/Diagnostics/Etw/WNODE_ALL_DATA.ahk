@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\WNODE_HEADER.ahk" { WNODE_HEADER }
-#Import ".\OFFSETINSTANCEDATAANDLENGTH.ahk" { OFFSETINSTANCEDATAANDLENGTH }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\OFFSETINSTANCEDATAANDLENGTH.ahk" { OFFSETINSTANCEDATAANDLENGTH }
+#Import ".\WNODE_HEADER.ahk" { WNODE_HEADER }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw

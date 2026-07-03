@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDWriteFactory6.ahk" { IDWriteFactory6 }
-#Import ".\IDWriteFontSet2.ahk" { IDWriteFontSet2 }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DWRITE_FONT_FAMILY_MODEL.ahk" { DWRITE_FONT_FAMILY_MODEL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_FONT_FAMILY_MODEL.ahk" { DWRITE_FONT_FAMILY_MODEL }
+#Import ".\IDWriteFactory6.ahk" { IDWriteFactory6 }
 #Import ".\IDWriteFontCollection3.ahk" { IDWriteFontCollection3 }
+#Import ".\IDWriteFontSet2.ahk" { IDWriteFontSet2 }
 
 /**
  * This interface represents a factory object from which all DirectWrite objects are created. **IDWriteFactory7** adds new facilities for working with system fonts.

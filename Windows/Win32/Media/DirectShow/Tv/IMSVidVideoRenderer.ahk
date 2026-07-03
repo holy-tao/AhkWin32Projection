@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMSVidOutputDevice.ahk" { IMSVidOutputDevice }
-#Import "..\..\..\System\Ole\IPictureDisp.ahk" { IPictureDisp }
-#Import "..\VMRALPHABITMAP.ahk" { VMRALPHABITMAP }
-#Import ".\SourceSizeList.ahk" { SourceSizeList }
-#Import "..\IVMRMixerBitmap.ahk" { IVMRMixerBitmap }
-#Import "..\IVMRImageCompositor.ahk" { IVMRImageCompositor }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IMSVidRect.ahk" { IMSVidRect }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\IVMRImageCompositor.ahk" { IVMRImageCompositor }
+#Import "..\IVMRMixerBitmap.ahk" { IVMRMixerBitmap }
+#Import ".\IMSVidOutputDevice.ahk" { IMSVidOutputDevice }
+#Import ".\IMSVidRect.ahk" { IMSVidRect }
+#Import ".\SourceSizeList.ahk" { SourceSizeList }
+#Import "..\VMRALPHABITMAP.ahk" { VMRALPHABITMAP }
+#Import "..\..\..\System\Ole\IPictureDisp.ahk" { IPictureDisp }
 
 /**
  * The IMSVidVideoRenderer interface represents a video renderer device. The MSVidVideoRenderer object exposes this interface.This interface provides access to the Video Mixing Renderer (VMR) filter.

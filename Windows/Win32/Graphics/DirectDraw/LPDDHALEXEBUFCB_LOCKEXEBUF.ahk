@@ -44,10 +44,6 @@ export default struct LPDDHALEXEBUFCB_LOCKEXEBUF {
             this.value := CallbackCreate(fn, , [DDHAL_LOCKDATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

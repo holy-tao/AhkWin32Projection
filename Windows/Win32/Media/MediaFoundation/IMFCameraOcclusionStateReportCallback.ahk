@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMFCameraOcclusionStateReport.ahk" { IMFCameraOcclusionStateReport }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFCameraOcclusionStateReport.ahk" { IMFCameraOcclusionStateReport }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Implemented by applications to receive camera occlusion state change notifications.

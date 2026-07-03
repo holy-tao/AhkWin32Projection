@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Direct3D\D3DMATRIX.ahk" { D3DMATRIX }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Direct3D\D3DMATRIX.ahk" { D3DMATRIX }
 #Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 #Import ".\IDCompositionTransform3D.ahk" { IDCompositionTransform3D }
 

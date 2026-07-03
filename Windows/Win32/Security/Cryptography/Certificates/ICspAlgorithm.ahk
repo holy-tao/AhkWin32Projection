@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\AlgorithmOperationFlags.ahk" { AlgorithmOperationFlags }
-#Import ".\AlgorithmFlags.ahk" { AlgorithmFlags }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\AlgorithmFlags.ahk" { AlgorithmFlags }
+#Import ".\AlgorithmOperationFlags.ahk" { AlgorithmOperationFlags }
 #Import ".\AlgorithmType.ahk" { AlgorithmType }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IObjectId.ahk" { IObjectId }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 

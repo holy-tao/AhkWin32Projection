@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\FAX_ENUM_DEVICE_ID_SOURCE.ahk" { FAX_ENUM_DEVICE_ID_SOURCE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Devices.Fax
@@ -55,10 +55,6 @@ export default struct PFAX_EXT_SET_DATA {
             this.value := CallbackCreate(fn, , [HINSTANCE, UInt32, FAX_ENUM_DEVICE_ID_SOURCE, PWSTR, "char*", UInt32, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

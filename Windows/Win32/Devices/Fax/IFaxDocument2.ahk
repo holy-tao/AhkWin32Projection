@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IFaxDocument.ahk" { IFaxDocument }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IFaxServer.ahk" { IFaxServer }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Defines a messaging object used by a fax client application to compose a fax document and submit it to the fax service for processing.

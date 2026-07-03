@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDXCoreAdapterFactory.ahk" { IDXCoreAdapterFactory }
-#Import ".\DXCoreWorkload.ahk" { DXCoreWorkload }
-#Import ".\DXCoreRuntimeFilterFlags.ahk" { DXCoreRuntimeFilterFlags }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DXCoreHardwareTypeFilterFlags.ahk" { DXCoreHardwareTypeFilterFlags }
+#Import ".\DXCoreRuntimeFilterFlags.ahk" { DXCoreRuntimeFilterFlags }
+#Import ".\DXCoreWorkload.ahk" { DXCoreWorkload }
+#Import ".\IDXCoreAdapterFactory.ahk" { IDXCoreAdapterFactory }
 
 /**
  * @namespace Windows.Win32.Graphics.DXCore

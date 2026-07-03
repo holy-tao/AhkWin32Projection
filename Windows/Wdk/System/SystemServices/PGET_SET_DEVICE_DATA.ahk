@@ -42,10 +42,6 @@ export default struct PGET_SET_DEVICE_DATA {
             this.value := CallbackCreate(fn, , [UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

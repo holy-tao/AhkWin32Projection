@@ -52,10 +52,6 @@ export default struct GLUtessCombineDataProc {
             this.value := CallbackCreate(fn, , ["double*", "ptr*", "float*", "ptr*", "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

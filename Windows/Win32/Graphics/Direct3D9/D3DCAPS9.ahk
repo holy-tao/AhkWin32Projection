@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\D3DDEVTYPE.ahk" { D3DDEVTYPE }
-#Import ".\D3DVSHADERCAPS2_0.ahk" { D3DVSHADERCAPS2_0 }
 #Import ".\D3DPSHADERCAPS2_0.ahk" { D3DPSHADERCAPS2_0 }
+#Import ".\D3DVSHADERCAPS2_0.ahk" { D3DVSHADERCAPS2_0 }
 
 /**
  * Represents the capabilities of the hardware exposed through the Direct3D object.

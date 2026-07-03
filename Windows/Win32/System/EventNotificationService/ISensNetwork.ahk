@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SENS_CONNECTION_TYPE.ahk" { SENS_CONNECTION_TYPE }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\SENS_CONNECTION_TYPE.ahk" { SENS_CONNECTION_TYPE }
 #Import ".\SENS_QOCINFO.ahk" { SENS_QOCINFO }
 
 /**

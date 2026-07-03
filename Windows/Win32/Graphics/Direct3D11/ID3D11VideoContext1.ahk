@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk" { DXGI_COLOR_SPACE_TYPE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ID3D11VideoDecoder.ahk" { ID3D11VideoDecoder }
-#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import ".\D3D11_VIDEO_SAMPLE_DESC.ahk" { D3D11_VIDEO_SAMPLE_DESC }
-#Import ".\ID3D11CryptoSession.ahk" { ID3D11CryptoSession }
-#Import ".\D3D11_VIDEO_PROCESSOR_STREAM_BEHAVIOR_HINT.ahk" { D3D11_VIDEO_PROCESSOR_STREAM_BEHAVIOR_HINT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3D11_CRYPTO_SESSION_STATUS.ahk" { D3D11_CRYPTO_SESSION_STATUS }
 #Import ".\D3D11_VIDEO_DECODER_BUFFER_DESC1.ahk" { D3D11_VIDEO_DECODER_BUFFER_DESC1 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D11_VIDEO_PROCESSOR_STREAM_BEHAVIOR_HINT.ahk" { D3D11_VIDEO_PROCESSOR_STREAM_BEHAVIOR_HINT }
+#Import ".\D3D11_VIDEO_SAMPLE_DESC.ahk" { D3D11_VIDEO_SAMPLE_DESC }
+#Import ".\ID3D11CryptoSession.ahk" { ID3D11CryptoSession }
 #Import ".\ID3D11VideoContext.ahk" { ID3D11VideoContext }
+#Import ".\ID3D11VideoDecoder.ahk" { ID3D11VideoDecoder }
 #Import ".\ID3D11VideoProcessor.ahk" { ID3D11VideoProcessor }
+#Import "..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk" { DXGI_COLOR_SPACE_TYPE }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 
 /**
  * Provides the video functionality of a Microsoft Direct3D 11 device. (ID3D11VideoContext1)

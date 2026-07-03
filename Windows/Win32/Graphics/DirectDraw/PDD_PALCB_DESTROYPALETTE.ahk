@@ -46,10 +46,6 @@ export default struct PDD_PALCB_DESTROYPALETTE {
             this.value := CallbackCreate(fn, , [DD_DESTROYPALETTEDATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

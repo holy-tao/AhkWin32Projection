@@ -1,5 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LPCONDITIONPROC.ahk" { LPCONDITIONPROC }
 #Import ".\SOCKET.ahk" { SOCKET }
 
 /**
@@ -231,7 +230,7 @@ export default struct LPWSPACCEPT {
         addrlenMarshal := addrlen is VarRef ? "int*" : "ptr"
         lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
 
-        result := DllCall(this.value, SOCKET, s, IntPtr, addr, addrlenMarshal, addrlen, LPCONDITIONPROC, lpfnCondition, IntPtr, dwCallbackData, lpErrnoMarshal, lpErrno, SOCKET.Owned)
+        result := DllCall(this.value, SOCKET, s, IntPtr, addr, addrlenMarshal, addrlen, "ptr", lpfnCondition, IntPtr, dwCallbackData, lpErrnoMarshal, lpErrno, SOCKET.Owned)
         return result
     }
 
@@ -242,19 +241,15 @@ export default struct LPWSPACCEPT {
     struct From extends LPWSPACCEPT {
         /**
          * Creates a LPWSPACCEPT pointer that invokes the given AHK function when called.
-         * @param {Func(SOCKET, IntPtr, "int*", LPCONDITIONPROC, IntPtr, "int*") => SOCKET} fn the function to invoke.
+         * @param {Func(SOCKET, IntPtr, "int*", "ptr", IntPtr, "int*") => SOCKET} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 6)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 6 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [SOCKET, IntPtr, "int*", LPCONDITIONPROC, IntPtr, "int*", SOCKET])
+            this.value := CallbackCreate(fn, , [SOCKET, IntPtr, "int*", "ptr", IntPtr, "int*", SOCKET])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

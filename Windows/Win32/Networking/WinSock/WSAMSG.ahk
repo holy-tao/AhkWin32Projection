@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\WSABUF.ahk" { WSABUF }
 #Import ".\SOCKADDR.ahk" { SOCKADDR }
+#Import ".\WSABUF.ahk" { WSABUF }
 
 /**
  * Used with the WSARecvMsg and WSASendMsg functions to store address and optional control information about connected and unconnected sockets as well as an array of buffers used to store message data.

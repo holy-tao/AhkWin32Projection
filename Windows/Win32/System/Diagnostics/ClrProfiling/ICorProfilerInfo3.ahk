@@ -1,21 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\COR_PRF_FUNCTION_ARGUMENT_INFO.ahk" { COR_PRF_FUNCTION_ARGUMENT_INFO }
 #Import ".\COR_PRF_FUNCTION_ARGUMENT_RANGE.ahk" { COR_PRF_FUNCTION_ARGUMENT_RANGE }
+#Import ".\COR_PRF_RUNTIME_TYPE.ahk" { COR_PRF_RUNTIME_TYPE }
+#Import ".\ICorProfilerFunctionEnum.ahk" { ICorProfilerFunctionEnum }
 #Import ".\ICorProfilerInfo2.ahk" { ICorProfilerInfo2 }
 #Import ".\ICorProfilerModuleEnum.ahk" { ICorProfilerModuleEnum }
-#Import ".\COR_PRF_RUNTIME_TYPE.ahk" { COR_PRF_RUNTIME_TYPE }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\FunctionLeave3.ahk" { FunctionLeave3 }
-#Import ".\FunctionTailcall3WithInfo.ahk" { FunctionTailcall3WithInfo }
-#Import ".\ICorProfilerFunctionEnum.ahk" { ICorProfilerFunctionEnum }
-#Import ".\FunctionTailcall3.ahk" { FunctionTailcall3 }
-#Import ".\FunctionEnter3.ahk" { FunctionEnter3 }
-#Import ".\COR_PRF_FUNCTION_ARGUMENT_INFO.ahk" { COR_PRF_FUNCTION_ARGUMENT_INFO }
-#Import ".\FunctionIDMapper2.ahk" { FunctionIDMapper2 }
-#Import ".\FunctionEnter3WithInfo.ahk" { FunctionEnter3WithInfo }
-#Import ".\FunctionLeave3WithInfo.ahk" { FunctionLeave3WithInfo }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling

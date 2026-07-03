@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\Foundation\IOMMU_DMA_DOMAIN.ahk" { IOMMU_DMA_DOMAIN }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
@@ -33,7 +33,7 @@ export default struct IOMMU_FLUSH_DOMAIN_VA_LIST {
         VaListMarshal := VaList is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, DomainMarshal, Domain, BOOLEAN, LastLevel, UInt32, _Number, VaListMarshal, VaList, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -53,10 +53,6 @@ export default struct IOMMU_FLUSH_DOMAIN_VA_LIST {
             this.value := CallbackCreate(fn, , [IOMMU_DMA_DOMAIN.Ptr, BOOLEAN, UInt32, "ptr", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\ID3DBlob.ahk" { ID3DBlob }
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\ID3DBlob.ahk" { ID3DBlob }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Fxc
@@ -51,10 +51,6 @@ export default struct pD3DDisassemble {
             this.value := CallbackCreate(fn, , [IntPtr, IntPtr, UInt32, PSTR, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

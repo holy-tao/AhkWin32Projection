@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FsrmReportType.ahk" { FsrmReportType }
-#Import ".\IFsrmReport.ahk" { IFsrmReport }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\FsrmReportGenerationContext.ahk" { FsrmReportGenerationContext }
 #Import ".\FsrmReportRunningStatus.ahk" { FsrmReportRunningStatus }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\FsrmReportType.ahk" { FsrmReportType }
 #Import ".\IFsrmCollection.ahk" { IFsrmCollection }
 #Import ".\IFsrmObject.ahk" { IFsrmObject }
+#Import ".\IFsrmReport.ahk" { IFsrmReport }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**

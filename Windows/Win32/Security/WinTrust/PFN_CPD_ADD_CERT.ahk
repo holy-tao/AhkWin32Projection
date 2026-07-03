@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import ".\CRYPT_PROVIDER_DATA.ahk" { CRYPT_PROVIDER_DATA }
 
 /**
@@ -50,10 +50,6 @@ export default struct PFN_CPD_ADD_CERT {
             this.value := CallbackCreate(fn, , [CRYPT_PROVIDER_DATA.Ptr, UInt32, BOOL, UInt32, CERT_CONTEXT.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

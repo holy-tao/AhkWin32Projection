@@ -1,26 +1,26 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D11Resource.ahk" { ID3D11Resource }
-#Import ".\D3D11_QUERY_DESC1.ahk" { D3D11_QUERY_DESC1 }
-#Import ".\ID3D11Query1.ahk" { ID3D11Query1 }
-#Import ".\D3D11_SUBRESOURCE_DATA.ahk" { D3D11_SUBRESOURCE_DATA }
-#Import ".\D3D11_TEXTURE3D_DESC1.ahk" { D3D11_TEXTURE3D_DESC1 }
-#Import ".\ID3D11RasterizerState2.ahk" { ID3D11RasterizerState2 }
-#Import ".\D3D11_SHADER_RESOURCE_VIEW_DESC1.ahk" { D3D11_SHADER_RESOURCE_VIEW_DESC1 }
-#Import ".\ID3D11Device2.ahk" { ID3D11Device2 }
-#Import ".\D3D11_RENDER_TARGET_VIEW_DESC1.ahk" { D3D11_RENDER_TARGET_VIEW_DESC1 }
-#Import ".\D3D11_BOX.ahk" { D3D11_BOX }
-#Import ".\D3D11_TEXTURE2D_DESC1.ahk" { D3D11_TEXTURE2D_DESC1 }
-#Import ".\ID3D11UnorderedAccessView1.ahk" { ID3D11UnorderedAccessView1 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D11_BOX.ahk" { D3D11_BOX }
+#Import ".\D3D11_QUERY_DESC1.ahk" { D3D11_QUERY_DESC1 }
 #Import ".\D3D11_RASTERIZER_DESC2.ahk" { D3D11_RASTERIZER_DESC2 }
-#Import ".\ID3D11RenderTargetView1.ahk" { ID3D11RenderTargetView1 }
-#Import ".\ID3D11Texture3D1.ahk" { ID3D11Texture3D1 }
-#Import ".\ID3D11DeviceContext3.ahk" { ID3D11DeviceContext3 }
+#Import ".\D3D11_RENDER_TARGET_VIEW_DESC1.ahk" { D3D11_RENDER_TARGET_VIEW_DESC1 }
+#Import ".\D3D11_SHADER_RESOURCE_VIEW_DESC1.ahk" { D3D11_SHADER_RESOURCE_VIEW_DESC1 }
+#Import ".\D3D11_SUBRESOURCE_DATA.ahk" { D3D11_SUBRESOURCE_DATA }
+#Import ".\D3D11_TEXTURE2D_DESC1.ahk" { D3D11_TEXTURE2D_DESC1 }
+#Import ".\D3D11_TEXTURE3D_DESC1.ahk" { D3D11_TEXTURE3D_DESC1 }
 #Import ".\D3D11_UNORDERED_ACCESS_VIEW_DESC1.ahk" { D3D11_UNORDERED_ACCESS_VIEW_DESC1 }
-#Import ".\ID3D11Texture2D1.ahk" { ID3D11Texture2D1 }
+#Import ".\ID3D11Device2.ahk" { ID3D11Device2 }
+#Import ".\ID3D11DeviceContext3.ahk" { ID3D11DeviceContext3 }
+#Import ".\ID3D11Query1.ahk" { ID3D11Query1 }
+#Import ".\ID3D11RasterizerState2.ahk" { ID3D11RasterizerState2 }
+#Import ".\ID3D11RenderTargetView1.ahk" { ID3D11RenderTargetView1 }
+#Import ".\ID3D11Resource.ahk" { ID3D11Resource }
 #Import ".\ID3D11ShaderResourceView1.ahk" { ID3D11ShaderResourceView1 }
+#Import ".\ID3D11Texture2D1.ahk" { ID3D11Texture2D1 }
+#Import ".\ID3D11Texture3D1.ahk" { ID3D11Texture3D1 }
+#Import ".\ID3D11UnorderedAccessView1.ahk" { ID3D11UnorderedAccessView1 }
 
 /**
  * The device interface represents a virtual adapter; it is used to create resources. ID3D11Device3 adds new methods to those in ID3D11Device2.

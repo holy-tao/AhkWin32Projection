@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IAudioClient.ahk" { IAudioClient }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\AudioClientProperties.ahk" { AudioClientProperties }
 #Import ".\AUDIO_STREAM_CATEGORY.ahk" { AUDIO_STREAM_CATEGORY }
+#Import ".\AudioClientProperties.ahk" { AudioClientProperties }
+#Import ".\IAudioClient.ahk" { IAudioClient }
+#Import ".\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 
 /**
  * The IAudioClient2 interface is derived from the IAudioClient interface, with a set of additional methods that enable a Windows Audio Session API (WASAPI) audio client to do the following:\_opt in for offloading, query stream properties, and get information from the hardware that handles offloading.The audio client can be successful in creating an offloaded stream if the underlying endpoint supports the hardware audio engine, the endpoint has been enumerated and discovered by the audio system, and there are still offload pin instances available on the endpoint.

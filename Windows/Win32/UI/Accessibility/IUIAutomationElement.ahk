@@ -1,23 +1,23 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IUIAutomationCacheRequest.ahk" { IUIAutomationCacheRequest }
+#Import ".\IUIAutomationCondition.ahk" { IUIAutomationCondition }
 #Import ".\IUIAutomationElementArray.ahk" { IUIAutomationElementArray }
 #Import ".\OrientationType.ahk" { OrientationType }
-#Import ".\UIA_PATTERN_ID.ahk" { UIA_PATTERN_ID }
-#Import ".\IUIAutomationCondition.ahk" { IUIAutomationCondition }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\UIA_CONTROLTYPE_ID.ahk" { UIA_CONTROLTYPE_ID }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
 #Import ".\TreeScope.ahk" { TreeScope }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IUIAutomationCacheRequest.ahk" { IUIAutomationCacheRequest }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import ".\UIA_CONTROLTYPE_ID.ahk" { UIA_CONTROLTYPE_ID }
+#Import ".\UIA_PATTERN_ID.ahk" { UIA_PATTERN_ID }
+#Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
 
 /**
  * Exposes methods and properties for a UI Automation element, which represents a UI item.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NCryptProviderName.ahk" { NCryptProviderName }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\NCryptProviderName.ahk" { NCryptProviderName }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -50,10 +50,6 @@ export default struct NCryptEnumStorageProvidersFn {
             this.value := CallbackCreate(fn, , ["uint*", "ptr*", UInt32, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

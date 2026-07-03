@@ -45,10 +45,6 @@ export default struct PFLT_COMPLETED_ASYNC_IO_CALLBACK {
             this.value := CallbackCreate(fn, , [FLT_CALLBACK_DATA.Ptr, PFLT_CONTEXT, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WS_ASYNC_CONTEXT.ahk" { WS_ASYNC_CONTEXT }
 #Import ".\WS_ERROR.ahk" { WS_ERROR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Used by the WsPullBytes function to request the data that should be written.
@@ -58,10 +58,6 @@ export default struct WS_PULL_BYTES_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr, UInt32, WS_ASYNC_CONTEXT.Ptr, WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

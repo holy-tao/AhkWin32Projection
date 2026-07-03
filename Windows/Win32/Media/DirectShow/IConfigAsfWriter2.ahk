@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IPin.ahk" { IPin }
-#Import ".\IConfigAsfWriter.ahk" { IConfigAsfWriter }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IConfigAsfWriter.ahk" { IConfigAsfWriter }
+#Import ".\IPin.ahk" { IPin }
 
 /**
  * The IConfigAsfWriter2 interface extends the IConfigAsfWriter interface, which configures the WM ASF Writer filter.

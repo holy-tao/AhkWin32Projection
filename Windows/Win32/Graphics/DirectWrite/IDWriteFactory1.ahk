@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDWriteRenderingParams1.ahk" { IDWriteRenderingParams1 }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
-#Import ".\IDWriteFactory.ahk" { IDWriteFactory }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DWRITE_PIXEL_GEOMETRY.ahk" { DWRITE_PIXEL_GEOMETRY }
 #Import ".\DWRITE_RENDERING_MODE.ahk" { DWRITE_RENDERING_MODE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteFactory.ahk" { IDWriteFactory }
+#Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
+#Import ".\IDWriteRenderingParams1.ahk" { IDWriteRenderingParams1 }
 
 /**
  * The root factory interface for all DirectWrite objects. (IDWriteFactory1)

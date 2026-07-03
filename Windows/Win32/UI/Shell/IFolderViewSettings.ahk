@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SORTCOLUMN.ahk" { SORTCOLUMN }
-#Import ".\FOLDERLOGICALVIEWMODE.ahk" { FOLDERLOGICALVIEWMODE }
-#Import ".\FOLDERFLAGS.ahk" { FOLDERFLAGS }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\FOLDERFLAGS.ahk" { FOLDERFLAGS }
+#Import ".\FOLDERLOGICALVIEWMODE.ahk" { FOLDERLOGICALVIEWMODE }
+#Import ".\SORTCOLUMN.ahk" { SORTCOLUMN }
 
 /**
  * Exposes methods to obtain folder view settings.

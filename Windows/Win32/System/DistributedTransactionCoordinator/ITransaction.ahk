@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\BOID.ahk" { BOID }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\XACTTRANSINFO.ahk" { XACTTRANSINFO }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\BOID.ahk" { BOID }
+#Import ".\XACTTRANSINFO.ahk" { XACTTRANSINFO }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator

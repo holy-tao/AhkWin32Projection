@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ADDRESS_LIST_DESCRIPTOR.ahk" { ADDRESS_LIST_DESCRIPTOR }
-#Import "..\Ndis\NETWORK_ADDRESS_LIST.ahk" { NETWORK_ADDRESS_LIST }
 #Import "..\Ndis\NETWORK_ADDRESS.ahk" { NETWORK_ADDRESS }
+#Import "..\Ndis\NETWORK_ADDRESS_LIST.ahk" { NETWORK_ADDRESS_LIST }
+#Import ".\ADDRESS_LIST_DESCRIPTOR.ahk" { ADDRESS_LIST_DESCRIPTOR }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

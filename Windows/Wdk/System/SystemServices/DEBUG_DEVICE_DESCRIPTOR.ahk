@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import ".\KD_NAMESPACE_ENUM.ahk" { KD_NAMESPACE_ENUM }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\..\Win32\Foundation\PWSTR.ahk" { PWSTR }
 
 /**

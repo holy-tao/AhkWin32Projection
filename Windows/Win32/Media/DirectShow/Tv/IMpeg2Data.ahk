@@ -2,11 +2,11 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\MPEG2_FILTER.ahk" { MPEG2_FILTER }
-#Import ".\IMpeg2Stream.ahk" { IMpeg2Stream }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMpeg2Stream.ahk" { IMpeg2Stream }
 #Import ".\ISectionList.ahk" { ISectionList }
+#Import ".\MPEG2_FILTER.ahk" { MPEG2_FILTER }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * IMpeg2Data is no longer available for use as of Windows 7.

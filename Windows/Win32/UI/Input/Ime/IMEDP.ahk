@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IMEUCT.ahk" { IMEUCT }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IMEREL.ahk" { IMEREL }
+#Import ".\IMEUCT.ahk" { IMEUCT }
 #Import ".\IMEWRD.ahk" { IMEWRD }
 
 /**

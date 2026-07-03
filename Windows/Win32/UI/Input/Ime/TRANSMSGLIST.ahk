@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TRANSMSG.ahk" { TRANSMSG }
-#Import "..\..\..\Foundation\WPARAM.ahk" { WPARAM }
 #Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import ".\TRANSMSG.ahk" { TRANSMSG }
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime

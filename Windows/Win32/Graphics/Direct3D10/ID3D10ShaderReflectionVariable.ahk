@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D10ShaderReflectionType.ahk" { ID3D10ShaderReflectionType }
-#Import ".\D3D10_SHADER_VARIABLE_DESC.ahk" { D3D10_SHADER_VARIABLE_DESC }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D10_SHADER_VARIABLE_DESC.ahk" { D3D10_SHADER_VARIABLE_DESC }
+#Import ".\ID3D10ShaderReflectionType.ahk" { ID3D10ShaderReflectionType }
 
 /**
  * This shader-reflection interface provides access to a variable. (ID3D10ShaderReflectionVariable)

@@ -49,10 +49,6 @@ export default struct PciReadWriteConfig {
             this.value := CallbackCreate(fn, , ["ptr*", PCI_SLOT_NUMBER, IntPtr, UInt32, UInt32, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

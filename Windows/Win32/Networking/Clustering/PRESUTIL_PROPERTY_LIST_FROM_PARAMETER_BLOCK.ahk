@@ -54,10 +54,6 @@ export default struct PRESUTIL_PROPERTY_LIST_FROM_PARAMETER_BLOCK {
             this.value := CallbackCreate(fn, , [RESUTIL_PROPERTY_ITEM.Ptr, IntPtr, "uint*", "char*", "uint*", "uint*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

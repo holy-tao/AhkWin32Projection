@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ICredentialProviderCredential.ahk" { ICredentialProviderCredential }
-#Import ".\ICredentialProviderCredentialEvents.ahk" { ICredentialProviderCredentialEvents }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CREDENTIAL_PROVIDER_CREDENTIAL_FIELD_OPTIONS.ahk" { CREDENTIAL_PROVIDER_CREDENTIAL_FIELD_OPTIONS }
+#Import ".\ICredentialProviderCredential.ahk" { ICredentialProviderCredential }
+#Import ".\ICredentialProviderCredentialEvents.ahk" { ICredentialProviderCredentialEvents }
 
 /**
  * Extends the ICredentialProviderCredentialEvents interface by adding methods that enable batch updating of fields in theLogon UI or Credential UI.

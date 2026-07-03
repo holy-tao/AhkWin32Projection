@@ -45,10 +45,6 @@ export default struct PCLFS_COMPLETION_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

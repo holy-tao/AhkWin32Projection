@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PFLT_VOLUME.ahk" { PFLT_VOLUME }
 #Import ".\FLT_FILE_NAME_INFORMATION.ahk" { FLT_FILE_NAME_INFORMATION }
 #Import ".\PFLT_INSTANCE.ahk" { PFLT_INSTANCE }
+#Import ".\PFLT_VOLUME.ahk" { PFLT_VOLUME }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters

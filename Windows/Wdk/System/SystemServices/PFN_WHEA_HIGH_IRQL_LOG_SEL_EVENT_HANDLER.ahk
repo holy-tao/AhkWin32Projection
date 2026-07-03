@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\System\Diagnostics\Debug\IPMI_OS_SEL_RECORD.ahk" { IPMI_OS_SEL_RECORD }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\..\Win32\System\Diagnostics\Debug\IPMI_OS_SEL_RECORD.ahk" { IPMI_OS_SEL_RECORD }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -29,7 +29,7 @@ export default struct PFN_WHEA_HIGH_IRQL_LOG_SEL_EVENT_HANDLER {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, IPMI_OS_SEL_RECORD.Ptr, OsSelRecord, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -49,10 +49,6 @@ export default struct PFN_WHEA_HIGH_IRQL_LOG_SEL_EVENT_HANDLER {
             this.value := CallbackCreate(fn, , ["ptr", IPMI_OS_SEL_RECORD.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

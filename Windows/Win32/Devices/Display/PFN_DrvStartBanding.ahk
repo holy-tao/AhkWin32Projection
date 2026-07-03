@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\SURFOBJ.ahk" { SURFOBJ }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\POINTL.ahk" { POINTL }
 
 /**
@@ -47,10 +47,6 @@ export default struct PFN_DrvStartBanding {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, POINTL.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D2D1_GAMMA1.ahk" { D2D1_GAMMA1 }
 #Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
+#Import ".\D2D1_GAMMA1.ahk" { D2D1_GAMMA1 }
 
 /**
  * Simple description of a color space.

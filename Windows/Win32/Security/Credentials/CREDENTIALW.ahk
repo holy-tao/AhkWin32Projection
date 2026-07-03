@@ -2,9 +2,9 @@
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CREDENTIAL_ATTRIBUTEW.ahk" { CREDENTIAL_ATTRIBUTEW }
-#Import ".\CRED_TYPE.ahk" { CRED_TYPE }
 #Import ".\CRED_FLAGS.ahk" { CRED_FLAGS }
 #Import ".\CRED_PERSIST.ahk" { CRED_PERSIST }
+#Import ".\CRED_TYPE.ahk" { CRED_TYPE }
 
 /**
  * The CREDENTIAL structure contains an individual credential. (Unicode)

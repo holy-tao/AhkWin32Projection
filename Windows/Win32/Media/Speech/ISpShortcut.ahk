@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SPSHORTCUTPAIRLIST.ahk" { SPSHORTCUTPAIRLIST }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\SPSHORTCUTTYPE.ahk" { SPSHORTCUTTYPE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SPSHORTCUTPAIRLIST.ahk" { SPSHORTCUTPAIRLIST }
+#Import ".\SPSHORTCUTTYPE.ahk" { SPSHORTCUTTYPE }
 #Import ".\SPWORDLIST.ahk" { SPWORDLIST }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.Speech

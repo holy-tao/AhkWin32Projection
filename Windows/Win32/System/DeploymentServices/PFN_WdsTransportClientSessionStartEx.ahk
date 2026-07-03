@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TRANSPORTCLIENT_SESSION_INFO.ahk" { TRANSPORTCLIENT_SESSION_INFO }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\TRANSPORTCLIENT_SESSION_INFO.ahk" { TRANSPORTCLIENT_SESSION_INFO }
 
 /**
  * The PFN_WdsTransportClientSessionStart callback is called at the start of a multicast session to indicate file size and other server side information about the file to the consumer. (PFN_WdsTransportClientSessionStartEx)
@@ -50,10 +50,6 @@ export default struct PFN_WdsTransportClientSessionStartEx {
             this.value := CallbackCreate(fn, , [HANDLE, "ptr", TRANSPORTCLIENT_SESSION_INFO.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

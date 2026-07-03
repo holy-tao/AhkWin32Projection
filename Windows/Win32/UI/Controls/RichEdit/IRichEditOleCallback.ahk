@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
-#Import "..\..\..\System\Ole\DROPEFFECT.ahk" { DROPEFFECT }
-#Import "..\..\..\System\Com\StructuredStorage\IStorage.ahk" { IStorage }
-#Import "..\..\WindowsAndMessaging\HMENU.ahk" { HMENU }
-#Import "..\..\..\System\Com\IDataObject.ahk" { IDataObject }
-#Import "..\..\..\System\Ole\OLEINPLACEFRAMEINFO.ahk" { OLEINPLACEFRAMEINFO }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Ole\IOleInPlaceUIWindow.ahk" { IOleInPlaceUIWindow }
-#Import ".\CHARRANGE.ahk" { CHARRANGE }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\System\Ole\IOleInPlaceFrame.ahk" { IOleInPlaceFrame }
-#Import ".\RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE.ahk" { RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\System\SystemServices\RECO_FLAGS.ahk" { RECO_FLAGS }
+#Import "..\..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\System\Com\StructuredStorage\IStorage.ahk" { IStorage }
+#Import "..\..\..\System\Ole\DROPEFFECT.ahk" { DROPEFFECT }
+#Import "..\..\..\System\Ole\IOleInPlaceFrame.ahk" { IOleInPlaceFrame }
+#Import "..\..\..\System\Ole\IOleInPlaceUIWindow.ahk" { IOleInPlaceUIWindow }
 #Import "..\..\..\System\Ole\IOleObject.ahk" { IOleObject }
+#Import "..\..\..\System\Ole\OLEINPLACEFRAMEINFO.ahk" { OLEINPLACEFRAMEINFO }
 #Import "..\..\..\System\SystemServices\MODIFIERKEYS_FLAGS.ahk" { MODIFIERKEYS_FLAGS }
+#Import "..\..\..\System\SystemServices\RECO_FLAGS.ahk" { RECO_FLAGS }
+#Import ".\CHARRANGE.ahk" { CHARRANGE }
+#Import ".\RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE.ahk" { RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE }
+#Import "..\..\WindowsAndMessaging\HMENU.ahk" { HMENU }
 
 /**
  * The IRichEditOleCallback interface is used by a rich text edit control to retrieve OLE-related information from its client.

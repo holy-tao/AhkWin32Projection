@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\KSTOPOLOGY_CONNECTION.ahk" { KSTOPOLOGY_CONNECTION }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\KSTOPOLOGY_CONNECTION.ahk" { KSTOPOLOGY_CONNECTION }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

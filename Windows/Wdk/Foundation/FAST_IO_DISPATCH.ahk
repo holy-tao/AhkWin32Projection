@@ -1,31 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FAST_IO_QUERY_STANDARD_INFO.ahk" { FAST_IO_QUERY_STANDARD_INFO }
-#Import ".\FAST_IO_MDL_READ.ahk" { FAST_IO_MDL_READ }
-#Import ".\FAST_IO_CHECK_IF_POSSIBLE.ahk" { FAST_IO_CHECK_IF_POSSIBLE }
-#Import ".\FAST_IO_QUERY_NETWORK_OPEN_INFO.ahk" { FAST_IO_QUERY_NETWORK_OPEN_INFO }
-#Import ".\FAST_IO_MDL_WRITE_COMPLETE_COMPRESSED.ahk" { FAST_IO_MDL_WRITE_COMPLETE_COMPRESSED }
-#Import ".\FAST_IO_QUERY_BASIC_INFO.ahk" { FAST_IO_QUERY_BASIC_INFO }
-#Import ".\FAST_IO_READ.ahk" { FAST_IO_READ }
-#Import ".\FAST_IO_QUERY_OPEN.ahk" { FAST_IO_QUERY_OPEN }
-#Import ".\FAST_IO_READ_COMPRESSED.ahk" { FAST_IO_READ_COMPRESSED }
-#Import ".\FAST_IO_LOCK.ahk" { FAST_IO_LOCK }
-#Import ".\FAST_IO_UNLOCK_ALL.ahk" { FAST_IO_UNLOCK_ALL }
-#Import ".\FAST_IO_PREPARE_MDL_WRITE.ahk" { FAST_IO_PREPARE_MDL_WRITE }
-#Import ".\FAST_IO_RELEASE_FOR_MOD_WRITE.ahk" { FAST_IO_RELEASE_FOR_MOD_WRITE }
-#Import ".\FAST_IO_UNLOCK_SINGLE.ahk" { FAST_IO_UNLOCK_SINGLE }
-#Import ".\FAST_IO_MDL_READ_COMPLETE.ahk" { FAST_IO_MDL_READ_COMPLETE }
-#Import ".\FAST_IO_ACQUIRE_FOR_MOD_WRITE.ahk" { FAST_IO_ACQUIRE_FOR_MOD_WRITE }
-#Import ".\FAST_IO_MDL_READ_COMPLETE_COMPRESSED.ahk" { FAST_IO_MDL_READ_COMPLETE_COMPRESSED }
-#Import ".\FAST_IO_WRITE.ahk" { FAST_IO_WRITE }
-#Import ".\FAST_IO_RELEASE_FOR_CCFLUSH.ahk" { FAST_IO_RELEASE_FOR_CCFLUSH }
-#Import ".\FAST_IO_WRITE_COMPRESSED.ahk" { FAST_IO_WRITE_COMPRESSED }
-#Import ".\FAST_IO_MDL_WRITE_COMPLETE.ahk" { FAST_IO_MDL_WRITE_COMPLETE }
-#Import ".\FAST_IO_DEVICE_CONTROL.ahk" { FAST_IO_DEVICE_CONTROL }
-#Import ".\FAST_IO_ACQUIRE_FILE.ahk" { FAST_IO_ACQUIRE_FILE }
-#Import ".\FAST_IO_DETACH_DEVICE.ahk" { FAST_IO_DETACH_DEVICE }
-#Import ".\FAST_IO_RELEASE_FILE.ahk" { FAST_IO_RELEASE_FILE }
-#Import ".\FAST_IO_UNLOCK_ALL_BY_KEY.ahk" { FAST_IO_UNLOCK_ALL_BY_KEY }
-#Import ".\FAST_IO_ACQUIRE_FOR_CCFLUSH.ahk" { FAST_IO_ACQUIRE_FOR_CCFLUSH }
 
 /**
  * @namespace Windows.Wdk.Foundation
@@ -35,58 +8,58 @@ export default struct FAST_IO_DISPATCH {
 
     SizeOfFastIoDispatch : UInt32
 
-    FastIoCheckIfPossible : FAST_IO_CHECK_IF_POSSIBLE
+    FastIoCheckIfPossible : IntPtr
 
-    FastIoRead : FAST_IO_READ
+    FastIoRead : IntPtr
 
-    FastIoWrite : FAST_IO_WRITE
+    FastIoWrite : IntPtr
 
-    FastIoQueryBasicInfo : FAST_IO_QUERY_BASIC_INFO
+    FastIoQueryBasicInfo : IntPtr
 
-    FastIoQueryStandardInfo : FAST_IO_QUERY_STANDARD_INFO
+    FastIoQueryStandardInfo : IntPtr
 
-    FastIoLock : FAST_IO_LOCK
+    FastIoLock : IntPtr
 
-    FastIoUnlockSingle : FAST_IO_UNLOCK_SINGLE
+    FastIoUnlockSingle : IntPtr
 
-    FastIoUnlockAll : FAST_IO_UNLOCK_ALL
+    FastIoUnlockAll : IntPtr
 
-    FastIoUnlockAllByKey : FAST_IO_UNLOCK_ALL_BY_KEY
+    FastIoUnlockAllByKey : IntPtr
 
-    FastIoDeviceControl : FAST_IO_DEVICE_CONTROL
+    FastIoDeviceControl : IntPtr
 
-    AcquireFileForNtCreateSection : FAST_IO_ACQUIRE_FILE
+    AcquireFileForNtCreateSection : IntPtr
 
-    ReleaseFileForNtCreateSection : FAST_IO_RELEASE_FILE
+    ReleaseFileForNtCreateSection : IntPtr
 
-    FastIoDetachDevice : FAST_IO_DETACH_DEVICE
+    FastIoDetachDevice : IntPtr
 
-    FastIoQueryNetworkOpenInfo : FAST_IO_QUERY_NETWORK_OPEN_INFO
+    FastIoQueryNetworkOpenInfo : IntPtr
 
-    AcquireForModWrite : FAST_IO_ACQUIRE_FOR_MOD_WRITE
+    AcquireForModWrite : IntPtr
 
-    MdlRead : FAST_IO_MDL_READ
+    MdlRead : IntPtr
 
-    MdlReadComplete : FAST_IO_MDL_READ_COMPLETE
+    MdlReadComplete : IntPtr
 
-    PrepareMdlWrite : FAST_IO_PREPARE_MDL_WRITE
+    PrepareMdlWrite : IntPtr
 
-    MdlWriteComplete : FAST_IO_MDL_WRITE_COMPLETE
+    MdlWriteComplete : IntPtr
 
-    FastIoReadCompressed : FAST_IO_READ_COMPRESSED
+    FastIoReadCompressed : IntPtr
 
-    FastIoWriteCompressed : FAST_IO_WRITE_COMPRESSED
+    FastIoWriteCompressed : IntPtr
 
-    MdlReadCompleteCompressed : FAST_IO_MDL_READ_COMPLETE_COMPRESSED
+    MdlReadCompleteCompressed : IntPtr
 
-    MdlWriteCompleteCompressed : FAST_IO_MDL_WRITE_COMPLETE_COMPRESSED
+    MdlWriteCompleteCompressed : IntPtr
 
-    FastIoQueryOpen : FAST_IO_QUERY_OPEN
+    FastIoQueryOpen : IntPtr
 
-    ReleaseForModWrite : FAST_IO_RELEASE_FOR_MOD_WRITE
+    ReleaseForModWrite : IntPtr
 
-    AcquireForCcFlush : FAST_IO_ACQUIRE_FOR_CCFLUSH
+    AcquireForCcFlush : IntPtr
 
-    ReleaseForCcFlush : FAST_IO_RELEASE_FOR_CCFLUSH
+    ReleaseForCcFlush : IntPtr
 
 }

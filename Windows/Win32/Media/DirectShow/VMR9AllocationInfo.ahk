@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
 #Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
 #Import "..\..\Graphics\Direct3D9\D3DPOOL.ahk" { D3DPOOL }
 
 /**

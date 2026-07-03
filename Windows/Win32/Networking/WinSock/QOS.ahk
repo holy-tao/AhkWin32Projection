@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FLOWSPEC.ahk" { FLOWSPEC }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\FLOWSPEC.ahk" { FLOWSPEC }
 #Import ".\WSABUF.ahk" { WSABUF }
 
 /**

@@ -27,7 +27,7 @@ export default struct PCI_EXPRESS_EXIT_LINK_QUIESCENT_MODE {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -47,10 +47,6 @@ export default struct PCI_EXPRESS_EXIT_LINK_QUIESCENT_MODE {
             this.value := CallbackCreate(fn, , ["ptr", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

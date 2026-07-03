@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\RTC_SECURITY_TYPE.ahk" { RTC_SECURITY_TYPE }
-#Import ".\RTC_REINVITE_STATE.ahk" { RTC_REINVITE_STATE }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\RTC_SECURITY_LEVEL.ahk" { RTC_SECURITY_LEVEL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IRTCSession2.ahk" { IRTCSession2 }
+#Import ".\RTC_REINVITE_STATE.ahk" { RTC_REINVITE_STATE }
+#Import ".\RTC_SECURITY_LEVEL.ahk" { RTC_SECURITY_LEVEL }
+#Import ".\RTC_SECURITY_TYPE.ahk" { RTC_SECURITY_TYPE }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

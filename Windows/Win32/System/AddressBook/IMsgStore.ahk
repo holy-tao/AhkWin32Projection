@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ENTRYID.ahk" { ENTRYID }
-#Import ".\IMessage.ahk" { IMessage }
-#Import ".\IMAPIAdviseSink.ahk" { IMAPIAdviseSink }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\NOTIFICATION.ahk" { NOTIFICATION }
-#Import ".\IMAPIProp.ahk" { IMAPIProp }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ENTRYID.ahk" { ENTRYID }
+#Import ".\IMAPIAdviseSink.ahk" { IMAPIAdviseSink }
+#Import ".\IMAPIProp.ahk" { IMAPIProp }
 #Import ".\IMAPITable.ahk" { IMAPITable }
+#Import ".\IMessage.ahk" { IMessage }
+#Import ".\NOTIFICATION.ahk" { NOTIFICATION }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Describes the properties and vtable order of members for IMsgStore IMAPIProp, which provides access to message store information and to messages and folders.

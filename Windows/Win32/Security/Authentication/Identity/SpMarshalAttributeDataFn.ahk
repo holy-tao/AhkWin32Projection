@@ -33,7 +33,7 @@ export default struct SpMarshalAttributeDataFn {
         MarshaledAttributeDataMarshal := MarshaledAttributeData is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, UInt32, _AttributeInfo, UInt32, Attribute, UInt32, AttributeDataSize, IntPtr, AttributeData, MarshaledAttributeDataSizeMarshal, MarshaledAttributeDataSize, MarshaledAttributeDataMarshal, MarshaledAttributeData, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -53,10 +53,6 @@ export default struct SpMarshalAttributeDataFn {
             this.value := CallbackCreate(fn, , [UInt32, UInt32, UInt32, IntPtr, "uint*", "ptr*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

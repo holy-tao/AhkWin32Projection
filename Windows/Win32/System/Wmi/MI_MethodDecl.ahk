@@ -1,5 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MI_MethodDecl_Invoke.ahk" { MI_MethodDecl_Invoke }
 #Import ".\MI_ParameterDecl.ahk" { MI_ParameterDecl }
 #Import ".\MI_Qualifier.ahk" { MI_Qualifier }
 #Import ".\MI_SchemaDecl.ahk" { MI_SchemaDecl }
@@ -78,6 +77,6 @@ export default struct MI_MethodDecl {
     /**
      * The extrinsic function that implements this method.
      */
-    function : MI_MethodDecl_Invoke
+    function : IntPtr
 
 }

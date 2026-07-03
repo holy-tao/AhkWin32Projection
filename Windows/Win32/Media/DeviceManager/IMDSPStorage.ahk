@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
-#Import ".\WMDMDATETIME.ahk" { WMDMDATETIME }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IMDSPEnumStorage.ahk" { IMDSPEnumStorage }
 #Import ".\IMDSPStorageGlobals.ahk" { IMDSPStorageGlobals }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\OPAQUECOMMAND.ahk" { OPAQUECOMMAND }
+#Import ".\WMDMDATETIME.ahk" { WMDMDATETIME }
 #Import ".\WMDMRIGHTS.ahk" { WMDMRIGHTS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IMDSPStorage interface provides an instanced-based association with a storage medium on a device.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DIEFFECTINFOA.ahk" { DIEFFECTINFOA }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
@@ -49,10 +49,6 @@ export default struct LPDIENUMEFFECTSCALLBACKA {
             this.value := CallbackCreate(fn, , [DIEFFECTINFOA.Ptr, "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

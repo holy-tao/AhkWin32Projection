@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MMC_BUTTON_STATE.ahk" { MMC_BUTTON_STATE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\MMC_CONSOLE_VERB.ahk" { MMC_CONSOLE_VERB }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MMC_BUTTON_STATE.ahk" { MMC_BUTTON_STATE }
+#Import ".\MMC_CONSOLE_VERB.ahk" { MMC_CONSOLE_VERB }
 
 /**
  * The IConsoleVerb interface allows snap-ins to enable standard verbs including cut, copy, paste, delete, properties, rename, refresh, and print. When an item is selected, the snap-in can update the state of these verbs.

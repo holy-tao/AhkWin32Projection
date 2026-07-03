@@ -1,19 +1,18 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\Threading\PROCESS_INFORMATION.ahk" { PROCESS_INFORMATION }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\FLockClrVersionCallback.ahk" { FLockClrVersionCallback }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import ".\HOST_TYPE.ahk" { HOST_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CLSID_RESOLUTION_FLAGS.ahk" { CLSID_RESOLUTION_FLAGS }
+#Import ".\HOST_TYPE.ahk" { HOST_TYPE }
+#Import "..\Com\IStream.ahk" { IStream }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Threading\PROCESS_INFORMATION.ahk" { PROCESS_INFORMATION }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -381,7 +380,7 @@ export LockClrVersion(hostCallback, pBeginHostSetup, pEndHostSetup) {
     pBeginHostSetupMarshal := pBeginHostSetup is VarRef ? "ptr*" : "ptr"
     pEndHostSetupMarshal := pEndHostSetup is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MSCorEE.dll\LockClrVersion", FLockClrVersionCallback, hostCallback, pBeginHostSetupMarshal, pBeginHostSetup, pEndHostSetupMarshal, pEndHostSetup, "HRESULT")
+    result := DllCall("MSCorEE.dll\LockClrVersion", "ptr", hostCallback, pBeginHostSetupMarshal, pBeginHostSetup, pEndHostSetupMarshal, pEndHostSetup, "HRESULT")
     return result
 }
 

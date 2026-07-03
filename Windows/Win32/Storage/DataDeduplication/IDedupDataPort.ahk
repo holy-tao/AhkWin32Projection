@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DedupDataPortVolumeStatus.ahk" { DedupDataPortVolumeStatus }
-#Import ".\DedupStream.ahk" { DedupStream }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\DedupHash.ahk" { DedupHash }
-#Import ".\DedupStreamEntry.ahk" { DedupStreamEntry }
-#Import ".\DedupDataPortRequestStatus.ahk" { DedupDataPortRequestStatus }
-#Import ".\DedupChunk.ahk" { DedupChunk }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DedupChunk.ahk" { DedupChunk }
+#Import ".\DedupDataPortRequestStatus.ahk" { DedupDataPortRequestStatus }
+#Import ".\DedupDataPortVolumeStatus.ahk" { DedupDataPortVolumeStatus }
+#Import ".\DedupHash.ahk" { DedupHash }
+#Import ".\DedupStream.ahk" { DedupStream }
+#Import ".\DedupStreamEntry.ahk" { DedupStreamEntry }
 #Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Storage.DataDeduplication

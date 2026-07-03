@@ -1,8 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\GLOBALENTRY.ahk" { GLOBALENTRY }
-#Import ".\DEBUGEVENTPROC.ahk" { DEBUGEVENTPROC }
 
 /**
  * @namespace Windows.Win32.System.VirtualDosMachines
@@ -34,7 +33,7 @@ export default struct VDMGLOBALFIRSTPROC {
     Call(param0, param1, param2, param3, param4, param5) {
         param5Marshal := param5 is VarRef ? "ptr" : "ptr"
 
-        result := DllCall(this.value, HANDLE, param0, HANDLE, param1, GLOBALENTRY.Ptr, param2, UInt16, param3, DEBUGEVENTPROC, param4, param5Marshal, param5, BOOL)
+        result := DllCall(this.value, HANDLE, param0, HANDLE, param1, GLOBALENTRY.Ptr, param2, UInt16, param3, "ptr", param4, param5Marshal, param5, BOOL)
         return result
     }
 
@@ -45,19 +44,15 @@ export default struct VDMGLOBALFIRSTPROC {
     struct From extends VDMGLOBALFIRSTPROC {
         /**
          * Creates a VDMGLOBALFIRSTPROC pointer that invokes the given AHK function when called.
-         * @param {Func(HANDLE, HANDLE, GLOBALENTRY, UInt16, DEBUGEVENTPROC, "ptr") => BOOL} fn the function to invoke.
+         * @param {Func(HANDLE, HANDLE, GLOBALENTRY, UInt16, "ptr", "ptr") => BOOL} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 6)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 6 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [HANDLE, HANDLE, GLOBALENTRY.Ptr, UInt16, DEBUGEVENTPROC, "ptr", BOOL])
+            this.value := CallbackCreate(fn, , [HANDLE, HANDLE, GLOBALENTRY.Ptr, UInt16, "ptr", "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

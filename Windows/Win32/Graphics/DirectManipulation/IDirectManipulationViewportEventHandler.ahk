@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDirectManipulationContent.ahk" { IDirectManipulationContent }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DIRECTMANIPULATION_STATUS.ahk" { DIRECTMANIPULATION_STATUS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DIRECTMANIPULATION_STATUS.ahk" { DIRECTMANIPULATION_STATUS }
+#Import ".\IDirectManipulationContent.ahk" { IDirectManipulationContent }
 #Import ".\IDirectManipulationViewport.ahk" { IDirectManipulationViewport }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines methods for handling status and update events for the viewport.

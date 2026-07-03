@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\CLUSTER_MGMT_POINT_TYPE.ahk" { CLUSTER_MGMT_POINT_TYPE }
 #Import ".\CLUSTER_MGMT_POINT_RESTYPE.ahk" { CLUSTER_MGMT_POINT_RESTYPE }
+#Import ".\CLUSTER_MGMT_POINT_TYPE.ahk" { CLUSTER_MGMT_POINT_TYPE }
 
 /**
  * Describes a cluster name resource and domain credentials used by the CreateClusterNameAccount function to add a cluster to a domain. PCREATE_CLUSTER_NAME_ACCOUNT defines a pointer to this structure.

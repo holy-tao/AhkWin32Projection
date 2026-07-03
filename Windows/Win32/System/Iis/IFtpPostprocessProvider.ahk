@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\POST_PROCESS_PARAMETERS.ahk" { POST_PROCESS_PARAMETERS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\FTP_PROCESS_STATUS.ahk" { FTP_PROCESS_STATUS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\POST_PROCESS_PARAMETERS.ahk" { POST_PROCESS_PARAMETERS }
 
 /**
  * @namespace Windows.Win32.System.Iis

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFSensorProfile.ahk" { IMFSensorProfile }
 #Import ".\SENSORPROFILEID.ahk" { SENSORPROFILEID }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMFSensorProfile.ahk" { IMFSensorProfile }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Contains a collection of media foundation sensor profile objects.

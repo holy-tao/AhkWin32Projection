@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DDSCAPS2.ahk" { DDSCAPS2 }
 #Import ".\DDSCAPS.ahk" { DDSCAPS }
+#Import ".\DDSCAPS2.ahk" { DDSCAPS2 }
 
 /**
  * The DDCAPS_DX6 structure (ddraw.h) represents the capabilities of the hardware exposed through the DirectDraw object.

@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IFsiNamedStreams.ahk" { IFsiNamedStreams }
-#Import ".\IFsiFileItem.ahk" { IFsiFileItem }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IFsiFileItem.ahk" { IFsiFileItem }
+#Import ".\IFsiNamedStreams.ahk" { IFsiNamedStreams }
 #Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**

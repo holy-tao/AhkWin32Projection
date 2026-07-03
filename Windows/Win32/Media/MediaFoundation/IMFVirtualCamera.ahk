@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Devices\Properties\DEVPROPTYPE.ahk" { DEVPROPTYPE }
+#Import "..\..\Foundation\DEVPROPKEY.ahk" { DEVPROPKEY }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\DEVPROPKEY.ahk" { DEVPROPKEY }
-#Import "..\..\Devices\Properties\DEVPROPTYPE.ahk" { DEVPROPTYPE }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\IMFMediaSource.ahk" { IMFMediaSource }
 #Import ".\IMFAttributes.ahk" { IMFAttributes }
 #Import ".\IMFCameraSyncObject.ahk" { IMFCameraSyncObject }
+#Import ".\IMFMediaSource.ahk" { IMFMediaSource }
 
 /**
  * Represents a virtual camera that can be plugged into the Media Foundation frame server pipeline.

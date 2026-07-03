@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DKMDT_COLOR_BASIS.ahk" { D3DKMDT_COLOR_BASIS }
 #Import ".\D3DKMDT_MODE_PREFERENCE.ahk" { D3DKMDT_MODE_PREFERENCE }
 #Import ".\D3DKMDT_MONITOR_CAPABILITIES_ORIGIN.ahk" { D3DKMDT_MONITOR_CAPABILITIES_ORIGIN }
-#Import ".\D3DKMDT_COLOR_BASIS.ahk" { D3DKMDT_COLOR_BASIS }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

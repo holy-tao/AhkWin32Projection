@@ -2,14 +2,14 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTIONS.ahk" { APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTIONS }
-#Import ".\APPX_KEY_INFO.ahk" { APPX_KEY_INFO }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\APPX_ENCRYPTED_PACKAGE_SETTINGS2.ahk" { APPX_ENCRYPTED_PACKAGE_SETTINGS2 }
+#Import ".\APPX_KEY_INFO.ahk" { APPX_KEY_INFO }
+#Import ".\APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTIONS.ahk" { APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTIONS }
 #Import ".\APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION.ahk" { APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION }
 #Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides functionality to edit app packages.

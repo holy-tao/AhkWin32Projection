@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IOleInPlaceSite.ahk" { IOleInPlaceSite }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOleInPlaceSite.ahk" { IOleInPlaceSite }
 
 /**
  * Provides an additional set of activation and deactivation notification methods that enable an object to avoid unnecessary flashing on the screen when the object is activated and deactivated.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D10DeviceChild.ahk" { ID3D10DeviceChild }
 #Import ".\D3D10_SAMPLER_DESC.ahk" { D3D10_SAMPLER_DESC }
+#Import ".\ID3D10DeviceChild.ahk" { ID3D10DeviceChild }
 
 /**
  * A sampler-state interface accesses sampler state for a texture.

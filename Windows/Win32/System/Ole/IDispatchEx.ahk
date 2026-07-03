@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IServiceProvider.ahk" { IServiceProvider }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\DISPPARAMS.ahk" { DISPPARAMS }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\FDEX_PROP_FLAGS.ahk" { FDEX_PROP_FLAGS }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\Com\EXCEPINFO.ahk" { EXCEPINFO }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\Com\IServiceProvider.ahk" { IServiceProvider }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\FDEX_PROP_FLAGS.ahk" { FDEX_PROP_FLAGS }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.Ole

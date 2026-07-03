@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -58,10 +58,6 @@ export default struct PCLUSAPI_CLUSTER_REG_CREATE_KEY_EX {
             this.value := CallbackCreate(fn, , [HKEY, PWSTR, UInt32, UInt32, SECURITY_ATTRIBUTES.Ptr, HKEY.Ptr, "uint*", PWSTR, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

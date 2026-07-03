@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
 #Import ".\WS_TYPE.ahk" { WS_TYPE }
+#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
 
 /**
  * Represents a mapping between a C data type and an XML attribute.

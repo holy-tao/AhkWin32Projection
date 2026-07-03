@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DIRECTSOUNDDEVICE_DATAFLOW.ahk" { DIRECTSOUNDDEVICE_DATAFLOW }
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\DIRECTSOUNDDEVICE_TYPE.ahk" { DIRECTSOUNDDEVICE_TYPE }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\DIRECTSOUNDDEVICE_DATAFLOW.ahk" { DIRECTSOUNDDEVICE_DATAFLOW }
+#Import ".\DIRECTSOUNDDEVICE_TYPE.ahk" { DIRECTSOUNDDEVICE_TYPE }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic

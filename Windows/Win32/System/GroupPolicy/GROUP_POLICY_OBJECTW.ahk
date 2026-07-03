@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\GPO_LINK.ahk" { GPO_LINK }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\GPO_LINK.ahk" { GPO_LINK }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

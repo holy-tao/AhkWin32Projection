@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PTP_WORK.ahk" { PTP_WORK }
 #Import ".\PTP_CALLBACK_INSTANCE.ahk" { PTP_CALLBACK_INSTANCE }
+#Import ".\PTP_WORK.ahk" { PTP_WORK }
 
 /**
  * @namespace Windows.Win32.System.Threading
@@ -48,10 +48,6 @@ export default struct PTP_WORK_CALLBACK {
             this.value := CallbackCreate(fn, , [PTP_CALLBACK_INSTANCE, "ptr", PTP_WORK, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

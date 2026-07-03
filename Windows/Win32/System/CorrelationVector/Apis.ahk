@@ -1,7 +1,7 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\CORRELATION_VECTOR.ahk" { CORRELATION_VECTOR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CORRELATION_VECTOR.ahk" { CORRELATION_VECTOR }
 
 /**
  * @namespace Windows.Win32.System.CorrelationVector

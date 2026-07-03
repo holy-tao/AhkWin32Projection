@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUIAnimationPrimitiveInterpolation.ahk" { IUIAnimationPrimitiveInterpolation }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\UI_ANIMATION_DEPENDENCIES.ahk" { UI_ANIMATION_DEPENDENCIES }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IUIAnimationPrimitiveInterpolation.ahk" { IUIAnimationPrimitiveInterpolation }
+#Import ".\UI_ANIMATION_DEPENDENCIES.ahk" { UI_ANIMATION_DEPENDENCIES }
 
 /**
  * Extends the IUIAnimationInterpolator interface that defines methods for creating a custom interpolator. IUIAnimationInterpolator2 supports interpolation in a given dimension.

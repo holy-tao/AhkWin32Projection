@@ -52,10 +52,6 @@ export default struct PGET_MODULE_BASE_ROUTINE64 {
             this.value := CallbackCreate(fn, , [HANDLE, Int64, Int64])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

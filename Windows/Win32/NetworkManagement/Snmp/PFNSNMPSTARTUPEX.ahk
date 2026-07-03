@@ -53,10 +53,6 @@ export default struct PFNSNMPSTARTUPEX {
             this.value := CallbackCreate(fn, , ["uint*", "uint*", "uint*", "uint*", "uint*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

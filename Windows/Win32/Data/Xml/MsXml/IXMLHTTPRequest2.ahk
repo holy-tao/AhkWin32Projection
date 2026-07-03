@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\XHR_PROPERTY.ahk" { XHR_PROPERTY }
 #Import ".\IXMLHTTPRequest2Callback.ahk" { IXMLHTTPRequest2Callback }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\XHR_COOKIE.ahk" { XHR_COOKIE }
-#Import "..\..\..\System\Com\ISequentialStream.ahk" { ISequentialStream }
+#Import ".\XHR_PROPERTY.ahk" { XHR_PROPERTY }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\System\Com\ISequentialStream.ahk" { ISequentialStream }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides the methods and properties needed to configure and send HTTP requests and use callbacks to receive notifications during HTTP response processing. Note  This interface is supported on Windows Phone 8.1.  .

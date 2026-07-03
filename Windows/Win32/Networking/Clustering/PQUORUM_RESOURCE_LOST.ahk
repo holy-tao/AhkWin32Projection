@@ -51,10 +51,6 @@ export default struct PQUORUM_RESOURCE_LOST {
             this.value := CallbackCreate(fn, , [IntPtr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

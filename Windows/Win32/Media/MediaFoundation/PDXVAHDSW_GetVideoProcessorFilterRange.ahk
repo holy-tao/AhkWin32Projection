@@ -51,10 +51,6 @@ export default struct PDXVAHDSW_GetVideoProcessorFilterRange {
             this.value := CallbackCreate(fn, , [HANDLE, DXVAHD_FILTER, DXVAHD_FILTER_RANGE_DATA.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

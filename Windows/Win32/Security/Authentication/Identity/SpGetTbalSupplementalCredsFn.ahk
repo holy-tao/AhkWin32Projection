@@ -31,7 +31,7 @@ export default struct SpGetTbalSupplementalCredsFn {
         SupplementalCredsMarshal := SupplementalCreds is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, LUID, LogonId, SupplementalCredsSizeMarshal, SupplementalCredsSize, SupplementalCredsMarshal, SupplementalCreds, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -51,10 +51,6 @@ export default struct SpGetTbalSupplementalCredsFn {
             this.value := CallbackCreate(fn, , [LUID, "uint*", "ptr*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

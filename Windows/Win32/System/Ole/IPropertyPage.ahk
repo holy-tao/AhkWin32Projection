@@ -2,14 +2,14 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\PROPPAGEINFO.ahk" { PROPPAGEINFO }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IPropertyPageSite.ahk" { IPropertyPageSite }
+#Import ".\PROPPAGEINFO.ahk" { PROPPAGEINFO }
+#Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
 
 /**
  * Provides the main features of a property page object that manages a particular page within a property sheet.

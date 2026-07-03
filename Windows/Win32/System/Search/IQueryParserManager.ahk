@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\QUERY_PARSER_MANAGER_OPTION.ahk" { QUERY_PARSER_MANAGER_OPTION }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 #Import ".\IQueryParser.ahk" { IQueryParser }
+#Import ".\QUERY_PARSER_MANAGER_OPTION.ahk" { QUERY_PARSER_MANAGER_OPTION }
 
 /**
  * Provides methods to create, initialize, and change options for an IQueryParser object.

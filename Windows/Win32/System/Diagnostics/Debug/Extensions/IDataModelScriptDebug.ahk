@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDataModelScriptDebugBreakpointEnumerator.ahk" { IDataModelScriptDebugBreakpointEnumerator }
-#Import ".\ScriptDebugState.ahk" { ScriptDebugState }
-#Import ".\IDataModelScriptDebugStack.ahk" { IDataModelScriptDebugStack }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ScriptDebugEventFilter.ahk" { ScriptDebugEventFilter }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDataModelScriptDebugClient.ahk" { IDataModelScriptDebugClient }
-#Import ".\ScriptDebugPosition.ahk" { ScriptDebugPosition }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDataModelScriptDebugBreakpoint.ahk" { IDataModelScriptDebugBreakpoint }
+#Import ".\IDataModelScriptDebugBreakpointEnumerator.ahk" { IDataModelScriptDebugBreakpointEnumerator }
+#Import ".\IDataModelScriptDebugClient.ahk" { IDataModelScriptDebugClient }
+#Import ".\IDataModelScriptDebugStack.ahk" { IDataModelScriptDebugStack }
+#Import ".\ScriptDebugEventFilter.ahk" { ScriptDebugEventFilter }
+#Import ".\ScriptDebugPosition.ahk" { ScriptDebugPosition }
+#Import ".\ScriptDebugState.ahk" { ScriptDebugState }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

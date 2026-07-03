@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MI_Datetime.ahk" { MI_Datetime }
 #Import ".\MI_Interval.ahk" { MI_Interval }
 #Import ".\MI_Timestamp.ahk" { MI_Timestamp }
-#Import ".\MI_Datetime.ahk" { MI_Datetime }
 
 /**
  * Represents a property inside an MI_Instance structure. (MI_DatetimeField)

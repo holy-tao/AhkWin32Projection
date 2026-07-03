@@ -1,8 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PPCI_EXPRESS_EXIT_LINK_QUIESCENT_MODE.ahk" { PPCI_EXPRESS_EXIT_LINK_QUIESCENT_MODE }
-#Import ".\PPCI_EXPRESS_ENTER_LINK_QUIESCENT_MODE.ahk" { PPCI_EXPRESS_ENTER_LINK_QUIESCENT_MODE }
-#Import ".\PINTERFACE_DEREFERENCE.ahk" { PINTERFACE_DEREFERENCE }
-#Import ".\PINTERFACE_REFERENCE.ahk" { PINTERFACE_REFERENCE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -16,12 +12,12 @@ export default struct PCI_EXPRESS_LINK_QUIESCENT_INTERFACE {
 
     Context : IntPtr
 
-    InterfaceReference : PINTERFACE_REFERENCE
+    InterfaceReference : IntPtr
 
-    InterfaceDereference : PINTERFACE_DEREFERENCE
+    InterfaceDereference : IntPtr
 
-    PciExpressEnterLinkQuiescentMode : PPCI_EXPRESS_ENTER_LINK_QUIESCENT_MODE
+    PciExpressEnterLinkQuiescentMode : IntPtr
 
-    PciExpressExitLinkQuiescentMode : PPCI_EXPRESS_EXIT_LINK_QUIESCENT_MODE
+    PciExpressExitLinkQuiescentMode : IntPtr
 
 }

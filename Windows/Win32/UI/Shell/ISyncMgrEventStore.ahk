@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISyncMgrEvent.ahk" { ISyncMgrEvent }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IEnumSyncMgrEvents.ahk" { IEnumSyncMgrEvents }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISyncMgrEvent.ahk" { ISyncMgrEvent }
 
 /**
  * Exposes methods that allow a handler to provide its own event store and manage its own sync events, instead of using the default Sync Center event store. These events are displayed in the Sync Results folder.

@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CounterPathCallBack.ahk" { CounterPathCallBack }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\PERF_DETAIL.ahk" { PERF_DETAIL }
 
 /**
@@ -147,7 +146,7 @@ export default struct PDH_BROWSE_DLG_CONFIG_A {
      * Pointer to the callback function that processes the user's selection. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nc-pdh-counterpathcallback">CounterPathCallBack</a>.
      */
-    pCallBack : CounterPathCallBack
+    pCallBack : IntPtr
 
     /**
      * Caller-defined value that is passed to the callback function.

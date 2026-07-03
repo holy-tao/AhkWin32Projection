@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RSVP_POLICY.ahk" { RSVP_POLICY }
 #Import ".\QOS_OBJECT_HDR.ahk" { QOS_OBJECT_HDR }
+#Import ".\RSVP_POLICY.ahk" { RSVP_POLICY }
 
 /**
  * The RSVP_POLICY_INFO structure stores undefined policy elements retrieved from RSVP.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SYSKIND.ahk" { SYSKIND }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SYSKIND.ahk" { SYSKIND }
 
 /**
  * Contains information about a type library. Information from this structure is used to identify the type library and to provide national language support for member names.

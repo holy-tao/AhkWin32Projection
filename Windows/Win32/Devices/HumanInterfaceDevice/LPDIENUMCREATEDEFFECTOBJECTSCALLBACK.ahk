@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IDirectInputEffect.ahk" { IDirectInputEffect }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
@@ -48,10 +48,6 @@ export default struct LPDIENUMCREATEDEFFECTOBJECTSCALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

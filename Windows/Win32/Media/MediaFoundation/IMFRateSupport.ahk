@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\MFRATE_DIRECTION.ahk" { MFRATE_DIRECTION }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Queries the range of playback rates that are supported, including reverse playback.

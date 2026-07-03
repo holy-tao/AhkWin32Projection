@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Cryptography\HCERTCHAINENGINE.ahk" { HCERTCHAINENGINE }
 #Import "..\Cryptography\CERT_CHAIN_PARA.ahk" { CERT_CHAIN_PARA }
+#Import "..\Cryptography\HCERTCHAINENGINE.ahk" { HCERTCHAINENGINE }
 
 /**
  * @namespace Windows.Win32.Security.WinTrust

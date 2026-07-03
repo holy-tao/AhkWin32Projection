@@ -1,8 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PPCI_IS_DEVICE_PRESENT_EX.ahk" { PPCI_IS_DEVICE_PRESENT_EX }
-#Import ".\PPCI_IS_DEVICE_PRESENT.ahk" { PPCI_IS_DEVICE_PRESENT }
-#Import ".\PINTERFACE_DEREFERENCE.ahk" { PINTERFACE_DEREFERENCE }
-#Import ".\PINTERFACE_REFERENCE.ahk" { PINTERFACE_REFERENCE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -16,12 +12,12 @@ export default struct PCI_DEVICE_PRESENT_INTERFACE {
 
     Context : IntPtr
 
-    InterfaceReference : PINTERFACE_REFERENCE
+    InterfaceReference : IntPtr
 
-    InterfaceDereference : PINTERFACE_DEREFERENCE
+    InterfaceDereference : IntPtr
 
-    IsDevicePresent : PPCI_IS_DEVICE_PRESENT
+    IsDevicePresent : IntPtr
 
-    IsDevicePresentEx : PPCI_IS_DEVICE_PRESENT_EX
+    IsDevicePresentEx : IntPtr
 
 }

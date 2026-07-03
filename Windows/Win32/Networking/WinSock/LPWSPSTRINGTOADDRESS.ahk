@@ -113,10 +113,6 @@ export default struct LPWSPSTRINGTOADDRESS {
             this.value := CallbackCreate(fn, , [PWSTR, Int32, WSAPROTOCOL_INFOW.Ptr, IntPtr, "int*", "int*", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

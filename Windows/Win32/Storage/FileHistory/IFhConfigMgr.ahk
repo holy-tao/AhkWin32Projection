@@ -2,15 +2,15 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\FH_PROTECTED_ITEM_CATEGORY.ahk" { FH_PROTECTED_ITEM_CATEGORY }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IFhTarget.ahk" { IFhTarget }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\FH_BACKUP_STATUS.ahk" { FH_BACKUP_STATUS }
-#Import ".\IFhScopeIterator.ahk" { IFhScopeIterator }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FH_BACKUP_STATUS.ahk" { FH_BACKUP_STATUS }
 #Import ".\FH_DEVICE_VALIDATION_RESULT.ahk" { FH_DEVICE_VALIDATION_RESULT }
 #Import ".\FH_LOCAL_POLICY_TYPE.ahk" { FH_LOCAL_POLICY_TYPE }
+#Import ".\FH_PROTECTED_ITEM_CATEGORY.ahk" { FH_PROTECTED_ITEM_CATEGORY }
+#Import ".\IFhScopeIterator.ahk" { IFhScopeIterator }
+#Import ".\IFhTarget.ahk" { IFhTarget }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IFhConfigMgr interface allows client applications to read and modify the File History configuration for the user account under which the methods of this interface are called.

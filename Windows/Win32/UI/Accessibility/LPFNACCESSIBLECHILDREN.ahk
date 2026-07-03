@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IAccessible.ahk" { IAccessible }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IAccessible.ahk" { IAccessible }
 
 /**
  * @namespace Windows.Win32.UI.Accessibility
@@ -52,10 +52,6 @@ export default struct LPFNACCESSIBLECHILDREN {
             this.value := CallbackCreate(fn, , ["ptr", Int32, Int32, VARIANT.Ptr, "int*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

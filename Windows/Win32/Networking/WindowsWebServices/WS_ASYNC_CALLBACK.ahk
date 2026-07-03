@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_CALLBACK_MODEL.ahk" { WS_CALLBACK_MODEL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WS_CALLBACK_MODEL.ahk" { WS_CALLBACK_MODEL }
 
 /**
  * The callback function parameter used with the asynchronous model.
@@ -55,10 +55,6 @@ export default struct WS_ASYNC_CALLBACK {
             this.value := CallbackCreate(fn, , ["int", WS_CALLBACK_MODEL, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

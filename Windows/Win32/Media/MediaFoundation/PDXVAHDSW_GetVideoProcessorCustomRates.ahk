@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\DXVAHD_CUSTOM_RATE_DATA.ahk" { DXVAHD_CUSTOM_RATE_DATA }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXVAHD_CUSTOM_RATE_DATA.ahk" { DXVAHD_CUSTOM_RATE_DATA }
 
 /**
  * Gets the custom rates that a software Microsoft DirectX Video Acceleration High Definition (DXVA-HD) video processor supports.
@@ -52,10 +52,6 @@ export default struct PDXVAHDSW_GetVideoProcessorCustomRates {
             this.value := CallbackCreate(fn, , [HANDLE, Guid.Ptr, UInt32, DXVAHD_CUSTOM_RATE_DATA.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\AM_MPEGSTREAMTYPE.ahk" { AM_MPEGSTREAMTYPE }
 #Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\AM_MPEGSTREAMTYPE.ahk" { AM_MPEGSTREAMTYPE }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The AM_MPEGSYSTEMTYPE structure defines the format block for an MPEG-1 system stream.

@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IInkStrokes.ahk" { IInkStrokes }
-#Import ".\IInkRectangle.ahk" { IInkRectangle }
-#Import ".\InkExtractFlags.ahk" { InkExtractFlags }
-#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\InkClipboardFormats.ahk" { InkClipboardFormats }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IInkCustomStrokes.ahk" { IInkCustomStrokes }
 #Import ".\IInkExtendedProperties.ahk" { IInkExtendedProperties }
-#Import ".\InkClipboardModes.ahk" { InkClipboardModes }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IInkRectangle.ahk" { IInkRectangle }
 #Import ".\IInkStrokeDisp.ahk" { IInkStrokeDisp }
+#Import ".\IInkStrokes.ahk" { IInkStrokes }
 #Import ".\InkBoundingBoxMode.ahk" { InkBoundingBoxMode }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\InkPersistenceFormat.ahk" { InkPersistenceFormat }
+#Import ".\InkClipboardFormats.ahk" { InkClipboardFormats }
+#Import ".\InkClipboardModes.ahk" { InkClipboardModes }
+#Import ".\InkExtractFlags.ahk" { InkExtractFlags }
 #Import ".\InkPersistenceCompressionMode.ahk" { InkPersistenceCompressionMode }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\InkPersistenceFormat.ahk" { InkPersistenceFormat }
 
 /**
  * . (IInkDisp)

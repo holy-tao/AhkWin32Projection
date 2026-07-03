@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\UICloseReasonType.ahk" { UICloseReasonType }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\SmartCardApplication.ahk" { SmartCardApplication }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\SmartCardAssociationType.ahk" { SmartCardAssociationType }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SmartCardStatusType.ahk" { SmartCardStatusType }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\EALocationCodeType.ahk" { EALocationCodeType }
 #Import ".\EntitlementType.ahk" { EntitlementType }
+#Import ".\SmartCardApplication.ahk" { SmartCardApplication }
+#Import ".\SmartCardAssociationType.ahk" { SmartCardAssociationType }
+#Import ".\SmartCardStatusType.ahk" { SmartCardStatusType }
+#Import ".\UICloseReasonType.ahk" { UICloseReasonType }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IBDA_ConditionalAccess interface provides conditional access to program content.

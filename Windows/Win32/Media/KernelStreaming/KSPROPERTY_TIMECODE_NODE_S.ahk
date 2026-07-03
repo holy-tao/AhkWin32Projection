@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\TIMECODE_SAMPLE.ahk" { TIMECODE_SAMPLE }
-#Import ".\KSP_NODE.ahk" { KSP_NODE }
-#Import "..\TIMECODE.ahk" { TIMECODE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import ".\KSP_NODE.ahk" { KSP_NODE }
+#Import "..\TIMECODE.ahk" { TIMECODE }
+#Import "..\TIMECODE_SAMPLE.ahk" { TIMECODE_SAMPLE }
 #Import "..\TIMECODE_SAMPLE_FLAGS.ahk" { TIMECODE_SAMPLE_FLAGS }
 
 /**

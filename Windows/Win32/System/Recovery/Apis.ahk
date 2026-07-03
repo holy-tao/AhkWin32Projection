@@ -1,11 +1,10 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\WindowsProgramming\APPLICATION_RECOVERY_CALLBACK.ahk" { APPLICATION_RECOVERY_CALLBACK }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\REGISTER_APPLICATION_RESTART_FLAGS.ahk" { REGISTER_APPLICATION_RESTART_FLAGS }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\REGISTER_APPLICATION_RESTART_FLAGS.ahk" { REGISTER_APPLICATION_RESTART_FLAGS }
 
 /**
  * @namespace Windows.Win32.System.Recovery
@@ -64,7 +63,7 @@
 export RegisterApplicationRecoveryCallback(pRecoveyCallback, pvParameter, dwPingInterval, dwFlags) {
     pvParameterMarshal := pvParameter is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("KERNEL32.dll\RegisterApplicationRecoveryCallback", APPLICATION_RECOVERY_CALLBACK, pRecoveyCallback, pvParameterMarshal, pvParameter, UInt32, dwPingInterval, UInt32, dwFlags, "HRESULT")
+    result := DllCall("KERNEL32.dll\RegisterApplicationRecoveryCallback", "ptr", pRecoveyCallback, pvParameterMarshal, pvParameter, UInt32, dwPingInterval, UInt32, dwFlags, "HRESULT")
     return result
 }
 

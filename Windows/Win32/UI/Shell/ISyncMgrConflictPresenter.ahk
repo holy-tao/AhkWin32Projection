@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ISyncMgrConflictResolveInfo.ahk" { ISyncMgrConflictResolveInfo }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ISyncMgrConflict.ahk" { ISyncMgrConflict }
+#Import ".\ISyncMgrConflictResolveInfo.ahk" { ISyncMgrConflictResolveInfo }
 
 /**
  * Exposes a method that presents a conflict to the user.

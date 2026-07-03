@@ -2,10 +2,10 @@
 #Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IXblIdpAuthTokenResult.ahk" { IXblIdpAuthTokenResult }
+#Import "..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Reserved for Microsoft use. (IXblIdpAuthManager)

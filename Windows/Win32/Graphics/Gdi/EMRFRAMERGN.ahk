@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
 #Import "..\..\Foundation\SIZE.ahk" { SIZE }
 #Import ".\EMR.ahk" { EMR }
-#Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
 
 /**
  * The EMRFRAMERGN structure contains members for the FrameRgn enhanced metafile record.

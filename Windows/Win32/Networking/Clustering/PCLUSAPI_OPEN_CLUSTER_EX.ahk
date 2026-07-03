@@ -51,10 +51,6 @@ export default struct PCLUSAPI_OPEN_CLUSTER_EX {
             this.value := CallbackCreate(fn, , [PWSTR, UInt32, "uint*", HCLUSTER])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,20 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PDXVAHDSW_GetVideoProcessorCaps.ahk" { PDXVAHDSW_GetVideoProcessorCaps }
-#Import ".\PDXVAHDSW_SetVideoProcessStreamState.ahk" { PDXVAHDSW_SetVideoProcessStreamState }
-#Import ".\PDXVAHDSW_VideoProcessBltHD.ahk" { PDXVAHDSW_VideoProcessBltHD }
-#Import ".\PDXVAHDSW_GetVideoProcessorFilterRange.ahk" { PDXVAHDSW_GetVideoProcessorFilterRange }
-#Import ".\PDXVAHDSW_CreateVideoProcessor.ahk" { PDXVAHDSW_CreateVideoProcessor }
-#Import ".\PDXVAHDSW_GetVideoProcessorOutputFormats.ahk" { PDXVAHDSW_GetVideoProcessorOutputFormats }
-#Import ".\PDXVAHDSW_SetVideoProcessBltState.ahk" { PDXVAHDSW_SetVideoProcessBltState }
-#Import ".\PDXVAHDSW_CreateDevice.ahk" { PDXVAHDSW_CreateDevice }
-#Import ".\PDXVAHDSW_GetVideoProcessStreamStatePrivate.ahk" { PDXVAHDSW_GetVideoProcessStreamStatePrivate }
-#Import ".\PDXVAHDSW_DestroyVideoProcessor.ahk" { PDXVAHDSW_DestroyVideoProcessor }
-#Import ".\PDXVAHDSW_GetVideoProcessorCustomRates.ahk" { PDXVAHDSW_GetVideoProcessorCustomRates }
-#Import ".\PDXVAHDSW_DestroyDevice.ahk" { PDXVAHDSW_DestroyDevice }
-#Import ".\PDXVAHDSW_GetVideoProcessorInputFormats.ahk" { PDXVAHDSW_GetVideoProcessorInputFormats }
-#Import ".\PDXVAHDSW_GetVideoProcessBltStatePrivate.ahk" { PDXVAHDSW_GetVideoProcessBltStatePrivate }
-#Import ".\PDXVAHDSW_GetVideoProcessorDeviceCaps.ahk" { PDXVAHDSW_GetVideoProcessorDeviceCaps }
-#Import ".\PDXVAHDSW_ProposeVideoPrivateFormat.ahk" { PDXVAHDSW_ProposeVideoPrivateFormat }
 
 /**
  * Contains pointers to functions implemented by a software plug-in for Microsoft DirectX Video Acceleration High Definition (DXVA-HD).
@@ -31,81 +15,81 @@ export default struct DXVAHDSW_CALLBACKS {
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_createdevice">PDXVAHDSW_CreateDevice</a>.
      */
-    CreateDevice : PDXVAHDSW_CreateDevice
+    CreateDevice : IntPtr
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_proposevideoprivateformat">PDXVAHDSW_ProposeVideoPrivateFormat</a>.
      */
-    ProposeVideoPrivateFormat : PDXVAHDSW_ProposeVideoPrivateFormat
+    ProposeVideoPrivateFormat : IntPtr
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_getvideoprocessordevicecaps">PDXVAHDSW_GetVideoProcessorDeviceCaps</a>.
      */
-    GetVideoProcessorDeviceCaps : PDXVAHDSW_GetVideoProcessorDeviceCaps
+    GetVideoProcessorDeviceCaps : IntPtr
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_getvideoprocessoroutputformats">PDXVAHDSW_GetVideoProcessorOutputFormats</a>.
      */
-    GetVideoProcessorOutputFormats : PDXVAHDSW_GetVideoProcessorOutputFormats
+    GetVideoProcessorOutputFormats : IntPtr
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_getvideoprocessorinputformats">PDXVAHDSW_GetVideoProcessorInputFormats</a>.
      */
-    GetVideoProcessorInputFormats : PDXVAHDSW_GetVideoProcessorInputFormats
+    GetVideoProcessorInputFormats : IntPtr
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_getvideoprocessorcaps">PDXVAHDSW_GetVideoProcessorCaps</a>.
      */
-    GetVideoProcessorCaps : PDXVAHDSW_GetVideoProcessorCaps
+    GetVideoProcessorCaps : IntPtr
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_getvideoprocessorcustomrates">PDXVAHDSW_GetVideoProcessorCustomRates</a>.
      */
-    GetVideoProcessorCustomRates : PDXVAHDSW_GetVideoProcessorCustomRates
+    GetVideoProcessorCustomRates : IntPtr
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_getvideoprocessorfilterrange">PDXVAHDSW_GetVideoProcessorFilterRange</a>.
      */
-    GetVideoProcessorFilterRange : PDXVAHDSW_GetVideoProcessorFilterRange
+    GetVideoProcessorFilterRange : IntPtr
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_destroydevice">PDXVAHDSW_DestroyDevice</a>.
      */
-    DestroyDevice : PDXVAHDSW_DestroyDevice
+    DestroyDevice : IntPtr
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_createvideoprocessor">PDXVAHDSW_CreateVideoProcessor</a>.
      */
-    CreateVideoProcessor : PDXVAHDSW_CreateVideoProcessor
+    CreateVideoProcessor : IntPtr
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_setvideoprocessbltstate">PDXVAHDSW_SetVideoProcessBltState</a>.
      */
-    SetVideoProcessBltState : PDXVAHDSW_SetVideoProcessBltState
+    SetVideoProcessBltState : IntPtr
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_getvideoprocessbltstateprivate">PDXVAHDSW_GetVideoProcessBltStatePrivate</a>.
      */
-    GetVideoProcessBltStatePrivate : PDXVAHDSW_GetVideoProcessBltStatePrivate
+    GetVideoProcessBltStatePrivate : IntPtr
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_setvideoprocessstreamstate">PDXVAHDSW_SetVideoProcessStreamState</a>.
      */
-    SetVideoProcessStreamState : PDXVAHDSW_SetVideoProcessStreamState
+    SetVideoProcessStreamState : IntPtr
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_getvideoprocessstreamstateprivate">PDXVAHDSW_GetVideoProcessStreamStatePrivate</a>.
      */
-    GetVideoProcessStreamStatePrivate : PDXVAHDSW_GetVideoProcessStreamStatePrivate
+    GetVideoProcessStreamStatePrivate : IntPtr
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_videoprocessblthd">PDXVAHDSW_VideoProcessBltHD</a>.
      */
-    VideoProcessBltHD : PDXVAHDSW_VideoProcessBltHD
+    VideoProcessBltHD : IntPtr
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_destroyvideoprocessor">PDXVAHDSW_DestroyVideoProcessor</a>.
      */
-    DestroyVideoProcessor : PDXVAHDSW_DestroyVideoProcessor
+    DestroyVideoProcessor : IntPtr
 
 }

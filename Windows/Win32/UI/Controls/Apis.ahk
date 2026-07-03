@@ -1,89 +1,85 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\TBBUTTON.ahk" { TBBUTTON }
-#Import "..\..\Graphics\Gdi\DRAWEDGE_FLAGS.ahk" { DRAWEDGE_FLAGS }
-#Import ".\_LI_METRIC.ahk" { _LI_METRIC }
-#Import "..\..\Graphics\Gdi\HRGN.ahk" { HRGN }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\DLG_DIR_LIST_FILE_TYPE.ahk" { DLG_DIR_LIST_FILE_TYPE }
-#Import ".\PROPSHEETHEADERW_V2.ahk" { PROPSHEETHEADERW_V2 }
-#Import ".\IMAGE_LIST_COPY_FLAGS.ahk" { IMAGE_LIST_COPY_FLAGS }
-#Import ".\TASKDIALOG_COMMON_BUTTON_FLAGS.ahk" { TASKDIALOG_COMMON_BUTTON_FLAGS }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Graphics\Gdi\RGBQUAD.ahk" { RGBQUAD }
-#Import ".\HIT_TEST_BACKGROUND_OPTIONS.ahk" { HIT_TEST_BACKGROUND_OPTIONS }
-#Import "..\..\Graphics\Gdi\DRAW_TEXT_FORMAT.ahk" { DRAW_TEXT_FORMAT }
-#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
-#Import ".\DTTOPTS.ahk" { DTTOPTS }
-#Import ".\DLG_BUTTON_CHECK_STATE.ahk" { DLG_BUTTON_CHECK_STATE }
-#Import ".\WSB_PROP.ahk" { WSB_PROP }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\IMAGELIST_CREATION_FLAGS.ahk" { IMAGELIST_CREATION_FLAGS }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\GET_THEME_BITMAP_FLAGS.ahk" { GET_THEME_BITMAP_FLAGS }
-#Import ".\COMBOBOXINFO.ahk" { COMBOBOXINFO }
-#Import ".\HDPA.ahk" { HDPA }
-#Import ".\BP_BUFFERFORMAT.ahk" { BP_BUFFERFORMAT }
-#Import ".\PFNDPASTREAM.ahk" { PFNDPASTREAM }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import ".\FEEDBACK_TYPE.ahk" { FEEDBACK_TYPE }
-#Import ".\PFNDAENUMCALLBACK.ahk" { PFNDAENUMCALLBACK }
-#Import "..\..\Graphics\Gdi\DRAW_EDGE_FLAGS.ahk" { DRAW_EDGE_FLAGS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DRAW_THEME_PARENT_BACKGROUND_FLAGS.ahk" { DRAW_THEME_PARENT_BACKGROUND_FLAGS }
-#Import "..\..\Graphics\Gdi\LOGFONTW.ahk" { LOGFONTW }
-#Import ".\HPROPSHEETPAGE.ahk" { HPROPSHEETPAGE }
-#Import "..\WindowsAndMessaging\IMAGE_FLAGS.ahk" { IMAGE_FLAGS }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\TA_PROPERTY.ahk" { TA_PROPERTY }
-#Import ".\OPEN_THEME_DATA_FLAGS.ahk" { OPEN_THEME_DATA_FLAGS }
-#Import "..\..\Graphics\Gdi\TEXTMETRICW.ahk" { TEXTMETRICW }
-#Import ".\BP_PAINTPARAMS.ahk" { BP_PAINTPARAMS }
-#Import ".\PROPSHEETHEADERA_V2.ahk" { PROPSHEETHEADERA_V2 }
-#Import "..\WindowsAndMessaging\SCROLLBAR_CONSTANTS.ahk" { SCROLLBAR_CONSTANTS }
-#Import ".\DTBGOPTS.ahk" { DTBGOPTS }
-#Import ".\COLORMAP.ahk" { COLORMAP }
-#Import ".\TASKDIALOGCONFIG.ahk" { TASKDIALOGCONFIG }
-#Import ".\ENABLE_SCROLL_BAR_ARROWS.ahk" { ENABLE_SCROLL_BAR_ARROWS }
-#Import ".\PFNDPAMERGE.ahk" { PFNDPAMERGE }
-#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
-#Import ".\IMAGE_LIST_DRAW_STYLE.ahk" { IMAGE_LIST_DRAW_STYLE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\PROPSHEETPAGEW.ahk" { PROPSHEETPAGEW }
-#Import "..\WindowsAndMessaging\SCROLLINFO.ahk" { SCROLLINFO }
-#Import ".\PFNDACOMPARE.ahk" { PFNDACOMPARE }
-#Import ".\TOUCH_HIT_TESTING_INPUT.ahk" { TOUCH_HIT_TESTING_INPUT }
-#Import ".\SET_THEME_APP_PROPERTIES_FLAGS.ahk" { SET_THEME_APP_PROPERTIES_FLAGS }
-#Import "..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk" { POINTER_INPUT_TYPE }
-#Import ".\INTLIST.ahk" { INTLIST }
-#Import ".\HIMAGELIST.ahk" { HIMAGELIST }
-#Import ".\IMAGEINFO.ahk" { IMAGEINFO }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import ".\HTHEME.ahk" { HTHEME }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
-#Import "..\Input\Pointer\HSYNTHETICPOINTERDEVICE.ahk" { HSYNTHETICPOINTERDEVICE }
-#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
-#Import ".\WINDOWTHEMEATTRIBUTETYPE.ahk" { WINDOWTHEMEATTRIBUTETYPE }
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
-#Import ".\IMAGE_LIST_WRITE_STREAM_FLAGS.ahk" { IMAGE_LIST_WRITE_STREAM_FLAGS }
-#Import ".\PROPSHEETPAGEA.ahk" { PROPSHEETPAGEA }
-#Import "..\WindowsAndMessaging\HMENU.ahk" { HMENU }
-#Import ".\BP_ANIMATIONPARAMS.ahk" { BP_ANIMATIONPARAMS }
-#Import ".\THEMESIZE.ahk" { THEMESIZE }
-#Import ".\INITCOMMONCONTROLSEX.ahk" { INITCOMMONCONTROLSEX as INITCOMMONCONTROLSEX_struct }
-#Import ".\HDSA.ahk" { HDSA }
-#Import ".\MARGINS.ahk" { MARGINS }
-#Import "..\Input\Pointer\POINTER_FEEDBACK_MODE.ahk" { POINTER_FEEDBACK_MODE }
-#Import ".\PROPERTYORIGIN.ahk" { PROPERTYORIGIN }
-#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\IMAGELISTDRAWPARAMS.ahk" { IMAGELISTDRAWPARAMS }
-#Import ".\TOUCH_HIT_TESTING_PROXIMITY_EVALUATION.ahk" { TOUCH_HIT_TESTING_PROXIMITY_EVALUATION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\Graphics\Gdi\DRAWEDGE_FLAGS.ahk" { DRAWEDGE_FLAGS }
+#Import "..\..\Graphics\Gdi\DRAW_EDGE_FLAGS.ahk" { DRAW_EDGE_FLAGS }
+#Import "..\..\Graphics\Gdi\DRAW_TEXT_FORMAT.ahk" { DRAW_TEXT_FORMAT }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
 #Import "..\..\Graphics\Gdi\HBRUSH.ahk" { HBRUSH }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Graphics\Gdi\HRGN.ahk" { HRGN }
+#Import "..\..\Graphics\Gdi\LOGFONTW.ahk" { LOGFONTW }
+#Import "..\..\Graphics\Gdi\RGBQUAD.ahk" { RGBQUAD }
+#Import "..\..\Graphics\Gdi\TEXTMETRICW.ahk" { TEXTMETRICW }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\BP_ANIMATIONPARAMS.ahk" { BP_ANIMATIONPARAMS }
+#Import ".\BP_BUFFERFORMAT.ahk" { BP_BUFFERFORMAT }
+#Import ".\BP_PAINTPARAMS.ahk" { BP_PAINTPARAMS }
+#Import ".\COLORMAP.ahk" { COLORMAP }
+#Import ".\COMBOBOXINFO.ahk" { COMBOBOXINFO }
+#Import ".\DLG_BUTTON_CHECK_STATE.ahk" { DLG_BUTTON_CHECK_STATE }
+#Import ".\DLG_DIR_LIST_FILE_TYPE.ahk" { DLG_DIR_LIST_FILE_TYPE }
+#Import ".\DRAW_THEME_PARENT_BACKGROUND_FLAGS.ahk" { DRAW_THEME_PARENT_BACKGROUND_FLAGS }
+#Import ".\DTBGOPTS.ahk" { DTBGOPTS }
+#Import ".\DTTOPTS.ahk" { DTTOPTS }
+#Import ".\ENABLE_SCROLL_BAR_ARROWS.ahk" { ENABLE_SCROLL_BAR_ARROWS }
+#Import ".\FEEDBACK_TYPE.ahk" { FEEDBACK_TYPE }
+#Import ".\GET_THEME_BITMAP_FLAGS.ahk" { GET_THEME_BITMAP_FLAGS }
+#Import ".\HDPA.ahk" { HDPA }
+#Import ".\HDSA.ahk" { HDSA }
+#Import ".\HIMAGELIST.ahk" { HIMAGELIST }
+#Import ".\HIT_TEST_BACKGROUND_OPTIONS.ahk" { HIT_TEST_BACKGROUND_OPTIONS }
+#Import ".\HPROPSHEETPAGE.ahk" { HPROPSHEETPAGE }
+#Import ".\HTHEME.ahk" { HTHEME }
+#Import ".\IMAGEINFO.ahk" { IMAGEINFO }
+#Import ".\IMAGELISTDRAWPARAMS.ahk" { IMAGELISTDRAWPARAMS }
+#Import ".\IMAGELIST_CREATION_FLAGS.ahk" { IMAGELIST_CREATION_FLAGS }
+#Import ".\IMAGE_LIST_COPY_FLAGS.ahk" { IMAGE_LIST_COPY_FLAGS }
+#Import ".\IMAGE_LIST_DRAW_STYLE.ahk" { IMAGE_LIST_DRAW_STYLE }
+#Import ".\IMAGE_LIST_WRITE_STREAM_FLAGS.ahk" { IMAGE_LIST_WRITE_STREAM_FLAGS }
+#Import ".\INITCOMMONCONTROLSEX.ahk" { INITCOMMONCONTROLSEX as INITCOMMONCONTROLSEX_struct }
+#Import ".\INTLIST.ahk" { INTLIST }
+#Import ".\MARGINS.ahk" { MARGINS }
+#Import ".\OPEN_THEME_DATA_FLAGS.ahk" { OPEN_THEME_DATA_FLAGS }
+#Import ".\PROPERTYORIGIN.ahk" { PROPERTYORIGIN }
+#Import ".\PROPSHEETHEADERA_V2.ahk" { PROPSHEETHEADERA_V2 }
+#Import ".\PROPSHEETHEADERW_V2.ahk" { PROPSHEETHEADERW_V2 }
+#Import ".\PROPSHEETPAGEA.ahk" { PROPSHEETPAGEA }
+#Import ".\PROPSHEETPAGEW.ahk" { PROPSHEETPAGEW }
+#Import ".\SET_THEME_APP_PROPERTIES_FLAGS.ahk" { SET_THEME_APP_PROPERTIES_FLAGS }
+#Import ".\TASKDIALOGCONFIG.ahk" { TASKDIALOGCONFIG }
+#Import ".\TASKDIALOG_COMMON_BUTTON_FLAGS.ahk" { TASKDIALOG_COMMON_BUTTON_FLAGS }
+#Import ".\TA_PROPERTY.ahk" { TA_PROPERTY }
+#Import ".\TBBUTTON.ahk" { TBBUTTON }
+#Import ".\THEMESIZE.ahk" { THEMESIZE }
+#Import ".\TOUCH_HIT_TESTING_INPUT.ahk" { TOUCH_HIT_TESTING_INPUT }
+#Import ".\TOUCH_HIT_TESTING_PROXIMITY_EVALUATION.ahk" { TOUCH_HIT_TESTING_PROXIMITY_EVALUATION }
+#Import ".\WINDOWTHEMEATTRIBUTETYPE.ahk" { WINDOWTHEMEATTRIBUTETYPE }
+#Import ".\WSB_PROP.ahk" { WSB_PROP }
+#Import ".\_LI_METRIC.ahk" { _LI_METRIC }
+#Import "..\Input\Pointer\HSYNTHETICPOINTERDEVICE.ahk" { HSYNTHETICPOINTERDEVICE }
+#Import "..\Input\Pointer\POINTER_FEEDBACK_MODE.ahk" { POINTER_FEEDBACK_MODE }
 #Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import "..\WindowsAndMessaging\HMENU.ahk" { HMENU }
+#Import "..\WindowsAndMessaging\IMAGE_FLAGS.ahk" { IMAGE_FLAGS }
+#Import "..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk" { POINTER_INPUT_TYPE }
+#Import "..\WindowsAndMessaging\SCROLLBAR_CONSTANTS.ahk" { SCROLLBAR_CONSTANTS }
+#Import "..\WindowsAndMessaging\SCROLLINFO.ahk" { SCROLLINFO }
 
 /**
  * @namespace Windows.Win32.UI.Controls
@@ -2358,7 +2354,7 @@ export DSA_Destroy(_hdsa) {
 export DSA_DestroyCallback(_hdsa, pfnCB, pData) {
     pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-    DllCall("COMCTL32.dll\DSA_DestroyCallback", HDSA, _hdsa, PFNDAENUMCALLBACK, pfnCB, pDataMarshal, pData)
+    DllCall("COMCTL32.dll\DSA_DestroyCallback", HDSA, _hdsa, "ptr", pfnCB, pDataMarshal, pData)
 }
 
 /**
@@ -2416,7 +2412,7 @@ export DSA_DeleteAllItems(_hdsa) {
 export DSA_EnumCallback(_hdsa, pfnCB, pData) {
     pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-    DllCall("COMCTL32.dll\DSA_EnumCallback", HDSA, _hdsa, PFNDAENUMCALLBACK, pfnCB, pDataMarshal, pData)
+    DllCall("COMCTL32.dll\DSA_EnumCallback", HDSA, _hdsa, "ptr", pfnCB, pDataMarshal, pData)
 }
 
 /**
@@ -2570,7 +2566,7 @@ export DSA_GetSize(_hdsa) {
  * @since windows6.0.6000
  */
 export DSA_Sort(pdsa, pfnCompare, _lParam) {
-    result := DllCall("COMCTL32.dll\DSA_Sort", HDSA, pdsa, PFNDACOMPARE, pfnCompare, LPARAM, _lParam, BOOL)
+    result := DllCall("COMCTL32.dll\DSA_Sort", HDSA, pdsa, "ptr", pfnCompare, LPARAM, _lParam, BOOL)
     return result
 }
 
@@ -2670,7 +2666,7 @@ export DPA_Destroy(_hdpa) {
 export DPA_DestroyCallback(_hdpa, pfnCB, pData) {
     pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-    DllCall("COMCTL32.dll\DPA_DestroyCallback", HDPA, _hdpa, PFNDAENUMCALLBACK, pfnCB, pDataMarshal, pData)
+    DllCall("COMCTL32.dll\DPA_DestroyCallback", HDPA, _hdpa, "ptr", pfnCB, pDataMarshal, pData)
 }
 
 /**
@@ -2724,7 +2720,7 @@ export DPA_DeleteAllPtrs(_hdpa) {
 export DPA_EnumCallback(_hdpa, pfnCB, pData) {
     pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-    DllCall("COMCTL32.dll\DPA_EnumCallback", HDPA, _hdpa, PFNDAENUMCALLBACK, pfnCB, pDataMarshal, pData)
+    DllCall("COMCTL32.dll\DPA_EnumCallback", HDPA, _hdpa, "ptr", pfnCB, pDataMarshal, pData)
 }
 
 /**
@@ -2873,7 +2869,7 @@ export DPA_GetSize(_hdpa) {
  * @since windows6.0.6000
  */
 export DPA_Sort(_hdpa, pfnCompare, _lParam) {
-    result := DllCall("COMCTL32.dll\DPA_Sort", HDPA, _hdpa, PFNDACOMPARE, pfnCompare, LPARAM, _lParam, BOOL)
+    result := DllCall("COMCTL32.dll\DPA_Sort", HDPA, _hdpa, "ptr", pfnCompare, LPARAM, _lParam, BOOL)
     return result
 }
 
@@ -2902,7 +2898,7 @@ export DPA_LoadStream(_pfn, pstream, pvInstData) {
     pvInstDataMarshal := pvInstData is VarRef ? "ptr" : "ptr"
 
     phdpa := HDPA.Owned()
-    result := DllCall("COMCTL32.dll\DPA_LoadStream", HDPA.Ptr, phdpa, PFNDPASTREAM, _pfn, "ptr", pstream, pvInstDataMarshal, pvInstData, "HRESULT")
+    result := DllCall("COMCTL32.dll\DPA_LoadStream", HDPA.Ptr, phdpa, "ptr", _pfn, "ptr", pstream, pvInstDataMarshal, pvInstData, "HRESULT")
     return phdpa
 }
 
@@ -2973,7 +2969,7 @@ export DPA_LoadStream(_pfn, pstream, pvInstData) {
 export DPA_SaveStream(_hdpa, _pfn, pstream, pvInstData) {
     pvInstDataMarshal := pvInstData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("COMCTL32.dll\DPA_SaveStream", HDPA, _hdpa, PFNDPASTREAM, _pfn, "ptr", pstream, pvInstDataMarshal, pvInstData, "HRESULT")
+    result := DllCall("COMCTL32.dll\DPA_SaveStream", HDPA, _hdpa, "ptr", _pfn, "ptr", pstream, pvInstDataMarshal, pvInstData, "HRESULT")
     return result
 }
 
@@ -3069,7 +3065,7 @@ export DPA_SaveStream(_hdpa, _pfn, pstream, pvInstData) {
  * @since windows6.0.6000
  */
 export DPA_Merge(hdpaDest, hdpaSrc, dwFlags, pfnCompare, pfnMerge, _lParam) {
-    result := DllCall("COMCTL32.dll\DPA_Merge", HDPA, hdpaDest, HDPA, hdpaSrc, UInt32, dwFlags, PFNDACOMPARE, pfnCompare, PFNDPAMERGE, pfnMerge, LPARAM, _lParam, BOOL)
+    result := DllCall("COMCTL32.dll\DPA_Merge", HDPA, hdpaDest, HDPA, hdpaSrc, UInt32, dwFlags, "ptr", pfnCompare, "ptr", pfnMerge, LPARAM, _lParam, BOOL)
     return result
 }
 
@@ -3139,7 +3135,7 @@ export DPA_Merge(hdpaDest, hdpaSrc, dwFlags, pfnCompare, pfnMerge, _lParam) {
 export DPA_Search(_hdpa, pFind, iStart, pfnCompare, _lParam, options) {
     pFindMarshal := pFind is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("COMCTL32.dll\DPA_Search", HDPA, _hdpa, pFindMarshal, pFind, Int32, iStart, PFNDACOMPARE, pfnCompare, LPARAM, _lParam, UInt32, options, Int32)
+    result := DllCall("COMCTL32.dll\DPA_Search", HDPA, _hdpa, pFindMarshal, pFind, Int32, iStart, "ptr", pfnCompare, LPARAM, _lParam, UInt32, options, Int32)
     return result
 }
 

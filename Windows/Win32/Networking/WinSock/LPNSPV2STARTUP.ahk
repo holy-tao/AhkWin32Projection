@@ -138,10 +138,6 @@ export default struct LPNSPV2STARTUP {
             this.value := CallbackCreate(fn, , [Guid.Ptr, "ptr*", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

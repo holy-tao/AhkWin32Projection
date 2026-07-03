@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TARGET_DEBUG_INFO.ahk" { TARGET_DEBUG_INFO }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDebugClient4.ahk" { IDebugClient4 }
+#Import ".\TARGET_DEBUG_INFO.ahk" { TARGET_DEBUG_INFO }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -47,10 +47,6 @@ export default struct EXT_TARGET_INFO {
             this.value := CallbackCreate(fn, , ["ptr", TARGET_DEBUG_INFO.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

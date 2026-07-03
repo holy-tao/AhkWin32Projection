@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IShellItemArray.ahk" { IShellItemArray }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DESKTOP_SLIDESHOW_STATE.ahk" { DESKTOP_SLIDESHOW_STATE }
-#Import ".\DESKTOP_WALLPAPER_POSITION.ahk" { DESKTOP_WALLPAPER_POSITION }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\DESKTOP_SLIDESHOW_OPTIONS.ahk" { DESKTOP_SLIDESHOW_OPTIONS }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DESKTOP_SLIDESHOW_DIRECTION.ahk" { DESKTOP_SLIDESHOW_DIRECTION }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DESKTOP_SLIDESHOW_DIRECTION.ahk" { DESKTOP_SLIDESHOW_DIRECTION }
+#Import ".\DESKTOP_SLIDESHOW_OPTIONS.ahk" { DESKTOP_SLIDESHOW_OPTIONS }
+#Import ".\DESKTOP_SLIDESHOW_STATE.ahk" { DESKTOP_SLIDESHOW_STATE }
+#Import ".\DESKTOP_WALLPAPER_POSITION.ahk" { DESKTOP_WALLPAPER_POSITION }
+#Import ".\IShellItemArray.ahk" { IShellItemArray }
 
 /**
  * . (IDesktopWallpaper)

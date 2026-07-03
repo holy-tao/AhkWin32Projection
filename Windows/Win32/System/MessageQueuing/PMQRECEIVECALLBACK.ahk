@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\IO\OVERLAPPED.ahk" { OVERLAPPED }
 #Import ".\MQMSGPROPS.ahk" { MQMSGPROPS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
@@ -52,10 +52,6 @@ export default struct PMQRECEIVECALLBACK {
             this.value := CallbackCreate(fn, , ["int", IntPtr, UInt32, UInt32, MQMSGPROPS.Ptr, OVERLAPPED.Ptr, HANDLE, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CF_PIN_STATE.ahk" { CF_PIN_STATE }
 #Import ".\CF_IN_SYNC_STATE.ahk" { CF_IN_SYNC_STATE }
+#Import ".\CF_PIN_STATE.ahk" { CF_PIN_STATE }
 
 /**
  * Standard placeholder information.

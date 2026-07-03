@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IVPBaseNotify.ahk" { IVPBaseNotify }
-#Import ".\AMVP_MODE.ahk" { AMVP_MODE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\AMVP_MODE.ahk" { AMVP_MODE }
+#Import ".\IVPBaseNotify.ahk" { IVPBaseNotify }
 
 /**
  * Supports a private communication mechanism between the Overlay Mixer filter and a VPE decoder filter that represents a hardware decoder.Only the Overlay Mixer filter implements this interface. Applications should never use it.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 #Import ".\DRIVER_OBJECT.ahk" { DRIVER_OBJECT }
 #Import "..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 
 /**
  * @namespace Windows.Wdk.Foundation
@@ -28,7 +28,7 @@ export default struct DRIVER_INITIALIZE {
      */
     Call(DriverObject, RegistryPath) {
         result := DllCall(this.value, DRIVER_OBJECT.Ptr, DriverObject, UNICODE_STRING.Ptr, RegistryPath, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -48,10 +48,6 @@ export default struct DRIVER_INITIALIZE {
             this.value := CallbackCreate(fn, , [DRIVER_OBJECT.Ptr, UNICODE_STRING.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SourceInfo.ahk" { SourceInfo }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\BaseValueSource.ahk" { BaseValueSource }
+#Import ".\SourceInfo.ahk" { SourceInfo }
 
 /**
  * Represents the source object (a Style) of a target type.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TRANSPORT_SETTING_ID.ahk" { TRANSPORT_SETTING_ID }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\TRANSPORT_SETTING_ID.ahk" { TRANSPORT_SETTING_ID }
 
 /**
  * Provides input settings to apply for the REAL_TIME_NOTIFICATION_CAPABILITY transport setting for a TCP socket that is used with ControlChannelTrigger to receive background network notifications in a Windows Store app.

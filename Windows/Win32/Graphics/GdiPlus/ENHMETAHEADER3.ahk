@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 #Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MF_MEDIAKEYSESSION_TYPE.ahk" { MF_MEDIAKEYSESSION_TYPE }
-#Import ".\IMFMediaKeySession2.ahk" { IMFMediaKeySession2 }
-#Import ".\IMFMediaKeys.ahk" { IMFMediaKeys }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFMediaKeySession2.ahk" { IMFMediaKeySession2 }
 #Import ".\IMFMediaKeySessionNotify2.ahk" { IMFMediaKeySessionNotify2 }
+#Import ".\IMFMediaKeys.ahk" { IMFMediaKeys }
+#Import ".\MF_MEDIAKEYSESSION_TYPE.ahk" { MF_MEDIAKEYSESSION_TYPE }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation

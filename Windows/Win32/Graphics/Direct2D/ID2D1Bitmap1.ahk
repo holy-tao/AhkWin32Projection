@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Dxgi\IDXGISurface.ahk" { IDXGISurface }
-#Import ".\D2D1_MAP_OPTIONS.ahk" { D2D1_MAP_OPTIONS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D2D1_BITMAP_OPTIONS.ahk" { D2D1_BITMAP_OPTIONS }
 #Import ".\D2D1_MAPPED_RECT.ahk" { D2D1_MAPPED_RECT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID2D1ColorContext.ahk" { ID2D1ColorContext }
+#Import ".\D2D1_MAP_OPTIONS.ahk" { D2D1_MAP_OPTIONS }
 #Import ".\ID2D1Bitmap.ahk" { ID2D1Bitmap }
+#Import ".\ID2D1ColorContext.ahk" { ID2D1ColorContext }
+#Import "..\Dxgi\IDXGISurface.ahk" { IDXGISurface }
 
 /**
  * Represents a bitmap that can be used as a surface for an ID2D1DeviceContext or mapped into system memory, and can contain additional color context information.

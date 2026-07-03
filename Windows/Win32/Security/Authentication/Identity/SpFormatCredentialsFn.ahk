@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SecBuffer.ahk" { SecBuffer }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\SecBuffer.ahk" { SecBuffer }
 
 /**
  * Formats credentials to be stored in a user object.
@@ -39,7 +39,7 @@ export default struct SpFormatCredentialsFn {
      */
     Call(Credentials, FormattedCredentials) {
         result := DllCall(this.value, SecBuffer.Ptr, Credentials, SecBuffer.Ptr, FormattedCredentials, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -59,10 +59,6 @@ export default struct SpFormatCredentialsFn {
             this.value := CallbackCreate(fn, , [SecBuffer.Ptr, SecBuffer.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

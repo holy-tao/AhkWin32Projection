@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MFINPUTTRUSTAUTHORITY_ACCESS_PARAMS.ahk" { MFINPUTTRUSTAUTHORITY_ACCESS_PARAMS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMFOutputPolicy.ahk" { IMFOutputPolicy }
-#Import ".\MFPOLICYMANAGER_ACTION.ahk" { MFPOLICYMANAGER_ACTION }
 #Import ".\IMFActivate.ahk" { IMFActivate }
+#Import ".\IMFOutputPolicy.ahk" { IMFOutputPolicy }
+#Import ".\MFINPUTTRUSTAUTHORITY_ACCESS_PARAMS.ahk" { MFINPUTTRUSTAUTHORITY_ACCESS_PARAMS }
+#Import ".\MFPOLICYMANAGER_ACTION.ahk" { MFPOLICYMANAGER_ACTION }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables other components in the protected media path (PMP) to use the input protection system provided by an input trust authorities (ITA).

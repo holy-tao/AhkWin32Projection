@@ -2,11 +2,11 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IWinMLEvaluationContext.ahk" { IWinMLEvaluationContext }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IWinMLModel.ahk" { IWinMLModel }
-#Import "..\..\..\Graphics\Direct3D12\ID3D12Device.ahk" { ID3D12Device }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Graphics\Direct3D12\ID3D12Device.ahk" { ID3D12Device }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents the runtime to load and evaluate a WinML model.

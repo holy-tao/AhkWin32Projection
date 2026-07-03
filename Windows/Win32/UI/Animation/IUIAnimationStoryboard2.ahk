@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUIAnimationStoryboardEventHandler2.ahk" { IUIAnimationStoryboardEventHandler2 }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\UI_ANIMATION_KEYFRAME.ahk" { UI_ANIMATION_KEYFRAME }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\UI_ANIMATION_SCHEDULING_RESULT.ahk" { UI_ANIMATION_SCHEDULING_RESULT }
-#Import ".\IUIAnimationTransition2.ahk" { IUIAnimationTransition2 }
-#Import ".\IUIAnimationLoopIterationChangeHandler2.ahk" { IUIAnimationLoopIterationChangeHandler2 }
-#Import ".\UI_ANIMATION_STORYBOARD_STATUS.ahk" { UI_ANIMATION_STORYBOARD_STATUS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\UI_ANIMATION_REPEAT_MODE.ahk" { UI_ANIMATION_REPEAT_MODE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IUIAnimationLoopIterationChangeHandler2.ahk" { IUIAnimationLoopIterationChangeHandler2 }
+#Import ".\IUIAnimationStoryboardEventHandler2.ahk" { IUIAnimationStoryboardEventHandler2 }
+#Import ".\IUIAnimationTransition2.ahk" { IUIAnimationTransition2 }
 #Import ".\IUIAnimationVariable2.ahk" { IUIAnimationVariable2 }
+#Import ".\UI_ANIMATION_KEYFRAME.ahk" { UI_ANIMATION_KEYFRAME }
+#Import ".\UI_ANIMATION_REPEAT_MODE.ahk" { UI_ANIMATION_REPEAT_MODE }
+#Import ".\UI_ANIMATION_SCHEDULING_RESULT.ahk" { UI_ANIMATION_SCHEDULING_RESULT }
+#Import ".\UI_ANIMATION_STORYBOARD_STATUS.ahk" { UI_ANIMATION_STORYBOARD_STATUS }
 
 /**
  * Defines a storyboard, which contains a group of transitions that are synchronized relative to one another.In this sectionTopicDescriptionAbandon MethodTerminates the storyboard, releases all related animation variables, and removes the storyboard from the schedule.AddKeyframeAfterTransition MethodAdds a keyframe at the end of the specified transition.AddKeyframeAtOffset MethodAdds a keyframe at the specified offset from an existing keyframe.AddTransition MethodAdds a transition to the storyboard.AddTransitionAtKeyframe MethodAdds a transition that starts at the specified keyframe.AddTransitionBetweenKeyframes MethodAdds a transition between two keyframes.Conclude MethodCompletes the current iteration of a keyframe loop that is in progress (where the loop is set to UI_ANIMATION_REPEAT_INDEFINITELY), terminates the loop, and continues with the storyboard. Finish MethodFinishes the storyboard within the specified time, compressing the storyboard if necessary.GetElapsedTime MethodGets the time that has elapsed since the storyboard started playing.GetStatus MethodGets the status of the storyboard.GetTag MethodGets the tag for a storyboard.HoldVariable MethodDirects the storyboard to hold the specified animation variable at its final value until the storyboard ends.RepeatBetweenKeyframes MethodCreates a loop between two keyframes.Schedule MethodDirects the storyboard to schedule itself for play.SetSkipDuration MethodSpecifies an offset from the beginning of a storyboard at which to start animating.SetLongestAcceptableDelay MethodSets the longest acceptable delay before the scheduled storyboard begins.SetStoryboardEventHandler MethodSpecifies a handler for storyboard events.SetTag MethodSets the tag for the storyboard. .

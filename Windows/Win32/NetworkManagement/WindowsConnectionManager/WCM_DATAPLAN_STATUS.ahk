@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import ".\WCM_BILLING_CYCLE_INFO.ahk" { WCM_BILLING_CYCLE_INFO }
 #Import ".\WCM_TIME_INTERVAL.ahk" { WCM_TIME_INTERVAL }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\WCM_USAGE_DATA.ahk" { WCM_USAGE_DATA }
 
 /**

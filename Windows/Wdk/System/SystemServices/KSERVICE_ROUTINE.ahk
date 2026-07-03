@@ -48,10 +48,6 @@ export default struct KSERVICE_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr*", "ptr", BOOLEAN])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

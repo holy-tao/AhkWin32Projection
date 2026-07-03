@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FWP_BYTE_ARRAY6.ahk" { FWP_BYTE_ARRAY6 }
-#Import ".\FWP_TOKEN_INFORMATION.ahk" { FWP_TOKEN_INFORMATION }
-#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
-#Import ".\FWP_RANGE0.ahk" { FWP_RANGE0 }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Security\SID.ahk" { SID }
 #Import ".\FWP_BYTE_ARRAY16.ahk" { FWP_BYTE_ARRAY16 }
-#Import ".\FWP_V4_ADDR_AND_MASK.ahk" { FWP_V4_ADDR_AND_MASK }
+#Import ".\FWP_BYTE_ARRAY6.ahk" { FWP_BYTE_ARRAY6 }
+#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
 #Import ".\FWP_DATA_TYPE.ahk" { FWP_DATA_TYPE }
+#Import ".\FWP_RANGE0.ahk" { FWP_RANGE0 }
+#Import ".\FWP_TOKEN_INFORMATION.ahk" { FWP_TOKEN_INFORMATION }
+#Import ".\FWP_V4_ADDR_AND_MASK.ahk" { FWP_V4_ADDR_AND_MASK }
 #Import ".\FWP_V6_ADDR_AND_MASK.ahk" { FWP_V6_ADDR_AND_MASK }
+#Import "..\..\Security\SID.ahk" { SID }
 
 /**
  * Contains values that are used in filter conditions when testing for matching filters.

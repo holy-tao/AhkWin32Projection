@@ -46,10 +46,6 @@ export default struct PCLUSAPI_ONLINE_CLUSTER_GROUP {
             this.value := CallbackCreate(fn, , [HGROUP, HNODE, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

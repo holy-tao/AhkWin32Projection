@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MPEG_CONTEXT.ahk" { MPEG_CONTEXT }
-#Import ".\MPEG_PACKET_LIST.ahk" { MPEG_PACKET_LIST }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMpeg2Data.ahk" { IMpeg2Data }
-#Import ".\MPEG_REQUEST_TYPE.ahk" { MPEG_REQUEST_TYPE }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\MPEG2_FILTER.ahk" { MPEG2_FILTER }
+#Import ".\MPEG_CONTEXT.ahk" { MPEG_CONTEXT }
+#Import ".\MPEG_PACKET_LIST.ahk" { MPEG_PACKET_LIST }
+#Import ".\MPEG_REQUEST_TYPE.ahk" { MPEG_REQUEST_TYPE }
 #Import ".\SECTION.ahk" { SECTION }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ISectionList interface represents a list of MPEG-2 table sections.

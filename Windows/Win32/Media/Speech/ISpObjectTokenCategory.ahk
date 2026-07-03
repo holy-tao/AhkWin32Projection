@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\SPDATAKEYLOCATION.ahk" { SPDATAKEYLOCATION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IEnumSpObjectTokens.ahk" { IEnumSpObjectTokens }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISpDataKey.ahk" { ISpDataKey }
+#Import ".\SPDATAKEYLOCATION.ahk" { SPDATAKEYLOCATION }
 
 /**
  * @namespace Windows.Win32.Media.Speech

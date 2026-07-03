@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WRdsGraphicsChannelType.ahk" { WRdsGraphicsChannelType }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IWRdsGraphicsChannel.ahk" { IWRdsGraphicsChannel }
+#Import ".\WRdsGraphicsChannelType.ahk" { WRdsGraphicsChannelType }
 
 /**
  * This interface is used by the RemoteFX graphics services API to create the graphics virtual channels necessary for remoting graphics data.

@@ -61,10 +61,6 @@ export default struct LPNSPV2CLIENTSESSIONRUNDOWN {
             this.value := CallbackCreate(fn, , [Guid.Ptr, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

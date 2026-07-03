@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
 #Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * Defines the prototype for the callback function used by RemoveWindowSubclass and SetWindowSubclass.
@@ -68,10 +68,6 @@ export default struct SUBCLASSPROC {
             this.value := CallbackCreate(fn, , [HWND, UInt32, WPARAM, LPARAM, IntPtr, IntPtr, LRESULT])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

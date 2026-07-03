@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID2D1SvgAttribute.ahk" { ID2D1SvgAttribute }
-#Import ".\ID2D1PathGeometry1.ahk" { ID2D1PathGeometry1 }
-#Import ".\D2D1_SVG_PATH_COMMAND.ahk" { D2D1_SVG_PATH_COMMAND }
-#Import "Common\D2D1_FILL_MODE.ahk" { D2D1_FILL_MODE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\D2D1_FILL_MODE.ahk" { D2D1_FILL_MODE }
+#Import ".\D2D1_SVG_PATH_COMMAND.ahk" { D2D1_SVG_PATH_COMMAND }
+#Import ".\ID2D1PathGeometry1.ahk" { ID2D1PathGeometry1 }
+#Import ".\ID2D1SvgAttribute.ahk" { ID2D1SvgAttribute }
 
 /**
  * Interface describing SVG path data. Path data can be set as the 'd' attribute on a 'path' element.

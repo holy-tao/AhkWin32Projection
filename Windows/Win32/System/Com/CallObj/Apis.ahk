@@ -1,9 +1,9 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\IUnknown.ahk" { IUnknown }
-#Import "..\ITypeInfo.ahk" { ITypeInfo }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\ITypeInfo.ahk" { ITypeInfo }
+#Import "..\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Com.CallObj

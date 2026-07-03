@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FsrmFileStreamingInterfaceType.ahk" { FsrmFileStreamingInterfaceType }
 #Import ".\FsrmFileStreamingMode.ahk" { FsrmFileStreamingMode }
 #Import ".\IFsrmProperty.ahk" { IFsrmProperty }
-#Import ".\FsrmFileStreamingInterfaceType.ahk" { FsrmFileStreamingInterfaceType }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Contains the classification properties for a file.

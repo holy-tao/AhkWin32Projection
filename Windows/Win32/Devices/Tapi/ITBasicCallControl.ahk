@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DISCONNECT_CODE.ahk" { DISCONNECT_CODE }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\FINISH_MODE.ahk" { FINISH_MODE }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\QOS_SERVICE_LEVEL.ahk" { QOS_SERVICE_LEVEL }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The ITBasicCallControl interface is used by the application to connect, answer, and perform basic telephony operations on a call object.

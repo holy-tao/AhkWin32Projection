@@ -45,10 +45,6 @@ export default struct UTraceEntry {
             this.value := CallbackCreate(fn, "cdecl", ["ptr", Int32, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

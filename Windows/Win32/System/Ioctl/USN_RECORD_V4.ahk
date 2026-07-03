@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\USN_RECORD_COMMON_HEADER.ahk" { USN_RECORD_COMMON_HEADER }
 #Import "..\..\Storage\FileSystem\FILE_ID_128.ahk" { FILE_ID_128 }
-#Import ".\USN_SOURCE_INFO_ID.ahk" { USN_SOURCE_INFO_ID }
+#Import ".\USN_RECORD_COMMON_HEADER.ahk" { USN_RECORD_COMMON_HEADER }
 #Import ".\USN_RECORD_EXTENT.ahk" { USN_RECORD_EXTENT }
+#Import ".\USN_SOURCE_INFO_ID.ahk" { USN_SOURCE_INFO_ID }
 
 /**
  * Contains the information for an update sequence number (USN) change journal version 4.0 record. The version 2.0 and 3.0 records are defined by the USN_RECORD_V2 (also called USN_RECORD) and USN_RECORD_V3 structures respectively.

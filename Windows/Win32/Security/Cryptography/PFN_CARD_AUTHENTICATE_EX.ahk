@@ -55,10 +55,6 @@ export default struct PFN_CARD_AUTHENTICATE_EX {
             this.value := CallbackCreate(fn, , [CARD_DATA.Ptr, UInt32, UInt32, IntPtr, UInt32, "ptr*", "uint*", "uint*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

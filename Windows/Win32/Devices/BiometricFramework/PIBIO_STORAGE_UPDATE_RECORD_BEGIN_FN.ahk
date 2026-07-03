@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\WINBIO_IDENTITY.ahk" { WINBIO_IDENTITY }
 #Import ".\WINBIO_PIPELINE.ahk" { WINBIO_PIPELINE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WINBIO_STORAGE_RECORD.ahk" { WINBIO_STORAGE_RECORD }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
@@ -50,10 +50,6 @@ export default struct PIBIO_STORAGE_UPDATE_RECORD_BEGIN_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, WINBIO_IDENTITY.Ptr, Int8, WINBIO_STORAGE_RECORD.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

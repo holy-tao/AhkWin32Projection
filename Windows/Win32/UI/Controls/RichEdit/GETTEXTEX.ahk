@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\GETTEXTEX_FLAGS.ahk" { GETTEXTEX_FLAGS }
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\GETTEXTEX_FLAGS.ahk" { GETTEXTEX_FLAGS }
 
 /**
  * Contains information used in getting text from a rich edit control. This structure used with the EM_GETTEXTEX message.

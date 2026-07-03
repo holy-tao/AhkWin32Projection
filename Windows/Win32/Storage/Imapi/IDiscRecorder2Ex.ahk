@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMAPI_FEATURE_PAGE_TYPE.ahk" { IMAPI_FEATURE_PAGE_TYPE }
-#Import ".\IMAPI_MODE_PAGE_TYPE.ahk" { IMAPI_MODE_PAGE_TYPE }
-#Import ".\IMAPI_READ_TRACK_ADDRESS_TYPE.ahk" { IMAPI_READ_TRACK_ADDRESS_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMAPI_MODE_PAGE_REQUEST_TYPE.ahk" { IMAPI_MODE_PAGE_REQUEST_TYPE }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMAPI_FEATURE_PAGE_TYPE.ahk" { IMAPI_FEATURE_PAGE_TYPE }
+#Import ".\IMAPI_MODE_PAGE_REQUEST_TYPE.ahk" { IMAPI_MODE_PAGE_REQUEST_TYPE }
+#Import ".\IMAPI_MODE_PAGE_TYPE.ahk" { IMAPI_MODE_PAGE_TYPE }
 #Import ".\IMAPI_PROFILE_TYPE.ahk" { IMAPI_PROFILE_TYPE }
+#Import ".\IMAPI_READ_TRACK_ADDRESS_TYPE.ahk" { IMAPI_READ_TRACK_ADDRESS_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This interface represents a physical device.

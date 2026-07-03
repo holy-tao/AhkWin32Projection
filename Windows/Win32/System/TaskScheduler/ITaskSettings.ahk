@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\TASK_COMPATIBILITY.ahk" { TASK_COMPATIBILITY }
-#Import ".\INetworkSettings.ahk" { INetworkSettings }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IIdleSettings.ahk" { IIdleSettings }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IIdleSettings.ahk" { IIdleSettings }
+#Import ".\INetworkSettings.ahk" { INetworkSettings }
+#Import ".\TASK_COMPATIBILITY.ahk" { TASK_COMPATIBILITY }
 #Import ".\TASK_INSTANCES_POLICY.ahk" { TASK_INSTANCES_POLICY }
 
 /**

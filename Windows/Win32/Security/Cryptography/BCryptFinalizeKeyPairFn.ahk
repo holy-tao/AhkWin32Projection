@@ -27,7 +27,7 @@ export default struct BCryptFinalizeKeyPairFn {
      */
     Call(_hKey, dwFlags) {
         result := DllCall(this.value, BCRYPT_KEY_HANDLE, _hKey, UInt32, dwFlags, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -47,10 +47,6 @@ export default struct BCryptFinalizeKeyPairFn {
             this.value := CallbackCreate(fn, , [BCRYPT_KEY_HANDLE, UInt32, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

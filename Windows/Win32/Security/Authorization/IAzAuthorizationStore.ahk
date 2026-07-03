@@ -2,15 +2,15 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IAzApplications.ahk" { IAzApplications }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IAzApplicationGroups.ahk" { IAzApplicationGroups }
-#Import ".\IAzApplicationGroup.ahk" { IAzApplicationGroup }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\AZ_PROP_CONSTANTS.ahk" { AZ_PROP_CONSTANTS }
 #Import ".\IAzApplication.ahk" { IAzApplication }
+#Import ".\IAzApplicationGroup.ahk" { IAzApplicationGroup }
+#Import ".\IAzApplicationGroups.ahk" { IAzApplicationGroups }
+#Import ".\IAzApplications.ahk" { IAzApplications }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Defines the container that is the root of the authorization policy store.

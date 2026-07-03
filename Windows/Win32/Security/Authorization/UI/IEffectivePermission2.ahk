@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\AUTHZ_SID_OPERATION.ahk" { AUTHZ_SID_OPERATION }
-#Import ".\SECURITY_OBJECT.ahk" { SECURITY_OBJECT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\AUTHZ_SECURITY_ATTRIBUTE_OPERATION.ahk" { AUTHZ_SECURITY_ATTRIBUTE_OPERATION }
-#Import "..\AUTHZ_SECURITY_ATTRIBUTES_INFORMATION.ahk" { AUTHZ_SECURITY_ATTRIBUTES_INFORMATION }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\PSID.ahk" { PSID }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\AUTHZ_SECURITY_ATTRIBUTES_INFORMATION.ahk" { AUTHZ_SECURITY_ATTRIBUTES_INFORMATION }
+#Import "..\AUTHZ_SECURITY_ATTRIBUTE_OPERATION.ahk" { AUTHZ_SECURITY_ATTRIBUTE_OPERATION }
+#Import "..\AUTHZ_SID_OPERATION.ahk" { AUTHZ_SID_OPERATION }
 #Import ".\EFFPERM_RESULT_LIST.ahk" { EFFPERM_RESULT_LIST }
+#Import ".\SECURITY_OBJECT.ahk" { SECURITY_OBJECT }
+#Import "..\..\PSID.ahk" { PSID }
 #Import "..\..\TOKEN_GROUPS.ahk" { TOKEN_GROUPS }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides a way to determine effective permission for a security principal on an object.

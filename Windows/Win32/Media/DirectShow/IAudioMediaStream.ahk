@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IAudioStreamSample.ahk" { IAudioStreamSample }
-#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
-#Import ".\IMediaStream.ahk" { IMediaStream }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 #Import ".\IAudioData.ahk" { IAudioData }
+#Import ".\IAudioStreamSample.ahk" { IAudioStreamSample }
+#Import ".\IMediaStream.ahk" { IMediaStream }
 
 /**
  * Note  This interface is deprecated.

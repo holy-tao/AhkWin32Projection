@@ -55,10 +55,6 @@ export default struct MI_MethodDecl_Invoke {
             this.value := CallbackCreate(fn, , ["ptr", MI_Context.Ptr, "ushort*", "ushort*", "ushort*", MI_Instance.Ptr, MI_Instance.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITextFont.ahk" { ITextFont }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\tomConstants.ahk" { tomConstants }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ITextPara.ahk" { ITextPara }
-#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ITextFont.ahk" { ITextFont }
+#Import ".\ITextPara.ahk" { ITextPara }
+#Import ".\tomConstants.ahk" { tomConstants }
 
 /**
  * The ITextRange objects are powerful editing and data-binding tools that allow a program to select text in a story and then examine or change that text.

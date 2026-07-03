@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FolderItems2.ahk" { FolderItems2 }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\FolderItemVerbs.ahk" { FolderItemVerbs }
+#Import ".\FolderItems2.ahk" { FolderItems2 }
 
 /**
  * Extends the FolderItems2 object. This object supports an additional method and property.

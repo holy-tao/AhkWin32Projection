@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IKsPin.ahk" { IKsPin }
-#Import "..\DirectShow\IMediaSample.ahk" { IMediaSample }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\DirectShow\IMediaSample.ahk" { IMediaSample }
+#Import ".\IKsPin.ahk" { IKsPin }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SPPATHENTRY.ahk" { SPPATHENTRY }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\SPPATHENTRY.ahk" { SPPATHENTRY }
 #Import ".\SPRULEHANDLE.ahk" { SPRULEHANDLE }
 
 /**

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ASSEMBLYMETADATA.ahk" { ASSEMBLYMETADATA }
-#Import "..\..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ASSEMBLYMETADATA.ahk" { ASSEMBLYMETADATA }
 
 /**
  * Provides methods to access and examine the contents of an assembly manifest.

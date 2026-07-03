@@ -48,10 +48,6 @@ export default struct PFLT_DEFERRED_IO_WORKITEM_ROUTINE {
             this.value := CallbackCreate(fn, , [PFLT_DEFERRED_IO_WORKITEM, FLT_CALLBACK_DATA.Ptr, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDebugClient.ahk" { IDebugClient }
 #Import ".\DEBUG_IRP_INFO.ahk" { DEBUG_IRP_INFO }
+#Import ".\IDebugClient.ahk" { IDebugClient }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -48,10 +48,6 @@ export default struct PGET_IRP_INFO {
             this.value := CallbackCreate(fn, , ["ptr", Int64, DEBUG_IRP_INFO.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

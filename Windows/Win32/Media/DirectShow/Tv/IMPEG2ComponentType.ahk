@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ILanguageComponentType.ahk" { ILanguageComponentType }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\MPEG2StreamType.ahk" { MPEG2StreamType }
+#Import ".\ILanguageComponentType.ahk" { ILanguageComponentType }
 
 /**
  * The IMPEG2ComponentType interface is implemented on MPEG2ComponentType objects. It enables applications to set and retrieve information about MPEG2 stream types.

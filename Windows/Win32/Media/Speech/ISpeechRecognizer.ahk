@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISpeechRecognizerStatus.ahk" { ISpeechRecognizerStatus }
-#Import ".\ISpeechObjectToken.ahk" { ISpeechObjectToken }
-#Import ".\ISpeechRecoContext.ahk" { ISpeechRecoContext }
-#Import ".\ISpeechAudioFormat.ahk" { ISpeechAudioFormat }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\ISpeechAudioFormat.ahk" { ISpeechAudioFormat }
 #Import ".\ISpeechBaseStream.ahk" { ISpeechBaseStream }
-#Import ".\SpeechRecognizerState.ahk" { SpeechRecognizerState }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ISpeechObjectToken.ahk" { ISpeechObjectToken }
 #Import ".\ISpeechObjectTokens.ahk" { ISpeechObjectTokens }
+#Import ".\ISpeechRecoContext.ahk" { ISpeechRecoContext }
+#Import ".\ISpeechRecognizerStatus.ahk" { ISpeechRecognizerStatus }
 #Import ".\SpeechFormatType.ahk" { SpeechFormatType }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\SpeechRecognizerState.ahk" { SpeechRecognizerState }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Media.Speech

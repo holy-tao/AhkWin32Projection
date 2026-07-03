@@ -51,10 +51,6 @@ export default struct DOT11EXT_GET_PROFILE_CUSTOM_USER_DATA {
             this.value := CallbackCreate(fn, , [HANDLE, HANDLE, UInt32, "uint*", "ptr*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

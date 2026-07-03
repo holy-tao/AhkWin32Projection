@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\CountedString.ahk" { CountedString }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CountedString.ahk" { CountedString }
 #Import ".\IsolationState.ahk" { IsolationState }
 
 /**

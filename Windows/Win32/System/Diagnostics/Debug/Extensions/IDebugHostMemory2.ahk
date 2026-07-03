@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDebugHostMemory.ahk" { IDebugHostMemory }
-#Import ".\IDebugHostContext.ahk" { IDebugHostContext }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDebugHostContext.ahk" { IDebugHostContext }
+#Import ".\IDebugHostMemory.ahk" { IDebugHostMemory }
 #Import ".\Location.ahk" { Location }
 
 /**

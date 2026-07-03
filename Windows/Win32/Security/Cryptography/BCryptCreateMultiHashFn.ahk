@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\BCRYPT_ALG_HANDLE.ahk" { BCRYPT_ALG_HANDLE }
 #Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\BCRYPT_ALG_HANDLE.ahk" { BCRYPT_ALG_HANDLE }
 #Import ".\BCRYPT_HASH_HANDLE.ahk" { BCRYPT_HASH_HANDLE }
 
 /**
@@ -34,7 +34,7 @@ export default struct BCryptCreateMultiHashFn {
      */
     Call(hAlgorithm, phHash, nHashes, pbHashObject, cbHashObject, pbSecret, cbSecret, dwFlags) {
         result := DllCall(this.value, BCRYPT_ALG_HANDLE, hAlgorithm, BCRYPT_HASH_HANDLE.Ptr, phHash, UInt32, nHashes, IntPtr, pbHashObject, UInt32, cbHashObject, IntPtr, pbSecret, UInt32, cbSecret, UInt32, dwFlags, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -54,10 +54,6 @@ export default struct BCryptCreateMultiHashFn {
             this.value := CallbackCreate(fn, , [BCRYPT_ALG_HANDLE, BCRYPT_HASH_HANDLE.Ptr, UInt32, IntPtr, UInt32, IntPtr, UInt32, UInt32, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

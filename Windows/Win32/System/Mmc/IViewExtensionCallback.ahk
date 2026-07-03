@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MMC_EXT_VIEW_DATA.ahk" { MMC_EXT_VIEW_DATA }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MMC_EXT_VIEW_DATA.ahk" { MMC_EXT_VIEW_DATA }
 
 /**
  * The IViewExtensionCallback interface is used to add a view to the result pane.

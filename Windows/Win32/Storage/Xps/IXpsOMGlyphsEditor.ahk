@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\XPS_GLYPH_MAPPING.ahk" { XPS_GLYPH_MAPPING }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\XPS_GLYPH_INDEX.ahk" { XPS_GLYPH_INDEX }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\XPS_GLYPH_MAPPING.ahk" { XPS_GLYPH_MAPPING }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Allows batch modification of properties that affect the text content in an IXpsOMGlyphs interface.

@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMFSample.ahk" { IMFSample }
-#Import ".\IMFMediaType.ahk" { IMFMediaType }
 #Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import ".\IMFMediaType.ahk" { IMFMediaType }
+#Import ".\IMFSample.ahk" { IMFSample }
 #Import ".\MF_SINK_WRITER_STATISTICS.ahk" { MF_SINK_WRITER_STATISTICS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Implemented by the Microsoft Media Foundation sink writer object.

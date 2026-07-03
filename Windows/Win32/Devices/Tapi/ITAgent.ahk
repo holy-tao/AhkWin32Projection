@@ -2,15 +2,15 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\AGENT_STATE.ahk" { AGENT_STATE }
-#Import ".\ITACDGroup.ahk" { ITACDGroup }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\System\Com\CY.ahk" { CY }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IEnumAgentSession.ahk" { IEnumAgentSession }
+#Import ".\ITACDGroup.ahk" { ITACDGroup }
 #Import ".\ITAddress.ahk" { ITAddress }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITAgentSession.ahk" { ITAgentSession }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\CY.ahk" { CY }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ITAgent interface (tapi3cc.h) handles Agent objects, which receive and process incoming calls and make outgoing calls to customers or prospects.

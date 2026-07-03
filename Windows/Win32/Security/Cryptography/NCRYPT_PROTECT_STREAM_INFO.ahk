@@ -1,5 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PFNCryptStreamOutputCallback.ahk" { PFNCryptStreamOutputCallback }
 
 /**
  * Is used by the NCryptStreamOpenToProtect and NCryptStreamOpenToUnprotect functions to pass blocks of processed data to your application.
@@ -12,7 +11,7 @@ export default struct NCRYPT_PROTECT_STREAM_INFO {
     /**
      * Address of a callback function that accepts data from the stream encryption or decryption process. for more information, see <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nc-ncryptprotect-pfncryptstreamoutputcallback">PFNCryptStreamOutputCallback</a>.
      */
-    pfnStreamOutput : PFNCryptStreamOutputCallback
+    pfnStreamOutput : IntPtr
 
     /**
      * Pointer to a buffer supplied the caller. The buffer is not modified by the data protection API. You can use the buffer to keep track of your application.

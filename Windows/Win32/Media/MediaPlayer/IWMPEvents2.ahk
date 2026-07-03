@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WMPSyncState.ahk" { WMPSyncState }
-#Import ".\IWMPSyncDevice.ahk" { IWMPSyncDevice }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IWMPEvents.ahk" { IWMPEvents }
-#Import ".\WMPDeviceStatus.ahk" { WMPDeviceStatus }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMPEvents.ahk" { IWMPEvents }
+#Import ".\IWMPSyncDevice.ahk" { IWMPSyncDevice }
+#Import ".\WMPDeviceStatus.ahk" { WMPDeviceStatus }
+#Import ".\WMPSyncState.ahk" { WMPSyncState }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The IWMPEvents2 interface provides events originating from the Windows Media Player 10 or later control to which an embedding program can respond. The events exposed by IWMPEvents2 are also exposed by the _WMPOCXEvents interface.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IActiveScriptProfilerCallback2.ahk" { IActiveScriptProfilerCallback2 }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IActiveScriptProfilerCallback2.ahk" { IActiveScriptProfilerCallback2 }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

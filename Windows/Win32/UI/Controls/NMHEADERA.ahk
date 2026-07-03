@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HEADER_CONTROL_NOTIFICATION_BUTTON.ahk" { HEADER_CONTROL_NOTIFICATION_BUTTON }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\NMHDR.ahk" { NMHDR }
 #Import ".\HDITEMA.ahk" { HDITEMA }
+#Import ".\HEADER_CONTROL_NOTIFICATION_BUTTON.ahk" { HEADER_CONTROL_NOTIFICATION_BUTTON }
+#Import ".\NMHDR.ahk" { NMHDR }
 
 /**
  * Contains information about header control notification messages. This structure supersedes the HD_NOTIFY structure. (ANSI)

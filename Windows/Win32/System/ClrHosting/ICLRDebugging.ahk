@@ -3,10 +3,10 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\CLR_DEBUGGING_PROCESS_FLAGS.ahk" { CLR_DEBUGGING_PROCESS_FLAGS }
 #Import ".\CLR_DEBUGGING_VERSION.ahk" { CLR_DEBUGGING_VERSION }
 #Import ".\ICLRDebuggingLibraryProvider.ahk" { ICLRDebuggingLibraryProvider }
-#Import ".\CLR_DEBUGGING_PROCESS_FLAGS.ahk" { CLR_DEBUGGING_PROCESS_FLAGS }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting

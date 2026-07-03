@@ -1,12 +1,12 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\PSS_QUERY_INFORMATION_CLASS.ahk" { PSS_QUERY_INFORMATION_CLASS }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\HPSS.ahk" { HPSS }
-#Import ".\PSS_DUPLICATE_FLAGS.ahk" { PSS_DUPLICATE_FLAGS }
-#Import ".\PSS_ALLOCATOR.ahk" { PSS_ALLOCATOR }
 #Import ".\HPSSWALK.ahk" { HPSSWALK }
+#Import ".\PSS_ALLOCATOR.ahk" { PSS_ALLOCATOR }
 #Import ".\PSS_CAPTURE_FLAGS.ahk" { PSS_CAPTURE_FLAGS }
+#Import ".\PSS_DUPLICATE_FLAGS.ahk" { PSS_DUPLICATE_FLAGS }
+#Import ".\PSS_QUERY_INFORMATION_CLASS.ahk" { PSS_QUERY_INFORMATION_CLASS }
 #Import ".\PSS_WALK_INFORMATION_CLASS.ahk" { PSS_WALK_INFORMATION_CLASS }
 
 /**

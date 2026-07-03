@@ -1,10 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_ENCODER_END_CALLBACK.ahk" { WS_ENCODER_END_CALLBACK }
-#Import ".\WS_FREE_ENCODER_CALLBACK.ahk" { WS_FREE_ENCODER_CALLBACK }
-#Import ".\WS_ENCODER_ENCODE_CALLBACK.ahk" { WS_ENCODER_ENCODE_CALLBACK }
-#Import ".\WS_ENCODER_START_CALLBACK.ahk" { WS_ENCODER_START_CALLBACK }
-#Import ".\WS_CREATE_ENCODER_CALLBACK.ahk" { WS_CREATE_ENCODER_CALLBACK }
-#Import ".\WS_ENCODER_GET_CONTENT_TYPE_CALLBACK.ahk" { WS_ENCODER_GET_CONTENT_TYPE_CALLBACK }
 
 /**
  * A structure that is used to specify a set of callbacks that can transform the content type and encoded bytes of a sent message.
@@ -57,32 +51,32 @@ export default struct WS_CHANNEL_ENCODER {
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_create_encoder_callback">WS_CREATE_ENCODER_CALLBACK</a> callback that creates an instance of an encoder.
      */
-    createEncoderCallback : WS_CREATE_ENCODER_CALLBACK
+    createEncoderCallback : IntPtr
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_encoder_get_content_type_callback">WS_ENCODER_GET_CONTENT_TYPE_CALLBACK</a> callback that is invoked when a message is to be encoded.
      */
-    encoderGetContentTypeCallback : WS_ENCODER_GET_CONTENT_TYPE_CALLBACK
+    encoderGetContentTypeCallback : IntPtr
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_encoder_start_callback">WS_ENCODER_START_CALLBACK</a> callback that is invoked to start encoding a message.
      */
-    encoderStartCallback : WS_ENCODER_START_CALLBACK
+    encoderStartCallback : IntPtr
 
     /**
      * A 
      *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_encoder_encode_callback">WS_ENCODER_ENCODE_CALLBACK</a> callback that is invoked to encode a message.
      */
-    encoderEncodeCallback : WS_ENCODER_ENCODE_CALLBACK
+    encoderEncodeCallback : IntPtr
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_encoder_end_callback">WS_ENCODER_END_CALLBACK</a> callback that is invoked to at the end of encoding a message.
      */
-    encoderEndCallback : WS_ENCODER_END_CALLBACK
+    encoderEndCallback : IntPtr
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_free_encoder_callback">WS_FREE_ENCODER_CALLBACK</a> callback that frees an instance of an encoder.
      */
-    freeEncoderCallback : WS_FREE_ENCODER_CALLBACK
+    freeEncoderCallback : IntPtr
 
 }

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IUnknown.ahk" { IUnknown }
-#Import ".\DISPATCH_FLAGS.ahk" { DISPATCH_FLAGS }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ITypeInfo.ahk" { ITypeInfo }
-#Import ".\DISPPARAMS.ahk" { DISPPARAMS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DISPATCH_FLAGS.ahk" { DISPATCH_FLAGS }
+#Import ".\DISPPARAMS.ahk" { DISPPARAMS }
 #Import ".\EXCEPINFO.ahk" { EXCEPINFO }
+#Import ".\ITypeInfo.ahk" { ITypeInfo }
+#Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Exposes objects, methods and properties to programming tools and other applications that support Automation.

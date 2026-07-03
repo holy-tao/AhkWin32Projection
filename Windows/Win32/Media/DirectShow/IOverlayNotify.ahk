@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\COLORKEY.ahk" { COLORKEY }
 #Import "..\..\Graphics\Gdi\PALETTEENTRY.ahk" { PALETTEENTRY }
 #Import "..\..\Graphics\Gdi\RGNDATA.ahk" { RGNDATA }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\COLORKEY.ahk" { COLORKEY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IOverlayNotify interface provides an upstream filter, such as a decoder, with notifications of changes to the rendering window.

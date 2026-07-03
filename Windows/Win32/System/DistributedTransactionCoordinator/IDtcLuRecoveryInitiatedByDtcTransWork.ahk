@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DTCLUCOMPARESTATESCONFIRMATION.ahk" { DTCLUCOMPARESTATESCONFIRMATION }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DTCLUCOMPARESTATESERROR.ahk" { DTCLUCOMPARESTATESERROR }
-#Import ".\DTCLUCOMPARESTATE.ahk" { DTCLUCOMPARESTATE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DTCLUXLNERROR.ahk" { DTCLUXLNERROR }
-#Import ".\DTCLUXLNCONFIRMATION.ahk" { DTCLUXLNCONFIRMATION }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DTCLUCOMPARESTATE.ahk" { DTCLUCOMPARESTATE }
+#Import ".\DTCLUCOMPARESTATESCONFIRMATION.ahk" { DTCLUCOMPARESTATESCONFIRMATION }
+#Import ".\DTCLUCOMPARESTATESERROR.ahk" { DTCLUCOMPARESTATESERROR }
 #Import ".\DTCLUXLN.ahk" { DTCLUXLN }
+#Import ".\DTCLUXLNCONFIRMATION.ahk" { DTCLUXLNCONFIRMATION }
+#Import ".\DTCLUXLNERROR.ahk" { DTCLUXLNERROR }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator

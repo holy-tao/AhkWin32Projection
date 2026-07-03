@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Graphics\Gdi\HRGN.ahk" { HRGN }
 #Import ".\MAGIMAGEHEADER.ahk" { MAGIMAGEHEADER }
 
@@ -78,10 +78,6 @@ export default struct MagImageScalingCallback {
             this.value := CallbackCreate(fn, , [HWND, "ptr", MAGIMAGEHEADER, "ptr", MAGIMAGEHEADER, RECT, RECT, HRGN, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

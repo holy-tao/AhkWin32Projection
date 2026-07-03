@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\OFFLOAD_OPERATION_E.ahk" { OFFLOAD_OPERATION_E }
 #Import ".\OFFLOAD_ALGO_INFO.ahk" { OFFLOAD_ALGO_INFO }
+#Import ".\OFFLOAD_OPERATION_E.ahk" { OFFLOAD_OPERATION_E }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis

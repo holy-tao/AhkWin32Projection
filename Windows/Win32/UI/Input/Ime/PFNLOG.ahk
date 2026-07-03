@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IMEDP.ahk" { IMEDP }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMEDP.ahk" { IMEDP }
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
@@ -47,10 +47,6 @@ export default struct PFNLOG {
             this.value := CallbackCreate(fn, , [IMEDP.Ptr, "int", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

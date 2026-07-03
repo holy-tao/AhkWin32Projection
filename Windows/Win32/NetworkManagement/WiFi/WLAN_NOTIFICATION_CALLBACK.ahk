@@ -73,10 +73,6 @@ export default struct WLAN_NOTIFICATION_CALLBACK {
             this.value := CallbackCreate(fn, , [L2_NOTIFICATION_DATA.Ptr, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

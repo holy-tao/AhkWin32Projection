@@ -44,10 +44,6 @@ export default struct AVISAVECALLBACK {
             this.value := CallbackCreate(fn, , [Int32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

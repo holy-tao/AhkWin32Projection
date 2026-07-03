@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\VIEW_OBJECT_COMPOSITION_MODE.ahk" { VIEW_OBJECT_COMPOSITION_MODE }
-#Import ".\VIEW_OBJECT_ALPHA_MODE.ahk" { VIEW_OBJECT_ALPHA_MODE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ISurfacePresenter.ahk" { ISurfacePresenter }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VIEW_OBJECT_ALPHA_MODE.ahk" { VIEW_OBJECT_ALPHA_MODE }
+#Import ".\VIEW_OBJECT_COMPOSITION_MODE.ahk" { VIEW_OBJECT_COMPOSITION_MODE }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

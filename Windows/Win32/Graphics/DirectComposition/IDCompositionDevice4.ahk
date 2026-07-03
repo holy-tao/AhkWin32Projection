@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IDCompositionTexture.ahk" { IDCompositionTexture }
-#Import ".\IDCompositionDevice3.ahk" { IDCompositionDevice3 }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDCompositionDevice3.ahk" { IDCompositionDevice3 }
+#Import ".\IDCompositionTexture.ahk" { IDCompositionTexture }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectComposition

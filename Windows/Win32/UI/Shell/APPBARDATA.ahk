@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * Contains information about a system appbar message.

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWPCSettings.ahk" { IWPCSettings }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WPCFLAG_VISIBILITY.ahk" { WPCFLAG_VISIBILITY }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWPCWebSettings.ahk" { IWPCWebSettings }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWPCSettings.ahk" { IWPCSettings }
+#Import ".\IWPCWebSettings.ahk" { IWPCWebSettings }
+#Import ".\WPCFLAG_VISIBILITY.ahk" { WPCFLAG_VISIBILITY }
 
 /**
  * . (IWindowsParentalControlsCore)

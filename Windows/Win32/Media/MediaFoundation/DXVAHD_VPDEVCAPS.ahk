@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DXVAHD_DEVICE_TYPE.ahk" { DXVAHD_DEVICE_TYPE }
 #Import "..\..\Graphics\Direct3D9\D3DPOOL.ahk" { D3DPOOL }
+#Import ".\DXVAHD_DEVICE_TYPE.ahk" { DXVAHD_DEVICE_TYPE }
 
 /**
  * Specifies the capabilities of a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) device.

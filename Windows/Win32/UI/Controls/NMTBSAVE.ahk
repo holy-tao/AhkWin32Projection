@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TBBUTTON.ahk" { TBBUTTON }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\NMHDR.ahk" { NMHDR }
+#Import ".\TBBUTTON.ahk" { TBBUTTON }
 
 /**
  * This structure is passed to applications when they receive a TBN_SAVE notification code. It contains information about the button currently being saved. Applications can modify the values of the members to save additional information.

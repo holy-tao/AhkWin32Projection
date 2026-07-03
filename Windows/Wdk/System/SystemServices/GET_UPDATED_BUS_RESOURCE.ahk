@@ -32,7 +32,7 @@ export default struct GET_UPDATED_BUS_RESOURCE {
         UpdatedTranslatedResourceListMarshal := UpdatedTranslatedResourceList is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, UpdatedResourceListMarshal, UpdatedResourceList, UpdatedTranslatedResourceListMarshal, UpdatedTranslatedResourceList, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -52,10 +52,6 @@ export default struct GET_UPDATED_BUS_RESOURCE {
             this.value := CallbackCreate(fn, , ["ptr", "ptr*", "ptr*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

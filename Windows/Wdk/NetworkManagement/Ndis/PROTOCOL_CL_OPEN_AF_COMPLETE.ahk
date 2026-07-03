@@ -47,10 +47,6 @@ export default struct PROTOCOL_CL_OPEN_AF_COMPLETE {
             this.value := CallbackCreate(fn, , [Int32, "ptr", "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

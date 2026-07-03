@@ -1,5 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PFN_AUTH_NOTIFY.ahk" { PFN_AUTH_NOTIFY }
 
 /**
  * Contains the notification data for an authentication request.
@@ -23,7 +22,7 @@ export default struct INTERNET_AUTH_NOTIFY_DATA {
      * Notification callback to retry 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-interneterrordlg">InternetErrorDlg</a>.
      */
-    pfnNotify : PFN_AUTH_NOTIFY
+    pfnNotify : IntPtr
 
     /**
      * Pointer to a variable that contains an application-defined value used to identify the application context to pass to the notification function.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HTTP_TRACE_TYPE.ahk" { HTTP_TRACE_TYPE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HTTP_TRACE_TYPE.ahk" { HTTP_TRACE_TYPE }
 
 /**
  * @namespace Windows.Win32.System.Iis

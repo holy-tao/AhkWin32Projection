@@ -28,7 +28,7 @@ export default struct IOMMU_DOMAIN_DELETE {
         DomainMarshal := Domain is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, DomainMarshal, Domain, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -48,10 +48,6 @@ export default struct IOMMU_DOMAIN_DELETE {
             this.value := CallbackCreate(fn, , [IOMMU_DMA_DOMAIN.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

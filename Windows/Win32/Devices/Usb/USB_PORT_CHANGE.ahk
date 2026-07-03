@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\USB_30_PORT_CHANGE.ahk" { USB_30_PORT_CHANGE }
 #Import ".\USB_20_PORT_CHANGE.ahk" { USB_20_PORT_CHANGE }
+#Import ".\USB_30_PORT_CHANGE.ahk" { USB_30_PORT_CHANGE }
 
 /**
  * @namespace Windows.Win32.Devices.Usb

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CACHE_DESCRIPTOR.ahk" { CACHE_DESCRIPTOR }
 #Import ".\LOGICAL_PROCESSOR_RELATIONSHIP.ahk" { LOGICAL_PROCESSOR_RELATIONSHIP }
 #Import ".\PROCESSOR_CACHE_TYPE.ahk" { PROCESSOR_CACHE_TYPE }
-#Import ".\CACHE_DESCRIPTOR.ahk" { CACHE_DESCRIPTOR }
 
 /**
  * Describes the relationship between the specified processor set. This structure is used with the GetLogicalProcessorInformation function.

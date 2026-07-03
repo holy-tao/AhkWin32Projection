@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\PEER_GROUP_AUTHENTICATION_SCHEME.ahk" { PEER_GROUP_AUTHENTICATION_SCHEME }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PEER_GROUP_AUTHENTICATION_SCHEME.ahk" { PEER_GROUP_AUTHENTICATION_SCHEME }
 #Import "..\..\Security\Cryptography\CERT_PUBLIC_KEY_INFO.ahk" { CERT_PUBLIC_KEY_INFO }
 
 /**

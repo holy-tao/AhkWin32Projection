@@ -1,18 +1,18 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\Dxgi\IDXGIDevice.ahk" { IDXGIDevice }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\COMPOSITION_FRAME_STATS.ahk" { COMPOSITION_FRAME_STATS }
-#Import ".\COMPOSITION_FRAME_ID_TYPE.ahk" { COMPOSITION_FRAME_ID_TYPE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\IDCompositionVisual.ahk" { IDCompositionVisual }
-#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\COMPOSITION_TARGET_STATS.ahk" { COMPOSITION_TARGET_STATS }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\COMPOSITION_FRAME_ID_TYPE.ahk" { COMPOSITION_FRAME_ID_TYPE }
+#Import ".\COMPOSITION_FRAME_STATS.ahk" { COMPOSITION_FRAME_STATS }
 #Import ".\COMPOSITION_TARGET_ID.ahk" { COMPOSITION_TARGET_ID }
+#Import ".\COMPOSITION_TARGET_STATS.ahk" { COMPOSITION_TARGET_STATS }
+#Import ".\IDCompositionVisual.ahk" { IDCompositionVisual }
+#Import "..\Dxgi\IDXGIDevice.ahk" { IDXGIDevice }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectComposition

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\DIRECTMANIPULATION_HITTEST_TYPE.ahk" { DIRECTMANIPULATION_HITTEST_TYPE }
-#Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDirectManipulationFrameInfoProvider.ahk" { IDirectManipulationFrameInfoProvider }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
 
 /**
  * Provides access to all the Direct Manipulation features and APIs available to the client application.

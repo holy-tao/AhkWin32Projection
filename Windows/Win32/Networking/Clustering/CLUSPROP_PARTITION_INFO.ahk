@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\CLUSPROP_SYNTAX.ahk" { CLUSPROP_SYNTAX }
-#Import ".\CLUS_PARTITION_INFO.ahk" { CLUS_PARTITION_INFO }
 #Import ".\CLUSPROP_VALUE.ahk" { CLUSPROP_VALUE }
+#Import ".\CLUS_PARTITION_INFO.ahk" { CLUS_PARTITION_INFO }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

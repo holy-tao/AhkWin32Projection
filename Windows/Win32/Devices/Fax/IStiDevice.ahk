@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\STINOTIFY.ahk" { STINOTIFY }
 #Import ".\STISUBSCRIBE.ahk" { STISUBSCRIBE }
+#Import ".\STI_DEVICE_STATUS.ahk" { STI_DEVICE_STATUS }
+#Import ".\STI_DEV_CAPS.ahk" { STI_DEV_CAPS }
 #Import ".\STI_DIAG.ahk" { STI_DIAG }
+#Import ".\_ERROR_INFOW.ahk" { _ERROR_INFOW }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
-#Import ".\_ERROR_INFOW.ahk" { _ERROR_INFOW }
-#Import ".\STI_DEV_CAPS.ahk" { STI_DEV_CAPS }
-#Import ".\STINOTIFY.ahk" { STINOTIFY }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import ".\STI_DEVICE_STATUS.ahk" { STI_DEVICE_STATUS }
 
 /**
  * @namespace Windows.Win32.Devices.Fax

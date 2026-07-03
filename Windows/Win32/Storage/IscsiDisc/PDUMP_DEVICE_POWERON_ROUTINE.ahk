@@ -45,10 +45,6 @@ export default struct PDUMP_DEVICE_POWERON_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -51,10 +51,6 @@ export default struct DOT11EXTIHV_CONTROL {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, IntPtr, UInt32, IntPtr, "uint*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

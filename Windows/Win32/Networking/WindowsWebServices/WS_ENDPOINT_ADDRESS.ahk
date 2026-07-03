@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_ENDPOINT_IDENTITY.ahk" { WS_ENDPOINT_IDENTITY }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WS_XML_BUFFER.ahk" { WS_XML_BUFFER }
+#Import ".\WS_ENDPOINT_IDENTITY.ahk" { WS_ENDPOINT_IDENTITY }
 #Import ".\WS_STRING.ahk" { WS_STRING }
+#Import ".\WS_XML_BUFFER.ahk" { WS_XML_BUFFER }
 
 /**
  * Represents the network address of an endpoint.

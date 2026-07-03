@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\WPCFLAG_RESTRICTION.ahk" { WPCFLAG_RESTRICTION }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WPCFLAG_RESTRICTION.ahk" { WPCFLAG_RESTRICTION }
 
 /**
  * Accesses general settings for the user.

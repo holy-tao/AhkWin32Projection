@@ -52,10 +52,6 @@ export default struct PFN_WdsTransportClientReceiveContents {
             this.value := CallbackCreate(fn, , [HANDLE, "ptr", IntPtr, UInt32, "uint*", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

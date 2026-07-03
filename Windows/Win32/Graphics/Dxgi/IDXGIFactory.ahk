@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\DXGI_MWA_FLAGS.ahk" { DXGI_MWA_FLAGS }
-#Import ".\IDXGIAdapter.ahk" { IDXGIAdapter }
-#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
-#Import ".\IDXGISwapChain.ahk" { IDXGISwapChain }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DXGI_SWAP_CHAIN_DESC.ahk" { DXGI_SWAP_CHAIN_DESC }
+#Import ".\IDXGIAdapter.ahk" { IDXGIAdapter }
 #Import ".\IDXGIObject.ahk" { IDXGIObject }
+#Import ".\IDXGISwapChain.ahk" { IDXGISwapChain }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * An IDXGIFactory interface implements methods for generating DXGI objects (which handle full screen transitions).

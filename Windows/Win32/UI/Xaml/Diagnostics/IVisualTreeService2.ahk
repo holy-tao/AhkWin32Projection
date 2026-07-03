@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IBitmapData.ahk" { IBitmapData }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IBitmapData.ahk" { IBitmapData }
 #Import ".\IVisualTreeService.ahk" { IVisualTreeService }
 #Import ".\RenderTargetBitmapOptions.ahk" { RenderTargetBitmapOptions }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents additional capabilities of an IVisualTreeService object.

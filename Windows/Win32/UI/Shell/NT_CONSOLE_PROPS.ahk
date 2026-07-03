@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 #Import "..\..\System\Console\COORD.ahk" { COORD }
 #Import ".\DATABLOCK_HEADER.ahk" { DATABLOCK_HEADER }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }

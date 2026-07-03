@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\WS_OPERATION_CONTEXT.ahk" { WS_OPERATION_CONTEXT }
-#Import ".\WS_ERROR.ahk" { WS_ERROR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WS_ERROR.ahk" { WS_ERROR }
+#Import ".\WS_OPERATION_CONTEXT.ahk" { WS_OPERATION_CONTEXT }
 
 /**
  * Invoked when headers of the incoming message are received and the body is not processed.
@@ -53,10 +53,6 @@ export default struct WS_SERVICE_SECURITY_CALLBACK {
             this.value := CallbackCreate(fn, , [WS_OPERATION_CONTEXT.Ptr, WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

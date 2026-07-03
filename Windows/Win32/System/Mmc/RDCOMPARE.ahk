@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RDITEMHDR.ahk" { RDITEMHDR }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\RDITEMHDR.ahk" { RDITEMHDR }
 
 /**
  * The RDCOMPARE structure is introduced in MMC 1.2.

@@ -47,10 +47,6 @@ export default struct PSYM_DUMP_FIELD_CALLBACK {
             this.value := CallbackCreate(fn, , [FIELD_INFO.Ptr, "ptr", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

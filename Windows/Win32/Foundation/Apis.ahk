@@ -1,18 +1,18 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
+#Import ".\BOOL.ahk" { BOOL }
+#Import ".\BSTR.ahk" { BSTR }
+#Import ".\DUPLICATE_HANDLE_OPTIONS.ahk" { DUPLICATE_HANDLE_OPTIONS }
+#Import ".\HANDLE.ahk" { HANDLE }
+#Import ".\HANDLE_FLAGS.ahk" { HANDLE_FLAGS }
 #Import ".\HGLOBAL.ahk" { HGLOBAL }
-#Import ".\PWSTR.ahk" { PWSTR }
 #Import ".\HLOCAL.ahk" { HLOCAL }
-#Import ".\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\HMODULE.ahk" { HMODULE }
 #Import ".\HRESULT.ahk" { HRESULT }
-#Import ".\WIN32_ERROR.ahk" { WIN32_ERROR }
+#Import ".\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\PSTR.ahk" { PSTR }
-#Import ".\BSTR.ahk" { BSTR }
-#Import ".\HANDLE.ahk" { HANDLE }
-#Import ".\BOOL.ahk" { BOOL }
-#Import ".\HANDLE_FLAGS.ahk" { HANDLE_FLAGS }
-#Import ".\DUPLICATE_HANDLE_OPTIONS.ahk" { DUPLICATE_HANDLE_OPTIONS }
+#Import ".\PWSTR.ahk" { PWSTR }
+#Import ".\WIN32_ERROR.ahk" { WIN32_ERROR }
 
 /**
  * @namespace Windows.Win32.Foundation

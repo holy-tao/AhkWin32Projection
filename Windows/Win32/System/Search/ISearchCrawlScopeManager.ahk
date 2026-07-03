@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ISearchRoot.ahk" { ISearchRoot }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IEnumSearchScopeRules.ahk" { IEnumSearchScopeRules }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IEnumSearchRoots.ahk" { IEnumSearchRoots }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\CLUSION_REASON.ahk" { CLUSION_REASON }
+#Import ".\IEnumSearchRoots.ahk" { IEnumSearchRoots }
+#Import ".\IEnumSearchScopeRules.ahk" { IEnumSearchScopeRules }
+#Import ".\ISearchRoot.ahk" { ISearchRoot }
 
 /**
  * Provides methods that notify the search engine of containers to crawl and/or watch, and items under those containers to include or exclude when crawling or watching.

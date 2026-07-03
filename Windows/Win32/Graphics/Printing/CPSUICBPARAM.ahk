@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\OPTITEM.ahk" { OPTITEM }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\OPTITEM.ahk" { OPTITEM }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

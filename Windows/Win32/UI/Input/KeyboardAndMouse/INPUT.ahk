@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HARDWAREINPUT.ahk" { HARDWAREINPUT }
 #Import ".\INPUT_TYPE.ahk" { INPUT_TYPE }
 #Import ".\KEYBDINPUT.ahk" { KEYBDINPUT }
-#Import ".\VIRTUAL_KEY.ahk" { VIRTUAL_KEY }
-#Import ".\MOUSEINPUT.ahk" { MOUSEINPUT }
-#Import ".\HARDWAREINPUT.ahk" { HARDWAREINPUT }
 #Import ".\KEYBD_EVENT_FLAGS.ahk" { KEYBD_EVENT_FLAGS }
+#Import ".\MOUSEINPUT.ahk" { MOUSEINPUT }
 #Import ".\MOUSE_EVENT_FLAGS.ahk" { MOUSE_EVENT_FLAGS }
+#Import ".\VIRTUAL_KEY.ahk" { VIRTUAL_KEY }
 
 /**
  * Used by SendInput to store information for synthesizing input events such as keystrokes, mouse movement, and mouse clicks.

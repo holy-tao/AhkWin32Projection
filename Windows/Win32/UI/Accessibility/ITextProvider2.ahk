@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IRawElementProviderSimple.ahk" { IRawElementProviderSimple }
-#Import ".\ITextRangeProvider.ahk" { ITextRangeProvider }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRawElementProviderSimple.ahk" { IRawElementProviderSimple }
 #Import ".\ITextProvider.ahk" { ITextProvider }
+#Import ".\ITextRangeProvider.ahk" { ITextRangeProvider }
 
 /**
  * Extends the ITextProvider interface to enable Microsoft UI Automation providers to expose textual content that is the target of an annotation, and information about a caret that belongs to the provider.

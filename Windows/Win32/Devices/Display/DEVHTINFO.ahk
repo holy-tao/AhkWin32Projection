@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\COLORINFO.ahk" { COLORINFO }
 #Import ".\CIECHROMA.ahk" { CIECHROMA }
+#Import ".\COLORINFO.ahk" { COLORINFO }
 
 /**
  * The DEVHTINFO structure is used as input to the HTUI_DeviceColorAdjustment function.

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Com\IDataObject.ahk" { IDataObject }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IHeaderCtrl.ahk" { IHeaderCtrl }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IConsoleVerb.ahk" { IConsoleVerb }
+#Import ".\IHeaderCtrl.ahk" { IHeaderCtrl }
 #Import ".\IImageList.ahk" { IImageList }
 #Import ".\IToolbar.ahk" { IToolbar }
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\DMA_ADAPTER.ahk" { DMA_ADAPTER }
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
@@ -28,7 +28,7 @@ export default struct PJOIN_DMA_DOMAIN {
      */
     Call(DmaAdapter, DomainHandle) {
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, HANDLE, DomainHandle, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -48,10 +48,6 @@ export default struct PJOIN_DMA_DOMAIN {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, HANDLE, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\WLDP_POLICY_SETTING.ahk" { WLDP_POLICY_SETTING }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WLDP_POLICY_SETTING.ahk" { WLDP_POLICY_SETTING }
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
@@ -46,10 +46,6 @@ export default struct PWLDP_QUERYPOLICYSETTINGENABLED_API {
             this.value := CallbackCreate(fn, , [WLDP_POLICY_SETTING, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WS_ERROR.ahk" { WS_ERROR }
 #Import ".\WS_TYPE_MAPPING.ahk" { WS_TYPE_MAPPING }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WS_XML_WRITER.ahk" { WS_XML_WRITER }
 
 /**
@@ -69,10 +69,6 @@ export default struct WS_WRITE_TYPE_CALLBACK {
             this.value := CallbackCreate(fn, , [WS_XML_WRITER.Ptr, WS_TYPE_MAPPING, "ptr", IntPtr, UInt32, WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

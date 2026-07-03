@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IPSEC_DOSP_FLAGS.ahk" { IPSEC_DOSP_FLAGS }
 #Import ".\FWP_V6_ADDR_AND_MASK.ahk" { FWP_V6_ADDR_AND_MASK }
+#Import ".\IPSEC_DOSP_FLAGS.ahk" { IPSEC_DOSP_FLAGS }
 
 /**
  * Used to store configuration parameters for IPsec DoS Protection.

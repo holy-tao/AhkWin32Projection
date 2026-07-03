@@ -2,10 +2,10 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\IUnknown.ahk" { IUnknown }
-#Import ".\ICallFrame.ahk" { ICallFrame }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CALLFRAME_MARSHALCONTEXT.ahk" { CALLFRAME_MARSHALCONTEXT }
+#Import ".\ICallFrame.ahk" { ICallFrame }
+#Import "..\IUnknown.ahk" { IUnknown }
 
 /**
  * Is used on the server (receiving) side of a remote invocation.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DRT_REGISTRATION.ahk" { DRT_REGISTRATION }
-#Import ".\DRT_MATCH_TYPE.ahk" { DRT_MATCH_TYPE }
 #Import ".\DRT_DATA.ahk" { DRT_DATA }
+#Import ".\DRT_MATCH_TYPE.ahk" { DRT_MATCH_TYPE }
+#Import ".\DRT_REGISTRATION.ahk" { DRT_REGISTRATION }
 
 /**
  * DRT_SEARCH_RESULT.

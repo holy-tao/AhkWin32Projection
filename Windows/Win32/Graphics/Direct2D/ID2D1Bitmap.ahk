@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "Common\D2D_SIZE_F.ahk" { D2D_SIZE_F }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\D2D1_PIXEL_FORMAT.ahk" { D2D1_PIXEL_FORMAT }
 #Import "Common\D2D_POINT_2U.ahk" { D2D_POINT_2U }
 #Import "Common\D2D_RECT_U.ahk" { D2D_RECT_U }
-#Import ".\ID2D1RenderTarget.ahk" { ID2D1RenderTarget }
-#Import "Common\D2D1_PIXEL_FORMAT.ahk" { D2D1_PIXEL_FORMAT }
+#Import "Common\D2D_SIZE_F.ahk" { D2D_SIZE_F }
 #Import "Common\D2D_SIZE_U.ahk" { D2D_SIZE_U }
 #Import ".\ID2D1Image.ahk" { ID2D1Image }
+#Import ".\ID2D1RenderTarget.ahk" { ID2D1RenderTarget }
 
 /**
  * Represents a bitmap that has been bound to an ID2D1RenderTarget.

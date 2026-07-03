@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID2D1VertexBuffer.ahk" { ID2D1VertexBuffer }
-#Import ".\ID2D1ResourceTexture.ahk" { ID2D1ResourceTexture }
-#Import ".\ID2D1RenderInfo.ahk" { ID2D1RenderInfo }
-#Import ".\D2D1_VERTEX_OPTIONS.ahk" { D2D1_VERTEX_OPTIONS }
-#Import ".\D2D1_PIXEL_OPTIONS.ahk" { D2D1_PIXEL_OPTIONS }
-#Import ".\D2D1_BLEND_DESCRIPTION.ahk" { D2D1_BLEND_DESCRIPTION }
-#Import ".\D2D1_VERTEX_RANGE.ahk" { D2D1_VERTEX_RANGE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D2D1_BLEND_DESCRIPTION.ahk" { D2D1_BLEND_DESCRIPTION }
+#Import ".\D2D1_PIXEL_OPTIONS.ahk" { D2D1_PIXEL_OPTIONS }
+#Import ".\D2D1_VERTEX_OPTIONS.ahk" { D2D1_VERTEX_OPTIONS }
+#Import ".\D2D1_VERTEX_RANGE.ahk" { D2D1_VERTEX_RANGE }
+#Import ".\ID2D1RenderInfo.ahk" { ID2D1RenderInfo }
+#Import ".\ID2D1ResourceTexture.ahk" { ID2D1ResourceTexture }
+#Import ".\ID2D1VertexBuffer.ahk" { ID2D1VertexBuffer }
 
 /**
  * This interface is used to describe a GPU rendering pass on a vertex or pixel shader. It is passed to ID2D1DrawTransform.

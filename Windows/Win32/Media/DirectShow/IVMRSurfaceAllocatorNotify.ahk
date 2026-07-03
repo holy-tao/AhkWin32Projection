@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
-#Import "..\..\Graphics\DirectDraw\IDirectDraw7.ahk" { IDirectDraw7 }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\DirectDraw\IDirectDraw7.ahk" { IDirectDraw7 }
 #Import "..\..\Graphics\Gdi\HMONITOR.ahk" { HMONITOR }
 #Import ".\IVMRSurfaceAllocator.ahk" { IVMRSurfaceAllocator }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVMRSurfaceAllocatorNotify interface is implemented by the Video Mixing Renderer Filter 7 (VMR-7).

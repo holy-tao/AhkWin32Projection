@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
-#Import "..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\IRP.ahk" { IRP }
+#Import "..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Wdk.Foundation
@@ -28,7 +28,7 @@ export default struct DRIVER_DISPATCH {
      */
     Call(DeviceObject, _Irp) {
         result := DllCall(this.value, DEVICE_OBJECT.Ptr, DeviceObject, IRP.Ptr, _Irp, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -48,10 +48,6 @@ export default struct DRIVER_DISPATCH {
             this.value := CallbackCreate(fn, , [DEVICE_OBJECT.Ptr, IRP.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

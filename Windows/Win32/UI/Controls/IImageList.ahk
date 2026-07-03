@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\IMAGE_LIST_ITEM_FLAGS.ahk" { IMAGE_LIST_ITEM_FLAGS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMAGELISTDRAWPARAMS.ahk" { IMAGELISTDRAWPARAMS }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
-#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
-#Import ".\IMAGEINFO.ahk" { IMAGEINFO }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMAGEINFO.ahk" { IMAGEINFO }
+#Import ".\IMAGELISTDRAWPARAMS.ahk" { IMAGELISTDRAWPARAMS }
+#Import ".\IMAGE_LIST_ITEM_FLAGS.ahk" { IMAGE_LIST_ITEM_FLAGS }
+#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
 
 /**
  * Exposes methods that manipulate and interact with image lists.

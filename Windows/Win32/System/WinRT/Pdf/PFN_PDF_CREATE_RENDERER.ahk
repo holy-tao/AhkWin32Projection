@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Graphics\Dxgi\IDXGIDevice.ahk" { IDXGIDevice }
 #Import ".\IPdfRendererNative.ahk" { IPdfRendererNative }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Pdf
@@ -46,10 +46,6 @@ export default struct PFN_PDF_CREATE_RENDERER {
             this.value := CallbackCreate(fn, , ["ptr", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

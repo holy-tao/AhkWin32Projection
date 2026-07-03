@@ -46,10 +46,6 @@ export default struct URegexMatchCallback {
             this.value := CallbackCreate(fn, "cdecl", ["ptr", Int32, Int8])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

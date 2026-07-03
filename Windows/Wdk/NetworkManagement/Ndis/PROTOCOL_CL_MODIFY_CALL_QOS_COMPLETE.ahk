@@ -48,10 +48,6 @@ export default struct PROTOCOL_CL_MODIFY_CALL_QOS_COMPLETE {
             this.value := CallbackCreate(fn, , [Int32, "ptr", CO_CALL_PARAMETERS.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

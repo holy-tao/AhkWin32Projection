@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\LUID.ahk" { LUID }
 #Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\Foundation\LUID.ahk" { LUID }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\LSA_STRING.ahk" { LSA_STRING }
 
@@ -37,7 +37,7 @@ export default struct PLSA_GET_CREDENTIALS {
         PrimaryKeyLengthMarshal := PrimaryKeyLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, LUID.Ptr, LogonId, UInt32, AuthenticationPackage, _QueryContextMarshal, _QueryContext, BOOLEAN, RetrieveAllCredentials, LSA_STRING.Ptr, PrimaryKeyValue, PrimaryKeyLengthMarshal, PrimaryKeyLength, LSA_STRING.Ptr, Credentials, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -57,10 +57,6 @@ export default struct PLSA_GET_CREDENTIALS {
             this.value := CallbackCreate(fn, , [LUID.Ptr, UInt32, "uint*", BOOLEAN, LSA_STRING.Ptr, "uint*", LSA_STRING.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

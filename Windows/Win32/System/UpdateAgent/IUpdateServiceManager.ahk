@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IUpdateServiceCollection.ahk" { IUpdateServiceCollection }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IUpdateService.ahk" { IUpdateService }
+#Import ".\IUpdateServiceCollection.ahk" { IUpdateServiceCollection }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Adds or removes the registration of the update service with Windows Update Agent or Automatic Updates. (IUpdateServiceManager)

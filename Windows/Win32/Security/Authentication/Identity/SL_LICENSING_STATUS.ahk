@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SLLICENSINGSTATUS.ahk" { SLLICENSINGSTATUS }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SLLICENSINGSTATUS.ahk" { SLLICENSINGSTATUS }
 
 /**
  * Represents the licensing status. (SL_LICENSING_STATUS)

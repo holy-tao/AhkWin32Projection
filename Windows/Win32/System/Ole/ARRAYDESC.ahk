@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Com\TYPEDESC.ahk" { TYPEDESC }
 #Import "..\Com\SAFEARRAYBOUND.ahk" { SAFEARRAYBOUND }
+#Import "..\Com\TYPEDESC.ahk" { TYPEDESC }
 #Import "..\Variant\VARENUM.ahk" { VARENUM }
 
 /**

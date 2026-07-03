@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IRdcGenerator.ahk" { IRdcGenerator }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IRdcFileReader.ahk" { IRdcFileReader }
-#Import ".\IRdcSignatureReader.ahk" { IRdcSignatureReader }
-#Import ".\IRdcComparator.ahk" { IRdcComparator }
-#Import ".\IRdcGeneratorParameters.ahk" { IRdcGeneratorParameters }
-#Import ".\GeneratorParametersType.ahk" { GeneratorParametersType }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\GeneratorParametersType.ahk" { GeneratorParametersType }
+#Import ".\IRdcComparator.ahk" { IRdcComparator }
+#Import ".\IRdcFileReader.ahk" { IRdcFileReader }
+#Import ".\IRdcGenerator.ahk" { IRdcGenerator }
+#Import ".\IRdcGeneratorParameters.ahk" { IRdcGeneratorParameters }
+#Import ".\IRdcSignatureReader.ahk" { IRdcSignatureReader }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Is the primary interface for using RDC.

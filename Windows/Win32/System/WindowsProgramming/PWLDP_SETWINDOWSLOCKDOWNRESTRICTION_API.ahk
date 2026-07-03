@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WLDP_WINDOWS_LOCKDOWN_RESTRICTION.ahk" { WLDP_WINDOWS_LOCKDOWN_RESTRICTION }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WLDP_WINDOWS_LOCKDOWN_RESTRICTION.ahk" { WLDP_WINDOWS_LOCKDOWN_RESTRICTION }
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
@@ -45,10 +45,6 @@ export default struct PWLDP_SETWINDOWSLOCKDOWNRESTRICTION_API {
             this.value := CallbackCreate(fn, , [WLDP_WINDOWS_LOCKDOWN_RESTRICTION, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

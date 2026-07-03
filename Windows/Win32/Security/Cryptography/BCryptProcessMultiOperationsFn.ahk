@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
-#Import ".\BCRYPT_MULTI_OPERATION_TYPE.ahk" { BCRYPT_MULTI_OPERATION_TYPE }
 #Import ".\BCRYPT_HANDLE.ahk" { BCRYPT_HANDLE }
+#Import ".\BCRYPT_MULTI_OPERATION_TYPE.ahk" { BCRYPT_MULTI_OPERATION_TYPE }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -31,7 +31,7 @@ export default struct BCryptProcessMultiOperationsFn {
      */
     Call(hObject, operationType, pOperations, cbOperations, dwFlags) {
         result := DllCall(this.value, BCRYPT_HANDLE, hObject, BCRYPT_MULTI_OPERATION_TYPE, operationType, IntPtr, pOperations, UInt32, cbOperations, UInt32, dwFlags, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -51,10 +51,6 @@ export default struct BCryptProcessMultiOperationsFn {
             this.value := CallbackCreate(fn, , [BCRYPT_HANDLE, BCRYPT_MULTI_OPERATION_TYPE, IntPtr, UInt32, UInt32, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

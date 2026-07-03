@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PSPCB_MESSAGE.ahk" { PSPCB_MESSAGE }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\PROPSHEETPAGEW.ahk" { PROPSHEETPAGEW }
+#Import ".\PSPCB_MESSAGE.ahk" { PSPCB_MESSAGE }
 
 /**
  * Specifies an application-defined callback function that a property sheet calls when a page is created and when it is about to be destroyed. An application can use this function to perform initialization and cleanup operations for the page. (Unicode)
@@ -69,10 +69,6 @@ export default struct LPFNPSPCALLBACKW {
             this.value := CallbackCreate(fn, , [HWND, PSPCB_MESSAGE, PROPSHEETPAGEW.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

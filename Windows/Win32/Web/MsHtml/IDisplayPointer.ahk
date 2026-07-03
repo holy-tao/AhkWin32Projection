@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ILineInfo.ahk" { ILineInfo }
-#Import ".\IHTMLElement.ahk" { IHTMLElement }
-#Import ".\POINTER_GRAVITY.ahk" { POINTER_GRAVITY }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\DISPLAY_MOVEUNIT.ahk" { DISPLAY_MOVEUNIT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMarkupPointer.ahk" { IMarkupPointer }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\COORD_SYSTEM.ahk" { COORD_SYSTEM }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DISPLAY_GRAVITY.ahk" { DISPLAY_GRAVITY }
+#Import ".\DISPLAY_MOVEUNIT.ahk" { DISPLAY_MOVEUNIT }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import ".\ILineInfo.ahk" { ILineInfo }
+#Import ".\IMarkupPointer.ahk" { IMarkupPointer }
+#Import ".\POINTER_GRAVITY.ahk" { POINTER_GRAVITY }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

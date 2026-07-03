@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\D2D1_CAP_STYLE.ahk" { D2D1_CAP_STYLE }
+#Import ".\D2D1_DASH_STYLE.ahk" { D2D1_DASH_STYLE }
 #Import ".\D2D1_LINE_JOIN.ahk" { D2D1_LINE_JOIN }
 #Import ".\D2D1_STROKE_TRANSFORM_TYPE.ahk" { D2D1_STROKE_TRANSFORM_TYPE }
-#Import ".\D2D1_DASH_STYLE.ahk" { D2D1_DASH_STYLE }
 
 /**
  * Describes the stroke that outlines a shape. (D2D1_STROKE_STYLE_PROPERTIES1)

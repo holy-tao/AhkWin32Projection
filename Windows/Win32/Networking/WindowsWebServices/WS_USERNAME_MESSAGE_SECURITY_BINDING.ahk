@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_SECURITY_BINDING_TYPE.ahk" { WS_SECURITY_BINDING_TYPE }
-#Import ".\WS_SECURITY_BINDING.ahk" { WS_SECURITY_BINDING }
-#Import ".\WS_USERNAME_CREDENTIAL.ahk" { WS_USERNAME_CREDENTIAL }
 #Import ".\WS_MESSAGE_SECURITY_USAGE.ahk" { WS_MESSAGE_SECURITY_USAGE }
-#Import ".\WS_VALIDATE_PASSWORD_CALLBACK.ahk" { WS_VALIDATE_PASSWORD_CALLBACK }
+#Import ".\WS_SECURITY_BINDING.ahk" { WS_SECURITY_BINDING }
 #Import ".\WS_SECURITY_BINDING_PROPERTY.ahk" { WS_SECURITY_BINDING_PROPERTY }
+#Import ".\WS_SECURITY_BINDING_TYPE.ahk" { WS_SECURITY_BINDING_TYPE }
+#Import ".\WS_USERNAME_CREDENTIAL.ahk" { WS_USERNAME_CREDENTIAL }
 
 /**
  * The security binding subtype for specifying the use of an application supplied username / password pair as a direct (i.e., one-shot) security token.
@@ -47,7 +46,7 @@ export default struct WS_USERNAME_MESSAGE_SECURITY_BINDING {
      * This must be specified when this security binding is used on the
      * service.
      */
-    passwordValidator : WS_VALIDATE_PASSWORD_CALLBACK
+    passwordValidator : IntPtr
 
     /**
      * The optional state to be passed in as an argument when the username validator is invoked.

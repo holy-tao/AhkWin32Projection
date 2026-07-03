@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MF_CAPTURE_ENGINE_STREAM_CATEGORY.ahk" { MF_CAPTURE_ENGINE_STREAM_CATEGORY }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFActivate.ahk" { IMFActivate }
+#Import ".\IMFMediaSource.ahk" { IMFMediaSource }
 #Import ".\IMFMediaType.ahk" { IMFMediaType }
 #Import ".\MF_CAPTURE_ENGINE_DEVICE_TYPE.ahk" { MF_CAPTURE_ENGINE_DEVICE_TYPE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IMFActivate.ahk" { IMFActivate }
+#Import ".\MF_CAPTURE_ENGINE_STREAM_CATEGORY.ahk" { MF_CAPTURE_ENGINE_STREAM_CATEGORY }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMFMediaSource.ahk" { IMFMediaSource }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Controls the capture source object. The capture source manages the audio and video capture devices.

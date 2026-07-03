@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\WS_ERROR.ahk" { WS_ERROR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WS_ERROR.ahk" { WS_ERROR }
+#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
 
 /**
  * Determines whether the specified string can be written in optimized form.
@@ -58,10 +58,6 @@ export default struct WS_DYNAMIC_STRING_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", WS_XML_STRING.Ptr, BOOL.Ptr, "uint*", WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

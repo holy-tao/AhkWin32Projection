@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D12GraphicsCommandList8.ahk" { ID3D12GraphicsCommandList8 }
 #Import ".\D3D12_INDEX_BUFFER_STRIP_CUT_VALUE.ahk" { D3D12_INDEX_BUFFER_STRIP_CUT_VALUE }
+#Import ".\ID3D12GraphicsCommandList8.ahk" { ID3D12GraphicsCommandList8 }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

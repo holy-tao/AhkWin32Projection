@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\OSUpdateAssessment.ahk" { OSUpdateAssessment }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Gets the OS update assessment by comparing the latest build from Microsoft against the build running on the current device.

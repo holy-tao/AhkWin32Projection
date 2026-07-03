@@ -60,10 +60,6 @@ export default struct RPC_IF_CALLBACK_FN {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", RPC_STATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

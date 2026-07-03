@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PO_FX_PERF_STATE_UNIT.ahk" { PO_FX_PERF_STATE_UNIT }
 #Import ".\PO_FX_PERF_STATE.ahk" { PO_FX_PERF_STATE }
 #Import ".\PO_FX_PERF_STATE_TYPE.ahk" { PO_FX_PERF_STATE_TYPE }
+#Import ".\PO_FX_PERF_STATE_UNIT.ahk" { PO_FX_PERF_STATE_UNIT }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

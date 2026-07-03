@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\TPMVSC_ATTESTATION_TYPE.ahk" { TPMVSC_ATTESTATION_TYPE }
-#Import ".\ITpmVirtualSmartCardManager2.ahk" { ITpmVirtualSmartCardManager2 }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ITpmVirtualSmartCardManager2.ahk" { ITpmVirtualSmartCardManager2 }
 #Import ".\ITpmVirtualSmartCardManagerStatusCallback.ahk" { ITpmVirtualSmartCardManagerStatusCallback }
+#Import ".\TPMVSC_ATTESTATION_TYPE.ahk" { TPMVSC_ATTESTATION_TYPE }
 
 /**
  * @namespace Windows.Win32.Security.Tpm

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
 #Import ".\WSD_HOST_METADATA.ahk" { WSD_HOST_METADATA }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Provides metadata about the relationship between two or more services.

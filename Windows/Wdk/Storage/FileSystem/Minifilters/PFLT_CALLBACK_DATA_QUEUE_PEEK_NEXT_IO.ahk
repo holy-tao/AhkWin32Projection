@@ -49,10 +49,6 @@ export default struct PFLT_CALLBACK_DATA_QUEUE_PEEK_NEXT_IO {
             this.value := CallbackCreate(fn, , [FLT_CALLBACK_DATA_QUEUE.Ptr, FLT_CALLBACK_DATA.Ptr, "ptr", FLT_CALLBACK_DATA.Ptr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

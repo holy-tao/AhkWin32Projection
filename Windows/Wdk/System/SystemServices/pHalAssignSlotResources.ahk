@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\INTERFACE_TYPE.ahk" { INTERFACE_TYPE }
-#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 #Import "..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
 #Import "..\..\Foundation\DRIVER_OBJECT.ahk" { DRIVER_OBJECT }
 #Import ".\CM_RESOURCE_LIST.ahk" { CM_RESOURCE_LIST }
+#Import ".\INTERFACE_TYPE.ahk" { INTERFACE_TYPE }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -39,7 +39,7 @@ export default struct pHalAssignSlotResources {
         AllocatedResourcesMarshal := AllocatedResources is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, UNICODE_STRING.Ptr, RegistryPath, UNICODE_STRING.Ptr, DriverClassName, DRIVER_OBJECT.Ptr, DriverObject, DEVICE_OBJECT.Ptr, DeviceObject, INTERFACE_TYPE, BusType, UInt32, BusNumber, UInt32, SlotNumber, AllocatedResourcesMarshal, AllocatedResources, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -59,10 +59,6 @@ export default struct pHalAssignSlotResources {
             this.value := CallbackCreate(fn, , [UNICODE_STRING.Ptr, UNICODE_STRING.Ptr, DRIVER_OBJECT.Ptr, DEVICE_OBJECT.Ptr, INTERFACE_TYPE, UInt32, UInt32, "ptr*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

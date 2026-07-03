@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_ASYNC_CONTEXT.ahk" { WS_ASYNC_CONTEXT }
-#Import ".\WS_OPERATION_CONTEXT.ahk" { WS_OPERATION_CONTEXT }
-#Import ".\WS_ERROR.ahk" { WS_ERROR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WS_ASYNC_CONTEXT.ahk" { WS_ASYNC_CONTEXT }
+#Import ".\WS_ERROR.ahk" { WS_ERROR }
+#Import ".\WS_OPERATION_CONTEXT.ahk" { WS_OPERATION_CONTEXT }
 
 /**
  * Invoked when a WS_MESSAGE is received on an endpoint configured with a WS_SERVICE_CONTRACT which has defaultMessageHandlerCallback set.
@@ -63,10 +63,6 @@ export default struct WS_SERVICE_MESSAGE_RECEIVE_CALLBACK {
             this.value := CallbackCreate(fn, , [WS_OPERATION_CONTEXT.Ptr, WS_ASYNC_CONTEXT.Ptr, WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

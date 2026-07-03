@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DD_D3DBUFCALLBACKS.ahk" { DD_D3DBUFCALLBACKS }
 #Import ".\DDNTCORECAPS.ahk" { DDNTCORECAPS }
-#Import ".\VIDEOMEMORYINFO.ahk" { VIDEOMEMORYINFO }
 #Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
-#Import ".\PDD_GETDRIVERINFO.ahk" { PDD_GETDRIVERINFO }
 #Import ".\DDSCAPS.ahk" { DDSCAPS }
+#Import ".\DD_D3DBUFCALLBACKS.ahk" { DD_D3DBUFCALLBACKS }
+#Import ".\VIDEOMEMORYINFO.ahk" { VIDEOMEMORYINFO }
 
 /**
  * The DD_HALINFO structure describes the capabilities of the hardware and driver.
@@ -34,7 +33,7 @@ export default struct DD_HALINFO {
     /**
      * Points to the driver's <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_getdriverinfo">DdGetDriverInfo</a> function. This function is called to get further Microsoft DirectDraw driver information. This member can be <b>NULL</b>.
      */
-    GetDriverInfo : PDD_GETDRIVERINFO
+    GetDriverInfo : IntPtr
 
     dwFlags : UInt32
 

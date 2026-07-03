@@ -19,7 +19,7 @@
  * @charset ANSI
  */
 export default struct NEWTEXTMETRICA {
-    #StructPack 8
+    #StructPack 4
 
     /**
      * The height (ascent + descent) of characters.

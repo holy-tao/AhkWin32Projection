@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PNRP_CLOUD_STATE.ahk" { PNRP_CLOUD_STATE }
 #Import ".\PNRP_CLOUD_FLAGS.ahk" { PNRP_CLOUD_FLAGS }
 #Import ".\PNRP_CLOUD_ID.ahk" { PNRP_CLOUD_ID }
+#Import ".\PNRP_CLOUD_STATE.ahk" { PNRP_CLOUD_STATE }
 #Import ".\PNRP_SCOPE.ahk" { PNRP_SCOPE }
 
 /**

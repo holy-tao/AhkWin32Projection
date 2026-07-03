@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PCD_FLAGS.ahk" { PCD_FLAGS }
 #Import ".\PCCARD_DES.ahk" { PCCARD_DES }
+#Import ".\PCD_FLAGS.ahk" { PCD_FLAGS }
 
 /**
  * The PCCARD_RESOURCE structure is used for specifying either a resource list or a resource requirements list that describes resource usage by a PC Card instance.

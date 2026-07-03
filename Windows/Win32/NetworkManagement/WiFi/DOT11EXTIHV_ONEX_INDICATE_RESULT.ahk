@@ -48,10 +48,6 @@ export default struct DOT11EXTIHV_ONEX_INDICATE_RESULT {
             this.value := CallbackCreate(fn, , [HANDLE, DOT11_MSONEX_RESULT, DOT11_MSONEX_RESULT_PARAMS.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

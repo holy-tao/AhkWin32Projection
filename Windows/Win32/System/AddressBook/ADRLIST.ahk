@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SPropValue.ahk" { SPropValue }
 #Import ".\ADRENTRY.ahk" { ADRENTRY }
+#Import ".\SPropValue.ahk" { SPropValue }
 
 /**
  * Describes zero or more properties that belong to one or more recipients

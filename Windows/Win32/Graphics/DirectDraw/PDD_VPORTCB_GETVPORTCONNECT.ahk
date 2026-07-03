@@ -61,10 +61,6 @@ export default struct PDD_VPORTCB_GETVPORTCONNECT {
             this.value := CallbackCreate(fn, , [DD_GETVPORTCONNECTDATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

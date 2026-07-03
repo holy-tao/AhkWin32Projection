@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PRJ_CALLBACK_DATA.ahk" { PRJ_CALLBACK_DATA }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PRJ_CALLBACK_DATA.ahk" { PRJ_CALLBACK_DATA }
 
 /**
  * Informs the provider that a directory enumeration is starting.
@@ -103,10 +103,6 @@ export default struct PRJ_START_DIRECTORY_ENUMERATION_CB {
             this.value := CallbackCreate(fn, , [PRJ_CALLBACK_DATA.Ptr, Guid.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

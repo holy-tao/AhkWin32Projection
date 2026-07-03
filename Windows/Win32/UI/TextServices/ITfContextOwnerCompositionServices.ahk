@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITfContextComposition.ahk" { ITfContextComposition }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITfCompositionView.ahk" { ITfCompositionView }
+#Import ".\ITfContextComposition.ahk" { ITfContextComposition }
 
 /**
  * The ITfContextOwnerCompositionServices interface is implemented by the TSF manager and used by a context owner to manipulate compositions created by a text service.

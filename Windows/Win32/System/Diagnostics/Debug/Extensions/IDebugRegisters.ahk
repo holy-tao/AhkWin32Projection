@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\DEBUG_VALUE.ahk" { DEBUG_VALUE }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DEBUG_REGISTER_DESCRIPTION.ahk" { DEBUG_REGISTER_DESCRIPTION }
+#Import ".\DEBUG_VALUE.ahk" { DEBUG_VALUE }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

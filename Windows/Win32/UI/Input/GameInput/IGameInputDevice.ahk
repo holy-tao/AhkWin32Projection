@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\GameInputRumbleParams.ahk" { GameInputRumbleParams }
-#Import ".\GameInputForceFeedbackParams.ahk" { GameInputForceFeedbackParams }
-#Import ".\GameInputDeviceStatus.ahk" { GameInputDeviceStatus }
-#Import ".\GameInputBatteryState.ahk" { GameInputBatteryState }
-#Import ".\IGameInputRawDeviceReport.ahk" { IGameInputRawDeviceReport }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\GameInputBatteryState.ahk" { GameInputBatteryState }
+#Import ".\GameInputDeviceInfo.ahk" { GameInputDeviceInfo }
+#Import ".\GameInputDeviceStatus.ahk" { GameInputDeviceStatus }
+#Import ".\GameInputForceFeedbackParams.ahk" { GameInputForceFeedbackParams }
 #Import ".\GameInputHapticFeedbackParams.ahk" { GameInputHapticFeedbackParams }
 #Import ".\GameInputRawDeviceReportKind.ahk" { GameInputRawDeviceReportKind }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\GameInputDeviceInfo.ahk" { GameInputDeviceInfo }
+#Import ".\GameInputRumbleParams.ahk" { GameInputRumbleParams }
 #Import ".\IGameInputForceFeedbackEffect.ahk" { IGameInputForceFeedbackEffect }
+#Import ".\IGameInputRawDeviceReport.ahk" { IGameInputRawDeviceReport }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput

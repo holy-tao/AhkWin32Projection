@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Graphics\Direct3D9\D3DAUTHENTICATEDCHANNEL_CONFIGURE_OUTPUT.ahk" { D3DAUTHENTICATEDCHANNEL_CONFIGURE_OUTPUT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Direct3D9\D3DAUTHENTICATEDCHANNEL_CONFIGURE_OUTPUT.ahk" { D3DAUTHENTICATEDCHANNEL_CONFIGURE_OUTPUT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides a communication channel with the graphics driver or the Direct3D runtime.To get a pointer to this interface, call IDirect3DDevice9Video::CreateAuthenticatedChannel.

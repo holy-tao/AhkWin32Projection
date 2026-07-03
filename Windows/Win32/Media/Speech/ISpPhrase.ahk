@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SPSERIALIZEDPHRASE.ahk" { SPSERIALIZEDPHRASE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\SPPHRASE.ahk" { SPPHRASE }
+#Import ".\SPSERIALIZEDPHRASE.ahk" { SPSERIALIZEDPHRASE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.Speech

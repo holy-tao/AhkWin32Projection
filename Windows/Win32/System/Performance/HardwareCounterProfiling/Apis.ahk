@@ -1,8 +1,8 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
+#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\PERFORMANCE_DATA.ahk" { PERFORMANCE_DATA }
-#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.System.Performance.HardwareCounterProfiling

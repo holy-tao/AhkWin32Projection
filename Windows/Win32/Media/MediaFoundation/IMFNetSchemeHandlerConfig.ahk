@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\MFNETSOURCE_PROTOCOL_TYPE.ahk" { MFNETSOURCE_PROTOCOL_TYPE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MFNETSOURCE_PROTOCOL_TYPE.ahk" { MFNETSOURCE_PROTOCOL_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Configures a network scheme plug-in.

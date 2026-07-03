@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HCD_STAT_COUNTERS.ahk" { HCD_STAT_COUNTERS }
 #Import ".\HCD_ISO_STAT_COUNTERS.ahk" { HCD_ISO_STAT_COUNTERS }
+#Import ".\HCD_STAT_COUNTERS.ahk" { HCD_STAT_COUNTERS }
 
 /**
  * @namespace Windows.Win32.Devices.Usb

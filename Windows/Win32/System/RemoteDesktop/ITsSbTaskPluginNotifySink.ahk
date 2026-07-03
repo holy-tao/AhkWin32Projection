@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\RDV_TASK_STATUS.ahk" { RDV_TASK_STATUS }
-#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 #Import ".\ITsSbBaseNotifySink.ahk" { ITsSbBaseNotifySink }
+#Import ".\RDV_TASK_STATUS.ahk" { RDV_TASK_STATUS }
 
 /**
  * Exposes methods that report status and error messages about tasks to Remote Desktop Connection Broker (RD Connection Broker).

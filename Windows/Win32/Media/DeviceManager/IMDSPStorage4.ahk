@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWMDMMetaData.ahk" { IWMDMMetaData }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WMDM_FIND_SCOPE.ahk" { WMDM_FIND_SCOPE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMDSPStorage3.ahk" { IMDSPStorage3 }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IMDSPStorage.ahk" { IMDSPStorage }
+#Import ".\IMDSPStorage3.ahk" { IMDSPStorage3 }
+#Import ".\IWMDMMetaData.ahk" { IWMDMMetaData }
+#Import ".\WMDM_FIND_SCOPE.ahk" { WMDM_FIND_SCOPE }
 
 /**
  * The IMDSPStorage4 interface extends IMDSPStorage3 for supporting virtual storages (such as playlists and albums) and metadata.Note  Unless the service provider has added the device parameter UseExtendedWmdm with a value of 1, Windows Media Device Manager will not call this interface. See Device Parameters for more information about this. .

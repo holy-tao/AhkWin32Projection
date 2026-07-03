@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Graphics\Gdi\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
-#Import "..\..\Graphics\Gdi\CIEXYZTRIPLE.ahk" { CIEXYZTRIPLE }
-#Import ".\LCSCSTYPE.ahk" { LCSCSTYPE }
 #Import "..\..\Graphics\Gdi\CIEXYZ.ahk" { CIEXYZ }
-#Import ".\LOGCOLORSPACEW.ahk" { LOGCOLORSPACEW }
+#Import "..\..\Graphics\Gdi\CIEXYZTRIPLE.ahk" { CIEXYZTRIPLE }
 #Import "..\..\Graphics\Gdi\EMR.ahk" { EMR }
+#Import "..\..\Graphics\Gdi\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
+#Import ".\LCSCSTYPE.ahk" { LCSCSTYPE }
+#Import ".\LOGCOLORSPACEW.ahk" { LOGCOLORSPACEW }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

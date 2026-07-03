@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IHeaderCtrl.ahk" { IHeaderCtrl }
 #Import ".\MMC_FILTERDATA.ahk" { MMC_FILTERDATA }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IHeaderCtrl2 interface is introduced in MMC 1.2.

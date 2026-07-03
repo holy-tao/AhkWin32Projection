@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\RTC_ROAMING_EVENT_TYPE.ahk" { RTC_ROAMING_EVENT_TYPE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IRTCProfile2.ahk" { IRTCProfile2 }
+#Import ".\RTC_ROAMING_EVENT_TYPE.ahk" { RTC_ROAMING_EVENT_TYPE }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

@@ -44,10 +44,6 @@ export default struct PCLUSAPI_DESTROY_CLUSTER_GROUP {
             this.value := CallbackCreate(fn, , [HGROUP, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

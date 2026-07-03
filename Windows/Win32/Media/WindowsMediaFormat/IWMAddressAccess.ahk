@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WM_ADDRESS_ACCESSENTRY.ahk" { WM_ADDRESS_ACCESSENTRY }
 #Import ".\WM_AETYPE.ahk" { WM_AETYPE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMAddressAccess interface controls IP access lists on the writer network sink object.

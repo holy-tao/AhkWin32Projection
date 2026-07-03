@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\CollectionElementValue.ahk" { CollectionElementValue }
-#Import ".\IVisualTreeServiceCallback.ahk" { IVisualTreeServiceCallback }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\PropertyChainSource.ahk" { PropertyChainSource }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\CollectionElementValue.ahk" { CollectionElementValue }
 #Import ".\EnumType.ahk" { EnumType }
+#Import ".\IVisualTreeServiceCallback.ahk" { IVisualTreeServiceCallback }
+#Import ".\PropertyChainSource.ahk" { PropertyChainSource }
 #Import ".\PropertyChainValue.ahk" { PropertyChainValue }
 
 /**

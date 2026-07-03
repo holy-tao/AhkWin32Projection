@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
-#Import ".\D3D12_TEXTURE_BARRIER_FLAGS.ahk" { D3D12_TEXTURE_BARRIER_FLAGS }
+#Import ".\D3D12_BARRIER_ACCESS.ahk" { D3D12_BARRIER_ACCESS }
 #Import ".\D3D12_BARRIER_LAYOUT.ahk" { D3D12_BARRIER_LAYOUT }
 #Import ".\D3D12_BARRIER_SUBRESOURCE_RANGE.ahk" { D3D12_BARRIER_SUBRESOURCE_RANGE }
 #Import ".\D3D12_BARRIER_SYNC.ahk" { D3D12_BARRIER_SYNC }
-#Import ".\D3D12_BARRIER_ACCESS.ahk" { D3D12_BARRIER_ACCESS }
+#Import ".\D3D12_TEXTURE_BARRIER_FLAGS.ahk" { D3D12_TEXTURE_BARRIER_FLAGS }
+#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
 
 /**
  * Expresses an access transition for a texture.

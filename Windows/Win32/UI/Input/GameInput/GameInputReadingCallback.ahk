@@ -48,10 +48,6 @@ export default struct GameInputReadingCallback {
             this.value := CallbackCreate(fn, , [Int64, "ptr", "ptr", Int32, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

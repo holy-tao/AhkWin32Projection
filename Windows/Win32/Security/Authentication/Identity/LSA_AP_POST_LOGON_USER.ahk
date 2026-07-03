@@ -26,7 +26,7 @@ export default struct LSA_AP_POST_LOGON_USER {
      */
     Call(PostLogonUserInfo) {
         result := DllCall(this.value, SECPKG_POST_LOGON_USER_INFO.Ptr, PostLogonUserInfo, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -46,10 +46,6 @@ export default struct LSA_AP_POST_LOGON_USER {
             this.value := CallbackCreate(fn, , [SECPKG_POST_LOGON_USER_INFO.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

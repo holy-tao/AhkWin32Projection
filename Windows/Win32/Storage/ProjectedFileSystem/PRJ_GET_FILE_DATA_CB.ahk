@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PRJ_CALLBACK_DATA.ahk" { PRJ_CALLBACK_DATA }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PRJ_CALLBACK_DATA.ahk" { PRJ_CALLBACK_DATA }
 
 /**
  * Requests the contents of a file's primary data stream.
@@ -98,10 +98,6 @@ export default struct PRJ_GET_FILE_DATA_CB {
             this.value := CallbackCreate(fn, , [PRJ_CALLBACK_DATA.Ptr, Int64, UInt32, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

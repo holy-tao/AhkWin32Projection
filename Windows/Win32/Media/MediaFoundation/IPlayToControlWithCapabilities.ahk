@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\PLAYTO_SOURCE_CREATEFLAGS.ahk" { PLAYTO_SOURCE_CREATEFLAGS }
-#Import ".\IPlayToControl.ahk" { IPlayToControl }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPlayToControl.ahk" { IPlayToControl }
+#Import ".\PLAYTO_SOURCE_CREATEFLAGS.ahk" { PLAYTO_SOURCE_CREATEFLAGS }
 
 /**
  * Provides functionality for the IPlayToSource to determine the capabilities of the content.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MBN_COMPRESSION.ahk" { MBN_COMPRESSION }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\MBN_CONTEXT_TYPE.ahk" { MBN_CONTEXT_TYPE }
 #Import ".\MBN_AUTH_PROTOCOL.ahk" { MBN_AUTH_PROTOCOL }
+#Import ".\MBN_COMPRESSION.ahk" { MBN_COMPRESSION }
+#Import ".\MBN_CONTEXT_TYPE.ahk" { MBN_CONTEXT_TYPE }
 
 /**
  * The MBN_CONTEXT structure stores information about the connection context.

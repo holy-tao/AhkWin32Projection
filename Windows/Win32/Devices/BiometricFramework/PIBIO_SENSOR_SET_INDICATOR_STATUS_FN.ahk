@@ -115,10 +115,6 @@ export default struct PIBIO_SENSOR_SET_INDICATOR_STATUS_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, UInt32, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -53,10 +53,6 @@ export default struct PFN_CRYPT_ASYNC_RETRIEVAL_COMPLETION_FUNC {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, PSTR, PSTR, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

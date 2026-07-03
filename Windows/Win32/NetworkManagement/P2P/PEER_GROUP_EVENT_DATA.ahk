@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\PEER_GROUP_EVENT_TYPE.ahk" { PEER_GROUP_EVENT_TYPE }
+#Import ".\PEER_CONNECTION_STATUS.ahk" { PEER_CONNECTION_STATUS }
 #Import ".\PEER_DATA.ahk" { PEER_DATA }
 #Import ".\PEER_EVENT_CONNECTION_CHANGE_DATA.ahk" { PEER_EVENT_CONNECTION_CHANGE_DATA }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\PEER_EVENT_RECORD_CHANGE_DATA.ahk" { PEER_EVENT_RECORD_CHANGE_DATA }
-#Import ".\PEER_RECORD_CHANGE_TYPE.ahk" { PEER_RECORD_CHANGE_TYPE }
-#Import ".\PEER_MEMBER_CHANGE_TYPE.ahk" { PEER_MEMBER_CHANGE_TYPE }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\PEER_EVENT_INCOMING_DATA.ahk" { PEER_EVENT_INCOMING_DATA }
 #Import ".\PEER_EVENT_MEMBER_CHANGE_DATA.ahk" { PEER_EVENT_MEMBER_CHANGE_DATA }
+#Import ".\PEER_EVENT_RECORD_CHANGE_DATA.ahk" { PEER_EVENT_RECORD_CHANGE_DATA }
+#Import ".\PEER_GROUP_EVENT_TYPE.ahk" { PEER_GROUP_EVENT_TYPE }
 #Import ".\PEER_GROUP_STATUS.ahk" { PEER_GROUP_STATUS }
-#Import ".\PEER_CONNECTION_STATUS.ahk" { PEER_CONNECTION_STATUS }
+#Import ".\PEER_MEMBER_CHANGE_TYPE.ahk" { PEER_MEMBER_CHANGE_TYPE }
+#Import ".\PEER_RECORD_CHANGE_TYPE.ahk" { PEER_RECORD_CHANGE_TYPE }
 
 /**
  * The PEER_GROUP_EVENT_DATA structure (p2p.h) contains information about a specific peer group event that has occurred.

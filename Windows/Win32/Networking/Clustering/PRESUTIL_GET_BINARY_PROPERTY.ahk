@@ -54,10 +54,6 @@ export default struct PRESUTIL_GET_BINARY_PROPERTY {
             this.value := CallbackCreate(fn, , ["ptr*", "uint*", CLUSPROP_BINARY.Ptr, IntPtr, UInt32, IntPtr, "uint*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

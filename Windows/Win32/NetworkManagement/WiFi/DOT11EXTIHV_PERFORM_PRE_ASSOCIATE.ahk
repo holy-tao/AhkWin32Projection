@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DOT11EXT_IHV_PROFILE_PARAMS.ahk" { DOT11EXT_IHV_PROFILE_PARAMS }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\DOT11EXT_IHV_CONNECTIVITY_PROFILE.ahk" { DOT11EXT_IHV_CONNECTIVITY_PROFILE }
+#Import ".\DOT11EXT_IHV_PROFILE_PARAMS.ahk" { DOT11EXT_IHV_PROFILE_PARAMS }
 #Import ".\DOT11EXT_IHV_SECURITY_PROFILE.ahk" { DOT11EXT_IHV_SECURITY_PROFILE }
 #Import ".\DOT11_BSS_LIST.ahk" { DOT11_BSS_LIST }
 
@@ -56,10 +56,6 @@ export default struct DOT11EXTIHV_PERFORM_PRE_ASSOCIATE {
             this.value := CallbackCreate(fn, , [HANDLE, HANDLE, DOT11EXT_IHV_PROFILE_PARAMS.Ptr, DOT11EXT_IHV_CONNECTIVITY_PROFILE.Ptr, DOT11EXT_IHV_SECURITY_PROFILE.Ptr, DOT11_BSS_LIST.Ptr, "uint*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

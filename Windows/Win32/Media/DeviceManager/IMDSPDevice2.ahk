@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
-#Import "..\..\System\Ole\ISpecifyPropertyPages.ahk" { ISpecifyPropertyPages }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IMDSPDevice.ahk" { IMDSPDevice }
-#Import ".\WMFILECAPABILITIES.ahk" { WMFILECAPABILITIES }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\IMDSPDevice.ahk" { IMDSPDevice }
 #Import ".\IMDSPStorage.ahk" { IMDSPStorage }
+#Import ".\WMFILECAPABILITIES.ahk" { WMFILECAPABILITIES }
 #Import "..\MediaFoundation\VIDEOINFOHEADER.ahk" { VIDEOINFOHEADER }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Ole\ISpecifyPropertyPages.ahk" { ISpecifyPropertyPages }
 
 /**
  * The IMDSPDevice2 interface extends IMDSPDevice by getting extended formats, getting Plug and Play (PnP) device names, enabling the use of property pages, and making it possible to get a pointer to a storage medium from its name.

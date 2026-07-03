@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 #Import "..\Kernel\LIST_ENTRY.ahk" { LIST_ENTRY }
 
 /**

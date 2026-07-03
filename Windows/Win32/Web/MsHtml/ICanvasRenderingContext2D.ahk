@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ICanvasTextMetrics.ahk" { ICanvasTextMetrics }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IHTMLCanvasElement.ahk" { IHTMLCanvasElement }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\ICanvasGradient.ahk" { ICanvasGradient }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\ICanvasImageData.ahk" { ICanvasImageData }
 #Import ".\ICanvasPattern.ahk" { ICanvasPattern }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ICanvasTextMetrics.ahk" { ICanvasTextMetrics }
+#Import ".\IHTMLCanvasElement.ahk" { IHTMLCanvasElement }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

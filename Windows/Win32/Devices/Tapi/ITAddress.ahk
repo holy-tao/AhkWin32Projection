@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ADDRESS_STATE.ahk" { ADDRESS_STATE }
+#Import ".\IEnumCall.ahk" { IEnumCall }
+#Import ".\ITBasicCallControl.ahk" { ITBasicCallControl }
 #Import ".\ITForwardInformation.ahk" { ITForwardInformation }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\ITTAPI.ahk" { ITTAPI }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ADDRESS_STATE.ahk" { ADDRESS_STATE }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITBasicCallControl.ahk" { ITBasicCallControl }
-#Import ".\IEnumCall.ahk" { IEnumCall }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ITAddress interface is the base interface for the Address object. Applications use this interface to get information about and use the Address object.

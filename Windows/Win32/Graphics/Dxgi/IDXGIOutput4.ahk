@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDXGIOutput3.ahk" { IDXGIOutput3 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "Common\DXGI_COLOR_SPACE_TYPE.ahk" { DXGI_COLOR_SPACE_TYPE }
 #Import "Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\IDXGIOutput3.ahk" { IDXGIOutput3 }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents an adapter output (such as a monitor). The IDXGIOutput4 interface exposes a method to check for overlay color space support.

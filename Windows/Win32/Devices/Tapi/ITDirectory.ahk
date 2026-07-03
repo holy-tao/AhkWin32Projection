@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DIRECTORY_OBJECT_TYPE.ahk" { DIRECTORY_OBJECT_TYPE }
 #Import ".\DIRECTORY_TYPE.ahk" { DIRECTORY_TYPE }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IEnumDirectoryObject.ahk" { IEnumDirectoryObject }
 #Import ".\ITDirectoryObject.ahk" { ITDirectoryObject }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\DIRECTORY_OBJECT_TYPE.ahk" { DIRECTORY_OBJECT_TYPE }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IEnumDirectoryObject.ahk" { IEnumDirectoryObject }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ITDirectory interface is exposed by the Directory object, which corresponds to a particular directory.

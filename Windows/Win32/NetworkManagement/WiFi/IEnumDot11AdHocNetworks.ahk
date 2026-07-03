@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDot11AdHocNetwork.ahk" { IDot11AdHocNetwork }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDot11AdHocNetwork.ahk" { IDot11AdHocNetwork }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents the collection of currently visible 802.11 ad hoc networks.

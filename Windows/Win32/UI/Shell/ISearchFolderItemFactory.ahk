@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IShellItemArray.ahk" { IShellItemArray }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SORTCOLUMN.ahk" { SORTCOLUMN }
-#Import "..\..\System\Search\ICondition.ahk" { ICondition }
-#Import ".\FOLDERLOGICALVIEWMODE.ahk" { FOLDERLOGICALVIEWMODE }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Search\ICondition.ahk" { ICondition }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import ".\FOLDERLOGICALVIEWMODE.ahk" { FOLDERLOGICALVIEWMODE }
+#Import ".\IShellItemArray.ahk" { IShellItemArray }
+#Import ".\SORTCOLUMN.ahk" { SORTCOLUMN }
 
 /**
  * Exposes methods that create and modify search folders.

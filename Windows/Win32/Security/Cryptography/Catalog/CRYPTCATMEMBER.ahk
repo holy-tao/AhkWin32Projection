@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\Sip\SIP_INDIRECT_DATA.ahk" { SIP_INDIRECT_DATA }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Sip\SIP_INDIRECT_DATA.ahk" { SIP_INDIRECT_DATA }
 
 /**
  * The CRYPTCATMEMBER structure provides information about a catalog member. This structure is used by the CryptCATGetMemberInfo and CryptCATEnumerateAttr functions.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TOUCHPAD_SENSITIVITY_LEVEL.ahk" { TOUCHPAD_SENSITIVITY_LEVEL }
 #Import ".\LEGACY_TOUCHPAD_FEATURES.ahk" { LEGACY_TOUCHPAD_FEATURES }
+#Import ".\TOUCHPAD_SENSITIVITY_LEVEL.ahk" { TOUCHPAD_SENSITIVITY_LEVEL }
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging

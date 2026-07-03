@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Describes a keyboard input event in a console INPUT\_RECORD structure.

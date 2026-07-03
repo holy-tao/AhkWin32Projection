@@ -43,10 +43,6 @@ export default struct PFND3DKMT_TRIMNOTIFICATIONCALLBACK {
             this.value := CallbackCreate(fn, , [D3DKMT_TRIMNOTIFICATION.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

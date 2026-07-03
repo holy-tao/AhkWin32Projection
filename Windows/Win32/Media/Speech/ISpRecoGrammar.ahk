@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SPLOADOPTIONS.ahk" { SPLOADOPTIONS }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ISpGrammarBuilder.ahk" { ISpGrammarBuilder }
-#Import ".\SPTEXTSELECTIONINFO.ahk" { SPTEXTSELECTIONINFO }
 #Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ISpGrammarBuilder.ahk" { ISpGrammarBuilder }
 #Import ".\ISpRecoContext.ahk" { ISpRecoContext }
-#Import ".\SPGRAMMARSTATE.ahk" { SPGRAMMARSTATE }
 #Import ".\SPBINARYGRAMMAR.ahk" { SPBINARYGRAMMAR }
-#Import ".\SPWORDPRONOUNCEABLE.ahk" { SPWORDPRONOUNCEABLE }
+#Import ".\SPGRAMMARSTATE.ahk" { SPGRAMMARSTATE }
+#Import ".\SPLOADOPTIONS.ahk" { SPLOADOPTIONS }
 #Import ".\SPRULESTATE.ahk" { SPRULESTATE }
+#Import ".\SPTEXTSELECTIONINFO.ahk" { SPTEXTSELECTIONINFO }
+#Import ".\SPWORDPRONOUNCEABLE.ahk" { SPWORDPRONOUNCEABLE }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * @namespace Windows.Win32.Media.Speech

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\USBFN_PORT_TYPE.ahk" { USBFN_PORT_TYPE }
 #Import ".\ALTERNATE_INTERFACE.ahk" { ALTERNATE_INTERFACE }
-#Import ".\USB_DEFAULT_PIPE_SETUP_PACKET.ahk" { USB_DEFAULT_PIPE_SETUP_PACKET }
-#Import ".\USBFN_EVENT.ahk" { USBFN_EVENT }
-#Import ".\USBFN_BUS_SPEED.ahk" { USBFN_BUS_SPEED }
 #Import ".\BM_REQUEST_TYPE.ahk" { BM_REQUEST_TYPE }
+#Import ".\USBFN_BUS_SPEED.ahk" { USBFN_BUS_SPEED }
+#Import ".\USBFN_EVENT.ahk" { USBFN_EVENT }
+#Import ".\USBFN_PORT_TYPE.ahk" { USBFN_PORT_TYPE }
+#Import ".\USB_DEFAULT_PIPE_SETUP_PACKET.ahk" { USB_DEFAULT_PIPE_SETUP_PACKET }
 
 /**
  * @namespace Windows.Win32.Devices.Usb

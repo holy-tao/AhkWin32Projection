@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\IMAGE_DATA_DIRECTORY.ahk" { IMAGE_DATA_DIRECTORY }
-#Import ".\IMAGE_SUBSYSTEM.ahk" { IMAGE_SUBSYSTEM }
-#Import ".\IMAGE_OPTIONAL_HEADER_MAGIC.ahk" { IMAGE_OPTIONAL_HEADER_MAGIC }
 #Import ".\IMAGE_DLL_CHARACTERISTICS.ahk" { IMAGE_DLL_CHARACTERISTICS }
+#Import ".\IMAGE_OPTIONAL_HEADER_MAGIC.ahk" { IMAGE_OPTIONAL_HEADER_MAGIC }
+#Import ".\IMAGE_SUBSYSTEM.ahk" { IMAGE_SUBSYSTEM }
 
 /**
  * Represents the optional header format. (32 bit)

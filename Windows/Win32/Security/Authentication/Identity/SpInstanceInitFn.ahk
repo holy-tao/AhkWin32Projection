@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SECPKG_DLL_FUNCTIONS.ahk" { SECPKG_DLL_FUNCTIONS }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\SECPKG_DLL_FUNCTIONS.ahk" { SECPKG_DLL_FUNCTIONS }
 
 /**
  * Initializes user-mode security packages in an SSP/AP.
@@ -43,7 +43,7 @@ export default struct SpInstanceInitFn {
         UserFunctionsMarshal := UserFunctions is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, UInt32, _Version, SECPKG_DLL_FUNCTIONS.Ptr, FunctionTable, UserFunctionsMarshal, UserFunctions, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -63,10 +63,6 @@ export default struct SpInstanceInitFn {
             this.value := CallbackCreate(fn, , [UInt32, SECPKG_DLL_FUNCTIONS.Ptr, "ptr*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

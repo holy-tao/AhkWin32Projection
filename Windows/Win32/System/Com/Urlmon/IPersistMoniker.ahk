@@ -2,10 +2,10 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\IMoniker.ahk" { IMoniker }
-#Import "..\IBindCtx.ahk" { IBindCtx }
-#Import "..\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\IBindCtx.ahk" { IBindCtx }
+#Import "..\IMoniker.ahk" { IMoniker }
+#Import "..\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon

@@ -1,5 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LPDDENUMCALLBACKEXA.ahk" { LPDDENUMCALLBACKEXA }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -30,7 +29,7 @@ export default struct LPDIRECTDRAWENUMERATEEXA {
     Call(lpCallback, lpContext, dwFlags) {
         lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall(this.value, LPDDENUMCALLBACKEXA, lpCallback, lpContextMarshal, lpContext, UInt32, dwFlags, "HRESULT")
+        result := DllCall(this.value, "ptr", lpCallback, lpContextMarshal, lpContext, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -41,19 +40,15 @@ export default struct LPDIRECTDRAWENUMERATEEXA {
     struct From extends LPDIRECTDRAWENUMERATEEXA {
         /**
          * Creates a LPDIRECTDRAWENUMERATEEXA pointer that invokes the given AHK function when called.
-         * @param {Func(LPDDENUMCALLBACKEXA, "ptr", UInt32) => "int"} fn the function to invoke.
+         * @param {Func("ptr", "ptr", UInt32) => "int"} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 3)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 3 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [LPDDENUMCALLBACKEXA, "ptr", UInt32, "int"])
+            this.value := CallbackCreate(fn, , ["ptr", "ptr", UInt32, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

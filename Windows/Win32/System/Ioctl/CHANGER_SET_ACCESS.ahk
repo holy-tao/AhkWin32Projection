@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ELEMENT_TYPE.ahk" { ELEMENT_TYPE }
 #Import ".\CHANGER_ELEMENT.ahk" { CHANGER_ELEMENT }
+#Import ".\ELEMENT_TYPE.ahk" { ELEMENT_TYPE }
 
 /**
  * Contains information that the IOCTL_CHANGER_SET_ACCESS control code needs to set the state of the device's insert/eject port, door, or keypad.

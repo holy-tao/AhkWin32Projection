@@ -44,10 +44,6 @@ export default struct LPDDHALVPORTCB_GETFLIPSTATUS {
             this.value := CallbackCreate(fn, , [DDHAL_GETVPORTFLIPSTATUSDATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

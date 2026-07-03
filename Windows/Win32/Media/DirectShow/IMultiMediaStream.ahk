@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\STREAM_STATE.ahk" { STREAM_STATE }
-#Import ".\IMediaStream.ahk" { IMediaStream }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMediaStream.ahk" { IMediaStream }
 #Import ".\MMSSF_GET_INFORMATION_FLAGS.ahk" { MMSSF_GET_INFORMATION_FLAGS }
+#Import ".\STREAM_STATE.ahk" { STREAM_STATE }
 #Import ".\STREAM_TYPE.ahk" { STREAM_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Note  This interface is deprecated.

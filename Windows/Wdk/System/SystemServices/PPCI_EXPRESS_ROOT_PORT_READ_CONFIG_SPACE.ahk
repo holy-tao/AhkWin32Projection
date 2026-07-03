@@ -48,10 +48,6 @@ export default struct PPCI_EXPRESS_ROOT_PORT_READ_CONFIG_SPACE {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr, UInt32, UInt32, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\USB_HUB_TYPE.ahk" { USB_HUB_TYPE }
-#Import ".\USB_HUB_DESCRIPTOR.ahk" { USB_HUB_DESCRIPTOR }
 #Import ".\USB_30_HUB_DESCRIPTOR.ahk" { USB_30_HUB_DESCRIPTOR }
+#Import ".\USB_HUB_DESCRIPTOR.ahk" { USB_HUB_DESCRIPTOR }
+#Import ".\USB_HUB_TYPE.ahk" { USB_HUB_TYPE }
 
 /**
  * @namespace Windows.Win32.Devices.Usb

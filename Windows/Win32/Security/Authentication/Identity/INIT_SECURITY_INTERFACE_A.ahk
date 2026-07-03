@@ -44,10 +44,6 @@ export default struct INIT_SECURITY_INTERFACE_A {
             this.value := CallbackCreate(fn, , [SecurityFunctionTableA.Ptr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IMcastLeaseInfo.ahk" { IMcastLeaseInfo }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IEnumMcastScope.ahk" { IEnumMcastScope }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IMcastLeaseInfo.ahk" { IMcastLeaseInfo }
 #Import ".\IMcastScope.ahk" { IMcastScope }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * IMcastAddressAllocation is the main interface for multicast address allocation. An application calls the COM CoCreateInstance function on this interface to create the multicast client interface object.

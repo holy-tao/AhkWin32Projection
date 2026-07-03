@@ -46,10 +46,6 @@ export default struct PDXGK_REMOVAL_NOTIFICATION {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

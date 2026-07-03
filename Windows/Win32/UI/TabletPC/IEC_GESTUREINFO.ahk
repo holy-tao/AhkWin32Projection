@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\System\Ole\IRecordInfo.ahk" { IRecordInfo }
-#Import "..\..\Foundation\CHAR.ahk" { CHAR }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\System\Com\CY.ahk" { CY }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IInkCursor.ahk" { IInkCursor }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\Controls\NMHDR.ahk" { NMHDR }
-#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\System\Variant\VARENUM.ahk" { VARENUM }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 #Import "..\..\Foundation\DECIMAL.ahk" { DECIMAL }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\CY.ahk" { CY }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\System\Ole\IRecordInfo.ahk" { IRecordInfo }
+#Import "..\..\System\Variant\VARENUM.ahk" { VARENUM }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Controls\NMHDR.ahk" { NMHDR }
+#Import ".\IInkCursor.ahk" { IInkCursor }
 #Import ".\IInkStrokes.ahk" { IInkStrokes }
 
 /**

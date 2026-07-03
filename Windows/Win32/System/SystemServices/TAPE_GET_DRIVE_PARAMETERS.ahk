@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TAPE_GET_DRIVE_PARAMETERS_FEATURES_HIGH.ahk" { TAPE_GET_DRIVE_PARAMETERS_FEATURES_HIGH }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\TAPE_GET_DRIVE_PARAMETERS_FEATURES_HIGH.ahk" { TAPE_GET_DRIVE_PARAMETERS_FEATURES_HIGH }
 
 /**
  * Describes the tape drive. It is used by the GetTapeParameters function.

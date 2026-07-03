@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HELPER_ATTRIBUTE.ahk" { HELPER_ATTRIBUTE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HELPER_ATTRIBUTE.ahk" { HELPER_ATTRIBUTE }
 
 /**
  * The HYPOTHESIS structure contains data used to submit a hypothesis to NDF for another helper class.

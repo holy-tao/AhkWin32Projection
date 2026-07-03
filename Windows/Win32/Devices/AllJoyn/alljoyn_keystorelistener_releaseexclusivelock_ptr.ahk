@@ -46,10 +46,6 @@ export default struct alljoyn_keystorelistener_releaseexclusivelock_ptr {
             this.value := CallbackCreate(fn, , ["ptr", alljoyn_keystorelistener, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

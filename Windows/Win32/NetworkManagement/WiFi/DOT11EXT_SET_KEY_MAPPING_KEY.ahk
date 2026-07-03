@@ -46,10 +46,6 @@ export default struct DOT11EXT_SET_KEY_MAPPING_KEY {
             this.value := CallbackCreate(fn, , [HANDLE, DOT11_CIPHER_KEY_MAPPING_KEY_VALUE.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -30,7 +30,7 @@ export default struct pHalSetSystemInformation {
         _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, HAL_SET_INFORMATION_CLASS, InformationClass, UInt32, BufferSize, _BufferMarshal, _Buffer, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -50,10 +50,6 @@ export default struct pHalSetSystemInformation {
             this.value := CallbackCreate(fn, , [HAL_SET_INFORMATION_CLASS, UInt32, "ptr", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IStreamSample.ahk" { IStreamSample }
-#Import ".\IMultiMediaStream.ahk" { IMultiMediaStream }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMultiMediaStream.ahk" { IMultiMediaStream }
+#Import ".\IStreamSample.ahk" { IStreamSample }
 #Import ".\STREAM_TYPE.ahk" { STREAM_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Note  This interface is deprecated.

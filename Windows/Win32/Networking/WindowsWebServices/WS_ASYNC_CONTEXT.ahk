@@ -1,5 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_ASYNC_CALLBACK.ahk" { WS_ASYNC_CALLBACK }
 
 /**
  * Used with the Async Model to specify the asynchronous callback and a pointer which will be passed to the asynchronous callback.
@@ -13,7 +12,7 @@ export default struct WS_ASYNC_CONTEXT {
      * The callback function to call if the operation completes asynchronously.
      *                     This field may not be <b>NULL</b>.
      */
-    callback : WS_ASYNC_CALLBACK
+    callback : IntPtr
 
     /**
      * A pointer to user-defined data which will passed to the asynchronous callback

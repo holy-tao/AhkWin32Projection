@@ -1,10 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PGET_IDLE_WAKE_INFO.ahk" { PGET_IDLE_WAKE_INFO }
-#Import ".\PGET_D3COLD_CAPABILITY.ahk" { PGET_D3COLD_CAPABILITY }
-#Import ".\PSET_D3COLD_SUPPORT.ahk" { PSET_D3COLD_SUPPORT }
-#Import ".\PGET_D3COLD_LAST_TRANSITION_STATUS.ahk" { PGET_D3COLD_LAST_TRANSITION_STATUS }
-#Import ".\PINTERFACE_DEREFERENCE.ahk" { PINTERFACE_DEREFERENCE }
-#Import ".\PINTERFACE_REFERENCE.ahk" { PINTERFACE_REFERENCE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -18,18 +12,18 @@ export default struct D3COLD_SUPPORT_INTERFACE {
 
     Context : IntPtr
 
-    InterfaceReference : PINTERFACE_REFERENCE
+    InterfaceReference : IntPtr
 
-    InterfaceDereference : PINTERFACE_DEREFERENCE
+    InterfaceDereference : IntPtr
 
-    SetD3ColdSupport : PSET_D3COLD_SUPPORT
+    SetD3ColdSupport : IntPtr
 
-    GetIdleWakeInfo : PGET_IDLE_WAKE_INFO
+    GetIdleWakeInfo : IntPtr
 
-    GetD3ColdCapability : PGET_D3COLD_CAPABILITY
+    GetD3ColdCapability : IntPtr
 
-    GetBusDriverD3ColdSupport : PGET_D3COLD_CAPABILITY
+    GetBusDriverD3ColdSupport : IntPtr
 
-    GetLastTransitionStatus : PGET_D3COLD_LAST_TRANSITION_STATUS
+    GetLastTransitionStatus : IntPtr
 
 }

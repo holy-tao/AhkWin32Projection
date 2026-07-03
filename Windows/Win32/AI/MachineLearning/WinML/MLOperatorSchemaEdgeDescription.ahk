@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\MLOperatorEdgeDescription.ahk" { MLOperatorEdgeDescription }
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\MLOperatorEdgeType.ahk" { MLOperatorEdgeType }
-#Import ".\MLOperatorTensorDataType.ahk" { MLOperatorTensorDataType }
-#Import ".\MLOperatorSchemaEdgeTypeFormat.ahk" { MLOperatorSchemaEdgeTypeFormat }
 #Import ".\MLOperatorParameterOptions.ahk" { MLOperatorParameterOptions }
+#Import ".\MLOperatorSchemaEdgeTypeFormat.ahk" { MLOperatorSchemaEdgeTypeFormat }
+#Import ".\MLOperatorTensorDataType.ahk" { MLOperatorTensorDataType }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML

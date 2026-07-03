@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Dxgi\Common\DXGI_JPEG_AC_HUFFMAN_TABLE.ahk" { DXGI_JPEG_AC_HUFFMAN_TABLE }
 #Import "..\Dxgi\Common\DXGI_JPEG_DC_HUFFMAN_TABLE.ahk" { DXGI_JPEG_DC_HUFFMAN_TABLE }
 #Import "..\Dxgi\Common\DXGI_JPEG_QUANTIZATION_TABLE.ahk" { DXGI_JPEG_QUANTIZATION_TABLE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WICJpegScanHeader.ahk" { WICJpegScanHeader }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\WICJpegFrameHeader.ahk" { WICJpegFrameHeader }
 #Import ".\WICJpegIndexingOptions.ahk" { WICJpegIndexingOptions }
-#Import "..\Dxgi\Common\DXGI_JPEG_AC_HUFFMAN_TABLE.ahk" { DXGI_JPEG_AC_HUFFMAN_TABLE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\WICJpegScanHeader.ahk" { WICJpegScanHeader }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods for decoding JPEG images. Provides access to the Start Of Frame (SOF) header, Start of Scan (SOS) header, the Huffman and Quantization tables, and the compressed JPEG JPEG data. Also enables indexing for efficient random access.

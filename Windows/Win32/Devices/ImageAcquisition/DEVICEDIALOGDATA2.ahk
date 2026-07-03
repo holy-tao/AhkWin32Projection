@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IWiaItem2.ahk" { IWiaItem2 }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\IWiaItem2.ahk" { IWiaItem2 }
 
 /**
  * DEVICEDIALOGDATA2 structure - Defines the data needed to call a device dialog.

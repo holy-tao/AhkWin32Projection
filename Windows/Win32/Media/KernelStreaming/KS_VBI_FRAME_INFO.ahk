@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\KS_VBIINFOHEADER.ahk" { KS_VBIINFOHEADER }
 #Import ".\KS_TVTUNER_CHANGE_INFO.ahk" { KS_TVTUNER_CHANGE_INFO }
+#Import ".\KS_VBIINFOHEADER.ahk" { KS_VBIINFOHEADER }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

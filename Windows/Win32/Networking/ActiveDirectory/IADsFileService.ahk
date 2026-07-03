@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IADsService.ahk" { IADsService }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IADsService.ahk" { IADsService }
 
 /**
  * The IADsFileService interface is a dual interface that inherits from IADsService.

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\VDS_STORAGE_POOL_PROP.ahk" { VDS_STORAGE_POOL_PROP }
-#Import ".\VDS_STORAGE_POOL_DRIVE_EXTENT.ahk" { VDS_STORAGE_POOL_DRIVE_EXTENT }
-#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
-#Import ".\VDS_POOL_ATTRIBUTES.ahk" { VDS_POOL_ATTRIBUTES }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
 #Import ".\IVdsProvider.ahk" { IVdsProvider }
+#Import ".\VDS_POOL_ATTRIBUTES.ahk" { VDS_POOL_ATTRIBUTES }
+#Import ".\VDS_STORAGE_POOL_DRIVE_EXTENT.ahk" { VDS_STORAGE_POOL_DRIVE_EXTENT }
+#Import ".\VDS_STORAGE_POOL_PROP.ahk" { VDS_STORAGE_POOL_PROP }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVdsStoragePool interface (vdshwprv.h) provides methods to query information and enumerate related objects for a storage pool.

@@ -1,7 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PINTERFACE_DEREFERENCE.ahk" { PINTERFACE_DEREFERENCE }
-#Import ".\PGET_UPDATED_BUS_RESOURCE.ahk" { PGET_UPDATED_BUS_RESOURCE }
-#Import ".\PINTERFACE_REFERENCE.ahk" { PINTERFACE_REFERENCE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -15,10 +12,10 @@ export default struct BUS_RESOURCE_UPDATE_INTERFACE {
 
     Context : IntPtr
 
-    InterfaceReference : PINTERFACE_REFERENCE
+    InterfaceReference : IntPtr
 
-    InterfaceDereference : PINTERFACE_DEREFERENCE
+    InterfaceDereference : IntPtr
 
-    GetUpdatedBusResource : PGET_UPDATED_BUS_RESOURCE
+    GetUpdatedBusResource : IntPtr
 
 }

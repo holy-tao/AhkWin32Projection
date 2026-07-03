@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
 
 /**
  * The capControlCallback function is the callback function used for precision control to begin and end streaming capture. The name capControlCallback is a placeholder for the application-supplied function name.
@@ -50,10 +50,6 @@ export default struct CAPCONTROLCALLBACK {
             this.value := CallbackCreate(fn, , [HWND, Int32, LRESULT])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

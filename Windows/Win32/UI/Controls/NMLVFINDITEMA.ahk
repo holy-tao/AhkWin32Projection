@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\LVFINDINFOW_FLAGS.ahk" { LVFINDINFOW_FLAGS }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\LVFINDINFOA.ahk" { LVFINDINFOA }
+#Import ".\LVFINDINFOW_FLAGS.ahk" { LVFINDINFOW_FLAGS }
 #Import ".\NMHDR.ahk" { NMHDR }
 
 /**

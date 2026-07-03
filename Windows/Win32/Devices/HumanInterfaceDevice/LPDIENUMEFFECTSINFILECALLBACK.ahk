@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DIFILEEFFECT.ahk" { DIFILEEFFECT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
@@ -48,10 +48,6 @@ export default struct LPDIENUMEFFECTSINFILECALLBACK {
             this.value := CallbackCreate(fn, , [DIFILEEFFECT.Ptr, "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

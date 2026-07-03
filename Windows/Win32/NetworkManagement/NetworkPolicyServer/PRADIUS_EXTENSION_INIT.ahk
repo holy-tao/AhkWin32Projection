@@ -48,10 +48,6 @@ export default struct PRADIUS_EXTENSION_INIT {
             this.value := CallbackCreate(fn, , [UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

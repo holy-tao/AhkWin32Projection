@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DMA_ADAPTER.ahk" { DMA_ADAPTER }
 #Import "..\..\Foundation\MDL.ahk" { MDL }
+#Import ".\DMA_ADAPTER.ahk" { DMA_ADAPTER }
 #Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
@@ -54,10 +54,6 @@ export default struct PFLUSH_ADAPTER_BUFFERS {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, MDL.Ptr, "ptr", "ptr", UInt32, BOOLEAN, BOOLEAN])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

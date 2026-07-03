@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ITableData.ahk" { ITableData }
 #Import ".\IMAPITable.ahk" { IMAPITable }
+#Import ".\ITableData.ahk" { ITableData }
 
 /**
  * CALLERRELEASE defines a callback function that can release a table data object when a table view is being released.
@@ -52,10 +52,6 @@ export default struct CALLERRELEASE {
             this.value := CallbackCreate(fn, , [UInt32, "ptr", "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

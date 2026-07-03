@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\IWICBitmapToneMapper.ahk" { IWICBitmapToneMapper }
-#Import ".\IWICImagingFactory2.ahk" { IWICImagingFactory2 }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWICImagingFactory2.ahk" { IWICImagingFactory2 }
+#Import "..\IWICBitmapToneMapper.ahk" { IWICBitmapToneMapper }
 
 /**
  * @namespace Windows.Win32.Graphics.Imaging.D2D

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\BRUSH_STYLE.ahk" { BRUSH_STYLE }
-#Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
-#Import ".\LOGBRUSH32.ahk" { LOGBRUSH32 }
+#Import ".\BRUSH_STYLE.ahk" { BRUSH_STYLE }
 #Import ".\EMR.ahk" { EMR }
+#Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
+#Import ".\LOGBRUSH32.ahk" { LOGBRUSH32 }
 
 /**
  * The EMRCREATEBRUSHINDIRECT structure contains members for the CreateBrushIndirect enhanced metafile record.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWTSBitmapRendererCallback.ahk" { IWTSBitmapRendererCallback }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IWTSBitmapRenderer.ahk" { IWTSBitmapRenderer }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWTSBitmapRendererCallback.ahk" { IWTSBitmapRendererCallback }
 
 /**
  * This service is used to create a visual mapping on the client corresponding to a mapped window on the server.

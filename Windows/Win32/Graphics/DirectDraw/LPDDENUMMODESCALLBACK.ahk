@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DDSURFACEDESC.ahk" { DDSURFACEDESC }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DDSURFACEDESC.ahk" { DDSURFACEDESC }
 
 /**
  * Do not use. This callback function is superseded by the EnumModesCallback2 function that is used with the IDirectDraw7::EnumDisplayModes method.
@@ -54,10 +54,6 @@ export default struct LPDDENUMMODESCALLBACK {
             this.value := CallbackCreate(fn, , [DDSURFACEDESC.Ptr, "ptr", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

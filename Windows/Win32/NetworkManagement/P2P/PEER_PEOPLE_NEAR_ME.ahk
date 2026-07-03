@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\PEER_ENDPOINT.ahk" { PEER_ENDPOINT }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Networking\WinSock\SOCKADDR_IN6.ahk" { SOCKADDR_IN6 }
-#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\PEER_ADDRESS.ahk" { PEER_ADDRESS }
-#Import "..\..\Networking\WinSock\SCOPE_ID.ahk" { SCOPE_ID }
+#Import ".\PEER_ENDPOINT.ahk" { PEER_ENDPOINT }
 #Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
+#Import "..\..\Networking\WinSock\SCOPE_ID.ahk" { SCOPE_ID }
+#Import "..\..\Networking\WinSock\SOCKADDR_IN6.ahk" { SOCKADDR_IN6 }
 
 /**
  * Contains information about a peer in the same logical or virtual subnet.

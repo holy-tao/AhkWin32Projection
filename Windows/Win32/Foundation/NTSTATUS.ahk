@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\System\Diagnostics\Debug\FORMAT_MESSAGE_OPTIONS.ahk" { FORMAT_MESSAGE_OPTIONS }
-#Import "..\System\LibraryLoader\Apis.ahk" { LoadLibraryW }
 #Import "..\System\Diagnostics\Debug\Apis.ahk" { FormatMessageW }
+#Import "..\System\LibraryLoader\Apis.ahk" { LoadLibraryW }
 
 /**
  * @namespace Windows.Win32.Foundation

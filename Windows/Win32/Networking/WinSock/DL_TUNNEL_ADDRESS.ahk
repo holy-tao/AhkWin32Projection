@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\System\Kernel\COMPARTMENT_ID.ahk" { COMPARTMENT_ID }
 #Import ".\SCOPE_ID.ahk" { SCOPE_ID }
+#Import "..\..\System\Kernel\COMPARTMENT_ID.ahk" { COMPARTMENT_ID }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock

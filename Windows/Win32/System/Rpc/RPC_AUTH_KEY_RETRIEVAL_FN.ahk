@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RPC_STATUS.ahk" { RPC_STATUS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\RPC_STATUS.ahk" { RPC_STATUS }
 
 /**
  * The RPC_AUTH_KEY_RETRIEVAL_FN function is a prototype for a function that specifies the address of a server-application-provided routine returning encryption keys.
@@ -60,10 +60,6 @@ export default struct RPC_AUTH_KEY_RETRIEVAL_FN {
             this.value := CallbackCreate(fn, , ["ptr", PWSTR, UInt32, "ptr*", "int*", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

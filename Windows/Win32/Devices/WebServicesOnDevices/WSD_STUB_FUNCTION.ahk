@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IWSDServiceMessaging.ahk" { IWSDServiceMessaging }
 #Import ".\WSD_EVENT.ahk" { WSD_EVENT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Describes a stub function used to handle an incoming message.
@@ -69,10 +69,6 @@ export default struct WSD_STUB_FUNCTION {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", WSD_EVENT.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

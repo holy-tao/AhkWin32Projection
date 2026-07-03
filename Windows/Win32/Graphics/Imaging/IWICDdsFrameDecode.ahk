@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WICDdsFormatInfo.ahk" { WICDdsFormatInfo }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\WICRect.ahk" { WICRect }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WICDdsFormatInfo.ahk" { WICDdsFormatInfo }
+#Import ".\WICRect.ahk" { WICRect }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides access to a single frame of DDS image data in its native DXGI_FORMAT form, as well as information about the image data.

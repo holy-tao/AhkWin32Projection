@@ -46,10 +46,6 @@ export default struct PFN_CSP_REALLOC {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr, "ptr"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

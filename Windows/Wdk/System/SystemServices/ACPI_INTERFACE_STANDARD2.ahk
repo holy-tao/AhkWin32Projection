@@ -1,13 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PINTERFACE_REFERENCE.ahk" { PINTERFACE_REFERENCE }
-#Import ".\PGPE_CLEAR_STATUS2.ahk" { PGPE_CLEAR_STATUS2 }
-#Import ".\PGPE_DISCONNECT_VECTOR2.ahk" { PGPE_DISCONNECT_VECTOR2 }
-#Import ".\PGPE_ENABLE_EVENT2.ahk" { PGPE_ENABLE_EVENT2 }
-#Import ".\PINTERFACE_DEREFERENCE.ahk" { PINTERFACE_DEREFERENCE }
-#Import ".\PUNREGISTER_FOR_DEVICE_NOTIFICATIONS2.ahk" { PUNREGISTER_FOR_DEVICE_NOTIFICATIONS2 }
-#Import ".\PGPE_CONNECT_VECTOR2.ahk" { PGPE_CONNECT_VECTOR2 }
-#Import ".\PREGISTER_FOR_DEVICE_NOTIFICATIONS2.ahk" { PREGISTER_FOR_DEVICE_NOTIFICATIONS2 }
-#Import ".\PGPE_DISABLE_EVENT2.ahk" { PGPE_DISABLE_EVENT2 }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -21,22 +12,22 @@ export default struct ACPI_INTERFACE_STANDARD2 {
 
     Context : IntPtr
 
-    InterfaceReference : PINTERFACE_REFERENCE
+    InterfaceReference : IntPtr
 
-    InterfaceDereference : PINTERFACE_DEREFERENCE
+    InterfaceDereference : IntPtr
 
-    GpeConnectVector : PGPE_CONNECT_VECTOR2
+    GpeConnectVector : IntPtr
 
-    GpeDisconnectVector : PGPE_DISCONNECT_VECTOR2
+    GpeDisconnectVector : IntPtr
 
-    GpeEnableEvent : PGPE_ENABLE_EVENT2
+    GpeEnableEvent : IntPtr
 
-    GpeDisableEvent : PGPE_DISABLE_EVENT2
+    GpeDisableEvent : IntPtr
 
-    GpeClearStatus : PGPE_CLEAR_STATUS2
+    GpeClearStatus : IntPtr
 
-    RegisterForDeviceNotifications : PREGISTER_FOR_DEVICE_NOTIFICATIONS2
+    RegisterForDeviceNotifications : IntPtr
 
-    UnregisterForDeviceNotifications : PUNREGISTER_FOR_DEVICE_NOTIFICATIONS2
+    UnregisterForDeviceNotifications : IntPtr
 
 }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MMC_TASK_DISPLAY_SYMBOL.ahk" { MMC_TASK_DISPLAY_SYMBOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\MMC_TASK_DISPLAY_BITMAP.ahk" { MMC_TASK_DISPLAY_BITMAP }
+#Import ".\MMC_TASK_DISPLAY_SYMBOL.ahk" { MMC_TASK_DISPLAY_SYMBOL }
 #Import ".\MMC_TASK_DISPLAY_TYPE.ahk" { MMC_TASK_DISPLAY_TYPE }
 
 /**

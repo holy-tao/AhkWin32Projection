@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
-#Import ".\DSREG_JOIN_TYPE.ahk" { DSREG_JOIN_TYPE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DSREG_JOIN_TYPE.ahk" { DSREG_JOIN_TYPE }
 #Import ".\DSREG_USER_INFO.ahk" { DSREG_USER_INFO }
+#Import "..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 
 /**
  * Contains information about how a device is joined to Microsoft Azure Active Directory.

@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "Common\DXGI_MODE_ROTATION.ahk" { DXGI_MODE_ROTATION }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\IDXGISwapChain.ahk" { IDXGISwapChain }
-#Import ".\DXGI_PRESENT.ahk" { DXGI_PRESENT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DXGI_SWAP_CHAIN_DESC1.ahk" { DXGI_SWAP_CHAIN_DESC1 }
-#Import ".\DXGI_PRESENT_PARAMETERS.ahk" { DXGI_PRESENT_PARAMETERS }
-#Import ".\IDXGIOutput.ahk" { IDXGIOutput }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "Common\DXGI_MODE_ROTATION.ahk" { DXGI_MODE_ROTATION }
+#Import ".\DXGI_PRESENT.ahk" { DXGI_PRESENT }
+#Import ".\DXGI_PRESENT_PARAMETERS.ahk" { DXGI_PRESENT_PARAMETERS }
 #Import ".\DXGI_RGBA.ahk" { DXGI_RGBA }
+#Import ".\DXGI_SWAP_CHAIN_DESC1.ahk" { DXGI_SWAP_CHAIN_DESC1 }
 #Import ".\DXGI_SWAP_CHAIN_FULLSCREEN_DESC.ahk" { DXGI_SWAP_CHAIN_FULLSCREEN_DESC }
+#Import ".\IDXGIOutput.ahk" { IDXGIOutput }
+#Import ".\IDXGISwapChain.ahk" { IDXGISwapChain }
 
 /**
  * Provides presentation capabilities that are enhanced from IDXGISwapChain. These presentation capabilities consist of specifying dirty rectangles and scroll rectangle to optimize the presentation.

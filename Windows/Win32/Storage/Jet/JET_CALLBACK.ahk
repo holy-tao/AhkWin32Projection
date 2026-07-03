@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\StructuredStorage\JET_TABLEID.ahk" { JET_TABLEID }
-#Import "..\StructuredStorage\JET_API_PTR.ahk" { JET_API_PTR }
 #Import ".\JET_SESID.ahk" { JET_SESID }
+#Import "..\StructuredStorage\JET_API_PTR.ahk" { JET_API_PTR }
+#Import "..\StructuredStorage\JET_TABLEID.ahk" { JET_TABLEID }
 
 /**
  * Learn more about: JET_CALLBACK Callback Function
@@ -59,10 +59,6 @@ export default struct JET_CALLBACK {
             this.value := CallbackCreate(fn, , [JET_SESID, UInt32, JET_TABLEID, UInt32, "ptr", "ptr", "ptr", JET_API_PTR, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

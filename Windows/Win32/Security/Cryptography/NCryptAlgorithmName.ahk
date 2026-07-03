@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NCRYPT_OPERATION.ahk" { NCRYPT_OPERATION }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\NCRYPT_ALGORITHM_NAME_CLASS.ahk" { NCRYPT_ALGORITHM_NAME_CLASS }
+#Import ".\NCRYPT_OPERATION.ahk" { NCRYPT_OPERATION }
 
 /**
  * Used to contain information about a CNG algorithm.

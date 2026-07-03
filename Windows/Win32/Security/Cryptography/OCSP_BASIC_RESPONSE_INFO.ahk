@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\OCSP_BASIC_RESPONSE_ENTRY.ahk" { OCSP_BASIC_RESPONSE_ENTRY }
 #Import ".\CERT_EXTENSION.ahk" { CERT_EXTENSION }
 #Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\OCSP_BASIC_RESPONSE_ENTRY.ahk" { OCSP_BASIC_RESPONSE_ENTRY }
 
 /**
  * Contains a basic online certificate status protocol (OCSP) response as specified by RFC 2560.

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_ENDPOINT_ADDRESS.ahk" { WS_ENDPOINT_ADDRESS }
-#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
-#Import ".\WS_ENDPOINT_IDENTITY.ahk" { WS_ENDPOINT_IDENTITY }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WS_XML_BUFFER.ahk" { WS_XML_BUFFER }
+#Import ".\WS_ENDPOINT_ADDRESS.ahk" { WS_ENDPOINT_ADDRESS }
+#Import ".\WS_ENDPOINT_IDENTITY.ahk" { WS_ENDPOINT_IDENTITY }
 #Import ".\WS_POLICY.ahk" { WS_POLICY }
 #Import ".\WS_STRING.ahk" { WS_STRING }
+#Import ".\WS_XML_BUFFER.ahk" { WS_XML_BUFFER }
+#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
 
 /**
  * Information about a single endpoint that was read from metadata documents.

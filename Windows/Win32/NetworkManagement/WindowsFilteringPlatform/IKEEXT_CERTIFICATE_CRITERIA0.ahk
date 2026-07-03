@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IKEEXT_CERT_NAME0.ahk" { IKEEXT_CERT_NAME0 }
-#Import ".\IKEEXT_CERT_EKUS0.ahk" { IKEEXT_CERT_EKUS0 }
 #Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
+#Import ".\IKEEXT_CERT_EKUS0.ahk" { IKEEXT_CERT_EKUS0 }
+#Import ".\IKEEXT_CERT_NAME0.ahk" { IKEEXT_CERT_NAME0 }
 
 /**
  * Contains a set of criteria to applied to an authentication method.

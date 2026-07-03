@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PTP_CLEANUP_GROUP.ahk" { PTP_CLEANUP_GROUP }
 #Import ".\PTP_POOL.ahk" { PTP_POOL }
 #Import ".\TP_CALLBACK_PRIORITY.ahk" { TP_CALLBACK_PRIORITY }
-#Import ".\PTP_SIMPLE_CALLBACK.ahk" { PTP_SIMPLE_CALLBACK }
-#Import ".\PTP_CLEANUP_GROUP_CANCEL_CALLBACK.ahk" { PTP_CLEANUP_GROUP_CANCEL_CALLBACK }
-#Import ".\PTP_CLEANUP_GROUP.ahk" { PTP_CLEANUP_GROUP }
 
 /**
  * @namespace Windows.Win32.System.Threading
@@ -63,13 +61,13 @@ export default struct TP_CALLBACK_ENVIRON_V3 {
 
     CleanupGroup : PTP_CLEANUP_GROUP
 
-    CleanupGroupCancelCallback : PTP_CLEANUP_GROUP_CANCEL_CALLBACK
+    CleanupGroupCancelCallback : IntPtr
 
     RaceDll : IntPtr
 
     ActivationContext : IntPtr
 
-    FinalizationCallback : PTP_SIMPLE_CALLBACK
+    FinalizationCallback : IntPtr
 
     u : TP_CALLBACK_ENVIRON_V3._u
 

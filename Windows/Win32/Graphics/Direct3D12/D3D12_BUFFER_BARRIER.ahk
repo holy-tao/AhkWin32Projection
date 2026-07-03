@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
-#Import ".\D3D12_BARRIER_SYNC.ahk" { D3D12_BARRIER_SYNC }
 #Import ".\D3D12_BARRIER_ACCESS.ahk" { D3D12_BARRIER_ACCESS }
+#Import ".\D3D12_BARRIER_SYNC.ahk" { D3D12_BARRIER_SYNC }
+#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
 
 /**
  * Describes a buffer memory access barrier. Used by buffer barriers to indicate when resource memory must be made visible for a specific access type.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HCHANGE.ahk" { HCHANGE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HCHANGE.ahk" { HCHANGE }
 #Import ".\NOTIFY_FILTER_AND_TYPE.ahk" { NOTIFY_FILTER_AND_TYPE }
 
 /**
@@ -72,10 +72,6 @@ export default struct PCLUSAPI_GET_CLUSTER_NOTIFY_V2 {
             this.value := CallbackCreate(fn, , [HCHANGE, "ptr*", NOTIFY_FILTER_AND_TYPE.Ptr, "char*", "uint*", PWSTR, "uint*", PWSTR, "uint*", PWSTR, "uint*", PWSTR, "uint*", UInt32, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

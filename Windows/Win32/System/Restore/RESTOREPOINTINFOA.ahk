@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RESTOREPOINTINFO_TYPE.ahk" { RESTOREPOINTINFO_TYPE }
 #Import ".\RESTOREPOINTINFO_EVENT_TYPE.ahk" { RESTOREPOINTINFO_EVENT_TYPE }
+#Import ".\RESTOREPOINTINFO_TYPE.ahk" { RESTOREPOINTINFO_TYPE }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**

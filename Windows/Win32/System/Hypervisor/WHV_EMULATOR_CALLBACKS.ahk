@@ -1,9 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WHV_EMULATOR_TRANSLATE_GVA_PAGE_CALLBACK.ahk" { WHV_EMULATOR_TRANSLATE_GVA_PAGE_CALLBACK }
-#Import ".\WHV_EMULATOR_GET_VIRTUAL_PROCESSOR_REGISTERS_CALLBACK.ahk" { WHV_EMULATOR_GET_VIRTUAL_PROCESSOR_REGISTERS_CALLBACK }
-#Import ".\WHV_EMULATOR_SET_VIRTUAL_PROCESSOR_REGISTERS_CALLBACK.ahk" { WHV_EMULATOR_SET_VIRTUAL_PROCESSOR_REGISTERS_CALLBACK }
-#Import ".\WHV_EMULATOR_IO_PORT_CALLBACK.ahk" { WHV_EMULATOR_IO_PORT_CALLBACK }
-#Import ".\WHV_EMULATOR_MEMORY_CALLBACK.ahk" { WHV_EMULATOR_MEMORY_CALLBACK }
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
@@ -15,14 +10,14 @@ export default struct WHV_EMULATOR_CALLBACKS {
 
     Reserved : UInt32
 
-    WHvEmulatorIoPortCallback : WHV_EMULATOR_IO_PORT_CALLBACK
+    WHvEmulatorIoPortCallback : IntPtr
 
-    WHvEmulatorMemoryCallback : WHV_EMULATOR_MEMORY_CALLBACK
+    WHvEmulatorMemoryCallback : IntPtr
 
-    WHvEmulatorGetVirtualProcessorRegisters : WHV_EMULATOR_GET_VIRTUAL_PROCESSOR_REGISTERS_CALLBACK
+    WHvEmulatorGetVirtualProcessorRegisters : IntPtr
 
-    WHvEmulatorSetVirtualProcessorRegisters : WHV_EMULATOR_SET_VIRTUAL_PROCESSOR_REGISTERS_CALLBACK
+    WHvEmulatorSetVirtualProcessorRegisters : IntPtr
 
-    WHvEmulatorTranslateGvaPage : WHV_EMULATOR_TRANSLATE_GVA_PAGE_CALLBACK
+    WHvEmulatorTranslateGvaPage : IntPtr
 
 }

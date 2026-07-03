@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\HRESOURCE.ahk" { HRESOURCE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HRESOURCE.ahk" { HRESOURCE }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -50,10 +50,6 @@ export default struct PRESUTIL_GET_RESOURCE_DEPENDENCY_EX {
             this.value := CallbackCreate(fn, , [HANDLE, PWSTR, UInt32, HRESOURCE])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

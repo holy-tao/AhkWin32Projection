@@ -47,10 +47,6 @@ export default struct GET_D3COLD_LAST_TRANSITION_STATUS {
             this.value := CallbackCreate(fn, , ["ptr", "int*", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

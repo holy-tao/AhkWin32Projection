@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SECURE_ELEMENT_CARD_EMULATION_MODE.ahk" { SECURE_ELEMENT_CARD_EMULATION_MODE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SECURE_ELEMENT_CARD_EMULATION_MODE.ahk" { SECURE_ELEMENT_CARD_EMULATION_MODE }
 
 /**
  * @namespace Windows.Win32.Devices.Nfc

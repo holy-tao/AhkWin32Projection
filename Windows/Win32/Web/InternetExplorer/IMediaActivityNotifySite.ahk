@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MEDIA_ACTIVITY_NOTIFY_TYPE.ahk" { MEDIA_ACTIVITY_NOTIFY_TYPE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MEDIA_ACTIVITY_NOTIFY_TYPE.ahk" { MEDIA_ACTIVITY_NOTIFY_TYPE }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer

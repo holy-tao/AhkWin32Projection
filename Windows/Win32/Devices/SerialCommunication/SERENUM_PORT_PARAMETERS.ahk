@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\SERENUM_PORTION.ahk" { SERENUM_PORTION }
-#Import ".\PSERENUM_READPORT.ahk" { PSERENUM_READPORT }
-#Import ".\PSERENUM_WRITEPORT.ahk" { PSERENUM_WRITEPORT }
 
 /**
  * @namespace Windows.Win32.Devices.SerialCommunication
@@ -11,9 +9,9 @@ export default struct SERENUM_PORT_PARAMETERS {
 
     Size : UInt32
 
-    ReadAccessor : PSERENUM_READPORT
+    ReadAccessor : IntPtr
 
-    WriteAccessor : PSERENUM_WRITEPORT
+    WriteAccessor : IntPtr
 
     SerPortAddress : IntPtr
 

@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Com\IStream.ahk" { IStream }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\COR_FIELD_OFFSET.ahk" { COR_FIELD_OFFSET }
 #Import ".\COR_SECATTR.ahk" { COR_SECATTR }
-#Import ".\IMetaDataAssemblyEmit.ahk" { IMetaDataAssemblyEmit }
-#Import "..\..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMetaDataImport.ahk" { IMetaDataImport }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IMetaDataAssemblyImport.ahk" { IMetaDataAssemblyImport }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Com\IStream.ahk" { IStream }
-#Import ".\IMapToken.ahk" { IMapToken }
 #Import ".\CorSaveSize.ahk" { CorSaveSize }
+#Import ".\IMapToken.ahk" { IMapToken }
+#Import ".\IMetaDataAssemblyEmit.ahk" { IMetaDataAssemblyEmit }
+#Import ".\IMetaDataAssemblyImport.ahk" { IMetaDataAssemblyImport }
+#Import ".\IMetaDataImport.ahk" { IMetaDataImport }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata

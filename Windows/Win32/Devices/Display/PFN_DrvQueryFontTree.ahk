@@ -50,10 +50,6 @@ export default struct PFN_DrvQueryFontTree {
             this.value := CallbackCreate(fn, , [DHPDEV, IntPtr, UInt32, UInt32, "ptr*", "ptr"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

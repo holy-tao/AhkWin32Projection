@@ -29,7 +29,7 @@ export default struct pKdSetupPciDeviceForDebugging {
         LoaderBlockMarshal := LoaderBlock is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, LoaderBlockMarshal, LoaderBlock, DEBUG_DEVICE_DESCRIPTOR.Ptr, PciDevice, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -49,10 +49,6 @@ export default struct pKdSetupPciDeviceForDebugging {
             this.value := CallbackCreate(fn, , ["ptr", DEBUG_DEVICE_DESCRIPTOR.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

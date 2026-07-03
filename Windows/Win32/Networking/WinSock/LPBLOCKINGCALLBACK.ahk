@@ -44,10 +44,6 @@ export default struct LPBLOCKINGCALLBACK {
             this.value := CallbackCreate(fn, , [IntPtr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

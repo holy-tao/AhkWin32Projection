@@ -43,10 +43,6 @@ export default struct pHalReferenceBusHandler {
             this.value := CallbackCreate(fn, , [PBUS_HANDLER, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

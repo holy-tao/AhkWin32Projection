@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\TEXT_STORE_CHANGE_FLAGS.ahk" { TEXT_STORE_CHANGE_FLAGS }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\TEXT_STORE_LOCK_FLAGS.ahk" { TEXT_STORE_LOCK_FLAGS }
-#Import ".\IAnchor.ahk" { IAnchor }
-#Import ".\TsLayoutCode.ahk" { TsLayoutCode }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IAnchor.ahk" { IAnchor }
+#Import ".\TEXT_STORE_CHANGE_FLAGS.ahk" { TEXT_STORE_CHANGE_FLAGS }
+#Import ".\TEXT_STORE_LOCK_FLAGS.ahk" { TEXT_STORE_LOCK_FLAGS }
+#Import ".\TsLayoutCode.ahk" { TsLayoutCode }
 
 /**
  * The ITextStoreAnchorSink interface is implemented by the TSF manager and is used by an anchor-based application to notify the manager when certain events occur. The manager installs this advise sink by calling ITextStoreAnchor::AdviseSink.

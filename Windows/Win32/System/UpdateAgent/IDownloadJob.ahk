@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDownloadProgress.ahk" { IDownloadProgress }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IUpdateCollection.ahk" { IUpdateCollection }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IDownloadProgress.ahk" { IDownloadProgress }
+#Import ".\IUpdateCollection.ahk" { IUpdateCollection }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Contains properties and methods that are available to a download operation.

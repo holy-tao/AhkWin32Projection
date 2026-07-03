@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DNS_INTERFACE_SETTINGS.ahk" { DNS_INTERFACE_SETTINGS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DNS_INTERFACE_SETTINGS.ahk" { DNS_INTERFACE_SETTINGS }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper

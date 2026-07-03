@@ -58,10 +58,6 @@ export default struct FWPM_CONNECTION_CALLBACK0 {
             this.value := CallbackCreate(fn, , ["ptr", FWPM_CONNECTION_EVENT_TYPE, FWPM_CONNECTION0.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\FAX_CONFIGURATIONW.ahk" { FAX_CONFIGURATIONW }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Win32.Devices.Fax
@@ -48,10 +48,6 @@ export default struct PFAXSETCONFIGURATIONW {
             this.value := CallbackCreate(fn, , [HANDLE, FAX_CONFIGURATIONW.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -46,10 +46,6 @@ export default struct FWPM_SERVICE_STATE_CHANGE_CALLBACK0 {
             this.value := CallbackCreate(fn, , ["ptr", FWPM_SERVICE_STATE, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

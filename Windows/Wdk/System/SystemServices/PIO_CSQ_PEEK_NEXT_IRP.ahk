@@ -43,10 +43,6 @@ export default struct PIO_CSQ_PEEK_NEXT_IRP {
             this.value := CallbackCreate(fn, , [IRP.Ptr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

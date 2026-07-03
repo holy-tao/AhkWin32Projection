@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IBackgroundCopyJob3.ahk" { IBackgroundCopyJob3 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IBackgroundCopyJob3.ahk" { IBackgroundCopyJob3 }
 
 /**
  * Use this interface to enable peer caching, restrict download time, and inspect user token characteristics.

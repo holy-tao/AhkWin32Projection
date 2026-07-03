@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IHTMLDocument2.ahk" { IHTMLDocument2 }
 #Import ".\IHTMLEventObj.ahk" { IHTMLEventObj }
 #Import ".\IHTMLFramesCollection2.ahk" { IHTMLFramesCollection2 }
 #Import ".\IHTMLImageElementFactory.ahk" { IHTMLImageElementFactory }
-#Import ".\IOmHistory.ahk" { IOmHistory }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IHTMLLocation.ahk" { IHTMLLocation }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IHTMLScreen.ahk" { IHTMLScreen }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IOmNavigator.ahk" { IOmNavigator }
-#Import ".\IHTMLDocument2.ahk" { IHTMLDocument2 }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IHTMLOptionElementFactory.ahk" { IHTMLOptionElementFactory }
+#Import ".\IHTMLScreen.ahk" { IHTMLScreen }
+#Import ".\IOmHistory.ahk" { IOmHistory }
+#Import ".\IOmNavigator.ahk" { IOmNavigator }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

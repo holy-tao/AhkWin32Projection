@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IEnumString.ahk" { IEnumString }
-#Import ".\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\BIND_OPTS.ahk" { BIND_OPTS }
+#Import ".\IEnumString.ahk" { IEnumString }
 #Import ".\IRunningObjectTable.ahk" { IRunningObjectTable }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides access to a bind context, which is an object that stores information about a particular moniker binding operation.

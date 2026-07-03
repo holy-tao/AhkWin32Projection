@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\ITfMenu.ahk" { ITfMenu }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import ".\ITfLangBarItem.ahk" { ITfLangBarItem }
-#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import ".\ITfMenu.ahk" { ITfMenu }
 #Import ".\TfLBIClick.ahk" { TfLBIClick }
+#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
 
 /**
  * The ITfLangBarItemButton interface is implemented by a language bar button provider and used by the language bar manager to obtain information about a button item on the language bar.

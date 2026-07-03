@@ -2,16 +2,16 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IStiDeviceControl.ahk" { IStiDeviceControl }
-#Import ".\STI_DIAG.ahk" { STI_DIAG }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
-#Import ".\STI_USD_CAPS.ahk" { STI_USD_CAPS }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
-#Import ".\_ERROR_INFOW.ahk" { _ERROR_INFOW }
 #Import ".\STINOTIFY.ahk" { STINOTIFY }
 #Import ".\STI_DEVICE_STATUS.ahk" { STI_DEVICE_STATUS }
+#Import ".\STI_DIAG.ahk" { STI_DIAG }
+#Import ".\STI_USD_CAPS.ahk" { STI_USD_CAPS }
+#Import ".\_ERROR_INFOW.ahk" { _ERROR_INFOW }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
 
 /**
  * @namespace Windows.Win32.Devices.Fax

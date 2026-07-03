@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DIPROPHEADER.ahk" { DIPROPHEADER }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DIPROPHEADER.ahk" { DIPROPHEADER }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

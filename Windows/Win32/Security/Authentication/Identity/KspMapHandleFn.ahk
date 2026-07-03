@@ -28,7 +28,7 @@ export default struct KspMapHandleFn {
         LsaContextIdMarshal := LsaContextId is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, IntPtr, ContextId, LsaContextIdMarshal, LsaContextId, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -48,10 +48,6 @@ export default struct KspMapHandleFn {
             this.value := CallbackCreate(fn, , [IntPtr, "ptr*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

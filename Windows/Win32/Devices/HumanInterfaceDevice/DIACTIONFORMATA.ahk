@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DIACTIONA.ahk" { DIACTIONA }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import ".\DIACTIONA.ahk" { DIACTIONA }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**

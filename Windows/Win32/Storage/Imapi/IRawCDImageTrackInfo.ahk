@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMAPI_CD_TRACK_DIGITAL_COPY_SETTING.ahk" { IMAPI_CD_TRACK_DIGITAL_COPY_SETTING }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IMAPI_CD_SECTOR_TYPE.ahk" { IMAPI_CD_SECTOR_TYPE }
+#Import ".\IMAPI_CD_TRACK_DIGITAL_COPY_SETTING.ahk" { IMAPI_CD_TRACK_DIGITAL_COPY_SETTING }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 

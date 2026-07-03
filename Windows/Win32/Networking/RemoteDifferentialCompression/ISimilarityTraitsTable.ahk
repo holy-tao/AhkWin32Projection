@@ -2,14 +2,14 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ISimilarityTableDumpState.ahk" { ISimilarityTableDumpState }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ISimilarityTraitsMapping.ahk" { ISimilarityTraitsMapping }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\RdcCreatedTables.ahk" { RdcCreatedTables }
-#Import ".\FindSimilarFileIndexResults.ahk" { FindSimilarFileIndexResults }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\FindSimilarFileIndexResults.ahk" { FindSimilarFileIndexResults }
+#Import ".\ISimilarityTableDumpState.ahk" { ISimilarityTableDumpState }
+#Import ".\ISimilarityTraitsMapping.ahk" { ISimilarityTraitsMapping }
+#Import ".\RdcCreatedTables.ahk" { RdcCreatedTables }
 #Import ".\SimilarityData.ahk" { SimilarityData }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines methods for storing per-file similarity data and performing similarity lookups.

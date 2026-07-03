@@ -1,5 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PFN_MAPPINGCALLBACKPROC.ahk" { PFN_MAPPINGCALLBACKPROC }
 #Import "..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
@@ -69,7 +68,7 @@ export default struct MAPPING_OPTIONS {
     /**
      * Optional. Pointer to an application callback function to receive callbacks with the results from the <a href="https://docs.microsoft.com/windows/desktop/api/elscore/nf-elscore-mappingrecognizetext">MappingRecognizeText</a> function. If a callback function is specified, text recognition is executed in asynchronous mode and the application obtains results through the callback function. The application must set this member to <b>NULL</b> if text recognition is to be synchronous.
      */
-    pfnRecognizeCallback : PFN_MAPPINGCALLBACKPROC
+    pfnRecognizeCallback : IntPtr
 
     /**
      * Optional. Pointer to private application data passed to the callback function by a service after text recognition is complete. The application must set this member to <b>NULL</b> to indicate no private application data.
@@ -84,7 +83,7 @@ export default struct MAPPING_OPTIONS {
     /**
      * Reserved.
      */
-    pfnActionCallback : PFN_MAPPINGCALLBACKPROC
+    pfnActionCallback : IntPtr
 
     /**
      * Reserved.

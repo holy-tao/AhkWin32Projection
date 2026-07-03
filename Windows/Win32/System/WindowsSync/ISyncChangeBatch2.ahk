@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISyncChangeBatch.ahk" { ISyncChangeBatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SYNC_VERSION.ahk" { SYNC_VERSION }
+#Import ".\ISyncChangeBatch.ahk" { ISyncChangeBatch }
 #Import ".\ISyncChangeBuilder.ahk" { ISyncChangeBuilder }
 #Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
+#Import ".\SYNC_VERSION.ahk" { SYNC_VERSION }
 
 /**
  * @namespace Windows.Win32.System.WindowsSync

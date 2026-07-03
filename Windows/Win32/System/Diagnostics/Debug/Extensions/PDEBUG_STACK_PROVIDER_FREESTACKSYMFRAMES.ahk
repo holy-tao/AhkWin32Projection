@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\STACK_SYM_FRAME_INFO.ahk" { STACK_SYM_FRAME_INFO }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\STACK_SYM_FRAME_INFO.ahk" { STACK_SYM_FRAME_INFO }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -45,10 +45,6 @@ export default struct PDEBUG_STACK_PROVIDER_FREESTACKSYMFRAMES {
             this.value := CallbackCreate(fn, , [STACK_SYM_FRAME_INFO.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

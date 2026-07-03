@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IPSEC_TOKEN0.ahk" { IPSEC_TOKEN0 }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IPSEC_TOKEN0.ahk" { IPSEC_TOKEN0 }
 
 /**
  * Contains information corresponding to identities that are authenticated by IPsec.

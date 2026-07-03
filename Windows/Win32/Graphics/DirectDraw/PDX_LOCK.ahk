@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DDLOCKOUTINFO.ahk" { DDLOCKOUTINFO }
 #Import ".\DDLOCKININFO.ahk" { DDLOCKININFO }
+#Import ".\DDLOCKOUTINFO.ahk" { DDLOCKOUTINFO }
 
 /**
  * The DxLock callback function is called when a client of the video miniport driver wants access to the frame buffer.
@@ -53,10 +53,6 @@ export default struct PDX_LOCK {
             this.value := CallbackCreate(fn, , ["ptr", DDLOCKININFO.Ptr, DDLOCKOUTINFO.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

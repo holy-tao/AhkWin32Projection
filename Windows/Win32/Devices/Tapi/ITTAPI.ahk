@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IEnumAddress.ahk" { IEnumAddress }
+#Import ".\IEnumCallHub.ahk" { IEnumCallHub }
 #Import ".\ITAddress.ahk" { ITAddress }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IEnumAddress.ahk" { IEnumAddress }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\System\Com\IEnumUnknown.ahk" { IEnumUnknown }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IEnumCallHub.ahk" { IEnumCallHub }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The ITTAPI interface is the base interface for the TAPI object. The TAPI object is created by CoCreateInstance. For information on CoCreateInstance, see documentation on COM. All other TAPI 3 objects are created by TAPI 3 itself.

@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "Common\DXGI_MODE_DESC.ahk" { DXGI_MODE_DESC }
-#Import ".\IDXGISurface.ahk" { IDXGISurface }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DXGI_ENUM_MODES.ahk" { DXGI_ENUM_MODES }
-#Import ".\DXGI_OUTPUT_DESC.ahk" { DXGI_OUTPUT_DESC }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "Common\DXGI_GAMMA_CONTROL_CAPABILITIES.ahk" { DXGI_GAMMA_CONTROL_CAPABILITIES }
-#Import "Common\DXGI_GAMMA_CONTROL.ahk" { DXGI_GAMMA_CONTROL }
-#Import ".\DXGI_FRAME_STATISTICS.ahk" { DXGI_FRAME_STATISTICS }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IDXGIObject.ahk" { IDXGIObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import "Common\DXGI_GAMMA_CONTROL.ahk" { DXGI_GAMMA_CONTROL }
+#Import "Common\DXGI_GAMMA_CONTROL_CAPABILITIES.ahk" { DXGI_GAMMA_CONTROL_CAPABILITIES }
+#Import "Common\DXGI_MODE_DESC.ahk" { DXGI_MODE_DESC }
+#Import ".\DXGI_ENUM_MODES.ahk" { DXGI_ENUM_MODES }
+#Import ".\DXGI_FRAME_STATISTICS.ahk" { DXGI_FRAME_STATISTICS }
+#Import ".\DXGI_OUTPUT_DESC.ahk" { DXGI_OUTPUT_DESC }
+#Import ".\IDXGIObject.ahk" { IDXGIObject }
+#Import ".\IDXGISurface.ahk" { IDXGISurface }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * An IDXGIOutput interface represents an adapter output (such as a monitor).

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\Graphics\Gdi\HPEN.ahk" { HPEN }
-#Import ".\NMCUSTOMDRAW_DRAW_STATE_FLAGS.ahk" { NMCUSTOMDRAW_DRAW_STATE_FLAGS }
-#Import ".\NMCUSTOMDRAW_DRAW_STAGE.ahk" { NMCUSTOMDRAW_DRAW_STAGE }
-#Import ".\NMCUSTOMDRAW.ahk" { NMCUSTOMDRAW }
 #Import "..\..\Graphics\Gdi\HBRUSH.ahk" { HBRUSH }
 #Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
-#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Graphics\Gdi\HPEN.ahk" { HPEN }
+#Import ".\NMCUSTOMDRAW.ahk" { NMCUSTOMDRAW }
+#Import ".\NMCUSTOMDRAW_DRAW_STAGE.ahk" { NMCUSTOMDRAW_DRAW_STAGE }
+#Import ".\NMCUSTOMDRAW_DRAW_STATE_FLAGS.ahk" { NMCUSTOMDRAW_DRAW_STATE_FLAGS }
 #Import ".\NMHDR.ahk" { NMHDR }
 
 /**

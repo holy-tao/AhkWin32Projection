@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ADSTYPE.ahk" { ADSTYPE }
 #Import ".\DSCLASSCREATIONINFO.ahk" { DSCLASSCREATIONINFO }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
-#Import ".\LPDSENUMATTRIBUTES.ahk" { LPDSENUMATTRIBUTES }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ADSTYPE.ahk" { ADSTYPE }
 
 /**
  * Provides access to Active Directory Domain Service objects of the displaySpecifier class.
@@ -227,7 +226,7 @@ export default struct IDsDisplaySpecifier extends IUnknown {
     EnumClassAttributes(pszObjectClass, pcbEnum, _lParam) {
         pszObjectClass := pszObjectClass is String ? StrPtr(pszObjectClass) : pszObjectClass
 
-        result := ComCall(12, this, "ptr", pszObjectClass, LPDSENUMATTRIBUTES, pcbEnum, LPARAM, _lParam, "HRESULT")
+        result := ComCall(12, this, "ptr", pszObjectClass, "ptr", pcbEnum, LPARAM, _lParam, "HRESULT")
         return result
     }
 

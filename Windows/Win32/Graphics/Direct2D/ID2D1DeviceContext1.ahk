@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID2D1Geometry.ahk" { ID2D1Geometry }
-#Import ".\ID2D1StrokeStyle.ahk" { ID2D1StrokeStyle }
-#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID2D1GeometryRealization.ahk" { ID2D1GeometryRealization }
+#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
 #Import ".\ID2D1DeviceContext.ahk" { ID2D1DeviceContext }
+#Import ".\ID2D1Geometry.ahk" { ID2D1Geometry }
+#Import ".\ID2D1GeometryRealization.ahk" { ID2D1GeometryRealization }
+#Import ".\ID2D1StrokeStyle.ahk" { ID2D1StrokeStyle }
 
 /**
  * Enables creation and drawing of geometry realization objects.

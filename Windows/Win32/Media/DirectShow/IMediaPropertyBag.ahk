@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\System\Com\StructuredStorage\IPropertyBag.ahk" { IPropertyBag }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\StructuredStorage\IPropertyBag.ahk" { IPropertyBag }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IMediaPropertyBag interface is exposed by the Media Property Bag object.

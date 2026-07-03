@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Security\ACL.ahk" { ACL }
-#Import ".\ICLRTask.ahk" { ICLRTask }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ESymbolReadingPolicy.ahk" { ESymbolReadingPolicy }
+#Import ".\ICLRTask.ahk" { ICLRTask }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting

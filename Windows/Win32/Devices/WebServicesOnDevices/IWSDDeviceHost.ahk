@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WSD_METADATA_SECTION_LIST.ahk" { WSD_METADATA_SECTION_LIST }
-#Import ".\WSD_PORT_TYPE.ahk" { WSD_PORT_TYPE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WSD_URI_LIST.ahk" { WSD_URI_LIST }
+#Import ".\IWSDAddress.ahk" { IWSDAddress }
+#Import ".\IWSDDeviceHostNotify.ahk" { IWSDDeviceHostNotify }
 #Import ".\IWSDXMLContext.ahk" { IWSDXMLContext }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
 #Import ".\WSDXML_NAME.ahk" { WSDXML_NAME }
 #Import ".\WSD_HOST_METADATA.ahk" { WSD_HOST_METADATA }
-#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
-#Import ".\IWSDDeviceHostNotify.ahk" { IWSDDeviceHostNotify }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\WSD_THIS_MODEL_METADATA.ahk" { WSD_THIS_MODEL_METADATA }
+#Import ".\WSD_METADATA_SECTION_LIST.ahk" { WSD_METADATA_SECTION_LIST }
 #Import ".\WSD_OPERATION.ahk" { WSD_OPERATION }
+#Import ".\WSD_PORT_TYPE.ahk" { WSD_PORT_TYPE }
 #Import ".\WSD_THIS_DEVICE_METADATA.ahk" { WSD_THIS_DEVICE_METADATA }
+#Import ".\WSD_THIS_MODEL_METADATA.ahk" { WSD_THIS_MODEL_METADATA }
+#Import ".\WSD_URI_LIST.ahk" { WSD_URI_LIST }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IWSDAddress.ahk" { IWSDAddress }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a DPWS-compliant device.

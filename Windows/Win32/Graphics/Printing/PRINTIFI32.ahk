@@ -1,23 +1,23 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Gdi\PAN_CONTRAST.ahk" { PAN_CONTRAST }
-#Import "..\Gdi\PAN_XHEIGHT.ahk" { PAN_XHEIGHT }
-#Import "..\Gdi\PAN_STROKE_VARIATION.ahk" { PAN_STROKE_VARIATION }
-#Import "..\Gdi\PAN_LETT_FORM.ahk" { PAN_LETT_FORM }
-#Import "..\Gdi\PAN_WEIGHT.ahk" { PAN_WEIGHT }
-#Import "..\Gdi\PAN_PROPORTION.ahk" { PAN_PROPORTION }
-#Import "..\Gdi\PAN_ARM_STYLE.ahk" { PAN_ARM_STYLE }
-#Import "..\Gdi\PAN_FAMILY_TYPE.ahk" { PAN_FAMILY_TYPE }
-#Import "..\Gdi\PAN_MIDLINE.ahk" { PAN_MIDLINE }
-#Import "..\Gdi\PAN_SERIF_STYLE.ahk" { PAN_SERIF_STYLE }
 #Import "..\..\Foundation\POINTL.ahk" { POINTL }
 #Import "..\..\Foundation\RECTL.ahk" { RECTL }
 #Import "..\Gdi\PANOSE.ahk" { PANOSE }
+#Import "..\Gdi\PAN_ARM_STYLE.ahk" { PAN_ARM_STYLE }
+#Import "..\Gdi\PAN_CONTRAST.ahk" { PAN_CONTRAST }
+#Import "..\Gdi\PAN_FAMILY_TYPE.ahk" { PAN_FAMILY_TYPE }
+#Import "..\Gdi\PAN_LETT_FORM.ahk" { PAN_LETT_FORM }
+#Import "..\Gdi\PAN_MIDLINE.ahk" { PAN_MIDLINE }
+#Import "..\Gdi\PAN_PROPORTION.ahk" { PAN_PROPORTION }
+#Import "..\Gdi\PAN_SERIF_STYLE.ahk" { PAN_SERIF_STYLE }
+#Import "..\Gdi\PAN_STROKE_VARIATION.ahk" { PAN_STROKE_VARIATION }
+#Import "..\Gdi\PAN_WEIGHT.ahk" { PAN_WEIGHT }
+#Import "..\Gdi\PAN_XHEIGHT.ahk" { PAN_XHEIGHT }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
 export default struct PRINTIFI32 {
-    #StructPack 8
+    #StructPack 4
 
     cjThis : UInt32
 

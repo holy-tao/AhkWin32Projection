@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HTTP_TRACE_EVENT_ITEM.ahk" { HTTP_TRACE_EVENT_ITEM }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HTTP_TRACE_EVENT_ITEM.ahk" { HTTP_TRACE_EVENT_ITEM }
 
 /**
  * @namespace Windows.Win32.System.Iis

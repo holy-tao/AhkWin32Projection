@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITfReadOnlyProperty.ahk" { ITfReadOnlyProperty }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\TfAnchor.ahk" { TfAnchor }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\ITfPropertyStore.ahk" { ITfPropertyStore }
 #Import ".\ITfRange.ahk" { ITfRange }
+#Import ".\ITfReadOnlyProperty.ahk" { ITfReadOnlyProperty }
+#Import ".\TfAnchor.ahk" { TfAnchor }
 
 /**
  * The ITfProperty interface is implemented by the TSF manager and used by a client (application or text service) to modify a property value.

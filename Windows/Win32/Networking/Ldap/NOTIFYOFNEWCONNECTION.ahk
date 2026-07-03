@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\LDAP.ahk" { LDAP }
 
@@ -61,10 +61,6 @@ export default struct NOTIFYOFNEWCONNECTION {
             this.value := CallbackCreate(fn, "cdecl", [LDAP.Ptr, LDAP.Ptr, PWSTR, PSTR, LDAP.Ptr, UInt32, "ptr", "ptr", UInt32, BOOLEAN])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

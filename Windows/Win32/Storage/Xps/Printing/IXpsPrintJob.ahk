@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\XPS_JOB_STATUS.ahk" { XPS_JOB_STATUS }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\XPS_JOB_STATUS.ahk" { XPS_JOB_STATUS }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides access to a print job that is currently in progress.

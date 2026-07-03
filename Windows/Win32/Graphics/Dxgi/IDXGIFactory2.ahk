@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDXGISwapChain1.ahk" { IDXGISwapChain1 }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DXGI_SWAP_CHAIN_DESC1.ahk" { DXGI_SWAP_CHAIN_DESC1 }
-#Import "..\..\Foundation\LUID.ahk" { LUID }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDXGIOutput.ahk" { IDXGIOutput }
-#Import ".\IDXGIFactory1.ahk" { IDXGIFactory1 }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LUID.ahk" { LUID }
+#Import ".\DXGI_SWAP_CHAIN_DESC1.ahk" { DXGI_SWAP_CHAIN_DESC1 }
 #Import ".\DXGI_SWAP_CHAIN_FULLSCREEN_DESC.ahk" { DXGI_SWAP_CHAIN_FULLSCREEN_DESC }
+#Import ".\IDXGIFactory1.ahk" { IDXGIFactory1 }
+#Import ".\IDXGIOutput.ahk" { IDXGIOutput }
+#Import ".\IDXGISwapChain1.ahk" { IDXGISwapChain1 }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDXGIFactory2 interface includes methods to create a newer version swap chain with more features than IDXGISwapChain and to monitor stereoscopic 3D capabilities.

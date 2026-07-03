@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\INSSBuffer.ahk" { INSSBuffer }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\DRM_VAL16.ahk" { DRM_VAL16 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DRM_VAL16.ahk" { DRM_VAL16 }
+#Import ".\INSSBuffer.ahk" { INSSBuffer }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMRegisteredDevice interface is the primary interface of the registered device object. It provides access to information about a playback device in the device registration database.

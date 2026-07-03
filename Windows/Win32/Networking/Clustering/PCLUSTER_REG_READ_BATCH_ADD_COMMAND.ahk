@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HREGREADBATCH.ahk" { HREGREADBATCH }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HREGREADBATCH.ahk" { HREGREADBATCH }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -50,10 +50,6 @@ export default struct PCLUSTER_REG_READ_BATCH_ADD_COMMAND {
             this.value := CallbackCreate(fn, , [HREGREADBATCH, PWSTR, PWSTR, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SORTDIRECTION.ahk" { SORTDIRECTION }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import ".\SORTDIRECTION.ahk" { SORTDIRECTION }
 
 /**
  * Stores information about how to sort a column that is displayed in the folder view.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
 #Import ".\VIDEOHDR.ahk" { VIDEOHDR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * The capVideoStreamCallback function is the callback function used with streaming capture to optionally process a frame of captured video. The name capVideoStreamCallback is a placeholder for the application-supplied function name.
@@ -51,10 +51,6 @@ export default struct CAPVIDEOCALLBACK {
             this.value := CallbackCreate(fn, , [HWND, VIDEOHDR.Ptr, LRESULT])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

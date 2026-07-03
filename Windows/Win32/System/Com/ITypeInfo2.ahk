@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\INVOKEKIND.ahk" { INVOKEKIND }
-#Import ".\TYPEKIND.ahk" { TYPEKIND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITypeInfo.ahk" { ITypeInfo }
-#Import ".\CUSTDATA.ahk" { CUSTDATA }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CUSTDATA.ahk" { CUSTDATA }
+#Import ".\INVOKEKIND.ahk" { INVOKEKIND }
+#Import ".\ITypeInfo.ahk" { ITypeInfo }
+#Import ".\TYPEKIND.ahk" { TYPEKIND }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**

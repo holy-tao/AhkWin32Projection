@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
 
 /**
  * The CAPSTATUS structure defines the current state of the capture window.

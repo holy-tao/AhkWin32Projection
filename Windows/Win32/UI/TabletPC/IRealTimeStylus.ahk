@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IStylusSyncPlugin.ahk" { IStylusSyncPlugin }
-#Import ".\IInkCursor.ahk" { IInkCursor }
-#Import ".\IStylusAsyncPlugin.ahk" { IStylusAsyncPlugin }
-#Import "..\..\Foundation\HANDLE_PTR.ahk" { HANDLE_PTR }
-#Import ".\IInkTablet.ahk" { IInkTablet }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\PACKET_PROPERTY.ahk" { PACKET_PROPERTY }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\StylusQueue.ahk" { StylusQueue }
-#Import ".\IInkCursors.ahk" { IInkCursors }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE_PTR.ahk" { HANDLE_PTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IInkCursor.ahk" { IInkCursor }
+#Import ".\IInkCursors.ahk" { IInkCursors }
+#Import ".\IInkTablet.ahk" { IInkTablet }
+#Import ".\IStylusAsyncPlugin.ahk" { IStylusAsyncPlugin }
+#Import ".\IStylusSyncPlugin.ahk" { IStylusSyncPlugin }
+#Import ".\PACKET_PROPERTY.ahk" { PACKET_PROPERTY }
+#Import ".\StylusQueue.ahk" { StylusQueue }
 
 /**
  * Handles the stylus packet data from a digitizer in real time.

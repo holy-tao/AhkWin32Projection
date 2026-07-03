@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SecBufferDesc.ahk" { SecBufferDesc }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\SecBufferDesc.ahk" { SecBufferDesc }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -27,7 +27,7 @@ export default struct KspCompleteTokenFn {
      */
     Call(ContextId, Token) {
         result := DllCall(this.value, IntPtr, ContextId, SecBufferDesc.Ptr, Token, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -47,10 +47,6 @@ export default struct KspCompleteTokenFn {
             this.value := CallbackCreate(fn, , [IntPtr, SecBufferDesc.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

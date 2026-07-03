@@ -46,10 +46,6 @@ export default struct LPALLOCATEBUFFER {
             this.value := CallbackCreate(fn, , [UInt32, "ptr*", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

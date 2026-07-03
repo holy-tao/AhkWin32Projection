@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IWMReaderCallback.ahk" { IWMReaderCallback }
-#Import ".\IWMReaderAdvanced.ahk" { IWMReaderAdvanced }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WMT_PLAY_MODE.ahk" { WMT_PLAY_MODE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWMReaderAdvanced.ahk" { IWMReaderAdvanced }
+#Import ".\IWMReaderCallback.ahk" { IWMReaderCallback }
 #Import ".\WMT_ATTR_DATATYPE.ahk" { WMT_ATTR_DATATYPE }
+#Import ".\WMT_PLAY_MODE.ahk" { WMT_PLAY_MODE }
 #Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**

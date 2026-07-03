@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IAutoComplete.ahk" { IAutoComplete }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAutoComplete.ahk" { IAutoComplete }
 
 /**
  * Extends IAutoComplete. This interface enables clients of the autocomplete object to retrieve and set a number of options that control how autocompletion operates.

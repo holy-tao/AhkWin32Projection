@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Media\DirectShow\ALLOCATOR_PROPERTIES.ahk" { ALLOCATOR_PROPERTIES }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Media\DirectShow\ALLOCATOR_PROPERTIES.ahk" { ALLOCATOR_PROPERTIES }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITAllocatorProperties interface (tapi3ds.h) exposes the buffer allocator properties of the Media Streaming Terminal (MST) to an end-user or server application.

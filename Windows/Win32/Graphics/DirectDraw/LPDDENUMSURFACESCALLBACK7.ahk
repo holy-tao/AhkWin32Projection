@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDSURFACEDESC2.ahk" { DDSURFACEDESC2 }
 #Import ".\IDirectDrawSurface7.ahk" { IDirectDrawSurface7 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The EnumSurfacesCallback7 function is an application-defined callback function for the IDirectDrawSurface7::EnumAttachedSurfaces and IDirectDrawSurface7::EnumOverlayZOrders methods.
@@ -56,10 +56,6 @@ export default struct LPDDENUMSURFACESCALLBACK7 {
             this.value := CallbackCreate(fn, , ["ptr", DDSURFACEDESC2.Ptr, "ptr", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

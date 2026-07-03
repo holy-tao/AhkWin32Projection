@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IDLFLAGS.ahk" { IDLFLAGS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Ole\PARAMDESCEX.ahk" { PARAMDESCEX }
+#Import ".\ELEMDESC.ahk" { ELEMDESC }
 #Import ".\IDLDESC.ahk" { IDLDESC }
-#Import ".\VARKIND.ahk" { VARKIND }
-#Import "..\Ole\PARAMDESC.ahk" { PARAMDESC }
-#Import "..\Ole\ARRAYDESC.ahk" { ARRAYDESC }
+#Import ".\IDLFLAGS.ahk" { IDLFLAGS }
 #Import ".\TYPEDESC.ahk" { TYPEDESC }
+#Import ".\VARFLAGS.ahk" { VARFLAGS }
+#Import ".\VARKIND.ahk" { VARKIND }
+#Import "..\Ole\ARRAYDESC.ahk" { ARRAYDESC }
+#Import "..\Ole\PARAMDESC.ahk" { PARAMDESC }
+#Import "..\Ole\PARAMDESCEX.ahk" { PARAMDESCEX }
+#Import "..\Ole\PARAMFLAGS.ahk" { PARAMFLAGS }
 #Import "..\Variant\VARENUM.ahk" { VARENUM }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\Ole\PARAMFLAGS.ahk" { PARAMFLAGS }
-#Import ".\VARFLAGS.ahk" { VARFLAGS }
-#Import ".\ELEMDESC.ahk" { ELEMDESC }
 
 /**
  * Describes a variable, constant, or data member.

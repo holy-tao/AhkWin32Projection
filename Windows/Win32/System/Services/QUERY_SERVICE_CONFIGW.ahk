@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SERVICE_ERROR.ahk" { SERVICE_ERROR }
-#Import ".\ENUM_SERVICE_TYPE.ahk" { ENUM_SERVICE_TYPE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ENUM_SERVICE_TYPE.ahk" { ENUM_SERVICE_TYPE }
+#Import ".\SERVICE_ERROR.ahk" { SERVICE_ERROR }
 #Import ".\SERVICE_START_TYPE.ahk" { SERVICE_START_TYPE }
 
 /**

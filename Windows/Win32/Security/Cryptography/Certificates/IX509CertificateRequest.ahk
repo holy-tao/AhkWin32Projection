@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\EncodingType.ahk" { EncodingType }
-#Import ".\RequestClientInfoClientId.ahk" { RequestClientInfoClientId }
-#Import ".\ICspInformations.ahk" { ICspInformations }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\InnerRequestLevel.ahk" { InnerRequestLevel }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import ".\ICspInformations.ahk" { ICspInformations }
 #Import ".\IObjectId.ahk" { IObjectId }
+#Import ".\InnerRequestLevel.ahk" { InnerRequestLevel }
+#Import ".\RequestClientInfoClientId.ahk" { RequestClientInfoClientId }
 #Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
 #Import ".\X509RequestType.ahk" { X509RequestType }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The IX509CertificateRequest interface represents an abstract base certificate request that identifies methods and properties common to and inherited by each of the request objects implemented by the Certificate Enrollment API.

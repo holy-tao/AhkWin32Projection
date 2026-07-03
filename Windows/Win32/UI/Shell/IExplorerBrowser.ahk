@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IExplorerBrowserEvents.ahk" { IExplorerBrowserEvents }
-#Import ".\FOLDERSETTINGS.ahk" { FOLDERSETTINGS }
-#Import ".\EXPLORER_BROWSER_OPTIONS.ahk" { EXPLORER_BROWSER_OPTIONS }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import ".\EXPLORER_BROWSER_FILL_FLAGS.ahk" { EXPLORER_BROWSER_FILL_FLAGS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\EXPLORER_BROWSER_OPTIONS.ahk" { EXPLORER_BROWSER_OPTIONS }
+#Import ".\FOLDERSETTINGS.ahk" { FOLDERSETTINGS }
+#Import ".\IExplorerBrowserEvents.ahk" { IExplorerBrowserEvents }
 #Import "..\WindowsAndMessaging\HDWP.ahk" { HDWP }
 
 /**

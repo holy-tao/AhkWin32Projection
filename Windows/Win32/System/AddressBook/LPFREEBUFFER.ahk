@@ -45,10 +45,6 @@ export default struct LPFREEBUFFER {
             this.value := CallbackCreate(fn, , ["ptr", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

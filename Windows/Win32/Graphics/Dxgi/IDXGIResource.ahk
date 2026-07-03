@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\IDXGIDeviceSubObject.ahk" { IDXGIDeviceSubObject }
-#Import ".\DXGI_USAGE.ahk" { DXGI_USAGE }
-#Import ".\DXGI_RESOURCE_PRIORITY.ahk" { DXGI_RESOURCE_PRIORITY }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXGI_RESOURCE_PRIORITY.ahk" { DXGI_RESOURCE_PRIORITY }
+#Import ".\DXGI_USAGE.ahk" { DXGI_USAGE }
+#Import ".\IDXGIDeviceSubObject.ahk" { IDXGIDeviceSubObject }
 
 /**
  * An IDXGIResource interface allows resource sharing and identifies the memory that a resource resides in.

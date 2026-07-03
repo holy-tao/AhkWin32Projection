@@ -1,10 +1,10 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DML_CREATE_DEVICE_FLAGS.ahk" { DML_CREATE_DEVICE_FLAGS }
 #Import ".\DML_FEATURE_LEVEL.ahk" { DML_FEATURE_LEVEL }
-#Import "..\..\..\Graphics\Direct3D12\ID3D12Device.ahk" { ID3D12Device }
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Graphics\Direct3D12\ID3D12Device.ahk" { ID3D12Device }
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.DirectML

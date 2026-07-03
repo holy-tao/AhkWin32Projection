@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\NLM_DOMAIN_AUTHENTICATION_KIND.ahk" { NLM_DOMAIN_AUTHENTICATION_KIND }
 #Import ".\INetwork.ahk" { INetwork }
+#Import ".\NLM_DOMAIN_AUTHENTICATION_KIND.ahk" { NLM_DOMAIN_AUTHENTICATION_KIND }
 
 /**
  * The **INetwork2** interface represents a network on the local machine. It can also represent a collection of network connections with a similar network signature.

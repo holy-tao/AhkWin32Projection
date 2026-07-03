@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\CMSG_CTRL_KEY_TRANS_DECRYPT_PARA.ahk" { CMSG_CTRL_KEY_TRANS_DECRYPT_PARA }
 #Import ".\CMSG_CNG_CONTENT_DECRYPT_INFO.ahk" { CMSG_CNG_CONTENT_DECRYPT_INFO }
+#Import ".\CMSG_CTRL_KEY_TRANS_DECRYPT_PARA.ahk" { CMSG_CTRL_KEY_TRANS_DECRYPT_PARA }
 
 /**
  * Imports and decrypts a content encryption key (CEK) that is intended for a key transport recipient.
@@ -83,10 +83,6 @@ export default struct PFN_CMSG_CNG_IMPORT_KEY_TRANS {
             this.value := CallbackCreate(fn, , [CMSG_CNG_CONTENT_DECRYPT_INFO.Ptr, CMSG_CTRL_KEY_TRANS_DECRYPT_PARA.Ptr, UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

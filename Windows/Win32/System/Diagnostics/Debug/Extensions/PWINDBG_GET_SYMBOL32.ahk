@@ -49,10 +49,6 @@ export default struct PWINDBG_GET_SYMBOL32 {
             this.value := CallbackCreate(fn, , [UInt32, PSTR, "uint*", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

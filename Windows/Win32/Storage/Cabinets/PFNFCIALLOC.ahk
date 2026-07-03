@@ -43,10 +43,6 @@ export default struct PFNFCIALLOC {
             this.value := CallbackCreate(fn, "cdecl", [UInt32, "ptr"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -44,10 +44,6 @@ export default struct LPDDHALVPORTCB_GETVPORTCONNECT {
             this.value := CallbackCreate(fn, , [DDHAL_GETVPORTCONNECTDATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VBICODECFILTERING_NABTS_SUBSTREAMS.ahk" { VBICODECFILTERING_NABTS_SUBSTREAMS }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import ".\VBICODECFILTERING_NABTS_SUBSTREAMS.ahk" { VBICODECFILTERING_NABTS_SUBSTREAMS }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IUIAnimationStoryboard.ahk" { IUIAnimationStoryboard }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\UI_ANIMATION_PRIORITY_EFFECT.ahk" { UI_ANIMATION_PRIORITY_EFFECT }
 
 /**

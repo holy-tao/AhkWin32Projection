@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISWbemObjectSet.ahk" { ISWbemObjectSet }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\ISWbemEventSource.ahk" { ISWbemEventSource }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ISWbemSecurity.ahk" { ISWbemSecurity }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ISWbemEventSource.ahk" { ISWbemEventSource }
 #Import ".\ISWbemObject.ahk" { ISWbemObject }
+#Import ".\ISWbemObjectSet.ahk" { ISWbemObjectSet }
+#Import ".\ISWbemSecurity.ahk" { ISWbemSecurity }
 
 /**
  * @namespace Windows.Win32.System.Wmi

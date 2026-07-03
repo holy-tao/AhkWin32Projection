@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -51,10 +51,6 @@ export default struct PQUERY_APPINSTANCE_VERSION {
             this.value := CallbackCreate(fn, , [Guid.Ptr, "uint*", "uint*", "ptr", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

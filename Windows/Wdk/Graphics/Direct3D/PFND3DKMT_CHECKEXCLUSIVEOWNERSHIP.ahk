@@ -43,10 +43,6 @@ export default struct PFND3DKMT_CHECKEXCLUSIVEOWNERSHIP {
             this.value := CallbackCreate(fn, , [BOOLEAN])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

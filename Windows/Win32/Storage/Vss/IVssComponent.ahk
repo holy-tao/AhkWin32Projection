@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\IVssWMFiledesc.ahk" { IVssWMFiledesc }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\VSS_COMPONENT_TYPE.ahk" { VSS_COMPONENT_TYPE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\VSS_RESTORE_TARGET.ahk" { VSS_RESTORE_TARGET }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IVssWMFiledesc.ahk" { IVssWMFiledesc }
+#Import ".\VSS_COMPONENT_TYPE.ahk" { VSS_COMPONENT_TYPE }
 #Import ".\VSS_FILE_RESTORE_STATUS.ahk" { VSS_FILE_RESTORE_STATUS }
+#Import ".\VSS_RESTORE_TARGET.ahk" { VSS_RESTORE_TARGET }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVssComponent interface is a C++ (not COM) interface containing methods for examining and modifying information about components contained in a requester's Backup Components Document.

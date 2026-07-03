@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_ASYNC_CONTEXT.ahk" { WS_ASYNC_CONTEXT }
-#Import ".\WS_ERROR.ahk" { WS_ERROR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WS_ASYNC_CONTEXT.ahk" { WS_ASYNC_CONTEXT }
 #Import ".\WS_BYTES.ahk" { WS_BYTES }
+#Import ".\WS_ERROR.ahk" { WS_ERROR }
 
 /**
  * Used by the WS_XML_WRITER function to write a specified buffer to a user-determined destination.
@@ -56,10 +56,6 @@ export default struct WS_WRITE_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", WS_BYTES.Ptr, UInt32, WS_ASYNC_CONTEXT.Ptr, WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

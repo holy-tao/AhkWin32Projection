@@ -44,10 +44,6 @@ export default struct PCLUSAPI_CLUSTER_GROUP_GET_ENUM_COUNT_EX {
             this.value := CallbackCreate(fn, , [HGROUPENUMEX, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

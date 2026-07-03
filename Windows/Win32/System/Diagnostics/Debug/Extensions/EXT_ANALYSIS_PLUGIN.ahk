@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IDebugFailureAnalysis2.ahk" { IDebugFailureAnalysis2 }
-#Import ".\FA_EXTENSION_PLUGIN_PHASE.ahk" { FA_EXTENSION_PLUGIN_PHASE }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FA_EXTENSION_PLUGIN_PHASE.ahk" { FA_EXTENSION_PLUGIN_PHASE }
 #Import ".\IDebugClient4.ahk" { IDebugClient4 }
+#Import ".\IDebugFailureAnalysis2.ahk" { IDebugFailureAnalysis2 }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -49,10 +49,6 @@ export default struct EXT_ANALYSIS_PLUGIN {
             this.value := CallbackCreate(fn, , ["ptr", FA_EXTENSION_PLUGIN_PHASE, "ptr", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

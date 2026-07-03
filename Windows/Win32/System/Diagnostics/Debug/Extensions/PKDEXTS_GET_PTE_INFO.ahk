@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\KDEXTS_PTE_INFO.ahk" { KDEXTS_PTE_INFO }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDebugClient.ahk" { IDebugClient }
+#Import ".\KDEXTS_PTE_INFO.ahk" { KDEXTS_PTE_INFO }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -48,10 +48,6 @@ export default struct PKDEXTS_GET_PTE_INFO {
             this.value := CallbackCreate(fn, , ["ptr", Int64, KDEXTS_PTE_INFO.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

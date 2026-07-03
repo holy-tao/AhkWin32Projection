@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ICorProfilerInfo7.ahk" { ICorProfilerInfo7 }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ICorProfilerInfo7.ahk" { ICorProfilerInfo7 }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling

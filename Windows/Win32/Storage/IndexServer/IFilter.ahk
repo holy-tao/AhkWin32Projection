@@ -3,10 +3,10 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\FILTERREGION.ahk" { FILTERREGION }
-#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\FULLPROPSPEC.ahk" { FULLPROPSPEC }
 #Import ".\STAT_CHUNK.ahk" { STAT_CHUNK }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\FULLPROPSPEC.ahk" { FULLPROPSPEC }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 
 /**
  * Scans documents for text and properties (also called attributes).

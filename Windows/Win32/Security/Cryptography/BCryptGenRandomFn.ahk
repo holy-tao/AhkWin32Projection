@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\BCRYPT_ALG_HANDLE.ahk" { BCRYPT_ALG_HANDLE }
 #Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\BCRYPT_ALG_HANDLE.ahk" { BCRYPT_ALG_HANDLE }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -29,7 +29,7 @@ export default struct BCryptGenRandomFn {
      */
     Call(hAlgorithm, pbBuffer, cbBuffer, dwFlags) {
         result := DllCall(this.value, BCRYPT_ALG_HANDLE, hAlgorithm, IntPtr, pbBuffer, UInt32, cbBuffer, UInt32, dwFlags, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -49,10 +49,6 @@ export default struct BCryptGenRandomFn {
             this.value := CallbackCreate(fn, , [BCRYPT_ALG_HANDLE, IntPtr, UInt32, UInt32, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

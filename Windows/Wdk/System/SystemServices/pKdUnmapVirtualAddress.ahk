@@ -47,10 +47,6 @@ export default struct pKdUnmapVirtualAddress {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, BOOLEAN, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

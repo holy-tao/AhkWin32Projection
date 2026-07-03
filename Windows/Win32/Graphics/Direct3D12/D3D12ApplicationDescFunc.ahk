@@ -46,10 +46,6 @@ export default struct D3D12ApplicationDescFunc {
             this.value := CallbackCreate(fn, , [D3D12_APPLICATION_DESC.Ptr, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

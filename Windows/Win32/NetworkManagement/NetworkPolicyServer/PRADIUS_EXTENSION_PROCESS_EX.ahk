@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RADIUS_ATTRIBUTE.ahk" { RADIUS_ATTRIBUTE }
 #Import ".\RADIUS_ACTION.ahk" { RADIUS_ACTION }
+#Import ".\RADIUS_ATTRIBUTE.ahk" { RADIUS_ATTRIBUTE }
 
 /**
  * The RadiusExtensionProcessEx function is an application-defined function and is called by NPS for each authentication or accounting packet that NPS receives from the network access server (NAS).
@@ -76,10 +76,6 @@ export default struct PRADIUS_EXTENSION_PROCESS_EX {
             this.value := CallbackCreate(fn, , [RADIUS_ATTRIBUTE.Ptr, "ptr*", "int*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

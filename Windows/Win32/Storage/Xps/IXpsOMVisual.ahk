@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IXpsOMMatrixTransform.ahk" { IXpsOMMatrixTransform }
-#Import ".\IXpsOMGeometry.ahk" { IXpsOMGeometry }
-#Import "..\..\System\Com\IUri.ahk" { IUri }
-#Import ".\IXpsOMShareable.ahk" { IXpsOMShareable }
-#Import ".\IXpsOMBrush.ahk" { IXpsOMBrush }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IXpsOMBrush.ahk" { IXpsOMBrush }
+#Import ".\IXpsOMGeometry.ahk" { IXpsOMGeometry }
+#Import ".\IXpsOMMatrixTransform.ahk" { IXpsOMMatrixTransform }
+#Import ".\IXpsOMShareable.ahk" { IXpsOMShareable }
+#Import "..\..\System\Com\IUri.ahk" { IUri }
 
 /**
  * The base interface for path, canvas, and glyph interfaces.

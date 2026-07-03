@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IXpsOMGeometry.ahk" { IXpsOMGeometry }
-#Import ".\XPS_SEGMENT_STROKE_PATTERN.ahk" { XPS_SEGMENT_STROKE_PATTERN }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\XPS_POINT.ahk" { XPS_POINT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsOMGeometry.ahk" { IXpsOMGeometry }
+#Import ".\XPS_POINT.ahk" { XPS_POINT }
+#Import ".\XPS_SEGMENT_STROKE_PATTERN.ahk" { XPS_SEGMENT_STROKE_PATTERN }
 #Import ".\XPS_SEGMENT_TYPE.ahk" { XPS_SEGMENT_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Describes one portion of the path or clipping region that is specified by an IXpsOMGeometry interface.

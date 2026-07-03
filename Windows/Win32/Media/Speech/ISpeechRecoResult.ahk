@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SpeechVoiceSpeakFlags.ahk" { SpeechVoiceSpeakFlags }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\SpeechDiscardType.ahk" { SpeechDiscardType }
-#Import ".\ISpeechRecoResultTimes.ahk" { ISpeechRecoResultTimes }
-#Import ".\ISpeechPhraseInfo.ahk" { ISpeechPhraseInfo }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISpeechRecoContext.ahk" { ISpeechRecoContext }
+#Import ".\ISpeechAudioFormat.ahk" { ISpeechAudioFormat }
 #Import ".\ISpeechMemoryStream.ahk" { ISpeechMemoryStream }
 #Import ".\ISpeechPhraseAlternates.ahk" { ISpeechPhraseAlternates }
-#Import ".\ISpeechAudioFormat.ahk" { ISpeechAudioFormat }
+#Import ".\ISpeechPhraseInfo.ahk" { ISpeechPhraseInfo }
+#Import ".\ISpeechRecoContext.ahk" { ISpeechRecoContext }
+#Import ".\ISpeechRecoResultTimes.ahk" { ISpeechRecoResultTimes }
+#Import ".\SpeechDiscardType.ahk" { SpeechDiscardType }
+#Import ".\SpeechVoiceSpeakFlags.ahk" { SpeechVoiceSpeakFlags }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Media.Speech

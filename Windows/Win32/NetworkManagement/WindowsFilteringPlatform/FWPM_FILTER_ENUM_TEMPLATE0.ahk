@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FWP_FILTER_ENUM_TYPE.ahk" { FWP_FILTER_ENUM_TYPE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0.ahk" { FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0 }
 #Import ".\FWPM_FILTER_CONDITION0.ahk" { FWPM_FILTER_CONDITION0 }
+#Import ".\FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0.ahk" { FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0 }
+#Import ".\FWP_FILTER_ENUM_TYPE.ahk" { FWP_FILTER_ENUM_TYPE }
 
 /**
  * Is used for enumerating filters.

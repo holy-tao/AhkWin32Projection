@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import ".\SPEVENTENUM.ahk" { SPEVENTENUM }
-#Import ".\ISpEventSource.ahk" { ISpEventSource }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\SPVPRIORITY.ahk" { SPVPRIORITY }
-#Import ".\ISpStreamFormat.ahk" { ISpStreamFormat }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ISpEventSource.ahk" { ISpEventSource }
 #Import ".\ISpObjectToken.ahk" { ISpObjectToken }
+#Import ".\ISpStreamFormat.ahk" { ISpStreamFormat }
+#Import ".\SPEVENTENUM.ahk" { SPEVENTENUM }
 #Import ".\SPVOICESTATUS.ahk" { SPVOICESTATUS }
+#Import ".\SPVPRIORITY.ahk" { SPVPRIORITY }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.Speech

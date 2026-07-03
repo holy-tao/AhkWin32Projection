@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\WSMAN_OPTION_SETEX.ahk" { WSMAN_OPTION_SETEX }
-#Import ".\WSMAN_FILTER.ahk" { WSMAN_FILTER }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WSMAN_FILTER.ahk" { WSMAN_FILTER }
 #Import ".\WSMAN_FRAGMENT.ahk" { WSMAN_FRAGMENT }
-#Import ".\WSMAN_OPTION.ahk" { WSMAN_OPTION }
-#Import ".\WSMAN_SELECTOR_SET.ahk" { WSMAN_SELECTOR_SET }
 #Import ".\WSMAN_KEY.ahk" { WSMAN_KEY }
+#Import ".\WSMAN_OPTION.ahk" { WSMAN_OPTION }
+#Import ".\WSMAN_OPTION_SETEX.ahk" { WSMAN_OPTION_SETEX }
+#Import ".\WSMAN_SELECTOR_SET.ahk" { WSMAN_SELECTOR_SET }
 
 /**
  * @namespace Windows.Win32.System.RemoteManagement

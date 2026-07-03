@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IContinueCallback.ahk" { IContinueCallback }
-#Import "..\Com\STGMEDIUM.ahk" { STGMEDIUM }
-#Import "..\Com\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
-#Import ".\PAGESET.ahk" { PAGESET }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\STGMEDIUM.ahk" { STGMEDIUM }
+#Import ".\IContinueCallback.ahk" { IContinueCallback }
+#Import ".\PAGESET.ahk" { PAGESET }
 
 /**
  * Enables compound documents in general and active documents in particular to support programmatic printing.

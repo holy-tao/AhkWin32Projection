@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\DMA_ADAPTER.ahk" { DMA_ADAPTER }
-#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import ".\SCATTER_GATHER_LIST.ahk" { SCATTER_GATHER_LIST }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -47,10 +47,6 @@ export default struct PPUT_SCATTER_GATHER_LIST {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, SCATTER_GATHER_LIST.Ptr, BOOLEAN, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

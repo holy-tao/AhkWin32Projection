@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\StatusCode.ahk" { StatusCode }
 #Import ".\DHCPV6Prefix.ahk" { DHCPV6Prefix }
+#Import ".\StatusCode.ahk" { StatusCode }
 
 /**
  * Information about a prefix lease.

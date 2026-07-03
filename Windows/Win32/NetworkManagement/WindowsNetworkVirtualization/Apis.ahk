@@ -1,8 +1,8 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
 #Import ".\WNV_NOTIFICATION_PARAM.ahk" { WNV_NOTIFICATION_PARAM }
+#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsNetworkVirtualization

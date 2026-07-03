@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
+#Import "..\..\Graphics\Direct3D9\D3DPOOL.ahk" { D3DPOOL }
+#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
+#Import ".\DXVAHD_CUSTOM_RATE_DATA.ahk" { DXVAHD_CUSTOM_RATE_DATA }
+#Import ".\DXVAHD_FILTER.ahk" { DXVAHD_FILTER }
 #Import ".\DXVAHD_FILTER_RANGE_DATA.ahk" { DXVAHD_FILTER_RANGE_DATA }
 #Import ".\DXVAHD_SURFACE_TYPE.ahk" { DXVAHD_SURFACE_TYPE }
-#Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
-#Import ".\IDXVAHD_VideoProcessor.ahk" { IDXVAHD_VideoProcessor }
-#Import ".\DXVAHD_CUSTOM_RATE_DATA.ahk" { DXVAHD_CUSTOM_RATE_DATA }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DXVAHD_VPDEVCAPS.ahk" { DXVAHD_VPDEVCAPS }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\DXVAHD_FILTER.ahk" { DXVAHD_FILTER }
-#Import "..\..\Graphics\Direct3D9\D3DPOOL.ahk" { D3DPOOL }
 #Import ".\DXVAHD_VPCAPS.ahk" { DXVAHD_VPCAPS }
+#Import ".\DXVAHD_VPDEVCAPS.ahk" { DXVAHD_VPDEVCAPS }
+#Import ".\IDXVAHD_VideoProcessor.ahk" { IDXVAHD_VideoProcessor }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) device.

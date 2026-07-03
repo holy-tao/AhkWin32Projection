@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MFT_REGISTER_TYPE_INFO.ahk" { MFT_REGISTER_TYPE_INFO }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MFT_REGISTER_TYPE_INFO.ahk" { MFT_REGISTER_TYPE_INFO }
 
 /**
  * Contains parameters for the IMFLocalMFTRegistration::RegisterMFTs method.

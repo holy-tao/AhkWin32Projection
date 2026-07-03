@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WDSTRANSPORT_NETWORK_PROFILE_TYPE.ahk" { WDSTRANSPORT_NETWORK_PROFILE_TYPE }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IWdsTransportCacheable.ahk" { IWdsTransportCacheable }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWdsTransportCacheable.ahk" { IWdsTransportCacheable }
 #Import ".\WDSTRANSPORT_IP_ADDRESS_SOURCE_TYPE.ahk" { WDSTRANSPORT_IP_ADDRESS_SOURCE_TYPE }
 #Import ".\WDSTRANSPORT_IP_ADDRESS_TYPE.ahk" { WDSTRANSPORT_IP_ADDRESS_TYPE }
+#Import ".\WDSTRANSPORT_NETWORK_PROFILE_TYPE.ahk" { WDSTRANSPORT_NETWORK_PROFILE_TYPE }
 
 /**
  * Represents the service policy part of the WDS transport server's configuration.

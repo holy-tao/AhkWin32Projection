@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\UCharIteratorOrigin.ahk" { UCharIteratorOrigin }
 #Import ".\UCharIterator.ahk" { UCharIterator }
+#Import ".\UCharIteratorOrigin.ahk" { UCharIteratorOrigin }
 
 /**
  * @namespace Windows.Win32.Globalization
@@ -46,10 +46,6 @@ export default struct UCharIteratorGetIndex {
             this.value := CallbackCreate(fn, "cdecl", [UCharIterator.Ptr, UCharIteratorOrigin, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

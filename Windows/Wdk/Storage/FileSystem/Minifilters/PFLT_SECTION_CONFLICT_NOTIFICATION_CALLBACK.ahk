@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\FLT_CALLBACK_DATA.ahk" { FLT_CALLBACK_DATA }
 #Import ".\PFLT_CONTEXT.ahk" { PFLT_CONTEXT }
-#Import "..\..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\PFLT_INSTANCE.ahk" { PFLT_INSTANCE }
+#Import "..\..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters
@@ -30,7 +30,7 @@ export default struct PFLT_SECTION_CONFLICT_NOTIFICATION_CALLBACK {
      */
     Call(Instance, SectionContext, Data) {
         result := DllCall(this.value, PFLT_INSTANCE, Instance, PFLT_CONTEXT, SectionContext, FLT_CALLBACK_DATA.Ptr, Data, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -50,10 +50,6 @@ export default struct PFLT_SECTION_CONFLICT_NOTIFICATION_CALLBACK {
             this.value := CallbackCreate(fn, , [PFLT_INSTANCE, PFLT_CONTEXT, FLT_CALLBACK_DATA.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WSABUF.ahk" { WSABUF }
 #Import ".\QOS.ahk" { QOS }
 #Import ".\SOCKET.ahk" { SOCKET }
+#Import ".\WSABUF.ahk" { WSABUF }
 
 /**
  * The LPWSPJoinLeaf function joins a leaf node into a multipoint session, exchanges connect data, and specifies needed quality of service based on the supplied flow specifications.
@@ -316,10 +316,6 @@ export default struct LPWSPJOINLEAF {
             this.value := CallbackCreate(fn, , [SOCKET, IntPtr, Int32, WSABUF.Ptr, WSABUF.Ptr, QOS.Ptr, QOS.Ptr, UInt32, "int*", SOCKET])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

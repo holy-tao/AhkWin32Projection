@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DWRITE_LOCALITY.ahk" { DWRITE_LOCALITY }
-#Import ".\IDWriteFontFaceReference.ahk" { IDWriteFontFaceReference }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_LOCALITY.ahk" { DWRITE_LOCALITY }
+#Import ".\IDWriteFont.ahk" { IDWriteFont }
 #Import ".\IDWriteFont2.ahk" { IDWriteFont2 }
 #Import ".\IDWriteFontFace3.ahk" { IDWriteFontFace3 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDWriteFont.ahk" { IDWriteFont }
+#Import ".\IDWriteFontFaceReference.ahk" { IDWriteFontFaceReference }
 
 /**
  * Represents a font in a font collection.

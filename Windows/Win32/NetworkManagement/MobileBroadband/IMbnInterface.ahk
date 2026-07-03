@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MBN_READY_STATE.ahk" { MBN_READY_STATE }
-#Import ".\MBN_INTERFACE_CAPS.ahk" { MBN_INTERFACE_CAPS }
-#Import ".\MBN_PROVIDER.ahk" { MBN_PROVIDER }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\IMbnConnection.ahk" { IMbnConnection }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 #Import ".\IMbnSubscriberInformation.ahk" { IMbnSubscriberInformation }
+#Import ".\MBN_INTERFACE_CAPS.ahk" { MBN_INTERFACE_CAPS }
+#Import ".\MBN_PROVIDER.ahk" { MBN_PROVIDER }
+#Import ".\MBN_READY_STATE.ahk" { MBN_READY_STATE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Represents a Mobile Broadband device.

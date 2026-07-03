@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IVssComponent.ahk" { IVssComponent }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IVssComponent.ahk" { IVssComponent }
 
 /**
  * Contains methods used to obtain and modify component information.

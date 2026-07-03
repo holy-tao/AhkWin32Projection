@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\SecBuffer.ahk" { SecBuffer }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\SecBuffer.ahk" { SecBuffer }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -36,7 +36,7 @@ export default struct PLSA_GET_APP_MODE_INFO {
         ReturnToLsaMarshal := ReturnToLsa is VarRef ? "char*" : "ptr"
 
         result := DllCall(this.value, UserFunctionMarshal, UserFunction, Argument1Marshal, Argument1, Argument2Marshal, Argument2, SecBuffer.Ptr, _UserData, ReturnToLsaMarshal, ReturnToLsa, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -56,10 +56,6 @@ export default struct PLSA_GET_APP_MODE_INFO {
             this.value := CallbackCreate(fn, , ["uint*", "ptr*", "ptr*", SecBuffer.Ptr, BOOLEAN.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

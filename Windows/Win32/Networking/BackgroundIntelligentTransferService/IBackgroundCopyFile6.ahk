@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\BG_FILE_RANGE.ahk" { BG_FILE_RANGE }
 #Import ".\IBackgroundCopyFile5.ahk" { IBackgroundCopyFile5 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Use this interface to request file ranges for On Demand download jobs.

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IEnumEventObject.ahk" { IEnumEventObject }
+#Import "..\IDispatch.ahk" { IDispatch }
+#Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Manages objects in an event objects collection.

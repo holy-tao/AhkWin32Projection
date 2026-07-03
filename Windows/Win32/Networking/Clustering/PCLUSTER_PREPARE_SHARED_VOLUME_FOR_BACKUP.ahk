@@ -55,10 +55,6 @@ export default struct PCLUSTER_PREPARE_SHARED_VOLUME_FOR_BACKUP {
             this.value := CallbackCreate(fn, , [PWSTR, PWSTR, "uint*", PWSTR, "uint*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

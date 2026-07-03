@@ -48,10 +48,6 @@ export default struct PFNFCISTATUS {
             this.value := CallbackCreate(fn, "cdecl", [UInt32, UInt32, UInt32, "ptr", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

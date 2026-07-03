@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CLUSTER_REG_COMMAND.ahk" { CLUSTER_REG_COMMAND }
 #Import ".\HREGBATCH.ahk" { HREGBATCH }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -53,10 +53,6 @@ export default struct PCLUSTER_REG_BATCH_ADD_COMMAND {
             this.value := CallbackCreate(fn, , [HREGBATCH, CLUSTER_REG_COMMAND, PWSTR, UInt32, IntPtr, UInt32, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MFP_MEDIAPLAYER_STATE.ahk" { MFP_MEDIAPLAYER_STATE }
-#Import ".\IMFPMediaPlayer.ahk" { IMFPMediaPlayer }
-#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
-#Import ".\MFP_EVENT_TYPE.ahk" { MFP_EVENT_TYPE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFPMediaPlayer.ahk" { IMFPMediaPlayer }
+#Import ".\MFP_EVENT_TYPE.ahk" { MFP_EVENT_TYPE }
+#Import ".\MFP_MEDIAPLAYER_STATE.ahk" { MFP_MEDIAPLAYER_STATE }
+#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
 
 /**
  * Contains information that is common to every type of MFPlay event.

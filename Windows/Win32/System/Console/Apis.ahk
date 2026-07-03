@@ -1,39 +1,38 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\UI\WindowsAndMessaging\HMENU.ahk" { HMENU }
-#Import ".\INPUT_RECORD.ahk" { INPUT_RECORD }
-#Import "..\..\UI\WindowsAndMessaging\HCURSOR.ahk" { HCURSOR }
-#Import ".\SMALL_RECT.ahk" { SMALL_RECT }
-#Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
-#Import ".\COORD.ahk" { COORD }
-#Import ".\PHANDLER_ROUTINE.ahk" { PHANDLER_ROUTINE }
-#Import ".\CONSOLE_FONT_INFOEX.ahk" { CONSOLE_FONT_INFOEX }
-#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
-#Import ".\CONSOLECONTROL.ahk" { CONSOLECONTROL as CONSOLECONTROL_enum }
-#Import ".\APPKEY.ahk" { APPKEY }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\CONSOLE_READCONSOLE_CONTROL.ahk" { CONSOLE_READCONSOLE_CONTROL }
-#Import ".\CONSOLE_MODE.ahk" { CONSOLE_MODE }
-#Import ".\CONSOLE_CURSOR_INFO.ahk" { CONSOLE_CURSOR_INFO }
-#Import ".\STD_HANDLE.ahk" { STD_HANDLE }
-#Import ".\CONSOLE_FONT_INFO.ahk" { CONSOLE_FONT_INFO }
-#Import ".\HPCON.ahk" { HPCON }
-#Import ".\CONSOLE_SCREEN_BUFFER_INFOEX.ahk" { CONSOLE_SCREEN_BUFFER_INFOEX }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\CONSOLE_SELECTION_INFO.ahk" { CONSOLE_SELECTION_INFO }
-#Import ".\CHAR_INFO.ahk" { CHAR_INFO }
-#Import ".\CONSOLE_CHARACTER_ATTRIBUTES.ahk" { CONSOLE_CHARACTER_ATTRIBUTES }
-#Import ".\CONSOLE_SCREEN_BUFFER_INFO.ahk" { CONSOLE_SCREEN_BUFFER_INFO }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\ALLOC_CONSOLE_RESULT.ahk" { ALLOC_CONSOLE_RESULT }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
-#Import ".\ALLOC_CONSOLE_OPTIONS.ahk" { ALLOC_CONSOLE_OPTIONS }
-#Import ".\CONSOLE_HISTORY_INFO.ahk" { CONSOLE_HISTORY_INFO }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
 #Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import ".\ALLOC_CONSOLE_OPTIONS.ahk" { ALLOC_CONSOLE_OPTIONS }
+#Import ".\ALLOC_CONSOLE_RESULT.ahk" { ALLOC_CONSOLE_RESULT }
+#Import ".\APPKEY.ahk" { APPKEY }
+#Import ".\CHAR_INFO.ahk" { CHAR_INFO }
+#Import ".\CONSOLECONTROL.ahk" { CONSOLECONTROL as CONSOLECONTROL_enum }
+#Import ".\CONSOLE_CHARACTER_ATTRIBUTES.ahk" { CONSOLE_CHARACTER_ATTRIBUTES }
+#Import ".\CONSOLE_CURSOR_INFO.ahk" { CONSOLE_CURSOR_INFO }
+#Import ".\CONSOLE_FONT_INFO.ahk" { CONSOLE_FONT_INFO }
+#Import ".\CONSOLE_FONT_INFOEX.ahk" { CONSOLE_FONT_INFOEX }
+#Import ".\CONSOLE_HISTORY_INFO.ahk" { CONSOLE_HISTORY_INFO }
+#Import ".\CONSOLE_MODE.ahk" { CONSOLE_MODE }
+#Import ".\CONSOLE_READCONSOLE_CONTROL.ahk" { CONSOLE_READCONSOLE_CONTROL }
+#Import ".\CONSOLE_SCREEN_BUFFER_INFO.ahk" { CONSOLE_SCREEN_BUFFER_INFO }
+#Import ".\CONSOLE_SCREEN_BUFFER_INFOEX.ahk" { CONSOLE_SCREEN_BUFFER_INFOEX }
+#Import ".\CONSOLE_SELECTION_INFO.ahk" { CONSOLE_SELECTION_INFO }
+#Import ".\COORD.ahk" { COORD }
+#Import ".\HPCON.ahk" { HPCON }
+#Import ".\INPUT_RECORD.ahk" { INPUT_RECORD }
+#Import ".\SMALL_RECT.ahk" { SMALL_RECT }
+#Import ".\STD_HANDLE.ahk" { STD_HANDLE }
+#Import "..\..\UI\WindowsAndMessaging\HCURSOR.ahk" { HCURSOR }
+#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import "..\..\UI\WindowsAndMessaging\HMENU.ahk" { HMENU }
 
 /**
  * @namespace Windows.Win32.System.Console
@@ -597,7 +596,7 @@ export WriteConsoleW(hConsoleOutput, lpBuffer, nNumberOfCharsToWrite, lpNumberOf
 export SetConsoleCtrlHandler(HandlerRoutine, Add) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetConsoleCtrlHandler", PHANDLER_ROUTINE, HandlerRoutine, BOOL, Add, BOOL)
+    result := DllCall("KERNEL32.dll\SetConsoleCtrlHandler", "ptr", HandlerRoutine, BOOL, Add, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3126,7 +3125,7 @@ export GetConsoleInputWaitHandle() {
  */
 export ConsoleControl(Command, ConsoleInformation, ConsoleInformationLength) {
     result := DllCall("USER32.dll\ConsoleControl", CONSOLECONTROL_enum, Command, IntPtr, ConsoleInformation, UInt32, ConsoleInformationLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 

@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\VDS_LUN_INFORMATION.ahk" { VDS_LUN_INFORMATION }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VDS_LUN_INFORMATION.ahk" { VDS_LUN_INFORMATION }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods to uninstall basic and dynamic disks.

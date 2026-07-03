@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PNS_OSVERSIONCHECK.ahk" { PNS_OSVERSIONCHECK }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\PFN_HANDLE_CMD.ahk" { PFN_HANDLE_CMD }
 
 /**
  * Defines a helper command.
@@ -26,7 +24,7 @@ export default struct CMD_ENTRY {
      * A function that handles the command. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netsh/nc-netsh-fn_handle_cmd">FN_HANDLE_CMD</a>.
      */
-    pfnCmdHandler : PFN_HANDLE_CMD
+    pfnCmdHandler : IntPtr
 
     /**
      * A short help message. This is the message identifier from the resource file of the helper DLL.
@@ -48,6 +46,6 @@ export default struct CMD_ENTRY {
      * The operating system version check function. This is the function used to determine whether the command can be run on the operating system running on the local and/or remote context before invoking or displaying commands. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netsh/nc-netsh-ns_osversioncheck">NS_OSVERSIONCHECK</a>.
      */
-    pOsVersionCheck : PNS_OSVERSIONCHECK
+    pOsVersionCheck : IntPtr
 
 }

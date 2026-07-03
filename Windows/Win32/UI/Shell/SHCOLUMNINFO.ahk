@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 #Import "..\..\System\Variant\VARENUM.ahk" { VARENUM }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 

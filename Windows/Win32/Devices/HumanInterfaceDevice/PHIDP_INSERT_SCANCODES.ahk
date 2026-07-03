@@ -48,10 +48,6 @@ export default struct PHIDP_INSERT_SCANCODES {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr, UInt32, BOOLEAN])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

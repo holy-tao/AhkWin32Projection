@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VDS_STORAGE_BUS_TYPE.ahk" { VDS_STORAGE_BUS_TYPE }
-#Import ".\VDS_INTERCONNECT.ahk" { VDS_INTERCONNECT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\VDS_STORAGE_DEVICE_ID_DESCRIPTOR.ahk" { VDS_STORAGE_DEVICE_ID_DESCRIPTOR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\VDS_INTERCONNECT.ahk" { VDS_INTERCONNECT }
+#Import ".\VDS_STORAGE_BUS_TYPE.ahk" { VDS_STORAGE_BUS_TYPE }
+#Import ".\VDS_STORAGE_DEVICE_ID_DESCRIPTOR.ahk" { VDS_STORAGE_DEVICE_ID_DESCRIPTOR }
 #Import ".\VDS_STORAGE_IDENTIFIER.ahk" { VDS_STORAGE_IDENTIFIER }
 
 /**

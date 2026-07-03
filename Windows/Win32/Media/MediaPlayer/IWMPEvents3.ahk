@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WMPFolderScanState.ahk" { WMPFolderScanState }
-#Import ".\WMPRipState.ahk" { WMPRipState }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWMPCdromBurn.ahk" { IWMPCdromBurn }
-#Import ".\WMPStringCollectionChangeEventType.ahk" { WMPStringCollectionChangeEventType }
 #Import ".\IWMPCdromRip.ahk" { IWMPCdromRip }
 #Import ".\IWMPEvents2.ahk" { IWMPEvents2 }
-#Import ".\WMPBurnState.ahk" { WMPBurnState }
 #Import ".\IWMPLibrary.ahk" { IWMPLibrary }
+#Import ".\WMPBurnState.ahk" { WMPBurnState }
+#Import ".\WMPFolderScanState.ahk" { WMPFolderScanState }
+#Import ".\WMPRipState.ahk" { WMPRipState }
+#Import ".\WMPStringCollectionChangeEventType.ahk" { WMPStringCollectionChangeEventType }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**

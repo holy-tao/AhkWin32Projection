@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\WSAPROTOCOL_INFOW.ahk" { WSAPROTOCOL_INFOW }
 
 /**
@@ -54,10 +54,6 @@ export default struct LPWSCUPDATEPROVIDER {
             this.value := CallbackCreate(fn, , [Guid.Ptr, PWSTR, WSAPROTOCOL_INFOW.Ptr, UInt32, "int*", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

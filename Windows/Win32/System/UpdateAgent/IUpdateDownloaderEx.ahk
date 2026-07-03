@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DownloadType.ahk" { DownloadType }
-#Import ".\IDownloadResult.ahk" { IDownloadResult }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IUpdateDownloader.ahk" { IUpdateDownloader }
 #Import ".\IDownloadJob.ahk" { IDownloadJob }
+#Import ".\IDownloadResult.ahk" { IDownloadResult }
+#Import ".\IUpdateDownloader.ahk" { IUpdateDownloader }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.UpdateAgent

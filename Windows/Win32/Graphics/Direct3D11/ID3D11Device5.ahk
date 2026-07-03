@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\ID3D11Device4.ahk" { ID3D11Device4 }
-#Import ".\D3D11_FENCE_FLAG.ahk" { D3D11_FENCE_FLAG }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D11_FENCE_FLAG.ahk" { D3D11_FENCE_FLAG }
+#Import ".\ID3D11Device4.ahk" { ID3D11Device4 }
 
 /**
  * The device interface represents a virtual adapter; it is used to create resources. ID3D11Device5 adds new methods to those in ID3D11Device4.

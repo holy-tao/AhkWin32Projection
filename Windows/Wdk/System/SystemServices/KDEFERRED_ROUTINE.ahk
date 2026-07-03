@@ -50,10 +50,6 @@ export default struct KDEFERRED_ROUTINE {
             this.value := CallbackCreate(fn, , [KDPC.Ptr, "ptr", "ptr", "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

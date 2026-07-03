@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDWriteFontFile.ahk" { IDWriteFontFile }
-#Import ".\DWRITE_LOCALITY.ahk" { DWRITE_LOCALITY }
-#Import ".\IDWriteFontFileLoader.ahk" { IDWriteFontFileLoader }
-#Import ".\IDWriteFactory.ahk" { IDWriteFactory }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DWRITE_LOCALITY.ahk" { DWRITE_LOCALITY }
+#Import ".\IDWriteFactory.ahk" { IDWriteFactory }
+#Import ".\IDWriteFontFile.ahk" { IDWriteFontFile }
+#Import ".\IDWriteFontFileLoader.ahk" { IDWriteFontFileLoader }
 #Import ".\IDWriteRemoteFontFileStream.ahk" { IDWriteRemoteFontFileStream }
 
 /**

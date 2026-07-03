@@ -44,10 +44,6 @@ export default struct PKSEC_CREATE_CONTEXT_LIST {
             this.value := CallbackCreate(fn, , [KSEC_CONTEXT_TYPE, "ptr"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

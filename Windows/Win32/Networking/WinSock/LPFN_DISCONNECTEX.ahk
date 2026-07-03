@@ -82,10 +82,6 @@ export default struct LPFN_DISCONNECTEX {
             this.value := CallbackCreate(fn, , [SOCKET, OVERLAPPED.Ptr, UInt32, UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\CQPAGE.ahk" { CQPAGE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\CQPAGE.ahk" { CQPAGE }
 
 /**
  * Called by a query form extension to add a page to a query form in the query dialog box.
@@ -51,10 +51,6 @@ export default struct LPCQADDPAGESPROC {
             this.value := CallbackCreate(fn, , [LPARAM, Guid.Ptr, CQPAGE.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

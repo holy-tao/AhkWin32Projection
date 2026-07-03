@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Security\Cryptography\HCERTSTORE.ahk" { HCERTSTORE }
 #Import "..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import "..\..\Security\Cryptography\HCERTSTORE.ahk" { HCERTSTORE }
 
 /**
  * Represents the criteria for matching client compact signatures against messages.

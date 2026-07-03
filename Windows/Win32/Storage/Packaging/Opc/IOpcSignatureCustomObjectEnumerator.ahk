@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IOpcSignatureCustomObject.ahk" { IOpcSignatureCustomObject }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * A read-only enumerator of IOpcSignatureCustomObject interface pointers.

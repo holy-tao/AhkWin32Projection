@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\XPS_OBJECT_TYPE.ahk" { XPS_OBJECT_TYPE }
-#Import ".\XPS_SIZE.ahk" { XPS_SIZE }
-#Import ".\IXpsOMVisualCollection.ahk" { IXpsOMVisualCollection }
-#Import ".\IXpsOMPageReference.ahk" { IXpsOMPageReference }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IXpsOMRemoteDictionaryResource.ahk" { IXpsOMRemoteDictionaryResource }
-#Import ".\IXpsOMDictionary.ahk" { IXpsOMDictionary }
-#Import ".\IXpsOMPart.ahk" { IXpsOMPart }
-#Import ".\XPS_RECT.ahk" { XPS_RECT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IXpsOMDictionary.ahk" { IXpsOMDictionary }
+#Import ".\IXpsOMPageReference.ahk" { IXpsOMPageReference }
+#Import ".\IXpsOMPart.ahk" { IXpsOMPart }
+#Import ".\IXpsOMRemoteDictionaryResource.ahk" { IXpsOMRemoteDictionaryResource }
+#Import ".\IXpsOMVisualCollection.ahk" { IXpsOMVisualCollection }
+#Import ".\XPS_OBJECT_TYPE.ahk" { XPS_OBJECT_TYPE }
+#Import ".\XPS_RECT.ahk" { XPS_RECT }
+#Import ".\XPS_SIZE.ahk" { XPS_SIZE }
 #Import "..\..\System\Com\ISequentialStream.ahk" { ISequentialStream }
 
 /**

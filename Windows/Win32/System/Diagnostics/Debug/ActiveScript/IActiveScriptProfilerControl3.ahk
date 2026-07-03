@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IActiveScriptProfilerHeapEnum.ahk" { IActiveScriptProfilerHeapEnum }
-#Import ".\IActiveScriptProfilerControl2.ahk" { IActiveScriptProfilerControl2 }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IActiveScriptProfilerControl2.ahk" { IActiveScriptProfilerControl2 }
+#Import ".\IActiveScriptProfilerHeapEnum.ahk" { IActiveScriptProfilerHeapEnum }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

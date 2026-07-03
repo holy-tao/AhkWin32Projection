@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\LPPAGESETUPHOOK.ahk" { LPPAGESETUPHOOK }
 #Import "..\..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
-#Import ".\PAGESETUPDLG_FLAGS.ahk" { PAGESETUPDLG_FLAGS }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\LPPAGEPAINTHOOK.ahk" { LPPAGEPAINTHOOK }
 #Import "..\..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\PAGESETUPDLG_FLAGS.ahk" { PAGESETUPDLG_FLAGS }
 
 /**
  * Contains information the PageSetupDlg function uses to initialize the Page Setup dialog box. After the user closes the dialog box, the system returns information about the user-defined page parameters in this structure. (ANSI)
@@ -106,14 +104,14 @@ export default struct PAGESETUPDLGA {
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nc-commdlg-lppagesetuphook">PageSetupHook</a> hook procedure that can process messages intended for the dialog box. This member is ignored unless the <b>PSD_ENABLEPAGESETUPHOOK</b> flag is set in the <b>Flags</b> member.
      */
-    lpfnPageSetupHook : LPPAGESETUPHOOK
+    lpfnPageSetupHook : IntPtr
 
     /**
      * Type: <b>LPPAGEPAINTHOOK</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nc-commdlg-lppagepainthook">PagePaintHook</a> hook procedure that receives <b>WM_PSD_*</b> messages from the dialog box whenever the sample page is redrawn. By processing the messages, the hook procedure can customize the appearance of the sample page. This member is ignored unless the <b>PSD_ENABLEPAGEPAINTHOOK</b> flag is set in the <b>Flags</b> member.
      */
-    lpfnPagePaintHook : LPPAGEPAINTHOOK
+    lpfnPagePaintHook : IntPtr
 
     /**
      * Type: <b>LPCTSTR</b>

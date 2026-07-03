@@ -2,10 +2,10 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\IAudioSystemEffects2.ahk" { IAudioSystemEffects2 }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\AUDIO_SYSTEMEFFECT_STATE.ahk" { AUDIO_SYSTEMEFFECT_STATE }
 #Import ".\AUDIO_SYSTEMEFFECT.ahk" { AUDIO_SYSTEMEFFECT }
+#Import ".\AUDIO_SYSTEMEFFECT_STATE.ahk" { AUDIO_SYSTEMEFFECT_STATE }
+#Import ".\IAudioSystemEffects2.ahk" { IAudioSystemEffects2 }
 
 /**
  * Implemented by clients that require an APOInitSystemEffects3 structure to be passed into the IAudioProcessingObject::Initialize method.

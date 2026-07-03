@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CREDENTIAL_ATTRIBUTEA.ahk" { CREDENTIAL_ATTRIBUTEA }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\CRED_TYPE.ahk" { CRED_TYPE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\CREDENTIAL_ATTRIBUTEA.ahk" { CREDENTIAL_ATTRIBUTEA }
 #Import ".\CRED_FLAGS.ahk" { CRED_FLAGS }
 #Import ".\CRED_PERSIST.ahk" { CRED_PERSIST }
+#Import ".\CRED_TYPE.ahk" { CRED_TYPE }
 
 /**
  * The CREDENTIAL structure contains an individual credential. (ANSI)

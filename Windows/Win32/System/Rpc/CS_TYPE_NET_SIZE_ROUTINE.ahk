@@ -53,10 +53,6 @@ export default struct CS_TYPE_NET_SIZE_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, UInt32, "int*", "uint*", "uint*", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

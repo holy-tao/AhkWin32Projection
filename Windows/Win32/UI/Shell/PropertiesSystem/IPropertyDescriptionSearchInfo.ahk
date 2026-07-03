@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IPropertyDescription.ahk" { IPropertyDescription }
 #Import ".\PROPDESC_COLUMNINDEX_TYPE.ahk" { PROPDESC_COLUMNINDEX_TYPE }
 #Import ".\PROPDESC_SEARCHINFO_FLAGS.ahk" { PROPDESC_SEARCHINFO_FLAGS }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IPropertyDescription.ahk" { IPropertyDescription }
 
 /**
  * Exposes search-related information for a property.

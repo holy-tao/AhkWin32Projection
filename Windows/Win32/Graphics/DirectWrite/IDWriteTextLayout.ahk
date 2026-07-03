@@ -1,24 +1,24 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDWriteTextRenderer.ahk" { IDWriteTextRenderer }
-#Import ".\IDWriteInlineObject.ahk" { IDWriteInlineObject }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DWRITE_OVERHANG_METRICS.ahk" { DWRITE_OVERHANG_METRICS }
-#Import ".\DWRITE_TEXT_RANGE.ahk" { DWRITE_TEXT_RANGE }
-#Import ".\IDWriteTypography.ahk" { IDWriteTypography }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DWRITE_CLUSTER_METRICS.ahk" { DWRITE_CLUSTER_METRICS }
+#Import ".\DWRITE_FONT_STRETCH.ahk" { DWRITE_FONT_STRETCH }
 #Import ".\DWRITE_FONT_STYLE.ahk" { DWRITE_FONT_STYLE }
 #Import ".\DWRITE_FONT_WEIGHT.ahk" { DWRITE_FONT_WEIGHT }
 #Import ".\DWRITE_HIT_TEST_METRICS.ahk" { DWRITE_HIT_TEST_METRICS }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DWRITE_LINE_METRICS.ahk" { DWRITE_LINE_METRICS }
-#Import ".\DWRITE_FONT_STRETCH.ahk" { DWRITE_FONT_STRETCH }
+#Import ".\DWRITE_OVERHANG_METRICS.ahk" { DWRITE_OVERHANG_METRICS }
 #Import ".\DWRITE_TEXT_METRICS.ahk" { DWRITE_TEXT_METRICS }
-#Import ".\DWRITE_CLUSTER_METRICS.ahk" { DWRITE_CLUSTER_METRICS }
+#Import ".\DWRITE_TEXT_RANGE.ahk" { DWRITE_TEXT_RANGE }
+#Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
+#Import ".\IDWriteInlineObject.ahk" { IDWriteInlineObject }
 #Import ".\IDWriteTextFormat.ahk" { IDWriteTextFormat }
+#Import ".\IDWriteTextRenderer.ahk" { IDWriteTextRenderer }
+#Import ".\IDWriteTypography.ahk" { IDWriteTypography }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDWriteTextLayout interface represents a block of text after it has been fully analyzed and formatted.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMILBitmapEffectConnectorInfo.ahk" { IMILBitmapEffectConnectorInfo }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\IMILBitmapEffect.ahk" { IMILBitmapEffect }
+#Import ".\IMILBitmapEffectConnectorInfo.ahk" { IMILBitmapEffectConnectorInfo }
 
 /**
  * Exposes methods that define an effect output pin.

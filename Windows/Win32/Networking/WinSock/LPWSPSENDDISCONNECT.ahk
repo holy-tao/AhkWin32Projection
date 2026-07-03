@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WSABUF.ahk" { WSABUF }
 #Import ".\SOCKET.ahk" { SOCKET }
+#Import ".\WSABUF.ahk" { WSABUF }
 
 /**
  * The LPWSPSendDisconnect function initiates termination of the connection for the socket and sends disconnect data.
@@ -135,10 +135,6 @@ export default struct LPWSPSENDDISCONNECT {
             this.value := CallbackCreate(fn, , [SOCKET, WSABUF.Ptr, "int*", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
 
 /**
  * An application-defined callback function used with the SendMessageCallback function.
@@ -63,10 +63,6 @@ export default struct SENDASYNCPROC {
             this.value := CallbackCreate(fn, , [HWND, UInt32, IntPtr, LRESULT, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

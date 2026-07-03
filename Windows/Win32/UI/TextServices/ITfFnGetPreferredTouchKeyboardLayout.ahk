@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\TKBLayoutType.ahk" { TKBLayoutType }
 #Import ".\ITfFunction.ahk" { ITfFunction }
+#Import ".\TKBLayoutType.ahk" { TKBLayoutType }
 
 /**
  * The ITfFnGetPreferredTouchKeyboardLayout interface is implemented by a text service to specify the use of a particular keyboard layout supported by the inbox Windows 8 touch keyboard.

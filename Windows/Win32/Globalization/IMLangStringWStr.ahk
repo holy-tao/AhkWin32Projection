@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\Guid.ahk" { Guid }
-#Import ".\IMLangString.ahk" { IMLangString }
-#Import "..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IMLangStringBufW.ahk" { IMLangStringBufW }
 #Import "..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IMLangString.ahk" { IMLangString }
+#Import ".\IMLangStringBufW.ahk" { IMLangStringBufW }
 
 /**
  * @namespace Windows.Win32.Globalization

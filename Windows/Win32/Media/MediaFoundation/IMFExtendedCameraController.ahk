@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMFExtendedCameraControl.ahk" { IMFExtendedCameraControl }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFExtendedCameraControl.ahk" { IMFExtendedCameraControl }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IMFExtendedCameraController interface allows apps to retrieve an instance of IMFExtendedCameraControl, which is used to configure a capture device's extended properties.

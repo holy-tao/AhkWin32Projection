@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Graphics\Gdi\LOGFONTA.ahk" { LOGFONTA }
-#Import "..\..\Graphics\Gdi\FONT_OUTPUT_PRECISION.ahk" { FONT_OUTPUT_PRECISION }
 #Import "..\..\Graphics\Gdi\FONT_CHARSET.ahk" { FONT_CHARSET }
-#Import "..\..\Graphics\Gdi\FONT_QUALITY.ahk" { FONT_QUALITY }
 #Import "..\..\Graphics\Gdi\FONT_CLIP_PRECISION.ahk" { FONT_CLIP_PRECISION }
+#Import "..\..\Graphics\Gdi\FONT_OUTPUT_PRECISION.ahk" { FONT_OUTPUT_PRECISION }
+#Import "..\..\Graphics\Gdi\FONT_QUALITY.ahk" { FONT_QUALITY }
+#Import "..\..\Graphics\Gdi\LOGFONTA.ahk" { LOGFONTA }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
@@ -24,7 +24,7 @@
  * @charset ANSI
  */
 export default struct NONCLIENTMETRICSA {
-    #StructPack 8
+    #StructPack 4
 
     /**
      * The size of the structure, in bytes. The caller must set this to <c>sizeof(NONCLIENTMETRICS)</c>. For   information about application compatibility, see Remarks.

@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
-#Import ".\IUIAutomationElementArray.ahk" { IUIAutomationElementArray }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\TextUnit.ahk" { TextUnit }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\TextPatternRangeEndpoint.ahk" { TextPatternRangeEndpoint }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
+#Import ".\IUIAutomationElementArray.ahk" { IUIAutomationElementArray }
+#Import ".\TextPatternRangeEndpoint.ahk" { TextPatternRangeEndpoint }
+#Import ".\TextUnit.ahk" { TextUnit }
 #Import ".\UIA_TEXTATTRIBUTE_ID.ahk" { UIA_TEXTATTRIBUTE_ID }
 
 /**

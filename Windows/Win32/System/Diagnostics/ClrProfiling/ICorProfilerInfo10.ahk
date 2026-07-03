@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ObjectReferenceCallback.ahk" { ObjectReferenceCallback }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ICorProfilerInfo9.ahk" { ICorProfilerInfo9 }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICorProfilerInfo9.ahk" { ICorProfilerInfo9 }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
@@ -52,7 +51,7 @@ export default struct ICorProfilerInfo10 extends ICorProfilerInfo9 {
     EnumerateObjectReferences(_objectId, callback, clientData) {
         clientDataMarshal := clientData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(93, this, IntPtr, _objectId, ObjectReferenceCallback, callback, clientDataMarshal, clientData, "HRESULT")
+        result := ComCall(93, this, IntPtr, _objectId, "ptr", callback, clientDataMarshal, clientData, "HRESULT")
         return result
     }
 

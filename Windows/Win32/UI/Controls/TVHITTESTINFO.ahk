@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TVHITTESTINFO_FLAGS.ahk" { TVHITTESTINFO_FLAGS }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import ".\HTREEITEM.ahk" { HTREEITEM }
+#Import ".\TVHITTESTINFO_FLAGS.ahk" { TVHITTESTINFO_FLAGS }
 
 /**
  * Contains information used to determine the location of a point relative to a tree-view control.

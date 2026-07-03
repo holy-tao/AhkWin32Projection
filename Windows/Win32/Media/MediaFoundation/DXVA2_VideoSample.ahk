@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DXVA2_Fixed32.ahk" { DXVA2_Fixed32 }
-#Import ".\DXVA2_AYUVSample8.ahk" { DXVA2_AYUVSample8 }
-#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
+#Import ".\DXVA2_AYUVSample8.ahk" { DXVA2_AYUVSample8 }
 #Import ".\DXVA2_ExtendedFormat.ahk" { DXVA2_ExtendedFormat }
+#Import ".\DXVA2_Fixed32.ahk" { DXVA2_Fixed32 }
 
 /**
  * Specifies an input sample for the IDirectXVideoProcessor::VideoProcessBlt method.

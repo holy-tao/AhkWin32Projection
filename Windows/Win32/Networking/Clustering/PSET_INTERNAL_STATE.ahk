@@ -49,10 +49,6 @@ export default struct PSET_INTERNAL_STATE {
             this.value := CallbackCreate(fn, , [IntPtr, CLUSTER_RESOURCE_APPLICATION_STATE, BOOL, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

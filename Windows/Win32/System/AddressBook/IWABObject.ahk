@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\IAddrBook.ahk" { IAddrBook }
 #Import ".\IMailUser.ahk" { IMailUser }
 #Import ".\MAPIERROR.ahk" { MAPIERROR }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\SBinary.ahk" { SBinary }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IAddrBook.ahk" { IAddrBook }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Do not use. This interface provides access to the Windows Address Book (WAB) object which contains function pointers to memory allocation functions and database maintenance functions.

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\XAPO_REGISTRATION_PROPERTIES.ahk" { XAPO_REGISTRATION_PROPERTIES }
-#Import "..\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\XAPO_LOCKFORPROCESS_PARAMETERS.ahk" { XAPO_LOCKFORPROCESS_PARAMETERS }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\XAPO_LOCKFORPROCESS_PARAMETERS.ahk" { XAPO_LOCKFORPROCESS_PARAMETERS }
 #Import ".\XAPO_PROCESS_BUFFER_PARAMETERS.ahk" { XAPO_PROCESS_BUFFER_PARAMETERS }
+#Import ".\XAPO_REGISTRATION_PROPERTIES.ahk" { XAPO_REGISTRATION_PROPERTIES }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The interface for an Audio Processing Object which be used in an XAudio2 effect chain.

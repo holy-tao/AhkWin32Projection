@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MI_ClassFT.ahk" { MI_ClassFT }
 #Import ".\MI_ClassDecl.ahk" { MI_ClassDecl }
+#Import ".\MI_ClassFT.ahk" { MI_ClassFT }
 
 /**
  * Represents the schema of an instance.

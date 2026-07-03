@@ -1,14 +1,14 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWICMetadataWriter.ahk" { IWICMetadataWriter }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IWICBitmap.ahk" { IWICBitmap }
+#Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
+#Import ".\IWICMetadataWriter.ahk" { IWICMetadataWriter }
 #Import ".\WICSectionAccessLevel.ahk" { WICSectionAccessLevel }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * @namespace Windows.Win32.Graphics.Imaging

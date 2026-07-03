@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\TfCandidateResult.ahk" { TfCandidateResult }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IEnumTfCandidates.ahk" { IEnumTfCandidates }
 #Import ".\ITfCandidateString.ahk" { ITfCandidateString }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TfCandidateResult.ahk" { TfCandidateResult }
 
 /**
  * The ITfCandidateList interface is implemented by a text service and is used by the TSF manager or a client (application or other text service) to obtain and manipulate candidate string objects.

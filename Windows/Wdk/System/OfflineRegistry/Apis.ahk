@@ -1,10 +1,10 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\ORHKEY.ahk" { ORHKEY }
 #Import "..\..\..\Win32\Foundation\FILETIME.ahk" { FILETIME }
-#Import "..\..\..\Win32\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\Win32\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Win32\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
 #Import "..\..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
 
 /**

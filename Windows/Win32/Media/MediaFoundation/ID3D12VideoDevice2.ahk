@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D12_VIDEO_EXTENSION_COMMAND_DESC.ahk" { D3D12_VIDEO_EXTENSION_COMMAND_DESC }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D12_VIDEO_DECODER_HEAP_DESC.ahk" { D3D12_VIDEO_DECODER_HEAP_DESC }
-#Import ".\D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC.ahk" { D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC }
 #Import "..\..\Graphics\Direct3D12\ID3D12ProtectedResourceSession.ahk" { ID3D12ProtectedResourceSession }
-#Import ".\ID3D12VideoExtensionCommand.ahk" { ID3D12VideoExtensionCommand }
-#Import ".\D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC.ahk" { D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC }
-#Import ".\ID3D12VideoDevice1.ahk" { ID3D12VideoDevice1 }
 #Import ".\D3D12_VIDEO_DECODER_DESC.ahk" { D3D12_VIDEO_DECODER_DESC }
+#Import ".\D3D12_VIDEO_DECODER_HEAP_DESC.ahk" { D3D12_VIDEO_DECODER_HEAP_DESC }
+#Import ".\D3D12_VIDEO_EXTENSION_COMMAND_DESC.ahk" { D3D12_VIDEO_EXTENSION_COMMAND_DESC }
+#Import ".\D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC.ahk" { D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC }
+#Import ".\D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC.ahk" { D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC }
+#Import ".\ID3D12VideoDevice1.ahk" { ID3D12VideoDevice1 }
+#Import ".\ID3D12VideoExtensionCommand.ahk" { ID3D12VideoExtensionCommand }
 
 /**
  * Adds support for protected resources.

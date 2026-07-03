@@ -46,10 +46,6 @@ export default struct PNS_CONTEXT_CONNECT_FN {
             this.value := CallbackCreate(fn, , [PWSTR, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

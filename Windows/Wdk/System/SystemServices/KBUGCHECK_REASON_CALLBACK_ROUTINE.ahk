@@ -49,10 +49,6 @@ export default struct KBUGCHECK_REASON_CALLBACK_ROUTINE {
             this.value := CallbackCreate(fn, , [KBUGCHECK_CALLBACK_REASON, KBUGCHECK_REASON_CALLBACK_RECORD.Ptr, "ptr", UInt32, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

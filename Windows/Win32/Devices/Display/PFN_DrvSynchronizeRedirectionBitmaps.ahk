@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\DHPDEV.ahk" { DHPDEV }
+#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -29,7 +29,7 @@ export default struct PFN_DrvSynchronizeRedirectionBitmaps {
         param1Marshal := param1 is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, DHPDEV, param0, param1Marshal, param1, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -49,10 +49,6 @@ export default struct PFN_DrvSynchronizeRedirectionBitmaps {
             this.value := CallbackCreate(fn, , [DHPDEV, "uint*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

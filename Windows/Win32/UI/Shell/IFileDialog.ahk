@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IShellItem.ahk" { IShellItem }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\FDAP.ahk" { FDAP }
-#Import ".\IFileDialogEvents.ahk" { IFileDialogEvents }
-#Import "Common\COMDLG_FILTERSPEC.ahk" { COMDLG_FILTERSPEC }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "Common\COMDLG_FILTERSPEC.ahk" { COMDLG_FILTERSPEC }
+#Import ".\FDAP.ahk" { FDAP }
 #Import ".\FILEOPENDIALOGOPTIONS.ahk" { FILEOPENDIALOGOPTIONS }
-#Import ".\IShellItemFilter.ahk" { IShellItemFilter }
+#Import ".\IFileDialogEvents.ahk" { IFileDialogEvents }
 #Import ".\IModalWindow.ahk" { IModalWindow }
+#Import ".\IShellItem.ahk" { IShellItem }
+#Import ".\IShellItemFilter.ahk" { IShellItemFilter }
 
 /**
  * Exposes methods that initialize, show, and get results from the common file dialog.

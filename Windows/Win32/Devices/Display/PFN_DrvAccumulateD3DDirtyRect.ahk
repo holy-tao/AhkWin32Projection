@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\CDDDXGK_REDIRBITMAPPRESENTINFO.ahk" { CDDDXGK_REDIRBITMAPPRESENTINFO }
 #Import ".\SURFOBJ.ahk" { SURFOBJ }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -47,10 +47,6 @@ export default struct PFN_DrvAccumulateD3DDirtyRect {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, CDDDXGK_REDIRBITMAPPRESENTINFO.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

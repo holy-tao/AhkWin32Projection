@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WMDRM_IMPORT_INIT_STRUCT.ahk" { WMDRM_IMPORT_INIT_STRUCT }
 #Import ".\IWMDRMWriter2.ahk" { IWMDRMWriter2 }
+#Import ".\WMDRM_IMPORT_INIT_STRUCT.ahk" { WMDRM_IMPORT_INIT_STRUCT }
 
 /**
  * The IWMDRMWriter3 interface enables writing of encrypted stream samples for importing protected content.An IWMDRMWriter3 interface exists for every writer object when linking to WMStubDRM.lib.

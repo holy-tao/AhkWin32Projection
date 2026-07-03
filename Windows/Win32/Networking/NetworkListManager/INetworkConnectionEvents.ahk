@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\NLM_CONNECTION_PROPERTY_CHANGE.ahk" { NLM_CONNECTION_PROPERTY_CHANGE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\NLM_CONNECTIVITY.ahk" { NLM_CONNECTIVITY }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\NLM_CONNECTION_PROPERTY_CHANGE.ahk" { NLM_CONNECTION_PROPERTY_CHANGE }
+#Import ".\NLM_CONNECTIVITY.ahk" { NLM_CONNECTIVITY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The INetworkConnectionEvents interface is a message sink interface that a client implements to get network connection-related events. Applications that are interested in lower-level events (such as authentication changes) must implement this interface.

@@ -202,10 +202,6 @@ export default struct LPWSPSELECT {
             this.value := CallbackCreate(fn, , [Int32, FD_SET.Ptr, FD_SET.Ptr, FD_SET.Ptr, TIMEVAL.Ptr, "int*", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

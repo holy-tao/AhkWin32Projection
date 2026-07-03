@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PEER_INVITATION_RESPONSE_TYPE.ahk" { PEER_INVITATION_RESPONSE_TYPE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PEER_INVITATION_RESPONSE_TYPE.ahk" { PEER_INVITATION_RESPONSE_TYPE }
 
 /**
  * The PEER_INVITATION_RESPONSE structure contains a response to an invitation to join a peer collaboration activity.

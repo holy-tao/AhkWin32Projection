@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION.ahk" { DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION }
-#Import ".\DMA_ADAPTER.ahk" { DMA_ADAPTER }
 #Import "..\..\Foundation\MDL.ahk" { MDL }
+#Import ".\DMA_ADAPTER.ahk" { DMA_ADAPTER }
+#Import ".\DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION.ahk" { DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
@@ -34,7 +34,7 @@ export default struct PCREATE_COMMON_BUFFER_FROM_MDL {
         LogicalAddressMarshal := LogicalAddress is VarRef ? "int64*" : "ptr"
 
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, MDL.Ptr, _Mdl, DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION.Ptr, ExtendedConfigs, UInt32, ExtendedConfigsCount, LogicalAddressMarshal, LogicalAddress, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -54,10 +54,6 @@ export default struct PCREATE_COMMON_BUFFER_FROM_MDL {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, MDL.Ptr, DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION.Ptr, UInt32, "int64*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

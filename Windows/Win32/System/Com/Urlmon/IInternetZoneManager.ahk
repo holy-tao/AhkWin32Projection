@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ZONEATTRIBUTES.ahk" { ZONEATTRIBUTES }
+#Import "..\IUnknown.ahk" { IUnknown }
 #Import ".\URLZONEREG.ahk" { URLZONEREG }
+#Import ".\ZONEATTRIBUTES.ahk" { ZONEATTRIBUTES }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon

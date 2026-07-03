@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CCSTYLEW.ahk" { CCSTYLEW }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\CCSTYLEW.ahk" { CCSTYLEW }
 
 /**
  * @namespace Windows.Win32.UI.Controls
@@ -48,10 +48,6 @@ export default struct LPFNCCSTYLEW {
             this.value := CallbackCreate(fn, , [HWND, CCSTYLEW.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

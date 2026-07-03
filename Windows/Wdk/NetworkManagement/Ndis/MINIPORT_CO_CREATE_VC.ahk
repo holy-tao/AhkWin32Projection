@@ -49,10 +49,6 @@ export default struct MINIPORT_CO_CREATE_VC {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", "ptr*", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

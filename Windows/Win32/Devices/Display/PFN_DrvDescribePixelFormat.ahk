@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Graphics\OpenGL\PIXELFORMATDESCRIPTOR.ahk" { PIXELFORMATDESCRIPTOR }
 #Import ".\DHPDEV.ahk" { DHPDEV }
+#Import "..\..\Graphics\OpenGL\PIXELFORMATDESCRIPTOR.ahk" { PIXELFORMATDESCRIPTOR }
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -48,10 +48,6 @@ export default struct PFN_DrvDescribePixelFormat {
             this.value := CallbackCreate(fn, , [DHPDEV, Int32, UInt32, PIXELFORMATDESCRIPTOR.Ptr, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IConnectionPoint.ahk" { IConnectionPoint }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\System\Com\DISPPARAMS.ahk" { DISPPARAMS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\WindowsAndMessaging\MSG.ahk" { MSG }
+#Import "..\..\System\Com\DISPPARAMS.ahk" { DISPPARAMS }
 #Import "..\..\System\Com\EXCEPINFO.ahk" { EXCEPINFO }
+#Import "..\..\System\Com\IConnectionPoint.ahk" { IConnectionPoint }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\WindowsAndMessaging\MSG.ahk" { MSG }
 
 /**
  * Deprecated. Exposes methods that allow the retrieval of properties, translation of keyboard accelerators, and determination of a connection point for certain events. (IExpDispSupport)

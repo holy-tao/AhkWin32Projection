@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\HIMC.ahk" { HIMC }
-#Import ".\IMEINFO.ahk" { IMEINFO }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\KeyboardAndMouse\HKL.ahk" { HKL }
-#Import "..\..\..\Foundation\LRESULT.ahk" { LRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IEnumRegisterWordW.ahk" { IEnumRegisterWordW }
-#Import ".\STYLEBUFW.ahk" { STYLEBUFW }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\CANDIDATELIST.ahk" { CANDIDATELIST }
+#Import ".\HIMC.ahk" { HIMC }
+#Import ".\IEnumRegisterWordW.ahk" { IEnumRegisterWordW }
+#Import ".\IMEINFO.ahk" { IMEINFO }
 #Import ".\REGISTERWORDW.ahk" { REGISTERWORDW }
+#Import ".\STYLEBUFW.ahk" { STYLEBUFW }
+#Import "..\KeyboardAndMouse\HKL.ahk" { HKL }
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime

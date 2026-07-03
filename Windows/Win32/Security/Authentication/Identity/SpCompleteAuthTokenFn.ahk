@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SecBufferDesc.ahk" { SecBufferDesc }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\SecBufferDesc.ahk" { SecBufferDesc }
 
 /**
  * Completes an authentication token.S
@@ -56,7 +56,7 @@ export default struct SpCompleteAuthTokenFn {
      */
     Call(ContextHandle, InputBuffer) {
         result := DllCall(this.value, IntPtr, ContextHandle, SecBufferDesc.Ptr, InputBuffer, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -76,10 +76,6 @@ export default struct SpCompleteAuthTokenFn {
             this.value := CallbackCreate(fn, , [IntPtr, SecBufferDesc.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

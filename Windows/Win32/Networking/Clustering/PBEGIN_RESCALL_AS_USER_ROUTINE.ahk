@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -60,10 +60,6 @@ export default struct PBEGIN_RESCALL_AS_USER_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", HANDLE, UInt32, "ptr", UInt32, "ptr", UInt32, "uint*", Int64, BOOL.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

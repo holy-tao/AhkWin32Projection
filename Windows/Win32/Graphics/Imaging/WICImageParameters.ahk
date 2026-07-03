@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 #Import "..\Direct2D\Common\D2D1_ALPHA_MODE.ahk" { D2D1_ALPHA_MODE }
 #Import "..\Direct2D\Common\D2D1_PIXEL_FORMAT.ahk" { D2D1_PIXEL_FORMAT }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 
 /**
  * This defines parameters that you can use to override the default parameters normally used when encoding an image.

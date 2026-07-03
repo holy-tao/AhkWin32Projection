@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDirectManipulationFrameInfoProvider.ahk" { IDirectManipulationFrameInfoProvider }
 #Import ".\IDirectManipulationUpdateHandler.ahk" { IDirectManipulationUpdateHandler }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Manages how compositor updates are sent to Direct Manipulation.

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\HCERTSTORE.ahk" { HCERTSTORE }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\WinTrust\CRYPT_PROVIDER_DATA.ahk" { CRYPT_PROVIDER_DATA }
-#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\..\UI\Controls\PROPSHEETPAGEA.ahk" { PROPSHEETPAGEA }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import "..\HCERTSTORE.ahk" { HCERTSTORE }
 #Import ".\CRYPTUI_VIEWCERTIFICATE_FLAGS.ahk" { CRYPTUI_VIEWCERTIFICATE_FLAGS }
+#Import "..\..\WinTrust\CRYPT_PROVIDER_DATA.ahk" { CRYPT_PROVIDER_DATA }
+#Import "..\..\..\UI\Controls\PROPSHEETPAGEA.ahk" { PROPSHEETPAGEA }
 
 /**
  * Contains information about a certificate to view. This structure is used in the CryptUIDlgViewCertificate function. (ANSI)

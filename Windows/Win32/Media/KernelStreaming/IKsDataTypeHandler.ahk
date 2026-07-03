@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\DirectShow\IMediaSample.ahk" { IMediaSample }
+#Import ".\KSIOOPERATION.ahk" { KSIOOPERATION }
 #Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\DirectShow\IMediaSample.ahk" { IMediaSample }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\KSIOOPERATION.ahk" { KSIOOPERATION }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

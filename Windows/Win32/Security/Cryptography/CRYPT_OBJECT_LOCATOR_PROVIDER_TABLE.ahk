@@ -1,9 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_RELEASE.ahk" { PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_RELEASE }
-#Import ".\PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_IDENTIFIER.ahk" { PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_IDENTIFIER }
-#Import ".\PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_PASSWORD.ahk" { PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_PASSWORD }
-#Import ".\PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE.ahk" { PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE }
-#Import ".\PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_GET.ahk" { PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_GET }
 
 /**
  * Contains pointers to functions implemented by an object location provider.
@@ -23,26 +18,26 @@ export default struct CRYPT_OBJECT_LOCATOR_PROVIDER_TABLE {
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_crypt_object_locator_provider_get">PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_GET</a> function implemented by the provider.
      */
-    pfnGet : PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_GET
+    pfnGet : IntPtr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_crypt_object_locator_provider_release">PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_RELEASE</a>  function implemented by the provider.
      */
-    pfnRelease : PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_RELEASE
+    pfnRelease : IntPtr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_crypt_object_locator_provider_free_password">PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_PASSWORD</a>  function implemented by the provider.
      */
-    pfnFreePassword : PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_PASSWORD
+    pfnFreePassword : IntPtr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_crypt_object_locator_provider_free">PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE</a>  function implemented by the provider.
      */
-    pfnFree : PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE
+    pfnFree : IntPtr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_crypt_object_locator_provider_free_identifier">PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_IDENTIFIER</a>  function implemented by the provider.
      */
-    pfnFreeIdentifier : PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_IDENTIFIER
+    pfnFreeIdentifier : IntPtr
 
 }

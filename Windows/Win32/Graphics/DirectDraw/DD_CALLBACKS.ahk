@@ -1,13 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PDD_WAITFORVERTICALBLANK.ahk" { PDD_WAITFORVERTICALBLANK }
-#Import ".\PDD_GETSCANLINE.ahk" { PDD_GETSCANLINE }
-#Import ".\PDD_SETCOLORKEY.ahk" { PDD_SETCOLORKEY }
-#Import ".\PDD_CANCREATESURFACE.ahk" { PDD_CANCREATESURFACE }
-#Import ".\PDD_MAPMEMORY.ahk" { PDD_MAPMEMORY }
-#Import ".\PDD_SETMODE.ahk" { PDD_SETMODE }
-#Import ".\PDD_DESTROYDRIVER.ahk" { PDD_DESTROYDRIVER }
-#Import ".\PDD_CREATEPALETTE.ahk" { PDD_CREATEPALETTE }
-#Import ".\PDD_CREATESURFACE.ahk" { PDD_CREATESURFACE }
 
 /**
  * The DD_CALLBACKS structure contains entry pointers to the callback functions that a device driver supports.
@@ -44,46 +35,46 @@ export default struct DD_CALLBACKS {
     /**
      * Unused on Microsoft Windows 2000 and later and should be ignored by the driver.
      */
-    DestroyDriver : PDD_DESTROYDRIVER
+    DestroyDriver : IntPtr
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff549263(v=vs.85)">DdCreateSurface</a> callback.
      */
-    CreateSurface : PDD_CREATESURFACE
+    CreateSurface : IntPtr
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_surfcb_setcolorkey">DdSetColorKey</a> callback.
      */
-    SetColorKey : PDD_SETCOLORKEY
+    SetColorKey : IntPtr
 
     /**
      * Unused on Windows 2000 and later and should be ignored by the driver.
      */
-    SetMode : PDD_SETMODE
+    SetMode : IntPtr
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_waitforverticalblank">DdWaitForVerticalBlank</a> callback.
      */
-    WaitForVerticalBlank : PDD_WAITFORVERTICALBLANK
+    WaitForVerticalBlank : IntPtr
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff549213(v=vs.85)">DdCanCreateSurface</a> callback.
      */
-    CanCreateSurface : PDD_CANCREATESURFACE
+    CanCreateSurface : IntPtr
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_createpalette">DdCreatePalette</a> callback.
      */
-    CreatePalette : PDD_CREATEPALETTE
+    CreatePalette : IntPtr
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_getscanline">DdGetScanLine</a> callback.
      */
-    GetScanLine : PDD_GETSCANLINE
+    GetScanLine : IntPtr
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_mapmemory">DdMapMemory</a> callback.
      */
-    MapMemory : PDD_MAPMEMORY
+    MapMemory : IntPtr
 
 }

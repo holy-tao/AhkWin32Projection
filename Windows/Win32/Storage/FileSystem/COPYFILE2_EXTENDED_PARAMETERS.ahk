@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\PCOPYFILE2_PROGRESS_ROUTINE.ahk" { PCOPYFILE2_PROGRESS_ROUTINE }
 #Import ".\COPYFILE_FLAGS.ahk" { COPYFILE_FLAGS }
 
 /**
@@ -172,7 +171,7 @@ export default struct COPYFILE2_EXTENDED_PARAMETERS {
      *       <b>NULL</b>. For more information on the progress callback function, see the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nc-winbase-pcopyfile2_progress_routine">CopyFile2ProgressRoutine</a> callback function.
      */
-    pProgressRoutine : PCOPYFILE2_PROGRESS_ROUTINE
+    pProgressRoutine : IntPtr
 
     /**
      * A pointer to application-specific context information to be passed to the 

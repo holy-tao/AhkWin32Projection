@@ -47,10 +47,6 @@ export default struct PROTOCOL_CL_INCOMING_CALL_QOS_CHANGE {
             this.value := CallbackCreate(fn, , ["ptr", CO_CALL_PARAMETERS.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

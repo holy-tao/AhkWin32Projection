@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\STORAGE_DEPENDENCY_INFO_TYPE_1.ahk" { STORAGE_DEPENDENCY_INFO_TYPE_1 }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\STORAGE_DEPENDENCY_INFO_VERSION.ahk" { STORAGE_DEPENDENCY_INFO_VERSION }
-#Import ".\STORAGE_DEPENDENCY_INFO_TYPE_2.ahk" { STORAGE_DEPENDENCY_INFO_TYPE_2 }
-#Import ".\VIRTUAL_STORAGE_TYPE.ahk" { VIRTUAL_STORAGE_TYPE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DEPENDENT_DISK_FLAG.ahk" { DEPENDENT_DISK_FLAG }
+#Import ".\STORAGE_DEPENDENCY_INFO_TYPE_1.ahk" { STORAGE_DEPENDENCY_INFO_TYPE_1 }
+#Import ".\STORAGE_DEPENDENCY_INFO_TYPE_2.ahk" { STORAGE_DEPENDENCY_INFO_TYPE_2 }
+#Import ".\STORAGE_DEPENDENCY_INFO_VERSION.ahk" { STORAGE_DEPENDENCY_INFO_VERSION }
+#Import ".\VIRTUAL_STORAGE_TYPE.ahk" { VIRTUAL_STORAGE_TYPE }
 
 /**
  * Contains virtual hard disk (VHD) storage dependency information.

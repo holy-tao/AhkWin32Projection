@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CRYPT_PROVIDER_PRIVDATA.ahk" { CRYPT_PROVIDER_PRIVDATA }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\CRYPT_PROVIDER_DATA.ahk" { CRYPT_PROVIDER_DATA }
+#Import ".\CRYPT_PROVIDER_PRIVDATA.ahk" { CRYPT_PROVIDER_PRIVDATA }
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
@@ -47,10 +47,6 @@ export default struct PFN_CPD_ADD_PRIVDATA {
             this.value := CallbackCreate(fn, , [CRYPT_PROVIDER_DATA.Ptr, CRYPT_PROVIDER_PRIVDATA.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

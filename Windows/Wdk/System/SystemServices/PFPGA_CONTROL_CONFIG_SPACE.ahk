@@ -24,7 +24,7 @@ export default struct PFPGA_CONTROL_CONFIG_SPACE {
      */
     Call() {
         result := DllCall(this.value, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -44,10 +44,6 @@ export default struct PFPGA_CONTROL_CONFIG_SPACE {
             this.value := CallbackCreate(fn, , [NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

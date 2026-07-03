@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PEER_ADDRESS.ahk" { PEER_ADDRESS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PEER_ADDRESS.ahk" { PEER_ADDRESS }
 #Import ".\PEER_CREDENTIAL_INFO.ahk" { PEER_CREDENTIAL_INFO }
 
 /**

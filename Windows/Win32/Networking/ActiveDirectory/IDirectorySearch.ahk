@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ADS_SEARCH_HANDLE.ahk" { ADS_SEARCH_HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ADS_SEARCHPREF_INFO.ahk" { ADS_SEARCHPREF_INFO }
 #Import ".\ADS_SEARCH_COLUMN.ahk" { ADS_SEARCH_COLUMN }
+#Import ".\ADS_SEARCH_HANDLE.ahk" { ADS_SEARCH_HANDLE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IDirectorySearch interface is a pure COM interface that provides a low overhead method that non-Automation clients can use to perform queries in the underlying directory.

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\MsHtml\IHTMLElement.ahk" { IHTMLElement }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ExtensionValidationContexts.ahk" { ExtensionValidationContexts }
 #Import ".\ExtensionValidationResults.ahk" { ExtensionValidationResults }
 #Import "..\MsHtml\IHTMLDocument2.ahk" { IHTMLDocument2 }
-#Import ".\ExtensionValidationContexts.ahk" { ExtensionValidationContexts }
+#Import "..\MsHtml\IHTMLElement.ahk" { IHTMLElement }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer

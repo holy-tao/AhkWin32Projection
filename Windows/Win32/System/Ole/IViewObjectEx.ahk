@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DVEXTENTINFO.ahk" { DVEXTENTINFO }
-#Import "..\Com\DVASPECT.ahk" { DVASPECT }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
-#Import "..\Com\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IViewObject2.ahk" { IViewObject2 }
-#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\Com\DVASPECT.ahk" { DVASPECT }
+#Import "..\Com\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
+#Import ".\DVEXTENTINFO.ahk" { DVEXTENTINFO }
+#Import ".\IViewObject2.ahk" { IViewObject2 }
 
 /**
  * An extension derived from IViewObject2 to provide support for Enhanced, flicker-free drawing for non-rectangular objects and transparent objects, hit testing for non-rectangular objects, and Control sizing

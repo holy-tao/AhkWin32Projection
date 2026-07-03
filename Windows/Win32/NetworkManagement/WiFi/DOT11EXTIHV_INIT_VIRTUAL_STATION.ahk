@@ -46,10 +46,6 @@ export default struct DOT11EXTIHV_INIT_VIRTUAL_STATION {
             this.value := CallbackCreate(fn, , [DOT11EXT_VIRTUAL_STATION_APIS.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

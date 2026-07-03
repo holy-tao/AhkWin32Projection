@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MMCBUTTON.ahk" { MMCBUTTON }
-#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
-#Import ".\MMC_BUTTON_STATE.ahk" { MMC_BUTTON_STATE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MMCBUTTON.ahk" { MMCBUTTON }
+#Import ".\MMC_BUTTON_STATE.ahk" { MMC_BUTTON_STATE }
 
 /**
  * The IToolbar interface is used to create new toolbars, to add items to them, to extend the toolbars, and to display the resultant new toolbars. Each toolbar is created on its own band within the control bar.

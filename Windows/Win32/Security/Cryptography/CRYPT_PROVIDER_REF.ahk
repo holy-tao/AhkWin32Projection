@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\CRYPT_PROPERTY_REF.ahk" { CRYPT_PROPERTY_REF }
 #Import ".\CRYPT_IMAGE_REF.ahk" { CRYPT_IMAGE_REF }
+#Import ".\CRYPT_PROPERTY_REF.ahk" { CRYPT_PROPERTY_REF }
 
 /**
  * Contains information about a cryptographic interface that a provider supports.

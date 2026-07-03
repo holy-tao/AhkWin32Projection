@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IPrintAsyncNotifyDataObject.ahk" { IPrintAsyncNotifyDataObject }
-#Import ".\IPrintAsyncCookie.ahk" { IPrintAsyncCookie }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPrintAsyncCookie.ahk" { IPrintAsyncCookie }
+#Import ".\IPrintAsyncNotifyDataObject.ahk" { IPrintAsyncNotifyDataObject }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

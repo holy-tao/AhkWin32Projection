@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\RECT.ahk" { RECT }
 #Import ".\D3DKMT_MOVE_RECT.ahk" { D3DKMT_MOVE_RECT }
+#Import "..\..\..\Win32\Foundation\RECT.ahk" { RECT }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

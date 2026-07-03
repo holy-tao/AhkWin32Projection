@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\DRIVER_OBJECT.ahk" { DRIVER_OBJECT }
-#Import ".\DRIVER_ADD_DEVICE.ahk" { DRIVER_ADD_DEVICE }
 
 /**
  * @namespace Windows.Wdk.Foundation
@@ -14,7 +13,7 @@ export default struct DRIVER_EXTENSION {
         set => this.__DriverObject_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    AddDevice : DRIVER_ADD_DEVICE
+    AddDevice : IntPtr
 
     Count : UInt32
 

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SECPKG_SUPPLEMENTAL_CRED_ARRAY.ahk" { SECPKG_SUPPLEMENTAL_CRED_ARRAY }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\SECPKG_PRIMARY_CRED.ahk" { SECPKG_PRIMARY_CRED }
+#Import ".\SECPKG_SUPPLEMENTAL_CRED_ARRAY.ahk" { SECPKG_SUPPLEMENTAL_CRED_ARRAY }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -28,7 +28,7 @@ export default struct PLSA_UPDATE_PRIMARY_CREDENTIALS {
      */
     Call(PrimaryCredentials, Credentials) {
         result := DllCall(this.value, SECPKG_PRIMARY_CRED.Ptr, PrimaryCredentials, SECPKG_SUPPLEMENTAL_CRED_ARRAY.Ptr, Credentials, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -48,10 +48,6 @@ export default struct PLSA_UPDATE_PRIMARY_CREDENTIALS {
             this.value := CallbackCreate(fn, , [SECPKG_PRIMARY_CRED.Ptr, SECPKG_SUPPLEMENTAL_CRED_ARRAY.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

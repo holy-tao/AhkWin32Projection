@@ -65,10 +65,6 @@ export default struct PWINBIO_VERIFY_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", "int", UInt32, BOOLEAN, UInt32, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

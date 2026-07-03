@@ -46,10 +46,6 @@ export default struct HCS_OPERATION_COMPLETION {
             this.value := CallbackCreate(fn, , [HCS_OPERATION, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

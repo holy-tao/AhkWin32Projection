@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IXAudio2Voice.ahk" { IXAudio2Voice }
 #Import ".\XAUDIO2_BUFFER.ahk" { XAUDIO2_BUFFER }
 #Import ".\XAUDIO2_BUFFER_WMA.ahk" { XAUDIO2_BUFFER_WMA }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\XAUDIO2_VOICE_STATE.ahk" { XAUDIO2_VOICE_STATE }
 
 /**

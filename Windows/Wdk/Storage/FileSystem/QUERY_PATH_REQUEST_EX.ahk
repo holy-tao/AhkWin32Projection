@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\ECP_LIST.ahk" { ECP_LIST }
-#Import "..\..\Foundation\PESILO.ahk" { PESILO }
 #Import "..\..\Foundation\IO_SECURITY_CONTEXT.ahk" { IO_SECURITY_CONTEXT }
+#Import "..\..\Foundation\PESILO.ahk" { PESILO }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem

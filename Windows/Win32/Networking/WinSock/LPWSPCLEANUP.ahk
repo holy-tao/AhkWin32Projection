@@ -95,10 +95,6 @@ export default struct LPWSPCLEANUP {
             this.value := CallbackCreate(fn, , ["int*", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

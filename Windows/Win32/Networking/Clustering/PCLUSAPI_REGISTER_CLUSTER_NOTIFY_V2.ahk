@@ -49,10 +49,6 @@ export default struct PCLUSAPI_REGISTER_CLUSTER_NOTIFY_V2 {
             this.value := CallbackCreate(fn, , [HCHANGE, NOTIFY_FILTER_AND_TYPE, HANDLE, IntPtr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

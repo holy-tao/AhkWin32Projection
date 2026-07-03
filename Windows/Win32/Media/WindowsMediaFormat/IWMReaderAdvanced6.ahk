@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWMReaderAdvanced5.ahk" { IWMReaderAdvanced5 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMReaderAdvanced5.ahk" { IWMReaderAdvanced5 }
 
 /**
  * The IWMReaderAdvanced6 interface enables sample protection.An IWMReaderAdvanced6 interface exists for every reader object.

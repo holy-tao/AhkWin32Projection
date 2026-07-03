@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\UI_ANIMATION_ROUNDING_MODE.ahk" { UI_ANIMATION_ROUNDING_MODE }
-#Import ".\IUIAnimationVariableChangeHandler2.ahk" { IUIAnimationVariableChangeHandler2 }
+#Import "..\..\Graphics\DirectComposition\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IUIAnimationStoryboard2.ahk" { IUIAnimationStoryboard2 }
-#Import "..\..\Graphics\DirectComposition\IDCompositionAnimation.ahk" { IDCompositionAnimation }
-#Import ".\IUIAnimationVariableIntegerChangeHandler2.ahk" { IUIAnimationVariableIntegerChangeHandler2 }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IUIAnimationVariableChangeHandler2.ahk" { IUIAnimationVariableChangeHandler2 }
 #Import ".\IUIAnimationVariableCurveChangeHandler2.ahk" { IUIAnimationVariableCurveChangeHandler2 }
+#Import ".\IUIAnimationVariableIntegerChangeHandler2.ahk" { IUIAnimationVariableIntegerChangeHandler2 }
+#Import ".\UI_ANIMATION_ROUNDING_MODE.ahk" { UI_ANIMATION_ROUNDING_MODE }
 
 /**
  * Defines an animation variable, which represents a visual element that can be animated in multiple dimensions.

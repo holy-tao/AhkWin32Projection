@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\RTC_REGISTRATION_STATE.ahk" { RTC_REGISTRATION_STATE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IRTCProfile.ahk" { IRTCProfile }
+#Import ".\RTC_REGISTRATION_STATE.ahk" { RTC_REGISTRATION_STATE }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

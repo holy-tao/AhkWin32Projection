@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IOleInPlaceSite.ahk" { IOleInPlaceSite }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\Com\IStream.ahk" { IStream }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IOleInPlaceSite.ahk" { IOleInPlaceSite }
 
 /**
  * The IOleDocumentView interface enables a container to communicate with each view supported by a document object.

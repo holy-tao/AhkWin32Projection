@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
-#Import ".\ID_PARAMETERS.ahk" { ID_PARAMETERS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SYNC_STATISTICS.ahk" { SYNC_STATISTICS }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ID_PARAMETERS.ahk" { ID_PARAMETERS }
+#Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
 #Import ".\KNOWLEDGE_COOKIE_COMPARISON_RESULT.ahk" { KNOWLEDGE_COOKIE_COMPARISON_RESULT }
 #Import ".\SYNC_SERIALIZATION_VERSION.ahk" { SYNC_SERIALIZATION_VERSION }
+#Import ".\SYNC_STATISTICS.ahk" { SYNC_STATISTICS }
 
 /**
  * Represents additional information about the knowledge that a replica has about its item store.

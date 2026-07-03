@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CRYPT_PROVIDER_DEFUSAGE.ahk" { CRYPT_PROVIDER_DEFUSAGE }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\CRYPT_PROVIDER_DEFUSAGE.ahk" { CRYPT_PROVIDER_DEFUSAGE }
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
@@ -49,10 +49,6 @@ export default struct PFN_ALLOCANDFILLDEFUSAGE {
             this.value := CallbackCreate(fn, , [PSTR, CRYPT_PROVIDER_DEFUSAGE.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

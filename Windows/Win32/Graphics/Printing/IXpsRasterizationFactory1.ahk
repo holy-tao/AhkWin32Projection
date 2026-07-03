@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsRasterizer.ahk" { IXpsRasterizer }
 #Import ".\XPSRAS_PIXEL_FORMAT.ahk" { XPSRAS_PIXEL_FORMAT }
 #Import ".\XPSRAS_RENDERING_MODE.ahk" { XPSRAS_RENDERING_MODE }
-#Import ".\IXpsRasterizer.ahk" { IXpsRasterizer }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Storage\Xps\IXpsOMPage.ahk" { IXpsOMPage }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IPrintSchemaOptionCollection.ahk" { IPrintSchemaOptionCollection }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IPrintSchemaElement.ahk" { IPrintSchemaElement }
 #Import ".\IPrintSchemaFeature.ahk" { IPrintSchemaFeature }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IPrintSchemaPageImageableSize.ahk" { IPrintSchemaPageImageableSize }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IPrintSchemaOption.ahk" { IPrintSchemaOption }
+#Import ".\IPrintSchemaOptionCollection.ahk" { IPrintSchemaOptionCollection }
+#Import ".\IPrintSchemaPageImageableSize.ahk" { IPrintSchemaPageImageableSize }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

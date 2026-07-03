@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3DKMDT_GDISURFACETYPE.ahk" { D3DKMDT_GDISURFACETYPE }
 #Import ".\D3DDDIFORMAT.ahk" { D3DDDIFORMAT }
+#Import ".\D3DKMDT_GDISURFACETYPE.ahk" { D3DKMDT_GDISURFACETYPE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

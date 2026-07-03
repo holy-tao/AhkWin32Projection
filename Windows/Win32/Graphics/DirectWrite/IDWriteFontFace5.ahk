@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
 #Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
 #Import ".\IDWriteFontFace4.ahk" { IDWriteFontFace4 }
 #Import ".\IDWriteFontResource.ahk" { IDWriteFontResource }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Contains font face type, appropriate file references, and face identification data. (IDWriteFontFace5)

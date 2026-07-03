@@ -1,6 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PETW_BUFFER_CALLBACK.ahk" { PETW_BUFFER_CALLBACK }
-#Import ".\PEVENT_RECORD_CALLBACK.ahk" { PEVENT_RECORD_CALLBACK }
 #Import ".\ETW_PROCESS_TRACE_MODES.ahk" { ETW_PROCESS_TRACE_MODES }
 
 /**
@@ -22,7 +20,7 @@ export default struct ETW_OPEN_TRACE_OPTIONS {
     /**
      * Function pointer of type [PEVENT_RECORD_CALLBACK](nc-evntrace-pevent_record_callback.md). Called for each event in time order. If NULL then all event playback processing will be bypassed for improved performance.
      */
-    EventCallback : PEVENT_RECORD_CALLBACK
+    EventCallback : IntPtr
 
     /**
      * User defined context that will be available in EVENT_RECORD.UserContext inside the EventCallback.
@@ -32,7 +30,7 @@ export default struct ETW_OPEN_TRACE_OPTIONS {
     /**
      * Called for each buffer once processing on that buffer is complete. If NULL then no buffer callback will be executed.
      */
-    BufferCallback : PETW_BUFFER_CALLBACK
+    BufferCallback : IntPtr
 
     /**
      * User defined context that will be passed to the [BufferCallback](nc-evntrace-petw_buffer_callback.md) as the CallbackContext parameter.

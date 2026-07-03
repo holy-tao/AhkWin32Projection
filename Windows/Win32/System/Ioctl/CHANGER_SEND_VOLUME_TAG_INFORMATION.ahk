@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ELEMENT_TYPE.ahk" { ELEMENT_TYPE }
 #Import ".\CHANGER_ELEMENT.ahk" { CHANGER_ELEMENT }
+#Import ".\ELEMENT_TYPE.ahk" { ELEMENT_TYPE }
 
 /**
  * Contains information that the IOCTL_CHANGER_QUERY_VOLUME_TAGS control code uses to determine the volume information to be retrieved.

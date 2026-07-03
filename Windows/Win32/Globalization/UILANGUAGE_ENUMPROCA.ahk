@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * An application-defined callback function that processes enumerated user interface language information provided by the EnumUILanguages function. (ANSI)
@@ -77,10 +77,6 @@ export default struct UILANGUAGE_ENUMPROCA {
             this.value := CallbackCreate(fn, , [PSTR, IntPtr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

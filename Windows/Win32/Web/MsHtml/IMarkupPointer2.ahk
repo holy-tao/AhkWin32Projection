@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMarkupPointer.ahk" { IMarkupPointer }
-#Import ".\MOVEUNIT_ACTION.ahk" { MOVEUNIT_ACTION }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IHTMLElement.ahk" { IHTMLElement }
 #Import ".\IMarkupContainer.ahk" { IMarkupContainer }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMarkupPointer.ahk" { IMarkupPointer }
+#Import ".\MOVEUNIT_ACTION.ahk" { MOVEUNIT_ACTION }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

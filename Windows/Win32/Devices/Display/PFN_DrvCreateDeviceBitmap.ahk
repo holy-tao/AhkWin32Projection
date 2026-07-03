@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 #Import ".\DHPDEV.ahk" { DHPDEV }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 #Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
 
 /**
@@ -48,10 +48,6 @@ export default struct PFN_DrvCreateDeviceBitmap {
             this.value := CallbackCreate(fn, , [DHPDEV, SIZE, UInt32, HBITMAP])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

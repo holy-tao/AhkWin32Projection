@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ACMFORMATDETAILSA.ahk" { ACMFORMATDETAILSA }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ACMFORMATDETAILSA.ahk" { ACMFORMATDETAILSA }
 #Import ".\HACMDRIVERID.ahk" { HACMDRIVERID }
 
 /**
@@ -63,10 +63,6 @@ export default struct ACMFORMATENUMCBA {
             this.value := CallbackCreate(fn, , [HACMDRIVERID, ACMFORMATDETAILSA.Ptr, IntPtr, UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

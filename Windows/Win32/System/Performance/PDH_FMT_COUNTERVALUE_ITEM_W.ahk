@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\PDH_FMT_COUNTERVALUE.ahk" { PDH_FMT_COUNTERVALUE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PDH_FMT_COUNTERVALUE.ahk" { PDH_FMT_COUNTERVALUE }
 
 /**
  * The PDH_FMT_COUNTERVALUE_ITEM structure contains the instance name and formatted value of a counter. (Unicode)

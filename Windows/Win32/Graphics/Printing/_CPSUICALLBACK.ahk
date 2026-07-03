@@ -44,10 +44,6 @@ export default struct _CPSUICALLBACK {
             this.value := CallbackCreate(fn, , [CPSUICBPARAM.Ptr, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\CERT_OPEN_STORE_FLAGS.ahk" { CERT_OPEN_STORE_FLAGS }
+#Import ".\CERT_QUERY_ENCODING_TYPE.ahk" { CERT_QUERY_ENCODING_TYPE }
+#Import ".\CERT_STORE_PROV_INFO.ahk" { CERT_STORE_PROV_INFO }
 #Import ".\HCERTSTORE.ahk" { HCERTSTORE }
 #Import ".\HCRYPTPROV_LEGACY.ahk" { HCRYPTPROV_LEGACY }
-#Import ".\CERT_OPEN_STORE_FLAGS.ahk" { CERT_OPEN_STORE_FLAGS }
-#Import ".\CERT_STORE_PROV_INFO.ahk" { CERT_STORE_PROV_INFO }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\CERT_QUERY_ENCODING_TYPE.ahk" { CERT_QUERY_ENCODING_TYPE }
 
 /**
  * Implemented by a store-provider and is used to open a store.
@@ -386,10 +386,6 @@ export default struct PFN_CERT_DLL_OPEN_STORE_PROV_FUNC {
             this.value := CallbackCreate(fn, , [PSTR, CERT_QUERY_ENCODING_TYPE, HCRYPTPROV_LEGACY, CERT_OPEN_STORE_FLAGS, "ptr", HCERTSTORE, CERT_STORE_PROV_INFO.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

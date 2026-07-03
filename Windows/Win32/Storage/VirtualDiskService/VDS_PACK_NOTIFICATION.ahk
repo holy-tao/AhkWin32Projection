@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VDS_NF_PACK.ahk" { VDS_NF_PACK }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VDS_NF_PACK.ahk" { VDS_NF_PACK }
 
 /**
  * The VDS_PACK_NOTIFICATION structure (vdshwprv.h) defines the details of pack events.

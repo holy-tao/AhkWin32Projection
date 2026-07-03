@@ -29,7 +29,7 @@ export default struct pHalInitPowerManagement {
         PmHalDispatchTableMarshal := PmHalDispatchTable is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, PM_DISPATCH_TABLE.Ptr, PmDriverDispatchTable, PmHalDispatchTableMarshal, PmHalDispatchTable, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -49,10 +49,6 @@ export default struct pHalInitPowerManagement {
             this.value := CallbackCreate(fn, , [PM_DISPATCH_TABLE.Ptr, "ptr*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

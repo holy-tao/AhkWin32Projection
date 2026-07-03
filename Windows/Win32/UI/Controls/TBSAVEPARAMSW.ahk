@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
 
 /**
  * Specifies the location in the registry where the TB_SAVERESTORE message stores and retrieves information about the state of a toolbar. (Unicode)

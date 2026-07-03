@@ -32,7 +32,7 @@ export default struct PDXGK_SET_SHARED_POWER_COMPONENT_STATE {
         PrivateHandleMarshal := PrivateHandle is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, DeviceHandleMarshal, DeviceHandle, PrivateHandleMarshal, PrivateHandle, UInt32, ComponentIndex, BOOLEAN, Active, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -52,10 +52,6 @@ export default struct PDXGK_SET_SHARED_POWER_COMPONENT_STATE {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", UInt32, BOOLEAN, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

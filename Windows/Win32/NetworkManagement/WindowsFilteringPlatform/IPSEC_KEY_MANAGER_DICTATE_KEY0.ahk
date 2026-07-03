@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IPSEC_SA_DETAILS1.ahk" { IPSEC_SA_DETAILS1 }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IPSEC_SA_DETAILS1.ahk" { IPSEC_SA_DETAILS1 }
 
 /**
  * Used by the Trusted Intermediary Agent (TIA) to dictate keys for the SA being negotiated.
@@ -102,10 +102,6 @@ export default struct IPSEC_KEY_MANAGER_DICTATE_KEY0 {
             this.value := CallbackCreate(fn, , [IPSEC_SA_DETAILS1.Ptr, IPSEC_SA_DETAILS1.Ptr, BOOL.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

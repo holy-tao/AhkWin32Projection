@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
 #Import ".\ERESOURCE.ahk" { ERESOURCE }
-#Import "..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\FILE_OBJECT.ahk" { FILE_OBJECT }
+#Import "..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Wdk.Foundation
@@ -34,7 +34,7 @@ export default struct FAST_IO_ACQUIRE_FOR_MOD_WRITE {
         ResourceToReleaseMarshal := ResourceToRelease is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, FILE_OBJECT.Ptr, FileObject, EndingOffsetMarshal, EndingOffset, ResourceToReleaseMarshal, ResourceToRelease, DEVICE_OBJECT.Ptr, DeviceObject, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -54,10 +54,6 @@ export default struct FAST_IO_ACQUIRE_FOR_MOD_WRITE {
             this.value := CallbackCreate(fn, , [FILE_OBJECT.Ptr, "int64*", "ptr*", DEVICE_OBJECT.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

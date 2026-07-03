@@ -46,10 +46,6 @@ export default struct PFN_DrvQueryFontCaps {
             this.value := CallbackCreate(fn, , [UInt32, "uint*", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

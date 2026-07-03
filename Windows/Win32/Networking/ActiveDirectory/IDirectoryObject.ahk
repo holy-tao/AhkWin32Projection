@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ADS_OBJECT_INFO.ahk" { ADS_OBJECT_INFO }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ADS_ATTR_INFO.ahk" { ADS_ATTR_INFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ADS_OBJECT_INFO.ahk" { ADS_OBJECT_INFO }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDirectoryObject interface is a non-Automation COM interface that provides clients with direct access to directory service objects.

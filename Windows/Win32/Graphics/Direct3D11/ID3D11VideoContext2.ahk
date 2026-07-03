@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Dxgi\DXGI_HDR_METADATA_TYPE.ahk" { DXGI_HDR_METADATA_TYPE }
-#Import ".\ID3D11VideoProcessor.ahk" { ID3D11VideoProcessor }
 #Import ".\ID3D11VideoContext1.ahk" { ID3D11VideoContext1 }
+#Import ".\ID3D11VideoProcessor.ahk" { ID3D11VideoProcessor }
+#Import "..\Dxgi\DXGI_HDR_METADATA_TYPE.ahk" { DXGI_HDR_METADATA_TYPE }
 
 /**
  * Provides the video functionality of a Microsoft Direct3D 11 device. (ID3D11VideoContext2)

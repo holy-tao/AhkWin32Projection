@@ -54,10 +54,6 @@ export default struct PCLUSAPI_CLUSTER_NETWORK_ENUM {
             this.value := CallbackCreate(fn, , [HNETWORKENUM, UInt32, "uint*", PWSTR, "uint*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

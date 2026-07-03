@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\INTERNET_SCHEME.ahk" { INTERNET_SCHEME }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\INTERNET_SCHEME.ahk" { INTERNET_SCHEME }
 
 /**
  * @namespace Windows.Win32.Networking.WinInet

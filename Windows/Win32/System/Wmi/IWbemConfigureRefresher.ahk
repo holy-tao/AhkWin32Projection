@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWbemRefresher.ahk" { IWbemRefresher }
-#Import ".\IWbemContext.ahk" { IWbemContext }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IWbemHiPerfEnum.ahk" { IWbemHiPerfEnum }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IWbemClassObject.ahk" { IWbemClassObject }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWbemClassObject.ahk" { IWbemClassObject }
+#Import ".\IWbemContext.ahk" { IWbemContext }
+#Import ".\IWbemHiPerfEnum.ahk" { IWbemHiPerfEnum }
+#Import ".\IWbemRefresher.ahk" { IWbemRefresher }
 #Import ".\IWbemServices.ahk" { IWbemServices }
 
 /**

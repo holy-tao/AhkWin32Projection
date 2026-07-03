@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IXpsOMPrintTicketResource.ahk" { IXpsOMPrintTicketResource }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IXpsOMStoryFragmentsResource.ahk" { IXpsOMStoryFragmentsResource }
-#Import ".\IXpsOMPartResources.ahk" { IXpsOMPartResources }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IXpsOMNameCollection.ahk" { IXpsOMNameCollection }
-#Import ".\XPS_SIZE.ahk" { XPS_SIZE }
-#Import ".\IXpsOMPage.ahk" { IXpsOMPage }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IXpsOMDocument.ahk" { IXpsOMDocument }
 #Import ".\IXpsOMImageResource.ahk" { IXpsOMImageResource }
+#Import ".\IXpsOMNameCollection.ahk" { IXpsOMNameCollection }
+#Import ".\IXpsOMPage.ahk" { IXpsOMPage }
+#Import ".\IXpsOMPartResources.ahk" { IXpsOMPartResources }
+#Import ".\IXpsOMPrintTicketResource.ahk" { IXpsOMPrintTicketResource }
+#Import ".\IXpsOMStoryFragmentsResource.ahk" { IXpsOMStoryFragmentsResource }
+#Import ".\XPS_SIZE.ahk" { XPS_SIZE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables virtualization of pages in an XPS document.

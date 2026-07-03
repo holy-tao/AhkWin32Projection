@@ -45,10 +45,6 @@ export default struct VDMPROCESSEXCEPTIONPROC {
             this.value := CallbackCreate(fn, , [DEBUG_EVENT.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -50,10 +50,6 @@ export default struct PWLX_QUERY_CONSOLESWITCH_CREDENTIALS {
             this.value := CallbackCreate(fn, , [WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

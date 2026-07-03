@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\BITS_FILE_PROPERTY_VALUE.ahk" { BITS_FILE_PROPERTY_VALUE }
-#Import ".\BITS_FILE_PROPERTY_ID.ahk" { BITS_FILE_PROPERTY_ID }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\BITS_FILE_PROPERTY_ID.ahk" { BITS_FILE_PROPERTY_ID }
+#Import ".\BITS_FILE_PROPERTY_VALUE.ahk" { BITS_FILE_PROPERTY_VALUE }
 #Import ".\IBackgroundCopyFile4.ahk" { IBackgroundCopyFile4 }
 
 /**

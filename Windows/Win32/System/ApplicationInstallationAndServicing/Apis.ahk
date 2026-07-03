@@ -1,55 +1,51 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\MSIDBSTATE.ahk" { MSIDBSTATE }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\MSIMODIFY.ahk" { MSIMODIFY }
-#Import ".\PPATCH_PROGRESS_CALLBACK.ahk" { PPATCH_PROGRESS_CALLBACK }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DELTA_INPUT.ahk" { DELTA_INPUT }
-#Import ".\ACTCTX_SECTION_KEYED_DATA.ahk" { ACTCTX_SECTION_KEYED_DATA }
-#Import ".\INSTALLLEVEL.ahk" { INSTALLLEVEL }
-#Import ".\DELTA_HEADER_INFO.ahk" { DELTA_HEADER_INFO }
-#Import ".\INSTALLUILEVEL.ahk" { INSTALLUILEVEL }
-#Import ".\MSIRUNMODE.ahk" { MSIRUNMODE }
-#Import ".\DELTA_HASH.ahk" { DELTA_HASH }
-#Import ".\MSIDBERROR.ahk" { MSIDBERROR }
-#Import ".\MSIINSTALLCONTEXT.ahk" { MSIINSTALLCONTEXT }
-#Import ".\MSICOSTTREE.ahk" { MSICOSTTREE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\PATCH_OLD_FILE_INFO_W.ahk" { PATCH_OLD_FILE_INFO_W }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Security\Cryptography\ALG_ID.ahk" { ALG_ID }
+#Import "..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import ".\ACTCTXA.ahk" { ACTCTXA }
+#Import ".\ACTCTXW.ahk" { ACTCTXW }
+#Import ".\ACTCTX_SECTION_KEYED_DATA.ahk" { ACTCTX_SECTION_KEYED_DATA }
+#Import ".\DELTA_HASH.ahk" { DELTA_HASH }
+#Import ".\DELTA_HEADER_INFO.ahk" { DELTA_HEADER_INFO }
+#Import ".\DELTA_INPUT.ahk" { DELTA_INPUT }
+#Import ".\DELTA_OUTPUT.ahk" { DELTA_OUTPUT }
+#Import ".\INSTALLLEVEL.ahk" { INSTALLLEVEL }
+#Import ".\INSTALLMESSAGE.ahk" { INSTALLMESSAGE }
 #Import ".\INSTALLSTATE.ahk" { INSTALLSTATE }
-#Import ".\PINSTALLUI_HANDLER_RECORD.ahk" { PINSTALLUI_HANDLER_RECORD }
-#Import ".\PATCH_OLD_FILE_INFO_A.ahk" { PATCH_OLD_FILE_INFO_A }
-#Import ".\MSICONDITION.ahk" { MSICONDITION }
-#Import ".\MSIPATCHSEQUENCEINFOW.ahk" { MSIPATCHSEQUENCEINFOW }
 #Import ".\INSTALLTYPE.ahk" { INSTALLTYPE }
+#Import ".\INSTALLUILEVEL.ahk" { INSTALLUILEVEL }
 #Import ".\MSIASSEMBLYINFO.ahk" { MSIASSEMBLYINFO }
 #Import ".\MSICOLINFO.ahk" { MSICOLINFO }
-#Import ".\INSTALLUI_HANDLERA.ahk" { INSTALLUI_HANDLERA }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ACTCTXA.ahk" { ACTCTXA }
-#Import "..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
-#Import ".\PROTECTED_FILE_DATA.ahk" { PROTECTED_FILE_DATA }
-#Import ".\INSTALLMESSAGE.ahk" { INSTALLMESSAGE }
-#Import ".\MSIHANDLE.ahk" { MSIHANDLE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DELTA_OUTPUT.ahk" { DELTA_OUTPUT }
-#Import ".\PATCH_RETAIN_RANGE.ahk" { PATCH_RETAIN_RANGE }
-#Import ".\INSTALLUI_HANDLERW.ahk" { INSTALLUI_HANDLERW }
-#Import ".\PATCH_OLD_FILE_INFO_H.ahk" { PATCH_OLD_FILE_INFO_H }
+#Import ".\MSICONDITION.ahk" { MSICONDITION }
+#Import ".\MSICOSTTREE.ahk" { MSICOSTTREE }
+#Import ".\MSIDBERROR.ahk" { MSIDBERROR }
+#Import ".\MSIDBSTATE.ahk" { MSIDBSTATE }
 #Import ".\MSIFILEHASHINFO.ahk" { MSIFILEHASHINFO }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\USERINFOSTATE.ahk" { USERINFOSTATE }
-#Import ".\MSITRANSACTIONSTATE.ahk" { MSITRANSACTIONSTATE }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\MSITRANSFORM_ERROR.ahk" { MSITRANSFORM_ERROR }
-#Import ".\PATCH_IGNORE_RANGE.ahk" { PATCH_IGNORE_RANGE }
-#Import ".\ACTCTXW.ahk" { ACTCTXW }
+#Import ".\MSIHANDLE.ahk" { MSIHANDLE }
+#Import ".\MSIINSTALLCONTEXT.ahk" { MSIINSTALLCONTEXT }
+#Import ".\MSIMODIFY.ahk" { MSIMODIFY }
 #Import ".\MSIPATCHSEQUENCEINFOA.ahk" { MSIPATCHSEQUENCEINFOA }
+#Import ".\MSIPATCHSEQUENCEINFOW.ahk" { MSIPATCHSEQUENCEINFOW }
+#Import ".\MSIRUNMODE.ahk" { MSIRUNMODE }
+#Import ".\MSITRANSACTIONSTATE.ahk" { MSITRANSACTIONSTATE }
+#Import ".\MSITRANSFORM_ERROR.ahk" { MSITRANSFORM_ERROR }
 #Import ".\MSITRANSFORM_VALIDATE.ahk" { MSITRANSFORM_VALIDATE }
+#Import ".\PATCH_IGNORE_RANGE.ahk" { PATCH_IGNORE_RANGE }
+#Import ".\PATCH_OLD_FILE_INFO_A.ahk" { PATCH_OLD_FILE_INFO_A }
+#Import ".\PATCH_OLD_FILE_INFO_H.ahk" { PATCH_OLD_FILE_INFO_H }
+#Import ".\PATCH_OLD_FILE_INFO_W.ahk" { PATCH_OLD_FILE_INFO_W }
 #Import ".\PATCH_OPTION_DATA.ahk" { PATCH_OPTION_DATA }
-#Import "..\..\Security\Cryptography\ALG_ID.ahk" { ALG_ID }
+#Import ".\PATCH_RETAIN_RANGE.ahk" { PATCH_RETAIN_RANGE }
+#Import ".\PROTECTED_FILE_DATA.ahk" { PROTECTED_FILE_DATA }
+#Import ".\USERINFOSTATE.ahk" { USERINFOSTATE }
 #Import "..\Registry\HKEY.ahk" { HKEY }
 
 /**
@@ -391,7 +387,7 @@ export MsiSetInternalUI(dwUILevel, phWnd) {
 export MsiSetExternalUIA(puiHandler, dwMessageFilter, pvContext) {
     pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("msi.dll\MsiSetExternalUIA", INSTALLUI_HANDLERA, puiHandler, UInt32, dwMessageFilter, pvContextMarshal, pvContext, INSTALLUI_HANDLERA)
+    result := DllCall("msi.dll\MsiSetExternalUIA", "ptr", puiHandler, UInt32, dwMessageFilter, pvContextMarshal, pvContext, IntPtr)
     return result
 }
 
@@ -623,7 +619,7 @@ export MsiSetExternalUIA(puiHandler, dwMessageFilter, pvContext) {
 export MsiSetExternalUIW(puiHandler, dwMessageFilter, pvContext) {
     pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("msi.dll\MsiSetExternalUIW", INSTALLUI_HANDLERW, puiHandler, UInt32, dwMessageFilter, pvContextMarshal, pvContext, INSTALLUI_HANDLERW)
+    result := DllCall("msi.dll\MsiSetExternalUIW", "ptr", puiHandler, UInt32, dwMessageFilter, pvContextMarshal, pvContext, IntPtr)
     return result
 }
 
@@ -900,7 +896,7 @@ export MsiSetExternalUIW(puiHandler, dwMessageFilter, pvContext) {
 export MsiSetExternalUIRecord(puiHandler, dwMessageFilter, pvContext, ppuiPrevHandler) {
     pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("msi.dll\MsiSetExternalUIRecord", PINSTALLUI_HANDLER_RECORD, puiHandler, UInt32, dwMessageFilter, pvContextMarshal, pvContext, PINSTALLUI_HANDLER_RECORD, ppuiPrevHandler, UInt32)
+    result := DllCall("msi.dll\MsiSetExternalUIRecord", "ptr", puiHandler, UInt32, dwMessageFilter, pvContextMarshal, pvContext, "ptr", ppuiPrevHandler, UInt32)
     return result
 }
 
@@ -29901,7 +29897,7 @@ export CreatePatchFileExA(OldFileCount, OldFileInfoArray, NewFileName, PatchFile
 
     CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("mspatchc.dll\CreatePatchFileExA", UInt32, OldFileCount, PATCH_OLD_FILE_INFO_A.Ptr, OldFileInfoArray, "ptr", NewFileName, "ptr", PatchFileName, UInt32, OptionFlags, PATCH_OPTION_DATA.Ptr, OptionData, PPATCH_PROGRESS_CALLBACK, ProgressCallback, CallbackContextMarshal, CallbackContext, BOOL)
+    result := DllCall("mspatchc.dll\CreatePatchFileExA", UInt32, OldFileCount, PATCH_OLD_FILE_INFO_A.Ptr, OldFileInfoArray, "ptr", NewFileName, "ptr", PatchFileName, UInt32, OptionFlags, PATCH_OPTION_DATA.Ptr, OptionData, "ptr", ProgressCallback, CallbackContextMarshal, CallbackContext, BOOL)
     return result
 }
 
@@ -29924,7 +29920,7 @@ export CreatePatchFileExW(OldFileCount, OldFileInfoArray, NewFileName, PatchFile
 
     CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("mspatchc.dll\CreatePatchFileExW", UInt32, OldFileCount, PATCH_OLD_FILE_INFO_W.Ptr, OldFileInfoArray, "ptr", NewFileName, "ptr", PatchFileName, UInt32, OptionFlags, PATCH_OPTION_DATA.Ptr, OptionData, PPATCH_PROGRESS_CALLBACK, ProgressCallback, CallbackContextMarshal, CallbackContext, BOOL)
+    result := DllCall("mspatchc.dll\CreatePatchFileExW", UInt32, OldFileCount, PATCH_OLD_FILE_INFO_W.Ptr, OldFileInfoArray, "ptr", NewFileName, "ptr", PatchFileName, UInt32, OptionFlags, PATCH_OPTION_DATA.Ptr, OptionData, "ptr", ProgressCallback, CallbackContextMarshal, CallbackContext, BOOL)
     return result
 }
 
@@ -29943,7 +29939,7 @@ export CreatePatchFileExW(OldFileCount, OldFileInfoArray, NewFileName, PatchFile
 export CreatePatchFileByHandlesEx(OldFileCount, OldFileInfoArray, NewFileHandle, PatchFileHandle, OptionFlags, OptionData, ProgressCallback, CallbackContext) {
     CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("mspatchc.dll\CreatePatchFileByHandlesEx", UInt32, OldFileCount, PATCH_OLD_FILE_INFO_H.Ptr, OldFileInfoArray, HANDLE, NewFileHandle, HANDLE, PatchFileHandle, UInt32, OptionFlags, PATCH_OPTION_DATA.Ptr, OptionData, PPATCH_PROGRESS_CALLBACK, ProgressCallback, CallbackContextMarshal, CallbackContext, BOOL)
+    result := DllCall("mspatchc.dll\CreatePatchFileByHandlesEx", UInt32, OldFileCount, PATCH_OLD_FILE_INFO_H.Ptr, OldFileInfoArray, HANDLE, NewFileHandle, HANDLE, PatchFileHandle, UInt32, OptionFlags, PATCH_OPTION_DATA.Ptr, OptionData, "ptr", ProgressCallback, CallbackContextMarshal, CallbackContext, BOOL)
     return result
 }
 
@@ -30111,7 +30107,7 @@ export ApplyPatchToFileExA(PatchFileName, OldFileName, NewFileName, ApplyOptionF
 
     CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("mspatcha.dll\ApplyPatchToFileExA", "ptr", PatchFileName, "ptr", OldFileName, "ptr", NewFileName, UInt32, ApplyOptionFlags, PPATCH_PROGRESS_CALLBACK, ProgressCallback, CallbackContextMarshal, CallbackContext, BOOL)
+    result := DllCall("mspatcha.dll\ApplyPatchToFileExA", "ptr", PatchFileName, "ptr", OldFileName, "ptr", NewFileName, UInt32, ApplyOptionFlags, "ptr", ProgressCallback, CallbackContextMarshal, CallbackContext, BOOL)
     return result
 }
 
@@ -30132,7 +30128,7 @@ export ApplyPatchToFileExW(PatchFileName, OldFileName, NewFileName, ApplyOptionF
 
     CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("mspatcha.dll\ApplyPatchToFileExW", "ptr", PatchFileName, "ptr", OldFileName, "ptr", NewFileName, UInt32, ApplyOptionFlags, PPATCH_PROGRESS_CALLBACK, ProgressCallback, CallbackContextMarshal, CallbackContext, BOOL)
+    result := DllCall("mspatcha.dll\ApplyPatchToFileExW", "ptr", PatchFileName, "ptr", OldFileName, "ptr", NewFileName, UInt32, ApplyOptionFlags, "ptr", ProgressCallback, CallbackContextMarshal, CallbackContext, BOOL)
     return result
 }
 
@@ -30149,7 +30145,7 @@ export ApplyPatchToFileExW(PatchFileName, OldFileName, NewFileName, ApplyOptionF
 export ApplyPatchToFileByHandlesEx(PatchFileHandle, OldFileHandle, NewFileHandle, ApplyOptionFlags, ProgressCallback, CallbackContext) {
     CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("mspatcha.dll\ApplyPatchToFileByHandlesEx", HANDLE, PatchFileHandle, HANDLE, OldFileHandle, HANDLE, NewFileHandle, UInt32, ApplyOptionFlags, PPATCH_PROGRESS_CALLBACK, ProgressCallback, CallbackContextMarshal, CallbackContext, BOOL)
+    result := DllCall("mspatcha.dll\ApplyPatchToFileByHandlesEx", HANDLE, PatchFileHandle, HANDLE, OldFileHandle, HANDLE, NewFileHandle, UInt32, ApplyOptionFlags, "ptr", ProgressCallback, CallbackContextMarshal, CallbackContext, BOOL)
     return result
 }
 
@@ -30172,7 +30168,7 @@ export ApplyPatchToFileByBuffers(PatchFileMapped, PatchFileSize, OldFileMapped, 
     NewFileActualSizeMarshal := NewFileActualSize is VarRef ? "uint*" : "ptr"
     CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("mspatcha.dll\ApplyPatchToFileByBuffers", IntPtr, PatchFileMapped, UInt32, PatchFileSize, IntPtr, OldFileMapped, UInt32, OldFileSize, IntPtr, NewFileBuffer, UInt32, NewFileBufferSize, NewFileActualSizeMarshal, NewFileActualSize, FILETIME.Ptr, NewFileTime, UInt32, ApplyOptionFlags, PPATCH_PROGRESS_CALLBACK, ProgressCallback, CallbackContextMarshal, CallbackContext, BOOL)
+    result := DllCall("mspatcha.dll\ApplyPatchToFileByBuffers", IntPtr, PatchFileMapped, UInt32, PatchFileSize, IntPtr, OldFileMapped, UInt32, OldFileSize, IntPtr, NewFileBuffer, UInt32, NewFileBufferSize, NewFileActualSizeMarshal, NewFileActualSize, FILETIME.Ptr, NewFileTime, UInt32, ApplyOptionFlags, "ptr", ProgressCallback, CallbackContextMarshal, CallbackContext, BOOL)
     return result
 }
 

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\INetFwRule2.ahk" { INetFwRule2 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\INetFwRule2.ahk" { INetFwRule2 }
 
 /**
  * Allows an application or service to access all the properties of INetFwRule2 and to provide access to the requirements of app containers.

@@ -86,10 +86,6 @@ export default struct PWLX_QUERY_TS_LOGON_CREDENTIALS {
             this.value := CallbackCreate(fn, , [WLX_CLIENT_CREDENTIALS_INFO_V2_0.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

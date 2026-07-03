@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NETCONNECTINFOSTRUCT.ahk" { NETCONNECTINFOSTRUCT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\NETCONNECTINFOSTRUCT.ahk" { NETCONNECTINFOSTRUCT }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WNet
@@ -48,10 +48,6 @@ export default struct PF_NPGetConnectionPerformance {
             this.value := CallbackCreate(fn, , [PWSTR, NETCONNECTINFOSTRUCT.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

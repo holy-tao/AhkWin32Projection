@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\REPORT_EVENT_TYPE.ahk" { REPORT_EVENT_TYPE }
 #Import ".\EVENTLOGRECORD.ahk" { EVENTLOGRECORD }
+#Import ".\REPORT_EVENT_TYPE.ahk" { REPORT_EVENT_TYPE }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MI_UtilitiesFT.ahk" { MI_UtilitiesFT }
+#Import ".\MI_ApplicationFT.ahk" { MI_ApplicationFT }
+#Import ".\MI_DeserializerFT.ahk" { MI_DeserializerFT }
+#Import ".\MI_DestinationOptionsFT.ahk" { MI_DestinationOptionsFT }
+#Import ".\MI_HostedProviderFT.ahk" { MI_HostedProviderFT }
+#Import ".\MI_OperationFT.ahk" { MI_OperationFT }
+#Import ".\MI_OperationOptionsFT.ahk" { MI_OperationOptionsFT }
+#Import ".\MI_SerializerFT.ahk" { MI_SerializerFT }
 #Import ".\MI_SessionFT.ahk" { MI_SessionFT }
 #Import ".\MI_SubscriptionDeliveryOptionsFT.ahk" { MI_SubscriptionDeliveryOptionsFT }
-#Import ".\MI_ApplicationFT.ahk" { MI_ApplicationFT }
-#Import ".\MI_OperationOptionsFT.ahk" { MI_OperationOptionsFT }
-#Import ".\MI_DestinationOptionsFT.ahk" { MI_DestinationOptionsFT }
-#Import ".\MI_OperationFT.ahk" { MI_OperationFT }
-#Import ".\MI_SerializerFT.ahk" { MI_SerializerFT }
-#Import ".\MI_DeserializerFT.ahk" { MI_DeserializerFT }
-#Import ".\MI_HostedProviderFT.ahk" { MI_HostedProviderFT }
+#Import ".\MI_UtilitiesFT.ahk" { MI_UtilitiesFT }
 
 /**
  * Client function tables.

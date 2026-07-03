@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
 #Import ".\HREGREADBATCH.ahk" { HREGREADBATCH }
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -48,10 +48,6 @@ export default struct PCLUSTER_REG_CREATE_READ_BATCH {
             this.value := CallbackCreate(fn, , [HKEY, HREGREADBATCH.Ptr, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

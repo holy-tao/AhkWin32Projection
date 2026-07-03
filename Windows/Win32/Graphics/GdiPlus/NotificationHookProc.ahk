@@ -46,10 +46,6 @@ export default struct NotificationHookProc {
             this.value := CallbackCreate(fn, , ["ptr*", Status])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

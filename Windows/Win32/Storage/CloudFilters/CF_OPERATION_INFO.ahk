@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CF_OPERATION_TYPE.ahk" { CF_OPERATION_TYPE }
-#Import "..\..\System\CorrelationVector\CORRELATION_VECTOR.ahk" { CORRELATION_VECTOR }
-#Import ".\CF_SYNC_STATUS.ahk" { CF_SYNC_STATUS }
 #Import ".\CF_CONNECTION_KEY.ahk" { CF_CONNECTION_KEY }
+#Import ".\CF_OPERATION_TYPE.ahk" { CF_OPERATION_TYPE }
+#Import ".\CF_SYNC_STATUS.ahk" { CF_SYNC_STATUS }
+#Import "..\..\System\CorrelationVector\CORRELATION_VECTOR.ahk" { CORRELATION_VECTOR }
 
 /**
  * Information about an operation on a placeholder file or folder.

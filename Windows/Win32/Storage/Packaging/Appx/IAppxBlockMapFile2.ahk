@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IAppxBlockMapFile.ahk" { IAppxBlockMapFile }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAppxBlockMapFile.ahk" { IAppxBlockMapFile }
 
 /**
  * @namespace Windows.Win32.Storage.Packaging.Appx

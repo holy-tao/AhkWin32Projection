@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IX509Extensions.ahk" { IX509Extensions }
-#Import ".\IObjectIds.ahk" { IObjectIds }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\EncodingType.ahk" { EncodingType }
-#Import ".\CRLRevocationReason.ahk" { CRLRevocationReason }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CRLRevocationReason.ahk" { CRLRevocationReason }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import ".\IObjectIds.ahk" { IObjectIds }
+#Import ".\IX509Extensions.ahk" { IX509Extensions }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**

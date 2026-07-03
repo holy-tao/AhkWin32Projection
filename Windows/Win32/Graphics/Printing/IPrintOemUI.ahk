@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\PRINTER_HANDLE.ahk" { PRINTER_HANDLE }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\Gdi\DEVMODEA.ahk" { DEVMODEA }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\OEMUIOBJ.ahk" { OEMUIOBJ }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\OEMCUIPPARAM.ahk" { OEMCUIPPARAM }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\DEVQUERYPRINT_INFO.ahk" { DEVQUERYPRINT_INFO }
-#Import ".\PROPSHEETUI_INFO.ahk" { PROPSHEETUI_INFO }
 #Import ".\IPrintOemCommon.ahk" { IPrintOemCommon }
+#Import ".\OEMCUIPPARAM.ahk" { OEMCUIPPARAM }
+#Import ".\OEMUIOBJ.ahk" { OEMUIOBJ }
+#Import ".\PRINTER_HANDLE.ahk" { PRINTER_HANDLE }
+#Import ".\PROPSHEETUI_INFO.ahk" { PROPSHEETUI_INFO }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

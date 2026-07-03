@@ -56,10 +56,6 @@ export default struct MI_OperationCallback_Class {
             this.value := CallbackCreate(fn, , [MI_Operation.Ptr, "ptr", MI_Class.Ptr, Int8, MI_Result, "ushort*", MI_Instance.Ptr, IntPtr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

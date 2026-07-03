@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IAccessible.ahk" { IAccessible }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IAccessible.ahk" { IAccessible }
 
 /**
  * @namespace Windows.Win32.UI.Accessibility
@@ -48,10 +48,6 @@ export default struct LPFNACCESSIBLEOBJECTFROMPOINT {
             this.value := CallbackCreate(fn, , [POINT, VARIANT.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

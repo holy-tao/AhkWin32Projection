@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IWMWriterFileSink.ahk" { IWMWriterFileSink }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMWriterFileSink.ahk" { IWMWriterFileSink }
 
 /**
  * The IWMWriterFileSink2 interface provides extended management of a file sink.This interface can be obtained by calling the QueryInterface method of an IWMWriterFileSink interface.

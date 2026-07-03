@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\IKEEXT_CERT_AUTH.ahk" { IKEEXT_CERT_AUTH }
-#Import ".\IKEEXT_CERT_ROOT_CONFIG0.ahk" { IKEEXT_CERT_ROOT_CONFIG0 }
 #Import ".\IKEEXT_CERT_CONFIG_TYPE.ahk" { IKEEXT_CERT_CONFIG_TYPE }
+#Import ".\IKEEXT_CERT_ROOT_CONFIG0.ahk" { IKEEXT_CERT_ROOT_CONFIG0 }
 
 /**
  * Is used to specify various parameters for authentication with certificates. (IKEEXT_CERTIFICATE_AUTHENTICATION0)

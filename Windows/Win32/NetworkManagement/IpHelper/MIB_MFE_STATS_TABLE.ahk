@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MIB_IPMCAST_OIF_STATS_LH.ahk" { MIB_IPMCAST_OIF_STATS_LH }
 #Import ".\MIB_IPMCAST_MFE_STATS.ahk" { MIB_IPMCAST_MFE_STATS }
+#Import ".\MIB_IPMCAST_OIF_STATS_LH.ahk" { MIB_IPMCAST_OIF_STATS_LH }
 
 /**
  * Stores statistics for a group of Multicast Forwarding Entries (MFEs).

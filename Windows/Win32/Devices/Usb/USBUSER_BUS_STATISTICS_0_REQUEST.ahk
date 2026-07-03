@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\USB_USER_ERROR_CODE.ahk" { USB_USER_ERROR_CODE }
-#Import ".\USB_BUS_STATISTICS_0.ahk" { USB_BUS_STATISTICS_0 }
 #Import ".\USBUSER_REQUEST_HEADER.ahk" { USBUSER_REQUEST_HEADER }
+#Import ".\USB_BUS_STATISTICS_0.ahk" { USB_BUS_STATISTICS_0 }
+#Import ".\USB_USER_ERROR_CODE.ahk" { USB_USER_ERROR_CODE }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * The USBUSER_BUS_STATISTICS_0_REQUEST structure is used with the IOCTL_USB_USER_REQUEST I/O control request to retrieve bus statistics.

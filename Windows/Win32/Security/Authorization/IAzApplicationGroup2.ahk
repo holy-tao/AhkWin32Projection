@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IAzRoleAssignments.ahk" { IAzRoleAssignments }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\IAzApplicationGroup.ahk" { IAzApplicationGroup }
+#Import ".\IAzRoleAssignments.ahk" { IAzRoleAssignments }
 
 /**
  * Extends the IAzApplicationGroup interface by adding support for the BizRule group type.

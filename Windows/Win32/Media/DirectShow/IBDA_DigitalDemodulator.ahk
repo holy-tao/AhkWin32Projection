@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\BinaryConvolutionCodeRate.ahk" { BinaryConvolutionCodeRate }
+#Import ".\FECMethod.ahk" { FECMethod }
+#Import ".\ModulationType.ahk" { ModulationType }
 #Import ".\SpectralInversion.ahk" { SpectralInversion }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ModulationType.ahk" { ModulationType }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\FECMethod.ahk" { FECMethod }
-#Import ".\BinaryConvolutionCodeRate.ahk" { BinaryConvolutionCodeRate }
 
 /**
  * The IBDA_DigitalDemodulator interface is exposed on BDA device filters, specifically demodulators, that are not capable of automatically detecting the characteristics of a signal.

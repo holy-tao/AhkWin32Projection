@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IEnumCallingCard.ahk" { IEnumCallingCard }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ITAddressTranslationInfo.ahk" { ITAddressTranslationInfo }
 #Import ".\IEnumLocation.ahk" { IEnumLocation }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ITAddressTranslationInfo.ahk" { ITAddressTranslationInfo }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ITAddressTranslation interface provides methods that allow translation of a calling address into a different format. For example, an application may need to translate an address from canonical to dialable prior to making a call.

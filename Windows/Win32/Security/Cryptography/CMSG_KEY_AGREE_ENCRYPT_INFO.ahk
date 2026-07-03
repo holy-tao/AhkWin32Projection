@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CERT_ID.ahk" { CERT_ID }
-#Import ".\CMSG_KEY_AGREE_KEY_ENCRYPT_INFO.ahk" { CMSG_KEY_AGREE_KEY_ENCRYPT_INFO }
-#Import ".\CMSG_KEY_AGREE_ORIGINATOR.ahk" { CMSG_KEY_AGREE_ORIGINATOR }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\CERT_ID.ahk" { CERT_ID }
 #Import ".\CERT_ID_OPTION.ahk" { CERT_ID_OPTION }
-#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
-#Import ".\CRYPT_BIT_BLOB.ahk" { CRYPT_BIT_BLOB }
 #Import ".\CERT_ISSUER_SERIAL_NUMBER.ahk" { CERT_ISSUER_SERIAL_NUMBER }
 #Import ".\CERT_PUBLIC_KEY_INFO.ahk" { CERT_PUBLIC_KEY_INFO }
+#Import ".\CMSG_KEY_AGREE_KEY_ENCRYPT_INFO.ahk" { CMSG_KEY_AGREE_KEY_ENCRYPT_INFO }
+#Import ".\CMSG_KEY_AGREE_ORIGINATOR.ahk" { CMSG_KEY_AGREE_ORIGINATOR }
+#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
+#Import ".\CRYPT_BIT_BLOB.ahk" { CRYPT_BIT_BLOB }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 
 /**
  * Contains encryption information applicable to all key agreement recipients of an enveloped message.

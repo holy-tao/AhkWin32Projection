@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DDGAMMARAMP.ahk" { DDGAMMARAMP }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DDGAMMARAMP.ahk" { DDGAMMARAMP }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Applications use the methods of the IDirectDrawGammaControl interface to adjust the red, green, and blue gamma ramp levels of the primary surface. This section is a reference to the methods of this interface.

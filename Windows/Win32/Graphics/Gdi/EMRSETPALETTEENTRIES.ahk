@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EMR.ahk" { EMR }
 #Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
 #Import ".\PALETTEENTRY.ahk" { PALETTEENTRY }
-#Import ".\EMR.ahk" { EMR }
 
 /**
  * The EMRSETPALETTEENTRIES structure contains members for the SetPaletteEntries enhanced metafile record.

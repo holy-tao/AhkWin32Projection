@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID2D1RenderInfo.ahk" { ID2D1RenderInfo }
-#Import "Common\D2D_POINT_2U.ahk" { D2D_POINT_2U }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\ID2D1Bitmap1.ahk" { ID2D1Bitmap1 }
-#Import ".\ID2D1Transform.ahk" { ID2D1Transform }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "Common\D2D_POINT_2U.ahk" { D2D_POINT_2U }
+#Import ".\ID2D1Bitmap1.ahk" { ID2D1Bitmap1 }
+#Import ".\ID2D1RenderInfo.ahk" { ID2D1RenderInfo }
+#Import ".\ID2D1Transform.ahk" { ID2D1Transform }
 
 /**
  * Represents a CPU-based rasterization stage in the transform pipeline graph.

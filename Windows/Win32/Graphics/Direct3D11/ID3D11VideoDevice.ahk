@@ -1,27 +1,27 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D11VideoDecoder.ahk" { ID3D11VideoDecoder }
-#Import ".\ID3D11Resource.ahk" { ID3D11Resource }
-#Import ".\D3D11_AUTHENTICATED_CHANNEL_TYPE.ahk" { D3D11_AUTHENTICATED_CHANNEL_TYPE }
-#Import ".\D3D11_VIDEO_DECODER_DESC.ahk" { D3D11_VIDEO_DECODER_DESC }
-#Import ".\D3D11_VIDEO_CONTENT_PROTECTION_CAPS.ahk" { D3D11_VIDEO_CONTENT_PROTECTION_CAPS }
-#Import ".\D3D11_VIDEO_PROCESSOR_CONTENT_DESC.ahk" { D3D11_VIDEO_PROCESSOR_CONTENT_DESC }
-#Import ".\ID3D11CryptoSession.ahk" { ID3D11CryptoSession }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D11_VIDEO_DECODER_OUTPUT_VIEW_DESC.ahk" { D3D11_VIDEO_DECODER_OUTPUT_VIEW_DESC }
-#Import ".\ID3D11VideoProcessor.ahk" { ID3D11VideoProcessor }
-#Import ".\ID3D11VideoDecoderOutputView.ahk" { ID3D11VideoDecoderOutputView }
-#Import ".\D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC.ahk" { D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ID3D11VideoProcessorEnumerator.ahk" { ID3D11VideoProcessorEnumerator }
-#Import ".\ID3D11AuthenticatedChannel.ahk" { ID3D11AuthenticatedChannel }
-#Import ".\ID3D11VideoProcessorOutputView.ahk" { ID3D11VideoProcessorOutputView }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import ".\ID3D11VideoProcessorInputView.ahk" { ID3D11VideoProcessorInputView }
-#Import ".\D3D11_VIDEO_PROCESSOR_OUTPUT_VIEW_DESC.ahk" { D3D11_VIDEO_PROCESSOR_OUTPUT_VIEW_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D11_AUTHENTICATED_CHANNEL_TYPE.ahk" { D3D11_AUTHENTICATED_CHANNEL_TYPE }
+#Import ".\D3D11_VIDEO_CONTENT_PROTECTION_CAPS.ahk" { D3D11_VIDEO_CONTENT_PROTECTION_CAPS }
 #Import ".\D3D11_VIDEO_DECODER_CONFIG.ahk" { D3D11_VIDEO_DECODER_CONFIG }
+#Import ".\D3D11_VIDEO_DECODER_DESC.ahk" { D3D11_VIDEO_DECODER_DESC }
+#Import ".\D3D11_VIDEO_DECODER_OUTPUT_VIEW_DESC.ahk" { D3D11_VIDEO_DECODER_OUTPUT_VIEW_DESC }
+#Import ".\D3D11_VIDEO_PROCESSOR_CONTENT_DESC.ahk" { D3D11_VIDEO_PROCESSOR_CONTENT_DESC }
+#Import ".\D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC.ahk" { D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC }
+#Import ".\D3D11_VIDEO_PROCESSOR_OUTPUT_VIEW_DESC.ahk" { D3D11_VIDEO_PROCESSOR_OUTPUT_VIEW_DESC }
+#Import ".\ID3D11AuthenticatedChannel.ahk" { ID3D11AuthenticatedChannel }
+#Import ".\ID3D11CryptoSession.ahk" { ID3D11CryptoSession }
+#Import ".\ID3D11Resource.ahk" { ID3D11Resource }
+#Import ".\ID3D11VideoDecoder.ahk" { ID3D11VideoDecoder }
+#Import ".\ID3D11VideoDecoderOutputView.ahk" { ID3D11VideoDecoderOutputView }
+#Import ".\ID3D11VideoProcessor.ahk" { ID3D11VideoProcessor }
+#Import ".\ID3D11VideoProcessorEnumerator.ahk" { ID3D11VideoProcessorEnumerator }
+#Import ".\ID3D11VideoProcessorInputView.ahk" { ID3D11VideoProcessorInputView }
+#Import ".\ID3D11VideoProcessorOutputView.ahk" { ID3D11VideoProcessorOutputView }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides the video decoding and video processing capabilities of a Microsoft Direct3D 11 device. (ID3D11VideoDevice)

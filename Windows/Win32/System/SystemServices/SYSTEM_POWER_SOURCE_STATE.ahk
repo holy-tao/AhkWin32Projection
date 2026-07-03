@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Power\SYSTEM_BATTERY_STATE.ahk" { SYSTEM_BATTERY_STATE }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\Power\SYSTEM_BATTERY_STATE.ahk" { SYSTEM_BATTERY_STATE }
 
 /**
  * @namespace Windows.Win32.System.SystemServices

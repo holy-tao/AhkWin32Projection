@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\UI\Controls\LPFNSVADDPROPSHEETPAGE.ahk" { LPFNSVADDPROPSHEETPAGE }
-#Import ".\DSA_NEWOBJ_DISPINFO.ahk" { DSA_NEWOBJ_DISPINFO }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DSA_NEWOBJ_DISPINFO.ahk" { DSA_NEWOBJ_DISPINFO }
 #Import ".\IADs.ahk" { IADs }
 #Import ".\IADsContainer.ahk" { IADsContainer }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDsAdminNewObj.ahk" { IDsAdminNewObj }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 
 /**
  * The IDsAdminNewObjExt interface is implemented by an object creation wizard extension.
@@ -93,7 +92,7 @@ export default struct IDsAdminNewObjExt extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnewobjext-addpages
      */
     AddPages(lpfnAddPage, _lParam) {
-        result := ComCall(4, this, LPFNSVADDPROPSHEETPAGE, lpfnAddPage, LPARAM, _lParam, "HRESULT")
+        result := ComCall(4, this, "ptr", lpfnAddPage, LPARAM, _lParam, "HRESULT")
         return result
     }
 

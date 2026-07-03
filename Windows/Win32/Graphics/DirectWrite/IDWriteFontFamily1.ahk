@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DWRITE_LOCALITY.ahk" { DWRITE_LOCALITY }
+#Import ".\IDWriteFont3.ahk" { IDWriteFont3 }
 #Import ".\IDWriteFontFaceReference.ahk" { IDWriteFontFaceReference }
 #Import ".\IDWriteFontFamily.ahk" { IDWriteFontFamily }
-#Import ".\IDWriteFont3.ahk" { IDWriteFont3 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a family of related fonts. (IDWriteFontFamily1)

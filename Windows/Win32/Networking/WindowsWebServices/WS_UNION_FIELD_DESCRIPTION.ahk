@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_ITEM_RANGE.ahk" { WS_ITEM_RANGE }
-#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
-#Import ".\WS_TYPE.ahk" { WS_TYPE }
-#Import ".\WS_FIELD_MAPPING.ahk" { WS_FIELD_MAPPING }
 #Import ".\WS_DEFAULT_VALUE.ahk" { WS_DEFAULT_VALUE }
 #Import ".\WS_FIELD_DESCRIPTION.ahk" { WS_FIELD_DESCRIPTION }
+#Import ".\WS_FIELD_MAPPING.ahk" { WS_FIELD_MAPPING }
+#Import ".\WS_ITEM_RANGE.ahk" { WS_ITEM_RANGE }
+#Import ".\WS_TYPE.ahk" { WS_TYPE }
+#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
 
 /**
  * Represents serialization information about a field within a union. See WS_UNION_DESCRIPTION.

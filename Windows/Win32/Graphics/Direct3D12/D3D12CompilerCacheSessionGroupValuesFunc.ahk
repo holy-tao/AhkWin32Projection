@@ -47,10 +47,6 @@ export default struct D3D12CompilerCacheSessionGroupValuesFunc {
             this.value := CallbackCreate(fn, , [UInt32, D3D12_COMPILER_CACHE_TYPED_CONST_VALUE.Ptr, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

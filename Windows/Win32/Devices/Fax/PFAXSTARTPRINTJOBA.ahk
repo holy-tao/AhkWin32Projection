@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\FAX_PRINT_INFOA.ahk" { FAX_PRINT_INFOA }
 #Import ".\FAX_CONTEXT_INFOA.ahk" { FAX_CONTEXT_INFOA }
+#Import ".\FAX_PRINT_INFOA.ahk" { FAX_PRINT_INFOA }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.Devices.Fax
@@ -55,10 +55,6 @@ export default struct PFAXSTARTPRINTJOBA {
             this.value := CallbackCreate(fn, , [PSTR, FAX_PRINT_INFOA.Ptr, "uint*", FAX_CONTEXT_INFOA.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

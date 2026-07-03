@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
 #Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
+#Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
 
 /**
  * Defines an IP address object.

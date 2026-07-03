@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NETCON_MEDIATYPE.ahk" { NETCON_MEDIATYPE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\NETCON_STATUS.ahk" { NETCON_STATUS }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\NETCON_MEDIATYPE.ahk" { NETCON_MEDIATYPE }
+#Import ".\NETCON_STATUS.ahk" { NETCON_STATUS }
 
 /**
  * The NETCON_PROPERTIES structure stores values that describe the properties of a network connection.

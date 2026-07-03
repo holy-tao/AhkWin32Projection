@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Memory\MEMORY_BASIC_INFORMATION64.ahk" { MEMORY_BASIC_INFORMATION64 }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Memory\MEMORY_BASIC_INFORMATION64.ahk" { MEMORY_BASIC_INFORMATION64 }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

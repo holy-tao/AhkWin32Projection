@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HLTBINFO.ahk" { HLTBINFO }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\HLTBINFO.ahk" { HLTBINFO }
 
 /**
  * @namespace Windows.Win32.UI.Shell

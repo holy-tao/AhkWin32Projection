@@ -44,10 +44,6 @@ export default struct PF_NPCloseEnum {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

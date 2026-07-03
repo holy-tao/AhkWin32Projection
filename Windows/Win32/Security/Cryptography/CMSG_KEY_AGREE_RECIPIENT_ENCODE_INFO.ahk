@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CERT_ID.ahk" { CERT_ID }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\CERT_ID.ahk" { CERT_ID }
 #Import ".\CMSG_KEY_AGREE_OPTION.ahk" { CMSG_KEY_AGREE_OPTION }
-#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
-#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
-#Import ".\HCRYPTPROV_LEGACY.ahk" { HCRYPTPROV_LEGACY }
 #Import ".\CMSG_RECIPIENT_ENCRYPTED_KEY_ENCODE_INFO.ahk" { CMSG_RECIPIENT_ENCRYPTED_KEY_ENCODE_INFO }
+#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\HCRYPTPROV_LEGACY.ahk" { HCRYPTPROV_LEGACY }
 
 /**
  * Contains information about a message recipient that is using key agreement key management.

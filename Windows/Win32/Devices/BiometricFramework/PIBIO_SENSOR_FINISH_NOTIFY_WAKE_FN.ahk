@@ -45,10 +45,6 @@ export default struct PIBIO_SENSOR_FINISH_NOTIFY_WAKE_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

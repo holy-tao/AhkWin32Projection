@@ -1,22 +1,21 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\EVT_SUBSCRIBE_CALLBACK.ahk" { EVT_SUBSCRIBE_CALLBACK }
-#Import ".\EVT_LOG_PROPERTY_ID.ahk" { EVT_LOG_PROPERTY_ID }
-#Import ".\EVT_VARIANT.ahk" { EVT_VARIANT }
-#Import ".\REPORT_EVENT_TYPE.ahk" { REPORT_EVENT_TYPE }
-#Import ".\EVT_LOGIN_CLASS.ahk" { EVT_LOGIN_CLASS }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\READ_EVENT_LOG_READ_FLAGS.ahk" { READ_EVENT_LOG_READ_FLAGS }
-#Import ".\EVT_CHANNEL_CONFIG_PROPERTY_ID.ahk" { EVT_CHANNEL_CONFIG_PROPERTY_ID }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\EVT_QUERY_PROPERTY_ID.ahk" { EVT_QUERY_PROPERTY_ID }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\EVT_PUBLISHER_METADATA_PROPERTY_ID.ahk" { EVT_PUBLISHER_METADATA_PROPERTY_ID }
-#Import ".\EVT_HANDLE.ahk" { EVT_HANDLE }
-#Import ".\EVT_EVENT_PROPERTY_ID.ahk" { EVT_EVENT_PROPERTY_ID }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Security\PSID.ahk" { PSID }
+#Import ".\EVT_CHANNEL_CONFIG_PROPERTY_ID.ahk" { EVT_CHANNEL_CONFIG_PROPERTY_ID }
 #Import ".\EVT_EVENT_METADATA_PROPERTY_ID.ahk" { EVT_EVENT_METADATA_PROPERTY_ID }
+#Import ".\EVT_EVENT_PROPERTY_ID.ahk" { EVT_EVENT_PROPERTY_ID }
+#Import ".\EVT_HANDLE.ahk" { EVT_HANDLE }
+#Import ".\EVT_LOGIN_CLASS.ahk" { EVT_LOGIN_CLASS }
+#Import ".\EVT_LOG_PROPERTY_ID.ahk" { EVT_LOG_PROPERTY_ID }
+#Import ".\EVT_PUBLISHER_METADATA_PROPERTY_ID.ahk" { EVT_PUBLISHER_METADATA_PROPERTY_ID }
+#Import ".\EVT_QUERY_PROPERTY_ID.ahk" { EVT_QUERY_PROPERTY_ID }
+#Import ".\EVT_VARIANT.ahk" { EVT_VARIANT }
+#Import ".\READ_EVENT_LOG_READ_FLAGS.ahk" { READ_EVENT_LOG_READ_FLAGS }
+#Import ".\REPORT_EVENT_TYPE.ahk" { REPORT_EVENT_TYPE }
 
 /**
  * @namespace Windows.Win32.System.EventLog
@@ -399,7 +398,7 @@ export EvtSubscribe(Session, SignalEvent, ChannelPath, Query, Bookmark, _Context
 
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtSubscribe", EVT_HANDLE, Session, HANDLE, SignalEvent, "ptr", ChannelPath, "ptr", Query, EVT_HANDLE, Bookmark, _ContextMarshal, _Context, EVT_SUBSCRIBE_CALLBACK, Callback, UInt32, Flags, EVT_HANDLE.Owned)
+    result := DllCall("wevtapi.dll\EvtSubscribe", EVT_HANDLE, Session, HANDLE, SignalEvent, "ptr", ChannelPath, "ptr", Query, EVT_HANDLE, Bookmark, _ContextMarshal, _Context, "ptr", Callback, UInt32, Flags, EVT_HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }

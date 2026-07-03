@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ISpPhrase.ahk" { ISpPhrase }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISpRecoContext.ahk" { ISpRecoContext }
-#Import ".\ISpProperties.ahk" { ISpProperties }
-#Import ".\SPRECOSTATE.ahk" { SPRECOSTATE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\SPSTREAMFORMATTYPE.ahk" { SPSTREAMFORMATTYPE }
-#Import ".\SPRECOGNIZERSTATUS.ahk" { SPRECOGNIZERSTATUS }
-#Import ".\ISpStreamFormat.ahk" { ISpStreamFormat }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 #Import ".\ISpObjectToken.ahk" { ISpObjectToken }
+#Import ".\ISpPhrase.ahk" { ISpPhrase }
+#Import ".\ISpProperties.ahk" { ISpProperties }
+#Import ".\ISpRecoContext.ahk" { ISpRecoContext }
+#Import ".\ISpStreamFormat.ahk" { ISpStreamFormat }
+#Import ".\SPRECOGNIZERSTATUS.ahk" { SPRECOGNIZERSTATUS }
+#Import ".\SPRECOSTATE.ahk" { SPRECOSTATE }
+#Import ".\SPSTREAMFORMATTYPE.ahk" { SPSTREAMFORMATTYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.Speech

@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WTS_PROPERTY_VALUE.ahk" { WTS_PROPERTY_VALUE }
-#Import "..\..\Foundation\HANDLE_PTR.ahk" { HANDLE_PTR }
-#Import ".\WTS_POLICY_DATA.ahk" { WTS_POLICY_DATA }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWTSProtocolShadowConnection.ahk" { IWTSProtocolShadowConnection }
-#Import ".\IWTSProtocolLicenseConnection.ahk" { IWTSProtocolLicenseConnection }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\WTS_SESSION_ID.ahk" { WTS_SESSION_ID }
-#Import ".\IWTSProtocolLogonErrorRedirector.ahk" { IWTSProtocolLogonErrorRedirector }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\WTS_PROTOCOL_STATUS.ahk" { WTS_PROTOCOL_STATUS }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE_PTR.ahk" { HANDLE_PTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWTSProtocolLicenseConnection.ahk" { IWTSProtocolLicenseConnection }
+#Import ".\IWTSProtocolLogonErrorRedirector.ahk" { IWTSProtocolLogonErrorRedirector }
+#Import ".\IWTSProtocolShadowConnection.ahk" { IWTSProtocolShadowConnection }
 #Import ".\WTS_CLIENT_DATA.ahk" { WTS_CLIENT_DATA }
-#Import ".\WTS_USER_DATA.ahk" { WTS_USER_DATA }
+#Import ".\WTS_POLICY_DATA.ahk" { WTS_POLICY_DATA }
+#Import ".\WTS_PROPERTY_VALUE.ahk" { WTS_PROPERTY_VALUE }
+#Import ".\WTS_PROTOCOL_STATUS.ahk" { WTS_PROTOCOL_STATUS }
+#Import ".\WTS_SESSION_ID.ahk" { WTS_SESSION_ID }
 #Import ".\WTS_USER_CREDENTIAL.ahk" { WTS_USER_CREDENTIAL }
+#Import ".\WTS_USER_DATA.ahk" { WTS_USER_DATA }
 
 /**
  * IWTSProtocolConnection is no longer available. Instead, use IWRdsProtocolConnection.

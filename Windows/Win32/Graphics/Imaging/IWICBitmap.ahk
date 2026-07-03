@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
-#Import ".\WICRect.ahk" { WICRect }
-#Import ".\IWICPalette.ahk" { IWICPalette }
-#Import ".\IWICBitmapLock.ahk" { IWICBitmapLock }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWICBitmapLock.ahk" { IWICBitmapLock }
+#Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
+#Import ".\IWICPalette.ahk" { IWICPalette }
+#Import ".\WICRect.ahk" { WICRect }
 
 /**
  * Defines methods that add the concept of writeability and static in-memory representations of bitmaps to IWICBitmapSource.

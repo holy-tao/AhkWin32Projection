@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\EFaultRepRetVal.ahk" { EFaultRepRetVal }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\EFaultRepRetVal.ahk" { EFaultRepRetVal }
 
 /**
  * @namespace Windows.Win32.System.ErrorReporting
@@ -48,10 +48,6 @@ export default struct pfn_ADDEREXCLUDEDAPPLICATIONW {
             this.value := CallbackCreate(fn, , [PWSTR, EFaultRepRetVal])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

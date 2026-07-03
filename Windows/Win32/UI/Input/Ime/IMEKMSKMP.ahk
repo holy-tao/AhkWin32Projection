@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IMEKMSKEY.ahk" { IMEKMSKEY }
 #Import ".\HIMC.ahk" { HIMC }
+#Import ".\IMEKMSKEY.ahk" { IMEKMSKEY }
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime

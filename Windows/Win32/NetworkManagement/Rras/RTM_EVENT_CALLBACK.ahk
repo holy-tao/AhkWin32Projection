@@ -50,10 +50,6 @@ export default struct RTM_EVENT_CALLBACK {
             this.value := CallbackCreate(fn, , [IntPtr, RTM_EVENT_TYPE, "ptr", "ptr", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

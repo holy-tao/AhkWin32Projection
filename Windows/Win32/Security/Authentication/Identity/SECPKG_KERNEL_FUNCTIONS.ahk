@@ -1,13 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PLSA_FREE_LSA_HEAP.ahk" { PLSA_FREE_LSA_HEAP }
-#Import ".\PKSEC_LOCATE_PKG_BY_ID.ahk" { PKSEC_LOCATE_PKG_BY_ID }
-#Import ".\PKSEC_CREATE_CONTEXT_LIST.ahk" { PKSEC_CREATE_CONTEXT_LIST }
-#Import ".\PKSEC_REFERENCE_LIST_ENTRY.ahk" { PKSEC_REFERENCE_LIST_ENTRY }
-#Import ".\PLSA_ALLOCATE_LSA_HEAP.ahk" { PLSA_ALLOCATE_LSA_HEAP }
-#Import ".\PKSEC_SERIALIZE_WINNT_AUTH_DATA.ahk" { PKSEC_SERIALIZE_WINNT_AUTH_DATA }
-#Import ".\PKSEC_INSERT_LIST_ENTRY.ahk" { PKSEC_INSERT_LIST_ENTRY }
-#Import ".\PKSEC_DEREFERENCE_LIST_ENTRY.ahk" { PKSEC_DEREFERENCE_LIST_ENTRY }
-#Import ".\PKSEC_SERIALIZE_SCHANNEL_AUTH_DATA.ahk" { PKSEC_SERIALIZE_SCHANNEL_AUTH_DATA }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -15,22 +6,22 @@
 export default struct SECPKG_KERNEL_FUNCTIONS {
     #StructPack 8
 
-    AllocateHeap : PLSA_ALLOCATE_LSA_HEAP
+    AllocateHeap : IntPtr
 
-    FreeHeap : PLSA_FREE_LSA_HEAP
+    FreeHeap : IntPtr
 
-    CreateContextList : PKSEC_CREATE_CONTEXT_LIST
+    CreateContextList : IntPtr
 
-    InsertListEntry : PKSEC_INSERT_LIST_ENTRY
+    InsertListEntry : IntPtr
 
-    ReferenceListEntry : PKSEC_REFERENCE_LIST_ENTRY
+    ReferenceListEntry : IntPtr
 
-    DereferenceListEntry : PKSEC_DEREFERENCE_LIST_ENTRY
+    DereferenceListEntry : IntPtr
 
-    SerializeWinntAuthData : PKSEC_SERIALIZE_WINNT_AUTH_DATA
+    SerializeWinntAuthData : IntPtr
 
-    SerializeSchannelAuthData : PKSEC_SERIALIZE_SCHANNEL_AUTH_DATA
+    SerializeSchannelAuthData : IntPtr
 
-    LocatePackageById : PKSEC_LOCATE_PKG_BY_ID
+    LocatePackageById : IntPtr
 
 }

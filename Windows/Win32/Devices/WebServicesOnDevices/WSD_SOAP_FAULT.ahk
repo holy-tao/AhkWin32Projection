@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WSD_SOAP_FAULT_CODE.ahk" { WSD_SOAP_FAULT_CODE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WSD_SOAP_FAULT_REASON.ahk" { WSD_SOAP_FAULT_REASON }
 #Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
+#Import ".\WSD_SOAP_FAULT_CODE.ahk" { WSD_SOAP_FAULT_CODE }
+#Import ".\WSD_SOAP_FAULT_REASON.ahk" { WSD_SOAP_FAULT_REASON }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Represents a generated SOAP fault.

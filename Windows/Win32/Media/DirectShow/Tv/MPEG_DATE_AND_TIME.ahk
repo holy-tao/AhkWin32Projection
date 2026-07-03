@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MPEG_TIME.ahk" { MPEG_TIME }
 #Import ".\MPEG_DATE.ahk" { MPEG_DATE }
+#Import ".\MPEG_TIME.ahk" { MPEG_TIME }
 
 /**
  * The MPEG_DATE_AND_TIME structure specifies a date and time.

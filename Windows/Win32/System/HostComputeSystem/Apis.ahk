@@ -1,20 +1,18 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\HCS_OPERATION_TYPE.ahk" { HCS_OPERATION_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\HCS_OPERATION.ahk" { HCS_OPERATION }
-#Import "..\..\Security\SECURITY_DESCRIPTOR.ahk" { SECURITY_DESCRIPTOR }
-#Import ".\HCS_OPERATION_OPTIONS.ahk" { HCS_OPERATION_OPTIONS }
-#Import ".\HCS_EVENT_OPTIONS.ahk" { HCS_EVENT_OPTIONS }
-#Import ".\HCS_SYSTEM.ahk" { HCS_SYSTEM }
-#Import ".\HCS_PROCESS.ahk" { HCS_PROCESS }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\HCS_EVENT_CALLBACK.ahk" { HCS_EVENT_CALLBACK }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Security\SECURITY_DESCRIPTOR.ahk" { SECURITY_DESCRIPTOR }
 #Import ".\HCS_CREATE_OPTIONS.ahk" { HCS_CREATE_OPTIONS }
+#Import ".\HCS_EVENT_OPTIONS.ahk" { HCS_EVENT_OPTIONS }
+#Import ".\HCS_OPERATION.ahk" { HCS_OPERATION }
+#Import ".\HCS_OPERATION_OPTIONS.ahk" { HCS_OPERATION_OPTIONS }
+#Import ".\HCS_OPERATION_TYPE.ahk" { HCS_OPERATION_TYPE }
+#Import ".\HCS_PROCESS.ahk" { HCS_PROCESS }
 #Import ".\HCS_PROCESS_INFORMATION.ahk" { HCS_PROCESS_INFORMATION }
-#Import ".\HCS_OPERATION_COMPLETION.ahk" { HCS_OPERATION_COMPLETION }
 #Import ".\HCS_RESOURCE_TYPE.ahk" { HCS_RESOURCE_TYPE }
+#Import ".\HCS_SYSTEM.ahk" { HCS_SYSTEM }
 
 /**
  * @namespace Windows.Win32.System.HostComputeSystem
@@ -64,7 +62,7 @@ export HcsEnumerateComputeSystemsInNamespace(idNamespace, query, operation) {
 export HcsCreateOperation(_context, callback) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("computecore.dll\HcsCreateOperation", _contextMarshal, _context, HCS_OPERATION_COMPLETION, callback, HCS_OPERATION.Owned)
+    result := DllCall("computecore.dll\HcsCreateOperation", _contextMarshal, _context, "ptr", callback, HCS_OPERATION.Owned)
     return result
 }
 
@@ -78,7 +76,7 @@ export HcsCreateOperation(_context, callback) {
 export HcsCreateOperationWithNotifications(eventTypes, _context, callback) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("computecore.dll\HcsCreateOperationWithNotifications", HCS_OPERATION_OPTIONS, eventTypes, _contextMarshal, _context, HCS_EVENT_CALLBACK, callback, HCS_OPERATION.Owned)
+    result := DllCall("computecore.dll\HcsCreateOperationWithNotifications", HCS_OPERATION_OPTIONS, eventTypes, _contextMarshal, _context, "ptr", callback, HCS_OPERATION.Owned)
     return result
 }
 
@@ -276,7 +274,7 @@ export HcsWaitForOperationResultAndProcessInfo(operation, timeoutMs, processInfo
 export HcsSetOperationCallback(operation, _context, callback) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("computecore.dll\HcsSetOperationCallback", HCS_OPERATION, operation, _contextMarshal, _context, HCS_OPERATION_COMPLETION, callback, "HRESULT")
+    result := DllCall("computecore.dll\HcsSetOperationCallback", HCS_OPERATION, operation, _contextMarshal, _context, "ptr", callback, "HRESULT")
     return result
 }
 
@@ -587,7 +585,7 @@ export HcsWaitForComputeSystemExit(computeSystem, timeoutMs) {
 export HcsSetComputeSystemCallback(computeSystem, callbackOptions, _context, callback) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("computecore.dll\HcsSetComputeSystemCallback", HCS_SYSTEM, computeSystem, HCS_EVENT_OPTIONS, callbackOptions, _contextMarshal, _context, HCS_EVENT_CALLBACK, callback, "HRESULT")
+    result := DllCall("computecore.dll\HcsSetComputeSystemCallback", HCS_SYSTEM, computeSystem, HCS_EVENT_OPTIONS, callbackOptions, _contextMarshal, _context, "ptr", callback, "HRESULT")
     return result
 }
 
@@ -784,7 +782,7 @@ export HcsModifyProcess(process, operation, settings) {
 export HcsSetProcessCallback(process, callbackOptions, _context, callback) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("computecore.dll\HcsSetProcessCallback", HCS_PROCESS, process, HCS_EVENT_OPTIONS, callbackOptions, _contextMarshal, _context, HCS_EVENT_CALLBACK, callback, "HRESULT")
+    result := DllCall("computecore.dll\HcsSetProcessCallback", HCS_PROCESS, process, HCS_EVENT_OPTIONS, callbackOptions, _contextMarshal, _context, "ptr", callback, "HRESULT")
     return result
 }
 

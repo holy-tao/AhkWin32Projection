@@ -50,10 +50,6 @@ export default struct DATEFMT_ENUMPROCEXEX {
             this.value := CallbackCreate(fn, , [PWSTR, UInt32, LPARAM, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\XEKL_KEYSPEC.ahk" { XEKL_KEYSPEC }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import "..\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\ADDED_CERT_TYPE.ahk" { ADDED_CERT_TYPE }
+#Import ".\CERT_CREATE_REQUEST_FLAGS.ahk" { CERT_CREATE_REQUEST_FLAGS }
+#Import ".\IEnroll2.ahk" { IEnroll2 }
 #Import ".\PENDING_REQUEST_DESIRED_PROPERTY.ahk" { PENDING_REQUEST_DESIRED_PROPERTY }
 #Import ".\XEKL_KEYSIZE.ahk" { XEKL_KEYSIZE }
-#Import ".\CERT_CREATE_REQUEST_FLAGS.ahk" { CERT_CREATE_REQUEST_FLAGS }
-#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ADDED_CERT_TYPE.ahk" { ADDED_CERT_TYPE }
-#Import ".\IEnroll2.ahk" { IEnroll2 }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\XEKL_KEYSPEC.ahk" { XEKL_KEYSPEC }
 
 /**
  * The IEnroll4 interface represents the Certificate Enrollment Control and is used primarily to generate certificate requests.

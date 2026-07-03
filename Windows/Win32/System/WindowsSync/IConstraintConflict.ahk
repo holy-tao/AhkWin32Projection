@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\CONSTRAINT_CONFLICT_REASON.ahk" { CONSTRAINT_CONFLICT_REASON }
 #Import ".\ISyncChange.ahk" { ISyncChange }
-#Import ".\SYNC_CONSTRAINT_RESOLVE_ACTION.ahk" { SYNC_CONSTRAINT_RESOLVE_ACTION }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISyncChangeUnit.ahk" { ISyncChangeUnit }
+#Import ".\SYNC_CONSTRAINT_RESOLVE_ACTION.ahk" { SYNC_CONSTRAINT_RESOLVE_ACTION }
 
 /**
  * @namespace Windows.Win32.System.WindowsSync

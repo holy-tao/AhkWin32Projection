@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\COMAdminApplicationExportOptions.ahk" { COMAdminApplicationExportOptions }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\COMAdminApplicationInstallOptions.ahk" { COMAdminApplicationInstallOptions }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import ".\COMAdminApplicationExportOptions.ahk" { COMAdminApplicationExportOptions }
+#Import ".\COMAdminApplicationInstallOptions.ahk" { COMAdminApplicationInstallOptions }
 
 /**
  * Initiates a session to do programmatic COM+ administration, access collections in the catalog, install COM+ applications and components, start and stop services, and connect to remote servers.

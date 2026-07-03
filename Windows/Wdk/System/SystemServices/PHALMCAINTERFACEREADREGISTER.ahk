@@ -28,7 +28,7 @@ export default struct PHALMCAINTERFACEREADREGISTER {
         ExceptionMarshal := Exception is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, Int8, BankNumber, ExceptionMarshal, Exception, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -48,10 +48,6 @@ export default struct PHALMCAINTERFACEREADREGISTER {
             this.value := CallbackCreate(fn, , [Int8, "ptr", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

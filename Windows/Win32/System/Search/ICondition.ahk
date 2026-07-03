@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IPersistStream.ahk" { IPersistStream }
+#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 #Import "Common\CONDITION_OPERATION.ahk" { CONDITION_OPERATION }
 #Import "Common\CONDITION_TYPE.ahk" { CONDITION_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IPersistStream.ahk" { IPersistStream }
 #Import ".\IRichChunk.ahk" { IRichChunk }
 
 /**

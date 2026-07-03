@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NVME_WCS_DEVICE_CAPABILITIES.ahk" { NVME_WCS_DEVICE_CAPABILITIES }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\NVME_WCS_DEVICE_CAPABILITIES.ahk" { NVME_WCS_DEVICE_CAPABILITIES }
 #Import ".\NVME_WCS_DEVICE_RESET_ACTION.ahk" { NVME_WCS_DEVICE_RESET_ACTION }
 
 /**

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D12Pageable.ahk" { ID3D12Pageable }
 #Import ".\D3D12_META_COMMAND_PARAMETER_STAGE.ahk" { D3D12_META_COMMAND_PARAMETER_STAGE }
+#Import ".\ID3D12Pageable.ahk" { ID3D12Pageable }
 
 /**
  * Represents a meta command. A meta command is a Direct3D 12 object representing an algorithm that is accelerated by independent hardware vendors (IHVs). It's an opaque reference to a command generator that is implemented by the driver.

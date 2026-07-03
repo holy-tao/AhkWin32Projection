@@ -1,8 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LPOCNCONNPROCW.ahk" { LPOCNCONNPROCW }
-#Import ".\OPENCARD_SEARCH_CRITERIAW.ahk" { OPENCARD_SEARCH_CRITERIAW }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\OPENCARD_SEARCH_CRITERIAW.ahk" { OPENCARD_SEARCH_CRITERIAW }
 #Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
 
 /**
@@ -117,7 +116,7 @@ export default struct OPENCARDNAME_EXW {
      * 
      * ```
      */
-    lpfnConnect : LPOCNCONNPROCW
+    lpfnConnect : IntPtr
 
     /**
      * A void pointer to user data. This pointer is passed back to the caller on the Connect routine.

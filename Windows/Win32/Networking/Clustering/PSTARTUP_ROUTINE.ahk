@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PLOG_EVENT_ROUTINE.ahk" { PLOG_EVENT_ROUTINE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CLRES_FUNCTION_TABLE.ahk" { CLRES_FUNCTION_TABLE }
-#Import ".\PSET_RESOURCE_STATUS_ROUTINE.ahk" { PSET_RESOURCE_STATUS_ROUTINE }
 
 /**
  * Loads a resource DLL, returning a structure containing a function table and a version number.
@@ -93,7 +91,7 @@ export default struct PSTARTUP_ROUTINE {
 
         FunctionTableMarshal := FunctionTable is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall(this.value, "ptr", _ResourceType, UInt32, MinVersionSupported, UInt32, MaxVersionSupported, PSET_RESOURCE_STATUS_ROUTINE, SetResourceStatus, PLOG_EVENT_ROUTINE, LogEvent, FunctionTableMarshal, FunctionTable, UInt32)
+        result := DllCall(this.value, "ptr", _ResourceType, UInt32, MinVersionSupported, UInt32, MaxVersionSupported, "ptr", SetResourceStatus, "ptr", LogEvent, FunctionTableMarshal, FunctionTable, UInt32)
         return result
     }
 
@@ -104,19 +102,15 @@ export default struct PSTARTUP_ROUTINE {
     struct From extends PSTARTUP_ROUTINE {
         /**
          * Creates a PSTARTUP_ROUTINE pointer that invokes the given AHK function when called.
-         * @param {Func(PWSTR, UInt32, UInt32, PSET_RESOURCE_STATUS_ROUTINE, PLOG_EVENT_ROUTINE, "ptr*") => UInt32} fn the function to invoke.
+         * @param {Func(PWSTR, UInt32, UInt32, "ptr", "ptr", "ptr*") => UInt32} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 6)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 6 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [PWSTR, UInt32, UInt32, PSET_RESOURCE_STATUS_ROUTINE, PLOG_EVENT_ROUTINE, "ptr*", UInt32])
+            this.value := CallbackCreate(fn, , [PWSTR, UInt32, UInt32, "ptr", "ptr", "ptr*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

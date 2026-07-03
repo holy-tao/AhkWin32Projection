@@ -1,5 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_CERTIFICATE_VALIDATION_CALLBACK.ahk" { WS_CERTIFICATE_VALIDATION_CALLBACK }
 
 /**
  * The WS_CERTIFICATE_VALIDATION_CALLBACK_CONTEXT structure contains the callback function and state for validating the certificate for an HTTP connection.
@@ -12,7 +11,7 @@ export default struct WS_CERTIFICATE_VALIDATION_CALLBACK_CONTEXT {
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_certificate_validation_callback">WS_CERTIFICATE_VALIDATION_CALLBACK</a> callback that is an application specific callback for validating HTTP certificates.
      */
-    callback : WS_CERTIFICATE_VALIDATION_CALLBACK
+    callback : IntPtr
 
     /**
      * Application specific state that is made available to the callback when invoked.

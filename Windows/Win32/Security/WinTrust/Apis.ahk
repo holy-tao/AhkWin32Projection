@@ -1,23 +1,23 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\CRYPT_PROVIDER_SGNR.ahk" { CRYPT_PROVIDER_SGNR }
-#Import ".\CRYPT_PROVIDER_REGDEFUSAGE.ahk" { CRYPT_PROVIDER_REGDEFUSAGE }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\WINTRUST_DATA.ahk" { WINTRUST_DATA }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Cryptography\CERT_INFO.ahk" { CERT_INFO }
-#Import ".\CRYPT_PROVIDER_DEFUSAGE.ahk" { CRYPT_PROVIDER_DEFUSAGE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\CRYPT_PROVIDER_CERT.ahk" { CRYPT_PROVIDER_CERT }
-#Import ".\WINTRUST_POLICY_FLAGS.ahk" { WINTRUST_POLICY_FLAGS }
-#Import ".\WINTRUST_GET_DEFAULT_FOR_USAGE_ACTION.ahk" { WINTRUST_GET_DEFAULT_FOR_USAGE_ACTION }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\CRYPT_PROVIDER_FUNCTIONS.ahk" { CRYPT_PROVIDER_FUNCTIONS }
-#Import ".\CRYPT_PROVIDER_DATA.ahk" { CRYPT_PROVIDER_DATA }
-#Import ".\CRYPT_PROVIDER_PRIVDATA.ahk" { CRYPT_PROVIDER_PRIVDATA }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\Cryptography\CERT_INFO.ahk" { CERT_INFO }
+#Import ".\CRYPT_PROVIDER_CERT.ahk" { CRYPT_PROVIDER_CERT }
+#Import ".\CRYPT_PROVIDER_DATA.ahk" { CRYPT_PROVIDER_DATA }
+#Import ".\CRYPT_PROVIDER_DEFUSAGE.ahk" { CRYPT_PROVIDER_DEFUSAGE }
+#Import ".\CRYPT_PROVIDER_FUNCTIONS.ahk" { CRYPT_PROVIDER_FUNCTIONS }
+#Import ".\CRYPT_PROVIDER_PRIVDATA.ahk" { CRYPT_PROVIDER_PRIVDATA }
+#Import ".\CRYPT_PROVIDER_REGDEFUSAGE.ahk" { CRYPT_PROVIDER_REGDEFUSAGE }
+#Import ".\CRYPT_PROVIDER_SGNR.ahk" { CRYPT_PROVIDER_SGNR }
 #Import ".\CRYPT_REGISTER_ACTIONID.ahk" { CRYPT_REGISTER_ACTIONID }
+#Import ".\WINTRUST_DATA.ahk" { WINTRUST_DATA }
+#Import ".\WINTRUST_GET_DEFAULT_FOR_USAGE_ACTION.ahk" { WINTRUST_GET_DEFAULT_FOR_USAGE_ACTION }
+#Import ".\WINTRUST_POLICY_FLAGS.ahk" { WINTRUST_POLICY_FLAGS }
 
 /**
  * @namespace Windows.Win32.Security.WinTrust

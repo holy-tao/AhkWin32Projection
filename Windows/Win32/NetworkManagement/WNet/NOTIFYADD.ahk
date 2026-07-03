@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NET_RESOURCE_SCOPE.ahk" { NET_RESOURCE_SCOPE }
-#Import ".\NETRESOURCEA.ahk" { NETRESOURCEA }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\NET_RESOURCE_TYPE.ahk" { NET_RESOURCE_TYPE }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\NETRESOURCEA.ahk" { NETRESOURCEA }
 #Import ".\NET_CONNECT_FLAGS.ahk" { NET_CONNECT_FLAGS }
+#Import ".\NET_RESOURCE_SCOPE.ahk" { NET_RESOURCE_SCOPE }
+#Import ".\NET_RESOURCE_TYPE.ahk" { NET_RESOURCE_TYPE }
 
 /**
  * The NOTIFYADD structure contains the details of a network connect operation. It is used by the AddConnectNotify function.

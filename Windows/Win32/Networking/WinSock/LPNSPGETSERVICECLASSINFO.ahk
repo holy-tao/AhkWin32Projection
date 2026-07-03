@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WSASERVICECLASSINFOW.ahk" { WSASERVICECLASSINFOW }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WSASERVICECLASSINFOW.ahk" { WSASERVICECLASSINFOW }
 
 /**
  * Retrieves all the pertinent class information (schema) pertaining to the namespace provider.
@@ -143,10 +143,6 @@ export default struct LPNSPGETSERVICECLASSINFO {
             this.value := CallbackCreate(fn, , [Guid.Ptr, "uint*", WSASERVICECLASSINFOW.Ptr, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

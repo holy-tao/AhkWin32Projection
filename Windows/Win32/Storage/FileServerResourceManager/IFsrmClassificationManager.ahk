@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FsrmRuleType.ahk" { FsrmRuleType }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\FsrmReportGenerationContext.ahk" { FsrmReportGenerationContext }
-#Import ".\FsrmReportRunningStatus.ahk" { FsrmReportRunningStatus }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\FsrmEnumOptions.ahk" { FsrmEnumOptions }
-#Import ".\IFsrmProperty.ahk" { IFsrmProperty }
-#Import ".\IFsrmPipelineModuleDefinition.ahk" { IFsrmPipelineModuleDefinition }
 #Import ".\FsrmGetFilePropertyOptions.ahk" { FsrmGetFilePropertyOptions }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\FsrmPipelineModuleType.ahk" { FsrmPipelineModuleType }
+#Import ".\FsrmReportGenerationContext.ahk" { FsrmReportGenerationContext }
+#Import ".\FsrmReportRunningStatus.ahk" { FsrmReportRunningStatus }
+#Import ".\FsrmRuleType.ahk" { FsrmRuleType }
 #Import ".\IFsrmCollection.ahk" { IFsrmCollection }
+#Import ".\IFsrmPipelineModuleDefinition.ahk" { IFsrmPipelineModuleDefinition }
+#Import ".\IFsrmProperty.ahk" { IFsrmProperty }
 #Import ".\IFsrmPropertyDefinition.ahk" { IFsrmPropertyDefinition }
 #Import ".\IFsrmRule.ahk" { IFsrmRule }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }

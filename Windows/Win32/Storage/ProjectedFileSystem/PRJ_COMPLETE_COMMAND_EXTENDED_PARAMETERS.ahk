@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PRJ_NOTIFY_TYPES.ahk" { PRJ_NOTIFY_TYPES }
 #Import ".\PRJ_COMPLETE_COMMAND_TYPE.ahk" { PRJ_COMPLETE_COMMAND_TYPE }
 #Import ".\PRJ_DIR_ENTRY_BUFFER_HANDLE.ahk" { PRJ_DIR_ENTRY_BUFFER_HANDLE }
+#Import ".\PRJ_NOTIFY_TYPES.ahk" { PRJ_NOTIFY_TYPES }
 
 /**
  * Specifies parameters required for completing certain callbacks.

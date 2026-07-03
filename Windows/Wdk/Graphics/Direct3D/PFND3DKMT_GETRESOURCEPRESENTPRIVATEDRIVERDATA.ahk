@@ -26,7 +26,7 @@ export default struct PFND3DKMT_GETRESOURCEPRESENTPRIVATEDRIVERDATA {
      */
     Call(param0) {
         result := DllCall(this.value, D3DDDI_GETRESOURCEPRESENTPRIVATEDRIVERDATA.Ptr, param0, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -46,10 +46,6 @@ export default struct PFND3DKMT_GETRESOURCEPRESENTPRIVATEDRIVERDATA {
             this.value := CallbackCreate(fn, , [D3DDDI_GETRESOURCEPRESENTPRIVATEDRIVERDATA.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

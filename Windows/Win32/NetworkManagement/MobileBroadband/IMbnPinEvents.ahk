@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\MBN_PIN_INFO.ahk" { MBN_PIN_INFO }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMbnPin.ahk" { IMbnPin }
+#Import ".\MBN_PIN_INFO.ahk" { MBN_PIN_INFO }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This interface is a notification interface used to indicate when asynchronous PIN requests have completed.

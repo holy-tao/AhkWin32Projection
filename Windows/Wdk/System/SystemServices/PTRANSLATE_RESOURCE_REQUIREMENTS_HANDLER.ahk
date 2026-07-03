@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IO_RESOURCE_DESCRIPTOR.ahk" { IO_RESOURCE_DESCRIPTOR }
 #Import "..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
+#Import ".\IO_RESOURCE_DESCRIPTOR.ahk" { IO_RESOURCE_DESCRIPTOR }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
@@ -35,7 +35,7 @@ export default struct PTRANSLATE_RESOURCE_REQUIREMENTS_HANDLER {
         TargetMarshal := Target is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, IO_RESOURCE_DESCRIPTOR.Ptr, Source, DEVICE_OBJECT.Ptr, PhysicalDeviceObject, TargetCountMarshal, TargetCount, TargetMarshal, Target, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -55,10 +55,6 @@ export default struct PTRANSLATE_RESOURCE_REQUIREMENTS_HANDLER {
             this.value := CallbackCreate(fn, , ["ptr", IO_RESOURCE_DESCRIPTOR.Ptr, DEVICE_OBJECT.Ptr, "uint*", "ptr*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

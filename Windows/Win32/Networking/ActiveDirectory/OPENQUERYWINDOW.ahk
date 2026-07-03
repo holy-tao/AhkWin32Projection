@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\System\Com\StructuredStorage\IPropertyBag.ahk" { IPropertyBag }
-#Import ".\IPersistQuery.ahk" { IPersistQuery }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IPersistQuery.ahk" { IPersistQuery }
+#Import "..\..\System\Com\StructuredStorage\IPropertyBag.ahk" { IPropertyBag }
 
 /**
  * Used with the ICommonQuery::OpenQueryWindow method to initialize the directory service query dialog box.

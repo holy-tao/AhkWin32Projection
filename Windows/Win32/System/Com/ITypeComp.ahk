@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DESCKIND.ahk" { DESCKIND }
-#Import ".\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ITypeInfo.ahk" { ITypeInfo }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\BINDPTR.ahk" { BINDPTR }
+#Import ".\DESCKIND.ahk" { DESCKIND }
+#Import ".\ITypeInfo.ahk" { ITypeInfo }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITypeComp interface provides a fast way to access information that compilers need when binding to and instantiating structures and interfaces.

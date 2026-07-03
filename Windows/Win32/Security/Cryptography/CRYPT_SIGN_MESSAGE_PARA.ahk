@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\CRYPT_ATTRIBUTE.ahk" { CRYPT_ATTRIBUTE }
+#Import ".\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import ".\CRL_CONTEXT.ahk" { CRL_CONTEXT }
-#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 #Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
+#Import ".\CRYPT_ATTRIBUTE.ahk" { CRYPT_ATTRIBUTE }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 
 /**
  * The CRYPT_SIGN_MESSAGE_PARA structure contains information for signing messages using a specified signing certificate context.

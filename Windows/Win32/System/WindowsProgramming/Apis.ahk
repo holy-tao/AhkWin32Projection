@@ -1,57 +1,55 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\IMEPROW.ahk" { IMEPROW }
-#Import "..\..\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\DCIOVERLAY.ahk" { DCIOVERLAY }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\HWINWATCH.ahk" { HWINWATCH }
-#Import ".\PERUSERSECTIONA.ahk" { PERUSERSECTIONA }
-#Import "..\..\Graphics\Gdi\RGNDATA.ahk" { RGNDATA }
-#Import ".\WLDP_WINDOWS_LOCKDOWN_MODE.ahk" { WLDP_WINDOWS_LOCKDOWN_MODE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
-#Import ".\CABINFOA.ahk" { CABINFOA }
-#Import ".\HW_PROFILE_INFOA.ahk" { HW_PROFILE_INFOA }
-#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
-#Import ".\WINWATCHNOTIFYPROC.ahk" { WINWATCHNOTIFYPROC }
-#Import ".\WLDP_HOST_INFORMATION.ahk" { WLDP_HOST_INFORMATION }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DCIOFFSCREEN.ahk" { DCIOFFSCREEN }
-#Import ".\IMEPROA.ahk" { IMEPROA }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
-#Import ".\FEATURE_ERROR.ahk" { FEATURE_ERROR }
-#Import ".\STRTABLEA.ahk" { STRTABLEA }
-#Import ".\WLDP_EXECUTION_POLICY.ahk" { WLDP_EXECUTION_POLICY }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WLDP_EXECUTION_EVALUATION_OPTIONS.ahk" { WLDP_EXECUTION_EVALUATION_OPTIONS }
-#Import "..\Com\IStream.ahk" { IStream }
-#Import ".\PERUSERSECTIONW.ahk" { PERUSERSECTIONW }
-#Import ".\WLDP_POLICY_SETTING.ahk" { WLDP_POLICY_SETTING }
-#Import ".\CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG.ahk" { CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG }
-#Import ".\HW_PROFILE_INFOW.ahk" { HW_PROFILE_INFOW }
-#Import ".\STRTABLEW.ahk" { STRTABLEW }
-#Import ".\FEATURE_STATE_CHANGE_SUBSCRIPTION.ahk" { FEATURE_STATE_CHANGE_SUBSCRIPTION }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\DCISURFACEINFO.ahk" { DCISURFACEINFO }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
-#Import "..\Kernel\STRING.ahk" { STRING }
-#Import ".\WLDP_WINDOWS_LOCKDOWN_RESTRICTION.ahk" { WLDP_WINDOWS_LOCKDOWN_RESTRICTION }
-#Import ".\WLDP_SECURE_SETTING_VALUE_TYPE.ahk" { WLDP_SECURE_SETTING_VALUE_TYPE }
-#Import ".\FEATURE_ENABLED_STATE.ahk" { FEATURE_ENABLED_STATE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\PFEATURE_STATE_CHANGE_CALLBACK.ahk" { PFEATURE_STATE_CHANGE_CALLBACK }
-#Import ".\CABINFOW.ahk" { CABINFOW }
-#Import ".\WLDP_DEVICE_SECURITY_INFORMATION.ahk" { WLDP_DEVICE_SECURITY_INFORMATION }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HLOCAL.ahk" { HLOCAL }
-#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
-#Import ".\FEATURE_CHANGE_TIME.ahk" { FEATURE_CHANGE_TIME }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\HLOCAL.ahk" { HLOCAL }
+#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Graphics\Gdi\RGNDATA.ahk" { RGNDATA }
+#Import "..\Com\IStream.ahk" { IStream }
+#Import "..\Kernel\STRING.ahk" { STRING }
 #Import "..\Registry\HKEY.ahk" { HKEY }
+#Import ".\CABINFOA.ahk" { CABINFOA }
+#Import ".\CABINFOW.ahk" { CABINFOW }
+#Import ".\CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG.ahk" { CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG }
+#Import ".\DCIOFFSCREEN.ahk" { DCIOFFSCREEN }
+#Import ".\DCIOVERLAY.ahk" { DCIOVERLAY }
+#Import ".\DCISURFACEINFO.ahk" { DCISURFACEINFO }
+#Import ".\FEATURE_CHANGE_TIME.ahk" { FEATURE_CHANGE_TIME }
+#Import ".\FEATURE_ENABLED_STATE.ahk" { FEATURE_ENABLED_STATE }
+#Import ".\FEATURE_ERROR.ahk" { FEATURE_ERROR }
+#Import ".\FEATURE_STATE_CHANGE_SUBSCRIPTION.ahk" { FEATURE_STATE_CHANGE_SUBSCRIPTION }
+#Import ".\HWINWATCH.ahk" { HWINWATCH }
+#Import ".\HW_PROFILE_INFOA.ahk" { HW_PROFILE_INFOA }
+#Import ".\HW_PROFILE_INFOW.ahk" { HW_PROFILE_INFOW }
+#Import ".\IMEPROA.ahk" { IMEPROA }
+#Import ".\IMEPROW.ahk" { IMEPROW }
+#Import ".\PERUSERSECTIONA.ahk" { PERUSERSECTIONA }
+#Import ".\PERUSERSECTIONW.ahk" { PERUSERSECTIONW }
+#Import ".\STRTABLEA.ahk" { STRTABLEA }
+#Import ".\STRTABLEW.ahk" { STRTABLEW }
+#Import ".\WLDP_DEVICE_SECURITY_INFORMATION.ahk" { WLDP_DEVICE_SECURITY_INFORMATION }
+#Import ".\WLDP_EXECUTION_EVALUATION_OPTIONS.ahk" { WLDP_EXECUTION_EVALUATION_OPTIONS }
+#Import ".\WLDP_EXECUTION_POLICY.ahk" { WLDP_EXECUTION_POLICY }
+#Import ".\WLDP_HOST_INFORMATION.ahk" { WLDP_HOST_INFORMATION }
+#Import ".\WLDP_POLICY_SETTING.ahk" { WLDP_POLICY_SETTING }
+#Import ".\WLDP_SECURE_SETTING_VALUE_TYPE.ahk" { WLDP_SECURE_SETTING_VALUE_TYPE }
+#Import ".\WLDP_WINDOWS_LOCKDOWN_MODE.ahk" { WLDP_WINDOWS_LOCKDOWN_MODE }
+#Import ".\WLDP_WINDOWS_LOCKDOWN_RESTRICTION.ahk" { WLDP_WINDOWS_LOCKDOWN_RESTRICTION }
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
@@ -4101,7 +4099,7 @@ export RtlLocalTimeToSystemTime(LocalTime, _SystemTime) {
     _SystemTimeMarshal := _SystemTime is VarRef ? "int64*" : "ptr"
 
     result := DllCall("ntdll.dll\RtlLocalTimeToSystemTime", LocalTimeMarshal, LocalTime, _SystemTimeMarshal, _SystemTime, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 
@@ -4213,7 +4211,7 @@ export RtlInitStringEx(DestinationString, SourceString) {
     SourceStringMarshal := SourceString is VarRef ? "char*" : "ptr"
 
     result := DllCall("ntdll.dll\RtlInitStringEx", STRING.Ptr, DestinationString, SourceStringMarshal, SourceString, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 
@@ -4239,7 +4237,7 @@ export RtlInitAnsiStringEx(DestinationString, SourceString) {
     SourceStringMarshal := SourceString is VarRef ? "char*" : "ptr"
 
     result := DllCall("ntdll.dll\RtlInitAnsiStringEx", STRING.Ptr, DestinationString, SourceStringMarshal, SourceString, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 
@@ -4296,7 +4294,7 @@ export RtlInitUnicodeString(DestinationString, SourceString) {
  */
 export RtlAnsiStringToUnicodeString(DestinationString, SourceString, AllocateDestinationString) {
     result := DllCall("ntdll.dll\RtlAnsiStringToUnicodeString", UNICODE_STRING.Ptr, DestinationString, STRING.Ptr, SourceString, BOOLEAN, AllocateDestinationString, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 
@@ -4335,7 +4333,7 @@ export RtlAnsiStringToUnicodeString(DestinationString, SourceString, AllocateDes
  */
 export RtlUnicodeStringToAnsiString(DestinationString, SourceString, AllocateDestinationString) {
     result := DllCall("ntdll.dll\RtlUnicodeStringToAnsiString", STRING.Ptr, DestinationString, UNICODE_STRING.Ptr, SourceString, BOOLEAN, AllocateDestinationString, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 
@@ -4372,7 +4370,7 @@ export RtlUnicodeStringToAnsiString(DestinationString, SourceString, AllocateDes
  */
 export RtlUnicodeStringToOemString(DestinationString, SourceString, AllocateDestinationString) {
     result := DllCall("ntdll.dll\RtlUnicodeStringToOemString", STRING.Ptr, DestinationString, UNICODE_STRING.Ptr, SourceString, BOOLEAN, AllocateDestinationString, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 
@@ -4408,7 +4406,7 @@ export RtlUnicodeToMultiByteSize(BytesInMultiByteString, UnicodeString, BytesInU
     BytesInMultiByteStringMarshal := BytesInMultiByteString is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntdll.dll\RtlUnicodeToMultiByteSize", BytesInMultiByteStringMarshal, BytesInMultiByteString, IntPtr, UnicodeString, UInt32, BytesInUnicodeString, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 
@@ -4432,7 +4430,7 @@ export RtlCharToInteger(_String, Base, Value) {
     ValueMarshal := Value is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ntdll.dll\RtlCharToInteger", _StringMarshal, _String, UInt32, Base, ValueMarshal, Value, NTSTATUS)
-    NTSTATUS.ThrowIfError(result.value)
+    NTSTATUS.ThrowIfError(result)
     return result
 }
 
@@ -4500,7 +4498,7 @@ export RecordFeatureError(featureId, _error) {
 export SubscribeFeatureStateChangeNotification(subscription, callback, _context) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\SubscribeFeatureStateChangeNotification", FEATURE_STATE_CHANGE_SUBSCRIPTION.Ptr, subscription, PFEATURE_STATE_CHANGE_CALLBACK, callback, _contextMarshal, _context)
+    DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\SubscribeFeatureStateChangeNotification", FEATURE_STATE_CHANGE_SUBSCRIPTION.Ptr, subscription, "ptr", callback, _contextMarshal, _context)
 }
 
 /**
@@ -4707,7 +4705,7 @@ export GetDCRegionData(_hdc, _size, prd) {
  * @returns {BOOL} 
  */
 export WinWatchNotify(hWW, NotifyCallback, NotifyParam) {
-    result := DllCall("DCIMAN32.dll\WinWatchNotify", HWINWATCH, hWW, WINWATCHNOTIFYPROC, NotifyCallback, LPARAM, NotifyParam, BOOL)
+    result := DllCall("DCIMAN32.dll\WinWatchNotify", HWINWATCH, hWW, "ptr", NotifyCallback, LPARAM, NotifyParam, BOOL)
     return result
 }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CLUSPROP_SZ.ahk" { CLUSPROP_SZ }
-#Import ".\CLUSTER_RESOURCE_CLASS.ahk" { CLUSTER_RESOURCE_CLASS }
-#Import ".\CLUSPROP_SYNTAX.ahk" { CLUSPROP_SYNTAX }
 #Import ".\CLUSPROP_RESOURCE_CLASS.ahk" { CLUSPROP_RESOURCE_CLASS }
+#Import ".\CLUSPROP_SYNTAX.ahk" { CLUSPROP_SYNTAX }
+#Import ".\CLUSPROP_SZ.ahk" { CLUSPROP_SZ }
 #Import ".\CLUSPROP_VALUE.ahk" { CLUSPROP_VALUE }
+#Import ".\CLUSTER_RESOURCE_CLASS.ahk" { CLUSTER_RESOURCE_CLASS }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

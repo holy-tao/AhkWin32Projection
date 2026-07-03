@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
@@ -33,7 +33,7 @@ export default struct TDI_PNP_HANDLER {
         ReconfigBufferMarshal := ReconfigBuffer is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, UNICODE_STRING.Ptr, UpperComponent, UNICODE_STRING.Ptr, LowerComponent, UNICODE_STRING.Ptr, BindList, ReconfigBufferMarshal, ReconfigBuffer, UInt32, ReconfigBufferSize, UInt32, Operation, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -53,10 +53,6 @@ export default struct TDI_PNP_HANDLER {
             this.value := CallbackCreate(fn, , [UNICODE_STRING.Ptr, UNICODE_STRING.Ptr, UNICODE_STRING.Ptr, "ptr", UInt32, UInt32, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

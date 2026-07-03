@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\SOCKET.ahk" { SOCKET }
-#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
 #Import ".\TRANSMIT_PACKETS_ELEMENT.ahk" { TRANSMIT_PACKETS_ELEMENT }
+#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
 
 /**
  * Transmits in-memory data or file data over a connected socket.
@@ -360,10 +360,6 @@ export default struct LPFN_TRANSMITPACKETS {
             this.value := CallbackCreate(fn, , [SOCKET, TRANSMIT_PACKETS_ELEMENT.Ptr, UInt32, UInt32, OVERLAPPED.Ptr, UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

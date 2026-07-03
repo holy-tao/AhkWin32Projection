@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\WHEA_ERROR_SEVERITY.ahk" { WHEA_ERROR_SEVERITY }
+#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -30,7 +30,7 @@ export default struct _WHEA_ERROR_SOURCE_RECOVER {
         SeverityMarshal := Severity is VarRef ? "int*" : "ptr"
 
         result := DllCall(this.value, RecoveryContextMarshal, RecoveryContext, SeverityMarshal, Severity, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -50,10 +50,6 @@ export default struct _WHEA_ERROR_SOURCE_RECOVER {
             this.value := CallbackCreate(fn, , ["ptr", "int*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

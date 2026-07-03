@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\AUTO_PROXY_SCRIPT_BUFFER.ahk" { AUTO_PROXY_SCRIPT_BUFFER }
 #Import ".\AutoProxyHelperFunctions.ahk" { AutoProxyHelperFunctions }
 
@@ -54,10 +54,6 @@ export default struct pfnInternetInitializeAutoProxyDll {
             this.value := CallbackCreate(fn, , [UInt32, PSTR, PSTR, AutoProxyHelperFunctions.Ptr, AUTO_PROXY_SCRIPT_BUFFER.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

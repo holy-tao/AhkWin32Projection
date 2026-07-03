@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PRJ_CALLBACK_DATA.ahk" { PRJ_CALLBACK_DATA }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PRJ_CALLBACK_DATA.ahk" { PRJ_CALLBACK_DATA }
 
 /**
  * Requests information for a file or directory from the provider.
@@ -106,10 +106,6 @@ export default struct PRJ_GET_PLACEHOLDER_INFO_CB {
             this.value := CallbackCreate(fn, , [PRJ_CALLBACK_DATA.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

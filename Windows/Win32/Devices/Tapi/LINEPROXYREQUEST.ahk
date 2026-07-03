@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LINEAGENTSESSIONLIST.ahk" { LINEAGENTSESSIONLIST }
-#Import ".\LINEAGENTSTATUS.ahk" { LINEAGENTSTATUS }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\LINEAGENTACTIVITYLIST.ahk" { LINEAGENTACTIVITYLIST }
 #Import ".\LINEAGENTCAPS.ahk" { LINEAGENTCAPS }
+#Import ".\LINEAGENTGROUPLIST.ahk" { LINEAGENTGROUPLIST }
+#Import ".\LINEAGENTINFO.ahk" { LINEAGENTINFO }
 #Import ".\LINEAGENTSESSIONINFO.ahk" { LINEAGENTSESSIONINFO }
+#Import ".\LINEAGENTSESSIONLIST.ahk" { LINEAGENTSESSIONLIST }
+#Import ".\LINEAGENTSTATUS.ahk" { LINEAGENTSTATUS }
 #Import ".\LINEQUEUEINFO.ahk" { LINEQUEUEINFO }
 #Import ".\LINEQUEUELIST.ahk" { LINEQUEUELIST }
-#Import ".\LINEAGENTINFO.ahk" { LINEAGENTINFO }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Com\CY.ahk" { CY }
-#Import ".\LINEAGENTGROUPLIST.ahk" { LINEAGENTGROUPLIST }
 
 /**
  * The LINEPROXYREQUEST structure contains parameter values of the application making the proxy request. Multiple TAPI call center functions generate a LINE_PROXYREQUEST message that references a LINEPROXYREQUEST structure.

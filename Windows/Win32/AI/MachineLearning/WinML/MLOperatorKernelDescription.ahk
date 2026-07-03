@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\MLOperatorExecutionType.ahk" { MLOperatorExecutionType }
-#Import ".\MLOperatorEdgeTypeConstraint.ahk" { MLOperatorEdgeTypeConstraint }
-#Import ".\MLOperatorKernelOptions.ahk" { MLOperatorKernelOptions }
 #Import ".\MLOperatorAttributeNameValue.ahk" { MLOperatorAttributeNameValue }
+#Import ".\MLOperatorEdgeTypeConstraint.ahk" { MLOperatorEdgeTypeConstraint }
+#Import ".\MLOperatorExecutionType.ahk" { MLOperatorExecutionType }
+#Import ".\MLOperatorKernelOptions.ahk" { MLOperatorKernelOptions }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML

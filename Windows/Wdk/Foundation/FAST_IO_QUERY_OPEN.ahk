@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
-#Import "..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import "..\Storage\FileSystem\FILE_NETWORK_OPEN_INFORMATION.ahk" { FILE_NETWORK_OPEN_INFORMATION }
 #Import ".\IRP.ahk" { IRP }
+#Import "..\Storage\FileSystem\FILE_NETWORK_OPEN_INFORMATION.ahk" { FILE_NETWORK_OPEN_INFORMATION }
+#Import "..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.Foundation
@@ -49,10 +49,6 @@ export default struct FAST_IO_QUERY_OPEN {
             this.value := CallbackCreate(fn, , [IRP.Ptr, FILE_NETWORK_OPEN_INFORMATION.Ptr, DEVICE_OBJECT.Ptr, BOOLEAN])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

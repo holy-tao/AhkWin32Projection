@@ -28,7 +28,7 @@ export default struct DRIVER_ADD_DEVICE {
      */
     Call(DriverObject, PhysicalDeviceObject) {
         result := DllCall(this.value, DRIVER_OBJECT.Ptr, DriverObject, DEVICE_OBJECT.Ptr, PhysicalDeviceObject, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -48,10 +48,6 @@ export default struct DRIVER_ADD_DEVICE {
             this.value := CallbackCreate(fn, , [DRIVER_OBJECT.Ptr, DEVICE_OBJECT.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -41,10 +41,6 @@ export default struct PPO_FX_DIRECTED_POWER_UP_CALLBACK {
             this.value := CallbackCreate(fn, , [IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

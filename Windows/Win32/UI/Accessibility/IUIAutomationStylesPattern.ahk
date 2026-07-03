@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\UIA_STYLE_ID.ahk" { UIA_STYLE_ID }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ExtendedProperty.ahk" { ExtendedProperty }
+#Import ".\UIA_STYLE_ID.ahk" { UIA_STYLE_ID }
 
 /**
  * Enables Microsoft UI Automation clients to retrieve the visual styles associated with an element in a document.

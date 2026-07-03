@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MF_TIMED_TEXT_SCROLL_MODE.ahk" { MF_TIMED_TEXT_SCROLL_MODE }
-#Import ".\MFARGB.ahk" { MFARGB }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\MF_TIMED_TEXT_UNIT_TYPE.ahk" { MF_TIMED_TEXT_UNIT_TYPE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MF_TIMED_TEXT_WRITING_MODE.ahk" { MF_TIMED_TEXT_WRITING_MODE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MFARGB.ahk" { MFARGB }
 #Import ".\MF_TIMED_TEXT_DISPLAY_ALIGNMENT.ahk" { MF_TIMED_TEXT_DISPLAY_ALIGNMENT }
+#Import ".\MF_TIMED_TEXT_SCROLL_MODE.ahk" { MF_TIMED_TEXT_SCROLL_MODE }
+#Import ".\MF_TIMED_TEXT_UNIT_TYPE.ahk" { MF_TIMED_TEXT_UNIT_TYPE }
+#Import ".\MF_TIMED_TEXT_WRITING_MODE.ahk" { MF_TIMED_TEXT_WRITING_MODE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents the display region of a timed-text object.

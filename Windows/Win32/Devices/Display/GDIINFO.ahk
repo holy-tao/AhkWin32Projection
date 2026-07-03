@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\COLORINFO.ahk" { COLORINFO }
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
-#Import "..\..\Foundation\POINTL.ahk" { POINTL }
 #Import ".\CIECHROMA.ahk" { CIECHROMA }
+#Import ".\COLORINFO.ahk" { COLORINFO }
+#Import "..\..\Foundation\POINTL.ahk" { POINTL }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * The GDIINFO structure describes the graphics capabilities of a given device.

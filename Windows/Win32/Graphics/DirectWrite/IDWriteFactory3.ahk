@@ -1,27 +1,27 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDWriteFontFile.ahk" { IDWriteFontFile }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
 #Import ".\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
 #Import ".\DWRITE_GRID_FIT_MODE.ahk" { DWRITE_GRID_FIT_MODE }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IDWriteFontFaceReference.ahk" { IDWriteFontFaceReference }
-#Import ".\DWRITE_TEXT_ANTIALIAS_MODE.ahk" { DWRITE_TEXT_ANTIALIAS_MODE }
-#Import ".\IDWriteFontSet.ahk" { IDWriteFontSet }
-#Import ".\DWRITE_RENDERING_MODE1.ahk" { DWRITE_RENDERING_MODE1 }
+#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
 #Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import ".\DWRITE_PIXEL_GEOMETRY.ahk" { DWRITE_PIXEL_GEOMETRY }
+#Import ".\DWRITE_RENDERING_MODE1.ahk" { DWRITE_RENDERING_MODE1 }
+#Import ".\DWRITE_TEXT_ANTIALIAS_MODE.ahk" { DWRITE_TEXT_ANTIALIAS_MODE }
+#Import ".\IDWriteFactory2.ahk" { IDWriteFactory2 }
 #Import ".\IDWriteFontCollection1.ahk" { IDWriteFontCollection1 }
+#Import ".\IDWriteFontDownloadQueue.ahk" { IDWriteFontDownloadQueue }
+#Import ".\IDWriteFontFaceReference.ahk" { IDWriteFontFaceReference }
+#Import ".\IDWriteFontFile.ahk" { IDWriteFontFile }
+#Import ".\IDWriteFontSet.ahk" { IDWriteFontSet }
+#Import ".\IDWriteFontSetBuilder.ahk" { IDWriteFontSetBuilder }
 #Import ".\IDWriteGlyphRunAnalysis.ahk" { IDWriteGlyphRunAnalysis }
 #Import ".\IDWriteRenderingParams3.ahk" { IDWriteRenderingParams3 }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IDWriteFontSetBuilder.ahk" { IDWriteFontSetBuilder }
-#Import ".\DWRITE_PIXEL_GEOMETRY.ahk" { DWRITE_PIXEL_GEOMETRY }
-#Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
-#Import ".\IDWriteFactory2.ahk" { IDWriteFactory2 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
-#Import ".\IDWriteFontDownloadQueue.ahk" { IDWriteFontDownloadQueue }
 
 /**
  * The root factory interface for all DirectWrite objects. (IDWriteFactory3)

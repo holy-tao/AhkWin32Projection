@@ -2,15 +2,15 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\TextUnit.ahk" { TextUnit }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IRawElementProviderSimple.ahk" { IRawElementProviderSimple }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\UIA_TEXTATTRIBUTE_ID.ahk" { UIA_TEXTATTRIBUTE_ID }
-#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IRawElementProviderSimple.ahk" { IRawElementProviderSimple }
 #Import ".\TextPatternRangeEndpoint.ahk" { TextPatternRangeEndpoint }
+#Import ".\TextUnit.ahk" { TextUnit }
+#Import ".\UIA_TEXTATTRIBUTE_ID.ahk" { UIA_TEXTATTRIBUTE_ID }
 
 /**
  * Provides access to a span of continuous text in a text container that implements ITextProvider or ITextProvider2.

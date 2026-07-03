@@ -2,14 +2,14 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\HANDLE_ACCESS_OPTIONS.ahk" { HANDLE_ACCESS_OPTIONS }
-#Import ".\HANDLE_SHARING_OPTIONS.ahk" { HANDLE_SHARING_OPTIONS }
-#Import "..\..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IOplockBreakingHandler.ahk" { IOplockBreakingHandler }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\HANDLE_CREATION_OPTIONS.ahk" { HANDLE_CREATION_OPTIONS }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\HANDLE_ACCESS_OPTIONS.ahk" { HANDLE_ACCESS_OPTIONS }
+#Import ".\HANDLE_CREATION_OPTIONS.ahk" { HANDLE_CREATION_OPTIONS }
 #Import ".\HANDLE_OPTIONS.ahk" { HANDLE_OPTIONS }
+#Import ".\HANDLE_SHARING_OPTIONS.ahk" { HANDLE_SHARING_OPTIONS }
+#Import ".\IOplockBreakingHandler.ahk" { IOplockBreakingHandler }
 
 /**
  * Provides access to the operating system handle of a storage folder.

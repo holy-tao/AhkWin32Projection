@@ -29,7 +29,7 @@ export default struct PGPE_ENABLE_EVENT2 {
         _ObjectContextMarshal := _ObjectContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, _ObjectContextMarshal, _ObjectContext, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -49,10 +49,6 @@ export default struct PGPE_ENABLE_EVENT2 {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

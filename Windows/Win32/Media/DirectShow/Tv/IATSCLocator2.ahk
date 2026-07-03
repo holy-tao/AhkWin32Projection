@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IATSCLocator.ahk" { IATSCLocator }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IATSCLocator.ahk" { IATSCLocator }
 
 /**
  * The IATASCLocator2 interface enables the network provider to determine the physical channel, transport stream ID, and program number of an ATSC transmission.

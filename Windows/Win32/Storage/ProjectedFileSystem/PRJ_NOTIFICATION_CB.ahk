@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PRJ_NOTIFICATION_PARAMETERS.ahk" { PRJ_NOTIFICATION_PARAMETERS }
-#Import ".\PRJ_NOTIFICATION.ahk" { PRJ_NOTIFICATION }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\PRJ_CALLBACK_DATA.ahk" { PRJ_CALLBACK_DATA }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PRJ_CALLBACK_DATA.ahk" { PRJ_CALLBACK_DATA }
+#Import ".\PRJ_NOTIFICATION.ahk" { PRJ_NOTIFICATION }
+#Import ".\PRJ_NOTIFICATION_PARAMETERS.ahk" { PRJ_NOTIFICATION_PARAMETERS }
 
 /**
  * Delivers notifications to the provider about file system operations.
@@ -153,10 +153,6 @@ export default struct PRJ_NOTIFICATION_CB {
             this.value := CallbackCreate(fn, , [PRJ_CALLBACK_DATA.Ptr, BOOLEAN, PRJ_NOTIFICATION, PWSTR, PRJ_NOTIFICATION_PARAMETERS.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import "..\..\Foundation\PBUS_HANDLER.ahk" { PBUS_HANDLER }
+#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -32,7 +32,7 @@ export default struct pHalQueryBusSlots {
         ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, PBUS_HANDLER, BusHandler, UInt32, BufferSize, SlotNumbersMarshal, SlotNumbers, ReturnedLengthMarshal, ReturnedLength, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -52,10 +52,6 @@ export default struct pHalQueryBusSlots {
             this.value := CallbackCreate(fn, , [PBUS_HANDLER, UInt32, "uint*", "uint*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

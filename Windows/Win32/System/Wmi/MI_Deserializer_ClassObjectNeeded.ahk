@@ -57,10 +57,6 @@ export default struct MI_Deserializer_ClassObjectNeeded {
             this.value := CallbackCreate(fn, , ["ptr", "ushort*", "ushort*", "ushort*", "ptr*", MI_Result])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CLUSTER_REG_COMMAND.ahk" { CLUSTER_REG_COMMAND }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CLUSTER_REG_COMMAND.ahk" { CLUSTER_REG_COMMAND }
 
 /**
  * Represents the order in which current batch command data is sent to the ClusterRegBatchReadCommand function.

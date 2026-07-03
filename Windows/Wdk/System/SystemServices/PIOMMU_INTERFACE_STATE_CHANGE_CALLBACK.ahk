@@ -41,10 +41,6 @@ export default struct PIOMMU_INTERFACE_STATE_CHANGE_CALLBACK {
             this.value := CallbackCreate(fn, , [IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

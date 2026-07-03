@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\HypothesisResult.ahk" { HypothesisResult }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\INetDiagHelperUtilFactory.ahk" { INetDiagHelperUtilFactory }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DIAGNOSIS_STATUS.ahk" { DIAGNOSIS_STATUS }
+#Import ".\HypothesisResult.ahk" { HypothesisResult }
+#Import ".\INetDiagHelperUtilFactory.ahk" { INetDiagHelperUtilFactory }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods that extend on the INetDiagHelper interface to capture and provide information associated with diagnoses and resolution of network-related issues.

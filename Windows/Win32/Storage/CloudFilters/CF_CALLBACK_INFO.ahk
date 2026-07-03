@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\System\CorrelationVector\CORRELATION_VECTOR.ahk" { CORRELATION_VECTOR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CF_CONNECTION_KEY.ahk" { CF_CONNECTION_KEY }
 #Import ".\CF_PROCESS_INFO.ahk" { CF_PROCESS_INFO }
+#Import "..\..\System\CorrelationVector\CORRELATION_VECTOR.ahk" { CORRELATION_VECTOR }
 
 /**
  * Contains common callback information.

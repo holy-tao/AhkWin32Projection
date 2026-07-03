@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFTimedTextFormattedText.ahk" { IMFTimedTextFormattedText }
-#Import ".\IMFTimedTextBinary.ahk" { IMFTimedTextBinary }
-#Import ".\MF_TIMED_TEXT_TRACK_KIND.ahk" { MF_TIMED_TEXT_TRACK_KIND }
-#Import ".\IMFTimedTextStyle.ahk" { IMFTimedTextStyle }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IMFTimedTextRegion.ahk" { IMFTimedTextRegion }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IMFTimedTextBinary.ahk" { IMFTimedTextBinary }
+#Import ".\IMFTimedTextFormattedText.ahk" { IMFTimedTextFormattedText }
+#Import ".\IMFTimedTextRegion.ahk" { IMFTimedTextRegion }
+#Import ".\IMFTimedTextStyle.ahk" { IMFTimedTextStyle }
+#Import ".\MF_TIMED_TEXT_TRACK_KIND.ahk" { MF_TIMED_TEXT_TRACK_KIND }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents the timed-text-cue object.

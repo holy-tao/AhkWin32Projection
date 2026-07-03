@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ISpeechResourceLoader.ahk" { ISpeechResourceLoader }
+#Import ".\SPBINARYGRAMMAR.ahk" { SPBINARYGRAMMAR }
+#Import ".\SPLOADOPTIONS.ahk" { SPLOADOPTIONS }
 #Import ".\SPRULE.ahk" { SPRULE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\Urlmon\IInternetSecurityManager.ahk" { IInternetSecurityManager }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\SPLOADOPTIONS.ahk" { SPLOADOPTIONS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SPBINARYGRAMMAR.ahk" { SPBINARYGRAMMAR }
-#Import ".\ISpeechResourceLoader.ahk" { ISpeechResourceLoader }
 
 /**
  * @namespace Windows.Win32.Media.Speech

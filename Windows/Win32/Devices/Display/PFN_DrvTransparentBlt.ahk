@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\CLIPOBJ.ahk" { CLIPOBJ }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\SURFOBJ.ahk" { SURFOBJ }
-#Import "..\..\Foundation\RECTL.ahk" { RECTL }
 #Import ".\XLATEOBJ.ahk" { XLATEOBJ }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -55,10 +55,6 @@ export default struct PFN_DrvTransparentBlt {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, SURFOBJ.Ptr, CLIPOBJ.Ptr, XLATEOBJ.Ptr, RECTL.Ptr, RECTL.Ptr, UInt32, UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

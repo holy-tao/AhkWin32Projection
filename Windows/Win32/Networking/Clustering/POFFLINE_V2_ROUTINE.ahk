@@ -89,10 +89,6 @@ export default struct POFFLINE_V2_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", PWSTR, UInt32, IntPtr, UInt32, UInt32, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

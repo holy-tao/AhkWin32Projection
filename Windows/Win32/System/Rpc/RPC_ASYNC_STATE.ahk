@@ -1,11 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\PFN_RPCNOTIFICATION_ROUTINE.ahk" { PFN_RPCNOTIFICATION_ROUTINE }
-#Import ".\RPC_NOTIFICATION_TYPES.ahk" { RPC_NOTIFICATION_TYPES }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\IO\OVERLAPPED.ahk" { OVERLAPPED }
-#Import ".\RPC_ASYNC_NOTIFICATION_INFO.ahk" { RPC_ASYNC_NOTIFICATION_INFO }
 #Import ".\RPC_ASYNC_EVENT.ahk" { RPC_ASYNC_EVENT }
+#Import ".\RPC_ASYNC_NOTIFICATION_INFO.ahk" { RPC_ASYNC_NOTIFICATION_INFO }
+#Import ".\RPC_NOTIFICATION_TYPES.ahk" { RPC_NOTIFICATION_TYPES }
 
 /**
  * The RPC_ASYNC_STATE structure holds the state of an asynchronous remote procedure call. RPC_ASYNC_STATE is a handle to this structure, used to wait for, query, reply to, or cancel asynchronous calls.

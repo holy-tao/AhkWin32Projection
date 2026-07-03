@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WINDBG_OLDKD_EXTENSION_APIS.ahk" { WINDBG_OLDKD_EXTENSION_APIS }
 #Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\WINDBG_OLDKD_EXTENSION_APIS.ahk" { WINDBG_OLDKD_EXTENSION_APIS }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -48,10 +48,6 @@ export default struct PWINDBG_OLDKD_EXTENSION_ROUTINE {
             this.value := CallbackCreate(fn, , [UInt32, WINDBG_OLDKD_EXTENSION_APIS.Ptr, PSTR, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

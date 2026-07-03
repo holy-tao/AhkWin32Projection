@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\NCRYPT_DESCRIPTOR_HANDLE.ahk" { NCRYPT_DESCRIPTOR_HANDLE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\NCRYPT_DESCRIPTOR_HANDLE.ahk" { NCRYPT_DESCRIPTOR_HANDLE }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -52,10 +52,6 @@ export default struct PFNCryptStreamOutputCallbackEx {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr, IntPtr, NCRYPT_DESCRIPTOR_HANDLE, BOOL, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -58,10 +58,6 @@ export default struct PIBIO_ENGINE_IDENTIFY_FEATURE_SET_AUTHENTICATED_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, IntPtr, IntPtr, WINBIO_IDENTITY.Ptr, "char*", "uint*", "ptr*", "ptr*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

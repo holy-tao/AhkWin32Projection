@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DWRITE_FONT_FAMILY_MODEL.ahk" { DWRITE_FONT_FAMILY_MODEL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDWriteFontList2.ahk" { IDWriteFontList2 }
-#Import ".\IDWriteFontSet1.ahk" { IDWriteFontSet1 }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
+#Import ".\DWRITE_FONT_FAMILY_MODEL.ahk" { DWRITE_FONT_FAMILY_MODEL }
 #Import ".\IDWriteFontCollection1.ahk" { IDWriteFontCollection1 }
 #Import ".\IDWriteFontFamily2.ahk" { IDWriteFontFamily2 }
+#Import ".\IDWriteFontList2.ahk" { IDWriteFontList2 }
+#Import ".\IDWriteFontSet1.ahk" { IDWriteFontSet1 }
 
 /**
  * This interface encapsulates a set of fonts, such as the set of fonts installed on the system, or the set of fonts in a particular directory. The font collection API can be used to discover what font families and fonts are available, and to obtain some metadata about the fonts. (IDWriteFontCollection2)

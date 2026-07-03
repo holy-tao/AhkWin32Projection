@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\PROPERTYUI_FORMAT_FLAGS.ahk" { PROPERTYUI_FORMAT_FLAGS }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\PROPERTYUI_FLAGS.ahk" { PROPERTYUI_FLAGS }
-#Import "..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\PROPERTYUI_FLAGS.ahk" { PROPERTYUI_FLAGS }
+#Import ".\PROPERTYUI_FORMAT_FLAGS.ahk" { PROPERTYUI_FORMAT_FLAGS }
 #Import ".\PROPERTYUI_NAME_FLAGS.ahk" { PROPERTYUI_NAME_FLAGS }
 
 /**

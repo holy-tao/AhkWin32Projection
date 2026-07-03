@@ -1,5 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PRTL_HEAP_COMMIT_ROUTINE.ahk" { PRTL_HEAP_COMMIT_ROUTINE }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
@@ -25,7 +24,7 @@ export default struct RTL_HEAP_PARAMETERS {
 
     InitialReserve : IntPtr
 
-    CommitRoutine : PRTL_HEAP_COMMIT_ROUTINE
+    CommitRoutine : IntPtr
 
     Reserved : IntPtr[2]
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\BCRYPT_ALG_HANDLE.ahk" { BCRYPT_ALG_HANDLE }
 #Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\BCRYPT_ALG_HANDLE.ahk" { BCRYPT_ALG_HANDLE }
 #Import ".\BCRYPT_KEY_HANDLE.ahk" { BCRYPT_KEY_HANDLE }
 
 /**
@@ -33,7 +33,7 @@ export default struct BCryptGenerateSymmetricKeyFn {
      */
     Call(hAlgorithm, phKey, pbKeyObject, cbKeyObject, pbSecret, cbSecret, dwFlags) {
         result := DllCall(this.value, BCRYPT_ALG_HANDLE, hAlgorithm, BCRYPT_KEY_HANDLE.Ptr, phKey, IntPtr, pbKeyObject, UInt32, cbKeyObject, IntPtr, pbSecret, UInt32, cbSecret, UInt32, dwFlags, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -53,10 +53,6 @@ export default struct BCryptGenerateSymmetricKeyFn {
             this.value := CallbackCreate(fn, , [BCRYPT_ALG_HANDLE, BCRYPT_KEY_HANDLE.Ptr, IntPtr, UInt32, IntPtr, UInt32, UInt32, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

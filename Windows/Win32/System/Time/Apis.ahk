@@ -1,10 +1,10 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 #Import ".\DYNAMIC_TIME_ZONE_INFORMATION.ahk" { DYNAMIC_TIME_ZONE_INFORMATION }
 #Import ".\TIME_ZONE_INFORMATION.ahk" { TIME_ZONE_INFORMATION }
-#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 
 /**
  * @namespace Windows.Win32.System.Time

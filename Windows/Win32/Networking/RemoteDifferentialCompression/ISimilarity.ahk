@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SimilarityFileId.ahk" { SimilarityFileId }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\RdcCreatedTables.ahk" { RdcCreatedTables }
-#Import ".\ISimilarityTraitsMapping.ahk" { ISimilarityTraitsMapping }
-#Import ".\IRdcFileWriter.ahk" { IRdcFileWriter }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SimilarityData.ahk" { SimilarityData }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ISimilarityReportProgress.ahk" { ISimilarityReportProgress }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IFindSimilarResults.ahk" { IFindSimilarResults }
+#Import ".\IRdcFileWriter.ahk" { IRdcFileWriter }
+#Import ".\ISimilarityReportProgress.ahk" { ISimilarityReportProgress }
+#Import ".\ISimilarityTraitsMapping.ahk" { ISimilarityTraitsMapping }
+#Import ".\RdcCreatedTables.ahk" { RdcCreatedTables }
+#Import ".\SimilarityData.ahk" { SimilarityData }
+#Import ".\SimilarityFileId.ahk" { SimilarityFileId }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines methods for storing and retrieving per-file similarity data and file IDs in a similarity file.

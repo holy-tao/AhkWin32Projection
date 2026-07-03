@@ -1,25 +1,25 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D2D1_DRAW_TEXT_OPTIONS.ahk" { D2D1_DRAW_TEXT_OPTIONS }
-#Import ".\ID2D1DeviceContext3.ahk" { ID2D1DeviceContext3 }
-#Import "..\DirectWrite\IDWriteTextFormat.ahk" { IDWriteTextFormat }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
+#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
 #Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
 #Import ".\D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION.ahk" { D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\DirectWrite\IDWriteFontFace.ahk" { IDWriteFontFace }
-#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
-#Import ".\ID2D1Image.ahk" { ID2D1Image }
-#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ID2D1SvgGlyphStyle.ahk" { ID2D1SvgGlyphStyle }
-#Import ".\ID2D1CommandList.ahk" { ID2D1CommandList }
+#Import ".\D2D1_DRAW_TEXT_OPTIONS.ahk" { D2D1_DRAW_TEXT_OPTIONS }
 #Import ".\ID2D1Brush.ahk" { ID2D1Brush }
-#Import "..\DirectWrite\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import ".\ID2D1CommandList.ahk" { ID2D1CommandList }
+#Import ".\ID2D1DeviceContext3.ahk" { ID2D1DeviceContext3 }
+#Import ".\ID2D1Image.ahk" { ID2D1Image }
+#Import ".\ID2D1SvgGlyphStyle.ahk" { ID2D1SvgGlyphStyle }
 #Import "..\DirectWrite\DWRITE_GLYPH_IMAGE_FORMATS.ahk" { DWRITE_GLYPH_IMAGE_FORMATS }
-#Import "..\DirectWrite\IDWriteTextLayout.ahk" { IDWriteTextLayout }
 #Import "..\DirectWrite\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
+#Import "..\DirectWrite\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import "..\DirectWrite\IDWriteFontFace.ahk" { IDWriteFontFace }
+#Import "..\DirectWrite\IDWriteTextFormat.ahk" { IDWriteTextFormat }
+#Import "..\DirectWrite\IDWriteTextLayout.ahk" { IDWriteTextLayout }
 
 /**
  * This interface performs all the same functions as the ID2D1DeviceContext3 interface, plus it enables functionality for handling new types of color font glyphs.

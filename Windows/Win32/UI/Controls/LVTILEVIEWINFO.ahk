@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\LVTILEVIEWINFO_MASK.ahk" { LVTILEVIEWINFO_MASK }
 #Import "..\..\Foundation\SIZE.ahk" { SIZE }
 #Import ".\LVTILEVIEWINFO_FLAGS.ahk" { LVTILEVIEWINFO_FLAGS }
+#Import ".\LVTILEVIEWINFO_MASK.ahk" { LVTILEVIEWINFO_MASK }
 
 /**
  * Provides information about a list-view control when it is displayed in tile view.

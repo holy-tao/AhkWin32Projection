@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDWriteBitmapRenderTarget.ahk" { IDWriteBitmapRenderTarget }
-#Import ".\DWRITE_TEXT_ANTIALIAS_MODE.ahk" { DWRITE_TEXT_ANTIALIAS_MODE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_TEXT_ANTIALIAS_MODE.ahk" { DWRITE_TEXT_ANTIALIAS_MODE }
+#Import ".\IDWriteBitmapRenderTarget.ahk" { IDWriteBitmapRenderTarget }
 
 /**
  * Encapsulates a 32-bit device independent bitmap and device context, which you can use for rendering glyphs.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ALLOC_CONSOLE_MODE.ahk" { ALLOC_CONSOLE_MODE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ALLOC_CONSOLE_MODE.ahk" { ALLOC_CONSOLE_MODE }
 
 /**
  * @namespace Windows.Win32.System.Console

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\EnTvRat_GenericLevel.ahk" { EnTvRat_GenericLevel }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\EnTvRat_System.ahk" { EnTvRat_System }
 #Import ".\IMSVidFilePlayback.ahk" { IMSVidFilePlayback }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IMSVidStreamBufferSource interface represents the Stream Buffer Source filter within the Video Control.

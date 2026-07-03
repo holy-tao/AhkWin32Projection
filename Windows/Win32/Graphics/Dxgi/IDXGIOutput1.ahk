@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DXGI_MODE_DESC1.ahk" { DXGI_MODE_DESC1 }
-#Import ".\IDXGIOutputDuplication.ahk" { IDXGIOutputDuplication }
-#Import "Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import ".\IDXGIOutput.ahk" { IDXGIOutput }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDXGIResource.ahk" { IDXGIResource }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 #Import ".\DXGI_ENUM_MODES.ahk" { DXGI_ENUM_MODES }
+#Import ".\DXGI_MODE_DESC1.ahk" { DXGI_MODE_DESC1 }
+#Import ".\IDXGIOutput.ahk" { IDXGIOutput }
+#Import ".\IDXGIOutputDuplication.ahk" { IDXGIOutputDuplication }
+#Import ".\IDXGIResource.ahk" { IDXGIResource }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * An IDXGIOutput1 interface represents an adapter output (such as a monitor).

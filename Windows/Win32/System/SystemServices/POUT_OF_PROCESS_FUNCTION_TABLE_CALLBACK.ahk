@@ -53,10 +53,6 @@ export default struct POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK {
             this.value := CallbackCreate(fn, , [HANDLE, "ptr", "uint*", "ptr*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

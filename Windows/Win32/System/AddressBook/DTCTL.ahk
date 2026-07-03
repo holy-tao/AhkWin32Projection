@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DTBLDDLBX.ahk" { DTBLDDLBX }
-#Import ".\DTBLLABEL.ahk" { DTBLLABEL }
 #Import ".\DTBLBUTTON.ahk" { DTBLBUTTON }
-#Import ".\DTBLPAGE.ahk" { DTBLPAGE }
-#Import ".\DTBLCOMBOBOX.ahk" { DTBLCOMBOBOX }
-#Import ".\DTBLMVLISTBOX.ahk" { DTBLMVLISTBOX }
-#Import ".\DTBLRADIOBUTTON.ahk" { DTBLRADIOBUTTON }
-#Import ".\DTBLGROUPBOX.ahk" { DTBLGROUPBOX }
-#Import ".\DTBLLBX.ahk" { DTBLLBX }
 #Import ".\DTBLCHECKBOX.ahk" { DTBLCHECKBOX }
+#Import ".\DTBLCOMBOBOX.ahk" { DTBLCOMBOBOX }
+#Import ".\DTBLDDLBX.ahk" { DTBLDDLBX }
 #Import ".\DTBLEDIT.ahk" { DTBLEDIT }
+#Import ".\DTBLGROUPBOX.ahk" { DTBLGROUPBOX }
+#Import ".\DTBLLABEL.ahk" { DTBLLABEL }
+#Import ".\DTBLLBX.ahk" { DTBLLBX }
 #Import ".\DTBLMVDDLBX.ahk" { DTBLMVDDLBX }
+#Import ".\DTBLMVLISTBOX.ahk" { DTBLMVLISTBOX }
+#Import ".\DTBLPAGE.ahk" { DTBLPAGE }
+#Import ".\DTBLRADIOBUTTON.ahk" { DTBLRADIOBUTTON }
 
 /**
  * Describes a control that will be used in a dialog box built from a display table.

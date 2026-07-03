@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\DESIGNVECTOR.ahk" { DESIGNVECTOR }
-#Import ".\LOGFONTA.ahk" { LOGFONTA }
 #Import ".\ENUMLOGFONTEXA.ahk" { ENUMLOGFONTEXA }
-#Import ".\FONT_OUTPUT_PRECISION.ahk" { FONT_OUTPUT_PRECISION }
 #Import ".\FONT_CHARSET.ahk" { FONT_CHARSET }
-#Import ".\FONT_QUALITY.ahk" { FONT_QUALITY }
 #Import ".\FONT_CLIP_PRECISION.ahk" { FONT_CLIP_PRECISION }
+#Import ".\FONT_OUTPUT_PRECISION.ahk" { FONT_OUTPUT_PRECISION }
+#Import ".\FONT_QUALITY.ahk" { FONT_QUALITY }
+#Import ".\LOGFONTA.ahk" { LOGFONTA }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
@@ -26,7 +26,7 @@
  * @charset ANSI
  */
 export default struct ENUMLOGFONTEXDVA {
-    #StructPack 8
+    #StructPack 4
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-enumlogfontexa">ENUMLOGFONTEX</a> structure that contains information about the logical attributes of the font.

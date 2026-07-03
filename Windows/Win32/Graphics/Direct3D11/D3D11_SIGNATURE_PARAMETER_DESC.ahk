@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\Direct3D\D3D_NAME.ahk" { D3D_NAME }
 #Import "..\Direct3D\D3D_MIN_PRECISION.ahk" { D3D_MIN_PRECISION }
+#Import "..\Direct3D\D3D_NAME.ahk" { D3D_NAME }
 #Import "..\Direct3D\D3D_REGISTER_COMPONENT_TYPE.ahk" { D3D_REGISTER_COMPONENT_TYPE }
 
 /**

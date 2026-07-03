@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TVITEMEXW_CHILDREN.ahk" { TVITEMEXW_CHILDREN }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\TREE_VIEW_ITEM_STATE_FLAGS.ahk" { TREE_VIEW_ITEM_STATE_FLAGS }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\TVITEM_MASK.ahk" { TVITEM_MASK }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\HTREEITEM.ahk" { HTREEITEM }
+#Import ".\TREE_VIEW_ITEM_STATE_FLAGS.ahk" { TREE_VIEW_ITEM_STATE_FLAGS }
+#Import ".\TVITEMEXW_CHILDREN.ahk" { TVITEMEXW_CHILDREN }
+#Import ".\TVITEM_MASK.ahk" { TVITEM_MASK }
 
 /**
  * Specifies or receives attributes of a tree-view item. This structure is identical to the TV_ITEM structure, but it has been renamed to follow current naming conventions. New applications should use this structure. (ANSI)

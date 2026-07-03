@@ -80,10 +80,6 @@ export default struct PWLX_DISCONNECT {
             this.value := CallbackCreate(fn, , [BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

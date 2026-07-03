@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ApplicationType.ahk" { ApplicationType }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ApplicationType.ahk" { ApplicationType }
+#Import ".\IProcessLock.ahk" { IProcessLock }
 #Import ".\IUnknown.ahk" { IUnknown }
 #Import ".\ShutdownType.ahk" { ShutdownType }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IProcessLock.ahk" { IProcessLock }
 
 /**
  * Used to initialize, launch, and release a COM+ application. You can also refresh the catalog and shut down the process.

@@ -51,10 +51,6 @@ export default struct GameInputDeviceCallback {
             this.value := CallbackCreate(fn, , [Int64, "ptr", "ptr", Int64, GameInputDeviceStatus, GameInputDeviceStatus, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

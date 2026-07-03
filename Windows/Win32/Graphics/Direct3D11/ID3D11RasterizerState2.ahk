@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D11RasterizerState1.ahk" { ID3D11RasterizerState1 }
 #Import ".\D3D11_RASTERIZER_DESC2.ahk" { D3D11_RASTERIZER_DESC2 }
+#Import ".\ID3D11RasterizerState1.ahk" { ID3D11RasterizerState1 }
 
 /**
  * The rasterizer-state interface holds a description for rasterizer state that you can bind to the rasterizer stage. This rasterizer-state interface supports forced sample count and conservative rasterization mode.

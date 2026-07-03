@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ISideShowNotificationManager.ahk" { ISideShowNotificationManager }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ISideShowContentManager.ahk" { ISideShowContentManager }
+#Import ".\ISideShowNotificationManager.ahk" { ISideShowNotificationManager }
 
 /**
  * @namespace Windows.Win32.System.SideShow

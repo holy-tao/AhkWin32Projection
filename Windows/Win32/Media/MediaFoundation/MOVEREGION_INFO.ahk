@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MOVE_RECT.ahk" { MOVE_RECT }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\MOVE_RECT.ahk" { MOVE_RECT }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation

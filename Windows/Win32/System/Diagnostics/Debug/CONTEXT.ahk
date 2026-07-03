@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\XSAVE_FORMAT.ahk" { XSAVE_FORMAT }
 #Import ".\CONTEXT_FLAGS.ahk" { CONTEXT_FLAGS }
 #Import ".\M128A.ahk" { M128A }
+#Import ".\XSAVE_FORMAT.ahk" { XSAVE_FORMAT }
 
 /**
  * Contains processor-specific register data. The system uses CONTEXT structures to perform various internal operations. (CONTEXT)

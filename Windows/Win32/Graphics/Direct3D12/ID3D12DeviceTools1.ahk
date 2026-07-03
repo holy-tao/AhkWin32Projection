@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Direct3D\ID3DBlob.ahk" { ID3DBlob }
 #Import ".\D3D12_APPLICATION_SPECIFIC_DRIVER_BLOB_STATUS.ahk" { D3D12_APPLICATION_SPECIFIC_DRIVER_BLOB_STATUS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID3D12DeviceTools.ahk" { ID3D12DeviceTools }
 
 /**

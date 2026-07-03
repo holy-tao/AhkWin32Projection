@@ -1,19 +1,19 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\RECO_GUIDE.ahk" { RECO_GUIDE }
-#Import ".\HRECOALT.ahk" { HRECOALT }
-#Import ".\CHARACTER_RANGE.ahk" { CHARACTER_RANGE }
-#Import ".\HRECOGNIZER.ahk" { HRECOGNIZER }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Graphics\Gdi\XFORM.ahk" { XFORM }
-#Import ".\RECO_ATTRS.ahk" { RECO_ATTRS }
-#Import ".\HRECOCONTEXT.ahk" { HRECOCONTEXT }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\RECO_LATTICE.ahk" { RECO_LATTICE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Graphics\Gdi\XFORM.ahk" { XFORM }
+#Import ".\CHARACTER_RANGE.ahk" { CHARACTER_RANGE }
+#Import ".\HRECOALT.ahk" { HRECOALT }
+#Import ".\HRECOCONTEXT.ahk" { HRECOCONTEXT }
+#Import ".\HRECOGNIZER.ahk" { HRECOGNIZER }
 #Import ".\HRECOWORDLIST.ahk" { HRECOWORDLIST }
 #Import ".\PACKET_DESCRIPTION.ahk" { PACKET_DESCRIPTION }
+#Import ".\RECO_ATTRS.ahk" { RECO_ATTRS }
+#Import ".\RECO_GUIDE.ahk" { RECO_GUIDE }
+#Import ".\RECO_LATTICE.ahk" { RECO_LATTICE }
 
 /**
  * @namespace Windows.Win32.UI.TabletPC

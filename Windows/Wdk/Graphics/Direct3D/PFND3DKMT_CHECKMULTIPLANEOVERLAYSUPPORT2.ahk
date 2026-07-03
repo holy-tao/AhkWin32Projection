@@ -26,7 +26,7 @@ export default struct PFND3DKMT_CHECKMULTIPLANEOVERLAYSUPPORT2 {
      */
     Call(param0) {
         result := DllCall(this.value, D3DKMT_CHECKMULTIPLANEOVERLAYSUPPORT2.Ptr, param0, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -46,10 +46,6 @@ export default struct PFND3DKMT_CHECKMULTIPLANEOVERLAYSUPPORT2 {
             this.value := CallbackCreate(fn, , [D3DKMT_CHECKMULTIPLANEOVERLAYSUPPORT2.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

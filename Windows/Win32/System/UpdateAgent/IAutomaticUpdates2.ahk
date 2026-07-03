@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IAutomaticUpdatesResults.ahk" { IAutomaticUpdatesResults }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IAutomaticUpdates.ahk" { IAutomaticUpdates }
+#Import ".\IAutomaticUpdatesResults.ahk" { IAutomaticUpdatesResults }
 
 /**
  * Contains the functionality of Automatic Updates. (IAutomaticUpdates2)

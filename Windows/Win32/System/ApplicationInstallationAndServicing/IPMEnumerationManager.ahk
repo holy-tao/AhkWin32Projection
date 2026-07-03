@@ -1,27 +1,27 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\PM_LIVETILE_RECURRENCE_TYPE.ahk" { PM_LIVETILE_RECURRENCE_TYPE }
-#Import ".\IPMTileInfo.ahk" { IPMTileInfo }
-#Import ".\IPMBackgroundServiceAgentInfoEnumerator.ahk" { IPMBackgroundServiceAgentInfoEnumerator }
-#Import ".\PM_STARTAPPBLOB.ahk" { PM_STARTAPPBLOB }
-#Import ".\IPMLiveTileJobInfoEnumerator.ahk" { IPMLiveTileJobInfoEnumerator }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\PM_ENUM_FILTER.ahk" { PM_ENUM_FILTER }
-#Import ".\IPMTaskInfo.ahk" { IPMTaskInfo }
-#Import ".\IPMTileInfoEnumerator.ahk" { IPMTileInfoEnumerator }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IPMExtensionInfoEnumerator.ahk" { IPMExtensionInfoEnumerator }
-#Import ".\PM_LOGO_SIZE.ahk" { PM_LOGO_SIZE }
-#Import ".\IPMApplicationInfoEnumerator.ahk" { IPMApplicationInfoEnumerator }
-#Import ".\PM_STARTTILEBLOB.ahk" { PM_STARTTILEBLOB }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IPMApplicationInfo.ahk" { IPMApplicationInfo }
-#Import ".\IPMTaskInfoEnumerator.ahk" { IPMTaskInfoEnumerator }
-#Import ".\IPMBackgroundWorkerInfoEnumerator.ahk" { IPMBackgroundWorkerInfoEnumerator }
+#Import ".\IPMApplicationInfoEnumerator.ahk" { IPMApplicationInfoEnumerator }
 #Import ".\IPMBackgroundServiceAgentInfo.ahk" { IPMBackgroundServiceAgentInfo }
+#Import ".\IPMBackgroundServiceAgentInfoEnumerator.ahk" { IPMBackgroundServiceAgentInfoEnumerator }
+#Import ".\IPMBackgroundWorkerInfoEnumerator.ahk" { IPMBackgroundWorkerInfoEnumerator }
+#Import ".\IPMExtensionInfoEnumerator.ahk" { IPMExtensionInfoEnumerator }
 #Import ".\IPMLiveTileJobInfo.ahk" { IPMLiveTileJobInfo }
+#Import ".\IPMLiveTileJobInfoEnumerator.ahk" { IPMLiveTileJobInfoEnumerator }
+#Import ".\IPMTaskInfo.ahk" { IPMTaskInfo }
+#Import ".\IPMTaskInfoEnumerator.ahk" { IPMTaskInfoEnumerator }
+#Import ".\IPMTileInfo.ahk" { IPMTileInfo }
+#Import ".\IPMTileInfoEnumerator.ahk" { IPMTileInfoEnumerator }
+#Import ".\PM_ENUM_FILTER.ahk" { PM_ENUM_FILTER }
+#Import ".\PM_LIVETILE_RECURRENCE_TYPE.ahk" { PM_LIVETILE_RECURRENCE_TYPE }
+#Import ".\PM_LOGO_SIZE.ahk" { PM_LOGO_SIZE }
+#Import ".\PM_STARTAPPBLOB.ahk" { PM_STARTAPPBLOB }
+#Import ".\PM_STARTTILEBLOB.ahk" { PM_STARTTILEBLOB }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing

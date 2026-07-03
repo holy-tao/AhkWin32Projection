@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Properties\DEVPROPERTY.ahk" { DEVPROPERTY }
 #Import ".\DEV_OBJECT_TYPE.ahk" { DEV_OBJECT_TYPE }
+#Import "..\Properties\DEVPROPERTY.ahk" { DEVPROPERTY }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**

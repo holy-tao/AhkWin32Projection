@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ETaskType.ahk" { ETaskType }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ICLRTask.ahk" { ICLRTask }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ETaskType.ahk" { ETaskType }
+#Import ".\ICLRTask.ahk" { ICLRTask }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting

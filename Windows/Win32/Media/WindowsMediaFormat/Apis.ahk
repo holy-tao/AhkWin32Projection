@@ -1,19 +1,19 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\IWMIndexer.ahk" { IWMIndexer }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IWMWriter.ahk" { IWMWriter }
-#Import ".\IWMProfileManager.ahk" { IWMProfileManager }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWMReader.ahk" { IWMReader }
-#Import ".\IWMWriterFileSink.ahk" { IWMWriterFileSink }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IWMLicenseBackup.ahk" { IWMLicenseBackup }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWMIndexer.ahk" { IWMIndexer }
+#Import ".\IWMLicenseBackup.ahk" { IWMLicenseBackup }
+#Import ".\IWMMetadataEditor.ahk" { IWMMetadataEditor }
+#Import ".\IWMProfileManager.ahk" { IWMProfileManager }
+#Import ".\IWMReader.ahk" { IWMReader }
+#Import ".\IWMSyncReader.ahk" { IWMSyncReader }
+#Import ".\IWMWriter.ahk" { IWMWriter }
+#Import ".\IWMWriterFileSink.ahk" { IWMWriterFileSink }
 #Import ".\IWMWriterNetworkSink.ahk" { IWMWriterNetworkSink }
 #Import ".\IWMWriterPushSink.ahk" { IWMWriterPushSink }
-#Import ".\IWMMetadataEditor.ahk" { IWMMetadataEditor }
-#Import ".\IWMSyncReader.ahk" { IWMSyncReader }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.WindowsMediaFormat

@@ -7,7 +7,7 @@
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
 export default struct ACCEL {
-    #StructPack 8
+    #StructPack 2
 
     /**
      * Type: <b>BYTE</b>

@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\IKsPin.ahk" { IKsPin }
-#Import ".\IKsAllocator.ahk" { IKsAllocator }
 #Import ".\ALLOCATOR_PROPERTIES_EX.ahk" { ALLOCATOR_PROPERTIES_EX }
+#Import ".\IKsAllocator.ahk" { IKsAllocator }
+#Import ".\IKsPin.ahk" { IKsPin }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

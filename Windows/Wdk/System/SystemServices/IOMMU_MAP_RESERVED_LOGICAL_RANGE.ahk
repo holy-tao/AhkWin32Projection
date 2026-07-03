@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IOMMU_MAP_PHYSICAL_ADDRESS.ahk" { IOMMU_MAP_PHYSICAL_ADDRESS }
 #Import ".\IOMMU_DMA_LOGICAL_ADDRESS_TOKEN.ahk" { IOMMU_DMA_LOGICAL_ADDRESS_TOKEN }
-#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\IOMMU_DMA_LOGICAL_ADDRESS_TOKEN_MAPPED_SEGMENT.ahk" { IOMMU_DMA_LOGICAL_ADDRESS_TOKEN_MAPPED_SEGMENT }
+#Import ".\IOMMU_MAP_PHYSICAL_ADDRESS.ahk" { IOMMU_MAP_PHYSICAL_ADDRESS }
+#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -32,7 +32,7 @@ export default struct IOMMU_MAP_RESERVED_LOGICAL_RANGE {
      */
     Call(LogicalAddressToken, Offset, Permissions, PhysicalAddressToMap, MappedSegment) {
         result := DllCall(this.value, IOMMU_DMA_LOGICAL_ADDRESS_TOKEN.Ptr, LogicalAddressToken, IntPtr, Offset, UInt32, Permissions, IOMMU_MAP_PHYSICAL_ADDRESS.Ptr, PhysicalAddressToMap, IOMMU_DMA_LOGICAL_ADDRESS_TOKEN_MAPPED_SEGMENT.Ptr, MappedSegment, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -52,10 +52,6 @@ export default struct IOMMU_MAP_RESERVED_LOGICAL_RANGE {
             this.value := CallbackCreate(fn, , [IOMMU_DMA_LOGICAL_ADDRESS_TOKEN.Ptr, IntPtr, UInt32, IOMMU_MAP_PHYSICAL_ADDRESS.Ptr, IOMMU_DMA_LOGICAL_ADDRESS_TOKEN_MAPPED_SEGMENT.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

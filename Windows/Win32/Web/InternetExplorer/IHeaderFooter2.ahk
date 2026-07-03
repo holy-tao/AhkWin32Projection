@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IHeaderFooter.ahk" { IHeaderFooter }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHeaderFooter.ahk" { IHeaderFooter }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer

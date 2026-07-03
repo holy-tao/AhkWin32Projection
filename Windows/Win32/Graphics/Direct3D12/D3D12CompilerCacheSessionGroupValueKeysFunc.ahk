@@ -46,10 +46,6 @@ export default struct D3D12CompilerCacheSessionGroupValueKeysFunc {
             this.value := CallbackCreate(fn, , [D3D12_COMPILER_CACHE_VALUE_KEY.Ptr, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

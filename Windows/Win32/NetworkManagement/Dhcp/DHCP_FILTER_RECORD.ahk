@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DHCP_ADDR_PATTERN.ahk" { DHCP_ADDR_PATTERN }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DHCP_ADDR_PATTERN.ahk" { DHCP_ADDR_PATTERN }
 
 /**
  * Contains information for a specific link-layer filter.

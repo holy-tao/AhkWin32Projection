@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WMT_CODEC_INFO_TYPE.ahk" { WMT_CODEC_INFO_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IWMHeaderInfo.ahk" { IWMHeaderInfo }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WMT_CODEC_INFO_TYPE.ahk" { WMT_CODEC_INFO_TYPE }
 
 /**
  * The IWMHeaderInfo2 interface exposes information about the codecs used to create the content in a file.The IWMHeaderInfo2 interface is implemented by the metadata editor object, the writer object, the reader object, and the synchronous reader object.

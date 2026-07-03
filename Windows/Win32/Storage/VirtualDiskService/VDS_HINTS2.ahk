@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VDS_STORAGE_BUS_TYPE.ahk" { VDS_STORAGE_BUS_TYPE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\VDS_STORAGE_BUS_TYPE.ahk" { VDS_STORAGE_BUS_TYPE }
 
 /**
  * The VDS_HINTS2 structure (vdshwprv.h) contains the automagic hints for a LUN in a storage pool.

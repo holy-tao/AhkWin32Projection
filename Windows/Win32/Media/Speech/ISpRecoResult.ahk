@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISpPhrase.ahk" { ISpPhrase }
-#Import ".\SPSERIALIZEDRESULT.ahk" { SPSERIALIZEDRESULT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISpRecoContext.ahk" { ISpRecoContext }
-#Import ".\SPRECORESULTTIMES.ahk" { SPRECORESULTTIMES }
-#Import ".\ISpPhraseAlt.ahk" { ISpPhraseAlt }
-#Import ".\ISpStreamFormat.ahk" { ISpStreamFormat }
 #Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\ISpPhrase.ahk" { ISpPhrase }
+#Import ".\ISpPhraseAlt.ahk" { ISpPhraseAlt }
+#Import ".\ISpRecoContext.ahk" { ISpRecoContext }
+#Import ".\ISpStreamFormat.ahk" { ISpStreamFormat }
+#Import ".\SPRECORESULTTIMES.ahk" { SPRECORESULTTIMES }
+#Import ".\SPSERIALIZEDRESULT.ahk" { SPSERIALIZEDRESULT }
 
 /**
  * @namespace Windows.Win32.Media.Speech

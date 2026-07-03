@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\KDEXT_FILELOCK_OWNER.ahk" { KDEXT_FILELOCK_OWNER }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDebugClient.ahk" { IDebugClient }
+#Import ".\KDEXT_FILELOCK_OWNER.ahk" { KDEXT_FILELOCK_OWNER }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -47,10 +47,6 @@ export default struct PFIND_FILELOCK_OWNERINFO {
             this.value := CallbackCreate(fn, , ["ptr", KDEXT_FILELOCK_OWNER.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

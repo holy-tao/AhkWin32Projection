@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITsSbGlobalStore.ahk" { ITsSbGlobalStore }
-#Import ".\ITsSbEnvironment.ahk" { ITsSbEnvironment }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITsSbPluginPropertySet.ahk" { ITsSbPluginPropertySet }
-#Import ".\ITsSbLoadBalanceResult.ahk" { ITsSbLoadBalanceResult }
-#Import ".\ITsSbSession.ahk" { ITsSbSession }
-#Import ".\ITsSbFilterPluginStore.ahk" { ITsSbFilterPluginStore }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITsSbEnvironment.ahk" { ITsSbEnvironment }
 #Import ".\ITsSbEnvironmentPropertySet.ahk" { ITsSbEnvironmentPropertySet }
-#Import ".\ITsSbTargetPropertySet.ahk" { ITsSbTargetPropertySet }
-#Import ".\ITsSbTarget.ahk" { ITsSbTarget }
-#Import ".\ITsSbResourcePluginStore.ahk" { ITsSbResourcePluginStore }
+#Import ".\ITsSbFilterPluginStore.ahk" { ITsSbFilterPluginStore }
+#Import ".\ITsSbGlobalStore.ahk" { ITsSbGlobalStore }
+#Import ".\ITsSbLoadBalanceResult.ahk" { ITsSbLoadBalanceResult }
+#Import ".\ITsSbPluginPropertySet.ahk" { ITsSbPluginPropertySet }
 #Import ".\ITsSbResourceNotification.ahk" { ITsSbResourceNotification }
+#Import ".\ITsSbResourcePluginStore.ahk" { ITsSbResourcePluginStore }
+#Import ".\ITsSbSession.ahk" { ITsSbSession }
+#Import ".\ITsSbTarget.ahk" { ITsSbTarget }
+#Import ".\ITsSbTargetPropertySet.ahk" { ITsSbTargetPropertySet }
 
 /**
  * Exposes methods that create default implementations of objects that are used in Remote Desktop Virtualization.

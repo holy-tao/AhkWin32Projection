@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DMA_ADAPTER.ahk" { DMA_ADAPTER }
 #Import "..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
+#Import ".\DMA_ADAPTER.ahk" { DMA_ADAPTER }
 #Import ".\DMA_COMPLETION_STATUS.ahk" { DMA_COMPLETION_STATUS }
 
 /**
@@ -50,10 +50,6 @@ export default struct DMA_COMPLETION_ROUTINE {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, DEVICE_OBJECT.Ptr, "ptr", DMA_COMPLETION_STATUS, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

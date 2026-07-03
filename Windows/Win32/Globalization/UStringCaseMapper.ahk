@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\UErrorCode.ahk" { UErrorCode }
 #Import ".\UCaseMap.ahk" { UCaseMap }
+#Import ".\UErrorCode.ahk" { UErrorCode }
 
 /**
  * @namespace Windows.Win32.Globalization
@@ -55,10 +55,6 @@ export default struct UStringCaseMapper {
             this.value := CallbackCreate(fn, "cdecl", [UCaseMap.Ptr, "ushort*", Int32, "ushort*", Int32, "int*", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

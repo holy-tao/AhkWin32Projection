@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\WLAN_CONNECTION_MODE.ahk" { WLAN_CONNECTION_MODE }
-#Import ".\DOT11_SSID.ahk" { DOT11_SSID }
 #Import ".\DOT11_BSS_TYPE.ahk" { DOT11_BSS_TYPE }
+#Import ".\DOT11_SSID.ahk" { DOT11_SSID }
+#Import ".\WLAN_CONNECTION_MODE.ahk" { WLAN_CONNECTION_MODE }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

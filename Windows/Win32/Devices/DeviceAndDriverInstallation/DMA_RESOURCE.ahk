@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DD_FLAGS.ahk" { DD_FLAGS }
 #Import ".\DMA_DES.ahk" { DMA_DES }
 #Import ".\DMA_RANGE.ahk" { DMA_RANGE }
-#Import ".\DD_FLAGS.ahk" { DD_FLAGS }
 
 /**
  * The DMA_RESOURCE structure is used for specifying either a resource list or a resource requirements list that describes DMA channel usage for a device instance.

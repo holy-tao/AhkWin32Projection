@@ -43,10 +43,6 @@ export default struct pHalVectorToIDTEntry {
             this.value := CallbackCreate(fn, , [UInt32, Int8])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

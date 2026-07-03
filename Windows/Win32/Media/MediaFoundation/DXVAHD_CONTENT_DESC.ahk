@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DXVAHD_RATIONAL.ahk" { DXVAHD_RATIONAL }
 #Import ".\DXVAHD_FRAME_FORMAT.ahk" { DXVAHD_FRAME_FORMAT }
+#Import ".\DXVAHD_RATIONAL.ahk" { DXVAHD_RATIONAL }
 
 /**
  * Describes a video stream for a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) video processor.

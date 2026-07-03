@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\BYTE_BLOB.ahk" { BYTE_BLOB }
-#Import "..\SystemServices\userHMETAFILEPICT.ahk" { userHMETAFILEPICT }
+#Import ".\GDI_OBJECT.ahk" { GDI_OBJECT }
+#Import ".\IUnknown.ahk" { IUnknown }
 #Import "..\SystemServices\userHENHMETAFILE.ahk" { userHENHMETAFILE }
 #Import "..\SystemServices\userHGLOBAL.ahk" { userHGLOBAL }
-#Import ".\IUnknown.ahk" { IUnknown }
-#Import ".\GDI_OBJECT.ahk" { GDI_OBJECT }
+#Import "..\SystemServices\userHMETAFILEPICT.ahk" { userHMETAFILEPICT }
 
 /**
  * @namespace Windows.Win32.System.Com

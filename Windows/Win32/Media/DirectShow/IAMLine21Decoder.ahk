@@ -2,14 +2,14 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Graphics\Gdi\BITMAPINFO.ahk" { BITMAPINFO }
-#Import ".\AM_LINE21_CCLEVEL.ahk" { AM_LINE21_CCLEVEL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
-#Import ".\AM_LINE21_DRAWBGMODE.ahk" { AM_LINE21_DRAWBGMODE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\AM_LINE21_CCSTATE.ahk" { AM_LINE21_CCSTATE }
+#Import "..\..\Graphics\Gdi\BITMAPINFO.ahk" { BITMAPINFO }
+#Import "..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
+#Import ".\AM_LINE21_CCLEVEL.ahk" { AM_LINE21_CCLEVEL }
 #Import ".\AM_LINE21_CCSERVICE.ahk" { AM_LINE21_CCSERVICE }
+#Import ".\AM_LINE21_CCSTATE.ahk" { AM_LINE21_CCSTATE }
+#Import ".\AM_LINE21_DRAWBGMODE.ahk" { AM_LINE21_DRAWBGMODE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAMLine21Decoder interface sets and retrieves information about closed captions.The Line 21 Decoder filter exposes this interface.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * PFINDFILEINPATHCALLBACK (dbghelp.h) is an application-defined callback function used with the SymFindFileInPath function.
@@ -56,10 +56,6 @@ export default struct PFINDFILEINPATHCALLBACK {
             this.value := CallbackCreate(fn, , [PSTR, "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

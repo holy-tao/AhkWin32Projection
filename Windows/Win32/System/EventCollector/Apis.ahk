@@ -1,10 +1,10 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\EC_VARIANT.ahk" { EC_VARIANT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID.ahk" { EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID }
 #Import ".\EC_SUBSCRIPTION_PROPERTY_ID.ahk" { EC_SUBSCRIPTION_PROPERTY_ID }
+#Import ".\EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID.ahk" { EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID }
+#Import ".\EC_VARIANT.ahk" { EC_VARIANT }
 
 /**
  * @namespace Windows.Win32.System.EventCollector

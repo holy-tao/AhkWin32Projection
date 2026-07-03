@@ -46,10 +46,6 @@ export default struct SERVICE_MAIN_FUNCTIONA {
             this.value := CallbackCreate(fn, , [UInt32, "ptr*", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

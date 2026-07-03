@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
 #Import ".\HREGBATCHPORT.ahk" { HREGBATCHPORT }
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -48,10 +48,6 @@ export default struct PCLUSTER_REG_CREATE_BATCH_NOTIFY_PORT {
             this.value := CallbackCreate(fn, , [HKEY, HREGBATCHPORT.Ptr, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

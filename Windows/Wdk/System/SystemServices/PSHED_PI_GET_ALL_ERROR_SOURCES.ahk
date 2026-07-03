@@ -32,7 +32,7 @@ export default struct PSHED_PI_GET_ALL_ERROR_SOURCES {
         LengthMarshal := Length is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, PluginContextMarshal, PluginContext, CountMarshal, Count, IntPtr, ErrorSrcs, LengthMarshal, Length, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -52,10 +52,6 @@ export default struct PSHED_PI_GET_ALL_ERROR_SOURCES {
             this.value := CallbackCreate(fn, , ["ptr", "uint*", IntPtr, "uint*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

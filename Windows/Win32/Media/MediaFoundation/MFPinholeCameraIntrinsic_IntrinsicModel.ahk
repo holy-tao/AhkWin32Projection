@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MF_FLOAT2.ahk" { MF_FLOAT2 }
-#Import ".\MFCameraIntrinsic_PinholeCameraModel.ahk" { MFCameraIntrinsic_PinholeCameraModel }
 #Import ".\MFCameraIntrinsic_DistortionModel.ahk" { MFCameraIntrinsic_DistortionModel }
+#Import ".\MFCameraIntrinsic_PinholeCameraModel.ahk" { MFCameraIntrinsic_PinholeCameraModel }
+#Import ".\MF_FLOAT2.ahk" { MF_FLOAT2 }
 
 /**
  * Represents a pinhole camera intrinsic model for a specified resolution.

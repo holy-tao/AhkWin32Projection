@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LINE_SEGMENT.ahk" { LINE_SEGMENT }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\LINE_SEGMENT.ahk" { LINE_SEGMENT }
 
 /**
  * Describes the baseline and the midline height.

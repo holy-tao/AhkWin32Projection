@@ -53,10 +53,6 @@ export default struct CRYPT_VERIFY_IMAGE_W {
             this.value := CallbackCreate(fn, , [PWSTR, "char*", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\PHYSICAL_COUNTER_RESOURCE_DESCRIPTOR_TYPE.ahk" { PHYSICAL_COUNTER_RESOURCE_DESCRIPTOR_TYPE }
-#Import ".\PPHYSICAL_COUNTER_OVERFLOW_HANDLER.ahk" { PPHYSICAL_COUNTER_OVERFLOW_HANDLER }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -22,7 +21,7 @@ export default struct PHYSICAL_COUNTER_RESOURCE_DESCRIPTOR {
 
         static __New() {
             DefineProp(this.Prototype, 'Range', { type: PHYSICAL_COUNTER_RESOURCE_DESCRIPTOR._u._Range, offset: 0 })
-            DefineProp(this.Prototype, 'OverflowHandler', { type: PPHYSICAL_COUNTER_OVERFLOW_HANDLER, offset: 0 })
+            DefineProp(this.Prototype, 'OverflowHandler', { type: IntPtr, offset: 0 })
             DefineProp(this.Prototype, 'EventBufferConfiguration', { type: IntPtr, offset: 0 })
             DefineProp(this.Prototype, 'IdentificationTag', { type: UInt32, offset: 0 })
             this.DeleteProp("__New")

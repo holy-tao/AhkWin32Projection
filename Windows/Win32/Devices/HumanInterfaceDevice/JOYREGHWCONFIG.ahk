@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\JOYPOS.ahk" { JOYPOS }
 #Import ".\JOYRANGE.ahk" { JOYRANGE }
-#Import ".\JOYREGHWVALUES.ahk" { JOYREGHWVALUES }
 #Import ".\JOYREGHWSETTINGS.ahk" { JOYREGHWSETTINGS }
+#Import ".\JOYREGHWVALUES.ahk" { JOYREGHWVALUES }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice

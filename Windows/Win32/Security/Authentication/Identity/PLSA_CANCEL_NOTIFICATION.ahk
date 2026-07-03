@@ -26,7 +26,7 @@ export default struct PLSA_CANCEL_NOTIFICATION {
      */
     Call(NotifyHandle) {
         result := DllCall(this.value, HANDLE, NotifyHandle, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -46,10 +46,6 @@ export default struct PLSA_CANCEL_NOTIFICATION {
             this.value := CallbackCreate(fn, , [HANDLE, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

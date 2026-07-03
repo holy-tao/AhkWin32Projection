@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TXFS_RMF_LAGS.ahk" { TXFS_RMF_LAGS }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\TXFS_RMF_LAGS.ahk" { TXFS_RMF_LAGS }
 
 /**
  * Contains information about the resource manager (RM).

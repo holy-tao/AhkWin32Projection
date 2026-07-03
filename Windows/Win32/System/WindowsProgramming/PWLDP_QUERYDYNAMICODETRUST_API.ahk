@@ -47,10 +47,6 @@ export default struct PWLDP_QUERYDYNAMICODETRUST_API {
             this.value := CallbackCreate(fn, , [HANDLE, IntPtr, UInt32, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\TYPEKIND.ahk" { TYPEKIND }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ICreateTypeInfo.ahk" { ICreateTypeInfo }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\TYPEKIND.ahk" { TYPEKIND }
+#Import ".\ICreateTypeInfo.ahk" { ICreateTypeInfo }
 
 /**
  * Provides the methods for creating and managing the component or file that contains type information. (ICreateTypeLib)

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\BTH_LE_GATT_CHARACTERISTIC.ahk" { BTH_LE_GATT_CHARACTERISTIC }
 #Import ".\BTH_LE_UUID.ahk" { BTH_LE_UUID }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * The BLUETOOTH_GATT_VALUE_CHANGED_EVENT_REGISTRATION structure describes one or more characteristics that have changed.

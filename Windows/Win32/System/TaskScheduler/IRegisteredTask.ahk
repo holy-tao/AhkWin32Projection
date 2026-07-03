@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\TASK_STATE.ahk" { TASK_STATE }
-#Import ".\IRunningTaskCollection.ahk" { IRunningTaskCollection }
-#Import ".\ITaskDefinition.ahk" { ITaskDefinition }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IRunningTask.ahk" { IRunningTask }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IRunningTask.ahk" { IRunningTask }
+#Import ".\IRunningTaskCollection.ahk" { IRunningTaskCollection }
+#Import ".\ITaskDefinition.ahk" { ITaskDefinition }
+#Import ".\TASK_STATE.ahk" { TASK_STATE }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Provides the methods that are used to run the task immediately, get any running instances of the task, get or set the credentials that are used to register the task, and the properties that describe the task.

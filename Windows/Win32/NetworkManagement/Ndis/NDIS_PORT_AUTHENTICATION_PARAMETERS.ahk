@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
 #Import ".\NDIS_PORT_AUTHORIZATION_STATE.ahk" { NDIS_PORT_AUTHORIZATION_STATE }
 #Import ".\NDIS_PORT_CONTROL_STATE.ahk" { NDIS_PORT_CONTROL_STATE }
-#Import ".\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis

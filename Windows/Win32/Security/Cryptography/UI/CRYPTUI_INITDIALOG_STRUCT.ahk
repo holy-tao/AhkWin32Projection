@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 
 /**
  * Supports the CRYPTUI_VIEWCERTIFICATE_STRUCT structure.

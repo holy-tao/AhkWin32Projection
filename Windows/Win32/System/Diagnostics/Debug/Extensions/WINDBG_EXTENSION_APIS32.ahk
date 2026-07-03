@@ -1,15 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PWINDBG_SET_THREAD_CONTEXT_ROUTINE.ahk" { PWINDBG_SET_THREAD_CONTEXT_ROUTINE }
-#Import ".\PWINDBG_IOCTL_ROUTINE.ahk" { PWINDBG_IOCTL_ROUTINE }
-#Import ".\PWINDBG_CHECK_CONTROL_C.ahk" { PWINDBG_CHECK_CONTROL_C }
-#Import ".\PWINDBG_GET_SYMBOL32.ahk" { PWINDBG_GET_SYMBOL32 }
-#Import ".\PWINDBG_OUTPUT_ROUTINE.ahk" { PWINDBG_OUTPUT_ROUTINE }
-#Import ".\PWINDBG_WRITE_PROCESS_MEMORY_ROUTINE32.ahk" { PWINDBG_WRITE_PROCESS_MEMORY_ROUTINE32 }
-#Import ".\PWINDBG_GET_THREAD_CONTEXT_ROUTINE.ahk" { PWINDBG_GET_THREAD_CONTEXT_ROUTINE }
-#Import ".\PWINDBG_GET_EXPRESSION32.ahk" { PWINDBG_GET_EXPRESSION32 }
-#Import ".\PWINDBG_STACKTRACE_ROUTINE32.ahk" { PWINDBG_STACKTRACE_ROUTINE32 }
-#Import ".\PWINDBG_DISASM32.ahk" { PWINDBG_DISASM32 }
-#Import ".\PWINDBG_READ_PROCESS_MEMORY_ROUTINE32.ahk" { PWINDBG_READ_PROCESS_MEMORY_ROUTINE32 }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -19,26 +8,26 @@ export default struct WINDBG_EXTENSION_APIS32 {
 
     nSize : UInt32
 
-    lpOutputRoutine : PWINDBG_OUTPUT_ROUTINE
+    lpOutputRoutine : IntPtr
 
-    lpGetExpressionRoutine : PWINDBG_GET_EXPRESSION32
+    lpGetExpressionRoutine : IntPtr
 
-    lpGetSymbolRoutine : PWINDBG_GET_SYMBOL32
+    lpGetSymbolRoutine : IntPtr
 
-    lpDisasmRoutine : PWINDBG_DISASM32
+    lpDisasmRoutine : IntPtr
 
-    lpCheckControlCRoutine : PWINDBG_CHECK_CONTROL_C
+    lpCheckControlCRoutine : IntPtr
 
-    lpReadProcessMemoryRoutine : PWINDBG_READ_PROCESS_MEMORY_ROUTINE32
+    lpReadProcessMemoryRoutine : IntPtr
 
-    lpWriteProcessMemoryRoutine : PWINDBG_WRITE_PROCESS_MEMORY_ROUTINE32
+    lpWriteProcessMemoryRoutine : IntPtr
 
-    lpGetThreadContextRoutine : PWINDBG_GET_THREAD_CONTEXT_ROUTINE
+    lpGetThreadContextRoutine : IntPtr
 
-    lpSetThreadContextRoutine : PWINDBG_SET_THREAD_CONTEXT_ROUTINE
+    lpSetThreadContextRoutine : IntPtr
 
-    lpIoctlRoutine : PWINDBG_IOCTL_ROUTINE
+    lpIoctlRoutine : IntPtr
 
-    lpStackTraceRoutine : PWINDBG_STACKTRACE_ROUTINE32
+    lpStackTraceRoutine : IntPtr
 
 }

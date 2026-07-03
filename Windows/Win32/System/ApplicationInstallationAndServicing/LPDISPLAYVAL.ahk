@@ -91,10 +91,6 @@ export default struct LPDISPLAYVAL {
             this.value := CallbackCreate(fn, , ["ptr", RESULTTYPES, PWSTR, PWSTR, PWSTR, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

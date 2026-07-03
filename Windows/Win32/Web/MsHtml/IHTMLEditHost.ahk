@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ELEMENT_CORNER.ahk" { ELEMENT_CORNER }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\JOB_OBJECT_LIMIT.ahk" { JOB_OBJECT_LIMIT }
 #Import ".\JOBOBJECT_RATE_CONTROL_TOLERANCE.ahk" { JOBOBJECT_RATE_CONTROL_TOLERANCE }
+#Import ".\JOB_OBJECT_LIMIT.ahk" { JOB_OBJECT_LIMIT }
 
 /**
  * Contains extended information about resource notification limits that have been exceeded for a job object. This structure is used with the QueryInformationJobObject function with the JobObjectLimitViolationInformation2 information class.

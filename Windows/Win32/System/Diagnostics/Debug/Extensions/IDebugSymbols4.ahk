@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDebugSymbolGroup2.ahk" { IDebugSymbolGroup2 }
-#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DEBUG_SYMBOL_SOURCE_ENTRY.ahk" { DEBUG_SYMBOL_SOURCE_ENTRY }
-#Import ".\DEBUG_STACK_FRAME_EX.ahk" { DEBUG_STACK_FRAME_EX }
-#Import ".\DEBUG_SYMBOL_ENTRY.ahk" { DEBUG_SYMBOL_ENTRY }
-#Import ".\DEBUG_MODULE_AND_ID.ahk" { DEBUG_MODULE_AND_ID }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DEBUG_STACK_FRAME.ahk" { DEBUG_STACK_FRAME }
-#Import ".\IDebugSymbolGroup.ahk" { IDebugSymbolGroup }
+#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DEBUG_MODULE_AND_ID.ahk" { DEBUG_MODULE_AND_ID }
 #Import ".\DEBUG_MODULE_PARAMETERS.ahk" { DEBUG_MODULE_PARAMETERS }
 #Import ".\DEBUG_OFFSET_REGION.ahk" { DEBUG_OFFSET_REGION }
+#Import ".\DEBUG_STACK_FRAME.ahk" { DEBUG_STACK_FRAME }
+#Import ".\DEBUG_STACK_FRAME_EX.ahk" { DEBUG_STACK_FRAME_EX }
+#Import ".\DEBUG_SYMBOL_ENTRY.ahk" { DEBUG_SYMBOL_ENTRY }
+#Import ".\DEBUG_SYMBOL_SOURCE_ENTRY.ahk" { DEBUG_SYMBOL_SOURCE_ENTRY }
+#Import ".\IDebugSymbolGroup.ahk" { IDebugSymbolGroup }
+#Import ".\IDebugSymbolGroup2.ahk" { IDebugSymbolGroup2 }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PrintPropertyValue.ahk" { PrintPropertyValue }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\EPrintPropertyType.ahk" { EPrintPropertyType }
+#Import ".\PrintPropertyValue.ahk" { PrintPropertyValue }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

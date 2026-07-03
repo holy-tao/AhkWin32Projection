@@ -1,6 +1,5 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\LPTIMECALLBACK.ahk" { LPTIMECALLBACK }
 
 /**
  * @namespace Windows.Win32.Media
@@ -129,7 +128,7 @@ export timeEndPeriod(uPeriod) {
  * @returns {Integer} 
  */
 export timeSetEvent(uDelay, uResolution, fptc, dwUser, fuEvent) {
-    result := DllCall("WINMM.dll\timeSetEvent", UInt32, uDelay, UInt32, uResolution, LPTIMECALLBACK, fptc, IntPtr, dwUser, UInt32, fuEvent, UInt32)
+    result := DllCall("WINMM.dll\timeSetEvent", UInt32, uDelay, UInt32, uResolution, "ptr", fptc, IntPtr, dwUser, UInt32, fuEvent, UInt32)
     return result
 }
 

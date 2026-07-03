@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\ID3D12Fence.ahk" { ID3D12Fence }
-#Import ".\ID3D12Pageable.ahk" { ID3D12Pageable }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3D12_RESIDENCY_FLAGS.ahk" { D3D12_RESIDENCY_FLAGS }
 #Import ".\ID3D12Device2.ahk" { ID3D12Device2 }
+#Import ".\ID3D12Fence.ahk" { ID3D12Fence }
+#Import ".\ID3D12Pageable.ahk" { ID3D12Pageable }
 
 /**
  * Represents a virtual adapter. This interface extends ID3D12Device2 to support the creation of special-purpose diagnostic heaps in system memory that persist even in the event of a GPU-fault or device-removed scenario.

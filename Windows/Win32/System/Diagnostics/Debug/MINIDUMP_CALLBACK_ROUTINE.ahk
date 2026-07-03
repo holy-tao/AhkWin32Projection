@@ -54,10 +54,6 @@ export default struct MINIDUMP_CALLBACK_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", MINIDUMP_CALLBACK_INPUT.Ptr, MINIDUMP_CALLBACK_OUTPUT.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DWRITE_FONT_METRICS.ahk" { DWRITE_FONT_METRICS }
-#Import "..\Direct2D\Common\ID2D1SimplifiedGeometrySink.ahk" { ID2D1SimplifiedGeometrySink }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DWRITE_GLYPH_OFFSET.ahk" { DWRITE_GLYPH_OFFSET }
-#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
-#Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DWRITE_GLYPH_METRICS.ahk" { DWRITE_GLYPH_METRICS }
-#Import ".\DWRITE_RENDERING_MODE.ahk" { DWRITE_RENDERING_MODE }
-#Import ".\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
-#Import ".\DWRITE_FONT_FACE_TYPE.ahk" { DWRITE_FONT_FACE_TYPE }
-#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Direct2D\Common\ID2D1SimplifiedGeometrySink.ahk" { ID2D1SimplifiedGeometrySink }
+#Import ".\DWRITE_FONT_FACE_TYPE.ahk" { DWRITE_FONT_FACE_TYPE }
+#Import ".\DWRITE_FONT_METRICS.ahk" { DWRITE_FONT_METRICS }
+#Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
+#Import ".\DWRITE_GLYPH_METRICS.ahk" { DWRITE_GLYPH_METRICS }
+#Import ".\DWRITE_GLYPH_OFFSET.ahk" { DWRITE_GLYPH_OFFSET }
+#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
+#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import ".\DWRITE_RENDERING_MODE.ahk" { DWRITE_RENDERING_MODE }
 #Import ".\IDWriteFontFile.ahk" { IDWriteFontFile }
+#Import ".\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This interface exposes various font data such as metrics, names, and glyph outlines. It contains font face type, appropriate file references, and face identification data.

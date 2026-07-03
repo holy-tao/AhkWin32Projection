@@ -44,10 +44,6 @@ export default struct PRESUTIL_VERIFY_SERVICE {
             this.value := CallbackCreate(fn, , [SC_HANDLE, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

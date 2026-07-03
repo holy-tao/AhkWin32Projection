@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\SYNC_RANGE.ahk" { SYNC_RANGE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IReplicaKeyMap.ahk" { IReplicaKeyMap }
+#Import ".\SYNC_RANGE.ahk" { SYNC_RANGE }
 #Import ".\SYNC_VERSION.ahk" { SYNC_VERSION }
 
 /**

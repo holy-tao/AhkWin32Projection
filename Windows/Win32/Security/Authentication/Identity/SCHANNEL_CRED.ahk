@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Cryptography\HCERTSTORE.ahk" { HCERTSTORE }
-#Import "..\..\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
-#Import "..\..\Cryptography\ALG_ID.ahk" { ALG_ID }
 #Import ".\SCHANNEL_CRED_FLAGS.ahk" { SCHANNEL_CRED_FLAGS }
 #Import ".\_HMAPPER.ahk" { _HMAPPER }
+#Import "..\..\Cryptography\ALG_ID.ahk" { ALG_ID }
+#Import "..\..\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import "..\..\Cryptography\HCERTSTORE.ahk" { HCERTSTORE }
 
 /**
  * Contains the data for an Schannel credential. (SCHANNEL_CRED)

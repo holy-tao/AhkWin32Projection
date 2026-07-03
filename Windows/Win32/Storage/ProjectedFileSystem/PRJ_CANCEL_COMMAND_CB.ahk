@@ -60,10 +60,6 @@ export default struct PRJ_CANCEL_COMMAND_CB {
             this.value := CallbackCreate(fn, , [PRJ_CALLBACK_DATA.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

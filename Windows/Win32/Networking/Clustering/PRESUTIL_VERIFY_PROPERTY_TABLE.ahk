@@ -53,10 +53,6 @@ export default struct PRESUTIL_VERIFY_PROPERTY_TABLE {
             this.value := CallbackCreate(fn, , [RESUTIL_PROPERTY_ITEM.Ptr, BOOL, IntPtr, UInt32, "char*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

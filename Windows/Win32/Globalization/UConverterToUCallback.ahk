@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\UConverterCallbackReason.ahk" { UConverterCallbackReason }
 #Import "..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\UConverterCallbackReason.ahk" { UConverterCallbackReason }
 #Import ".\UConverterToUnicodeArgs.ahk" { UConverterToUnicodeArgs }
 #Import ".\UErrorCode.ahk" { UErrorCode }
 
@@ -56,10 +56,6 @@ export default struct UConverterToUCallback {
             this.value := CallbackCreate(fn, "cdecl", ["ptr", UConverterToUnicodeArgs.Ptr, PSTR, Int32, UConverterCallbackReason, "int*", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

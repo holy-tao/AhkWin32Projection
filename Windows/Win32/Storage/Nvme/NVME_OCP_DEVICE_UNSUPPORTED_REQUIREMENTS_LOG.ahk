@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\UNSUPPORTED_REQUIREMENT.ahk" { UNSUPPORTED_REQUIREMENT }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\UNSUPPORTED_REQUIREMENT.ahk" { UNSUPPORTED_REQUIREMENT }
 
 /**
  * @namespace Windows.Win32.Storage.Nvme

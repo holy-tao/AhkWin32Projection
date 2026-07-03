@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IXpsOMPart.ahk" { IXpsOMPart }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 #Import ".\IXpsOMPackage.ahk" { IXpsOMPackage }
+#Import ".\IXpsOMPart.ahk" { IXpsOMPart }
 
 /**
  * This interface provides access to the metadata that is stored in the Core Properties part of the XPS document.

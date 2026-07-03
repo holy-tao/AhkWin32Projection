@@ -37,7 +37,7 @@ export default struct PLSA_AP_CALL_PACKAGE_PASSTHROUGH {
         ProtocolStatusMarshal := ProtocolStatus is VarRef ? "int*" : "ptr"
 
         result := DllCall(this.value, ClientRequestMarshal, ClientRequest, IntPtr, ProtocolSubmitBuffer, ClientBufferBaseMarshal, ClientBufferBase, UInt32, SubmitBufferLength, ProtocolReturnBufferMarshal, ProtocolReturnBuffer, ReturnBufferLengthMarshal, ReturnBufferLength, ProtocolStatusMarshal, ProtocolStatus, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -57,10 +57,6 @@ export default struct PLSA_AP_CALL_PACKAGE_PASSTHROUGH {
             this.value := CallbackCreate(fn, , ["ptr*", IntPtr, "ptr", UInt32, "ptr*", "uint*", "int*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WSD_NAME_LIST.ahk" { WSD_NAME_LIST }
-#Import ".\WSD_URI_LIST.ahk" { WSD_URI_LIST }
 #Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
 #Import ".\WSD_ENDPOINT_REFERENCE.ahk" { WSD_ENDPOINT_REFERENCE }
+#Import ".\WSD_NAME_LIST.ahk" { WSD_NAME_LIST }
 #Import ".\WSD_SCOPES.ahk" { WSD_SCOPES }
+#Import ".\WSD_URI_LIST.ahk" { WSD_URI_LIST }
 
 /**
  * Represents a ResolveMatch message.

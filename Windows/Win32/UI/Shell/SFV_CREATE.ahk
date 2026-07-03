@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IShellFolder.ahk" { IShellFolder }
 #Import ".\IShellFolderViewCB.ahk" { IShellFolderViewCB }
 #Import ".\IShellView.ahk" { IShellView }
-#Import ".\IShellFolder.ahk" { IShellFolder }
 
 /**
  * This structure is used with the SHCreateShellFolderView function.

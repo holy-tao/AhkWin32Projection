@@ -45,10 +45,6 @@ export default struct PNS_HELPER_START_FN {
             this.value := CallbackCreate(fn, , [Guid.Ptr, UInt32, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

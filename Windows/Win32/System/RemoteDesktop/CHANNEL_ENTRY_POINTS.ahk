@@ -1,8 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PVIRTUALCHANNELINIT.ahk" { PVIRTUALCHANNELINIT }
-#Import ".\PVIRTUALCHANNELCLOSE.ahk" { PVIRTUALCHANNELCLOSE }
-#Import ".\PVIRTUALCHANNELWRITE.ahk" { PVIRTUALCHANNELWRITE }
-#Import ".\PVIRTUALCHANNELOPEN.ahk" { PVIRTUALCHANNELOPEN }
 
 /**
  * Contains pointers to the functions called by a client-side DLL to access virtual channels.
@@ -26,24 +22,24 @@ export default struct CHANNEL_ENTRY_POINTS {
      * Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/cchannel/nc-cchannel-virtualchannelinit">VirtualChannelInit</a> function.
      */
-    pVirtualChannelInit : PVIRTUALCHANNELINIT
+    pVirtualChannelInit : IntPtr
 
     /**
      * Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/cchannel/nc-cchannel-virtualchannelopen">VirtualChannelOpen</a> function.
      */
-    pVirtualChannelOpen : PVIRTUALCHANNELOPEN
+    pVirtualChannelOpen : IntPtr
 
     /**
      * Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/cchannel/nc-cchannel-virtualchannelclose">VirtualChannelClose</a> function.
      */
-    pVirtualChannelClose : PVIRTUALCHANNELCLOSE
+    pVirtualChannelClose : IntPtr
 
     /**
      * Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/cchannel/nc-cchannel-virtualchannelwrite">VirtualChannelWrite</a> function.
      */
-    pVirtualChannelWrite : PVIRTUALCHANNELWRITE
+    pVirtualChannelWrite : IntPtr
 
 }

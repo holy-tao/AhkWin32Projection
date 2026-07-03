@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FILE_ID_128.ahk" { FILE_ID_128 }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FILE_ID_128.ahk" { FILE_ID_128 }
 #Import ".\FILE_ID_TYPE.ahk" { FILE_ID_TYPE }
 
 /**

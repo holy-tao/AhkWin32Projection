@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWMPStringCollection.ahk" { IWMPStringCollection }
-#Import ".\IWMPPlaylist.ahk" { IWMPPlaylist }
-#Import ".\IWMPMedia.ahk" { IWMPMedia }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IWMPMedia.ahk" { IWMPMedia }
+#Import ".\IWMPPlaylist.ahk" { IWMPPlaylist }
+#Import ".\IWMPStringCollection.ahk" { IWMPStringCollection }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**

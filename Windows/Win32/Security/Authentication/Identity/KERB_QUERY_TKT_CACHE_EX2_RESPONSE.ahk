@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\KERB_TICKET_CACHE_INFO_EX2.ahk" { KERB_TICKET_CACHE_INFO_EX2 }
 #Import ".\KERB_PROTOCOL_MESSAGE_TYPE.ahk" { KERB_PROTOCOL_MESSAGE_TYPE }
+#Import ".\KERB_TICKET_CACHE_INFO_EX2.ahk" { KERB_TICKET_CACHE_INFO_EX2 }
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity

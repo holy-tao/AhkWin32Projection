@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITextRange.ahk" { ITextRange }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\tomConstants.ahk" { tomConstants }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITextRange.ahk" { ITextRange }
+#Import ".\tomConstants.ahk" { tomConstants }
 
 /**
  * A text selection is a text range with selection highlighting.

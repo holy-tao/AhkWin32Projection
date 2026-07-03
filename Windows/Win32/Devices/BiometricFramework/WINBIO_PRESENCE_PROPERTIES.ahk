@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Contains biometric values that the Windows Biometric Framework used to determine that an individual was present.

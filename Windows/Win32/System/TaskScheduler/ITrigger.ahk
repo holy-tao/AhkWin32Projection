@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IRepetitionPattern.ahk" { IRepetitionPattern }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\TASK_TRIGGER_TYPE2.ahk" { TASK_TRIGGER_TYPE2 }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IRepetitionPattern.ahk" { IRepetitionPattern }
+#Import ".\TASK_TRIGGER_TYPE2.ahk" { TASK_TRIGGER_TYPE2 }
 
 /**
  * Provides the common properties that are inherited by all trigger objects.

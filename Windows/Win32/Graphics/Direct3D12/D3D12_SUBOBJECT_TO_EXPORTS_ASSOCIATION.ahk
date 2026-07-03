@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_STATE_SUBOBJECT.ahk" { D3D12_STATE_SUBOBJECT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\D3D12_STATE_SUBOBJECT.ahk" { D3D12_STATE_SUBOBJECT }
 
 /**
  * Associates a subobject defined directly in a state object with shader exports.

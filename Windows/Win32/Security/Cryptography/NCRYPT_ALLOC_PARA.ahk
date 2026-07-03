@@ -1,6 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PFN_NCRYPT_ALLOC.ahk" { PFN_NCRYPT_ALLOC }
-#Import ".\PFN_NCRYPT_FREE.ahk" { PFN_NCRYPT_FREE }
 
 /**
  * Enables you to specify custom functions that can be used to allocate and free data.
@@ -18,11 +16,11 @@ export default struct NCRYPT_ALLOC_PARA {
     /**
      * Address of a custom function that can allocate memory.
      */
-    pfnAlloc : PFN_NCRYPT_ALLOC
+    pfnAlloc : IntPtr
 
     /**
      * Address of a function that can free memory allocated by the function specified by the <b>pfnAlloc</b> member.
      */
-    pfnFree : PFN_NCRYPT_FREE
+    pfnFree : IntPtr
 
 }

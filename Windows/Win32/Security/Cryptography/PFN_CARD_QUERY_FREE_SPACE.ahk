@@ -47,10 +47,6 @@ export default struct PFN_CARD_QUERY_FREE_SPACE {
             this.value := CallbackCreate(fn, , [CARD_DATA.Ptr, UInt32, CARD_FREE_SPACE_INFO.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WSD_NAME_LIST.ahk" { WSD_NAME_LIST }
 #Import ".\IWSDMessageParameters.ahk" { IWSDMessageParameters }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IWSDXMLContext.ahk" { IWSDXMLContext }
-#Import ".\WSD_URI_LIST.ahk" { WSD_URI_LIST }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WSD_SOAP_MESSAGE.ahk" { WSD_SOAP_MESSAGE }
-#Import ".\IWSDiscoveryPublisherNotify.ahk" { IWSDiscoveryPublisherNotify }
 #Import ".\IWSDScopeMatchingRule.ahk" { IWSDScopeMatchingRule }
+#Import ".\IWSDXMLContext.ahk" { IWSDXMLContext }
+#Import ".\IWSDiscoveryPublisherNotify.ahk" { IWSDiscoveryPublisherNotify }
+#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
+#Import ".\WSD_NAME_LIST.ahk" { WSD_NAME_LIST }
+#Import ".\WSD_SOAP_MESSAGE.ahk" { WSD_SOAP_MESSAGE }
+#Import ".\WSD_URI_LIST.ahk" { WSD_URI_LIST }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods for announcing hosts and managing incoming queries to hosts.

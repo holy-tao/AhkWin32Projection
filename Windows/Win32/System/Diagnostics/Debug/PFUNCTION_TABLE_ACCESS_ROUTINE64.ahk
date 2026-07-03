@@ -54,10 +54,6 @@ export default struct PFUNCTION_TABLE_ACCESS_ROUTINE64 {
             this.value := CallbackCreate(fn, , [HANDLE, Int64, "ptr"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

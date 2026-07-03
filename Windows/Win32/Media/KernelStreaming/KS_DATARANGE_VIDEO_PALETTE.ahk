@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\KS_RGBQUAD.ahk" { KS_RGBQUAD }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\SIZE.ahk" { SIZE }
-#Import ".\KS_VIDEO_STREAM_CONFIG_CAPS.ahk" { KS_VIDEO_STREAM_CONFIG_CAPS }
 #Import ".\KSDATAFORMAT.ahk" { KSDATAFORMAT }
-#Import ".\KS_TRUECOLORINFO.ahk" { KS_TRUECOLORINFO }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\KS_VIDEOINFO.ahk" { KS_VIDEOINFO }
 #Import ".\KS_BITMAPINFOHEADER.ahk" { KS_BITMAPINFOHEADER }
+#Import ".\KS_RGBQUAD.ahk" { KS_RGBQUAD }
+#Import ".\KS_TRUECOLORINFO.ahk" { KS_TRUECOLORINFO }
+#Import ".\KS_VIDEOINFO.ahk" { KS_VIDEOINFO }
+#Import ".\KS_VIDEO_STREAM_CONFIG_CAPS.ahk" { KS_VIDEO_STREAM_CONFIG_CAPS }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

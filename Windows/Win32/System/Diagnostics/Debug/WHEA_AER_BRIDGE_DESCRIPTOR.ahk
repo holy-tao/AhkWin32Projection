@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\AER_BRIDGE_DESCRIPTOR_FLAGS.ahk" { AER_BRIDGE_DESCRIPTOR_FLAGS }
 #Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\AER_BRIDGE_DESCRIPTOR_FLAGS.ahk" { AER_BRIDGE_DESCRIPTOR_FLAGS }
 #Import ".\WHEA_PCI_SLOT_NUMBER.ahk" { WHEA_PCI_SLOT_NUMBER }
 
 /**

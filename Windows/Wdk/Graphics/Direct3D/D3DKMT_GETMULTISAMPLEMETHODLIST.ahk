@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3DKMT_MULTISAMPLEMETHOD.ahk" { D3DKMT_MULTISAMPLEMETHOD }
 #Import ".\D3DDDIFORMAT.ahk" { D3DDDIFORMAT }
+#Import ".\D3DKMT_MULTISAMPLEMETHOD.ahk" { D3DKMT_MULTISAMPLEMETHOD }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

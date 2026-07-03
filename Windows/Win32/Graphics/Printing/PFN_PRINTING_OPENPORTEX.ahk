@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\MONITOR2.ahk" { MONITOR2 }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MONITOR2.ahk" { MONITOR2 }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -54,10 +54,6 @@ export default struct PFN_PRINTING_OPENPORTEX {
             this.value := CallbackCreate(fn, , [HANDLE, PWSTR, PWSTR, HANDLE.Ptr, MONITOR2.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

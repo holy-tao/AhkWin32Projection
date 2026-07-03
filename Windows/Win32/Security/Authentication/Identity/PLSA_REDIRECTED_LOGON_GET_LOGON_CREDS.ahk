@@ -31,7 +31,7 @@ export default struct PLSA_REDIRECTED_LOGON_GET_LOGON_CREDS {
         LogonBufferLengthMarshal := LogonBufferLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, HANDLE, RedirectedLogonHandle, LogonBufferMarshal, LogonBuffer, LogonBufferLengthMarshal, LogonBufferLength, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -51,10 +51,6 @@ export default struct PLSA_REDIRECTED_LOGON_GET_LOGON_CREDS {
             this.value := CallbackCreate(fn, , [HANDLE, "ptr*", "uint*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

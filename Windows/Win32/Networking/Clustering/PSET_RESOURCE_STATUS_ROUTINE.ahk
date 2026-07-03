@@ -125,10 +125,6 @@ export default struct PSET_RESOURCE_STATUS_ROUTINE {
             this.value := CallbackCreate(fn, , [IntPtr, RESOURCE_STATUS.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

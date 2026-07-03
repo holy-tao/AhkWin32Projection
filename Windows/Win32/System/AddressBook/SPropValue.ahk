@@ -1,23 +1,23 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\SBinaryArray.ahk" { SBinaryArray }
-#Import ".\SLargeIntegerArray.ahk" { SLargeIntegerArray }
-#Import ".\SBinary.ahk" { SBinary }
-#Import ".\SShortArray.ahk" { SShortArray }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\SAppTimeArray.ahk" { SAppTimeArray }
+#Import ".\SBinary.ahk" { SBinary }
+#Import ".\SBinaryArray.ahk" { SBinaryArray }
+#Import ".\SCurrencyArray.ahk" { SCurrencyArray }
 #Import ".\SDateTimeArray.ahk" { SDateTimeArray }
+#Import ".\SDoubleArray.ahk" { SDoubleArray }
 #Import ".\SGuidArray.ahk" { SGuidArray }
 #Import ".\SLPSTRArray.ahk" { SLPSTRArray }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SCurrencyArray.ahk" { SCurrencyArray }
-#Import "..\Com\CY.ahk" { CY }
-#Import ".\SWStringArray.ahk" { SWStringArray }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\SRealArray.ahk" { SRealArray }
+#Import ".\SLargeIntegerArray.ahk" { SLargeIntegerArray }
 #Import ".\SLongArray.ahk" { SLongArray }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\SRealArray.ahk" { SRealArray }
+#Import ".\SShortArray.ahk" { SShortArray }
+#Import ".\SWStringArray.ahk" { SWStringArray }
 #Import ".\__UPV.ahk" { __UPV }
-#Import ".\SDoubleArray.ahk" { SDoubleArray }
+#Import "..\Com\CY.ahk" { CY }
 
 /**
  * Describes a MAPI property for Outlook 2013 and Outlook 2016.

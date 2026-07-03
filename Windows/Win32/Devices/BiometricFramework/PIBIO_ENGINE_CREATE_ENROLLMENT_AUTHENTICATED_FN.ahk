@@ -50,10 +50,6 @@ export default struct PIBIO_ENGINE_CREATE_ENROLLMENT_AUTHENTICATED_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, "ptr*", "ptr*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

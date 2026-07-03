@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RPC_VERSION.ahk" { RPC_VERSION }
-#Import ".\RPC_STATUS.ahk" { RPC_STATUS }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\RPC_STATUS.ahk" { RPC_STATUS }
+#Import ".\RPC_VERSION.ahk" { RPC_VERSION }
 
 /**
  * @namespace Windows.Win32.System.Rpc
@@ -53,10 +53,6 @@ export default struct RPC_FORWARD_FUNCTION {
             this.value := CallbackCreate(fn, , [Guid.Ptr, RPC_VERSION.Ptr, Guid.Ptr, "char*", "ptr*", RPC_STATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

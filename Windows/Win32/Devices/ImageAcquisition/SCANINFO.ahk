@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\RANGEVALUE.ahk" { RANGEVALUE }
 #Import ".\SCANWINDOW.ahk" { SCANWINDOW }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition

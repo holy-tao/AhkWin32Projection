@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUIAutomationElementArray.ahk" { IUIAutomationElementArray }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
+#Import ".\IUIAutomationElementArray.ahk" { IUIAutomationElementArray }
 #Import ".\LiveSetting.ahk" { LiveSetting }
 
 /**

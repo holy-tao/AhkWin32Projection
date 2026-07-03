@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IWMDMOperation.ahk" { IWMDMOperation }
 #Import ".\IWMDMProgress.ahk" { IWMDMProgress }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IWMDMStorageControl.ahk" { IWMDMStorageControl }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWMDMStorage.ahk" { IWMDMStorage }
+#Import ".\IWMDMStorageControl.ahk" { IWMDMStorageControl }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMDMStorageControl2 interface extends IWMDMStorageControl by making it possible to set the name of the destination file when inserting content into a storage.

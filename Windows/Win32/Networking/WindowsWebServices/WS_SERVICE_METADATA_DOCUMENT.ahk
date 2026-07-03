@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
 #Import ".\WS_STRING.ahk" { WS_STRING }
+#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
 
 /**
  * Specifies the individual documents that make up the service metadata.

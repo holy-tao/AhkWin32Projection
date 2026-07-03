@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IConnectionPointContainer.ahk" { IConnectionPointContainer }
-#Import ".\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IConnectionPointContainer.ahk" { IConnectionPointContainer }
 #Import ".\IEnumConnections.ahk" { IEnumConnections }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * Supports connection points for connectable objects. (IConnectionPoint)

@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IRegisteredSyncProvider.ahk" { IRegisteredSyncProvider }
-#Import ".\ISyncProviderConfigUI.ahk" { ISyncProviderConfigUI }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\SyncProviderConfiguration.ahk" { SyncProviderConfiguration }
+#Import ".\IEnumSyncProviderConfigUIInfos.ahk" { IEnumSyncProviderConfigUIInfos }
 #Import ".\IEnumSyncProviderInfos.ahk" { IEnumSyncProviderInfos }
+#Import ".\IRegisteredSyncProvider.ahk" { IRegisteredSyncProvider }
+#Import ".\ISyncProviderConfigUI.ahk" { ISyncProviderConfigUI }
+#Import ".\ISyncProviderConfigUIInfo.ahk" { ISyncProviderConfigUIInfo }
 #Import ".\ISyncProviderInfo.ahk" { ISyncProviderInfo }
 #Import ".\ISyncRegistrationChange.ahk" { ISyncRegistrationChange }
-#Import ".\ISyncProviderConfigUIInfo.ahk" { ISyncProviderConfigUIInfo }
-#Import ".\IEnumSyncProviderConfigUIInfos.ahk" { IEnumSyncProviderConfigUIInfos }
 #Import ".\SyncProviderConfigUIConfiguration.ahk" { SyncProviderConfigUIConfiguration }
+#Import ".\SyncProviderConfiguration.ahk" { SyncProviderConfiguration }
 
 /**
  * Represents synchronization provider registration.

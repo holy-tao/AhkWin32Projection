@@ -1,15 +1,15 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\SIP_INDIRECT_DATA.ahk" { SIP_INDIRECT_DATA }
-#Import ".\SIP_ADD_NEWPROVIDER.ahk" { SIP_ADD_NEWPROVIDER }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\CERT_QUERY_ENCODING_TYPE.ahk" { CERT_QUERY_ENCODING_TYPE }
+#Import ".\SIP_ADD_NEWPROVIDER.ahk" { SIP_ADD_NEWPROVIDER }
 #Import ".\SIP_CAP_SET_V3.ahk" { SIP_CAP_SET_V3 }
 #Import ".\SIP_DISPATCH_INFO.ahk" { SIP_DISPATCH_INFO }
+#Import ".\SIP_INDIRECT_DATA.ahk" { SIP_INDIRECT_DATA }
 #Import ".\SIP_SUBJECTINFO.ahk" { SIP_SUBJECTINFO }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\CERT_QUERY_ENCODING_TYPE.ahk" { CERT_QUERY_ENCODING_TYPE }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Sip

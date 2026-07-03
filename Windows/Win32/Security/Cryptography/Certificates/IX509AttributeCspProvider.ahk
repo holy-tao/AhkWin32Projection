@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\EncodingType.ahk" { EncodingType }
 #Import ".\IX509Attribute.ahk" { IX509Attribute }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\X509KeySpec.ahk" { X509KeySpec }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents an attribute that identifies the cryptographic provider used by the entity requesting the certificate.

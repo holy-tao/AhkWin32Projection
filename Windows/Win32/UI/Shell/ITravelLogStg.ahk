@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumTravelLogEntry.ahk" { IEnumTravelLogEntry }
 #Import ".\ITravelLogEntry.ahk" { ITravelLogEntry }
 #Import ".\TLENUMF.ahk" { TLENUMF }
-#Import ".\IEnumTravelLogEntry.ahk" { IEnumTravelLogEntry }
 
 /**
  * @namespace Windows.Win32.UI.Shell

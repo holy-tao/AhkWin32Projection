@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\BCRYPT_SECRET_HANDLE.ahk" { BCRYPT_SECRET_HANDLE }
 #Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\BCRYPT_KEY_HANDLE.ahk" { BCRYPT_KEY_HANDLE }
+#Import ".\BCRYPT_SECRET_HANDLE.ahk" { BCRYPT_SECRET_HANDLE }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -30,7 +30,7 @@ export default struct BCryptSecretAgreementFn {
      */
     Call(hPrivKey, hPubKey, phAgreedSecret, dwFlags) {
         result := DllCall(this.value, BCRYPT_KEY_HANDLE, hPrivKey, BCRYPT_KEY_HANDLE, hPubKey, BCRYPT_SECRET_HANDLE.Ptr, phAgreedSecret, UInt32, dwFlags, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -50,10 +50,6 @@ export default struct BCryptSecretAgreementFn {
             this.value := CallbackCreate(fn, , [BCRYPT_KEY_HANDLE, BCRYPT_KEY_HANDLE, BCRYPT_SECRET_HANDLE.Ptr, UInt32, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

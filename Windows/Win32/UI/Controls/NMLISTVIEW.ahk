@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LIST_VIEW_ITEM_FLAGS.ahk" { LIST_VIEW_ITEM_FLAGS }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\LIST_VIEW_ITEM_FLAGS.ahk" { LIST_VIEW_ITEM_FLAGS }
 #Import ".\NMHDR.ahk" { NMHDR }
 
 /**

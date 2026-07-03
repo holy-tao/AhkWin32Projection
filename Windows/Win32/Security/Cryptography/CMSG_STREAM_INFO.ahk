@@ -1,5 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PFN_CMSG_STREAM_OUTPUT.ahk" { PFN_CMSG_STREAM_OUTPUT }
 
 /**
  * Used to enable stream processing of data rather than single block processing.
@@ -35,7 +34,7 @@ export default struct CMSG_STREAM_INFO {
      * 
      * ```cpp
      */
-    pfnStreamOutput : PFN_CMSG_STREAM_OUTPUT
+    pfnStreamOutput : IntPtr
 
     /**
      * A pointer to the argument to pass to the callback function. Typically, this is used for state data that includes the handle to a more deeply nested message (when decoding) or a less deeply nested message (when encoding).

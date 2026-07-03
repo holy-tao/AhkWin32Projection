@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\PPP_PROJECTION_INFO2.ahk" { PPP_PROJECTION_INFO2 }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\RAS_FLAGS.ahk" { RAS_FLAGS }
-#Import ".\ROUTER_INTERFACE_TYPE.ahk" { ROUTER_INTERFACE_TYPE }
-#Import ".\PROJECTION_INFO2.ahk" { PROJECTION_INFO2 }
-#Import ".\PPP_LCP.ahk" { PPP_LCP }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\IKEV2_PROJECTION_INFO2.ahk" { IKEV2_PROJECTION_INFO2 }
+#Import ".\PPP_LCP.ahk" { PPP_LCP }
 #Import ".\PPP_LCP_INFO_AUTH_DATA.ahk" { PPP_LCP_INFO_AUTH_DATA }
+#Import ".\PPP_PROJECTION_INFO2.ahk" { PPP_PROJECTION_INFO2 }
+#Import ".\PROJECTION_INFO2.ahk" { PROJECTION_INFO2 }
+#Import ".\RAS_FLAGS.ahk" { RAS_FLAGS }
 #Import ".\RAS_QUARANTINE_STATE.ahk" { RAS_QUARANTINE_STATE }
+#Import ".\ROUTER_INTERFACE_TYPE.ahk" { ROUTER_INTERFACE_TYPE }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

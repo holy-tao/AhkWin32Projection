@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\BCRYPT_ALG_HANDLE.ahk" { BCRYPT_ALG_HANDLE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\BCRYPT_ALG_HANDLE.ahk" { BCRYPT_ALG_HANDLE }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -31,7 +31,7 @@ export default struct BCryptOpenAlgorithmProviderFn {
         pszAlgId := pszAlgId is String ? StrPtr(pszAlgId) : pszAlgId
 
         result := DllCall(this.value, BCRYPT_ALG_HANDLE.Ptr, phAlgorithm, "ptr", pszAlgId, UInt32, dwFlags, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -51,10 +51,6 @@ export default struct BCryptOpenAlgorithmProviderFn {
             this.value := CallbackCreate(fn, , [BCRYPT_ALG_HANDLE.Ptr, PWSTR, UInt32, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

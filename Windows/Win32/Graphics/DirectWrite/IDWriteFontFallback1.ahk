@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDWriteFontFace5.ahk" { IDWriteFontFace5 }
-#Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
-#Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IDWriteTextAnalysisSource.ahk" { IDWriteTextAnalysisSource }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
+#Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
+#Import ".\IDWriteFontFace5.ahk" { IDWriteFontFace5 }
 #Import ".\IDWriteFontFallback.ahk" { IDWriteFontFallback }
+#Import ".\IDWriteTextAnalysisSource.ahk" { IDWriteTextAnalysisSource }
 
 /**
  * Allows you to access fallback fonts from the font list.

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ID2D1Image.ahk" { ID2D1Image }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID2D1Image.ahk" { ID2D1Image }
 #Import ".\ID2D1Properties.ahk" { ID2D1Properties }
 
 /**

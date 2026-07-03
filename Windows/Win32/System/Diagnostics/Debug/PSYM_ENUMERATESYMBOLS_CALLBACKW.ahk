@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SYMBOL_INFOW.ahk" { SYMBOL_INFOW }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\SYMBOL_INFOW.ahk" { SYMBOL_INFOW }
 
 /**
  * PSYM_ENUMERATESYMBOLS_CALLBACKW (Unicode) is a callback function used with the SymEnumSymbols, SymEnumTypes, and SymEnumTypesByName functions.
@@ -63,10 +63,6 @@ export default struct PSYM_ENUMERATESYMBOLS_CALLBACKW {
             this.value := CallbackCreate(fn, , [SYMBOL_INFOW.Ptr, UInt32, "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

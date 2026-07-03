@@ -30,7 +30,7 @@ export default struct PLSA_COPY_FROM_CLIENT_BUFFER {
         ClientRequestMarshal := ClientRequest is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, ClientRequestMarshal, ClientRequest, UInt32, Length, IntPtr, BufferToCopy, IntPtr, ClientBaseAddress, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -50,10 +50,6 @@ export default struct PLSA_COPY_FROM_CLIENT_BUFFER {
             this.value := CallbackCreate(fn, , ["ptr*", UInt32, IntPtr, IntPtr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

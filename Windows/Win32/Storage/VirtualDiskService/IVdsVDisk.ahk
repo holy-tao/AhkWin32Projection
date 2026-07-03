@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\VDS_VDISK_PROPERTIES.ahk" { VDS_VDISK_PROPERTIES }
-#Import "..\Vhd\VIRTUAL_DISK_ACCESS_MASK.ahk" { VIRTUAL_DISK_ACCESS_MASK }
-#Import ".\IVdsVolume.ahk" { IVdsVolume }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Vhd\OPEN_VIRTUAL_DISK_FLAG.ahk" { OPEN_VIRTUAL_DISK_FLAG }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IVdsOpenVDisk.ahk" { IVdsOpenVDisk }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Vhd\OPEN_VIRTUAL_DISK_FLAG.ahk" { OPEN_VIRTUAL_DISK_FLAG }
+#Import "..\Vhd\VIRTUAL_DISK_ACCESS_MASK.ahk" { VIRTUAL_DISK_ACCESS_MASK }
+#Import ".\IVdsOpenVDisk.ahk" { IVdsOpenVDisk }
+#Import ".\IVdsVolume.ahk" { IVdsVolume }
+#Import ".\VDS_VDISK_PROPERTIES.ahk" { VDS_VDISK_PROPERTIES }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines methods for managing a virtual disk. (IVdsVDisk)

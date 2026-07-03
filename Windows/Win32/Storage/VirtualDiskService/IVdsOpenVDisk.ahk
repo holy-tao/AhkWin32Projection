@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Vhd\ATTACH_VIRTUAL_DISK_FLAG.ahk" { ATTACH_VIRTUAL_DISK_FLAG }
-#Import "..\Vhd\MERGE_VIRTUAL_DISK_FLAG.ahk" { MERGE_VIRTUAL_DISK_FLAG }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Vhd\COMPACT_VIRTUAL_DISK_FLAG.ahk" { COMPACT_VIRTUAL_DISK_FLAG }
-#Import "..\Vhd\EXPAND_VIRTUAL_DISK_FLAG.ahk" { EXPAND_VIRTUAL_DISK_FLAG }
-#Import "..\Vhd\DETACH_VIRTUAL_DISK_FLAG.ahk" { DETACH_VIRTUAL_DISK_FLAG }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Vhd\ATTACH_VIRTUAL_DISK_FLAG.ahk" { ATTACH_VIRTUAL_DISK_FLAG }
+#Import "..\Vhd\COMPACT_VIRTUAL_DISK_FLAG.ahk" { COMPACT_VIRTUAL_DISK_FLAG }
+#Import "..\Vhd\DETACH_VIRTUAL_DISK_FLAG.ahk" { DETACH_VIRTUAL_DISK_FLAG }
+#Import "..\Vhd\EXPAND_VIRTUAL_DISK_FLAG.ahk" { EXPAND_VIRTUAL_DISK_FLAG }
+#Import "..\Vhd\MERGE_VIRTUAL_DISK_FLAG.ahk" { MERGE_VIRTUAL_DISK_FLAG }
 #Import ".\IVdsAsync.ahk" { IVdsAsync }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines methods for managing a virtual disk. (IVdsOpenVDisk)

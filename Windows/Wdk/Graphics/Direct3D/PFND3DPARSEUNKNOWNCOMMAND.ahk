@@ -48,10 +48,6 @@ export default struct PFND3DPARSEUNKNOWNCOMMAND {
             this.value := CallbackCreate(fn, , ["ptr", "ptr*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

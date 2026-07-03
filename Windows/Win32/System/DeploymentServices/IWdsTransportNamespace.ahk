@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\WDSTRANSPORT_NAMESPACE_TYPE.ahk" { WDSTRANSPORT_NAMESPACE_TYPE }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IWdsTransportCollection.ahk" { IWdsTransportCollection }
+#Import ".\WDSTRANSPORT_NAMESPACE_TYPE.ahk" { WDSTRANSPORT_NAMESPACE_TYPE }
 
 /**
  * Represents a namespace on a WDS transport server.

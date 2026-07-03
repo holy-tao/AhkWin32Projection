@@ -1,29 +1,25 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\DIFILEEFFECT.ahk" { DIFILEEFFECT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\LPDIENUMEFFECTSCALLBACKA.ahk" { LPDIENUMEFFECTSCALLBACKA }
-#Import ".\LPDIENUMCREATEDEFFECTOBJECTSCALLBACK.ahk" { LPDIENUMCREATEDEFFECTOBJECTSCALLBACK }
-#Import ".\DIPROPHEADER.ahk" { DIPROPHEADER }
-#Import ".\IDirectInputEffect.ahk" { IDirectInputEffect }
 #Import ".\DIACTIONFORMATA.ahk" { DIACTIONFORMATA }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\DIDEVICEIMAGEINFOHEADERA.ahk" { DIDEVICEIMAGEINFOHEADERA }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\DIEFFECTINFOA.ahk" { DIEFFECTINFOA }
 #Import ".\DIDATAFORMAT.ahk" { DIDATAFORMAT }
-#Import ".\DIEFFECT.ahk" { DIEFFECT }
 #Import ".\DIDEVCAPS.ahk" { DIDEVCAPS }
-#Import ".\LPDIENUMEFFECTSINFILECALLBACK.ahk" { LPDIENUMEFFECTSINFILECALLBACK }
+#Import ".\DIDEVICEIMAGEINFOHEADERA.ahk" { DIDEVICEIMAGEINFOHEADERA }
 #Import ".\DIDEVICEINSTANCEA.ahk" { DIDEVICEINSTANCEA }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import ".\DIEFFESCAPE.ahk" { DIEFFESCAPE }
 #Import ".\DIDEVICEOBJECTDATA.ahk" { DIDEVICEOBJECTDATA }
 #Import ".\DIDEVICEOBJECTINSTANCEA.ahk" { DIDEVICEOBJECTINSTANCEA }
-#Import ".\LPDIENUMDEVICEOBJECTSCALLBACKA.ahk" { LPDIENUMDEVICEOBJECTSCALLBACKA }
+#Import ".\DIEFFECT.ahk" { DIEFFECT }
+#Import ".\DIEFFECTINFOA.ahk" { DIEFFECTINFOA }
+#Import ".\DIEFFESCAPE.ahk" { DIEFFESCAPE }
+#Import ".\DIFILEEFFECT.ahk" { DIFILEEFFECT }
+#Import ".\DIPROPHEADER.ahk" { DIPROPHEADER }
+#Import ".\IDirectInputEffect.ahk" { IDirectInputEffect }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
@@ -108,7 +104,7 @@ export default struct IDirectInputDevice8A extends IUnknown {
     EnumObjects(param0, param1, param2) {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, LPDIENUMDEVICEOBJECTSCALLBACKA, param0, param1Marshal, param1, UInt32, param2, "HRESULT")
+        result := ComCall(4, this, "ptr", param0, param1Marshal, param1, UInt32, param2, "HRESULT")
         return result
     }
 
@@ -309,7 +305,7 @@ export default struct IDirectInputDevice8A extends IUnknown {
     EnumEffects(param0, param1, param2) {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(19, this, LPDIENUMEFFECTSCALLBACKA, param0, param1Marshal, param1, UInt32, param2, "HRESULT")
+        result := ComCall(19, this, "ptr", param0, param1Marshal, param1, UInt32, param2, "HRESULT")
         return result
     }
 
@@ -356,7 +352,7 @@ export default struct IDirectInputDevice8A extends IUnknown {
     EnumCreatedEffectObjects(param0, param1, param2) {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(23, this, LPDIENUMCREATEDEFFECTOBJECTSCALLBACK, param0, param1Marshal, param1, UInt32, param2, "HRESULT")
+        result := ComCall(23, this, "ptr", param0, param1Marshal, param1, UInt32, param2, "HRESULT")
         return result
     }
 
@@ -448,7 +444,7 @@ export default struct IDirectInputDevice8A extends IUnknown {
 
         param2Marshal := param2 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(27, this, "ptr", param0, LPDIENUMEFFECTSINFILECALLBACK, param1, param2Marshal, param2, UInt32, param3, "HRESULT")
+        result := ComCall(27, this, "ptr", param0, "ptr", param1, param2Marshal, param2, UInt32, param3, "HRESULT")
         return result
     }
 

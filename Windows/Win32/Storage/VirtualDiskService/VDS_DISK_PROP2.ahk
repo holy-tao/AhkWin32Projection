@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\VDS_STORAGE_BUS_TYPE.ahk" { VDS_STORAGE_BUS_TYPE }
-#Import ".\VDS_LUN_RESERVE_MODE.ahk" { VDS_LUN_RESERVE_MODE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\VDS_DISK_OFFLINE_REASON.ahk" { VDS_DISK_OFFLINE_REASON }
-#Import ".\VDS_HEALTH.ahk" { VDS_HEALTH }
-#Import ".\VDS_PARTITION_STYLE.ahk" { VDS_PARTITION_STYLE }
 #Import ".\VDS_DISK_STATUS.ahk" { VDS_DISK_STATUS }
+#Import ".\VDS_HEALTH.ahk" { VDS_HEALTH }
+#Import ".\VDS_LUN_RESERVE_MODE.ahk" { VDS_LUN_RESERVE_MODE }
+#Import ".\VDS_PARTITION_STYLE.ahk" { VDS_PARTITION_STYLE }
+#Import ".\VDS_STORAGE_BUS_TYPE.ahk" { VDS_STORAGE_BUS_TYPE }
 
 /**
  * Defines the properties of a disk object. This structure is identical to the VDS_DISK_PROP structure, except that it also includes the location path and, if the disk is offline, the reason why it is offline.

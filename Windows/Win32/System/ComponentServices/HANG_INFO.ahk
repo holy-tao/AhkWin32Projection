@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DUMPTYPE.ahk" { DUMPTYPE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DUMPTYPE.ahk" { DUMPTYPE }
 
 /**
  * @namespace Windows.Win32.System.ComponentServices

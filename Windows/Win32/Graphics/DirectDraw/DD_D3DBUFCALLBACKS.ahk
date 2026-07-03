@@ -1,9 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PDD_SURFCB_LOCK.ahk" { PDD_SURFCB_LOCK }
-#Import ".\PDD_CANCREATESURFACE.ahk" { PDD_CANCREATESURFACE }
-#Import ".\PDD_SURFCB_DESTROYSURFACE.ahk" { PDD_SURFCB_DESTROYSURFACE }
-#Import ".\PDD_SURFCB_UNLOCK.ahk" { PDD_SURFCB_UNLOCK }
-#Import ".\PDD_CREATESURFACE.ahk" { PDD_CREATESURFACE }
 
 /**
  * The DD_D3DBUFCALLBACKS structure is used only by drivers that implement driver level allocation of command and vertex buffers.
@@ -54,26 +49,26 @@ export default struct DD_D3DBUFCALLBACKS {
     /**
      * Points to the driver's <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_cancreatesurface">CanCreateD3DBuffer</a> callback.
      */
-    CanCreateD3DBuffer : PDD_CANCREATESURFACE
+    CanCreateD3DBuffer : IntPtr
 
     /**
      * Points to the driver's <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_createsurface">CreateD3DBuffer</a> callback.
      */
-    CreateD3DBuffer : PDD_CREATESURFACE
+    CreateD3DBuffer : IntPtr
 
     /**
      * Points to the driver's <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff552754(v=vs.85)">DestroyD3DBuffer</a> callback.
      */
-    DestroyD3DBuffer : PDD_SURFCB_DESTROYSURFACE
+    DestroyD3DBuffer : IntPtr
 
     /**
      * Points to the driver's <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff568216(v=vs.85)">LockD3DBuffer</a> callback.
      */
-    LockD3DBuffer : PDD_SURFCB_LOCK
+    LockD3DBuffer : IntPtr
 
     /**
      * Points to the driver's <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff570106(v=vs.85)">UnlockD3DBuffer</a> callback.
      */
-    UnlockD3DBuffer : PDD_SURFCB_UNLOCK
+    UnlockD3DBuffer : IntPtr
 
 }

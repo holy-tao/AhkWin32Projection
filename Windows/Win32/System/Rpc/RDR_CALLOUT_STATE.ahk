@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RPC_VERSION.ahk" { RPC_VERSION }
-#Import ".\RPC_STATUS.ahk" { RPC_STATUS }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\RPC_HTTP_REDIRECTOR_STAGE.ahk" { RPC_HTTP_REDIRECTOR_STAGE }
+#Import ".\RPC_STATUS.ahk" { RPC_STATUS }
 #Import ".\RPC_SYNTAX_IDENTIFIER.ahk" { RPC_SYNTAX_IDENTIFIER }
+#Import ".\RPC_VERSION.ahk" { RPC_VERSION }
 
 /**
  * @namespace Windows.Win32.System.Rpc

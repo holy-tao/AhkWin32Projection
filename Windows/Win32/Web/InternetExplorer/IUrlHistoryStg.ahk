@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\STATURL.ahk" { STATURL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IEnumSTATURL.ahk" { IEnumSTATURL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumSTATURL.ahk" { IEnumSTATURL }
+#Import ".\STATURL.ahk" { STATURL }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer

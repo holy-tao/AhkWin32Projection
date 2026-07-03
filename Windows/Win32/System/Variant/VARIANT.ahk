@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Com\CY.ahk" { CY }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Foundation\CHAR.ahk" { CHAR }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\VARENUM.ahk" { VARENUM }
-#Import "..\Ole\IRecordInfo.ahk" { IRecordInfo }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 #Import "..\..\Foundation\DECIMAL.ahk" { DECIMAL }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\CY.ahk" { CY }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\Ole\IRecordInfo.ahk" { IRecordInfo }
+#Import ".\VARENUM.ahk" { VARENUM }
 
 /**
  * VARIANTARG describes arguments passed within DISPPARAMS, and VARIANT to specify variant data that cannot be passed by reference.

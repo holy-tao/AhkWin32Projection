@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DVD_PLAYBACK_LOCATION.ahk" { DVD_PLAYBACK_LOCATION }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DVD_ATR.ahk" { DVD_ATR }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DVD_ATR.ahk" { DVD_ATR }
 #Import ".\DVD_DISC_SIDE.ahk" { DVD_DISC_SIDE }
 #Import ".\DVD_DOMAIN.ahk" { DVD_DOMAIN }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DVD_PLAYBACK_LOCATION.ahk" { DVD_PLAYBACK_LOCATION }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Note  This interface has been deprecated. (IDvdInfo)

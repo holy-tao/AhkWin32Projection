@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NET_IF_MEDIA_DUPLEX_STATE.ahk" { NET_IF_MEDIA_DUPLEX_STATE }
-#Import ".\NET_IF_MEDIA_CONNECT_STATE.ahk" { NET_IF_MEDIA_CONNECT_STATE }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\NET_IF_OPER_STATUS.ahk" { NET_IF_OPER_STATUS }
 #Import ".\NET_IF_COMPARTMENT_ID.ahk" { NET_IF_COMPARTMENT_ID }
+#Import ".\NET_IF_MEDIA_CONNECT_STATE.ahk" { NET_IF_MEDIA_CONNECT_STATE }
+#Import ".\NET_IF_MEDIA_DUPLEX_STATE.ahk" { NET_IF_MEDIA_DUPLEX_STATE }
+#Import ".\NET_IF_OPER_STATUS.ahk" { NET_IF_OPER_STATUS }
 
 /**
  * The NDIS_INTERFACE_INFORMATION structure provides information about a network interface for the OID_GEN_INTERFACE_INFO OID.

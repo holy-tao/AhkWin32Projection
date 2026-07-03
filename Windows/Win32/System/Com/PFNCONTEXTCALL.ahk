@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ComCallData.ahk" { ComCallData }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ComCallData.ahk" { ComCallData }
 
 /**
  * @namespace Windows.Win32.System.Com
@@ -45,10 +45,6 @@ export default struct PFNCONTEXTCALL {
             this.value := CallbackCreate(fn, , [ComCallData.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

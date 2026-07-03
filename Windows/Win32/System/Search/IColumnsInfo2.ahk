@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Storage\IndexServer\DBID.ahk" { DBID }
-#Import ".\IColumnsInfo.ahk" { IColumnsInfo }
-#Import ".\DBCOLUMNINFO.ahk" { DBCOLUMNINFO }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Storage\IndexServer\DBID.ahk" { DBID }
+#Import ".\DBCOLUMNINFO.ahk" { DBCOLUMNINFO }
+#Import ".\IColumnsInfo.ahk" { IColumnsInfo }
 
 /**
  * @namespace Windows.Win32.System.Search

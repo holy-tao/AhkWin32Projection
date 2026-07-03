@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 
 /**
  * An application-defined callback function that filters the certificates that appear in the digital signature wizard that are displayed by the CryptUIWizDigitalSign function.
@@ -52,10 +52,6 @@ export default struct PFNCFILTERPROC {
             this.value := CallbackCreate(fn, , [CERT_CONTEXT.Ptr, BOOL.Ptr, "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CREATE_VIRTUAL_DISK_VERSION.ahk" { CREATE_VIRTUAL_DISK_VERSION }
 #Import ".\OPEN_VIRTUAL_DISK_FLAG.ahk" { OPEN_VIRTUAL_DISK_FLAG }
 #Import ".\VIRTUAL_STORAGE_TYPE.ahk" { VIRTUAL_STORAGE_TYPE }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\CREATE_VIRTUAL_DISK_VERSION.ahk" { CREATE_VIRTUAL_DISK_VERSION }
 
 /**
  * Contains virtual hard disk (VHD) creation parameters, providing control over, and information about, the newly created virtual disk.

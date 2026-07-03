@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\PM_UPDATEINFO.ahk" { PM_UPDATEINFO }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PM_INSTALLINFO.ahk" { PM_INSTALLINFO }
+#Import ".\PM_UPDATEINFO.ahk" { PM_UPDATEINFO }
 #Import ".\PM_UPDATEINFO_LEGACY.ahk" { PM_UPDATEINFO_LEGACY }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\PM_INSTALLINFO.ahk" { PM_INSTALLINFO }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**

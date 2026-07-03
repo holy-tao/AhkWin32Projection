@@ -48,10 +48,6 @@ export default struct VDMGETSEGMENTINFOPROC {
             this.value := CallbackCreate(fn, , [UInt16, UInt32, BOOL, VDM_SEGINFO, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

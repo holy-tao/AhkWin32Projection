@@ -2,16 +2,16 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\GPMRSOPMode.ahk" { GPMRSOPMode }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\GPMSearchOperation.ahk" { GPMSearchOperation }
-#Import ".\GPMPermissionType.ahk" { GPMPermissionType }
-#Import ".\GPMSOMType.ahk" { GPMSOMType }
-#Import ".\GPMDestinationOption.ahk" { GPMDestinationOption }
-#Import ".\GPMSearchProperty.ahk" { GPMSearchProperty }
-#Import ".\GPMReportType.ahk" { GPMReportType }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\GPMDestinationOption.ahk" { GPMDestinationOption }
 #Import ".\GPMEntryType.ahk" { GPMEntryType }
+#Import ".\GPMPermissionType.ahk" { GPMPermissionType }
+#Import ".\GPMRSOPMode.ahk" { GPMRSOPMode }
+#Import ".\GPMReportType.ahk" { GPMReportType }
+#Import ".\GPMSOMType.ahk" { GPMSOMType }
+#Import ".\GPMSearchOperation.ahk" { GPMSearchOperation }
+#Import ".\GPMSearchProperty.ahk" { GPMSearchProperty }
 
 /**
  * The IGPMConstants interface supports methods that retrieve the value of multiple Group Policy Management Console (GPMC) constants. To create a GPMConstants object, call the IGPM::GetConstants method.

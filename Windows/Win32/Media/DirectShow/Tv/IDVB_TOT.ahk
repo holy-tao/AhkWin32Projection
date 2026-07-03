@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\MPEG_DATE_AND_TIME.ahk" { MPEG_DATE_AND_TIME }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
 #Import ".\ISectionList.ahk" { ISectionList }
+#Import ".\MPEG_DATE_AND_TIME.ahk" { MPEG_DATE_AND_TIME }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.

@@ -1,17 +1,15 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\NETISO_ERROR_TYPE.ahk" { NETISO_ERROR_TYPE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\PNETISO_EDP_ID_CALLBACK_FN.ahk" { PNETISO_EDP_ID_CALLBACK_FN }
-#Import "..\..\Security\SID_AND_ATTRIBUTES.ahk" { SID_AND_ATTRIBUTES }
-#Import ".\PAC_CHANGES_CALLBACK_FN.ahk" { PAC_CHANGES_CALLBACK_FN }
-#Import "..\..\System\Ole\IEnumVARIANT.ahk" { IEnumVARIANT }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Security\PSID.ahk" { PSID }
-#Import ".\NETCON_PROPERTIES.ahk" { NETCON_PROPERTIES }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\INET_FIREWALL_APP_CONTAINER.ahk" { INET_FIREWALL_APP_CONTAINER }
+#Import ".\NETCON_PROPERTIES.ahk" { NETCON_PROPERTIES }
+#Import ".\NETISO_ERROR_TYPE.ahk" { NETISO_ERROR_TYPE }
+#Import "..\..\Security\PSID.ahk" { PSID }
+#Import "..\..\Security\SID_AND_ATTRIBUTES.ahk" { SID_AND_ATTRIBUTES }
+#Import "..\..\System\Ole\IEnumVARIANT.ahk" { IEnumVARIANT }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
@@ -161,7 +159,7 @@ export NetworkIsolationSetupAppContainerBinaries(applicationContainerSid, packag
 export NetworkIsolationRegisterForAppContainerChanges(flags, callback, _context, registrationObject) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationRegisterForAppContainerChanges", UInt32, flags, PAC_CHANGES_CALLBACK_FN, callback, _contextMarshal, _context, HANDLE.Ptr, registrationObject, UInt32)
+    result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationRegisterForAppContainerChanges", UInt32, flags, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, registrationObject, UInt32)
     return result
 }
 
@@ -387,7 +385,7 @@ export NetworkIsolationGetEnterpriseIdAsync(wszServerName, dwFlags, _context, ca
 
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("Firewallapi.dll\NetworkIsolationGetEnterpriseIdAsync", "ptr", wszServerName, UInt32, dwFlags, _contextMarshal, _context, PNETISO_EDP_ID_CALLBACK_FN, callback, HANDLE.Ptr, hOperation, UInt32)
+    result := DllCall("Firewallapi.dll\NetworkIsolationGetEnterpriseIdAsync", "ptr", wszServerName, UInt32, dwFlags, _contextMarshal, _context, "ptr", callback, HANDLE.Ptr, hOperation, UInt32)
     return result
 }
 

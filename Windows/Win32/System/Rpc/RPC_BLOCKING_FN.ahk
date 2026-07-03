@@ -50,10 +50,6 @@ export default struct RPC_BLOCKING_FN {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", "ptr", RPC_STATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WS_ASYNC_CONTEXT.ahk" { WS_ASYNC_CONTEXT }
 #Import ".\WS_ASYNC_OPERATION.ahk" { WS_ASYNC_OPERATION }
 #Import ".\WS_CALLBACK_MODEL.ahk" { WS_CALLBACK_MODEL }
-#Import ".\WS_ASYNC_CONTEXT.ahk" { WS_ASYNC_CONTEXT }
 #Import ".\WS_ERROR.ahk" { WS_ERROR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Used with the WsAsyncExecute to specify the next function to invoke in a series of async operations. (WS_ASYNC_FUNCTION)
@@ -66,10 +66,6 @@ export default struct WS_ASYNC_FUNCTION {
             this.value := CallbackCreate(fn, , ["int", WS_CALLBACK_MODEL, "ptr", WS_ASYNC_OPERATION.Ptr, WS_ASYNC_CONTEXT.Ptr, WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

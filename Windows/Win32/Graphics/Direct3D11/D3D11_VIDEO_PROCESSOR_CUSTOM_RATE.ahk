@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Dxgi\Common\DXGI_RATIONAL.ahk" { DXGI_RATIONAL }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Dxgi\Common\DXGI_RATIONAL.ahk" { DXGI_RATIONAL }
 
 /**
  * Specifies a custom rate for frame-rate conversion or inverse telecine (IVTC). (D3D11_VIDEO_PROCESSOR_CUSTOM_RATE)

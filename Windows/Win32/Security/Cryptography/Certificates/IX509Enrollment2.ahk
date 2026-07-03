@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\X509EnrollmentAuthFlags.ahk" { X509EnrollmentAuthFlags }
-#Import ".\InstallResponseRestrictionFlags.ahk" { InstallResponseRestrictionFlags }
-#Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IX509CertificateTemplate.ahk" { IX509CertificateTemplate }
-#Import ".\EncodingType.ahk" { EncodingType }
-#Import ".\PolicyServerUrlFlags.ahk" { PolicyServerUrlFlags }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import ".\IX509CertificateTemplate.ahk" { IX509CertificateTemplate }
 #Import ".\IX509Enrollment.ahk" { IX509Enrollment }
 #Import ".\IX509EnrollmentPolicyServer.ahk" { IX509EnrollmentPolicyServer }
+#Import ".\InstallResponseRestrictionFlags.ahk" { InstallResponseRestrictionFlags }
+#Import ".\PolicyServerUrlFlags.ahk" { PolicyServerUrlFlags }
+#Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
+#Import ".\X509EnrollmentAuthFlags.ahk" { X509EnrollmentAuthFlags }
 
 /**
  * The IX509Enrollment2 interface enables you to enroll in a certificate hierarchy and install a certificate response.

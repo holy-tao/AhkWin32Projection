@@ -44,10 +44,6 @@ export default struct PAPCFUNC {
             this.value := CallbackCreate(fn, , [IntPtr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\D3D10_EFFECT_TYPE_DESC.ahk" { D3D10_EFFECT_TYPE_DESC }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\D3D10_EFFECT_TYPE_DESC.ahk" { D3D10_EFFECT_TYPE_DESC }
 
 /**
  * The ID3D10EffectType interface accesses effect variables by type.

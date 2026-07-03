@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\INetSharingPortMappingProps.ahk" { INetSharingPortMappingProps }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The INetSharingPortMapping interface provides methods for managing a particular port mapping.

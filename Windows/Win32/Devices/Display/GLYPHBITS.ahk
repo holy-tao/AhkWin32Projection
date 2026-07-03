@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 #Import "..\..\Foundation\POINTL.ahk" { POINTL }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * The GLYPHBITS structure is used to define a glyph bitmap.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PEER_PRESENCE_STATUS.ahk" { PEER_PRESENCE_STATUS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PEER_PRESENCE_STATUS.ahk" { PEER_PRESENCE_STATUS }
 
 /**
  * The PEER_PRESENCE_INFO structure contains specific peer presence information.

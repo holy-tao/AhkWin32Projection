@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Direct3D\D3D_PARAMETER_FLAGS.ahk" { D3D_PARAMETER_FLAGS }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\Direct3D\D3D_SHADER_VARIABLE_CLASS.ahk" { D3D_SHADER_VARIABLE_CLASS }
 #Import "..\Direct3D\D3D_INTERPOLATION_MODE.ahk" { D3D_INTERPOLATION_MODE }
+#Import "..\Direct3D\D3D_PARAMETER_FLAGS.ahk" { D3D_PARAMETER_FLAGS }
+#Import "..\Direct3D\D3D_SHADER_VARIABLE_CLASS.ahk" { D3D_SHADER_VARIABLE_CLASS }
 #Import "..\Direct3D\D3D_SHADER_VARIABLE_TYPE.ahk" { D3D_SHADER_VARIABLE_TYPE }
 
 /**

@@ -80,10 +80,6 @@ export default struct PIS_ALIVE_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

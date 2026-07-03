@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\CALL_NOTIFICATION_EVENT.ahk" { CALL_NOTIFICATION_EVENT }
 #Import ".\ITCallInfo.ahk" { ITCallInfo }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The ITCallNotificationEvent interface contains methods that retrieve the description of call notification events.

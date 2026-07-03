@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
 #Import ".\WINBIO_PIPELINE.ahk" { WINBIO_PIPELINE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
@@ -46,10 +46,6 @@ export default struct PIBIO_SENSOR_START_NOTIFY_WAKE_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

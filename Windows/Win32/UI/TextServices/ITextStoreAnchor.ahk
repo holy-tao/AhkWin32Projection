@@ -2,18 +2,18 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\TS_STATUS.ahk" { TS_STATUS }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\TS_ATTRVAL.ahk" { TS_ATTRVAL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\IAnchor.ahk" { IAnchor }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\TS_SELECTION_ANCHOR.ahk" { TS_SELECTION_ANCHOR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Com\FORMATETC.ahk" { FORMATETC }
+#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IAnchor.ahk" { IAnchor }
+#Import ".\TS_ATTRVAL.ahk" { TS_ATTRVAL }
+#Import ".\TS_SELECTION_ANCHOR.ahk" { TS_SELECTION_ANCHOR }
+#Import ".\TS_STATUS.ahk" { TS_STATUS }
 
 /**
  * The ITextStoreAnchor interface is implemented by a Microsoft Active Accessibility client and is used by the TSF manager to manipulate text streams.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SdpQueryUuidUnion.ahk" { SdpQueryUuidUnion }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SdpQueryUuidUnion.ahk" { SdpQueryUuidUnion }
 
 /**
  * The SdpQueryUuid structure facilitates searching for UUIDs.

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DXGI_OUTDUPL_FRAME_INFO.ahk" { DXGI_OUTDUPL_FRAME_INFO }
-#Import ".\IDXGIObject.ahk" { IDXGIObject }
-#Import ".\DXGI_MAPPED_RECT.ahk" { DXGI_MAPPED_RECT }
-#Import ".\IDXGIResource.ahk" { IDXGIResource }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DXGI_OUTDUPL_POINTER_SHAPE_INFO.ahk" { DXGI_OUTDUPL_POINTER_SHAPE_INFO }
+#Import ".\DXGI_MAPPED_RECT.ahk" { DXGI_MAPPED_RECT }
 #Import ".\DXGI_OUTDUPL_DESC.ahk" { DXGI_OUTDUPL_DESC }
+#Import ".\DXGI_OUTDUPL_FRAME_INFO.ahk" { DXGI_OUTDUPL_FRAME_INFO }
+#Import ".\DXGI_OUTDUPL_POINTER_SHAPE_INFO.ahk" { DXGI_OUTDUPL_POINTER_SHAPE_INFO }
+#Import ".\IDXGIObject.ahk" { IDXGIObject }
+#Import ".\IDXGIResource.ahk" { IDXGIResource }
 
 /**
  * The IDXGIOutputDuplication interface accesses and manipulates the duplicated desktop image.

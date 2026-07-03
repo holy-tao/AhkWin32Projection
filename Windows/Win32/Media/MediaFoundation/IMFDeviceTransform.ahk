@@ -2,14 +2,14 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MFT_MESSAGE_TYPE.ahk" { MFT_MESSAGE_TYPE }
 #Import ".\DeviceStreamState.ahk" { DeviceStreamState }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMFSample.ahk" { IMFSample }
-#Import ".\IMFMediaType.ahk" { IMFMediaType }
-#Import ".\MFT_OUTPUT_DATA_BUFFER.ahk" { MFT_OUTPUT_DATA_BUFFER }
-#Import ".\IMFMediaEvent.ahk" { IMFMediaEvent }
 #Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import ".\IMFMediaEvent.ahk" { IMFMediaEvent }
+#Import ".\IMFMediaType.ahk" { IMFMediaType }
+#Import ".\IMFSample.ahk" { IMFSample }
+#Import ".\MFT_MESSAGE_TYPE.ahk" { MFT_MESSAGE_TYPE }
+#Import ".\MFT_OUTPUT_DATA_BUFFER.ahk" { MFT_OUTPUT_DATA_BUFFER }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This section contains reference information for the IMFDeviceTransform interface.

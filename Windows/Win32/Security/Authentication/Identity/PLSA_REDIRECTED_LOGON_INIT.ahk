@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 #Import "..\..\..\Foundation\LUID.ahk" { LUID }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -31,7 +31,7 @@ export default struct PLSA_REDIRECTED_LOGON_INIT {
      */
     Call(RedirectedLogonHandle, PackageName, SessionId, LogonId) {
         result := DllCall(this.value, HANDLE, RedirectedLogonHandle, LSA_UNICODE_STRING.Ptr, PackageName, UInt32, SessionId, LUID.Ptr, LogonId, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -51,10 +51,6 @@ export default struct PLSA_REDIRECTED_LOGON_INIT {
             this.value := CallbackCreate(fn, , [HANDLE, LSA_UNICODE_STRING.Ptr, UInt32, LUID.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

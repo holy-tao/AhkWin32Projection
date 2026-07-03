@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HRSRC.ahk" { HRSRC }
-#Import ".\UI_CONVERT_FLAGS.ahk" { UI_CONVERT_FLAGS }
-#Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\LPFNOLEUIHOOK.ahk" { LPFNOLEUIHOOK }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\HRSRC.ahk" { HRSRC }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\UI_CONVERT_FLAGS.ahk" { UI_CONVERT_FLAGS }
 
 /**
  * Contains information that the OLE User Interface Library uses to initialize the Convert dialog box, and space for the library to return information when the dialog box is dismissed. (ANSI)
@@ -151,7 +150,7 @@ export default struct OLEUICONVERTA {
     /**
      * Pointer to a hook function that processes messages intended for the dialog box. The hook function must return zero to pass a message that it didn't process back to the dialog box procedure in the library. The hook function must return a nonzero value to prevent the library's dialog box procedure from processing a message it has already processed.
      */
-    lpfnHook : LPFNOLEUIHOOK
+    lpfnHook : IntPtr
 
     /**
      * Application-defined data that the library passes to the hook function pointed to by the <b>lpfnHook</b> member. The library passes a pointer to the <b>OLEUICONVERT</b> structure in the <i>lParam</i> parameter of the WM_INITDIALOG message; this pointer can be used to retrieve the <b>lCustData</b> member.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SCM_BUS_FIRMWARE_ACTIVATION_STATE.ahk" { SCM_BUS_FIRMWARE_ACTIVATION_STATE }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\SCM_BUS_FIRMWARE_ACTIVATION_STATE.ahk" { SCM_BUS_FIRMWARE_ACTIVATION_STATE }
 
 /**
  * @namespace Windows.Win32.System.Ioctl

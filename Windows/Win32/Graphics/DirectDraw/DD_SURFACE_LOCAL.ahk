@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DD_SURFACE_GLOBAL.ahk" { DD_SURFACE_GLOBAL }
-#Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\DD_ATTACHLIST.ahk" { DD_ATTACHLIST }
+#Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
 #Import ".\DDSCAPS.ahk" { DDSCAPS }
+#Import ".\DD_ATTACHLIST.ahk" { DD_ATTACHLIST }
+#Import ".\DD_SURFACE_GLOBAL.ahk" { DD_SURFACE_GLOBAL }
 #Import ".\DD_SURFACE_MORE.ahk" { DD_SURFACE_MORE }
 
 /**

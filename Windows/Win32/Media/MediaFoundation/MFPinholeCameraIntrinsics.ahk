@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MF_FLOAT2.ahk" { MF_FLOAT2 }
-#Import ".\MFCameraIntrinsic_PinholeCameraModel.ahk" { MFCameraIntrinsic_PinholeCameraModel }
 #Import ".\MFCameraIntrinsic_DistortionModel.ahk" { MFCameraIntrinsic_DistortionModel }
+#Import ".\MFCameraIntrinsic_PinholeCameraModel.ahk" { MFCameraIntrinsic_PinholeCameraModel }
 #Import ".\MFPinholeCameraIntrinsic_IntrinsicModel.ahk" { MFPinholeCameraIntrinsic_IntrinsicModel }
+#Import ".\MF_FLOAT2.ahk" { MF_FLOAT2 }
 
 /**
  * Contains zero or 1 pinhole camera intrinsic models that describe how to project a 3D point in physical world onto the 2D image frame of a camera.

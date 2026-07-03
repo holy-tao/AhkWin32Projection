@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
+#Import ".\DXVA2_ConfigPictureDecode.ahk" { DXVA2_ConfigPictureDecode }
+#Import ".\DXVA2_DecodeExecuteParams.ahk" { DXVA2_DecodeExecuteParams }
 #Import ".\DXVA2_VideoDesc.ahk" { DXVA2_VideoDesc }
 #Import ".\IDirectXVideoDecoderService.ahk" { IDirectXVideoDecoderService }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\DXVA2_ConfigPictureDecode.ahk" { DXVA2_ConfigPictureDecode }
-#Import ".\DXVA2_DecodeExecuteParams.ahk" { DXVA2_DecodeExecuteParams }
 
 /**
  * Represents a DirectX Video Acceleration (DXVA) video decoder device.

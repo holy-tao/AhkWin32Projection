@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FsrmTemplateApplyOptions.ahk" { FsrmTemplateApplyOptions }
-#Import ".\IFsrmQuotaBase.ahk" { IFsrmQuotaBase }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\FsrmCommitOptions.ahk" { FsrmCommitOptions }
-#Import ".\IFsrmDerivedObjectsResult.ahk" { IFsrmDerivedObjectsResult }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FsrmCommitOptions.ahk" { FsrmCommitOptions }
+#Import ".\FsrmTemplateApplyOptions.ahk" { FsrmTemplateApplyOptions }
+#Import ".\IFsrmDerivedObjectsResult.ahk" { IFsrmDerivedObjectsResult }
+#Import ".\IFsrmQuotaBase.ahk" { IFsrmQuotaBase }
 
 /**
  * Used to configure templates from which new quota objects can be derived.

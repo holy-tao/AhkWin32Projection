@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D11_SHARED_RESOURCE_TIER.ahk" { D3D11_SHARED_RESOURCE_TIER }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D11_SHARED_RESOURCE_TIER.ahk" { D3D11_SHARED_RESOURCE_TIER }
 
 /**
  * Describes the level of displayable surfaces supported in the current graphics driver.

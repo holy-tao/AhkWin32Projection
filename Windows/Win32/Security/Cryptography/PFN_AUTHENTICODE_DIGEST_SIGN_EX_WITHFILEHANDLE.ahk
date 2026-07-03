@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HCERTSTORE.ahk" { HCERTSTORE }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\CERT_CONTEXT.ahk" { CERT_CONTEXT }
-#Import ".\ALG_ID.ahk" { ALG_ID }
-#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ALG_ID.ahk" { ALG_ID }
+#Import ".\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\HCERTSTORE.ahk" { HCERTSTORE }
 
 /**
  * The PFN_AUTHENTICODE_DIGEST_SIGN_EX_WITHFILEHANDLE user supplied callback function implements digest signing.
@@ -61,10 +61,6 @@ export default struct PFN_AUTHENTICODE_DIGEST_SIGN_EX_WITHFILEHANDLE {
             this.value := CallbackCreate(fn, , [CRYPT_INTEGER_BLOB.Ptr, ALG_ID, "char*", UInt32, HANDLE, CRYPT_INTEGER_BLOB.Ptr, HCERTSTORE, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

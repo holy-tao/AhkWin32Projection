@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DKMT_VIDPNSOURCEOWNER_TYPE.ahk" { D3DKMT_VIDPNSOURCEOWNER_TYPE }
 #Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\Win32\Foundation\HWND.ahk" { HWND }
-#Import ".\D3DKMT_VIDPNSOURCEOWNER_TYPE.ahk" { D3DKMT_VIDPNSOURCEOWNER_TYPE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

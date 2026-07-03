@@ -47,10 +47,6 @@ export default struct LPWSCDEINSTALLPROVIDER {
             this.value := CallbackCreate(fn, , [Guid.Ptr, "int*", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

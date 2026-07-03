@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMDSPDevice.ahk" { IMDSPDevice }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMDSPDevice.ahk" { IMDSPDevice }
 #Import ".\ISCPSecureQuery.ahk" { ISCPSecureQuery }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ISCPSession interface provides efficient common state management for multiple operations.A secure content provider (SCP) session is useful when transferring multiple files.

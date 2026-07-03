@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WMT_WATERMARK_ENTRY_TYPE.ahk" { WMT_WATERMARK_ENTRY_TYPE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WMT_WATERMARK_ENTRY_TYPE.ahk" { WMT_WATERMARK_ENTRY_TYPE }
 
 /**
  * The WMT_WATERMARK_ENTRY structure contains information describing a watermarking system.

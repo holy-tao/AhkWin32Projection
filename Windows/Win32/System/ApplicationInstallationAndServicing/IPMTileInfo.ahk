@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IPMTilePropertyEnumerator.ahk" { IPMTilePropertyEnumerator }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IPMTilePropertyInfo.ahk" { IPMTilePropertyInfo }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\TILE_TEMPLATE_TYPE.ahk" { TILE_TEMPLATE_TYPE }
-#Import ".\PM_TILE_SIZE.ahk" { PM_TILE_SIZE }
-#Import ".\PM_TILE_HUBTYPE.ahk" { PM_TILE_HUBTYPE }
+#Import ".\IPMTilePropertyEnumerator.ahk" { IPMTilePropertyEnumerator }
+#Import ".\IPMTilePropertyInfo.ahk" { IPMTilePropertyInfo }
 #Import ".\PM_STARTTILEBLOB.ahk" { PM_STARTTILEBLOB }
 #Import ".\PM_STARTTILE_TYPE.ahk" { PM_STARTTILE_TYPE }
+#Import ".\PM_TILE_HUBTYPE.ahk" { PM_TILE_HUBTYPE }
+#Import ".\PM_TILE_SIZE.ahk" { PM_TILE_SIZE }
+#Import ".\TILE_TEMPLATE_TYPE.ahk" { TILE_TEMPLATE_TYPE }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing

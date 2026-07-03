@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\GPMPermissionType.ahk" { GPMPermissionType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\GPMBackupType.ahk" { GPMBackupType }
+#Import ".\GPMPermissionType.ahk" { GPMPermissionType }
 #Import ".\GPMReportingOptions.ahk" { GPMReportingOptions }
+#Import ".\GPMSearchProperty.ahk" { GPMSearchProperty }
 #Import ".\GPMStarterGPOType.ahk" { GPMStarterGPOType }
 #Import ".\IGPMConstants.ahk" { IGPMConstants }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\GPMSearchProperty.ahk" { GPMSearchProperty }
 
 /**
  * The IGPMConstants2 interface supports methods that retrieve the value of multiple Group Policy Management Console (GPMC) constants.

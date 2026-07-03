@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IVdsAsync.ahk" { IVdsAsync }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\VDS_FILE_SYSTEM_TYPE.ahk" { VDS_FILE_SYSTEM_TYPE }
-#Import ".\CREATE_PARTITION_PARAMETERS.ahk" { CREATE_PARTITION_PARAMETERS }
-#Import ".\CHANGE_ATTRIBUTES_PARAMETERS.ahk" { CHANGE_ATTRIBUTES_PARAMETERS }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\VDS_PARTITION_PROP.ahk" { VDS_PARTITION_PROP }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CHANGE_ATTRIBUTES_PARAMETERS.ahk" { CHANGE_ATTRIBUTES_PARAMETERS }
+#Import ".\CREATE_PARTITION_PARAMETERS.ahk" { CREATE_PARTITION_PARAMETERS }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
+#Import ".\VDS_FILE_SYSTEM_TYPE.ahk" { VDS_FILE_SYSTEM_TYPE }
+#Import ".\VDS_PARTITION_PROP.ahk" { VDS_PARTITION_PROP }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Creates and deletes partitions, and modifies partition attributes.

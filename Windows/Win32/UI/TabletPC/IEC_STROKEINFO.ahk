@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IInkCursor.ahk" { IInkCursor }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\Controls\NMHDR.ahk" { NMHDR }
+#Import ".\IInkCursor.ahk" { IInkCursor }
 #Import ".\IInkStrokeDisp.ahk" { IInkStrokeDisp }
 
 /**

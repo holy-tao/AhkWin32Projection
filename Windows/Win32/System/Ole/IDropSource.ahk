@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\SystemServices\MODIFIERKEYS_FLAGS.ahk" { MODIFIERKEYS_FLAGS }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DROPEFFECT.ahk" { DROPEFFECT }
+#Import "..\SystemServices\MODIFIERKEYS_FLAGS.ahk" { MODIFIERKEYS_FLAGS }
 
 /**
  * The IDropSource interface is one of the interfaces you implement to provide drag-and-drop operations in your application.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Win32\Graphics\Direct3D9\D3DPRIMITIVETYPE.ahk" { D3DPRIMITIVETYPE }
 #Import "..\..\..\Win32\Graphics\Direct3D9\D3DVERTEXTYPE.ahk" { D3DVERTEXTYPE }
-#Import "..\..\..\Win32\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

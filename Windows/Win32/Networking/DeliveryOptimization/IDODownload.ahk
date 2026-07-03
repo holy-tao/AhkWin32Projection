@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DODownloadProperty.ahk" { DODownloadProperty }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DO_DOWNLOAD_RANGES_INFO.ahk" { DO_DOWNLOAD_RANGES_INFO }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DODownloadProperty.ahk" { DODownloadProperty }
+#Import ".\DO_DOWNLOAD_RANGES_INFO.ahk" { DO_DOWNLOAD_RANGES_INFO }
 #Import ".\DO_DOWNLOAD_STATUS.ahk" { DO_DOWNLOAD_STATUS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Used to start and manage a download.

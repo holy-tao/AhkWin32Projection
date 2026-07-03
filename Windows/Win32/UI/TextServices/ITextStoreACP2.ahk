@@ -2,18 +2,18 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\TS_RUNINFO.ahk" { TS_RUNINFO }
-#Import ".\TS_STATUS.ahk" { TS_STATUS }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
-#Import ".\TS_ATTRVAL.ahk" { TS_ATTRVAL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\TS_SELECTION_ACP.ahk" { TS_SELECTION_ACP }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\TS_TEXTCHANGE.ahk" { TS_TEXTCHANGE }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Com\FORMATETC.ahk" { FORMATETC }
+#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\TS_ATTRVAL.ahk" { TS_ATTRVAL }
+#Import ".\TS_RUNINFO.ahk" { TS_RUNINFO }
+#Import ".\TS_SELECTION_ACP.ahk" { TS_SELECTION_ACP }
+#Import ".\TS_STATUS.ahk" { TS_STATUS }
+#Import ".\TS_TEXTCHANGE.ahk" { TS_TEXTCHANGE }
 
 /**
  * The ITextStoreACP2 interface is implemented by the application and is used by the TSF manager to manipulate text streams or text stores in TSF.

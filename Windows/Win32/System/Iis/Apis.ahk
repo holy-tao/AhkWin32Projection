@@ -1,10 +1,10 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\HTTP_FILTER_CONTEXT.ahk" { HTTP_FILTER_CONTEXT }
-#Import ".\HSE_VERSION_INFO.ahk" { HSE_VERSION_INFO }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\HTTP_FILTER_VERSION.ahk" { HTTP_FILTER_VERSION }
 #Import ".\EXTENSION_CONTROL_BLOCK.ahk" { EXTENSION_CONTROL_BLOCK }
+#Import ".\HSE_VERSION_INFO.ahk" { HSE_VERSION_INFO }
+#Import ".\HTTP_FILTER_CONTEXT.ahk" { HTTP_FILTER_CONTEXT }
+#Import ".\HTTP_FILTER_VERSION.ahk" { HTTP_FILTER_VERSION }
 
 /**
  * @namespace Windows.Win32.System.Iis

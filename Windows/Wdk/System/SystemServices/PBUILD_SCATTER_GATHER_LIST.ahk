@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
+#Import "..\..\Foundation\MDL.ahk" { MDL }
 #Import ".\DMA_ADAPTER.ahk" { DMA_ADAPTER }
 #Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import "..\..\Foundation\MDL.ahk" { MDL }
-#Import "..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
-#Import ".\DRIVER_LIST_CONTROL.ahk" { DRIVER_LIST_CONTROL }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -42,8 +41,8 @@ export default struct PBUILD_SCATTER_GATHER_LIST {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
         ScatterGatherBufferMarshal := ScatterGatherBuffer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, DEVICE_OBJECT.Ptr, DeviceObject, MDL.Ptr, _Mdl, CurrentVaMarshal, CurrentVa, UInt32, Length, DRIVER_LIST_CONTROL, ExecutionRoutine, _ContextMarshal, _Context, BOOLEAN, WriteToDevice, ScatterGatherBufferMarshal, ScatterGatherBuffer, UInt32, ScatterGatherLength, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, DEVICE_OBJECT.Ptr, DeviceObject, MDL.Ptr, _Mdl, CurrentVaMarshal, CurrentVa, UInt32, Length, "ptr", ExecutionRoutine, _ContextMarshal, _Context, BOOLEAN, WriteToDevice, ScatterGatherBufferMarshal, ScatterGatherBuffer, UInt32, ScatterGatherLength, NTSTATUS)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -54,19 +53,15 @@ export default struct PBUILD_SCATTER_GATHER_LIST {
     struct From extends PBUILD_SCATTER_GATHER_LIST {
         /**
          * Creates a PBUILD_SCATTER_GATHER_LIST pointer that invokes the given AHK function when called.
-         * @param {Func(DMA_ADAPTER, DEVICE_OBJECT, MDL, "ptr", UInt32, DRIVER_LIST_CONTROL, "ptr", BOOLEAN, "ptr", UInt32) => NTSTATUS} fn the function to invoke.
+         * @param {Func(DMA_ADAPTER, DEVICE_OBJECT, MDL, "ptr", UInt32, "ptr", "ptr", BOOLEAN, "ptr", UInt32) => NTSTATUS} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 10)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 10 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, DEVICE_OBJECT.Ptr, MDL.Ptr, "ptr", UInt32, DRIVER_LIST_CONTROL, "ptr", BOOLEAN, "ptr", UInt32, NTSTATUS])
+            this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, DEVICE_OBJECT.Ptr, MDL.Ptr, "ptr", UInt32, "ptr", "ptr", BOOLEAN, "ptr", UInt32, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

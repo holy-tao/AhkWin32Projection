@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SecBufferDesc.ahk" { SecBufferDesc }
 #Import "..\..\Credentials\SecHandle.ahk" { SecHandle }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -49,10 +49,6 @@ export default struct ENCRYPT_MESSAGE_FN {
             this.value := CallbackCreate(fn, , [SecHandle.Ptr, UInt32, SecBufferDesc.Ptr, UInt32, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WLAN_REALTIME_CONNECTION_QUALITY_LINK_INFO.ahk" { WLAN_REALTIME_CONNECTION_QUALITY_LINK_INFO }
-#Import ".\WLAN_RATE_SET.ahk" { WLAN_RATE_SET }
-#Import ".\DOT11_PHY_TYPE.ahk" { DOT11_PHY_TYPE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DOT11_PHY_TYPE.ahk" { DOT11_PHY_TYPE }
+#Import ".\WLAN_RATE_SET.ahk" { WLAN_RATE_SET }
+#Import ".\WLAN_REALTIME_CONNECTION_QUALITY_LINK_INFO.ahk" { WLAN_REALTIME_CONNECTION_QUALITY_LINK_INFO }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi

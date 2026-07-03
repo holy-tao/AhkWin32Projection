@@ -44,10 +44,6 @@ export default struct PF_ConfigAnalyzeService {
             this.value := CallbackCreate(fn, , [SCESVC_CALLBACK_INFO.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

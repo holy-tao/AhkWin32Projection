@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISyncCallback.ahk" { ISyncCallback }
-#Import ".\SYNC_PROVIDER_ROLE.ahk" { SYNC_PROVIDER_ROLE }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ISyncProvider.ahk" { ISyncProvider }
-#Import ".\ISyncChangeBatch.ahk" { ISyncChangeBatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\CONFLICT_RESOLUTION_POLICY.ahk" { CONFLICT_RESOLUTION_POLICY }
-#Import ".\SYNC_SESSION_STATISTICS.ahk" { SYNC_SESSION_STATISTICS }
-#Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
+#Import ".\ISyncCallback.ahk" { ISyncCallback }
+#Import ".\ISyncChangeBatch.ahk" { ISyncChangeBatch }
 #Import ".\ISyncFullEnumerationChangeBatch.ahk" { ISyncFullEnumerationChangeBatch }
+#Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
+#Import ".\ISyncProvider.ahk" { ISyncProvider }
 #Import ".\ISyncSessionState.ahk" { ISyncSessionState }
+#Import ".\SYNC_PROVIDER_ROLE.ahk" { SYNC_PROVIDER_ROLE }
+#Import ".\SYNC_SESSION_STATISTICS.ahk" { SYNC_SESSION_STATISTICS }
 
 /**
  * Represents a synchronization provider that uses knowledge to perform synchronization.

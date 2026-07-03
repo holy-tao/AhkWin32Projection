@@ -30,7 +30,7 @@ export default struct PREPLACE_GET_MEMORY_DESTINATION {
         DestinationAddressMarshal := DestinationAddress is VarRef ? "int64*" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, Int64, SourceAddress, DestinationAddressMarshal, DestinationAddress, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -50,10 +50,6 @@ export default struct PREPLACE_GET_MEMORY_DESTINATION {
             this.value := CallbackCreate(fn, , ["ptr", Int64, "int64*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

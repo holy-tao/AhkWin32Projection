@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\GameInputForceFeedbackConditionParams.ahk" { GameInputForceFeedbackConditionParams }
-#Import ".\GameInputForceFeedbackRampParams.ahk" { GameInputForceFeedbackRampParams }
-#Import ".\GameInputForceFeedbackMagnitude.ahk" { GameInputForceFeedbackMagnitude }
-#Import ".\GameInputForceFeedbackPeriodicParams.ahk" { GameInputForceFeedbackPeriodicParams }
+#Import ".\GameInputForceFeedbackConstantParams.ahk" { GameInputForceFeedbackConstantParams }
 #Import ".\GameInputForceFeedbackEffectKind.ahk" { GameInputForceFeedbackEffectKind }
 #Import ".\GameInputForceFeedbackEnvelope.ahk" { GameInputForceFeedbackEnvelope }
-#Import ".\GameInputForceFeedbackConstantParams.ahk" { GameInputForceFeedbackConstantParams }
+#Import ".\GameInputForceFeedbackMagnitude.ahk" { GameInputForceFeedbackMagnitude }
+#Import ".\GameInputForceFeedbackPeriodicParams.ahk" { GameInputForceFeedbackPeriodicParams }
+#Import ".\GameInputForceFeedbackRampParams.ahk" { GameInputForceFeedbackRampParams }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput

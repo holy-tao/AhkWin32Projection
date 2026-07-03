@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IP_ADDR_STRING.ahk" { IP_ADDR_STRING }
 #Import ".\IP_ADDRESS_STRING.ahk" { IP_ADDRESS_STRING }
+#Import ".\IP_ADDR_STRING.ahk" { IP_ADDR_STRING }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**

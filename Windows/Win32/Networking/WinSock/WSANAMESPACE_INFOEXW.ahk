@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\System\Com\BLOB.ahk" { BLOB }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\BLOB.ahk" { BLOB }
 
 /**
  * Contains all registration information for a namespace provider. (WSANAMESPACE_INFOEXW)

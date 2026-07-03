@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 #Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -36,7 +36,7 @@ export default struct PLSA_CRACK_SINGLE_NAME {
         SubStatusMarshal := SubStatus is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, UInt32, FormatOffered, BOOLEAN, PerformAtGC, LSA_UNICODE_STRING.Ptr, NameInput, LSA_UNICODE_STRING.Ptr, Prefix, UInt32, RequestedFormat, LSA_UNICODE_STRING.Ptr, CrackedName, LSA_UNICODE_STRING.Ptr, DnsDomainName, SubStatusMarshal, SubStatus, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -56,10 +56,6 @@ export default struct PLSA_CRACK_SINGLE_NAME {
             this.value := CallbackCreate(fn, , [UInt32, BOOLEAN, LSA_UNICODE_STRING.Ptr, LSA_UNICODE_STRING.Ptr, UInt32, LSA_UNICODE_STRING.Ptr, LSA_UNICODE_STRING.Ptr, "uint*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

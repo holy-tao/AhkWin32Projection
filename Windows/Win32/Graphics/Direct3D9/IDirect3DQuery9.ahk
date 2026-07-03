@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3DQUERYTYPE.ahk" { D3DQUERYTYPE }
 #Import ".\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\D3DQUERYTYPE.ahk" { D3DQUERYTYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IDirect3DQuery9 (d3d9.h) interface applications use the methods of the IDirect3DQuery9 interface to perform asynchronous queries on a driver.

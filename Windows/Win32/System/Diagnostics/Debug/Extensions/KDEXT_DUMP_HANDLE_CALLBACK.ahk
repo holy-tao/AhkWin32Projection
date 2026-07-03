@@ -49,10 +49,6 @@ export default struct KDEXT_DUMP_HANDLE_CALLBACK {
             this.value := CallbackCreate(fn, , [KDEXT_HANDLE_INFORMATION.Ptr, UInt32, "ptr", BOOLEAN])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

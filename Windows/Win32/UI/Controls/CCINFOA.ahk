@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\CCSTYLEFLAGA.ahk" { CCSTYLEFLAGA }
-#Import ".\LPFNCCSIZETOTEXTA.ahk" { LPFNCCSIZETOTEXTA }
-#Import ".\LPFNCCSTYLEA.ahk" { LPFNCCSTYLEA }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
@@ -33,9 +31,9 @@ export default struct CCINFOA {
 
     aStyleFlags : CCSTYLEFLAGA.Ptr
 
-    lpfnStyle : LPFNCCSTYLEA
+    lpfnStyle : IntPtr
 
-    lpfnSizeToText : LPFNCCSIZETOTEXTA
+    lpfnSizeToText : IntPtr
 
     dwReserved1 : UInt32
 

@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IParseDisplayName.ahk" { IParseDisplayName }
-#Import "..\Com\IEnumUnknown.ahk" { IEnumUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IEnumUnknown.ahk" { IEnumUnknown }
+#Import ".\IParseDisplayName.ahk" { IParseDisplayName }
 
 /**
  * Enumerates objects in a compound document or lock a container in the running state. Container and object applications both implement this interface.

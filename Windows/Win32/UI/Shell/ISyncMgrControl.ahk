@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\ISyncMgrConflict.ahk" { ISyncMgrConflict }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SYNCMGR_CONTROL_FLAGS.ahk" { SYNCMGR_CONTROL_FLAGS }
-#Import ".\ISyncMgrSyncResult.ahk" { ISyncMgrSyncResult }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\SYNCMGR_UPDATE_REASON.ahk" { SYNCMGR_UPDATE_REASON }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ISyncMgrConflict.ahk" { ISyncMgrConflict }
+#Import ".\ISyncMgrSyncResult.ahk" { ISyncMgrSyncResult }
+#Import ".\SYNCMGR_CONTROL_FLAGS.ahk" { SYNCMGR_CONTROL_FLAGS }
 #Import ".\SYNCMGR_SYNC_CONTROL_FLAGS.ahk" { SYNCMGR_SYNC_CONTROL_FLAGS }
+#Import ".\SYNCMGR_UPDATE_REASON.ahk" { SYNCMGR_UPDATE_REASON }
 
 /**
  * Exposes methods that allow an application or handler to start or stop a synchronization, notify Sync Center of changes to the set of handlers or items, or notify of changes to property values.

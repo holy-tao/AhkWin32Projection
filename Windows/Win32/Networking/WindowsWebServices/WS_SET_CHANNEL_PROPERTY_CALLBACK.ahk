@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_ERROR.ahk" { WS_ERROR }
-#Import ".\WS_CHANNEL_PROPERTY_ID.ahk" { WS_CHANNEL_PROPERTY_ID }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WS_CHANNEL_PROPERTY_ID.ahk" { WS_CHANNEL_PROPERTY_ID }
+#Import ".\WS_ERROR.ahk" { WS_ERROR }
 
 /**
  * Handles the WsSetChannelProperty call for a WS_CUSTOM_CHANNEL_BINDING.
@@ -109,10 +109,6 @@ export default struct WS_SET_CHANNEL_PROPERTY_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", WS_CHANNEL_PROPERTY_ID, IntPtr, UInt32, WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

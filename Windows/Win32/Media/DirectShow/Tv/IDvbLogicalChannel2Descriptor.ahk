@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\DVB_STRCONV_MODE.ahk" { DVB_STRCONV_MODE }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DVB_STRCONV_MODE.ahk" { DVB_STRCONV_MODE }
 #Import ".\IDvbLogicalChannelDescriptor2.ahk" { IDvbLogicalChannelDescriptor2 }
 
 /**

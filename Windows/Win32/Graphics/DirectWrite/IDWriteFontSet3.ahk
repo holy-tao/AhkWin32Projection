@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDWriteFontSet2.ahk" { IDWriteFontSet2 }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DWRITE_FONT_SOURCE_TYPE.ahk" { DWRITE_FONT_SOURCE_TYPE }
+#Import ".\IDWriteFontSet2.ahk" { IDWriteFontSet2 }
 
 /**
  * Represents a font set. (IDWriteFontSet3)

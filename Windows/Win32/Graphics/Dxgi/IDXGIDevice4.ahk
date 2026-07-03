@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DXGI_OFFER_RESOURCE_PRIORITY.ahk" { DXGI_OFFER_RESOURCE_PRIORITY }
-#Import ".\IDXGIResource.ahk" { IDXGIResource }
-#Import ".\IDXGIDevice3.ahk" { IDXGIDevice3 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXGI_OFFER_RESOURCE_PRIORITY.ahk" { DXGI_OFFER_RESOURCE_PRIORITY }
 #Import ".\DXGI_RECLAIM_RESOURCE_RESULTS.ahk" { DXGI_RECLAIM_RESOURCE_RESULTS }
+#Import ".\IDXGIDevice3.ahk" { IDXGIDevice3 }
+#Import ".\IDXGIResource.ahk" { IDXGIResource }
 
 /**
  * This interface provides updated methods to offer and reclaim resources.

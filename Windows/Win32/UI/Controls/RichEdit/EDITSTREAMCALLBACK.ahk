@@ -86,10 +86,6 @@ export default struct EDITSTREAMCALLBACK {
             this.value := CallbackCreate(fn, , [IntPtr, "char*", Int32, "int*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

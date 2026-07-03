@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DNS_CUSTOM_SERVER.ahk" { DNS_CUSTOM_SERVER }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DNS_QUERY_RAW_COMPLETION_ROUTINE.ahk" { DNS_QUERY_RAW_COMPLETION_ROUTINE }
+#Import ".\DNS_CUSTOM_SERVER.ahk" { DNS_CUSTOM_SERVER }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
@@ -26,7 +25,7 @@ export default struct DNS_QUERY_RAW_REQUEST {
 
     interfaceIndex : UInt32
 
-    queryCompletionCallback : DNS_QUERY_RAW_COMPLETION_ROUTINE
+    queryCompletionCallback : IntPtr
 
     queryContext : IntPtr
 

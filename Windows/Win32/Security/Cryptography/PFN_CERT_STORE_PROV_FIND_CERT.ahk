@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import ".\CERT_STORE_PROV_FIND_INFO.ahk" { CERT_STORE_PROV_FIND_INFO }
 #Import ".\HCERTSTOREPROV.ahk" { HCERTSTOREPROV }
 
@@ -55,10 +55,6 @@ export default struct PFN_CERT_STORE_PROV_FIND_CERT {
             this.value := CallbackCreate(fn, , [HCERTSTOREPROV, CERT_STORE_PROV_FIND_INFO.Ptr, CERT_CONTEXT.Ptr, UInt32, "ptr*", "ptr*", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

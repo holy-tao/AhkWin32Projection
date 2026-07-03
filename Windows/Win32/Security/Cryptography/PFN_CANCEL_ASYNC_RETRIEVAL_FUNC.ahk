@@ -45,10 +45,6 @@ export default struct PFN_CANCEL_ASYNC_RETRIEVAL_FUNC {
             this.value := CallbackCreate(fn, , [HCRYPTASYNC, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

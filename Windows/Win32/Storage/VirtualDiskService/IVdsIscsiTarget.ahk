@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
-#Import ".\VDS_ISCSI_TARGET_PROP.ahk" { VDS_ISCSI_TARGET_PROP }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
 #Import ".\IVdsSubSystem.ahk" { IVdsSubSystem }
 #Import ".\VDS_ISCSI_SHARED_SECRET.ahk" { VDS_ISCSI_SHARED_SECRET }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IVdsAsync.ahk" { IVdsAsync }
+#Import ".\VDS_ISCSI_TARGET_PROP.ahk" { VDS_ISCSI_TARGET_PROP }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVdsIscsiTarget interface (vdshwprv.h) provides methods for performing query and configuration operations on an iSCSI target.

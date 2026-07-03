@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\KSPEEKOPERATION.ahk" { KSPEEKOPERATION }
-#Import "..\DirectShow\IMemAllocator.ahk" { IMemAllocator }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\DirectShow\IMediaSample.ahk" { IMediaSample }
-#Import ".\KSMULTIPLE_ITEM.ahk" { KSMULTIPLE_ITEM }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\KSSTREAM_SEGMENT.ahk" { KSSTREAM_SEGMENT }
-#Import ".\KSPIN_COMMUNICATION.ahk" { KSPIN_COMMUNICATION }
+#Import "..\DirectShow\IMediaSample.ahk" { IMediaSample }
+#Import "..\DirectShow\IMemAllocator.ahk" { IMemAllocator }
 #Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import ".\KSMULTIPLE_ITEM.ahk" { KSMULTIPLE_ITEM }
+#Import ".\KSPEEKOPERATION.ahk" { KSPEEKOPERATION }
+#Import ".\KSPIN_COMMUNICATION.ahk" { KSPIN_COMMUNICATION }
+#Import ".\KSSTREAM_SEGMENT.ahk" { KSSTREAM_SEGMENT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IKsPin interface provides a method to retrieve the mediums supported by a pin on a kernel-mode filter. IKsPin has additional methods besides the one shown here, but they are not supported for DirectShow.

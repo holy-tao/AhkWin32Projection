@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\CLIPOBJ.ahk" { CLIPOBJ }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\SURFOBJ.ahk" { SURFOBJ }
-#Import "..\..\Foundation\POINTL.ahk" { POINTL }
-#Import "..\..\Graphics\Gdi\TRIVERTEX.ahk" { TRIVERTEX }
-#Import "..\..\Foundation\RECTL.ahk" { RECTL }
 #Import ".\XLATEOBJ.ahk" { XLATEOBJ }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\POINTL.ahk" { POINTL }
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import "..\..\Graphics\Gdi\TRIVERTEX.ahk" { TRIVERTEX }
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -61,10 +61,6 @@ export default struct PFN_DrvGradientFill {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, CLIPOBJ.Ptr, XLATEOBJ.Ptr, TRIVERTEX.Ptr, UInt32, "ptr", UInt32, RECTL.Ptr, POINTL.Ptr, UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IX509Extensions.ahk" { IX509Extensions }
-#Import ".\IObjectIds.ahk" { IObjectIds }
-#Import ".\EncodingType.ahk" { EncodingType }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISignerCertificates.ahk" { ISignerCertificates }
-#Import ".\ICryptAttributes.ahk" { ICryptAttributes }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IX509CertificateRequestPkcs7.ahk" { IX509CertificateRequestPkcs7 }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IX509SignatureInformation.ahk" { IX509SignatureInformation }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import ".\ICryptAttributes.ahk" { ICryptAttributes }
 #Import ".\IObjectId.ahk" { IObjectId }
-#Import ".\IX509NameValuePairs.ahk" { IX509NameValuePairs }
+#Import ".\IObjectIds.ahk" { IObjectIds }
+#Import ".\ISignerCertificates.ahk" { ISignerCertificates }
 #Import ".\IX509CertificateRequest.ahk" { IX509CertificateRequest }
+#Import ".\IX509CertificateRequestPkcs7.ahk" { IX509CertificateRequestPkcs7 }
+#Import ".\IX509Extensions.ahk" { IX509Extensions }
+#Import ".\IX509NameValuePairs.ahk" { IX509NameValuePairs }
+#Import ".\IX509SignatureInformation.ahk" { IX509SignatureInformation }
 
 /**
  * Represents a CMC (Certificate Management Message over CMS) certificate request.

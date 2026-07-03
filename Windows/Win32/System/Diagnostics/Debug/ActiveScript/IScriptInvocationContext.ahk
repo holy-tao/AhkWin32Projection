@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SCRIPT_INVOCATION_CONTEXT_TYPE.ahk" { SCRIPT_INVOCATION_CONTEXT_TYPE }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SCRIPT_INVOCATION_CONTEXT_TYPE.ahk" { SCRIPT_INVOCATION_CONTEXT_TYPE }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

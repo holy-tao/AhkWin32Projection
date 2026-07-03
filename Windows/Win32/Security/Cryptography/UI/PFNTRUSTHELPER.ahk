@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.UI
@@ -52,10 +52,6 @@ export default struct PFNTRUSTHELPER {
             this.value := CallbackCreate(fn, , [CERT_CONTEXT.Ptr, LPARAM, BOOL, "char*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

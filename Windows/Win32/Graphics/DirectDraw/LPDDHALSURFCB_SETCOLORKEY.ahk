@@ -44,10 +44,6 @@ export default struct LPDDHALSURFCB_SETCOLORKEY {
             this.value := CallbackCreate(fn, , [DDHAL_SETCOLORKEYDATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

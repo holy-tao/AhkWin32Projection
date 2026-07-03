@@ -50,10 +50,6 @@ export default struct NotificationHandler {
             this.value := CallbackCreate(fn, , [Guid, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

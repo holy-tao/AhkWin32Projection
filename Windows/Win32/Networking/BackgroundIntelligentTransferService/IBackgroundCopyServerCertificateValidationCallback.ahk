@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IBackgroundCopyJob.ahk" { IBackgroundCopyJob }
 #Import ".\IBackgroundCopyFile.ahk" { IBackgroundCopyFile }
+#Import ".\IBackgroundCopyJob.ahk" { IBackgroundCopyJob }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Server certificates are sent when an HTTPS connection is opened. Use this method to implement a callback to be called to validate those server certificates.

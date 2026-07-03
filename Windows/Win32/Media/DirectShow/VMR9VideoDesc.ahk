@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VMR9_SampleFormat.ahk" { VMR9_SampleFormat }
 #Import ".\VMR9Frequency.ahk" { VMR9Frequency }
+#Import ".\VMR9_SampleFormat.ahk" { VMR9_SampleFormat }
 
 /**
  * The VMR9VideoDesc structure describes a video stream to be deinterlaced.

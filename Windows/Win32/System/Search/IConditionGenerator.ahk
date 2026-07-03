@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IConditionFactory.ahk" { IConditionFactory }
-#Import ".\IRichChunk.ahk" { IRichChunk }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISchemaProvider.ahk" { ISchemaProvider }
-#Import ".\ICondition.ahk" { ICondition }
-#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\INamedEntityCollector.ahk" { INamedEntityCollector }
-#Import "Common\CONDITION_OPERATION.ahk" { CONDITION_OPERATION }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "Common\CONDITION_OPERATION.ahk" { CONDITION_OPERATION }
+#Import ".\ICondition.ahk" { ICondition }
+#Import ".\IConditionFactory.ahk" { IConditionFactory }
+#Import ".\INamedEntityCollector.ahk" { INamedEntityCollector }
+#Import ".\IRichChunk.ahk" { IRichChunk }
+#Import ".\ISchemaProvider.ahk" { ISchemaProvider }
 #Import ".\ITokenCollection.ahk" { ITokenCollection }
 
 /**

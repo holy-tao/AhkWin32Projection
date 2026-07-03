@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\SURFOBJ.ahk" { SURFOBJ }
-#Import "..\..\Foundation\RECTL.ahk" { RECTL }
 #Import ".\XLATEOBJ.ahk" { XLATEOBJ }
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -55,10 +55,6 @@ export default struct PFN_DrvSetPointerShape {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, SURFOBJ.Ptr, SURFOBJ.Ptr, XLATEOBJ.Ptr, Int32, Int32, Int32, Int32, RECTL.Ptr, UInt32, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

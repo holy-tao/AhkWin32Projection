@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\OLEDBSimpleProviderListener.ahk" { OLEDBSimpleProviderListener }
 #Import ".\OSPCOMP.ahk" { OSPCOMP }
 #Import ".\OSPFIND.ahk" { OSPFIND }
 #Import ".\OSPFORMAT.ahk" { OSPFORMAT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\OLEDBSimpleProviderListener.ahk" { OLEDBSimpleProviderListener }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\OSPRW.ahk" { OSPRW }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.Search

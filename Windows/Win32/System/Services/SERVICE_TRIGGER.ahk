@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SERVICE_TRIGGER_TYPE.ahk" { SERVICE_TRIGGER_TYPE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SERVICE_TRIGGER_SPECIFIC_DATA_ITEM.ahk" { SERVICE_TRIGGER_SPECIFIC_DATA_ITEM }
 #Import ".\SERVICE_TRIGGER_ACTION.ahk" { SERVICE_TRIGGER_ACTION }
+#Import ".\SERVICE_TRIGGER_SPECIFIC_DATA_ITEM.ahk" { SERVICE_TRIGGER_SPECIFIC_DATA_ITEM }
+#Import ".\SERVICE_TRIGGER_TYPE.ahk" { SERVICE_TRIGGER_TYPE }
 
 /**
  * Represents a service trigger event. This structure is used by the SERVICE_TRIGGER_INFO structure.

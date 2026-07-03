@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\STREAM_SEEK.ahk" { STREAM_SEEK }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IPrinterScriptableSequentialStream.ahk" { IPrinterScriptableSequentialStream }
+#Import "..\..\System\Com\STREAM_SEEK.ahk" { STREAM_SEEK }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ADDRESS_MODE.ahk" { ADDRESS_MODE }
 #Import ".\ADDRESS64.ahk" { ADDRESS64 }
+#Import ".\ADDRESS_MODE.ahk" { ADDRESS_MODE }
 #Import ".\KDHELP64.ahk" { KDHELP64 }
 
 /**

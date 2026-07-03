@@ -53,10 +53,6 @@ export default struct PFN_DrvDrawEscape {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, UInt32, CLIPOBJ.Ptr, RECTL.Ptr, UInt32, "ptr", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

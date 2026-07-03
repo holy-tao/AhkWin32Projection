@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\OLEUIOBJECTPROPSW.ahk" { OLEUIOBJECTPROPSW }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\LPFNOLEUIHOOK.ahk" { LPFNOLEUIHOOK }
+#Import ".\OLEUIOBJECTPROPSW.ahk" { OLEUIOBJECTPROPSW }
 
 /**
  * Initializes the General tab of the Object Properties dialog box. (Unicode)
@@ -33,7 +32,7 @@ export default struct OLEUIGNRLPROPSW {
     /**
      * Pointer to a hook function that processes messages intended for the dialog box. The hook function must return zero to pass a message that it didn't process back to the dialog box procedure in the library. The hook function must return a nonzero value to prevent the library's dialog box procedure from processing a message it has already processed.
      */
-    lpfnHook : LPFNOLEUIHOOK
+    lpfnHook : IntPtr
 
     /**
      * Application-defined data that the library passes to the hook function pointed to by the <b>lpfnHook</b> member during WM_INITDIALOG.

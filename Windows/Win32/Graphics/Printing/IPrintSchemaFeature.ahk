@@ -3,10 +3,10 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\PrintSchemaSelectionType.ahk" { PrintSchemaSelectionType }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IPrintSchemaOption.ahk" { IPrintSchemaOption }
 #Import ".\IPrintSchemaDisplayableElement.ahk" { IPrintSchemaDisplayableElement }
+#Import ".\IPrintSchemaOption.ahk" { IPrintSchemaOption }
+#Import ".\PrintSchemaSelectionType.ahk" { PrintSchemaSelectionType }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

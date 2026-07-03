@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ITravelEntry.ahk" { ITravelEntry }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
-#Import "..\WindowsAndMessaging\HMENU.ahk" { HMENU }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import ".\ITravelEntry.ahk" { ITravelEntry }
+#Import "..\WindowsAndMessaging\HMENU.ahk" { HMENU }
 
 /**
  * Deprecated. Exposes methods that maintain and manipulate a record of travel in the browser.

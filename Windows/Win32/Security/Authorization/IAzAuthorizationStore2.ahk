@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IAzAuthorizationStore.ahk" { IAzAuthorizationStore }
 #Import ".\IAzApplication2.ahk" { IAzApplication2 }
+#Import ".\IAzAuthorizationStore.ahk" { IAzAuthorizationStore }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Inherits from the AzAuthorizationStore object and implements methods to create and open IAzApplication2 objects.

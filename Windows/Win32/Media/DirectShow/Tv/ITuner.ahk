@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IComponentTypes.ahk" { IComponentTypes }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IEnumTuningSpaces.ahk" { IEnumTuningSpaces }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IComponentTypes.ahk" { IComponentTypes }
+#Import ".\IEnumTuningSpaces.ahk" { IEnumTuningSpaces }
 #Import ".\ITuneRequest.ahk" { ITuneRequest }
 #Import ".\ITuningSpace.ahk" { ITuningSpace }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITuner interface is implemented on the Microsoft BDA Network Provider filters.

@@ -2,17 +2,17 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\FAX_COVERPAGE_TYPE_ENUM.ahk" { FAX_COVERPAGE_TYPE_ENUM }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\FAX_PRIORITY_TYPE_ENUM.ahk" { FAX_PRIORITY_TYPE_ENUM }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\FAX_RECEIPT_TYPE_ENUM.ahk" { FAX_RECEIPT_TYPE_ENUM }
+#Import ".\FAX_SCHEDULE_TYPE_ENUM.ahk" { FAX_SCHEDULE_TYPE_ENUM }
+#Import ".\IFaxRecipients.ahk" { IFaxRecipients }
 #Import ".\IFaxSender.ahk" { IFaxSender }
 #Import ".\IFaxServer.ahk" { IFaxServer }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IFaxRecipients.ahk" { IFaxRecipients }
-#Import ".\FAX_SCHEDULE_TYPE_ENUM.ahk" { FAX_SCHEDULE_TYPE_ENUM }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IFaxDocument interface defines a messaging object used by a fax client application to compose a fax document and submit it to the fax service for processing.

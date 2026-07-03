@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
-#Import ".\IContextMenuCB.ahk" { IContextMenuCB }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
 #Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import ".\IContextMenuCB.ahk" { IContextMenuCB }
 #Import ".\IShellFolder.ahk" { IShellFolder }
 
 /**

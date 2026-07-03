@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\LPDIENUMEFFECTSCALLBACKA.ahk" { LPDIENUMEFFECTSCALLBACKA }
-#Import ".\IDirectInputEffect.ahk" { IDirectInputEffect }
-#Import ".\DIEFFECTINFOA.ahk" { DIEFFECTINFOA }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DIDEVICEOBJECTDATA.ahk" { DIDEVICEOBJECTDATA }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDirectInputDeviceA.ahk" { IDirectInputDeviceA }
-#Import ".\DIEFFESCAPE.ahk" { DIEFFESCAPE }
-#Import ".\LPDIENUMCREATEDEFFECTOBJECTSCALLBACK.ahk" { LPDIENUMCREATEDEFFECTOBJECTSCALLBACK }
 #Import ".\DIEFFECT.ahk" { DIEFFECT }
+#Import ".\DIEFFECTINFOA.ahk" { DIEFFECTINFOA }
+#Import ".\DIEFFESCAPE.ahk" { DIEFFESCAPE }
+#Import ".\IDirectInputDeviceA.ahk" { IDirectInputDeviceA }
+#Import ".\IDirectInputEffect.ahk" { IDirectInputEffect }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
@@ -74,7 +72,7 @@ export default struct IDirectInputDevice2A extends IDirectInputDeviceA {
     EnumEffects(param0, param1, param2) {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(19, this, LPDIENUMEFFECTSCALLBACKA, param0, param1Marshal, param1, UInt32, param2, "HRESULT")
+        result := ComCall(19, this, "ptr", param0, param1Marshal, param1, UInt32, param2, "HRESULT")
         return result
     }
 
@@ -121,7 +119,7 @@ export default struct IDirectInputDevice2A extends IDirectInputDeviceA {
     EnumCreatedEffectObjects(param0, param1, param2) {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(23, this, LPDIENUMCREATEDEFFECTOBJECTSCALLBACK, param0, param1Marshal, param1, UInt32, param2, "HRESULT")
+        result := ComCall(23, this, "ptr", param0, param1Marshal, param1, UInt32, param2, "HRESULT")
         return result
     }
 

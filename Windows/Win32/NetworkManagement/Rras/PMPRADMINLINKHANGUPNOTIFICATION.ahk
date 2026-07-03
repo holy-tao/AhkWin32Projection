@@ -45,10 +45,6 @@ export default struct PMPRADMINLINKHANGUPNOTIFICATION {
             this.value := CallbackCreate(fn, , [RAS_PORT_0.Ptr, RAS_PORT_1.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

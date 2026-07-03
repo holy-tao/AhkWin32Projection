@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Graphics\Gdi\LOGFONTA.ahk" { LOGFONTA }
-#Import "..\..\Graphics\Gdi\FONT_OUTPUT_PRECISION.ahk" { FONT_OUTPUT_PRECISION }
 #Import "..\..\Graphics\Gdi\FONT_CHARSET.ahk" { FONT_CHARSET }
-#Import "..\..\Graphics\Gdi\FONT_QUALITY.ahk" { FONT_QUALITY }
 #Import "..\..\Graphics\Gdi\FONT_CLIP_PRECISION.ahk" { FONT_CLIP_PRECISION }
+#Import "..\..\Graphics\Gdi\FONT_OUTPUT_PRECISION.ahk" { FONT_OUTPUT_PRECISION }
+#Import "..\..\Graphics\Gdi\FONT_QUALITY.ahk" { FONT_QUALITY }
+#Import "..\..\Graphics\Gdi\LOGFONTA.ahk" { LOGFONTA }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
@@ -16,7 +16,7 @@
  * @charset ANSI
  */
 export default struct ICONMETRICSA {
-    #StructPack 8
+    #StructPack 4
 
     /**
      * Type: <b>UINT</b>

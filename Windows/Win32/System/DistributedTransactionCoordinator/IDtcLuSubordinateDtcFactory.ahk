@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITransaction.ahk" { ITransaction }
-#Import ".\IDtcLuSubordinateDtc.ahk" { IDtcLuSubordinateDtc }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDtcLuSubordinateDtcSink.ahk" { IDtcLuSubordinateDtcSink }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDtcLuSubordinateDtc.ahk" { IDtcLuSubordinateDtc }
+#Import ".\IDtcLuSubordinateDtcSink.ahk" { IDtcLuSubordinateDtcSink }
+#Import ".\ITransaction.ahk" { ITransaction }
 #Import ".\ITransactionOptions.ahk" { ITransactionOptions }
 
 /**

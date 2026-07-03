@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\MDL.ahk" { MDL }
 #Import "..\..\Foundation\IOMMU_DMA_DOMAIN.ahk" { IOMMU_DMA_DOMAIN }
+#Import "..\..\Foundation\MDL.ahk" { MDL }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
@@ -30,7 +30,7 @@ export default struct IOMMU_UNMAP_IDENTITY_RANGE {
         DomainMarshal := Domain is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, DomainMarshal, Domain, MDL.Ptr, _Mdl, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -50,10 +50,6 @@ export default struct IOMMU_UNMAP_IDENTITY_RANGE {
             this.value := CallbackCreate(fn, , [IOMMU_DMA_DOMAIN.Ptr, MDL.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

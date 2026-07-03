@@ -29,7 +29,7 @@ export default struct PSHED_PI_ATTEMPT_ERROR_RECOVERY {
         PluginContextMarshal := PluginContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, PluginContextMarshal, PluginContext, UInt32, BufferLength, IntPtr, ErrorRecord, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -49,10 +49,6 @@ export default struct PSHED_PI_ATTEMPT_ERROR_RECOVERY {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, IntPtr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -51,10 +51,6 @@ export default struct SslGetServerIdentityFn {
             this.value := CallbackCreate(fn, , [IntPtr, UInt32, "ptr*", "uint*", UInt32, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\MI_Operation.ahk" { MI_Operation }
-#Import ".\MI_Value.ahk" { MI_Value }
 #Import ".\MI_Type.ahk" { MI_Type }
+#Import ".\MI_Value.ahk" { MI_Value }
 
 /**
  * @namespace Windows.Win32.System.Wmi
@@ -53,10 +53,6 @@ export default struct MI_OperationCallback_StreamedParameter {
             this.value := CallbackCreate(fn, , [MI_Operation.Ptr, "ptr", "ushort*", MI_Type, MI_Value.Ptr, IntPtr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SECPKG_KERNEL_FUNCTIONS.ahk" { SECPKG_KERNEL_FUNCTIONS }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\SECPKG_KERNEL_FUNCTIONS.ahk" { SECPKG_KERNEL_FUNCTIONS }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -26,7 +26,7 @@ export default struct KspInitPackageFn {
      */
     Call(FunctionTable) {
         result := DllCall(this.value, SECPKG_KERNEL_FUNCTIONS.Ptr, FunctionTable, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -46,10 +46,6 @@ export default struct KspInitPackageFn {
             this.value := CallbackCreate(fn, , [SECPKG_KERNEL_FUNCTIONS.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

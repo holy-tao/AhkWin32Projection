@@ -75,10 +75,6 @@ export default struct PFNRASGETBUFFER {
             this.value := CallbackCreate(fn, , ["ptr*", "uint*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDebugDocumentContext.ahk" { IDebugDocumentContext }
-#Import ".\IDebugApplicationNode.ahk" { IDebugApplicationNode }
 #Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDebugApplication64.ahk" { IDebugApplication64 }
-#Import ".\IActiveScriptErrorDebug.ahk" { IActiveScriptErrorDebug }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IActiveScriptErrorDebug.ahk" { IActiveScriptErrorDebug }
+#Import ".\IDebugApplication64.ahk" { IDebugApplication64 }
+#Import ".\IDebugApplicationNode.ahk" { IDebugApplicationNode }
+#Import ".\IDebugDocumentContext.ahk" { IDebugDocumentContext }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

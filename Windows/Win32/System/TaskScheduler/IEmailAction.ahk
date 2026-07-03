@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITaskNamedValueCollection.ahk" { ITaskNamedValueCollection }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 #Import ".\IAction.ahk" { IAction }
+#Import ".\ITaskNamedValueCollection.ahk" { ITaskNamedValueCollection }
 
 /**
  * Represents an action that sends an email message.

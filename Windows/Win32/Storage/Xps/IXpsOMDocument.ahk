@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IXpsOMPageReferenceCollection.ahk" { IXpsOMPageReferenceCollection }
-#Import ".\IXpsOMSignatureBlockResourceCollection.ahk" { IXpsOMSignatureBlockResourceCollection }
-#Import ".\IXpsOMPrintTicketResource.ahk" { IXpsOMPrintTicketResource }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IXpsOMDocumentStructureResource.ahk" { IXpsOMDocumentStructureResource }
-#Import ".\IXpsOMPart.ahk" { IXpsOMPart }
 #Import ".\IXpsOMDocumentSequence.ahk" { IXpsOMDocumentSequence }
+#Import ".\IXpsOMDocumentStructureResource.ahk" { IXpsOMDocumentStructureResource }
+#Import ".\IXpsOMPageReferenceCollection.ahk" { IXpsOMPageReferenceCollection }
+#Import ".\IXpsOMPart.ahk" { IXpsOMPart }
+#Import ".\IXpsOMPrintTicketResource.ahk" { IXpsOMPrintTicketResource }
+#Import ".\IXpsOMSignatureBlockResourceCollection.ahk" { IXpsOMSignatureBlockResourceCollection }
 
 /**
  * An ordered sequence of fixed pages and document-level resources that make up the document.

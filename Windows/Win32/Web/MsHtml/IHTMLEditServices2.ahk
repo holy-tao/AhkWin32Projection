@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IHTMLEditServices.ahk" { IHTMLEditServices }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IDisplayPointer.ahk" { IDisplayPointer }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDisplayPointer.ahk" { IDisplayPointer }
+#Import ".\IHTMLEditServices.ahk" { IHTMLEditServices }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

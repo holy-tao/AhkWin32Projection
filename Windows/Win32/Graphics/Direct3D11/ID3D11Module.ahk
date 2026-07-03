@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D11ModuleInstance.ahk" { ID3D11ModuleInstance }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\ID3D11ModuleInstance.ahk" { ID3D11ModuleInstance }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * A module interface creates an instance of a module that is used for resource rebinding.

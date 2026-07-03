@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VDS_DISK_EXTENT_TYPE.ahk" { VDS_DISK_EXTENT_TYPE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VDS_DISK_EXTENT_TYPE.ahk" { VDS_DISK_EXTENT_TYPE }
 
 /**
  * Defines the properties of a disk extent.

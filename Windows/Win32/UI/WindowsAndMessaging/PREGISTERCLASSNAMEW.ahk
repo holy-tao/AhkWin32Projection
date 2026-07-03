@@ -47,10 +47,6 @@ export default struct PREGISTERCLASSNAMEW {
             this.value := CallbackCreate(fn, , [PWSTR, BOOLEAN])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

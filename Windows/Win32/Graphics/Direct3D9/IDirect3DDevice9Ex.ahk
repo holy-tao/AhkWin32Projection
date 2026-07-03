@@ -1,23 +1,23 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\D3DCOMPOSERECTSOP.ahk" { D3DCOMPOSERECTSOP }
+#Import ".\D3DDISPLAYMODEEX.ahk" { D3DDISPLAYMODEEX }
+#Import ".\D3DDISPLAYROTATION.ahk" { D3DDISPLAYROTATION }
+#Import ".\D3DFORMAT.ahk" { D3DFORMAT }
+#Import ".\D3DMULTISAMPLE_TYPE.ahk" { D3DMULTISAMPLE_TYPE }
+#Import ".\D3DPOOL.ahk" { D3DPOOL }
+#Import ".\D3DPRESENT_PARAMETERS.ahk" { D3DPRESENT_PARAMETERS }
 #Import ".\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
 #Import ".\IDirect3DResource9.ahk" { IDirect3DResource9 }
-#Import ".\D3DPRESENT_PARAMETERS.ahk" { D3DPRESENT_PARAMETERS }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\IDirect3DVertexBuffer9.ahk" { IDirect3DVertexBuffer9 }
-#Import ".\D3DFORMAT.ahk" { D3DFORMAT }
-#Import ".\D3DDISPLAYMODEEX.ahk" { D3DDISPLAYMODEEX }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\D3DMULTISAMPLE_TYPE.ahk" { D3DMULTISAMPLE_TYPE }
+#Import ".\IDirect3DVertexBuffer9.ahk" { IDirect3DVertexBuffer9 }
 #Import "..\Gdi\RGNDATA.ahk" { RGNDATA }
-#Import ".\D3DDISPLAYROTATION.ahk" { D3DDISPLAYROTATION }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\D3DPOOL.ahk" { D3DPOOL }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\D3DCOMPOSERECTSOP.ahk" { D3DCOMPOSERECTSOP }
 
 /**
  * Applications use the methods of the IDirect3DDevice9Ex interface to render primitives, create resources, work with system-level variables, adjust gamma ramp levels, work with palettes, and create shaders.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * @namespace Windows.Win32.UI.Accessibility
@@ -51,10 +51,6 @@ export default struct LPFNACCESSIBLEOBJECTFROMWINDOW {
             this.value := CallbackCreate(fn, , [HWND, UInt32, Guid.Ptr, "ptr*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

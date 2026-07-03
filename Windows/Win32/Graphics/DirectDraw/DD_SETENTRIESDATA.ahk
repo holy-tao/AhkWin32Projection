@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DD_PALETTE_GLOBAL.ahk" { DD_PALETTE_GLOBAL }
-#Import "..\Gdi\PALETTEENTRY.ahk" { PALETTEENTRY }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DD_DIRECTDRAW_GLOBAL.ahk" { DD_DIRECTDRAW_GLOBAL }
+#Import ".\DD_PALETTE_GLOBAL.ahk" { DD_PALETTE_GLOBAL }
+#Import "..\Gdi\PALETTEENTRY.ahk" { PALETTEENTRY }
 
 /**
  * The DD_SETENTRIESDATA structure contains information necessary to set palette entries.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\D3D11_AUTHENTICATED_PROCESS_IDENTIFIER_TYPE.ahk" { D3D11_AUTHENTICATED_PROCESS_IDENTIFIER_TYPE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\D3D11_OMAC.ahk" { D3D11_OMAC }
-#Import ".\D3D11_AUTHENTICATED_CONFIGURE_INPUT.ahk" { D3D11_AUTHENTICATED_CONFIGURE_INPUT }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\D3D11_AUTHENTICATED_CONFIGURE_INPUT.ahk" { D3D11_AUTHENTICATED_CONFIGURE_INPUT }
+#Import ".\D3D11_AUTHENTICATED_PROCESS_IDENTIFIER_TYPE.ahk" { D3D11_AUTHENTICATED_PROCESS_IDENTIFIER_TYPE }
+#Import ".\D3D11_OMAC.ahk" { D3D11_OMAC }
 
 /**
  * Contains input data for a D3D11_AUTHENTICATED_CONFIGURE_SHARED_RESOURCE command.

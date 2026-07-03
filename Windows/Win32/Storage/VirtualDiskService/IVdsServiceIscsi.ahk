@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\VDS_IPADDRESS.ahk" { VDS_IPADDRESS }
-#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\VDS_ISCSI_SHARED_SECRET.ahk" { VDS_ISCSI_SHARED_SECRET }
-#Import ".\VDS_ISCSI_IPSEC_KEY.ahk" { VDS_ISCSI_IPSEC_KEY }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
+#Import ".\VDS_IPADDRESS.ahk" { VDS_IPADDRESS }
+#Import ".\VDS_ISCSI_IPSEC_KEY.ahk" { VDS_ISCSI_IPSEC_KEY }
+#Import ".\VDS_ISCSI_SHARED_SECRET.ahk" { VDS_ISCSI_SHARED_SECRET }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods to interface with the local initiator service, including the ability to set CHAP security settings and to log into targets.

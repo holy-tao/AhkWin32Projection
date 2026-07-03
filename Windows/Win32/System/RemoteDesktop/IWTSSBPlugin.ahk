@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WTSSBX_IP_ADDRESS.ahk" { WTSSBX_IP_ADDRESS }
-#Import ".\WTSSBX_NOTIFICATION_TYPE.ahk" { WTSSBX_NOTIFICATION_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WTSSBX_IP_ADDRESS.ahk" { WTSSBX_IP_ADDRESS }
 #Import ".\WTSSBX_MACHINE_CONNECT_INFO.ahk" { WTSSBX_MACHINE_CONNECT_INFO }
-#Import ".\WTSSBX_SESSION_INFO.ahk" { WTSSBX_SESSION_INFO }
 #Import ".\WTSSBX_MACHINE_INFO.ahk" { WTSSBX_MACHINE_INFO }
+#Import ".\WTSSBX_NOTIFICATION_TYPE.ahk" { WTSSBX_NOTIFICATION_TYPE }
+#Import ".\WTSSBX_SESSION_INFO.ahk" { WTSSBX_SESSION_INFO }
 
 /**
  * Used to extend the capabilities of Terminal Services Session Broker (TS�Session Broker). Implement this interface when you want to provide a plug-in that overrides the redirection logic of TS�Session Broker.

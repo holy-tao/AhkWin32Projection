@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DXVA2_DecodeExtensionData.ahk" { DXVA2_DecodeExtensionData }
 #Import ".\DXVA2_DecodeBufferDesc.ahk" { DXVA2_DecodeBufferDesc }
+#Import ".\DXVA2_DecodeExtensionData.ahk" { DXVA2_DecodeExtensionData }
 
 /**
  * Contains parameters for the IDirectXVideoDecoder::Execute method.

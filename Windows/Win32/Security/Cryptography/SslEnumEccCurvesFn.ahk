@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NCRYPT_SSL_ECC_CURVE.ahk" { NCRYPT_SSL_ECC_CURVE }
-#Import ".\NCRYPT_PROV_HANDLE.ahk" { NCRYPT_PROV_HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\NCRYPT_PROV_HANDLE.ahk" { NCRYPT_PROV_HANDLE }
+#Import ".\NCRYPT_SSL_ECC_CURVE.ahk" { NCRYPT_SSL_ECC_CURVE }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -52,10 +52,6 @@ export default struct SslEnumEccCurvesFn {
             this.value := CallbackCreate(fn, , [NCRYPT_PROV_HANDLE, "uint*", "ptr*", UInt32, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IEnumExtraSearch.ahk" { IEnumExtraSearch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import "Common\SHCOLSTATE.ahk" { SHCOLSTATE }
 #Import "Common\SHELLDETAILS.ahk" { SHELLDETAILS }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumExtraSearch.ahk" { IEnumExtraSearch }
 #Import ".\IShellFolder.ahk" { IShellFolder }
 
 /**

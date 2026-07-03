@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITfThreadMgr.ahk" { ITfThreadMgr }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfThreadMgr.ahk" { ITfThreadMgr }
 
 /**
  * The ITfThreadMgrEx interface is used by the application to activate the textservices with some flags. ITfThreadMgrEx can be obtained by QI from ITfThreadMgr.

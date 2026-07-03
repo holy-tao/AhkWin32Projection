@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ISpPhraseAlt.ahk" { ISpPhraseAlt }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISpRecoResult.ahk" { ISpRecoResult }
 
 /**

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ISettingsIdentity.ahk" { ISettingsIdentity }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITargetInfo.ahk" { ITargetInfo }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Com\IStream.ahk" { IStream }
-#Import ".\ISettingsResult.ahk" { ISettingsResult }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IItemEnumerator.ahk" { IItemEnumerator }
+#Import ".\ISettingsIdentity.ahk" { ISettingsIdentity }
+#Import ".\ISettingsResult.ahk" { ISettingsResult }
+#Import ".\ITargetInfo.ahk" { ITargetInfo }
 
 /**
  * An interface to a backing store that is used to store setting changes made through the other SMI APIs, and provides operations to serialize to and deserialize from a representation.

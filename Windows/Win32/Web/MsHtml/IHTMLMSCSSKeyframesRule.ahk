@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IHTMLMSCSSKeyframeRule.ahk" { IHTMLMSCSSKeyframeRule }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IHTMLStyleSheetRulesCollection.ahk" { IHTMLStyleSheetRulesCollection }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IHTMLMSCSSKeyframeRule.ahk" { IHTMLMSCSSKeyframeRule }
+#Import ".\IHTMLStyleSheetRulesCollection.ahk" { IHTMLStyleSheetRulesCollection }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

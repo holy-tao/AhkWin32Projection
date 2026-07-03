@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\EVT_SUBSCRIBE_NOTIFY_ACTION.ahk" { EVT_SUBSCRIBE_NOTIFY_ACTION }
 #Import ".\EVT_HANDLE.ahk" { EVT_HANDLE }
+#Import ".\EVT_SUBSCRIBE_NOTIFY_ACTION.ahk" { EVT_SUBSCRIBE_NOTIFY_ACTION }
 
 /**
  * Implement this callback if you call the EvtSubscribe function to receive events that match your query.
@@ -63,10 +63,6 @@ export default struct EVT_SUBSCRIBE_CALLBACK {
             this.value := CallbackCreate(fn, , [EVT_SUBSCRIBE_NOTIFY_ACTION, "ptr", EVT_HANDLE, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

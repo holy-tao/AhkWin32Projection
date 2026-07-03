@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\PFN_DESTRUCTION_CALLBACK.ahk" { PFN_DESTRUCTION_CALLBACK }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * **ID3DDestructionNotifier** is an interface that you can use to register for callbacks when a Direct3D nano-COM object is destroyed.
@@ -61,7 +60,7 @@ export default struct ID3DDestructionNotifier extends IUnknown {
     RegisterDestructionCallback(callbackFn, pData) {
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, PFN_DESTRUCTION_CALLBACK, callbackFn, pDataMarshal, pData, "uint*", &pCallbackID := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", callbackFn, pDataMarshal, pData, "uint*", &pCallbackID := 0, "HRESULT")
         return pCallbackID
     }
 

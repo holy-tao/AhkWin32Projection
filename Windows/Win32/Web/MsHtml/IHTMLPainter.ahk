@@ -2,13 +2,13 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
-#Import ".\HTML_PAINTER_INFO.ahk" { HTML_PAINTER_INFO }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 #Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\HTML_PAINTER_INFO.ahk" { HTML_PAINTER_INFO }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

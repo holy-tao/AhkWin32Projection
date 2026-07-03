@@ -48,10 +48,6 @@ export default struct PDD_MOCOMPCB_GETCOMPBUFFINFO {
             this.value := CallbackCreate(fn, , [DD_GETMOCOMPCOMPBUFFDATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

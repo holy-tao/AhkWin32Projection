@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDXGIDeviceSubObject.ahk" { IDXGIDeviceSubObject }
-#Import ".\DXGI_MAPPED_RECT.ahk" { DXGI_MAPPED_RECT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXGI_MAPPED_RECT.ahk" { DXGI_MAPPED_RECT }
 #Import ".\DXGI_MAP_FLAGS.ahk" { DXGI_MAP_FLAGS }
 #Import ".\DXGI_SURFACE_DESC.ahk" { DXGI_SURFACE_DESC }
+#Import ".\IDXGIDeviceSubObject.ahk" { IDXGIDeviceSubObject }
 
 /**
  * The IDXGISurface interface implements methods for image-data objects.

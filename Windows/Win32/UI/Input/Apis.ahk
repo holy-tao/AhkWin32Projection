@@ -1,15 +1,15 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
 #Import ".\HRAWINPUT.ahk" { HRAWINPUT }
 #Import ".\INPUT_MESSAGE_SOURCE.ahk" { INPUT_MESSAGE_SOURCE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\RAWINPUT.ahk" { RAWINPUT }
-#Import ".\RAW_INPUT_DEVICE_INFO_COMMAND.ahk" { RAW_INPUT_DEVICE_INFO_COMMAND }
 #Import ".\RAWINPUTDEVICE.ahk" { RAWINPUTDEVICE }
-#Import ".\RAW_INPUT_DATA_COMMAND_FLAGS.ahk" { RAW_INPUT_DATA_COMMAND_FLAGS }
 #Import ".\RAWINPUTDEVICELIST.ahk" { RAWINPUTDEVICELIST }
+#Import ".\RAW_INPUT_DATA_COMMAND_FLAGS.ahk" { RAW_INPUT_DATA_COMMAND_FLAGS }
+#Import ".\RAW_INPUT_DEVICE_INFO_COMMAND.ahk" { RAW_INPUT_DEVICE_INFO_COMMAND }
 
 /**
  * @namespace Windows.Win32.UI.Input

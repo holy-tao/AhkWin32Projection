@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WSB_OB_STATUS_ENTRY.ahk" { WSB_OB_STATUS_ENTRY }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WSB_OB_STATUS_ENTRY.ahk" { WSB_OB_STATUS_ENTRY }
 
 /**
  * Contains information to update the cloud backup provider status in the Windows Server Backup MMC snap-in.

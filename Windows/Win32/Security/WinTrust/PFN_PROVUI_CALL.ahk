@@ -47,10 +47,6 @@ export default struct PFN_PROVUI_CALL {
             this.value := CallbackCreate(fn, , [HWND, CRYPT_PROVIDER_DATA.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

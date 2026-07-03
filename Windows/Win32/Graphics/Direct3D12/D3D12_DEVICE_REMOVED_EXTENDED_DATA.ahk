@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_DRED_FLAGS.ahk" { D3D12_DRED_FLAGS }
 #Import ".\D3D12_AUTO_BREADCRUMB_NODE.ahk" { D3D12_AUTO_BREADCRUMB_NODE }
+#Import ".\D3D12_DRED_FLAGS.ahk" { D3D12_DRED_FLAGS }
 
 /**
  * Represents Device Removed Extended Data (DRED) version 1.0 data.

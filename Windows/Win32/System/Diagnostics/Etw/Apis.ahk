@@ -1,50 +1,46 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\ETW_OPEN_TRACE_OPTIONS.ahk" { ETW_OPEN_TRACE_OPTIONS }
-#Import ".\TRACE_LBR_CONFIGURATION.ahk" { TRACE_LBR_CONFIGURATION }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\TRACE_QUERY_INFO_CLASS.ahk" { TRACE_QUERY_INFO_CLASS }
+#Import "..\..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
+#Import "..\..\..\Security\PSID.ahk" { PSID }
+#Import ".\CLASSIC_EVENT_ID.ahk" { CLASSIC_EVENT_ID }
+#Import ".\DECODING_SOURCE.ahk" { DECODING_SOURCE }
+#Import ".\ENABLE_TRACE_PARAMETERS.ahk" { ENABLE_TRACE_PARAMETERS }
+#Import ".\ETW_BUFFER_HEADER.ahk" { ETW_BUFFER_HEADER }
+#Import ".\ETW_OPEN_TRACE_OPTIONS.ahk" { ETW_OPEN_TRACE_OPTIONS }
+#Import ".\ETW_PROCESS_HANDLE_INFO_TYPE.ahk" { ETW_PROCESS_HANDLE_INFO_TYPE }
+#Import ".\EVENT_DATA_DESCRIPTOR.ahk" { EVENT_DATA_DESCRIPTOR }
+#Import ".\EVENT_DESCRIPTOR.ahk" { EVENT_DESCRIPTOR }
+#Import ".\EVENT_FIELD_TYPE.ahk" { EVENT_FIELD_TYPE }
+#Import ".\EVENT_FILTER_DESCRIPTOR.ahk" { EVENT_FILTER_DESCRIPTOR }
+#Import ".\EVENT_INFO_CLASS.ahk" { EVENT_INFO_CLASS }
+#Import ".\EVENT_INSTANCE_HEADER.ahk" { EVENT_INSTANCE_HEADER }
+#Import ".\EVENT_INSTANCE_INFO.ahk" { EVENT_INSTANCE_INFO }
+#Import ".\EVENT_MAP_INFO.ahk" { EVENT_MAP_INFO }
 #Import ".\EVENT_RECORD.ahk" { EVENT_RECORD }
+#Import ".\EVENT_TRACE_CONTROL.ahk" { EVENT_TRACE_CONTROL }
+#Import ".\EVENT_TRACE_HEADER.ahk" { EVENT_TRACE_HEADER }
 #Import ".\EVENT_TRACE_LOGFILEA.ahk" { EVENT_TRACE_LOGFILEA }
 #Import ".\EVENT_TRACE_LOGFILEW.ahk" { EVENT_TRACE_LOGFILEW }
-#Import ".\EVENT_INSTANCE_INFO.ahk" { EVENT_INSTANCE_INFO }
-#Import ".\ETW_BUFFER_HEADER.ahk" { ETW_BUFFER_HEADER }
-#Import ".\EVENT_FIELD_TYPE.ahk" { EVENT_FIELD_TYPE }
-#Import ".\EVENT_TRACE_HEADER.ahk" { EVENT_TRACE_HEADER }
-#Import ".\EVENT_DATA_DESCRIPTOR.ahk" { EVENT_DATA_DESCRIPTOR }
-#Import ".\EVENT_INFO_CLASS.ahk" { EVENT_INFO_CLASS }
-#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\TRACE_LOGFILE_HEADER.ahk" { TRACE_LOGFILE_HEADER }
-#Import ".\EVENT_DESCRIPTOR.ahk" { EVENT_DESCRIPTOR }
-#Import ".\PETW_BUFFER_COMPLETION_CALLBACK.ahk" { PETW_BUFFER_COMPLETION_CALLBACK }
-#Import ".\TRACE_MESSAGE_FLAGS.ahk" { TRACE_MESSAGE_FLAGS }
-#Import ".\TRACE_EVENT_INFO.ahk" { TRACE_EVENT_INFO }
-#Import ".\TDH_HANDLE.ahk" { TDH_HANDLE }
-#Import ".\PENABLECALLBACK.ahk" { PENABLECALLBACK }
-#Import ".\PAYLOAD_FILTER_PREDICATE.ahk" { PAYLOAD_FILTER_PREDICATE }
-#Import ".\EVENT_FILTER_DESCRIPTOR.ahk" { EVENT_FILTER_DESCRIPTOR }
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ENABLE_TRACE_PARAMETERS.ahk" { ENABLE_TRACE_PARAMETERS }
-#Import ".\CLASSIC_EVENT_ID.ahk" { CLASSIC_EVENT_ID }
 #Import ".\EVENT_TRACE_PROPERTIES.ahk" { EVENT_TRACE_PROPERTIES }
-#Import ".\ETW_PROCESS_HANDLE_INFO_TYPE.ahk" { ETW_PROCESS_HANDLE_INFO_TYPE }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\PEVENT_CALLBACK.ahk" { PEVENT_CALLBACK }
-#Import ".\TRACE_GUID_PROPERTIES.ahk" { TRACE_GUID_PROPERTIES }
+#Import ".\PAYLOAD_FILTER_PREDICATE.ahk" { PAYLOAD_FILTER_PREDICATE }
+#Import ".\PROCESSTRACE_HANDLE.ahk" { PROCESSTRACE_HANDLE }
 #Import ".\PROPERTY_DATA_DESCRIPTOR.ahk" { PROPERTY_DATA_DESCRIPTOR }
 #Import ".\REGHANDLE.ahk" { REGHANDLE }
-#Import ".\EVENT_TRACE_CONTROL.ahk" { EVENT_TRACE_CONTROL }
-#Import ".\PROCESSTRACE_HANDLE.ahk" { PROCESSTRACE_HANDLE }
-#Import ".\WMIDPREQUEST.ahk" { WMIDPREQUEST }
 #Import ".\TDH_CONTEXT.ahk" { TDH_CONTEXT }
+#Import ".\TDH_HANDLE.ahk" { TDH_HANDLE }
+#Import ".\TRACE_EVENT_INFO.ahk" { TRACE_EVENT_INFO }
+#Import ".\TRACE_GUID_PROPERTIES.ahk" { TRACE_GUID_PROPERTIES }
 #Import ".\TRACE_GUID_REGISTRATION.ahk" { TRACE_GUID_REGISTRATION }
-#Import ".\EVENT_INSTANCE_HEADER.ahk" { EVENT_INSTANCE_HEADER }
-#Import ".\EVENT_MAP_INFO.ahk" { EVENT_MAP_INFO }
-#Import ".\DECODING_SOURCE.ahk" { DECODING_SOURCE }
-#Import "..\..\..\Security\PSID.ahk" { PSID }
+#Import ".\TRACE_LBR_CONFIGURATION.ahk" { TRACE_LBR_CONFIGURATION }
+#Import ".\TRACE_LOGFILE_HEADER.ahk" { TRACE_LOGFILE_HEADER }
+#Import ".\TRACE_MESSAGE_FLAGS.ahk" { TRACE_MESSAGE_FLAGS }
+#Import ".\TRACE_QUERY_INFO_CLASS.ahk" { TRACE_QUERY_INFO_CLASS }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
@@ -2854,7 +2850,7 @@ export RegisterTraceGuidsW(RequestAddress, RequestContext, ControlGuid, GuidCoun
     RequestContextMarshal := RequestContext is VarRef ? "ptr" : "ptr"
     RegistrationHandleMarshal := RegistrationHandle is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\RegisterTraceGuidsW", WMIDPREQUEST, RequestAddress, RequestContextMarshal, RequestContext, Guid.Ptr, ControlGuid, UInt32, GuidCount, TRACE_GUID_REGISTRATION.Ptr, TraceGuidReg, "ptr", MofImagePath, "ptr", MofResourceName, RegistrationHandleMarshal, RegistrationHandle, UInt32)
+    result := DllCall("ADVAPI32.dll\RegisterTraceGuidsW", "ptr", RequestAddress, RequestContextMarshal, RequestContext, Guid.Ptr, ControlGuid, UInt32, GuidCount, TRACE_GUID_REGISTRATION.Ptr, TraceGuidReg, "ptr", MofImagePath, "ptr", MofResourceName, RegistrationHandleMarshal, RegistrationHandle, UInt32)
     return result
 }
 
@@ -2996,7 +2992,7 @@ export RegisterTraceGuidsA(RequestAddress, RequestContext, ControlGuid, GuidCoun
     RequestContextMarshal := RequestContext is VarRef ? "ptr" : "ptr"
     RegistrationHandleMarshal := RegistrationHandle is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\RegisterTraceGuidsA", WMIDPREQUEST, RequestAddress, RequestContextMarshal, RequestContext, Guid.Ptr, ControlGuid, UInt32, GuidCount, TRACE_GUID_REGISTRATION.Ptr, TraceGuidReg, "ptr", MofImagePath, "ptr", MofResourceName, RegistrationHandleMarshal, RegistrationHandle, UInt32)
+    result := DllCall("ADVAPI32.dll\RegisterTraceGuidsA", "ptr", RequestAddress, RequestContextMarshal, RequestContext, Guid.Ptr, ControlGuid, UInt32, GuidCount, TRACE_GUID_REGISTRATION.Ptr, TraceGuidReg, "ptr", MofImagePath, "ptr", MofResourceName, RegistrationHandleMarshal, RegistrationHandle, UInt32)
     return result
 }
 
@@ -3464,7 +3460,7 @@ export CloseTrace(TraceHandle) {
 export OpenTraceFromBufferStream(Options, BufferCompletionCallback, BufferCompletionContext) {
     BufferCompletionContextMarshal := BufferCompletionContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\OpenTraceFromBufferStream", ETW_OPEN_TRACE_OPTIONS.Ptr, Options, PETW_BUFFER_COMPLETION_CALLBACK, BufferCompletionCallback, BufferCompletionContextMarshal, BufferCompletionContext, PROCESSTRACE_HANDLE.Owned)
+    result := DllCall("ADVAPI32.dll\OpenTraceFromBufferStream", ETW_OPEN_TRACE_OPTIONS.Ptr, Options, "ptr", BufferCompletionCallback, BufferCompletionContextMarshal, BufferCompletionContext, PROCESSTRACE_HANDLE.Owned)
     return result
 }
 
@@ -3723,7 +3719,7 @@ export OpenTraceA(Logfile) {
  * @since windows5.0
  */
 export SetTraceCallback(pGuid, EventCallback) {
-    result := DllCall("ADVAPI32.dll\SetTraceCallback", Guid.Ptr, pGuid, PEVENT_CALLBACK, EventCallback, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\SetTraceCallback", Guid.Ptr, pGuid, "ptr", EventCallback, WIN32_ERROR)
     return result
 }
 
@@ -4091,7 +4087,7 @@ export TraceMessageVa(LoggerHandle, MessageFlags, MessageGuid, MessageNumber, Me
 export EventRegister(ProviderId, EnableCallback, CallbackContext, _RegHandle) {
     CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\EventRegister", Guid.Ptr, ProviderId, PENABLECALLBACK, EnableCallback, CallbackContextMarshal, CallbackContext, REGHANDLE.Ptr, _RegHandle, UInt32)
+    result := DllCall("ADVAPI32.dll\EventRegister", Guid.Ptr, ProviderId, "ptr", EnableCallback, CallbackContextMarshal, CallbackContext, REGHANDLE.Ptr, _RegHandle, UInt32)
     return result
 }
 

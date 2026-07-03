@@ -44,10 +44,6 @@ export default struct IO_CSQ_RELEASE_LOCK {
             this.value := CallbackCreate(fn, , [IO_CSQ.Ptr, Int8, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

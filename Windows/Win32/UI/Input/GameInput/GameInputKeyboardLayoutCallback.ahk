@@ -50,10 +50,6 @@ export default struct GameInputKeyboardLayoutCallback {
             this.value := CallbackCreate(fn, , [Int64, "ptr", "ptr", Int64, UInt32, UInt32, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -45,10 +45,6 @@ export default struct PFAXDEVCONFIGURE {
             this.value := CallbackCreate(fn, , [HPROPSHEETPAGE.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

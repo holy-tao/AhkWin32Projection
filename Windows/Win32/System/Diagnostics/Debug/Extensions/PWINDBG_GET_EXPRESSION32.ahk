@@ -46,10 +46,6 @@ export default struct PWINDBG_GET_EXPRESSION32 {
             this.value := CallbackCreate(fn, , [PSTR, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

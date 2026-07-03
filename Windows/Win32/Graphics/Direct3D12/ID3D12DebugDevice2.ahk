@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3D12_DEBUG_DEVICE_PARAMETER_TYPE.ahk" { D3D12_DEBUG_DEVICE_PARAMETER_TYPE }
 #Import ".\ID3D12DebugDevice.ahk" { ID3D12DebugDevice }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

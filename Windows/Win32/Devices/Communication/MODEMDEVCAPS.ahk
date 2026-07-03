@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MODEMDEVCAPS_SPEAKER_VOLUME.ahk" { MODEMDEVCAPS_SPEAKER_VOLUME }
 #Import ".\MODEMDEVCAPS_DIAL_OPTIONS.ahk" { MODEMDEVCAPS_DIAL_OPTIONS }
 #Import ".\MODEMDEVCAPS_SPEAKER_MODE.ahk" { MODEMDEVCAPS_SPEAKER_MODE }
+#Import ".\MODEMDEVCAPS_SPEAKER_VOLUME.ahk" { MODEMDEVCAPS_SPEAKER_VOLUME }
 
 /**
  * Contains information about the capabilities of a modem.

@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IOpcDigitalSignature.ahk" { IOpcDigitalSignature }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOpcDigitalSignature.ahk" { IOpcDigitalSignature }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * A read-only enumerator of IOpcDigitalSignature interface pointers.

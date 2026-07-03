@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PIPE_TERMINATION.ahk" { PIPE_TERMINATION }
-#Import ".\KS_COMPRESSION.ahk" { KS_COMPRESSION }
-#Import ".\PIPE_STATE.ahk" { PIPE_STATE }
-#Import ".\IKsAllocatorEx.ahk" { IKsAllocatorEx }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\KS_FRAMING_RANGE_WEIGHTED.ahk" { KS_FRAMING_RANGE_WEIGHTED }
+#Import ".\IKsAllocatorEx.ahk" { IKsAllocatorEx }
+#Import ".\KS_COMPRESSION.ahk" { KS_COMPRESSION }
 #Import ".\KS_FRAMING_RANGE.ahk" { KS_FRAMING_RANGE }
+#Import ".\KS_FRAMING_RANGE_WEIGHTED.ahk" { KS_FRAMING_RANGE_WEIGHTED }
+#Import ".\KS_LogicalMemoryType.ahk" { KS_LogicalMemoryType }
 #Import ".\PIPE_ALLOCATOR_PLACE.ahk" { PIPE_ALLOCATOR_PLACE }
 #Import ".\PIPE_DIMENSIONS.ahk" { PIPE_DIMENSIONS }
-#Import ".\KS_LogicalMemoryType.ahk" { KS_LogicalMemoryType }
+#Import ".\PIPE_STATE.ahk" { PIPE_STATE }
+#Import ".\PIPE_TERMINATION.ahk" { PIPE_TERMINATION }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

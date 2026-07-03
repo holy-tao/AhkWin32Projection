@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SnapIns.ahk" { SnapIns }
-#Import ".\Properties.ahk" { Properties }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\Views.ahk" { Views }
-#Import ".\View.ahk" { View }
-#Import ".\Node.ahk" { Node }
-#Import ".\_DocumentMode.ahk" { _DocumentMode }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\_Application.ahk" { _Application }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ScopeNamespace.ahk" { ScopeNamespace }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\Node.ahk" { Node }
+#Import ".\Properties.ahk" { Properties }
+#Import ".\ScopeNamespace.ahk" { ScopeNamespace }
+#Import ".\SnapIns.ahk" { SnapIns }
+#Import ".\View.ahk" { View }
+#Import ".\Views.ahk" { Views }
+#Import ".\_Application.ahk" { _Application }
+#Import ".\_DocumentMode.ahk" { _DocumentMode }
 
 /**
  * @namespace Windows.Win32.System.Mmc

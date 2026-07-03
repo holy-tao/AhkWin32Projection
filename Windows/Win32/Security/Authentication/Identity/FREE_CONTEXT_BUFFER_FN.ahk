@@ -46,10 +46,6 @@ export default struct FREE_CONTEXT_BUFFER_FN {
             this.value := CallbackCreate(fn, , ["ptr", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

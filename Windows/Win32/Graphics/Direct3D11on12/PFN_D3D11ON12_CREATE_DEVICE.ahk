@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Direct3D\D3D_FEATURE_LEVEL.ahk" { D3D_FEATURE_LEVEL }
+#Import "..\Direct3D11\ID3D11Device.ahk" { ID3D11Device }
 #Import "..\Direct3D11\ID3D11DeviceContext.ahk" { ID3D11DeviceContext }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Direct3D11\ID3D11Device.ahk" { ID3D11Device }
-#Import "..\Direct3D\D3D_FEATURE_LEVEL.ahk" { D3D_FEATURE_LEVEL }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D11on12
@@ -60,10 +60,6 @@ export default struct PFN_D3D11ON12_CREATE_DEVICE {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, "int*", UInt32, IUnknown.Ptr, UInt32, UInt32, ID3D11Device.Ptr, ID3D11DeviceContext.Ptr, "int*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

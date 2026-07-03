@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\SWbemQueryQualifiedName.ahk" { SWbemQueryQualifiedName }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SWbemQueryQualifiedName.ahk" { SWbemQueryQualifiedName }
 #Import ".\SWbemRpnConst.ahk" { SWbemRpnConst }
 
 /**

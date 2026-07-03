@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\D3DPRESENT_PARAMETERS.ahk" { D3DPRESENT_PARAMETERS }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\Gdi\RGNDATA.ahk" { RGNDATA }
-#Import ".\D3DBACKBUFFER_TYPE.ahk" { D3DBACKBUFFER_TYPE }
-#Import ".\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
-#Import ".\D3DDISPLAYMODE.ahk" { D3DDISPLAYMODE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\D3DBACKBUFFER_TYPE.ahk" { D3DBACKBUFFER_TYPE }
+#Import ".\D3DDISPLAYMODE.ahk" { D3DDISPLAYMODE }
+#Import ".\D3DPRESENT_PARAMETERS.ahk" { D3DPRESENT_PARAMETERS }
 #Import ".\D3DRASTER_STATUS.ahk" { D3DRASTER_STATUS }
+#Import ".\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
+#Import ".\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
+#Import "..\Gdi\RGNDATA.ahk" { RGNDATA }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDirect3DSwapChain9 (d3d9.h) interface is used by applications to manipulate a swap chain.

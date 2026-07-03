@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Data\Xml\MsXml\IXMLDOMDocument.ahk" { IXMLDOMDocument }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IVssWMComponent.ahk" { IVssWMComponent }
 #Import ".\IVssWMFiledesc.ahk" { IVssWMFiledesc }
-#Import ".\VSS_USAGE_TYPE.ahk" { VSS_USAGE_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\VSS_SOURCE_TYPE.ahk" { VSS_SOURCE_TYPE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Data\Xml\MsXml\IXMLDOMDocument.ahk" { IXMLDOMDocument }
-#Import ".\VSS_WRITERRESTORE_ENUM.ahk" { VSS_WRITERRESTORE_ENUM }
 #Import ".\VSS_RESTOREMETHOD_ENUM.ahk" { VSS_RESTOREMETHOD_ENUM }
+#Import ".\VSS_SOURCE_TYPE.ahk" { VSS_SOURCE_TYPE }
+#Import ".\VSS_USAGE_TYPE.ahk" { VSS_USAGE_TYPE }
+#Import ".\VSS_WRITERRESTORE_ENUM.ahk" { VSS_WRITERRESTORE_ENUM }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVssExamineWriterMetadata interface is a C++ (not COM) interface that allows a requester to examine the metadata of a specific writer instance.

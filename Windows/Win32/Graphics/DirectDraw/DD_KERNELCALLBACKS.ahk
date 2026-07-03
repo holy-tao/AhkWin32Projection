@@ -1,6 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PDD_KERNELCB_SYNCVIDEOPORT.ahk" { PDD_KERNELCB_SYNCVIDEOPORT }
-#Import ".\PDD_KERNELCB_SYNCSURFACE.ahk" { PDD_KERNELCB_SYNCSURFACE }
 
 /**
  * The DD_KERNELCALLBACKS structure contains entry pointers to the DirectDraw kernel-mode callback functions that the driver supports.
@@ -31,11 +29,11 @@ export default struct DD_KERNELCALLBACKS {
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_kernelcb_syncsurface">DdSyncSurfaceData</a> callback.
      */
-    SyncSurfaceData : PDD_KERNELCB_SYNCSURFACE
+    SyncSurfaceData : IntPtr
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_kernelcb_syncvideoport">DdSyncVideoPortData</a> callback.
      */
-    SyncVideoPortData : PDD_KERNELCB_SYNCVIDEOPORT
+    SyncVideoPortData : IntPtr
 
 }

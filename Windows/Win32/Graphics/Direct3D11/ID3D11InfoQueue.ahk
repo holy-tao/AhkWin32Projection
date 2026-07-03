@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D11_MESSAGE_ID.ahk" { D3D11_MESSAGE_ID }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\D3D11_INFO_QUEUE_FILTER.ahk" { D3D11_INFO_QUEUE_FILTER }
 #Import ".\D3D11_MESSAGE_CATEGORY.ahk" { D3D11_MESSAGE_CATEGORY }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D11_MESSAGE_ID.ahk" { D3D11_MESSAGE_ID }
 #Import ".\D3D11_MESSAGE_SEVERITY.ahk" { D3D11_MESSAGE_SEVERITY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * An information-queue interface stores, retrieves, and filters debug messages. The queue consists of a message queue, an optional storage filter stack, and a optional retrieval filter stack. (ID3D11InfoQueue)

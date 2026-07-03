@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\POWER_REQUEST_CONTEXT_FLAGS.ahk" { POWER_REQUEST_CONTEXT_FLAGS }
-#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
 
 /**
  * Contains information about a power request. This structure is used by the PowerCreateRequest and SetWaitableTimerEx functions.

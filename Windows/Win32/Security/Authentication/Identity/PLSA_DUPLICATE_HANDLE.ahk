@@ -27,7 +27,7 @@ export default struct PLSA_DUPLICATE_HANDLE {
      */
     Call(SourceHandle, DestionationHandle) {
         result := DllCall(this.value, HANDLE, SourceHandle, HANDLE.Ptr, DestionationHandle, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -47,10 +47,6 @@ export default struct PLSA_DUPLICATE_HANDLE {
             this.value := CallbackCreate(fn, , [HANDLE, HANDLE.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

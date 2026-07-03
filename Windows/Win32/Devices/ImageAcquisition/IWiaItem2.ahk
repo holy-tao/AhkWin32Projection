@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IEnumWiaItem2.ahk" { IEnumWiaItem2 }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\IWiaPreview.ahk" { IWiaPreview }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IEnumWIA_DEV_CAPS.ahk" { IEnumWIA_DEV_CAPS }
+#Import ".\IEnumWiaItem2.ahk" { IEnumWiaItem2 }
+#Import ".\IWiaPreview.ahk" { IWiaPreview }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWiaItem2 interface provides applications with the same functionality as the IWiaItem interface (the ability to query devices to discover their capabilities, to access data transfer interfaces and item properties, and to control the device).

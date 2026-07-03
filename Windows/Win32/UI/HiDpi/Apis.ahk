@@ -1,24 +1,24 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Controls\HTHEME.ahk" { HTHEME }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\WindowsAndMessaging\SYSTEM_METRICS_INDEX.ahk" { SYSTEM_METRICS_INDEX }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\DIALOG_DPI_CHANGE_BEHAVIORS.ahk" { DIALOG_DPI_CHANGE_BEHAVIORS }
-#Import "..\WindowsAndMessaging\WINDOW_STYLE.ahk" { WINDOW_STYLE }
-#Import ".\MONITOR_DPI_TYPE.ahk" { MONITOR_DPI_TYPE }
-#Import ".\PROCESS_DPI_AWARENESS.ahk" { PROCESS_DPI_AWARENESS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Graphics\Gdi\HMONITOR.ahk" { HMONITOR }
+#Import "..\Controls\HTHEME.ahk" { HTHEME }
 #Import ".\DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS.ahk" { DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS }
-#Import "..\WindowsAndMessaging\WINDOW_EX_STYLE.ahk" { WINDOW_EX_STYLE }
-#Import ".\DPI_AWARENESS_CONTEXT.ahk" { DPI_AWARENESS_CONTEXT }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DIALOG_DPI_CHANGE_BEHAVIORS.ahk" { DIALOG_DPI_CHANGE_BEHAVIORS }
 #Import ".\DPI_AWARENESS.ahk" { DPI_AWARENESS }
+#Import ".\DPI_AWARENESS_CONTEXT.ahk" { DPI_AWARENESS_CONTEXT }
 #Import ".\DPI_HOSTING_BEHAVIOR.ahk" { DPI_HOSTING_BEHAVIOR }
+#Import ".\MONITOR_DPI_TYPE.ahk" { MONITOR_DPI_TYPE }
+#Import ".\PROCESS_DPI_AWARENESS.ahk" { PROCESS_DPI_AWARENESS }
+#Import "..\WindowsAndMessaging\SYSTEM_METRICS_INDEX.ahk" { SYSTEM_METRICS_INDEX }
+#Import "..\WindowsAndMessaging\WINDOW_EX_STYLE.ahk" { WINDOW_EX_STYLE }
+#Import "..\WindowsAndMessaging\WINDOW_STYLE.ahk" { WINDOW_STYLE }
 
 /**
  * @namespace Windows.Win32.UI.HiDpi

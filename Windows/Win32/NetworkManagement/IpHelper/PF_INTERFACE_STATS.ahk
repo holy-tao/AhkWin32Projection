@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\PFADDRESSTYPE.ahk" { PFADDRESSTYPE }
 #Import ".\PFFORWARD_ACTION.ahk" { PFFORWARD_ACTION }
-#Import ".\PF_FILTER_STATS.ahk" { PF_FILTER_STATS }
 #Import ".\PF_FILTER_DESCRIPTOR.ahk" { PF_FILTER_DESCRIPTOR }
+#Import ".\PF_FILTER_STATS.ahk" { PF_FILTER_STATS }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper

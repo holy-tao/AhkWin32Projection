@@ -29,7 +29,7 @@ export default struct PREPLACE_MIRROR_PHYSICAL_MEMORY {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, Int64, PhysicalAddress, Int64, ByteCount, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -49,10 +49,6 @@ export default struct PREPLACE_MIRROR_PHYSICAL_MEMORY {
             this.value := CallbackCreate(fn, , ["ptr", Int64, Int64, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

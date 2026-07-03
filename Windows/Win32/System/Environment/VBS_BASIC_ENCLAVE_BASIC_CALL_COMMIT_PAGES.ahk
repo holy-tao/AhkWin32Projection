@@ -49,10 +49,6 @@ export default struct VBS_BASIC_ENCLAVE_BASIC_CALL_COMMIT_PAGES {
             this.value := CallbackCreate(fn, , ["ptr", IntPtr, "ptr", UInt32, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

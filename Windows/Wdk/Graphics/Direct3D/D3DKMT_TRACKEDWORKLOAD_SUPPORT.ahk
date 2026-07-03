@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DXGK_ENGINE_TYPE.ahk" { DXGK_ENGINE_TYPE }
+#Import "..\..\..\Win32\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

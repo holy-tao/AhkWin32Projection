@@ -44,10 +44,6 @@ export default struct DOT11EXT_ONEX_STOP {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

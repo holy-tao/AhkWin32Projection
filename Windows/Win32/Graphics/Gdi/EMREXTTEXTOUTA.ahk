@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
-#Import ".\EMRTEXT.ahk" { EMRTEXT }
 #Import "..\..\Foundation\POINTL.ahk" { POINTL }
-#Import ".\EMR.ahk" { EMR }
 #Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import ".\EMR.ahk" { EMR }
+#Import ".\EMRTEXT.ahk" { EMRTEXT }
+#Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
 
 /**
  * The EMREXTTEXTOUTA and EMREXTTEXTOUTW structures contain members for the ExtTextOut, TextOut, or DrawText enhanced metafile records.

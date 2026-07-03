@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFClock.ahk" { IMFClock }
-#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import ".\IMFMediaEventGenerator.ahk" { IMFMediaEventGenerator }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFClock.ahk" { IMFClock }
+#Import ".\IMFMediaEventGenerator.ahk" { IMFMediaEventGenerator }
 #Import ".\IMFTopology.ahk" { IMFTopology }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 
 /**
  * Provides playback controls for protected and unprotected content.

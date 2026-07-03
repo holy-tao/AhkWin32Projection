@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDXGISurface1.ahk" { IDXGISurface1 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDXGISurface1.ahk" { IDXGISurface1 }
 
 /**
  * The IDXGISurface2 interface extends the IDXGISurface1 interface by adding support for subresource surfaces and getting a handle to a shared resource.

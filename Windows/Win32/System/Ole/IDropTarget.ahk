@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\SystemServices\MODIFIERKEYS_FLAGS.ahk" { MODIFIERKEYS_FLAGS }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Com\IDataObject.ahk" { IDataObject }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\POINTL.ahk" { POINTL }
+#Import "..\Com\IDataObject.ahk" { IDataObject }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DROPEFFECT.ahk" { DROPEFFECT }
+#Import "..\SystemServices\MODIFIERKEYS_FLAGS.ahk" { MODIFIERKEYS_FLAGS }
 
 /**
  * The IDropTarget interface is one of the interfaces you implement to provide drag-and-drop operations in your application.

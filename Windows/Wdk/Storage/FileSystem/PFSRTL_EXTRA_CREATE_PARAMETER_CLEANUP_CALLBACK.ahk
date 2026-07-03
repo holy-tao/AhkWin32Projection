@@ -46,10 +46,6 @@ export default struct PFSRTL_EXTRA_CREATE_PARAMETER_CLEANUP_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", Guid.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

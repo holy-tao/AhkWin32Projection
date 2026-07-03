@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Security\Authentication\Identity\SecPkgContext_ConnectionInfo.ahk" { SecPkgContext_ConnectionInfo }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Security\Cryptography\ALG_ID.ahk" { ALG_ID }
 #Import "..\..\Security\Authentication\Identity\SecPkgContext_CipherInfo.ahk" { SecPkgContext_CipherInfo }
+#Import "..\..\Security\Authentication\Identity\SecPkgContext_ConnectionInfo.ahk" { SecPkgContext_ConnectionInfo }
+#Import "..\..\Security\Cryptography\ALG_ID.ahk" { ALG_ID }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

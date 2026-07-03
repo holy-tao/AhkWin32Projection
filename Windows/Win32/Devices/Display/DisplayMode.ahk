@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\POINTL.ahk" { POINTL }
+#Import "..\..\Graphics\Gdi\DEVMODEW.ahk" { DEVMODEW }
+#Import "..\..\Graphics\Gdi\DEVMODE_COLLATE.ahk" { DEVMODE_COLLATE }
+#Import "..\..\Graphics\Gdi\DEVMODE_COLOR.ahk" { DEVMODE_COLOR }
+#Import "..\..\Graphics\Gdi\DEVMODE_DISPLAY_FIXED_OUTPUT.ahk" { DEVMODE_DISPLAY_FIXED_OUTPUT }
 #Import "..\..\Graphics\Gdi\DEVMODE_DISPLAY_ORIENTATION.ahk" { DEVMODE_DISPLAY_ORIENTATION }
 #Import "..\..\Graphics\Gdi\DEVMODE_DUPLEX.ahk" { DEVMODE_DUPLEX }
-#Import "..\..\Graphics\Gdi\DEVMODEW.ahk" { DEVMODEW }
 #Import "..\..\Graphics\Gdi\DEVMODE_FIELD_FLAGS.ahk" { DEVMODE_FIELD_FLAGS }
-#Import "..\..\Graphics\Gdi\DEVMODE_COLLATE.ahk" { DEVMODE_COLLATE }
-#Import "..\..\Graphics\Gdi\DEVMODE_DISPLAY_FIXED_OUTPUT.ahk" { DEVMODE_DISPLAY_FIXED_OUTPUT }
 #Import "..\..\Graphics\Gdi\DEVMODE_TRUETYPE_OPTION.ahk" { DEVMODE_TRUETYPE_OPTION }
-#Import "..\..\Graphics\Gdi\DEVMODE_COLOR.ahk" { DEVMODE_COLOR }
-#Import "..\..\Foundation\POINTL.ahk" { POINTL }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

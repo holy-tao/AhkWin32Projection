@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFOutputPolicy.ahk" { IMFOutputPolicy }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\MFPOLICYMANAGER_ACTION.ahk" { MFPOLICYMANAGER_ACTION }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFOutputPolicy.ahk" { IMFOutputPolicy }
+#Import ".\MFPOLICYMANAGER_ACTION.ahk" { MFPOLICYMANAGER_ACTION }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Encapsulates the functionality of one or more output protection systems that a trusted output supports.

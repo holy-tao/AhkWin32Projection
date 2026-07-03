@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DXVAHD_RATIONAL.ahk" { DXVAHD_RATIONAL }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DXVAHD_RATIONAL.ahk" { DXVAHD_RATIONAL }
 
 /**
  * Specifies a custom rate for frame-rate conversion or inverse telecine (IVTC). (DXVAHD_CUSTOM_RATE_DATA)

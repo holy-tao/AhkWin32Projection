@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IShellItem.ahk" { IShellItem }
-#Import "PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IFileDialog.ahk" { IFileDialog }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\IFileDialog.ahk" { IFileDialog }
 #Import ".\IFileOperationProgressSink.ahk" { IFileOperationProgressSink }
+#Import ".\IShellItem.ahk" { IShellItem }
 #Import "PropertiesSystem\IPropertyDescriptionList.ahk" { IPropertyDescriptionList }
+#Import "PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
 
 /**
  * Extends the IFileDialog interface by adding methods specific to the save dialog, which include those that provide support for the collection of metadata to be persisted with the file.

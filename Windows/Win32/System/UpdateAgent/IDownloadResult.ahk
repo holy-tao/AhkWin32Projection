@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\OperationResultCode.ahk" { OperationResultCode }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IUpdateDownloadResult.ahk" { IUpdateDownloadResult }
+#Import ".\OperationResultCode.ahk" { OperationResultCode }
 
 /**
  * Represents the result of a download operation.

@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PEER_CONNECTION_STATUS.ahk" { PEER_CONNECTION_STATUS }
 #Import ".\PEER_DATA.ahk" { PEER_DATA }
 #Import ".\PEER_EVENT_CONNECTION_CHANGE_DATA.ahk" { PEER_EVENT_CONNECTION_CHANGE_DATA }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PEER_EVENT_INCOMING_DATA.ahk" { PEER_EVENT_INCOMING_DATA }
 #Import ".\PEER_EVENT_NODE_CHANGE_DATA.ahk" { PEER_EVENT_NODE_CHANGE_DATA }
 #Import ".\PEER_EVENT_RECORD_CHANGE_DATA.ahk" { PEER_EVENT_RECORD_CHANGE_DATA }
-#Import ".\PEER_RECORD_CHANGE_TYPE.ahk" { PEER_RECORD_CHANGE_TYPE }
 #Import ".\PEER_EVENT_SYNCHRONIZED_DATA.ahk" { PEER_EVENT_SYNCHRONIZED_DATA }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\PEER_GRAPH_EVENT_TYPE.ahk" { PEER_GRAPH_EVENT_TYPE }
 #Import ".\PEER_GRAPH_STATUS_FLAGS.ahk" { PEER_GRAPH_STATUS_FLAGS }
 #Import ".\PEER_NODE_CHANGE_TYPE.ahk" { PEER_NODE_CHANGE_TYPE }
-#Import ".\PEER_EVENT_INCOMING_DATA.ahk" { PEER_EVENT_INCOMING_DATA }
-#Import ".\PEER_CONNECTION_STATUS.ahk" { PEER_CONNECTION_STATUS }
-#Import ".\PEER_GRAPH_EVENT_TYPE.ahk" { PEER_GRAPH_EVENT_TYPE }
+#Import ".\PEER_RECORD_CHANGE_TYPE.ahk" { PEER_RECORD_CHANGE_TYPE }
 
 /**
  * The PEER_GRAPH_EVENT_DATA structure contains data associated with a peer event.

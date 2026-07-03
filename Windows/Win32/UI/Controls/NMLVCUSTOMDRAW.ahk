@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NMLVCUSTOMDRAW_ITEM_TYPE.ahk" { NMLVCUSTOMDRAW_ITEM_TYPE }
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\NMCUSTOMDRAW.ahk" { NMCUSTOMDRAW }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\LIST_VIEW_GROUP_ALIGN_FLAGS.ahk" { LIST_VIEW_GROUP_ALIGN_FLAGS }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\NMHDR.ahk" { NMHDR }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import ".\LIST_VIEW_GROUP_ALIGN_FLAGS.ahk" { LIST_VIEW_GROUP_ALIGN_FLAGS }
+#Import ".\NMCUSTOMDRAW.ahk" { NMCUSTOMDRAW }
 #Import ".\NMCUSTOMDRAW_DRAW_STAGE.ahk" { NMCUSTOMDRAW_DRAW_STAGE }
 #Import ".\NMCUSTOMDRAW_DRAW_STATE_FLAGS.ahk" { NMCUSTOMDRAW_DRAW_STATE_FLAGS }
-#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import ".\NMHDR.ahk" { NMHDR }
+#Import ".\NMLVCUSTOMDRAW_ITEM_TYPE.ahk" { NMLVCUSTOMDRAW_ITEM_TYPE }
 
 /**
  * Contains information specific to an NM_CUSTOMDRAW (list view) notification code sent by a list-view control.

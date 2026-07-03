@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\EncodingType.ahk" { EncodingType }
-#Import ".\IX509NameValuePairs.ahk" { IX509NameValuePairs }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\EncodingType.ahk" { EncodingType }
 #Import ".\IObjectId.ahk" { IObjectId }
 #Import ".\IX509CertificateRequestPkcs10V2.ahk" { IX509CertificateRequestPkcs10V2 }
+#Import ".\IX509NameValuePairs.ahk" { IX509NameValuePairs }
 
 /**
  * The IX509CertificateRequestPkcs10V3 interface represents a PKCS

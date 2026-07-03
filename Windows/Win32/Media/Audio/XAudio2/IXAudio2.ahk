@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\AUDIO_STREAM_CATEGORY.ahk" { AUDIO_STREAM_CATEGORY }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\XAUDIO2_PERFORMANCE_DATA.ahk" { XAUDIO2_PERFORMANCE_DATA }
-#Import ".\IXAudio2VoiceCallback.ahk" { IXAudio2VoiceCallback }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\XAUDIO2_DEBUG_CONFIGURATION.ahk" { XAUDIO2_DEBUG_CONFIGURATION }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IXAudio2SubmixVoice.ahk" { IXAudio2SubmixVoice }
-#Import ".\XAUDIO2_EFFECT_CHAIN.ahk" { XAUDIO2_EFFECT_CHAIN }
-#Import ".\IXAudio2MasteringVoice.ahk" { IXAudio2MasteringVoice }
-#Import ".\IXAudio2EngineCallback.ahk" { IXAudio2EngineCallback }
-#Import ".\IXAudio2SourceVoice.ahk" { IXAudio2SourceVoice }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\AUDIO_STREAM_CATEGORY.ahk" { AUDIO_STREAM_CATEGORY }
 #Import "..\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\IXAudio2EngineCallback.ahk" { IXAudio2EngineCallback }
+#Import ".\IXAudio2MasteringVoice.ahk" { IXAudio2MasteringVoice }
+#Import ".\IXAudio2SourceVoice.ahk" { IXAudio2SourceVoice }
+#Import ".\IXAudio2SubmixVoice.ahk" { IXAudio2SubmixVoice }
+#Import ".\IXAudio2VoiceCallback.ahk" { IXAudio2VoiceCallback }
+#Import ".\XAUDIO2_DEBUG_CONFIGURATION.ahk" { XAUDIO2_DEBUG_CONFIGURATION }
+#Import ".\XAUDIO2_EFFECT_CHAIN.ahk" { XAUDIO2_EFFECT_CHAIN }
+#Import ".\XAUDIO2_PERFORMANCE_DATA.ahk" { XAUDIO2_PERFORMANCE_DATA }
 #Import ".\XAUDIO2_VOICE_SENDS.ahk" { XAUDIO2_VOICE_SENDS }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * IXAudio2 is the interface for the XAudio2 object that manages all audio engine states, the audio processing thread, the voice graph, and so forth.

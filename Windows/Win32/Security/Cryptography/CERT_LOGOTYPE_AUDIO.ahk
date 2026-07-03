@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CERT_LOGOTYPE_AUDIO_INFO.ahk" { CERT_LOGOTYPE_AUDIO_INFO }
-#Import ".\CERT_HASHED_URL.ahk" { CERT_HASHED_URL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CERT_HASHED_URL.ahk" { CERT_HASHED_URL }
+#Import ".\CERT_LOGOTYPE_AUDIO_INFO.ahk" { CERT_LOGOTYPE_AUDIO_INFO }
 #Import ".\CERT_LOGOTYPE_DETAILS.ahk" { CERT_LOGOTYPE_DETAILS }
 
 /**

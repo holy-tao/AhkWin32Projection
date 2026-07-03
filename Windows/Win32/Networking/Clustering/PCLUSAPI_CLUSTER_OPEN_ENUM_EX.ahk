@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HCLUSTER.ahk" { HCLUSTER }
 #Import ".\HCLUSENUMEX.ahk" { HCLUSENUMEX }
+#Import ".\HCLUSTER.ahk" { HCLUSTER }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -49,10 +49,6 @@ export default struct PCLUSAPI_CLUSTER_OPEN_ENUM_EX {
             this.value := CallbackCreate(fn, , [HCLUSTER, UInt32, "ptr", HCLUSENUMEX])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

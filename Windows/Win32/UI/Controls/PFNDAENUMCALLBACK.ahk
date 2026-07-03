@@ -57,10 +57,6 @@ export default struct PFNDAENUMCALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

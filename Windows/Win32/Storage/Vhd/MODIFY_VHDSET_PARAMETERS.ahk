@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\MODIFY_VHDSET_VERSION.ahk" { MODIFY_VHDSET_VERSION }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains VHD Set modification parameters, indicating how the VHD Set should be altered.

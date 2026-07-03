@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SCOPE_ID.ahk" { SCOPE_ID }
 #Import ".\IN6_ADDR.ahk" { IN6_ADDR }
 #Import ".\IN6_PKTINFO.ahk" { IN6_PKTINFO }
+#Import ".\SCOPE_ID.ahk" { SCOPE_ID }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock

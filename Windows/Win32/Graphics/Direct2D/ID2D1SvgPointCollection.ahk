@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID2D1SvgAttribute.ahk" { ID2D1SvgAttribute }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
+#Import ".\ID2D1SvgAttribute.ahk" { ID2D1SvgAttribute }
 
 /**
  * Interface describing an SVG points value in a polyline or polygon element.

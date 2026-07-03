@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import ".\WICDecodeOptions.ahk" { WICDecodeOptions }
-#Import ".\IWICBitmapFrameDecode.ahk" { IWICBitmapFrameDecode }
-#Import ".\IWICPalette.ahk" { IWICPalette }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IWICBitmapDecoderInfo.ahk" { IWICBitmapDecoderInfo }
+#Import ".\IWICBitmapFrameDecode.ahk" { IWICBitmapFrameDecode }
+#Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
 #Import ".\IWICColorContext.ahk" { IWICColorContext }
 #Import ".\IWICMetadataQueryReader.ahk" { IWICMetadataQueryReader }
+#Import ".\IWICPalette.ahk" { IWICPalette }
+#Import ".\WICDecodeOptions.ahk" { WICDecodeOptions }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that represent a decoder.

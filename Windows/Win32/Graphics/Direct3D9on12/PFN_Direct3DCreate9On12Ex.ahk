@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D9ON12_ARGS.ahk" { D3D9ON12_ARGS }
-#Import "..\Direct3D9\IDirect3D9Ex.ahk" { IDirect3D9Ex }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Direct3D9\IDirect3D9Ex.ahk" { IDirect3D9Ex }
+#Import ".\D3D9ON12_ARGS.ahk" { D3D9ON12_ARGS }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9on12
@@ -48,10 +48,6 @@ export default struct PFN_Direct3DCreate9On12Ex {
             this.value := CallbackCreate(fn, , [UInt32, D3D9ON12_ARGS.Ptr, UInt32, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

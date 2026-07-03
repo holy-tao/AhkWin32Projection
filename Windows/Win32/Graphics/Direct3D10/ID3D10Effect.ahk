@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ID3D10EffectConstantBuffer.ahk" { ID3D10EffectConstantBuffer }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\D3D10_EFFECT_DESC.ahk" { D3D10_EFFECT_DESC }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\D3D10_EFFECT_DESC.ahk" { D3D10_EFFECT_DESC }
 #Import ".\ID3D10Device.ahk" { ID3D10Device }
+#Import ".\ID3D10EffectConstantBuffer.ahk" { ID3D10EffectConstantBuffer }
 #Import ".\ID3D10EffectTechnique.ahk" { ID3D10EffectTechnique }
 #Import ".\ID3D10EffectVariable.ahk" { ID3D10EffectVariable }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * An ID3D10Effect interface manages a set of state objects, resources, and shaders for implementing a rendering effect.

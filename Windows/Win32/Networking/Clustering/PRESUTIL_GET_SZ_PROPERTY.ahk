@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CLUSPROP_SZ.ahk" { CLUSPROP_SZ }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CLUSPROP_SZ.ahk" { CLUSPROP_SZ }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -54,10 +54,6 @@ export default struct PRESUTIL_GET_SZ_PROPERTY {
             this.value := CallbackCreate(fn, , [PWSTR.Ptr, CLUSPROP_SZ.Ptr, PWSTR, IntPtr, "uint*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

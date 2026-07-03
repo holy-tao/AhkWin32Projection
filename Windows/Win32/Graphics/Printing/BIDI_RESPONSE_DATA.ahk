@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\BIDI_DATA.ahk" { BIDI_DATA }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\BIDI_DATA.ahk" { BIDI_DATA }
 #Import ".\BINARY_CONTAINER.ahk" { BINARY_CONTAINER }
 
 /**

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CLIPOBJ.ahk" { CLIPOBJ }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\SURFOBJ.ahk" { SURFOBJ }
 #Import ".\BRUSHOBJ.ahk" { BRUSHOBJ }
+#Import ".\CLIPOBJ.ahk" { CLIPOBJ }
+#Import ".\SURFOBJ.ahk" { SURFOBJ }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\RECTL.ahk" { RECTL }
 
 /**
@@ -56,10 +56,6 @@ export default struct PFN_DrvLineTo {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, CLIPOBJ.Ptr, BRUSHOBJ.Ptr, Int32, Int32, Int32, Int32, RECTL.Ptr, UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

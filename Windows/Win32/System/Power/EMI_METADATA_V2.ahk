@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\EMI_MEASUREMENT_UNIT.ahk" { EMI_MEASUREMENT_UNIT }
 #Import ".\EMI_CHANNEL_V2.ahk" { EMI_CHANNEL_V2 }
+#Import ".\EMI_MEASUREMENT_UNIT.ahk" { EMI_MEASUREMENT_UNIT }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

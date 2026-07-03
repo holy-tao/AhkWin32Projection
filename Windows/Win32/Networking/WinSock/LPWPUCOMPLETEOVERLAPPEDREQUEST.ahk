@@ -51,10 +51,6 @@ export default struct LPWPUCOMPLETEOVERLAPPEDREQUEST {
             this.value := CallbackCreate(fn, , [SOCKET, OVERLAPPED.Ptr, UInt32, UInt32, "int*", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

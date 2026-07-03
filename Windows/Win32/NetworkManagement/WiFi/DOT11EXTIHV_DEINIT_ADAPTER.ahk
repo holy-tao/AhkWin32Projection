@@ -43,10 +43,6 @@ export default struct DOT11EXTIHV_DEINIT_ADAPTER {
             this.value := CallbackCreate(fn, , [HANDLE, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

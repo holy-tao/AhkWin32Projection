@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WTS_CONNECTSTATE_CLASS.ahk" { WTS_CONNECTSTATE_CLASS }
 #Import ".\WTSINFOEX_LEVEL1_A.ahk" { WTSINFOEX_LEVEL1_A }
+#Import ".\WTS_CONNECTSTATE_CLASS.ahk" { WTS_CONNECTSTATE_CLASS }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\OFFLINEFILES_SYNC_OPERATION.ahk" { OFFLINEFILES_SYNC_OPERATION }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IOfflineFilesSyncErrorItemInfo.ahk" { IOfflineFilesSyncErrorItemInfo }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IOfflineFilesErrorInfo.ahk" { IOfflineFilesErrorInfo }
+#Import ".\IOfflineFilesSyncErrorItemInfo.ahk" { IOfflineFilesSyncErrorItemInfo }
+#Import ".\OFFLINEFILES_SYNC_OPERATION.ahk" { OFFLINEFILES_SYNC_OPERATION }
 
 /**
  * Supplied with the IOfflineFilesSyncProgress::SyncItemResult method to communicate details about the item that experienced a sync error.

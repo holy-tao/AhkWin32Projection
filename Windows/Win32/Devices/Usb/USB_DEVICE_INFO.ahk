@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USB_CONNECTION_STATUS.ahk" { USB_CONNECTION_STATUS }
 #Import ".\USB_DEVICE_DESCRIPTOR.ahk" { USB_DEVICE_DESCRIPTOR }
 #Import ".\USB_DEVICE_SPEED.ahk" { USB_DEVICE_SPEED }
-#Import ".\USB_CONNECTION_STATUS.ahk" { USB_CONNECTION_STATUS }
 #Import ".\USB_DEVICE_STATE.ahk" { USB_DEVICE_STATE }
-#Import ".\USB_PIPE_INFO.ahk" { USB_PIPE_INFO }
 #Import ".\USB_ENDPOINT_DESCRIPTOR.ahk" { USB_ENDPOINT_DESCRIPTOR }
+#Import ".\USB_PIPE_INFO.ahk" { USB_PIPE_INFO }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

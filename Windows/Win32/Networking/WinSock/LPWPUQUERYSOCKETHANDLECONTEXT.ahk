@@ -49,10 +49,6 @@ export default struct LPWPUQUERYSOCKETHANDLECONTEXT {
             this.value := CallbackCreate(fn, , [SOCKET, "ptr*", "int*", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\WER_RUNTIME_EXCEPTION_INFORMATION.ahk" { WER_RUNTIME_EXCEPTION_INFORMATION }
 
 /**
@@ -67,10 +67,6 @@ export default struct PFN_WER_RUNTIME_EXCEPTION_EVENT_SIGNATURE {
             this.value := CallbackCreate(fn, , ["ptr", WER_RUNTIME_EXCEPTION_INFORMATION.Ptr, UInt32, PWSTR, "uint*", PWSTR, "uint*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

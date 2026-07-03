@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\DOT11_DIRECTION.ahk" { DOT11_DIRECTION }
 #Import ".\DOT11_CIPHER_DEFAULT_KEY_VALUE.ahk" { DOT11_CIPHER_DEFAULT_KEY_VALUE }
+#Import ".\DOT11_DIRECTION.ahk" { DOT11_DIRECTION }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -48,10 +48,6 @@ export default struct DOT11EXT_SET_DEFAULT_KEY {
             this.value := CallbackCreate(fn, , [HANDLE, DOT11_CIPHER_DEFAULT_KEY_VALUE.Ptr, DOT11_DIRECTION, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

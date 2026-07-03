@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3DDDI_QUERYREGISTRY_TYPE.ahk" { D3DDDI_QUERYREGISTRY_TYPE }
 #Import ".\D3DDDI_QUERYREGISTRY_STATUS.ahk" { D3DDDI_QUERYREGISTRY_STATUS }
+#Import ".\D3DDDI_QUERYREGISTRY_TYPE.ahk" { D3DDDI_QUERYREGISTRY_TYPE }
 #Import "..\..\..\Win32\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

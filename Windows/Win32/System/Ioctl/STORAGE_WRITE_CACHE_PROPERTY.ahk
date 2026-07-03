@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WRITE_CACHE_CHANGE.ahk" { WRITE_CACHE_CHANGE }
-#Import ".\WRITE_CACHE_TYPE.ahk" { WRITE_CACHE_TYPE }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\WRITE_THROUGH.ahk" { WRITE_THROUGH }
+#Import ".\WRITE_CACHE_CHANGE.ahk" { WRITE_CACHE_CHANGE }
 #Import ".\WRITE_CACHE_ENABLE.ahk" { WRITE_CACHE_ENABLE }
+#Import ".\WRITE_CACHE_TYPE.ahk" { WRITE_CACHE_TYPE }
+#Import ".\WRITE_THROUGH.ahk" { WRITE_THROUGH }
 
 /**
  * Used with the IOCTL_STORAGE_QUERY_PROPERTY control code to retrieve information about a device's write cache property.

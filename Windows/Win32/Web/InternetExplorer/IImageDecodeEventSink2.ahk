@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IImageDecodeEventSink.ahk" { IImageDecodeEventSink }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IImageDecodeEventSink.ahk" { IImageDecodeEventSink }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer

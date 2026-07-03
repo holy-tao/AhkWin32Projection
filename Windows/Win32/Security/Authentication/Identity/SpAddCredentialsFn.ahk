@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 
 /**
  * Used to add credentials for a security principal.
@@ -80,7 +80,7 @@ export default struct SpAddCredentialsFn {
         ExpirationTimeMarshal := ExpirationTime is VarRef ? "int64*" : "ptr"
 
         result := DllCall(this.value, IntPtr, CredentialHandle, LSA_UNICODE_STRING.Ptr, PrincipalName, LSA_UNICODE_STRING.Ptr, Package, UInt32, CredentialUseFlags, AuthorizationDataMarshal, AuthorizationData, GetKeyFuncitonMarshal, GetKeyFunciton, GetKeyArgumentMarshal, GetKeyArgument, ExpirationTimeMarshal, ExpirationTime, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -100,10 +100,6 @@ export default struct SpAddCredentialsFn {
             this.value := CallbackCreate(fn, , [IntPtr, LSA_UNICODE_STRING.Ptr, LSA_UNICODE_STRING.Ptr, UInt32, "ptr", "ptr", "ptr", "int64*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IATSCTuningSpace.ahk" { IATSCTuningSpace }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IATSCTuningSpace.ahk" { IATSCTuningSpace }
 
 /**
  * The IDigitalCableTuningSpace interface is implemented on the DigitalTuningSpace object and provides methods for working with tuning spaces that have a digital cable network type.

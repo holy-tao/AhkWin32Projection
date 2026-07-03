@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SECPKG_CALL_INFO.ahk" { SECPKG_CALL_INFO }
 #Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\SECPKG_CALL_INFO.ahk" { SECPKG_CALL_INFO }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -45,10 +45,6 @@ export default struct PLSA_GET_CALL_INFO {
             this.value := CallbackCreate(fn, , [SECPKG_CALL_INFO.Ptr, BOOLEAN])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

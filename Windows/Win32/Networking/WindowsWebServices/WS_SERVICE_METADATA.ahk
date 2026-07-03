@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
 #Import ".\WS_SERVICE_METADATA_DOCUMENT.ahk" { WS_SERVICE_METADATA_DOCUMENT }
+#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
 
 /**
  * Specifies the service metadata documents array. This can be a collection of WSDL/XSD documents represented as an array of WS_STRING.

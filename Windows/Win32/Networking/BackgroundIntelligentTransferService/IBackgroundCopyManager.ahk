@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IEnumBackgroundCopyJobs.ahk" { IEnumBackgroundCopyJobs }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\BG_JOB_TYPE.ahk" { BG_JOB_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IBackgroundCopyJob.ahk" { IBackgroundCopyJob }
+#Import ".\IEnumBackgroundCopyJobs.ahk" { IEnumBackgroundCopyJobs }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\Apis.ahk" { CoTaskMemFree }
 
 /**

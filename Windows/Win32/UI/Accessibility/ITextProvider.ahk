@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\UiaPoint.ahk" { UiaPoint }
-#Import ".\SupportedTextSelection.ahk" { SupportedTextSelection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 #Import ".\IRawElementProviderSimple.ahk" { IRawElementProviderSimple }
 #Import ".\ITextRangeProvider.ahk" { ITextRangeProvider }
-#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SupportedTextSelection.ahk" { SupportedTextSelection }
+#Import ".\UiaPoint.ahk" { UiaPoint }
 
 /**
  * Provides access to controls that contain text.

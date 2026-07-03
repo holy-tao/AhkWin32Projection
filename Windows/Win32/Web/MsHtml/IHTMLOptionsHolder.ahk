@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IHTMLFontNamesCollection.ahk" { IHTMLFontNamesCollection }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IHTMLDocument2.ahk" { IHTMLDocument2 }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IHTMLObjectElement.ahk" { IHTMLObjectElement }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IHTMLWindow2.ahk" { IHTMLWindow2 }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IHTMLDocument2.ahk" { IHTMLDocument2 }
+#Import ".\IHTMLFontNamesCollection.ahk" { IHTMLFontNamesCollection }
 #Import ".\IHTMLFontSizesCollection.ahk" { IHTMLFontSizesCollection }
+#Import ".\IHTMLObjectElement.ahk" { IHTMLObjectElement }
+#Import ".\IHTMLWindow2.ahk" { IHTMLWindow2 }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

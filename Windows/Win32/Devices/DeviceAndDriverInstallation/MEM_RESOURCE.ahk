@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MEM_DES.ahk" { MEM_DES }
 #Import ".\MD_FLAGS.ahk" { MD_FLAGS }
+#Import ".\MEM_DES.ahk" { MEM_DES }
 #Import ".\MEM_RANGE.ahk" { MEM_RANGE }
 
 /**

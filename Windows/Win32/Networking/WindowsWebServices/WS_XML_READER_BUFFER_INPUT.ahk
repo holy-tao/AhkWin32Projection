@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_XML_READER_INPUT_TYPE.ahk" { WS_XML_READER_INPUT_TYPE }
 #Import ".\WS_XML_READER_INPUT.ahk" { WS_XML_READER_INPUT }
+#Import ".\WS_XML_READER_INPUT_TYPE.ahk" { WS_XML_READER_INPUT_TYPE }
 
 /**
  * Specifies that the source of the xml input is a buffer.

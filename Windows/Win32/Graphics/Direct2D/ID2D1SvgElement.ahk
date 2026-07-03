@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D2D1_SVG_ATTRIBUTE_STRING_TYPE.ahk" { D2D1_SVG_ATTRIBUTE_STRING_TYPE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ID2D1Resource.ahk" { ID2D1Resource }
-#Import ".\D2D1_SVG_ATTRIBUTE_POD_TYPE.ahk" { D2D1_SVG_ATTRIBUTE_POD_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID2D1SvgDocument.ahk" { ID2D1SvgDocument }
-#Import ".\ID2D1SvgAttribute.ahk" { ID2D1SvgAttribute }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\D2D1_SVG_ATTRIBUTE_POD_TYPE.ahk" { D2D1_SVG_ATTRIBUTE_POD_TYPE }
+#Import ".\D2D1_SVG_ATTRIBUTE_STRING_TYPE.ahk" { D2D1_SVG_ATTRIBUTE_STRING_TYPE }
+#Import ".\ID2D1Resource.ahk" { ID2D1Resource }
+#Import ".\ID2D1SvgAttribute.ahk" { ID2D1SvgAttribute }
+#Import ".\ID2D1SvgDocument.ahk" { ID2D1SvgDocument }
 
 /**
  * Interface for all SVG elements.

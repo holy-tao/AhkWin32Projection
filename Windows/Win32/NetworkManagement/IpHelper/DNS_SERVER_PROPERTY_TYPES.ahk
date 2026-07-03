@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DNS_DOT_SERVER_SETTINGS.ahk" { DNS_DOT_SERVER_SETTINGS }
 #Import ".\DNS_DOH_SERVER_SETTINGS.ahk" { DNS_DOH_SERVER_SETTINGS }
+#Import ".\DNS_DOT_SERVER_SETTINGS.ahk" { DNS_DOT_SERVER_SETTINGS }
 
 /**
  * Contains a pointer to a DNS server property. The type of the property depends on the value of [DNS_SERVER_PROPERTY::Type](/windows/win32/api/netioapi/ns-netioapi-dns_server_property).

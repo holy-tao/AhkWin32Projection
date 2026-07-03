@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\LUID.ahk" { LUID }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\LUID.ahk" { LUID }
 #Import ".\KSJACK_SINK_CONNECTIONTYPE.ahk" { KSJACK_SINK_CONNECTIONTYPE }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 

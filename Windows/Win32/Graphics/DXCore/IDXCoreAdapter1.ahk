@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDXCoreAdapter.ahk" { IDXCoreAdapter }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DXCoreAdapterProperty.ahk" { DXCoreAdapterProperty }
+#Import ".\IDXCoreAdapter.ahk" { IDXCoreAdapter }
 
 /**
  * @namespace Windows.Win32.Graphics.DXCore

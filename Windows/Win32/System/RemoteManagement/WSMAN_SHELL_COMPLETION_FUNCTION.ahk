@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WSMAN_SHELL_HANDLE.ahk" { WSMAN_SHELL_HANDLE }
-#Import ".\WSMAN_RESPONSE_DATA.ahk" { WSMAN_RESPONSE_DATA }
-#Import ".\WSMAN_OPERATION_HANDLE.ahk" { WSMAN_OPERATION_HANDLE }
 #Import ".\WSMAN_COMMAND_HANDLE.ahk" { WSMAN_COMMAND_HANDLE }
 #Import ".\WSMAN_ERROR.ahk" { WSMAN_ERROR }
+#Import ".\WSMAN_OPERATION_HANDLE.ahk" { WSMAN_OPERATION_HANDLE }
+#Import ".\WSMAN_RESPONSE_DATA.ahk" { WSMAN_RESPONSE_DATA }
+#Import ".\WSMAN_SHELL_HANDLE.ahk" { WSMAN_SHELL_HANDLE }
 
 /**
  * The callback function that is called for shell operations, which result in a remote request.
@@ -71,10 +71,6 @@ export default struct WSMAN_SHELL_COMPLETION_FUNCTION {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, WSMAN_ERROR.Ptr, WSMAN_SHELL_HANDLE, WSMAN_COMMAND_HANDLE, WSMAN_OPERATION_HANDLE, WSMAN_RESPONSE_DATA.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

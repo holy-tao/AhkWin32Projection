@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 #Import ".\ROWSETEVENT_ITEMSTATE.ahk" { ROWSETEVENT_ITEMSTATE }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ROWSETEVENT_TYPE.ahk" { ROWSETEVENT_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods for receiving event notifications.

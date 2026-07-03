@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\USE_INFO_2.ahk" { USE_INFO_2 }
 #Import ".\USE_INFO_ASG_TYPE.ahk" { USE_INFO_ASG_TYPE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The USE_INFO_3 structure contains information about a connection between a local computer and a shared resource, including connection type, connection status, user name, domain name, and specific flags that describe connection behavior.

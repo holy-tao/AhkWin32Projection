@@ -41,10 +41,6 @@ export default struct PIOMMU_DEVICE_QUERY_DOMAIN_TYPES {
             this.value := CallbackCreate(fn, , [IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

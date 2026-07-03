@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWMDMProgress.ahk" { IWMDMProgress }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMDMProgress.ahk" { IWMDMProgress }
 
 /**
  * The optional, application-implemented IWMDMProgress2 interface extends the IWMDMProgress::End method by providing a status indicator.

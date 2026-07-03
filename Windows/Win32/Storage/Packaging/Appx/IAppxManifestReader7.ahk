@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAppxManifestDriverDependenciesEnumerator.ahk" { IAppxManifestDriverDependenciesEnumerator }
+#Import ".\IAppxManifestHostRuntimeDependenciesEnumerator.ahk" { IAppxManifestHostRuntimeDependenciesEnumerator }
 #Import ".\IAppxManifestOSPackageDependenciesEnumerator.ahk" { IAppxManifestOSPackageDependenciesEnumerator }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IAppxManifestHostRuntimeDependenciesEnumerator.ahk" { IAppxManifestHostRuntimeDependenciesEnumerator }
-#Import ".\IAppxManifestDriverDependenciesEnumerator.ahk" { IAppxManifestDriverDependenciesEnumerator }
 
 /**
  * @namespace Windows.Win32.Storage.Packaging.Appx

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CRYPT_KEY_PROV_PARAM.ahk" { CRYPT_KEY_PROV_PARAM }
-#Import ".\CRYPT_KEY_FLAGS.ahk" { CRYPT_KEY_FLAGS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\CRYPT_KEY_FLAGS.ahk" { CRYPT_KEY_FLAGS }
 #Import ".\CRYPT_KEY_PROV_INFO.ahk" { CRYPT_KEY_PROV_INFO }
+#Import ".\CRYPT_KEY_PROV_PARAM.ahk" { CRYPT_KEY_PROV_PARAM }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography

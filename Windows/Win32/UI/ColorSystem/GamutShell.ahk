@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\JabColorF.ahk" { JabColorF }
 #Import ".\GamutShellTriangle.ahk" { GamutShellTriangle }
+#Import ".\JabColorF.ahk" { JabColorF }
 
 /**
  * Contains information that defines a gamut shell, which is represented by a list of indexed triangles. The vertex buffer contains the vertices data.

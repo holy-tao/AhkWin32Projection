@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SPPHRASEPROPERTY.ahk" { SPPHRASEPROPERTY }
-#Import ".\SPPHRASERULE.ahk" { SPPHRASERULE }
-#Import ".\SPPHRASEREPLACEMENT.ahk" { SPPHRASEREPLACEMENT }
-#Import ".\ISpPhrase.ahk" { ISpPhrase }
-#Import ".\SPPHRASEPROPERTYHANDLE.ahk" { SPPHRASEPROPERTYHANDLE }
-#Import ".\SPPHRASERULEHANDLE.ahk" { SPPHRASERULEHANDLE }
-#Import ".\SPPHRASEELEMENT.ahk" { SPPHRASEELEMENT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SPSERIALIZEDPHRASE.ahk" { SPSERIALIZEDPHRASE }
+#Import ".\ISpPhrase.ahk" { ISpPhrase }
 #Import ".\SPPHRASE.ahk" { SPPHRASE }
+#Import ".\SPPHRASEELEMENT.ahk" { SPPHRASEELEMENT }
+#Import ".\SPPHRASEPROPERTY.ahk" { SPPHRASEPROPERTY }
+#Import ".\SPPHRASEPROPERTYHANDLE.ahk" { SPPHRASEPROPERTYHANDLE }
+#Import ".\SPPHRASEREPLACEMENT.ahk" { SPPHRASEREPLACEMENT }
+#Import ".\SPPHRASERULE.ahk" { SPPHRASERULE }
+#Import ".\SPPHRASERULEHANDLE.ahk" { SPPHRASERULEHANDLE }
+#Import ".\SPSERIALIZEDPHRASE.ahk" { SPSERIALIZEDPHRASE }
 
 /**
  * @namespace Windows.Win32.Media.Speech

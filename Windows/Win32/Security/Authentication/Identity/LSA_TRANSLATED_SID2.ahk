@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\SID_NAME_USE.ahk" { SID_NAME_USE }
 #Import "..\..\PSID.ahk" { PSID }
+#Import "..\..\SID_NAME_USE.ahk" { SID_NAME_USE }
 
 /**
  * Contains SIDs that are retrieved based on account names.

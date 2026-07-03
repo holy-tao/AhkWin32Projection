@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SecBuffer.ahk" { SecBuffer }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\SecBuffer.ahk" { SecBuffer }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -27,7 +27,7 @@ export default struct PLSA_MAP_BUFFER {
      */
     Call(InputBuffer, OutputBuffer) {
         result := DllCall(this.value, SecBuffer.Ptr, InputBuffer, SecBuffer.Ptr, OutputBuffer, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -47,10 +47,6 @@ export default struct PLSA_MAP_BUFFER {
             this.value := CallbackCreate(fn, , [SecBuffer.Ptr, SecBuffer.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

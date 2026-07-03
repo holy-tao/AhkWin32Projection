@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IPSEC_SA_CONTEXT_ENUM_TEMPLATE0.ahk" { IPSEC_SA_CONTEXT_ENUM_TEMPLATE0 }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IPSEC_SA_CONTEXT_ENUM_TEMPLATE0.ahk" { IPSEC_SA_CONTEXT_ENUM_TEMPLATE0 }
 
 /**
  * Stores information used to subscribe to notifications about a particular IPsec security association (SA) context.

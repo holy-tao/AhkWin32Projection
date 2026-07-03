@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IBaseFilter.ahk" { IBaseFilter }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IMediaStream.ahk" { IMediaStream }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IAMMediaStream.ahk" { IAMMediaStream }
+#Import ".\IBaseFilter.ahk" { IBaseFilter }
+#Import ".\IMediaStream.ahk" { IMediaStream }
 
 /**
  * Note  This interface is deprecated. New applications should not use it. The IMediaStreamFilter interface is supported by the Media Stream filter, which is used internally by the multimedia stream object. Applications should not use this interface.

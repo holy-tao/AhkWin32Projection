@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\FH_TARGET_PROPERTY_TYPE.ahk" { FH_TARGET_PROPERTY_TYPE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FH_TARGET_PROPERTY_TYPE.ahk" { FH_TARGET_PROPERTY_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IFhTarget interface allows client applications to read numeric and string properties of a File History backup target.

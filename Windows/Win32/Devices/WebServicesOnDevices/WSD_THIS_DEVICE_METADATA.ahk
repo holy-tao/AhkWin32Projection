@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
 #Import ".\WSD_LOCALIZED_STRING_LIST.ahk" { WSD_LOCALIZED_STRING_LIST }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Specifies metadata that is unique to a specific device.

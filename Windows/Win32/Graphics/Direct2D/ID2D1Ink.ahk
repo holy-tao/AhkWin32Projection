@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
-#Import ".\D2D1_INK_POINT.ahk" { D2D1_INK_POINT }
-#Import "Common\ID2D1SimplifiedGeometrySink.ahk" { ID2D1SimplifiedGeometrySink }
-#Import ".\ID2D1Resource.ahk" { ID2D1Resource }
-#Import ".\ID2D1InkStyle.ahk" { ID2D1InkStyle }
-#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
+#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
+#Import "Common\ID2D1SimplifiedGeometrySink.ahk" { ID2D1SimplifiedGeometrySink }
 #Import ".\D2D1_INK_BEZIER_SEGMENT.ahk" { D2D1_INK_BEZIER_SEGMENT }
+#Import ".\D2D1_INK_POINT.ahk" { D2D1_INK_POINT }
+#Import ".\ID2D1InkStyle.ahk" { ID2D1InkStyle }
+#Import ".\ID2D1Resource.ahk" { ID2D1Resource }
 
 /**
  * Represents a single continuous stroke of variable-width ink, as defined by a series of Bezier segments and widths.

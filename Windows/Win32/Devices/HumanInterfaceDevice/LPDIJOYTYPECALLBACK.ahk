@@ -50,10 +50,6 @@ export default struct LPDIJOYTYPECALLBACK {
             this.value := CallbackCreate(fn, , [PWSTR, "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -45,10 +45,6 @@ export default struct PWINDBG_OUTPUT_ROUTINE {
             this.value := CallbackCreate(fn, "cdecl", [PSTR, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

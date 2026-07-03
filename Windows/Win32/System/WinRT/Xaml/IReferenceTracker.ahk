@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IReferenceTrackerManager.ahk" { IReferenceTrackerManager }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IFindReferenceTargetsCallback.ahk" { IFindReferenceTargetsCallback }
+#Import ".\IReferenceTrackerManager.ahk" { IReferenceTrackerManager }
 
 /**
  * Defines the interface implemented by the XAML framework for managing XAML object references.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\WSMAN_COMMAND_ARG_SET.ahk" { WSMAN_COMMAND_ARG_SET }
 #Import ".\WSMAN_PLUGIN_REQUEST.ahk" { WSMAN_PLUGIN_REQUEST }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Defines the command callback for a plug-in.
@@ -57,10 +57,6 @@ export default struct WSMAN_PLUGIN_COMMAND {
             this.value := CallbackCreate(fn, , [WSMAN_PLUGIN_REQUEST.Ptr, UInt32, "ptr", PWSTR, WSMAN_COMMAND_ARG_SET.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

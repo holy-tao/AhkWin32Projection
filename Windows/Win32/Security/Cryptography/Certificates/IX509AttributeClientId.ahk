@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\EncodingType.ahk" { EncodingType }
-#Import ".\RequestClientInfoClientId.ahk" { RequestClientInfoClientId }
-#Import ".\IX509Attribute.ahk" { IX509Attribute }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import ".\IX509Attribute.ahk" { IX509Attribute }
+#Import ".\RequestClientInfoClientId.ahk" { RequestClientInfoClientId }
 
 /**
  * Represents an attribute that can be used to identify the client that generated a certificate request.

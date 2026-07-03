@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DATA_OBJECT_TYPES.ahk" { DATA_OBJECT_TYPES }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Com\IDataObject.ahk" { IDataObject }
-#Import ".\MMC_NOTIFY_TYPE.ahk" { MMC_NOTIFY_TYPE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\Com\IDataObject.ahk" { IDataObject }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DATA_OBJECT_TYPES.ahk" { DATA_OBJECT_TYPES }
 #Import ".\IComponent.ahk" { IComponent }
+#Import ".\MMC_NOTIFY_TYPE.ahk" { MMC_NOTIFY_TYPE }
 #Import ".\SCOPEDATAITEM.ahk" { SCOPEDATAITEM }
 
 /**

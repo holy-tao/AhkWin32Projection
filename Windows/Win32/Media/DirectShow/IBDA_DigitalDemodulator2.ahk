@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\GuardInterval.ahk" { GuardInterval }
 #Import ".\IBDA_DigitalDemodulator.ahk" { IBDA_DigitalDemodulator }
 #Import ".\Pilot.ahk" { Pilot }
 #Import ".\RollOff.ahk" { RollOff }
 #Import ".\TransmissionMode.ahk" { TransmissionMode }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\GuardInterval.ahk" { GuardInterval }
 
 /**
  * Controls a Broadcast Driver Architecture (BDA) demodulator filter. Demodulation filters for Digital Video Broadcasting-Satellite version 2 (DVB-S2) implement this interface.

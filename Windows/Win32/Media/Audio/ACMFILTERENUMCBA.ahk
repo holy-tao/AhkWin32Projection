@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\HACMDRIVERID.ahk" { HACMDRIVERID }
 #Import ".\ACMFILTERDETAILSA.ahk" { ACMFILTERDETAILSA }
+#Import ".\HACMDRIVERID.ahk" { HACMDRIVERID }
 
 /**
  * The acmFilterEnumCallback function specifies a callback function used with the acmFilterEnum function. The acmFilterEnumCallback name is a placeholder for an application-defined function name. (ACMFILTERENUMCBA)
@@ -63,10 +63,6 @@ export default struct ACMFILTERENUMCBA {
             this.value := CallbackCreate(fn, , [HACMDRIVERID, ACMFILTERDETAILSA.Ptr, IntPtr, UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

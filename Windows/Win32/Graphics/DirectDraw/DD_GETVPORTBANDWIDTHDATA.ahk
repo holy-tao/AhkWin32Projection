@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
-#Import ".\DD_VIDEOPORT_LOCAL.ahk" { DD_VIDEOPORT_LOCAL }
-#Import ".\DD_DIRECTDRAW_LOCAL.ahk" { DD_DIRECTDRAW_LOCAL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
 #Import ".\DDVIDEOPORTBANDWIDTH.ahk" { DDVIDEOPORTBANDWIDTH }
+#Import ".\DD_DIRECTDRAW_LOCAL.ahk" { DD_DIRECTDRAW_LOCAL }
+#Import ".\DD_VIDEOPORT_LOCAL.ahk" { DD_VIDEOPORT_LOCAL }
 
 /**
  * The DD_GETVPORTBANDWIDTHDATA structure contains the bandwidth information for any specified format.

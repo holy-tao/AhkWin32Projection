@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WINBIO_PIPELINE.ahk" { WINBIO_PIPELINE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WINBIO_PIPELINE.ahk" { WINBIO_PIPELINE }
 #Import ".\WINBIO_VERSION.ahk" { WINBIO_VERSION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Retrieves format and version information used by the current database associated with the pipeline.
@@ -80,10 +80,6 @@ export default struct PIBIO_STORAGE_GET_DATA_FORMAT_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, Guid.Ptr, WINBIO_VERSION.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

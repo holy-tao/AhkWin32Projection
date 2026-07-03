@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IWABObject.ahk" { IWABObject }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WAB_PARAM.ahk" { WAB_PARAM }
 #Import ".\IAddrBook.ahk" { IAddrBook }
+#Import ".\IWABObject.ahk" { IWABObject }
+#Import ".\WAB_PARAM.ahk" { WAB_PARAM }
 
 /**
  * @namespace Windows.Win32.System.AddressBook
@@ -50,10 +50,6 @@ export default struct LPWABOPEN {
             this.value := CallbackCreate(fn, , [IAddrBook.Ptr, IWABObject.Ptr, WAB_PARAM.Ptr, UInt32, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

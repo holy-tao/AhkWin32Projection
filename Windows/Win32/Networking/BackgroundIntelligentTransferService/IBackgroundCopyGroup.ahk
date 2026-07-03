@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\GROUPPROP.ahk" { GROUPPROP }
-#Import ".\IEnumBackgroundCopyJobs1.ahk" { IEnumBackgroundCopyJobs1 }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\GROUPPROP.ahk" { GROUPPROP }
 #Import ".\IBackgroundCopyJob1.ahk" { IBackgroundCopyJob1 }
+#Import ".\IEnumBackgroundCopyJobs1.ahk" { IEnumBackgroundCopyJobs1 }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Use the IBackgroundCopyGroup interface to manage a group. A group contains download jobs. For example, add a job to the group, set the properties of the group, and start and stop the group in the download queue.

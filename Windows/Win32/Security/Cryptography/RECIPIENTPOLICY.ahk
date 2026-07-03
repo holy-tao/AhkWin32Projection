@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ENDPOINTADDRESS.ahk" { ENDPOINTADDRESS }
-#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 #Import ".\CLAIMLIST.ahk" { CLAIMLIST }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\ENDPOINTADDRESS.ahk" { ENDPOINTADDRESS }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography

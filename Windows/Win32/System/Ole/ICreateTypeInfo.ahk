@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Com\IDLDESC.ahk" { IDLDESC }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\FUNCDESC.ahk" { FUNCDESC }
+#Import "..\Com\IDLDESC.ahk" { IDLDESC }
+#Import "..\Com\IMPLTYPEFLAGS.ahk" { IMPLTYPEFLAGS }
 #Import "..\Com\ITypeInfo.ahk" { ITypeInfo }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Com\VARDESC.ahk" { VARDESC }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Com\FUNCDESC.ahk" { FUNCDESC }
 #Import "..\Com\TYPEDESC.ahk" { TYPEDESC }
-#Import "..\Com\IMPLTYPEFLAGS.ahk" { IMPLTYPEFLAGS }
+#Import "..\Com\VARDESC.ahk" { VARDESC }
 
 /**
  * Provides the tools for creating and administering the type information defined through the type description. (ICreateTypeInfo)

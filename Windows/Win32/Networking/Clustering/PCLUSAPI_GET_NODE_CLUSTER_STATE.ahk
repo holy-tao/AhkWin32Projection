@@ -49,10 +49,6 @@ export default struct PCLUSAPI_GET_NODE_CLUSTER_STATE {
             this.value := CallbackCreate(fn, , [PWSTR, "uint*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

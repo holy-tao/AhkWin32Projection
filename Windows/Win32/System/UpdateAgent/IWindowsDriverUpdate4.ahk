@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWindowsDriverUpdateEntryCollection.ahk" { IWindowsDriverUpdateEntryCollection }
-#Import ".\IWindowsDriverUpdate3.ahk" { IWindowsDriverUpdate3 }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IWindowsDriverUpdate3.ahk" { IWindowsDriverUpdate3 }
+#Import ".\IWindowsDriverUpdateEntryCollection.ahk" { IWindowsDriverUpdateEntryCollection }
 
 /**
  * Contains the properties and methods that are available only from a Windows driver update. (IWindowsDriverUpdate4)

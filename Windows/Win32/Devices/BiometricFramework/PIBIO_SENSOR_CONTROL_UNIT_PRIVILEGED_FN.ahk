@@ -136,10 +136,6 @@ export default struct PIBIO_SENSOR_CONTROL_UNIT_PRIVILEGED_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, UInt32, IntPtr, IntPtr, IntPtr, IntPtr, "ptr*", "uint*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

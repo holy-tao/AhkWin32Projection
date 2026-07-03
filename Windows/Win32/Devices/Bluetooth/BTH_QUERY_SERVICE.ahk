@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\SdpAttributeRange.ahk" { SdpAttributeRange }
 #Import ".\SdpQueryUuid.ahk" { SdpQueryUuid }
 #Import ".\SdpQueryUuidUnion.ahk" { SdpQueryUuidUnion }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The BTH_QUERY_SERVICE structure is used to query a Bluetooth service.

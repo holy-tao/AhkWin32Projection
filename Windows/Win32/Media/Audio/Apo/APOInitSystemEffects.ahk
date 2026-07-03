@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\APOInitBaseStruct.ahk" { APOInitBaseStruct }
-#Import "..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
-#Import "..\IMMDeviceCollection.ahk" { IMMDeviceCollection }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\APOInitBaseStruct.ahk" { APOInitBaseStruct }
+#Import "..\IMMDeviceCollection.ahk" { IMMDeviceCollection }
+#Import "..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
 
 /**
  * The APOInitSystemEffects structure gets passed to the system effects APO for initialization.

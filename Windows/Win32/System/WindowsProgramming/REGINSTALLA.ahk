@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\STRTABLEA.ahk" { STRTABLEA }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
@@ -51,10 +51,6 @@ export default struct REGINSTALLA {
             this.value := CallbackCreate(fn, , [HMODULE, PSTR, STRTABLEA.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

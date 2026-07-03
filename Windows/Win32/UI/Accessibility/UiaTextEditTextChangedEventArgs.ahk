@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TextEditChangeType.ahk" { TextEditChangeType }
-#Import ".\EventArgsType.ahk" { EventArgsType }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import ".\EventArgsType.ahk" { EventArgsType }
+#Import ".\TextEditChangeType.ahk" { TextEditChangeType }
 
 /**
  * @namespace Windows.Win32.UI.Accessibility

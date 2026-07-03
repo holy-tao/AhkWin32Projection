@@ -46,10 +46,6 @@ export default struct UTextAccess {
             this.value := CallbackCreate(fn, "cdecl", [UText.Ptr, Int64, Int8, Int8])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

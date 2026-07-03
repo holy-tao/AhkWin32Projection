@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\NPEM_CAPABILITY_STANDARD.ahk" { NPEM_CAPABILITY_STANDARD }
+#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -29,7 +29,7 @@ export default struct NPEM_CONTROL_QUERY_STANDARD_CAPABILITIES {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, NPEM_CAPABILITY_STANDARD.Ptr, StandardCapabilities, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -49,10 +49,6 @@ export default struct NPEM_CONTROL_QUERY_STANDARD_CAPABILITIES {
             this.value := CallbackCreate(fn, , ["ptr", NPEM_CAPABILITY_STANDARD.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

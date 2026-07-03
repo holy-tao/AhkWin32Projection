@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDigitalLocator.ahk" { IDigitalLocator }
-#Import "..\HierarchyAlpha.ahk" { HierarchyAlpha }
-#Import "..\TransmissionMode.ahk" { TransmissionMode }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\BinaryConvolutionCodeRate.ahk" { BinaryConvolutionCodeRate }
 #Import "..\FECMethod.ahk" { FECMethod }
 #Import "..\GuardInterval.ahk" { GuardInterval }
-#Import "..\BinaryConvolutionCodeRate.ahk" { BinaryConvolutionCodeRate }
+#Import "..\HierarchyAlpha.ahk" { HierarchyAlpha }
+#Import "..\TransmissionMode.ahk" { TransmissionMode }
+#Import ".\IDigitalLocator.ahk" { IDigitalLocator }
 
 /**
  * The IDVBTLocator interface is implemented on the DVBTLocator object.

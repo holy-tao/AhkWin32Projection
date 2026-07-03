@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TDIEntityID.ahk" { TDIEntityID }
 #Import ".\TDIENTITY_ENTITY_TYPE.ahk" { TDIENTITY_ENTITY_TYPE }
+#Import ".\TDIEntityID.ahk" { TDIEntityID }
 
 /**
  * Contains a part of the TCP_REQUEST_QUERY_INFORMATION_EX structure that is used with the IOCTL_TCP_QUERY_INFORMATION_EX control code to specify the kind of information being requested from the TCP driver.

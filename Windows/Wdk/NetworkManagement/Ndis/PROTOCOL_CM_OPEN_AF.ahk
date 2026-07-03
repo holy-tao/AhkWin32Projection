@@ -51,10 +51,6 @@ export default struct PROTOCOL_CM_OPEN_AF {
             this.value := CallbackCreate(fn, , ["ptr", CO_ADDRESS_FAMILY.Ptr, "ptr", "ptr*", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

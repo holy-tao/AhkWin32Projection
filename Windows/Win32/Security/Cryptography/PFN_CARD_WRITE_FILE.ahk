@@ -53,10 +53,6 @@ export default struct PFN_CARD_WRITE_FILE {
             this.value := CallbackCreate(fn, , [CARD_DATA.Ptr, PSTR, PSTR, UInt32, IntPtr, UInt32, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

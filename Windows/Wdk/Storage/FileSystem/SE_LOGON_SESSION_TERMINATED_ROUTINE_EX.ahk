@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PESILO.ahk" { PESILO }
 #Import "..\..\..\Win32\Foundation\LUID.ahk" { LUID }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
-#Import "..\..\Foundation\PESILO.ahk" { PESILO }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
@@ -31,7 +31,7 @@ export default struct SE_LOGON_SESSION_TERMINATED_ROUTINE_EX {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, LUID.Ptr, LogonId, PESILO, pServerSilo, _ContextMarshal, _Context, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -51,10 +51,6 @@ export default struct SE_LOGON_SESSION_TERMINATED_ROUTINE_EX {
             this.value := CallbackCreate(fn, , [LUID.Ptr, PESILO, "ptr", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

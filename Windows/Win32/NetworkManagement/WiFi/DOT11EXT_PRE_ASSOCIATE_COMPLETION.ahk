@@ -47,10 +47,6 @@ export default struct DOT11EXT_PRE_ASSOCIATE_COMPLETION {
             this.value := CallbackCreate(fn, , [HANDLE, HANDLE, UInt32, UInt32, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

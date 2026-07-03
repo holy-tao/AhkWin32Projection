@@ -1,12 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\PFNRASGETBUFFER.ahk" { PFNRASGETBUFFER }
-#Import ".\PFNRASRETRIEVEBUFFER.ahk" { PFNRASRETRIEVEBUFFER }
-#Import ".\PFNRASRECEIVEBUFFER.ahk" { PFNRASRECEIVEBUFFER }
-#Import ".\PFNRASFREEBUFFER.ahk" { PFNRASFREEBUFFER }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\PFNRASSENDBUFFER.ahk" { PFNRASSENDBUFFER }
 #Import ".\RASDIALPARAMSA.ahk" { RASDIALPARAMSA }
 
 /**
@@ -67,7 +62,7 @@ export default struct RasCustomScriptExecuteFn {
 
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall(this.value, HANDLE, hPort, "ptr", lpszPhonebook, "ptr", lpszEntryName, PFNRASGETBUFFER, _pfnRasGetBuffer, PFNRASFREEBUFFER, _pfnRasFreeBuffer, PFNRASSENDBUFFER, _pfnRasSendBuffer, PFNRASRECEIVEBUFFER, _pfnRasReceiveBuffer, PFNRASRETRIEVEBUFFER, _pfnRasRetrieveBuffer, HWND, _hWnd, RASDIALPARAMSA.Ptr, pRasDialParams, pvReservedMarshal, pvReserved, UInt32)
+        result := DllCall(this.value, HANDLE, hPort, "ptr", lpszPhonebook, "ptr", lpszEntryName, "ptr", _pfnRasGetBuffer, "ptr", _pfnRasFreeBuffer, "ptr", _pfnRasSendBuffer, "ptr", _pfnRasReceiveBuffer, "ptr", _pfnRasRetrieveBuffer, HWND, _hWnd, RASDIALPARAMSA.Ptr, pRasDialParams, pvReservedMarshal, pvReserved, UInt32)
         return result
     }
 
@@ -78,19 +73,15 @@ export default struct RasCustomScriptExecuteFn {
     struct From extends RasCustomScriptExecuteFn {
         /**
          * Creates a RasCustomScriptExecuteFn pointer that invokes the given AHK function when called.
-         * @param {Func(HANDLE, PWSTR, PWSTR, PFNRASGETBUFFER, PFNRASFREEBUFFER, PFNRASSENDBUFFER, PFNRASRECEIVEBUFFER, PFNRASRETRIEVEBUFFER, HWND, RASDIALPARAMSA, "ptr") => UInt32} fn the function to invoke.
+         * @param {Func(HANDLE, PWSTR, PWSTR, "ptr", "ptr", "ptr", "ptr", "ptr", HWND, RASDIALPARAMSA, "ptr") => UInt32} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 11)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 11 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [HANDLE, PWSTR, PWSTR, PFNRASGETBUFFER, PFNRASFREEBUFFER, PFNRASSENDBUFFER, PFNRASRECEIVEBUFFER, PFNRASRETRIEVEBUFFER, HWND, RASDIALPARAMSA.Ptr, "ptr", UInt32])
+            this.value := CallbackCreate(fn, , [HANDLE, PWSTR, PWSTR, "ptr", "ptr", "ptr", "ptr", "ptr", HWND, RASDIALPARAMSA.Ptr, "ptr", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\HTREEITEM.ahk" { HTREEITEM }
 #Import ".\IMAGELISTDRAWPARAMS.ahk" { IMAGELISTDRAWPARAMS }
 #Import ".\NMHDR.ahk" { NMHDR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\HTREEITEM.ahk" { HTREEITEM }
 
 /**
  * Contains an explanation of why the draw of an icon or overlay tree item failed.

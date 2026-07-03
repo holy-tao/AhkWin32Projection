@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CMSG_MAIL_LIST_ENCRYPT_INFO.ahk" { CMSG_MAIL_LIST_ENCRYPT_INFO }
-#Import ".\CMSG_CONTENT_ENCRYPT_INFO.ahk" { CMSG_CONTENT_ENCRYPT_INFO }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\CMSG_CONTENT_ENCRYPT_INFO.ahk" { CMSG_CONTENT_ENCRYPT_INFO }
+#Import ".\CMSG_MAIL_LIST_ENCRYPT_INFO.ahk" { CMSG_MAIL_LIST_ENCRYPT_INFO }
 #Import ".\CMSG_MAIL_LIST_RECIPIENT_ENCODE_INFO.ahk" { CMSG_MAIL_LIST_RECIPIENT_ENCODE_INFO }
 
 /**
@@ -71,10 +71,6 @@ export default struct PFN_CMSG_EXPORT_MAIL_LIST {
             this.value := CallbackCreate(fn, , [CMSG_CONTENT_ENCRYPT_INFO.Ptr, CMSG_MAIL_LIST_RECIPIENT_ENCODE_INFO.Ptr, CMSG_MAIL_LIST_ENCRYPT_INFO.Ptr, UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

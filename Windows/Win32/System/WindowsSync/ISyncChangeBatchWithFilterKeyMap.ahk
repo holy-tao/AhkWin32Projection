@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IFilterKeyMap.ahk" { IFilterKeyMap }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IEnumItemIds.ahk" { IEnumItemIds }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFilterKeyMap.ahk" { IFilterKeyMap }
 #Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
 
 /**

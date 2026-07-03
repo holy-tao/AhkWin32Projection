@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Ole\OLECMDID.ahk" { OLECMDID }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IWebBrowserApp.ahk" { IWebBrowserApp }
-#Import "..\..\System\Ole\OLECMDF.ahk" { OLECMDF }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\System\Ole\OLECMDEXECOPT.ahk" { OLECMDEXECOPT }
+#Import "..\..\System\Ole\OLECMDF.ahk" { OLECMDF }
+#Import "..\..\System\Ole\OLECMDID.ahk" { OLECMDID }
 #Import "..\..\System\Ole\READYSTATE.ahk" { READYSTATE }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IWebBrowserApp.ahk" { IWebBrowserApp }
 
 /**
  * Exposes methods that are implemented by the WebBrowser control (Microsoft ActiveX control) or implemented by an instance of the InternetExplorer application (OLE Automation).

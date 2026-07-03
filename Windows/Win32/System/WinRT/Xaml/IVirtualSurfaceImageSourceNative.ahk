@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISurfaceImageSourceNative.ahk" { ISurfaceImageSourceNative }
-#Import "..\..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\ISurfaceImageSourceNative.ahk" { ISurfaceImageSourceNative }
 #Import ".\IVirtualSurfaceUpdatesCallbackNative.ahk" { IVirtualSurfaceUpdatesCallbackNative }
 
 /**

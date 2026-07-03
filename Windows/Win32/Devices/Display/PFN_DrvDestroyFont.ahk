@@ -43,10 +43,6 @@ export default struct PFN_DrvDestroyFont {
             this.value := CallbackCreate(fn, , [FONTOBJ.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

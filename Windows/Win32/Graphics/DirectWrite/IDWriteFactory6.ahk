@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IDWriteFontResource.ahk" { IDWriteFontResource }
-#Import ".\DWRITE_FONT_FAMILY_MODEL.ahk" { DWRITE_FONT_FAMILY_MODEL }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDWriteFactory5.ahk" { IDWriteFactory5 }
-#Import ".\IDWriteFontCollection2.ahk" { IDWriteFontCollection2 }
-#Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
-#Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
-#Import ".\IDWriteFontSet1.ahk" { IDWriteFontSet1 }
-#Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
-#Import ".\IDWriteFontFaceReference1.ahk" { IDWriteFontFaceReference1 }
-#Import ".\IDWriteFontSetBuilder2.ahk" { IDWriteFontSetBuilder2 }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
+#Import ".\DWRITE_FONT_FAMILY_MODEL.ahk" { DWRITE_FONT_FAMILY_MODEL }
+#Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
+#Import ".\IDWriteFactory5.ahk" { IDWriteFactory5 }
+#Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
+#Import ".\IDWriteFontCollection2.ahk" { IDWriteFontCollection2 }
+#Import ".\IDWriteFontFaceReference1.ahk" { IDWriteFontFaceReference1 }
 #Import ".\IDWriteFontFile.ahk" { IDWriteFontFile }
-#Import ".\IDWriteTextFormat3.ahk" { IDWriteTextFormat3 }
+#Import ".\IDWriteFontResource.ahk" { IDWriteFontResource }
 #Import ".\IDWriteFontSet.ahk" { IDWriteFontSet }
+#Import ".\IDWriteFontSet1.ahk" { IDWriteFontSet1 }
+#Import ".\IDWriteFontSetBuilder2.ahk" { IDWriteFontSetBuilder2 }
+#Import ".\IDWriteTextFormat3.ahk" { IDWriteTextFormat3 }
 
 /**
  * This interface represents a factory object from which all DirectWrite objects are created. **IDWriteFactory6** adds new facilities for working with fonts and font resources.

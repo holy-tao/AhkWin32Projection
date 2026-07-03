@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WIA_FORMAT_INFO.ahk" { WIA_FORMAT_INFO }
-#Import ".\WIA_DEV_CAP_DRV.ahk" { WIA_DEV_CAP_DRV }
-#Import "..\..\System\Com\StructuredStorage\PROPSPEC.ahk" { PROPSPEC }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IWiaDrvItem.ahk" { IWiaDrvItem }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\MINIDRV_TRANSFER_CONTEXT.ahk" { MINIDRV_TRANSFER_CONTEXT }
+#Import ".\WIA_DEV_CAP_DRV.ahk" { WIA_DEV_CAP_DRV }
+#Import ".\WIA_FORMAT_INFO.ahk" { WIA_FORMAT_INFO }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\StructuredStorage\PROPSPEC.ahk" { PROPSPEC }
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFCollection.ahk" { IMFCollection }
-#Import ".\IMFTopologyNode.ahk" { IMFTopologyNode }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import ".\IMFCollection.ahk" { IMFCollection }
+#Import ".\IMFTopologyNode.ahk" { IMFTopologyNode }
 
 /**
  * Represents a topology. A topology describes a collection of media sources, sinks, and transforms that are connected in a certain order.

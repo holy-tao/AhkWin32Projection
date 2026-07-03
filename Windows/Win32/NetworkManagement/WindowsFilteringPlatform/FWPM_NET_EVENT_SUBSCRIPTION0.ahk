@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FWPM_NET_EVENT_ENUM_TEMPLATE0.ahk" { FWPM_NET_EVENT_ENUM_TEMPLATE0 }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FWPM_NET_EVENT_ENUM_TEMPLATE0.ahk" { FWPM_NET_EVENT_ENUM_TEMPLATE0 }
 
 /**
  * Stores information used to subscribe to notifications about a network event.

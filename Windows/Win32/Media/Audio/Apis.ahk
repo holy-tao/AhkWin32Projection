@@ -1,68 +1,59 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\ACMFILTERTAGDETAILSW.ahk" { ACMFILTERTAGDETAILSW as ACMFILTERTAGDETAILSW_struct }
-#Import ".\ACMFILTERTAGENUMCBA.ahk" { ACMFILTERTAGENUMCBA }
-#Import ".\IAudioStateMonitor.ahk" { IAudioStateMonitor }
-#Import ".\ACMSTREAMHEADER.ahk" { ACMSTREAMHEADER }
-#Import ".\IActivateAudioInterfaceCompletionHandler.ahk" { IActivateAudioInterfaceCompletionHandler }
-#Import ".\HACMDRIVER.ahk" { HACMDRIVER }
-#Import ".\HWAVEIN.ahk" { HWAVEIN }
-#Import ".\ACMFORMATTAGENUMCBA.ahk" { ACMFORMATTAGENUMCBA }
-#Import ".\MIXERLINEW.ahk" { MIXERLINEW }
-#Import ".\HMIXER.ahk" { HMIXER }
-#Import ".\HACMSTREAM.ahk" { HACMSTREAM }
-#Import ".\ACMFILTERCHOOSEA.ahk" { ACMFILTERCHOOSEA as ACMFILTERCHOOSEA_struct }
-#Import ".\ACMDRIVERENUMCB.ahk" { ACMDRIVERENUMCB }
-#Import ".\WAVEOUTCAPSW.ahk" { WAVEOUTCAPSW }
-#Import ".\HWAVEOUT.ahk" { HWAVEOUT }
-#Import ".\HMIDI.ahk" { HMIDI }
-#Import ".\WAVEFORMATEX.ahk" { WAVEFORMATEX }
-#Import ".\HMIDIOUT.ahk" { HMIDIOUT }
-#Import ".\MIDI_WAVE_OPEN_TYPE.ahk" { MIDI_WAVE_OPEN_TYPE }
-#Import ".\ACMFILTERCHOOSEW.ahk" { ACMFILTERCHOOSEW as ACMFILTERCHOOSEW_struct }
-#Import ".\MIXERLINEA.ahk" { MIXERLINEA }
-#Import ".\ACMDRIVERDETAILSA.ahk" { ACMDRIVERDETAILSA as ACMDRIVERDETAILSA_struct }
-#Import ".\HACMDRIVERID.ahk" { HACMDRIVERID }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import ".\ACMFORMATCHOOSEA.ahk" { ACMFORMATCHOOSEA as ACMFORMATCHOOSEA_struct }
-#Import ".\HMIDIIN.ahk" { HMIDIIN }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ACMFORMATENUMCBA.ahk" { ACMFORMATENUMCBA }
-#Import ".\HACMOBJ.ahk" { HACMOBJ }
-#Import ".\IMessageFilter.ahk" { IMessageFilter }
-#Import ".\HMIDISTRM.ahk" { HMIDISTRM }
-#Import ".\ACMFILTERTAGDETAILSA.ahk" { ACMFILTERTAGDETAILSA as ACMFILTERTAGDETAILSA_struct }
-#Import ".\MIXERLINECONTROLSA.ahk" { MIXERLINECONTROLSA }
-#Import ".\AUDIO_STREAM_CATEGORY.ahk" { AUDIO_STREAM_CATEGORY }
-#Import ".\HMIXEROBJ.ahk" { HMIXEROBJ }
-#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ACMDRIVERDETAILSW.ahk" { ACMDRIVERDETAILSW as ACMDRIVERDETAILSW_struct }
-#Import ".\ACMFORMATTAGDETAILSW.ahk" { ACMFORMATTAGDETAILSW as ACMFORMATTAGDETAILSW_struct }
-#Import ".\IActivateAudioInterfaceAsyncOperation.ahk" { IActivateAudioInterfaceAsyncOperation }
-#Import ".\ACMFORMATDETAILSA.ahk" { ACMFORMATDETAILSA as ACMFORMATDETAILSA_struct }
-#Import ".\MIXERCONTROLDETAILS.ahk" { MIXERCONTROLDETAILS }
-#Import ".\ACMFORMATENUMCBW.ahk" { ACMFORMATENUMCBW }
-#Import ".\tACMFORMATDETAILSW.ahk" { tACMFORMATDETAILSW }
-#Import ".\ACMFILTERENUMCBW.ahk" { ACMFILTERENUMCBW }
-#Import ".\ERole.ahk" { ERole }
-#Import ".\SND_FLAGS.ahk" { SND_FLAGS }
-#Import ".\ACMFILTERDETAILSW.ahk" { ACMFILTERDETAILSW as ACMFILTERDETAILSW_struct }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\ACMFORMATTAGDETAILSA.ahk" { ACMFORMATTAGDETAILSA as ACMFORMATTAGDETAILSA_struct }
-#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
-#Import ".\WAVEOUTCAPSA.ahk" { WAVEOUTCAPSA }
-#Import ".\MIXERLINECONTROLSW.ahk" { MIXERLINECONTROLSW }
-#Import ".\WAVEFILTER.ahk" { WAVEFILTER }
-#Import ".\ACMFILTERENUMCBA.ahk" { ACMFILTERENUMCBA }
-#Import ".\ACMFILTERDETAILSA.ahk" { ACMFILTERDETAILSA as ACMFILTERDETAILSA_struct }
-#Import ".\ACMFORMATTAGENUMCBW.ahk" { ACMFORMATTAGENUMCBW }
-#Import ".\ACMFORMATCHOOSEW.ahk" { ACMFORMATCHOOSEW as ACMFORMATCHOOSEW_struct }
-#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\ACMFILTERTAGENUMCBW.ahk" { ACMFILTERTAGENUMCBW }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ACMDRIVERDETAILSA.ahk" { ACMDRIVERDETAILSA as ACMDRIVERDETAILSA_struct }
+#Import ".\ACMDRIVERDETAILSW.ahk" { ACMDRIVERDETAILSW as ACMDRIVERDETAILSW_struct }
+#Import ".\ACMFILTERCHOOSEA.ahk" { ACMFILTERCHOOSEA as ACMFILTERCHOOSEA_struct }
+#Import ".\ACMFILTERCHOOSEW.ahk" { ACMFILTERCHOOSEW as ACMFILTERCHOOSEW_struct }
+#Import ".\ACMFILTERDETAILSA.ahk" { ACMFILTERDETAILSA as ACMFILTERDETAILSA_struct }
+#Import ".\ACMFILTERDETAILSW.ahk" { ACMFILTERDETAILSW as ACMFILTERDETAILSW_struct }
+#Import ".\ACMFILTERTAGDETAILSA.ahk" { ACMFILTERTAGDETAILSA as ACMFILTERTAGDETAILSA_struct }
+#Import ".\ACMFILTERTAGDETAILSW.ahk" { ACMFILTERTAGDETAILSW as ACMFILTERTAGDETAILSW_struct }
+#Import ".\ACMFORMATCHOOSEA.ahk" { ACMFORMATCHOOSEA as ACMFORMATCHOOSEA_struct }
+#Import ".\ACMFORMATCHOOSEW.ahk" { ACMFORMATCHOOSEW as ACMFORMATCHOOSEW_struct }
+#Import ".\ACMFORMATDETAILSA.ahk" { ACMFORMATDETAILSA as ACMFORMATDETAILSA_struct }
+#Import ".\ACMFORMATTAGDETAILSA.ahk" { ACMFORMATTAGDETAILSA as ACMFORMATTAGDETAILSA_struct }
+#Import ".\ACMFORMATTAGDETAILSW.ahk" { ACMFORMATTAGDETAILSW as ACMFORMATTAGDETAILSW_struct }
+#Import ".\ACMSTREAMHEADER.ahk" { ACMSTREAMHEADER }
+#Import ".\AUDIO_STREAM_CATEGORY.ahk" { AUDIO_STREAM_CATEGORY }
+#Import ".\ERole.ahk" { ERole }
+#Import ".\HACMDRIVER.ahk" { HACMDRIVER }
+#Import ".\HACMDRIVERID.ahk" { HACMDRIVERID }
+#Import ".\HACMOBJ.ahk" { HACMOBJ }
+#Import ".\HACMSTREAM.ahk" { HACMSTREAM }
+#Import ".\HMIDI.ahk" { HMIDI }
+#Import ".\HMIDIIN.ahk" { HMIDIIN }
+#Import ".\HMIDIOUT.ahk" { HMIDIOUT }
+#Import ".\HMIDISTRM.ahk" { HMIDISTRM }
+#Import ".\HMIXER.ahk" { HMIXER }
+#Import ".\HMIXEROBJ.ahk" { HMIXEROBJ }
+#Import ".\HWAVEIN.ahk" { HWAVEIN }
+#Import ".\HWAVEOUT.ahk" { HWAVEOUT }
+#Import ".\IActivateAudioInterfaceAsyncOperation.ahk" { IActivateAudioInterfaceAsyncOperation }
+#Import ".\IActivateAudioInterfaceCompletionHandler.ahk" { IActivateAudioInterfaceCompletionHandler }
+#Import ".\IAudioStateMonitor.ahk" { IAudioStateMonitor }
+#Import ".\IMessageFilter.ahk" { IMessageFilter }
+#Import ".\MIDI_WAVE_OPEN_TYPE.ahk" { MIDI_WAVE_OPEN_TYPE }
+#Import ".\MIXERCONTROLDETAILS.ahk" { MIXERCONTROLDETAILS }
+#Import ".\MIXERLINEA.ahk" { MIXERLINEA }
+#Import ".\MIXERLINECONTROLSA.ahk" { MIXERLINECONTROLSA }
+#Import ".\MIXERLINECONTROLSW.ahk" { MIXERLINECONTROLSW }
+#Import ".\MIXERLINEW.ahk" { MIXERLINEW }
+#Import ".\SND_FLAGS.ahk" { SND_FLAGS }
+#Import ".\WAVEFILTER.ahk" { WAVEFILTER }
+#Import ".\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\WAVEOUTCAPSA.ahk" { WAVEOUTCAPSA }
+#Import ".\WAVEOUTCAPSW.ahk" { WAVEOUTCAPSW }
+#Import ".\tACMFORMATDETAILSW.ahk" { tACMFORMATDETAILSW }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 
 /**
  * @namespace Windows.Win32.Media.Audio
@@ -7587,7 +7578,7 @@ export acmMetrics(hao, uMetric, pMetric) {
  * @since windows5.0
  */
 export acmDriverEnum(fnCallback, dwInstance, fdwEnum) {
-    result := DllCall("MSACM32.dll\acmDriverEnum", ACMDRIVERENUMCB, fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
+    result := DllCall("MSACM32.dll\acmDriverEnum", "ptr", fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
     return result
 }
 
@@ -8528,7 +8519,7 @@ export acmFormatTagDetailsW(had, paftd, fdwDetails) {
  * @since windows5.0
  */
 export acmFormatTagEnumA(had, paftd, fnCallback, dwInstance, fdwEnum) {
-    result := DllCall("MSACM32.dll\acmFormatTagEnumA", HACMDRIVER, had, ACMFORMATTAGDETAILSA_struct.Ptr, paftd, ACMFORMATTAGENUMCBA, fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
+    result := DllCall("MSACM32.dll\acmFormatTagEnumA", HACMDRIVER, had, ACMFORMATTAGDETAILSA_struct.Ptr, paftd, "ptr", fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
     return result
 }
 
@@ -8593,7 +8584,7 @@ export acmFormatTagEnumA(had, paftd, fnCallback, dwInstance, fdwEnum) {
  * @since windows5.0
  */
 export acmFormatTagEnumW(had, paftd, fnCallback, dwInstance, fdwEnum) {
-    result := DllCall("MSACM32.dll\acmFormatTagEnumW", HACMDRIVER, had, ACMFORMATTAGDETAILSW_struct.Ptr, paftd, ACMFORMATTAGENUMCBW, fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
+    result := DllCall("MSACM32.dll\acmFormatTagEnumW", HACMDRIVER, had, ACMFORMATTAGDETAILSW_struct.Ptr, paftd, "ptr", fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
     return result
 }
 
@@ -8887,7 +8878,7 @@ export acmFormatDetailsW(had, pafd, fdwDetails) {
  * @since windows5.0
  */
 export acmFormatEnumA(had, pafd, fnCallback, dwInstance, fdwEnum) {
-    result := DllCall("MSACM32.dll\acmFormatEnumA", HACMDRIVER, had, ACMFORMATDETAILSA_struct.Ptr, pafd, ACMFORMATENUMCBA, fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
+    result := DllCall("MSACM32.dll\acmFormatEnumA", HACMDRIVER, had, ACMFORMATDETAILSA_struct.Ptr, pafd, "ptr", fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
     return result
 }
 
@@ -9011,7 +9002,7 @@ export acmFormatEnumA(had, pafd, fnCallback, dwInstance, fdwEnum) {
  * @since windows5.0
  */
 export acmFormatEnumW(had, pafd, fnCallback, dwInstance, fdwEnum) {
-    result := DllCall("MSACM32.dll\acmFormatEnumW", HACMDRIVER, had, tACMFORMATDETAILSW.Ptr, pafd, ACMFORMATENUMCBW, fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
+    result := DllCall("MSACM32.dll\acmFormatEnumW", HACMDRIVER, had, tACMFORMATDETAILSW.Ptr, pafd, "ptr", fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
     return result
 }
 
@@ -9515,7 +9506,7 @@ export acmFilterTagDetailsW(had, paftd, fdwDetails) {
  * @since windows5.0
  */
 export acmFilterTagEnumA(had, paftd, fnCallback, dwInstance, fdwEnum) {
-    result := DllCall("MSACM32.dll\acmFilterTagEnumA", HACMDRIVER, had, ACMFILTERTAGDETAILSA_struct.Ptr, paftd, ACMFILTERTAGENUMCBA, fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
+    result := DllCall("MSACM32.dll\acmFilterTagEnumA", HACMDRIVER, had, ACMFILTERTAGDETAILSA_struct.Ptr, paftd, "ptr", fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
     return result
 }
 
@@ -9580,7 +9571,7 @@ export acmFilterTagEnumA(had, paftd, fnCallback, dwInstance, fdwEnum) {
  * @since windows5.0
  */
 export acmFilterTagEnumW(had, paftd, fnCallback, dwInstance, fdwEnum) {
-    result := DllCall("MSACM32.dll\acmFilterTagEnumW", HACMDRIVER, had, ACMFILTERTAGDETAILSW_struct.Ptr, paftd, ACMFILTERTAGENUMCBW, fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
+    result := DllCall("MSACM32.dll\acmFilterTagEnumW", HACMDRIVER, had, ACMFILTERTAGDETAILSW_struct.Ptr, paftd, "ptr", fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
     return result
 }
 
@@ -9841,7 +9832,7 @@ export acmFilterDetailsW(had, pafd, fdwDetails) {
  * @since windows5.0
  */
 export acmFilterEnumA(had, pafd, fnCallback, dwInstance, fdwEnum) {
-    result := DllCall("MSACM32.dll\acmFilterEnumA", HACMDRIVER, had, ACMFILTERDETAILSA_struct.Ptr, pafd, ACMFILTERENUMCBA, fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
+    result := DllCall("MSACM32.dll\acmFilterEnumA", HACMDRIVER, had, ACMFILTERDETAILSA_struct.Ptr, pafd, "ptr", fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
     return result
 }
 
@@ -9932,7 +9923,7 @@ export acmFilterEnumA(had, pafd, fnCallback, dwInstance, fdwEnum) {
  * @since windows5.0
  */
 export acmFilterEnumW(had, pafd, fnCallback, dwInstance, fdwEnum) {
-    result := DllCall("MSACM32.dll\acmFilterEnumW", HACMDRIVER, had, ACMFILTERDETAILSW_struct.Ptr, pafd, ACMFILTERENUMCBW, fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
+    result := DllCall("MSACM32.dll\acmFilterEnumW", HACMDRIVER, had, ACMFILTERDETAILSW_struct.Ptr, pafd, "ptr", fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
     return result
 }
 

@@ -1,15 +1,15 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IRoMetaDataLocator.ahk" { IRoMetaDataLocator }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\HSTRING.ahk" { HSTRING }
 #Import ".\IMetaDataDispenserEx.ahk" { IMetaDataDispenserEx }
-#Import ".\ROPARAMIIDHANDLE.ahk" { ROPARAMIIDHANDLE }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IMetaDataImport2.ahk" { IMetaDataImport2 }
+#Import ".\IRoMetaDataLocator.ahk" { IRoMetaDataLocator }
+#Import ".\ROPARAMIIDHANDLE.ahk" { ROPARAMIIDHANDLE }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata

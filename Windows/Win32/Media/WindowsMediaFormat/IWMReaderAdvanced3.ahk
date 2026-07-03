@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWMReaderAdvanced2.ahk" { IWMReaderAdvanced2 }
 #Import ".\WMT_OFFSET_FORMAT.ahk" { WMT_OFFSET_FORMAT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMReaderAdvanced3 interface provides additional functionality to the reader object.

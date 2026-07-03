@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IOpcSigningOptions.ahk" { IOpcSigningOptions }
-#Import ".\IOpcPartUri.ahk" { IOpcPartUri }
-#Import "..\..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IOpcDigitalSignature.ahk" { IOpcDigitalSignature }
-#Import ".\OPC_SIGNATURE_VALIDATION_RESULT.ahk" { OPC_SIGNATURE_VALIDATION_RESULT }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import ".\IOpcDigitalSignature.ahk" { IOpcDigitalSignature }
 #Import ".\IOpcDigitalSignatureEnumerator.ahk" { IOpcDigitalSignatureEnumerator }
+#Import ".\IOpcPartUri.ahk" { IOpcPartUri }
+#Import ".\IOpcSigningOptions.ahk" { IOpcSigningOptions }
+#Import ".\OPC_SIGNATURE_VALIDATION_RESULT.ahk" { OPC_SIGNATURE_VALIDATION_RESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides access to Packaging Digital Signature Interfaces for a package that is represented by Packaging API objects.

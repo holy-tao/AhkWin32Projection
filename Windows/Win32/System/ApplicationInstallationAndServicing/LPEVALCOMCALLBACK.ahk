@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\STATUSTYPES.ahk" { STATUSTYPES }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\STATUSTYPES.ahk" { STATUSTYPES }
 
 /**
  * The LPEVALCOMCALLBACK specification defines a callback function prototype. The IValidate::SetStatus method enables an authoring tool to receive information about the progress of validation through the registered callback function.
@@ -213,10 +213,6 @@ export default struct LPEVALCOMCALLBACK {
             this.value := CallbackCreate(fn, , [STATUSTYPES, PWSTR, "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CARD_DATA.ahk" { CARD_DATA }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CARD_DATA.ahk" { CARD_DATA }
 #Import ".\CARD_ENCRYPTED_DATA.ahk" { CARD_ENCRYPTED_DATA }
 
 /**
@@ -58,10 +58,6 @@ export default struct PFN_CARD_PROCESS_ENCRYPTED_DATA {
             this.value := CallbackCreate(fn, , [CARD_DATA.Ptr, IntPtr, PWSTR, CARD_ENCRYPTED_DATA.Ptr, UInt32, IntPtr, UInt32, "uint*", UInt32, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PrintDocumentPackageCompletion.ahk" { PrintDocumentPackageCompletion }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PrintDocumentPackageCompletion.ahk" { PrintDocumentPackageCompletion }
 
 /**
  * Defines a payload to be used by the PackageStatusUpdated method. This structure is a generic version of XPS_JOB_STATUS.

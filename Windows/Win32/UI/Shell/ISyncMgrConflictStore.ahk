@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IEnumSyncMgrConflict.ahk" { IEnumSyncMgrConflict }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\SYNCMGR_CONFLICT_ID_INFO.ahk" { SYNCMGR_CONFLICT_ID_INFO }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumSyncMgrConflict.ahk" { IEnumSyncMgrConflict }
+#Import ".\SYNCMGR_CONFLICT_ID_INFO.ahk" { SYNCMGR_CONFLICT_ID_INFO }
 
 /**
  * Exposes methods that allow a handler to provide conflicts that appear in the Conflicts folder.

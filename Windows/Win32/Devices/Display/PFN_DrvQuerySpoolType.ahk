@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DHPDEV.ahk" { DHPDEV }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DHPDEV.ahk" { DHPDEV }
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -49,10 +49,6 @@ export default struct PFN_DrvQuerySpoolType {
             this.value := CallbackCreate(fn, , [DHPDEV, PWSTR, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

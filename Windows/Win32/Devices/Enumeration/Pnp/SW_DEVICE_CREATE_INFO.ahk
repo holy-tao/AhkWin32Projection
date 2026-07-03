@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Security\SECURITY_DESCRIPTOR.ahk" { SECURITY_DESCRIPTOR }
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Describes info that PnP uses to create the software device.

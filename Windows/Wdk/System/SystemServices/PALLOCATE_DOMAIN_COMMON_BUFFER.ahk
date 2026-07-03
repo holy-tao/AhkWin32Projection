@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\DMA_ADAPTER.ahk" { DMA_ADAPTER }
-#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\MEMORY_CACHING_TYPE.ahk" { MEMORY_CACHING_TYPE }
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -41,7 +41,7 @@ export default struct PALLOCATE_DOMAIN_COMMON_BUFFER {
         VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, HANDLE, DomainHandle, MaximumAddressMarshal, MaximumAddress, UInt32, Length, UInt32, Flags, CacheTypeMarshal, CacheType, UInt32, PreferredNode, LogicalAddressMarshal, LogicalAddress, VirtualAddressMarshal, VirtualAddress, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -61,10 +61,6 @@ export default struct PALLOCATE_DOMAIN_COMMON_BUFFER {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, HANDLE, "int64*", UInt32, UInt32, "int*", UInt32, "int64*", "ptr*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

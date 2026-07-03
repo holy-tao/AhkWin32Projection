@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\WPARAM.ahk" { WPARAM }
-#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\IMEAPPLETUI.ahk" { IMEAPPLETUI }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IMEAPPLETCFG.ahk" { IMEAPPLETCFG }
+#Import ".\IMEAPPLETUI.ahk" { IMEAPPLETUI }
 
 /**
  * The IImePadApplet interface inputs strings into apps through the IImePad interface.

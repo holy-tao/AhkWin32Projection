@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IVssAsync.ahk" { IVssAsync }
 #Import ".\IVssBackupComponentsEx.ahk" { IVssBackupComponentsEx }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\VSS_ROLLFORWARD_TYPE.ahk" { VSS_ROLLFORWARD_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\VSS_COMPONENT_TYPE.ahk" { VSS_COMPONENT_TYPE }
+#Import ".\VSS_ROLLFORWARD_TYPE.ahk" { VSS_ROLLFORWARD_TYPE }
 
 /**
  * Defines additional methods that requesters can use to run backup and restore operations.

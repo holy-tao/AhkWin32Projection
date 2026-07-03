@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWiaItem.ahk" { IWiaItem }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IWiaEventCallback.ahk" { IWiaEventCallback }
 #Import ".\IEnumWIA_DEV_INFO.ahk" { IEnumWIA_DEV_INFO }
+#Import ".\IWiaEventCallback.ahk" { IWiaEventCallback }
+#Import ".\IWiaItem.ahk" { IWiaItem }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Applications use the IWiaDevMgr interface to create and manage image acquisition devices.

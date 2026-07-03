@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WHEA_NOTIFICATION_FLAGS.ahk" { WHEA_NOTIFICATION_FLAGS }
 #Import ".\WHEA_NOTIFICATION_DESCRIPTOR.ahk" { WHEA_NOTIFICATION_DESCRIPTOR }
+#Import ".\WHEA_NOTIFICATION_FLAGS.ahk" { WHEA_NOTIFICATION_FLAGS }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug

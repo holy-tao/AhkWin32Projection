@@ -58,10 +58,6 @@ export default struct HDV_PCI_DEVICE_INITIALIZE {
             this.value := CallbackCreate(fn, , ["ptr", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

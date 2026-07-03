@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\VDS_PARTITION_STYLE.ahk" { VDS_PARTITION_STYLE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
-#Import ".\VDS_INPUT_DISK.ahk" { VDS_INPUT_DISK }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\VDS_VOLUME_TYPE.ahk" { VDS_VOLUME_TYPE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
 #Import ".\IVdsAsync.ahk" { IVdsAsync }
 #Import ".\IVdsProvider.ahk" { IVdsProvider }
+#Import ".\VDS_INPUT_DISK.ahk" { VDS_INPUT_DISK }
 #Import ".\VDS_PACK_PROP.ahk" { VDS_PACK_PROP }
+#Import ".\VDS_PARTITION_STYLE.ahk" { VDS_PARTITION_STYLE }
+#Import ".\VDS_VOLUME_TYPE.ahk" { VDS_VOLUME_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods to query and perform management operations on a pack containing disks and volumes.

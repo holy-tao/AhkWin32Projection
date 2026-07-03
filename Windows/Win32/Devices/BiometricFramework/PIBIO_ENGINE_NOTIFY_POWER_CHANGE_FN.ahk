@@ -54,10 +54,6 @@ export default struct PIBIO_ENGINE_NOTIFY_POWER_CHANGE_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, UInt32, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

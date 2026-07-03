@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\MPEG1WAVEFORMAT.ahk" { MPEG1WAVEFORMAT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MPEG1WAVEFORMAT.ahk" { MPEG1WAVEFORMAT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IMpegAudioDecoder interface is exposed on the MPEG-1 Audio Decoder filter and it enables applications to control decoding parameters.

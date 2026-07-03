@@ -1,89 +1,76 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\CRITICAL_SECTION.ahk" { CRITICAL_SECTION }
-#Import ".\PROCESS_MITIGATION_POLICY.ahk" { PROCESS_MITIGATION_POLICY }
-#Import ".\SRWLOCK.ahk" { SRWLOCK }
-#Import ".\TP_CALLBACK_ENVIRON_V3.ahk" { TP_CALLBACK_ENVIRON_V3 }
-#Import ".\LPFIBER_START_ROUTINE.ahk" { LPFIBER_START_ROUTINE }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\QUEUE_USER_APC_FLAGS.ahk" { QUEUE_USER_APC_FLAGS }
-#Import ".\PROCESS_NAME_FORMAT.ahk" { PROCESS_NAME_FORMAT }
-#Import ".\PFLS_CALLBACK_FUNCTION.ahk" { PFLS_CALLBACK_FUNCTION }
-#Import ".\CONDITION_VARIABLE.ahk" { CONDITION_VARIABLE }
-#Import ".\REASON_CONTEXT.ahk" { REASON_CONTEXT }
-#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Kernel\SLIST_HEADER.ahk" { SLIST_HEADER }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\WAIT_EVENT.ahk" { WAIT_EVENT }
+#Import "..\..\Security\PSID.ahk" { PSID }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import "..\..\Security\TOKEN_ACCESS_MASK.ahk" { TOKEN_ACCESS_MASK }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Kernel\PROCESSOR_NUMBER.ahk" { PROCESSOR_NUMBER }
 #Import "..\Kernel\SLIST_ENTRY.ahk" { SLIST_ENTRY }
-#Import ".\STARTUPINFOA.ahk" { STARTUPINFOA }
-#Import ".\LPTHREAD_START_ROUTINE.ahk" { LPTHREAD_START_ROUTINE }
-#Import "..\..\Security\TOKEN_ACCESS_MASK.ahk" { TOKEN_ACCESS_MASK }
-#Import ".\PROCESS_ACCESS_RIGHTS.ahk" { PROCESS_ACCESS_RIGHTS }
-#Import ".\THREAD_INFORMATION_CLASS.ahk" { THREAD_INFORMATION_CLASS }
-#Import ".\PROCESSOR_FEATURE_ID.ahk" { PROCESSOR_FEATURE_ID }
-#Import ".\PTP_SIMPLE_CALLBACK.ahk" { PTP_SIMPLE_CALLBACK }
+#Import "..\Kernel\SLIST_HEADER.ahk" { SLIST_HEADER }
+#Import "..\SystemInformation\GROUP_AFFINITY.ahk" { GROUP_AFFINITY }
+#Import "..\SystemInformation\IMAGE_FILE_MACHINE.ahk" { IMAGE_FILE_MACHINE }
+#Import ".\AVRT_PRIORITY.ahk" { AVRT_PRIORITY }
+#Import ".\AVRT_TASK_HANDLE.ahk" { AVRT_TASK_HANDLE }
+#Import ".\AVRT_THREAD_ORDERING_GROUP_HANDLE.ahk" { AVRT_THREAD_ORDERING_GROUP_HANDLE }
+#Import ".\CONDITION_VARIABLE.ahk" { CONDITION_VARIABLE }
 #Import ".\CREATE_EVENT.ahk" { CREATE_EVENT }
-#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import ".\CREATE_PROCESS_LOGON_FLAGS.ahk" { CREATE_PROCESS_LOGON_FLAGS }
+#Import ".\CRITICAL_SECTION.ahk" { CRITICAL_SECTION }
+#Import ".\GET_GUI_RESOURCES_FLAGS.ahk" { GET_GUI_RESOURCES_FLAGS }
+#Import ".\INIT_ONCE.ahk" { INIT_ONCE }
+#Import ".\IO_COUNTERS.ahk" { IO_COUNTERS }
+#Import ".\IRtwqAsyncCallback.ahk" { IRtwqAsyncCallback }
+#Import ".\IRtwqAsyncResult.ahk" { IRtwqAsyncResult }
+#Import ".\IRtwqPlatformEvents.ahk" { IRtwqPlatformEvents }
+#Import ".\LPPROC_THREAD_ATTRIBUTE_LIST.ahk" { LPPROC_THREAD_ATTRIBUTE_LIST }
+#Import ".\MACHINE_ATTRIBUTES.ahk" { MACHINE_ATTRIBUTES }
+#Import ".\PROCESSOR_FEATURE_ID.ahk" { PROCESSOR_FEATURE_ID }
+#Import ".\PROCESS_ACCESS_RIGHTS.ahk" { PROCESS_ACCESS_RIGHTS }
+#Import ".\PROCESS_AFFINITY_AUTO_UPDATE_FLAGS.ahk" { PROCESS_AFFINITY_AUTO_UPDATE_FLAGS }
+#Import ".\PROCESS_CREATION_FLAGS.ahk" { PROCESS_CREATION_FLAGS }
+#Import ".\PROCESS_DEP_FLAGS.ahk" { PROCESS_DEP_FLAGS }
+#Import ".\PROCESS_DYNAMIC_EH_CONTINUATION_TARGET.ahk" { PROCESS_DYNAMIC_EH_CONTINUATION_TARGET }
+#Import ".\PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE.ahk" { PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE }
 #Import ".\PROCESS_INFORMATION.ahk" { PROCESS_INFORMATION }
-#Import ".\UMS_SYSTEM_THREAD_INFORMATION.ahk" { UMS_SYSTEM_THREAD_INFORMATION }
+#Import ".\PROCESS_INFORMATION_CLASS.ahk" { PROCESS_INFORMATION_CLASS }
+#Import ".\PROCESS_MITIGATION_POLICY.ahk" { PROCESS_MITIGATION_POLICY }
+#Import ".\PROCESS_NAME_FORMAT.ahk" { PROCESS_NAME_FORMAT }
+#Import ".\PTP_CALLBACK_INSTANCE.ahk" { PTP_CALLBACK_INSTANCE }
+#Import ".\PTP_CLEANUP_GROUP.ahk" { PTP_CLEANUP_GROUP }
 #Import ".\PTP_IO.ahk" { PTP_IO }
+#Import ".\PTP_POOL.ahk" { PTP_POOL }
 #Import ".\PTP_TIMER.ahk" { PTP_TIMER }
 #Import ".\PTP_WAIT.ahk" { PTP_WAIT }
-#Import ".\UMS_SCHEDULER_STARTUP_INFO.ahk" { UMS_SCHEDULER_STARTUP_INFO }
-#Import ".\RTWQPERIODICCALLBACK.ahk" { RTWQPERIODICCALLBACK }
-#Import ".\THREAD_ACCESS_RIGHTS.ahk" { THREAD_ACCESS_RIGHTS }
-#Import ".\CREATE_PROCESS_LOGON_FLAGS.ahk" { CREATE_PROCESS_LOGON_FLAGS }
-#Import ".\THREAD_PRIORITY.ahk" { THREAD_PRIORITY }
-#Import ".\PTP_TIMER_CALLBACK.ahk" { PTP_TIMER_CALLBACK }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\PTP_WAIT_CALLBACK.ahk" { PTP_WAIT_CALLBACK }
-#Import ".\PROCESS_CREATION_FLAGS.ahk" { PROCESS_CREATION_FLAGS }
-#Import ".\IO_COUNTERS.ahk" { IO_COUNTERS }
 #Import ".\PTP_WORK.ahk" { PTP_WORK }
-#Import ".\AVRT_PRIORITY.ahk" { AVRT_PRIORITY }
-#Import ".\PROCESS_AFFINITY_AUTO_UPDATE_FLAGS.ahk" { PROCESS_AFFINITY_AUTO_UPDATE_FLAGS }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\WAIT_EVENT.ahk" { WAIT_EVENT }
-#Import ".\LPPROC_THREAD_ATTRIBUTE_LIST.ahk" { LPPROC_THREAD_ATTRIBUTE_LIST }
-#Import ".\SYNCHRONIZATION_ACCESS_RIGHTS.ahk" { SYNCHRONIZATION_ACCESS_RIGHTS }
-#Import ".\IRtwqAsyncResult.ahk" { IRtwqAsyncResult }
-#Import "..\SystemInformation\IMAGE_FILE_MACHINE.ahk" { IMAGE_FILE_MACHINE }
-#Import ".\TP_POOL_STACK_INFORMATION.ahk" { TP_POOL_STACK_INFORMATION }
-#Import ".\AVRT_THREAD_ORDERING_GROUP_HANDLE.ahk" { AVRT_THREAD_ORDERING_GROUP_HANDLE }
-#Import ".\PROCESS_INFORMATION_CLASS.ahk" { PROCESS_INFORMATION_CLASS }
-#Import "..\..\Foundation\PAPCFUNC.ahk" { PAPCFUNC }
-#Import ".\PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE.ahk" { PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE }
+#Import ".\QUEUE_USER_APC_FLAGS.ahk" { QUEUE_USER_APC_FLAGS }
+#Import ".\REASON_CONTEXT.ahk" { REASON_CONTEXT }
 #Import ".\RTWQ_WORKQUEUE_TYPE.ahk" { RTWQ_WORKQUEUE_TYPE }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\UMS_THREAD_INFO_CLASS.ahk" { UMS_THREAD_INFO_CLASS }
-#Import ".\IRtwqPlatformEvents.ahk" { IRtwqPlatformEvents }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SRWLOCK.ahk" { SRWLOCK }
+#Import ".\STARTUPINFOA.ahk" { STARTUPINFOA }
 #Import ".\STARTUPINFOW.ahk" { STARTUPINFOW }
-#Import ".\PTP_CLEANUP_GROUP.ahk" { PTP_CLEANUP_GROUP }
-#Import ".\AVRT_TASK_HANDLE.ahk" { AVRT_TASK_HANDLE }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\SYNCHRONIZATION_ACCESS_RIGHTS.ahk" { SYNCHRONIZATION_ACCESS_RIGHTS }
 #Import ".\SYNCHRONIZATION_BARRIER.ahk" { SYNCHRONIZATION_BARRIER }
-#Import ".\PTP_POOL.ahk" { PTP_POOL }
+#Import ".\THREAD_ACCESS_RIGHTS.ahk" { THREAD_ACCESS_RIGHTS }
 #Import ".\THREAD_CREATION_FLAGS.ahk" { THREAD_CREATION_FLAGS }
-#Import ".\PINIT_ONCE_FN.ahk" { PINIT_ONCE_FN }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\PROCESS_DEP_FLAGS.ahk" { PROCESS_DEP_FLAGS }
-#Import ".\PTP_WORK_CALLBACK.ahk" { PTP_WORK_CALLBACK }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Security\PSID.ahk" { PSID }
-#Import ".\WAITORTIMERCALLBACK.ahk" { WAITORTIMERCALLBACK }
-#Import ".\GET_GUI_RESOURCES_FLAGS.ahk" { GET_GUI_RESOURCES_FLAGS }
+#Import ".\THREAD_INFORMATION_CLASS.ahk" { THREAD_INFORMATION_CLASS }
+#Import ".\THREAD_PRIORITY.ahk" { THREAD_PRIORITY }
+#Import ".\TP_CALLBACK_ENVIRON_V3.ahk" { TP_CALLBACK_ENVIRON_V3 }
+#Import ".\TP_POOL_STACK_INFORMATION.ahk" { TP_POOL_STACK_INFORMATION }
+#Import ".\UMS_SCHEDULER_STARTUP_INFO.ahk" { UMS_SCHEDULER_STARTUP_INFO }
+#Import ".\UMS_SYSTEM_THREAD_INFORMATION.ahk" { UMS_SYSTEM_THREAD_INFORMATION }
+#Import ".\UMS_THREAD_INFO_CLASS.ahk" { UMS_THREAD_INFO_CLASS }
 #Import ".\WORKER_THREAD_FLAGS.ahk" { WORKER_THREAD_FLAGS }
-#Import ".\INIT_ONCE.ahk" { INIT_ONCE }
-#Import ".\PROCESS_DYNAMIC_EH_CONTINUATION_TARGET.ahk" { PROCESS_DYNAMIC_EH_CONTINUATION_TARGET }
-#Import ".\PTP_WIN32_IO_CALLBACK.ahk" { PTP_WIN32_IO_CALLBACK }
-#Import "..\SystemInformation\GROUP_AFFINITY.ahk" { GROUP_AFFINITY }
-#Import ".\MACHINE_ATTRIBUTES.ahk" { MACHINE_ATTRIBUTES }
-#Import ".\PTIMERAPCROUTINE.ahk" { PTIMERAPCROUTINE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\PTP_CALLBACK_INSTANCE.ahk" { PTP_CALLBACK_INSTANCE }
-#Import ".\IRtwqAsyncCallback.ahk" { IRtwqAsyncCallback }
 
 /**
  * @namespace Windows.Win32.System.Threading
@@ -253,7 +240,7 @@ export SetProcessWorkingSetSize(hProcess, dwMinimumWorkingSetSize, dwMaximumWork
 export FlsAlloc(lpCallback) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\FlsAlloc", PFLS_CALLBACK_FUNCTION, lpCallback, UInt32)
+    result := DllCall("KERNEL32.dll\FlsAlloc", "ptr", lpCallback, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -805,7 +792,7 @@ export InitOnceExecuteOnce(InitOnce, InitFn, Parameter, _Context) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\InitOnceExecuteOnce", INIT_ONCE.Ptr, InitOnce, PINIT_ONCE_FN, InitFn, ParameterMarshal, Parameter, _ContextMarshal, _Context, BOOL)
+    result := DllCall("KERNEL32.dll\InitOnceExecuteOnce", INIT_ONCE.Ptr, InitOnce, "ptr", InitFn, ParameterMarshal, Parameter, _ContextMarshal, _Context, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2302,7 +2289,7 @@ export SetWaitableTimerEx(hTimer, lpDueTime, lPeriod, pfnCompletionRoutine, lpAr
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetWaitableTimerEx", HANDLE, hTimer, lpDueTimeMarshal, lpDueTime, Int32, lPeriod, PTIMERAPCROUTINE, pfnCompletionRoutine, lpArgToCompletionRoutineMarshal, lpArgToCompletionRoutine, REASON_CONTEXT.Ptr, WakeContext, UInt32, TolerableDelay, BOOL)
+    result := DllCall("KERNEL32.dll\SetWaitableTimerEx", HANDLE, hTimer, lpDueTimeMarshal, lpDueTime, Int32, lPeriod, "ptr", pfnCompletionRoutine, lpArgToCompletionRoutineMarshal, lpArgToCompletionRoutine, REASON_CONTEXT.Ptr, WakeContext, UInt32, TolerableDelay, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2365,7 +2352,7 @@ export SetWaitableTimer(hTimer, lpDueTime, lPeriod, pfnCompletionRoutine, lpArgT
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetWaitableTimer", HANDLE, hTimer, lpDueTimeMarshal, lpDueTime, Int32, lPeriod, PTIMERAPCROUTINE, pfnCompletionRoutine, lpArgToCompletionRoutineMarshal, lpArgToCompletionRoutine, BOOL, fResume, BOOL)
+    result := DllCall("KERNEL32.dll\SetWaitableTimer", HANDLE, hTimer, lpDueTimeMarshal, lpDueTime, Int32, lPeriod, "ptr", pfnCompletionRoutine, lpArgToCompletionRoutineMarshal, lpArgToCompletionRoutine, BOOL, fResume, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3586,7 +3573,7 @@ export QueryDepthSList(ListHead) {
 export QueueUserAPC(pfnAPC, hThread, dwData) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\QueueUserAPC", PAPCFUNC, pfnAPC, HANDLE, hThread, IntPtr, dwData, UInt32)
+    result := DllCall("KERNEL32.dll\QueueUserAPC", "ptr", pfnAPC, HANDLE, hThread, IntPtr, dwData, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3616,7 +3603,7 @@ export QueueUserAPC(pfnAPC, hThread, dwData) {
  * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-queueuserapc2
  */
 export QueueUserAPC2(ApcRoutine, Thread, Data, Flags) {
-    result := DllCall("KERNEL32.dll\QueueUserAPC2", PAPCFUNC, ApcRoutine, HANDLE, Thread, IntPtr, Data, QUEUE_USER_APC_FLAGS, Flags, BOOL)
+    result := DllCall("KERNEL32.dll\QueueUserAPC2", "ptr", ApcRoutine, HANDLE, Thread, IntPtr, Data, QUEUE_USER_APC_FLAGS, Flags, BOOL)
     return result
 }
 
@@ -3966,7 +3953,7 @@ export CreateThread(lpThreadAttributes, dwStackSize, lpStartAddress, lpParameter
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateThread", SECURITY_ATTRIBUTES.Ptr, lpThreadAttributes, IntPtr, dwStackSize, LPTHREAD_START_ROUTINE, lpStartAddress, lpParameterMarshal, lpParameter, THREAD_CREATION_FLAGS, dwCreationFlags, lpThreadIdMarshal, lpThreadId, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateThread", SECURITY_ATTRIBUTES.Ptr, lpThreadAttributes, IntPtr, dwStackSize, "ptr", lpStartAddress, lpParameterMarshal, lpParameter, THREAD_CREATION_FLAGS, dwCreationFlags, lpThreadIdMarshal, lpThreadId, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4093,7 +4080,7 @@ export CreateRemoteThread(hProcess, lpThreadAttributes, dwStackSize, lpStartAddr
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateRemoteThread", HANDLE, hProcess, SECURITY_ATTRIBUTES.Ptr, lpThreadAttributes, IntPtr, dwStackSize, LPTHREAD_START_ROUTINE, lpStartAddress, lpParameterMarshal, lpParameter, UInt32, dwCreationFlags, lpThreadIdMarshal, lpThreadId, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateRemoteThread", HANDLE, hProcess, SECURITY_ATTRIBUTES.Ptr, lpThreadAttributes, IntPtr, dwStackSize, "ptr", lpStartAddress, lpParameterMarshal, lpParameter, UInt32, dwCreationFlags, lpThreadIdMarshal, lpThreadId, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6641,7 +6628,7 @@ export CreateRemoteThreadEx(hProcess, lpThreadAttributes, dwStackSize, lpStartAd
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateRemoteThreadEx", HANDLE, hProcess, SECURITY_ATTRIBUTES.Ptr, lpThreadAttributes, IntPtr, dwStackSize, LPTHREAD_START_ROUTINE, lpStartAddress, lpParameterMarshal, lpParameter, UInt32, dwCreationFlags, LPPROC_THREAD_ATTRIBUTE_LIST, lpAttributeList, lpThreadIdMarshal, lpThreadId, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateRemoteThreadEx", HANDLE, hProcess, SECURITY_ATTRIBUTES.Ptr, lpThreadAttributes, IntPtr, dwStackSize, "ptr", lpStartAddress, lpParameterMarshal, lpParameter, UInt32, dwCreationFlags, LPPROC_THREAD_ATTRIBUTE_LIST, lpAttributeList, lpThreadIdMarshal, lpThreadId, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7954,7 +7941,7 @@ export QueueUserWorkItem(Function, _Context, Flags) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\QueueUserWorkItem", LPTHREAD_START_ROUTINE, Function, _ContextMarshal, _Context, WORKER_THREAD_FLAGS, Flags, BOOL)
+    result := DllCall("KERNEL32.dll\QueueUserWorkItem", "ptr", Function, _ContextMarshal, _Context, WORKER_THREAD_FLAGS, Flags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8073,7 +8060,7 @@ export CreateTimerQueueTimer(phNewTimer, TimerQueue, Callback, Parameter, DueTim
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateTimerQueueTimer", HANDLE.Ptr, phNewTimer, HANDLE, TimerQueue, WAITORTIMERCALLBACK, Callback, ParameterMarshal, Parameter, UInt32, DueTime, UInt32, Period, WORKER_THREAD_FLAGS, Flags, BOOL)
+    result := DllCall("KERNEL32.dll\CreateTimerQueueTimer", HANDLE.Ptr, phNewTimer, HANDLE, TimerQueue, "ptr", Callback, ParameterMarshal, Parameter, UInt32, DueTime, UInt32, Period, WORKER_THREAD_FLAGS, Flags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8613,7 +8600,7 @@ export TrySubmitThreadpoolCallback(pfns, pv, pcbe) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\TrySubmitThreadpoolCallback", PTP_SIMPLE_CALLBACK, pfns, pvMarshal, pv, TP_CALLBACK_ENVIRON_V3.Ptr, pcbe, BOOL)
+    result := DllCall("KERNEL32.dll\TrySubmitThreadpoolCallback", "ptr", pfns, pvMarshal, pv, TP_CALLBACK_ENVIRON_V3.Ptr, pcbe, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8641,7 +8628,7 @@ export CreateThreadpoolWork(pfnwk, pv, pcbe) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateThreadpoolWork", PTP_WORK_CALLBACK, pfnwk, pvMarshal, pv, TP_CALLBACK_ENVIRON_V3.Ptr, pcbe, PTP_WORK.Owned)
+    result := DllCall("KERNEL32.dll\CreateThreadpoolWork", "ptr", pfnwk, pvMarshal, pv, TP_CALLBACK_ENVIRON_V3.Ptr, pcbe, PTP_WORK.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8717,7 +8704,7 @@ export CreateThreadpoolTimer(pfnti, pv, pcbe) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateThreadpoolTimer", PTP_TIMER_CALLBACK, pfnti, pvMarshal, pv, TP_CALLBACK_ENVIRON_V3.Ptr, pcbe, PTP_TIMER.Owned)
+    result := DllCall("KERNEL32.dll\CreateThreadpoolTimer", "ptr", pfnti, pvMarshal, pv, TP_CALLBACK_ENVIRON_V3.Ptr, pcbe, PTP_TIMER.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8835,7 +8822,7 @@ export CreateThreadpoolWait(pfnwa, pv, pcbe) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateThreadpoolWait", PTP_WAIT_CALLBACK, pfnwa, pvMarshal, pv, TP_CALLBACK_ENVIRON_V3.Ptr, pcbe, PTP_WAIT.Owned)
+    result := DllCall("KERNEL32.dll\CreateThreadpoolWait", "ptr", pfnwa, pvMarshal, pv, TP_CALLBACK_ENVIRON_V3.Ptr, pcbe, PTP_WAIT.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8936,7 +8923,7 @@ export CreateThreadpoolIo(fl, pfnio, pv, pcbe) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateThreadpoolIo", HANDLE, fl, PTP_WIN32_IO_CALLBACK, pfnio, pvMarshal, pv, TP_CALLBACK_ENVIRON_V3.Ptr, pcbe, PTP_IO.Owned)
+    result := DllCall("KERNEL32.dll\CreateThreadpoolIo", HANDLE, fl, "ptr", pfnio, pvMarshal, pv, TP_CALLBACK_ENVIRON_V3.Ptr, pcbe, PTP_IO.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10417,7 +10404,7 @@ export RtwqScheduleWorkItem(result, Timeout) {
  * @since windows8.1
  */
 export RtwqAddPeriodicCallback(Callback, _context) {
-    result := DllCall("RTWorkQ.dll\RtwqAddPeriodicCallback", RTWQPERIODICCALLBACK, Callback, "ptr", _context, "uint*", &key := 0, "HRESULT")
+    result := DllCall("RTWorkQ.dll\RtwqAddPeriodicCallback", "ptr", Callback, "ptr", _context, "uint*", &key := 0, "HRESULT")
     return key
 }
 
@@ -11096,7 +11083,7 @@ export CreateFiberEx(dwStackCommitSize, dwStackReserveSize, dwFlags, lpStartAddr
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateFiberEx", IntPtr, dwStackCommitSize, IntPtr, dwStackReserveSize, UInt32, dwFlags, LPFIBER_START_ROUTINE, lpStartAddress, lpParameterMarshal, lpParameter, IntPtr)
+    result := DllCall("KERNEL32.dll\CreateFiberEx", IntPtr, dwStackCommitSize, IntPtr, dwStackReserveSize, UInt32, dwFlags, "ptr", lpStartAddress, lpParameterMarshal, lpParameter, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11166,7 +11153,7 @@ export CreateFiber(dwStackSize, lpStartAddress, lpParameter) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateFiber", IntPtr, dwStackSize, LPFIBER_START_ROUTINE, lpStartAddress, lpParameterMarshal, lpParameter, IntPtr)
+    result := DllCall("KERNEL32.dll\CreateFiber", IntPtr, dwStackSize, "ptr", lpStartAddress, lpParameterMarshal, lpParameter, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -13159,7 +13146,7 @@ export RegisterWaitForSingleObject(phNewWaitObject, hObject, Callback, _Context,
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\RegisterWaitForSingleObject", HANDLE.Ptr, phNewWaitObject, HANDLE, hObject, WAITORTIMERCALLBACK, Callback, _ContextMarshal, _Context, UInt32, dwMilliseconds, WORKER_THREAD_FLAGS, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\RegisterWaitForSingleObject", HANDLE.Ptr, phNewWaitObject, HANDLE, hObject, "ptr", Callback, _ContextMarshal, _Context, UInt32, dwMilliseconds, WORKER_THREAD_FLAGS, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -13207,7 +13194,7 @@ export UnregisterWait(WaitHandle) {
 export SetTimerQueueTimer(TimerQueue, Callback, Parameter, DueTime, Period, PreferIo) {
     ParameterMarshal := Parameter is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("KERNEL32.dll\SetTimerQueueTimer", HANDLE, TimerQueue, WAITORTIMERCALLBACK, Callback, ParameterMarshal, Parameter, UInt32, DueTime, UInt32, Period, BOOL, PreferIo, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\SetTimerQueueTimer", HANDLE, TimerQueue, "ptr", Callback, ParameterMarshal, Parameter, UInt32, DueTime, UInt32, Period, BOOL, PreferIo, HANDLE.Owned)
     return result
 }
 

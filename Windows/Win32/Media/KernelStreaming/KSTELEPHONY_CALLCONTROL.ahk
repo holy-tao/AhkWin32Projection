@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TELEPHONY_CALLTYPE.ahk" { TELEPHONY_CALLTYPE }
 #Import ".\TELEPHONY_CALLCONTROLOP.ahk" { TELEPHONY_CALLCONTROLOP }
+#Import ".\TELEPHONY_CALLTYPE.ahk" { TELEPHONY_CALLTYPE }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

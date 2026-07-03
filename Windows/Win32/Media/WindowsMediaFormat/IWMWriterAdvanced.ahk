@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\INSSBuffer.ahk" { INSSBuffer }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\WM_WRITER_STATISTICS.ahk" { WM_WRITER_STATISTICS }
-#Import ".\IWMWriterSink.ahk" { IWMWriterSink }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\INSSBuffer.ahk" { INSSBuffer }
+#Import ".\IWMWriterSink.ahk" { IWMWriterSink }
+#Import ".\WM_WRITER_STATISTICS.ahk" { WM_WRITER_STATISTICS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMWriterAdvanced interface provides advanced writing functionality.This interface exists for every instance of the writer object. To obtain a pointer to this interface, call QueryInterface on the writer object.

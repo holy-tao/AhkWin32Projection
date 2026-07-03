@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISpeechDataKey.ahk" { ISpeechDataKey }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ISpeechObjectTokens.ahk" { ISpeechObjectTokens }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\SpeechDataKeyLocation.ahk" { SpeechDataKeyLocation }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\ISpeechDataKey.ahk" { ISpeechDataKey }
+#Import ".\ISpeechObjectTokens.ahk" { ISpeechObjectTokens }
+#Import ".\SpeechDataKeyLocation.ahk" { SpeechDataKeyLocation }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * @namespace Windows.Win32.Media.Speech

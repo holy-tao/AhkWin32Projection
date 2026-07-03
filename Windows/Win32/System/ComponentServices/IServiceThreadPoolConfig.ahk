@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\CSC_Binding.ahk" { CSC_Binding }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\CSC_ThreadPool.ahk" { CSC_ThreadPool }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\CSC_Binding.ahk" { CSC_Binding }
+#Import ".\CSC_ThreadPool.ahk" { CSC_ThreadPool }
 
 /**
  * Configures the thread pool of the activity object that is returned by calling CoCreateActivity.

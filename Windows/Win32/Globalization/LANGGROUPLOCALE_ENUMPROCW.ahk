@@ -62,10 +62,6 @@ export default struct LANGGROUPLOCALE_ENUMPROCW {
             this.value := CallbackCreate(fn, , [UInt32, UInt32, PWSTR, IntPtr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

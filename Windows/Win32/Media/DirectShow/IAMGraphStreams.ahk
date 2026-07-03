@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IPin.ahk" { IPin }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPin.ahk" { IPin }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAMGraphStreams interface controls a filter graph that renders a live source.

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IWICDisplayAdaptationControl.ahk" { IWICDisplayAdaptationControl }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWICDisplayAdaptationControl.ahk" { IWICDisplayAdaptationControl }
 #Import ".\WICBitmapToneMappingMode.ahk" { WICBitmapToneMappingMode }
 
 /**

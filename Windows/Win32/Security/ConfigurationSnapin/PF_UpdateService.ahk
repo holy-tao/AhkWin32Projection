@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SCESVC_CONFIGURATION_INFO.ahk" { SCESVC_CONFIGURATION_INFO }
 #Import ".\SCESVC_CALLBACK_INFO.ahk" { SCESVC_CALLBACK_INFO }
+#Import ".\SCESVC_CONFIGURATION_INFO.ahk" { SCESVC_CONFIGURATION_INFO }
 
 /**
  * @namespace Windows.Win32.Security.ConfigurationSnapin
@@ -46,10 +46,6 @@ export default struct PF_UpdateService {
             this.value := CallbackCreate(fn, , [SCESVC_CALLBACK_INFO.Ptr, SCESVC_CONFIGURATION_INFO.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

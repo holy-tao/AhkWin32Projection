@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
-#Import ".\FLT_RELATED_OBJECTS.ahk" { FLT_RELATED_OBJECTS }
 #Import ".\FLT_IO_PARAMETER_BLOCK.ahk" { FLT_IO_PARAMETER_BLOCK }
+#Import ".\FLT_RELATED_OBJECTS.ahk" { FLT_RELATED_OBJECTS }
+#Import "..\..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters
@@ -50,10 +50,6 @@ export default struct PFLT_GET_OPERATION_STATUS_CALLBACK {
             this.value := CallbackCreate(fn, , [FLT_RELATED_OBJECTS.Ptr, FLT_IO_PARAMETER_BLOCK.Ptr, NTSTATUS, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

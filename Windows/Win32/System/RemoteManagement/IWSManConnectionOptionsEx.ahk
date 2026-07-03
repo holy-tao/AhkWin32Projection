@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IWSManConnectionOptions.ahk" { IWSManConnectionOptions }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWSManConnectionOptions.ahk" { IWSManConnectionOptions }
 
 /**
  * The IWSManConnectionOptionsEx object is passed to the IWSMan::CreateSession method to provide the thumbprint of the client certificate used for authentication.

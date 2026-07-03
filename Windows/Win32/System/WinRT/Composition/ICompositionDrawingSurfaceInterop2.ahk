@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ICompositionDrawingSurfaceInterop.ahk" { ICompositionDrawingSurfaceInterop }
-#Import "..\..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ICompositionDrawingSurfaceInterop.ahk" { ICompositionDrawingSurfaceInterop }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Composition

@@ -3,8 +3,8 @@
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ICEnroll.ahk" { ICEnroll }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICEnroll.ahk" { ICEnroll }
 
 /**
  * The ICEnroll2 interface is one of several interfaces that represent the Certificate Enrollment Control.

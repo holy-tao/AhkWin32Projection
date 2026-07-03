@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\RIO_RQ.ahk" { RIO_RQ }
 #Import ".\RIO_BUF.ahk" { RIO_BUF }
+#Import ".\RIO_RQ.ahk" { RIO_RQ }
 
 /**
  * Receives network data on a connected registered I/O TCP socket or a bound registered I/O UDP socket for use with the Winsock registered I/O extensions.
@@ -93,10 +93,6 @@ export default struct LPFN_RIORECEIVE {
             this.value := CallbackCreate(fn, , [RIO_RQ, RIO_BUF.Ptr, UInt32, UInt32, "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

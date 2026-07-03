@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IOpcUri.ahk" { IOpcUri }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IOpcDigitalSignatureManager.ahk" { IOpcDigitalSignatureManager }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IStream.ahk" { IStream }
-#Import ".\OPC_STREAM_IO_MODE.ahk" { OPC_STREAM_IO_MODE }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\OPC_READ_FLAGS.ahk" { OPC_READ_FLAGS }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
-#Import ".\OPC_WRITE_FLAGS.ahk" { OPC_WRITE_FLAGS }
-#Import ".\IOpcPartUri.ahk" { IOpcPartUri }
+#Import ".\IOpcDigitalSignatureManager.ahk" { IOpcDigitalSignatureManager }
 #Import ".\IOpcPackage.ahk" { IOpcPackage }
+#Import ".\IOpcPartUri.ahk" { IOpcPartUri }
+#Import ".\IOpcUri.ahk" { IOpcUri }
+#Import ".\OPC_READ_FLAGS.ahk" { OPC_READ_FLAGS }
+#Import ".\OPC_STREAM_IO_MODE.ahk" { OPC_STREAM_IO_MODE }
+#Import ".\OPC_WRITE_FLAGS.ahk" { OPC_WRITE_FLAGS }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Creates Packaging API objects and provides support for saving and loading packages.

@@ -49,10 +49,6 @@ export default struct PCOGETACTIVATIONSTATE {
             this.value := CallbackCreate(fn, , [Guid, UInt32, "uint*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

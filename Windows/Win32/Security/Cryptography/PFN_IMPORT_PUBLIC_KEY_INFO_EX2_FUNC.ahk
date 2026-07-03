@@ -94,10 +94,6 @@ export default struct PFN_IMPORT_PUBLIC_KEY_INFO_EX2_FUNC {
             this.value := CallbackCreate(fn, , [CERT_QUERY_ENCODING_TYPE, CERT_PUBLIC_KEY_INFO.Ptr, UInt32, "ptr", BCRYPT_KEY_HANDLE.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ELEMENT_ADJACENCY.ahk" { ELEMENT_ADJACENCY }
-#Import ".\POINTER_GRAVITY.ahk" { POINTER_GRAVITY }
+#Import ".\IHTMLDocument2.ahk" { IHTMLDocument2 }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import ".\IMarkupContainer.ahk" { IMarkupContainer }
 #Import ".\MARKUP_CONTEXT_TYPE.ahk" { MARKUP_CONTEXT_TYPE }
 #Import ".\MOVEUNIT_ACTION.ahk" { MOVEUNIT_ACTION }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMarkupContainer.ahk" { IMarkupContainer }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IHTMLDocument2.ahk" { IHTMLDocument2 }
+#Import ".\POINTER_GRAVITY.ahk" { POINTER_GRAVITY }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

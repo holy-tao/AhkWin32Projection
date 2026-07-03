@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IRTCClient.ahk" { IRTCClient }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\RTC_CLIENT_EVENT_TYPE.ahk" { RTC_CLIENT_EVENT_TYPE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IRTCClient.ahk" { IRTCClient }
+#Import ".\RTC_CLIENT_EVENT_TYPE.ahk" { RTC_CLIENT_EVENT_TYPE }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

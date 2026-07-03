@@ -52,10 +52,6 @@ export default struct UTraceData {
             this.value := CallbackCreate(fn, "cdecl", ["ptr", Int32, Int32, PSTR, "char*", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -48,10 +48,6 @@ export default struct IO_WORKITEM_ROUTINE_EX {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", PIO_WORKITEM, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

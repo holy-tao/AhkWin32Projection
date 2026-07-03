@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IPart.ahk" { IPart }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IPartsList interface represents a list of parts, each of which is an object with an IPart interface that represents a connector or subunit.

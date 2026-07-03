@@ -115,10 +115,6 @@ export default struct RPC_MGMT_AUTHORIZATION_FN {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, "int*", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

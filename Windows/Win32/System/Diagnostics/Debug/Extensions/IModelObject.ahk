@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IKeyEnumerator.ahk" { IKeyEnumerator }
-#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\SymbolKind.ahk" { SymbolKind }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDebugHostContext.ahk" { IDebugHostContext }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IKeyStore.ahk" { IKeyStore }
+#Import ".\IDebugHostContext.ahk" { IDebugHostContext }
 #Import ".\IDebugHostType.ahk" { IDebugHostType }
+#Import ".\IKeyEnumerator.ahk" { IKeyEnumerator }
+#Import ".\IKeyStore.ahk" { IKeyStore }
+#Import ".\IRawEnumerator.ahk" { IRawEnumerator }
 #Import ".\Location.ahk" { Location }
+#Import ".\ModelObjectKind.ahk" { ModelObjectKind }
+#Import ".\SymbolKind.ahk" { SymbolKind }
 #Import "..\..\..\Variant\VARENUM.ahk" { VARENUM }
 #Import "..\..\..\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\ModelObjectKind.ahk" { ModelObjectKind }
-#Import ".\IRawEnumerator.ahk" { IRawEnumerator }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CERT_KEY_SPEC.ahk" { CERT_KEY_SPEC }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CERT_KEY_SPEC.ahk" { CERT_KEY_SPEC }
 
 /**
  * Used to contain information about a CNG key.

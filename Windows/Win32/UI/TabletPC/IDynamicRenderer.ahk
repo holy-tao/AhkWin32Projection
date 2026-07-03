@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IInkDrawingAttributes.ahk" { IInkDrawingAttributes }
+#Import "..\..\Foundation\HANDLE_PTR.ahk" { HANDLE_PTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\HANDLE_PTR.ahk" { HANDLE_PTR }
+#Import ".\IInkDrawingAttributes.ahk" { IInkDrawingAttributes }
 
 /**
  * Displays the tablet pen data in real-time as that data is being handled by the RealTimeStylus Class object.

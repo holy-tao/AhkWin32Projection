@@ -56,10 +56,6 @@ export default struct RASPBDLGFUNCW {
             this.value := CallbackCreate(fn, , [IntPtr, UInt32, PWSTR, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

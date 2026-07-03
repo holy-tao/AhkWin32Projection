@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\AMVPSIZE.ahk" { AMVPSIZE }
-#Import "..\..\Graphics\DirectDraw\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\AMVPDATAINFO.ahk" { AMVPDATAINFO }
-#Import "..\..\Graphics\DirectDraw\DDVIDEOPORTCONNECT.ahk" { DDVIDEOPORTCONNECT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\DirectDraw\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
+#Import "..\..\Graphics\DirectDraw\DDVIDEOPORTCONNECT.ahk" { DDVIDEOPORTCONNECT }
 #Import "..\..\Graphics\DirectDraw\IDirectDrawSurface.ahk" { IDirectDrawSurface }
+#Import ".\AMVPDATAINFO.ahk" { AMVPDATAINFO }
+#Import ".\AMVPSIZE.ahk" { AMVPSIZE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * IVPBaseConfig is implemented on a filter that wraps a hardware device such as a decoder or capture device, if the device has a video port to the graphics adapter.

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\HCERTSTORE.ahk" { HCERTSTORE }
-#Import "..\..\..\UI\Controls\PROPSHEETPAGEW.ahk" { PROPSHEETPAGEW }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\WinTrust\CRYPT_PROVIDER_DATA.ahk" { CRYPT_PROVIDER_DATA }
-#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import "..\HCERTSTORE.ahk" { HCERTSTORE }
 #Import ".\CRYPTUI_VIEWCERTIFICATE_FLAGS.ahk" { CRYPTUI_VIEWCERTIFICATE_FLAGS }
+#Import "..\..\WinTrust\CRYPT_PROVIDER_DATA.ahk" { CRYPT_PROVIDER_DATA }
+#Import "..\..\..\UI\Controls\PROPSHEETPAGEW.ahk" { PROPSHEETPAGEW }
 
 /**
  * Contains information about a certificate to view. This structure is used in the CryptUIDlgViewCertificate function. (Unicode)

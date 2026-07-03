@@ -44,10 +44,6 @@ export default struct LPD3DNTHAL_VALIDATETEXTURESTAGESTATECB {
             this.value := CallbackCreate(fn, , [D3DNTHAL_VALIDATETEXTURESTAGESTATEDATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

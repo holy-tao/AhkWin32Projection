@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITfEditSession.ahk" { ITfEditSession }
-#Import ".\TS_STATUS.ahk" { TS_STATUS }
-#Import ".\ITfDocumentMgr.ahk" { ITfDocumentMgr }
-#Import ".\ITfContextView.ahk" { ITfContextView }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITfReadOnlyProperty.ahk" { ITfReadOnlyProperty }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IEnumTfProperties.ahk" { IEnumTfProperties }
-#Import ".\TF_SELECTION.ahk" { TF_SELECTION }
-#Import ".\ITfRangeBackup.ahk" { ITfRangeBackup }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ITfRange.ahk" { ITfRange }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IEnumTfContextViews.ahk" { IEnumTfContextViews }
+#Import ".\IEnumTfProperties.ahk" { IEnumTfProperties }
+#Import ".\ITfContextView.ahk" { ITfContextView }
+#Import ".\ITfDocumentMgr.ahk" { ITfDocumentMgr }
+#Import ".\ITfEditSession.ahk" { ITfEditSession }
 #Import ".\ITfProperty.ahk" { ITfProperty }
+#Import ".\ITfRange.ahk" { ITfRange }
+#Import ".\ITfRangeBackup.ahk" { ITfRangeBackup }
+#Import ".\ITfReadOnlyProperty.ahk" { ITfReadOnlyProperty }
 #Import ".\TF_CONTEXT_EDIT_CONTEXT_FLAGS.ahk" { TF_CONTEXT_EDIT_CONTEXT_FLAGS }
+#Import ".\TF_SELECTION.ahk" { TF_SELECTION }
+#Import ".\TS_STATUS.ahk" { TS_STATUS }
 
 /**
  * The ITfContext interface is implemented by the TSF manager and used by applications and text services to access an edit context.

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IMFActivate.ahk" { IMFActivate }
 #Import ".\IMFTranscodeProfile.ahk" { IMFTranscodeProfile }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\MF_TRANSCODE_SINK_INFO.ahk" { MF_TRANSCODE_SINK_INFO }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Implemented by the transcode sink activation object.

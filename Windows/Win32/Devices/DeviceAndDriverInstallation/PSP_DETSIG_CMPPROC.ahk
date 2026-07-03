@@ -50,10 +50,6 @@ export default struct PSP_DETSIG_CMPPROC {
             this.value := CallbackCreate(fn, , [HDEVINFO, SP_DEVINFO_DATA.Ptr, SP_DEVINFO_DATA.Ptr, "ptr", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

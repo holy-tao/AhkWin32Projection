@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITransaction.ahk" { ITransaction }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDtcLuRmEnlistmentSink.ahk" { IDtcLuRmEnlistmentSink }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDtcLuRmEnlistment.ahk" { IDtcLuRmEnlistment }
+#Import ".\IDtcLuRmEnlistmentSink.ahk" { IDtcLuRmEnlistmentSink }
+#Import ".\ITransaction.ahk" { ITransaction }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator

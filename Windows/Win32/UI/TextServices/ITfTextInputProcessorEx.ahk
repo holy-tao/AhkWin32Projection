@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITfThreadMgr.ahk" { ITfThreadMgr }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITfTextInputProcessor.ahk" { ITfTextInputProcessor }
+#Import ".\ITfThreadMgr.ahk" { ITfThreadMgr }
 
 /**
  * The ITfTextInputProcessorEx interface is implemented by a text service and used by the TSF manager to activate and deactivate the text service.

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
-#Import ".\ITfContext.ahk" { ITfContext }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITfCandidateList.ahk" { ITfCandidateList }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ITfRange.ahk" { ITfRange }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import ".\ITfCandidateList.ahk" { ITfCandidateList }
+#Import ".\ITfContext.ahk" { ITfContext }
 #Import ".\ITfFunction.ahk" { ITfFunction }
+#Import ".\ITfRange.ahk" { ITfRange }
 
 /**
  * The ITfFnLMProcessor interface is implemented by the language model text service and is used by an application or text service to enable alternate language model processing.

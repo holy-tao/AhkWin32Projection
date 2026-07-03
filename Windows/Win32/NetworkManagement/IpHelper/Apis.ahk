@@ -1,89 +1,81 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\MIB_IFROW.ahk" { MIB_IFROW }
-#Import ".\PNETWORK_CONNECTIVITY_HINT_CHANGE_CALLBACK.ahk" { PNETWORK_CONNECTIVITY_HINT_CHANGE_CALLBACK }
-#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
-#Import "..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
-#Import "..\..\Networking\WinSock\SOCKADDR.ahk" { SOCKADDR }
-#Import ".\MIB_IF_TABLE2.ahk" { MIB_IF_TABLE2 }
-#Import ".\TCP_TABLE_CLASS.ahk" { TCP_TABLE_CLASS }
-#Import ".\GET_ADAPTERS_ADDRESSES_FLAGS.ahk" { GET_ADAPTERS_ADDRESSES_FLAGS }
-#Import ".\MIB_IPNETROW_LH.ahk" { MIB_IPNETROW_LH }
-#Import "..\..\Networking\WinSock\SOCKADDR_IN6.ahk" { SOCKADDR_IN6 }
-#Import ".\MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES.ahk" { MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES }
-#Import ".\DNS_INTERFACE_SETTINGS.ahk" { DNS_INTERFACE_SETTINGS }
-#Import ".\PSTABLE_UNICAST_IPADDRESS_TABLE_CALLBACK.ahk" { PSTABLE_UNICAST_IPADDRESS_TABLE_CALLBACK }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\PF_FILTER_DESCRIPTOR.ahk" { PF_FILTER_DESCRIPTOR }
-#Import ".\MIB_TCP6ROW_OWNER_MODULE.ahk" { MIB_TCP6ROW_OWNER_MODULE }
-#Import ".\MIB_ICMP_EX_XPSP1.ahk" { MIB_ICMP_EX_XPSP1 }
-#Import "..\..\Networking\WinSock\SOCKADDR_INET.ahk" { SOCKADDR_INET }
-#Import ".\MIB_INVERTEDIFSTACK_TABLE.ahk" { MIB_INVERTEDIFSTACK_TABLE }
-#Import ".\MIB_TCPROW_OWNER_MODULE.ahk" { MIB_TCPROW_OWNER_MODULE }
-#Import ".\INTERFACE_TIMESTAMP_CAPABILITIES.ahk" { INTERFACE_TIMESTAMP_CAPABILITIES }
-#Import ".\MIB_IPFORWARDROW.ahk" { MIB_IPFORWARDROW }
-#Import ".\IP_ADAPTER_ORDER_MAP.ahk" { IP_ADAPTER_ORDER_MAP }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IP_OPTION_INFORMATION.ahk" { IP_OPTION_INFORMATION }
-#Import ".\MIB_ICMP.ahk" { MIB_ICMP }
-#Import ".\MIB_IF_TABLE_LEVEL.ahk" { MIB_IF_TABLE_LEVEL }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
+#Import ".\DNS_INTERFACE_SETTINGS.ahk" { DNS_INTERFACE_SETTINGS }
+#Import ".\DNS_SETTINGS.ahk" { DNS_SETTINGS }
+#Import ".\GET_ADAPTERS_ADDRESSES_FLAGS.ahk" { GET_ADAPTERS_ADDRESSES_FLAGS }
+#Import ".\GLOBAL_FILTER.ahk" { GLOBAL_FILTER }
 #Import ".\HIFTIMESTAMPCHANGE.ahk" { HIFTIMESTAMPCHANGE }
+#Import ".\INTERFACE_HARDWARE_CROSSTIMESTAMP.ahk" { INTERFACE_HARDWARE_CROSSTIMESTAMP }
+#Import ".\INTERFACE_TIMESTAMP_CAPABILITIES.ahk" { INTERFACE_TIMESTAMP_CAPABILITIES }
+#Import ".\IP_ADAPTER_INDEX_MAP.ahk" { IP_ADAPTER_INDEX_MAP }
+#Import ".\IP_ADAPTER_ORDER_MAP.ahk" { IP_ADAPTER_ORDER_MAP }
+#Import ".\IP_INTERFACE_NAME_INFO_W2KSP1.ahk" { IP_INTERFACE_NAME_INFO_W2KSP1 }
+#Import ".\IP_OPTION_INFORMATION.ahk" { IP_OPTION_INFORMATION }
+#Import ".\MIB_ANYCASTIPADDRESS_ROW.ahk" { MIB_ANYCASTIPADDRESS_ROW }
+#Import ".\MIB_ANYCASTIPADDRESS_TABLE.ahk" { MIB_ANYCASTIPADDRESS_TABLE }
+#Import ".\MIB_FL_VIRTUAL_INTERFACE_ROW.ahk" { MIB_FL_VIRTUAL_INTERFACE_ROW }
+#Import ".\MIB_FL_VIRTUAL_INTERFACE_TABLE.ahk" { MIB_FL_VIRTUAL_INTERFACE_TABLE }
+#Import ".\MIB_ICMP.ahk" { MIB_ICMP }
+#Import ".\MIB_ICMP_EX_XPSP1.ahk" { MIB_ICMP_EX_XPSP1 }
+#Import ".\MIB_IFROW.ahk" { MIB_IFROW }
+#Import ".\MIB_IFSTACK_TABLE.ahk" { MIB_IFSTACK_TABLE }
+#Import ".\MIB_IF_ENTRY_LEVEL.ahk" { MIB_IF_ENTRY_LEVEL }
+#Import ".\MIB_IF_ROW2.ahk" { MIB_IF_ROW2 }
+#Import ".\MIB_IF_TABLE2.ahk" { MIB_IF_TABLE2 }
+#Import ".\MIB_IF_TABLE_LEVEL.ahk" { MIB_IF_TABLE_LEVEL }
+#Import ".\MIB_INVERTEDIFSTACK_TABLE.ahk" { MIB_INVERTEDIFSTACK_TABLE }
+#Import ".\MIB_IPFORWARDROW.ahk" { MIB_IPFORWARDROW }
+#Import ".\MIB_IPFORWARD_ROW2.ahk" { MIB_IPFORWARD_ROW2 }
+#Import ".\MIB_IPFORWARD_TABLE2.ahk" { MIB_IPFORWARD_TABLE2 }
+#Import ".\MIB_IPINTERFACE_ROW.ahk" { MIB_IPINTERFACE_ROW }
+#Import ".\MIB_IPINTERFACE_TABLE.ahk" { MIB_IPINTERFACE_TABLE }
+#Import ".\MIB_IPNETROW_LH.ahk" { MIB_IPNETROW_LH }
+#Import ".\MIB_IPNET_ROW2.ahk" { MIB_IPNET_ROW2 }
+#Import ".\MIB_IPNET_TABLE2.ahk" { MIB_IPNET_TABLE2 }
+#Import ".\MIB_IPPATH_ROW.ahk" { MIB_IPPATH_ROW }
+#Import ".\MIB_IPPATH_TABLE.ahk" { MIB_IPPATH_TABLE }
+#Import ".\MIB_IPSTATS_LH.ahk" { MIB_IPSTATS_LH }
+#Import ".\MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES.ahk" { MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES }
+#Import ".\MIB_MULTICASTIPADDRESS_ROW.ahk" { MIB_MULTICASTIPADDRESS_ROW }
+#Import ".\MIB_MULTICASTIPADDRESS_TABLE.ahk" { MIB_MULTICASTIPADDRESS_TABLE }
+#Import ".\MIB_TCP6ROW.ahk" { MIB_TCP6ROW }
+#Import ".\MIB_TCP6ROW_OWNER_MODULE.ahk" { MIB_TCP6ROW_OWNER_MODULE }
+#Import ".\MIB_TCPROW_LH.ahk" { MIB_TCPROW_LH }
+#Import ".\MIB_TCPROW_OWNER_MODULE.ahk" { MIB_TCPROW_OWNER_MODULE }
+#Import ".\MIB_TCPSTATS2.ahk" { MIB_TCPSTATS2 }
+#Import ".\MIB_TCPSTATS_LH.ahk" { MIB_TCPSTATS_LH }
+#Import ".\MIB_UDP6ROW_OWNER_MODULE.ahk" { MIB_UDP6ROW_OWNER_MODULE }
+#Import ".\MIB_UDPROW_OWNER_MODULE.ahk" { MIB_UDPROW_OWNER_MODULE }
 #Import ".\MIB_UDPSTATS.ahk" { MIB_UDPSTATS }
 #Import ".\MIB_UDPSTATS2.ahk" { MIB_UDPSTATS2 }
-#Import "..\Ndis\NET_IF_COMPARTMENT_ID.ahk" { NET_IF_COMPARTMENT_ID }
-#Import ".\MIB_IPPATH_TABLE.ahk" { MIB_IPPATH_TABLE }
-#Import ".\UDP_TABLE_CLASS.ahk" { UDP_TABLE_CLASS }
-#Import ".\MIB_MULTICASTIPADDRESS_ROW.ahk" { MIB_MULTICASTIPADDRESS_ROW }
-#Import ".\PIPINTERFACE_CHANGE_CALLBACK.ahk" { PIPINTERFACE_CHANGE_CALLBACK }
-#Import ".\IP_ADAPTER_INDEX_MAP.ahk" { IP_ADAPTER_INDEX_MAP }
+#Import ".\MIB_UNICASTIPADDRESS_ROW.ahk" { MIB_UNICASTIPADDRESS_ROW }
+#Import ".\MIB_UNICASTIPADDRESS_TABLE.ahk" { MIB_UNICASTIPADDRESS_TABLE }
+#Import ".\NET_ADDRESS_INFO.ahk" { NET_ADDRESS_INFO }
 #Import ".\PFADDRESSTYPE.ahk" { PFADDRESSTYPE }
 #Import ".\PFFORWARD_ACTION.ahk" { PFFORWARD_ACTION }
-#Import ".\MIB_IPFORWARD_ROW2.ahk" { MIB_IPFORWARD_ROW2 }
-#Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
-#Import ".\MIB_IPPATH_ROW.ahk" { MIB_IPPATH_ROW }
-#Import ".\TCPIP_OWNER_MODULE_INFO_CLASS.ahk" { TCPIP_OWNER_MODULE_INFO_CLASS }
-#Import ".\MIB_UDP6ROW_OWNER_MODULE.ahk" { MIB_UDP6ROW_OWNER_MODULE }
-#Import ".\TCP_ESTATS_TYPE.ahk" { TCP_ESTATS_TYPE }
-#Import ".\MIB_IPFORWARD_TABLE2.ahk" { MIB_IPFORWARD_TABLE2 }
-#Import ".\MIB_TCPSTATS_LH.ahk" { MIB_TCPSTATS_LH }
-#Import ".\PINTERFACE_TIMESTAMP_CONFIG_CHANGE_CALLBACK.ahk" { PINTERFACE_TIMESTAMP_CONFIG_CHANGE_CALLBACK }
-#Import ".\MIB_IPINTERFACE_TABLE.ahk" { MIB_IPINTERFACE_TABLE }
-#Import ".\MIB_IPNET_ROW2.ahk" { MIB_IPNET_ROW2 }
-#Import ".\MIB_FL_VIRTUAL_INTERFACE_ROW.ahk" { MIB_FL_VIRTUAL_INTERFACE_ROW }
-#Import ".\MIB_IF_ENTRY_LEVEL.ahk" { MIB_IF_ENTRY_LEVEL }
-#Import ".\PUNICAST_IPADDRESS_CHANGE_CALLBACK.ahk" { PUNICAST_IPADDRESS_CHANGE_CALLBACK }
-#Import ".\MIB_MULTICASTIPADDRESS_TABLE.ahk" { MIB_MULTICASTIPADDRESS_TABLE }
-#Import ".\MIB_TCPSTATS2.ahk" { MIB_TCPSTATS2 }
-#Import ".\MIB_IPINTERFACE_ROW.ahk" { MIB_IPINTERFACE_ROW }
-#Import ".\GLOBAL_FILTER.ahk" { GLOBAL_FILTER }
-#Import ".\IP_INTERFACE_NAME_INFO_W2KSP1.ahk" { IP_INTERFACE_NAME_INFO_W2KSP1 }
-#Import ".\MIB_UNICASTIPADDRESS_ROW.ahk" { MIB_UNICASTIPADDRESS_ROW }
-#Import "..\..\Networking\WinSock\NL_NETWORK_CONNECTIVITY_HINT.ahk" { NL_NETWORK_CONNECTIVITY_HINT }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\MIB_TCP6ROW.ahk" { MIB_TCP6ROW }
-#Import ".\PF_LATEBIND_INFO.ahk" { PF_LATEBIND_INFO }
-#Import ".\INTERFACE_HARDWARE_CROSSTIMESTAMP.ahk" { INTERFACE_HARDWARE_CROSSTIMESTAMP }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\MIB_FL_VIRTUAL_INTERFACE_TABLE.ahk" { MIB_FL_VIRTUAL_INTERFACE_TABLE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\NET_ADDRESS_INFO.ahk" { NET_ADDRESS_INFO }
-#Import "..\Ndis\NET_LUID_LH.ahk" { NET_LUID_LH }
-#Import ".\MIB_IF_ROW2.ahk" { MIB_IF_ROW2 }
-#Import ".\MIB_UNICASTIPADDRESS_TABLE.ahk" { MIB_UNICASTIPADDRESS_TABLE }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\MIB_UDPROW_OWNER_MODULE.ahk" { MIB_UDPROW_OWNER_MODULE }
-#Import ".\PTEREDO_PORT_CHANGE_CALLBACK.ahk" { PTEREDO_PORT_CHANGE_CALLBACK }
-#Import ".\MIB_IPSTATS_LH.ahk" { MIB_IPSTATS_LH }
-#Import ".\MIB_ANYCASTIPADDRESS_TABLE.ahk" { MIB_ANYCASTIPADDRESS_TABLE }
-#Import ".\PIPFORWARD_CHANGE_CALLBACK.ahk" { PIPFORWARD_CHANGE_CALLBACK }
-#Import "..\..\System\IO\PIO_APC_ROUTINE.ahk" { PIO_APC_ROUTINE }
-#Import ".\MIB_ANYCASTIPADDRESS_ROW.ahk" { MIB_ANYCASTIPADDRESS_ROW }
-#Import ".\MIB_IFSTACK_TABLE.ahk" { MIB_IFSTACK_TABLE }
-#Import ".\MIB_IPNET_TABLE2.ahk" { MIB_IPNET_TABLE2 }
-#Import ".\MIB_TCPROW_LH.ahk" { MIB_TCPROW_LH }
+#Import ".\PF_FILTER_DESCRIPTOR.ahk" { PF_FILTER_DESCRIPTOR }
 #Import ".\PF_INTERFACE_STATS.ahk" { PF_INTERFACE_STATS }
-#Import ".\DNS_SETTINGS.ahk" { DNS_SETTINGS }
+#Import ".\PF_LATEBIND_INFO.ahk" { PF_LATEBIND_INFO }
+#Import ".\TCPIP_OWNER_MODULE_INFO_CLASS.ahk" { TCPIP_OWNER_MODULE_INFO_CLASS }
+#Import ".\TCP_ESTATS_TYPE.ahk" { TCP_ESTATS_TYPE }
+#Import ".\TCP_TABLE_CLASS.ahk" { TCP_TABLE_CLASS }
+#Import ".\UDP_TABLE_CLASS.ahk" { UDP_TABLE_CLASS }
+#Import "..\Ndis\NET_IF_COMPARTMENT_ID.ahk" { NET_IF_COMPARTMENT_ID }
+#Import "..\Ndis\NET_LUID_LH.ahk" { NET_LUID_LH }
+#Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import "..\..\Networking\WinSock\NL_NETWORK_CONNECTIVITY_HINT.ahk" { NL_NETWORK_CONNECTIVITY_HINT }
+#Import "..\..\Networking\WinSock\SOCKADDR.ahk" { SOCKADDR }
+#Import "..\..\Networking\WinSock\SOCKADDR_IN6.ahk" { SOCKADDR_IN6 }
 #Import "..\..\Networking\WinSock\SOCKADDR_IN6_PAIR.ahk" { SOCKADDR_IN6_PAIR }
+#Import "..\..\Networking\WinSock\SOCKADDR_INET.ahk" { SOCKADDR_INET }
+#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
@@ -377,7 +369,7 @@ export IcmpSendEcho2(IcmpHandle, Event, ApcRoutine, ApcContext, DestinationAddre
 
     A_LastError := 0
 
-    result := DllCall("IPHLPAPI.dll\IcmpSendEcho2", HANDLE, IcmpHandle, HANDLE, Event, PIO_APC_ROUTINE, ApcRoutine, ApcContextMarshal, ApcContext, UInt32, DestinationAddress, IntPtr, RequestData, UInt16, RequestSize, IP_OPTION_INFORMATION.Ptr, RequestOptions, IntPtr, ReplyBuffer, UInt32, ReplySize, UInt32, Timeout, UInt32)
+    result := DllCall("IPHLPAPI.dll\IcmpSendEcho2", HANDLE, IcmpHandle, HANDLE, Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, UInt32, DestinationAddress, IntPtr, RequestData, UInt16, RequestSize, IP_OPTION_INFORMATION.Ptr, RequestOptions, IntPtr, ReplyBuffer, UInt32, ReplySize, UInt32, Timeout, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -589,7 +581,7 @@ export IcmpSendEcho2Ex(IcmpHandle, Event, ApcRoutine, ApcContext, SourceAddress,
 
     A_LastError := 0
 
-    result := DllCall("IPHLPAPI.dll\IcmpSendEcho2Ex", HANDLE, IcmpHandle, HANDLE, Event, PIO_APC_ROUTINE, ApcRoutine, ApcContextMarshal, ApcContext, UInt32, SourceAddress, UInt32, DestinationAddress, IntPtr, RequestData, UInt16, RequestSize, IP_OPTION_INFORMATION.Ptr, RequestOptions, IntPtr, ReplyBuffer, UInt32, ReplySize, UInt32, Timeout, UInt32)
+    result := DllCall("IPHLPAPI.dll\IcmpSendEcho2Ex", HANDLE, IcmpHandle, HANDLE, Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, UInt32, SourceAddress, UInt32, DestinationAddress, IntPtr, RequestData, UInt16, RequestSize, IP_OPTION_INFORMATION.Ptr, RequestOptions, IntPtr, ReplyBuffer, UInt32, ReplySize, UInt32, Timeout, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -858,7 +850,7 @@ export Icmp6SendEcho2(IcmpHandle, Event, ApcRoutine, ApcContext, SourceAddress, 
 
     A_LastError := 0
 
-    result := DllCall("IPHLPAPI.dll\Icmp6SendEcho2", HANDLE, IcmpHandle, HANDLE, Event, PIO_APC_ROUTINE, ApcRoutine, ApcContextMarshal, ApcContext, SOCKADDR_IN6.Ptr, SourceAddress, SOCKADDR_IN6.Ptr, DestinationAddress, IntPtr, RequestData, UInt16, RequestSize, IP_OPTION_INFORMATION.Ptr, RequestOptions, IntPtr, ReplyBuffer, UInt32, ReplySize, UInt32, Timeout, UInt32)
+    result := DllCall("IPHLPAPI.dll\Icmp6SendEcho2", HANDLE, IcmpHandle, HANDLE, Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, SOCKADDR_IN6.Ptr, SourceAddress, SOCKADDR_IN6.Ptr, DestinationAddress, IntPtr, RequestData, UInt16, RequestSize, IP_OPTION_INFORMATION.Ptr, RequestOptions, IntPtr, ReplyBuffer, UInt32, ReplySize, UInt32, Timeout, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6798,7 +6790,7 @@ export CaptureInterfaceHardwareCrossTimestamp(InterfaceLuid, CrossTimestamp) {
 export RegisterInterfaceTimestampConfigChange(Callback, CallerContext, NotificationHandle) {
     CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\RegisterInterfaceTimestampConfigChange", PINTERFACE_TIMESTAMP_CONFIG_CHANGE_CALLBACK, Callback, CallerContextMarshal, CallerContext, HIFTIMESTAMPCHANGE.Ptr, NotificationHandle, UInt32)
+    result := DllCall("IPHLPAPI.dll\RegisterInterfaceTimestampConfigChange", "ptr", Callback, CallerContextMarshal, CallerContext, HIFTIMESTAMPCHANGE.Ptr, NotificationHandle, UInt32)
     return result
 }
 
@@ -6849,7 +6841,7 @@ export GetInterfaceHardwareTimestampCapabilities(InterfaceLuid, TimestampCapabil
 export NotifyIfTimestampConfigChange(CallerContext, Callback, NotificationHandle) {
     CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IPHLPAPI.DLL\NotifyIfTimestampConfigChange", CallerContextMarshal, CallerContext, PINTERFACE_TIMESTAMP_CONFIG_CHANGE_CALLBACK, Callback, HIFTIMESTAMPCHANGE.Ptr, NotificationHandle, UInt32)
+    result := DllCall("IPHLPAPI.DLL\NotifyIfTimestampConfigChange", CallerContextMarshal, CallerContext, "ptr", Callback, HIFTIMESTAMPCHANGE.Ptr, NotificationHandle, UInt32)
     return result
 }
 
@@ -9316,7 +9308,7 @@ export InitializeIpInterfaceEntry(Row) {
 export NotifyIpInterfaceChange(Family, Callback, CallerContext, InitialNotification, NotificationHandle) {
     CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\NotifyIpInterfaceChange", ADDRESS_FAMILY, Family, PIPINTERFACE_CHANGE_CALLBACK, Callback, CallerContextMarshal, CallerContext, BOOLEAN, InitialNotification, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\NotifyIpInterfaceChange", ADDRESS_FAMILY, Family, "ptr", Callback, CallerContextMarshal, CallerContext, BOOLEAN, InitialNotification, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
     return result
 }
 
@@ -10190,7 +10182,7 @@ export InitializeUnicastIpAddressEntry(Row) {
 export NotifyUnicastIpAddressChange(Family, Callback, CallerContext, InitialNotification, NotificationHandle) {
     CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\NotifyUnicastIpAddressChange", ADDRESS_FAMILY, Family, PUNICAST_IPADDRESS_CHANGE_CALLBACK, Callback, CallerContextMarshal, CallerContext, BOOLEAN, InitialNotification, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\NotifyUnicastIpAddressChange", ADDRESS_FAMILY, Family, "ptr", Callback, CallerContextMarshal, CallerContext, BOOLEAN, InitialNotification, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
     return result
 }
 
@@ -10378,7 +10370,7 @@ export NotifyStableUnicastIpAddressTable(Family, Table, CallerCallback, CallerCo
     TableMarshal := Table is VarRef ? "ptr*" : "ptr"
     CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\NotifyStableUnicastIpAddressTable", ADDRESS_FAMILY, Family, TableMarshal, Table, PSTABLE_UNICAST_IPADDRESS_TABLE_CALLBACK, CallerCallback, CallerContextMarshal, CallerContext, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\NotifyStableUnicastIpAddressTable", ADDRESS_FAMILY, Family, TableMarshal, Table, "ptr", CallerCallback, CallerContextMarshal, CallerContext, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
     return result
 }
 
@@ -11833,7 +11825,7 @@ export InitializeIpForwardEntry(Row) {
 export NotifyRouteChange2(AddressFamily, Callback, CallerContext, InitialNotification, NotificationHandle) {
     CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\NotifyRouteChange2", ADDRESS_FAMILY, AddressFamily, PIPFORWARD_CHANGE_CALLBACK, Callback, CallerContextMarshal, CallerContext, BOOLEAN, InitialNotification, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\NotifyRouteChange2", ADDRESS_FAMILY, AddressFamily, "ptr", Callback, CallerContextMarshal, CallerContext, BOOLEAN, InitialNotification, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
     return result
 }
 
@@ -13145,7 +13137,7 @@ export SetIpNetEntry2(Row) {
 export NotifyTeredoPortChange(Callback, CallerContext, InitialNotification, NotificationHandle) {
     CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\NotifyTeredoPortChange", PTEREDO_PORT_CHANGE_CALLBACK, Callback, CallerContextMarshal, CallerContext, BOOLEAN, InitialNotification, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\NotifyTeredoPortChange", "ptr", Callback, CallerContextMarshal, CallerContext, BOOLEAN, InitialNotification, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
     return result
 }
 
@@ -14289,7 +14281,7 @@ export GetNetworkConnectivityHintForInterface(InterfaceIndex, ConnectivityHint) 
 export NotifyNetworkConnectivityHintChange(Callback, CallerContext, InitialNotification, NotificationHandle) {
     CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\NotifyNetworkConnectivityHintChange", PNETWORK_CONNECTIVITY_HINT_CHANGE_CALLBACK, Callback, CallerContextMarshal, CallerContext, BOOLEAN, InitialNotification, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\NotifyNetworkConnectivityHintChange", "ptr", Callback, CallerContextMarshal, CallerContext, BOOLEAN, InitialNotification, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
     return result
 }
 

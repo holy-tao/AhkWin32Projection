@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DML_OPERATOR_DESC.ahk" { DML_OPERATOR_DESC }
 #Import ".\DML_TENSOR_DESC.ahk" { DML_TENSOR_DESC }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The DML_BATCH_NORMALIZATION_OPERATOR_DESC structure (directml.h) performs a batch normalization on the input.

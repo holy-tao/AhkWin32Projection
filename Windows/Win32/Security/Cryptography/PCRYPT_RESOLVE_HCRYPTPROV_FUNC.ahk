@@ -54,10 +54,6 @@ export default struct PCRYPT_RESOLVE_HCRYPTPROV_FUNC {
             this.value := CallbackCreate(fn, , [CRYPT_PRIVATE_KEY_INFO.Ptr, "ptr*", "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

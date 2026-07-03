@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SBinaryArray.ahk" { SBinaryArray }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\SRestriction.ahk" { SRestriction }
-#Import ".\IMAPIProp.ahk" { IMAPIProp }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMAPIProp.ahk" { IMAPIProp }
 #Import ".\IMAPITable.ahk" { IMAPITable }
+#Import ".\SBinaryArray.ahk" { SBinaryArray }
+#Import ".\SRestriction.ahk" { SRestriction }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * IMAPIContainerIMAPIProp manages high-level operations on container objects such as address books, distribution lists, and folders.

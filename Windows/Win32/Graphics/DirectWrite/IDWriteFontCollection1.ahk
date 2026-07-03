@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDWriteFontSet.ahk" { IDWriteFontSet }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
 #Import ".\IDWriteFontFamily1.ahk" { IDWriteFontFamily1 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteFontSet.ahk" { IDWriteFontSet }
 
 /**
  * An object that encapsulates a set of fonts, such as the set of fonts installed on the system, or the set of fonts in a particular directory. (IDWriteFontCollection1)

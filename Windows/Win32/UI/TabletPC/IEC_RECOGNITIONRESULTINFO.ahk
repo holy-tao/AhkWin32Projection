@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IInkRecognitionResult.ahk" { IInkRecognitionResult }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\Controls\NMHDR.ahk" { NMHDR }
+#Import ".\IInkRecognitionResult.ahk" { IInkRecognitionResult }
 
 /**
  * Contains information about an IInkRecognitionResult Interface object.

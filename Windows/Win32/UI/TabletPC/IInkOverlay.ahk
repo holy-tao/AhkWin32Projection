@@ -1,26 +1,26 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SelectionHitResult.ahk" { SelectionHitResult }
-#Import ".\IInkStrokes.ahk" { IInkStrokes }
-#Import ".\IInkRectangle.ahk" { IInkRectangle }
-#Import ".\InkCollectionMode.ahk" { InkCollectionMode }
-#Import ".\IInkDisp.ahk" { IInkDisp }
-#Import ".\InkOverlayEditingMode.ahk" { InkOverlayEditingMode }
-#Import "..\..\System\Ole\IPictureDisp.ahk" { IPictureDisp }
-#Import ".\IInkRenderer.ahk" { IInkRenderer }
-#Import ".\IInkTablet.ahk" { IInkTablet }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\InkApplicationGesture.ahk" { InkApplicationGesture }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IInkCursors.ahk" { IInkCursors }
-#Import ".\InkMousePointer.ahk" { InkMousePointer }
-#Import ".\IInkDrawingAttributes.ahk" { IInkDrawingAttributes }
-#Import ".\InkCollectorEventInterest.ahk" { InkCollectorEventInterest }
-#Import ".\InkOverlayEraserMode.ahk" { InkOverlayEraserMode }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\InkOverlayAttachMode.ahk" { InkOverlayAttachMode }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Ole\IPictureDisp.ahk" { IPictureDisp }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IInkCursors.ahk" { IInkCursors }
+#Import ".\IInkDisp.ahk" { IInkDisp }
+#Import ".\IInkDrawingAttributes.ahk" { IInkDrawingAttributes }
+#Import ".\IInkRectangle.ahk" { IInkRectangle }
+#Import ".\IInkRenderer.ahk" { IInkRenderer }
+#Import ".\IInkStrokes.ahk" { IInkStrokes }
+#Import ".\IInkTablet.ahk" { IInkTablet }
+#Import ".\InkApplicationGesture.ahk" { InkApplicationGesture }
+#Import ".\InkCollectionMode.ahk" { InkCollectionMode }
+#Import ".\InkCollectorEventInterest.ahk" { InkCollectorEventInterest }
+#Import ".\InkMousePointer.ahk" { InkMousePointer }
+#Import ".\InkOverlayAttachMode.ahk" { InkOverlayAttachMode }
+#Import ".\InkOverlayEditingMode.ahk" { InkOverlayEditingMode }
+#Import ".\InkOverlayEraserMode.ahk" { InkOverlayEraserMode }
+#Import ".\SelectionHitResult.ahk" { SelectionHitResult }
 
 /**
  * . (IInkOverlay)

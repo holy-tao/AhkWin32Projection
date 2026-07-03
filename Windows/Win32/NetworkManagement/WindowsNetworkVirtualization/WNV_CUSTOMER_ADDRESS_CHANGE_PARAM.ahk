@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WNV_CA_NOTIFICATION_TYPE.ahk" { WNV_CA_NOTIFICATION_TYPE }
 #Import ".\WNV_IP_ADDRESS.ahk" { WNV_IP_ADDRESS }
-#Import "..\..\Networking\WinSock\DL_EUI48.ahk" { DL_EUI48 }
-#Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
-#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
-#Import "..\..\Networking\WinSock\DL_OUI.ahk" { DL_OUI }
 #Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
 #Import "..\..\Networking\WinSock\DL_EI48.ahk" { DL_EI48 }
-#Import ".\WNV_CA_NOTIFICATION_TYPE.ahk" { WNV_CA_NOTIFICATION_TYPE }
+#Import "..\..\Networking\WinSock\DL_EUI48.ahk" { DL_EUI48 }
+#Import "..\..\Networking\WinSock\DL_OUI.ahk" { DL_OUI }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
+#Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsNetworkVirtualization

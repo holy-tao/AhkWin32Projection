@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\KSJACK_SINK_INFORMATION.ahk" { KSJACK_SINK_INFORMATION }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IKsJackSinkInformation interface provides access to jack sink information if the jack is supported by the hardware.

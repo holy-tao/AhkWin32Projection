@@ -46,10 +46,6 @@ export default struct PCLFS_CLIENT_LOG_UNPINNED_CALLBACK {
             this.value := CallbackCreate(fn, , [FILE_OBJECT.Ptr, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

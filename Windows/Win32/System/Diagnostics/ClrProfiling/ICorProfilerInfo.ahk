@@ -1,19 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FunctionTailcall.ahk" { FunctionTailcall }
-#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\COR_DEBUG_IL_TO_NATIVE_MAP.ahk" { COR_DEBUG_IL_TO_NATIVE_MAP }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\FunctionLeave.ahk" { FunctionLeave }
-#Import "..\..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\COR_IL_MAP.ahk" { COR_IL_MAP }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\FunctionIDMapper.ahk" { FunctionIDMapper }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\WinRT\Metadata\CorElementType.ahk" { CorElementType }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\COR_DEBUG_IL_TO_NATIVE_MAP.ahk" { COR_DEBUG_IL_TO_NATIVE_MAP }
+#Import ".\COR_IL_MAP.ahk" { COR_IL_MAP }
 #Import ".\IMethodMalloc.ahk" { IMethodMalloc }
-#Import ".\FunctionEnter.ahk" { FunctionEnter }
+#Import "..\..\WinRT\Metadata\CorElementType.ahk" { CorElementType }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
@@ -176,7 +172,7 @@ export default struct ICorProfilerInfo extends IUnknown {
      * @returns {HRESULT} 
      */
     IsArrayClass(classId, pBaseElemType, pBaseClassId, pcRank) {
-        pBaseElemTypeMarshal := pBaseElemType is VarRef ? "ptr*" : "ptr"
+        pBaseElemTypeMarshal := pBaseElemType is VarRef ? "char*" : "ptr"
         pBaseClassIdMarshal := pBaseClassId is VarRef ? "ptr*" : "ptr"
         pcRankMarshal := pcRank is VarRef ? "uint*" : "ptr"
 

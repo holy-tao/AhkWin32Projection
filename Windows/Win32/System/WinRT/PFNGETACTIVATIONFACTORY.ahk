@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IActivationFactory.ahk" { IActivationFactory }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\HSTRING.ahk" { HSTRING }
+#Import ".\IActivationFactory.ahk" { IActivationFactory }
 
 /**
  * @namespace Windows.Win32.System.WinRT
@@ -46,10 +46,6 @@ export default struct PFNGETACTIVATIONFACTORY {
             this.value := CallbackCreate(fn, , [HSTRING, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

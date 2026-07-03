@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ICspStatus.ahk" { ICspStatus }
-#Import ".\AlgorithmOperationFlags.ahk" { AlgorithmOperationFlags }
-#Import ".\X509KeySpec.ahk" { X509KeySpec }
-#Import ".\X509ProviderType.ahk" { X509ProviderType }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IObjectId.ahk" { IObjectId }
+#Import ".\AlgorithmOperationFlags.ahk" { AlgorithmOperationFlags }
 #Import ".\ICspAlgorithms.ahk" { ICspAlgorithms }
+#Import ".\ICspStatus.ahk" { ICspStatus }
+#Import ".\IObjectId.ahk" { IObjectId }
+#Import ".\X509KeySpec.ahk" { X509KeySpec }
+#Import ".\X509ProviderType.ahk" { X509ProviderType }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**

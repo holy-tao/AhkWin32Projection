@@ -47,10 +47,6 @@ export default struct PWLX_SWITCH_DESKTOP_TO_USER {
             this.value := CallbackCreate(fn, , [HANDLE, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\JET_CONDITIONALCOLUMN_A.ahk" { JET_CONDITIONALCOLUMN_A }
 #Import ".\JET_SPACEHINTS.ahk" { JET_SPACEHINTS }
-#Import ".\JET_UNICODEINDEX2.ahk" { JET_UNICODEINDEX2 }
 #Import ".\JET_TUPLELIMITS.ahk" { JET_TUPLELIMITS }
+#Import ".\JET_UNICODEINDEX2.ahk" { JET_UNICODEINDEX2 }
 
 /**
  * @namespace Windows.Win32.Storage.Jet

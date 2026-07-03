@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IGPM.ahk" { IGPM }
-#Import ".\GPMBackupType.ahk" { GPMBackupType }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\GPMBackupType.ahk" { GPMBackupType }
+#Import ".\IGPM.ahk" { IGPM }
 #Import ".\IGPMBackupDirEx.ahk" { IGPMBackupDirEx }
 
 /**

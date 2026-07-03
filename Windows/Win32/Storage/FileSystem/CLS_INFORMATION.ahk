@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CLS_LSN.ahk" { CLS_LSN }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CLS_LSN.ahk" { CLS_LSN }
 
 /**
  * Describes general information about a log.

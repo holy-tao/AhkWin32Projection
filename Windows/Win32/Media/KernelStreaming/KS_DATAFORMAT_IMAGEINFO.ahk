@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\KSDATAFORMAT.ahk" { KSDATAFORMAT }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\KSDATAFORMAT.ahk" { KSDATAFORMAT }
 #Import ".\KS_BITMAPINFOHEADER.ahk" { KS_BITMAPINFOHEADER }
 
 /**

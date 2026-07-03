@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MAPPING_PROPERTY_BAG.ahk" { MAPPING_PROPERTY_BAG }
 #Import "..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MAPPING_PROPERTY_BAG.ahk" { MAPPING_PROPERTY_BAG }
 
 /**
  * An application-defined callback function that asynchronously processes data produced by the MappingRecognizeText function.
@@ -55,10 +55,6 @@ export default struct PFN_MAPPINGCALLBACKPROC {
             this.value := CallbackCreate(fn, , [MAPPING_PROPERTY_BAG.Ptr, "ptr", UInt32, "int", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

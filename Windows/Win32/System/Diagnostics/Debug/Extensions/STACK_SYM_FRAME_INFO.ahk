@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\STACK_SRC_INFO.ahk" { STACK_SRC_INFO }
 #Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DEBUG_STACK_FRAME_EX.ahk" { DEBUG_STACK_FRAME_EX }
+#Import ".\STACK_SRC_INFO.ahk" { STACK_SRC_INFO }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

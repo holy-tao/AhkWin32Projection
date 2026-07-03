@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "Common\D2D_SIZE_F.ahk" { D2D_SIZE_F }
-#Import ".\D2D1_SWEEP_DIRECTION.ahk" { D2D1_SWEEP_DIRECTION }
-#Import ".\D2D1_ARC_SIZE.ahk" { D2D1_ARC_SIZE }
 #Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
+#Import "Common\D2D_SIZE_F.ahk" { D2D_SIZE_F }
+#Import ".\D2D1_ARC_SIZE.ahk" { D2D1_ARC_SIZE }
+#Import ".\D2D1_SWEEP_DIRECTION.ahk" { D2D1_SWEEP_DIRECTION }
 
 /**
  * Describes an elliptical arc between two points.

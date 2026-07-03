@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDRAWI_DDRAWPALETTE_GBL.ahk" { DDRAWI_DDRAWPALETTE_GBL }
-#Import ".\LPDDHALPALCB_SETENTRIES.ahk" { LPDDHALPALCB_SETENTRIES }
 #Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
 #Import "..\Gdi\PALETTEENTRY.ahk" { PALETTEENTRY }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -23,6 +22,6 @@ export default struct DDHAL_SETENTRIESDATA {
 
     ddRVal : HRESULT
 
-    SetEntries : LPDDHALPALCB_SETENTRIES
+    SetEntries : IntPtr
 
 }

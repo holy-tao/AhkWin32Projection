@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\KSMULTIPLE_ITEM.ahk" { KSMULTIPLE_ITEM }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import ".\KSMULTIPLE_ITEM.ahk" { KSMULTIPLE_ITEM }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

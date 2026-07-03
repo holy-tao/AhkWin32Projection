@@ -56,10 +56,6 @@ export default struct LPFN_GETACCEPTEXSOCKADDRS {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, UInt32, UInt32, "ptr*", "int*", "ptr*", "int*", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

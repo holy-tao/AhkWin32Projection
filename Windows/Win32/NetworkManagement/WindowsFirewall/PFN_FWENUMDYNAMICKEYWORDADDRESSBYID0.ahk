@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FW_DYNAMIC_KEYWORD_ADDRESS_DATA0.ahk" { FW_DYNAMIC_KEYWORD_ADDRESS_DATA0 }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FW_DYNAMIC_KEYWORD_ADDRESS_DATA0.ahk" { FW_DYNAMIC_KEYWORD_ADDRESS_DATA0 }
 
 /**
  * Function pointer type of the entry point in the service that you call to enumerate the specific dynamic keyword addresses by ID.
@@ -60,10 +60,6 @@ export default struct PFN_FWENUMDYNAMICKEYWORDADDRESSBYID0 {
             this.value := CallbackCreate(fn, , [Guid, "ptr*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

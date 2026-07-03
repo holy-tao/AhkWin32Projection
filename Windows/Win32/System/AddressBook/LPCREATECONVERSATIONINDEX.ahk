@@ -50,10 +50,6 @@ export default struct LPCREATECONVERSATIONINDEX {
             this.value := CallbackCreate(fn, , [UInt32, "char*", "uint*", "ptr*", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

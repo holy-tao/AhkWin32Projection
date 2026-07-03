@@ -3,8 +3,8 @@
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IXMLHTTPRequest2Callback.ahk" { IXMLHTTPRequest2Callback }
 #Import ".\IXMLHTTPRequest3.ahk" { IXMLHTTPRequest3 }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\XHR_CERT.ahk" { XHR_CERT }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Defines callbacks that notify an application with an outstanding IXMLHTTPRequest3 request of events that affect HTTP request and response processing.

@@ -1,23 +1,23 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\PHONE_BUTTON_MODE.ahk" { PHONE_BUTTON_MODE }
-#Import ".\ITAddress.ahk" { ITAddress }
-#Import ".\PHONE_HOOK_SWITCH_DEVICE.ahk" { PHONE_HOOK_SWITCH_DEVICE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\PHONE_BUTTON_FUNCTION.ahk" { PHONE_BUTTON_FUNCTION }
 #Import ".\IEnumAddress.ahk" { IEnumAddress }
-#Import ".\PHONE_PRIVILEGE.ahk" { PHONE_PRIVILEGE }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\PHONECAPS_STRING.ahk" { PHONECAPS_STRING }
 #Import ".\IEnumTerminal.ahk" { IEnumTerminal }
-#Import ".\PHONE_HOOK_SWITCH_STATE.ahk" { PHONE_HOOK_SWITCH_STATE }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ITAddress.ahk" { ITAddress }
 #Import ".\PHONECAPS_BUFFER.ahk" { PHONECAPS_BUFFER }
 #Import ".\PHONECAPS_LONG.ahk" { PHONECAPS_LONG }
-#Import ".\PHONE_LAMP_MODE.ahk" { PHONE_LAMP_MODE }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\PHONECAPS_STRING.ahk" { PHONECAPS_STRING }
+#Import ".\PHONE_BUTTON_FUNCTION.ahk" { PHONE_BUTTON_FUNCTION }
+#Import ".\PHONE_BUTTON_MODE.ahk" { PHONE_BUTTON_MODE }
 #Import ".\PHONE_BUTTON_STATE.ahk" { PHONE_BUTTON_STATE }
+#Import ".\PHONE_HOOK_SWITCH_DEVICE.ahk" { PHONE_HOOK_SWITCH_DEVICE }
+#Import ".\PHONE_HOOK_SWITCH_STATE.ahk" { PHONE_HOOK_SWITCH_STATE }
+#Import ".\PHONE_LAMP_MODE.ahk" { PHONE_LAMP_MODE }
+#Import ".\PHONE_PRIVILEGE.ahk" { PHONE_PRIVILEGE }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ITPhone interface is the main interface for the new Phone objects in the TAPI 3.1 object model.

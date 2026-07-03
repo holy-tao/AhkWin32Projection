@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SYNCMGR_ITEM_POLICIES.ahk" { SYNCMGR_ITEM_POLICIES }
-#Import ".\SYNCMGR_ITEM_CAPABILITIES.ahk" { SYNCMGR_ITEM_CAPABILITIES }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ISyncMgrSyncItemInfo.ahk" { ISyncMgrSyncItemInfo }
+#Import ".\SYNCMGR_ITEM_CAPABILITIES.ahk" { SYNCMGR_ITEM_CAPABILITIES }
+#Import ".\SYNCMGR_ITEM_POLICIES.ahk" { SYNCMGR_ITEM_POLICIES }
 
 /**
  * Exposes methods that act on and retrieve information from a single sync item, allowing handlers to manage sync items as independent objects.

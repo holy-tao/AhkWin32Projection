@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDebuggerThreadControl.ahk" { IDebuggerThreadControl }
-#Import ".\IGCThreadControl.ahk" { IGCThreadControl }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDebuggerThreadControl.ahk" { IDebuggerThreadControl }
 #Import ".\IGCHostControl.ahk" { IGCHostControl }
+#Import ".\IGCThreadControl.ahk" { IGCThreadControl }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting

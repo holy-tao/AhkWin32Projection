@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\RTL_SEGMENT_HEAP_VA_CALLBACKS.ahk" { RTL_SEGMENT_HEAP_VA_CALLBACKS }
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem

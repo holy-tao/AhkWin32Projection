@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IOpcUri.ahk" { IOpcUri }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IOpcSignatureRelationshipReferenceEnumerator.ahk" { IOpcSignatureRelationshipReferenceEnumerator }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\OPC_CANONICALIZATION_METHOD.ahk" { OPC_CANONICALIZATION_METHOD }
-#Import ".\OPC_RELATIONSHIPS_SIGNING_OPTION.ahk" { OPC_RELATIONSHIPS_SIGNING_OPTION }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IOpcRelationshipSelectorSet.ahk" { IOpcRelationshipSelectorSet }
 #Import ".\IOpcSignatureRelationshipReference.ahk" { IOpcSignatureRelationshipReference }
+#Import ".\IOpcSignatureRelationshipReferenceEnumerator.ahk" { IOpcSignatureRelationshipReferenceEnumerator }
+#Import ".\IOpcUri.ahk" { IOpcUri }
+#Import ".\OPC_CANONICALIZATION_METHOD.ahk" { OPC_CANONICALIZATION_METHOD }
+#Import ".\OPC_RELATIONSHIPS_SIGNING_OPTION.ahk" { OPC_RELATIONSHIPS_SIGNING_OPTION }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * An unordered set of IOpcSignatureRelationshipReference interface pointers that represent references to Relationships parts that contain relationships to be signed.

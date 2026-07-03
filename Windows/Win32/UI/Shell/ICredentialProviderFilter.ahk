@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\CREDENTIAL_PROVIDER_USAGE_SCENARIO.ahk" { CREDENTIAL_PROVIDER_USAGE_SCENARIO }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION.ahk" { CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION }
+#Import ".\CREDENTIAL_PROVIDER_USAGE_SCENARIO.ahk" { CREDENTIAL_PROVIDER_USAGE_SCENARIO }
 
 /**
  * Used to dynamically filter credential providers based on information available at runtime.

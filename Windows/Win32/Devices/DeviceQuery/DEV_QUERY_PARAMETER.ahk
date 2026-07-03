@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Properties\DEVPROPTYPE.ahk" { DEVPROPTYPE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Properties\DEVPROPTYPE.ahk" { DEVPROPTYPE }
 #Import "..\..\Foundation\DEVPROPKEY.ahk" { DEVPROPKEY }
 
 /**

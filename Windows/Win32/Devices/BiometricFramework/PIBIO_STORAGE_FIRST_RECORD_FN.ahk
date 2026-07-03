@@ -87,10 +87,6 @@ export default struct PIBIO_STORAGE_FIRST_RECORD_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

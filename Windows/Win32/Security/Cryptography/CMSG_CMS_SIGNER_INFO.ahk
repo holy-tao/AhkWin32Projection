@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CERT_ID.ahk" { CERT_ID }
-#Import ".\CRYPT_ATTRIBUTES.ahk" { CRYPT_ATTRIBUTES }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\CRYPT_ATTRIBUTE.ahk" { CRYPT_ATTRIBUTE }
-#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
-#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
+#Import ".\CERT_ID.ahk" { CERT_ID }
 #Import ".\CERT_ID_OPTION.ahk" { CERT_ID_OPTION }
 #Import ".\CERT_ISSUER_SERIAL_NUMBER.ahk" { CERT_ISSUER_SERIAL_NUMBER }
+#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
+#Import ".\CRYPT_ATTRIBUTE.ahk" { CRYPT_ATTRIBUTE }
+#Import ".\CRYPT_ATTRIBUTES.ahk" { CRYPT_ATTRIBUTES }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 
 /**
  * Contains the content of the defined SignerInfo in signed or signed and enveloped messages.

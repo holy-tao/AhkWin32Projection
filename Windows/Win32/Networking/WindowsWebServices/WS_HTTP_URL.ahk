@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_URL.ahk" { WS_URL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WS_URL_SCHEME_TYPE.ahk" { WS_URL_SCHEME_TYPE }
 #Import ".\WS_STRING.ahk" { WS_STRING }
+#Import ".\WS_URL.ahk" { WS_URL }
+#Import ".\WS_URL_SCHEME_TYPE.ahk" { WS_URL_SCHEME_TYPE }
 
 /**
  * The URL subtype for specifying an HTTP URL.

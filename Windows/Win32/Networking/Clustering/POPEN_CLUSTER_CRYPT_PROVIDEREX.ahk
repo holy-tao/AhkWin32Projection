@@ -54,10 +54,6 @@ export default struct POPEN_CLUSTER_CRYPT_PROVIDEREX {
             this.value := CallbackCreate(fn, , [PWSTR, PWSTR, "char*", UInt32, UInt32, HCLUSCRYPTPROVIDER])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

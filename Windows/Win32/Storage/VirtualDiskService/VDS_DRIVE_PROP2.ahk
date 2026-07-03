@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VDS_STORAGE_BUS_TYPE.ahk" { VDS_STORAGE_BUS_TYPE }
-#Import ".\VDS_DRIVE_STATUS.ahk" { VDS_DRIVE_STATUS }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\VDS_DRIVE_STATUS.ahk" { VDS_DRIVE_STATUS }
 #Import ".\VDS_HEALTH.ahk" { VDS_HEALTH }
+#Import ".\VDS_STORAGE_BUS_TYPE.ahk" { VDS_STORAGE_BUS_TYPE }
 
 /**
  * The VDS_DRIVE_PROP2 structure (vdshwprv.h) defines the properties of a drive object.

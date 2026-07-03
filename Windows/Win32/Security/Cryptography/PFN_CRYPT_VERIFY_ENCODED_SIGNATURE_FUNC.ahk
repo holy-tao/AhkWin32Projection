@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
 #Import ".\CERT_PUBLIC_KEY_INFO.ahk" { CERT_PUBLIC_KEY_INFO }
 #Import ".\CERT_QUERY_ENCODING_TYPE.ahk" { CERT_QUERY_ENCODING_TYPE }
+#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
 
 /**
  * Called to decrypt an encoded signature and compare it to a computed hash.
@@ -88,10 +88,6 @@ export default struct PFN_CRYPT_VERIFY_ENCODED_SIGNATURE_FUNC {
             this.value := CallbackCreate(fn, , [CERT_QUERY_ENCODING_TYPE, CERT_PUBLIC_KEY_INFO.Ptr, CRYPT_ALGORITHM_IDENTIFIER.Ptr, "ptr", PWSTR, PWSTR, IntPtr, UInt32, IntPtr, UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

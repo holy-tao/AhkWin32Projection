@@ -1,22 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDirectDrawPalette.ahk" { IDirectDrawPalette }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDirectDrawClipper.ahk" { IDirectDrawClipper }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
-#Import ".\IDirectDraw.ahk" { IDirectDraw }
-#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
-#Import ".\DDSURFACEDESC.ahk" { DDSURFACEDESC }
-#Import ".\DDOVERLAYFX.ahk" { DDOVERLAYFX }
-#Import ".\DDBLTFX.ahk" { DDBLTFX }
-#Import ".\DDSCAPS.ahk" { DDSCAPS }
 #Import ".\DDBLTBATCH.ahk" { DDBLTBATCH }
+#Import ".\DDBLTFX.ahk" { DDBLTFX }
+#Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
+#Import ".\DDOVERLAYFX.ahk" { DDOVERLAYFX }
+#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
+#Import ".\DDSCAPS.ahk" { DDSCAPS }
+#Import ".\DDSURFACEDESC.ahk" { DDSURFACEDESC }
+#Import ".\IDirectDraw.ahk" { IDirectDraw }
+#Import ".\IDirectDrawClipper.ahk" { IDirectDrawClipper }
+#Import ".\IDirectDrawPalette.ahk" { IDirectDrawPalette }
 #Import "..\Gdi\HDC.ahk" { HDC }
-#Import ".\LPDDENUMSURFACESCALLBACK.ahk" { LPDDENUMSURFACESCALLBACK }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -164,7 +163,7 @@ export default struct IDirectDrawSurface2 extends IUnknown {
     EnumAttachedSurfaces(param0, param1) {
         param0Marshal := param0 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, param0Marshal, param0, LPDDENUMSURFACESCALLBACK, param1, "HRESULT")
+        result := ComCall(9, this, param0Marshal, param0, "ptr", param1, "HRESULT")
         return result
     }
 
@@ -178,7 +177,7 @@ export default struct IDirectDrawSurface2 extends IUnknown {
     EnumOverlayZOrders(param0, param1, param2) {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, UInt32, param0, param1Marshal, param1, LPDDENUMSURFACESCALLBACK, param2, "HRESULT")
+        result := ComCall(10, this, UInt32, param0, param1Marshal, param1, "ptr", param2, "HRESULT")
         return result
     }
 

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\CrmLogRecordRead.ahk" { CrmLogRecordRead }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\CrmTransactionState.ahk" { CrmTransactionState }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\CrmLogRecordRead.ahk" { CrmLogRecordRead }
+#Import ".\CrmTransactionState.ahk" { CrmTransactionState }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Monitors the individual log records maintained by a specific CRM clerk for a given transaction.

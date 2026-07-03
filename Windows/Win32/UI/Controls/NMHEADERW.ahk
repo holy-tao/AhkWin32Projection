@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HEADER_CONTROL_NOTIFICATION_BUTTON.ahk" { HEADER_CONTROL_NOTIFICATION_BUTTON }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\HDITEMW.ahk" { HDITEMW }
+#Import ".\HEADER_CONTROL_NOTIFICATION_BUTTON.ahk" { HEADER_CONTROL_NOTIFICATION_BUTTON }
 #Import ".\NMHDR.ahk" { NMHDR }
 
 /**

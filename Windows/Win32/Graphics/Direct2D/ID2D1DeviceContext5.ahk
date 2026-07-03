@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "Common\D2D_SIZE_F.ahk" { D2D_SIZE_F }
-#Import "..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk" { DXGI_COLOR_SPACE_TYPE }
-#Import ".\D2D1_SIMPLE_COLOR_PROFILE.ahk" { D2D1_SIMPLE_COLOR_PROFILE }
-#Import ".\ID2D1SvgDocument.ahk" { ID2D1SvgDocument }
-#Import ".\ID2D1DeviceContext4.ahk" { ID2D1DeviceContext4 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "Common\D2D_SIZE_F.ahk" { D2D_SIZE_F }
+#Import ".\D2D1_SIMPLE_COLOR_PROFILE.ahk" { D2D1_SIMPLE_COLOR_PROFILE }
 #Import ".\ID2D1ColorContext1.ahk" { ID2D1ColorContext1 }
+#Import ".\ID2D1DeviceContext4.ahk" { ID2D1DeviceContext4 }
+#Import ".\ID2D1SvgDocument.ahk" { ID2D1SvgDocument }
+#Import "..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk" { DXGI_COLOR_SPACE_TYPE }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * This interface performs all the same functions as the ID2D1DeviceContext4 interface, plus it enables the creation of color contexts and Svg documents.

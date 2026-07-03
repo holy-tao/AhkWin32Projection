@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\UI_ANIMATION_UPDATE_RESULT.ahk" { UI_ANIMATION_UPDATE_RESULT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IUIAnimationTimerClientEventHandler.ahk" { IUIAnimationTimerClientEventHandler }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\UI_ANIMATION_UPDATE_RESULT.ahk" { UI_ANIMATION_UPDATE_RESULT }
 
 /**
  * Defines methods for handling timing update events.

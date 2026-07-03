@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\SOCKET.ahk" { SOCKET }
-#Import ".\WSAPOLL_EVENT_FLAGS.ahk" { WSAPOLL_EVENT_FLAGS }
 #Import ".\WSAPOLLFD.ahk" { WSAPOLLFD }
+#Import ".\WSAPOLL_EVENT_FLAGS.ahk" { WSAPOLL_EVENT_FLAGS }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock

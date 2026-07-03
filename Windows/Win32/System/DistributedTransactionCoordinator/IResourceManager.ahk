@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\BOID.ahk" { BOID }
 #Import ".\ITransaction.ahk" { ITransaction }
 #Import ".\ITransactionEnlistmentAsync.ahk" { ITransactionEnlistmentAsync }
-#Import ".\XACTSTAT.ahk" { XACTSTAT }
-#Import ".\BOID.ahk" { BOID }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITransactionResourceAsync.ahk" { ITransactionResourceAsync }
+#Import ".\XACTSTAT.ahk" { XACTSTAT }
 
 /**
  * The IResourceManager interface resolves contentions for system resources.The filter graph manager exposes this interface.

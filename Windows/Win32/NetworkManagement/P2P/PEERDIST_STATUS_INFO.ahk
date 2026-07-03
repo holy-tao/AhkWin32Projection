@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PEERDIST_STATUS.ahk" { PEERDIST_STATUS }
 #Import ".\PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_VALUE.ahk" { PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_VALUE }
+#Import ".\PEERDIST_STATUS.ahk" { PEERDIST_STATUS }
 
 /**
  * The PEERDIST_STATUS_INFO structure contains information about the current status and capabilities of the BranchCache service on the local computer.

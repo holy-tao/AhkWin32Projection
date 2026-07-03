@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WTD_GENERIC_CHAIN_POLICY_SIGNER_INFO.ahk" { WTD_GENERIC_CHAIN_POLICY_SIGNER_INFO }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CRYPT_PROVIDER_DATA.ahk" { CRYPT_PROVIDER_DATA }
+#Import ".\WTD_GENERIC_CHAIN_POLICY_SIGNER_INFO.ahk" { WTD_GENERIC_CHAIN_POLICY_SIGNER_INFO }
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
@@ -54,10 +54,6 @@ export default struct PFN_WTD_GENERIC_CHAIN_POLICY_CALLBACK {
             this.value := CallbackCreate(fn, , [CRYPT_PROVIDER_DATA.Ptr, UInt32, UInt32, UInt32, "ptr*", "ptr", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

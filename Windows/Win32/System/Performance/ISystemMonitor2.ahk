@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\ISystemMonitor.ahk" { ISystemMonitor }
 #Import ".\SysmonBatchReason.ahk" { SysmonBatchReason }
 #Import ".\SysmonFileType.ahk" { SysmonFileType }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISystemMonitor.ahk" { ISystemMonitor }
 
 /**
  * @namespace Windows.Win32.System.Performance

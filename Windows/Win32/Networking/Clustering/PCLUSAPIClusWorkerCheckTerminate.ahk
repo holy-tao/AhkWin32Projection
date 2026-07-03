@@ -45,10 +45,6 @@ export default struct PCLUSAPIClusWorkerCheckTerminate {
             this.value := CallbackCreate(fn, , [CLUS_WORKER.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SERVICE_STATUS_PROCESS.ahk" { SERVICE_STATUS_PROCESS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ENUM_SERVICE_TYPE.ahk" { ENUM_SERVICE_TYPE }
 #Import ".\SERVICE_RUNS_IN_PROCESS.ahk" { SERVICE_RUNS_IN_PROCESS }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\SERVICE_STATUS_CURRENT_STATE.ahk" { SERVICE_STATUS_CURRENT_STATE }
+#Import ".\SERVICE_STATUS_PROCESS.ahk" { SERVICE_STATUS_PROCESS }
 
 /**
  * Contains the name of a service in a service control manager database and information about the service. It is used by the EnumServicesStatusEx function. (Unicode)

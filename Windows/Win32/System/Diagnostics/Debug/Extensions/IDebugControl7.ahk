@@ -1,23 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DEBUG_STACK_FRAME_EX.ahk" { DEBUG_STACK_FRAME_EX }
-#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\..\Foundation\FARPROC.ahk" { FARPROC }
-#Import ".\IDebugBreakpoint2.ahk" { IDebugBreakpoint2 }
+#Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\WINDBG_EXTENSION_APIS32.ahk" { WINDBG_EXTENSION_APIS32 }
-#Import ".\DEBUG_BREAKPOINT_PARAMETERS.ahk" { DEBUG_BREAKPOINT_PARAMETERS }
-#Import ".\IDebugBreakpoint3.ahk" { IDebugBreakpoint3 }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DEBUG_BREAKPOINT_PARAMETERS.ahk" { DEBUG_BREAKPOINT_PARAMETERS }
 #Import ".\DEBUG_EXCEPTION_FILTER_PARAMETERS.ahk" { DEBUG_EXCEPTION_FILTER_PARAMETERS }
 #Import ".\DEBUG_SPECIFIC_FILTER_PARAMETERS.ahk" { DEBUG_SPECIFIC_FILTER_PARAMETERS }
-#Import ".\WINDBG_EXTENSION_APIS64.ahk" { WINDBG_EXTENSION_APIS64 }
-#Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DEBUG_STACK_FRAME.ahk" { DEBUG_STACK_FRAME }
-#Import ".\IDebugBreakpoint.ahk" { IDebugBreakpoint }
+#Import ".\DEBUG_STACK_FRAME_EX.ahk" { DEBUG_STACK_FRAME_EX }
 #Import ".\DEBUG_VALUE.ahk" { DEBUG_VALUE }
+#Import ".\IDebugBreakpoint.ahk" { IDebugBreakpoint }
+#Import ".\IDebugBreakpoint2.ahk" { IDebugBreakpoint2 }
+#Import ".\IDebugBreakpoint3.ahk" { IDebugBreakpoint3 }
+#Import ".\WINDBG_EXTENSION_APIS32.ahk" { WINDBG_EXTENSION_APIS32 }
+#Import ".\WINDBG_EXTENSION_APIS64.ahk" { WINDBG_EXTENSION_APIS64 }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

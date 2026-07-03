@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PPP_IPCP_INFO2.ahk" { PPP_IPCP_INFO2 }
-#Import ".\PPP_CCP_INFO.ahk" { PPP_CCP_INFO }
-#Import ".\PPP_NBFCP_INFO.ahk" { PPP_NBFCP_INFO }
-#Import ".\PPP_LCP_INFO.ahk" { PPP_LCP_INFO }
-#Import ".\PPP_LCP.ahk" { PPP_LCP }
 #Import ".\PPP_ATCP_INFO.ahk" { PPP_ATCP_INFO }
+#Import ".\PPP_CCP_INFO.ahk" { PPP_CCP_INFO }
+#Import ".\PPP_IPCP_INFO2.ahk" { PPP_IPCP_INFO2 }
 #Import ".\PPP_IPXCP_INFO.ahk" { PPP_IPXCP_INFO }
+#Import ".\PPP_LCP.ahk" { PPP_LCP }
+#Import ".\PPP_LCP_INFO.ahk" { PPP_LCP_INFO }
 #Import ".\PPP_LCP_INFO_AUTH_DATA.ahk" { PPP_LCP_INFO_AUTH_DATA }
+#Import ".\PPP_NBFCP_INFO.ahk" { PPP_NBFCP_INFO }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

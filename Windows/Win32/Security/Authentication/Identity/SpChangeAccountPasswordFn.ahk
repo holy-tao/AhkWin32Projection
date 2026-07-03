@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SecBufferDesc.ahk" { SecBufferDesc }
-#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 #Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import ".\SecBufferDesc.ahk" { SecBufferDesc }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -33,7 +33,7 @@ export default struct SpChangeAccountPasswordFn {
      */
     Call(pDomainName, pAccountName, pOldPassword, pNewPassword, Impersonating, pOutput) {
         result := DllCall(this.value, LSA_UNICODE_STRING.Ptr, pDomainName, LSA_UNICODE_STRING.Ptr, pAccountName, LSA_UNICODE_STRING.Ptr, pOldPassword, LSA_UNICODE_STRING.Ptr, pNewPassword, BOOLEAN, Impersonating, SecBufferDesc.Ptr, pOutput, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -53,10 +53,6 @@ export default struct SpChangeAccountPasswordFn {
             this.value := CallbackCreate(fn, , [LSA_UNICODE_STRING.Ptr, LSA_UNICODE_STRING.Ptr, LSA_UNICODE_STRING.Ptr, LSA_UNICODE_STRING.Ptr, BOOLEAN, SecBufferDesc.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DDHALINFO.ahk" { DDHALINFO }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DDHALINFO.ahk" { DDHALINFO }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -46,10 +46,6 @@ export default struct LPDDHAL_SETINFO {
             this.value := CallbackCreate(fn, , [DDHALINFO.Ptr, BOOL, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

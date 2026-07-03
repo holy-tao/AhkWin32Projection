@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ISAXEntityResolver.ahk" { ISAXEntityResolver }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\ISAXErrorHandler.ahk" { ISAXErrorHandler }
-#Import ".\ISAXDTDHandler.ahk" { ISAXDTDHandler }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ISAXContentHandler.ahk" { ISAXContentHandler }
+#Import ".\ISAXDTDHandler.ahk" { ISAXDTDHandler }
+#Import ".\ISAXEntityResolver.ahk" { ISAXEntityResolver }
+#Import ".\ISAXErrorHandler.ahk" { ISAXErrorHandler }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**

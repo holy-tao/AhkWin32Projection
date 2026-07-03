@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SAM_REGISTER_MAPPING_TABLE.ahk" { SAM_REGISTER_MAPPING_TABLE }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\SAM_REGISTER_MAPPING_TABLE.ahk" { SAM_REGISTER_MAPPING_TABLE }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -26,7 +26,7 @@ export default struct PSAM_CREDENTIAL_UPDATE_REGISTER_MAPPED_ENTRYPOINTS_ROUTINE
      */
     Call(Table) {
         result := DllCall(this.value, SAM_REGISTER_MAPPING_TABLE.Ptr, Table, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -46,10 +46,6 @@ export default struct PSAM_CREDENTIAL_UPDATE_REGISTER_MAPPED_ENTRYPOINTS_ROUTINE
             this.value := CallbackCreate(fn, , [SAM_REGISTER_MAPPING_TABLE.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

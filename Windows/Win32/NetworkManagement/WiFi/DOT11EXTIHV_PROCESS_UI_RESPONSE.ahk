@@ -46,10 +46,6 @@ export default struct DOT11EXTIHV_PROCESS_UI_RESPONSE {
             this.value := CallbackCreate(fn, , [Guid, UInt32, IntPtr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

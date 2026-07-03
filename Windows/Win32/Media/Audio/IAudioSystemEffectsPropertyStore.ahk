@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IAudioSystemEffectsPropertyChangeNotificationClient.ahk" { IAudioSystemEffectsPropertyChangeNotificationClient }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAudioSystemEffectsPropertyChangeNotificationClient.ahk" { IAudioSystemEffectsPropertyChangeNotificationClient }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
 
 /**
  * Provides access to manage audio system effects audio stores and to register for notifications when audio system effect properties change.

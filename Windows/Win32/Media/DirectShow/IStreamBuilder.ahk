@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IGraphBuilder.ahk" { IGraphBuilder }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IPin.ahk" { IPin }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IGraphBuilder.ahk" { IGraphBuilder }
+#Import ".\IPin.ahk" { IPin }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IStreamBuilder interface enables an output pin to notify the filter graph manager that the pin itself will build the downstream section of the filter graph.

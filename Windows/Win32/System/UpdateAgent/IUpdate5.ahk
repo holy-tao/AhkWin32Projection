@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\AutoSelectionMode.ahk" { AutoSelectionMode }
-#Import ".\AutoDownloadMode.ahk" { AutoDownloadMode }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\AutoDownloadMode.ahk" { AutoDownloadMode }
+#Import ".\AutoSelectionMode.ahk" { AutoSelectionMode }
 #Import ".\IUpdate4.ahk" { IUpdate4 }
 
 /**

@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\LPDDHAL_SETEXCLUSIVEMODE.ahk" { LPDDHAL_SETEXCLUSIVEMODE }
+#Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -17,6 +16,6 @@ export default struct DDHAL_SETEXCLUSIVEMODEDATA {
 
     ddRVal : HRESULT
 
-    SetExclusiveMode : LPDDHAL_SETEXCLUSIVEMODE
+    SetExclusiveMode : IntPtr
 
 }

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\INetworkConnection.ahk" { INetworkConnection }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\INetworkConnection.ahk" { INetworkConnection }
 #Import ".\NLM_DOMAIN_AUTHENTICATION_KIND.ahk" { NLM_DOMAIN_AUTHENTICATION_KIND }
 
 /**

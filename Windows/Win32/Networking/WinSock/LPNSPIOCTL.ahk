@@ -246,10 +246,6 @@ export default struct LPNSPIOCTL {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, IntPtr, UInt32, IntPtr, UInt32, "uint*", WSACOMPLETION.Ptr, WSATHREADID.Ptr, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

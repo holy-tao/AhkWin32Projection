@@ -46,10 +46,6 @@ export default struct PFN_D3D12_GET_INTERFACE {
             this.value := CallbackCreate(fn, , [Guid.Ptr, Guid.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

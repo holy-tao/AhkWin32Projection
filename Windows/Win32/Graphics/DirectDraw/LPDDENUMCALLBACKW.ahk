@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The DDEnumCallback function is an application-defined callback function for the DirectDrawEnumerate function. (Unicode)
@@ -69,10 +69,6 @@ export default struct LPDDENUMCALLBACKW {
             this.value := CallbackCreate(fn, , [Guid.Ptr, PWSTR, PWSTR, "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SPVTEXTFRAG.ahk" { SPVTEXTFRAG }
-#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ISpTTSEngineSite.ahk" { ISpTTSEngineSite }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\ISpTTSEngineSite.ahk" { ISpTTSEngineSite }
+#Import ".\SPVTEXTFRAG.ahk" { SPVTEXTFRAG }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.Speech

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MAPIERROR.ahk" { MAPIERROR }
 #Import ".\ENTRYID.ahk" { ENTRYID }
+#Import ".\MAPIERROR.ahk" { MAPIERROR }
 
 /**
  * Describes information that relate to a critical error. This causes an error notification to be generated.

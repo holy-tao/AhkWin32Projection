@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\WLX_DESKTOP.ahk" { WLX_DESKTOP }
 
 /**
@@ -86,10 +86,6 @@ export default struct PWLX_SET_RETURN_DESKTOP {
             this.value := CallbackCreate(fn, , [HANDLE, WLX_DESKTOP.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

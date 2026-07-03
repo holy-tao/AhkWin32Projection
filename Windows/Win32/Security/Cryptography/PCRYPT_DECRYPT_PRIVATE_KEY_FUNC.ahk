@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 #Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 
 /**
  * Decrypts the private key and returns the decrypted key in the pbClearTextKey parameter.
@@ -59,10 +59,6 @@ export default struct PCRYPT_DECRYPT_PRIVATE_KEY_FUNC {
             this.value := CallbackCreate(fn, , [CRYPT_ALGORITHM_IDENTIFIER, CRYPT_INTEGER_BLOB, IntPtr, "uint*", "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -52,10 +52,6 @@ export default struct PDD_MOCOMPCB_RENDER {
             this.value := CallbackCreate(fn, , [DD_RENDERMOCOMPDATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

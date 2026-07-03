@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IBDA_DigitalDemodulator2.ahk" { IBDA_DigitalDemodulator2 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\BDA_SIGNAL_TIMEOUTS.ahk" { BDA_SIGNAL_TIMEOUTS }
+#Import ".\IBDA_DigitalDemodulator2.ahk" { IBDA_DigitalDemodulator2 }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow

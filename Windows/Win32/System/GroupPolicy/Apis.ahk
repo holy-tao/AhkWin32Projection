@@ -1,25 +1,25 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\POLICYSETTINGSTATUSINFO.ahk" { POLICYSETTINGSTATUSINFO }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\GPOBROWSEINFO.ahk" { GPOBROWSEINFO }
-#Import ".\INSTALLDATA.ahk" { INSTALLDATA }
-#Import "..\Wmi\IWbemServices.ahk" { IWbemServices }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
-#Import ".\LOCALMANAGEDAPPLICATION.ahk" { LOCALMANAGEDAPPLICATION }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\UI\Shell\APPCATEGORYINFOLIST.ahk" { APPCATEGORYINFOLIST }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\GROUP_POLICY_OBJECTA.ahk" { GROUP_POLICY_OBJECTA }
-#Import "..\..\Security\GENERIC_MAPPING.ahk" { GENERIC_MAPPING }
-#Import ".\GROUP_POLICY_OBJECTW.ahk" { GROUP_POLICY_OBJECTW }
-#Import "..\Wmi\IWbemClassObject.ahk" { IWbemClassObject }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\MANAGEDAPPLICATION.ahk" { MANAGEDAPPLICATION }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Security\GENERIC_MAPPING.ahk" { GENERIC_MAPPING }
 #Import "..\..\Security\OBJECT_TYPE_LIST.ahk" { OBJECT_TYPE_LIST }
+#Import "..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
 #Import "..\..\Security\PSID.ahk" { PSID }
+#Import ".\GPOBROWSEINFO.ahk" { GPOBROWSEINFO }
+#Import ".\GROUP_POLICY_OBJECTA.ahk" { GROUP_POLICY_OBJECTA }
+#Import ".\GROUP_POLICY_OBJECTW.ahk" { GROUP_POLICY_OBJECTW }
+#Import ".\INSTALLDATA.ahk" { INSTALLDATA }
+#Import ".\LOCALMANAGEDAPPLICATION.ahk" { LOCALMANAGEDAPPLICATION }
+#Import ".\MANAGEDAPPLICATION.ahk" { MANAGEDAPPLICATION }
+#Import ".\POLICYSETTINGSTATUSINFO.ahk" { POLICYSETTINGSTATUSINFO }
+#Import "..\Wmi\IWbemClassObject.ahk" { IWbemClassObject }
+#Import "..\Wmi\IWbemServices.ahk" { IWbemServices }
+#Import "..\..\UI\Shell\APPCATEGORYINFOLIST.ahk" { APPCATEGORYINFOLIST }
 
 /**
  * @namespace Windows.Win32.System.GroupPolicy

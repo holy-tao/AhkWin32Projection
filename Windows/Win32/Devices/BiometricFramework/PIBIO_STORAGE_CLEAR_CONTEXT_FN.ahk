@@ -83,10 +83,6 @@ export default struct PIBIO_STORAGE_CLEAR_CONTEXT_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

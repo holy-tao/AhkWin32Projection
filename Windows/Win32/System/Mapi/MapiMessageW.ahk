@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\MapiRecipDescW.ahk" { MapiRecipDescW }
 #Import ".\MapiFileDescW.ahk" { MapiFileDescW }
+#Import ".\MapiRecipDescW.ahk" { MapiRecipDescW }
 
 /**
  * A MapiMessageW structure contains information about a message.

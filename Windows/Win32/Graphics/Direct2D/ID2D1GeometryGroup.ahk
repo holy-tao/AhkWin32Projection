@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID2D1Geometry.ahk" { ID2D1Geometry }
 #Import "Common\D2D1_FILL_MODE.ahk" { D2D1_FILL_MODE }
+#Import ".\ID2D1Geometry.ahk" { ID2D1Geometry }
 
 /**
  * Represents a composite geometry, composed of other ID2D1Geometry objects.

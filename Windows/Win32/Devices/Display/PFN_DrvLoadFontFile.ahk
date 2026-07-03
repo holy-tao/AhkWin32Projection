@@ -54,10 +54,6 @@ export default struct PFN_DrvLoadFontFile {
             this.value := CallbackCreate(fn, , [UInt32, "ptr*", "ptr*", "uint*", DESIGNVECTOR.Ptr, UInt32, UInt32, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

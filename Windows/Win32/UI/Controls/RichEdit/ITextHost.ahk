@@ -1,24 +1,24 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\TXTBACKSTYLE.ahk" { TXTBACKSTYLE }
-#Import "..\..\..\Foundation\COLORREF.ahk" { COLORREF }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\PARAFORMAT.ahk" { PARAFORMAT }
-#Import "..\..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\Foundation\SIZE.ahk" { SIZE }
-#Import "..\..\WindowsAndMessaging\SCROLL_WINDOW_FLAGS.ahk" { SCROLL_WINDOW_FLAGS }
-#Import "..\..\WindowsAndMessaging\SCROLLBAR_CONSTANTS.ahk" { SCROLLBAR_CONSTANTS }
-#Import "..\..\..\Foundation\POINT.ahk" { POINT }
-#Import "..\..\..\Graphics\Gdi\HRGN.ahk" { HRGN }
+#Import "..\..\..\Foundation\COLORREF.ahk" { COLORREF }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\CHARFORMATW.ahk" { CHARFORMATW }
-#Import "..\..\WindowsAndMessaging\HCURSOR.ahk" { HCURSOR }
-#Import "..\..\..\Graphics\Gdi\SYS_COLOR_INDEX.ahk" { SYS_COLOR_INDEX }
-#Import "..\..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\..\Foundation\SIZE.ahk" { SIZE }
 #Import "..\..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\..\Graphics\Gdi\HRGN.ahk" { HRGN }
+#Import "..\..\..\Graphics\Gdi\SYS_COLOR_INDEX.ahk" { SYS_COLOR_INDEX }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\CHARFORMATW.ahk" { CHARFORMATW }
+#Import ".\PARAFORMAT.ahk" { PARAFORMAT }
+#Import ".\TXTBACKSTYLE.ahk" { TXTBACKSTYLE }
 #Import "..\..\Input\Ime\HIMC.ahk" { HIMC }
+#Import "..\..\WindowsAndMessaging\HCURSOR.ahk" { HCURSOR }
+#Import "..\..\WindowsAndMessaging\SCROLLBAR_CONSTANTS.ahk" { SCROLLBAR_CONSTANTS }
+#Import "..\..\WindowsAndMessaging\SCROLL_WINDOW_FLAGS.ahk" { SCROLL_WINDOW_FLAGS }
 
 /**
  * The ITextHost interface is used by a text services object to obtain text host services.

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\XPS_FILL_RULE.ahk" { XPS_FILL_RULE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IXpsOMGeometryFigureCollection.ahk" { IXpsOMGeometryFigureCollection }
 #Import ".\IXpsOMMatrixTransform.ahk" { IXpsOMMatrixTransform }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IXpsOMShareable.ahk" { IXpsOMShareable }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\XPS_FILL_RULE.ahk" { XPS_FILL_RULE }
 
 /**
  * Describes the shape of a path or of a clipping region.

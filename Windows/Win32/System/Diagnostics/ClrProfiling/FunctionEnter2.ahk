@@ -46,10 +46,6 @@ export default struct FunctionEnter2 {
             this.value := CallbackCreate(fn, , [IntPtr, IntPtr, IntPtr, COR_PRF_FUNCTION_ARGUMENT_INFO.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

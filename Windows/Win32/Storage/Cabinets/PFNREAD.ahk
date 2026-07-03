@@ -45,10 +45,6 @@ export default struct PFNREAD {
             this.value := CallbackCreate(fn, "cdecl", [IntPtr, IntPtr, UInt32, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

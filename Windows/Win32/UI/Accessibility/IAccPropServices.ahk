@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\WindowsAndMessaging\HMENU.ahk" { HMENU }
-#Import ".\AnnoScope.ahk" { AnnoScope }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\AnnoScope.ahk" { AnnoScope }
 #Import ".\IAccPropServer.ahk" { IAccPropServer }
+#Import "..\WindowsAndMessaging\HMENU.ahk" { HMENU }
 
 /**
  * Exposes methods for annotating accessible elements and for manipulating identity strings.

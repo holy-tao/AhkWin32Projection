@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\PFAXROUTEENUMFILE.ahk" { PFAXROUTEENUMFILE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * A fax routing method calls the FaxRouteEnumFiles callback function to enumerate the files in the fax file list associated with a received fax document.
@@ -53,7 +52,7 @@ export default struct PFAXROUTEENUMFILES {
     Call(JobId, Guid, FileEnumerator, _Context) {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall(this.value, UInt32, JobId, Guid.Ptr, Guid, PFAXROUTEENUMFILE, FileEnumerator, _ContextMarshal, _Context, BOOL)
+        result := DllCall(this.value, UInt32, JobId, Guid.Ptr, Guid, "ptr", FileEnumerator, _ContextMarshal, _Context, BOOL)
         return result
     }
 
@@ -64,19 +63,15 @@ export default struct PFAXROUTEENUMFILES {
     struct From extends PFAXROUTEENUMFILES {
         /**
          * Creates a PFAXROUTEENUMFILES pointer that invokes the given AHK function when called.
-         * @param {Func(UInt32, Guid, PFAXROUTEENUMFILE, "ptr") => BOOL} fn the function to invoke.
+         * @param {Func(UInt32, Guid, "ptr", "ptr") => BOOL} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 4)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 4 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [UInt32, Guid.Ptr, PFAXROUTEENUMFILE, "ptr", BOOL])
+            this.value := CallbackCreate(fn, , [UInt32, Guid.Ptr, "ptr", "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

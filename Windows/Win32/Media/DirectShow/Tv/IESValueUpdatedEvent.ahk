@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\IESEvent.ahk" { IESEvent }
+#Import "..\..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Implements an event that Protected Broadcast Driver Architecture (PBDA) Media Transform Devices (MTDs) use to inform a Media Sink Device that the MTD has updated the value for a name-value pair or exposed a new name-value pair.

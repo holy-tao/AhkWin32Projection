@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\BDCB_IMAGE_INFORMATION.ahk" { BDCB_IMAGE_INFORMATION }
 #Import ".\BDCB_CALLBACK_TYPE.ahk" { BDCB_CALLBACK_TYPE }
+#Import ".\BDCB_IMAGE_INFORMATION.ahk" { BDCB_IMAGE_INFORMATION }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -48,10 +48,6 @@ export default struct BOOT_DRIVER_CALLBACK_FUNCTION {
             this.value := CallbackCreate(fn, , ["ptr", BDCB_CALLBACK_TYPE, BDCB_IMAGE_INFORMATION.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

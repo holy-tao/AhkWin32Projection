@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Direct2D\Common\D2D_MATRIX_4X4_F.ahk" { D2D_MATRIX_4X4_F }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
-#Import ".\IDCompositionVisualDebug.ahk" { IDCompositionVisualDebug }
+#Import "..\Direct2D\Common\D2D_MATRIX_4X4_F.ahk" { D2D_MATRIX_4X4_F }
 #Import ".\DCOMPOSITION_DEPTH_MODE.ahk" { DCOMPOSITION_DEPTH_MODE }
+#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 #Import ".\IDCompositionTransform3D.ahk" { IDCompositionTransform3D }
+#Import ".\IDCompositionVisualDebug.ahk" { IDCompositionVisualDebug }
 
 /**
  * Represents one DirectComposition visual in a visual tree. (IDCompositionVisual3)

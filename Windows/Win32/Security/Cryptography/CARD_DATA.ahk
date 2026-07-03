@@ -1,58 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PFN_CARD_CREATE_FILE.ahk" { PFN_CARD_CREATE_FILE }
-#Import ".\PFN_CARD_DEAUTHENTICATE_EX.ahk" { PFN_CARD_DEAUTHENTICATE_EX }
-#Import ".\PFN_CARD_CONSTRUCT_DH_AGREEMENT.ahk" { PFN_CARD_CONSTRUCT_DH_AGREEMENT }
-#Import ".\PFN_CSP_PAD_DATA.ahk" { PFN_CSP_PAD_DATA }
-#Import ".\PFN_CARD_AUTHENTICATE_CHALLENGE.ahk" { PFN_CARD_AUTHENTICATE_CHALLENGE }
-#Import ".\PFN_CARD_DELETE_CONTEXT.ahk" { PFN_CARD_DELETE_CONTEXT }
-#Import ".\PFN_CARD_IMPORT_SESSION_KEY.ahk" { PFN_CARD_IMPORT_SESSION_KEY }
-#Import ".\PFN_CARD_AUTHENTICATE_PIN.ahk" { PFN_CARD_AUTHENTICATE_PIN }
-#Import ".\PFN_CARD_DESTROY_DH_AGREEMENT.ahk" { PFN_CARD_DESTROY_DH_AGREEMENT }
-#Import ".\PFN_MD_ENCRYPT_DATA.ahk" { PFN_MD_ENCRYPT_DATA }
-#Import ".\PFN_CSP_CACHE_LOOKUP_FILE.ahk" { PFN_CSP_CACHE_LOOKUP_FILE }
-#Import ".\PFN_CARD_CREATE_CONTAINER_EX.ahk" { PFN_CARD_CREATE_CONTAINER_EX }
-#Import ".\PFN_CARD_GET_CHALLENGE.ahk" { PFN_CARD_GET_CHALLENGE }
-#Import ".\PFN_CARD_GET_ALGORITHM_PROPERTY.ahk" { PFN_CARD_GET_ALGORITHM_PROPERTY }
-#Import ".\PFN_CARD_GET_KEY_PROPERTY.ahk" { PFN_CARD_GET_KEY_PROPERTY }
-#Import ".\PFN_CARD_GET_SHARED_KEY_HANDLE.ahk" { PFN_CARD_GET_SHARED_KEY_HANDLE }
-#Import ".\PFN_CARD_DELETE_DIRECTORY.ahk" { PFN_CARD_DELETE_DIRECTORY }
-#Import ".\PFN_CSP_CACHE_DELETE_FILE.ahk" { PFN_CSP_CACHE_DELETE_FILE }
-#Import ".\PFN_CARD_WRITE_FILE.ahk" { PFN_CARD_WRITE_FILE }
-#Import ".\PFN_CSP_REALLOC.ahk" { PFN_CSP_REALLOC }
-#Import ".\PFN_CARD_DERIVE_KEY.ahk" { PFN_CARD_DERIVE_KEY }
-#Import ".\PFN_CARD_GET_CONTAINER_PROPERTY.ahk" { PFN_CARD_GET_CONTAINER_PROPERTY }
-#Import ".\PFN_CARD_CHANGE_AUTHENTICATOR_EX.ahk" { PFN_CARD_CHANGE_AUTHENTICATOR_EX }
-#Import ".\PFN_CARD_GET_CHALLENGE_EX.ahk" { PFN_CARD_GET_CHALLENGE_EX }
-#Import ".\PFN_CARD_UNBLOCK_PIN.ahk" { PFN_CARD_UNBLOCK_PIN }
-#Import ".\PFN_CARD_DELETE_CONTAINER.ahk" { PFN_CARD_DELETE_CONTAINER }
-#Import ".\PFN_CARD_QUERY_CAPABILITIES.ahk" { PFN_CARD_QUERY_CAPABILITIES }
-#Import ".\PFN_CARD_GET_CONTAINER_INFO.ahk" { PFN_CARD_GET_CONTAINER_INFO }
-#Import ".\PFN_CSP_ALLOC.ahk" { PFN_CSP_ALLOC }
-#Import ".\PFN_CARD_GET_PROPERTY.ahk" { PFN_CARD_GET_PROPERTY }
-#Import ".\PFN_CSP_CACHE_ADD_FILE.ahk" { PFN_CSP_CACHE_ADD_FILE }
-#Import ".\PFN_CARD_CREATE_CONTAINER.ahk" { PFN_CARD_CREATE_CONTAINER }
-#Import ".\PFN_CARD_SET_KEY_PROPERTY.ahk" { PFN_CARD_SET_KEY_PROPERTY }
-#Import ".\PFN_CSP_GET_DH_AGREEMENT.ahk" { PFN_CSP_GET_DH_AGREEMENT }
-#Import ".\PFN_CARD_RSA_DECRYPT.ahk" { PFN_CARD_RSA_DECRYPT }
-#Import ".\PFN_CARD_SET_CONTAINER_PROPERTY.ahk" { PFN_CARD_SET_CONTAINER_PROPERTY }
-#Import ".\PFN_CARD_DEAUTHENTICATE.ahk" { PFN_CARD_DEAUTHENTICATE }
-#Import ".\PFN_CARD_READ_FILE.ahk" { PFN_CARD_READ_FILE }
-#Import ".\PFN_CARD_QUERY_KEY_SIZES.ahk" { PFN_CARD_QUERY_KEY_SIZES }
-#Import ".\PFN_CARD_CREATE_DIRECTORY.ahk" { PFN_CARD_CREATE_DIRECTORY }
-#Import ".\PFN_CARD_AUTHENTICATE_EX.ahk" { PFN_CARD_AUTHENTICATE_EX }
-#Import ".\PFN_CARD_SIGN_DATA.ahk" { PFN_CARD_SIGN_DATA }
-#Import ".\PFN_CARD_DELETE_FILE.ahk" { PFN_CARD_DELETE_FILE }
-#Import ".\PFN_CARD_GET_FILE_INFO.ahk" { PFN_CARD_GET_FILE_INFO }
-#Import ".\PFN_CSP_FREE.ahk" { PFN_CSP_FREE }
-#Import ".\PFN_CARD_PROCESS_ENCRYPTED_DATA.ahk" { PFN_CARD_PROCESS_ENCRYPTED_DATA }
-#Import ".\PFN_CSP_UNPAD_DATA.ahk" { PFN_CSP_UNPAD_DATA }
-#Import ".\PFN_CARD_ENUM_FILES.ahk" { PFN_CARD_ENUM_FILES }
-#Import ".\PFN_CARD_SET_PROPERTY.ahk" { PFN_CARD_SET_PROPERTY }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\PFN_CARD_DESTROY_KEY.ahk" { PFN_CARD_DESTROY_KEY }
-#Import ".\PFN_CARD_CHANGE_AUTHENTICATOR.ahk" { PFN_CARD_CHANGE_AUTHENTICATOR }
-#Import ".\PFN_CARD_QUERY_FREE_SPACE.ahk" { PFN_CARD_QUERY_FREE_SPACE }
-#Import ".\PFN_MD_IMPORT_SESSION_KEY.ahk" { PFN_MD_IMPORT_SESSION_KEY }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -68,21 +15,21 @@ export default struct CARD_DATA {
 
     pwszCardName : PWSTR
 
-    pfnCspAlloc : PFN_CSP_ALLOC
+    pfnCspAlloc : IntPtr
 
-    pfnCspReAlloc : PFN_CSP_REALLOC
+    pfnCspReAlloc : IntPtr
 
-    pfnCspFree : PFN_CSP_FREE
+    pfnCspFree : IntPtr
 
-    pfnCspCacheAddFile : PFN_CSP_CACHE_ADD_FILE
+    pfnCspCacheAddFile : IntPtr
 
-    pfnCspCacheLookupFile : PFN_CSP_CACHE_LOOKUP_FILE
+    pfnCspCacheLookupFile : IntPtr
 
-    pfnCspCacheDeleteFile : PFN_CSP_CACHE_DELETE_FILE
+    pfnCspCacheDeleteFile : IntPtr
 
     pvCacheContext : IntPtr
 
-    pfnCspPadData : PFN_CSP_PAD_DATA
+    pfnCspPadData : IntPtr
 
     hSCardCtx : IntPtr
 
@@ -90,100 +37,100 @@ export default struct CARD_DATA {
 
     pvVendorSpecific : IntPtr
 
-    pfnCardDeleteContext : PFN_CARD_DELETE_CONTEXT
+    pfnCardDeleteContext : IntPtr
 
-    pfnCardQueryCapabilities : PFN_CARD_QUERY_CAPABILITIES
+    pfnCardQueryCapabilities : IntPtr
 
-    pfnCardDeleteContainer : PFN_CARD_DELETE_CONTAINER
+    pfnCardDeleteContainer : IntPtr
 
-    pfnCardCreateContainer : PFN_CARD_CREATE_CONTAINER
+    pfnCardCreateContainer : IntPtr
 
-    pfnCardGetContainerInfo : PFN_CARD_GET_CONTAINER_INFO
+    pfnCardGetContainerInfo : IntPtr
 
-    pfnCardAuthenticatePin : PFN_CARD_AUTHENTICATE_PIN
+    pfnCardAuthenticatePin : IntPtr
 
-    pfnCardGetChallenge : PFN_CARD_GET_CHALLENGE
+    pfnCardGetChallenge : IntPtr
 
-    pfnCardAuthenticateChallenge : PFN_CARD_AUTHENTICATE_CHALLENGE
+    pfnCardAuthenticateChallenge : IntPtr
 
-    pfnCardUnblockPin : PFN_CARD_UNBLOCK_PIN
+    pfnCardUnblockPin : IntPtr
 
-    pfnCardChangeAuthenticator : PFN_CARD_CHANGE_AUTHENTICATOR
+    pfnCardChangeAuthenticator : IntPtr
 
-    pfnCardDeauthenticate : PFN_CARD_DEAUTHENTICATE
+    pfnCardDeauthenticate : IntPtr
 
-    pfnCardCreateDirectory : PFN_CARD_CREATE_DIRECTORY
+    pfnCardCreateDirectory : IntPtr
 
-    pfnCardDeleteDirectory : PFN_CARD_DELETE_DIRECTORY
+    pfnCardDeleteDirectory : IntPtr
 
     pvUnused3 : IntPtr
 
     pvUnused4 : IntPtr
 
-    pfnCardCreateFile : PFN_CARD_CREATE_FILE
+    pfnCardCreateFile : IntPtr
 
-    pfnCardReadFile : PFN_CARD_READ_FILE
+    pfnCardReadFile : IntPtr
 
-    pfnCardWriteFile : PFN_CARD_WRITE_FILE
+    pfnCardWriteFile : IntPtr
 
-    pfnCardDeleteFile : PFN_CARD_DELETE_FILE
+    pfnCardDeleteFile : IntPtr
 
-    pfnCardEnumFiles : PFN_CARD_ENUM_FILES
+    pfnCardEnumFiles : IntPtr
 
-    pfnCardGetFileInfo : PFN_CARD_GET_FILE_INFO
+    pfnCardGetFileInfo : IntPtr
 
-    pfnCardQueryFreeSpace : PFN_CARD_QUERY_FREE_SPACE
+    pfnCardQueryFreeSpace : IntPtr
 
-    pfnCardQueryKeySizes : PFN_CARD_QUERY_KEY_SIZES
+    pfnCardQueryKeySizes : IntPtr
 
-    pfnCardSignData : PFN_CARD_SIGN_DATA
+    pfnCardSignData : IntPtr
 
-    pfnCardRSADecrypt : PFN_CARD_RSA_DECRYPT
+    pfnCardRSADecrypt : IntPtr
 
-    pfnCardConstructDHAgreement : PFN_CARD_CONSTRUCT_DH_AGREEMENT
+    pfnCardConstructDHAgreement : IntPtr
 
-    pfnCardDeriveKey : PFN_CARD_DERIVE_KEY
+    pfnCardDeriveKey : IntPtr
 
-    pfnCardDestroyDHAgreement : PFN_CARD_DESTROY_DH_AGREEMENT
+    pfnCardDestroyDHAgreement : IntPtr
 
-    pfnCspGetDHAgreement : PFN_CSP_GET_DH_AGREEMENT
+    pfnCspGetDHAgreement : IntPtr
 
-    pfnCardGetChallengeEx : PFN_CARD_GET_CHALLENGE_EX
+    pfnCardGetChallengeEx : IntPtr
 
-    pfnCardAuthenticateEx : PFN_CARD_AUTHENTICATE_EX
+    pfnCardAuthenticateEx : IntPtr
 
-    pfnCardChangeAuthenticatorEx : PFN_CARD_CHANGE_AUTHENTICATOR_EX
+    pfnCardChangeAuthenticatorEx : IntPtr
 
-    pfnCardDeauthenticateEx : PFN_CARD_DEAUTHENTICATE_EX
+    pfnCardDeauthenticateEx : IntPtr
 
-    pfnCardGetContainerProperty : PFN_CARD_GET_CONTAINER_PROPERTY
+    pfnCardGetContainerProperty : IntPtr
 
-    pfnCardSetContainerProperty : PFN_CARD_SET_CONTAINER_PROPERTY
+    pfnCardSetContainerProperty : IntPtr
 
-    pfnCardGetProperty : PFN_CARD_GET_PROPERTY
+    pfnCardGetProperty : IntPtr
 
-    pfnCardSetProperty : PFN_CARD_SET_PROPERTY
+    pfnCardSetProperty : IntPtr
 
-    pfnCspUnpadData : PFN_CSP_UNPAD_DATA
+    pfnCspUnpadData : IntPtr
 
-    pfnMDImportSessionKey : PFN_MD_IMPORT_SESSION_KEY
+    pfnMDImportSessionKey : IntPtr
 
-    pfnMDEncryptData : PFN_MD_ENCRYPT_DATA
+    pfnMDEncryptData : IntPtr
 
-    pfnCardImportSessionKey : PFN_CARD_IMPORT_SESSION_KEY
+    pfnCardImportSessionKey : IntPtr
 
-    pfnCardGetSharedKeyHandle : PFN_CARD_GET_SHARED_KEY_HANDLE
+    pfnCardGetSharedKeyHandle : IntPtr
 
-    pfnCardGetAlgorithmProperty : PFN_CARD_GET_ALGORITHM_PROPERTY
+    pfnCardGetAlgorithmProperty : IntPtr
 
-    pfnCardGetKeyProperty : PFN_CARD_GET_KEY_PROPERTY
+    pfnCardGetKeyProperty : IntPtr
 
-    pfnCardSetKeyProperty : PFN_CARD_SET_KEY_PROPERTY
+    pfnCardSetKeyProperty : IntPtr
 
-    pfnCardDestroyKey : PFN_CARD_DESTROY_KEY
+    pfnCardDestroyKey : IntPtr
 
-    pfnCardProcessEncryptedData : PFN_CARD_PROCESS_ENCRYPTED_DATA
+    pfnCardProcessEncryptedData : IntPtr
 
-    pfnCardCreateContainerEx : PFN_CARD_CREATE_CONTAINER_EX
+    pfnCardCreateContainerEx : IntPtr
 
 }

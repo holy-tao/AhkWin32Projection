@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Networking\WinSock\FLOWSPEC.ahk" { FLOWSPEC }
 #Import ".\RSVP_FILTERSPEC.ahk" { RSVP_FILTERSPEC }
+#Import "..\..\Networking\WinSock\FLOWSPEC.ahk" { FLOWSPEC }
 
 /**
  * The FLOWDESCRIPTOR structure specifies one or more filters for a given FLOWSPEC.

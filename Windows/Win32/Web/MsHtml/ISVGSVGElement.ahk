@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IHTMLElement.ahk" { IHTMLElement }
-#Import ".\ISVGLength.ahk" { ISVGLength }
-#Import ".\ISVGPoint.ahk" { ISVGPoint }
-#Import ".\ISVGMatrix.ahk" { ISVGMatrix }
-#Import ".\ISVGViewSpec.ahk" { ISVGViewSpec }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISVGElement.ahk" { ISVGElement }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\ISVGRect.ahk" { ISVGRect }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ISVGNumber.ahk" { ISVGNumber }
-#Import ".\ISVGTransform.ahk" { ISVGTransform }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
 #Import ".\ISVGAngle.ahk" { ISVGAngle }
 #Import ".\ISVGAnimatedLength.ahk" { ISVGAnimatedLength }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ISVGElement.ahk" { ISVGElement }
+#Import ".\ISVGLength.ahk" { ISVGLength }
+#Import ".\ISVGMatrix.ahk" { ISVGMatrix }
+#Import ".\ISVGNumber.ahk" { ISVGNumber }
+#Import ".\ISVGPoint.ahk" { ISVGPoint }
+#Import ".\ISVGRect.ahk" { ISVGRect }
+#Import ".\ISVGTransform.ahk" { ISVGTransform }
+#Import ".\ISVGViewSpec.ahk" { ISVGViewSpec }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

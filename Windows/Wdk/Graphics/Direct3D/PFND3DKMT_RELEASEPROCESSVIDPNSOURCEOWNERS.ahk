@@ -26,7 +26,7 @@ export default struct PFND3DKMT_RELEASEPROCESSVIDPNSOURCEOWNERS {
      */
     Call(param0) {
         result := DllCall(this.value, HANDLE, param0, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -46,10 +46,6 @@ export default struct PFND3DKMT_RELEASEPROCESSVIDPNSOURCEOWNERS {
             this.value := CallbackCreate(fn, , [HANDLE, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

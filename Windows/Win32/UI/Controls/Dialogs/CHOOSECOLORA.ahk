@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CHOOSECOLOR_FLAGS.ahk" { CHOOSECOLOR_FLAGS }
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\LPCCHOOKPROC.ahk" { LPCCHOOKPROC }
 #Import "..\..\..\Foundation\COLORREF.ahk" { COLORREF }
-#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\CHOOSECOLOR_FLAGS.ahk" { CHOOSECOLOR_FLAGS }
 
 /**
  * The CHOOSECOLORA (ANSI) structure (commdlg.h) contains information the ChooseColor function uses to initialize the Color dialog box.
@@ -176,7 +175,7 @@ export default struct CHOOSECOLORA {
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nc-commdlg-lpcchookproc">CCHookProc</a> hook procedure that can process messages intended for the dialog box. This member is ignored unless the <b>CC_ENABLEHOOK</b> flag is set in the <b>Flags</b> member.
      */
-    lpfnHook : LPCCHOOKPROC
+    lpfnHook : IntPtr
 
     /**
      * Type: <b>LPCTSTR</b>

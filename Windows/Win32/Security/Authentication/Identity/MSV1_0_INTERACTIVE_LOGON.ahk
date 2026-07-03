@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 #Import ".\MSV1_0_LOGON_SUBMIT_TYPE.ahk" { MSV1_0_LOGON_SUBMIT_TYPE }
 
 /**

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\BCRYPT_ALG_HANDLE.ahk" { BCRYPT_ALG_HANDLE }
 #Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\BCRYPT_ALG_HANDLE.ahk" { BCRYPT_ALG_HANDLE }
 #Import ".\BCRYPT_HASH_HANDLE.ahk" { BCRYPT_HASH_HANDLE }
 
 /**
@@ -31,7 +31,7 @@ export default struct BCryptDeriveKeyCapiFn {
      */
     Call(hHash, hTargetAlg, pbDerivedKey, cbDerivedKey, dwFlags) {
         result := DllCall(this.value, BCRYPT_HASH_HANDLE, hHash, BCRYPT_ALG_HANDLE, hTargetAlg, IntPtr, pbDerivedKey, UInt32, cbDerivedKey, UInt32, dwFlags, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -51,10 +51,6 @@ export default struct BCryptDeriveKeyCapiFn {
             this.value := CallbackCreate(fn, , [BCRYPT_HASH_HANDLE, BCRYPT_ALG_HANDLE, IntPtr, UInt32, UInt32, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

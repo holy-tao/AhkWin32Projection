@@ -44,10 +44,6 @@ export default struct PWINBIO_QUERY_STORAGE_INTERFACE_FN {
             this.value := CallbackCreate(fn, , ["int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

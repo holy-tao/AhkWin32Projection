@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISpeechAudioStatus.ahk" { ISpeechAudioStatus }
-#Import ".\SpeechAudioState.ahk" { SpeechAudioState }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISpeechBaseStream.ahk" { ISpeechBaseStream }
 #Import ".\ISpeechAudioBufferInfo.ahk" { ISpeechAudioBufferInfo }
 #Import ".\ISpeechAudioFormat.ahk" { ISpeechAudioFormat }
+#Import ".\ISpeechAudioStatus.ahk" { ISpeechAudioStatus }
+#Import ".\ISpeechBaseStream.ahk" { ISpeechBaseStream }
+#Import ".\SpeechAudioState.ahk" { SpeechAudioState }
 
 /**
  * @namespace Windows.Win32.Media.Speech

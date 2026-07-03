@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
 
 /**
@@ -54,10 +54,6 @@ export default struct DTT_CALLBACK_PROC {
             this.value := CallbackCreate(fn, , [HDC, PWSTR, Int32, RECT.Ptr, UInt32, LPARAM, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

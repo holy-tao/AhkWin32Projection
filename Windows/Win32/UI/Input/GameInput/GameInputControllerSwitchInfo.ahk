@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\GameInputKind.ahk" { GameInputKind }
+#Import ".\GameInputLabel.ahk" { GameInputLabel }
 #Import ".\GameInputRawDeviceReportInfo.ahk" { GameInputRawDeviceReportInfo }
 #Import ".\GameInputRawDeviceReportItemInfo.ahk" { GameInputRawDeviceReportItemInfo }
-#Import ".\GameInputLabel.ahk" { GameInputLabel }
 #Import ".\GameInputSwitchKind.ahk" { GameInputSwitchKind }
 
 /**

@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\WDSTRANSPORT_DISCONNECT_TYPE.ahk" { WDSTRANSPORT_DISCONNECT_TYPE }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IWdsTransportSession.ahk" { IWdsTransportSession }
+#Import ".\WDSTRANSPORT_DISCONNECT_TYPE.ahk" { WDSTRANSPORT_DISCONNECT_TYPE }
 
 /**
  * Represents a WDS client that is joined to a transport session on a WDS transport server.

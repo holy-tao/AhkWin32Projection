@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FDIDECRYPTTYPE.ahk" { FDIDECRYPTTYPE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\FDIDECRYPTTYPE.ahk" { FDIDECRYPTTYPE }
 
 /**
  * @namespace Windows.Win32.Storage.Cabinets

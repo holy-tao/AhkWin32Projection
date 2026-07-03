@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DML_REDUCE_FUNCTION.ahk" { DML_REDUCE_FUNCTION }
 #Import ".\DML_INTERPOLATION_MODE.ahk" { DML_INTERPOLATION_MODE }
+#Import ".\DML_REDUCE_FUNCTION.ahk" { DML_REDUCE_FUNCTION }
 #Import ".\DML_TENSOR_DESC.ahk" { DML_TENSOR_DESC }
 
 /**

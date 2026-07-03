@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TF_DA_ATTR_INFO.ahk" { TF_DA_ATTR_INFO }
-#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\TF_DA_LINESTYLE.ahk" { TF_DA_LINESTYLE }
-#Import ".\TF_DA_COLORTYPE.ahk" { TF_DA_COLORTYPE }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import ".\TF_DA_ATTR_INFO.ahk" { TF_DA_ATTR_INFO }
 #Import ".\TF_DA_COLOR.ahk" { TF_DA_COLOR }
+#Import ".\TF_DA_COLORTYPE.ahk" { TF_DA_COLORTYPE }
+#Import ".\TF_DA_LINESTYLE.ahk" { TF_DA_LINESTYLE }
 
 /**
  * The TF_DISPLAYATTRIBUTE structure contains display attribute data for rendering text.

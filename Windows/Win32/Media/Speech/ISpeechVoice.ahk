@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISpeechObjectToken.ahk" { ISpeechObjectToken }
-#Import ".\SpeechVoicePriority.ahk" { SpeechVoicePriority }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SpeechVoiceSpeakFlags.ahk" { SpeechVoiceSpeakFlags }
-#Import ".\SpeechVoiceEvents.ahk" { SpeechVoiceEvents }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\ISpeechBaseStream.ahk" { ISpeechBaseStream }
-#Import ".\ISpeechVoiceStatus.ahk" { ISpeechVoiceStatus }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ISpeechObjectToken.ahk" { ISpeechObjectToken }
 #Import ".\ISpeechObjectTokens.ahk" { ISpeechObjectTokens }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ISpeechVoiceStatus.ahk" { ISpeechVoiceStatus }
+#Import ".\SpeechVoiceEvents.ahk" { SpeechVoiceEvents }
+#Import ".\SpeechVoicePriority.ahk" { SpeechVoicePriority }
+#Import ".\SpeechVoiceSpeakFlags.ahk" { SpeechVoiceSpeakFlags }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Media.Speech

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WLAN_HOSTED_NETWORK_REASON.ahk" { WLAN_HOSTED_NETWORK_REASON }
-#Import ".\WLAN_HOSTED_NETWORK_PEER_STATE.ahk" { WLAN_HOSTED_NETWORK_PEER_STATE }
 #Import ".\WLAN_HOSTED_NETWORK_PEER_AUTH_STATE.ahk" { WLAN_HOSTED_NETWORK_PEER_AUTH_STATE }
+#Import ".\WLAN_HOSTED_NETWORK_PEER_STATE.ahk" { WLAN_HOSTED_NETWORK_PEER_STATE }
+#Import ".\WLAN_HOSTED_NETWORK_REASON.ahk" { WLAN_HOSTED_NETWORK_REASON }
 
 /**
  * Contains information about a network state change for a data peer on the wireless Hosted Network.

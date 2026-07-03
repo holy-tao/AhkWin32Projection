@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\REGPINTYPES.ahk" { REGPINTYPES }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\REGPINMEDIUM.ahk" { REGPINMEDIUM }
+#Import ".\REGPINTYPES.ahk" { REGPINTYPES }
 
 /**
  * The REGFILTERPINS2 structure contains information for registering a filter through the IFilterMapper2 interface.

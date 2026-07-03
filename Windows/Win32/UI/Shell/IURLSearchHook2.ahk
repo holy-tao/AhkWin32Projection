@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IURLSearchHook.ahk" { IURLSearchHook }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ISearchContext.ahk" { ISearchContext }
+#Import ".\IURLSearchHook.ahk" { IURLSearchHook }
 
 /**
  * Exposes a method that is used by the browser to translate the address of an unknown URL protocol by using a search context object.

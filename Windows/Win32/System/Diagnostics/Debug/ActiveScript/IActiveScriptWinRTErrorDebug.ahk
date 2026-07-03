@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IActiveScriptError.ahk" { IActiveScriptError }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IActiveScriptError.ahk" { IActiveScriptError }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

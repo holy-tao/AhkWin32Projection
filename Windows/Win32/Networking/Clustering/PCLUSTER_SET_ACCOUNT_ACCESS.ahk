@@ -50,10 +50,6 @@ export default struct PCLUSTER_SET_ACCOUNT_ACCESS {
             this.value := CallbackCreate(fn, , [HCLUSTER, PWSTR, UInt32, UInt32, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IHTMLElement.ahk" { IHTMLElement }
-#Import ".\IHTMLRect.ahk" { IHTMLRect }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IHTMLStyle.ahk" { IHTMLStyle }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IHTMLRectCollection.ahk" { IHTMLRectCollection }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IHTMLCurrentStyle.ahk" { IHTMLCurrentStyle }
-#Import ".\IHTMLElementCollection.ahk" { IHTMLElementCollection }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IHTMLCurrentStyle.ahk" { IHTMLCurrentStyle }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import ".\IHTMLElementCollection.ahk" { IHTMLElementCollection }
+#Import ".\IHTMLRect.ahk" { IHTMLRect }
+#Import ".\IHTMLRectCollection.ahk" { IHTMLRectCollection }
+#Import ".\IHTMLStyle.ahk" { IHTMLStyle }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

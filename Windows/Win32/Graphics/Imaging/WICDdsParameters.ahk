@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WICDdsDimension.ahk" { WICDdsDimension }
 #Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 #Import ".\WICDdsAlphaMode.ahk" { WICDdsAlphaMode }
+#Import ".\WICDdsDimension.ahk" { WICDdsDimension }
 
 /**
  * Specifies the DDS image dimension, DXGI_FORMAT and alpha mode of contained data.

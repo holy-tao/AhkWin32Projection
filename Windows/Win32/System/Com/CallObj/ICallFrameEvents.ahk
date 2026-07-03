@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\IUnknown.ahk" { IUnknown }
-#Import ".\ICallFrame.ahk" { ICallFrame }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICallFrame.ahk" { ICallFrame }
+#Import "..\IUnknown.ahk" { IUnknown }
 
 /**
  * Delivers method call notifications.

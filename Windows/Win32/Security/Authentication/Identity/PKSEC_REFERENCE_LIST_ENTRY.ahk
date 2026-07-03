@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\KSEC_LIST_ENTRY.ahk" { KSEC_LIST_ENTRY }
 #Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\KSEC_LIST_ENTRY.ahk" { KSEC_LIST_ENTRY }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -29,7 +29,7 @@ export default struct PKSEC_REFERENCE_LIST_ENTRY {
      */
     Call(Entry, Signature, RemoveNoRef) {
         result := DllCall(this.value, KSEC_LIST_ENTRY.Ptr, Entry, UInt32, Signature, BOOLEAN, RemoveNoRef, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -49,10 +49,6 @@ export default struct PKSEC_REFERENCE_LIST_ENTRY {
             this.value := CallbackCreate(fn, , [KSEC_LIST_ENTRY.Ptr, UInt32, BOOLEAN, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

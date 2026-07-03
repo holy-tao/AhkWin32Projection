@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Storage\FileSystem\STORAGE_BUS_TYPE.ahk" { STORAGE_BUS_TYPE }
-#Import ".\STORAGE_MEDIA_TYPE.ahk" { STORAGE_MEDIA_TYPE }
 #Import ".\DEVICE_MEDIA_INFO.ahk" { DEVICE_MEDIA_INFO }
+#Import ".\STORAGE_MEDIA_TYPE.ahk" { STORAGE_MEDIA_TYPE }
 
 /**
  * Contains information about the media types supported by a device.

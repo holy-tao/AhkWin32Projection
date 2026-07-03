@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\UI\WindowsAndMessaging\DLGPROC.ahk" { DLGPROC }
 #Import "..\..\UI\WindowsAndMessaging\DLGTEMPLATE.ahk" { DLGTEMPLATE }
 
 /**
@@ -95,7 +94,7 @@ export default struct PWLX_DIALOG_BOX_INDIRECT {
      * If the function fails, the return value is –1.
      */
     Call(hWlx, hInst, hDialogTemplate, hwndOwner, dlgprc) {
-        result := DllCall(this.value, HANDLE, hWlx, HANDLE, hInst, DLGTEMPLATE.Ptr, hDialogTemplate, HWND, hwndOwner, DLGPROC, dlgprc, Int32)
+        result := DllCall(this.value, HANDLE, hWlx, HANDLE, hInst, DLGTEMPLATE.Ptr, hDialogTemplate, HWND, hwndOwner, "ptr", dlgprc, Int32)
         return result
     }
 
@@ -106,19 +105,15 @@ export default struct PWLX_DIALOG_BOX_INDIRECT {
     struct From extends PWLX_DIALOG_BOX_INDIRECT {
         /**
          * Creates a PWLX_DIALOG_BOX_INDIRECT pointer that invokes the given AHK function when called.
-         * @param {Func(HANDLE, HANDLE, DLGTEMPLATE, HWND, DLGPROC) => Int32} fn the function to invoke.
+         * @param {Func(HANDLE, HANDLE, DLGTEMPLATE, HWND, "ptr") => Int32} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 5)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 5 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [HANDLE, HANDLE, DLGTEMPLATE.Ptr, HWND, DLGPROC, Int32])
+            this.value := CallbackCreate(fn, , [HANDLE, HANDLE, DLGTEMPLATE.Ptr, HWND, "ptr", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

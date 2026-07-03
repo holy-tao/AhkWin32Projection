@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWICMetadataWriter.ahk" { IWICMetadataWriter }
-#Import ".\IWICMetadataBlockReader.ahk" { IWICMetadataBlockReader }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWICMetadataBlockReader.ahk" { IWICMetadataBlockReader }
+#Import ".\IWICMetadataWriter.ahk" { IWICMetadataWriter }
 
 /**
  * Exposes methods that enable the encoding of metadata. This interface is implemented by the decoder and its image frames.

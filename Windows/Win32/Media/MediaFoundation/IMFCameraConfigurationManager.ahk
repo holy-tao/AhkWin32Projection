@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMFCameraControlDefaultsCollection.ahk" { IMFCameraControlDefaultsCollection }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import ".\IMFCameraControlDefaultsCollection.ahk" { IMFCameraControlDefaultsCollection }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IMFCameraConfigurationManager interface can be created by calling the COM function CoCreateInstance, and passing the CLSID_CameraConfigurationManager as the CLSID parameter.

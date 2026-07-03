@@ -1,13 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PWINDBG_CHECK_CONTROL_C.ahk" { PWINDBG_CHECK_CONTROL_C }
-#Import ".\PWINDBG_GET_SYMBOL32.ahk" { PWINDBG_GET_SYMBOL32 }
-#Import ".\PWINDBG_OUTPUT_ROUTINE.ahk" { PWINDBG_OUTPUT_ROUTINE }
-#Import ".\PWINDBG_WRITE_PROCESS_MEMORY_ROUTINE32.ahk" { PWINDBG_WRITE_PROCESS_MEMORY_ROUTINE32 }
-#Import ".\PWINDBG_GET_EXPRESSION32.ahk" { PWINDBG_GET_EXPRESSION32 }
-#Import ".\PWINDBG_OLDKD_WRITE_PHYSICAL_MEMORY.ahk" { PWINDBG_OLDKD_WRITE_PHYSICAL_MEMORY }
-#Import ".\PWINDBG_OLDKD_READ_PHYSICAL_MEMORY.ahk" { PWINDBG_OLDKD_READ_PHYSICAL_MEMORY }
-#Import ".\PWINDBG_DISASM32.ahk" { PWINDBG_DISASM32 }
-#Import ".\PWINDBG_READ_PROCESS_MEMORY_ROUTINE32.ahk" { PWINDBG_READ_PROCESS_MEMORY_ROUTINE32 }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -17,22 +8,22 @@ export default struct WINDBG_OLDKD_EXTENSION_APIS {
 
     nSize : UInt32
 
-    lpOutputRoutine : PWINDBG_OUTPUT_ROUTINE
+    lpOutputRoutine : IntPtr
 
-    lpGetExpressionRoutine : PWINDBG_GET_EXPRESSION32
+    lpGetExpressionRoutine : IntPtr
 
-    lpGetSymbolRoutine : PWINDBG_GET_SYMBOL32
+    lpGetSymbolRoutine : IntPtr
 
-    lpDisasmRoutine : PWINDBG_DISASM32
+    lpDisasmRoutine : IntPtr
 
-    lpCheckControlCRoutine : PWINDBG_CHECK_CONTROL_C
+    lpCheckControlCRoutine : IntPtr
 
-    lpReadVirtualMemRoutine : PWINDBG_READ_PROCESS_MEMORY_ROUTINE32
+    lpReadVirtualMemRoutine : IntPtr
 
-    lpWriteVirtualMemRoutine : PWINDBG_WRITE_PROCESS_MEMORY_ROUTINE32
+    lpWriteVirtualMemRoutine : IntPtr
 
-    lpReadPhysicalMemRoutine : PWINDBG_OLDKD_READ_PHYSICAL_MEMORY
+    lpReadPhysicalMemRoutine : IntPtr
 
-    lpWritePhysicalMemRoutine : PWINDBG_OLDKD_WRITE_PHYSICAL_MEMORY
+    lpWritePhysicalMemRoutine : IntPtr
 
 }

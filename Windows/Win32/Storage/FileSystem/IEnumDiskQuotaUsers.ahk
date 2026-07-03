@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDiskQuotaUser.ahk" { IDiskQuotaUser }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDiskQuotaUser.ahk" { IDiskQuotaUser }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enumerates user quota entries on the volume.

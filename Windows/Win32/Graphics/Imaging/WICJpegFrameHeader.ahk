@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WICJpegTransferMatrix.ahk" { WICJpegTransferMatrix }
 #Import ".\WICJpegScanType.ahk" { WICJpegScanType }
+#Import ".\WICJpegTransferMatrix.ahk" { WICJpegTransferMatrix }
 
 /**
  * Represents a JPEG frame header. (WICJpegFrameHeader)

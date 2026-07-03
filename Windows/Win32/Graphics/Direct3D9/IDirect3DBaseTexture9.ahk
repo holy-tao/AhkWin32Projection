@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDirect3DResource9.ahk" { IDirect3DResource9 }
-#Import ".\D3DTEXTUREFILTERTYPE.ahk" { D3DTEXTUREFILTERTYPE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3DTEXTUREFILTERTYPE.ahk" { D3DTEXTUREFILTERTYPE }
+#Import ".\IDirect3DResource9.ahk" { IDirect3DResource9 }
 
 /**
  * The IDirect3DBaseTexture9 (d3d9.h) interface applications use the methods of the IDirect3DBaseTexture9 interface to manipulate texture resources.

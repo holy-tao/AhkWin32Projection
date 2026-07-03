@@ -58,10 +58,6 @@ export default struct PF_NPPasswordChangeNotify {
             this.value := CallbackCreate(fn, , [PWSTR, "ptr", PWSTR, "ptr", PWSTR, "ptr", UInt32, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

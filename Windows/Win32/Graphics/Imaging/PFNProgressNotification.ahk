@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WICProgressOperation.ahk" { WICProgressOperation }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WICProgressOperation.ahk" { WICProgressOperation }
 
 /**
  * Application defined callback function called when codec component progress is made.
@@ -66,10 +66,6 @@ export default struct PFNProgressNotification {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, WICProgressOperation, Float64, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

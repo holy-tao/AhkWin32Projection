@@ -67,10 +67,6 @@ export default struct PFNSTATUSMESSAGECALLBACK {
             this.value := CallbackCreate(fn, , [BOOL, PWSTR, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

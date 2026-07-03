@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Diagnostics\Debug\CONTEXT.ahk" { CONTEXT }
 #Import "..\Diagnostics\Debug\EXCEPTION_RECORD.ahk" { EXCEPTION_RECORD }
 #Import ".\EXCEPTION_DISPOSITION.ahk" { EXCEPTION_DISPOSITION }
-#Import "..\Diagnostics\Debug\CONTEXT.ahk" { CONTEXT }
 
 /**
  * @namespace Windows.Win32.System.Kernel
@@ -52,10 +52,6 @@ export default struct EXCEPTION_ROUTINE {
             this.value := CallbackCreate(fn, , [EXCEPTION_RECORD.Ptr, "ptr", CONTEXT.Ptr, "ptr", EXCEPTION_DISPOSITION])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

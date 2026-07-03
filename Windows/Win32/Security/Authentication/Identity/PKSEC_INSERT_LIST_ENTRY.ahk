@@ -46,10 +46,6 @@ export default struct PKSEC_INSERT_LIST_ENTRY {
             this.value := CallbackCreate(fn, , ["ptr", KSEC_LIST_ENTRY.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISignerCertificate.ahk" { ISignerCertificate }
-#Import ".\IX509EnrollmentPolicyServer.ahk" { IX509EnrollmentPolicyServer }
-#Import ".\IX509CertificateRequest.ahk" { IX509CertificateRequest }
-#Import ".\IX509CertificateTemplate.ahk" { IX509CertificateTemplate }
-#Import ".\Pkcs10AllowedSignatureTypes.ahk" { Pkcs10AllowedSignatureTypes }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\ISignerCertificate.ahk" { ISignerCertificate }
+#Import ".\IX509CertificateRequest.ahk" { IX509CertificateRequest }
 #Import ".\IX509CertificateRequestCmc.ahk" { IX509CertificateRequestCmc }
+#Import ".\IX509CertificateTemplate.ahk" { IX509CertificateTemplate }
+#Import ".\IX509EnrollmentPolicyServer.ahk" { IX509EnrollmentPolicyServer }
+#Import ".\Pkcs10AllowedSignatureTypes.ahk" { Pkcs10AllowedSignatureTypes }
+#Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
 
 /**
  * The IX509CertificateRequestCmc2 interface represents a CMC (Certificate Management Message over CMS) certificate request.

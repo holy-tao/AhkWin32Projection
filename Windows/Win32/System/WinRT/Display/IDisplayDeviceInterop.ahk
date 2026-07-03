@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\IInspectable.ahk" { IInspectable }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\HSTRING.ahk" { HSTRING }
-#Import "..\..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\HSTRING.ahk" { HSTRING }
+#Import "..\IInspectable.ahk" { IInspectable }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Display

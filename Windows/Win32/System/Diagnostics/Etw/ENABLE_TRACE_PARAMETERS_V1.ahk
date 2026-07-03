@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\EVENT_FILTER_DESCRIPTOR.ahk" { EVENT_FILTER_DESCRIPTOR }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\EVENT_FILTER_DESCRIPTOR.ahk" { EVENT_FILTER_DESCRIPTOR }
 
 /**
  * Contains information used to enable a provider via EnableTraceEx2. This structure is obsolete.

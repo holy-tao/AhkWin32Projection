@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITCallHub.ahk" { ITCallHub }
-#Import ".\CALL_STATE.ahk" { CALL_STATE }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\CALL_PRIVILEGE.ahk" { CALL_PRIVILEGE }
-#Import ".\ITAddress.ahk" { ITAddress }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\CALLINFO_LONG.ahk" { CALLINFO_LONG }
 #Import ".\CALLINFO_BUFFER.ahk" { CALLINFO_BUFFER }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CALLINFO_LONG.ahk" { CALLINFO_LONG }
 #Import ".\CALLINFO_STRING.ahk" { CALLINFO_STRING }
+#Import ".\CALL_PRIVILEGE.ahk" { CALL_PRIVILEGE }
+#Import ".\CALL_STATE.ahk" { CALL_STATE }
+#Import ".\ITAddress.ahk" { ITAddress }
+#Import ".\ITCallHub.ahk" { ITCallHub }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ITCallInfo interface gets and sets a variety of information concerning a Call object. The ITAddress::get_Calls and IEnumCall::Next methods create the ITCallInfo interface.

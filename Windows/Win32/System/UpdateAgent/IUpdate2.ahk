@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUpdate.ahk" { IUpdate }
-#Import ".\IStringCollection.ahk" { IStringCollection }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IStringCollection.ahk" { IStringCollection }
+#Import ".\IUpdate.ahk" { IUpdate }
 
 /**
  * Contains the properties and methods that are available to an update. (IUpdate2)

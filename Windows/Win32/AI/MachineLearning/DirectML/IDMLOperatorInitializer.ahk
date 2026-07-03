@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDMLDispatchable.ahk" { IDMLDispatchable }
 #Import ".\IDMLCompiledOperator.ahk" { IDMLCompiledOperator }
+#Import ".\IDMLDispatchable.ahk" { IDMLDispatchable }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**

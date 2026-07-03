@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMAGELIST_CREATION_FLAGS.ahk" { IMAGELIST_CREATION_FLAGS }
-#Import ".\IMAGELISTSTATS.ahk" { IMAGELISTSTATS }
-#Import ".\IImageList.ahk" { IImageList }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMAGELISTDRAWPARAMS.ahk" { IMAGELISTDRAWPARAMS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IImageList.ahk" { IImageList }
+#Import ".\IMAGELISTDRAWPARAMS.ahk" { IMAGELISTDRAWPARAMS }
+#Import ".\IMAGELISTSTATS.ahk" { IMAGELISTSTATS }
+#Import ".\IMAGELIST_CREATION_FLAGS.ahk" { IMAGELIST_CREATION_FLAGS }
 
 /**
  * Extends IImageList by providing additional methods for manipulating and interacting with image lists.

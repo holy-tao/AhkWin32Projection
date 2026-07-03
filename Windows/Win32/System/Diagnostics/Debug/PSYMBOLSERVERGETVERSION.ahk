@@ -45,10 +45,6 @@ export default struct PSYMBOLSERVERGETVERSION {
             this.value := CallbackCreate(fn, , [API_VERSION.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D10RenderTargetView.ahk" { ID3D10RenderTargetView }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID3D10EffectVariable.ahk" { ID3D10EffectVariable }
+#Import ".\ID3D10RenderTargetView.ahk" { ID3D10RenderTargetView }
 
 /**
  * A render-target-view interface accesses a render target.

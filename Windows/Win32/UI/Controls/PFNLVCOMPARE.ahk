@@ -46,10 +46,6 @@ export default struct PFNLVCOMPARE {
             this.value := CallbackCreate(fn, , [LPARAM, LPARAM, LPARAM, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

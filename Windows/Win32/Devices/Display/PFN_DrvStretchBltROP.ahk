@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CLIPOBJ.ahk" { CLIPOBJ }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\SURFOBJ.ahk" { SURFOBJ }
 #Import ".\BRUSHOBJ.ahk" { BRUSHOBJ }
+#Import ".\CLIPOBJ.ahk" { CLIPOBJ }
+#Import ".\SURFOBJ.ahk" { SURFOBJ }
+#Import ".\XLATEOBJ.ahk" { XLATEOBJ }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\POINTL.ahk" { POINTL }
 #Import "..\..\Foundation\RECTL.ahk" { RECTL }
 #Import "..\..\Graphics\Gdi\COLORADJUSTMENT.ahk" { COLORADJUSTMENT }
-#Import ".\XLATEOBJ.ahk" { XLATEOBJ }
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -63,10 +63,6 @@ export default struct PFN_DrvStretchBltROP {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, SURFOBJ.Ptr, SURFOBJ.Ptr, CLIPOBJ.Ptr, XLATEOBJ.Ptr, COLORADJUSTMENT.Ptr, POINTL.Ptr, RECTL.Ptr, RECTL.Ptr, POINTL.Ptr, UInt32, BRUSHOBJ.Ptr, UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

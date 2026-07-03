@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HTTP_POLICY_EXTENSION_VERSION.ahk" { HTTP_POLICY_EXTENSION_VERSION }
 #Import ".\HTTP_POLICY_EXTENSION_TYPE.ahk" { HTTP_POLICY_EXTENSION_TYPE }
+#Import ".\HTTP_POLICY_EXTENSION_VERSION.ahk" { HTTP_POLICY_EXTENSION_VERSION }
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
@@ -50,10 +50,6 @@ export default struct HTTP_POLICY_EXTENSION_INIT {
             this.value := CallbackCreate(fn, , [HTTP_POLICY_EXTENSION_VERSION, HTTP_POLICY_EXTENSION_TYPE, "ptr", UInt32, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

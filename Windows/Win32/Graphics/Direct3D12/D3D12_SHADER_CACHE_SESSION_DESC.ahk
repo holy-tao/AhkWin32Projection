@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_SHADER_CACHE_MODE.ahk" { D3D12_SHADER_CACHE_MODE }
-#Import ".\D3D12_SHADER_CACHE_FLAGS.ahk" { D3D12_SHADER_CACHE_FLAGS }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3D12_SHADER_CACHE_FLAGS.ahk" { D3D12_SHADER_CACHE_FLAGS }
+#Import ".\D3D12_SHADER_CACHE_MODE.ahk" { D3D12_SHADER_CACHE_MODE }
 
 /**
  * Describes a shader cache session.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DISK_CACHE_RETENTION_PRIORITY.ahk" { DISK_CACHE_RETENTION_PRIORITY }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\DISK_CACHE_RETENTION_PRIORITY.ahk" { DISK_CACHE_RETENTION_PRIORITY }
 
 /**
  * Provides information about the disk cache.

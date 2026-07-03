@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DWRITE_LOCALITY.ahk" { DWRITE_LOCALITY }
-#Import ".\IDWriteFontFileStream.ahk" { IDWriteFontFileStream }
-#Import ".\DWRITE_FILE_FRAGMENT.ahk" { DWRITE_FILE_FRAGMENT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_FILE_FRAGMENT.ahk" { DWRITE_FILE_FRAGMENT }
+#Import ".\DWRITE_LOCALITY.ahk" { DWRITE_LOCALITY }
 #Import ".\IDWriteAsyncResult.ahk" { IDWriteAsyncResult }
+#Import ".\IDWriteFontFileStream.ahk" { IDWriteFontFileStream }
 
 /**
  * Represents a font file stream, parts of which may be non-local.

@@ -42,10 +42,6 @@ export default struct CL_INCOMING_CALL_HANDLER {
             this.value := CallbackCreate(fn, , [Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

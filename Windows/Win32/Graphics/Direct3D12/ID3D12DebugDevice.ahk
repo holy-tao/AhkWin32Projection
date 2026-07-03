@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_DEBUG_FEATURE.ahk" { D3D12_DEBUG_FEATURE }
 #Import ".\D3D12_RLDO_FLAGS.ahk" { D3D12_RLDO_FLAGS }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\D3D12_DEBUG_FEATURE.ahk" { D3D12_DEBUG_FEATURE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This interface represents a graphics device for debugging.

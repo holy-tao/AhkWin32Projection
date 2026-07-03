@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWiaTransferCallback.ahk" { IWiaTransferCallback }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IWiaPropertyStorage.ahk" { IWiaPropertyStorage }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWiaItem2.ahk" { IWiaItem2 }
+#Import ".\IWiaPropertyStorage.ahk" { IWiaPropertyStorage }
+#Import ".\IWiaTransferCallback.ahk" { IWiaTransferCallback }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWiaImageFilter interface is an extension interface implemented by image processing filter developers and called by Windows Image Acquisition (WIA) 2.0.

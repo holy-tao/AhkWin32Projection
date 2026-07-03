@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CRYPT_XML_ALGORITHM_INFO.ahk" { CRYPT_XML_ALGORITHM_INFO }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\PFN_CRYPT_XML_WRITE_CALLBACK.ahk" { PFN_CRYPT_XML_WRITE_CALLBACK }
+#Import ".\CRYPT_XML_ALGORITHM_INFO.ahk" { CRYPT_XML_ALGORITHM_INFO }
 #Import ".\CRYPT_XML_CHARSET.ahk" { CRYPT_XML_CHARSET }
 
 /**
@@ -36,7 +35,7 @@ export default struct CryptXmlDllEncodeAlgorithm {
     Call(pAlgInfo, dwCharset, pvCallbackState, _pfnWrite) {
         pvCallbackStateMarshal := pvCallbackState is VarRef ? "ptr" : "ptr"
 
-        result := DllCall(this.value, CRYPT_XML_ALGORITHM_INFO.Ptr, pAlgInfo, CRYPT_XML_CHARSET, dwCharset, pvCallbackStateMarshal, pvCallbackState, PFN_CRYPT_XML_WRITE_CALLBACK, _pfnWrite, "HRESULT")
+        result := DllCall(this.value, CRYPT_XML_ALGORITHM_INFO.Ptr, pAlgInfo, CRYPT_XML_CHARSET, dwCharset, pvCallbackStateMarshal, pvCallbackState, "ptr", _pfnWrite, "HRESULT")
         return result
     }
 
@@ -47,19 +46,15 @@ export default struct CryptXmlDllEncodeAlgorithm {
     struct From extends CryptXmlDllEncodeAlgorithm {
         /**
          * Creates a CryptXmlDllEncodeAlgorithm pointer that invokes the given AHK function when called.
-         * @param {Func(CRYPT_XML_ALGORITHM_INFO, CRYPT_XML_CHARSET, "ptr", PFN_CRYPT_XML_WRITE_CALLBACK) => "int"} fn the function to invoke.
+         * @param {Func(CRYPT_XML_ALGORITHM_INFO, CRYPT_XML_CHARSET, "ptr", "ptr") => "int"} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 4)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 4 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [CRYPT_XML_ALGORITHM_INFO.Ptr, CRYPT_XML_CHARSET, "ptr", PFN_CRYPT_XML_WRITE_CALLBACK, "int"])
+            this.value := CallbackCreate(fn, , [CRYPT_XML_ALGORITHM_INFO.Ptr, CRYPT_XML_CHARSET, "ptr", "ptr", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

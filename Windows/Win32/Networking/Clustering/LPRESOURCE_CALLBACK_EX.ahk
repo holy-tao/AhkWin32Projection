@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HRESOURCE.ahk" { HRESOURCE }
 #Import ".\HCLUSTER.ahk" { HCLUSTER }
+#Import ".\HRESOURCE.ahk" { HRESOURCE }
 
 /**
  * The LPRESOURCE_CALLBACK_EX callback function is accessible by another function and is invoked after the first function completes. (LPRESOURCE_CALLBACK_EX)
@@ -52,10 +52,6 @@ export default struct LPRESOURCE_CALLBACK_EX {
             this.value := CallbackCreate(fn, , [HCLUSTER, HRESOURCE, HRESOURCE, "ptr", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

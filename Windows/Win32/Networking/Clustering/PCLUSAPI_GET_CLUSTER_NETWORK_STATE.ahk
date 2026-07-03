@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HNETWORK.ahk" { HNETWORK }
 #Import ".\CLUSTER_NETWORK_STATE.ahk" { CLUSTER_NETWORK_STATE }
+#Import ".\HNETWORK.ahk" { HNETWORK }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -45,10 +45,6 @@ export default struct PCLUSAPI_GET_CLUSTER_NETWORK_STATE {
             this.value := CallbackCreate(fn, , [HNETWORK, CLUSTER_NETWORK_STATE])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

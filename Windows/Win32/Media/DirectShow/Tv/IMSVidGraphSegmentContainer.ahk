@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMSVidGraphSegment.ahk" { IMSVidGraphSegment }
-#Import "..\IGraphBuilder.ahk" { IGraphBuilder }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\IGraphBuilder.ahk" { IGraphBuilder }
 #Import ".\IEnumMSVidGraphSegment.ahk" { IEnumMSVidGraphSegment }
+#Import ".\IMSVidGraphSegment.ahk" { IMSVidGraphSegment }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IMSVidGraphSegmentContainer interface is exposed by the Video Control and contains one supported method, get_Graph, which obtains a pointer to the Filter Graph Manager.

@@ -53,10 +53,6 @@ export default struct PDX_FLIPOVERLAY {
             this.value := CallbackCreate(fn, , ["ptr", DDFLIPOVERLAYINFO.Ptr, "ptr", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

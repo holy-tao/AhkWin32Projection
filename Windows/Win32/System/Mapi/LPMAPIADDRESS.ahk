@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MapiRecipDesc.ahk" { MapiRecipDesc }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\MapiRecipDesc.ahk" { MapiRecipDesc }
 
 /**
  * @namespace Windows.Win32.System.Mapi
@@ -61,10 +61,6 @@ export default struct LPMAPIADDRESS {
             this.value := CallbackCreate(fn, , [IntPtr, IntPtr, PSTR, UInt32, PSTR, UInt32, MapiRecipDesc.Ptr, UInt32, UInt32, "uint*", "ptr*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

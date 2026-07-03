@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * Retrieves context information from a credential provider. (SpGetCredUIContextFn)
@@ -40,7 +40,7 @@ export default struct SpGetCredUIContextFn {
         FlatCredUIContextMarshal := FlatCredUIContext is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, IntPtr, ContextHandle, Guid.Ptr, CredType, FlatCredUIContextLengthMarshal, FlatCredUIContextLength, FlatCredUIContextMarshal, FlatCredUIContext, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -60,10 +60,6 @@ export default struct SpGetCredUIContextFn {
             this.value := CallbackCreate(fn, , [IntPtr, Guid.Ptr, "uint*", "ptr*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

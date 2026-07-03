@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -37,7 +37,7 @@ export default struct PLSA_CALL_PACKAGEEX {
         ProtocolStatusMarshal := ProtocolStatus is VarRef ? "int*" : "ptr"
 
         result := DllCall(this.value, LSA_UNICODE_STRING.Ptr, AuthenticationPackage, ClientBufferBaseMarshal, ClientBufferBase, IntPtr, ProtocolSubmitBuffer, UInt32, SubmitBufferLength, ProtocolReturnBufferMarshal, ProtocolReturnBuffer, ReturnBufferLengthMarshal, ReturnBufferLength, ProtocolStatusMarshal, ProtocolStatus, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -57,10 +57,6 @@ export default struct PLSA_CALL_PACKAGEEX {
             this.value := CallbackCreate(fn, , [LSA_UNICODE_STRING.Ptr, "ptr", IntPtr, UInt32, "ptr*", "uint*", "int*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

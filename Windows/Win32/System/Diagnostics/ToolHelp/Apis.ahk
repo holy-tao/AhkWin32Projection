@@ -1,15 +1,15 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\PROCESSENTRY32W.ahk" { PROCESSENTRY32W }
-#Import ".\CREATE_TOOLHELP_SNAPSHOT_FLAGS.ahk" { CREATE_TOOLHELP_SNAPSHOT_FLAGS }
-#Import ".\HEAPLIST32.ahk" { HEAPLIST32 }
-#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\MODULEENTRY32W.ahk" { MODULEENTRY32W }
-#Import ".\HEAPENTRY32.ahk" { HEAPENTRY32 }
-#Import ".\MODULEENTRY32.ahk" { MODULEENTRY32 }
-#Import ".\THREADENTRY32.ahk" { THREADENTRY32 }
-#Import ".\PROCESSENTRY32.ahk" { PROCESSENTRY32 }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\CREATE_TOOLHELP_SNAPSHOT_FLAGS.ahk" { CREATE_TOOLHELP_SNAPSHOT_FLAGS }
+#Import ".\HEAPENTRY32.ahk" { HEAPENTRY32 }
+#Import ".\HEAPLIST32.ahk" { HEAPLIST32 }
+#Import ".\MODULEENTRY32.ahk" { MODULEENTRY32 }
+#Import ".\MODULEENTRY32W.ahk" { MODULEENTRY32W }
+#Import ".\PROCESSENTRY32.ahk" { PROCESSENTRY32 }
+#Import ".\PROCESSENTRY32W.ahk" { PROCESSENTRY32W }
+#Import ".\THREADENTRY32.ahk" { THREADENTRY32 }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ToolHelp

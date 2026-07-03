@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IFunctionInstanceQuery.ahk" { IFunctionInstanceQuery }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IFunctionInstanceCollectionQuery.ahk" { IFunctionInstanceCollectionQuery }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IFunctionDiscoveryNotification.ahk" { IFunctionDiscoveryNotification }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\SystemVisibilityFlags.ahk" { SystemVisibilityFlags }
 #Import ".\IFunctionInstance.ahk" { IFunctionInstance }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IFunctionInstanceCollection.ahk" { IFunctionInstanceCollection }
+#Import ".\IFunctionInstanceCollectionQuery.ahk" { IFunctionInstanceCollectionQuery }
+#Import ".\IFunctionInstanceQuery.ahk" { IFunctionInstanceQuery }
+#Import ".\SystemVisibilityFlags.ahk" { SystemVisibilityFlags }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This interface is used by client programs to discover function instances, get the default function instance for a category, and create advanced Function Discovery query objects that enable registering Function Discovery defaults, among other things.

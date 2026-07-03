@@ -1,24 +1,24 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\SPWORDINFOOPT.ahk" { SPWORDINFOOPT }
-#Import ".\SPRECORESULTINFO.ahk" { SPRECORESULTINFO }
-#Import ".\ISpPhraseBuilder.ahk" { ISpPhraseBuilder }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ISpPhraseBuilder.ahk" { ISpPhraseBuilder }
+#Import ".\SPEVENT.ahk" { SPEVENT }
+#Import ".\SPPARSEINFO.ahk" { SPPARSEINFO }
 #Import ".\SPRECOCONTEXTHANDLE.ahk" { SPRECOCONTEXTHANDLE }
-#Import ".\SPRULEINFOOPT.ahk" { SPRULEINFOOPT }
-#Import ".\SPTRANSITIONPROPERTY.ahk" { SPTRANSITIONPROPERTY }
-#Import ".\SPWORDHANDLE.ahk" { SPWORDHANDLE }
+#Import ".\SPRECORESULTINFO.ahk" { SPRECORESULTINFO }
 #Import ".\SPRULEENTRY.ahk" { SPRULEENTRY }
 #Import ".\SPRULEHANDLE.ahk" { SPRULEHANDLE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\SPEVENT.ahk" { SPEVENT }
-#Import ".\SPWORDENTRY.ahk" { SPWORDENTRY }
-#Import ".\SPSTATEINFO.ahk" { SPSTATEINFO }
-#Import ".\SPPARSEINFO.ahk" { SPPARSEINFO }
-#Import ".\SPTRANSITIONID.ahk" { SPTRANSITIONID }
+#Import ".\SPRULEINFOOPT.ahk" { SPRULEINFOOPT }
 #Import ".\SPSTATEHANDLE.ahk" { SPSTATEHANDLE }
+#Import ".\SPSTATEINFO.ahk" { SPSTATEINFO }
+#Import ".\SPTRANSITIONID.ahk" { SPTRANSITIONID }
+#Import ".\SPTRANSITIONPROPERTY.ahk" { SPTRANSITIONPROPERTY }
+#Import ".\SPWORDENTRY.ahk" { SPWORDENTRY }
+#Import ".\SPWORDHANDLE.ahk" { SPWORDHANDLE }
+#Import ".\SPWORDINFOOPT.ahk" { SPWORDINFOOPT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.Speech

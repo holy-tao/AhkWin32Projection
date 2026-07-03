@@ -1,10 +1,10 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\SAMPR_ENCRYPTED_USER_PASSWORD.ahk" { SAMPR_ENCRYPTED_USER_PASSWORD }
-#Import ".\ENCRYPTED_LM_OWF_PASSWORD.ahk" { ENCRYPTED_LM_OWF_PASSWORD }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ENCRYPTED_LM_OWF_PASSWORD.ahk" { ENCRYPTED_LM_OWF_PASSWORD }
 #Import ".\LM_OWF_PASSWORD.ahk" { LM_OWF_PASSWORD }
+#Import ".\SAMPR_ENCRYPTED_USER_PASSWORD.ahk" { SAMPR_ENCRYPTED_USER_PASSWORD }
 
 /**
  * @namespace Windows.Win32.System.PasswordManagement

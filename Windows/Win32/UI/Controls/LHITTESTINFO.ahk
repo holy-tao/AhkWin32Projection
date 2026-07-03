@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LIST_ITEM_STATE_FLAGS.ahk" { LIST_ITEM_STATE_FLAGS }
-#Import ".\LIST_ITEM_FLAGS.ahk" { LIST_ITEM_FLAGS }
-#Import ".\LITEM.ahk" { LITEM }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\LIST_ITEM_FLAGS.ahk" { LIST_ITEM_FLAGS }
+#Import ".\LIST_ITEM_STATE_FLAGS.ahk" { LIST_ITEM_STATE_FLAGS }
+#Import ".\LITEM.ahk" { LITEM }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

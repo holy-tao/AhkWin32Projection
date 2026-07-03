@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -46,10 +46,6 @@ export default struct PCREATE_THREAD_NOTIFY_ROUTINE {
             this.value := CallbackCreate(fn, , [HANDLE, HANDLE, BOOLEAN, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

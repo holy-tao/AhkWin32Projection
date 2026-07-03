@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SPropValue.ahk" { SPropValue }
-#Import ".\MAPIUID.ahk" { MAPIUID }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMAPITable.ahk" { IMAPITable }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IProfSect.ahk" { IProfSect }
 #Import ".\MAPIERROR.ahk" { MAPIERROR }
+#Import ".\MAPIUID.ahk" { MAPIUID }
+#Import ".\SPropValue.ahk" { SPropValue }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Describes the properties and vtable order of members for IProviderAdmin IUnknown, which works with service providers in a message service.

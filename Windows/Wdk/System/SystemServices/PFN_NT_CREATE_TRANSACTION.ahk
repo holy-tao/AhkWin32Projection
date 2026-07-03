@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
-#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\OBJECT_ATTRIBUTES.ahk" { OBJECT_ATTRIBUTES }
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -40,7 +40,7 @@ export default struct PFN_NT_CREATE_TRANSACTION {
         TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
 
         result := DllCall(this.value, HANDLE.Ptr, TransactionHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, Guid.Ptr, Uow, HANDLE, TmHandle, UInt32, CreateOptions, UInt32, _IsolationLevel, UInt32, IsolationFlags, TimeoutMarshal, Timeout, UNICODE_STRING.Ptr, Description, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -60,10 +60,6 @@ export default struct PFN_NT_CREATE_TRANSACTION {
             this.value := CallbackCreate(fn, , [HANDLE.Ptr, UInt32, OBJECT_ATTRIBUTES.Ptr, Guid.Ptr, HANDLE, UInt32, UInt32, UInt32, "int64*", UNICODE_STRING.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IOpcPart.ahk" { IOpcPart }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOpcPart.ahk" { IOpcPart }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * A read-only enumerator of IOpcPart interface pointers.

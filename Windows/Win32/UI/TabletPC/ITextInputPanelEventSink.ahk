@@ -2,13 +2,13 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\CorrectionMode.ahk" { CorrectionMode }
-#Import ".\PanelInputArea.ahk" { PanelInputArea }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CorrectionMode.ahk" { CorrectionMode }
 #Import ".\InPlaceState.ahk" { InPlaceState }
+#Import ".\PanelInputArea.ahk" { PanelInputArea }
 
 /**
  * Defines methods that handle the ITextInputPanel Interface events.

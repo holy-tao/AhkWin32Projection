@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\SIZE.ahk" { SIZE }
-#Import ".\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
-#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
-#Import "..\Gdi\HDC.ahk" { HDC }
-#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 #Import ".\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
+#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
+#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import ".\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
+#Import "..\Gdi\HDC.ahk" { HDC }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Encapsulates a 32-bit device independent bitmap and device context, which can be used for rendering glyphs.

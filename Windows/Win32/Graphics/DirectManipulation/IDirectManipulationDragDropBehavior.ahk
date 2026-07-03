@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DIRECTMANIPULATION_DRAG_DROP_STATUS.ahk" { DIRECTMANIPULATION_DRAG_DROP_STATUS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION.ahk" { DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION }
+#Import ".\DIRECTMANIPULATION_DRAG_DROP_STATUS.ahk" { DIRECTMANIPULATION_DRAG_DROP_STATUS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents behaviors for drag and drop interactions, which are triggered by cross-slide or press-and-hold gestures.

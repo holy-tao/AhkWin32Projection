@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWbemBackupRestore.ahk" { IWbemBackupRestore }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWbemBackupRestore.ahk" { IWbemBackupRestore }
 
 /**
  * The IWbemBackupRestoreEx interface backs up and restores the contents of the repository.

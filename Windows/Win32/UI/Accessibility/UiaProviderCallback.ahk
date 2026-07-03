@@ -55,10 +55,6 @@ export default struct UiaProviderCallback {
             this.value := CallbackCreate(fn, , [HWND, ProviderType, SAFEARRAY.Ptr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

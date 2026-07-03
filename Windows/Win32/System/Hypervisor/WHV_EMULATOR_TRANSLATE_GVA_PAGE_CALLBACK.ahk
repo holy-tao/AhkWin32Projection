@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WHV_TRANSLATE_GVA_FLAGS.ahk" { WHV_TRANSLATE_GVA_FLAGS }
 #Import ".\WHV_TRANSLATE_GVA_RESULT_CODE.ahk" { WHV_TRANSLATE_GVA_RESULT_CODE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
@@ -54,10 +54,6 @@ export default struct WHV_EMULATOR_TRANSLATE_GVA_PAGE_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", Int64, WHV_TRANSLATE_GVA_FLAGS, "int*", "uint*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

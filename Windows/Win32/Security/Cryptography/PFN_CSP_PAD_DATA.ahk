@@ -50,10 +50,6 @@ export default struct PFN_CSP_PAD_DATA {
             this.value := CallbackCreate(fn, , [CARD_SIGNING_INFO.Ptr, UInt32, "uint*", "ptr*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

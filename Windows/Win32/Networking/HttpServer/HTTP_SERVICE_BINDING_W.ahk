@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HTTP_SERVICE_BINDING_TYPE.ahk" { HTTP_SERVICE_BINDING_TYPE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\HTTP_SERVICE_BINDING_BASE.ahk" { HTTP_SERVICE_BINDING_BASE }
+#Import ".\HTTP_SERVICE_BINDING_TYPE.ahk" { HTTP_SERVICE_BINDING_TYPE }
 
 /**
  * HTTP_SERVICE_BINDING_W.

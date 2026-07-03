@@ -1,23 +1,21 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\DRMID.ahk" { DRMID }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\FARPROC.ahk" { FARPROC }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\DRMSECURITYPROVIDERTYPE.ahk" { DRMSECURITYPROVIDERTYPE }
-#Import ".\DRMCALLBACK.ahk" { DRMCALLBACK }
-#Import ".\DRMBOUNDLICENSEPARAMS.ahk" { DRMBOUNDLICENSEPARAMS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DRMENCODINGTYPE.ahk" { DRMENCODINGTYPE }
-#Import ".\DRM_CLIENT_VERSION_INFO.ahk" { DRM_CLIENT_VERSION_INFO }
-#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
-#Import ".\DRMTIMETYPE.ahk" { DRMTIMETYPE }
-#Import ".\DRM_USAGEPOLICY_TYPE.ahk" { DRM_USAGEPOLICY_TYPE }
 #Import ".\DRMATTESTTYPE.ahk" { DRMATTESTTYPE }
-#Import ".\DRM_ACTSERV_INFO.ahk" { DRM_ACTSERV_INFO }
-#Import ".\DRMSPECTYPE.ahk" { DRMSPECTYPE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DRMBOUNDLICENSEPARAMS.ahk" { DRMBOUNDLICENSEPARAMS }
+#Import ".\DRMENCODINGTYPE.ahk" { DRMENCODINGTYPE }
 #Import ".\DRMGLOBALOPTIONS.ahk" { DRMGLOBALOPTIONS }
+#Import ".\DRMID.ahk" { DRMID }
+#Import ".\DRMSECURITYPROVIDERTYPE.ahk" { DRMSECURITYPROVIDERTYPE }
+#Import ".\DRMSPECTYPE.ahk" { DRMSPECTYPE }
+#Import ".\DRMTIMETYPE.ahk" { DRMTIMETYPE }
+#Import ".\DRM_ACTSERV_INFO.ahk" { DRM_ACTSERV_INFO }
+#Import ".\DRM_CLIENT_VERSION_INFO.ahk" { DRM_CLIENT_VERSION_INFO }
+#Import ".\DRM_USAGEPOLICY_TYPE.ahk" { DRM_USAGEPOLICY_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 
 /**
  * @namespace Windows.Win32.Data.RightsManagement
@@ -752,7 +750,7 @@ export DRMCreateClientSession(_pfnCallback, uCallbackVersion, wszGroupIDProvider
 
     phClientMarshal := phClient is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("msdrm.dll\DRMCreateClientSession", DRMCALLBACK, _pfnCallback, UInt32, uCallbackVersion, "ptr", wszGroupIDProviderType, "ptr", wszGroupID, phClientMarshal, phClient, "HRESULT")
+    result := DllCall("msdrm.dll\DRMCreateClientSession", "ptr", _pfnCallback, UInt32, uCallbackVersion, "ptr", wszGroupIDProviderType, "ptr", wszGroupID, phClientMarshal, phClient, "HRESULT")
     return result
 }
 
@@ -2662,7 +2660,7 @@ export DRMGetSignedIssuanceLicense(hEnv, hIssuanceLicense, uFlags, pbSymKey, cbS
     pbSymKeyMarshal := pbSymKey is VarRef ? "char*" : "ptr"
     pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("msdrm.dll\DRMGetSignedIssuanceLicense", UInt32, hEnv, UInt32, hIssuanceLicense, UInt32, uFlags, pbSymKeyMarshal, pbSymKey, UInt32, cbSymKey, "ptr", wszSymKeyType, "ptr", wszClientLicensorCertificate, DRMCALLBACK, _pfnCallback, "ptr", wszURL, pvContextMarshal, pvContext, "HRESULT")
+    result := DllCall("msdrm.dll\DRMGetSignedIssuanceLicense", UInt32, hEnv, UInt32, hIssuanceLicense, UInt32, uFlags, pbSymKeyMarshal, pbSymKey, UInt32, cbSymKey, "ptr", wszSymKeyType, "ptr", wszClientLicensorCertificate, "ptr", _pfnCallback, "ptr", wszURL, pvContextMarshal, pvContext, "HRESULT")
     return result
 }
 
@@ -2693,7 +2691,7 @@ export DRMGetSignedIssuanceLicenseEx(hEnv, hIssuanceLicense, uFlags, pbSymKey, c
     pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
     pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("msdrm.dll\DRMGetSignedIssuanceLicenseEx", UInt32, hEnv, UInt32, hIssuanceLicense, UInt32, uFlags, IntPtr, pbSymKey, UInt32, cbSymKey, "ptr", wszSymKeyType, pvReservedMarshal, pvReserved, UInt32, hEnablingPrincipal, UInt32, hBoundLicenseCLC, DRMCALLBACK, _pfnCallback, pvContextMarshal, pvContext, "HRESULT")
+    result := DllCall("msdrm.dll\DRMGetSignedIssuanceLicenseEx", UInt32, hEnv, UInt32, hIssuanceLicense, UInt32, uFlags, IntPtr, pbSymKey, UInt32, cbSymKey, "ptr", wszSymKeyType, pvReservedMarshal, pvReserved, UInt32, hEnablingPrincipal, UInt32, hBoundLicenseCLC, "ptr", _pfnCallback, pvContextMarshal, pvContext, "HRESULT")
     return result
 }
 

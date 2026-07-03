@@ -1,109 +1,108 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\UI\WindowsAndMessaging\HACCEL.ahk" { HACCEL }
-#Import ".\FONTDESC.ahk" { FONTDESC }
-#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
-#Import "..\Com\CALLCONV.ahk" { CALLCONV }
-#Import "..\Com\StructuredStorage\OLESTREAM.ahk" { OLESTREAM }
-#Import "..\Com\StructuredStorage\IPersistStorage.ahk" { IPersistStorage }
-#Import ".\IOleInPlaceFrame.ahk" { IOleInPlaceFrame }
-#Import "..\..\Graphics\Gdi\HRGN.ahk" { HRGN }
-#Import "..\..\UI\WindowsAndMessaging\HCURSOR.ahk" { HCURSOR }
-#Import ".\OLEUIOBJECTPROPSW.ahk" { OLEUIOBJECTPROPSW }
-#Import "..\Com\IDataObject.ahk" { IDataObject }
-#Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
-#Import ".\IRecordInfo.ahk" { IRecordInfo }
-#Import ".\OLEUIPASTESPECIALW.ahk" { OLEUIPASTESPECIALW as OLEUIPASTESPECIALW_struct }
-#Import "..\Com\IClassFactory.ahk" { IClassFactory }
-#Import ".\INTERFACEDATA.ahk" { INTERFACEDATA }
-#Import ".\OLEUIBUSYW.ahk" { OLEUIBUSYW as OLEUIBUSYW_struct }
-#Import "..\Com\ITypeLib.ahk" { ITypeLib }
-#Import ".\OLEUIINSERTOBJECTW.ahk" { OLEUIINSERTOBJECTW as OLEUIINSERTOBJECTW_struct }
-#Import ".\VARFORMAT_LEADING_DIGIT.ahk" { VARFORMAT_LEADING_DIGIT }
-#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
-#Import ".\OLEUIEDITLINKSA.ahk" { OLEUIEDITLINKSA as OLEUIEDITLINKSA_struct }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\CHAR.ahk" { CHAR }
-#Import ".\UDATE.ahk" { UDATE }
-#Import "..\Com\IStream.ahk" { IStream }
-#Import "..\Variant\VARENUM.ahk" { VARENUM }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import "..\Com\ITypeInfo.ahk" { ITypeInfo }
-#Import ".\PICTDESC.ahk" { PICTDESC }
-#Import ".\VARFORMAT_NAMED_FORMAT.ahk" { VARFORMAT_NAMED_FORMAT }
-#Import ".\NUMPARSE.ahk" { NUMPARSE }
-#Import ".\IOleClientSite.ahk" { IOleClientSite }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Com\IEnumFORMATETC.ahk" { IEnumFORMATETC }
-#Import "..\..\Foundation\DECIMAL.ahk" { DECIMAL }
-#Import ".\OLEUIOBJECTPROPSA.ahk" { OLEUIOBJECTPROPSA }
-#Import ".\ICreateTypeLib.ahk" { ICreateTypeLib }
-#Import ".\CLIPBOARD_FORMAT.ahk" { CLIPBOARD_FORMAT }
-#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
-#Import ".\VARFORMAT_PARENTHESES.ahk" { VARFORMAT_PARENTHESES }
-#Import "..\..\UI\WindowsAndMessaging\HMENU.ahk" { HMENU }
-#Import ".\ACTIVEOBJECT_FLAGS.ahk" { ACTIVEOBJECT_FLAGS }
-#Import "..\Com\IPersistStream.ahk" { IPersistStream }
-#Import "..\Com\StructuredStorage\IStorage.ahk" { IStorage }
-#Import "..\Com\EXCEPINFO.ahk" { EXCEPINFO }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IDropSource.ahk" { IDropSource }
-#Import ".\OLEUICONVERTA.ahk" { OLEUICONVERTA as OLEUICONVERTA_struct }
-#Import "..\Com\SYSKIND.ahk" { SYSKIND }
-#Import "..\Com\IAdviseSink.ahk" { IAdviseSink }
-#Import ".\OLEUIINSERTOBJECTA.ahk" { OLEUIINSERTOBJECTA as OLEUIINSERTOBJECTA_struct }
-#Import ".\IOleObject.ahk" { IOleObject }
-#Import ".\OLECREATE.ahk" { OLECREATE as OLECREATE_enum }
-#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
-#Import "..\Com\CUSTDATA.ahk" { CUSTDATA }
-#Import ".\EMBDHLP_FLAGS.ahk" { EMBDHLP_FLAGS }
-#Import ".\OLEUIPASTESPECIALA.ahk" { OLEUIPASTESPECIALA as OLEUIPASTESPECIALA_struct }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\Memory\GLOBAL_ALLOC_FLAGS.ahk" { GLOBAL_ALLOC_FLAGS }
-#Import ".\IDropTarget.ahk" { IDropTarget }
-#Import ".\OLESTREAMQUERYCONVERTOLELINKCALLBACK.ahk" { OLESTREAMQUERYCONVERTOLELINKCALLBACK }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\Com\SAFEARRAYBOUND.ahk" { SAFEARRAYBOUND }
-#Import ".\IOleUILinkContainerW.ahk" { IOleUILinkContainerW }
-#Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\LOAD_PICTURE_FLAGS.ahk" { LOAD_PICTURE_FLAGS }
-#Import ".\OLEUIEDITLINKSW.ahk" { OLEUIEDITLINKSW as OLEUIEDITLINKSW_struct }
-#Import ".\IOleInPlaceActiveObject.ahk" { IOleInPlaceActiveObject }
-#Import "..\Com\DISPPARAMS.ahk" { DISPPARAMS }
-#Import "..\Com\FORMATETC.ahk" { FORMATETC }
-#Import ".\OCPFIPARAMS.ahk" { OCPFIPARAMS }
-#Import ".\OLEUICONVERTW.ahk" { OLEUICONVERTW as OLEUICONVERTW_struct }
-#Import ".\OLEMENUGROUPWIDTHS.ahk" { OLEMENUGROUPWIDTHS }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Com\CY.ahk" { CY }
-#Import ".\VARCMP.ahk" { VARCMP as VARCMP_enum }
-#Import ".\OLEUICHANGESOURCEA.ahk" { OLEUICHANGESOURCEA as OLEUICHANGESOURCEA_struct }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DROPEFFECT.ahk" { DROPEFFECT }
-#Import ".\OLEUICHANGESOURCEW.ahk" { OLEUICHANGESOURCEW as OLEUICHANGESOURCEW_struct }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\VARFORMAT_GROUP.ahk" { VARFORMAT_GROUP }
-#Import ".\IEnumOLEVERB.ahk" { IEnumOLEVERB }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\Com\STGMEDIUM.ahk" { STGMEDIUM }
-#Import ".\ICreateErrorInfo.ahk" { ICreateErrorInfo }
-#Import ".\VARFORMAT_FIRST_WEEK.ahk" { VARFORMAT_FIRST_WEEK }
-#Import ".\IOleUILinkContainerA.ahk" { IOleUILinkContainerA }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\OLEINPLACEFRAMEINFO.ahk" { OLEINPLACEFRAMEINFO }
-#Import ".\REGKIND.ahk" { REGKIND }
-#Import "..\Com\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
-#Import ".\OLEUICHANGEICONA.ahk" { OLEUICHANGEICONA as OLEUICHANGEICONA_struct }
-#Import ".\ICreateTypeLib2.ahk" { ICreateTypeLib2 }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\DECIMAL.ahk" { DECIMAL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
-#Import ".\IOleAdviseHolder.ahk" { IOleAdviseHolder }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\VARFORMAT_FIRST_DAY.ahk" { VARFORMAT_FIRST_DAY }
-#Import ".\OLEUICHANGEICONW.ahk" { OLEUICHANGEICONW as OLEUICHANGEICONW_struct }
-#Import ".\OLEUIBUSYA.ahk" { OLEUIBUSYA as OLEUIBUSYA_struct }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
+#Import "..\..\Graphics\Gdi\HRGN.ahk" { HRGN }
+#Import "..\Com\CALLCONV.ahk" { CALLCONV }
+#Import "..\Com\CUSTDATA.ahk" { CUSTDATA }
+#Import "..\Com\CY.ahk" { CY }
+#Import "..\Com\DISPPARAMS.ahk" { DISPPARAMS }
+#Import "..\Com\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
+#Import "..\Com\EXCEPINFO.ahk" { EXCEPINFO }
+#Import "..\Com\FORMATETC.ahk" { FORMATETC }
+#Import "..\Com\IAdviseSink.ahk" { IAdviseSink }
+#Import "..\Com\IClassFactory.ahk" { IClassFactory }
+#Import "..\Com\IDataObject.ahk" { IDataObject }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\Com\IEnumFORMATETC.ahk" { IEnumFORMATETC }
 #Import "..\Com\IMoniker.ahk" { IMoniker }
+#Import "..\Com\IPersistStream.ahk" { IPersistStream }
+#Import "..\Com\IStream.ahk" { IStream }
+#Import "..\Com\ITypeInfo.ahk" { ITypeInfo }
+#Import "..\Com\ITypeLib.ahk" { ITypeLib }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\Com\SAFEARRAYBOUND.ahk" { SAFEARRAYBOUND }
+#Import "..\Com\STGMEDIUM.ahk" { STGMEDIUM }
+#Import "..\Com\SYSKIND.ahk" { SYSKIND }
+#Import "..\Com\StructuredStorage\IPersistStorage.ahk" { IPersistStorage }
+#Import "..\Com\StructuredStorage\IStorage.ahk" { IStorage }
+#Import "..\Com\StructuredStorage\OLESTREAM.ahk" { OLESTREAM }
+#Import "..\Memory\GLOBAL_ALLOC_FLAGS.ahk" { GLOBAL_ALLOC_FLAGS }
+#Import ".\ACTIVEOBJECT_FLAGS.ahk" { ACTIVEOBJECT_FLAGS }
+#Import ".\CLIPBOARD_FORMAT.ahk" { CLIPBOARD_FORMAT }
+#Import ".\DROPEFFECT.ahk" { DROPEFFECT }
+#Import ".\EMBDHLP_FLAGS.ahk" { EMBDHLP_FLAGS }
+#Import ".\FONTDESC.ahk" { FONTDESC }
+#Import ".\ICreateErrorInfo.ahk" { ICreateErrorInfo }
+#Import ".\ICreateTypeLib.ahk" { ICreateTypeLib }
+#Import ".\ICreateTypeLib2.ahk" { ICreateTypeLib2 }
+#Import ".\IDropSource.ahk" { IDropSource }
+#Import ".\IDropTarget.ahk" { IDropTarget }
+#Import ".\IEnumOLEVERB.ahk" { IEnumOLEVERB }
+#Import ".\INTERFACEDATA.ahk" { INTERFACEDATA }
+#Import ".\IOleAdviseHolder.ahk" { IOleAdviseHolder }
+#Import ".\IOleClientSite.ahk" { IOleClientSite }
+#Import ".\IOleInPlaceActiveObject.ahk" { IOleInPlaceActiveObject }
+#Import ".\IOleInPlaceFrame.ahk" { IOleInPlaceFrame }
+#Import ".\IOleObject.ahk" { IOleObject }
+#Import ".\IOleUILinkContainerA.ahk" { IOleUILinkContainerA }
+#Import ".\IOleUILinkContainerW.ahk" { IOleUILinkContainerW }
+#Import ".\IRecordInfo.ahk" { IRecordInfo }
+#Import ".\LOAD_PICTURE_FLAGS.ahk" { LOAD_PICTURE_FLAGS }
+#Import ".\NUMPARSE.ahk" { NUMPARSE }
+#Import ".\OCPFIPARAMS.ahk" { OCPFIPARAMS }
+#Import ".\OLECREATE.ahk" { OLECREATE as OLECREATE_enum }
+#Import ".\OLEINPLACEFRAMEINFO.ahk" { OLEINPLACEFRAMEINFO }
+#Import ".\OLEMENUGROUPWIDTHS.ahk" { OLEMENUGROUPWIDTHS }
+#Import ".\OLEUIBUSYA.ahk" { OLEUIBUSYA as OLEUIBUSYA_struct }
+#Import ".\OLEUIBUSYW.ahk" { OLEUIBUSYW as OLEUIBUSYW_struct }
+#Import ".\OLEUICHANGEICONA.ahk" { OLEUICHANGEICONA as OLEUICHANGEICONA_struct }
+#Import ".\OLEUICHANGEICONW.ahk" { OLEUICHANGEICONW as OLEUICHANGEICONW_struct }
+#Import ".\OLEUICHANGESOURCEA.ahk" { OLEUICHANGESOURCEA as OLEUICHANGESOURCEA_struct }
+#Import ".\OLEUICHANGESOURCEW.ahk" { OLEUICHANGESOURCEW as OLEUICHANGESOURCEW_struct }
+#Import ".\OLEUICONVERTA.ahk" { OLEUICONVERTA as OLEUICONVERTA_struct }
+#Import ".\OLEUICONVERTW.ahk" { OLEUICONVERTW as OLEUICONVERTW_struct }
+#Import ".\OLEUIEDITLINKSA.ahk" { OLEUIEDITLINKSA as OLEUIEDITLINKSA_struct }
+#Import ".\OLEUIEDITLINKSW.ahk" { OLEUIEDITLINKSW as OLEUIEDITLINKSW_struct }
+#Import ".\OLEUIINSERTOBJECTA.ahk" { OLEUIINSERTOBJECTA as OLEUIINSERTOBJECTA_struct }
+#Import ".\OLEUIINSERTOBJECTW.ahk" { OLEUIINSERTOBJECTW as OLEUIINSERTOBJECTW_struct }
+#Import ".\OLEUIOBJECTPROPSA.ahk" { OLEUIOBJECTPROPSA }
+#Import ".\OLEUIOBJECTPROPSW.ahk" { OLEUIOBJECTPROPSW }
+#Import ".\OLEUIPASTESPECIALA.ahk" { OLEUIPASTESPECIALA as OLEUIPASTESPECIALA_struct }
+#Import ".\OLEUIPASTESPECIALW.ahk" { OLEUIPASTESPECIALW as OLEUIPASTESPECIALW_struct }
+#Import ".\PICTDESC.ahk" { PICTDESC }
+#Import ".\REGKIND.ahk" { REGKIND }
+#Import ".\UDATE.ahk" { UDATE }
+#Import ".\VARCMP.ahk" { VARCMP as VARCMP_enum }
+#Import ".\VARFORMAT_FIRST_DAY.ahk" { VARFORMAT_FIRST_DAY }
+#Import ".\VARFORMAT_FIRST_WEEK.ahk" { VARFORMAT_FIRST_WEEK }
+#Import ".\VARFORMAT_GROUP.ahk" { VARFORMAT_GROUP }
+#Import ".\VARFORMAT_LEADING_DIGIT.ahk" { VARFORMAT_LEADING_DIGIT }
+#Import ".\VARFORMAT_NAMED_FORMAT.ahk" { VARFORMAT_NAMED_FORMAT }
+#Import ".\VARFORMAT_PARENTHESES.ahk" { VARFORMAT_PARENTHESES }
+#Import "..\Variant\VARENUM.ahk" { VARENUM }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\UI\WindowsAndMessaging\HACCEL.ahk" { HACCEL }
+#Import "..\..\UI\WindowsAndMessaging\HCURSOR.ahk" { HCURSOR }
+#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import "..\..\UI\WindowsAndMessaging\HMENU.ahk" { HMENU }
+#Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
 
 /**
  * @namespace Windows.Win32.System.Ole
@@ -14653,7 +14652,7 @@ export OleRegEnumVerbs(clsid) {
 export OleConvertOLESTREAMToIStorage2(lpolestream, pstg, ptd, opt, pvCallbackContext, pQueryConvertOLELinkCallback) {
     pvCallbackContextMarshal := pvCallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ole32.dll\OleConvertOLESTREAMToIStorage2", OLESTREAM.Ptr, lpolestream, "ptr", pstg, DVTARGETDEVICE.Ptr, ptd, UInt32, opt, pvCallbackContextMarshal, pvCallbackContext, OLESTREAMQUERYCONVERTOLELINKCALLBACK, pQueryConvertOLELinkCallback, "HRESULT")
+    result := DllCall("ole32.dll\OleConvertOLESTREAMToIStorage2", OLESTREAM.Ptr, lpolestream, "ptr", pstg, DVTARGETDEVICE.Ptr, ptd, UInt32, opt, pvCallbackContextMarshal, pvCallbackContext, "ptr", pQueryConvertOLELinkCallback, "HRESULT")
     return result
 }
 
@@ -14889,7 +14888,7 @@ export OleConvertOLESTREAMToIStorageEx2(polestm, pstg, pcfFormat, plwWidth, plHe
     pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
     pvCallbackContextMarshal := pvCallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ole32.dll\OleConvertOLESTREAMToIStorageEx2", OLESTREAM.Ptr, polestm, "ptr", pstg, pcfFormatMarshal, pcfFormat, plwWidthMarshal, plwWidth, plHeightMarshal, plHeight, pdwSizeMarshal, pdwSize, STGMEDIUM.Ptr, pmedium, UInt32, opt, pvCallbackContextMarshal, pvCallbackContext, OLESTREAMQUERYCONVERTOLELINKCALLBACK, pQueryConvertOLELinkCallback, "HRESULT")
+    result := DllCall("ole32.dll\OleConvertOLESTREAMToIStorageEx2", OLESTREAM.Ptr, polestm, "ptr", pstg, pcfFormatMarshal, pcfFormat, plwWidthMarshal, plwWidth, plHeightMarshal, plHeight, pdwSizeMarshal, pdwSize, STGMEDIUM.Ptr, pmedium, UInt32, opt, pvCallbackContextMarshal, pvCallbackContext, "ptr", pQueryConvertOLELinkCallback, "HRESULT")
     return result
 }
 

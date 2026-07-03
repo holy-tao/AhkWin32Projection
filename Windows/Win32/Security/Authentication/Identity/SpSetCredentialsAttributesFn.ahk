@@ -28,7 +28,7 @@ export default struct SpSetCredentialsAttributesFn {
      */
     Call(CredentialHandle, CredentialAttribute, _Buffer, BufferSize) {
         result := DllCall(this.value, IntPtr, CredentialHandle, UInt32, CredentialAttribute, IntPtr, _Buffer, UInt32, BufferSize, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -48,10 +48,6 @@ export default struct SpSetCredentialsAttributesFn {
             this.value := CallbackCreate(fn, , [IntPtr, UInt32, IntPtr, UInt32, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HCHANGE.ahk" { HCHANGE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HCHANGE.ahk" { HCHANGE }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -56,10 +56,6 @@ export default struct PCLUSAPI_GET_CLUSTER_NOTIFY {
             this.value := CallbackCreate(fn, , [HCHANGE, "ptr*", "uint*", PWSTR, "uint*", UInt32, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

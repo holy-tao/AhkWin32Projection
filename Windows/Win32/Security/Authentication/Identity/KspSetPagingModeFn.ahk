@@ -26,7 +26,7 @@ export default struct KspSetPagingModeFn {
      */
     Call(PagingMode) {
         result := DllCall(this.value, BOOLEAN, PagingMode, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -46,10 +46,6 @@ export default struct KspSetPagingModeFn {
             this.value := CallbackCreate(fn, , [BOOLEAN, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

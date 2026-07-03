@@ -46,10 +46,6 @@ export default struct alljoyn_buslistener_listener_registered_ptr {
             this.value := CallbackCreate(fn, , ["ptr", alljoyn_busattachment, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

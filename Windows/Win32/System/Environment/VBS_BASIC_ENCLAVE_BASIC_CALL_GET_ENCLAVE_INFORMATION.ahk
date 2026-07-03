@@ -44,10 +44,6 @@ export default struct VBS_BASIC_ENCLAVE_BASIC_CALL_GET_ENCLAVE_INFORMATION {
             this.value := CallbackCreate(fn, , [ENCLAVE_INFORMATION.Ptr, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

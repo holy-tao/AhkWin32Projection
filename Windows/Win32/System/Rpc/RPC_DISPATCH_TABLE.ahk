@@ -1,5 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RPC_DISPATCH_FUNCTION.ahk" { RPC_DISPATCH_FUNCTION }
 
 /**
  * The RPC_DISPATCH_TABLE structure is part of the private interface between the run-time libraries and the stubs. Most distributed applications that use Microsoft RPC do not need this structure.
@@ -11,7 +10,7 @@ export default struct RPC_DISPATCH_TABLE {
 
     DispatchTableCount : UInt32
 
-    DispatchTable : RPC_DISPATCH_FUNCTION
+    DispatchTable : IntPtr
 
     Reserved : IntPtr
 

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DWRITE_TEXTURE_TYPE.ahk" { DWRITE_TEXTURE_TYPE }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\DWRITE_TEXTURE_TYPE.ahk" { DWRITE_TEXTURE_TYPE }
+#Import ".\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Contains low-level information used to render a glyph run.

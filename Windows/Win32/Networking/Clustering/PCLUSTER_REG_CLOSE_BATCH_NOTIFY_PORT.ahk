@@ -44,10 +44,6 @@ export default struct PCLUSTER_REG_CLOSE_BATCH_NOTIFY_PORT {
             this.value := CallbackCreate(fn, , [HREGBATCHPORT, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

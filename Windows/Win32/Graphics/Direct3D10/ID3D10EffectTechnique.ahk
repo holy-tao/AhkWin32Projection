@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D10_STATE_BLOCK_MASK.ahk" { D3D10_STATE_BLOCK_MASK }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\D3D10_TECHNIQUE_DESC.ahk" { D3D10_TECHNIQUE_DESC }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ID3D10EffectPass.ahk" { ID3D10EffectPass }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\D3D10_STATE_BLOCK_MASK.ahk" { D3D10_STATE_BLOCK_MASK }
+#Import ".\D3D10_TECHNIQUE_DESC.ahk" { D3D10_TECHNIQUE_DESC }
+#Import ".\ID3D10EffectPass.ahk" { ID3D10EffectPass }
 #Import ".\ID3D10EffectVariable.ahk" { ID3D10EffectVariable }
 
 /**

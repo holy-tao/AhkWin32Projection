@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUpdateSession.ahk" { IUpdateSession }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUpdateSession.ahk" { IUpdateSession }
 
 /**
  * Represents a session in which the caller can perform operations that involve updates. For example, this interface represents sessions in which the caller performs a search, download, installation, or uninstallation operation. (IUpdateSession2)

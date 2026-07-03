@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ASSOCCLASS.ahk" { ASSOCCLASS }
-#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
+#Import ".\ASSOCCLASS.ahk" { ASSOCCLASS }
 
 /**
  * Defines information used by AssocCreateForClasses to retrieve an IQueryAssociations interface for a given file association.

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\Guid.ahk" { Guid }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMLangCodePages.ahk" { IMLangCodePages }
 #Import ".\SCRIPTFONTINFO.ahk" { SCRIPTFONTINFO }
 #Import ".\UNICODERANGE.ahk" { UNICODERANGE }
-#Import "..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Graphics\Gdi\HFONT.ahk" { HFONT }
 #Import "..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\Graphics\Gdi\HFONT.ahk" { HFONT }
 
 /**
  * @namespace Windows.Win32.Globalization

@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\AGENTHANDLER_EVENT.ahk" { AGENTHANDLER_EVENT }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\ITAgentHandler.ahk" { ITAgentHandler }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The ITAgentHandlerEvent interface (tapi3cc.h) contains methods that retrieve the description of agent handler events.

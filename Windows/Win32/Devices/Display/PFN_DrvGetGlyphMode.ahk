@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FONTOBJ.ahk" { FONTOBJ }
 #Import ".\DHPDEV.ahk" { DHPDEV }
+#Import ".\FONTOBJ.ahk" { FONTOBJ }
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -46,10 +46,6 @@ export default struct PFN_DrvGetGlyphMode {
             this.value := CallbackCreate(fn, , [DHPDEV, FONTOBJ.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

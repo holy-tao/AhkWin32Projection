@@ -2,11 +2,11 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\System\Com\IDataObject.ahk" { IDataObject }
-#Import "..\..\ACL.ahk" { ACL }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\ACL.ahk" { ACL }
 #Import "..\..\PSID.ahk" { PSID }
+#Import "..\..\..\System\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables the access control editor to obtain information from the client that is not provided by the ISecurityInformation interface.

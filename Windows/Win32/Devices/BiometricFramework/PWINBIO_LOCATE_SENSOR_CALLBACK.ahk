@@ -49,10 +49,6 @@ export default struct PWINBIO_LOCATE_SENSOR_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", "int", UInt32, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

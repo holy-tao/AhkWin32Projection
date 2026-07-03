@@ -54,10 +54,6 @@ export default struct MI_OperationCallback_WriteProgress {
             this.value := CallbackCreate(fn, , [MI_Operation.Ptr, "ptr", "ushort*", "ushort*", "ushort*", UInt32, UInt32, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

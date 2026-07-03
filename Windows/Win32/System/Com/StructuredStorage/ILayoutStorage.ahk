@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ILockBytes.ahk" { ILockBytes }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\IUnknown.ahk" { IUnknown }
 #Import "..\StorageLayout.ahk" { StorageLayout }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ILockBytes.ahk" { ILockBytes }
 
 /**
  * The ILayoutStorage interface enables an application to optimize the layout of its compound files for efficient downloading across a slow link.

@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\UI_ANIMATION_UPDATE_RESULT.ahk" { UI_ANIMATION_UPDATE_RESULT }
-#Import ".\UI_ANIMATION_MODE.ahk" { UI_ANIMATION_MODE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IUIAnimationPriorityComparison2.ahk" { IUIAnimationPriorityComparison2 }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IUIAnimationManagerEventHandler2.ahk" { IUIAnimationManagerEventHandler2 }
+#Import ".\IUIAnimationPriorityComparison2.ahk" { IUIAnimationPriorityComparison2 }
 #Import ".\IUIAnimationStoryboard2.ahk" { IUIAnimationStoryboard2 }
 #Import ".\IUIAnimationTransition2.ahk" { IUIAnimationTransition2 }
-#Import ".\UI_ANIMATION_MANAGER_STATUS.ahk" { UI_ANIMATION_MANAGER_STATUS }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IUIAnimationVariable2.ahk" { IUIAnimationVariable2 }
-#Import ".\IUIAnimationManagerEventHandler2.ahk" { IUIAnimationManagerEventHandler2 }
+#Import ".\UI_ANIMATION_MANAGER_STATUS.ahk" { UI_ANIMATION_MANAGER_STATUS }
+#Import ".\UI_ANIMATION_MODE.ahk" { UI_ANIMATION_MODE }
+#Import ".\UI_ANIMATION_UPDATE_RESULT.ahk" { UI_ANIMATION_UPDATE_RESULT }
 
 /**
  * Defines an animation manager, which provides a central interface for creating and managing animations in multiple dimensions.

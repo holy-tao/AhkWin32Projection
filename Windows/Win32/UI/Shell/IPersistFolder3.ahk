@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
-#Import ".\PERSIST_FOLDER_TARGET_INFO.ahk" { PERSIST_FOLDER_TARGET_INFO }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import ".\IPersistFolder2.ahk" { IPersistFolder2 }
+#Import ".\PERSIST_FOLDER_TARGET_INFO.ahk" { PERSIST_FOLDER_TARGET_INFO }
 
 /**
  * Extends the IPersistFolder and IPersistFolder2 interfaces by allowing a folder object to implement nondefault handling of folder shortcuts.

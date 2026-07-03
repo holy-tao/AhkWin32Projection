@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\COAUTHIDENTITY.ahk" { COAUTHIDENTITY }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\COAUTHIDENTITY.ahk" { COAUTHIDENTITY }
 
 /**
  * Contains the authentication settings used while making a remote activation request from the client computer to the server computer.

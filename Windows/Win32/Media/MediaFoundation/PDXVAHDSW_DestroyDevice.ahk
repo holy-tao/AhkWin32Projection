@@ -47,10 +47,6 @@ export default struct PDXVAHDSW_DestroyDevice {
             this.value := CallbackCreate(fn, , [HANDLE, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

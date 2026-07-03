@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IXpsOMVisual.ahk" { IXpsOMVisual }
-#Import ".\XPS_LINE_JOIN.ahk" { XPS_LINE_JOIN }
-#Import ".\IXpsOMDashCollection.ahk" { IXpsOMDashCollection }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IXpsOMGeometry.ahk" { IXpsOMGeometry }
-#Import ".\IXpsOMBrush.ahk" { IXpsOMBrush }
-#Import ".\XPS_DASH_CAP.ahk" { XPS_DASH_CAP }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IXpsOMBrush.ahk" { IXpsOMBrush }
+#Import ".\IXpsOMDashCollection.ahk" { IXpsOMDashCollection }
+#Import ".\IXpsOMGeometry.ahk" { IXpsOMGeometry }
+#Import ".\IXpsOMVisual.ahk" { IXpsOMVisual }
+#Import ".\XPS_DASH_CAP.ahk" { XPS_DASH_CAP }
 #Import ".\XPS_LINE_CAP.ahk" { XPS_LINE_CAP }
+#Import ".\XPS_LINE_JOIN.ahk" { XPS_LINE_JOIN }
 
 /**
  * Describes a non-text visual item.

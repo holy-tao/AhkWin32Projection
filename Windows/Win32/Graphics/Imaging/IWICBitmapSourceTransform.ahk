@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WICBitmapTransformOptions.ahk" { WICBitmapTransformOptions }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\WICRect.ahk" { WICRect }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WICBitmapTransformOptions.ahk" { WICBitmapTransformOptions }
+#Import ".\WICRect.ahk" { WICRect }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods for offloading certain operations to the underlying IWICBitmapSource implementation.

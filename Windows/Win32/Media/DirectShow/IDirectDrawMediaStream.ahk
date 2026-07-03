@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDirectDrawStreamSample.ahk" { IDirectDrawStreamSample }
-#Import "..\..\Graphics\DirectDraw\IDirectDrawPalette.ahk" { IDirectDrawPalette }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\Graphics\DirectDraw\IDirectDraw.ahk" { IDirectDraw }
-#Import ".\IMediaStream.ahk" { IMediaStream }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Graphics\DirectDraw\DDSURFACEDESC.ahk" { DDSURFACEDESC }
+#Import "..\..\Graphics\DirectDraw\IDirectDraw.ahk" { IDirectDraw }
+#Import "..\..\Graphics\DirectDraw\IDirectDrawPalette.ahk" { IDirectDrawPalette }
 #Import "..\..\Graphics\DirectDraw\IDirectDrawSurface.ahk" { IDirectDrawSurface }
+#Import ".\IDirectDrawStreamSample.ahk" { IDirectDrawStreamSample }
+#Import ".\IMediaStream.ahk" { IMediaStream }
 
 /**
  * Note  This interface is deprecated.

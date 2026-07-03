@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 #Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -32,7 +32,7 @@ export default struct PLSA_AUDIT_ACCOUNT_LOGON {
      */
     Call(AuditId, Success, Source, ClientName, MappedName, _Status) {
         result := DllCall(this.value, UInt32, AuditId, BOOLEAN, Success, LSA_UNICODE_STRING.Ptr, Source, LSA_UNICODE_STRING.Ptr, ClientName, LSA_UNICODE_STRING.Ptr, MappedName, NTSTATUS, _Status, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -52,10 +52,6 @@ export default struct PLSA_AUDIT_ACCOUNT_LOGON {
             this.value := CallbackCreate(fn, , [UInt32, BOOLEAN, LSA_UNICODE_STRING.Ptr, LSA_UNICODE_STRING.Ptr, LSA_UNICODE_STRING.Ptr, NTSTATUS, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

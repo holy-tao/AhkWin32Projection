@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IEnumCERTVIEWEXTENSION.ahk" { IEnumCERTVIEWEXTENSION }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IEnumCERTVIEWATTRIBUTE.ahk" { IEnumCERTVIEWATTRIBUTE }
 #Import ".\IEnumCERTVIEWCOLUMN.ahk" { IEnumCERTVIEWCOLUMN }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumCERTVIEWEXTENSION.ahk" { IEnumCERTVIEWEXTENSION }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * Represents a row-enumeration sequence that contains the data in the rows of the Certificate Services view, allowing further access to the columns, attributes, and extensions associated with each row.

@@ -59,10 +59,6 @@ export default struct PSYMBOLSERVERSTOREFILEW {
             this.value := CallbackCreate(fn, , [PWSTR, PWSTR, "ptr", UInt32, UInt32, PWSTR, IntPtr, UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,9 +1,9 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\LicenseProtectionStatus.ahk" { LicenseProtectionStatus }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\LicenseProtectionStatus.ahk" { LicenseProtectionStatus }
 
 /**
  * @namespace Windows.Win32.Security.LicenseProtection

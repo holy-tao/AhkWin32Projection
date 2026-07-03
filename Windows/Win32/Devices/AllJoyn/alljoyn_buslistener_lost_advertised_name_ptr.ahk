@@ -51,10 +51,6 @@ export default struct alljoyn_buslistener_lost_advertised_name_ptr {
             this.value := CallbackCreate(fn, , ["ptr", PSTR, UInt16, PSTR, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

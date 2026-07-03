@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CS_DES.ahk" { CS_DES }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CS_DES.ahk" { CS_DES }
 
 /**
  * The CS_RESOURCE structure is used for specifying a resource list that describes device class-specific resource usage for a device instance. For more information about resource lists, see Hardware Resources.

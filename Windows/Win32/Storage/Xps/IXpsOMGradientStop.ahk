@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IXpsOMGradientBrush.ahk" { IXpsOMGradientBrush }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IXpsOMColorProfileResource.ahk" { IXpsOMColorProfileResource }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsOMColorProfileResource.ahk" { IXpsOMColorProfileResource }
+#Import ".\IXpsOMGradientBrush.ahk" { IXpsOMGradientBrush }
 #Import ".\XPS_COLOR.ahk" { XPS_COLOR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a single color and location within a gradient.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\NOTIFICATION.ahk" { NOTIFICATION }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Implements an advise sink object for handling notification. A pointer to an advise sink object is passed in a call to a service provider's Advise method.

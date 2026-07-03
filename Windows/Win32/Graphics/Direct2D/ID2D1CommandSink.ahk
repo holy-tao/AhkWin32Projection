@@ -1,32 +1,32 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID2D1Mesh.ahk" { ID2D1Mesh }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
-#Import ".\D2D1_ANTIALIAS_MODE.ahk" { D2D1_ANTIALIAS_MODE }
-#Import ".\ID2D1GdiMetafile.ahk" { ID2D1GdiMetafile }
-#Import ".\ID2D1StrokeStyle.ahk" { ID2D1StrokeStyle }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "Common\D2D1_COLOR_F.ahk" { D2D1_COLOR_F }
 #Import "Common\D2D1_COMPOSITE_MODE.ahk" { D2D1_COMPOSITE_MODE }
 #Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
-#Import ".\ID2D1Image.ahk" { ID2D1Image }
-#Import ".\ID2D1Layer.ahk" { ID2D1Layer }
 #Import "Common\D2D_MATRIX_4X4_F.ahk" { D2D_MATRIX_4X4_F }
-#Import ".\D2D1_PRIMITIVE_BLEND.ahk" { D2D1_PRIMITIVE_BLEND }
-#Import ".\D2D1_INTERPOLATION_MODE.ahk" { D2D1_INTERPOLATION_MODE }
 #Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
-#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
-#Import "..\DirectWrite\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
+#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
+#Import ".\D2D1_ANTIALIAS_MODE.ahk" { D2D1_ANTIALIAS_MODE }
+#Import ".\D2D1_INTERPOLATION_MODE.ahk" { D2D1_INTERPOLATION_MODE }
+#Import ".\D2D1_LAYER_PARAMETERS1.ahk" { D2D1_LAYER_PARAMETERS1 }
+#Import ".\D2D1_PRIMITIVE_BLEND.ahk" { D2D1_PRIMITIVE_BLEND }
+#Import ".\D2D1_TEXT_ANTIALIAS_MODE.ahk" { D2D1_TEXT_ANTIALIAS_MODE }
 #Import ".\D2D1_UNIT_MODE.ahk" { D2D1_UNIT_MODE }
 #Import ".\ID2D1Bitmap.ahk" { ID2D1Bitmap }
-#Import "..\DirectWrite\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
-#Import "Common\D2D1_COLOR_F.ahk" { D2D1_COLOR_F }
-#Import ".\D2D1_TEXT_ANTIALIAS_MODE.ahk" { D2D1_TEXT_ANTIALIAS_MODE }
+#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
+#Import ".\ID2D1GdiMetafile.ahk" { ID2D1GdiMetafile }
 #Import ".\ID2D1Geometry.ahk" { ID2D1Geometry }
-#Import "..\DirectWrite\DWRITE_GLYPH_RUN_DESCRIPTION.ahk" { DWRITE_GLYPH_RUN_DESCRIPTION }
-#Import ".\D2D1_LAYER_PARAMETERS1.ahk" { D2D1_LAYER_PARAMETERS1 }
+#Import ".\ID2D1Image.ahk" { ID2D1Image }
+#Import ".\ID2D1Layer.ahk" { ID2D1Layer }
+#Import ".\ID2D1Mesh.ahk" { ID2D1Mesh }
+#Import ".\ID2D1StrokeStyle.ahk" { ID2D1StrokeStyle }
 #Import "..\DirectWrite\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
+#Import "..\DirectWrite\DWRITE_GLYPH_RUN_DESCRIPTION.ahk" { DWRITE_GLYPH_RUN_DESCRIPTION }
+#Import "..\DirectWrite\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import "..\DirectWrite\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The command sink is implemented by you for an application when you want to receive a playback of the commands recorded in a command list.

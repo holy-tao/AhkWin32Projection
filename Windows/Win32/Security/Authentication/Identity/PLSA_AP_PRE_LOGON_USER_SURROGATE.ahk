@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SECURITY_LOGON_TYPE.ahk" { SECURITY_LOGON_TYPE }
-#Import ".\SECPKG_SURROGATE_LOGON.ahk" { SECPKG_SURROGATE_LOGON }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\SECPKG_SURROGATE_LOGON.ahk" { SECPKG_SURROGATE_LOGON }
+#Import ".\SECURITY_LOGON_TYPE.ahk" { SECURITY_LOGON_TYPE }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -37,7 +37,7 @@ export default struct PLSA_AP_PRE_LOGON_USER_SURROGATE {
         SubStatusMarshal := SubStatus is VarRef ? "int*" : "ptr"
 
         result := DllCall(this.value, ClientRequestMarshal, ClientRequest, SECURITY_LOGON_TYPE, LogonType, IntPtr, ProtocolSubmitBuffer, ClientBufferBaseMarshal, ClientBufferBase, UInt32, SubmitBufferSize, SECPKG_SURROGATE_LOGON.Ptr, SurrogateLogon, SubStatusMarshal, SubStatus, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -57,10 +57,6 @@ export default struct PLSA_AP_PRE_LOGON_USER_SURROGATE {
             this.value := CallbackCreate(fn, , ["ptr*", SECURITY_LOGON_TYPE, IntPtr, "ptr", UInt32, SECPKG_SURROGATE_LOGON.Ptr, "int*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

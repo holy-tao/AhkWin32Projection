@@ -44,10 +44,6 @@ export default struct PCLOSE_CLUSTER_CRYPT_PROVIDER {
             this.value := CallbackCreate(fn, , [HCLUSCRYPTPROVIDER, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

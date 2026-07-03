@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RPC_STATUS.ahk" { RPC_STATUS }
-#Import ".\RPC_HTTP_REDIRECTOR_STAGE.ahk" { RPC_HTTP_REDIRECTOR_STAGE }
 #Import ".\RDR_CALLOUT_STATE.ahk" { RDR_CALLOUT_STATE }
+#Import ".\RPC_HTTP_REDIRECTOR_STAGE.ahk" { RPC_HTTP_REDIRECTOR_STAGE }
+#Import ".\RPC_STATUS.ahk" { RPC_STATUS }
 
 /**
  * @namespace Windows.Win32.System.Rpc
@@ -50,10 +50,6 @@ export default struct I_RpcPerformCalloutFn {
             this.value := CallbackCreate(fn, , ["ptr", RDR_CALLOUT_STATE.Ptr, RPC_HTTP_REDIRECTOR_STAGE, RPC_STATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

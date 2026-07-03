@@ -31,7 +31,7 @@ export default struct PHALIOREADWRITEHANDLER {
         pdwDataMarshal := pdwData is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, BOOLEAN, fRead, UInt32, dwAddr, UInt32, dwSize, pdwDataMarshal, pdwData, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -51,10 +51,6 @@ export default struct PHALIOREADWRITEHANDLER {
             this.value := CallbackCreate(fn, , [BOOLEAN, UInt32, UInt32, "uint*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

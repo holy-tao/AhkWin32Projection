@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D12_DRED_PAGE_FAULT_OUTPUT1.ahk" { D3D12_DRED_PAGE_FAULT_OUTPUT1 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID3D12DeviceRemovedExtendedData.ahk" { ID3D12DeviceRemovedExtendedData }
 #Import ".\D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1.ahk" { D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1 }
+#Import ".\D3D12_DRED_PAGE_FAULT_OUTPUT1.ahk" { D3D12_DRED_PAGE_FAULT_OUTPUT1 }
+#Import ".\ID3D12DeviceRemovedExtendedData.ahk" { ID3D12DeviceRemovedExtendedData }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

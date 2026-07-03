@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\IDebugOutputCallbacksWide.ahk" { IDebugOutputCallbacksWide }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDebugEventCallbacks.ahk" { IDebugEventCallbacks }
-#Import ".\IDebugOutputCallbacks.ahk" { IDebugOutputCallbacks }
-#Import ".\IDebugInputCallbacks.ahk" { IDebugInputCallbacks }
 #Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDebugClient.ahk" { IDebugClient }
+#Import ".\IDebugEventCallbacks.ahk" { IDebugEventCallbacks }
 #Import ".\IDebugEventCallbacksWide.ahk" { IDebugEventCallbacksWide }
 #Import ".\IDebugEventContextCallbacks.ahk" { IDebugEventContextCallbacks }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDebugClient.ahk" { IDebugClient }
+#Import ".\IDebugInputCallbacks.ahk" { IDebugInputCallbacks }
+#Import ".\IDebugOutputCallbacks.ahk" { IDebugOutputCallbacks }
+#Import ".\IDebugOutputCallbacksWide.ahk" { IDebugOutputCallbacksWide }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

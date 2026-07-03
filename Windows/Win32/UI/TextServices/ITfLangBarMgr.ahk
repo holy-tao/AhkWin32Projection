@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITfInputProcessorProfiles.ahk" { ITfInputProcessorProfiles }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ITfLangBarEventSink.ahk" { ITfLangBarEventSink }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\ITfLangBarItemMgr.ahk" { ITfLangBarItemMgr }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITfInputProcessorProfiles.ahk" { ITfInputProcessorProfiles }
+#Import ".\ITfLangBarEventSink.ahk" { ITfLangBarEventSink }
+#Import ".\ITfLangBarItemMgr.ahk" { ITfLangBarItemMgr }
 
 /**
  * The ITfLangBarMgr interface is implemented by the TSF manager and used by text services to manage event sink notification and configure floating language bar display settings. The interface ID is IID_ITfLangBarMgr.

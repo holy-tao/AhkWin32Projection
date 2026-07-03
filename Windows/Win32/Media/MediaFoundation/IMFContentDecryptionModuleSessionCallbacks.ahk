@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\MF_MEDIAKEYSESSION_MESSAGETYPE.ahk" { MF_MEDIAKEYSESSION_MESSAGETYPE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MF_MEDIAKEYSESSION_MESSAGETYPE.ahk" { MF_MEDIAKEYSESSION_MESSAGETYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides a callback mechanism for receiving key status change updates from an IMFContentDecryptionModuleSession.

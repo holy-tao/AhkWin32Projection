@@ -1,23 +1,21 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\TRANSPORTCLIENT_CALLBACK_ID.ahk" { TRANSPORTCLIENT_CALLBACK_ID }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\PXE_ADDRESS.ahk" { PXE_ADDRESS }
-#Import ".\PFN_WdsCliTraceFunction.ahk" { PFN_WdsCliTraceFunction }
-#Import ".\WDS_CLI_CRED.ahk" { WDS_CLI_CRED }
-#Import ".\WDS_CLI_IMAGE_TYPE.ahk" { WDS_CLI_IMAGE_TYPE }
-#Import ".\PXE_DHCPV6_NESTED_RELAY_MESSAGE.ahk" { PXE_DHCPV6_NESTED_RELAY_MESSAGE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Registry\HKEY.ahk" { HKEY }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 #Import ".\CPU_ARCHITECTURE.ahk" { CPU_ARCHITECTURE }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\WDS_TRANSPORTCLIENT_REQUEST.ahk" { WDS_TRANSPORTCLIENT_REQUEST }
-#Import ".\PFN_WdsCliCallback.ahk" { PFN_WdsCliCallback }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\PXE_ADDRESS.ahk" { PXE_ADDRESS }
+#Import ".\PXE_DHCPV6_NESTED_RELAY_MESSAGE.ahk" { PXE_DHCPV6_NESTED_RELAY_MESSAGE }
 #Import ".\PXE_PROVIDER.ahk" { PXE_PROVIDER }
-#Import ".\WDS_CLI_IMAGE_PARAM_TYPE.ahk" { WDS_CLI_IMAGE_PARAM_TYPE }
+#Import ".\TRANSPORTCLIENT_CALLBACK_ID.ahk" { TRANSPORTCLIENT_CALLBACK_ID }
 #Import ".\TRANSPORTPROVIDER_CALLBACK_ID.ahk" { TRANSPORTPROVIDER_CALLBACK_ID }
+#Import ".\WDS_CLI_CRED.ahk" { WDS_CLI_CRED }
+#Import ".\WDS_CLI_IMAGE_PARAM_TYPE.ahk" { WDS_CLI_IMAGE_PARAM_TYPE }
+#Import ".\WDS_CLI_IMAGE_TYPE.ahk" { WDS_CLI_IMAGE_TYPE }
+#Import ".\WDS_TRANSPORTCLIENT_REQUEST.ahk" { WDS_TRANSPORTCLIENT_REQUEST }
+#Import "..\Registry\HKEY.ahk" { HKEY }
 
 /**
  * @namespace Windows.Win32.System.DeploymentServices
@@ -46,7 +44,7 @@ export WdsCliClose(_Handle) {
  * @since windows6.0.6000
  */
 export WdsCliRegisterTrace(_pfn) {
-    result := DllCall("WDSCLIENTAPI.dll\WdsCliRegisterTrace", PFN_WdsCliTraceFunction, _pfn, "HRESULT")
+    result := DllCall("WDSCLIENTAPI.dll\WdsCliRegisterTrace", "ptr", _pfn, "HRESULT")
     return result
 }
 
@@ -707,7 +705,7 @@ export WdsCliTransferImage(hImage, pwszLocalPath, dwFlags, dwReserved, pfnWdsCli
     pvUserDataMarshal := pvUserData is VarRef ? "ptr" : "ptr"
 
     phTransfer := HANDLE.Owned()
-    result := DllCall("WDSCLIENTAPI.dll\WdsCliTransferImage", HANDLE, hImage, "ptr", pwszLocalPath, UInt32, dwFlags, UInt32, dwReserved, PFN_WdsCliCallback, pfnWdsCliCallback, pvUserDataMarshal, pvUserData, HANDLE.Ptr, phTransfer, "HRESULT")
+    result := DllCall("WDSCLIENTAPI.dll\WdsCliTransferImage", HANDLE, hImage, "ptr", pwszLocalPath, UInt32, dwFlags, UInt32, dwReserved, "ptr", pfnWdsCliCallback, pvUserDataMarshal, pvUserData, HANDLE.Ptr, phTransfer, "HRESULT")
     return phTransfer
 }
 
@@ -753,7 +751,7 @@ export WdsCliTransferFile(pwszServer, pwszNamespace, pwszRemoteFilePath, pwszLoc
     pvUserDataMarshal := pvUserData is VarRef ? "ptr" : "ptr"
 
     phTransfer := HANDLE.Owned()
-    result := DllCall("WDSCLIENTAPI.dll\WdsCliTransferFile", "ptr", pwszServer, "ptr", pwszNamespace, "ptr", pwszRemoteFilePath, "ptr", pwszLocalFilePath, UInt32, dwFlags, UInt32, dwReserved, PFN_WdsCliCallback, pfnWdsCliCallback, pvUserDataMarshal, pvUserData, HANDLE.Ptr, phTransfer, "HRESULT")
+    result := DllCall("WDSCLIENTAPI.dll\WdsCliTransferFile", "ptr", pwszServer, "ptr", pwszNamespace, "ptr", pwszRemoteFilePath, "ptr", pwszLocalFilePath, UInt32, dwFlags, UInt32, dwReserved, "ptr", pfnWdsCliCallback, pvUserDataMarshal, pvUserData, HANDLE.Ptr, phTransfer, "HRESULT")
     return phTransfer
 }
 

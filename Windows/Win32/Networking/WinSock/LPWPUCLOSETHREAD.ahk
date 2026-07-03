@@ -47,10 +47,6 @@ export default struct LPWPUCLOSETHREAD {
             this.value := CallbackCreate(fn, , [WSATHREADID.Ptr, "int*", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

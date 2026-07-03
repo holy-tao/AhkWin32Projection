@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VDS_NF_FILE_SYSTEM.ahk" { VDS_NF_FILE_SYSTEM }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VDS_NF_FILE_SYSTEM.ahk" { VDS_NF_FILE_SYSTEM }
 
 /**
  * The VDS_FILE_SYSTEM_NOTIFICATION structure (vdshwprv.h) defines the details of file-system events.

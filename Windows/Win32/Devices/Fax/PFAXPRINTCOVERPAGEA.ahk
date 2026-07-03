@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\FAX_COVERPAGE_INFOA.ahk" { FAX_COVERPAGE_INFOA }
 #Import ".\FAX_CONTEXT_INFOA.ahk" { FAX_CONTEXT_INFOA }
+#Import ".\FAX_COVERPAGE_INFOA.ahk" { FAX_COVERPAGE_INFOA }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Devices.Fax
@@ -48,10 +48,6 @@ export default struct PFAXPRINTCOVERPAGEA {
             this.value := CallbackCreate(fn, , [FAX_CONTEXT_INFOA.Ptr, FAX_COVERPAGE_INFOA.Ptr, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

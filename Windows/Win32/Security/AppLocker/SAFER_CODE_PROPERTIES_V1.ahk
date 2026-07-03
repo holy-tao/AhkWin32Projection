@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\Cryptography\ALG_ID.ahk" { ALG_ID }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Cryptography\ALG_ID.ahk" { ALG_ID }
 
 /**
  * Contains code image information and criteria to be checked on the code image. (SAFER_CODE_PROPERTIES_V1)

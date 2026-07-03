@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DVD_MUA_Coeff.ahk" { DVD_MUA_Coeff }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DVD_MUA_Coeff.ahk" { DVD_MUA_Coeff }
 #Import ".\DVD_MUA_MixingInfo.ahk" { DVD_MUA_MixingInfo }
 
 /**

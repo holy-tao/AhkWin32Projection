@@ -53,10 +53,6 @@ export default struct WSMAN_PLUGIN_AUTHORIZE_QUERY_QUOTA {
             this.value := CallbackCreate(fn, , ["ptr", WSMAN_SENDER_DETAILS.Ptr, UInt32, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

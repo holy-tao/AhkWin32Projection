@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D12MessageFunc.ahk" { D3D12MessageFunc }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3D12_MESSAGE_CALLBACK_FLAGS.ahk" { D3D12_MESSAGE_CALLBACK_FLAGS }
 #Import ".\ID3D12InfoQueue.ahk" { ID3D12InfoQueue }
@@ -50,7 +49,7 @@ export default struct ID3D12InfoQueue1 extends ID3D12InfoQueue {
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
         pCallbackCookieMarshal := pCallbackCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(38, this, D3D12MessageFunc, CallbackFunc, D3D12_MESSAGE_CALLBACK_FLAGS, CallbackFilterFlags, pContextMarshal, pContext, pCallbackCookieMarshal, pCallbackCookie, "HRESULT")
+        result := ComCall(38, this, "ptr", CallbackFunc, D3D12_MESSAGE_CALLBACK_FLAGS, CallbackFilterFlags, pContextMarshal, pContext, pCallbackCookieMarshal, pCallbackCookie, "HRESULT")
         return result
     }
 

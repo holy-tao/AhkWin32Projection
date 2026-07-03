@@ -1,11 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\LUID.ahk" { LUID }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\PFN_DXCORE_NOTIFICATION_CALLBACK.ahk" { PFN_DXCORE_NOTIFICATION_CALLBACK }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\LUID.ahk" { LUID }
 #Import ".\DXCoreNotificationType.ahk" { DXCoreNotificationType }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The **IDXCoreAdapterFactory** interface implements methods for generating DXCore adapter enumeration objects, and for retrieving their details.
@@ -146,7 +145,7 @@ export default struct IDXCoreAdapterFactory extends IUnknown {
     RegisterEventNotification(dxCoreObject, notificationType, callbackFunction, callbackContext) {
         callbackContextMarshal := callbackContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, "ptr", dxCoreObject, DXCoreNotificationType, notificationType, PFN_DXCORE_NOTIFICATION_CALLBACK, callbackFunction, callbackContextMarshal, callbackContext, "uint*", &eventCookie := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", dxCoreObject, DXCoreNotificationType, notificationType, "ptr", callbackFunction, callbackContextMarshal, callbackContext, "uint*", &eventCookie := 0, "HRESULT")
         return eventCookie
     }
 

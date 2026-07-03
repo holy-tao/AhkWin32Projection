@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMultisessionSequential.ahk" { IMultisessionSequential }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMultisessionSequential.ahk" { IMultisessionSequential }
 
 /**
  * Use this interface to retrieve information about the size of a writable unit on sequentially recorded media.

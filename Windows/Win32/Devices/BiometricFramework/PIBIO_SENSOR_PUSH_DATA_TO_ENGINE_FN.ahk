@@ -99,10 +99,6 @@ export default struct PIBIO_SENSOR_PUSH_DATA_TO_ENGINE_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, Int8, Int8, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

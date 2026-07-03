@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\D3D12_CPU_PAGE_PROPERTY.ahk" { D3D12_CPU_PAGE_PROPERTY }
-#Import ".\D3D12_HEAP_TYPE.ahk" { D3D12_HEAP_TYPE }
 #Import ".\D3D12_HEAP_FLAGS.ahk" { D3D12_HEAP_FLAGS }
 #Import ".\D3D12_HEAP_PROPERTIES.ahk" { D3D12_HEAP_PROPERTIES }
+#Import ".\D3D12_HEAP_TYPE.ahk" { D3D12_HEAP_TYPE }
 #Import ".\D3D12_MEMORY_POOL.ahk" { D3D12_MEMORY_POOL }
 
 /**

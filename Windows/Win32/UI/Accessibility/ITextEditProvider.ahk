@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITextRangeProvider.ahk" { ITextRangeProvider }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITextProvider.ahk" { ITextProvider }
+#Import ".\ITextRangeProvider.ahk" { ITextRangeProvider }
 
 /**
  * Extends the ITextProvider interface to enable Microsoft UI Automation providers to expose programmatic text-edit actions.

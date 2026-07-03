@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISpatialAudioObjectBase.ahk" { ISpatialAudioObjectBase }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISpatialAudioObjectBase.ahk" { ISpatialAudioObjectBase }
 
 /**
  * Represents an object that provides audio data to be rendered from a position in 3D space, relative to the user.

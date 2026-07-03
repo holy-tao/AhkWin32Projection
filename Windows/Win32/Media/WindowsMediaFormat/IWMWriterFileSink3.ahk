@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWMWriterFileSink2.ahk" { IWMWriterFileSink2 }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\WMT_FILESINK_DATA_UNIT.ahk" { WMT_FILESINK_DATA_UNIT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMWriterFileSink2.ahk" { IWMWriterFileSink2 }
+#Import ".\WMT_FILESINK_DATA_UNIT.ahk" { WMT_FILESINK_DATA_UNIT }
 
 /**
  * The IWMWriterFileSink3 interface provides additional functionality to the file sink object. To obtain a pointer to this interface, call QueryInterface on the file sink object.

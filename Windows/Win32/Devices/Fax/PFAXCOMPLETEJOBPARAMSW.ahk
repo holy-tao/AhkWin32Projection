@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\FAX_COVERPAGE_INFOW.ahk" { FAX_COVERPAGE_INFOW }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\FAX_JOB_PARAMW.ahk" { FAX_JOB_PARAMW }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Devices.Fax
@@ -51,10 +51,6 @@ export default struct PFAXCOMPLETEJOBPARAMSW {
             this.value := CallbackCreate(fn, , ["ptr*", "ptr*", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

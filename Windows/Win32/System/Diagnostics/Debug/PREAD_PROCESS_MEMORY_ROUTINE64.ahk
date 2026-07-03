@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * PREAD_PROCESS_MEMORY_ROUTINE64 (dbghelp.h) is an application-defined callback function used with the StackWalk64 function.
@@ -63,10 +63,6 @@ export default struct PREAD_PROCESS_MEMORY_ROUTINE64 {
             this.value := CallbackCreate(fn, , [HANDLE, Int64, IntPtr, UInt32, "uint*", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MONTH_CALDENDAR_MESSAGES_VIEW.ahk" { MONTH_CALDENDAR_MESSAGES_VIEW }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\MONTH_CALDENDAR_MESSAGES_VIEW.ahk" { MONTH_CALDENDAR_MESSAGES_VIEW }
 #Import ".\NMHDR.ahk" { NMHDR }
 
 /**

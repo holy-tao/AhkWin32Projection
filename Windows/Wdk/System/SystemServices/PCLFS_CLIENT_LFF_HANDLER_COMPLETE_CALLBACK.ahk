@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\FILE_OBJECT.ahk" { FILE_OBJECT }
 #Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
-#Import "..\..\Foundation\FILE_OBJECT.ahk" { FILE_OBJECT }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -50,10 +50,6 @@ export default struct PCLFS_CLIENT_LFF_HANDLER_COMPLETE_CALLBACK {
             this.value := CallbackCreate(fn, , [FILE_OBJECT.Ptr, NTSTATUS, BOOLEAN, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

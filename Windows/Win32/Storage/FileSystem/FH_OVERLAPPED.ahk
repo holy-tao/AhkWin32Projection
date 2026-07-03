@@ -1,5 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PFN_IO_COMPLETION.ahk" { PFN_IO_COMPLETION }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
@@ -18,7 +17,7 @@ export default struct FH_OVERLAPPED {
 
     hEvent : HANDLE
 
-    pfnCompletion : PFN_IO_COMPLETION
+    pfnCompletion : IntPtr
 
     Reserved1 : IntPtr
 

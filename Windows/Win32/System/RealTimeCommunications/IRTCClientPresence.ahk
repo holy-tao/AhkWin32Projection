@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\RTC_PRESENCE_STATUS.ahk" { RTC_PRESENCE_STATUS }
-#Import ".\IRTCEnumBuddies.ahk" { IRTCEnumBuddies }
-#Import ".\IRTCProfile.ahk" { IRTCProfile }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\RTC_OFFER_WATCHER_MODE.ahk" { RTC_OFFER_WATCHER_MODE }
-#Import ".\IRTCBuddy.ahk" { IRTCBuddy }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IRTCBuddy.ahk" { IRTCBuddy }
 #Import ".\IRTCCollection.ahk" { IRTCCollection }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IRTCWatcher.ahk" { IRTCWatcher }
-#Import ".\RTC_PRIVACY_MODE.ahk" { RTC_PRIVACY_MODE }
+#Import ".\IRTCEnumBuddies.ahk" { IRTCEnumBuddies }
 #Import ".\IRTCEnumWatchers.ahk" { IRTCEnumWatchers }
+#Import ".\IRTCProfile.ahk" { IRTCProfile }
+#Import ".\IRTCWatcher.ahk" { IRTCWatcher }
+#Import ".\RTC_OFFER_WATCHER_MODE.ahk" { RTC_OFFER_WATCHER_MODE }
+#Import ".\RTC_PRESENCE_STATUS.ahk" { RTC_PRESENCE_STATUS }
+#Import ".\RTC_PRIVACY_MODE.ahk" { RTC_PRIVACY_MODE }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

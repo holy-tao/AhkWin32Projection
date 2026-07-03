@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HGROUPENUMEX.ahk" { HGROUPENUMEX }
 #Import ".\HCLUSTER.ahk" { HCLUSTER }
+#Import ".\HGROUPENUMEX.ahk" { HGROUPENUMEX }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -50,10 +50,6 @@ export default struct PCLUSAPI_CLUSTER_GROUP_OPEN_ENUM_EX {
             this.value := CallbackCreate(fn, , [HCLUSTER, IntPtr, UInt32, IntPtr, UInt32, UInt32, HGROUPENUMEX])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

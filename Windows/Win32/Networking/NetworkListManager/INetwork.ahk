@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\NLM_CONNECTIVITY.ahk" { NLM_CONNECTIVITY }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IEnumNetworkConnections.ahk" { IEnumNetworkConnections }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\NLM_NETWORK_CATEGORY.ahk" { NLM_NETWORK_CATEGORY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IEnumNetworkConnections.ahk" { IEnumNetworkConnections }
+#Import ".\NLM_CONNECTIVITY.ahk" { NLM_CONNECTIVITY }
 #Import ".\NLM_DOMAIN_TYPE.ahk" { NLM_DOMAIN_TYPE }
+#Import ".\NLM_NETWORK_CATEGORY.ahk" { NLM_NETWORK_CATEGORY }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**

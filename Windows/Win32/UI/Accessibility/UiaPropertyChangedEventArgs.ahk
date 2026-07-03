@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\System\Com\CY.ahk" { CY }
-#Import ".\EventArgsType.ahk" { EventArgsType }
-#Import ".\UIA_EVENT_ID.ahk" { UIA_EVENT_ID }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Foundation\CHAR.ahk" { CHAR }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import "..\..\Foundation\DECIMAL.ahk" { DECIMAL }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\CY.ahk" { CY }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\System\Ole\IRecordInfo.ahk" { IRecordInfo }
 #Import "..\..\System\Variant\VARENUM.ahk" { VARENUM }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\System\Ole\IRecordInfo.ahk" { IRecordInfo }
-#Import "..\..\Foundation\DECIMAL.ahk" { DECIMAL }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import ".\EventArgsType.ahk" { EventArgsType }
+#Import ".\UIA_EVENT_ID.ahk" { UIA_EVENT_ID }
 
 /**
  * Note  This structure is deprecated.  Contains information about an event that is raised when a Microsoft UI Automation element property change occurs.

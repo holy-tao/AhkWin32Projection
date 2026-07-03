@@ -2,13 +2,13 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\MPEG_STREAM_BUFFER.ahk" { MPEG_STREAM_BUFFER }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMpeg2Data.ahk" { IMpeg2Data }
 #Import ".\MPEG2_FILTER.ahk" { MPEG2_FILTER }
-#Import ".\MPEG_REQUEST_TYPE.ahk" { MPEG_REQUEST_TYPE }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\MPEG_CONTEXT.ahk" { MPEG_CONTEXT }
+#Import ".\MPEG_REQUEST_TYPE.ahk" { MPEG_REQUEST_TYPE }
+#Import ".\MPEG_STREAM_BUFFER.ahk" { MPEG_STREAM_BUFFER }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IMpeg2Stream interface represents a stream of MPEG-2 data. The IMpeg2Data::GetStreamOfSections method returns a pointer to this interface.

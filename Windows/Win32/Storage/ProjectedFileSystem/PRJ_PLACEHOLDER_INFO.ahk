@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PRJ_FILE_BASIC_INFO.ahk" { PRJ_FILE_BASIC_INFO }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\PRJ_FILE_BASIC_INFO.ahk" { PRJ_FILE_BASIC_INFO }
 #Import ".\PRJ_PLACEHOLDER_VERSION_INFO.ahk" { PRJ_PLACEHOLDER_VERSION_INFO }
 
 /**

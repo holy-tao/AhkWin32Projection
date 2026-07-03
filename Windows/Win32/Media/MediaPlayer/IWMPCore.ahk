@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WMPOpenState.ahk" { WMPOpenState }
-#Import ".\IWMPError.ahk" { IWMPError }
-#Import ".\IWMPPlaylistCollection.ahk" { IWMPPlaylistCollection }
-#Import ".\IWMPPlaylist.ahk" { IWMPPlaylist }
-#Import ".\IWMPSettings.ahk" { IWMPSettings }
-#Import ".\IWMPControls.ahk" { IWMPControls }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IWMPClosedCaption.ahk" { IWMPClosedCaption }
-#Import ".\IWMPCdromCollection.ahk" { IWMPCdromCollection }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\WMPPlayState.ahk" { WMPPlayState }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWMPMediaCollection.ahk" { IWMPMediaCollection }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IWMPCdromCollection.ahk" { IWMPCdromCollection }
+#Import ".\IWMPClosedCaption.ahk" { IWMPClosedCaption }
+#Import ".\IWMPControls.ahk" { IWMPControls }
+#Import ".\IWMPError.ahk" { IWMPError }
 #Import ".\IWMPMedia.ahk" { IWMPMedia }
+#Import ".\IWMPMediaCollection.ahk" { IWMPMediaCollection }
 #Import ".\IWMPNetwork.ahk" { IWMPNetwork }
+#Import ".\IWMPPlaylist.ahk" { IWMPPlaylist }
+#Import ".\IWMPPlaylistCollection.ahk" { IWMPPlaylistCollection }
+#Import ".\IWMPSettings.ahk" { IWMPSettings }
+#Import ".\WMPOpenState.ahk" { WMPOpenState }
+#Import ".\WMPPlayState.ahk" { WMPPlayState }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The IWMPCore interface is the root interface for the Windows Media Player control. It can be used to retrieve pointers to other interfaces supported by the control and to access some basic features.

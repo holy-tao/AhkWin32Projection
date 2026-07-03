@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FLOWSPEC.ahk" { FLOWSPEC }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\WSABUF.ahk" { WSABUF }
-#Import ".\QOS.ahk" { QOS }
 #Import ".\ATM_CONNECTION_ID.ahk" { ATM_CONNECTION_ID }
+#Import ".\FLOWSPEC.ahk" { FLOWSPEC }
+#Import ".\QOS.ahk" { QOS }
+#Import ".\WSABUF.ahk" { WSABUF }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock

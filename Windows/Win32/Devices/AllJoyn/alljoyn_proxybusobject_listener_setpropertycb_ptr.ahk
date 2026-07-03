@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\alljoyn_proxybusobject.ahk" { alljoyn_proxybusobject }
 #Import ".\QStatus.ahk" { QStatus }
+#Import ".\alljoyn_proxybusobject.ahk" { alljoyn_proxybusobject }
 
 /**
  * @namespace Windows.Win32.Devices.AllJoyn
@@ -48,10 +48,6 @@ export default struct alljoyn_proxybusobject_listener_setpropertycb_ptr {
             this.value := CallbackCreate(fn, , [QStatus, alljoyn_proxybusobject, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import ".\D3D12_FORMAT_SUPPORT2.ahk" { D3D12_FORMAT_SUPPORT2 }
 #Import ".\D3D12_FORMAT_SUPPORT1.ahk" { D3D12_FORMAT_SUPPORT1 }
+#Import ".\D3D12_FORMAT_SUPPORT2.ahk" { D3D12_FORMAT_SUPPORT2 }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 
 /**
  * Describes which resources are supported by the current graphics driver for a given format. (D3D12_FEATURE_DATA_FORMAT_SUPPORT)

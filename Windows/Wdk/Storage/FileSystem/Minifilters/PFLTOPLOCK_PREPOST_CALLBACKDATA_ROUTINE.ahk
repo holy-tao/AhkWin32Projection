@@ -46,10 +46,6 @@ export default struct PFLTOPLOCK_PREPOST_CALLBACKDATA_ROUTINE {
             this.value := CallbackCreate(fn, , [FLT_CALLBACK_DATA.Ptr, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

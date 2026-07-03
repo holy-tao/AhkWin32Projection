@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Security\Authentication\Identity\SecPkgContext_IssuerListInfoEx.ahk" { SecPkgContext_IssuerListInfoEx }
-#Import "..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import ".\LDAP.ahk" { LDAP }
+#Import "..\..\Security\Authentication\Identity\SecPkgContext_IssuerListInfoEx.ahk" { SecPkgContext_IssuerListInfoEx }
+#Import "..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 
 /**
  * Enables the server to request a certificate from the client when establishing a Secure Sockets Layer (SSL) connection.
@@ -62,10 +62,6 @@ export default struct QUERYCLIENTCERT {
             this.value := CallbackCreate(fn, "cdecl", [LDAP.Ptr, SecPkgContext_IssuerListInfoEx.Ptr, "ptr*", BOOLEAN])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

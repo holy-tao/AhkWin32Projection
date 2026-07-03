@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SchGetExtensionsOptions.ahk" { SchGetExtensionsOptions }
-#Import ".\SCH_EXTENSION_DATA.ahk" { SCH_EXTENSION_DATA }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SCH_EXTENSION_DATA.ahk" { SCH_EXTENSION_DATA }
+#Import ".\SchGetExtensionsOptions.ahk" { SchGetExtensionsOptions }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -52,10 +52,6 @@ export default struct SslGetExtensionsFn {
             this.value := CallbackCreate(fn, , ["char*", UInt32, SCH_EXTENSION_DATA.Ptr, Int8, SchGetExtensionsOptions, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

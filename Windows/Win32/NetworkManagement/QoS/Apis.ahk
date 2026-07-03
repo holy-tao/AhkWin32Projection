@@ -1,24 +1,24 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\QOS_QUERY_FLOW.ahk" { QOS_QUERY_FLOW }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ENUMERATION_BUFFER.ahk" { ENUMERATION_BUFFER }
+#Import ".\QOS_NOTIFY_FLOW.ahk" { QOS_NOTIFY_FLOW }
+#Import ".\QOS_QUERY_FLOW.ahk" { QOS_QUERY_FLOW }
+#Import ".\QOS_SET_FLOW.ahk" { QOS_SET_FLOW }
+#Import ".\QOS_TRAFFIC_TYPE.ahk" { QOS_TRAFFIC_TYPE }
+#Import ".\QOS_VERSION.ahk" { QOS_VERSION }
 #Import ".\TCI_CLIENT_FUNC_LIST.ahk" { TCI_CLIENT_FUNC_LIST }
+#Import ".\TC_GEN_FILTER.ahk" { TC_GEN_FILTER }
 #Import ".\TC_GEN_FLOW.ahk" { TC_GEN_FLOW }
 #Import ".\TC_IFC_DESCRIPTOR.ahk" { TC_IFC_DESCRIPTOR }
-#Import ".\TC_GEN_FILTER.ahk" { TC_GEN_FILTER }
-#Import ".\QOS_SET_FLOW.ahk" { QOS_SET_FLOW }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ENUMERATION_BUFFER.ahk" { ENUMERATION_BUFFER }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
 #Import "..\..\Networking\WinSock\SOCKADDR.ahk" { SOCKADDR }
-#Import ".\QOS_NOTIFY_FLOW.ahk" { QOS_NOTIFY_FLOW }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Networking\WinSock\SOCKET.ahk" { SOCKET }
-#Import ".\QOS_VERSION.ahk" { QOS_VERSION }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\QOS_TRAFFIC_TYPE.ahk" { QOS_TRAFFIC_TYPE }
+#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.QoS

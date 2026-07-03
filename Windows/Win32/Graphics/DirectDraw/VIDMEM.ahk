@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VMEMHEAP.ahk" { VMEMHEAP }
 #Import ".\DDSCAPS.ahk" { DDSCAPS }
+#Import ".\VMEMHEAP.ahk" { VMEMHEAP }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

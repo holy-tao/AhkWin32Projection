@@ -47,10 +47,6 @@ export default struct PCLUSTER_IS_PATH_ON_SHARED_VOLUME {
             this.value := CallbackCreate(fn, , [PWSTR, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

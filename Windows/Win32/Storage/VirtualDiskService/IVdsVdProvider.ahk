@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Vhd\CREATE_VIRTUAL_DISK_FLAG.ahk" { CREATE_VIRTUAL_DISK_FLAG }
-#Import ".\IVdsAsync.ahk" { IVdsAsync }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IVdsVDisk.ahk" { IVdsVDisk }
 #Import "..\Vhd\VIRTUAL_STORAGE_TYPE.ahk" { VIRTUAL_STORAGE_TYPE }
+#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
+#Import ".\IVdsDisk.ahk" { IVdsDisk }
+#Import ".\IVdsVDisk.ahk" { IVdsVDisk }
 #Import ".\VDS_CREATE_VDISK_PARAMETERS.ahk" { VDS_CREATE_VDISK_PARAMETERS }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IVdsDisk.ahk" { IVdsDisk }
-#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
 
 /**
  * Defines methods for creating and managing virtual disks.

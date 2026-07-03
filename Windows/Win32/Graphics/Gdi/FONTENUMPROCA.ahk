@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LOGFONTA.ahk" { LOGFONTA }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\LOGFONTA.ahk" { LOGFONTA }
 #Import ".\TEXTMETRICA.ahk" { TEXTMETRICA }
 
 /**
@@ -50,10 +50,6 @@ export default struct FONTENUMPROCA {
             this.value := CallbackCreate(fn, , [LOGFONTA.Ptr, TEXTMETRICA.Ptr, UInt32, LPARAM, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WSD_EVENTING_FILTER.ahk" { WSD_EVENTING_FILTER }
 #Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
 #Import ".\WSD_ENDPOINT_REFERENCE.ahk" { WSD_ENDPOINT_REFERENCE }
 #Import ".\WSD_EVENTING_DELIVERY_MODE.ahk" { WSD_EVENTING_DELIVERY_MODE }
 #Import ".\WSD_EVENTING_EXPIRES.ahk" { WSD_EVENTING_EXPIRES }
+#Import ".\WSD_EVENTING_FILTER.ahk" { WSD_EVENTING_FILTER }
 
 /**
  * Represents a WS-Eventing Subscribe request message.

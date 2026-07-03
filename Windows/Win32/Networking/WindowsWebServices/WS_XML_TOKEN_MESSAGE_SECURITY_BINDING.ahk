@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_SECURITY_BINDING_TYPE.ahk" { WS_SECURITY_BINDING_TYPE }
-#Import ".\WS_SECURITY_BINDING.ahk" { WS_SECURITY_BINDING }
-#Import ".\WS_SECURITY_TOKEN.ahk" { WS_SECURITY_TOKEN }
 #Import ".\WS_MESSAGE_SECURITY_USAGE.ahk" { WS_MESSAGE_SECURITY_USAGE }
+#Import ".\WS_SECURITY_BINDING.ahk" { WS_SECURITY_BINDING }
 #Import ".\WS_SECURITY_BINDING_PROPERTY.ahk" { WS_SECURITY_BINDING_PROPERTY }
+#Import ".\WS_SECURITY_BINDING_TYPE.ahk" { WS_SECURITY_BINDING_TYPE }
+#Import ".\WS_SECURITY_TOKEN.ahk" { WS_SECURITY_TOKEN }
 
 /**
  * The security binding subtype for specifying the use of a security token that is already available to the application in XML form.

@@ -49,10 +49,6 @@ export default struct LPFNGETCLASSOBJECT {
             this.value := CallbackCreate(fn, , [Guid.Ptr, Guid.Ptr, "ptr*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

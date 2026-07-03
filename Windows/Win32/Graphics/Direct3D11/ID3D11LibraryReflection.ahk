@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D11FunctionReflection.ahk" { ID3D11FunctionReflection }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3D11_LIBRARY_DESC.ahk" { D3D11_LIBRARY_DESC }
+#Import ".\ID3D11FunctionReflection.ahk" { ID3D11FunctionReflection }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * A library-reflection interface accesses library info. (ID3D11LibraryReflection)

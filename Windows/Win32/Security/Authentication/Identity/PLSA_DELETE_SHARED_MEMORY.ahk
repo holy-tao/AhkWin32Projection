@@ -46,10 +46,6 @@ export default struct PLSA_DELETE_SHARED_MEMORY {
             this.value := CallbackCreate(fn, , ["ptr", BOOLEAN])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

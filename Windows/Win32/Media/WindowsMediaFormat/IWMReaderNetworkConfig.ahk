@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WM_PORT_NUMBER_RANGE.ahk" { WM_PORT_NUMBER_RANGE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\WMT_PROXY_SETTINGS.ahk" { WMT_PROXY_SETTINGS }
+#Import ".\WM_PORT_NUMBER_RANGE.ahk" { WM_PORT_NUMBER_RANGE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMReaderNetworkConfig interface is used to set and test network configuration settings.

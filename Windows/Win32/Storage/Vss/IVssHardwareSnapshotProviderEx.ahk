@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IVssAsync.ahk" { IVssAsync }
-#Import "..\VirtualDiskService\VDS_LUN_INFORMATION.ahk" { VDS_LUN_INFORMATION }
-#Import ".\IVssHardwareSnapshotProvider.ahk" { IVssHardwareSnapshotProvider }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\VirtualDiskService\VDS_LUN_INFORMATION.ahk" { VDS_LUN_INFORMATION }
+#Import ".\IVssAsync.ahk" { IVssAsync }
+#Import ".\IVssHardwareSnapshotProvider.ahk" { IVssHardwareSnapshotProvider }
 
 /**
  * Provides an additional method used by VSS to notify hardware providers of LUN state changes.

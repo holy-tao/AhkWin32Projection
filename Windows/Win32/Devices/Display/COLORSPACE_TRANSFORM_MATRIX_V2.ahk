@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\GAMMA_RAMP_RGB.ahk" { GAMMA_RAMP_RGB }
 #Import ".\COLORSPACE_TRANSFORM_STAGE_CONTROL.ahk" { COLORSPACE_TRANSFORM_STAGE_CONTROL }
+#Import ".\GAMMA_RAMP_RGB.ahk" { GAMMA_RAMP_RGB }
 
 /**
  * @namespace Windows.Win32.Devices.Display

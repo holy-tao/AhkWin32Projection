@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
-#Import ".\ID2D1Resource.ahk" { ID2D1Resource }
-#Import ".\ID2D1GdiMetafileSink.ahk" { ID2D1GdiMetafileSink }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
+#Import ".\ID2D1GdiMetafileSink.ahk" { ID2D1GdiMetafileSink }
+#Import ".\ID2D1Resource.ahk" { ID2D1Resource }
 
 /**
  * A Direct2D resource that wraps a WMF, EMF, or EMF+ metafile.

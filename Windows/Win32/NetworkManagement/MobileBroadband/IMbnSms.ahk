@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MBN_SMS_STATUS_INFO.ahk" { MBN_SMS_STATUS_INFO }
-#Import ".\MBN_SMS_FILTER.ahk" { MBN_SMS_FILTER }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\MBN_SMS_CDMA_LANG.ahk" { MBN_SMS_CDMA_LANG }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\MBN_SMS_CDMA_ENCODING.ahk" { MBN_SMS_CDMA_ENCODING }
-#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MBN_SMS_FORMAT.ahk" { MBN_SMS_FORMAT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IMbnSmsConfiguration.ahk" { IMbnSmsConfiguration }
+#Import ".\MBN_SMS_CDMA_ENCODING.ahk" { MBN_SMS_CDMA_ENCODING }
+#Import ".\MBN_SMS_CDMA_LANG.ahk" { MBN_SMS_CDMA_LANG }
+#Import ".\MBN_SMS_FILTER.ahk" { MBN_SMS_FILTER }
+#Import ".\MBN_SMS_FORMAT.ahk" { MBN_SMS_FORMAT }
+#Import ".\MBN_SMS_STATUS_INFO.ahk" { MBN_SMS_STATUS_INFO }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * SMS interface for sending and receiving messages as well as controlling the messaging configuration.

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
-#Import "..\..\Networking\WinSock\SOCKADDR_IN6.ahk" { SOCKADDR_IN6 }
-#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
-#Import "..\..\Networking\WinSock\SOCKADDR.ahk" { SOCKADDR }
-#Import "..\..\Networking\WinSock\SCOPE_ID.ahk" { SCOPE_ID }
 #Import ".\NET_ADDRESS_FORMAT.ahk" { NET_ADDRESS_FORMAT }
-#Import "..\..\Networking\WinSock\SOCKADDR_IN.ahk" { SOCKADDR_IN }
 #Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
-#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
+#Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
+#Import "..\..\Networking\WinSock\SCOPE_ID.ahk" { SCOPE_ID }
+#Import "..\..\Networking\WinSock\SOCKADDR.ahk" { SOCKADDR }
+#Import "..\..\Networking\WinSock\SOCKADDR_IN.ahk" { SOCKADDR_IN }
+#Import "..\..\Networking\WinSock\SOCKADDR_IN6.ahk" { SOCKADDR_IN6 }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains IP address information returned by the ParseNetworkString function.

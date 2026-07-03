@@ -53,10 +53,6 @@ export default struct PDX_GETIRQINFO {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", DDGETIRQINFO.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\UIA_LANDMARKTYPE_ID.ahk" { UIA_LANDMARKTYPE_ID }
 #Import ".\IUIAutomationElement4.ahk" { IUIAutomationElement4 }
+#Import ".\UIA_LANDMARKTYPE_ID.ahk" { UIA_LANDMARKTYPE_ID }
 
 /**
  * Extends the IUIAutomationElement4 interface to provide access to current and cached landmark data.

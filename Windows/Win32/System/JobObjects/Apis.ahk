@@ -1,13 +1,13 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\JOBOBJECT_IO_RATE_CONTROL_INFORMATION.ahk" { JOBOBJECT_IO_RATE_CONTROL_INFORMATION }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\JOBOBJECTINFOCLASS.ahk" { JOBOBJECTINFOCLASS }
-#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\JOB_SET_ARRAY.ahk" { JOB_SET_ARRAY }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import ".\JOBOBJECTINFOCLASS.ahk" { JOBOBJECTINFOCLASS }
+#Import ".\JOBOBJECT_IO_RATE_CONTROL_INFORMATION.ahk" { JOBOBJECT_IO_RATE_CONTROL_INFORMATION }
+#Import ".\JOB_SET_ARRAY.ahk" { JOB_SET_ARRAY }
 
 /**
  * @namespace Windows.Win32.System.JobObjects

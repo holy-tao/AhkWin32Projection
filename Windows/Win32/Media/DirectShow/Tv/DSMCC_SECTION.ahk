@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MPEG_HEADER_VERSION_BITS_MIDL.ahk" { MPEG_HEADER_VERSION_BITS_MIDL }
 #Import ".\MPEG_HEADER_BITS_MIDL.ahk" { MPEG_HEADER_BITS_MIDL }
+#Import ".\MPEG_HEADER_VERSION_BITS_MIDL.ahk" { MPEG_HEADER_VERSION_BITS_MIDL }
 
 /**
  * The DSMCC_SECTION structure represents a DSM-CC section header. If a section contains a DSM-CC header, you can cast a SECTION pointer to a DSMCC_SECTION pointer. For more information, see the Remarks section in the SECTION reference.

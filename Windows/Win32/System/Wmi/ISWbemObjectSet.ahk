@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ISWbemObject.ahk" { ISWbemObject }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\ISWbemSecurity.ahk" { ISWbemSecurity }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ISWbemObject.ahk" { ISWbemObject }
+#Import ".\ISWbemSecurity.ahk" { ISWbemSecurity }
 
 /**
  * @namespace Windows.Win32.System.Wmi

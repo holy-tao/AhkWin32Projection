@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\NLM_DATAPLAN_STATUS.ahk" { NLM_DATAPLAN_STATUS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\NLM_DATAPLAN_STATUS.ahk" { NLM_DATAPLAN_STATUS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * To query current network cost and data plan status associated with a connection.

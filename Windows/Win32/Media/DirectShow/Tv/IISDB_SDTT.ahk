@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
+#Import ".\IMpeg2Data.ahk" { IMpeg2Data }
 #Import ".\ISectionList.ahk" { ISectionList }
 #Import ".\MPEG_DATE_AND_TIME.ahk" { MPEG_DATE_AND_TIME }
 #Import ".\MPEG_TIME.ahk" { MPEG_TIME }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMpeg2Data.ahk" { IMpeg2Data }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
 
 /**
  * Implements methods that get data from an Integrated Services Digital Broadcasting (ISDB) software download trigger table (SDTT). An SDTT contains download information such as service ID, schedule, and receiver types for revision.

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ID3D11Resource.ahk" { ID3D11Resource }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID3D11Buffer.ahk" { ID3D11Buffer }
-#Import ".\D3D11_TILE_REGION_SIZE.ahk" { D3D11_TILE_REGION_SIZE }
-#Import ".\D3D11_TILED_RESOURCE_COORDINATE.ahk" { D3D11_TILED_RESOURCE_COORDINATE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ID3D11DeviceContext1.ahk" { ID3D11DeviceContext1 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\D3D11_TILED_RESOURCE_COORDINATE.ahk" { D3D11_TILED_RESOURCE_COORDINATE }
+#Import ".\D3D11_TILE_REGION_SIZE.ahk" { D3D11_TILE_REGION_SIZE }
+#Import ".\ID3D11Buffer.ahk" { ID3D11Buffer }
 #Import ".\ID3D11DeviceChild.ahk" { ID3D11DeviceChild }
+#Import ".\ID3D11DeviceContext1.ahk" { ID3D11DeviceContext1 }
+#Import ".\ID3D11Resource.ahk" { ID3D11Resource }
 
 /**
  * The device context interface represents a device context; it is used to render commands. ID3D11DeviceContext2 adds new methods to those in ID3D11DeviceContext1.

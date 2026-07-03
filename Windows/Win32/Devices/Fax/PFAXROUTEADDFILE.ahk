@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * A fax routing method calls the FaxRouteAddFile callback function to add a file to the fax file list associated with a received fax document.
@@ -67,10 +67,6 @@ export default struct PFAXROUTEADDFILE {
             this.value := CallbackCreate(fn, , [UInt32, PWSTR, Guid.Ptr, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

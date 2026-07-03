@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\RTC_SESSION_STATE.ahk" { RTC_SESSION_STATE }
-#Import ".\RTC_TERMINATE_REASON.ahk" { RTC_TERMINATE_REASON }
-#Import ".\IRTCProfile.ahk" { IRTCProfile }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IRTCParticipant.ahk" { IRTCParticipant }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IRTCEnumParticipants.ahk" { IRTCEnumParticipants }
-#Import ".\IRTCCollection.ahk" { IRTCCollection }
-#Import ".\RTC_MESSAGING_USER_STATUS.ahk" { RTC_MESSAGING_USER_STATUS }
 #Import ".\IRTCClient.ahk" { IRTCClient }
+#Import ".\IRTCCollection.ahk" { IRTCCollection }
+#Import ".\IRTCEnumParticipants.ahk" { IRTCEnumParticipants }
+#Import ".\IRTCParticipant.ahk" { IRTCParticipant }
+#Import ".\IRTCProfile.ahk" { IRTCProfile }
+#Import ".\RTC_MESSAGING_USER_STATUS.ahk" { RTC_MESSAGING_USER_STATUS }
+#Import ".\RTC_SESSION_STATE.ahk" { RTC_SESSION_STATE }
 #Import ".\RTC_SESSION_TYPE.ahk" { RTC_SESSION_TYPE }
+#Import ".\RTC_TERMINATE_REASON.ahk" { RTC_TERMINATE_REASON }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WSAEVENT.ahk" { WSAEVENT }
 #Import ".\SOCKET.ahk" { SOCKET }
+#Import ".\WSAEVENT.ahk" { WSAEVENT }
 
 /**
  * The **LPWSPEventSelect** function specifies an event object to be associated with the supplied set of network events.
@@ -323,10 +323,6 @@ export default struct LPWSPEVENTSELECT {
             this.value := CallbackCreate(fn, , [SOCKET, WSAEVENT, Int32, "int*", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

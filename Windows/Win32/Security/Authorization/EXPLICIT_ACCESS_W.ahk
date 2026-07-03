@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\ACE_FLAGS.ahk" { ACE_FLAGS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\ACE_FLAGS.ahk" { ACE_FLAGS }
 #Import ".\ACCESS_MODE.ahk" { ACCESS_MODE }
-#Import ".\TRUSTEE_W.ahk" { TRUSTEE_W }
-#Import ".\TRUSTEE_TYPE.ahk" { TRUSTEE_TYPE }
 #Import ".\MULTIPLE_TRUSTEE_OPERATION.ahk" { MULTIPLE_TRUSTEE_OPERATION }
 #Import ".\TRUSTEE_FORM.ahk" { TRUSTEE_FORM }
+#Import ".\TRUSTEE_TYPE.ahk" { TRUSTEE_TYPE }
+#Import ".\TRUSTEE_W.ahk" { TRUSTEE_W }
 
 /**
  * Defines access control information for a specified trustee. (Unicode)

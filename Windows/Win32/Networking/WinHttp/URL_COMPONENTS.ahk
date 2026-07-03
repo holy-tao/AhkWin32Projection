@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WINHTTP_INTERNET_SCHEME.ahk" { WINHTTP_INTERNET_SCHEME }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WINHTTP_INTERNET_SCHEME.ahk" { WINHTTP_INTERNET_SCHEME }
 
 /**
  * The URL_COMPONENTS structure contains the constituent parts of a URL. This structure is used with the WinHttpCrackUrl and WinHttpCreateUrl functions.

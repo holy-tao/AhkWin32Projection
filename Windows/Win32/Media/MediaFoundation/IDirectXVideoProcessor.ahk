@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DXVA2_ValueRange.ahk" { DXVA2_ValueRange }
-#Import ".\DXVA2_VideoProcessorCaps.ahk" { DXVA2_VideoProcessorCaps }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
 #Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
-#Import ".\DXVA2_VideoSample.ahk" { DXVA2_VideoSample }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXVA2_ValueRange.ahk" { DXVA2_ValueRange }
 #Import ".\DXVA2_VideoDesc.ahk" { DXVA2_VideoDesc }
+#Import ".\DXVA2_VideoProcessBltParams.ahk" { DXVA2_VideoProcessBltParams }
+#Import ".\DXVA2_VideoProcessorCaps.ahk" { DXVA2_VideoProcessorCaps }
+#Import ".\DXVA2_VideoSample.ahk" { DXVA2_VideoSample }
 #Import ".\IDirectXVideoProcessorService.ahk" { IDirectXVideoProcessorService }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\DXVA2_VideoProcessBltParams.ahk" { DXVA2_VideoProcessBltParams }
 
 /**
  * Represents a DirectX Video Acceleration (DXVA) video processor device.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISideShowCapabilities.ahk" { ISideShowCapabilities }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ISideShowContent.ahk" { ISideShowContent }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ISideShowCapabilities.ahk" { ISideShowCapabilities }
+#Import ".\ISideShowContent.ahk" { ISideShowContent }
 
 /**
  * @namespace Windows.Win32.System.SideShow

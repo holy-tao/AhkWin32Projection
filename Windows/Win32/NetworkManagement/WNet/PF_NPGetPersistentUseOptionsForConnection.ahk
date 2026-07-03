@@ -52,10 +52,6 @@ export default struct PF_NPGetPersistentUseOptionsForConnection {
             this.value := CallbackCreate(fn, , [PWSTR, IntPtr, UInt32, IntPtr, "uint*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

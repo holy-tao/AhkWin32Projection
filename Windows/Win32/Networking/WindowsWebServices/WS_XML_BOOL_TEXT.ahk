@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\WS_XML_TEXT_TYPE.ahk" { WS_XML_TEXT_TYPE }
 #Import ".\WS_XML_TEXT.ahk" { WS_XML_TEXT }
+#Import ".\WS_XML_TEXT_TYPE.ahk" { WS_XML_TEXT_TYPE }
 
 /**
  * A Boolean value that represents the text &quot;true&quot; or &quot;false&quot;.

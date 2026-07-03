@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NCRYPT_SSL_FUNCTION_TABLE.ahk" { NCRYPT_SSL_FUNCTION_TABLE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\NCRYPT_SSL_FUNCTION_TABLE.ahk" { NCRYPT_SSL_FUNCTION_TABLE }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -50,10 +50,6 @@ export default struct SslInitializeInterfaceFn {
             this.value := CallbackCreate(fn, , [PWSTR, NCRYPT_SSL_FUNCTION_TABLE.Ptr, UInt32, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

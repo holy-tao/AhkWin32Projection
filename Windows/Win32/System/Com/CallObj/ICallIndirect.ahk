@@ -2,10 +2,10 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\IUnknown.ahk" { IUnknown }
-#Import ".\CALLFRAMEINFO.ahk" { CALLFRAMEINFO }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CALLFRAMEINFO.ahk" { CALLFRAMEINFO }
+#Import "..\IUnknown.ahk" { IUnknown }
 
 /**
  * Invokes an object with an indirect reference to the invocations arguments, rather than the traditional direct call.

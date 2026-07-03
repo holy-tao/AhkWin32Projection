@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\KERB_INTERACTIVE_PROFILE.ahk" { KERB_INTERACTIVE_PROFILE }
 #Import ".\KERB_PROFILE_BUFFER_TYPE.ahk" { KERB_PROFILE_BUFFER_TYPE }
 #Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
-#Import ".\KERB_INTERACTIVE_PROFILE.ahk" { KERB_INTERACTIVE_PROFILE }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity

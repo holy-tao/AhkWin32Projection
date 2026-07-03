@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RPC_C_QOS_IDENTITY.ahk" { RPC_C_QOS_IDENTITY }
 #Import "..\Com\RPC_C_IMP_LEVEL.ahk" { RPC_C_IMP_LEVEL }
-#Import ".\RPC_HTTP_TRANSPORT_CREDENTIALS_W.ahk" { RPC_HTTP_TRANSPORT_CREDENTIALS_W }
-#Import ".\RPC_C_QOS_CAPABILITIES.ahk" { RPC_C_QOS_CAPABILITIES }
 #Import ".\RPC_C_AUTHN_INFO_TYPE.ahk" { RPC_C_AUTHN_INFO_TYPE }
+#Import ".\RPC_C_QOS_CAPABILITIES.ahk" { RPC_C_QOS_CAPABILITIES }
+#Import ".\RPC_C_QOS_IDENTITY.ahk" { RPC_C_QOS_IDENTITY }
+#Import ".\RPC_HTTP_TRANSPORT_CREDENTIALS_W.ahk" { RPC_HTTP_TRANSPORT_CREDENTIALS_W }
 
 /**
  * The RPC_SECURITY_QOS_V4 structure defines version 4 security quality-of-service settings on a binding handle. See Remarks for version availability on Windows editions. (Unicode)

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WS_ASYNC_CONTEXT.ahk" { WS_ASYNC_CONTEXT }
 #Import ".\WS_OPERATION_CONTEXT.ahk" { WS_OPERATION_CONTEXT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Invoked when a channel is closed or aborted on an endpoint.
@@ -69,10 +69,6 @@ export default struct WS_SERVICE_CLOSE_CHANNEL_CALLBACK {
             this.value := CallbackCreate(fn, , [WS_OPERATION_CONTEXT.Ptr, WS_ASYNC_CONTEXT.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

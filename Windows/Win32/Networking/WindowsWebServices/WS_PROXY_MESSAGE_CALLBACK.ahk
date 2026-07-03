@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WS_ERROR.ahk" { WS_ERROR }
 #Import ".\WS_HEAP.ahk" { WS_HEAP }
 #Import ".\WS_MESSAGE.ahk" { WS_MESSAGE }
-#Import ".\WS_ERROR.ahk" { WS_ERROR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Invoked when the headers of the input message are about to be sent, or when output message headers are just received.
@@ -60,10 +60,6 @@ export default struct WS_PROXY_MESSAGE_CALLBACK {
             this.value := CallbackCreate(fn, , [WS_MESSAGE.Ptr, WS_HEAP.Ptr, "ptr", WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

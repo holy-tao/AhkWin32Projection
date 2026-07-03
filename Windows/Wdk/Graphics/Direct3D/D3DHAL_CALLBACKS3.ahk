@@ -1,7 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LPD3DHAL_VALIDATETEXTURESTAGESTATECB.ahk" { LPD3DHAL_VALIDATETEXTURESTAGESTATECB }
-#Import ".\LPD3DHAL_DRAWPRIMITIVES2CB.ahk" { LPD3DHAL_DRAWPRIMITIVES2CB }
-#Import ".\LPD3DHAL_CLEAR2CB.ahk" { LPD3DHAL_CLEAR2CB }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
@@ -13,12 +10,12 @@ export default struct D3DHAL_CALLBACKS3 {
 
     dwFlags : UInt32
 
-    Clear2 : LPD3DHAL_CLEAR2CB
+    Clear2 : IntPtr
 
     lpvReserved : IntPtr
 
-    ValidateTextureStageState : LPD3DHAL_VALIDATETEXTURESTAGESTATECB
+    ValidateTextureStageState : IntPtr
 
-    DrawPrimitives2 : LPD3DHAL_DRAWPRIMITIVES2CB
+    DrawPrimitives2 : IntPtr
 
 }

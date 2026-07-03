@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\Guid.ahk" { Guid }
-#Import ".\IEnumRfc1766.ahk" { IEnumRfc1766 }
+#Import "..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IEnumCodePage.ahk" { IEnumCodePage }
+#Import ".\IEnumRfc1766.ahk" { IEnumRfc1766 }
+#Import ".\IMLangConvertCharset.ahk" { IMLangConvertCharset }
 #Import ".\MIMECPINFO.ahk" { MIMECPINFO }
 #Import ".\MIMECSETINFO.ahk" { MIMECSETINFO }
-#Import "..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\RFC1766INFO.ahk" { RFC1766INFO }
-#Import "..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMLangConvertCharset.ahk" { IMLangConvertCharset }
+#Import "..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Globalization

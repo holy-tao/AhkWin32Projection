@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID2D1LookupTable3D.ahk" { ID2D1LookupTable3D }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D2D1_BUFFER_PRECISION.ahk" { D2D1_BUFFER_PRECISION }
 #Import ".\ID2D1EffectContext.ahk" { ID2D1EffectContext }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID2D1LookupTable3D.ahk" { ID2D1LookupTable3D }
 
 /**
  * Provides factory methods and other state management for effect and transform authors. (ID2D1EffectContext1)

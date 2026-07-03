@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IFaxAccountIncomingArchive.ahk" { IFaxAccountIncomingArchive }
-#Import ".\IFaxAccountOutgoingQueue.ahk" { IFaxAccountOutgoingQueue }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IFaxAccountOutgoingArchive.ahk" { IFaxAccountOutgoingArchive }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IFaxAccountIncomingQueue.ahk" { IFaxAccountIncomingQueue }
+#Import ".\IFaxAccountOutgoingArchive.ahk" { IFaxAccountOutgoingArchive }
+#Import ".\IFaxAccountOutgoingQueue.ahk" { IFaxAccountOutgoingQueue }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * Provides access to the incoming and outgoing fax queues and fax archives.

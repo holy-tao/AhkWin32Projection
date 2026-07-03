@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import ".\D3DKMT_ESCAPE_VIRTUAL_REFRESH_RATE_TYPE.ahk" { D3DKMT_ESCAPE_VIRTUAL_REFRESH_RATE_TYPE }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

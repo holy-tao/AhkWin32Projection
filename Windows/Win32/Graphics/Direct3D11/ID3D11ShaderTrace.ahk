@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D11_TRACE_STEP.ahk" { D3D11_TRACE_STEP }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\D3D11_TRACE_STATS.ahk" { D3D11_TRACE_STATS }
-#Import ".\D3D11_TRACE_VALUE.ahk" { D3D11_TRACE_VALUE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3D11_TRACE_REGISTER.ahk" { D3D11_TRACE_REGISTER }
+#Import ".\D3D11_TRACE_STATS.ahk" { D3D11_TRACE_STATS }
+#Import ".\D3D11_TRACE_STEP.ahk" { D3D11_TRACE_STEP }
+#Import ".\D3D11_TRACE_VALUE.ahk" { D3D11_TRACE_VALUE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * An ID3D11ShaderTrace interface implements methods for obtaining traces of shader executions.

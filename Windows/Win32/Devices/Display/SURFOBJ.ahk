@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HSURF.ahk" { HSURF }
-#Import ".\DHSURF.ahk" { DHSURF }
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 #Import ".\DHPDEV.ahk" { DHPDEV }
+#Import ".\DHSURF.ahk" { DHSURF }
 #Import ".\HDEV.ahk" { HDEV }
+#Import ".\HSURF.ahk" { HSURF }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * The SURFOBJ structure is the user object for a surface. A device driver usually calls methods on a surface object only when the surface object represents a GDI bitmap or a device-managed surface.

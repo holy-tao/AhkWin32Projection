@@ -47,10 +47,6 @@ export default struct LPWPUCLOSESOCKETHANDLE {
             this.value := CallbackCreate(fn, , [SOCKET, "int*", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

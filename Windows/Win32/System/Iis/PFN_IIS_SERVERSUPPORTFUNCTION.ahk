@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HCONN.ahk" { HCONN }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\HCONN.ahk" { HCONN }
 
 /**
  * @namespace Windows.Win32.System.Iis
@@ -53,10 +53,6 @@ export default struct PFN_IIS_SERVERSUPPORTFUNCTION {
             this.value := CallbackCreate(fn, , [HCONN, UInt32, "ptr", "uint*", "uint*", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

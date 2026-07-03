@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\SBinaryArray.ahk" { SBinaryArray }
-#Import ".\SBinary.ahk" { SBinary }
-#Import "..\Com\CY.ahk" { CY }
-#Import ".\SAppTimeArray.ahk" { SAppTimeArray }
-#Import ".\SShortArray.ahk" { SShortArray }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\SLongArray.ahk" { SLongArray }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\SDoubleArray.ahk" { SDoubleArray }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SGuidArray.ahk" { SGuidArray }
-#Import ".\SWStringArray.ahk" { SWStringArray }
-#Import ".\SRealArray.ahk" { SRealArray }
-#Import ".\SDateTimeArray.ahk" { SDateTimeArray }
-#Import ".\SLPSTRArray.ahk" { SLPSTRArray }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SAppTimeArray.ahk" { SAppTimeArray }
+#Import ".\SBinary.ahk" { SBinary }
+#Import ".\SBinaryArray.ahk" { SBinaryArray }
 #Import ".\SCurrencyArray.ahk" { SCurrencyArray }
+#Import ".\SDateTimeArray.ahk" { SDateTimeArray }
+#Import ".\SDoubleArray.ahk" { SDoubleArray }
+#Import ".\SGuidArray.ahk" { SGuidArray }
+#Import ".\SLPSTRArray.ahk" { SLPSTRArray }
 #Import ".\SLargeIntegerArray.ahk" { SLargeIntegerArray }
+#Import ".\SLongArray.ahk" { SLongArray }
+#Import ".\SRealArray.ahk" { SRealArray }
+#Import ".\SShortArray.ahk" { SShortArray }
+#Import ".\SWStringArray.ahk" { SWStringArray }
+#Import "..\Com\CY.ahk" { CY }
 
 /**
  * @namespace Windows.Win32.System.AddressBook

@@ -1,23 +1,23 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\IWSDiscoveryProvider.ahk" { IWSDiscoveryProvider }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WSD_LOCALIZED_STRING_LIST.ahk" { WSD_LOCALIZED_STRING_LIST }
-#Import ".\IWSDXMLContext.ahk" { IWSDXMLContext }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WSDXML_NAME.ahk" { WSDXML_NAME }
-#Import ".\IWSDHttpMessageParameters.ahk" { IWSDHttpMessageParameters }
-#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
-#Import ".\WSD_CONFIG_PARAM.ahk" { WSD_CONFIG_PARAM }
-#Import ".\IWSDHttpAddress.ahk" { IWSDHttpAddress }
-#Import ".\IWSDiscoveryPublisher.ahk" { IWSDiscoveryPublisher }
-#Import ".\IWSDDeviceHost.ahk" { IWSDDeviceHost }
-#Import ".\WSD_SOAP_FAULT.ahk" { WSD_SOAP_FAULT }
 #Import ".\IWSDAddress.ahk" { IWSDAddress }
-#Import ".\IWSDUdpAddress.ahk" { IWSDUdpAddress }
+#Import ".\IWSDDeviceHost.ahk" { IWSDDeviceHost }
 #Import ".\IWSDDeviceProxy.ahk" { IWSDDeviceProxy }
-#Import ".\IWSDUdpMessageParameters.ahk" { IWSDUdpMessageParameters }
+#Import ".\IWSDHttpAddress.ahk" { IWSDHttpAddress }
+#Import ".\IWSDHttpMessageParameters.ahk" { IWSDHttpMessageParameters }
 #Import ".\IWSDOutboundAttachment.ahk" { IWSDOutboundAttachment }
+#Import ".\IWSDUdpAddress.ahk" { IWSDUdpAddress }
+#Import ".\IWSDUdpMessageParameters.ahk" { IWSDUdpMessageParameters }
+#Import ".\IWSDXMLContext.ahk" { IWSDXMLContext }
+#Import ".\IWSDiscoveryProvider.ahk" { IWSDiscoveryProvider }
+#Import ".\IWSDiscoveryPublisher.ahk" { IWSDiscoveryPublisher }
+#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
+#Import ".\WSDXML_NAME.ahk" { WSDXML_NAME }
+#Import ".\WSD_CONFIG_PARAM.ahk" { WSD_CONFIG_PARAM }
+#Import ".\WSD_LOCALIZED_STRING_LIST.ahk" { WSD_LOCALIZED_STRING_LIST }
+#Import ".\WSD_SOAP_FAULT.ahk" { WSD_SOAP_FAULT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Devices.WebServicesOnDevices

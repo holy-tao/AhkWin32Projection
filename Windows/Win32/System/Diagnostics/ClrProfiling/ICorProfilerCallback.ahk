@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\COR_PRF_JIT_CACHE.ahk" { COR_PRF_JIT_CACHE }
-#Import ".\COR_PRF_TRANSITION_REASON.ahk" { COR_PRF_TRANSITION_REASON }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\COR_PRF_JIT_CACHE.ahk" { COR_PRF_JIT_CACHE }
 #Import ".\COR_PRF_SUSPEND_REASON.ahk" { COR_PRF_SUSPEND_REASON }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\COR_PRF_TRANSITION_REASON.ahk" { COR_PRF_TRANSITION_REASON }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling

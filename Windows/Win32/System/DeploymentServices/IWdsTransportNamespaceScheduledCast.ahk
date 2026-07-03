@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWdsTransportNamespace.ahk" { IWdsTransportNamespace }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWdsTransportNamespace.ahk" { IWdsTransportNamespace }
 
 /**
  * Represents a base interface to the derived interfaces:\_IWdsTransportNamespaceScheduledCastManualStart and IWdsTransportNamespaceScheduledCastAutoStart.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CRYPT_XML_ALGORITHM_INFO.ahk" { CRYPT_XML_ALGORITHM_INFO }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\CRYPT_XML_ALGORITHM_INFO.ahk" { CRYPT_XML_ALGORITHM_INFO }
 
 /**
  * Enumerates predefined and registered CRYPT_XML_ALGORITHM_INFO entries.
@@ -57,10 +57,6 @@ export default struct PFN_CRYPT_XML_ENUM_ALG_INFO {
             this.value := CallbackCreate(fn, , [CRYPT_XML_ALGORITHM_INFO.Ptr, "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

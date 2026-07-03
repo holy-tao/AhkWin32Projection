@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\WinRT\Metadata\ASSEMBLYMETADATA.ahk" { ASSEMBLYMETADATA }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\WinRT\Metadata\ASSEMBLYMETADATA.ahk" { ASSEMBLYMETADATA }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling

@@ -46,10 +46,6 @@ export default struct GET_VIRTUAL_DEVICE_RESOURCES {
             this.value := CallbackCreate(fn, , ["ptr", "char*", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

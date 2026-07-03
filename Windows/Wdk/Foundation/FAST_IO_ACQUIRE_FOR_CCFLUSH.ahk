@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
-#Import "..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\FILE_OBJECT.ahk" { FILE_OBJECT }
+#Import "..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Wdk.Foundation
@@ -28,7 +28,7 @@ export default struct FAST_IO_ACQUIRE_FOR_CCFLUSH {
      */
     Call(FileObject, DeviceObject) {
         result := DllCall(this.value, FILE_OBJECT.Ptr, FileObject, DEVICE_OBJECT.Ptr, DeviceObject, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -48,10 +48,6 @@ export default struct FAST_IO_ACQUIRE_FOR_CCFLUSH {
             this.value := CallbackCreate(fn, , [FILE_OBJECT.Ptr, DEVICE_OBJECT.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

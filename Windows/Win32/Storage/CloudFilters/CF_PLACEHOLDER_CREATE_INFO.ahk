@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CF_PLACEHOLDER_CREATE_FLAGS.ahk" { CF_PLACEHOLDER_CREATE_FLAGS }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CF_FS_METADATA.ahk" { CF_FS_METADATA }
+#Import ".\CF_PLACEHOLDER_CREATE_FLAGS.ahk" { CF_PLACEHOLDER_CREATE_FLAGS }
 #Import "..\FileSystem\FILE_BASIC_INFO.ahk" { FILE_BASIC_INFO }
 
 /**

@@ -55,10 +55,6 @@ export default struct PDX_GETPREVIOUSAUTOFLIP {
             this.value := CallbackCreate(fn, , ["ptr", DDGETPREVIOUSAUTOFLIPININFO.Ptr, DDGETPREVIOUSAUTOFLIPOUTINFO.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

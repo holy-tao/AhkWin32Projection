@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUnsecuredApartment.ahk" { IUnsecuredApartment }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IWbemObjectSink.ahk" { IWbemObjectSink }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IUnsecuredApartment.ahk" { IUnsecuredApartment }
+#Import ".\IWbemObjectSink.ahk" { IWbemObjectSink }
 
 /**
  * Allows client applications to determine whether Unsecapp.exe performs access checks on asynchronous callbacks.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\KernelStreaming\KSM_NODE.ahk" { KSM_NODE }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\KernelStreaming\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import "..\..\KernelStreaming\KSM_NODE.ahk" { KSM_NODE }
 #Import "..\..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**

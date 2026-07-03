@@ -1,8 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\USER_MARSHAL_SIZING_ROUTINE.ahk" { USER_MARSHAL_SIZING_ROUTINE }
-#Import ".\USER_MARSHAL_MARSHALLING_ROUTINE.ahk" { USER_MARSHAL_MARSHALLING_ROUTINE }
-#Import ".\USER_MARSHAL_FREEING_ROUTINE.ahk" { USER_MARSHAL_FREEING_ROUTINE }
-#Import ".\USER_MARSHAL_UNMARSHALLING_ROUTINE.ahk" { USER_MARSHAL_UNMARSHALLING_ROUTINE }
 
 /**
  * @namespace Windows.Win32.System.Rpc
@@ -10,12 +6,12 @@
 export default struct USER_MARSHAL_ROUTINE_QUADRUPLE {
     #StructPack 8
 
-    pfnBufferSize : USER_MARSHAL_SIZING_ROUTINE
+    pfnBufferSize : IntPtr
 
-    pfnMarshall : USER_MARSHAL_MARSHALLING_ROUTINE
+    pfnMarshall : IntPtr
 
-    pfnUnmarshall : USER_MARSHAL_UNMARSHALLING_ROUTINE
+    pfnUnmarshall : IntPtr
 
-    pfnFree : USER_MARSHAL_FREEING_ROUTINE
+    pfnFree : IntPtr
 
 }

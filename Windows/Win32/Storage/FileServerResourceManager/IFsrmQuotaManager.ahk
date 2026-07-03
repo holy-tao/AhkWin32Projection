@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IFsrmCommittableCollection.ahk" { IFsrmCommittableCollection }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IFsrmQuota.ahk" { IFsrmQuota }
-#Import ".\IFsrmAutoApplyQuota.ahk" { IFsrmAutoApplyQuota }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\FsrmEnumOptions.ahk" { FsrmEnumOptions }
+#Import ".\IFsrmAutoApplyQuota.ahk" { IFsrmAutoApplyQuota }
+#Import ".\IFsrmCommittableCollection.ahk" { IFsrmCommittableCollection }
+#Import ".\IFsrmQuota.ahk" { IFsrmQuota }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Used to manage quotas.

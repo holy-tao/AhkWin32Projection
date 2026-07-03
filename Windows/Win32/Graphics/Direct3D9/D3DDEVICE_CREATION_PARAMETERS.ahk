@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3DDEVTYPE.ahk" { D3DDEVTYPE }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\D3DDEVTYPE.ahk" { D3DDEVTYPE }
 
 /**
  * Describes the creation parameters for a device.

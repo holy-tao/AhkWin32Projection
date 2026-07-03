@@ -36,7 +36,7 @@ export default struct BCryptSignHashFn {
         pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, BCRYPT_KEY_HANDLE, _hKey, pPaddingInfoMarshal, pPaddingInfo, IntPtr, pbInput, UInt32, cbInput, IntPtr, pbOutput, UInt32, cbOutput, pcbResultMarshal, pcbResult, UInt32, dwFlags, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -56,10 +56,6 @@ export default struct BCryptSignHashFn {
             this.value := CallbackCreate(fn, , [BCRYPT_KEY_HANDLE, "ptr", IntPtr, UInt32, IntPtr, UInt32, "uint*", UInt32, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

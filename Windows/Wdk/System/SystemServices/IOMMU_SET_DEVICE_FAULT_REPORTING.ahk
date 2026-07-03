@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
 #Import ".\DEVICE_FAULT_CONFIGURATION.ahk" { DEVICE_FAULT_CONFIGURATION }
 #Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import "..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
@@ -31,7 +31,7 @@ export default struct IOMMU_SET_DEVICE_FAULT_REPORTING {
      */
     Call(PhysicalDeviceObject, InputMappingIdBase, Enable, FaultConfig) {
         result := DllCall(this.value, DEVICE_OBJECT.Ptr, PhysicalDeviceObject, UInt32, InputMappingIdBase, BOOLEAN, Enable, DEVICE_FAULT_CONFIGURATION.Ptr, FaultConfig, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -51,10 +51,6 @@ export default struct IOMMU_SET_DEVICE_FAULT_REPORTING {
             this.value := CallbackCreate(fn, , [DEVICE_OBJECT.Ptr, UInt32, BOOLEAN, DEVICE_FAULT_CONFIGURATION.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

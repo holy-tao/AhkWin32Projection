@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IAzApplicationGroups.ahk" { IAzApplicationGroups }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IAzTask.ahk" { IAzTask }
-#Import ".\IAzRoles.ahk" { IAzRoles }
-#Import ".\IAzRole.ahk" { IAzRole }
-#Import ".\IAzTasks.ahk" { IAzTasks }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IAzApplicationGroup.ahk" { IAzApplicationGroup }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAzApplicationGroup.ahk" { IAzApplicationGroup }
+#Import ".\IAzApplicationGroups.ahk" { IAzApplicationGroups }
+#Import ".\IAzRole.ahk" { IAzRole }
+#Import ".\IAzRoles.ahk" { IAzRoles }
+#Import ".\IAzTask.ahk" { IAzTask }
+#Import ".\IAzTasks.ahk" { IAzTasks }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Defines a logical container of resources to which the application manages access.

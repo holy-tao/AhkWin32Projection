@@ -44,10 +44,6 @@ export default struct LPD3DHAL_RENDERSTATECB {
             this.value := CallbackCreate(fn, , [D3DHAL_RENDERSTATEDATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

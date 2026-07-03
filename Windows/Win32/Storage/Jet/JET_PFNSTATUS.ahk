@@ -51,10 +51,6 @@ export default struct JET_PFNSTATUS {
             this.value := CallbackCreate(fn, , [JET_SESID, UInt32, UInt32, "ptr", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

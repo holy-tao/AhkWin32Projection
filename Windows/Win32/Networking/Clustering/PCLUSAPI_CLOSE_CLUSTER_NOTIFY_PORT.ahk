@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HCHANGE.ahk" { HCHANGE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\HCHANGE.ahk" { HCHANGE }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -45,10 +45,6 @@ export default struct PCLUSAPI_CLOSE_CLUSTER_NOTIFY_PORT {
             this.value := CallbackCreate(fn, , [HCHANGE, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

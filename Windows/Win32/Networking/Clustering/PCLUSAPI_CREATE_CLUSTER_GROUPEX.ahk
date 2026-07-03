@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HGROUP.ahk" { HGROUP }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\HCLUSTER.ahk" { HCLUSTER }
 #Import ".\CLUSTER_CREATE_GROUP_INFO.ahk" { CLUSTER_CREATE_GROUP_INFO }
+#Import ".\HCLUSTER.ahk" { HCLUSTER }
+#Import ".\HGROUP.ahk" { HGROUP }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -51,10 +51,6 @@ export default struct PCLUSAPI_CREATE_CLUSTER_GROUPEX {
             this.value := CallbackCreate(fn, , [HCLUSTER, PWSTR, CLUSTER_CREATE_GROUP_INFO.Ptr, HGROUP])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

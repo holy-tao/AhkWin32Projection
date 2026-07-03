@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DDGAMMARAMP.ahk" { DDGAMMARAMP }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DDGAMMARAMP.ahk" { DDGAMMARAMP }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -48,10 +48,6 @@ export default struct LPDDGAMMACALIBRATORPROC {
             this.value := CallbackCreate(fn, , [DDGAMMARAMP.Ptr, "char*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

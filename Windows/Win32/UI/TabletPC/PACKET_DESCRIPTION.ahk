@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PACKET_PROPERTY.ahk" { PACKET_PROPERTY }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\PACKET_PROPERTY.ahk" { PACKET_PROPERTY }
 
 /**
  * Describes the content of the packet for a particular tablet recognizer context.Do not use this structure to access the data contained in a packet. This structure describes the content of the packet.

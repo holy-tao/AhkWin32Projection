@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Foundation\LUID.ahk" { LUID }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ENCRYPTED_CREDENTIALW.ahk" { ENCRYPTED_CREDENTIALW }
 
 /**
@@ -118,7 +118,7 @@ export default struct CredReadFn {
         CredentialMarshal := Credential is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, LUID.Ptr, LogonId, UInt32, CredFlags, "ptr", TargetName, UInt32, Type, UInt32, Flags, CredentialMarshal, Credential, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -138,10 +138,6 @@ export default struct CredReadFn {
             this.value := CallbackCreate(fn, , [LUID.Ptr, UInt32, PWSTR, UInt32, UInt32, "ptr*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

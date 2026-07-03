@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IMoniker.ahk" { IMoniker }
-#Import "..\Com\IBindCtx.ahk" { IBindCtx }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IBindCtx.ahk" { IBindCtx }
+#Import "..\Com\IMoniker.ahk" { IMoniker }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables a linked object to provide its container with functions pertaining to linking.

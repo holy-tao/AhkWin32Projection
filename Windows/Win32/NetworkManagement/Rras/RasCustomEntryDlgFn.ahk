@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\RASENTRYDLGA.ahk" { RASENTRYDLGA }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\RASENTRYDLGA.ahk" { RASENTRYDLGA }
 
 /**
  * The RasCustomEntryDlg function is an application-defined function that is exported by a third-party custom-dialing DLL. This function allows third-party vendors to implement custom dialogs for managing phone-book entries.
@@ -77,10 +77,6 @@ export default struct RasCustomEntryDlgFn {
             this.value := CallbackCreate(fn, , [HINSTANCE, PWSTR, PWSTR, RASENTRYDLGA.Ptr, UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

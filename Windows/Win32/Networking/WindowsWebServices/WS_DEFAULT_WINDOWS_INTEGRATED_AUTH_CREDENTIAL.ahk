@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL_TYPE.ahk" { WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL_TYPE }
 #Import ".\WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL.ahk" { WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL }
+#Import ".\WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL_TYPE.ahk" { WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL_TYPE }
 
 /**
  * Type for supplying a Windows Integrated Authentication credential based on the current Windows identity.

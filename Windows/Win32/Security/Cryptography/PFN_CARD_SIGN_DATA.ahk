@@ -46,10 +46,6 @@ export default struct PFN_CARD_SIGN_DATA {
             this.value := CallbackCreate(fn, , [CARD_DATA.Ptr, CARD_SIGNING_INFO.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

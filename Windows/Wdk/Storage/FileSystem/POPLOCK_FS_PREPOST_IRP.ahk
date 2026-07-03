@@ -46,10 +46,6 @@ export default struct POPLOCK_FS_PREPOST_IRP {
             this.value := CallbackCreate(fn, , ["ptr", IRP.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

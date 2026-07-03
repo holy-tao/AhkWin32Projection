@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ModuleBindInfo.ahk" { ModuleBindInfo }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\AssemblyBindInfo.ahk" { AssemblyBindInfo }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\AssemblyBindInfo.ahk" { AssemblyBindInfo }
+#Import ".\ModuleBindInfo.ahk" { ModuleBindInfo }
 #Import "..\Com\IStream.ahk" { IStream }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting

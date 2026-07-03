@@ -1,29 +1,29 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D2D1_IMAGE_SOURCE_LOADING_OPTIONS.ahk" { D2D1_IMAGE_SOURCE_LOADING_OPTIONS }
-#Import "Common\D2D1_ALPHA_MODE.ahk" { D2D1_ALPHA_MODE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID2D1ImageSource.ahk" { ID2D1ImageSource }
+#Import "Common\D2D1_ALPHA_MODE.ahk" { D2D1_ALPHA_MODE }
 #Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
-#Import ".\ID2D1InkStyle.ahk" { ID2D1InkStyle }
 #Import ".\D2D1_BUFFER_PRECISION.ahk" { D2D1_BUFFER_PRECISION }
-#Import ".\ID2D1GdiMetafile.ahk" { ID2D1GdiMetafile }
-#Import "..\Dxgi\IDXGISurface.ahk" { IDXGISurface }
-#Import ".\ID2D1TransformedImageSource.ahk" { ID2D1TransformedImageSource }
-#Import ".\ID2D1Ink.ahk" { ID2D1Ink }
+#Import ".\D2D1_GRADIENT_MESH_PATCH.ahk" { D2D1_GRADIENT_MESH_PATCH }
 #Import ".\D2D1_IMAGE_SOURCE_FROM_DXGI_OPTIONS.ahk" { D2D1_IMAGE_SOURCE_FROM_DXGI_OPTIONS }
+#Import ".\D2D1_IMAGE_SOURCE_LOADING_OPTIONS.ahk" { D2D1_IMAGE_SOURCE_LOADING_OPTIONS }
 #Import ".\D2D1_INK_POINT.ahk" { D2D1_INK_POINT }
+#Import ".\D2D1_INK_STYLE_PROPERTIES.ahk" { D2D1_INK_STYLE_PROPERTIES }
 #Import ".\D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES.ahk" { D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES }
-#Import ".\ID2D1ImageSourceFromWic.ahk" { ID2D1ImageSourceFromWic }
-#Import "..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk" { DXGI_COLOR_SPACE_TYPE }
 #Import ".\ID2D1Brush.ahk" { ID2D1Brush }
 #Import ".\ID2D1DeviceContext1.ahk" { ID2D1DeviceContext1 }
-#Import ".\D2D1_GRADIENT_MESH_PATCH.ahk" { D2D1_GRADIENT_MESH_PATCH }
-#Import ".\ID2D1LookupTable3D.ahk" { ID2D1LookupTable3D }
-#Import "..\Imaging\IWICBitmapSource.ahk" { IWICBitmapSource }
-#Import ".\D2D1_INK_STYLE_PROPERTIES.ahk" { D2D1_INK_STYLE_PROPERTIES }
+#Import ".\ID2D1GdiMetafile.ahk" { ID2D1GdiMetafile }
 #Import ".\ID2D1GradientMesh.ahk" { ID2D1GradientMesh }
+#Import ".\ID2D1ImageSource.ahk" { ID2D1ImageSource }
+#Import ".\ID2D1ImageSourceFromWic.ahk" { ID2D1ImageSourceFromWic }
+#Import ".\ID2D1Ink.ahk" { ID2D1Ink }
+#Import ".\ID2D1InkStyle.ahk" { ID2D1InkStyle }
+#Import ".\ID2D1LookupTable3D.ahk" { ID2D1LookupTable3D }
+#Import ".\ID2D1TransformedImageSource.ahk" { ID2D1TransformedImageSource }
+#Import "..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk" { DXGI_COLOR_SPACE_TYPE }
+#Import "..\Dxgi\IDXGISurface.ahk" { IDXGISurface }
+#Import "..\Imaging\IWICBitmapSource.ahk" { IWICBitmapSource }
 
 /**
  * This interface performs all the same functions as the ID2D1DeviceContext1 interface, plus it enables functionality such as ink rendering, gradient mesh rendering, and improved image loading.

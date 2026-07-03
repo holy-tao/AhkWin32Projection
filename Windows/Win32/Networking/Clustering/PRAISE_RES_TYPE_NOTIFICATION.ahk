@@ -48,10 +48,6 @@ export default struct PRAISE_RES_TYPE_NOTIFICATION {
             this.value := CallbackCreate(fn, , [PWSTR, IntPtr, UInt32, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

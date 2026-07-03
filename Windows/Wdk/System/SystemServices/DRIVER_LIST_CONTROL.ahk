@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
-#Import ".\SCATTER_GATHER_LIST.ahk" { SCATTER_GATHER_LIST }
 #Import "..\..\Foundation\IRP.ahk" { IRP }
+#Import ".\SCATTER_GATHER_LIST.ahk" { SCATTER_GATHER_LIST }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -50,10 +50,6 @@ export default struct DRIVER_LIST_CONTROL {
             this.value := CallbackCreate(fn, , [DEVICE_OBJECT.Ptr, IRP.Ptr, SCATTER_GATHER_LIST.Ptr, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

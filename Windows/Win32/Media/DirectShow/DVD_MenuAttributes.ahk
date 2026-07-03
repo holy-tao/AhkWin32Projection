@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DVD_SUBPICTURE_LANG_EXT.ahk" { DVD_SUBPICTURE_LANG_EXT }
 #Import ".\DVD_AUDIO_APPMODE.ahk" { DVD_AUDIO_APPMODE }
 #Import ".\DVD_AUDIO_FORMAT.ahk" { DVD_AUDIO_FORMAT }
 #Import ".\DVD_AUDIO_LANG_EXT.ahk" { DVD_AUDIO_LANG_EXT }
+#Import ".\DVD_AudioAttributes.ahk" { DVD_AudioAttributes }
 #Import ".\DVD_SUBPICTURE_CODING.ahk" { DVD_SUBPICTURE_CODING }
-#Import ".\DVD_VideoAttributes.ahk" { DVD_VideoAttributes }
+#Import ".\DVD_SUBPICTURE_LANG_EXT.ahk" { DVD_SUBPICTURE_LANG_EXT }
 #Import ".\DVD_SUBPICTURE_TYPE.ahk" { DVD_SUBPICTURE_TYPE }
 #Import ".\DVD_SubpictureAttributes.ahk" { DVD_SubpictureAttributes }
 #Import ".\DVD_VIDEO_COMPRESSION.ahk" { DVD_VIDEO_COMPRESSION }
-#Import ".\DVD_AudioAttributes.ahk" { DVD_AudioAttributes }
+#Import ".\DVD_VideoAttributes.ahk" { DVD_VideoAttributes }
 
 /**
  * The DVD_MenuAttributes structure contains information about a DVD menu. The IDvdInfo2::GetTitleAttributes method fills in a DVD_MenuAttributes structure for a specified stream.

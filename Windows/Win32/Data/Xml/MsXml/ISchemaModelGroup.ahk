@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ISchemaItemCollection.ahk" { ISchemaItemCollection }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISchemaParticle.ahk" { ISchemaParticle }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml

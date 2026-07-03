@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Data\Xml\MsXml\IXMLElement.ahk" { IXMLElement }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\IBindCtx.ahk" { IBindCtx }
+#Import "..\IUnknown.ahk" { IUnknown }
 #Import ".\CODEBASEHOLD.ahk" { CODEBASEHOLD }
 #Import ".\SOFTDISTINFO.ahk" { SOFTDISTINFO }
-#Import "..\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\Data\Xml\MsXml\IXMLElement.ahk" { IXMLElement }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon

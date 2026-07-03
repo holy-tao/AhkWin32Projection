@@ -52,10 +52,6 @@ export default struct PCLUSTER_ENCRYPT {
             this.value := CallbackCreate(fn, , [HCLUSCRYPTPROVIDER, "char*", UInt32, "ptr*", "uint*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IMultiMediaStream.ahk" { IMultiMediaStream }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IGraphBuilder.ahk" { IGraphBuilder }
+#Import ".\IMediaStream.ahk" { IMediaStream }
+#Import ".\IMediaStreamFilter.ahk" { IMediaStreamFilter }
+#Import ".\IMultiMediaStream.ahk" { IMultiMediaStream }
 #Import ".\STREAM_TYPE.ahk" { STREAM_TYPE }
 #Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
 #Import "..\..\System\Com\IMoniker.ahk" { IMoniker }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMediaStream.ahk" { IMediaStream }
-#Import ".\IMediaStreamFilter.ahk" { IMediaStreamFilter }
-#Import ".\IGraphBuilder.ahk" { IGraphBuilder }
 
 /**
  * Note  This interface is deprecated. New applications should not use it. The IAMMultiMediaStream interface is supported by the multimedia stream object. It contains methods for creating the underlying filter graph that the object manages.

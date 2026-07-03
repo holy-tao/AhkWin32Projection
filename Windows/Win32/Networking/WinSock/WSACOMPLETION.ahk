@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 #Import ".\WSACOMPLETIONTYPE.ahk" { WSACOMPLETIONTYPE }
 #Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\LPWSAOVERLAPPED_COMPLETION_ROUTINE.ahk" { LPWSAOVERLAPPED_COMPLETION_ROUTINE }
 
 /**
  * Specifies completion notification settings for I/O control calls made to a registered namespace.
@@ -66,7 +65,7 @@ export default struct WSACOMPLETION {
         struct _Apc {
             lpOverlapped : OVERLAPPED.Ptr
 
-            lpfnCompletionProc : LPWSAOVERLAPPED_COMPLETION_ROUTINE
+            lpfnCompletionProc : IntPtr
 
         }
 

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IApplicationDesignModeSettings.ahk" { IApplicationDesignModeSettings }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\APPLICATION_VIEW_MIN_WIDTH.ahk" { APPLICATION_VIEW_MIN_WIDTH }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\SIZE.ahk" { SIZE }
 #Import ".\ADJACENT_DISPLAY_EDGES.ahk" { ADJACENT_DISPLAY_EDGES }
+#Import ".\APPLICATION_VIEW_MIN_WIDTH.ahk" { APPLICATION_VIEW_MIN_WIDTH }
 #Import ".\APPLICATION_VIEW_ORIENTATION.ahk" { APPLICATION_VIEW_ORIENTATION }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IApplicationDesignModeSettings.ahk" { IApplicationDesignModeSettings }
 #Import ".\NATIVE_DISPLAY_ORIENTATION.ahk" { NATIVE_DISPLAY_ORIENTATION }
 
 /**

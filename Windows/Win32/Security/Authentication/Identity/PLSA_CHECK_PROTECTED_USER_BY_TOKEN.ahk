@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
@@ -30,7 +30,7 @@ export default struct PLSA_CHECK_PROTECTED_USER_BY_TOKEN {
         ProtectedUserMarshal := ProtectedUser is VarRef ? "char*" : "ptr"
 
         result := DllCall(this.value, HANDLE, UserToken, ProtectedUserMarshal, ProtectedUser, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -50,10 +50,6 @@ export default struct PLSA_CHECK_PROTECTED_USER_BY_TOKEN {
             this.value := CallbackCreate(fn, , [HANDLE, BOOLEAN.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

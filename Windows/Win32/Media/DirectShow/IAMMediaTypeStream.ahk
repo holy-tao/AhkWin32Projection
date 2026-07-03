@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ALLOCATOR_PROPERTIES.ahk" { ALLOCATOR_PROPERTIES }
+#Import ".\IAMMediaTypeSample.ahk" { IAMMediaTypeSample }
+#Import ".\IMediaStream.ahk" { IMediaStream }
 #Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ALLOCATOR_PROPERTIES.ahk" { ALLOCATOR_PROPERTIES }
-#Import ".\IMediaStream.ahk" { IMediaStream }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IAMMediaTypeSample.ahk" { IAMMediaTypeSample }
 
 /**
  * Note  This interface is deprecated.

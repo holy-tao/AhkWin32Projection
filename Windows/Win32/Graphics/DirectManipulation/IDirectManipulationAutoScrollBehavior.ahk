@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DIRECTMANIPULATION_MOTION_TYPES.ahk" { DIRECTMANIPULATION_MOTION_TYPES }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DIRECTMANIPULATION_AUTOSCROLL_CONFIGURATION.ahk" { DIRECTMANIPULATION_AUTOSCROLL_CONFIGURATION }
+#Import ".\DIRECTMANIPULATION_MOTION_TYPES.ahk" { DIRECTMANIPULATION_MOTION_TYPES }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents the auto-scroll animation behavior of content as it approaches the boundary of a given axis or axes.

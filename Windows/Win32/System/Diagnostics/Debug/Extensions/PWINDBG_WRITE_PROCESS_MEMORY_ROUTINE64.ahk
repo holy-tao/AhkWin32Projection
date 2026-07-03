@@ -49,10 +49,6 @@ export default struct PWINDBG_WRITE_PROCESS_MEMORY_ROUTINE64 {
             this.value := CallbackCreate(fn, , [Int64, "ptr", UInt32, "uint*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

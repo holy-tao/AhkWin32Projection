@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SUB_Q_HEADER.ahk" { SUB_Q_HEADER }
 #Import ".\SUB_Q_CURRENT_POSITION.ahk" { SUB_Q_CURRENT_POSITION }
+#Import ".\SUB_Q_HEADER.ahk" { SUB_Q_HEADER }
 #Import ".\SUB_Q_MEDIA_CATALOG_NUMBER.ahk" { SUB_Q_MEDIA_CATALOG_NUMBER }
 #Import ".\SUB_Q_TRACK_ISRC.ahk" { SUB_Q_TRACK_ISRC }
 

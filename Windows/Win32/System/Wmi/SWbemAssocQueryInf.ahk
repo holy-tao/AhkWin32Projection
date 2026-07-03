@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IWbemPath.ahk" { IWbemPath }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWbemPath.ahk" { IWbemPath }
 
 /**
  * Contains information from the IWbemQuery::GetAnalysis method when you use the WMIQ_ANALYSIS_ASSOC_QUERY analysis type.

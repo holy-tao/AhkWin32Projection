@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_ERROR.ahk" { WS_ERROR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WS_ERROR.ahk" { WS_ERROR }
 #Import ".\WS_STRING.ahk" { WS_STRING }
 
 /**
@@ -109,10 +109,6 @@ export default struct WS_ENCODER_GET_CONTENT_TYPE_CALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", WS_STRING.Ptr, WS_STRING.Ptr, WS_STRING.Ptr, WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

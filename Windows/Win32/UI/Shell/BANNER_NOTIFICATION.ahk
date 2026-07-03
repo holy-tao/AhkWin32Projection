@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\BANNER_NOTIFICATION_EVENT.ahk" { BANNER_NOTIFICATION_EVENT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\BANNER_NOTIFICATION_EVENT.ahk" { BANNER_NOTIFICATION_EVENT }
 
 /**
  * @namespace Windows.Win32.UI.Shell

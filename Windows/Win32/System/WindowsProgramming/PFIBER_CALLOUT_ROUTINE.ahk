@@ -45,10 +45,6 @@ export default struct PFIBER_CALLOUT_ROUTINE {
             this.value := CallbackCreate(fn, , ["ptr", "ptr"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

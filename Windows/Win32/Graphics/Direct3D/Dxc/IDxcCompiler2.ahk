@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDxcBlob.ahk" { IDxcBlob }
-#Import ".\IDxcOperationResult.ahk" { IDxcOperationResult }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DxcDefine.ahk" { DxcDefine }
+#Import ".\IDxcBlob.ahk" { IDxcBlob }
 #Import ".\IDxcCompiler.ahk" { IDxcCompiler }
 #Import ".\IDxcIncludeHandler.ahk" { IDxcIncludeHandler }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DxcDefine.ahk" { DxcDefine }
+#Import ".\IDxcOperationResult.ahk" { IDxcOperationResult }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc

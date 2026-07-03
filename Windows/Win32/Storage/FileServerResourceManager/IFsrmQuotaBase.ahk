@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FsrmActionType.ahk" { FsrmActionType }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FsrmActionType.ahk" { FsrmActionType }
 #Import ".\IFsrmAction.ahk" { IFsrmAction }
 #Import ".\IFsrmCollection.ahk" { IFsrmCollection }
 #Import ".\IFsrmObject.ahk" { IFsrmObject }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Base interface for all quota interfaces.

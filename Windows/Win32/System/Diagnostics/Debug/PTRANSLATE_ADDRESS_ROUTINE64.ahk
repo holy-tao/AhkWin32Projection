@@ -54,10 +54,6 @@ export default struct PTRANSLATE_ADDRESS_ROUTINE64 {
             this.value := CallbackCreate(fn, , [HANDLE, HANDLE, ADDRESS64.Ptr, Int64])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

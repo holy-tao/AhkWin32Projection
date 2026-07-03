@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SOCKADDR_STORAGE.ahk" { SOCKADDR_STORAGE }
-#Import ".\MULTICAST_MODE_TYPE.ahk" { MULTICAST_MODE_TYPE }
 #Import ".\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import ".\MULTICAST_MODE_TYPE.ahk" { MULTICAST_MODE_TYPE }
+#Import ".\SOCKADDR_STORAGE.ahk" { SOCKADDR_STORAGE }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**

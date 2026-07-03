@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D11_TEXTURE_ADDRESS_MODE.ahk" { D3D11_TEXTURE_ADDRESS_MODE }
 #Import ".\D3D11_COMPARISON_FUNC.ahk" { D3D11_COMPARISON_FUNC }
 #Import ".\D3D11_FILTER.ahk" { D3D11_FILTER }
+#Import ".\D3D11_TEXTURE_ADDRESS_MODE.ahk" { D3D11_TEXTURE_ADDRESS_MODE }
 
 /**
  * Describes a sampler state. (D3D11_SAMPLER_DESC)

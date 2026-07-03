@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDragSourceHelper.ahk" { IDragSourceHelper }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDragSourceHelper.ahk" { IDragSourceHelper }
 
 /**
  * Exposes a method that adds functionality to IDragSourceHelper. This method sets the characteristics of a drag-and-drop operation over an IDragSourceHelper object.

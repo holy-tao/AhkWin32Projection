@@ -1,24 +1,24 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ADS_FAXNUMBER.ahk" { ADS_FAXNUMBER }
-#Import ".\ADS_TYPEDNAME.ahk" { ADS_TYPEDNAME }
-#Import ".\ADS_HOLD.ahk" { ADS_HOLD }
-#Import ".\ADS_REPLICAPOINTER.ahk" { ADS_REPLICAPOINTER }
-#Import ".\ADS_NT_SECURITY_DESCRIPTOR.ahk" { ADS_NT_SECURITY_DESCRIPTOR }
-#Import ".\ADSTYPE.ahk" { ADSTYPE }
-#Import ".\ADS_NETADDRESS.ahk" { ADS_NETADDRESS }
-#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
-#Import ".\ADS_CASEIGNORE_LIST.ahk" { ADS_CASEIGNORE_LIST }
-#Import ".\ADS_DN_WITH_STRING.ahk" { ADS_DN_WITH_STRING }
-#Import ".\ADS_DN_WITH_BINARY.ahk" { ADS_DN_WITH_BINARY }
-#Import ".\ADS_TIMESTAMP.ahk" { ADS_TIMESTAMP }
-#Import ".\ADS_PROV_SPECIFIC.ahk" { ADS_PROV_SPECIFIC }
-#Import ".\ADS_EMAIL.ahk" { ADS_EMAIL }
-#Import ".\ADS_POSTALADDRESS.ahk" { ADS_POSTALADDRESS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import ".\ADSTYPE.ahk" { ADSTYPE }
 #Import ".\ADS_BACKLINK.ahk" { ADS_BACKLINK }
-#Import ".\ADS_OCTET_STRING.ahk" { ADS_OCTET_STRING }
+#Import ".\ADS_CASEIGNORE_LIST.ahk" { ADS_CASEIGNORE_LIST }
+#Import ".\ADS_DN_WITH_BINARY.ahk" { ADS_DN_WITH_BINARY }
+#Import ".\ADS_DN_WITH_STRING.ahk" { ADS_DN_WITH_STRING }
+#Import ".\ADS_EMAIL.ahk" { ADS_EMAIL }
+#Import ".\ADS_FAXNUMBER.ahk" { ADS_FAXNUMBER }
+#Import ".\ADS_HOLD.ahk" { ADS_HOLD }
+#Import ".\ADS_NETADDRESS.ahk" { ADS_NETADDRESS }
+#Import ".\ADS_NT_SECURITY_DESCRIPTOR.ahk" { ADS_NT_SECURITY_DESCRIPTOR }
 #Import ".\ADS_OCTET_LIST.ahk" { ADS_OCTET_LIST }
+#Import ".\ADS_OCTET_STRING.ahk" { ADS_OCTET_STRING }
 #Import ".\ADS_PATH.ahk" { ADS_PATH }
+#Import ".\ADS_POSTALADDRESS.ahk" { ADS_POSTALADDRESS }
+#Import ".\ADS_PROV_SPECIFIC.ahk" { ADS_PROV_SPECIFIC }
+#Import ".\ADS_REPLICAPOINTER.ahk" { ADS_REPLICAPOINTER }
+#Import ".\ADS_TIMESTAMP.ahk" { ADS_TIMESTAMP }
+#Import ".\ADS_TYPEDNAME.ahk" { ADS_TYPEDNAME }
 
 /**
  * Contains a value specified as an ADSI data type.

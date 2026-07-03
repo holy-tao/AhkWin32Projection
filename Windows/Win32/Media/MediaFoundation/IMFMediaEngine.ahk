@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MFVideoNormalizedRect.ahk" { MFVideoNormalizedRect }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFMediaEngineSrcElements.ahk" { IMFMediaEngineSrcElements }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\MFARGB.ahk" { MFARGB }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\MF_MEDIA_ENGINE_CANPLAY.ahk" { MF_MEDIA_ENGINE_CANPLAY }
-#Import ".\MF_MEDIA_ENGINE_ERR.ahk" { MF_MEDIA_ENGINE_ERR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\IMFMediaEngineSrcElements.ahk" { IMFMediaEngineSrcElements }
 #Import ".\IMFMediaError.ahk" { IMFMediaError }
 #Import ".\IMFMediaTimeRange.ahk" { IMFMediaTimeRange }
+#Import ".\MFARGB.ahk" { MFARGB }
+#Import ".\MFVideoNormalizedRect.ahk" { MFVideoNormalizedRect }
+#Import ".\MF_MEDIA_ENGINE_CANPLAY.ahk" { MF_MEDIA_ENGINE_CANPLAY }
+#Import ".\MF_MEDIA_ENGINE_ERR.ahk" { MF_MEDIA_ENGINE_ERR }
 #Import ".\MF_MEDIA_ENGINE_PRELOAD.ahk" { MF_MEDIA_ENGINE_PRELOAD }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables an application to play audio or video files.

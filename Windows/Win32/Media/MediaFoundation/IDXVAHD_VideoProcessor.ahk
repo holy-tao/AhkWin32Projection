@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
 #Import ".\DXVAHD_BLT_STATE.ahk" { DXVAHD_BLT_STATE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DXVAHD_STREAM_DATA.ahk" { DXVAHD_STREAM_DATA }
 #Import ".\DXVAHD_STREAM_STATE.ahk" { DXVAHD_STREAM_STATE }
-#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) video processor.

@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IWMWriterPostViewCallback.ahk" { IWMWriterPostViewCallback }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWMMediaProps.ahk" { IWMMediaProps }
+#Import ".\IWMWriterPostViewCallback.ahk" { IWMWriterPostViewCallback }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMWriterPostView interface manages advanced writing functionality related to the postviewing of samples.

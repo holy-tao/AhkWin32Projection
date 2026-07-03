@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DIDEVICEINSTANCEW.ahk" { DIDEVICEINSTANCEW }
 #Import ".\IDirectInputDevice8W.ahk" { IDirectInputDevice8W }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
@@ -53,10 +53,6 @@ export default struct LPDIENUMDEVICESBYSEMANTICSCBW {
             this.value := CallbackCreate(fn, , [DIDEVICEINSTANCEW.Ptr, "ptr", UInt32, UInt32, "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

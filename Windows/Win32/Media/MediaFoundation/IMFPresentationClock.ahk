@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFClock.ahk" { IMFClock }
-#Import ".\IMFPresentationTimeSource.ahk" { IMFPresentationTimeSource }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFClock.ahk" { IMFClock }
 #Import ".\IMFClockStateSink.ahk" { IMFClockStateSink }
+#Import ".\IMFPresentationTimeSource.ahk" { IMFPresentationTimeSource }
 
 /**
  * Represents a presentation clock, which is used to schedule when samples are rendered and to synchronize multiple streams.

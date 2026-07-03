@@ -56,10 +56,6 @@ export default struct RPC_INTERFACE_GROUP_IDLE_CALLBACK_FN {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", UInt32, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

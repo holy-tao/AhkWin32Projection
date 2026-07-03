@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\STORAGE_PROTOCOL_TYPE.ahk" { STORAGE_PROTOCOL_TYPE }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\STORAGE_SPEC_VERSION.ahk" { STORAGE_SPEC_VERSION }
 #Import ".\STORAGE_COMPONENT_HEALTH_STATUS.ahk" { STORAGE_COMPONENT_HEALTH_STATUS }
+#Import ".\STORAGE_PROTOCOL_TYPE.ahk" { STORAGE_PROTOCOL_TYPE }
+#Import ".\STORAGE_SPEC_VERSION.ahk" { STORAGE_SPEC_VERSION }
 
 /**
  * Describes a physical storage adapter.

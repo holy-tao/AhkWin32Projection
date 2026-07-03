@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\OEMUIOBJ.ahk" { OEMUIOBJ }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\IPrintOemDriverUI.ahk" { IPrintOemDriverUI }
+#Import ".\OEMUIOBJ.ahk" { OEMUIOBJ }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

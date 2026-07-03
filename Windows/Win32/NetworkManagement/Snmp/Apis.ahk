@@ -1,26 +1,25 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\smiVENDORINFO.ahk" { smiVENDORINFO }
-#Import ".\smiVALUE.ahk" { smiVALUE }
-#Import ".\smiOCTETS.ahk" { smiOCTETS }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\AsnObjectIdentifier.ahk" { AsnObjectIdentifier }
-#Import ".\SNMP_ERROR_STATUS.ahk" { SNMP_ERROR_STATUS }
-#Import ".\SnmpVarBind.ahk" { SnmpVarBind }
-#Import ".\smiOID.ahk" { smiOID }
-#Import ".\SNMP_PDU_TYPE.ahk" { SNMP_PDU_TYPE }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\SNMP_STATUS.ahk" { SNMP_STATUS }
-#Import ".\AsnAny.ahk" { AsnAny }
-#Import ".\SNMPAPI_CALLBACK.ahk" { SNMPAPI_CALLBACK }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\AsnAny.ahk" { AsnAny }
+#Import ".\AsnObjectIdentifier.ahk" { AsnObjectIdentifier }
+#Import ".\AsnOctetString.ahk" { AsnOctetString }
 #Import ".\SNMP_API_TRANSLATE_MODE.ahk" { SNMP_API_TRANSLATE_MODE }
 #Import ".\SNMP_ERROR.ahk" { SNMP_ERROR }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\AsnOctetString.ahk" { AsnOctetString }
+#Import ".\SNMP_ERROR_STATUS.ahk" { SNMP_ERROR_STATUS }
 #Import ".\SNMP_GENERICTRAP.ahk" { SNMP_GENERICTRAP }
-#Import ".\SnmpVarBindList.ahk" { SnmpVarBindList }
 #Import ".\SNMP_LOG.ahk" { SNMP_LOG }
+#Import ".\SNMP_PDU_TYPE.ahk" { SNMP_PDU_TYPE }
+#Import ".\SNMP_STATUS.ahk" { SNMP_STATUS }
+#Import ".\SnmpVarBind.ahk" { SnmpVarBind }
+#Import ".\SnmpVarBindList.ahk" { SnmpVarBindList }
+#Import ".\smiOCTETS.ahk" { smiOCTETS }
+#Import ".\smiOID.ahk" { smiOID }
+#Import ".\smiVALUE.ahk" { smiVALUE }
+#Import ".\smiVENDORINFO.ahk" { smiVENDORINFO }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Snmp
@@ -2934,7 +2933,7 @@ export SnmpRegister(session, srcEntity, dstEntity, _context, _notification, stat
 export SnmpCreateSession(_hWnd, wMsg, fCallBack, lpClientData) {
     lpClientDataMarshal := lpClientData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("wsnmp32.dll\SnmpCreateSession", HWND, _hWnd, UInt32, wMsg, SNMPAPI_CALLBACK, fCallBack, lpClientDataMarshal, lpClientData, IntPtr)
+    result := DllCall("wsnmp32.dll\SnmpCreateSession", HWND, _hWnd, UInt32, wMsg, "ptr", fCallBack, lpClientDataMarshal, lpClientData, IntPtr)
     return result
 }
 

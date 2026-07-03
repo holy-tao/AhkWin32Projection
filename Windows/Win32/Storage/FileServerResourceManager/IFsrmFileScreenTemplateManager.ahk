@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IFsrmCommittableCollection.ahk" { IFsrmCommittableCollection }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IFsrmFileScreenTemplate.ahk" { IFsrmFileScreenTemplate }
-#Import ".\FsrmEnumOptions.ahk" { FsrmEnumOptions }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FsrmEnumOptions.ahk" { FsrmEnumOptions }
+#Import ".\IFsrmCommittableCollection.ahk" { IFsrmCommittableCollection }
+#Import ".\IFsrmFileScreenTemplate.ahk" { IFsrmFileScreenTemplate }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Used to manage file screen templates.

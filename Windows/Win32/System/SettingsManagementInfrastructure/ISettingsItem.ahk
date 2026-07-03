@@ -2,15 +2,15 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\WcmRestrictionFacets.ahk" { WcmRestrictionFacets }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WcmSettingType.ahk" { WcmSettingType }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WcmDataType.ahk" { WcmDataType }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IItemEnumerator.ahk" { IItemEnumerator }
+#Import ".\WcmDataType.ahk" { WcmDataType }
+#Import ".\WcmRestrictionFacets.ahk" { WcmRestrictionFacets }
+#Import ".\WcmSettingType.ahk" { WcmSettingType }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Navigates the settings tree, retrieves the metadata for a particular setting, and retrieves or modify its value.

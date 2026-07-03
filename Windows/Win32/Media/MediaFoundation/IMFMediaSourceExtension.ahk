@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFSourceBufferNotify.ahk" { IMFSourceBufferNotify }
-#Import ".\MF_MSE_ERROR.ahk" { MF_MSE_ERROR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\MF_MSE_READY.ahk" { MF_MSE_READY }
-#Import ".\IMFSourceBufferList.ahk" { IMFSourceBufferList }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFSourceBuffer.ahk" { IMFSourceBuffer }
+#Import ".\IMFSourceBufferList.ahk" { IMFSourceBufferList }
+#Import ".\IMFSourceBufferNotify.ahk" { IMFSourceBufferNotify }
+#Import ".\MF_MSE_ERROR.ahk" { MF_MSE_ERROR }
+#Import ".\MF_MSE_READY.ahk" { MF_MSE_READY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides functionality for the Media Source Extension (MSE).

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\AlgorithmFlags.ahk" { AlgorithmFlags }
+#Import ".\CERTENROLL_OBJECTID.ahk" { CERTENROLL_OBJECTID }
 #Import ".\ObjectIdGroupId.ahk" { ObjectIdGroupId }
 #Import ".\ObjectIdPublicKeyFlags.ahk" { ObjectIdPublicKeyFlags }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\AlgorithmFlags.ahk" { AlgorithmFlags }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\CERTENROLL_OBJECTID.ahk" { CERTENROLL_OBJECTID }
 
 /**
  * Represents an object identifier (OID).

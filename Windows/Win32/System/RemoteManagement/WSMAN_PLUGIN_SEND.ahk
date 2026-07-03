@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\WSMAN_DATA.ahk" { WSMAN_DATA }
 #Import ".\WSMAN_PLUGIN_REQUEST.ahk" { WSMAN_PLUGIN_REQUEST }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Defines the send callback for a plug-in.
@@ -58,10 +58,6 @@ export default struct WSMAN_PLUGIN_SEND {
             this.value := CallbackCreate(fn, , [WSMAN_PLUGIN_REQUEST.Ptr, UInt32, "ptr", "ptr", PWSTR, WSMAN_DATA.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

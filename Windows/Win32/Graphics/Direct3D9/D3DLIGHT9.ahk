@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\Direct3D\D3DVECTOR.ahk" { D3DVECTOR }
-#Import ".\D3DLIGHTTYPE.ahk" { D3DLIGHTTYPE }
 #Import ".\D3DCOLORVALUE.ahk" { D3DCOLORVALUE }
+#Import ".\D3DLIGHTTYPE.ahk" { D3DLIGHTTYPE }
 
 /**
  * Defines a set of lighting properties.

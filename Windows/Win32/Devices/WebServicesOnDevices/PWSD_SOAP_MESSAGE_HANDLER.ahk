@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\WSD_EVENT.ahk" { WSD_EVENT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * References a SOAP message handler for incoming messages.
@@ -67,10 +67,6 @@ export default struct PWSD_SOAP_MESSAGE_HANDLER {
             this.value := CallbackCreate(fn, , ["ptr", WSD_EVENT.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

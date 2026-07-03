@@ -50,10 +50,6 @@ export default struct PROTOCOL_CL_INCOMING_CALL {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", CO_CALL_PARAMETERS.Ptr, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DNS_SERVER_PROPERTY.ahk" { DNS_SERVER_PROPERTY }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DNS_SERVER_PROPERTY.ahk" { DNS_SERVER_PROPERTY }
 
 /**
  * Represents the DNS settings that can be configured on a given interface by calling the [**SetInterfaceDnsSettings**](/windows/win32/api/netioapi/nf-netioapi-setinterfacednssettings) function. (DNS_INTERFACE_SETTINGS3)

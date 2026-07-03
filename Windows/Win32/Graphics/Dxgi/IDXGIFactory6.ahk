@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DXGI_GPU_PREFERENCE.ahk" { DXGI_GPU_PREFERENCE }
 #Import ".\IDXGIFactory5.ahk" { IDXGIFactory5 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This interface enables a single method that enumerates graphics adapters based on a given GPU preference.

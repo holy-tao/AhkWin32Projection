@@ -47,10 +47,6 @@ export default struct LPFNABSDI {
             this.value := CallbackCreate(fn, , [IntPtr, "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\AutomationElementMode.ahk" { AutomationElementMode }
 #Import ".\TreeScope.ahk" { TreeScope }
 #Import ".\UiaCondition.ahk" { UiaCondition }
-#Import ".\AutomationElementMode.ahk" { AutomationElementMode }
 
 /**
  * Note  This structure is deprecated.  Contains information about a request to cache data about UI Automation elements.

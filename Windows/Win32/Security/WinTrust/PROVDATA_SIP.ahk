@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Cryptography\Sip\SIP_INDIRECT_DATA.ahk" { SIP_INDIRECT_DATA }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\Cryptography\Sip\SIP_DISPATCH_INFO.ahk" { SIP_DISPATCH_INFO }
+#Import "..\Cryptography\Sip\SIP_INDIRECT_DATA.ahk" { SIP_INDIRECT_DATA }
 #Import "..\Cryptography\Sip\SIP_SUBJECTINFO.ahk" { SIP_SUBJECTINFO }
 
 /**

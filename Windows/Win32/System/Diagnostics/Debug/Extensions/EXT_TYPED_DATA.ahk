@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\EXT_TDOP.ahk" { EXT_TDOP }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DEBUG_TYPED_DATA.ahk" { DEBUG_TYPED_DATA }
+#Import ".\EXT_TDOP.ahk" { EXT_TDOP }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

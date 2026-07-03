@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "PropertiesSystem\IPropertyChangeArray.ahk" { IPropertyChangeArray }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ITransferAdviseSink.ahk" { ITransferAdviseSink }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IShellItem.ahk" { IShellItem }
+#Import ".\ITransferAdviseSink.ahk" { ITransferAdviseSink }
+#Import "PropertiesSystem\IPropertyChangeArray.ahk" { IPropertyChangeArray }
 
 /**
  * Exposes methods to manipulate IShellItem, including copy, move, recycle, and others. This interface is offered to provide more control over file operations by providing an ITransferSource::Advise method.

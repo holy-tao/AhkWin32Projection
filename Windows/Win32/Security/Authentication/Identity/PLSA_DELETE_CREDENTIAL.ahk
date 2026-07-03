@@ -29,7 +29,7 @@ export default struct PLSA_DELETE_CREDENTIAL {
      */
     Call(LogonId, AuthenticationPackage, PrimaryKeyValue) {
         result := DllCall(this.value, LUID.Ptr, LogonId, UInt32, AuthenticationPackage, LSA_STRING.Ptr, PrimaryKeyValue, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -49,10 +49,6 @@ export default struct PLSA_DELETE_CREDENTIAL {
             this.value := CallbackCreate(fn, , [LUID.Ptr, UInt32, LSA_STRING.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

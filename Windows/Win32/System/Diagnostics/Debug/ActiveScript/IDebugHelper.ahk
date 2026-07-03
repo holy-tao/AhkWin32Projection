@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\IDebugProperty.ahk" { IDebugProperty }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDebugFormatter.ahk" { IDebugFormatter }
-#Import "..\..\..\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\ISimpleConnectionPoint.ahk" { ISimpleConnectionPoint }
-#Import ".\IDebugApplicationThread.ahk" { IDebugApplicationThread }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDebugApplicationThread.ahk" { IDebugApplicationThread }
+#Import ".\IDebugFormatter.ahk" { IDebugFormatter }
+#Import ".\ISimpleConnectionPoint.ahk" { ISimpleConnectionPoint }
+#Import "..\IDebugProperty.ahk" { IDebugProperty }
+#Import "..\..\..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

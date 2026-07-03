@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFMediaKeySessionNotify.ahk" { IMFMediaKeySessionNotify }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IMFMediaKeySessionNotify.ahk" { IMFMediaKeySessionNotify }
 #Import ".\MF_MEDIAKEYSESSION_MESSAGETYPE.ahk" { MF_MEDIAKEYSESSION_MESSAGETYPE }
 
 /**

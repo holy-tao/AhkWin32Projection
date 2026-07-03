@@ -49,10 +49,6 @@ export default struct PFNGLCOLORTABLEEXTPROC {
             this.value := CallbackCreate(fn, , [UInt32, UInt32, Int32, UInt32, UInt32, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

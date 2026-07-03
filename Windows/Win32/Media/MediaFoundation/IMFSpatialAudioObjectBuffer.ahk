@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Audio\AudioObjectType.ahk" { AudioObjectType }
-#Import ".\IMFMediaBuffer.ahk" { IMFMediaBuffer }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Audio\AudioObjectType.ahk" { AudioObjectType }
 #Import "..\Audio\ISpatialAudioMetadataItems.ahk" { ISpatialAudioMetadataItems }
+#Import ".\IMFMediaBuffer.ahk" { IMFMediaBuffer }
 
 /**
  * Represents a section of audio data with associated positional and rendering metadata. Spatial audio objects are stored in IMFSpatialAudioSample instances, and allow passing of spatial audio information between Media Foundation components.

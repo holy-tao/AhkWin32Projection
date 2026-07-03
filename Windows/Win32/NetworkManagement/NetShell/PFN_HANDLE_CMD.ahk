@@ -57,10 +57,6 @@ export default struct PFN_HANDLE_CMD {
             this.value := CallbackCreate(fn, , [PWSTR, PWSTR.Ptr, UInt32, UInt32, UInt32, "ptr", BOOL.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

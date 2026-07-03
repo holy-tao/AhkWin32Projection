@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE.ahk" { D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE }
+#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This interface enables modification of additional command list debug layer settings.

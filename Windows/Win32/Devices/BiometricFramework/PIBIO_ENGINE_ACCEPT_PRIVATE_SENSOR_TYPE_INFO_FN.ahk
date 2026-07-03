@@ -49,10 +49,6 @@ export default struct PIBIO_ENGINE_ACCEPT_PRIVATE_SENSOR_TYPE_INFO_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, "char*", IntPtr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

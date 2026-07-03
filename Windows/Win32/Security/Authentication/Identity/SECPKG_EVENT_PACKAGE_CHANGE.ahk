@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SECURITY_STRING.ahk" { SECURITY_STRING }
 #Import ".\SECPKG_PACKAGE_CHANGE_TYPE.ahk" { SECPKG_PACKAGE_CHANGE_TYPE }
+#Import ".\SECURITY_STRING.ahk" { SECURITY_STRING }
 
 /**
  * The SECPKG_EVENT_PACKAGE_CHANGE structure contains information about changes in security package availability.

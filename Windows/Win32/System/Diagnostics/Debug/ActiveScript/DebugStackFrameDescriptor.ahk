@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IDebugStackFrame.ahk" { IDebugStackFrame }
 #Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDebugStackFrame.ahk" { IDebugStackFrame }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

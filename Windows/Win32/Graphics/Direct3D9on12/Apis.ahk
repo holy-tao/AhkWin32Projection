@@ -1,9 +1,9 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\Direct3D9\IDirect3D9.ahk" { IDirect3D9 }
-#Import ".\D3D9ON12_ARGS.ahk" { D3D9ON12_ARGS }
-#Import "..\Direct3D9\IDirect3D9Ex.ahk" { IDirect3D9Ex }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Direct3D9\IDirect3D9.ahk" { IDirect3D9 }
+#Import "..\Direct3D9\IDirect3D9Ex.ahk" { IDirect3D9Ex }
+#Import ".\D3D9ON12_ARGS.ahk" { D3D9ON12_ARGS }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9on12

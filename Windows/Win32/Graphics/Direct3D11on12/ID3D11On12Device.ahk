@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D11_RESOURCE_FLAGS.ahk" { D3D11_RESOURCE_FLAGS }
-#Import "..\Direct3D11\ID3D11Resource.ahk" { ID3D11Resource }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Direct3D12\D3D12_RESOURCE_STATES.ahk" { D3D12_RESOURCE_STATES }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Direct3D11\ID3D11Resource.ahk" { ID3D11Resource }
+#Import ".\D3D11_RESOURCE_FLAGS.ahk" { D3D11_RESOURCE_FLAGS }
+#Import "..\Direct3D12\D3D12_RESOURCE_STATES.ahk" { D3D12_RESOURCE_STATES }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Handles the creation, wrapping, and releasing of D3D11 resources for Direct3D11on12.

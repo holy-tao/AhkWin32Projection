@@ -42,10 +42,6 @@ export default struct PGET_SDEV_IDENTIFIER {
             this.value := CallbackCreate(fn, , [Int64])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

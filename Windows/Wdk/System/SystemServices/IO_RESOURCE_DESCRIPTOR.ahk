@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IRQ_PRIORITY.ahk" { IRQ_PRIORITY }
 #Import ".\IRQ_DEVICE_POLICY.ahk" { IRQ_DEVICE_POLICY }
+#Import ".\IRQ_PRIORITY.ahk" { IRQ_PRIORITY }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

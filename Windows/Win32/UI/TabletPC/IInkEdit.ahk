@@ -1,25 +1,25 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IInkDrawingAttributes.ahk" { IInkDrawingAttributes }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IInkRecognizer.ahk" { IInkRecognizer }
-#Import "..\..\System\Ole\OLE_HANDLE.ahk" { OLE_HANDLE }
-#Import ".\ScrollBarsConstants.ahk" { ScrollBarsConstants }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\InkMode.ahk" { InkMode }
-#Import ".\AppearanceConstants.ahk" { AppearanceConstants }
-#Import ".\BorderStyleConstants.ahk" { BorderStyleConstants }
-#Import ".\InkDisplayMode.ahk" { InkDisplayMode }
-#Import ".\InkInsertMode.ahk" { InkInsertMode }
-#Import ".\InkEditStatus.ahk" { InkEditStatus }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\InkApplicationGesture.ahk" { InkApplicationGesture }
-#Import ".\InkMousePointer.ahk" { InkMousePointer }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\System\Ole\IFontDisp.ahk" { IFontDisp }
 #Import "..\..\System\Ole\IPictureDisp.ahk" { IPictureDisp }
+#Import "..\..\System\Ole\OLE_HANDLE.ahk" { OLE_HANDLE }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\AppearanceConstants.ahk" { AppearanceConstants }
+#Import ".\BorderStyleConstants.ahk" { BorderStyleConstants }
+#Import ".\IInkDrawingAttributes.ahk" { IInkDrawingAttributes }
+#Import ".\IInkRecognizer.ahk" { IInkRecognizer }
+#Import ".\InkApplicationGesture.ahk" { InkApplicationGesture }
+#Import ".\InkDisplayMode.ahk" { InkDisplayMode }
+#Import ".\InkEditStatus.ahk" { InkEditStatus }
+#Import ".\InkInsertMode.ahk" { InkInsertMode }
+#Import ".\InkMode.ahk" { InkMode }
+#Import ".\InkMousePointer.ahk" { InkMousePointer }
+#Import ".\ScrollBarsConstants.ahk" { ScrollBarsConstants }
 
 /**
  * . (IInkEdit)

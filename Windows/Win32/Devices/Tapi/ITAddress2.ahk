@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITTerminal.ahk" { ITTerminal }
-#Import ".\ITCallInfo.ahk" { ITCallInfo }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IEnumPhone.ahk" { IEnumPhone }
 #Import ".\ITAddress.ahk" { ITAddress }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\ITCallInfo.ahk" { ITCallInfo }
 #Import ".\ITPhone.ahk" { ITPhone }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITTerminal.ahk" { ITTerminal }
 #Import ".\TAPI_EVENT.ahk" { TAPI_EVENT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ITAddress2 interface derives from the ITAddress interface. ITAddress2 adds methods to the Address object in order to support phone devices. All Address objects enumerated from TAPI 3.1 automatically implement this interface.

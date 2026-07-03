@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D10Asynchronous.ahk" { ID3D10Asynchronous }
 #Import ".\D3D10_QUERY_DESC.ahk" { D3D10_QUERY_DESC }
+#Import ".\ID3D10Asynchronous.ahk" { ID3D10Asynchronous }
 
 /**
  * A query interface queries information from the GPU. (ID3D10Query)

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
 #Import ".\HGROUP.ahk" { HGROUP }
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -46,10 +46,6 @@ export default struct PCLUSAPI_GET_CLUSTER_GROUP_KEY {
             this.value := CallbackCreate(fn, , [HGROUP, UInt32, HKEY])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HTAPILINE.ahk" { HTAPILINE }
 #Import ".\HTAPICALL.ahk" { HTAPICALL }
+#Import ".\HTAPILINE.ahk" { HTAPILINE }
 
 /**
  * Line_Event is a callback function implemented by TAPI and supplied to the service provider as a parameter to TSPI_lineOpen. The service provider calls this function to report events that occur on the line or on calls on the line.
@@ -60,10 +60,6 @@ export default struct LINEEVENT {
             this.value := CallbackCreate(fn, , [HTAPILINE, HTAPICALL, UInt32, IntPtr, IntPtr, IntPtr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

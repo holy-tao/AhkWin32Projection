@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
-#Import ".\IUIAutomationElementArray.ahk" { IUIAutomationElementArray }
-#Import ".\IUIAutomationCondition.ahk" { IUIAutomationCondition }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\TreeScope.ahk" { TreeScope }
-#Import ".\UIA_METADATA_ID.ahk" { UIA_METADATA_ID }
-#Import ".\IUIAutomationCacheRequest.ahk" { IUIAutomationCacheRequest }
-#Import ".\TreeTraversalOptions.ahk" { TreeTraversalOptions }
-#Import ".\IUIAutomationElement6.ahk" { IUIAutomationElement6 }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IUIAutomationCacheRequest.ahk" { IUIAutomationCacheRequest }
+#Import ".\IUIAutomationCondition.ahk" { IUIAutomationCondition }
+#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
+#Import ".\IUIAutomationElement6.ahk" { IUIAutomationElement6 }
+#Import ".\IUIAutomationElementArray.ahk" { IUIAutomationElementArray }
+#Import ".\TreeScope.ahk" { TreeScope }
+#Import ".\TreeTraversalOptions.ahk" { TreeTraversalOptions }
+#Import ".\UIA_METADATA_ID.ahk" { UIA_METADATA_ID }
 
 /**
  * Extends the IUIAutomationElement6 interface.

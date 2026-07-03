@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IEnumString.ahk" { IEnumString }
-#Import ".\CatalogPausedReason.ahk" { CatalogPausedReason }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ISearchQueryHelper.ahk" { ISearchQueryHelper }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ISearchCrawlScopeManager.ahk" { ISearchCrawlScopeManager }
-#Import ".\CatalogStatus.ahk" { CatalogStatus }
-#Import ".\ISearchNotifyInlineSite.ahk" { ISearchNotifyInlineSite }
-#Import ".\ISearchViewChangedSink.ahk" { ISearchViewChangedSink }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IEnumString.ahk" { IEnumString }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\CatalogPausedReason.ahk" { CatalogPausedReason }
+#Import ".\CatalogStatus.ahk" { CatalogStatus }
+#Import ".\ISearchCrawlScopeManager.ahk" { ISearchCrawlScopeManager }
+#Import ".\ISearchNotifyInlineSite.ahk" { ISearchNotifyInlineSite }
 #Import ".\ISearchPersistentItemsChangedSink.ahk" { ISearchPersistentItemsChangedSink }
+#Import ".\ISearchQueryHelper.ahk" { ISearchQueryHelper }
+#Import ".\ISearchViewChangedSink.ahk" { ISearchViewChangedSink }
 
 /**
  * Provides methods to manage a search catalog for purposes such as re-indexing or setting timeouts.

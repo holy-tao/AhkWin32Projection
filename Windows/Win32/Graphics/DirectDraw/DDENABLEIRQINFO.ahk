@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\DX_IRQDATA.ahk" { DX_IRQDATA }
-#Import ".\PDX_IRQCALLBACK.ahk" { PDX_IRQCALLBACK }
 
 /**
  * The DDENABLEIRQINFO structure contains the information required to enable interrupts.
@@ -22,7 +21,7 @@ export default struct DDENABLEIRQINFO {
     /**
      * Points to an <a href="https://docs.microsoft.com/windows/desktop/api/dxmini/nc-dxmini-pdx_irqcallback">IRQCallback</a> that the video miniport driver calls when the miniport driver is managing IRQs, and an IRQ occurs.
      */
-    IRQCallback : PDX_IRQCALLBACK
+    IRQCallback : IntPtr
 
     /**
      * Points to the data to be sent to <b>IRQCallback</b> when <b>IRQCallback</b> is called.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SOCKET_ADDRESS.ahk" { SOCKET_ADDRESS }
 #Import ".\SOCKADDR.ahk" { SOCKADDR }
+#Import ".\SOCKET_ADDRESS.ahk" { SOCKET_ADDRESS }
 
 /**
  * The INTERFACE_INFO_EX structure is used in conjunction with the SIO_GET_INTERFACE_LIST IOCTL command to obtain information about an interface IP address.

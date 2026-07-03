@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IRTCUserSearchQuery.ahk" { IRTCUserSearchQuery }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IRTCCollection.ahk" { IRTCCollection }
 #Import ".\IRTCEnumUserSearchResults.ahk" { IRTCEnumUserSearchResults }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IRTCProfile2.ahk" { IRTCProfile2 }
+#Import ".\IRTCUserSearchQuery.ahk" { IRTCUserSearchQuery }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

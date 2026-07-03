@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Storage\IndexServer\IFilter.ahk" { IFilter }
 #Import "..\Com\IStream.ahk" { IStream }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Com\StructuredStorage\PROPSPEC.ahk" { PROPSPEC }
 #Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Storage\IndexServer\IFilter.ahk" { IFilter }
 
 /**
  * Provides methods for processing an individual item in a content source whose URL is provided by the gatherer to the filter host.

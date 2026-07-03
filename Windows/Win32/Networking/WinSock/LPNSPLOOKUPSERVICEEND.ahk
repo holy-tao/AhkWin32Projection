@@ -91,10 +91,6 @@ export default struct LPNSPLOOKUPSERVICEEND {
             this.value := CallbackCreate(fn, , [HANDLE, Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

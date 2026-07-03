@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\PROXY_ACCESS.ahk" { PROXY_ACCESS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PROXY_ACCESS.ahk" { PROXY_ACCESS }
 
 /**
  * Stores information about a proxy. Used by ISearchProtocol.

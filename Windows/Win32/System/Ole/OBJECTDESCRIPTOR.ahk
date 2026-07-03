@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\POINTL.ahk" { POINTL }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * Represents the data structure used for the CF_OBJECTDESRIPTOR and CF_LINKSRCDESCRIPTOR file formats.

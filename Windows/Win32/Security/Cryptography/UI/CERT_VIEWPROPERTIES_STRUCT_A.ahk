@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\HCERTSTORE.ahk" { HCERTSTORE }
-#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\CERT_VIEWPROPERTIES_STRUCT_FLAGS.ahk" { CERT_VIEWPROPERTIES_STRUCT_FLAGS }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\..\UI\Controls\PROPSHEETPAGEA.ahk" { PROPSHEETPAGEA }
 #Import "..\..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import "..\HCERTSTORE.ahk" { HCERTSTORE }
+#Import ".\CERT_VIEWPROPERTIES_STRUCT_FLAGS.ahk" { CERT_VIEWPROPERTIES_STRUCT_FLAGS }
+#Import "..\..\..\UI\Controls\PROPSHEETPAGEA.ahk" { PROPSHEETPAGEA }
 
 /**
  * The CERT_VIEWPROPERTIES_STRUCT structure defines information used when the CertViewProperties function is called to display a certificate's properties. (ANSI)

@@ -52,10 +52,6 @@ export default struct IPSEC_KEY_MANAGER_NOTIFY_KEY0 {
             this.value := CallbackCreate(fn, , [IPSEC_SA_DETAILS1.Ptr, IPSEC_SA_DETAILS1.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

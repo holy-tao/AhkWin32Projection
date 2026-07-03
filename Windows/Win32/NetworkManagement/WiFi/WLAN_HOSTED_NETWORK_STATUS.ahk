@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WLAN_HOSTED_NETWORK_STATE.ahk" { WLAN_HOSTED_NETWORK_STATE }
-#Import ".\DOT11_PHY_TYPE.ahk" { DOT11_PHY_TYPE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WLAN_HOSTED_NETWORK_PEER_STATE.ahk" { WLAN_HOSTED_NETWORK_PEER_STATE }
+#Import ".\DOT11_PHY_TYPE.ahk" { DOT11_PHY_TYPE }
 #Import ".\WLAN_HOSTED_NETWORK_PEER_AUTH_STATE.ahk" { WLAN_HOSTED_NETWORK_PEER_AUTH_STATE }
+#Import ".\WLAN_HOSTED_NETWORK_PEER_STATE.ahk" { WLAN_HOSTED_NETWORK_PEER_STATE }
+#Import ".\WLAN_HOSTED_NETWORK_STATE.ahk" { WLAN_HOSTED_NETWORK_STATE }
 
 /**
  * Contains information about the status of the wireless Hosted Network.

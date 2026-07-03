@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SCARD_T0_COMMAND.ahk" { SCARD_T0_COMMAND }
 #Import ".\SCARD_IO_REQUEST.ahk" { SCARD_IO_REQUEST }
+#Import ".\SCARD_T0_COMMAND.ahk" { SCARD_T0_COMMAND }
 
 /**
  * @namespace Windows.Win32.Security.Credentials

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID3D11DeviceContext3.ahk" { ID3D11DeviceContext3 }
 #Import ".\ID3D11Fence.ahk" { ID3D11Fence }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The device context interface represents a device context; it is used to render commands. ID3D11DeviceContext4 adds new methods to those in ID3D11DeviceContext3.

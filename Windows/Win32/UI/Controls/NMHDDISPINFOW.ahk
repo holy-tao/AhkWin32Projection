@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\NMHDR.ahk" { NMHDR }
 #Import ".\HDI_MASK.ahk" { HDI_MASK }
+#Import ".\NMHDR.ahk" { NMHDR }
 
 /**
  * Contains information used in handling HDN_GETDISPINFO notification codes. (Unicode)

@@ -49,10 +49,6 @@ export default struct RTL_RUN_ONCE_INIT_FN {
             this.value := CallbackCreate(fn, , [INIT_ONCE.Ptr, "ptr", "ptr*", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

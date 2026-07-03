@@ -1,109 +1,94 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\FWPM_PROVIDER_CONTEXT2.ahk" { FWPM_PROVIDER_CONTEXT2 }
-#Import ".\IPSEC_SA_ENUM_TEMPLATE0.ahk" { IPSEC_SA_ENUM_TEMPLATE0 }
-#Import ".\IPSEC_GETSPI0.ahk" { IPSEC_GETSPI0 }
-#Import ".\IPSEC_SA_DETAILS0.ahk" { IPSEC_SA_DETAILS0 }
-#Import ".\IPSEC_DOSP_STATISTICS0.ahk" { IPSEC_DOSP_STATISTICS0 }
-#Import ".\FWPM_CONNECTION_SUBSCRIPTION0.ahk" { FWPM_CONNECTION_SUBSCRIPTION0 }
-#Import ".\FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0.ahk" { FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0 }
-#Import ".\IKEEXT_SA_DETAILS1.ahk" { IKEEXT_SA_DETAILS1 }
-#Import "..\..\Security\PSID.ahk" { PSID }
-#Import ".\FWPM_SUBLAYER_CHANGE_CALLBACK0.ahk" { FWPM_SUBLAYER_CHANGE_CALLBACK0 }
-#Import ".\FWPM_PROVIDER_CHANGE_CALLBACK0.ahk" { FWPM_PROVIDER_CHANGE_CALLBACK0 }
-#Import ".\FWPM_NET_EVENT_ENUM_HANDLE.ahk" { FWPM_NET_EVENT_ENUM_HANDLE }
-#Import ".\FWPM_FILTER_CHANGE_CALLBACK0.ahk" { FWPM_FILTER_CHANGE_CALLBACK0 }
-#Import ".\IKEEXT_STATISTICS0.ahk" { IKEEXT_STATISTICS0 }
-#Import ".\FWPM_FILTER_ENUM_TEMPLATE0.ahk" { FWPM_FILTER_ENUM_TEMPLATE0 }
-#Import ".\FWPM_CALLOUT_ENUM_TEMPLATE0.ahk" { FWPM_CALLOUT_ENUM_TEMPLATE0 }
-#Import ".\FWPM_NET_EVENT_CALLBACK1.ahk" { FWPM_NET_EVENT_CALLBACK1 }
-#Import ".\FWP_VALUE0.ahk" { FWP_VALUE0 }
-#Import "..\..\Security\ACL.ahk" { ACL }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\FWPM_CONNECTION0.ahk" { FWPM_CONNECTION0 }
-#Import ".\FWPM_NET_EVENT0.ahk" { FWPM_NET_EVENT0 }
-#Import ".\FWPM_SUBLAYER_ENUM_TEMPLATE0.ahk" { FWPM_SUBLAYER_ENUM_TEMPLATE0 }
-#Import ".\FWPM_LAYER_ENUM_TEMPLATE0.ahk" { FWPM_LAYER_ENUM_TEMPLATE0 }
-#Import ".\IPSEC_SA_CONTEXT0.ahk" { IPSEC_SA_CONTEXT0 }
-#Import ".\FWPM_FILTER_ENUM_HANDLE.ahk" { FWPM_FILTER_ENUM_HANDLE }
-#Import ".\FWPM_VSWITCH_EVENT_CALLBACK0.ahk" { FWPM_VSWITCH_EVENT_CALLBACK0 }
-#Import ".\FWPM_SUBLAYER0.ahk" { FWPM_SUBLAYER0 }
-#Import ".\FWPM_PROVIDER_CONTEXT_ENUM_HANDLE.ahk" { FWPM_PROVIDER_CONTEXT_ENUM_HANDLE }
-#Import ".\FWPM_NET_EVENT_SUBSCRIPTION0.ahk" { FWPM_NET_EVENT_SUBSCRIPTION0 }
-#Import ".\FWPM_NET_EVENT_CALLBACK0.ahk" { FWPM_NET_EVENT_CALLBACK0 }
-#Import ".\FWPM_SYSTEM_PORTS0.ahk" { FWPM_SYSTEM_PORTS0 }
-#Import ".\FWPM_FILTER_SUBSCRIPTION0.ahk" { FWPM_FILTER_SUBSCRIPTION0 }
-#Import ".\FWPM_SESSION_ENUM_HANDLE.ahk" { FWPM_SESSION_ENUM_HANDLE }
-#Import ".\FWPM_ENGINE_HANDLE.ahk" { FWPM_ENGINE_HANDLE }
-#Import ".\FWPM_NET_EVENT_CALLBACK4.ahk" { FWPM_NET_EVENT_CALLBACK4 }
-#Import ".\IPSEC_DOSP_STATE_ENUM_TEMPLATE0.ahk" { IPSEC_DOSP_STATE_ENUM_TEMPLATE0 }
-#Import "..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
-#Import ".\IKEEXT_SA_ENUM_HANDLE.ahk" { IKEEXT_SA_ENUM_HANDLE }
-#Import ".\FWPM_NET_EVENT3.ahk" { FWPM_NET_EVENT3 }
-#Import ".\IPSEC_SA_CONTEXT_ENUM_TEMPLATE0.ahk" { IPSEC_SA_CONTEXT_ENUM_TEMPLATE0 }
-#Import ".\FWPM_PROVIDER_ENUM_TEMPLATE0.ahk" { FWPM_PROVIDER_ENUM_TEMPLATE0 }
-#Import ".\FWPM_NET_EVENT_CALLBACK2.ahk" { FWPM_NET_EVENT_CALLBACK2 }
-#Import ".\IPSEC_GETSPI1.ahk" { IPSEC_GETSPI1 }
-#Import ".\FWPM_CALLOUT_CHANGE_CALLBACK0.ahk" { FWPM_CALLOUT_CHANGE_CALLBACK0 }
-#Import ".\FWPM_SESSION_ENUM_TEMPLATE0.ahk" { FWPM_SESSION_ENUM_TEMPLATE0 }
-#Import "..\..\System\Rpc\SEC_WINNT_AUTH_IDENTITY_W.ahk" { SEC_WINNT_AUTH_IDENTITY_W }
-#Import ".\FWPM_LAYER0.ahk" { FWPM_LAYER0 }
-#Import ".\IPSEC_SA_BUNDLE1.ahk" { IPSEC_SA_BUNDLE1 }
-#Import ".\FWPM_LAYER_ENUM_HANDLE.ahk" { FWPM_LAYER_ENUM_HANDLE }
-#Import ".\FWPM_VSWITCH_EVENT_SUBSCRIPTION0.ahk" { FWPM_VSWITCH_EVENT_SUBSCRIPTION0 }
-#Import ".\FWPM_NET_EVENT2.ahk" { FWPM_NET_EVENT2 }
-#Import ".\FWPM_PROVIDER_CONTEXT1.ahk" { FWPM_PROVIDER_CONTEXT1 }
-#Import ".\IPSEC_STATISTICS0.ahk" { IPSEC_STATISTICS0 }
-#Import ".\IPSEC_DOSP_STATE_ENUM_HANDLE.ahk" { IPSEC_DOSP_STATE_ENUM_HANDLE }
-#Import ".\IPSEC_DOSP_STATE0.ahk" { IPSEC_DOSP_STATE0 }
-#Import ".\FWPM_CONNECTION_CALLBACK0.ahk" { FWPM_CONNECTION_CALLBACK0 }
-#Import ".\IPSEC_SA_CONTEXT1.ahk" { IPSEC_SA_CONTEXT1 }
-#Import ".\FWPM_CONNECTION_ENUM_TEMPLATE0.ahk" { FWPM_CONNECTION_ENUM_TEMPLATE0 }
-#Import ".\IPSEC_KEY_MANAGER0.ahk" { IPSEC_KEY_MANAGER0 }
-#Import ".\IKEEXT_STATISTICS1.ahk" { IKEEXT_STATISTICS1 }
-#Import ".\IPSEC_SA_DETAILS1.ahk" { IPSEC_SA_DETAILS1 }
-#Import ".\IPSEC_VIRTUAL_IF_TUNNEL_INFO0.ahk" { IPSEC_VIRTUAL_IF_TUNNEL_INFO0 }
-#Import ".\FWPM_SESSION0.ahk" { FWPM_SESSION0 }
-#Import ".\FWPM_CONNECTION_ENUM_HANDLE.ahk" { FWPM_CONNECTION_ENUM_HANDLE }
-#Import ".\FWP_IP_VERSION.ahk" { FWP_IP_VERSION }
-#Import ".\FWPM_NET_EVENT_ENUM_TEMPLATE0.ahk" { FWPM_NET_EVENT_ENUM_TEMPLATE0 }
-#Import ".\IPSEC_TRAFFIC0.ahk" { IPSEC_TRAFFIC0 }
-#Import ".\FWPM_DYNAMIC_KEYWORD_CALLBACK0.ahk" { FWPM_DYNAMIC_KEYWORD_CALLBACK0 }
-#Import ".\FWPM_NET_EVENT4.ahk" { FWPM_NET_EVENT4 }
-#Import ".\FWPM_NET_EVENT1.ahk" { FWPM_NET_EVENT1 }
-#Import ".\FWPM_SUBLAYER_ENUM_HANDLE.ahk" { FWPM_SUBLAYER_ENUM_HANDLE }
-#Import ".\IKEEXT_SA_ENUM_TEMPLATE0.ahk" { IKEEXT_SA_ENUM_TEMPLATE0 }
-#Import ".\IPSEC_STATISTICS1.ahk" { IPSEC_STATISTICS1 }
-#Import ".\FWPM_NET_EVENT_CALLBACK3.ahk" { FWPM_NET_EVENT_CALLBACK3 }
-#Import ".\FWPM_PROVIDER_ENUM_HANDLE.ahk" { FWPM_PROVIDER_ENUM_HANDLE }
-#Import ".\IPSEC_TRAFFIC1.ahk" { IPSEC_TRAFFIC1 }
-#Import ".\FWPM_PROVIDER_CONTEXT_CHANGE_CALLBACK0.ahk" { FWPM_PROVIDER_CONTEXT_CHANGE_CALLBACK0 }
-#Import ".\FWPM_CALLOUT0.ahk" { FWPM_CALLOUT0 }
-#Import ".\IKEEXT_SA_DETAILS2.ahk" { IKEEXT_SA_DETAILS2 }
-#Import ".\IPSEC_SA_ENUM_HANDLE.ahk" { IPSEC_SA_ENUM_HANDLE }
-#Import ".\IPSEC_SA_CONTEXT_CALLBACK0.ahk" { IPSEC_SA_CONTEXT_CALLBACK0 }
-#Import ".\IPSEC_KEY_MANAGER_CALLBACKS0.ahk" { IPSEC_KEY_MANAGER_CALLBACKS0 }
-#Import ".\IKEEXT_SA_DETAILS0.ahk" { IKEEXT_SA_DETAILS0 }
-#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
-#Import ".\IPSEC_SA_CONTEXT_ENUM_HANDLE.ahk" { IPSEC_SA_CONTEXT_ENUM_HANDLE }
-#Import ".\IPSEC_SA_BUNDLE0.ahk" { IPSEC_SA_BUNDLE0 }
-#Import ".\FWPM_PROVIDER0.ahk" { FWPM_PROVIDER0 }
-#Import ".\FWPM_PROVIDER_CONTEXT_SUBSCRIPTION0.ahk" { FWPM_PROVIDER_CONTEXT_SUBSCRIPTION0 }
-#Import ".\FWPM_PROVIDER_SUBSCRIPTION0.ahk" { FWPM_PROVIDER_SUBSCRIPTION0 }
-#Import ".\FWPM_CALLOUT_ENUM_HANDLE.ahk" { FWPM_CALLOUT_ENUM_HANDLE }
-#Import ".\FWPM_PROVIDER_CONTEXT3.ahk" { FWPM_PROVIDER_CONTEXT3 }
-#Import ".\FWPM_ENGINE_OPTION.ahk" { FWPM_ENGINE_OPTION }
-#Import ".\FWPM_PROVIDER_CONTEXT0.ahk" { FWPM_PROVIDER_CONTEXT0 }
-#Import ".\FWPM_CALLOUT_SUBSCRIPTION0.ahk" { FWPM_CALLOUT_SUBSCRIPTION0 }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\FWPM_SUBLAYER_SUBSCRIPTION0.ahk" { FWPM_SUBLAYER_SUBSCRIPTION0 }
-#Import "..\..\Security\SID.ahk" { SID }
-#Import ".\FWPM_NET_EVENT5.ahk" { FWPM_NET_EVENT5 }
+#Import ".\FWPM_CALLOUT0.ahk" { FWPM_CALLOUT0 }
+#Import ".\FWPM_CALLOUT_ENUM_HANDLE.ahk" { FWPM_CALLOUT_ENUM_HANDLE }
+#Import ".\FWPM_CALLOUT_ENUM_TEMPLATE0.ahk" { FWPM_CALLOUT_ENUM_TEMPLATE0 }
+#Import ".\FWPM_CALLOUT_SUBSCRIPTION0.ahk" { FWPM_CALLOUT_SUBSCRIPTION0 }
+#Import ".\FWPM_CONNECTION0.ahk" { FWPM_CONNECTION0 }
+#Import ".\FWPM_CONNECTION_ENUM_HANDLE.ahk" { FWPM_CONNECTION_ENUM_HANDLE }
+#Import ".\FWPM_CONNECTION_ENUM_TEMPLATE0.ahk" { FWPM_CONNECTION_ENUM_TEMPLATE0 }
+#Import ".\FWPM_CONNECTION_SUBSCRIPTION0.ahk" { FWPM_CONNECTION_SUBSCRIPTION0 }
+#Import ".\FWPM_ENGINE_HANDLE.ahk" { FWPM_ENGINE_HANDLE }
+#Import ".\FWPM_ENGINE_OPTION.ahk" { FWPM_ENGINE_OPTION }
 #Import ".\FWPM_FILTER0.ahk" { FWPM_FILTER0 }
-#Import ".\FWPM_SYSTEM_PORTS_CALLBACK0.ahk" { FWPM_SYSTEM_PORTS_CALLBACK0 }
-#Import ".\IPSEC_SA_CONTEXT_SUBSCRIPTION0.ahk" { IPSEC_SA_CONTEXT_SUBSCRIPTION0 }
 #Import ".\FWPM_FILTER_CONDITION0.ahk" { FWPM_FILTER_CONDITION0 }
+#Import ".\FWPM_FILTER_ENUM_HANDLE.ahk" { FWPM_FILTER_ENUM_HANDLE }
+#Import ".\FWPM_FILTER_ENUM_TEMPLATE0.ahk" { FWPM_FILTER_ENUM_TEMPLATE0 }
+#Import ".\FWPM_FILTER_SUBSCRIPTION0.ahk" { FWPM_FILTER_SUBSCRIPTION0 }
+#Import ".\FWPM_LAYER0.ahk" { FWPM_LAYER0 }
+#Import ".\FWPM_LAYER_ENUM_HANDLE.ahk" { FWPM_LAYER_ENUM_HANDLE }
+#Import ".\FWPM_LAYER_ENUM_TEMPLATE0.ahk" { FWPM_LAYER_ENUM_TEMPLATE0 }
+#Import ".\FWPM_NET_EVENT0.ahk" { FWPM_NET_EVENT0 }
+#Import ".\FWPM_NET_EVENT1.ahk" { FWPM_NET_EVENT1 }
+#Import ".\FWPM_NET_EVENT2.ahk" { FWPM_NET_EVENT2 }
+#Import ".\FWPM_NET_EVENT3.ahk" { FWPM_NET_EVENT3 }
+#Import ".\FWPM_NET_EVENT4.ahk" { FWPM_NET_EVENT4 }
+#Import ".\FWPM_NET_EVENT5.ahk" { FWPM_NET_EVENT5 }
+#Import ".\FWPM_NET_EVENT_ENUM_HANDLE.ahk" { FWPM_NET_EVENT_ENUM_HANDLE }
+#Import ".\FWPM_NET_EVENT_ENUM_TEMPLATE0.ahk" { FWPM_NET_EVENT_ENUM_TEMPLATE0 }
+#Import ".\FWPM_NET_EVENT_SUBSCRIPTION0.ahk" { FWPM_NET_EVENT_SUBSCRIPTION0 }
+#Import ".\FWPM_PROVIDER0.ahk" { FWPM_PROVIDER0 }
+#Import ".\FWPM_PROVIDER_CONTEXT0.ahk" { FWPM_PROVIDER_CONTEXT0 }
+#Import ".\FWPM_PROVIDER_CONTEXT1.ahk" { FWPM_PROVIDER_CONTEXT1 }
+#Import ".\FWPM_PROVIDER_CONTEXT2.ahk" { FWPM_PROVIDER_CONTEXT2 }
+#Import ".\FWPM_PROVIDER_CONTEXT3.ahk" { FWPM_PROVIDER_CONTEXT3 }
+#Import ".\FWPM_PROVIDER_CONTEXT_ENUM_HANDLE.ahk" { FWPM_PROVIDER_CONTEXT_ENUM_HANDLE }
+#Import ".\FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0.ahk" { FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0 }
+#Import ".\FWPM_PROVIDER_CONTEXT_SUBSCRIPTION0.ahk" { FWPM_PROVIDER_CONTEXT_SUBSCRIPTION0 }
+#Import ".\FWPM_PROVIDER_ENUM_HANDLE.ahk" { FWPM_PROVIDER_ENUM_HANDLE }
+#Import ".\FWPM_PROVIDER_ENUM_TEMPLATE0.ahk" { FWPM_PROVIDER_ENUM_TEMPLATE0 }
+#Import ".\FWPM_PROVIDER_SUBSCRIPTION0.ahk" { FWPM_PROVIDER_SUBSCRIPTION0 }
+#Import ".\FWPM_SESSION0.ahk" { FWPM_SESSION0 }
+#Import ".\FWPM_SESSION_ENUM_HANDLE.ahk" { FWPM_SESSION_ENUM_HANDLE }
+#Import ".\FWPM_SESSION_ENUM_TEMPLATE0.ahk" { FWPM_SESSION_ENUM_TEMPLATE0 }
+#Import ".\FWPM_SUBLAYER0.ahk" { FWPM_SUBLAYER0 }
+#Import ".\FWPM_SUBLAYER_ENUM_HANDLE.ahk" { FWPM_SUBLAYER_ENUM_HANDLE }
+#Import ".\FWPM_SUBLAYER_ENUM_TEMPLATE0.ahk" { FWPM_SUBLAYER_ENUM_TEMPLATE0 }
+#Import ".\FWPM_SUBLAYER_SUBSCRIPTION0.ahk" { FWPM_SUBLAYER_SUBSCRIPTION0 }
+#Import ".\FWPM_SYSTEM_PORTS0.ahk" { FWPM_SYSTEM_PORTS0 }
+#Import ".\FWPM_VSWITCH_EVENT_SUBSCRIPTION0.ahk" { FWPM_VSWITCH_EVENT_SUBSCRIPTION0 }
+#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
+#Import ".\FWP_IP_VERSION.ahk" { FWP_IP_VERSION }
+#Import ".\FWP_VALUE0.ahk" { FWP_VALUE0 }
+#Import ".\IKEEXT_SA_DETAILS0.ahk" { IKEEXT_SA_DETAILS0 }
+#Import ".\IKEEXT_SA_DETAILS1.ahk" { IKEEXT_SA_DETAILS1 }
+#Import ".\IKEEXT_SA_DETAILS2.ahk" { IKEEXT_SA_DETAILS2 }
+#Import ".\IKEEXT_SA_ENUM_HANDLE.ahk" { IKEEXT_SA_ENUM_HANDLE }
+#Import ".\IKEEXT_SA_ENUM_TEMPLATE0.ahk" { IKEEXT_SA_ENUM_TEMPLATE0 }
+#Import ".\IKEEXT_STATISTICS0.ahk" { IKEEXT_STATISTICS0 }
+#Import ".\IKEEXT_STATISTICS1.ahk" { IKEEXT_STATISTICS1 }
+#Import ".\IPSEC_DOSP_STATE0.ahk" { IPSEC_DOSP_STATE0 }
+#Import ".\IPSEC_DOSP_STATE_ENUM_HANDLE.ahk" { IPSEC_DOSP_STATE_ENUM_HANDLE }
+#Import ".\IPSEC_DOSP_STATE_ENUM_TEMPLATE0.ahk" { IPSEC_DOSP_STATE_ENUM_TEMPLATE0 }
+#Import ".\IPSEC_DOSP_STATISTICS0.ahk" { IPSEC_DOSP_STATISTICS0 }
+#Import ".\IPSEC_GETSPI0.ahk" { IPSEC_GETSPI0 }
+#Import ".\IPSEC_GETSPI1.ahk" { IPSEC_GETSPI1 }
+#Import ".\IPSEC_KEY_MANAGER0.ahk" { IPSEC_KEY_MANAGER0 }
+#Import ".\IPSEC_KEY_MANAGER_CALLBACKS0.ahk" { IPSEC_KEY_MANAGER_CALLBACKS0 }
+#Import ".\IPSEC_SA_BUNDLE0.ahk" { IPSEC_SA_BUNDLE0 }
+#Import ".\IPSEC_SA_BUNDLE1.ahk" { IPSEC_SA_BUNDLE1 }
+#Import ".\IPSEC_SA_CONTEXT0.ahk" { IPSEC_SA_CONTEXT0 }
+#Import ".\IPSEC_SA_CONTEXT1.ahk" { IPSEC_SA_CONTEXT1 }
+#Import ".\IPSEC_SA_CONTEXT_ENUM_HANDLE.ahk" { IPSEC_SA_CONTEXT_ENUM_HANDLE }
+#Import ".\IPSEC_SA_CONTEXT_ENUM_TEMPLATE0.ahk" { IPSEC_SA_CONTEXT_ENUM_TEMPLATE0 }
+#Import ".\IPSEC_SA_CONTEXT_SUBSCRIPTION0.ahk" { IPSEC_SA_CONTEXT_SUBSCRIPTION0 }
+#Import ".\IPSEC_SA_DETAILS0.ahk" { IPSEC_SA_DETAILS0 }
+#Import ".\IPSEC_SA_DETAILS1.ahk" { IPSEC_SA_DETAILS1 }
+#Import ".\IPSEC_SA_ENUM_HANDLE.ahk" { IPSEC_SA_ENUM_HANDLE }
+#Import ".\IPSEC_SA_ENUM_TEMPLATE0.ahk" { IPSEC_SA_ENUM_TEMPLATE0 }
+#Import ".\IPSEC_STATISTICS0.ahk" { IPSEC_STATISTICS0 }
+#Import ".\IPSEC_STATISTICS1.ahk" { IPSEC_STATISTICS1 }
+#Import ".\IPSEC_TRAFFIC0.ahk" { IPSEC_TRAFFIC0 }
+#Import ".\IPSEC_TRAFFIC1.ahk" { IPSEC_TRAFFIC1 }
+#Import ".\IPSEC_VIRTUAL_IF_TUNNEL_INFO0.ahk" { IPSEC_VIRTUAL_IF_TUNNEL_INFO0 }
+#Import "..\..\Security\ACL.ahk" { ACL }
+#Import "..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
+#Import "..\..\Security\PSID.ahk" { PSID }
+#Import "..\..\Security\SID.ahk" { SID }
+#Import "..\..\System\Rpc\SEC_WINNT_AUTH_IDENTITY_W.ahk" { SEC_WINNT_AUTH_IDENTITY_W }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
@@ -1817,7 +1802,7 @@ export FwpmProviderSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwn
 export FwpmProviderSubscribeChanges0(engineHandle, subscription, callback, _context, changeHandle) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmProviderSubscribeChanges0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_PROVIDER_SUBSCRIPTION0.Ptr, subscription, FWPM_PROVIDER_CHANGE_CALLBACK0, callback, _contextMarshal, _context, HANDLE.Ptr, changeHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmProviderSubscribeChanges0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_PROVIDER_SUBSCRIPTION0.Ptr, subscription, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, changeHandle, UInt32)
     return result
 }
 
@@ -3474,7 +3459,7 @@ export FwpmProviderContextSetSecurityInfoByKey0(engineHandle, key, securityInfo,
 export FwpmProviderContextSubscribeChanges0(engineHandle, subscription, callback, _context, changeHandle) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmProviderContextSubscribeChanges0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_PROVIDER_CONTEXT_SUBSCRIPTION0.Ptr, subscription, FWPM_PROVIDER_CONTEXT_CHANGE_CALLBACK0, callback, _contextMarshal, _context, HANDLE.Ptr, changeHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmProviderContextSubscribeChanges0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_PROVIDER_CONTEXT_SUBSCRIPTION0.Ptr, subscription, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, changeHandle, UInt32)
     return result
 }
 
@@ -4303,7 +4288,7 @@ export FwpmSubLayerSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwn
 export FwpmSubLayerSubscribeChanges0(engineHandle, subscription, callback, _context, changeHandle) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmSubLayerSubscribeChanges0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_SUBLAYER_SUBSCRIPTION0.Ptr, subscription, FWPM_SUBLAYER_CHANGE_CALLBACK0, callback, _contextMarshal, _context, HANDLE.Ptr, changeHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmSubLayerSubscribeChanges0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_SUBLAYER_SUBSCRIPTION0.Ptr, subscription, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, changeHandle, UInt32)
     return result
 }
 
@@ -5838,7 +5823,7 @@ export FwpmCalloutSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwne
 export FwpmCalloutSubscribeChanges0(engineHandle, subscription, callback, _context, changeHandle) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmCalloutSubscribeChanges0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_CALLOUT_SUBSCRIPTION0.Ptr, subscription, FWPM_CALLOUT_CHANGE_CALLBACK0, callback, _contextMarshal, _context, HANDLE.Ptr, changeHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmCalloutSubscribeChanges0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_CALLOUT_SUBSCRIPTION0.Ptr, subscription, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, changeHandle, UInt32)
     return result
 }
 
@@ -6804,7 +6789,7 @@ export FwpmFilterSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner
 export FwpmFilterSubscribeChanges0(engineHandle, subscription, callback, _context, changeHandle) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmFilterSubscribeChanges0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_FILTER_SUBSCRIPTION0.Ptr, subscription, FWPM_FILTER_CHANGE_CALLBACK0, callback, _contextMarshal, _context, HANDLE.Ptr, changeHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmFilterSubscribeChanges0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_FILTER_SUBSCRIPTION0.Ptr, subscription, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, changeHandle, UInt32)
     return result
 }
 
@@ -8974,7 +8959,7 @@ export IPsecSaContextDestroyEnumHandle0(engineHandle, enumHandle) {
 export IPsecSaContextSubscribe0(engineHandle, subscription, callback, _context, eventsHandle) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\IPsecSaContextSubscribe0", FWPM_ENGINE_HANDLE, engineHandle, IPSEC_SA_CONTEXT_SUBSCRIPTION0.Ptr, subscription, IPSEC_SA_CONTEXT_CALLBACK0, callback, _contextMarshal, _context, HANDLE.Ptr, eventsHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\IPsecSaContextSubscribe0", FWPM_ENGINE_HANDLE, engineHandle, IPSEC_SA_CONTEXT_SUBSCRIPTION0.Ptr, subscription, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, eventsHandle, UInt32)
     return result
 }
 
@@ -12111,7 +12096,7 @@ export FwpmNetEventsSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGr
 export FwpmNetEventSubscribe0(engineHandle, subscription, callback, _context, eventsHandle) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_SUBSCRIPTION0.Ptr, subscription, FWPM_NET_EVENT_CALLBACK0, callback, _contextMarshal, _context, HANDLE.Ptr, eventsHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_SUBSCRIPTION0.Ptr, subscription, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, eventsHandle, UInt32)
     return result
 }
 
@@ -12328,7 +12313,7 @@ export FwpmNetEventSubscriptionsGet0(engineHandle, entries, numEntries) {
 export FwpmNetEventSubscribe1(engineHandle, subscription, callback, _context, eventsHandle) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe1", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_SUBSCRIPTION0.Ptr, subscription, FWPM_NET_EVENT_CALLBACK1, callback, _contextMarshal, _context, HANDLE.Ptr, eventsHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe1", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_SUBSCRIPTION0.Ptr, subscription, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, eventsHandle, UInt32)
     return result
 }
 
@@ -12392,7 +12377,7 @@ export FwpmNetEventSubscribe1(engineHandle, subscription, callback, _context, ev
 export FwpmNetEventSubscribe2(engineHandle, subscription, callback, _context, eventsHandle) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe2", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_SUBSCRIPTION0.Ptr, subscription, FWPM_NET_EVENT_CALLBACK2, callback, _contextMarshal, _context, HANDLE.Ptr, eventsHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe2", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_SUBSCRIPTION0.Ptr, subscription, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, eventsHandle, UInt32)
     return result
 }
 
@@ -12408,7 +12393,7 @@ export FwpmNetEventSubscribe2(engineHandle, subscription, callback, _context, ev
 export FwpmNetEventSubscribe3(engineHandle, subscription, callback, _context, eventsHandle) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe3", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_SUBSCRIPTION0.Ptr, subscription, FWPM_NET_EVENT_CALLBACK3, callback, _contextMarshal, _context, HANDLE.Ptr, eventsHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe3", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_SUBSCRIPTION0.Ptr, subscription, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, eventsHandle, UInt32)
     return result
 }
 
@@ -12424,7 +12409,7 @@ export FwpmNetEventSubscribe3(engineHandle, subscription, callback, _context, ev
 export FwpmNetEventSubscribe4(engineHandle, subscription, callback, _context, eventsHandle) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe4", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_SUBSCRIPTION0.Ptr, subscription, FWPM_NET_EVENT_CALLBACK4, callback, _contextMarshal, _context, HANDLE.Ptr, eventsHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe4", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_SUBSCRIPTION0.Ptr, subscription, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, eventsHandle, UInt32)
     return result
 }
 
@@ -12470,7 +12455,7 @@ export FwpmNetEventSubscribe4(engineHandle, subscription, callback, _context, ev
 export FwpmDynamicKeywordSubscribe0(flags, callback, _context, subscriptionHandle) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmDynamicKeywordSubscribe0", UInt32, flags, FWPM_DYNAMIC_KEYWORD_CALLBACK0, callback, _contextMarshal, _context, HANDLE.Ptr, subscriptionHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmDynamicKeywordSubscribe0", UInt32, flags, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, subscriptionHandle, UInt32)
     return result
 }
 
@@ -12628,7 +12613,7 @@ export FwpmSystemPortsSubscribe0(engineHandle, callback, _context, sysPortsHandl
 
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmSystemPortsSubscribe0", FWPM_ENGINE_HANDLE, engineHandle, "ptr", reserved, FWPM_SYSTEM_PORTS_CALLBACK0, callback, _contextMarshal, _context, HANDLE.Ptr, sysPortsHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmSystemPortsSubscribe0", FWPM_ENGINE_HANDLE, engineHandle, "ptr", reserved, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, sysPortsHandle, UInt32)
     return result
 }
 
@@ -13215,7 +13200,7 @@ export FwpmConnectionSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidG
 export FwpmConnectionSubscribe0(engineHandle, subscription, callback, _context, eventsHandle) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmConnectionSubscribe0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_CONNECTION_SUBSCRIPTION0.Ptr, subscription, FWPM_CONNECTION_CALLBACK0, callback, _contextMarshal, _context, HANDLE.Ptr, eventsHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmConnectionSubscribe0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_CONNECTION_SUBSCRIPTION0.Ptr, subscription, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, eventsHandle, UInt32)
     return result
 }
 
@@ -13362,7 +13347,7 @@ export FwpmConnectionUnsubscribe0(engineHandle, eventsHandle) {
 export FwpmvSwitchEventSubscribe0(engineHandle, subscription, callback, _context, subscriptionHandle) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmvSwitchEventSubscribe0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_VSWITCH_EVENT_SUBSCRIPTION0.Ptr, subscription, FWPM_VSWITCH_EVENT_CALLBACK0, callback, _contextMarshal, _context, HANDLE.Ptr, subscriptionHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmvSwitchEventSubscribe0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_VSWITCH_EVENT_SUBSCRIPTION0.Ptr, subscription, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, subscriptionHandle, UInt32)
     return result
 }
 

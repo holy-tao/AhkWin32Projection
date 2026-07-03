@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DML_OPERATOR_DESC.ahk" { DML_OPERATOR_DESC }
 #Import ".\DML_TENSOR_DESC.ahk" { DML_TENSOR_DESC }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Performs a mean variance normalization function on the input tensor. This operator will calculate the mean and variance of the input tensor to perform normalization. (DML_MEAN_VARIANCE_NORMALIZATION_OPERATOR_DESC)

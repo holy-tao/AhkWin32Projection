@@ -44,10 +44,6 @@ export default struct LPDDHAL_UPDATENONLOCALHEAP {
             this.value := CallbackCreate(fn, , [DDHAL_UPDATENONLOCALHEAPDATA.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

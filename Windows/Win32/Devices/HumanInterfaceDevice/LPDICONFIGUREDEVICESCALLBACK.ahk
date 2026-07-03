@@ -48,10 +48,6 @@ export default struct LPDICONFIGUREDEVICESCALLBACK {
             this.value := CallbackCreate(fn, , ["ptr", "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

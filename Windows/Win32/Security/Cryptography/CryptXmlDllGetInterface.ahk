@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CRYPT_XML_ALGORITHM_INFO.ahk" { CRYPT_XML_ALGORITHM_INFO }
 #Import ".\CRYPT_XML_CRYPTOGRAPHIC_INTERFACE.ahk" { CRYPT_XML_CRYPTOGRAPHIC_INTERFACE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Retrieves a pointer to the cryptographic extension functions for the specified algorithm.
@@ -58,10 +58,6 @@ export default struct CryptXmlDllGetInterface {
             this.value := CallbackCreate(fn, , [UInt32, CRYPT_XML_ALGORITHM_INFO.Ptr, CRYPT_XML_CRYPTOGRAPHIC_INTERFACE.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

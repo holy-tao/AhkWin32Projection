@@ -43,10 +43,6 @@ export default struct UTextClose {
             this.value := CallbackCreate(fn, "cdecl", [UText.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

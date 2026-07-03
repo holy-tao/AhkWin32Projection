@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IForgottenKnowledge.ahk" { IForgottenKnowledge }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\SYNC_VERSION.ahk" { SYNC_VERSION }
-#Import ".\ISyncChangeBuilder.ahk" { ISyncChangeBuilder }
-#Import ".\IEnumSyncChanges.ahk" { IEnumSyncChanges }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumSyncChanges.ahk" { IEnumSyncChanges }
+#Import ".\IForgottenKnowledge.ahk" { IForgottenKnowledge }
+#Import ".\ISyncChangeBuilder.ahk" { ISyncChangeBuilder }
+#Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
+#Import ".\SYNC_VERSION.ahk" { SYNC_VERSION }
 
 /**
  * Represents metadata for a set of changes. (ISyncChangeBatchBase)

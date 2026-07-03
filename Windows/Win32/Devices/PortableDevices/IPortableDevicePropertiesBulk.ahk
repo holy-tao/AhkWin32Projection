@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IPortableDeviceKeyCollection.ahk" { IPortableDeviceKeyCollection }
 #Import ".\IPortableDevicePropVariantCollection.ahk" { IPortableDevicePropVariantCollection }
 #Import ".\IPortableDevicePropertiesBulkCallback.ahk" { IPortableDevicePropertiesBulkCallback }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IPortableDeviceValuesCollection.ahk" { IPortableDeviceValuesCollection }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IPortableDeviceKeyCollection.ahk" { IPortableDeviceKeyCollection }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IPortableDevicePropertiesBulk interface queries or sets multiple properties on multiple objects on a device, asynchronously.

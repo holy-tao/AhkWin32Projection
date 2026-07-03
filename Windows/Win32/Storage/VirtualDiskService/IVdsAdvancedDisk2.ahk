@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\CHANGE_PARTITION_TYPE_PARAMETERS.ahk" { CHANGE_PARTITION_TYPE_PARAMETERS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CHANGE_PARTITION_TYPE_PARAMETERS.ahk" { CHANGE_PARTITION_TYPE_PARAMETERS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides a method to change partition types.

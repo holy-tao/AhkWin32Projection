@@ -49,10 +49,6 @@ export default struct SSL_EMPTY_CACHE_FN_W {
             this.value := CallbackCreate(fn, , [PWSTR, UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

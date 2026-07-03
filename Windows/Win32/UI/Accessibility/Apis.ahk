@@ -1,56 +1,53 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\DockPosition.ahk" { DockPosition }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\TextEditChangeType.ahk" { TextEditChangeType }
-#Import ".\NormalizeState.ahk" { NormalizeState }
-#Import ".\IAccessible.ahk" { IAccessible }
-#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
-#Import ".\HUIANODE.ahk" { HUIANODE }
-#Import ".\SupportedTextSelection.ahk" { SupportedTextSelection }
-#Import ".\ACC_UTILITY_STATE_FLAGS.ahk" { ACC_UTILITY_STATE_FLAGS }
-#Import ".\UiaPoint.ahk" { UiaPoint }
-#Import ".\HWINEVENTHOOK.ahk" { HWINEVENTHOOK }
-#Import ".\StructureChangeType.ahk" { StructureChangeType }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\WINEVENTPROC.ahk" { WINEVENTPROC }
-#Import ".\ITextRangeProvider.ahk" { ITextRangeProvider }
-#Import ".\NavigateDirection.ahk" { NavigateDirection }
-#Import ".\TreeScope.ahk" { TreeScope }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\UiaEventCallback.ahk" { UiaEventCallback }
-#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
-#Import ".\UIA_EVENT_ID.ahk" { UIA_EVENT_ID }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IRawElementProviderSimple.ahk" { IRawElementProviderSimple }
-#Import ".\HUIAEVENT.ahk" { HUIAEVENT }
-#Import ".\SynchronizedInputType.ahk" { SynchronizedInputType }
-#Import "..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk" { POINTER_INPUT_TYPE }
-#Import ".\UiaChangeInfo.ahk" { UiaChangeInfo }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\UiaCondition.ahk" { UiaCondition }
-#Import ".\HUIATEXTRANGE.ahk" { HUIATEXTRANGE }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\AsyncContentLoadedState.ahk" { AsyncContentLoadedState }
-#Import ".\NotificationKind.ahk" { NotificationKind }
-#Import ".\UiaFindParams.ahk" { UiaFindParams }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
-#Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
-#Import ".\NotificationProcessing.ahk" { NotificationProcessing }
-#Import ".\AutomationIdentifierType.ahk" { AutomationIdentifierType }
-#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
-#Import ".\HUIAPATTERNOBJECT.ahk" { HUIAPATTERNOBJECT }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WindowVisualState.ahk" { WindowVisualState }
-#Import ".\ScrollAmount.ahk" { ScrollAmount }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\TextUnit.ahk" { TextUnit }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ACC_UTILITY_STATE_FLAGS.ahk" { ACC_UTILITY_STATE_FLAGS }
+#Import ".\AsyncContentLoadedState.ahk" { AsyncContentLoadedState }
+#Import ".\AutomationIdentifierType.ahk" { AutomationIdentifierType }
+#Import ".\DockPosition.ahk" { DockPosition }
+#Import ".\HUIAEVENT.ahk" { HUIAEVENT }
+#Import ".\HUIANODE.ahk" { HUIANODE }
+#Import ".\HUIAPATTERNOBJECT.ahk" { HUIAPATTERNOBJECT }
+#Import ".\HUIATEXTRANGE.ahk" { HUIATEXTRANGE }
+#Import ".\HWINEVENTHOOK.ahk" { HWINEVENTHOOK }
+#Import ".\IAccessible.ahk" { IAccessible }
+#Import ".\IRawElementProviderSimple.ahk" { IRawElementProviderSimple }
+#Import ".\ITextRangeProvider.ahk" { ITextRangeProvider }
+#Import ".\NavigateDirection.ahk" { NavigateDirection }
+#Import ".\NormalizeState.ahk" { NormalizeState }
+#Import ".\NotificationKind.ahk" { NotificationKind }
+#Import ".\NotificationProcessing.ahk" { NotificationProcessing }
+#Import ".\ScrollAmount.ahk" { ScrollAmount }
+#Import ".\StructureChangeType.ahk" { StructureChangeType }
+#Import ".\SupportedTextSelection.ahk" { SupportedTextSelection }
+#Import ".\SynchronizedInputType.ahk" { SynchronizedInputType }
+#Import ".\TextEditChangeType.ahk" { TextEditChangeType }
 #Import ".\TextPatternRangeEndpoint.ahk" { TextPatternRangeEndpoint }
+#Import ".\TextUnit.ahk" { TextUnit }
+#Import ".\TreeScope.ahk" { TreeScope }
+#Import ".\UIA_EVENT_ID.ahk" { UIA_EVENT_ID }
+#Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
 #Import ".\UiaCacheRequest.ahk" { UiaCacheRequest }
-#Import ".\UiaProviderCallback.ahk" { UiaProviderCallback }
+#Import ".\UiaChangeInfo.ahk" { UiaChangeInfo }
+#Import ".\UiaCondition.ahk" { UiaCondition }
+#Import ".\UiaFindParams.ahk" { UiaFindParams }
+#Import ".\UiaPoint.ahk" { UiaPoint }
+#Import ".\WindowVisualState.ahk" { WindowVisualState }
+#Import "..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk" { POINTER_INPUT_TYPE }
 
 /**
  * @namespace Windows.Win32.UI.Accessibility
@@ -3150,7 +3147,7 @@ export NotifyWinEvent(event, _hwnd, idObject, idChild) {
  * @since windows5.0
  */
 export SetWinEventHook(eventMin, eventMax, hmodWinEventProc, pfnWinEventProc, idProcess, idThread, dwFlags) {
-    result := DllCall("USER32.dll\SetWinEventHook", UInt32, eventMin, UInt32, eventMax, HMODULE, hmodWinEventProc, WINEVENTPROC, pfnWinEventProc, UInt32, idProcess, UInt32, idThread, UInt32, dwFlags, HWINEVENTHOOK.Owned)
+    result := DllCall("USER32.dll\SetWinEventHook", UInt32, eventMin, UInt32, eventMax, HMODULE, hmodWinEventProc, "ptr", pfnWinEventProc, UInt32, idProcess, UInt32, idThread, UInt32, dwFlags, HWINEVENTHOOK.Owned)
     return result
 }
 

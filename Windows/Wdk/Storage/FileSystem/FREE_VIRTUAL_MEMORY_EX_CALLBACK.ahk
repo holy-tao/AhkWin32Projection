@@ -33,7 +33,7 @@ export default struct FREE_VIRTUAL_MEMORY_EX_CALLBACK {
         RegionSizeMarshal := RegionSize is VarRef ? "ptr*" : "ptr"
 
         result := DllCall(this.value, HANDLE, CallbackContext, HANDLE, ProcessHandle, BaseAddressMarshal, BaseAddress, RegionSizeMarshal, RegionSize, UInt32, FreeType, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -53,10 +53,6 @@ export default struct FREE_VIRTUAL_MEMORY_EX_CALLBACK {
             this.value := CallbackCreate(fn, , [HANDLE, HANDLE, "ptr*", "ptr*", UInt32, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

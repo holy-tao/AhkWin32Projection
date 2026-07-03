@@ -1,45 +1,44 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\PDH_LOG.ahk" { PDH_LOG }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\PDH_TIME_INFO.ahk" { PDH_TIME_INFO }
-#Import ".\PDH_BROWSE_DLG_CONFIG_HW.ahk" { PDH_BROWSE_DLG_CONFIG_HW }
-#Import ".\REAL_TIME_DATA_SOURCE_ID_FLAGS.ahk" { REAL_TIME_DATA_SOURCE_ID_FLAGS }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\PDH_RAW_COUNTER.ahk" { PDH_RAW_COUNTER }
-#Import ".\PDH_STATISTICS.ahk" { PDH_STATISTICS }
-#Import ".\PERF_PROVIDER_CONTEXT.ahk" { PERF_PROVIDER_CONTEXT }
-#Import ".\PDH_COUNTER_PATH_ELEMENTS_W.ahk" { PDH_COUNTER_PATH_ELEMENTS_W }
-#Import ".\PDH_LOG_TYPE.ahk" { PDH_LOG_TYPE }
-#Import ".\PDH_RAW_LOG_RECORD.ahk" { PDH_RAW_LOG_RECORD }
-#Import ".\PDH_BROWSE_DLG_CONFIG_HA.ahk" { PDH_BROWSE_DLG_CONFIG_HA }
-#Import ".\PDH_HLOG.ahk" { PDH_HLOG }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\PDH_RAW_COUNTER_ITEM_A.ahk" { PDH_RAW_COUNTER_ITEM_A }
-#Import ".\PDH_COUNTER_INFO_A.ahk" { PDH_COUNTER_INFO_A }
-#Import ".\PDH_HCOUNTER.ahk" { PDH_HCOUNTER }
-#Import ".\PDH_FMT_COUNTERVALUE.ahk" { PDH_FMT_COUNTERVALUE }
-#Import ".\PERF_DETAIL.ahk" { PERF_DETAIL }
-#Import ".\PDH_HQUERY.ahk" { PDH_HQUERY }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\PDH_PATH_FLAGS.ahk" { PDH_PATH_FLAGS }
-#Import ".\PDH_COUNTER_INFO_W.ahk" { PDH_COUNTER_INFO_W }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\PDH_BROWSE_DLG_CONFIG_A.ahk" { PDH_BROWSE_DLG_CONFIG_A }
-#Import ".\PDH_SELECT_DATA_SOURCE_FLAGS.ahk" { PDH_SELECT_DATA_SOURCE_FLAGS }
-#Import ".\PDH_DLL_VERSION.ahk" { PDH_DLL_VERSION }
-#Import ".\PDH_COUNTER_PATH_ELEMENTS_A.ahk" { PDH_COUNTER_PATH_ELEMENTS_A }
-#Import ".\PERFLIBREQUEST.ahk" { PERFLIBREQUEST }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\PDH_FMT.ahk" { PDH_FMT }
-#Import ".\PERF_COUNTERSET_INSTANCE.ahk" { PERF_COUNTERSET_INSTANCE }
-#Import ".\PDH_FMT_COUNTERVALUE_ITEM_A.ahk" { PDH_FMT_COUNTERVALUE_ITEM_A }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\PDH_BROWSE_DLG_CONFIG_HA.ahk" { PDH_BROWSE_DLG_CONFIG_HA }
+#Import ".\PDH_BROWSE_DLG_CONFIG_HW.ahk" { PDH_BROWSE_DLG_CONFIG_HW }
 #Import ".\PDH_BROWSE_DLG_CONFIG_W.ahk" { PDH_BROWSE_DLG_CONFIG_W }
+#Import ".\PDH_COUNTER_INFO_A.ahk" { PDH_COUNTER_INFO_A }
+#Import ".\PDH_COUNTER_INFO_W.ahk" { PDH_COUNTER_INFO_W }
+#Import ".\PDH_COUNTER_PATH_ELEMENTS_A.ahk" { PDH_COUNTER_PATH_ELEMENTS_A }
+#Import ".\PDH_COUNTER_PATH_ELEMENTS_W.ahk" { PDH_COUNTER_PATH_ELEMENTS_W }
+#Import ".\PDH_DLL_VERSION.ahk" { PDH_DLL_VERSION }
+#Import ".\PDH_FMT.ahk" { PDH_FMT }
+#Import ".\PDH_FMT_COUNTERVALUE.ahk" { PDH_FMT_COUNTERVALUE }
+#Import ".\PDH_FMT_COUNTERVALUE_ITEM_A.ahk" { PDH_FMT_COUNTERVALUE_ITEM_A }
 #Import ".\PDH_FMT_COUNTERVALUE_ITEM_W.ahk" { PDH_FMT_COUNTERVALUE_ITEM_W }
+#Import ".\PDH_HCOUNTER.ahk" { PDH_HCOUNTER }
+#Import ".\PDH_HLOG.ahk" { PDH_HLOG }
+#Import ".\PDH_HQUERY.ahk" { PDH_HQUERY }
+#Import ".\PDH_LOG.ahk" { PDH_LOG }
+#Import ".\PDH_LOG_TYPE.ahk" { PDH_LOG_TYPE }
+#Import ".\PDH_PATH_FLAGS.ahk" { PDH_PATH_FLAGS }
+#Import ".\PDH_RAW_COUNTER.ahk" { PDH_RAW_COUNTER }
+#Import ".\PDH_RAW_COUNTER_ITEM_A.ahk" { PDH_RAW_COUNTER_ITEM_A }
 #Import ".\PDH_RAW_COUNTER_ITEM_W.ahk" { PDH_RAW_COUNTER_ITEM_W }
+#Import ".\PDH_RAW_LOG_RECORD.ahk" { PDH_RAW_LOG_RECORD }
+#Import ".\PDH_SELECT_DATA_SOURCE_FLAGS.ahk" { PDH_SELECT_DATA_SOURCE_FLAGS }
+#Import ".\PDH_STATISTICS.ahk" { PDH_STATISTICS }
+#Import ".\PDH_TIME_INFO.ahk" { PDH_TIME_INFO }
+#Import ".\PERF_COUNTERSET_INSTANCE.ahk" { PERF_COUNTERSET_INSTANCE }
+#Import ".\PERF_DETAIL.ahk" { PERF_DETAIL }
+#Import ".\PERF_PROVIDER_CONTEXT.ahk" { PERF_PROVIDER_CONTEXT }
 #Import ".\PerfRegInfoType.ahk" { PerfRegInfoType }
+#Import ".\REAL_TIME_DATA_SOURCE_ID_FLAGS.ahk" { REAL_TIME_DATA_SOURCE_ID_FLAGS }
 
 /**
  * @namespace Windows.Win32.System.Performance
@@ -368,7 +367,7 @@ export RestorePerfRegistryFromFileW(szFileName, szLangId) {
  * @since windows6.0.6000
  */
 export PerfStartProvider(ProviderGuid, ControlCallback, phProvider) {
-    result := DllCall("ADVAPI32.dll\PerfStartProvider", Guid.Ptr, ProviderGuid, PERFLIBREQUEST, ControlCallback, HANDLE.Ptr, phProvider, UInt32)
+    result := DllCall("ADVAPI32.dll\PerfStartProvider", Guid.Ptr, ProviderGuid, "ptr", ControlCallback, HANDLE.Ptr, phProvider, UInt32)
     return result
 }
 

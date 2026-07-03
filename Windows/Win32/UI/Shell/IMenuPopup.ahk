@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IDeskBar.ahk" { IDeskBar }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\POINTL.ahk" { POINTL }
 #Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import ".\IDeskBar.ahk" { IDeskBar }
 
 /**
  * IMenuPopup may be altered or unavailable.

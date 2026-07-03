@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VDS_NF_DISK.ahk" { VDS_NF_DISK }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VDS_NF_DISK.ahk" { VDS_NF_DISK }
 
 /**
  * The VDS_DISK_NOTIFICATION structure (vdshwprv.h) defines the details of disk events.

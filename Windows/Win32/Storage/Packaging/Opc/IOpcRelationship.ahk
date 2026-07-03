@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\OPC_URI_TARGET_MODE.ahk" { OPC_URI_TARGET_MODE }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUri.ahk" { IUri }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IOpcUri.ahk" { IOpcUri }
+#Import ".\OPC_URI_TARGET_MODE.ahk" { OPC_URI_TARGET_MODE }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\System\Com\IUri.ahk" { IUri }
 
 /**
  * Represents a relationship, which is a link between a source, which is a part or the package, and a target.

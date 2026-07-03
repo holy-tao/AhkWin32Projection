@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\PALOBJ.ahk" { PALOBJ }
 #Import ".\DHPDEV.ahk" { DHPDEV }
+#Import ".\PALOBJ.ahk" { PALOBJ }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -50,10 +50,6 @@ export default struct PFN_DrvSetPalette {
             this.value := CallbackCreate(fn, , [DHPDEV, PALOBJ.Ptr, UInt32, UInt32, UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

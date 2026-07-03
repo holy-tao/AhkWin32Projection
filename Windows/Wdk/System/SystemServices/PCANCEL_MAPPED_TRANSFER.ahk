@@ -29,7 +29,7 @@ export default struct PCANCEL_MAPPED_TRANSFER {
         DmaTransferContextMarshal := DmaTransferContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, DmaTransferContextMarshal, DmaTransferContext, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -49,10 +49,6 @@ export default struct PCANCEL_MAPPED_TRANSFER {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, "ptr", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IPin.ahk" { IPin }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPin.ahk" { IPin }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ISeekingPassThru interface creates a helper object that implements seeking for one-input filters.

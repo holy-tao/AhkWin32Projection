@@ -1,20 +1,18 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\HINTERACTIONCONTEXT.ahk" { HINTERACTIONCONTEXT }
-#Import ".\INERTIA_PARAMETER.ahk" { INERTIA_PARAMETER }
-#Import ".\CROSS_SLIDE_PARAMETER.ahk" { CROSS_SLIDE_PARAMETER }
-#Import ".\INTERACTION_CONTEXT_OUTPUT_CALLBACK.ahk" { INTERACTION_CONTEXT_OUTPUT_CALLBACK }
-#Import ".\TRANSLATION_PARAMETER.ahk" { TRANSLATION_PARAMETER }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\INTERACTION_CONTEXT_PROPERTY.ahk" { INTERACTION_CONTEXT_PROPERTY }
-#Import ".\CROSS_SLIDE_THRESHOLD.ahk" { CROSS_SLIDE_THRESHOLD }
-#Import ".\MOUSE_WHEEL_PARAMETER.ahk" { MOUSE_WHEEL_PARAMETER }
-#Import ".\INTERACTION_CONTEXT_OUTPUT_CALLBACK2.ahk" { INTERACTION_CONTEXT_OUTPUT_CALLBACK2 }
-#Import ".\INTERACTION_STATE.ahk" { INTERACTION_STATE }
-#Import ".\HOLD_PARAMETER.ahk" { HOLD_PARAMETER }
 #Import "..\Input\Pointer\POINTER_INFO.ahk" { POINTER_INFO }
-#Import ".\TAP_PARAMETER.ahk" { TAP_PARAMETER }
+#Import ".\CROSS_SLIDE_PARAMETER.ahk" { CROSS_SLIDE_PARAMETER }
+#Import ".\CROSS_SLIDE_THRESHOLD.ahk" { CROSS_SLIDE_THRESHOLD }
+#Import ".\HINTERACTIONCONTEXT.ahk" { HINTERACTIONCONTEXT }
+#Import ".\HOLD_PARAMETER.ahk" { HOLD_PARAMETER }
+#Import ".\INERTIA_PARAMETER.ahk" { INERTIA_PARAMETER }
 #Import ".\INTERACTION_CONTEXT_CONFIGURATION.ahk" { INTERACTION_CONTEXT_CONFIGURATION }
+#Import ".\INTERACTION_CONTEXT_PROPERTY.ahk" { INTERACTION_CONTEXT_PROPERTY }
+#Import ".\INTERACTION_STATE.ahk" { INTERACTION_STATE }
+#Import ".\MOUSE_WHEEL_PARAMETER.ahk" { MOUSE_WHEEL_PARAMETER }
+#Import ".\TAP_PARAMETER.ahk" { TAP_PARAMETER }
+#Import ".\TRANSLATION_PARAMETER.ahk" { TRANSLATION_PARAMETER }
 
 /**
  * @namespace Windows.Win32.UI.InteractionContext
@@ -69,7 +67,7 @@ export DestroyInteractionContext(interactionContext) {
 export RegisterOutputCallbackInteractionContext(interactionContext, outputCallback, clientData) {
     clientDataMarshal := clientData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("NInput.dll\RegisterOutputCallbackInteractionContext", HINTERACTIONCONTEXT, interactionContext, INTERACTION_CONTEXT_OUTPUT_CALLBACK, outputCallback, clientDataMarshal, clientData, "HRESULT")
+    result := DllCall("NInput.dll\RegisterOutputCallbackInteractionContext", HINTERACTIONCONTEXT, interactionContext, "ptr", outputCallback, clientDataMarshal, clientData, "HRESULT")
     return result
 }
 
@@ -83,7 +81,7 @@ export RegisterOutputCallbackInteractionContext(interactionContext, outputCallba
 export RegisterOutputCallbackInteractionContext2(interactionContext, outputCallback, clientData) {
     clientDataMarshal := clientData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("NInput.dll\RegisterOutputCallbackInteractionContext2", HINTERACTIONCONTEXT, interactionContext, INTERACTION_CONTEXT_OUTPUT_CALLBACK2, outputCallback, clientDataMarshal, clientData, "HRESULT")
+    result := DllCall("NInput.dll\RegisterOutputCallbackInteractionContext2", HINTERACTIONCONTEXT, interactionContext, "ptr", outputCallback, clientDataMarshal, clientData, "HRESULT")
     return result
 }
 

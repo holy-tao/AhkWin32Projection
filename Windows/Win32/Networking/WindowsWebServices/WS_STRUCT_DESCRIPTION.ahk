@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
 #Import ".\WS_FIELD_DESCRIPTION.ahk" { WS_FIELD_DESCRIPTION }
+#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
 
 /**
  * Information about C struct type, and how it maps to an XML element. This is used with WS_STRUCT_TYPE.

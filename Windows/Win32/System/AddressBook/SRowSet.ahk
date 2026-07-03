@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SRow.ahk" { SRow }
 #Import ".\SPropValue.ahk" { SPropValue }
+#Import ".\SRow.ahk" { SRow }
 
 /**
  * Contains an array of SRow structures. Each SRow structure describes a row from a table.

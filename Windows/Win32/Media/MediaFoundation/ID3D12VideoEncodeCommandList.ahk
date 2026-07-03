@@ -1,23 +1,23 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Graphics\Direct3D12\ID3D12CommandAllocator.ahk" { ID3D12CommandAllocator }
-#Import "..\..\Graphics\Direct3D12\D3D12_PREDICATION_OP.ahk" { D3D12_PREDICATION_OP }
-#Import ".\D3D12_VIDEO_MOTION_ESTIMATOR_INPUT.ahk" { D3D12_VIDEO_MOTION_ESTIMATOR_INPUT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_OUTPUT.ahk" { D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_OUTPUT }
-#Import "..\..\Graphics\Direct3D12\ID3D12ProtectedResourceSession.ahk" { ID3D12ProtectedResourceSession }
-#Import "..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
-#Import ".\D3D12_VIDEO_MOTION_ESTIMATOR_OUTPUT.ahk" { D3D12_VIDEO_MOTION_ESTIMATOR_OUTPUT }
-#Import "..\..\Graphics\Direct3D12\ID3D12CommandList.ahk" { ID3D12CommandList }
 #Import "..\..\Graphics\Direct3D12\D3D12_DISCARD_REGION.ahk" { D3D12_DISCARD_REGION }
+#Import "..\..\Graphics\Direct3D12\D3D12_PREDICATION_OP.ahk" { D3D12_PREDICATION_OP }
 #Import "..\..\Graphics\Direct3D12\D3D12_QUERY_TYPE.ahk" { D3D12_QUERY_TYPE }
-#Import ".\ID3D12VideoMotionEstimator.ahk" { ID3D12VideoMotionEstimator }
-#Import "..\..\Graphics\Direct3D12\D3D12_WRITEBUFFERIMMEDIATE_MODE.ahk" { D3D12_WRITEBUFFERIMMEDIATE_MODE }
 #Import "..\..\Graphics\Direct3D12\D3D12_RESOURCE_BARRIER.ahk" { D3D12_RESOURCE_BARRIER }
+#Import "..\..\Graphics\Direct3D12\D3D12_WRITEBUFFERIMMEDIATE_MODE.ahk" { D3D12_WRITEBUFFERIMMEDIATE_MODE }
 #Import "..\..\Graphics\Direct3D12\D3D12_WRITEBUFFERIMMEDIATE_PARAMETER.ahk" { D3D12_WRITEBUFFERIMMEDIATE_PARAMETER }
-#Import ".\D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_INPUT.ahk" { D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_INPUT }
+#Import "..\..\Graphics\Direct3D12\ID3D12CommandAllocator.ahk" { ID3D12CommandAllocator }
+#Import "..\..\Graphics\Direct3D12\ID3D12CommandList.ahk" { ID3D12CommandList }
+#Import "..\..\Graphics\Direct3D12\ID3D12ProtectedResourceSession.ahk" { ID3D12ProtectedResourceSession }
 #Import "..\..\Graphics\Direct3D12\ID3D12QueryHeap.ahk" { ID3D12QueryHeap }
+#Import "..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
+#Import ".\D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_INPUT.ahk" { D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_INPUT }
+#Import ".\D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_OUTPUT.ahk" { D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_OUTPUT }
+#Import ".\D3D12_VIDEO_MOTION_ESTIMATOR_INPUT.ahk" { D3D12_VIDEO_MOTION_ESTIMATOR_INPUT }
+#Import ".\D3D12_VIDEO_MOTION_ESTIMATOR_OUTPUT.ahk" { D3D12_VIDEO_MOTION_ESTIMATOR_OUTPUT }
+#Import ".\ID3D12VideoMotionEstimator.ahk" { ID3D12VideoMotionEstimator }
 
 /**
  * Encapsulates a list of graphics commands for video encoding, including motion estimation.

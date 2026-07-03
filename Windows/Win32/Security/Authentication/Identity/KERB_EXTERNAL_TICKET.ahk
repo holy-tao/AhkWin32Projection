@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\KERB_EXTERNAL_NAME.ahk" { KERB_EXTERNAL_NAME }
-#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
-#Import ".\KERB_TICKET_FLAGS.ahk" { KERB_TICKET_FLAGS }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\KERB_CRYPTO_KEY_TYPE.ahk" { KERB_CRYPTO_KEY_TYPE }
 #Import ".\KERB_CRYPTO_KEY.ahk" { KERB_CRYPTO_KEY }
+#Import ".\KERB_CRYPTO_KEY_TYPE.ahk" { KERB_CRYPTO_KEY_TYPE }
+#Import ".\KERB_EXTERNAL_NAME.ahk" { KERB_EXTERNAL_NAME }
+#Import ".\KERB_TICKET_FLAGS.ahk" { KERB_TICKET_FLAGS }
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 
 /**
  * Contains information about an external ticket.

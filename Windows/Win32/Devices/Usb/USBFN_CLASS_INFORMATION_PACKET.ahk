@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\USBFN_PIPE_INFORMATION.ahk" { USBFN_PIPE_INFORMATION }
 #Import ".\USBFN_CLASS_INTERFACE.ahk" { USBFN_CLASS_INTERFACE }
+#Import ".\USBFN_PIPE_INFORMATION.ahk" { USBFN_PIPE_INFORMATION }
 #Import ".\USB_ENDPOINT_DESCRIPTOR.ahk" { USB_ENDPOINT_DESCRIPTOR }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

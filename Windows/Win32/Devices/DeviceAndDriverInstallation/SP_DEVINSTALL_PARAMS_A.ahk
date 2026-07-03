@@ -1,8 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\SETUP_DI_DEVICE_INSTALL_FLAGS_EX.ahk" { SETUP_DI_DEVICE_INSTALL_FLAGS_EX }
-#Import ".\PSP_FILE_CALLBACK_A.ahk" { PSP_FILE_CALLBACK_A }
 #Import ".\SETUP_DI_DEVICE_INSTALL_FLAGS.ahk" { SETUP_DI_DEVICE_INSTALL_FLAGS }
+#Import ".\SETUP_DI_DEVICE_INSTALL_FLAGS_EX.ahk" { SETUP_DI_DEVICE_INSTALL_FLAGS_EX }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
@@ -35,7 +34,7 @@ export default struct SP_DEVINSTALL_PARAMS_A {
     /**
      * Callback used to handle events during file copying. An installer can use a callback, for example, to perform special processing when committing a file queue.
      */
-    InstallMsgHandler : PSP_FILE_CALLBACK_A
+    InstallMsgHandler : IntPtr
 
     /**
      * Private data that is used by the <b>InstallMsgHandler</b> callback.

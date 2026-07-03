@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Credentials\SecHandle.ahk" { SecHandle }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Credentials\SecHandle.ahk" { SecHandle }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -51,10 +51,6 @@ export default struct QUERY_CREDENTIALS_ATTRIBUTES_EX_FN_A {
             this.value := CallbackCreate(fn, , [SecHandle.Ptr, UInt32, "ptr", UInt32, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

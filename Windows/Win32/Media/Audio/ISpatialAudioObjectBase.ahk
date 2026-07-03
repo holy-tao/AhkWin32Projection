@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\AudioObjectType.ahk" { AudioObjectType }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\AudioObjectType.ahk" { AudioObjectType }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Base interface that represents an object that provides audio data to be rendered from a position in 3D space, relative to the user.

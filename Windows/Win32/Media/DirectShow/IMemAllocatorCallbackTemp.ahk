@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMemAllocatorNotifyCallbackTemp.ahk" { IMemAllocatorNotifyCallbackTemp }
-#Import ".\IMemAllocator.ahk" { IMemAllocator }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMemAllocator.ahk" { IMemAllocator }
+#Import ".\IMemAllocatorNotifyCallbackTemp.ahk" { IMemAllocatorNotifyCallbackTemp }
 
 /**
  * The IMemAllocatorCallbackTemp interface enables a filter to receive a callback notification from an allocator whenever a sample is returned to the allocator's free list.The use of this interface is deprecated.

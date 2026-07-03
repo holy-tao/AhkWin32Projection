@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\WINBIO_ENGINE_INTERFACE.ahk" { WINBIO_ENGINE_INTERFACE }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\WINBIO_FRAMEWORK_INTERFACE.ahk" { WINBIO_FRAMEWORK_INTERFACE }
 #Import ".\WINBIO_SENSOR_INTERFACE.ahk" { WINBIO_SENSOR_INTERFACE }
 #Import ".\WINBIO_STORAGE_INTERFACE.ahk" { WINBIO_STORAGE_INTERFACE }
-#Import ".\WINIBIO_STORAGE_CONTEXT.ahk" { WINIBIO_STORAGE_CONTEXT }
 #Import ".\WINIBIO_ENGINE_CONTEXT.ahk" { WINIBIO_ENGINE_CONTEXT }
-#Import ".\WINBIO_FRAMEWORK_INTERFACE.ahk" { WINBIO_FRAMEWORK_INTERFACE }
 #Import ".\WINIBIO_SENSOR_CONTEXT.ahk" { WINIBIO_SENSOR_CONTEXT }
+#Import ".\WINIBIO_STORAGE_CONTEXT.ahk" { WINIBIO_STORAGE_CONTEXT }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * Contains shared context information used by the sensor, engine, and storage adapter components in a single biometric unit.

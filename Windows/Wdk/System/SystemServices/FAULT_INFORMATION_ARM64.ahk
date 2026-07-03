@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FAULT_INFORMATION_ARM64_TYPE.ahk" { FAULT_INFORMATION_ARM64_TYPE }
 #Import "..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
+#Import ".\FAULT_INFORMATION_ARM64_TYPE.ahk" { FAULT_INFORMATION_ARM64_TYPE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

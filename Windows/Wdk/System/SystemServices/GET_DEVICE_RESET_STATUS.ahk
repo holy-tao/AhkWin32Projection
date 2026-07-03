@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\DEVICE_RESET_STATUS_FLAGS.ahk" { DEVICE_RESET_STATUS_FLAGS }
 #Import ".\DEVICE_BUS_SPECIFIC_RESET_TYPE.ahk" { DEVICE_BUS_SPECIFIC_RESET_TYPE }
+#Import ".\DEVICE_RESET_STATUS_FLAGS.ahk" { DEVICE_RESET_STATUS_FLAGS }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
@@ -34,7 +34,7 @@ export default struct GET_DEVICE_RESET_STATUS {
         IsResettingMarshal := IsResetting is VarRef ? "char*" : "ptr"
 
         result := DllCall(this.value, InterfaceContextMarshal, InterfaceContext, IsResettingMarshal, IsResetting, DEVICE_BUS_SPECIFIC_RESET_TYPE.Ptr, ResetTypeSelected, DEVICE_RESET_STATUS_FLAGS.Ptr, Flags, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -54,10 +54,6 @@ export default struct GET_DEVICE_RESET_STATUS {
             this.value := CallbackCreate(fn, , ["ptr", BOOLEAN.Ptr, DEVICE_BUS_SPECIFIC_RESET_TYPE.Ptr, DEVICE_RESET_STATUS_FLAGS.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

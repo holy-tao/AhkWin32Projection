@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDXGIOutput2.ahk" { IDXGIOutput2 }
-#Import "Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\IDXGIOutput2.ahk" { IDXGIOutput2 }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents an adapter output (such as a monitor). The IDXGIOutput3 interface exposes a method to check for overlay support.

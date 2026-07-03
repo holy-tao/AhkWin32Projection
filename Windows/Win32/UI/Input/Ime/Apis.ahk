@@ -1,38 +1,35 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\IME_SENTENCE_MODE.ahk" { IME_SENTENCE_MODE }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import "..\..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\WPARAM.ahk" { WPARAM }
 #Import "..\..\..\Graphics\Gdi\LOGFONTA.ahk" { LOGFONTA }
 #Import "..\..\..\Graphics\Gdi\LOGFONTW.ahk" { LOGFONTW }
+#Import ".\CANDIDATEFORM.ahk" { CANDIDATEFORM }
 #Import ".\COMPOSITIONFORM.ahk" { COMPOSITIONFORM }
+#Import ".\GET_CONVERSION_LIST_FLAG.ahk" { GET_CONVERSION_LIST_FLAG }
+#Import ".\GET_GUIDE_LINE_TYPE.ahk" { GET_GUIDE_LINE_TYPE }
+#Import ".\HIMC.ahk" { HIMC }
+#Import ".\HIMCC.ahk" { HIMCC }
+#Import ".\IMEMENUITEMINFOA.ahk" { IMEMENUITEMINFOA }
+#Import ".\IMEMENUITEMINFOW.ahk" { IMEMENUITEMINFOW }
+#Import ".\IME_COMPOSITION_STRING.ahk" { IME_COMPOSITION_STRING }
+#Import ".\IME_CONVERSION_MODE.ahk" { IME_CONVERSION_MODE }
 #Import ".\IME_ESCAPE.ahk" { IME_ESCAPE }
 #Import ".\IME_HOTKEY_IDENTIFIER.ahk" { IME_HOTKEY_IDENTIFIER }
-#Import ".\HIMC.ahk" { HIMC }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\SET_COMPOSITION_STRING_TYPE.ahk" { SET_COMPOSITION_STRING_TYPE }
-#Import "..\..\..\Foundation\POINT.ahk" { POINT }
-#Import "..\..\..\Foundation\WPARAM.ahk" { WPARAM }
-#Import "..\..\..\Foundation\LRESULT.ahk" { LRESULT }
-#Import ".\IMEMENUITEMINFOA.ahk" { IMEMENUITEMINFOA }
-#Import ".\IME_CONVERSION_MODE.ahk" { IME_CONVERSION_MODE }
-#Import "..\KeyboardAndMouse\HKL.ahk" { HKL }
-#Import ".\STYLEBUFW.ahk" { STYLEBUFW }
-#Import ".\REGISTERWORDENUMPROCW.ahk" { REGISTERWORDENUMPROCW }
-#Import ".\IMCENUMPROC.ahk" { IMCENUMPROC }
+#Import ".\IME_SENTENCE_MODE.ahk" { IME_SENTENCE_MODE }
 #Import ".\INPUTCONTEXT.ahk" { INPUTCONTEXT }
-#Import ".\HIMCC.ahk" { HIMCC }
-#Import ".\NOTIFY_IME_INDEX.ahk" { NOTIFY_IME_INDEX }
-#Import ".\STYLEBUFA.ahk" { STYLEBUFA }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\GET_CONVERSION_LIST_FLAG.ahk" { GET_CONVERSION_LIST_FLAG }
 #Import ".\NOTIFY_IME_ACTION.ahk" { NOTIFY_IME_ACTION }
-#Import ".\IMEMENUITEMINFOW.ahk" { IMEMENUITEMINFOW }
-#Import ".\GET_GUIDE_LINE_TYPE.ahk" { GET_GUIDE_LINE_TYPE }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\IME_COMPOSITION_STRING.ahk" { IME_COMPOSITION_STRING }
-#Import ".\REGISTERWORDENUMPROCA.ahk" { REGISTERWORDENUMPROCA }
-#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\CANDIDATEFORM.ahk" { CANDIDATEFORM }
+#Import ".\NOTIFY_IME_INDEX.ahk" { NOTIFY_IME_INDEX }
+#Import ".\SET_COMPOSITION_STRING_TYPE.ahk" { SET_COMPOSITION_STRING_TYPE }
+#Import ".\STYLEBUFA.ahk" { STYLEBUFA }
+#Import ".\STYLEBUFW.ahk" { STYLEBUFW }
+#Import "..\KeyboardAndMouse\HKL.ahk" { HKL }
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
@@ -1524,7 +1521,7 @@ export ImmEnumRegisterWordA(param0, param1, lpszReading, param3, lpszRegister, p
 
     param5Marshal := param5 is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IMM32.dll\ImmEnumRegisterWordA", HKL, param0, REGISTERWORDENUMPROCA, param1, "ptr", lpszReading, UInt32, param3, "ptr", lpszRegister, param5Marshal, param5, UInt32)
+    result := DllCall("IMM32.dll\ImmEnumRegisterWordA", HKL, param0, "ptr", param1, "ptr", lpszReading, UInt32, param3, "ptr", lpszRegister, param5Marshal, param5, UInt32)
     return result
 }
 
@@ -1551,7 +1548,7 @@ export ImmEnumRegisterWordW(param0, param1, lpszReading, param3, lpszRegister, p
 
     param5Marshal := param5 is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IMM32.dll\ImmEnumRegisterWordW", HKL, param0, REGISTERWORDENUMPROCW, param1, "ptr", lpszReading, UInt32, param3, "ptr", lpszRegister, param5Marshal, param5, UInt32)
+    result := DllCall("IMM32.dll\ImmEnumRegisterWordW", HKL, param0, "ptr", param1, "ptr", lpszReading, UInt32, param3, "ptr", lpszRegister, param5Marshal, param5, UInt32)
     return result
 }
 
@@ -1586,7 +1583,7 @@ export ImmDisableIME(param0) {
  * @since windows5.1.2600
  */
 export ImmEnumInputContext(idThread, lpfn, _lParam) {
-    result := DllCall("IMM32.dll\ImmEnumInputContext", UInt32, idThread, IMCENUMPROC, lpfn, LPARAM, _lParam, BOOL)
+    result := DllCall("IMM32.dll\ImmEnumInputContext", UInt32, idThread, "ptr", lpfn, LPARAM, _lParam, BOOL)
     return result
 }
 

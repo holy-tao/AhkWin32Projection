@@ -46,10 +46,6 @@ export default struct PFNFDINOTIFY {
             this.value := CallbackCreate(fn, "cdecl", [FDINOTIFICATIONTYPE, FDINOTIFICATION.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

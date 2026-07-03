@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
-#Import ".\BDANODE_DESCRIPTOR.ahk" { BDANODE_DESCRIPTOR }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\BDA_TEMPLATE_CONNECTION.ahk" { BDA_TEMPLATE_CONNECTION }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\BDANODE_DESCRIPTOR.ahk" { BDANODE_DESCRIPTOR }
+#Import ".\BDA_TEMPLATE_CONNECTION.ahk" { BDA_TEMPLATE_CONNECTION }
 #Import ".\REGPINMEDIUM.ahk" { REGPINMEDIUM }
+#Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IBDA_Topology interface is implemented on BDA device filters.

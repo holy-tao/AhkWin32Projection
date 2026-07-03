@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SYNC_SERIALIZATION_VERSION.ahk" { SYNC_SERIALIZATION_VERSION }
-#Import ".\ISyncChangeBatchBase.ahk" { ISyncChangeBatchBase }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISyncChangeBatchBase.ahk" { ISyncChangeBatchBase }
+#Import ".\SYNC_SERIALIZATION_VERSION.ahk" { SYNC_SERIALIZATION_VERSION }
 
 /**
  * Represents additional capabilities of an ISyncChangeBatchBase object.

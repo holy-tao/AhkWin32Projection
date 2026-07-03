@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\BREAKRESUMEACTION.ahk" { BREAKRESUMEACTION }
+#Import ".\ERRORRESUMEACTION.ahk" { ERRORRESUMEACTION }
+#Import ".\IApplicationDebugger.ahk" { IApplicationDebugger }
 #Import ".\IDebugApplicationNode.ahk" { IDebugApplicationNode }
 #Import ".\IEnumDebugExpressionContexts.ahk" { IEnumDebugExpressionContexts }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IApplicationDebugger.ahk" { IApplicationDebugger }
-#Import ".\IRemoteDebugApplicationThread.ahk" { IRemoteDebugApplicationThread }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\BREAKRESUMEACTION.ahk" { BREAKRESUMEACTION }
 #Import ".\IEnumRemoteDebugApplicationThreads.ahk" { IEnumRemoteDebugApplicationThreads }
-#Import ".\ERRORRESUMEACTION.ahk" { ERRORRESUMEACTION }
+#Import ".\IRemoteDebugApplicationThread.ahk" { IRemoteDebugApplicationThread }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

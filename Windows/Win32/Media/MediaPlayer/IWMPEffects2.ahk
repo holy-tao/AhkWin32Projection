@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\IWMPMedia.ahk" { IWMPMedia }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWMPEffects.ahk" { IWMPEffects }
-#Import ".\IWMPCore.ahk" { IWMPCore }
 #Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import ".\IWMPCore.ahk" { IWMPCore }
+#Import ".\IWMPEffects.ahk" { IWMPEffects }
+#Import ".\IWMPMedia.ahk" { IWMPMedia }
 #Import ".\TimedLevel.ahk" { TimedLevel }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * IWMPEffects2 interface

@@ -2,13 +2,13 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
-#Import ".\VDS_INPUT_DISK.ahk" { VDS_INPUT_DISK }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\VDS_VOLUME_PROP.ahk" { VDS_VOLUME_PROP }
-#Import ".\IVdsPack.ahk" { IVdsPack }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
 #Import ".\IVdsAsync.ahk" { IVdsAsync }
+#Import ".\IVdsPack.ahk" { IVdsPack }
+#Import ".\VDS_INPUT_DISK.ahk" { VDS_INPUT_DISK }
+#Import ".\VDS_VOLUME_PROP.ahk" { VDS_VOLUME_PROP }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods to manage volumes.

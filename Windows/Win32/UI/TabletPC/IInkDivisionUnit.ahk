@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IInkTransform.ahk" { IInkTransform }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\InkDivisionType.ahk" { InkDivisionType }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IInkStrokes.ahk" { IInkStrokes }
+#Import ".\IInkTransform.ahk" { IInkTransform }
+#Import ".\InkDivisionType.ahk" { InkDivisionType }
 
 /**
  * Represents a single structural element within an IInkDivisionResult object.

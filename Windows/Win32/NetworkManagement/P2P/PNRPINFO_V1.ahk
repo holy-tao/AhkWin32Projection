@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PNRP_RESOLVE_CRITERIA.ahk" { PNRP_RESOLVE_CRITERIA }
-#Import ".\PNRP_REGISTERED_ID_STATE.ahk" { PNRP_REGISTERED_ID_STATE }
-#Import "..\..\Networking\WinSock\SOCKET_ADDRESS.ahk" { SOCKET_ADDRESS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PNRP_REGISTERED_ID_STATE.ahk" { PNRP_REGISTERED_ID_STATE }
+#Import ".\PNRP_RESOLVE_CRITERIA.ahk" { PNRP_RESOLVE_CRITERIA }
 #Import "..\..\Networking\WinSock\SOCKADDR.ahk" { SOCKADDR }
+#Import "..\..\Networking\WinSock\SOCKET_ADDRESS.ahk" { SOCKET_ADDRESS }
 
 /**
  * The PNRPINFO_V1 structure is pointed to by the lpBlob member of the WSAQUERYSET structure. (PNRPINFO_V1)

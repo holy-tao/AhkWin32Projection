@@ -102,10 +102,6 @@ export default struct PIBIO_ENGINE_QUERY_HASH_ALGORITHMS_FN {
             this.value := CallbackCreate(fn, , [WINBIO_PIPELINE.Ptr, "ptr*", "ptr*", "ptr*", "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

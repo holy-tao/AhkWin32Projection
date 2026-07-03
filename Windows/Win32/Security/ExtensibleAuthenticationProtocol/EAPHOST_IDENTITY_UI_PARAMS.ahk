@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\EAP_METHOD_TYPE.ahk" { EAP_METHOD_TYPE }
-#Import ".\EAP_ERROR.ahk" { EAP_ERROR }
-#Import ".\EAP_TYPE.ahk" { EAP_TYPE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\EAP_ERROR.ahk" { EAP_ERROR }
+#Import ".\EAP_METHOD_TYPE.ahk" { EAP_METHOD_TYPE }
+#Import ".\EAP_TYPE.ahk" { EAP_TYPE }
 
 /**
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol

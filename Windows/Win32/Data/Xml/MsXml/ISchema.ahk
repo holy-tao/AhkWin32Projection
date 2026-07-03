@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISchemaItem.ahk" { ISchemaItem }
+#Import ".\ISchemaItemCollection.ahk" { ISchemaItemCollection }
 #Import ".\ISchemaStringCollection.ahk" { ISchemaStringCollection }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ISchemaItemCollection.ahk" { ISchemaItemCollection }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISchemaItem.ahk" { ISchemaItem }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml

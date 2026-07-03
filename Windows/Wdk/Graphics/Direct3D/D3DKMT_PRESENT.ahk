@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DDDI_FLIPINTERVAL_TYPE.ahk" { D3DDDI_FLIPINTERVAL_TYPE }
+#Import ".\D3DKMT_PRESENT_RGNS.ahk" { D3DKMT_PRESENT_RGNS }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\Win32\Foundation\HWND.ahk" { HWND }
 #Import "..\..\..\Win32\Foundation\RECT.ahk" { RECT }
-#Import ".\D3DKMT_PRESENT_RGNS.ahk" { D3DKMT_PRESENT_RGNS }
-#Import ".\D3DDDI_FLIPINTERVAL_TYPE.ahk" { D3DDDI_FLIPINTERVAL_TYPE }
-#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

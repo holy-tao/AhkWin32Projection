@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\BOOL.ahk" { BOOL }
 #Import ".\D3DKMT_GPU_PREFERENCE_QUERY_STATE.ahk" { D3DKMT_GPU_PREFERENCE_QUERY_STATE }
 #Import ".\D3DKMT_GPU_PREFERENCE_QUERY_TYPE.ahk" { D3DKMT_GPU_PREFERENCE_QUERY_TYPE }
+#Import "..\..\..\Win32\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

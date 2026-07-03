@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HNODE.ahk" { HNODE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\HCLUSTER.ahk" { HCLUSTER }
+#Import ".\HNODE.ahk" { HNODE }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -53,10 +53,6 @@ export default struct PCLUSAPI_OPEN_CLUSTER_NODE_EX {
             this.value := CallbackCreate(fn, , [HCLUSTER, PWSTR, UInt32, "uint*", HNODE])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DXGI_MATRIX_3X2_F.ahk" { DXGI_MATRIX_3X2_F }
 #Import ".\IDXGISwapChain1.ahk" { IDXGISwapChain1 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Extends IDXGISwapChain1 with methods to support swap back buffer scaling and lower-latency swap chains.

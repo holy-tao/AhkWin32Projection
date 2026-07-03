@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\APPLICATION_NODE_EVENT_FILTER.ahk" { APPLICATION_NODE_EVENT_FILTER }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\TEXT_DOCUMENT_ARRAY.ahk" { TEXT_DOCUMENT_ARRAY }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\APPLICATION_NODE_EVENT_FILTER.ahk" { APPLICATION_NODE_EVENT_FILTER }
 #Import ".\IDebugDocument.ahk" { IDebugDocument }
+#Import ".\TEXT_DOCUMENT_ARRAY.ahk" { TEXT_DOCUMENT_ARRAY }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FsiFileSystems.ahk" { FsiFileSystems }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IBootOptions.ahk" { IBootOptions }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\FsiFileSystems.ahk" { FsiFileSystems }
 #Import ".\FsiItemType.ahk" { FsiItemType }
-#Import ".\IMAPI_MEDIA_PHYSICAL_TYPE.ahk" { IMAPI_MEDIA_PHYSICAL_TYPE }
-#Import ".\IFsiFileItem.ahk" { IFsiFileItem }
-#Import ".\IFsiDirectoryItem.ahk" { IFsiDirectoryItem }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IBootOptions.ahk" { IBootOptions }
 #Import ".\IDiscRecorder2.ahk" { IDiscRecorder2 }
-#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 #Import ".\IFileSystemImageResult.ahk" { IFileSystemImageResult }
+#Import ".\IFsiDirectoryItem.ahk" { IFsiDirectoryItem }
+#Import ".\IFsiFileItem.ahk" { IFsiFileItem }
+#Import ".\IMAPI_MEDIA_PHYSICAL_TYPE.ahk" { IMAPI_MEDIA_PHYSICAL_TYPE }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Use this interface to build a file system image, set session parameter, and import or export an image.

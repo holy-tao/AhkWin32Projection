@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WEEKLY.ahk" { WEEKLY }
-#Import ".\MONTHLYDOW.ahk" { MONTHLYDOW }
-#Import ".\MONTHLYDATE.ahk" { MONTHLYDATE }
 #Import ".\DAILY.ahk" { DAILY }
+#Import ".\MONTHLYDATE.ahk" { MONTHLYDATE }
+#Import ".\MONTHLYDOW.ahk" { MONTHLYDOW }
+#Import ".\WEEKLY.ahk" { WEEKLY }
 
 /**
  * Defines the invocation schedule of the trigger within the Type member of a TASK_TRIGGER structure.

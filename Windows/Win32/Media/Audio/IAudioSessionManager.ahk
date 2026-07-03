@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ISimpleAudioVolume.ahk" { ISimpleAudioVolume }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IAudioSessionControl.ahk" { IAudioSessionControl }
+#Import ".\ISimpleAudioVolume.ahk" { ISimpleAudioVolume }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAudioSessionManager interface enables a client to access the session controls and volume controls for both cross-process and process-specific audio sessions.

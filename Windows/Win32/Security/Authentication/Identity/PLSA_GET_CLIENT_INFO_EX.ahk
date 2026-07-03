@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SECPKG_CLIENT_INFO_EX.ahk" { SECPKG_CLIENT_INFO_EX }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\SECPKG_CLIENT_INFO_EX.ahk" { SECPKG_CLIENT_INFO_EX }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -27,7 +27,7 @@ export default struct PLSA_GET_CLIENT_INFO_EX {
      */
     Call(ClientInfo, StructSize) {
         result := DllCall(this.value, SECPKG_CLIENT_INFO_EX.Ptr, ClientInfo, UInt32, StructSize, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -47,10 +47,6 @@ export default struct PLSA_GET_CLIENT_INFO_EX {
             this.value := CallbackCreate(fn, , [SECPKG_CLIENT_INFO_EX.Ptr, UInt32, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

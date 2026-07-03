@@ -47,10 +47,6 @@ export default struct PWINDBG_IOCTL_ROUTINE {
             this.value := CallbackCreate(fn, , [UInt16, "ptr", UInt32, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

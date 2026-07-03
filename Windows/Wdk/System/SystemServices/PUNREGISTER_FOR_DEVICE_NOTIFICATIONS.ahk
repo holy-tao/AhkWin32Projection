@@ -1,5 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PDEVICE_NOTIFY_CALLBACK.ahk" { PDEVICE_NOTIFY_CALLBACK }
 #Import "..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
 
 /**
@@ -26,7 +25,7 @@ export default struct PUNREGISTER_FOR_DEVICE_NOTIFICATIONS {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(param0, param1) {
-        DllCall(this.value, DEVICE_OBJECT.Ptr, param0, PDEVICE_NOTIFY_CALLBACK, param1)
+        DllCall(this.value, DEVICE_OBJECT.Ptr, param0, "ptr", param1)
     }
 
     /**
@@ -36,19 +35,15 @@ export default struct PUNREGISTER_FOR_DEVICE_NOTIFICATIONS {
     struct From extends PUNREGISTER_FOR_DEVICE_NOTIFICATIONS {
         /**
          * Creates a PUNREGISTER_FOR_DEVICE_NOTIFICATIONS pointer that invokes the given AHK function when called.
-         * @param {Func(DEVICE_OBJECT, PDEVICE_NOTIFY_CALLBACK) => IntPtr} fn the function to invoke.
+         * @param {Func(DEVICE_OBJECT, "ptr") => IntPtr} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 2)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 2 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [DEVICE_OBJECT.Ptr, PDEVICE_NOTIFY_CALLBACK, IntPtr])
+            this.value := CallbackCreate(fn, , [DEVICE_OBJECT.Ptr, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

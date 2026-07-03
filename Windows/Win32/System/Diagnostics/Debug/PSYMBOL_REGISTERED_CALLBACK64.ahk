@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * PSYMBOL_REGISTERED_CALLBACK64 (dbghelp.h) is an application-defined callback function used with the SymRegisterCallback64 function.
@@ -63,10 +63,6 @@ export default struct PSYMBOL_REGISTERED_CALLBACK64 {
             this.value := CallbackCreate(fn, , [HANDLE, UInt32, Int64, Int64, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\Foundation\LUID.ahk" { LUID }
-#Import ".\SID_AND_ATTRIBUTES.ahk" { SID_AND_ATTRIBUTES }
 #Import ".\LUID_AND_ATTRIBUTES.ahk" { LUID_AND_ATTRIBUTES }
+#Import ".\SID_AND_ATTRIBUTES.ahk" { SID_AND_ATTRIBUTES }
 
 /**
  * Contains information about the group security identifiers (SIDs) and privileges in an access token.

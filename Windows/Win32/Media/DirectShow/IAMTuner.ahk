@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IAMTunerNotification.ahk" { IAMTunerNotification }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\AMTunerModeType.ahk" { AMTunerModeType }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\AMTunerModeType.ahk" { AMTunerModeType }
+#Import ".\IAMTunerNotification.ahk" { IAMTunerNotification }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAMTuner interface controls a TV tuner.

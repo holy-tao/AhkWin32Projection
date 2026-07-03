@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IComponents.ahk" { IComponents }
 #Import ".\ILocator.ahk" { ILocator }
 #Import ".\ITuningSpace.ahk" { ITuningSpace }
-#Import ".\IComponents.ahk" { IComponents }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The ITuneRequest interface is the base interface for all tune requests.

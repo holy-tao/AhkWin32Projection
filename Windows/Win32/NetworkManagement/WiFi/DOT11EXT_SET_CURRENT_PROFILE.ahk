@@ -49,10 +49,6 @@ export default struct DOT11EXT_SET_CURRENT_PROFILE {
             this.value := CallbackCreate(fn, , [HANDLE, HANDLE, DOT11EXT_IHV_CONNECTIVITY_PROFILE.Ptr, DOT11EXT_IHV_SECURITY_PROFILE.Ptr, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

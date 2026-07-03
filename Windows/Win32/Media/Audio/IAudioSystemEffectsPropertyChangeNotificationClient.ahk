@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE.ahk" { AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import ".\AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE.ahk" { AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * A callback interface implemented by clients to receive notifications when audio system effect properties change.

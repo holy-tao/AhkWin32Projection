@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 
 /**
  * An application-defined callback function that allows the application to filter certificates that might be added to the certificate chain.
@@ -50,10 +50,6 @@ export default struct PFN_CERT_CHAIN_FIND_BY_ISSUER_CALLBACK {
             this.value := CallbackCreate(fn, , [CERT_CONTEXT.Ptr, "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISyncFilterInfo.ahk" { ISyncFilterInfo }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISyncFilterInfo.ahk" { ISyncFilterInfo }
 
 /**
  * Represents a filter that can be used to control which change units are included for items in an ISyncChangeBatch object.

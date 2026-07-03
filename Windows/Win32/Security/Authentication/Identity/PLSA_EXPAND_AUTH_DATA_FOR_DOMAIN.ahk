@@ -33,7 +33,7 @@ export default struct PLSA_EXPAND_AUTH_DATA_FOR_DOMAIN {
         ExpandedAuthDataSizeMarshal := ExpandedAuthDataSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall(this.value, IntPtr, UserAuthData, UInt32, UserAuthDataSize, ReservedMarshal, Reserved, ExpandedAuthDataMarshal, ExpandedAuthData, ExpandedAuthDataSizeMarshal, ExpandedAuthDataSize, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -53,10 +53,6 @@ export default struct PLSA_EXPAND_AUTH_DATA_FOR_DOMAIN {
             this.value := CallbackCreate(fn, , [IntPtr, UInt32, "ptr", "ptr*", "uint*", NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

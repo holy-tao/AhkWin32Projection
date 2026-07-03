@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\BINDHANDLETYPES.ahk" { BINDHANDLETYPES }
-#Import "..\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\IUnknown.ahk" { IUnknown }
+#Import ".\BINDHANDLETYPES.ahk" { BINDHANDLETYPES }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon

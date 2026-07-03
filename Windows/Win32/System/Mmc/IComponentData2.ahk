@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DATA_OBJECT_TYPES.ahk" { DATA_OBJECT_TYPES }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IComponentData.ahk" { IComponentData }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\DATA_OBJECT_TYPES.ahk" { DATA_OBJECT_TYPES }
+#Import ".\IComponentData.ahk" { IComponentData }
 
 /**
  * The IComponentData2 interface supersedes the IComponentData interface.

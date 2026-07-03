@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\APPX_ENCRYPTED_EXEMPTIONS.ahk" { APPX_ENCRYPTED_EXEMPTIONS }
 #Import ".\APPX_ENCRYPTED_PACKAGE_SETTINGS.ahk" { APPX_ENCRYPTED_PACKAGE_SETTINGS }
 #Import ".\APPX_KEY_INFO.ahk" { APPX_KEY_INFO }
-#Import ".\APPX_ENCRYPTED_EXEMPTIONS.ahk" { APPX_ENCRYPTED_EXEMPTIONS }
 #Import ".\IAppxEncryptedPackageWriter.ahk" { IAppxEncryptedPackageWriter }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Creates objects for encrypting, decrypting, reading, and writing Windows app packages and bundles. (IAppxEncryptionFactory2)

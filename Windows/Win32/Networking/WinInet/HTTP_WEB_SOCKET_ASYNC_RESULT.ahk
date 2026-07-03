@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\INTERNET_ASYNC_RESULT.ahk" { INTERNET_ASYNC_RESULT }
 #Import ".\HTTP_WEB_SOCKET_BUFFER_TYPE.ahk" { HTTP_WEB_SOCKET_BUFFER_TYPE }
 #Import ".\HTTP_WEB_SOCKET_OPERATION.ahk" { HTTP_WEB_SOCKET_OPERATION }
+#Import ".\INTERNET_ASYNC_RESULT.ahk" { INTERNET_ASYNC_RESULT }
 
 /**
  * @namespace Windows.Win32.Networking.WinInet

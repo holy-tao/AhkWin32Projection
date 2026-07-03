@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IFeedClockVectorElement.ahk" { IFeedClockVectorElement }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IFeedClockVectorElement.ahk" { IFeedClockVectorElement }
 
 /**
  * Enumerates the clock vector elements that are stored in a clock vector that contains FeedSync information.

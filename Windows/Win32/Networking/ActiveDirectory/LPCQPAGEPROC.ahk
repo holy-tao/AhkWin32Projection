@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\CQPAGE.ahk" { CQPAGE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import ".\CQPAGE.ahk" { CQPAGE }
 
 /**
  * Called by the query dialog box to notify the query form extension of events that occur in a query page.
@@ -54,10 +54,6 @@ export default struct LPCQPAGEPROC {
             this.value := CallbackCreate(fn, , [CQPAGE.Ptr, HWND, UInt32, WPARAM, LPARAM, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

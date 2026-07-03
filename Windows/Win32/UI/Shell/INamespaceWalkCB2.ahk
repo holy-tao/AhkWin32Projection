@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\INamespaceWalkCB.ahk" { INamespaceWalkCB }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\INamespaceWalkCB.ahk" { INamespaceWalkCB }
 
 /**
  * Extends INamespaceWalkCB with a method that is required in order to complete a namespace walk. This method removes data collected during the walk.

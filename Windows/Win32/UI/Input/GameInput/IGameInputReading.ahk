@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\GameInputTouchState.ahk" { GameInputTouchState }
-#Import ".\IGameInputRawDeviceReport.ahk" { IGameInputRawDeviceReport }
-#Import ".\GameInputKind.ahk" { GameInputKind }
-#Import ".\GameInputKeyState.ahk" { GameInputKeyState }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\GameInputArcadeStickState.ahk" { GameInputArcadeStickState }
 #Import ".\GameInputFlightStickState.ahk" { GameInputFlightStickState }
-#Import ".\GameInputRacingWheelState.ahk" { GameInputRacingWheelState }
-#Import ".\GameInputUiNavigationState.ahk" { GameInputUiNavigationState }
 #Import ".\GameInputGamepadState.ahk" { GameInputGamepadState }
+#Import ".\GameInputKeyState.ahk" { GameInputKeyState }
+#Import ".\GameInputKind.ahk" { GameInputKind }
 #Import ".\GameInputMotionState.ahk" { GameInputMotionState }
 #Import ".\GameInputMouseState.ahk" { GameInputMouseState }
-#Import ".\IGameInputDevice.ahk" { IGameInputDevice }
-#Import ".\GameInputArcadeStickState.ahk" { GameInputArcadeStickState }
+#Import ".\GameInputRacingWheelState.ahk" { GameInputRacingWheelState }
 #Import ".\GameInputSwitchPosition.ahk" { GameInputSwitchPosition }
+#Import ".\GameInputTouchState.ahk" { GameInputTouchState }
+#Import ".\GameInputUiNavigationState.ahk" { GameInputUiNavigationState }
+#Import ".\IGameInputDevice.ahk" { IGameInputDevice }
+#Import ".\IGameInputRawDeviceReport.ahk" { IGameInputRawDeviceReport }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput

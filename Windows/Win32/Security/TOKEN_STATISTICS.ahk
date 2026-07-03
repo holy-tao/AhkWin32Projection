@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TOKEN_TYPE.ahk" { TOKEN_TYPE }
 #Import "..\Foundation\LUID.ahk" { LUID }
 #Import ".\SECURITY_IMPERSONATION_LEVEL.ahk" { SECURITY_IMPERSONATION_LEVEL }
+#Import ".\TOKEN_TYPE.ahk" { TOKEN_TYPE }
 
 /**
  * Contains information about an access token.

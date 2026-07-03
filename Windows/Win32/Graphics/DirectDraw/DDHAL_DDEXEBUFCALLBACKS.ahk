@@ -1,9 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LPDDHALEXEBUFCB_UNLOCKEXEBUF.ahk" { LPDDHALEXEBUFCB_UNLOCKEXEBUF }
-#Import ".\LPDDHALEXEBUFCB_CREATEEXEBUF.ahk" { LPDDHALEXEBUFCB_CREATEEXEBUF }
-#Import ".\LPDDHALEXEBUFCB_CANCREATEEXEBUF.ahk" { LPDDHALEXEBUFCB_CANCREATEEXEBUF }
-#Import ".\LPDDHALEXEBUFCB_DESTROYEXEBUF.ahk" { LPDDHALEXEBUFCB_DESTROYEXEBUF }
-#Import ".\LPDDHALEXEBUFCB_LOCKEXEBUF.ahk" { LPDDHALEXEBUFCB_LOCKEXEBUF }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -15,14 +10,14 @@ export default struct DDHAL_DDEXEBUFCALLBACKS {
 
     dwFlags : UInt32
 
-    CanCreateExecuteBuffer : LPDDHALEXEBUFCB_CANCREATEEXEBUF
+    CanCreateExecuteBuffer : IntPtr
 
-    CreateExecuteBuffer : LPDDHALEXEBUFCB_CREATEEXEBUF
+    CreateExecuteBuffer : IntPtr
 
-    DestroyExecuteBuffer : LPDDHALEXEBUFCB_DESTROYEXEBUF
+    DestroyExecuteBuffer : IntPtr
 
-    LockExecuteBuffer : LPDDHALEXEBUFCB_LOCKEXEBUF
+    LockExecuteBuffer : IntPtr
 
-    UnlockExecuteBuffer : LPDDHALEXEBUFCB_UNLOCKEXEBUF
+    UnlockExecuteBuffer : IntPtr
 
 }

@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HRSRC.ahk" { HRSRC }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\LPFNOLEUIHOOK.ahk" { LPFNOLEUIHOOK }
-#Import ".\EDIT_LINKS_FLAGS.ahk" { EDIT_LINKS_FLAGS }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\IOleUILinkContainerW.ahk" { IOleUILinkContainerW }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\HRSRC.ahk" { HRSRC }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\EDIT_LINKS_FLAGS.ahk" { EDIT_LINKS_FLAGS }
+#Import ".\IOleUILinkContainerW.ahk" { IOleUILinkContainerW }
 
 /**
  * Contains information that the OLE User Interface Library uses to initialize the Edit Links dialog box, and contains space for the library to return information when the dialog box is dismissed. (Unicode)
@@ -102,7 +101,7 @@ export default struct OLEUIEDITLINKSW {
     /**
      * Pointer to a hook function that processes messages intended for the dialog box. The hook function must return zero to pass a message that it didn't process back to the dialog box procedure in the library. The hook function must return a nonzero value to prevent the library's dialog box procedure from processing a message it has already processed.
      */
-    lpfnHook : LPFNOLEUIHOOK
+    lpfnHook : IntPtr
 
     /**
      * Application-defined data that the library passes to the hook function pointed to by the <b>lpfnHook</b> member. The library passes a pointer to the <b>OLEUIEDITLINKS</b> structure in the <i>lParam</i> parameter of the WM_INITDIALOG message; this pointer can be used to retrieve the <b>lCustData</b> member.

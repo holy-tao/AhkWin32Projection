@@ -1,20 +1,43 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * The AVISTREAMHEADER structure contains information about one stream in an AVI file.
  * @remarks
  * Some of the members of this structure are also present in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/aviriff/ns-aviriff-avimainheader">AVIMAINHEADER</a> structure. The data in the <b>AVIMAINHEADER</b> structure applies to the whole file, while the data in the <b>AVISTREAMHEADER</b> structure applies to one stream.
+ *       
  * 
  * The header file Vfw.h defines a <b>AVIStreamHeader</b> structure that is equivalent to this structure, but omits the <b>fcc</b> and <b>cb</b> members.
- * @see https://learn.microsoft.com/windows/win32/api/avifmt/ns-avifmt-avistreamheader
+ * @see https://learn.microsoft.com/windows/win32/api/aviriff/ns-aviriff-avistreamheader
  * @namespace Windows.Win32.Media.DirectShow
  */
-export default struct AVIStreamHeader {
+export default struct AVISTREAMHEADER {
     #StructPack 4
+
+
+    struct _rcFrame {
+        left : Int16
+
+        top : Int16
+
+        right : Int16
+
+        bottom : Int16
+
+    }
+
+    /**
+     * Specifies a FOURCC code. The value must be 'strh'.
+     */
+    fcc : UInt32
+
+    /**
+     * Specifies the size of the structure, not including the initial 8 bytes.
+     */
+    cb : UInt32
 
     /**
      * Contains a FOURCC that specifies the type of the data contained in the stream. The following standard AVI values for video and audio are defined.
+     *           
      * 
      * <table>
      * <tr>
@@ -72,6 +95,7 @@ export default struct AVIStreamHeader {
 
     /**
      * Contains any flags for the data stream. The bits in the high-order word of these flags are specific to the type of data contained in the stream. The following standard flags are defined.
+     *           
      * 
      * <table>
      * <tr>
@@ -155,6 +179,6 @@ export default struct AVIStreamHeader {
     /**
      * Specifies the destination rectangle for a text or video stream within the movie rectangle specified by the <b>dwWidth</b> and <b>dwHeight</b> members of the AVI main header structure. The <b>rcFrame</b> member is typically used in support of multiple video streams. Set this rectangle to the coordinates corresponding to the movie rectangle to update the whole movie rectangle. Units for this member are pixels. The upper-left corner of the destination rectangle is relative to the upper-left corner of the movie rectangle.
      */
-    rcFrame : RECT
+    rcFrame : AVISTREAMHEADER._rcFrame
 
 }

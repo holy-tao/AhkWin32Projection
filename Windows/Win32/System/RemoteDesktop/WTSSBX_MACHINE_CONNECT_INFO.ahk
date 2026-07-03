@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WTSSBX_IP_ADDRESS.ahk" { WTSSBX_IP_ADDRESS }
 #Import ".\WTSSBX_ADDRESS_FAMILY.ahk" { WTSSBX_ADDRESS_FAMILY }
+#Import ".\WTSSBX_IP_ADDRESS.ahk" { WTSSBX_IP_ADDRESS }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

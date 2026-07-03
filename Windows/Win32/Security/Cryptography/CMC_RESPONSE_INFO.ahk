@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CMC_TAGGED_ATTRIBUTE.ahk" { CMC_TAGGED_ATTRIBUTE }
 #Import ".\CMC_TAGGED_CONTENT_INFO.ahk" { CMC_TAGGED_CONTENT_INFO }
 #Import ".\CMC_TAGGED_OTHER_MSG.ahk" { CMC_TAGGED_OTHER_MSG }
-#Import ".\CMC_TAGGED_ATTRIBUTE.ahk" { CMC_TAGGED_ATTRIBUTE }
 
 /**
  * Provides a means of communicating different pieces of tagged information. (CMC_RESPONSE_INFO)

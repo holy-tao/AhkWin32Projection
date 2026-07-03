@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\WHEA_ERROR_INJECTION_CAPABILITIES.ahk" { WHEA_ERROR_INJECTION_CAPABILITIES }
+#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -29,7 +29,7 @@ export default struct PSHED_PI_GET_INJECTION_CAPABILITIES {
         PluginContextMarshal := PluginContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall(this.value, PluginContextMarshal, PluginContext, WHEA_ERROR_INJECTION_CAPABILITIES.Ptr, Capabilities, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -49,10 +49,6 @@ export default struct PSHED_PI_GET_INJECTION_CAPABILITIES {
             this.value := CallbackCreate(fn, , ["ptr", WHEA_ERROR_INJECTION_CAPABILITIES.Ptr, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

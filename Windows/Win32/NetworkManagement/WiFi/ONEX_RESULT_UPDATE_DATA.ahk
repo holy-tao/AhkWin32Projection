@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ONEX_EAP_METHOD_BACKEND_SUPPORT.ahk" { ONEX_EAP_METHOD_BACKEND_SUPPORT }
 #Import ".\ONEX_AUTH_STATUS.ahk" { ONEX_AUTH_STATUS }
+#Import ".\ONEX_EAP_METHOD_BACKEND_SUPPORT.ahk" { ONEX_EAP_METHOD_BACKEND_SUPPORT }
 #Import ".\ONEX_STATUS.ahk" { ONEX_STATUS }
 #Import ".\ONEX_VARIABLE_BLOB.ahk" { ONEX_VARIABLE_BLOB }
 

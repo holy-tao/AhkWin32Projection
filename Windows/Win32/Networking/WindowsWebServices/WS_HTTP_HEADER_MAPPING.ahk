@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
 #Import ".\WS_XML_DICTIONARY.ahk" { WS_XML_DICTIONARY }
+#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
 
 /**
  * Specifies an individual header that is mapped as part of WS_HTTP_MESSAGE_MAPPING.

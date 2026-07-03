@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WLDP_DEVICE_SECURITY_INFORMATION.ahk" { WLDP_DEVICE_SECURITY_INFORMATION }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WLDP_DEVICE_SECURITY_INFORMATION.ahk" { WLDP_DEVICE_SECURITY_INFORMATION }
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
@@ -46,10 +46,6 @@ export default struct PWLDP_QUERYDEVICESECURITYINFORMATION_API {
             this.value := CallbackCreate(fn, , [WLDP_DEVICE_SECURITY_INFORMATION.Ptr, UInt32, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

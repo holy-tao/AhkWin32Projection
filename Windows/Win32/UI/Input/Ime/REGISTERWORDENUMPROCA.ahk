@@ -60,10 +60,6 @@ export default struct REGISTERWORDENUMPROCA {
             this.value := CallbackCreate(fn, , [PSTR, UInt32, PSTR, "ptr", Int32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

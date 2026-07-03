@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Security\SID_NAME_USE.ahk" { SID_NAME_USE }
 #Import "..\..\Security\PSID.ahk" { PSID }
+#Import "..\..\Security\SID_NAME_USE.ahk" { SID_NAME_USE }
 
 /**
  * The LOCALGROUP_MEMBERS_INFO_1 structure contains the security identifier (SID) and account information associated with the member of a local group.

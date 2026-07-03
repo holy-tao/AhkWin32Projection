@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\PEPROCESS.ahk" { PEPROCESS }
 #Import ".\PS_CREATE_NOTIFY_INFO.ahk" { PS_CREATE_NOTIFY_INFO }
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -47,10 +47,6 @@ export default struct PCREATE_PROCESS_NOTIFY_ROUTINE_EX {
             this.value := CallbackCreate(fn, , [PEPROCESS, HANDLE, PS_CREATE_NOTIFY_INFO.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

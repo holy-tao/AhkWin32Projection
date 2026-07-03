@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
-#Import ".\HIMAGELIST.ahk" { HIMAGELIST }
 #Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import ".\HIMAGELIST.ahk" { HIMAGELIST }
 
 /**
  * Contains information about an image list draw operation and is used with the IImageList::Draw function. (IMAGELISTDRAWPARAMS)

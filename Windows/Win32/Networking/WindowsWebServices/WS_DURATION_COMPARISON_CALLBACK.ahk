@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_ERROR.ahk" { WS_ERROR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WS_DURATION.ahk" { WS_DURATION }
+#Import ".\WS_ERROR.ahk" { WS_ERROR }
 
 /**
  * Compares two durations.
@@ -55,10 +55,6 @@ export default struct WS_DURATION_COMPARISON_CALLBACK {
             this.value := CallbackCreate(fn, , [WS_DURATION.Ptr, WS_DURATION.Ptr, WS_ERROR.Ptr, "int"])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

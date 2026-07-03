@@ -43,10 +43,6 @@ export default struct PPUT_DMA_ADAPTER {
             this.value := CallbackCreate(fn, , [DMA_ADAPTER.Ptr, IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

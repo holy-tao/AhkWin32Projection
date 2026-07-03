@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\ITfMenu.ahk" { ITfMenu }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITfLangBarItem.ahk" { ITfLangBarItem }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 #Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import ".\ITfLangBarItem.ahk" { ITfLangBarItem }
+#Import ".\ITfMenu.ahk" { ITfMenu }
 #Import ".\TfLBIClick.ahk" { TfLBIClick }
 
 /**

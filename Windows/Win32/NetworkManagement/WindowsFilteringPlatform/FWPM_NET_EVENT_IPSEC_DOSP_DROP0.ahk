@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FWP_IP_VERSION.ahk" { FWP_IP_VERSION }
 #Import ".\FWP_DIRECTION.ahk" { FWP_DIRECTION }
+#Import ".\FWP_IP_VERSION.ahk" { FWP_IP_VERSION }
 
 /**
  * Contains information that describes an IPsec DoS Protection drop event.

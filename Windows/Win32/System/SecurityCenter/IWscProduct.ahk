@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WSC_SECURITY_PRODUCT_STATE.ahk" { WSC_SECURITY_PRODUCT_STATE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\WSC_SECURITY_SIGNATURE_STATUS.ahk" { WSC_SECURITY_SIGNATURE_STATUS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\WSC_SECURITY_PRODUCT_STATE.ahk" { WSC_SECURITY_PRODUCT_STATE }
+#Import ".\WSC_SECURITY_SIGNATURE_STATUS.ahk" { WSC_SECURITY_SIGNATURE_STATUS }
 
 /**
  * Provides methods for getting product information for an individual provider to interact with Windows Security Center.

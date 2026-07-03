@@ -1,24 +1,24 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D10EffectBlendVariable.ahk" { ID3D10EffectBlendVariable }
-#Import ".\ID3D10EffectRenderTargetViewVariable.ahk" { ID3D10EffectRenderTargetViewVariable }
-#Import ".\ID3D10EffectScalarVariable.ahk" { ID3D10EffectScalarVariable }
-#Import ".\ID3D10EffectSamplerVariable.ahk" { ID3D10EffectSamplerVariable }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID3D10EffectDepthStencilVariable.ahk" { ID3D10EffectDepthStencilVariable }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\ID3D10EffectStringVariable.ahk" { ID3D10EffectStringVariable }
-#Import ".\ID3D10EffectVectorVariable.ahk" { ID3D10EffectVectorVariable }
-#Import ".\ID3D10EffectConstantBuffer.ahk" { ID3D10EffectConstantBuffer }
-#Import ".\ID3D10EffectShaderVariable.ahk" { ID3D10EffectShaderVariable }
-#Import ".\ID3D10EffectDepthStencilViewVariable.ahk" { ID3D10EffectDepthStencilViewVariable }
-#Import ".\ID3D10EffectShaderResourceVariable.ahk" { ID3D10EffectShaderResourceVariable }
-#Import ".\ID3D10EffectRasterizerVariable.ahk" { ID3D10EffectRasterizerVariable }
-#Import ".\ID3D10EffectMatrixVariable.ahk" { ID3D10EffectMatrixVariable }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\D3D10_EFFECT_VARIABLE_DESC.ahk" { D3D10_EFFECT_VARIABLE_DESC }
+#Import ".\ID3D10EffectBlendVariable.ahk" { ID3D10EffectBlendVariable }
+#Import ".\ID3D10EffectConstantBuffer.ahk" { ID3D10EffectConstantBuffer }
+#Import ".\ID3D10EffectDepthStencilVariable.ahk" { ID3D10EffectDepthStencilVariable }
+#Import ".\ID3D10EffectDepthStencilViewVariable.ahk" { ID3D10EffectDepthStencilViewVariable }
+#Import ".\ID3D10EffectMatrixVariable.ahk" { ID3D10EffectMatrixVariable }
+#Import ".\ID3D10EffectRasterizerVariable.ahk" { ID3D10EffectRasterizerVariable }
+#Import ".\ID3D10EffectRenderTargetViewVariable.ahk" { ID3D10EffectRenderTargetViewVariable }
+#Import ".\ID3D10EffectSamplerVariable.ahk" { ID3D10EffectSamplerVariable }
+#Import ".\ID3D10EffectScalarVariable.ahk" { ID3D10EffectScalarVariable }
+#Import ".\ID3D10EffectShaderResourceVariable.ahk" { ID3D10EffectShaderResourceVariable }
+#Import ".\ID3D10EffectShaderVariable.ahk" { ID3D10EffectShaderVariable }
+#Import ".\ID3D10EffectStringVariable.ahk" { ID3D10EffectStringVariable }
 #Import ".\ID3D10EffectType.ahk" { ID3D10EffectType }
+#Import ".\ID3D10EffectVectorVariable.ahk" { ID3D10EffectVectorVariable }
 
 /**
  * The ID3D10EffectVariable interface is the base class for all effect variables.

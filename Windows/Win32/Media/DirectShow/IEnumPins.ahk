@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IPin.ahk" { IPin }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPin.ahk" { IPin }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enumerates pins on a filter.The IBaseFilter::EnumPins method returns this interface.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFPluginControl.ahk" { IMFPluginControl }
 #Import ".\MF_PLUGIN_CONTROL_POLICY.ahk" { MF_PLUGIN_CONTROL_POLICY }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Controls how media sources and transforms are enumerated in Microsoft Media Foundation. (IMFPluginControl2)

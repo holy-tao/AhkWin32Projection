@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\APPLICATIONTYPE.ahk" { APPLICATIONTYPE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\APPLICATIONTYPE.ahk" { APPLICATIONTYPE }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator

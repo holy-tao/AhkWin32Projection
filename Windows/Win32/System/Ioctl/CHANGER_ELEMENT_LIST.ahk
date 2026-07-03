@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ELEMENT_TYPE.ahk" { ELEMENT_TYPE }
 #Import ".\CHANGER_ELEMENT.ahk" { CHANGER_ELEMENT }
+#Import ".\ELEMENT_TYPE.ahk" { ELEMENT_TYPE }
 
 /**
  * Represents a range of elements of a single type, typically for an operation such as getting or initializing the status of multiple elements.

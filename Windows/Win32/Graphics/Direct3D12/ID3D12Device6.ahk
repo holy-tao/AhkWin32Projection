@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D12Device5.ahk" { ID3D12Device5 }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\D3D12_MEASUREMENTS_ACTION.ahk" { D3D12_MEASUREMENTS_ACTION }
-#Import ".\D3D12_BACKGROUND_PROCESSING_MODE.ahk" { D3D12_BACKGROUND_PROCESSING_MODE }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_BACKGROUND_PROCESSING_MODE.ahk" { D3D12_BACKGROUND_PROCESSING_MODE }
+#Import ".\D3D12_MEASUREMENTS_ACTION.ahk" { D3D12_MEASUREMENTS_ACTION }
+#Import ".\ID3D12Device5.ahk" { ID3D12Device5 }
 
 /**
  * Represents a virtual adapter. This interface extends [ID3D12Device5](../d3d12/nn-d3d12-id3d12device5.md).

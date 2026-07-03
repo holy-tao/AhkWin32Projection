@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\POINT.ahk" { POINT }
-#Import "..\Graphics\Gdi\Apis.ahk" { UnionRect, PtInRect, InflateRect, SubtractRect, IsRectEmpty, EqualRect, OffsetRect, IntersectRect }
+#Import "..\Graphics\Gdi\Apis.ahk" { EqualRect, InflateRect, IntersectRect, IsRectEmpty, OffsetRect, PtInRect, SubtractRect, UnionRect }
 
 /**
  * The RECTL structure defines a rectangle by the coordinates of its upper-left and lower-right corners.

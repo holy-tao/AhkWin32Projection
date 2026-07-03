@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WINSAT_ASSESSMENT_STATE.ahk" { WINSAT_ASSESSMENT_STATE }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\WINSAT_ASSESSMENT_TYPE.ahk" { WINSAT_ASSESSMENT_TYPE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IProvideWinSATAssessmentInfo.ahk" { IProvideWinSATAssessmentInfo }
+#Import ".\WINSAT_ASSESSMENT_STATE.ahk" { WINSAT_ASSESSMENT_STATE }
+#Import ".\WINSAT_ASSESSMENT_TYPE.ahk" { WINSAT_ASSESSMENT_TYPE }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Gets information about the results of an assessment, for example, the base score and the date that the assessment was run.

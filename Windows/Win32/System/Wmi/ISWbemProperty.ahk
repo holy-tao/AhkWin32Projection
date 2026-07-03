@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WbemCimtypeEnum.ahk" { WbemCimtypeEnum }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ISWbemQualifierSet.ahk" { ISWbemQualifierSet }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ISWbemQualifierSet.ahk" { ISWbemQualifierSet }
+#Import ".\WbemCimtypeEnum.ahk" { WbemCimtypeEnum }
 
 /**
  * @namespace Windows.Win32.System.Wmi

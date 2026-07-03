@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\PCLUSTER_UPGRADE_PROGRESS_CALLBACK.ahk" { PCLUSTER_UPGRADE_PROGRESS_CALLBACK }
 #Import ".\HCLUSTER.ahk" { HCLUSTER }
 
 /**
@@ -31,7 +30,7 @@ export default struct PCLUSAPI_CLUSTER_UPGRADE {
     Call(_hCluster, perform, pfnProgressCallback, pvCallbackArg) {
         pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
 
-        result := DllCall(this.value, HCLUSTER, _hCluster, BOOL, perform, PCLUSTER_UPGRADE_PROGRESS_CALLBACK, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, UInt32)
+        result := DllCall(this.value, HCLUSTER, _hCluster, BOOL, perform, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, UInt32)
         return result
     }
 
@@ -42,19 +41,15 @@ export default struct PCLUSAPI_CLUSTER_UPGRADE {
     struct From extends PCLUSAPI_CLUSTER_UPGRADE {
         /**
          * Creates a PCLUSAPI_CLUSTER_UPGRADE pointer that invokes the given AHK function when called.
-         * @param {Func(HCLUSTER, BOOL, PCLUSTER_UPGRADE_PROGRESS_CALLBACK, "ptr") => UInt32} fn the function to invoke.
+         * @param {Func(HCLUSTER, BOOL, "ptr", "ptr") => UInt32} fn the function to invoke.
          */
         __New(fn) {
             if (!HasMethod(fn, , 4)) {
                 throw MethodError("Object of type " Type(fn) " is not callable with 4 parameters.", -1, fn)
             }
-            this.value := CallbackCreate(fn, , [HCLUSTER, BOOL, PCLUSTER_UPGRADE_PROGRESS_CALLBACK, "ptr", UInt32])
+            this.value := CallbackCreate(fn, , [HCLUSTER, BOOL, "ptr", "ptr", UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

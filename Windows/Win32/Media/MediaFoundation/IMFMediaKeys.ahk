@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFCdmSuspendNotify.ahk" { IMFCdmSuspendNotify }
-#Import ".\IMFMediaKeySessionNotify.ahk" { IMFMediaKeySessionNotify }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFCdmSuspendNotify.ahk" { IMFCdmSuspendNotify }
 #Import ".\IMFMediaKeySession.ahk" { IMFMediaKeySession }
+#Import ".\IMFMediaKeySessionNotify.ahk" { IMFMediaKeySessionNotify }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a media keys used for decrypting media data using a Digital Rights Management (DRM) key system.

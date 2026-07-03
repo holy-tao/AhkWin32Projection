@@ -49,10 +49,6 @@ export default struct PACQUIRE_FOR_LAZY_WRITE_EX {
             this.value := CallbackCreate(fn, , ["ptr", UInt32, "uint*", BOOLEAN])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

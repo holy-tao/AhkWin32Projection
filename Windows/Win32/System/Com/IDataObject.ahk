@@ -2,13 +2,13 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FORMATETC.ahk" { FORMATETC }
+#Import ".\IAdviseSink.ahk" { IAdviseSink }
 #Import ".\IEnumFORMATETC.ahk" { IEnumFORMATETC }
+#Import ".\IEnumSTATDATA.ahk" { IEnumSTATDATA }
 #Import ".\IUnknown.ahk" { IUnknown }
 #Import ".\STGMEDIUM.ahk" { STGMEDIUM }
-#Import ".\IEnumSTATDATA.ahk" { IEnumSTATDATA }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IAdviseSink.ahk" { IAdviseSink }
-#Import ".\FORMATETC.ahk" { FORMATETC }
 
 /**
  * Enables data transfer and notification of changes in data.

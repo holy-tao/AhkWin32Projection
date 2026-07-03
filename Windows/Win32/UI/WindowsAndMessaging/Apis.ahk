@@ -1,121 +1,111 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\MrmResourceIndexerMessage.ahk" { MrmResourceIndexerMessage }
-#Import "..\..\Graphics\Gdi\HRGN.ahk" { HRGN }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\GDI_IMAGE_TYPE.ahk" { GDI_IMAGE_TYPE }
-#Import ".\SYSTEM_METRICS_INDEX.ahk" { SYSTEM_METRICS_INDEX }
-#Import ".\GET_CLASS_LONG_INDEX.ahk" { GET_CLASS_LONG_INDEX }
-#Import ".\MENU_ITEM_FLAGS.ahk" { MENU_ITEM_FLAGS }
-#Import ".\MOVESIZE_OPERATION.ahk" { MOVESIZE_OPERATION }
-#Import ".\WINDOWINFO.ahk" { WINDOWINFO }
-#Import ".\PROPENUMPROCEXW.ahk" { PROPENUMPROCEXW }
-#Import ".\SENDASYNCPROC.ahk" { SENDASYNCPROC }
-#Import ".\WINDOW_EX_STYLE.ahk" { WINDOW_EX_STYLE }
-#Import ".\PEEK_MESSAGE_REMOVE_TYPE.ahk" { PEEK_MESSAGE_REMOVE_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Graphics\Gdi\BLENDFUNCTION.ahk" { BLENDFUNCTION }
-#Import ".\GUITHREADINFO.ahk" { GUITHREADINFO }
-#Import ".\ICONINFO.ahk" { ICONINFO }
-#Import ".\HCURSOR.ahk" { HCURSOR }
-#Import ".\SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS.ahk" { SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS }
-#Import ".\FLASHWINFO.ahk" { FLASHWINFO }
-#Import ".\MSG.ahk" { MSG }
-#Import ".\PROPENUMPROCW.ahk" { PROPENUMPROCW }
-#Import ".\CASCADE_WINDOWS_HOW.ahk" { CASCADE_WINDOWS_HOW }
-#Import ".\MENUITEMINFOA.ahk" { MENUITEMINFOA }
-#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
-#Import ".\REGISTER_NOTIFICATION_FLAGS.ahk" { REGISTER_NOTIFICATION_FLAGS }
-#Import ".\HDEVNOTIFY.ahk" { HDEVNOTIFY }
-#Import ".\SCROLL_WINDOW_FLAGS.ahk" { SCROLL_WINDOW_FLAGS }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\TOOLTIP_DISMISS_FLAGS.ahk" { TOOLTIP_DISMISS_FLAGS }
-#Import ".\UPDATE_LAYERED_WINDOW_FLAGS.ahk" { UPDATE_LAYERED_WINDOW_FLAGS }
-#Import ".\DLGTEMPLATE.ahk" { DLGTEMPLATE }
-#Import ".\HACCEL.ahk" { HACCEL }
-#Import ".\HDWP.ahk" { HDWP }
-#Import ".\SYSTEM_CURSOR_ID.ahk" { SYSTEM_CURSOR_ID }
-#Import ".\WINDOW_MESSAGE_FILTER_ACTION.ahk" { WINDOW_MESSAGE_FILTER_ACTION }
-#Import ".\CWP_FLAGS.ahk" { CWP_FLAGS }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import ".\TRACK_POPUP_MENU_FLAGS.ahk" { TRACK_POPUP_MENU_FLAGS }
-#Import ".\PROPENUMPROCEXA.ahk" { PROPENUMPROCEXA }
-#Import ".\CHANGE_WINDOW_MESSAGE_FILTER_FLAGS.ahk" { CHANGE_WINDOW_MESSAGE_FILTER_FLAGS }
-#Import ".\MrmPackagingMode.ahk" { MrmPackagingMode }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\TIMERPROC.ahk" { TIMERPROC }
-#Import ".\WINDOWS_HOOK_ID.ahk" { WINDOWS_HOOK_ID }
-#Import ".\IMAGE_FLAGS.ahk" { IMAGE_FLAGS }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\MSGBOXPARAMSA.ahk" { MSGBOXPARAMSA }
-#Import ".\MENUITEMINFOW.ahk" { MENUITEMINFOW }
-#Import ".\MrmDumpType.ahk" { MrmDumpType }
-#Import ".\MrmResourceIndexerHandle.ahk" { MrmResourceIndexerHandle }
-#Import ".\SET_WINDOW_POS_FLAGS.ahk" { SET_WINDOW_POS_FLAGS }
-#Import ".\WNDENUMPROC.ahk" { WNDENUMPROC }
-#Import ".\SHOW_WINDOW_CMD.ahk" { SHOW_WINDOW_CMD }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Foundation\WAIT_EVENT.ahk" { WAIT_EVENT }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\Graphics\Gdi\BLENDFUNCTION.ahk" { BLENDFUNCTION }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\Graphics\Gdi\HBRUSH.ahk" { HBRUSH }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Graphics\Gdi\HRGN.ahk" { HRGN }
+#Import ".\ACCEL.ahk" { ACCEL }
+#Import ".\ALTTABINFO.ahk" { ALTTABINFO }
+#Import ".\ANIMATE_WINDOW_FLAGS.ahk" { ANIMATE_WINDOW_FLAGS }
+#Import ".\CASCADE_WINDOWS_HOW.ahk" { CASCADE_WINDOWS_HOW }
+#Import ".\CHANGEFILTERSTRUCT.ahk" { CHANGEFILTERSTRUCT }
+#Import ".\CHANGE_WINDOW_MESSAGE_FILTER_FLAGS.ahk" { CHANGE_WINDOW_MESSAGE_FILTER_FLAGS }
+#Import ".\CURSORINFO.ahk" { CURSORINFO }
+#Import ".\CWP_FLAGS.ahk" { CWP_FLAGS }
+#Import ".\DI_FLAGS.ahk" { DI_FLAGS }
+#Import ".\DLGTEMPLATE.ahk" { DLGTEMPLATE }
+#Import ".\FLASHWINFO.ahk" { FLASHWINFO }
+#Import ".\FOREGROUND_WINDOW_LOCK_CODE.ahk" { FOREGROUND_WINDOW_LOCK_CODE }
+#Import ".\GDI_IMAGE_TYPE.ahk" { GDI_IMAGE_TYPE }
+#Import ".\GET_ANCESTOR_FLAGS.ahk" { GET_ANCESTOR_FLAGS }
+#Import ".\GET_CLASS_LONG_INDEX.ahk" { GET_CLASS_LONG_INDEX }
+#Import ".\GET_MENU_DEFAULT_ITEM_FLAGS.ahk" { GET_MENU_DEFAULT_ITEM_FLAGS }
+#Import ".\GET_WINDOW_CMD.ahk" { GET_WINDOW_CMD }
+#Import ".\GUITHREADINFO.ahk" { GUITHREADINFO }
+#Import ".\HACCEL.ahk" { HACCEL }
+#Import ".\HCURSOR.ahk" { HCURSOR }
+#Import ".\HDEVNOTIFY.ahk" { HDEVNOTIFY }
+#Import ".\HDWP.ahk" { HDWP }
+#Import ".\HHOOK.ahk" { HHOOK }
+#Import ".\HICON.ahk" { HICON }
+#Import ".\HMENU.ahk" { HMENU }
+#Import ".\ICONINFO.ahk" { ICONINFO }
+#Import ".\ICONINFOEXA.ahk" { ICONINFOEXA }
+#Import ".\ICONINFOEXW.ahk" { ICONINFOEXW }
+#Import ".\IMAGE_FLAGS.ahk" { IMAGE_FLAGS }
+#Import ".\IndexedResourceQualifier.ahk" { IndexedResourceQualifier }
+#Import ".\LAYERED_WINDOW_ATTRIBUTES_FLAGS.ahk" { LAYERED_WINDOW_ATTRIBUTES_FLAGS }
+#Import ".\MENUBARINFO.ahk" { MENUBARINFO }
 #Import ".\MENUINFO.ahk" { MENUINFO }
+#Import ".\MENUITEMINFOA.ahk" { MENUITEMINFOA }
+#Import ".\MENUITEMINFOW.ahk" { MENUITEMINFOW }
+#Import ".\MENU_ITEM_FLAGS.ahk" { MENU_ITEM_FLAGS }
+#Import ".\MESSAGEBOX_RESULT.ahk" { MESSAGEBOX_RESULT }
+#Import ".\MESSAGEBOX_STYLE.ahk" { MESSAGEBOX_STYLE }
+#Import ".\MOVESIZE_OPERATION.ahk" { MOVESIZE_OPERATION }
+#Import ".\MSG.ahk" { MSG }
+#Import ".\MSGBOXPARAMSA.ahk" { MSGBOXPARAMSA }
+#Import ".\MSGBOXPARAMSW.ahk" { MSGBOXPARAMSW }
+#Import ".\MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS.ahk" { MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS }
+#Import ".\MrmDumpType.ahk" { MrmDumpType }
+#Import ".\MrmIndexerFlags.ahk" { MrmIndexerFlags }
+#Import ".\MrmPackagingMode.ahk" { MrmPackagingMode }
+#Import ".\MrmPackagingOptions.ahk" { MrmPackagingOptions }
+#Import ".\MrmPlatformVersion.ahk" { MrmPlatformVersion }
+#Import ".\MrmResourceIndexerHandle.ahk" { MrmResourceIndexerHandle }
+#Import ".\MrmResourceIndexerMessage.ahk" { MrmResourceIndexerMessage }
+#Import ".\OBJECT_IDENTIFIER.ahk" { OBJECT_IDENTIFIER }
+#Import ".\PEEK_MESSAGE_REMOVE_TYPE.ahk" { PEEK_MESSAGE_REMOVE_TYPE }
+#Import ".\QUEUE_STATUS_FLAGS.ahk" { QUEUE_STATUS_FLAGS }
+#Import ".\REGISTER_NOTIFICATION_FLAGS.ahk" { REGISTER_NOTIFICATION_FLAGS }
 #Import ".\SCROLLBARINFO.ahk" { SCROLLBARINFO }
 #Import ".\SCROLLBAR_CONSTANTS.ahk" { SCROLLBAR_CONSTANTS }
-#Import ".\MENUBARINFO.ahk" { MENUBARINFO }
-#Import ".\QUEUE_STATUS_FLAGS.ahk" { QUEUE_STATUS_FLAGS }
-#Import ".\HHOOK.ahk" { HHOOK }
-#Import ".\MESSAGEBOX_STYLE.ahk" { MESSAGEBOX_STYLE }
-#Import ".\WNDCLASSW.ahk" { WNDCLASSW }
-#Import "..\..\Foundation\CHAR.ahk" { CHAR }
-#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
-#Import ".\MSGBOXPARAMSW.ahk" { MSGBOXPARAMSW }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\HOOKPROC.ahk" { HOOKPROC }
 #Import ".\SCROLLINFO.ahk" { SCROLLINFO }
-#Import ".\MrmPackagingOptions.ahk" { MrmPackagingOptions }
-#Import ".\WINDOW_LONG_PTR_INDEX.ahk" { WINDOW_LONG_PTR_INDEX }
-#Import ".\DI_FLAGS.ahk" { DI_FLAGS }
-#Import ".\DLGPROC.ahk" { DLGPROC }
-#Import ".\PROPENUMPROCA.ahk" { PROPENUMPROCA }
-#Import ".\MrmIndexerFlags.ahk" { MrmIndexerFlags }
-#Import ".\ICONINFOEXW.ahk" { ICONINFOEXW }
-#Import ".\TPMPARAMS.ahk" { TPMPARAMS }
-#Import ".\GET_WINDOW_CMD.ahk" { GET_WINDOW_CMD }
+#Import ".\SCROLL_WINDOW_FLAGS.ahk" { SCROLL_WINDOW_FLAGS }
 #Import ".\SEND_MESSAGE_TIMEOUT_FLAGS.ahk" { SEND_MESSAGE_TIMEOUT_FLAGS }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\OBJECT_IDENTIFIER.ahk" { OBJECT_IDENTIFIER }
-#Import ".\TILE_WINDOWS_HOW.ahk" { TILE_WINDOWS_HOW }
-#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
-#Import ".\ANIMATE_WINDOW_FLAGS.ahk" { ANIMATE_WINDOW_FLAGS }
-#Import ".\GET_MENU_DEFAULT_ITEM_FLAGS.ahk" { GET_MENU_DEFAULT_ITEM_FLAGS }
-#Import ".\WINDOW_STYLE.ahk" { WINDOW_STYLE }
-#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
-#Import "..\..\Foundation\WAIT_EVENT.ahk" { WAIT_EVENT }
-#Import ".\WNDCLASSEXW.ahk" { WNDCLASSEXW }
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
-#Import ".\ICONINFOEXA.ahk" { ICONINFOEXA }
-#Import ".\WNDPROC.ahk" { WNDPROC }
-#Import ".\TITLEBARINFO.ahk" { TITLEBARINFO }
-#Import ".\HMENU.ahk" { HMENU }
-#Import ".\CHANGEFILTERSTRUCT.ahk" { CHANGEFILTERSTRUCT }
-#Import ".\IndexedResourceQualifier.ahk" { IndexedResourceQualifier }
-#Import ".\WINDOW_DISPLAY_AFFINITY.ahk" { WINDOW_DISPLAY_AFFINITY }
-#Import ".\WNDCLASSA.ahk" { WNDCLASSA }
-#Import ".\GET_ANCESTOR_FLAGS.ahk" { GET_ANCESTOR_FLAGS }
-#Import ".\WINDOW_ACTION.ahk" { WINDOW_ACTION }
-#Import ".\WNDCLASSEXA.ahk" { WNDCLASSEXA }
-#Import ".\LAYERED_WINDOW_ATTRIBUTES_FLAGS.ahk" { LAYERED_WINDOW_ATTRIBUTES_FLAGS }
+#Import ".\SET_WINDOW_POS_FLAGS.ahk" { SET_WINDOW_POS_FLAGS }
+#Import ".\SHOW_WINDOW_CMD.ahk" { SHOW_WINDOW_CMD }
+#Import ".\SYSTEM_CURSOR_ID.ahk" { SYSTEM_CURSOR_ID }
+#Import ".\SYSTEM_METRICS_INDEX.ahk" { SYSTEM_METRICS_INDEX }
 #Import ".\SYSTEM_PARAMETERS_INFO_ACTION.ahk" { SYSTEM_PARAMETERS_INFO_ACTION }
-#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
-#Import ".\WINDOWPLACEMENT.ahk" { WINDOWPLACEMENT }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS.ahk" { SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS }
+#Import ".\TILE_WINDOWS_HOW.ahk" { TILE_WINDOWS_HOW }
+#Import ".\TITLEBARINFO.ahk" { TITLEBARINFO }
+#Import ".\TOOLTIP_DISMISS_FLAGS.ahk" { TOOLTIP_DISMISS_FLAGS }
+#Import ".\TPMPARAMS.ahk" { TPMPARAMS }
+#Import ".\TRACK_POPUP_MENU_FLAGS.ahk" { TRACK_POPUP_MENU_FLAGS }
 #Import ".\UPDATELAYEREDWINDOWINFO.ahk" { UPDATELAYEREDWINDOWINFO }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\CURSORINFO.ahk" { CURSORINFO }
-#Import ".\MrmPlatformVersion.ahk" { MrmPlatformVersion }
-#Import ".\ALTTABINFO.ahk" { ALTTABINFO }
-#Import ".\MESSAGEBOX_RESULT.ahk" { MESSAGEBOX_RESULT }
-#Import ".\ACCEL.ahk" { ACCEL }
-#Import ".\MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS.ahk" { MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS }
-#Import "..\..\Graphics\Gdi\HBRUSH.ahk" { HBRUSH }
-#Import ".\FOREGROUND_WINDOW_LOCK_CODE.ahk" { FOREGROUND_WINDOW_LOCK_CODE }
-#Import ".\HICON.ahk" { HICON }
+#Import ".\UPDATE_LAYERED_WINDOW_FLAGS.ahk" { UPDATE_LAYERED_WINDOW_FLAGS }
+#Import ".\WINDOWINFO.ahk" { WINDOWINFO }
+#Import ".\WINDOWPLACEMENT.ahk" { WINDOWPLACEMENT }
+#Import ".\WINDOWS_HOOK_ID.ahk" { WINDOWS_HOOK_ID }
+#Import ".\WINDOW_ACTION.ahk" { WINDOW_ACTION }
+#Import ".\WINDOW_DISPLAY_AFFINITY.ahk" { WINDOW_DISPLAY_AFFINITY }
+#Import ".\WINDOW_EX_STYLE.ahk" { WINDOW_EX_STYLE }
+#Import ".\WINDOW_LONG_PTR_INDEX.ahk" { WINDOW_LONG_PTR_INDEX }
+#Import ".\WINDOW_MESSAGE_FILTER_ACTION.ahk" { WINDOW_MESSAGE_FILTER_ACTION }
+#Import ".\WINDOW_STYLE.ahk" { WINDOW_STYLE }
+#Import ".\WNDCLASSA.ahk" { WNDCLASSA }
+#Import ".\WNDCLASSEXA.ahk" { WNDCLASSEXA }
+#Import ".\WNDCLASSEXW.ahk" { WNDCLASSEXW }
+#Import ".\WNDCLASSW.ahk" { WNDCLASSW }
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
@@ -2021,7 +2011,7 @@ export SendNotifyMessageW(_hWnd, _Msg, _wParam, _lParam) {
 export SendMessageCallbackA(_hWnd, _Msg, _wParam, _lParam, lpResultCallBack, dwData) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SendMessageCallbackA", HWND, _hWnd, UInt32, _Msg, WPARAM, _wParam, LPARAM, _lParam, SENDASYNCPROC, lpResultCallBack, IntPtr, dwData, BOOL)
+    result := DllCall("USER32.dll\SendMessageCallbackA", HWND, _hWnd, UInt32, _Msg, WPARAM, _wParam, LPARAM, _lParam, "ptr", lpResultCallBack, IntPtr, dwData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2081,7 +2071,7 @@ export SendMessageCallbackA(_hWnd, _Msg, _wParam, _lParam, lpResultCallBack, dwD
 export SendMessageCallbackW(_hWnd, _Msg, _wParam, _lParam, lpResultCallBack, dwData) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SendMessageCallbackW", HWND, _hWnd, UInt32, _Msg, WPARAM, _wParam, LPARAM, _lParam, SENDASYNCPROC, lpResultCallBack, IntPtr, dwData, BOOL)
+    result := DllCall("USER32.dll\SendMessageCallbackW", HWND, _hWnd, UInt32, _Msg, WPARAM, _wParam, LPARAM, _lParam, "ptr", lpResultCallBack, IntPtr, dwData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2796,7 +2786,7 @@ export PostQuitMessage(nExitCode) {
  * @since windows5.0
  */
 export CallWindowProcA(lpPrevWndFunc, _hWnd, _Msg, _wParam, _lParam) {
-    result := DllCall("USER32.dll\CallWindowProcA", WNDPROC, lpPrevWndFunc, HWND, _hWnd, UInt32, _Msg, WPARAM, _wParam, LPARAM, _lParam, LRESULT)
+    result := DllCall("USER32.dll\CallWindowProcA", "ptr", lpPrevWndFunc, HWND, _hWnd, UInt32, _Msg, WPARAM, _wParam, LPARAM, _lParam, LRESULT)
     return result
 }
 
@@ -2847,7 +2837,7 @@ export CallWindowProcA(lpPrevWndFunc, _hWnd, _Msg, _wParam, _lParam) {
  * @since windows5.0
  */
 export CallWindowProcW(lpPrevWndFunc, _hWnd, _Msg, _wParam, _lParam) {
-    result := DllCall("USER32.dll\CallWindowProcW", WNDPROC, lpPrevWndFunc, HWND, _hWnd, UInt32, _Msg, WPARAM, _wParam, LPARAM, _lParam, LRESULT)
+    result := DllCall("USER32.dll\CallWindowProcW", "ptr", lpPrevWndFunc, HWND, _hWnd, UInt32, _Msg, WPARAM, _wParam, LPARAM, _lParam, LRESULT)
     return result
 }
 
@@ -4636,7 +4626,7 @@ export CreateDialogParamA(_hInstance, lpTemplateName, hWndParent, lpDialogFunc, 
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\CreateDialogParamA", HINSTANCE, _hInstance, "ptr", lpTemplateName, HWND, hWndParent, DLGPROC, lpDialogFunc, LPARAM, dwInitParam, HWND)
+    result := DllCall("USER32.dll\CreateDialogParamA", HINSTANCE, _hInstance, "ptr", lpTemplateName, HWND, hWndParent, "ptr", lpDialogFunc, LPARAM, dwInitParam, HWND)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4685,7 +4675,7 @@ export CreateDialogParamW(_hInstance, lpTemplateName, hWndParent, lpDialogFunc, 
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\CreateDialogParamW", HINSTANCE, _hInstance, "ptr", lpTemplateName, HWND, hWndParent, DLGPROC, lpDialogFunc, LPARAM, dwInitParam, HWND)
+    result := DllCall("USER32.dll\CreateDialogParamW", HINSTANCE, _hInstance, "ptr", lpTemplateName, HWND, hWndParent, "ptr", lpDialogFunc, LPARAM, dwInitParam, HWND)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4745,7 +4735,7 @@ export CreateDialogParamW(_hInstance, lpTemplateName, hWndParent, lpDialogFunc, 
 export CreateDialogIndirectParamA(_hInstance, lpTemplate, hWndParent, lpDialogFunc, dwInitParam) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\CreateDialogIndirectParamA", HINSTANCE, _hInstance, DLGTEMPLATE.Ptr, lpTemplate, HWND, hWndParent, DLGPROC, lpDialogFunc, LPARAM, dwInitParam, HWND)
+    result := DllCall("USER32.dll\CreateDialogIndirectParamA", HINSTANCE, _hInstance, DLGTEMPLATE.Ptr, lpTemplate, HWND, hWndParent, "ptr", lpDialogFunc, LPARAM, dwInitParam, HWND)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4805,7 +4795,7 @@ export CreateDialogIndirectParamA(_hInstance, lpTemplate, hWndParent, lpDialogFu
 export CreateDialogIndirectParamW(_hInstance, lpTemplate, hWndParent, lpDialogFunc, dwInitParam) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\CreateDialogIndirectParamW", HINSTANCE, _hInstance, DLGTEMPLATE.Ptr, lpTemplate, HWND, hWndParent, DLGPROC, lpDialogFunc, LPARAM, dwInitParam, HWND)
+    result := DllCall("USER32.dll\CreateDialogIndirectParamW", HINSTANCE, _hInstance, DLGTEMPLATE.Ptr, lpTemplate, HWND, hWndParent, "ptr", lpDialogFunc, LPARAM, dwInitParam, HWND)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4854,7 +4844,7 @@ export DialogBoxParamA(_hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwI
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\DialogBoxParamA", HINSTANCE, _hInstance, "ptr", lpTemplateName, HWND, hWndParent, DLGPROC, lpDialogFunc, LPARAM, dwInitParam, IntPtr)
+    result := DllCall("USER32.dll\DialogBoxParamA", HINSTANCE, _hInstance, "ptr", lpTemplateName, HWND, hWndParent, "ptr", lpDialogFunc, LPARAM, dwInitParam, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4903,7 +4893,7 @@ export DialogBoxParamW(_hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwI
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\DialogBoxParamW", HINSTANCE, _hInstance, "ptr", lpTemplateName, HWND, hWndParent, DLGPROC, lpDialogFunc, LPARAM, dwInitParam, IntPtr)
+    result := DllCall("USER32.dll\DialogBoxParamW", HINSTANCE, _hInstance, "ptr", lpTemplateName, HWND, hWndParent, "ptr", lpDialogFunc, LPARAM, dwInitParam, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4961,7 +4951,7 @@ export DialogBoxParamW(_hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwI
 export DialogBoxIndirectParamA(_hInstance, hDialogTemplate, hWndParent, lpDialogFunc, dwInitParam) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\DialogBoxIndirectParamA", HINSTANCE, _hInstance, DLGTEMPLATE.Ptr, hDialogTemplate, HWND, hWndParent, DLGPROC, lpDialogFunc, LPARAM, dwInitParam, IntPtr)
+    result := DllCall("USER32.dll\DialogBoxIndirectParamA", HINSTANCE, _hInstance, DLGTEMPLATE.Ptr, hDialogTemplate, HWND, hWndParent, "ptr", lpDialogFunc, LPARAM, dwInitParam, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5019,7 +5009,7 @@ export DialogBoxIndirectParamA(_hInstance, hDialogTemplate, hWndParent, lpDialog
 export DialogBoxIndirectParamW(_hInstance, hDialogTemplate, hWndParent, lpDialogFunc, dwInitParam) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\DialogBoxIndirectParamW", HINSTANCE, _hInstance, DLGTEMPLATE.Ptr, hDialogTemplate, HWND, hWndParent, DLGPROC, lpDialogFunc, LPARAM, dwInitParam, IntPtr)
+    result := DllCall("USER32.dll\DialogBoxIndirectParamW", HINSTANCE, _hInstance, DLGTEMPLATE.Ptr, hDialogTemplate, HWND, hWndParent, "ptr", lpDialogFunc, LPARAM, dwInitParam, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7140,7 +7130,7 @@ export MsgWaitForMultipleObjectsEx(nCount, pHandles, dwMilliseconds, dwWakeMask,
 export SetTimer(_hWnd, nIDEvent, uElapse, lpTimerFunc) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SetTimer", HWND, _hWnd, IntPtr, nIDEvent, UInt32, uElapse, TIMERPROC, lpTimerFunc, IntPtr)
+    result := DllCall("USER32.dll\SetTimer", HWND, _hWnd, IntPtr, nIDEvent, UInt32, uElapse, "ptr", lpTimerFunc, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7194,7 +7184,7 @@ export SetTimer(_hWnd, nIDEvent, uElapse, lpTimerFunc) {
 export SetCoalescableTimer(_hWnd, nIDEvent, uElapse, lpTimerFunc, uToleranceDelay) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SetCoalescableTimer", HWND, _hWnd, IntPtr, nIDEvent, UInt32, uElapse, TIMERPROC, lpTimerFunc, UInt32, uToleranceDelay, IntPtr)
+    result := DllCall("USER32.dll\SetCoalescableTimer", HWND, _hWnd, IntPtr, nIDEvent, UInt32, uElapse, "ptr", lpTimerFunc, UInt32, uToleranceDelay, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11245,7 +11235,7 @@ export RemovePropW(_hWnd, lpString) {
  * @since windows5.0
  */
 export EnumPropsExA(_hWnd, lpEnumFunc, _lParam) {
-    result := DllCall("USER32.dll\EnumPropsExA", HWND, _hWnd, PROPENUMPROCEXA, lpEnumFunc, LPARAM, _lParam, Int32)
+    result := DllCall("USER32.dll\EnumPropsExA", HWND, _hWnd, "ptr", lpEnumFunc, LPARAM, _lParam, Int32)
     return result
 }
 
@@ -11269,7 +11259,7 @@ export EnumPropsExA(_hWnd, lpEnumFunc, _lParam) {
  * @since windows5.0
  */
 export EnumPropsExW(_hWnd, lpEnumFunc, _lParam) {
-    result := DllCall("USER32.dll\EnumPropsExW", HWND, _hWnd, PROPENUMPROCEXW, lpEnumFunc, LPARAM, _lParam, Int32)
+    result := DllCall("USER32.dll\EnumPropsExW", HWND, _hWnd, "ptr", lpEnumFunc, LPARAM, _lParam, Int32)
     return result
 }
 
@@ -11297,7 +11287,7 @@ export EnumPropsExW(_hWnd, lpEnumFunc, _lParam) {
  * @since windows5.0
  */
 export EnumPropsA(_hWnd, lpEnumFunc) {
-    result := DllCall("USER32.dll\EnumPropsA", HWND, _hWnd, PROPENUMPROCA, lpEnumFunc, Int32)
+    result := DllCall("USER32.dll\EnumPropsA", HWND, _hWnd, "ptr", lpEnumFunc, Int32)
     return result
 }
 
@@ -11325,7 +11315,7 @@ export EnumPropsA(_hWnd, lpEnumFunc) {
  * @since windows5.0
  */
 export EnumPropsW(_hWnd, lpEnumFunc) {
-    result := DllCall("USER32.dll\EnumPropsW", HWND, _hWnd, PROPENUMPROCW, lpEnumFunc, Int32)
+    result := DllCall("USER32.dll\EnumPropsW", HWND, _hWnd, "ptr", lpEnumFunc, Int32)
     return result
 }
 
@@ -14059,7 +14049,7 @@ export SetParent(hWndChild, hWndNewParent) {
  * @since windows5.0
  */
 export EnumChildWindows(hWndParent, lpEnumFunc, _lParam) {
-    result := DllCall("USER32.dll\EnumChildWindows", HWND, hWndParent, WNDENUMPROC, lpEnumFunc, LPARAM, _lParam, BOOL)
+    result := DllCall("USER32.dll\EnumChildWindows", HWND, hWndParent, "ptr", lpEnumFunc, LPARAM, _lParam, BOOL)
     return result
 }
 
@@ -14415,7 +14405,7 @@ export DeregisterShellHookWindow(_hwnd) {
 export EnumWindows(lpEnumFunc, _lParam) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\EnumWindows", WNDENUMPROC, lpEnumFunc, LPARAM, _lParam, BOOL)
+    result := DllCall("USER32.dll\EnumWindows", "ptr", lpEnumFunc, LPARAM, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14441,7 +14431,7 @@ export EnumWindows(lpEnumFunc, _lParam) {
  * @since windows5.0
  */
 export EnumThreadWindows(dwThreadId, lpfn, _lParam) {
-    result := DllCall("USER32.dll\EnumThreadWindows", UInt32, dwThreadId, WNDENUMPROC, lpfn, LPARAM, _lParam, BOOL)
+    result := DllCall("USER32.dll\EnumThreadWindows", UInt32, dwThreadId, "ptr", lpfn, LPARAM, _lParam, BOOL)
     return result
 }
 
@@ -14638,7 +14628,7 @@ export GetWindow(_hWnd, uCmd) {
  * @returns {HHOOK} 
  */
 export SetWindowsHookA(nFilterType, pfnFilterProc) {
-    result := DllCall("USER32.dll\SetWindowsHookA", Int32, nFilterType, HOOKPROC, pfnFilterProc, HHOOK.Owned)
+    result := DllCall("USER32.dll\SetWindowsHookA", Int32, nFilterType, "ptr", pfnFilterProc, HHOOK.Owned)
     return result
 }
 
@@ -14649,7 +14639,7 @@ export SetWindowsHookA(nFilterType, pfnFilterProc) {
  * @returns {HHOOK} 
  */
 export SetWindowsHookW(nFilterType, pfnFilterProc) {
-    result := DllCall("USER32.dll\SetWindowsHookW", Int32, nFilterType, HOOKPROC, pfnFilterProc, HHOOK.Owned)
+    result := DllCall("USER32.dll\SetWindowsHookW", Int32, nFilterType, "ptr", pfnFilterProc, HHOOK.Owned)
     return result
 }
 
@@ -14660,7 +14650,7 @@ export SetWindowsHookW(nFilterType, pfnFilterProc) {
  * @returns {BOOL} 
  */
 export UnhookWindowsHook(nCode, pfnFilterProc) {
-    result := DllCall("USER32.dll\UnhookWindowsHook", Int32, nCode, HOOKPROC, pfnFilterProc, BOOL)
+    result := DllCall("USER32.dll\UnhookWindowsHook", Int32, nCode, "ptr", pfnFilterProc, BOOL)
     return result
 }
 
@@ -14803,7 +14793,7 @@ export UnhookWindowsHook(nCode, pfnFilterProc) {
 export SetWindowsHookExA(idHook, lpfn, hmod, dwThreadId) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SetWindowsHookExA", WINDOWS_HOOK_ID, idHook, HOOKPROC, lpfn, HINSTANCE, hmod, UInt32, dwThreadId, HHOOK.Owned)
+    result := DllCall("USER32.dll\SetWindowsHookExA", WINDOWS_HOOK_ID, idHook, "ptr", lpfn, HINSTANCE, hmod, UInt32, dwThreadId, HHOOK.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14950,7 +14940,7 @@ export SetWindowsHookExA(idHook, lpfn, hmod, dwThreadId) {
 export SetWindowsHookExW(idHook, lpfn, hmod, dwThreadId) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SetWindowsHookExW", WINDOWS_HOOK_ID, idHook, HOOKPROC, lpfn, HINSTANCE, hmod, UInt32, dwThreadId, HHOOK.Owned)
+    result := DllCall("USER32.dll\SetWindowsHookExW", WINDOWS_HOOK_ID, idHook, "ptr", lpfn, HINSTANCE, hmod, UInt32, dwThreadId, HHOOK.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }

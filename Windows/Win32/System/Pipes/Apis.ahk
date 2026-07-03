@@ -1,13 +1,13 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\NAMED_PIPE_MODE.ahk" { NAMED_PIPE_MODE }
-#Import "..\..\Storage\FileSystem\FILE_FLAGS_AND_ATTRIBUTES.ahk" { FILE_FLAGS_AND_ATTRIBUTES }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\IO\OVERLAPPED.ahk" { OVERLAPPED }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import "..\..\Storage\FileSystem\FILE_FLAGS_AND_ATTRIBUTES.ahk" { FILE_FLAGS_AND_ATTRIBUTES }
+#Import "..\IO\OVERLAPPED.ahk" { OVERLAPPED }
+#Import ".\NAMED_PIPE_MODE.ahk" { NAMED_PIPE_MODE }
 
 /**
  * @namespace Windows.Win32.System.Pipes

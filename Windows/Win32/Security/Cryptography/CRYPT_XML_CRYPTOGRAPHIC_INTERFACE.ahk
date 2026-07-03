@@ -1,12 +1,4 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CryptXmlDllDigestData.ahk" { CryptXmlDllDigestData }
-#Import ".\CryptXmlDllCloseDigest.ahk" { CryptXmlDllCloseDigest }
-#Import ".\CryptXmlDllFinalizeDigest.ahk" { CryptXmlDllFinalizeDigest }
-#Import ".\CryptXmlDllEncodeAlgorithm.ahk" { CryptXmlDllEncodeAlgorithm }
-#Import ".\CryptXmlDllVerifySignature.ahk" { CryptXmlDllVerifySignature }
-#Import ".\CryptXmlDllSignData.ahk" { CryptXmlDllSignData }
-#Import ".\CryptXmlDllCreateDigest.ahk" { CryptXmlDllCreateDigest }
-#Import ".\CryptXmlDllGetAlgorithmInfo.ahk" { CryptXmlDllGetAlgorithmInfo }
 
 /**
  * Exposes the implemented CryptXML functions.
@@ -24,41 +16,41 @@ export default struct CRYPT_XML_CRYPTOGRAPHIC_INTERFACE {
     /**
      * A pointer to the implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nc-cryptxml-cryptxmldllencodealgorithm">CryptXmlDllEncodeAlgorithm</a> function.
      */
-    fpCryptXmlEncodeAlgorithm : CryptXmlDllEncodeAlgorithm
+    fpCryptXmlEncodeAlgorithm : IntPtr
 
     /**
      * A pointer to the implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nc-cryptxml-cryptxmldllcreatedigest">CryptXmlDllCreateDigest</a> function.
      */
-    fpCryptXmlCreateDigest : CryptXmlDllCreateDigest
+    fpCryptXmlCreateDigest : IntPtr
 
     /**
      * A pointer to the implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nc-cryptxml-cryptxmldlldigestdata">CryptXmlDllDigestData</a> function.
      */
-    fpCryptXmlDigestData : CryptXmlDllDigestData
+    fpCryptXmlDigestData : IntPtr
 
     /**
      * A pointer to the implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nc-cryptxml-cryptxmldllfinalizedigest">CryptXmlDllFinalizeDigest</a> function.
      */
-    fpCryptXmlFinalizeDigest : CryptXmlDllFinalizeDigest
+    fpCryptXmlFinalizeDigest : IntPtr
 
     /**
      * A pointer to the implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nc-cryptxml-cryptxmldllclosedigest">CryptXmlDllCloseDigest</a> function.
      */
-    fpCryptXmlCloseDigest : CryptXmlDllCloseDigest
+    fpCryptXmlCloseDigest : IntPtr
 
     /**
      * A pointer to the implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nc-cryptxml-cryptxmldllsigndata">CryptXmlDllSignData</a> function.
      */
-    fpCryptXmlSignData : CryptXmlDllSignData
+    fpCryptXmlSignData : IntPtr
 
     /**
      * A pointer to the implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nc-cryptxml-cryptxmldllverifysignature">CryptXmlDllVerifySignature</a> function.
      */
-    fpCryptXmlVerifySignature : CryptXmlDllVerifySignature
+    fpCryptXmlVerifySignature : IntPtr
 
     /**
      * A pointer to the implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nc-cryptxml-cryptxmldllgetalgorithminfo">CryptXmlDllGetAlgorithmInfo</a> function.
      */
-    fpCryptXmlGetAlgorithmInfo : CryptXmlDllGetAlgorithmInfo
+    fpCryptXmlGetAlgorithmInfo : IntPtr
 
 }

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IAMTuner.ahk" { IAMTuner }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAMTuner.ahk" { IAMTuner }
 
 /**
  * Note  This interface is not implemented and has been deprecated. The IBPCSatelliteTuner interface supports satellite television tuning.

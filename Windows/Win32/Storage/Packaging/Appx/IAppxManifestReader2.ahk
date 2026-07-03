@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IAppxManifestReader.ahk" { IAppxManifestReader }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IAppxManifestQualifiedResourcesEnumerator.ahk" { IAppxManifestQualifiedResourcesEnumerator }
+#Import ".\IAppxManifestReader.ahk" { IAppxManifestReader }
 
 /**
  * Represents an object model of the package manifest that provides methods to access manifest elements and attributes. (IAppxManifestReader2)

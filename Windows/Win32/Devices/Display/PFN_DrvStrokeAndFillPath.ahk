@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CLIPOBJ.ahk" { CLIPOBJ }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\LINEATTRS.ahk" { LINEATTRS }
-#Import ".\SURFOBJ.ahk" { SURFOBJ }
 #Import ".\BRUSHOBJ.ahk" { BRUSHOBJ }
-#Import ".\XFORMOBJ.ahk" { XFORMOBJ }
+#Import ".\CLIPOBJ.ahk" { CLIPOBJ }
+#Import ".\LINEATTRS.ahk" { LINEATTRS }
 #Import ".\PATHOBJ.ahk" { PATHOBJ }
+#Import ".\SURFOBJ.ahk" { SURFOBJ }
+#Import ".\XFORMOBJ.ahk" { XFORMOBJ }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\POINTL.ahk" { POINTL }
 
 /**
@@ -60,10 +60,6 @@ export default struct PFN_DrvStrokeAndFillPath {
             this.value := CallbackCreate(fn, , [SURFOBJ.Ptr, PATHOBJ.Ptr, CLIPOBJ.Ptr, XFORMOBJ.Ptr, BRUSHOBJ.Ptr, LINEATTRS.Ptr, BRUSHOBJ.Ptr, POINTL.Ptr, UInt32, UInt32, BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

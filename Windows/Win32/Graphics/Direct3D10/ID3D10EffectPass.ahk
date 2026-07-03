@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D10_PASS_SHADER_DESC.ahk" { D3D10_PASS_SHADER_DESC }
-#Import ".\ID3D10EffectVariable.ahk" { ID3D10EffectVariable }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\D3D10_PASS_DESC.ahk" { D3D10_PASS_DESC }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D10_PASS_SHADER_DESC.ahk" { D3D10_PASS_SHADER_DESC }
 #Import ".\D3D10_STATE_BLOCK_MASK.ahk" { D3D10_STATE_BLOCK_MASK }
+#Import ".\ID3D10EffectVariable.ahk" { ID3D10EffectVariable }
 
 /**
  * A pass interface encapsulates state assignments within a technique.

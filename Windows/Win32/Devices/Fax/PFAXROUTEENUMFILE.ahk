@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The FaxRouteEnumFile callback function receives the file names in the fax file list associated with a received fax document.
@@ -72,10 +72,6 @@ export default struct PFAXROUTEENUMFILE {
             this.value := CallbackCreate(fn, , [UInt32, Guid.Ptr, Guid.Ptr, PWSTR, "ptr", BOOL])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SBinaryArray.ahk" { SBinaryArray }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ADRLIST.ahk" { ADRLIST }
 #Import ".\FlagList.ahk" { FlagList }
 #Import ".\IMAPIContainer.ahk" { IMAPIContainer }
-#Import ".\ADRLIST.ahk" { ADRLIST }
-#Import ".\IMAPIProp.ahk" { IMAPIProp }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SPropTagArray.ahk" { SPropTagArray }
 #Import ".\IMAPIProgress.ahk" { IMAPIProgress }
+#Import ".\IMAPIProp.ahk" { IMAPIProp }
+#Import ".\SBinaryArray.ahk" { SBinaryArray }
+#Import ".\SPropTagArray.ahk" { SPropTagArray }
 
 /**
  * Do not use. This interface provides access to address book containers. Applications call the methods of the interface to perform name resolution and to create, copy, and delete recipients.

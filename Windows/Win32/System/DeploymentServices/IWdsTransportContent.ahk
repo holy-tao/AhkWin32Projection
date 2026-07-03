@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWdsTransportNamespace.ahk" { IWdsTransportNamespace }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IWdsTransportCollection.ahk" { IWdsTransportCollection }
+#Import ".\IWdsTransportNamespace.ahk" { IWdsTransportNamespace }
 
 /**
  * Represents content being transmitted under a namespace over one or more sessions.

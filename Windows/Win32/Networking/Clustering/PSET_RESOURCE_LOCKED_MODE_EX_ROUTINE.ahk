@@ -47,10 +47,6 @@ export default struct PSET_RESOURCE_LOCKED_MODE_EX_ROUTINE {
             this.value := CallbackCreate(fn, , [IntPtr, BOOL, UInt32, UInt32, UInt32])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\AMVABUFFERINFO.ahk" { AMVABUFFERINFO }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Graphics\DirectDraw\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
+#Import ".\AMVABUFFERINFO.ahk" { AMVABUFFERINFO }
 #Import ".\AMVABeginFrameInfo.ahk" { AMVABeginFrameInfo }
-#Import ".\AMVAInternalMemInfo.ahk" { AMVAInternalMemInfo }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\AMVACompBufferInfo.ahk" { AMVACompBufferInfo }
 #Import ".\AMVAEndFrameInfo.ahk" { AMVAEndFrameInfo }
+#Import ".\AMVAInternalMemInfo.ahk" { AMVAInternalMemInfo }
 #Import ".\AMVAUncompDataInfo.ahk" { AMVAUncompDataInfo }
 #Import ".\IMediaSample.ahk" { IMediaSample }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAMVideoAccelerator interface enables a video decoder filter to access DirectX Video Acceleration (DXVA) 1.0 functionality.

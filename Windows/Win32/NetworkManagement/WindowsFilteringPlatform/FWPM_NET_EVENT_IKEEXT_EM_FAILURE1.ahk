@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IPSEC_FAILURE_POINT.ahk" { IPSEC_FAILURE_POINT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IKEEXT_AUTHENTICATION_METHOD_TYPE.ahk" { IKEEXT_AUTHENTICATION_METHOD_TYPE }
-#Import ".\IKEEXT_SA_ROLE.ahk" { IKEEXT_SA_ROLE }
 #Import ".\IKEEXT_EM_SA_STATE.ahk" { IKEEXT_EM_SA_STATE }
+#Import ".\IKEEXT_SA_ROLE.ahk" { IKEEXT_SA_ROLE }
+#Import ".\IPSEC_FAILURE_POINT.ahk" { IPSEC_FAILURE_POINT }
 #Import ".\IPSEC_TRAFFIC_TYPE.ahk" { IPSEC_TRAFFIC_TYPE }
 
 /**

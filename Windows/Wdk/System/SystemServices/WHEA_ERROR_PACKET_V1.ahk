@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WHEA_ERROR_TYPE.ahk" { WHEA_ERROR_TYPE }
-#Import "..\..\..\Win32\System\Diagnostics\Debug\WHEA_ERROR_SOURCE_TYPE.ahk" { WHEA_ERROR_SOURCE_TYPE }
 #Import ".\WHEA_ERROR_SEVERITY.ahk" { WHEA_ERROR_SEVERITY }
+#Import ".\WHEA_ERROR_TYPE.ahk" { WHEA_ERROR_TYPE }
 #Import ".\WHEA_RAW_DATA_FORMAT.ahk" { WHEA_RAW_DATA_FORMAT }
+#Import "..\..\..\Win32\System\Diagnostics\Debug\WHEA_ERROR_SOURCE_TYPE.ahk" { WHEA_ERROR_SOURCE_TYPE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

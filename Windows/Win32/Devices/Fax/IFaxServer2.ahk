@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFaxAccount.ahk" { IFaxAccount }
 #Import ".\IFaxAccountSet.ahk" { IFaxAccountSet }
 #Import ".\IFaxConfiguration.ahk" { IFaxConfiguration }
-#Import ".\IFaxServer.ahk" { IFaxServer }
-#Import ".\IFaxAccount.ahk" { IFaxAccount }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IFaxSecurity2.ahk" { IFaxSecurity2 }
+#Import ".\IFaxServer.ahk" { IFaxServer }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Inherits all the functionality of the IFaxServer interface and adds read-only properties for the server's configuration, account management, security objects, and the current account.

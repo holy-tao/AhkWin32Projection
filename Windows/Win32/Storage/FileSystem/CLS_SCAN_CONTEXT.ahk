@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\CLS_CONTAINER_INFORMATION.ahk" { CLS_CONTAINER_INFORMATION }
 #Import ".\CLFS_NODE_ID.ahk" { CLFS_NODE_ID }
+#Import ".\CLS_CONTAINER_INFORMATION.ahk" { CLS_CONTAINER_INFORMATION }
 
 /**
  * The CLS_SCAN_CONTEXT structure contains information about the containers that are being scanned by ScanLogContainers.

@@ -46,10 +46,6 @@ export default struct RTL_GENERIC_FREE_ROUTINE {
             this.value := CallbackCreate(fn, , [RTL_GENERIC_TABLE.Ptr, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

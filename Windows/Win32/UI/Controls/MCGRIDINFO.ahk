@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MCGRIDINFO_PART.ahk" { MCGRIDINFO_PART }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\MCGRIDINFO_FLAGS.ahk" { MCGRIDINFO_FLAGS }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import ".\MCGRIDINFO_FLAGS.ahk" { MCGRIDINFO_FLAGS }
+#Import ".\MCGRIDINFO_PART.ahk" { MCGRIDINFO_PART }
 
 /**
  * Contains information about part of a calendar control.

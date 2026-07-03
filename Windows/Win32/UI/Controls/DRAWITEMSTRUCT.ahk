@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\ODS_FLAGS.ahk" { ODS_FLAGS }
-#Import ".\DRAWITEMSTRUCT_CTL_TYPE.ahk" { DRAWITEMSTRUCT_CTL_TYPE }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\ODA_FLAGS.ahk" { ODA_FLAGS }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import ".\DRAWITEMSTRUCT_CTL_TYPE.ahk" { DRAWITEMSTRUCT_CTL_TYPE }
+#Import ".\ODA_FLAGS.ahk" { ODA_FLAGS }
+#Import ".\ODS_FLAGS.ahk" { ODS_FLAGS }
 
 /**
  * Provides information that the owner window uses to determine how to paint an owner-drawn control or menu item.

@@ -61,10 +61,6 @@ export default struct IPSEC_KEY_MANAGER_KEY_DICTATION_CHECK0 {
             this.value := CallbackCreate(fn, , [IKEEXT_TRAFFIC0.Ptr, BOOL.Ptr, "uint*", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

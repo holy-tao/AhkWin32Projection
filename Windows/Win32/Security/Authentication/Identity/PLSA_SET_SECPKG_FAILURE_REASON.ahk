@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SECPKG_FAILURE_REASON.ahk" { SECPKG_FAILURE_REASON }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\SECPKG_FAILURE_REASON.ahk" { SECPKG_FAILURE_REASON }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -26,7 +26,7 @@ export default struct PLSA_SET_SECPKG_FAILURE_REASON {
      */
     Call(Reason) {
         result := DllCall(this.value, SECPKG_FAILURE_REASON, Reason, NTSTATUS)
-        NTSTATUS.ThrowIfError(result.value)
+        NTSTATUS.ThrowIfError(result)
         return result
     }
 
@@ -46,10 +46,6 @@ export default struct PLSA_SET_SECPKG_FAILURE_REASON {
             this.value := CallbackCreate(fn, , [SECPKG_FAILURE_REASON, NTSTATUS])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

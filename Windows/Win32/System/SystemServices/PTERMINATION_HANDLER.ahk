@@ -47,10 +47,6 @@ export default struct PTERMINATION_HANDLER {
             this.value := CallbackCreate(fn, , [BOOLEAN, "ptr", IntPtr])
         }
 
-        __Delete() {
-            if (this.value) {
-                CallbackFree(this.value)
-            }
-        }
+        __Delete() => CallbackFree(this.value)
     }
 }

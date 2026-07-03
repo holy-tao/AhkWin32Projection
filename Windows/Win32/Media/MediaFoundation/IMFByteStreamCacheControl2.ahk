@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\MF_BYTE_STREAM_CACHE_RANGE.ahk" { MF_BYTE_STREAM_CACHE_RANGE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFByteStreamCacheControl.ahk" { IMFByteStreamCacheControl }
+#Import ".\MF_BYTE_STREAM_CACHE_RANGE.ahk" { MF_BYTE_STREAM_CACHE_RANGE }
 
 /**
  * Controls how a network byte stream transfers data to a local cache. (IMFByteStreamCacheControl2)

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUpdateInstaller3.ahk" { IUpdateInstaller3 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUpdateInstaller3.ahk" { IUpdateInstaller3 }
 
 /**
  * Provides methods to finalize updates that were previously staged or installed.
