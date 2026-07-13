@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_CONTRACT_DESCRIPTION.ahk
+#Include .\WS_SERVICE_MESSAGE_RECEIVE_CALLBACK.ahk
 
 /**
  * Specifies a service contract on an endpoint.

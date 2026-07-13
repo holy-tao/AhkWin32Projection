@@ -1,5 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PDX_BOBNEXTFIELD.ahk
+#Include .\PDX_ENABLEIRQ.ahk
+#Include .\PDX_FLIPOVERLAY.ahk
+#Include .\PDX_FLIPVIDEOPORT.ahk
+#Include .\PDX_GETCURRENTAUTOFLIP.ahk
+#Include .\PDX_GETIRQINFO.ahk
+#Include .\PDX_GETPOLARITY.ahk
+#Include .\PDX_GETPREVIOUSAUTOFLIP.ahk
+#Include .\PDX_GETTRANSFERSTATUS.ahk
+#Include .\PDX_LOCK.ahk
+#Include .\PDX_SETSTATE.ahk
+#Include .\PDX_SKIPNEXTFIELD.ahk
+#Include .\PDX_TRANSFER.ahk
 
 /**
  * The DXAPI_INTERFACE structure contains the interface callback functions that a video miniport driver implements to support Kernel-Mode Video Transport.

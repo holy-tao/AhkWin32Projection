@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
-#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
-#Include ..\..\..\Win32\Networking\WinSock\SOCKADDR_STORAGE.ahk
 #Include .\SRV_INSTANCE_TYPE.ahk
+#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
+#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Include ..\..\..\Win32\Networking\WinSock\SOCKADDR_STORAGE.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem

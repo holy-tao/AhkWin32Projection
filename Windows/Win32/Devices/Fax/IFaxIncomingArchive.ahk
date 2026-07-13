@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IFaxIncomingMessageIterator.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IFaxIncomingMessage.ahk
+#Include .\IFaxIncomingMessageIterator.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IFaxIncomingArchive interface is used by a fax client application to access and configure the archive of inbound fax messages received successfully by the fax service.

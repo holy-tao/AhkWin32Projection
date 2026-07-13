@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_PORT_CODE_SET.ahk
 #Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\STORAGE_PORT_CODE_SET.ahk
 
 /**
  * Reserved for system use. (STORAGE_MINIPORT_DESCRIPTOR)

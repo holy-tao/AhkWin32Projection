@@ -1,5 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
+#Include .\PWINDBG_CHECK_CONTROL_C.ahk
+#Include .\PWINDBG_DISASM32.ahk
+#Include .\PWINDBG_GET_EXPRESSION32.ahk
+#Include .\PWINDBG_GET_SYMBOL32.ahk
+#Include .\PWINDBG_GET_THREAD_CONTEXT_ROUTINE.ahk
+#Include .\PWINDBG_IOCTL_ROUTINE.ahk
+#Include .\PWINDBG_OUTPUT_ROUTINE.ahk
+#Include .\PWINDBG_READ_PROCESS_MEMORY_ROUTINE32.ahk
+#Include .\PWINDBG_SET_THREAD_CONTEXT_ROUTINE.ahk
+#Include .\PWINDBG_STACKTRACE_ROUTINE32.ahk
+#Include .\PWINDBG_WRITE_PROCESS_MEMORY_ROUTINE32.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

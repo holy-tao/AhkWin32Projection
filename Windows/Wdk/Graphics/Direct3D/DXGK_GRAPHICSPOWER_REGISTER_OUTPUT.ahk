@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PDXGK_GRAPHICSPOWER_UNREGISTER.ahk
+#Include .\PDXGK_SET_SHARED_POWER_COMPONENT_STATE.ahk
 #Include ..\..\..\Win32\System\Power\DEVICE_POWER_STATE.ahk
 
 /**

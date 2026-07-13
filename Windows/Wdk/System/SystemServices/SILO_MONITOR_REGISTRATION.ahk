@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Include .\SILO_MONITOR_CREATE_CALLBACK.ahk
+#Include .\SILO_MONITOR_TERMINATE_CALLBACK.ahk
 #Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
+#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

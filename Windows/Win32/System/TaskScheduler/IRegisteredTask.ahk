@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRunningTask.ahk
-#Include .\TASK_STATE.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IRunningTaskCollection.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\ITaskDefinition.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\IRunningTask.ahk
+#Include .\IRunningTaskCollection.ahk
+#Include .\ITaskDefinition.ahk
+#Include .\TASK_STATE.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * Provides the methods that are used to run the task immediately, get any running instances of the task, get or set the credentials that are used to register the task, and the properties that describe the task.

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\CERTADMIN_GET_ROLES_FLAGS.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\CERT_PROPERTY_TYPE.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
-#Include .\ICertAdmin.ahk
-#Include .\CERT_IMPORT_FLAGS.ahk
-#Include .\CERT_DELETE_ROW_FLAGS.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\CERTADMIN_GET_ROLES_FLAGS.ahk
+#Include .\CERT_DELETE_ROW_FLAGS.ahk
+#Include .\CERT_IMPORT_FLAGS.ahk
+#Include .\CERT_PROPERTY_TYPE.ahk
 #Include .\CVRC_TABLE.ahk
+#Include .\ICertAdmin.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 
 /**
  * Provide administration functionality for properly authorized clients.

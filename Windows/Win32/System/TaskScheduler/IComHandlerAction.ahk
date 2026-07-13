@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IAction.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IAction.ahk
 
 /**
  * Represents an action that fires a handler.

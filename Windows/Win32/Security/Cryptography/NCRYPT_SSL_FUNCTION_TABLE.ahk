@@ -1,6 +1,47 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\BCRYPT_INTERFACE_VERSION.ahk
+#Include .\SslComputeClientAuthHashFn.ahk
+#Include .\SslComputeEapKeyBlockFn.ahk
+#Include .\SslComputeFinishedHashFn.ahk
+#Include .\SslComputeSessionHashFn.ahk
+#Include .\SslCreateClientAuthHashFn.ahk
+#Include .\SslCreateEphemeralKeyFn.ahk
+#Include .\SslCreateHandshakeHashFn.ahk
+#Include .\SslDecryptPacketFn.ahk
+#Include .\SslDuplicateTranscriptHashFn.ahk
+#Include .\SslEncryptPacketFn.ahk
+#Include .\SslEnumCipherSuitesExFn.ahk
+#Include .\SslEnumCipherSuitesFn.ahk
+#Include .\SslEnumEccCurvesFn.ahk
+#Include .\SslExpandBinderKeyFn.ahk
+#Include .\SslExpandExporterMasterKeyFn.ahk
+#Include .\SslExpandPreSharedKeyFn.ahk
+#Include .\SslExpandResumptionMasterKeyFn.ahk
+#Include .\SslExpandTrafficKeysFn.ahk
+#Include .\SslExpandWriteKeyFn.ahk
+#Include .\SslExportKeyFn.ahk
+#Include .\SslExportKeyingMaterialFn.ahk
+#Include .\SslExtractEarlyKeyFn.ahk
+#Include .\SslExtractHandshakeKeyFn.ahk
+#Include .\SslExtractMasterKeyFn.ahk
+#Include .\SslFreeBufferFn.ahk
+#Include .\SslFreeObjectFn.ahk
+#Include .\SslGenerateMasterKeyFn.ahk
+#Include .\SslGeneratePreMasterKeyFn.ahk
+#Include .\SslGenerateSessionKeysFn.ahk
+#Include .\SslGetCipherSuitePRFHashAlgorithmFn.ahk
+#Include .\SslGetKeyPropertyFn.ahk
+#Include .\SslGetProviderPropertyFn.ahk
+#Include .\SslHashHandshakeFn.ahk
+#Include .\SslImportKeyFn.ahk
+#Include .\SslImportMasterKeyFn.ahk
+#Include .\SslLookupCipherLengthsFn.ahk
+#Include .\SslLookupCipherSuiteInfoFn.ahk
+#Include .\SslOpenPrivateKeyFn.ahk
+#Include .\SslOpenProviderFn.ahk
+#Include .\SslSignHashFn.ahk
+#Include .\SslVerifySignatureFn.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography

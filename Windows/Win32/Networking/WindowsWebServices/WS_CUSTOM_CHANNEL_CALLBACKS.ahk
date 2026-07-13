@@ -1,5 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_ABANDON_MESSAGE_CALLBACK.ahk
+#Include .\WS_ABORT_CHANNEL_CALLBACK.ahk
+#Include .\WS_CLOSE_CHANNEL_CALLBACK.ahk
+#Include .\WS_CREATE_CHANNEL_CALLBACK.ahk
+#Include .\WS_FREE_CHANNEL_CALLBACK.ahk
+#Include .\WS_GET_CHANNEL_PROPERTY_CALLBACK.ahk
+#Include .\WS_OPEN_CHANNEL_CALLBACK.ahk
+#Include .\WS_READ_MESSAGE_END_CALLBACK.ahk
+#Include .\WS_READ_MESSAGE_START_CALLBACK.ahk
+#Include .\WS_RESET_CHANNEL_CALLBACK.ahk
+#Include .\WS_SET_CHANNEL_PROPERTY_CALLBACK.ahk
+#Include .\WS_SHUTDOWN_SESSION_CHANNEL_CALLBACK.ahk
+#Include .\WS_WRITE_MESSAGE_END_CALLBACK.ahk
+#Include .\WS_WRITE_MESSAGE_START_CALLBACK.ahk
 
 /**
  * A structure that is used to specify a set of callbacks that form the implementation of a custom channel.

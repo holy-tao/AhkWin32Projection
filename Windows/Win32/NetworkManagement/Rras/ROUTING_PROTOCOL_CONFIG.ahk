@@ -1,5 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PMGM_CREATION_ALERT_CALLBACK.ahk
+#Include .\PMGM_DISABLE_IGMP_CALLBACK.ahk
+#Include .\PMGM_ENABLE_IGMP_CALLBACK.ahk
+#Include .\PMGM_JOIN_ALERT_CALLBACK.ahk
+#Include .\PMGM_LOCAL_JOIN_CALLBACK.ahk
+#Include .\PMGM_LOCAL_LEAVE_CALLBACK.ahk
+#Include .\PMGM_PRUNE_ALERT_CALLBACK.ahk
+#Include .\PMGM_RPF_CALLBACK.ahk
+#Include .\PMGM_WRONG_IF_CALLBACK.ahk
 
 /**
  * The ROUTING_PROTOCOL_CONFIG structure describes the routing protocol configuration information that is passed to the multicast group manager when a protocol registers with the multicast group manager.

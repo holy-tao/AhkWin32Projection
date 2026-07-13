@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Packaging\Opc\IOpcPartUri.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\System\Com\ISequentialStream.ahk
-#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
-#Include .\IXpsOMImageResource.ahk
-#Include .\IXpsOMDocumentSequence.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
+#Include ..\Packaging\Opc\IOpcPartUri.ahk
 #Include .\IXpsOMCoreProperties.ahk
+#Include .\IXpsOMDocumentSequence.ahk
+#Include .\IXpsOMImageResource.ahk
+#Include ..\..\System\Com\ISequentialStream.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides the top-level entry into the XPS object model tree.

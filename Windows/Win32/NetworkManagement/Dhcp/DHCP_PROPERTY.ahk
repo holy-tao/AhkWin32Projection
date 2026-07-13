@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DHCP_PROPERTY_TYPE.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\DHCP_PROPERTY_ID.ahk
 #Include .\DHCP_BINARY_DATA.ahk
+#Include .\DHCP_PROPERTY_ID.ahk
+#Include .\DHCP_PROPERTY_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dhcp

@@ -1,5 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\LPDDHALMOCOMPCB_BEGINFRAME.ahk
+#Include .\LPDDHALMOCOMPCB_CREATE.ahk
+#Include .\LPDDHALMOCOMPCB_DESTROY.ahk
+#Include .\LPDDHALMOCOMPCB_ENDFRAME.ahk
+#Include .\LPDDHALMOCOMPCB_GETCOMPBUFFINFO.ahk
+#Include .\LPDDHALMOCOMPCB_GETFORMATS.ahk
+#Include .\LPDDHALMOCOMPCB_GETGUIDS.ahk
+#Include .\LPDDHALMOCOMPCB_GETINTERNALINFO.ahk
+#Include .\LPDDHALMOCOMPCB_QUERYSTATUS.ahk
+#Include .\LPDDHALMOCOMPCB_RENDER.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

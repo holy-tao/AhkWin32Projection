@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IVMRSurfaceAllocator9.ahk
-#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
+#Include .\IVMRSurfaceAllocator9.ahk
 
 /**
  * The IVMRSurfaceAllocatorEx9 interface provides a way for custom allocator-presenters to control where the Video Mixing Renderer Filter 9 (VMR-9) draws the composited image.

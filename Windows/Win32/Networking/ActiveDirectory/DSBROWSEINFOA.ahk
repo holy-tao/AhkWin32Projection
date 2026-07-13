@@ -2,8 +2,9 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\LPARAM.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\UI\Shell\BFFCALLBACK.ahk
 
 /**
  * The DSBROWSEINFO structure is used with the DsBrowseForContainer function to supply and return data about the Active Directory container browser dialog box. (ANSI)

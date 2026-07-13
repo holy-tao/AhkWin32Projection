@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PKDEFERRED_ROUTINE.ahk
+#Include .\PDRIVER_CMC_EXCEPTION_CALLBACK.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

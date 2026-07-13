@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DX_IRQDATA.ahk
+#Include .\PDX_IRQCALLBACK.ahk
 
 /**
  * The DDENABLEIRQINFO structure contains the information required to enable interrupts.

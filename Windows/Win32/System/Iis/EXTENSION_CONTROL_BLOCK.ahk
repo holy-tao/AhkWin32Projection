@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HCONN.ahk
 #Include ..\..\Foundation\PSTR.ahk
+#Include .\HCONN.ahk
+#Include .\PFN_IIS_GETSERVERVARIABLE.ahk
+#Include .\PFN_IIS_READCLIENT.ahk
+#Include .\PFN_IIS_SERVERSUPPORTFUNCTION.ahk
+#Include .\PFN_IIS_WRITECLIENT.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis

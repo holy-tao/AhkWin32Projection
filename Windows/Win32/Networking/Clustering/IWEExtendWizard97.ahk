@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IWCWizard97Callback.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWCWizard97Callback.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Implement the IWEExtendWizard97 interface to add Wizard97-style wizard pages to a Failover Cluster Administrator wizard.

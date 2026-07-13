@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include .\DDRAWI_DIRECTDRAW_LCL.ahk
+#Include .\LPDDHALMOCOMPCB_GETGUIDS.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

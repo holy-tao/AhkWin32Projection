@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
-#Include ..\..\Foundation\COLORREF.ahk
-#Include .\MFVideoNormalizedRect.ahk
-#Include .\MFVideoAlphaBitmapParams.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
+#Include .\MFVideoAlphaBitmapParams.ahk
+#Include .\MFVideoNormalizedRect.ahk
 
 /**
  * Specifies a bitmap for the enhanced video renderer (EVR) to alpha-blend with the video.

@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
+#Include .\pCryptSIPCreateIndirectData.ahk
+#Include .\pCryptSIPGetSignedDataMsg.ahk
+#Include .\pCryptSIPPutSignedDataMsg.ahk
+#Include .\pCryptSIPRemoveSignedDataMsg.ahk
+#Include .\pCryptSIPVerifyIndirectData.ahk
 
 /**
  * Contains a set of function pointers assigned by the CryptSIPLoad function that your application uses to perform subject interface package (SIP) operations.

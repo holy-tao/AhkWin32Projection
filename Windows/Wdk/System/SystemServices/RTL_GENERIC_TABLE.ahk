@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\System\Kernel\LIST_ENTRY.ahk
 #Include ..\..\Foundation\RTL_SPLAY_LINKS.ahk
+#Include .\PRTL_GENERIC_ALLOCATE_ROUTINE.ahk
+#Include .\PRTL_GENERIC_COMPARE_ROUTINE.ahk
+#Include .\PRTL_GENERIC_FREE_ROUTINE.ahk
+#Include ..\..\..\Win32\System\Kernel\LIST_ENTRY.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

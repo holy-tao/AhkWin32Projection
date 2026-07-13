@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\WICBitmapTransformOptions.ahk
-#Include .\IWICBitmapSource.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWICBitmapSource.ahk
+#Include .\WICBitmapTransformOptions.ahk
 
 /**
  * Exposes methods that produce a flipped (horizontal or vertical) and/or rotated (by 90 degree increments) bitmap source. The flip is done before the rotation.

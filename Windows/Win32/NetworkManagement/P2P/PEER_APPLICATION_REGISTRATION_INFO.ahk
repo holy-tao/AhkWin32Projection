@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\PEER_DATA.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\PEER_APPLICATION.ahk
+#Include .\PEER_DATA.ahk
 
 /**
  * The PEER_APPLICATION_REGISTRATION_INFO structure contains peer application information for registration with the local computer.

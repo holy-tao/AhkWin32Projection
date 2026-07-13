@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IRTCSessionOperationCompleteEvent.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include .\IRTCParticipant.ahk
+#Include .\IRTCSessionOperationCompleteEvent.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

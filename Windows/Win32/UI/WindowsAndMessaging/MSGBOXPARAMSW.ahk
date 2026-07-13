@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
 #Include .\MESSAGEBOX_STYLE.ahk
+#Include .\MSGBOXCALLBACK.ahk
 
 /**
  * Contains information used to display a message box. The MessageBoxIndirect function uses this structure. (Unicode)

@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\SAFEARRAY.ahk
-#Include .\IFsrmObject.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include .\FsrmRuleType.ahk
+#Include .\IFsrmObject.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * Defines a rule.

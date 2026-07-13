@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\IInkDivisionUnits.ahk
-#Include .\InkDivisionType.ahk
 #Include .\IInkStrokes.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\InkDivisionType.ahk
 
 /**
  * Represents the layout analysis of the collection of strokes contained by the InkDivider object.

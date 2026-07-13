@@ -1,5 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PD3COLD_REQUEST_AUX_POWER.ahk
+#Include .\PD3COLD_REQUEST_CORE_POWER_RAIL.ahk
+#Include .\PD3COLD_REQUEST_PERST_DELAY.ahk
+#Include .\PINTERFACE_DEREFERENCE.ahk
+#Include .\PINTERFACE_REFERENCE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

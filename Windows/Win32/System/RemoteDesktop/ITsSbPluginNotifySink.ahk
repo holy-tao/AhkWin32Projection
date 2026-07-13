@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITsSbBaseNotifySink.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ITsSbBaseNotifySink.ahk
 
 /**
  * Exposes methods that notify Remote Desktop Connection Broker (RD Connection Broker) about initialization or termination of a plug-in.

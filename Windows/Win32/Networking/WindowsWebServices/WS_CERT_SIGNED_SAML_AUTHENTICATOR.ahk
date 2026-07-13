@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_SAML_AUTHENTICATOR.ahk
 #Include .\WS_SAML_AUTHENTICATOR_TYPE.ahk
+#Include .\WS_VALIDATE_SAML_CALLBACK.ahk
 #Include ..\..\Security\Cryptography\CERT_CONTEXT.ahk
 
 /**

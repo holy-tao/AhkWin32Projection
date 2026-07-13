@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WSDXML_ELEMENT.ahk
 #Include .\WSDXML_NODE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Describes the text in an XML node.

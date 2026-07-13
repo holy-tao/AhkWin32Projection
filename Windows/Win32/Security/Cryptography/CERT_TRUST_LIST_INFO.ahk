@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CTL_ENTRY.ahk
 #Include .\CTL_CONTEXT.ahk
+#Include .\CTL_ENTRY.ahk
 
 /**
  * The CERT_TRUST_LIST_INFO structure that indicates valid usage of a CTL.

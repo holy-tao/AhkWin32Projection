@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\FILE_REFERENCE_RANGE.ahk
 #Include .\CLUSTER_RANGE.ahk
+#Include .\FILE_REFERENCE_RANGE.ahk
 #Include .\QUERY_FILE_LAYOUT_FILTER_TYPE.ahk
 #Include .\STORAGE_RESERVE_ID.ahk
 

@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PWSTR.ahk
+#Include .\PFNPEER_FREE_SECURITY_DATA.ahk
+#Include .\PFNPEER_ON_PASSWORD_AUTH_FAILED.ahk
+#Include .\PFNPEER_SECURE_RECORD.ahk
+#Include .\PFNPEER_VALIDATE_RECORD.ahk
 
 /**
  * The PEER_SECURITY_INTERFACE structure specifies the security interfaces that calls to Peer Graphing APIs use to validate, secure, and free records.

@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IRTCEnumBuddies.ahk
-#Include .\IRTCCollection.ahk
-#Include .\IRTCProfile2.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\IRTCBuddy.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IRTCCollection.ahk
+#Include .\IRTCEnumBuddies.ahk
+#Include .\IRTCProfile2.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

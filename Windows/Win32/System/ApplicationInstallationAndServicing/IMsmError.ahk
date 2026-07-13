@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMsmStrings.ahk
 #Include .\msmErrorType.ahk
 #Include ..\Com\IDispatch.ahk
-#Include .\IMsmStrings.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IMsmError interface retrieves details about a single merge error.

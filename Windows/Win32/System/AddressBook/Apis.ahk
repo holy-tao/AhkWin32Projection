@@ -1,30 +1,35 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include .\IPropData.ahk
-#Include .\IMAPITable.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include ..\Com\IStream.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\ADRLIST.ahk
 #Include .\DTPAGE.ahk
+#Include .\IMAPIAdviseSink.ahk
+#Include .\IMAPIProp.ahk
+#Include .\IMAPITable.ahk
+#Include .\IMessage.ahk
+#Include .\IPropData.ahk
+#Include .\ITableData.ahk
+#Include .\LPALLOCATEBUFFER.ahk
+#Include .\LPALLOCATEMORE.ahk
+#Include .\LPFREEBUFFER.ahk
+#Include .\LPNOTIFCALLBACK.ahk
+#Include .\MAPINAMEID.ahk
+#Include .\NOTIFICATION.ahk
+#Include .\PFNIDLE.ahk
+#Include .\SPropTagArray.ahk
+#Include .\SPropValue.ahk
 #Include .\SRestriction.ahk
 #Include .\SRowSet.ahk
-#Include .\SPropValue.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include .\IMessage.ahk
-#Include .\SPropTagArray.ahk
-#Include ..\Com\StructuredStorage\IStorage.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITableData.ahk
-#Include .\NOTIFICATION.ahk
-#Include .\IMAPIAdviseSink.ahk
-#Include ..\Com\IUnknown.ahk
 #Include .\SSortOrderSet.ahk
 #Include ..\Com\IMalloc.ahk
-#Include .\MAPINAMEID.ahk
-#Include .\IMAPIProp.ahk
+#Include ..\Com\IStream.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\Com\StructuredStorage\IStorage.ahk
 
 /**
  * @namespace Windows.Win32.System.AddressBook

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\PEB_LDR_DATA.ahk
+#Include .\PPS_POST_PROCESS_INIT_ROUTINE.ahk
 #Include .\RTL_USER_PROCESS_PARAMETERS.ahk
 
 /**

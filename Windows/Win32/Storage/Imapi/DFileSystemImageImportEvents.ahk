@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\FsiFileSystems.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\FsiFileSystems.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Use this interface to receives notifications regarding the current file system import operation.

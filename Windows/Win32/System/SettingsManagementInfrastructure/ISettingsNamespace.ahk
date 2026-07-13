@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\ISettingsIdentity.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\ISettingsItem.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Com\IUnknown.ahk
-#Include .\ISettingsResult.ahk
 #Include .\IItemEnumerator.ahk
+#Include .\ISettingsIdentity.ahk
+#Include .\ISettingsItem.ahk
+#Include .\ISettingsResult.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * Performs operations to set, retrieve, and validate settings, and save changes for a namespace instance.

@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IGPMWMIFilter.ahk
-#Include .\IGPMSecurityInfo.ahk
-#Include .\IGPMBackup.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\Com\IDispatch.ahk
-#Include .\IGPMResult.ahk
-#Include .\IGPMDomain.ahk
 #Include .\GPMReportType.ahk
+#Include .\IGPMBackup.ahk
+#Include .\IGPMDomain.ahk
+#Include .\IGPMResult.ahk
+#Include .\IGPMSecurityInfo.ahk
+#Include .\IGPMWMIFilter.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * The IGPMGPO interface supports methods that enable you to manage Group Policy Objects (GPOs) in the directory service.

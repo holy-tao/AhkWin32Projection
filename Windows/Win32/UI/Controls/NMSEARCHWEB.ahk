@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\NMHDR.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\EC_SEARCHWEB_ENTRYPOINT.ahk
+#Include .\NMHDR.ahk
 
 /**
  * Contains information used to handle an [EN_SEARCHWEB](/windows/win32/controls/en-searchweb) notification code.

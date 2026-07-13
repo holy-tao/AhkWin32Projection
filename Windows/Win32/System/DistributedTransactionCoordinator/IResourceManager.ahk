@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITransactionResourceAsync.ahk
-#Include .\ITransaction.ahk
-#Include .\XACTSTAT.ahk
-#Include .\ITransactionEnlistmentAsync.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\BOID.ahk
+#Include .\ITransaction.ahk
+#Include .\ITransactionEnlistmentAsync.ahk
+#Include .\ITransactionResourceAsync.ahk
+#Include .\XACTSTAT.ahk
 
 /**
  * The IResourceManager interface resolves contentions for system resources.The filter graph manager exposes this interface.

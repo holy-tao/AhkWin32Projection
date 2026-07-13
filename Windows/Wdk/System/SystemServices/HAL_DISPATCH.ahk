@@ -1,5 +1,26 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\pHalEndMirroring.ahk
+#Include .\pHalEndOfBoot.ahk
+#Include .\pHalExamineMBR.ahk
+#Include .\pHalGetAcpiTable.ahk
+#Include .\pHalGetDmaAdapter.ahk
+#Include .\pHalGetInterruptTranslator.ahk
+#Include .\pHalGetPrmCache.ahk
+#Include .\pHalHandlerForBus.ahk
+#Include .\pHalInitPnpDriver.ahk
+#Include .\pHalInitPowerManagement.ahk
+#Include .\pHalIoReadPartitionTable.ahk
+#Include .\pHalIoSetPartitionInformation.ahk
+#Include .\pHalIoWritePartitionTable.ahk
+#Include .\pHalMirrorPhysicalMemory.ahk
+#Include .\pHalMirrorVerify.ahk
+#Include .\pHalQueryBusSlots.ahk
+#Include .\pHalQuerySystemInformation.ahk
+#Include .\pHalReferenceBusHandler.ahk
+#Include .\pHalSetPciErrorHandlerCallback.ahk
+#Include .\pHalSetSystemInformation.ahk
+#Include .\pHalStartMirroring.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

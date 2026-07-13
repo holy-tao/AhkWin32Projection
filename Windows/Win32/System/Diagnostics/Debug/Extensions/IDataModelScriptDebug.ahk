@@ -2,15 +2,15 @@
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
-#Include .\ScriptDebugState.ahk
-#Include .\ScriptDebugEventFilter.ahk
-#Include .\ScriptDebugPosition.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Com\IUnknown.ahk
+#Include .\IDataModelScriptDebugBreakpoint.ahk
+#Include .\IDataModelScriptDebugBreakpointEnumerator.ahk
 #Include .\IDataModelScriptDebugClient.ahk
 #Include .\IDataModelScriptDebugStack.ahk
-#Include .\IDataModelScriptDebugBreakpointEnumerator.ahk
-#Include ..\..\..\..\Foundation\HRESULT.ahk
-#Include .\IDataModelScriptDebugBreakpoint.ahk
+#Include .\ScriptDebugEventFilter.ahk
+#Include .\ScriptDebugPosition.ahk
+#Include .\ScriptDebugState.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

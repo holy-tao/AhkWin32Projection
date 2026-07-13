@@ -1,5 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PFN_WdsTransportClientReceiveContents.ahk
+#Include .\PFN_WdsTransportClientReceiveMetadata.ahk
+#Include .\PFN_WdsTransportClientSessionComplete.ahk
+#Include .\PFN_WdsTransportClientSessionNegotiate.ahk
+#Include .\PFN_WdsTransportClientSessionStart.ahk
+#Include .\PFN_WdsTransportClientSessionStartEx.ahk
 
 /**
  * @namespace Windows.Win32.System.DeploymentServices

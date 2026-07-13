@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IFsrmCollection.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IFsrmCollection.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Used to access the results when the source template calls the CommitAndUpdateDerived method.

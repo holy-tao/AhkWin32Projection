@@ -2,9 +2,9 @@
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 #Include .\IActiveScriptSiteTraceInfo.ahk
-#Include ..\..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\LPDDHAL_SETINFO.ahk
+#Include .\LPDDHAL_VIDMEMALLOC.ahk
+#Include .\LPDDHAL_VIDMEMFREE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

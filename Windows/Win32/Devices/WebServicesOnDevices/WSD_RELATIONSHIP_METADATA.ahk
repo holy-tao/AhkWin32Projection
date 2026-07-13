@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\WSD_HOST_METADATA.ahk
 #Include .\WSDXML_ELEMENT.ahk
+#Include .\WSD_HOST_METADATA.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Provides metadata about the relationship between two or more services.

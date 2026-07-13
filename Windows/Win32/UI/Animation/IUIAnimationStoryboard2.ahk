@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUIAnimationStoryboardEventHandler2.ahk
-#Include .\IUIAnimationLoopIterationChangeHandler2.ahk
-#Include .\UI_ANIMATION_KEYFRAME.ahk
-#Include .\IUIAnimationVariable2.ahk
-#Include .\IUIAnimationTransition2.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IUIAnimationLoopIterationChangeHandler2.ahk
+#Include .\IUIAnimationStoryboardEventHandler2.ahk
+#Include .\IUIAnimationTransition2.ahk
+#Include .\IUIAnimationVariable2.ahk
+#Include .\UI_ANIMATION_KEYFRAME.ahk
 #Include .\UI_ANIMATION_REPEAT_MODE.ahk
 #Include .\UI_ANIMATION_SCHEDULING_RESULT.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\UI_ANIMATION_STORYBOARD_STATUS.ahk
 
 /**

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\alljoyn_aboutdatalistener_getaboutdata_ptr.ahk
+#Include .\alljoyn_aboutdatalistener_getannouncedaboutdata_ptr.ahk
 
 /**
  * @namespace Windows.Win32.Devices.AllJoyn

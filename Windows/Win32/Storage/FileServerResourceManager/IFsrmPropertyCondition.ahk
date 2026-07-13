@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\FsrmPropertyConditionType.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\FsrmPropertyConditionType.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Defines a property condition that the file management job uses to determine if the file is expired.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_CREATE_STATE_OBJECT_STATISTICS.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include .\D3D12_CREATE_STATE_OBJECT_STATISTICS.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
-#Include .\IInstallationBehavior.ahk
-#Include .\IImageInformation.ahk
-#Include .\IUpdateDownloadContentCollection.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IUpdateCollection.ahk
-#Include .\IUpdateIdentity.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\DeploymentAction.ahk
 #Include .\DownloadPriority.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\UpdateType.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IStringCollection.ahk
 #Include .\ICategoryCollection.ahk
+#Include .\IImageInformation.ahk
+#Include .\IInstallationBehavior.ahk
+#Include .\IStringCollection.ahk
+#Include .\IUpdateCollection.ahk
+#Include .\IUpdateDownloadContentCollection.ahk
+#Include .\IUpdateIdentity.ahk
+#Include .\UpdateType.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * Contains the properties and methods that are available to an update. (IUpdate)

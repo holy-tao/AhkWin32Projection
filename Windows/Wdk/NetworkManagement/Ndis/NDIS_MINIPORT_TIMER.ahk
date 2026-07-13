@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_MINIPORT_TIMER.ahk
 #Include .\NDIS_MINIPORT_BLOCK.ahk
+#Include .\NDIS_MINIPORT_TIMER.ahk
+#Include .\PNDIS_TIMER_FUNCTION.ahk
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis

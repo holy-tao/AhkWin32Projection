@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\X509SCEPDisposition.ahk
-#Include .\IX509CertificateRequestPkcs10.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\EncodingType.ahk
+#Include .\ISignerCertificate.ahk
+#Include .\IX509CertificateRequestPkcs10.ahk
+#Include .\IX509EnrollmentStatus.ahk
+#Include .\X509CertificateEnrollmentContext.ahk
+#Include .\X509SCEPDisposition.ahk
 #Include .\X509SCEPFailInfo.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IX509EnrollmentStatus.ahk
-#Include .\ISignerCertificate.ahk
-#Include .\EncodingType.ahk
-#Include .\X509CertificateEnrollmentContext.ahk
 
 /**
  * X.509 Simple Computer Enrollment Protocol Interface

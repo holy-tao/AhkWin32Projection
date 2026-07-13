@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\NVME_WCS_DEVICE_RESET_ACTION.ahk
 #Include .\NVME_WCS_DEVICE_CAPABILITIES.ahk
+#Include .\NVME_WCS_DEVICE_RESET_ACTION.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Nvme

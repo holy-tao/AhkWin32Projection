@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ADDRINFOEXA.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\SOCKADDR.ahk
 #Include ..\..\Foundation\PSTR.ahk
+#Include .\ADDRINFOEXA.ahk
+#Include .\SOCKADDR.ahk
 
 /**
  * Used by the GetAddrInfoEx function to hold host address information. (ANSI)

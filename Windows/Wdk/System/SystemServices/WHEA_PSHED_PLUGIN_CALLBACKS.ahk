@@ -1,5 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PSHED_PI_ATTEMPT_ERROR_RECOVERY.ahk
+#Include .\PSHED_PI_CLEAR_ERROR_RECORD.ahk
+#Include .\PSHED_PI_CLEAR_ERROR_STATUS.ahk
+#Include .\PSHED_PI_DISABLE_ERROR_SOURCE.ahk
+#Include .\PSHED_PI_ENABLE_ERROR_SOURCE.ahk
+#Include .\PSHED_PI_FINALIZE_ERROR_RECORD.ahk
+#Include .\PSHED_PI_GET_ALL_ERROR_SOURCES.ahk
+#Include .\PSHED_PI_GET_ERROR_SOURCE_INFO.ahk
+#Include .\PSHED_PI_GET_INJECTION_CAPABILITIES.ahk
+#Include .\PSHED_PI_INJECT_ERROR.ahk
+#Include .\PSHED_PI_READ_ERROR_RECORD.ahk
+#Include .\PSHED_PI_RETRIEVE_ERROR_INFO.ahk
+#Include .\PSHED_PI_SET_ERROR_SOURCE_INFO.ahk
+#Include .\PSHED_PI_WRITE_ERROR_RECORD.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

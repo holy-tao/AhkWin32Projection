@@ -1,15 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include ..\..\Security\PSID.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\PWSTR.ahk
+#Include .\INET_FIREWALL_APP_CONTAINER.ahk
 #Include .\NETCON_PROPERTIES.ahk
 #Include .\NETISO_ERROR_TYPE.ahk
+#Include .\PAC_CHANGES_CALLBACK_FN.ahk
+#Include .\PNETISO_EDP_ID_CALLBACK_FN.ahk
+#Include ..\..\Security\PSID.ahk
 #Include ..\..\Security\SID_AND_ATTRIBUTES.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\System\Ole\IEnumVARIANT.ahk
-#Include .\INET_FIREWALL_APP_CONTAINER.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall

@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISVGTransform.ahk
-#Include .\ISVGAngle.ahk
-#Include .\ISVGElement.ahk
-#Include .\ISVGNumber.ahk
-#Include .\ISVGAnimatedLength.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IHTMLElement.ahk
+#Include .\ISVGAngle.ahk
+#Include .\ISVGAnimatedLength.ahk
+#Include .\ISVGElement.ahk
 #Include .\ISVGLength.ahk
 #Include .\ISVGMatrix.ahk
-#Include .\IHTMLElement.ahk
-#Include .\ISVGViewSpec.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISVGRect.ahk
+#Include .\ISVGNumber.ahk
 #Include .\ISVGPoint.ahk
+#Include .\ISVGRect.ahk
+#Include .\ISVGTransform.ahk
+#Include .\ISVGViewSpec.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

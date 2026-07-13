@@ -1,5 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PDD_CANCREATESURFACE.ahk
+#Include .\PDD_CREATESURFACE.ahk
+#Include .\PDD_SURFCB_DESTROYSURFACE.ahk
+#Include .\PDD_SURFCB_LOCK.ahk
+#Include .\PDD_SURFCB_UNLOCK.ahk
 
 /**
  * The DD_D3DBUFCALLBACKS structure is used only by drivers that implement driver level allocation of command and vertex buffers.

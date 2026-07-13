@@ -1,38 +1,39 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\CONSOLE_FONT_INFOEX.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include .\CONSOLE_CHARACTER_ATTRIBUTES.ahk
-#Include .\APPKEY.ahk
-#Include ..\..\Foundation\NTSTATUS.ahk
-#Include ..\..\UI\WindowsAndMessaging\HCURSOR.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\CHAR.ahk
-#Include .\CHAR_INFO.ahk
-#Include .\CONSOLE_MODE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\CONSOLE_CURSOR_INFO.ahk
-#Include .\STD_HANDLE.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\CONSOLE_SCREEN_BUFFER_INFOEX.ahk
-#Include .\CONSOLECONTROL.ahk
-#Include .\ALLOC_CONSOLE_RESULT.ahk
-#Include .\INPUT_RECORD.ahk
-#Include .\SMALL_RECT.ahk
-#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
+#Include ..\..\Foundation\CHAR.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include .\CONSOLE_HISTORY_INFO.ahk
-#Include .\CONSOLE_SCREEN_BUFFER_INFO.ahk
-#Include .\CONSOLE_READCONSOLE_CONTROL.ahk
-#Include .\CONSOLE_SELECTION_INFO.ahk
-#Include .\HPCON.ahk
-#Include .\COORD.ahk
-#Include ..\..\UI\WindowsAndMessaging\HMENU.ahk
-#Include .\ALLOC_CONSOLE_OPTIONS.ahk
-#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
-#Include .\CONSOLE_FONT_INFO.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Graphics\Gdi\HPALETTE.ahk
+#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
+#Include .\ALLOC_CONSOLE_OPTIONS.ahk
+#Include .\ALLOC_CONSOLE_RESULT.ahk
+#Include .\APPKEY.ahk
+#Include .\CHAR_INFO.ahk
+#Include .\CONSOLECONTROL.ahk
+#Include .\CONSOLE_CHARACTER_ATTRIBUTES.ahk
+#Include .\CONSOLE_CURSOR_INFO.ahk
+#Include .\CONSOLE_FONT_INFO.ahk
+#Include .\CONSOLE_FONT_INFOEX.ahk
+#Include .\CONSOLE_HISTORY_INFO.ahk
+#Include .\CONSOLE_MODE.ahk
+#Include .\CONSOLE_READCONSOLE_CONTROL.ahk
+#Include .\CONSOLE_SCREEN_BUFFER_INFO.ahk
+#Include .\CONSOLE_SCREEN_BUFFER_INFOEX.ahk
+#Include .\CONSOLE_SELECTION_INFO.ahk
+#Include .\COORD.ahk
+#Include .\HPCON.ahk
+#Include .\INPUT_RECORD.ahk
+#Include .\PHANDLER_ROUTINE.ahk
+#Include .\SMALL_RECT.ahk
+#Include .\STD_HANDLE.ahk
+#Include ..\..\UI\WindowsAndMessaging\HCURSOR.ahk
+#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
+#Include ..\..\UI\WindowsAndMessaging\HMENU.ahk
 
 /**
  * @namespace Windows.Win32.System.Console
@@ -3746,7 +3747,7 @@ class Console {
      */
     static ConsoleControl(Command, ConsoleInformation, ConsoleInformationLength) {
         result := DllCall("USER32.dll\ConsoleControl", "int", Command, "ptr", ConsoleInformation, "uint", ConsoleInformationLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 

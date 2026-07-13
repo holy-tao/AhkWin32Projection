@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHV_SYNIC_EVENT_PARAMETERS.ahk
 #Include .\WHV_INTERRUPT_CONTROL.ahk
+#Include .\WHV_SYNIC_EVENT_PARAMETERS.ahk
 #Include .\WHV_TRIGGER_TYPE.ahk
 
 /**

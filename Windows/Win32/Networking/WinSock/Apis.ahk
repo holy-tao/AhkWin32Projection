@@ -1,62 +1,66 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\HOSTENT.ahk
-#Include .\WSACOMPLETION.ahk
-#Include .\TIMEVAL.ahk
-#Include .\SERVENT.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include ..\..\Foundation\FARPROC.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\WAIT_EVENT.ahk
+#Include .\ADDRINFOA.ahk
+#Include .\ADDRINFOEXA.ahk
+#Include .\ADDRINFOEXW.ahk
+#Include .\ADDRINFOW.ahk
+#Include .\DL_EUI48.ahk
+#Include .\FD_SET.ahk
+#Include .\HOSTENT.ahk
+#Include .\IN6_ADDR.ahk
+#Include .\IN_ADDR.ahk
+#Include .\LPCONDITIONPROC.ahk
+#Include .\LPLOOKUPSERVICE_COMPLETION_ROUTINE.ahk
+#Include .\LPWSAOVERLAPPED_COMPLETION_ROUTINE.ahk
+#Include .\NSPV2_ROUTINE.ahk
 #Include .\PROTOENT.ahk
 #Include .\QOS.ahk
-#Include .\WSASERVICECLASSINFOW.ahk
-#Include .\SERVICE_INFOA.ahk
-#Include .\WSAESETSERVICEOP.ahk
 #Include .\SEND_RECV_FLAGS.ahk
-#Include .\IN_ADDR.ahk
-#Include .\TRANSMIT_FILE_BUFFERS.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
-#Include .\SOCK_NOTIFY_REGISTRATION.ahk
-#Include .\WSADATA.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\FD_SET.ahk
-#Include ..\..\System\IO\OVERLAPPED.ahk
-#Include .\WSAQUERYSETA.ahk
-#Include .\ADDRINFOA.ahk
-#Include .\ADDRINFOW.ahk
-#Include .\ADDRINFOEXW.ahk
-#Include ..\..\System\IO\OVERLAPPED_ENTRY.ahk
-#Include .\WSAQUERYSETW.ahk
-#Include .\SERVICE_INFOW.ahk
-#Include .\NSPV2_ROUTINE.ahk
-#Include .\DL_EUI48.ahk
-#Include .\WSANETWORKEVENTS.ahk
-#Include .\ADDRINFOEXA.ahk
-#Include .\WSAPROTOCOL_INFOW.ahk
-#Include .\socklen_t.ahk
-#Include .\SOCKADDR.ahk
-#Include ..\..\System\Com\BLOB.ahk
-#Include .\WSAEVENT.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\WSABUF.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include .\SOCKET.ahk
-#Include .\WINSOCK_SHUTDOWN_HOW.ahk
-#Include .\SET_SERVICE_OPERATION.ahk
-#Include ..\..\Foundation\WAIT_EVENT.ahk
+#Include .\SERVENT.ahk
 #Include .\SERVICE_ASYNC_INFO.ahk
-#Include .\WSAMSG.ahk
-#Include .\WSAPROTOCOL_INFOA.ahk
-#Include .\WSASERVICECLASSINFOA.ahk
-#Include .\WSA_ERROR.ahk
-#Include .\WINSOCK_SOCKET_TYPE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\WSAPOLLFD.ahk
-#Include .\SOCKET_ADDRESS_LIST.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\WSC_PROVIDER_INFO_TYPE.ahk
-#Include .\IN6_ADDR.ahk
+#Include .\SERVICE_INFOA.ahk
+#Include .\SERVICE_INFOW.ahk
+#Include .\SET_SERVICE_OPERATION.ahk
+#Include .\SOCKADDR.ahk
+#Include .\SOCKET.ahk
 #Include .\SOCKET_ADDRESS.ahk
+#Include .\SOCKET_ADDRESS_LIST.ahk
+#Include .\SOCK_NOTIFY_REGISTRATION.ahk
+#Include .\TIMEVAL.ahk
+#Include .\TRANSMIT_FILE_BUFFERS.ahk
+#Include .\WINSOCK_SHUTDOWN_HOW.ahk
+#Include .\WINSOCK_SOCKET_TYPE.ahk
+#Include .\WSABUF.ahk
+#Include .\WSACOMPLETION.ahk
+#Include .\WSADATA.ahk
+#Include .\WSAESETSERVICEOP.ahk
+#Include .\WSAEVENT.ahk
+#Include .\WSAMSG.ahk
+#Include .\WSANETWORKEVENTS.ahk
+#Include .\WSAPOLLFD.ahk
+#Include .\WSAPROTOCOL_INFOA.ahk
+#Include .\WSAPROTOCOL_INFOW.ahk
+#Include .\WSAQUERYSETA.ahk
+#Include .\WSAQUERYSETW.ahk
+#Include .\WSASERVICECLASSINFOA.ahk
+#Include .\WSASERVICECLASSINFOW.ahk
+#Include .\WSA_ERROR.ahk
+#Include .\WSC_PROVIDER_INFO_TYPE.ahk
+#Include .\socklen_t.ahk
+#Include ..\..\System\Com\BLOB.ahk
+#Include ..\..\System\IO\OVERLAPPED.ahk
+#Include ..\..\System\IO\OVERLAPPED_ENTRY.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
@@ -7409,8 +7413,8 @@ class WinSock {
      * <b>Windows Phone 8:</b> This function is supported for Windows Phone Store apps on Windows Phone 8 and later.
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
-     * @param {SOCKET} fd 
-     * @param {Pointer<FD_SET>} param1 
+     * @param {SOCKET} fd TBD
+     * @param {Pointer<FD_SET>} param1 Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-fd_set">fd_set</a> structure containing the set of socket descriptors. The <b>__WSAFDIsSet</b> function determines whether the socket specified in the <i>fd</i> parameter is a member of that set.
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/winsock/nf-winsock-__wsafdisset
      * @since windows8.1

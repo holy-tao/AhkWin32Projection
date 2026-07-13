@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D10Resource.ahk
-#Include .\D3D10_MAPPED_TEXTURE3D.ahk
-#Include .\D3D10_MAP.ahk
-#Include .\D3D10_TEXTURE3D_DESC.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3D10_MAP.ahk
+#Include .\D3D10_MAPPED_TEXTURE3D.ahk
+#Include .\D3D10_TEXTURE3D_DESC.ahk
+#Include .\ID3D10Resource.ahk
 
 /**
  * A 3D texture interface accesses texel data, which is structured memory. (ID3D10Texture3D)

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WSDXML_TYPE.ahk
+#Include .\WSD_STUB_FUNCTION.ahk
 
 /**
  * Describes an operation as defined by WSDL in terms of one or two messages.

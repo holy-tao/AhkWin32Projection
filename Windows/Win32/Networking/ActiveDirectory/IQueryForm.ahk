@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Registry\HKEY.ahk
-#Include ..\..\Foundation\LPARAM.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include .\LPCQADDFORMSPROC.ahk
+#Include .\LPCQADDPAGESPROC.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Registry\HKEY.ahk
 
 /**
  * Implemented by a query form extension object to allow the form object to add forms and pages to the system-supplied directory service query dialog box.

@@ -1,5 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\LPD3DHAL_CLEARCB.ahk
+#Include .\LPD3DHAL_DRAWONEINDEXEDPRIMITIVECB.ahk
+#Include .\LPD3DHAL_DRAWONEPRIMITIVECB.ahk
+#Include .\LPD3DHAL_DRAWPRIMITIVESCB.ahk
+#Include .\LPD3DHAL_SETRENDERTARGETCB.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

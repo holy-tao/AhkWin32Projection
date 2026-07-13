@@ -1,112 +1,122 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\WINDOWINFO.ahk
-#Include .\REGISTER_NOTIFICATION_FLAGS.ahk
-#Include .\MrmPlatformVersion.ahk
-#Include ..\..\Foundation\POINT.ahk
-#Include .\MrmDumpType.ahk
-#Include ..\..\Foundation\SIZE.ahk
-#Include ..\..\Foundation\LRESULT.ahk
-#Include .\MrmIndexerFlags.ahk
-#Include ..\..\Graphics\Gdi\HRGN.ahk
-#Include .\GDI_IMAGE_TYPE.ahk
-#Include .\DI_FLAGS.ahk
-#Include .\HCURSOR.ahk
-#Include .\PEEK_MESSAGE_REMOVE_TYPE.ahk
-#Include .\SYSTEM_PARAMETERS_INFO_ACTION.ahk
-#Include .\UPDATELAYEREDWINDOWINFO.ahk
-#Include .\GET_CLASS_LONG_INDEX.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include .\IndexedResourceQualifier.ahk
-#Include .\MENUITEMINFOA.ahk
-#Include .\GET_WINDOW_CMD.ahk
-#Include .\WNDCLASSA.ahk
-#Include .\ACCEL.ahk
-#Include .\MESSAGEBOX_STYLE.ahk
-#Include .\WINDOW_STYLE.ahk
-#Include .\MrmPackagingOptions.ahk
-#Include .\WNDCLASSEXA.ahk
-#Include .\MENUBARINFO.ahk
-#Include .\MrmResourceIndexerHandle.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\GET_MENU_DEFAULT_ITEM_FLAGS.ahk
-#Include .\OBJECT_IDENTIFIER.ahk
-#Include ..\..\Foundation\LPARAM.ahk
-#Include .\SET_WINDOW_POS_FLAGS.ahk
-#Include .\MrmPackagingMode.ahk
-#Include .\WINDOW_LONG_PTR_INDEX.ahk
-#Include .\MrmResourceIndexerMessage.ahk
-#Include .\WINDOW_EX_STYLE.ahk
-#Include .\TILE_WINDOWS_HOW.ahk
-#Include .\TITLEBARINFO.ahk
-#Include .\MSGBOXPARAMSW.ahk
-#Include .\SYSTEM_CURSOR_ID.ahk
-#Include .\MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS.ahk
-#Include .\ICONINFOEXW.ahk
-#Include .\IMAGE_FLAGS.ahk
-#Include .\TRACK_POPUP_MENU_FLAGS.ahk
-#Include .\WINDOW_MESSAGE_FILTER_ACTION.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\CHAR.ahk
-#Include .\MSG.ahk
-#Include .\SCROLLBAR_CONSTANTS.ahk
-#Include .\SEND_MESSAGE_TIMEOUT_FLAGS.ahk
-#Include .\CHANGEFILTERSTRUCT.ahk
-#Include .\ALTTABINFO.ahk
-#Include .\GUITHREADINFO.ahk
-#Include .\WINDOWPLACEMENT.ahk
-#Include .\SCROLLINFO.ahk
+#Include ..\..\Foundation\COLORREF.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\LRESULT.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\SCROLLBARINFO.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include ..\..\Foundation\WAIT_EVENT.ahk
+#Include ..\..\Foundation\WPARAM.ahk
+#Include ..\..\Graphics\Gdi\BLENDFUNCTION.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\Graphics\Gdi\HBRUSH.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
+#Include ..\..\Graphics\Gdi\HRGN.ahk
+#Include .\ACCEL.ahk
+#Include .\ALTTABINFO.ahk
 #Include .\ANIMATE_WINDOW_FLAGS.ahk
 #Include .\CASCADE_WINDOWS_HOW.ahk
-#Include .\QUEUE_STATUS_FLAGS.ahk
-#Include .\HICON.ahk
-#Include .\MOVESIZE_OPERATION.ahk
-#Include .\MESSAGEBOX_RESULT.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\HACCEL.ahk
+#Include .\CHANGEFILTERSTRUCT.ahk
 #Include .\CHANGE_WINDOW_MESSAGE_FILTER_FLAGS.ahk
-#Include .\WINDOW_ACTION.ahk
-#Include .\MSGBOXPARAMSA.ahk
-#Include .\SCROLL_WINDOW_FLAGS.ahk
-#Include ..\..\Foundation\WAIT_EVENT.ahk
-#Include .\LAYERED_WINDOW_ATTRIBUTES_FLAGS.ahk
-#Include .\FOREGROUND_WINDOW_LOCK_CODE.ahk
-#Include .\MENUINFO.ahk
-#Include .\HDWP.ahk
-#Include .\SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS.ahk
-#Include .\FLASHWINFO.ahk
-#Include .\MENUITEMINFOW.ahk
-#Include ..\..\Foundation\WPARAM.ahk
-#Include .\CWP_FLAGS.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\UPDATE_LAYERED_WINDOW_FLAGS.ahk
-#Include .\WINDOWS_HOOK_ID.ahk
-#Include .\HDEVNOTIFY.ahk
-#Include .\SYSTEM_METRICS_INDEX.ahk
-#Include .\WNDCLASSEXW.ahk
-#Include .\TOOLTIP_DISMISS_FLAGS.ahk
-#Include .\GET_ANCESTOR_FLAGS.ahk
 #Include .\CURSORINFO.ahk
-#Include ..\..\Graphics\Gdi\BLENDFUNCTION.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\COLORREF.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
-#Include .\HMENU.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include .\MENU_ITEM_FLAGS.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
-#Include .\HHOOK.ahk
-#Include .\ICONINFO.ahk
-#Include ..\..\Graphics\Gdi\HBRUSH.ahk
-#Include .\TPMPARAMS.ahk
-#Include .\WINDOW_DISPLAY_AFFINITY.ahk
+#Include .\CWP_FLAGS.ahk
+#Include .\DI_FLAGS.ahk
+#Include .\DLGPROC.ahk
 #Include .\DLGTEMPLATE.ahk
-#Include .\WNDCLASSW.ahk
+#Include .\FLASHWINFO.ahk
+#Include .\FOREGROUND_WINDOW_LOCK_CODE.ahk
+#Include .\GDI_IMAGE_TYPE.ahk
+#Include .\GET_ANCESTOR_FLAGS.ahk
+#Include .\GET_CLASS_LONG_INDEX.ahk
+#Include .\GET_MENU_DEFAULT_ITEM_FLAGS.ahk
+#Include .\GET_WINDOW_CMD.ahk
+#Include .\GUITHREADINFO.ahk
+#Include .\HACCEL.ahk
+#Include .\HCURSOR.ahk
+#Include .\HDEVNOTIFY.ahk
+#Include .\HDWP.ahk
+#Include .\HHOOK.ahk
+#Include .\HICON.ahk
+#Include .\HMENU.ahk
+#Include .\HOOKPROC.ahk
+#Include .\ICONINFO.ahk
 #Include .\ICONINFOEXA.ahk
+#Include .\ICONINFOEXW.ahk
+#Include .\IMAGE_FLAGS.ahk
+#Include .\IndexedResourceQualifier.ahk
+#Include .\LAYERED_WINDOW_ATTRIBUTES_FLAGS.ahk
+#Include .\MENUBARINFO.ahk
+#Include .\MENUINFO.ahk
+#Include .\MENUITEMINFOA.ahk
+#Include .\MENUITEMINFOW.ahk
+#Include .\MENU_ITEM_FLAGS.ahk
+#Include .\MESSAGEBOX_RESULT.ahk
+#Include .\MESSAGEBOX_STYLE.ahk
+#Include .\MOVESIZE_OPERATION.ahk
+#Include .\MSG.ahk
+#Include .\MSGBOXPARAMSA.ahk
+#Include .\MSGBOXPARAMSW.ahk
+#Include .\MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS.ahk
+#Include .\MrmDumpType.ahk
+#Include .\MrmIndexerFlags.ahk
+#Include .\MrmPackagingMode.ahk
+#Include .\MrmPackagingOptions.ahk
+#Include .\MrmPlatformVersion.ahk
+#Include .\MrmResourceIndexerHandle.ahk
+#Include .\MrmResourceIndexerMessage.ahk
+#Include .\OBJECT_IDENTIFIER.ahk
+#Include .\PEEK_MESSAGE_REMOVE_TYPE.ahk
+#Include .\PROPENUMPROCA.ahk
+#Include .\PROPENUMPROCEXA.ahk
+#Include .\PROPENUMPROCEXW.ahk
+#Include .\PROPENUMPROCW.ahk
+#Include .\QUEUE_STATUS_FLAGS.ahk
+#Include .\REGISTER_NOTIFICATION_FLAGS.ahk
+#Include .\SCROLLBARINFO.ahk
+#Include .\SCROLLBAR_CONSTANTS.ahk
+#Include .\SCROLLINFO.ahk
+#Include .\SCROLL_WINDOW_FLAGS.ahk
+#Include .\SENDASYNCPROC.ahk
+#Include .\SEND_MESSAGE_TIMEOUT_FLAGS.ahk
+#Include .\SET_WINDOW_POS_FLAGS.ahk
 #Include .\SHOW_WINDOW_CMD.ahk
+#Include .\SYSTEM_CURSOR_ID.ahk
+#Include .\SYSTEM_METRICS_INDEX.ahk
+#Include .\SYSTEM_PARAMETERS_INFO_ACTION.ahk
+#Include .\SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS.ahk
+#Include .\TILE_WINDOWS_HOW.ahk
+#Include .\TIMERPROC.ahk
+#Include .\TITLEBARINFO.ahk
+#Include .\TOOLTIP_DISMISS_FLAGS.ahk
+#Include .\TPMPARAMS.ahk
+#Include .\TRACK_POPUP_MENU_FLAGS.ahk
+#Include .\UPDATELAYEREDWINDOWINFO.ahk
+#Include .\UPDATE_LAYERED_WINDOW_FLAGS.ahk
+#Include .\WINDOWINFO.ahk
+#Include .\WINDOWPLACEMENT.ahk
+#Include .\WINDOWS_HOOK_ID.ahk
+#Include .\WINDOW_ACTION.ahk
+#Include .\WINDOW_DISPLAY_AFFINITY.ahk
+#Include .\WINDOW_EX_STYLE.ahk
+#Include .\WINDOW_LONG_PTR_INDEX.ahk
+#Include .\WINDOW_MESSAGE_FILTER_ACTION.ahk
+#Include .\WINDOW_STYLE.ahk
+#Include .\WNDCLASSA.ahk
+#Include .\WNDCLASSEXA.ahk
+#Include .\WNDCLASSEXW.ahk
+#Include .\WNDCLASSW.ahk
+#Include .\WNDENUMPROC.ahk
+#Include .\WNDPROC.ahk
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
@@ -7638,8 +7648,12 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines wvsprintf as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} param0 
-     * @param {PSTR} param1 
+     * @param {PSTR} param0 Type: <b>LPTSTR</b>
+     * 
+     * The buffer that is to receive the formatted output. The maximum size of the buffer is 1,024 bytes.
+     * @param {PSTR} param1 Type: <b>LPCTSTR</b>
+     * 
+     * The format-control specifications. In addition to ordinary ASCII characters, a format specification for each argument appears in this string. For more information about the format specification, see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-wsprintfa">wsprintf</a> function.
      * @param {Pointer<Integer>} arglist Type: <b>va_list</b>
      * 
      * Each element of this list specifies an argument for the format-control string. The number, type, and interpretation of the arguments depend on the corresponding format-control specifications in the 
@@ -7679,8 +7693,12 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines wvsprintf as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} param0 
-     * @param {PWSTR} param1 
+     * @param {PWSTR} param0 Type: <b>LPTSTR</b>
+     * 
+     * The buffer that is to receive the formatted output. The maximum size of the buffer is 1,024 bytes.
+     * @param {PWSTR} param1 Type: <b>LPCTSTR</b>
+     * 
+     * The format-control specifications. In addition to ordinary ASCII characters, a format specification for each argument appears in this string. For more information about the format specification, see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-wsprintfa">wsprintf</a> function.
      * @param {Pointer<Integer>} arglist Type: <b>va_list</b>
      * 
      * Each element of this list specifies an argument for the format-control string. The number, type, and interpretation of the arguments depend on the corresponding format-control specifications in the 
@@ -7890,8 +7908,12 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines wsprintf as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} param0 
-     * @param {PSTR} param1 
+     * @param {PSTR} param0 Type: <b>LPTSTR</b>
+     * 
+     * The buffer that is to receive the formatted output. The maximum size of the buffer is 1,024 bytes.
+     * @param {PSTR} param1 Type: <b>LPCTSTR</b>
+     * 
+     * The format-control specifications. In addition to ordinary ASCII characters, a format specification for each argument appears in this string. For more information about the format specification, see the Remarks section.
      * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {Integer} Type: <b>int</b>
      * 
@@ -8099,8 +8121,12 @@ class WindowsAndMessaging {
      * 
      * > [!NOTE]
      * > The winuser.h header defines wsprintf as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} param0 
-     * @param {PWSTR} param1 
+     * @param {PWSTR} param0 Type: <b>LPTSTR</b>
+     * 
+     * The buffer that is to receive the formatted output. The maximum size of the buffer is 1,024 bytes.
+     * @param {PWSTR} param1 Type: <b>LPCTSTR</b>
+     * 
+     * The format-control specifications. In addition to ordinary ASCII characters, a format specification for each argument appears in this string. For more information about the format specification, see the Remarks section.
      * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {Integer} Type: <b>int</b>
      * 
@@ -10285,7 +10311,9 @@ class WindowsAndMessaging {
      * All window classes that an application registers are unregistered when it terminates. 
      * 
      * No window classes registered by a DLL are unregistered when the DLL is unloaded. A DLL must explicitly unregister its classes when it is unloaded.
-     * @param {Pointer<WNDCLASSEXA>} param0 
+     * @param {Pointer<WNDCLASSEXA>} param0 Type: <b>const WNDCLASSEX*</b>
+     * 
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-wndclassexa">WNDCLASSEX</a> structure. You must fill the structure with the appropriate class attributes before passing it to the function.
      * @returns {Integer} Type: <b>ATOM</b>
      * 
      * If the function succeeds, the return value is a class atom that uniquely identifies the class being registered. This atom can only be used by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowa">CreateWindow</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowexa">CreateWindowEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getclassinfoa">GetClassInfo</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getclassinfoexa">GetClassInfoEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-findwindowa">FindWindow</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-findwindowexa">FindWindowEx</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-unregisterclassa">UnregisterClass</a> functions and the <b>IActiveIMMap::FilterClientWindows</b> method. 
@@ -10315,7 +10343,9 @@ class WindowsAndMessaging {
      * All window classes that an application registers are unregistered when it terminates. 
      * 
      * No window classes registered by a DLL are unregistered when the DLL is unloaded. A DLL must explicitly unregister its classes when it is unloaded.
-     * @param {Pointer<WNDCLASSEXW>} param0 
+     * @param {Pointer<WNDCLASSEXW>} param0 Type: <b>const WNDCLASSEX*</b>
+     * 
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-wndclassexa">WNDCLASSEX</a> structure. You must fill the structure with the appropriate class attributes before passing it to the function.
      * @returns {Integer} Type: <b>ATOM</b>
      * 
      * If the function succeeds, the return value is a class atom that uniquely identifies the class being registered. This atom can only be used by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowa">CreateWindow</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowexa">CreateWindowEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getclassinfoa">GetClassInfo</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getclassinfoexa">GetClassInfoEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-findwindowa">FindWindow</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-findwindowexa">FindWindowEx</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-unregisterclassa">UnregisterClass</a> functions and the <b>IActiveIMMap::FilterClientWindows</b> method. 
@@ -17498,8 +17528,12 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves information about a specified menu.
-     * @param {HMENU} param0 
-     * @param {Pointer<MENUINFO>} param1 
+     * @param {HMENU} param0 Type: <b>HMENU</b>
+     * 
+     * A handle on a menu.
+     * @param {Pointer<MENUINFO>} param1 Type: <b>LPMENUINFO</b>
+     * 
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-menuinfo">MENUINFO</a> structure containing information for the menu. Note that you must set the <b>cbSize</b> member to <c>sizeof(MENUINFO)</c> before calling this function.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero. 
@@ -17523,8 +17557,12 @@ class WindowsAndMessaging {
 
     /**
      * Sets information for a specified menu.
-     * @param {HMENU} param0 
-     * @param {Pointer<MENUINFO>} param1 
+     * @param {HMENU} param0 Type: <b>HMENU</b>
+     * 
+     * A handle to a menu.
+     * @param {Pointer<MENUINFO>} param1 Type: <b>LPCMENUINFO</b>
+     * 
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-menuinfo">MENUINFO</a> structure for the menu.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero. 

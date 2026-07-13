@@ -2,10 +2,10 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\EncodingType.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\EncodingType.ahk
 #Include .\X500NameFlags.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Represents an X.500 distinguished name (DN).

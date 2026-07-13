@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WSMAN_SHELL_COMPLETION_FUNCTION.ahk
 
 /**
  * Defines an asynchronous structure to be passed to all shell operations.

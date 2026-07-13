@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SD_CHANGE_MACHINE_SID_INPUT.ahk
-#Include .\SD_QUERY_STATS_INPUT.ahk
 #Include .\SD_ENUM_SDS_INPUT.ahk
+#Include .\SD_QUERY_STATS_INPUT.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl

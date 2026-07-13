@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include .\PEER_DATA.ahk
 #Include .\PEER_WATCH_PERMISSION.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The PEER_CONTACT structure contains information about a specific contact.

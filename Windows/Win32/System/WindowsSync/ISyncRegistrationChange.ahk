@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\SYNC_REGISTRATION_EVENT.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\SYNC_REGISTRATION_EVENT.ahk
 
 /**
  * Represents a change to the registration of a synchronization provider or a synchronization provider configuration UI. The changes are reported as registration events.

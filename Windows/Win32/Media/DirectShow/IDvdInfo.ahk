@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DVD_ATR.ahk
-#Include .\DVD_PLAYBACK_LOCATION.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\DVD_DISC_SIDE.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\DVD_DOMAIN.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\PSTR.ahk
+#Include .\DVD_ATR.ahk
+#Include .\DVD_DISC_SIDE.ahk
+#Include .\DVD_DOMAIN.ahk
+#Include .\DVD_PLAYBACK_LOCATION.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**

@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PDXGK_FSTATE_NOTIFICATION.ahk
+#Include .\PDXGK_INITIAL_COMPONENT_STATE.ahk
+#Include .\PDXGK_POWER_NOTIFICATION.ahk
+#Include .\PDXGK_REMOVAL_NOTIFICATION.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

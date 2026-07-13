@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CIEXYZ.ahk
 #Include .\BI_COMPRESSION.ahk
+#Include .\CIEXYZ.ahk
 #Include .\CIEXYZTRIPLE.ahk
 
 /**

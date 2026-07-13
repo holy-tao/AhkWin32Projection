@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WER_REPORT_SIGNATURE.ahk
-#Include .\WER_REPORT_PARAMETER.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\WER_REPORT_PARAMETER.ahk
+#Include .\WER_REPORT_SIGNATURE.ahk
 
 /**
  * @namespace Windows.Win32.System.ErrorReporting

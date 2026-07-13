@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\ETW_PROCESS_TRACE_MODES.ahk
+#Include .\PETW_BUFFER_CALLBACK.ahk
+#Include .\PEVENT_RECORD_CALLBACK.ahk
 
 /**
  * Provides configuration parameters to OpenTraceFromBufferStream, OpenTraceFromFile, OpenTraceFromRealTimeLogger, OpenTraceFromRealTimeLoggerWithAllocationOptions functions.

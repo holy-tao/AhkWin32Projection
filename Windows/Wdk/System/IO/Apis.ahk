@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include ..\..\..\Win32\System\IO\IO_STATUS_BLOCK.ahk
 #Include ..\..\..\Win32\Foundation\HANDLE.ahk
 #Include ..\..\..\Win32\Foundation\NTSTATUS.ahk
+#Include ..\..\..\Win32\System\IO\IO_STATUS_BLOCK.ahk
+#Include ..\..\..\Win32\System\IO\PIO_APC_ROUTINE.ahk
 
 /**
  * @namespace Windows.Wdk.System.IO
@@ -62,7 +63,7 @@ class IO {
         ApcContextMarshal := ApcContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\NtDeviceIoControlFile", "ptr", FileHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", IoStatusBlock, "uint", IoControlCode, "ptr", InputBuffer, "uint", InputBufferLength, "ptr", OutputBuffer, "uint", OutputBufferLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 

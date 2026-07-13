@@ -1,5 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_ABORT_LISTENER_CALLBACK.ahk
+#Include .\WS_ACCEPT_CHANNEL_CALLBACK.ahk
+#Include .\WS_CLOSE_LISTENER_CALLBACK.ahk
+#Include .\WS_CREATE_CHANNEL_FOR_LISTENER_CALLBACK.ahk
+#Include .\WS_CREATE_LISTENER_CALLBACK.ahk
+#Include .\WS_FREE_LISTENER_CALLBACK.ahk
+#Include .\WS_GET_LISTENER_PROPERTY_CALLBACK.ahk
+#Include .\WS_OPEN_LISTENER_CALLBACK.ahk
+#Include .\WS_RESET_LISTENER_CALLBACK.ahk
+#Include .\WS_SET_LISTENER_PROPERTY_CALLBACK.ahk
 
 /**
  * A structure that is used to specify a set of callbacks that form the implementation of a custom listener.

@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IPSEC_KEY_MANAGER_DICTATE_KEY0.ahk
+#Include .\IPSEC_KEY_MANAGER_KEY_DICTATION_CHECK0.ahk
+#Include .\IPSEC_KEY_MANAGER_NOTIFY_KEY0.ahk
 
 /**
  * Specifies the set of callbacks which should be invoked by IPsec at various stages of SA negotiation.

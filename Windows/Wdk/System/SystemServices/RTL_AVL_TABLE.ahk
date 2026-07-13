@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PRTL_AVL_ALLOCATE_ROUTINE.ahk
+#Include .\PRTL_AVL_COMPARE_ROUTINE.ahk
+#Include .\PRTL_AVL_FREE_ROUTINE.ahk
 #Include .\RTL_BALANCED_LINKS.ahk
 
 /**

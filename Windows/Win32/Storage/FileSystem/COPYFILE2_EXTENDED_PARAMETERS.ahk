@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include .\COPYFILE_FLAGS.ahk
+#Include .\PCOPYFILE2_PROGRESS_ROUTINE.ahk
 
 /**
  * Contains extended parameters for the CopyFile2 function.

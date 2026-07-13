@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISyncMgrUIOperation.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\ISyncMgrUIOperation.ahk
 
 /**
  * Exposes a method that allows a handler to display the sync schedule wizard for the handler.

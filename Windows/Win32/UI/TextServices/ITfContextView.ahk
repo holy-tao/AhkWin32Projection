@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITfRange.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\POINT.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\POINT.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\ITfRange.ahk
 
 /**
  * The ITfContextView interface is implemented by the TSF manager and used by a client (application or text service) to obtain information about a context view.

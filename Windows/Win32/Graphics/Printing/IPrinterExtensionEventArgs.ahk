@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IPrinterExtensionContext.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\IPrinterExtensionRequest.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IPrinterExtensionContext.ahk
+#Include .\IPrinterExtensionRequest.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

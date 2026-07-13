@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\LPDDHALSURFCB_GETBLTSTATUS.ahk
+#Include .\LPDDHAL_GETAVAILDRIVERMEMORY.ahk
+#Include .\LPDDHAL_GETHEAPALIGNMENT.ahk
+#Include .\LPDDHAL_UPDATENONLOCALHEAP.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

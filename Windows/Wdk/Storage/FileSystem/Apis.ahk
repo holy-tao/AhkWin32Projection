@@ -1,127 +1,145 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\BASE_MCB.ahk
-#Include ..\..\Foundation\SspiAsyncContext.ahk
-#Include ..\..\Foundation\PRKPROCESS.ahk
-#Include ..\..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk
-#Include ..\..\Foundation\IRP.ahk
-#Include ..\..\Foundation\DEVICE_OBJECT.ahk
-#Include .\SecHandle.ahk
-#Include ..\..\Foundation\WORK_QUEUE_ITEM.ahk
-#Include .\FSRTL_CHANGE_BACKING_TYPE.ahk
-#Include ..\..\..\Win32\Foundation\HRESULT.ahk
-#Include ..\..\Foundation\DRIVER_OBJECT.ahk
-#Include .\FILE_FULL_EA_INFORMATION.ahk
-#Include .\UNICODE_PREFIX_TABLE_ENTRY.ahk
-#Include ..\..\Foundation\VPB.ahk
-#Include .\MMFLUSH_TYPE.ahk
-#Include ..\..\Foundation\POOL_TYPE.ahk
-#Include ..\..\..\Win32\Security\PRIVILEGE_SET.ahk
-#Include ..\..\Foundation\KMUTANT.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
-#Include .\IO_CREATE_STREAM_FILE_OPTIONS.ahk
-#Include .\MCB.ahk
-#Include ..\..\Foundation\POBJECT_TYPE.ahk
-#Include .\READ_LIST.ahk
-#Include .\MEMORY_RANGE_ENTRY.ahk
-#Include ..\..\..\Win32\Security\SID_NAME_USE.ahk
-#Include ..\..\Foundation\MDL.ahk
-#Include .\FILE_NETWORK_OPEN_INFORMATION.ahk
-#Include ..\..\..\Win32\Security\OBJECT_TYPE_LIST.ahk
-#Include .\PREFIX_TABLE_ENTRY.ahk
-#Include .\FSRTL_UNC_PROVIDER_REGISTRATION.ahk
-#Include ..\..\..\Win32\Security\AUDIT_EVENT_TYPE.ahk
-#Include .\CACHE_MANAGER_CALLBACKS.ahk
-#Include .\FILE_QUOTA_INFORMATION.ahk
-#Include ..\..\..\Win32\Security\GENERIC_MAPPING.ahk
-#Include ..\..\..\Win32\Storage\FileSystem\FILE_FLAGS_AND_ATTRIBUTES.ahk
-#Include .\VIRTUAL_MEMORY_INFORMATION_CLASS.ahk
-#Include ..\..\..\Win32\Foundation\PSTR.ahk
-#Include .\COMPRESSED_DATA_INFO.ahk
-#Include ..\..\..\Win32\Foundation\NTSTATUS.ahk
-#Include ..\..\Foundation\ECP_HEADER.ahk
-#Include ..\..\Foundation\PESILO.ahk
-#Include .\OPLOCK_KEY_CONTEXT.ahk
-#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
-#Include .\UNICODE_PREFIX_TABLE.ahk
-#Include ..\..\..\Win32\System\Ioctl\IO_IRP_EXT_TRACK_OFFSET_HEADER.ahk
-#Include .\FILE_LOCK.ahk
-#Include ..\..\..\Win32\System\IO\IO_STATUS_BLOCK.ahk
-#Include ..\..\..\Win32\System\Kernel\LIST_ENTRY.ahk
-#Include .\CC_ERROR_CALLBACK_CONTEXT.ahk
-#Include .\KAPC_STATE.ahk
-#Include .\FILE_FS_SECTOR_SIZE_INFORMATION.ahk
-#Include ..\..\..\Win32\System\Memory\MEM_EXTENDED_PARAMETER.ahk
-#Include .\FILE_INFORMATION_CLASS.ahk
-#Include .\SECURITY_CLIENT_CONTEXT.ahk
-#Include .\PREFIX_TABLE.ahk
-#Include ..\..\Foundation\ACCESS_STATE.ahk
-#Include ..\..\Foundation\KSPIN_LOCK_QUEUE_NUMBER.ahk
-#Include ..\..\Foundation\OBJECT_NAME_INFORMATION.ahk
-#Include ..\..\Foundation\PKTHREAD.ahk
-#Include ..\..\..\Win32\Security\PSID.ahk
-#Include ..\..\Foundation\TARGET_DEVICE_CUSTOM_NOTIFICATION.ahk
-#Include .\NTCREATEFILE_CREATE_OPTIONS.ahk
-#Include ..\..\..\Win32\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\ECP_LIST.ahk
-#Include .\FSRTL_PER_STREAM_CONTEXT.ahk
-#Include ..\..\Foundation\SECTION_OBJECT_POINTERS.ahk
-#Include ..\..\Foundation\PETHREAD.ahk
-#Include ..\..\Foundation\ERESOURCE.ahk
-#Include .\FSRTL_ADVANCED_FCB_HEADER.ahk
-#Include ..\..\..\Win32\Security\SECURITY_IMPERSONATION_LEVEL.ahk
-#Include .\FILE_LOCK_INFO.ahk
-#Include .\LARGE_MCB.ahk
-#Include .\FSRTL_PER_FILEOBJECT_CONTEXT.ahk
-#Include ..\..\..\Win32\Security\ACL.ahk
-#Include ..\..\..\Win32\Security\Authentication\Identity\SECURITY_USER_DATA.ahk
-#Include .\CC_ASYNC_READ_CONTEXT.ahk
-#Include ..\..\..\Win32\System\Kernel\EVENT_TYPE.ahk
-#Include ..\..\..\Win32\Security\WELL_KNOWN_SID_TYPE.ahk
-#Include ..\..\Foundation\OBJECT_ATTRIBUTES.ahk
-#Include ..\..\..\Win32\Security\SID_IDENTIFIER_AUTHORITY.ahk
-#Include .\RTL_HEAP_PARAMETERS.ahk
-#Include ..\..\Foundation\KEVENT.ahk
-#Include ..\..\..\Win32\Security\SE_IMPERSONATION_STATE.ahk
-#Include ..\..\..\Win32\Security\TOKEN_PRIVILEGES.ahk
-#Include ..\..\..\Win32\Foundation\CHAR.ahk
-#Include ..\..\Foundation\IO_STACK_LOCATION.ahk
-#Include .\FS_FILTER_CALLBACKS.ahk
-#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
-#Include ..\..\..\Win32\Security\TOKEN_ACCESS_INFORMATION.ahk
-#Include .\REPARSE_DATA_BUFFER.ahk
-#Include .\GENERATE_NAME_CONTEXT.ahk
-#Include ..\..\Foundation\OBJECT_INFORMATION_CLASS.ahk
-#Include .\CC_FILE_SIZES.ahk
-#Include .\SecBufferDesc.ahk
-#Include ..\..\..\Win32\Security\SECURITY_QUALITY_OF_SERVICE.ahk
-#Include .\CACHE_UNINITIALIZE_EVENT.ahk
-#Include .\FS_INFORMATION_CLASS.ahk
-#Include ..\..\..\Win32\Security\TOKEN_GROUPS.ahk
-#Include ..\..\..\Win32\Security\Authentication\Identity\SE_ADT_PARAMETER_ARRAY.ahk
-#Include .\TUNNEL.ahk
-#Include ..\..\..\Win32\Storage\FileSystem\FILE_SHARE_MODE.ahk
-#Include ..\..\Foundation\FILE_OBJECT.ahk
-#Include ..\..\..\Win32\Storage\FileSystem\FILE_ACCESS_RIGHTS.ahk
-#Include .\NTCREATEFILE_CREATE_DISPOSITION.ahk
-#Include ..\..\..\Win32\Foundation\LUID.ahk
-#Include .\MEMORY_INFORMATION_CLASS.ahk
-#Include ..\..\Foundation\KQUEUE.ahk
-#Include ..\..\Foundation\KWAIT_BLOCK.ahk
-#Include .\IO_PRIORITY_INFO.ahk
-#Include ..\..\..\Win32\Security\TOKEN_INFORMATION_CLASS.ahk
-#Include .\SecBuffer.ahk
-#Include ..\..\..\Win32\System\Kernel\WAIT_TYPE.ahk
-#Include ..\..\Foundation\SECURITY_SUBJECT_CONTEXT.ahk
-#Include .\FSRTL_PER_FILE_CONTEXT.ahk
-#Include ..\..\Foundation\PEPROCESS.ahk
-#Include .\CPTABLEINFO.ahk
-#Include .\OPLOCK_KEY_ECP_CONTEXT.ahk
-#Include ..\..\Foundation\PNOTIFY_SYNC.ahk
-#Include ..\..\..\Win32\System\Kernel\STRING.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\ACCESS_STATE.ahk
+#Include ..\..\Foundation\DEVICE_OBJECT.ahk
+#Include ..\..\Foundation\DRIVER_FS_NOTIFICATION.ahk
+#Include ..\..\Foundation\DRIVER_OBJECT.ahk
+#Include ..\..\Foundation\ECP_HEADER.ahk
+#Include ..\..\Foundation\ECP_LIST.ahk
+#Include ..\..\Foundation\ERESOURCE.ahk
+#Include ..\..\Foundation\FILE_OBJECT.ahk
+#Include ..\..\Foundation\IO_STACK_LOCATION.ahk
+#Include ..\..\Foundation\IRP.ahk
+#Include ..\..\Foundation\KEVENT.ahk
+#Include ..\..\Foundation\KMUTANT.ahk
+#Include ..\..\Foundation\KQUEUE.ahk
+#Include ..\..\Foundation\KSPIN_LOCK_QUEUE_NUMBER.ahk
+#Include ..\..\Foundation\KWAIT_BLOCK.ahk
+#Include ..\..\Foundation\MDL.ahk
+#Include ..\..\Foundation\OBJECT_ATTRIBUTES.ahk
+#Include ..\..\Foundation\OBJECT_INFORMATION_CLASS.ahk
+#Include ..\..\Foundation\OBJECT_NAME_INFORMATION.ahk
+#Include ..\..\Foundation\PEPROCESS.ahk
+#Include ..\..\Foundation\PESILO.ahk
+#Include ..\..\Foundation\PETHREAD.ahk
+#Include ..\..\Foundation\PKTHREAD.ahk
+#Include ..\..\Foundation\PNOTIFY_SYNC.ahk
+#Include ..\..\Foundation\POBJECT_TYPE.ahk
+#Include ..\..\Foundation\POOL_TYPE.ahk
+#Include ..\..\Foundation\PRKPROCESS.ahk
+#Include ..\..\Foundation\SECTION_OBJECT_POINTERS.ahk
+#Include ..\..\Foundation\SECURITY_SUBJECT_CONTEXT.ahk
+#Include ..\..\Foundation\SspiAsyncContext.ahk
+#Include ..\..\Foundation\TARGET_DEVICE_CUSTOM_NOTIFICATION.ahk
+#Include ..\..\Foundation\VPB.ahk
+#Include ..\..\Foundation\WORK_QUEUE_ITEM.ahk
+#Include .\BASE_MCB.ahk
+#Include .\CACHE_MANAGER_CALLBACKS.ahk
+#Include .\CACHE_UNINITIALIZE_EVENT.ahk
+#Include .\CC_ASYNC_READ_CONTEXT.ahk
+#Include .\CC_ERROR_CALLBACK_CONTEXT.ahk
+#Include .\CC_FILE_SIZES.ahk
+#Include .\COMPRESSED_DATA_INFO.ahk
+#Include .\CPTABLEINFO.ahk
+#Include .\FILE_FS_SECTOR_SIZE_INFORMATION.ahk
+#Include .\FILE_FULL_EA_INFORMATION.ahk
+#Include .\FILE_INFORMATION_CLASS.ahk
+#Include .\FILE_LOCK.ahk
+#Include .\FILE_LOCK_INFO.ahk
+#Include .\FILE_NETWORK_OPEN_INFORMATION.ahk
+#Include .\FILE_QUOTA_INFORMATION.ahk
+#Include .\FSRTL_ADVANCED_FCB_HEADER.ahk
+#Include .\FSRTL_CHANGE_BACKING_TYPE.ahk
+#Include .\FSRTL_PER_FILEOBJECT_CONTEXT.ahk
+#Include .\FSRTL_PER_FILE_CONTEXT.ahk
+#Include .\FSRTL_PER_STREAM_CONTEXT.ahk
+#Include .\FSRTL_UNC_PROVIDER_REGISTRATION.ahk
+#Include .\FS_FILTER_CALLBACKS.ahk
+#Include .\FS_INFORMATION_CLASS.ahk
+#Include .\GENERATE_NAME_CONTEXT.ahk
+#Include .\IO_CREATE_STREAM_FILE_OPTIONS.ahk
+#Include .\IO_PRIORITY_INFO.ahk
+#Include .\KAPC_STATE.ahk
+#Include .\LARGE_MCB.ahk
+#Include .\MCB.ahk
+#Include .\MEMORY_INFORMATION_CLASS.ahk
+#Include .\MEMORY_RANGE_ENTRY.ahk
+#Include .\MMFLUSH_TYPE.ahk
+#Include .\NTCREATEFILE_CREATE_DISPOSITION.ahk
+#Include .\NTCREATEFILE_CREATE_OPTIONS.ahk
+#Include .\OPLOCK_KEY_CONTEXT.ahk
+#Include .\OPLOCK_KEY_ECP_CONTEXT.ahk
+#Include .\PCC_POST_DEFERRED_WRITE.ahk
+#Include .\PCHECK_FOR_TRAVERSE_ACCESS.ahk
+#Include .\PCOMPLETE_LOCK_IRP_ROUTINE.ahk
+#Include .\PDIRTY_PAGE_ROUTINE.ahk
+#Include .\PFILTER_REPORT_CHANGE.ahk
+#Include .\PFLUSH_TO_LSN.ahk
+#Include .\PFSRTL_EXTRA_CREATE_PARAMETER_CLEANUP_CALLBACK.ahk
+#Include .\PFSRTL_STACK_OVERFLOW_ROUTINE.ahk
+#Include .\POPLOCK_FS_PREPOST_IRP.ahk
+#Include .\POPLOCK_NOTIFY_ROUTINE.ahk
+#Include .\POPLOCK_WAIT_COMPLETE_ROUTINE.ahk
+#Include .\PREFIX_TABLE.ahk
+#Include .\PREFIX_TABLE_ENTRY.ahk
+#Include .\PSE_LOGON_SESSION_TERMINATED_ROUTINE.ahk
+#Include .\PSE_LOGON_SESSION_TERMINATED_ROUTINE_EX.ahk
+#Include .\PUNLOCK_ROUTINE.ahk
+#Include .\READ_LIST.ahk
+#Include .\REPARSE_DATA_BUFFER.ahk
+#Include .\RTL_HEAP_PARAMETERS.ahk
+#Include .\SECURITY_CLIENT_CONTEXT.ahk
+#Include .\SecBuffer.ahk
+#Include .\SecBufferDesc.ahk
+#Include .\SecHandle.ahk
+#Include .\SspiAsyncNotifyCallback.ahk
+#Include .\TUNNEL.ahk
+#Include .\UNICODE_PREFIX_TABLE.ahk
+#Include .\UNICODE_PREFIX_TABLE_ENTRY.ahk
+#Include .\VIRTUAL_MEMORY_INFORMATION_CLASS.ahk
+#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
+#Include ..\..\..\Win32\Foundation\CHAR.ahk
+#Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Include ..\..\..\Win32\Foundation\HRESULT.ahk
+#Include ..\..\..\Win32\Foundation\LUID.ahk
+#Include ..\..\..\Win32\Foundation\NTSTATUS.ahk
+#Include ..\..\..\Win32\Foundation\PSTR.ahk
+#Include ..\..\..\Win32\Foundation\PWSTR.ahk
+#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Include ..\..\..\Win32\Security\ACL.ahk
+#Include ..\..\..\Win32\Security\AUDIT_EVENT_TYPE.ahk
+#Include ..\..\..\Win32\Security\Authentication\Identity\SECURITY_USER_DATA.ahk
+#Include ..\..\..\Win32\Security\Authentication\Identity\SEC_GET_KEY_FN.ahk
+#Include ..\..\..\Win32\Security\Authentication\Identity\SE_ADT_PARAMETER_ARRAY.ahk
+#Include ..\..\..\Win32\Security\GENERIC_MAPPING.ahk
+#Include ..\..\..\Win32\Security\OBJECT_TYPE_LIST.ahk
+#Include ..\..\..\Win32\Security\PRIVILEGE_SET.ahk
+#Include ..\..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk
+#Include ..\..\..\Win32\Security\PSID.ahk
+#Include ..\..\..\Win32\Security\SECURITY_IMPERSONATION_LEVEL.ahk
+#Include ..\..\..\Win32\Security\SECURITY_QUALITY_OF_SERVICE.ahk
+#Include ..\..\..\Win32\Security\SE_IMPERSONATION_STATE.ahk
+#Include ..\..\..\Win32\Security\SID_IDENTIFIER_AUTHORITY.ahk
+#Include ..\..\..\Win32\Security\SID_NAME_USE.ahk
+#Include ..\..\..\Win32\Security\TOKEN_ACCESS_INFORMATION.ahk
+#Include ..\..\..\Win32\Security\TOKEN_GROUPS.ahk
+#Include ..\..\..\Win32\Security\TOKEN_INFORMATION_CLASS.ahk
+#Include ..\..\..\Win32\Security\TOKEN_PRIVILEGES.ahk
 #Include ..\..\..\Win32\Security\TOKEN_TYPE.ahk
+#Include ..\..\..\Win32\Security\WELL_KNOWN_SID_TYPE.ahk
+#Include ..\..\..\Win32\Storage\FileSystem\FILE_ACCESS_RIGHTS.ahk
+#Include ..\..\..\Win32\Storage\FileSystem\FILE_FLAGS_AND_ATTRIBUTES.ahk
+#Include ..\..\..\Win32\Storage\FileSystem\FILE_SHARE_MODE.ahk
+#Include ..\..\..\Win32\System\IO\IO_STATUS_BLOCK.ahk
+#Include ..\..\..\Win32\System\IO\PIO_APC_ROUTINE.ahk
+#Include ..\..\..\Win32\System\Ioctl\IO_IRP_EXT_TRACK_OFFSET_HEADER.ahk
+#Include ..\..\..\Win32\System\Kernel\EVENT_TYPE.ahk
+#Include ..\..\..\Win32\System\Kernel\LIST_ENTRY.ahk
+#Include ..\..\..\Win32\System\Kernel\STRING.ahk
+#Include ..\..\..\Win32\System\Kernel\WAIT_TYPE.ahk
+#Include ..\..\..\Win32\System\Memory\MEM_EXTENDED_PARAMETER.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
@@ -3452,7 +3470,7 @@ class FileSystem {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("ntdll.dll\NtCancelIoFileEx", "ptr", FileHandle, "ptr", IoRequestToCancel, "ptr", IoStatusBlock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3467,7 +3485,7 @@ class FileSystem {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("ntdll.dll\ZwCancelIoFileEx", "ptr", FileHandle, "ptr", IoRequestToCancel, "ptr", IoStatusBlock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3492,7 +3510,7 @@ class FileSystem {
         ApcContextMarshal := ApcContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\NtNotifyChangeKey", "ptr", KeyHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", IoStatusBlock, "uint", CompletionFilter, "char", WatchTree, "ptr", _Buffer, "uint", BufferSize, "char", Asynchronous, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3507,7 +3525,7 @@ class FileSystem {
      */
     static NtCreateEvent(EventHandle, DesiredAccess, ObjectAttributes, EventType, InitialState) {
         result := DllCall("ntdll.dll\NtCreateEvent", "ptr", EventHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "int", EventType, "char", InitialState, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3518,7 +3536,7 @@ class FileSystem {
      */
     static NtDeleteFile(ObjectAttributes) {
         result := DllCall("ntdll.dll\NtDeleteFile", "ptr", ObjectAttributes, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3544,7 +3562,7 @@ class FileSystem {
         ApcContextMarshal := ApcContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\NtQueryDirectoryFile", "ptr", FileHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", IoStatusBlock, "ptr", FileInformation, "uint", Length, "int", FileInformationClass, "char", ReturnSingleEntry, "ptr", FileName, "char", RestartScan, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3569,7 +3587,7 @@ class FileSystem {
         ApcContextMarshal := ApcContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\NtQueryDirectoryFileEx", "ptr", FileHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", IoStatusBlock, "ptr", FileInformation, "uint", Length, "int", FileInformationClass, "uint", QueryFlags, "ptr", FileName, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3586,7 +3604,7 @@ class FileSystem {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("ntdll.dll\NtQueryVolumeInformationFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", FsInformation, "uint", Length, "int", FsInformationClass, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3603,7 +3621,7 @@ class FileSystem {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("ntdll.dll\NtSetVolumeInformationFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", FsInformation, "uint", Length, "int", FsInformationClass, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3628,7 +3646,7 @@ class FileSystem {
         ApcContextMarshal := ApcContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\NtFsControlFile", "ptr", FileHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", IoStatusBlock, "uint", FsControlCode, "ptr", InputBuffer, "uint", InputBufferLength, "ptr", OutputBuffer, "uint", OutputBufferLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3649,7 +3667,7 @@ class FileSystem {
         TargetProcessHandle := TargetProcessHandle is Win32Handle ? NumGet(TargetProcessHandle, "ptr") : TargetProcessHandle
 
         result := DllCall("ntdll.dll\NtDuplicateObject", "ptr", SourceProcessHandle, "ptr", SourceHandle, "ptr", TargetProcessHandle, "ptr", TargetHandle, "uint", DesiredAccess, "uint", HandleAttributes, "uint", Options, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3686,7 +3704,7 @@ class FileSystem {
      */
     static NtOpenDirectoryObject(DirectoryHandle, DesiredAccess, ObjectAttributes) {
         result := DllCall("ntdll.dll\NtOpenDirectoryObject", "ptr", DirectoryHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3707,7 +3725,7 @@ class FileSystem {
         RegionSizeMarshal := RegionSize is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntdll.dll\NtAllocateVirtualMemoryEx", "ptr", ProcessHandle, "ptr", BaseAddress, RegionSizeMarshal, RegionSize, "uint", AllocationType, "uint", PageProtection, "ptr", ExtendedParameters, "uint", ExtendedParameterCount, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3726,7 +3744,7 @@ class FileSystem {
         RegionSizeMarshal := RegionSize is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntdll.dll\NtFreeVirtualMemory", "ptr", ProcessHandle, BaseAddressMarshal, BaseAddress, RegionSizeMarshal, RegionSize, "uint", FreeType, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3747,7 +3765,7 @@ class FileSystem {
         ReturnLengthMarshal := ReturnLength is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntdll.dll\NtQueryVirtualMemory", "ptr", ProcessHandle, BaseAddressMarshal, BaseAddress, "int", MemoryInformationClass, "ptr", MemoryInformation, "ptr", MemoryInformationLength, ReturnLengthMarshal, ReturnLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3765,7 +3783,7 @@ class FileSystem {
         ProcessHandle := ProcessHandle is Win32Handle ? NumGet(ProcessHandle, "ptr") : ProcessHandle
 
         result := DllCall("ntdll.dll\NtSetInformationVirtualMemory", "ptr", ProcessHandle, "int", VmInformationClass, "ptr", NumberOfEntries, "ptr", VirtualAddresses, "ptr", VmInformation, "uint", VmInformationLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3781,7 +3799,7 @@ class FileSystem {
         PreviousStateMarshal := PreviousState is VarRef ? "int*" : "ptr"
 
         result := DllCall("ntdll.dll\NtSetEvent", "ptr", EventHandle, PreviousStateMarshal, PreviousState, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3800,7 +3818,7 @@ class FileSystem {
         RegionSizeMarshal := RegionSize is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntdll.dll\NtFlushVirtualMemory", "ptr", ProcessHandle, BaseAddressMarshal, BaseAddress, RegionSizeMarshal, RegionSize, "ptr", IoStatus, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3816,7 +3834,7 @@ class FileSystem {
         ProcessHandle := ProcessHandle is Win32Handle ? NumGet(ProcessHandle, "ptr") : ProcessHandle
 
         result := DllCall("ntdll.dll\NtOpenProcessTokenEx", "ptr", ProcessHandle, "uint", DesiredAccess, "uint", HandleAttributes, "ptr", TokenHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3831,7 +3849,7 @@ class FileSystem {
         ProcessHandle := ProcessHandle is Win32Handle ? NumGet(ProcessHandle, "ptr") : ProcessHandle
 
         result := DllCall("ntdll.dll\ZwOpenProcessToken", "ptr", ProcessHandle, "uint", DesiredAccess, "ptr", TokenHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3848,7 +3866,7 @@ class FileSystem {
         ThreadHandle := ThreadHandle is Win32Handle ? NumGet(ThreadHandle, "ptr") : ThreadHandle
 
         result := DllCall("ntdll.dll\NtOpenThreadTokenEx", "ptr", ThreadHandle, "uint", DesiredAccess, "char", OpenAsSelf, "uint", HandleAttributes, "ptr", TokenHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3864,7 +3882,7 @@ class FileSystem {
         ThreadHandle := ThreadHandle is Win32Handle ? NumGet(ThreadHandle, "ptr") : ThreadHandle
 
         result := DllCall("ntdll.dll\ZwOpenThreadToken", "ptr", ThreadHandle, "uint", DesiredAccess, "char", OpenAsSelf, "ptr", TokenHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3883,7 +3901,7 @@ class FileSystem {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\NtQueryInformationToken", "ptr", TokenHandle, "int", TokenInformationClass, "ptr", TokenInformation, "uint", TokenInformationLength, ReturnLengthMarshal, ReturnLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3899,7 +3917,7 @@ class FileSystem {
         TokenHandle := TokenHandle is Win32Handle ? NumGet(TokenHandle, "ptr") : TokenHandle
 
         result := DllCall("ntdll.dll\NtSetInformationToken", "ptr", TokenHandle, "int", TokenInformationClass, "ptr", TokenInformation, "uint", TokenInformationLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3915,7 +3933,7 @@ class FileSystem {
         _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
         result := DllCall("ntdll.dll\NtSetSecurityObject", "ptr", _Handle, "uint", SecurityInformation, "ptr", _SecurityDescriptor, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3942,7 +3960,7 @@ class FileSystem {
         LengthMarshal := Length is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\NtLockFile", "ptr", FileHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", IoStatusBlock, ByteOffsetMarshal, ByteOffset, LengthMarshal, Length, "uint", Key, "char", FailImmediately, "char", ExclusiveLock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3962,7 +3980,7 @@ class FileSystem {
         LengthMarshal := Length is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\NtUnlockFile", "ptr", FileHandle, "ptr", IoStatusBlock, ByteOffsetMarshal, ByteOffset, LengthMarshal, Length, "uint", Key, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3983,7 +4001,7 @@ class FileSystem {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("ntdll.dll\NtQueryQuotaInformationFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", _Buffer, "uint", Length, "char", ReturnSingleEntry, "ptr", SidList, "uint", SidListLength, "ptr", StartSid, "char", RestartScan, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3999,7 +4017,7 @@ class FileSystem {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("ntdll.dll\NtSetQuotaInformationFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", _Buffer, "uint", Length, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4013,7 +4031,7 @@ class FileSystem {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("ntdll.dll\NtFlushBuffersFile", "ptr", FileHandle, "ptr", IoStatusBlock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4036,7 +4054,7 @@ class FileSystem {
         EaIndexMarshal := EaIndex is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\NtQueryEaFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", _Buffer, "uint", Length, "char", ReturnSingleEntry, "ptr", EaList, "uint", EaListLength, EaIndexMarshal, EaIndex, "char", RestartScan, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4052,7 +4070,7 @@ class FileSystem {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("ntdll.dll\NtSetEaFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", _Buffer, "uint", Length, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4070,7 +4088,7 @@ class FileSystem {
         ExistingTokenHandle := ExistingTokenHandle is Win32Handle ? NumGet(ExistingTokenHandle, "ptr") : ExistingTokenHandle
 
         result := DllCall("ntdll.dll\NtDuplicateToken", "ptr", ExistingTokenHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "char", EffectiveOnly, "int", TokenType, "ptr", NewTokenHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4083,7 +4101,7 @@ class FileSystem {
      */
     static NtCreateDirectoryObject(DirectoryHandle, DesiredAccess, ObjectAttributes) {
         result := DllCall("ntdll.dll\NtCreateDirectoryObject", "ptr", DirectoryHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4095,7 +4113,7 @@ class FileSystem {
      */
     static NtQueryFullAttributesFile(ObjectAttributes, FileInformation) {
         result := DllCall("ntdll.dll\NtQueryFullAttributesFile", "ptr", ObjectAttributes, "ptr", FileInformation, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4111,7 +4129,7 @@ class FileSystem {
      */
     static NtOpenSymbolicLinkObject(LinkHandle, DesiredAccess, ObjectAttributes) {
         result := DllCall("ntdll.dll\NtOpenSymbolicLinkObject", "ptr", LinkHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4131,7 +4149,7 @@ class FileSystem {
         ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\NtQuerySymbolicLinkObject", "ptr", LinkHandle, "ptr", LinkTarget, ReturnedLengthMarshal, ReturnedLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4166,7 +4184,7 @@ class FileSystem {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\NtQueryDirectoryObject", "ptr", DirectoryHandle, _BufferMarshal, _Buffer, "uint", Length, "char", ReturnSingleEntry, "char", RestartScan, _ContextMarshal, _Context, ReturnLengthMarshal, ReturnLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4189,7 +4207,7 @@ class FileSystem {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwQueryDirectoryObject", "ptr", DirectoryHandle, _BufferMarshal, _Buffer, "uint", Length, "char", ReturnSingleEntry, "char", RestartScan, _ContextMarshal, _Context, ReturnLengthMarshal, ReturnLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4209,7 +4227,7 @@ class FileSystem {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwAdjustPrivilegesToken", "ptr", TokenHandle, "char", DisableAllPrivileges, "ptr", NewState, "uint", BufferLength, "ptr", PreviousState, ReturnLengthMarshal, ReturnLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4229,7 +4247,7 @@ class FileSystem {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwAdjustGroupsToken", "ptr", TokenHandle, "char", ResetToDefault, "ptr", NewState, "uint", BufferLength, "ptr", PreviousState, ReturnLengthMarshal, ReturnLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4246,7 +4264,7 @@ class FileSystem {
         ResultMarshal := Result is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwPrivilegeCheck", "ptr", ClientToken, "ptr", RequiredPrivileges, ResultMarshal, Result, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4274,7 +4292,7 @@ class FileSystem {
         GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwAccessCheckAndAuditAlarm", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", _SecurityDescriptor, "uint", DesiredAccess, "ptr", GenericMapping, "char", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, GenerateOnCloseMarshal, GenerateOnClose, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4307,7 +4325,7 @@ class FileSystem {
         GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwAccessCheckByTypeAndAuditAlarm", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", _SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "char", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, GenerateOnCloseMarshal, GenerateOnClose, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4340,7 +4358,7 @@ class FileSystem {
         GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwAccessCheckByTypeResultListAndAuditAlarm", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", _SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "char", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, GenerateOnCloseMarshal, GenerateOnClose, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4375,7 +4393,7 @@ class FileSystem {
         GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwAccessCheckByTypeResultListAndAuditAlarmByHandle", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ClientToken, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", _SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "char", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, GenerateOnCloseMarshal, GenerateOnClose, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4403,7 +4421,7 @@ class FileSystem {
         GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwOpenObjectAuditAlarm", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", _SecurityDescriptor, "ptr", ClientToken, "uint", DesiredAccess, "uint", GrantedAccess, "ptr", Privileges, "char", ObjectCreation, "char", AccessGranted, GenerateOnCloseMarshal, GenerateOnClose, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4423,7 +4441,7 @@ class FileSystem {
         HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\ZwPrivilegeObjectAuditAlarm", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ClientToken, "uint", DesiredAccess, "ptr", Privileges, "char", AccessGranted, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4438,7 +4456,7 @@ class FileSystem {
         HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\ZwCloseObjectAuditAlarm", "ptr", SubsystemName, HandleIdMarshal, HandleId, "char", GenerateOnClose, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4453,7 +4471,7 @@ class FileSystem {
         HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\ZwDeleteObjectAuditAlarm", "ptr", SubsystemName, HandleIdMarshal, HandleId, "char", GenerateOnClose, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4470,7 +4488,7 @@ class FileSystem {
         ClientToken := ClientToken is Win32Handle ? NumGet(ClientToken, "ptr") : ClientToken
 
         result := DllCall("ntdll.dll\ZwPrivilegedServiceAuditAlarm", "ptr", SubsystemName, "ptr", ServiceName, "ptr", ClientToken, "ptr", Privileges, "char", AccessGranted, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4488,7 +4506,7 @@ class FileSystem {
         ExistingTokenHandle := ExistingTokenHandle is Win32Handle ? NumGet(ExistingTokenHandle, "ptr") : ExistingTokenHandle
 
         result := DllCall("ntdll.dll\ZwFilterToken", "ptr", ExistingTokenHandle, "uint", Flags, "ptr", SidsToDisable, "ptr", PrivilegesToDelete, "ptr", RestrictedSids, "ptr", NewTokenHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4501,7 +4519,7 @@ class FileSystem {
         ThreadHandle := ThreadHandle is Win32Handle ? NumGet(ThreadHandle, "ptr") : ThreadHandle
 
         result := DllCall("ntdll.dll\ZwImpersonateAnonymousToken", "ptr", ThreadHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4524,7 +4542,7 @@ class FileSystem {
         MaximumSizeMarshal := MaximumSize is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwCreateSectionEx", "ptr", SectionHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, MaximumSizeMarshal, MaximumSize, "uint", SectionPageProtection, "uint", AllocationAttributes, "ptr", FileHandle, "ptr", ExtendedParameters, "uint", ExtendedParameterCount, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4540,7 +4558,7 @@ class FileSystem {
         ThreadHandle := ThreadHandle is Win32Handle ? NumGet(ThreadHandle, "ptr") : ThreadHandle
 
         result := DllCall("ntdll.dll\NtOpenThreadToken", "ptr", ThreadHandle, "uint", DesiredAccess, "char", OpenAsSelf, "ptr", TokenHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4555,7 +4573,7 @@ class FileSystem {
         ProcessHandle := ProcessHandle is Win32Handle ? NumGet(ProcessHandle, "ptr") : ProcessHandle
 
         result := DllCall("ntdll.dll\NtOpenProcessToken", "ptr", ProcessHandle, "uint", DesiredAccess, "ptr", TokenHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4573,7 +4591,7 @@ class FileSystem {
         ExistingTokenHandle := ExistingTokenHandle is Win32Handle ? NumGet(ExistingTokenHandle, "ptr") : ExistingTokenHandle
 
         result := DllCall("ntdll.dll\NtFilterToken", "ptr", ExistingTokenHandle, "uint", Flags, "ptr", SidsToDisable, "ptr", PrivilegesToDelete, "ptr", RestrictedSids, "ptr", NewTokenHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4586,7 +4604,7 @@ class FileSystem {
         ThreadHandle := ThreadHandle is Win32Handle ? NumGet(ThreadHandle, "ptr") : ThreadHandle
 
         result := DllCall("ntdll.dll\NtImpersonateAnonymousToken", "ptr", ThreadHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4606,7 +4624,7 @@ class FileSystem {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\NtAdjustPrivilegesToken", "ptr", TokenHandle, "char", DisableAllPrivileges, "ptr", NewState, "uint", BufferLength, "ptr", PreviousState, ReturnLengthMarshal, ReturnLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4626,7 +4644,7 @@ class FileSystem {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\NtAdjustGroupsToken", "ptr", TokenHandle, "char", ResetToDefault, "ptr", NewState, "uint", BufferLength, "ptr", PreviousState, ReturnLengthMarshal, ReturnLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4643,7 +4661,7 @@ class FileSystem {
         ResultMarshal := Result is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntdll.dll\NtPrivilegeCheck", "ptr", ClientToken, "ptr", RequiredPrivileges, ResultMarshal, Result, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4671,7 +4689,7 @@ class FileSystem {
         GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntdll.dll\NtAccessCheckAndAuditAlarm", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", _SecurityDescriptor, "uint", DesiredAccess, "ptr", GenericMapping, "char", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, GenerateOnCloseMarshal, GenerateOnClose, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4704,7 +4722,7 @@ class FileSystem {
         GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntdll.dll\NtAccessCheckByTypeAndAuditAlarm", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", _SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "char", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, GenerateOnCloseMarshal, GenerateOnClose, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4737,7 +4755,7 @@ class FileSystem {
         GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntdll.dll\NtAccessCheckByTypeResultListAndAuditAlarm", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", _SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "char", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, GenerateOnCloseMarshal, GenerateOnClose, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4772,7 +4790,7 @@ class FileSystem {
         GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntdll.dll\NtAccessCheckByTypeResultListAndAuditAlarmByHandle", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ClientToken, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", _SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "char", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, GenerateOnCloseMarshal, GenerateOnClose, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4800,7 +4818,7 @@ class FileSystem {
         GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntdll.dll\NtOpenObjectAuditAlarm", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", _SecurityDescriptor, "ptr", ClientToken, "uint", DesiredAccess, "uint", GrantedAccess, "ptr", Privileges, "char", ObjectCreation, "char", AccessGranted, GenerateOnCloseMarshal, GenerateOnClose, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4820,7 +4838,7 @@ class FileSystem {
         HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\NtPrivilegeObjectAuditAlarm", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ClientToken, "uint", DesiredAccess, "ptr", Privileges, "char", AccessGranted, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4835,7 +4853,7 @@ class FileSystem {
         HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\NtCloseObjectAuditAlarm", "ptr", SubsystemName, HandleIdMarshal, HandleId, "char", GenerateOnClose, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4850,7 +4868,7 @@ class FileSystem {
         HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\NtDeleteObjectAuditAlarm", "ptr", SubsystemName, HandleIdMarshal, HandleId, "char", GenerateOnClose, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4867,7 +4885,7 @@ class FileSystem {
         ClientToken := ClientToken is Win32Handle ? NumGet(ClientToken, "ptr") : ClientToken
 
         result := DllCall("ntdll.dll\NtPrivilegedServiceAuditAlarm", "ptr", SubsystemName, "ptr", ServiceName, "ptr", ClientToken, "ptr", Privileges, "char", AccessGranted, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4974,7 +4992,7 @@ class FileSystem {
         SourceString := SourceString is String ? StrPtr(SourceString) : SourceString
 
         result := DllCall("ntdll.dll\RtlInitUnicodeStringEx", "ptr", DestinationString, "ptr", SourceString, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5011,7 +5029,7 @@ class FileSystem {
      */
     static RtlAppendStringToString(Destination, Source) {
         result := DllCall("ntdll.dll\RtlAppendStringToString", "ptr", Destination, "ptr", Source, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5024,7 +5042,7 @@ class FileSystem {
      */
     static RtlOemStringToUnicodeString(DestinationString, SourceString, AllocateDestinationString) {
         result := DllCall("ntdll.dll\RtlOemStringToUnicodeString", "ptr", DestinationString, "ptr", SourceString, "char", AllocateDestinationString, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5037,7 +5055,7 @@ class FileSystem {
      */
     static RtlUpcaseUnicodeStringToOemString(DestinationString, SourceString, AllocateDestinationString) {
         result := DllCall("ntdll.dll\RtlUpcaseUnicodeStringToOemString", "ptr", DestinationString, "ptr", SourceString, "char", AllocateDestinationString, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5050,7 +5068,7 @@ class FileSystem {
      */
     static RtlOemStringToCountedUnicodeString(DestinationString, SourceString, AllocateDestinationString) {
         result := DllCall("ntoskrnl.exe\RtlOemStringToCountedUnicodeString", "ptr", DestinationString, "ptr", SourceString, "char", AllocateDestinationString, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5063,7 +5081,7 @@ class FileSystem {
      */
     static RtlUnicodeStringToCountedOemString(DestinationString, SourceString, AllocateDestinationString) {
         result := DllCall("ntdll.dll\RtlUnicodeStringToCountedOemString", "ptr", DestinationString, "ptr", SourceString, "char", AllocateDestinationString, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5076,7 +5094,7 @@ class FileSystem {
      */
     static RtlUpcaseUnicodeStringToCountedOemString(DestinationString, SourceString, AllocateDestinationString) {
         result := DllCall("ntdll.dll\RtlUpcaseUnicodeStringToCountedOemString", "ptr", DestinationString, "ptr", SourceString, "char", AllocateDestinationString, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5089,7 +5107,7 @@ class FileSystem {
         static Flags := 0 ;Reserved parameters must always be NULL
 
         result := DllCall("ntdll.dll\RtlValidateUnicodeString", "uint", Flags, "ptr", _String, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5102,7 +5120,7 @@ class FileSystem {
      */
     static RtlDuplicateUnicodeString(Flags, StringIn, StringOut) {
         result := DllCall("ntdll.dll\RtlDuplicateUnicodeString", "uint", Flags, "ptr", StringIn, "ptr", StringOut, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5115,7 +5133,7 @@ class FileSystem {
      */
     static RtlDowncaseUnicodeString(DestinationString, SourceString, AllocateDestinationString) {
         result := DllCall("ntdll.dll\RtlDowncaseUnicodeString", "ptr", DestinationString, "ptr", SourceString, "char", AllocateDestinationString, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5152,7 +5170,7 @@ class FileSystem {
         BytesInUnicodeStringMarshal := BytesInUnicodeString is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlMultiByteToUnicodeN", "ptr", UnicodeString, "uint", MaxBytesInUnicodeString, BytesInUnicodeStringMarshal, BytesInUnicodeString, "ptr", MultiByteString, "uint", BytesInMultiByteString, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5167,7 +5185,7 @@ class FileSystem {
         BytesInUnicodeStringMarshal := BytesInUnicodeString is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlMultiByteToUnicodeSize", BytesInUnicodeStringMarshal, BytesInUnicodeString, "ptr", MultiByteString, "uint", BytesInMultiByteString, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5184,7 +5202,7 @@ class FileSystem {
         BytesInMultiByteStringMarshal := BytesInMultiByteString is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlUnicodeToMultiByteN", "ptr", MultiByteString, "uint", MaxBytesInMultiByteString, BytesInMultiByteStringMarshal, BytesInMultiByteString, "ptr", UnicodeString, "uint", BytesInUnicodeString, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5201,7 +5219,7 @@ class FileSystem {
         BytesInMultiByteStringMarshal := BytesInMultiByteString is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlUpcaseUnicodeToMultiByteN", "ptr", MultiByteString, "uint", MaxBytesInMultiByteString, BytesInMultiByteStringMarshal, BytesInMultiByteString, "ptr", UnicodeString, "uint", BytesInUnicodeString, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5218,7 +5236,7 @@ class FileSystem {
         BytesInUnicodeStringMarshal := BytesInUnicodeString is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlOemToUnicodeN", "ptr", UnicodeString, "uint", MaxBytesInUnicodeString, BytesInUnicodeStringMarshal, BytesInUnicodeString, "ptr", OemString, "uint", BytesInOemString, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5235,7 +5253,7 @@ class FileSystem {
         BytesInOemStringMarshal := BytesInOemString is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlUnicodeToOemN", "ptr", OemString, "uint", MaxBytesInOemString, BytesInOemStringMarshal, BytesInOemString, "ptr", UnicodeString, "uint", BytesInUnicodeString, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5252,7 +5270,7 @@ class FileSystem {
         BytesInOemStringMarshal := BytesInOemString is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlUpcaseUnicodeToOemN", "ptr", OemString, "uint", MaxBytesInOemString, BytesInOemStringMarshal, BytesInOemString, "ptr", UnicodeString, "uint", BytesInUnicodeString, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5272,7 +5290,7 @@ class FileSystem {
         DestinationStringLengthMarshal := DestinationStringLength is VarRef ? "int*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlNormalizeString", "uint", NormForm, "ptr", SourceString, "int", SourceStringLength, "ptr", DestinationString, DestinationStringLengthMarshal, DestinationStringLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5290,7 +5308,7 @@ class FileSystem {
         NormalizedMarshal := Normalized is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlIsNormalizedString", "uint", NormForm, "ptr", SourceString, "int", SourceStringLength, NormalizedMarshal, Normalized, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5310,7 +5328,7 @@ class FileSystem {
         DestinationStringLengthMarshal := DestinationStringLength is VarRef ? "int*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlIdnToAscii", "uint", Flags, "ptr", SourceString, "int", SourceStringLength, "ptr", DestinationString, DestinationStringLengthMarshal, DestinationStringLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5330,7 +5348,7 @@ class FileSystem {
         DestinationStringLengthMarshal := DestinationStringLength is VarRef ? "int*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlIdnToUnicode", "uint", Flags, "ptr", SourceString, "int", SourceStringLength, "ptr", DestinationString, DestinationStringLengthMarshal, DestinationStringLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5350,7 +5368,7 @@ class FileSystem {
         DestinationStringLengthMarshal := DestinationStringLength is VarRef ? "int*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlIdnToNameprepUnicode", "uint", Flags, "ptr", SourceString, "int", SourceStringLength, "ptr", DestinationString, DestinationStringLengthMarshal, DestinationStringLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5364,7 +5382,7 @@ class FileSystem {
      */
     static RtlGenerate8dot3Name(Name, AllowExtendedCharacters, _Context, Name8dot3) {
         result := DllCall("ntdll.dll\RtlGenerate8dot3Name", "ptr", Name, "char", AllowExtendedCharacters, "ptr", _Context, "ptr", Name8dot3, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5488,7 +5506,7 @@ class FileSystem {
         CompressFragmentWorkSpaceSizeMarshal := CompressFragmentWorkSpaceSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlGetCompressionWorkSpaceSize", "ushort", CompressionFormatAndEngine, CompressBufferWorkSpaceSizeMarshal, CompressBufferWorkSpaceSize, CompressFragmentWorkSpaceSizeMarshal, CompressFragmentWorkSpaceSize, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5509,7 +5527,7 @@ class FileSystem {
         _WorkSpaceMarshal := _WorkSpace is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\RtlCompressBuffer", "ushort", CompressionFormatAndEngine, "ptr", UncompressedBuffer, "uint", UncompressedBufferSize, "ptr", CompressedBuffer, "uint", CompressedBufferSize, "uint", UncompressedChunkSize, FinalCompressedSizeMarshal, FinalCompressedSize, _WorkSpaceMarshal, _WorkSpace, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5527,7 +5545,7 @@ class FileSystem {
         FinalUncompressedSizeMarshal := FinalUncompressedSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlDecompressBuffer", "ushort", CompressionFormat, "ptr", UncompressedBuffer, "uint", UncompressedBufferSize, "ptr", CompressedBuffer, "uint", CompressedBufferSize, FinalUncompressedSizeMarshal, FinalUncompressedSize, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5547,7 +5565,7 @@ class FileSystem {
         _WorkSpaceMarshal := _WorkSpace is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\RtlDecompressBufferEx", "ushort", CompressionFormat, "ptr", UncompressedBuffer, "uint", UncompressedBufferSize, "ptr", CompressedBuffer, "uint", CompressedBufferSize, FinalUncompressedSizeMarshal, FinalUncompressedSize, _WorkSpaceMarshal, _WorkSpace, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5568,7 +5586,7 @@ class FileSystem {
         _WorkSpaceMarshal := _WorkSpace is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\RtlDecompressBufferEx2", "ushort", CompressionFormat, "ptr", UncompressedBuffer, "uint", UncompressedBufferSize, "ptr", CompressedBuffer, "uint", CompressedBufferSize, "uint", UncompressedChunkSize, FinalUncompressedSizeMarshal, FinalUncompressedSize, _WorkSpaceMarshal, _WorkSpace, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5589,7 +5607,7 @@ class FileSystem {
         _WorkSpaceMarshal := _WorkSpace is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\RtlDecompressFragment", "ushort", CompressionFormat, "ptr", UncompressedFragment, "uint", UncompressedFragmentSize, "ptr", CompressedBuffer, "uint", CompressedBufferSize, "uint", FragmentOffset, FinalUncompressedSizeMarshal, FinalUncompressedSize, _WorkSpaceMarshal, _WorkSpace, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5611,7 +5629,7 @@ class FileSystem {
         _WorkSpaceMarshal := _WorkSpace is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\RtlDecompressFragmentEx", "ushort", CompressionFormat, "ptr", UncompressedFragment, "uint", UncompressedFragmentSize, "ptr", CompressedBuffer, "uint", CompressedBufferSize, "uint", FragmentOffset, "uint", UncompressedChunkSize, FinalUncompressedSizeMarshal, FinalUncompressedSize, _WorkSpaceMarshal, _WorkSpace, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5631,7 +5649,7 @@ class FileSystem {
         ChunkSizeMarshal := ChunkSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\RtlDescribeChunk", "ushort", CompressionFormat, CompressedBufferMarshal, CompressedBuffer, EndOfCompressedBufferPlus1Marshal, EndOfCompressedBufferPlus1, ChunkBufferMarshal, ChunkBuffer, ChunkSizeMarshal, ChunkSize, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5650,7 +5668,7 @@ class FileSystem {
         ChunkBufferMarshal := ChunkBuffer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\RtlReserveChunk", "ushort", CompressionFormat, CompressedBufferMarshal, CompressedBuffer, EndOfCompressedBufferPlus1Marshal, EndOfCompressedBufferPlus1, ChunkBufferMarshal, ChunkBuffer, "uint", ChunkSize, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5667,7 +5685,7 @@ class FileSystem {
      */
     static RtlDecompressChunks(UncompressedBuffer, UncompressedBufferSize, CompressedBuffer, CompressedBufferSize, CompressedTail, CompressedTailSize, CompressedDataInfo) {
         result := DllCall("ntoskrnl.exe\RtlDecompressChunks", "ptr", UncompressedBuffer, "uint", UncompressedBufferSize, "ptr", CompressedBuffer, "uint", CompressedBufferSize, "ptr", CompressedTail, "uint", CompressedTailSize, "ptr", CompressedDataInfo, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5686,7 +5704,7 @@ class FileSystem {
         _WorkSpaceMarshal := _WorkSpace is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\RtlCompressChunks", "ptr", UncompressedBuffer, "uint", UncompressedBufferSize, "ptr", CompressedBuffer, "uint", CompressedBufferSize, "ptr", CompressedDataInfo, "uint", CompressedDataInfoLength, _WorkSpaceMarshal, _WorkSpace, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5811,7 +5829,7 @@ class FileSystem {
         _SidMarshal := _Sid is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlAllocateAndInitializeSid", "ptr", IdentifierAuthority, "char", SubAuthorityCount, "uint", SubAuthority0, "uint", SubAuthority1, "uint", SubAuthority2, "uint", SubAuthority3, "uint", SubAuthority4, "uint", SubAuthority5, "uint", SubAuthority6, "uint", SubAuthority7, _SidMarshal, _Sid, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5828,7 +5846,7 @@ class FileSystem {
         _SidMarshal := _Sid is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlAllocateAndInitializeSidEx", "ptr", IdentifierAuthority, "char", SubAuthorityCount, SubAuthoritiesMarshal, SubAuthorities, _SidMarshal, _Sid, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5841,7 +5859,7 @@ class FileSystem {
      */
     static RtlInitializeSid(_Sid, IdentifierAuthority, SubAuthorityCount) {
         result := DllCall("ntdll.dll\RtlInitializeSid", "ptr", _Sid, "ptr", IdentifierAuthority, "char", SubAuthorityCount, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5858,7 +5876,7 @@ class FileSystem {
         varArgs.Push("CDecl int")
 
         result := DllCall("ntdll.dll\RtlInitializeSidEx", "ptr", _Sid, "ptr", IdentifierAuthority, "char", SubAuthorityCount, varArgs*)
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5912,7 +5930,7 @@ class FileSystem {
      */
     static RtlCopySid(DestinationSidLength, DestinationSid, SourceSid) {
         result := DllCall("ntdll.dll\RtlCopySid", "uint", DestinationSidLength, "ptr", DestinationSid, "ptr", SourceSid, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5927,7 +5945,7 @@ class FileSystem {
         ServiceSidLengthMarshal := ServiceSidLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlCreateServiceSid", "ptr", ServiceName, "ptr", ServiceSid, ServiceSidLengthMarshal, ServiceSidLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5947,7 +5965,7 @@ class FileSystem {
         SaclDefaultedMarshal := SaclDefaulted is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlGetSaclSecurityDescriptor", "ptr", _SecurityDescriptor, SaclPresentMarshal, SaclPresent, SaclMarshal, Sacl, SaclDefaultedMarshal, SaclDefaulted, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5965,7 +5983,7 @@ class FileSystem {
         NumChangesMarshal := NumChanges is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlReplaceSidInSd", "ptr", _SecurityDescriptor, "ptr", OldSid, "ptr", NewSid, NumChangesMarshal, NumChanges, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -5981,7 +5999,7 @@ class FileSystem {
         SidLengthMarshal := SidLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlCreateVirtualAccountSid", "ptr", Name, "uint", BaseSubAuthority, "ptr", _Sid, SidLengthMarshal, SidLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -6004,7 +6022,7 @@ class FileSystem {
      */
     static RtlCreateAcl(_Acl, AclLength, AclRevision) {
         result := DllCall("ntdll.dll\RtlCreateAcl", "ptr", _Acl, "uint", AclLength, "uint", AclRevision, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -6019,7 +6037,7 @@ class FileSystem {
      */
     static RtlAddAce(_Acl, AceRevision, StartingAceIndex, AceList, AceListLength) {
         result := DllCall("ntdll.dll\RtlAddAce", "ptr", _Acl, "uint", AceRevision, "uint", StartingAceIndex, "ptr", AceList, "uint", AceListLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -6031,7 +6049,7 @@ class FileSystem {
      */
     static RtlDeleteAce(_Acl, AceIndex) {
         result := DllCall("ntdll.dll\RtlDeleteAce", "ptr", _Acl, "uint", AceIndex, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -6046,7 +6064,7 @@ class FileSystem {
         AceMarshal := Ace is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlGetAce", "ptr", _Acl, "uint", AceIndex, AceMarshal, Ace, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -6060,7 +6078,7 @@ class FileSystem {
      */
     static RtlAddAccessAllowedAce(_Acl, AceRevision, AccessMask, _Sid) {
         result := DllCall("ntdll.dll\RtlAddAccessAllowedAce", "ptr", _Acl, "uint", AceRevision, "uint", AccessMask, "ptr", _Sid, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -6075,7 +6093,7 @@ class FileSystem {
      */
     static RtlAddAccessAllowedAceEx(_Acl, AceRevision, AceFlags, AccessMask, _Sid) {
         result := DllCall("ntdll.dll\RtlAddAccessAllowedAceEx", "ptr", _Acl, "uint", AceRevision, "uint", AceFlags, "uint", AccessMask, "ptr", _Sid, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -6095,7 +6113,7 @@ class FileSystem {
         DaclDefaultedMarshal := DaclDefaulted is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlGetDaclSecurityDescriptor", "ptr", _SecurityDescriptor, DaclPresentMarshal, DaclPresent, DaclMarshal, Dacl, DaclDefaultedMarshal, DaclDefaulted, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -6110,7 +6128,7 @@ class FileSystem {
         _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
         result := DllCall("ntdll.dll\RtlSetOwnerSecurityDescriptor", "ptr", _SecurityDescriptor, "ptr", Owner, "char", OwnerDefaulted, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -6125,7 +6143,7 @@ class FileSystem {
         _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
         result := DllCall("ntdll.dll\RtlSetGroupSecurityDescriptor", "ptr", _SecurityDescriptor, "ptr", Group, "char", GroupDefaulted, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -6143,7 +6161,7 @@ class FileSystem {
         GroupDefaultedMarshal := GroupDefaulted is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlGetGroupSecurityDescriptor", "ptr", _SecurityDescriptor, GroupMarshal, Group, GroupDefaultedMarshal, GroupDefaulted, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -6160,7 +6178,7 @@ class FileSystem {
         BufferLengthMarshal := BufferLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlAbsoluteToSelfRelativeSD", "ptr", AbsoluteSecurityDescriptor, "ptr", SelfRelativeSecurityDescriptor, BufferLengthMarshal, BufferLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -6189,7 +6207,7 @@ class FileSystem {
         PrimaryGroupSizeMarshal := PrimaryGroupSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlSelfRelativeToAbsoluteSD", "ptr", SelfRelativeSecurityDescriptor, "ptr", AbsoluteSecurityDescriptor, AbsoluteSecurityDescriptorSizeMarshal, AbsoluteSecurityDescriptorSize, "ptr", Dacl, DaclSizeMarshal, DaclSize, "ptr", Sacl, SaclSizeMarshal, SaclSize, "ptr", Owner, OwnerSizeMarshal, OwnerSize, "ptr", PrimaryGroup, PrimaryGroupSizeMarshal, PrimaryGroupSize, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -6207,7 +6225,7 @@ class FileSystem {
         OwnerDefaultedMarshal := OwnerDefaulted is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlGetOwnerSecurityDescriptor", "ptr", _SecurityDescriptor, OwnerMarshal, Owner, OwnerDefaultedMarshal, OwnerDefaulted, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -6235,7 +6253,7 @@ class FileSystem {
         BytesInUnicodeStringMarshal := BytesInUnicodeString is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlCustomCPToUnicodeN", "ptr", CustomCP, "ptr", UnicodeString, "uint", MaxBytesInUnicodeString, BytesInUnicodeStringMarshal, BytesInUnicodeString, "ptr", CustomCPString, "uint", BytesInCustomCPString, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -6253,7 +6271,7 @@ class FileSystem {
         BytesInCustomCPStringMarshal := BytesInCustomCPString is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlUnicodeToCustomCPN", "ptr", CustomCP, "ptr", CustomCPString, "uint", MaxBytesInCustomCPString, BytesInCustomCPStringMarshal, BytesInCustomCPString, "ptr", UnicodeString, "uint", BytesInUnicodeString, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -6271,7 +6289,7 @@ class FileSystem {
         BytesInCustomCPStringMarshal := BytesInCustomCPString is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlUpcaseUnicodeToCustomCPN", "ptr", CustomCP, "ptr", CustomCPString, "uint", MaxBytesInCustomCPString, BytesInCustomCPStringMarshal, BytesInCustomCPString, "ptr", UnicodeString, "uint", BytesInUnicodeString, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -6294,7 +6312,7 @@ class FileSystem {
      */
     static RtlCreateSystemVolumeInformationFolder(VolumeRootPath) {
         result := DllCall("ntdll.dll\RtlCreateSystemVolumeInformationFolder", "ptr", VolumeRootPath, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -6326,7 +6344,7 @@ class FileSystem {
         PackagedMarshal := Packaged is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlQueryPackageIdentity", TokenObjectMarshal, TokenObject, "ptr", PackageFullName, PackageSizeMarshal, PackageSize, "ptr", AppId, AppIdSizeMarshal, AppIdSize, PackagedMarshal, Packaged, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -6348,7 +6366,7 @@ class FileSystem {
         FlagsMarshal := Flags is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlQueryPackageIdentityEx", TokenObjectMarshal, TokenObject, "ptr", PackageFullName, PackageSizeMarshal, PackageSize, "ptr", AppId, AppIdSizeMarshal, AppIdSize, "ptr", DynamicId, FlagsMarshal, Flags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -6396,7 +6414,7 @@ class FileSystem {
         IsPartialPlaceholderMarshal := IsPartialPlaceholder is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlIsPartialPlaceholderFileHandle", "ptr", FileHandle, IsPartialPlaceholderMarshal, IsPartialPlaceholder, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -6412,7 +6430,7 @@ class FileSystem {
         IsPartialPlaceholderMarshal := IsPartialPlaceholder is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlIsPartialPlaceholderFileInfo", InfoBufferMarshal, InfoBuffer, "int", InfoClass, IsPartialPlaceholderMarshal, IsPartialPlaceholder, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7160,7 +7178,7 @@ class FileSystem {
         AllocationSizeMarshal := AllocationSize is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\NtCreateFile", "ptr", FileHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "ptr", IoStatusBlock, AllocationSizeMarshal, AllocationSize, "uint", FileAttributes, "uint", ShareAccess, "uint", CreateDisposition, "uint", CreateOptions, "ptr", EaBuffer, "uint", EaLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7212,7 +7230,7 @@ class FileSystem {
      */
     static NtOpenFile(FileHandle, DesiredAccess, ObjectAttributes, IoStatusBlock, ShareAccess, OpenOptions) {
         result := DllCall("ntdll.dll\NtOpenFile", "ptr", FileHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "ptr", IoStatusBlock, "uint", ShareAccess, "uint", OpenOptions, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7227,7 +7245,7 @@ class FileSystem {
      */
     static NtQueryInformationByName(ObjectAttributes, IoStatusBlock, FileInformation, Length, FileInformationClass) {
         result := DllCall("ntdll.dll\NtQueryInformationByName", "ptr", ObjectAttributes, "ptr", IoStatusBlock, "ptr", FileInformation, "uint", Length, "int", FileInformationClass, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7244,7 +7262,7 @@ class FileSystem {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("ntdll.dll\NtQueryInformationFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", FileInformation, "uint", Length, "int", FileInformationClass, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7311,7 +7329,7 @@ class FileSystem {
         KeyMarshal := Key is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\NtReadFile", "ptr", FileHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", IoStatusBlock, "ptr", _Buffer, "uint", Length, ByteOffsetMarshal, ByteOffset, KeyMarshal, Key, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7328,7 +7346,7 @@ class FileSystem {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("ntdll.dll\NtSetInformationFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", FileInformation, "uint", Length, "int", FileInformationClass, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7354,7 +7372,7 @@ class FileSystem {
         KeyMarshal := Key is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\NtWriteFile", "ptr", FileHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", IoStatusBlock, "ptr", _Buffer, "uint", Length, ByteOffsetMarshal, ByteOffset, KeyMarshal, Key, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7371,7 +7389,7 @@ class FileSystem {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("ntdll.dll\NtFlushBuffersFileEx", "ptr", FileHandle, "uint", Flags, "ptr", Parameters, "uint", ParametersSize, "ptr", IoStatusBlock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7390,7 +7408,7 @@ class FileSystem {
         LengthNeededMarshal := LengthNeeded is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\NtQuerySecurityObject", "ptr", _Handle, "uint", SecurityInformation, "ptr", _SecurityDescriptor, "uint", Length, LengthNeededMarshal, LengthNeeded, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7411,7 +7429,7 @@ class FileSystem {
         MaximumSizeMarshal := MaximumSize is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\NtCreateSection", "ptr", SectionHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, MaximumSizeMarshal, MaximumSize, "uint", SectionPageProtection, "uint", AllocationAttributes, "ptr", FileHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7434,7 +7452,7 @@ class FileSystem {
         MaximumSizeMarshal := MaximumSize is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\NtCreateSectionEx", "ptr", SectionHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, MaximumSizeMarshal, MaximumSize, "uint", SectionPageProtection, "uint", AllocationAttributes, "ptr", FileHandle, "ptr", ExtendedParameters, "uint", ExtendedParameterCount, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7454,7 +7472,7 @@ class FileSystem {
         RegionSizeMarshal := RegionSize is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntdll.dll\NtAllocateVirtualMemory", "ptr", ProcessHandle, "ptr", BaseAddress, "ptr", ZeroBits, RegionSizeMarshal, RegionSize, "uint", AllocationType, "uint", Protect, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7731,7 +7749,7 @@ class FileSystem {
      */
     static SeReportSecurityEventWithSubCategory(Flags, SourceName, UserSid, AuditParameters, AuditSubcategoryId) {
         result := DllCall("ntoskrnl.exe\SeReportSecurityEventWithSubCategory", "uint", Flags, "ptr", SourceName, "ptr", UserSid, "ptr", AuditParameters, "uint", AuditSubcategoryId, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7800,7 +7818,7 @@ class FileSystem {
         RequiredLengthMarshal := RequiredLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\SeTokenFromAccessInformation", "ptr", AccessInformation, TokenMarshal, Token, "uint", Length, RequiredLengthMarshal, RequiredLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8026,7 +8044,7 @@ class FileSystem {
         FilteredTokenMarshal := FilteredToken is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\SeFilterToken", ExistingTokenMarshal, ExistingToken, "uint", Flags, "ptr", SidsToDisable, "ptr", PrivilegesToDelete, "ptr", RestrictedSids, FilteredTokenMarshal, FilteredToken, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8040,7 +8058,7 @@ class FileSystem {
         TokenMarshal := Token is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\SeQueryAuthenticationIdToken", TokenMarshal, Token, "ptr", AuthenticationId, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8055,7 +8073,7 @@ class FileSystem {
         SessionIdMarshal := SessionId is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\SeQuerySessionIdToken", TokenMarshal, Token, SessionIdMarshal, SessionId, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8072,7 +8090,7 @@ class FileSystem {
         IsServiceSessionMarshal := IsServiceSession is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\SeQuerySessionIdTokenEx", TokenMarshal, Token, SessionIdMarshal, SessionId, IsServiceSessionMarshal, IsServiceSession, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8087,7 +8105,7 @@ class FileSystem {
         pServerSiloMarshal := pServerSilo is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\SeQueryServerSiloToken", TokenMarshal, Token, pServerSiloMarshal, pServerSilo, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8101,7 +8119,7 @@ class FileSystem {
      */
     static SeCreateClientSecurity(ClientThread, ClientSecurityQos, RemoteSession, ClientContext) {
         result := DllCall("ntoskrnl.exe\SeCreateClientSecurity", "ptr", ClientThread, "ptr", ClientSecurityQos, "char", RemoteSession, "ptr", ClientContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8123,7 +8141,7 @@ class FileSystem {
      */
     static SeImpersonateClientEx(ClientContext, ServerThread) {
         result := DllCall("ntoskrnl.exe\SeImpersonateClientEx", "ptr", ClientContext, "ptr", ServerThread, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8137,7 +8155,7 @@ class FileSystem {
      */
     static SeCreateClientSecurityFromSubjectContext(SubjectContext, ClientSecurityQos, ServerIsRemote, ClientContext) {
         result := DllCall("ntoskrnl.exe\SeCreateClientSecurityFromSubjectContext", "ptr", SubjectContext, "ptr", ClientSecurityQos, "char", ServerIsRemote, "ptr", ClientContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8154,7 +8172,7 @@ class FileSystem {
         LengthMarshal := Length is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\SeQuerySecurityDescriptorInfo", SecurityInformationMarshal, SecurityInformation, "ptr", _SecurityDescriptor, LengthMarshal, Length, "ptr", ObjectsSecurityDescriptor, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8175,7 +8193,7 @@ class FileSystem {
         SecurityInformationMarshal := SecurityInformation is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\SeSetSecurityDescriptorInfo", _ObjectMarshal, _Object, SecurityInformationMarshal, SecurityInformation, "ptr", ModificationDescriptor, "ptr", ObjectsSecurityDescriptor, "int", PoolType, "ptr", GenericMapping, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8197,7 +8215,7 @@ class FileSystem {
         SecurityInformationMarshal := SecurityInformation is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\SeSetSecurityDescriptorInfoEx", _ObjectMarshal, _Object, SecurityInformationMarshal, SecurityInformation, "ptr", ModificationDescriptor, "ptr", ObjectsSecurityDescriptor, "uint", AutoInheritFlags, "int", PoolType, "ptr", GenericMapping, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8209,7 +8227,7 @@ class FileSystem {
      */
     static SeAppendPrivileges(AccessState, Privileges) {
         result := DllCall("ntoskrnl.exe\SeAppendPrivileges", "ptr", AccessState, "ptr", Privileges, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8434,7 +8452,7 @@ class FileSystem {
      */
     static SeRegisterLogonSessionTerminatedRoutine(CallbackRoutine) {
         result := DllCall("ntoskrnl.exe\SeRegisterLogonSessionTerminatedRoutine", "ptr", CallbackRoutine, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8445,7 +8463,7 @@ class FileSystem {
      */
     static SeUnregisterLogonSessionTerminatedRoutine(CallbackRoutine) {
         result := DllCall("ntoskrnl.exe\SeUnregisterLogonSessionTerminatedRoutine", "ptr", CallbackRoutine, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8459,7 +8477,7 @@ class FileSystem {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\SeRegisterLogonSessionTerminatedRoutineEx", "ptr", CallbackRoutine, _ContextMarshal, _Context, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8473,7 +8491,7 @@ class FileSystem {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\SeUnregisterLogonSessionTerminatedRoutineEx", "ptr", CallbackRoutine, _ContextMarshal, _Context, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8484,7 +8502,7 @@ class FileSystem {
      */
     static SeMarkLogonSessionForTerminationNotification(LogonId) {
         result := DllCall("ntoskrnl.exe\SeMarkLogonSessionForTerminationNotification", "ptr", LogonId, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8496,7 +8514,7 @@ class FileSystem {
      */
     static SeMarkLogonSessionForTerminationNotificationEx(LogonId, pServerSilo) {
         result := DllCall("ntoskrnl.exe\SeMarkLogonSessionForTerminationNotificationEx", "ptr", LogonId, "ptr", pServerSilo, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8512,7 +8530,7 @@ class FileSystem {
         TokenInformationMarshal := TokenInformation is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\SeQueryInformationToken", TokenMarshal, Token, "int", TokenInformationClass, TokenInformationMarshal, TokenInformation, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8526,7 +8544,7 @@ class FileSystem {
         pImageFileNameMarshal := pImageFileName is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\SeLocateProcessImageName", "ptr", Process, pImageFileNameMarshal, pImageFileName, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8575,7 +8593,7 @@ class FileSystem {
         ApplyAdjustedDescriptorMarshal := ApplyAdjustedDescriptor is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\SeAdjustObjectSecurity", "ptr", ObjectName, "ptr", OriginalDescriptor, "ptr", ProposedDescriptor, "ptr", SubjectSecurityContext, "ptr", AdjustedDescriptor, ApplyAdjustedDescriptorMarshal, ApplyAdjustedDescriptor, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8589,7 +8607,7 @@ class FileSystem {
         Token := Token is Win32Handle ? NumGet(Token, "ptr") : Token
 
         result := DllCall("ntoskrnl.exe\PsAssignImpersonationToken", "ptr", Thread, "ptr", Token, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8674,7 +8692,7 @@ class FileSystem {
         TokenMarshal := Token is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PsImpersonateClient", "ptr", Thread, TokenMarshal, Token, "char", CopyOnOpen, "char", EffectiveOnly, "int", ImpersonationLevel, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8719,7 +8737,7 @@ class FileSystem {
         ProcessMarshal := Process is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PsLookupProcessByProcessId", "ptr", ProcessId, ProcessMarshal, Process, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8735,7 +8753,7 @@ class FileSystem {
         ThreadMarshal := Thread is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PsLookupThreadByThreadId", "ptr", ThreadId, ThreadMarshal, Thread, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8759,7 +8777,7 @@ class FileSystem {
      */
     static PsChargeProcessPoolQuota(Process, PoolType, Amount) {
         result := DllCall("ntoskrnl.exe\PsChargeProcessPoolQuota", "ptr", Process, "int", PoolType, "ptr", Amount, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8825,7 +8843,7 @@ class FileSystem {
      */
     static FsRtlRegisterFileSystemFilterCallbacks(FilterDriverObject, Callbacks) {
         result := DllCall("ntoskrnl.exe\FsRtlRegisterFileSystemFilterCallbacks", "ptr", FilterDriverObject, "ptr", Callbacks, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8850,7 +8868,7 @@ class FileSystem {
         DesiredAccessMarshal := DesiredAccess is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoCheckDesiredAccess", DesiredAccessMarshal, DesiredAccess, "uint", GrantedAccess, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8865,7 +8883,7 @@ class FileSystem {
         ErrorOffsetMarshal := ErrorOffset is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoCheckEaBufferValidity", "ptr", EaBuffer, "uint", EaLength, ErrorOffsetMarshal, ErrorOffset, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8884,7 +8902,7 @@ class FileSystem {
         Arg2Marshal := Arg2 is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoCheckFunctionAccess", "uint", GrantedAccess, "char", MajorFunction, "char", MinorFunction, "uint", IoControlCode, Arg1Marshal, Arg1, Arg2Marshal, Arg2, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8897,7 +8915,7 @@ class FileSystem {
      */
     static IoCheckQuerySetFileInformation(FileInformationClass, Length, SetOperation) {
         result := DllCall("ntoskrnl.exe\IoCheckQuerySetFileInformation", "int", FileInformationClass, "uint", Length, "char", SetOperation, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8910,7 +8928,7 @@ class FileSystem {
      */
     static IoCheckQuerySetVolumeInformation(FsInformationClass, Length, SetOperation) {
         result := DllCall("ntoskrnl.exe\IoCheckQuerySetVolumeInformation", "int", FsInformationClass, "uint", Length, "char", SetOperation, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8925,7 +8943,7 @@ class FileSystem {
         ErrorOffsetMarshal := ErrorOffset is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoCheckQuotaBufferValidity", "ptr", QuotaBuffer, "uint", QuotaLength, ErrorOffsetMarshal, ErrorOffset, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8976,7 +8994,7 @@ class FileSystem {
         StreamFileObjectMarshal := StreamFileObject is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoCreateStreamFileObjectEx2", "ptr", CreateOptions, "ptr", FileObject, "ptr", DeviceObject, StreamFileObjectMarshal, StreamFileObject, "ptr", FileHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9007,7 +9025,7 @@ class FileSystem {
         StartingOffsetMarshal := StartingOffset is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoPageRead", "ptr", FileObject, "ptr", MemoryDescriptorList, StartingOffsetMarshal, StartingOffset, "ptr", Event, "ptr", IoStatusBlock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9102,7 +9120,7 @@ class FileSystem {
         ObjectNameInformationMarshal := ObjectNameInformation is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoQueryFileDosDeviceName", "ptr", FileObject, ObjectNameInformationMarshal, ObjectNameInformation, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9120,7 +9138,7 @@ class FileSystem {
         ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoQueryFileInformation", "ptr", FileObject, "int", FileInformationClass, "uint", Length, FileInformationMarshal, FileInformation, ReturnedLengthMarshal, ReturnedLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9138,7 +9156,7 @@ class FileSystem {
         ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoQueryVolumeInformation", "ptr", FileObject, "int", FsInformationClass, "uint", Length, FsInformationMarshal, FsInformation, ReturnedLengthMarshal, ReturnedLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9168,7 +9186,7 @@ class FileSystem {
      */
     static IoRegisterFsRegistrationChange(DriverObject, DriverNotificationRoutine) {
         result := DllCall("ntoskrnl.exe\IoRegisterFsRegistrationChange", "ptr", DriverObject, "ptr", DriverNotificationRoutine, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9181,7 +9199,7 @@ class FileSystem {
      */
     static IoRegisterFsRegistrationChangeMountAware(DriverObject, DriverNotificationRoutine, SynchronizeWithMounts) {
         result := DllCall("ntoskrnl.exe\IoRegisterFsRegistrationChangeMountAware", "ptr", DriverObject, "ptr", DriverNotificationRoutine, "char", SynchronizeWithMounts, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9196,7 +9214,7 @@ class FileSystem {
         ActualNumberDriverObjectsMarshal := ActualNumberDriverObjects is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoEnumerateRegisteredFiltersList", "ptr", DriverObjectList, "uint", DriverObjectListSize, ActualNumberDriverObjectsMarshal, ActualNumberDriverObjects, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9209,7 +9227,7 @@ class FileSystem {
      */
     static IoReplaceFileObjectName(FileObject, NewFileName, FileNameLength) {
         result := DllCall("ntoskrnl.exe\IoReplaceFileObjectName", "ptr", FileObject, "ptr", NewFileName, "ushort", FileNameLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9244,7 +9262,7 @@ class FileSystem {
         FileInformationMarshal := FileInformation is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoSetInformation", "ptr", FileObject, "int", FileInformationClass, "uint", Length, FileInformationMarshal, FileInformation, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9261,7 +9279,7 @@ class FileSystem {
         StartingOffsetMarshal := StartingOffset is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoSynchronousPageWrite", "ptr", FileObject, "ptr", MemoryDescriptorList, StartingOffsetMarshal, StartingOffset, "ptr", Event, "ptr", IoStatusBlock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9302,7 +9320,7 @@ class FileSystem {
      */
     static IoVerifyVolume(DeviceObject, AllowRawMount) {
         result := DllCall("ntoskrnl.exe\IoVerifyVolume", "ptr", DeviceObject, "char", AllowRawMount, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9316,7 +9334,7 @@ class FileSystem {
         pSessionIdMarshal := pSessionId is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoGetRequestorSessionId", "ptr", _Irp, pSessionIdMarshal, pSessionId, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9332,7 +9350,7 @@ class FileSystem {
         ActualNumberDeviceObjectsMarshal := ActualNumberDeviceObjects is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoEnumerateDeviceObjectList", "ptr", DriverObject, "ptr", DeviceObjectList, "uint", DeviceObjectListSize, ActualNumberDeviceObjectsMarshal, ActualNumberDeviceObjects, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9366,7 +9384,7 @@ class FileSystem {
         DiskDeviceObjectMarshal := DiskDeviceObject is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoGetDiskDeviceObject", "ptr", FileSystemDeviceObject, DiskDeviceObjectMarshal, DiskDeviceObject, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9380,7 +9398,7 @@ class FileSystem {
      */
     static IoRetrievePriorityInfo(_Irp, FileObject, Thread, PriorityInfo) {
         result := DllCall("ntoskrnl.exe\IoRetrievePriorityInfo", "ptr", _Irp, "ptr", FileObject, "ptr", Thread, "ptr", PriorityInfo, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9393,7 +9411,7 @@ class FileSystem {
      */
     static IoApplyPriorityInfoThread(InputPriorityInfo, OutputPriorityInfo, Thread) {
         result := DllCall("ntoskrnl.exe\IoApplyPriorityInfoThread", "ptr", InputPriorityInfo, "ptr", OutputPriorityInfo, "ptr", Thread, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9409,7 +9427,7 @@ class FileSystem {
         RetTrackedOffsetMarshal := RetTrackedOffset is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoGetFsTrackOffsetState", "ptr", _Irp, RetFsTrackOffsetBlobMarshal, RetFsTrackOffsetBlob, RetTrackedOffsetMarshal, RetTrackedOffset, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9422,7 +9440,7 @@ class FileSystem {
      */
     static IoSetFsTrackOffsetState(_Irp, FsTrackOffsetBlob, TrackedOffset) {
         result := DllCall("ntoskrnl.exe\IoSetFsTrackOffsetState", "ptr", _Irp, "ptr", FsTrackOffsetBlob, "int64", TrackedOffset, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9433,7 +9451,7 @@ class FileSystem {
      */
     static IoClearFsTrackOffsetState(_Irp) {
         result := DllCall("ntoskrnl.exe\IoClearFsTrackOffsetState", "ptr", _Irp, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9454,7 +9472,7 @@ class FileSystem {
      */
     static PoQueueShutdownWorkItem(WorkItem) {
         result := DllCall("ntoskrnl.exe\PoQueueShutdownWorkItem", "ptr", WorkItem, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9544,7 +9562,7 @@ class FileSystem {
         SectionIsActiveMarshal := SectionIsActive is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\MmIsFileSectionActive", "ptr", FsSectionPointer, "uint", Flags, SectionIsActiveMarshal, SectionIsActive, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9558,7 +9576,7 @@ class FileSystem {
         ReadListsMarshal := ReadLists is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\MmPrefetchPages", "uint", NumberOfLists, ReadListsMarshal, ReadLists, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9597,7 +9615,7 @@ class FileSystem {
         NewObjectMarshal := NewObject is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\ObInsertObject", _ObjectMarshal, _Object, "ptr", PassedAccessState, "uint", DesiredAccess, "uint", ObjectPointerBias, NewObjectMarshal, NewObject, "ptr", _Handle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9616,7 +9634,7 @@ class FileSystem {
         _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\ObOpenObjectByPointer", _ObjectMarshal, _Object, "uint", HandleAttributes, "ptr", PassedAccessState, "uint", DesiredAccess, "ptr", _ObjectType, "char", AccessMode, "ptr", _Handle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9636,7 +9654,7 @@ class FileSystem {
         _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\ObOpenObjectByPointerWithTag", _ObjectMarshal, _Object, "uint", HandleAttributes, "ptr", PassedAccessState, "uint", DesiredAccess, "ptr", _ObjectType, "char", AccessMode, "uint", Tag, "ptr", _Handle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9664,7 +9682,7 @@ class FileSystem {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\ObQueryNameString", _ObjectMarshal, _Object, "ptr", ObjectNameInfo, "uint", Length, ReturnLengthMarshal, ReturnLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9692,7 +9710,7 @@ class FileSystem {
         GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\ObQueryObjectAuditingByHandle", "ptr", _Handle, GenerateOnCloseMarshal, GenerateOnClose, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9704,7 +9722,7 @@ class FileSystem {
      */
     static IoRequestDeviceRemovalForReset(PhysicalDeviceObject, Flags) {
         result := DllCall("ntoskrnl.exe\IoRequestDeviceRemovalForReset", "ptr", PhysicalDeviceObject, "uint", Flags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9761,7 +9779,7 @@ class FileSystem {
         MdlChainMarshal := MdlChain is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlMdlReadEx", "ptr", FileObject, FileOffsetMarshal, FileOffset, "uint", Length, "uint", LockKey, MdlChainMarshal, MdlChain, "ptr", IoStatus, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9811,7 +9829,7 @@ class FileSystem {
         MdlChainMarshal := MdlChain is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlPrepareMdlWriteEx", "ptr", FileObject, FileOffsetMarshal, FileOffset, "uint", Length, "uint", LockKey, MdlChainMarshal, MdlChain, "ptr", IoStatus, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9877,7 +9895,7 @@ class FileSystem {
         FileSizeMarshal := FileSize is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlGetFileSize", "ptr", FileObject, FileSizeMarshal, FileSize, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9932,7 +9950,7 @@ class FileSystem {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlProcessFileLock", "ptr", FileLock, "ptr", _Irp, _ContextMarshal, _Context, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -10059,7 +10077,7 @@ class FileSystem {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlFastUnlockSingle", "ptr", FileLock, "ptr", FileObject, FileOffsetMarshal, FileOffset, LengthMarshal, Length, "ptr", ProcessId, "uint", Key, _ContextMarshal, _Context, "char", AlreadySynchronized, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -10075,7 +10093,7 @@ class FileSystem {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlFastUnlockAll", "ptr", FileLock, "ptr", FileObject, "ptr", ProcessId, _ContextMarshal, _Context, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -10092,7 +10110,7 @@ class FileSystem {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlFastUnlockAllByKey", "ptr", FileLock, "ptr", FileObject, "ptr", ProcessId, "uint", Key, _ContextMarshal, _Context, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -10282,7 +10300,7 @@ class FileSystem {
      */
     static FsRtlNormalizeNtstatus(Exception, GenericException) {
         result := DllCall("ntoskrnl.exe\FsRtlNormalizeNtstatus", "int", Exception, "int", GenericException, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -10535,7 +10553,7 @@ class FileSystem {
      */
     static FsRtlAddBaseMcbEntryEx(_Mcb, Vbn, Lbn, SectorCount) {
         result := DllCall("ntoskrnl.exe\FsRtlAddBaseMcbEntryEx", "ptr", _Mcb, "int64", Vbn, "int64", Lbn, "int64", SectorCount, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -10766,7 +10784,7 @@ class FileSystem {
      */
     static FsRtlBalanceReads(TargetDevice) {
         result := DllCall("ntoskrnl.exe\FsRtlBalanceReads", "ptr", TargetDevice, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -10803,7 +10821,7 @@ class FileSystem {
         OplockMarshal := Oplock is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlOplockFsctrl", OplockMarshal, Oplock, "ptr", _Irp, "uint", OpenCount, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -10821,7 +10839,7 @@ class FileSystem {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlCheckOplock", OplockMarshal, Oplock, "ptr", _Irp, _ContextMarshal, _Context, "ptr", CompletionRoutine, "ptr", PostIrpRoutine, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -10840,7 +10858,7 @@ class FileSystem {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlCheckOplockEx", OplockMarshal, Oplock, "ptr", _Irp, "uint", Flags, _ContextMarshal, _Context, "ptr", CompletionRoutine, "ptr", PostIrpRoutine, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -10859,7 +10877,7 @@ class FileSystem {
         CompletionRoutineContextMarshal := CompletionRoutineContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlCheckUpperOplock", OplockMarshal, Oplock, "uint", NewLowerOplockState, CompletionRoutineContextMarshal, CompletionRoutineContext, "ptr", CompletionRoutine, "ptr", PrePendRoutine, "uint", Flags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -10876,7 +10894,7 @@ class FileSystem {
         OplockMarshal := Oplock is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlUpperOplockFsctrl", OplockMarshal, Oplock, "ptr", _Irp, "uint", OpenCount, "uint", LowerOplockState, "uint", Flags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -10931,7 +10949,7 @@ class FileSystem {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlOplockBreakToNone", OplockMarshal, Oplock, "ptr", IrpSp, "ptr", _Irp, _ContextMarshal, _Context, "ptr", CompletionRoutine, "ptr", PostIrpRoutine, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -10960,7 +10978,7 @@ class FileSystem {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlOplockBreakH", OplockMarshal, Oplock, "ptr", _Irp, "uint", Flags, _ContextMarshal, _Context, "ptr", CompletionRoutine, "ptr", PostIrpRoutine, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -10983,7 +11001,7 @@ class FileSystem {
         ShareAccessMarshal := ShareAccess is VarRef ? "ushort*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlOplockBreakH2", OplockMarshal, Oplock, "ptr", _Irp, "uint", Flags, _ContextMarshal, _Context, "ptr", CompletionRoutine, "ptr", PostIrpRoutine, GrantedAccessMarshal, GrantedAccess, ShareAccessMarshal, ShareAccess, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11014,7 +11032,7 @@ class FileSystem {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlOplockBreakToNoneEx", OplockMarshal, Oplock, "ptr", _Irp, "uint", Flags, _ContextMarshal, _Context, "ptr", CompletionRoutine, "ptr", PostIrpRoutine, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11030,7 +11048,7 @@ class FileSystem {
         OplockMarshal := Oplock is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlOplockFsctrlEx", OplockMarshal, Oplock, "ptr", _Irp, "uint", OpenCount, "uint", Flags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11053,7 +11071,7 @@ class FileSystem {
      */
     static FsRtlNotifyVolumeEvent(FileObject, EventCode) {
         result := DllCall("ntoskrnl.exe\FsRtlNotifyVolumeEvent", "ptr", FileObject, "uint", EventCode, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11066,7 +11084,7 @@ class FileSystem {
      */
     static FsRtlNotifyVolumeEventEx(FileObject, EventCode, Event) {
         result := DllCall("ntoskrnl.exe\FsRtlNotifyVolumeEventEx", "ptr", FileObject, "uint", EventCode, "ptr", Event, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11297,7 +11315,7 @@ class FileSystem {
      */
     static FsRtlRegisterUncProvider(MupHandle, RedirectorDeviceName, MailslotsSupported) {
         result := DllCall("ntoskrnl.exe\FsRtlRegisterUncProvider", "ptr", MupHandle, "ptr", RedirectorDeviceName, "char", MailslotsSupported, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11311,7 +11329,7 @@ class FileSystem {
      */
     static FsRtlRegisterUncProviderEx(MupHandle, RedirDevName, DeviceObject, Flags) {
         result := DllCall("ntoskrnl.exe\FsRtlRegisterUncProviderEx", "ptr", MupHandle, "ptr", RedirDevName, "ptr", DeviceObject, "uint", Flags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11325,7 +11343,7 @@ class FileSystem {
      */
     static FsRtlRegisterUncProviderEx2(RedirDevName, DeviceObject, Registration, MupHandle) {
         result := DllCall("ntoskrnl.exe\FsRtlRegisterUncProviderEx2", "ptr", RedirDevName, "ptr", DeviceObject, "ptr", Registration, "ptr", MupHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11352,7 +11370,7 @@ class FileSystem {
         TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlCancellableWaitForSingleObject", _ObjectMarshal, _Object, TimeoutMarshal, Timeout, "ptr", _Irp, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11371,7 +11389,7 @@ class FileSystem {
         TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlCancellableWaitForMultipleObjects", "uint", Count, ObjectArrayMarshal, ObjectArray, "int", WaitType, TimeoutMarshal, Timeout, "ptr", WaitBlockArray, "ptr", _Irp, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11387,7 +11405,7 @@ class FileSystem {
         pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlMupGetProviderInfoFromFileObject", "ptr", pFileObject, "uint", Level, "ptr", pBuffer, pBufferSizeMarshal, pBufferSize, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11401,7 +11419,7 @@ class FileSystem {
         pProviderIdMarshal := pProviderId is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlMupGetProviderIdFromName", "ptr", pProviderName, pProviderIdMarshal, pProviderId, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11415,7 +11433,7 @@ class FileSystem {
         PerFileContextPointerMarshal := PerFileContextPointer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlInsertPerFileContext", PerFileContextPointerMarshal, PerFileContextPointer, "ptr", Ptr, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11470,7 +11488,7 @@ class FileSystem {
      */
     static FsRtlInsertPerStreamContext(PerStreamContext, Ptr) {
         result := DllCall("ntoskrnl.exe\FsRtlInsertPerStreamContext", "ptr", PerStreamContext, "ptr", Ptr, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11543,7 +11561,7 @@ class FileSystem {
      */
     static FsRtlInsertPerFileObjectContext(FileObject, Ptr) {
         result := DllCall("ntoskrnl.exe\FsRtlInsertPerFileObjectContext", "ptr", FileObject, "ptr", Ptr, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11657,7 +11675,7 @@ class FileSystem {
         MaximumSizeMarshal := MaximumSize is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlCreateSectionForDataScan", "ptr", SectionHandle, SectionObjectMarshal, SectionObject, SectionFileSizeMarshal, SectionFileSize, "ptr", FileObject, "uint", DesiredAccess, "ptr", ObjectAttributes, MaximumSizeMarshal, MaximumSize, "uint", SectionPageProtection, "uint", AllocationAttributes, "uint", Flags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11669,7 +11687,7 @@ class FileSystem {
      */
     static FsRtlValidateReparsePointBuffer(BufferLength, ReparseBuffer) {
         result := DllCall("ntoskrnl.exe\FsRtlValidateReparsePointBuffer", "uint", BufferLength, "ptr", ReparseBuffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11684,7 +11702,7 @@ class FileSystem {
         NewLengthMarshal := NewLength is VarRef ? "ushort*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlRemoveDotsFromPath", "ptr", OriginalString, "ushort", PathLength, NewLengthMarshal, NewLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11708,7 +11726,7 @@ class FileSystem {
         EcpListMarshal := EcpList is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlAllocateExtraCreateParameterList", "uint", Flags, EcpListMarshal, EcpList, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11732,7 +11750,7 @@ class FileSystem {
         EcpListMarshal := EcpList is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlInitializeExtraCreateParameterList", EcpListMarshal, EcpList, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11750,7 +11768,7 @@ class FileSystem {
         EcpContextMarshal := EcpContext is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlAllocateExtraCreateParameter", "ptr", EcpType, "uint", SizeOfContext, "uint", Flags, "ptr", CleanupCallback, "uint", PoolTag, EcpContextMarshal, EcpContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11823,7 +11841,7 @@ class FileSystem {
         EcpContextMarshal := EcpContext is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlAllocateExtraCreateParameterFromLookasideList", "ptr", EcpType, "uint", SizeOfContext, "uint", Flags, "ptr", CleanupCallback, LookasideListMarshal, LookasideList, EcpContextMarshal, EcpContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11838,7 +11856,7 @@ class FileSystem {
         EcpContextMarshal := EcpContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlInsertExtraCreateParameter", EcpListMarshal, EcpList, EcpContextMarshal, EcpContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11856,7 +11874,7 @@ class FileSystem {
         EcpContextSizeMarshal := EcpContextSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlFindExtraCreateParameter", EcpListMarshal, EcpList, "ptr", EcpType, EcpContextMarshal, EcpContext, EcpContextSizeMarshal, EcpContextSize, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11874,7 +11892,7 @@ class FileSystem {
         EcpContextSizeMarshal := EcpContextSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlRemoveExtraCreateParameter", EcpListMarshal, EcpList, "ptr", EcpType, EcpContextMarshal, EcpContext, EcpContextSizeMarshal, EcpContextSize, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11888,7 +11906,7 @@ class FileSystem {
         EcpListMarshal := EcpList is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlGetEcpListFromIrp", "ptr", _Irp, EcpListMarshal, EcpList, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11902,7 +11920,7 @@ class FileSystem {
         EcpListMarshal := EcpList is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlSetEcpListIntoIrp", "ptr", _Irp, EcpListMarshal, EcpList, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11922,7 +11940,7 @@ class FileSystem {
         NextEcpContextSizeMarshal := NextEcpContextSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlGetNextExtraCreateParameter", EcpListMarshal, EcpList, CurrentEcpContextMarshal, CurrentEcpContext, "ptr", NextEcpType, NextEcpContextMarshal, NextEcpContext, NextEcpContextSizeMarshal, NextEcpContextSize, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12004,7 +12022,7 @@ class FileSystem {
         NotifyContextMarshal := NotifyContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlCheckOplockEx2", OplockMarshal, Oplock, "ptr", _Irp, "uint", Flags, "uint", FlagsEx2, CompletionRoutineContextMarshal, CompletionRoutineContext, "ptr", CompletionRoutine, "ptr", PostIrpRoutine, "uint", Timeout, NotifyContextMarshal, NotifyContext, "ptr", NotifyRoutine, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12037,7 +12055,7 @@ class FileSystem {
      */
     static FsRtlChangeBackingFileObject(CurrentFileObject, NewFileObject, ChangeBackingType, Flags) {
         result := DllCall("ntoskrnl.exe\FsRtlChangeBackingFileObject", "ptr", CurrentFileObject, "ptr", NewFileObject, "int", ChangeBackingType, "uint", Flags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12052,7 +12070,7 @@ class FileSystem {
      */
     static FsRtlLogCcFlushError(FileName, DeviceObject, SectionObjectPointer, FlushError, Flags) {
         result := DllCall("ntoskrnl.exe\FsRtlLogCcFlushError", "ptr", FileName, "ptr", DeviceObject, "ptr", SectionObjectPointer, "int", FlushError, "uint", Flags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12086,7 +12104,7 @@ class FileSystem {
         NestingFlagsMarshal := NestingFlags is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlGetVirtualDiskNestingLevel", "ptr", DeviceObject, NestingLevelMarshal, NestingLevel, NestingFlagsMarshal, NestingFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12098,7 +12116,7 @@ class FileSystem {
      */
     static FsRtlVolumeDeviceToCorrelationId(VolumeDeviceObject, Guid) {
         result := DllCall("ntoskrnl.exe\FsRtlVolumeDeviceToCorrelationId", "ptr", VolumeDeviceObject, "ptr", Guid, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12120,7 +12138,7 @@ class FileSystem {
         IosbInformationMarshal := IosbInformation is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlIssueDeviceIoControl", "ptr", DeviceObject, "uint", IoCtl, "char", Flags, InputBufferMarshal, InputBuffer, "uint", InputBufferLength, OutputBufferMarshal, OutputBuffer, "uint", OutputBufferLength, IosbInformationMarshal, IosbInformation, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12132,7 +12150,7 @@ class FileSystem {
      */
     static FsRtlGetSectorSizeInformation(DeviceObject, SectorSizeInfo) {
         result := DllCall("ntoskrnl.exe\FsRtlGetSectorSizeInformation", "ptr", DeviceObject, "ptr", SectorSizeInfo, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12146,7 +12164,7 @@ class FileSystem {
         SupportedFeaturesMarshal := SupportedFeatures is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlGetSupportedFeatures", "ptr", DeviceObject, SupportedFeaturesMarshal, SupportedFeatures, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12165,7 +12183,7 @@ class FileSystem {
         RetOutputBufferSizeMarshal := RetOutputBufferSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlKernelFsControlFile", "ptr", FileObject, "uint", FsControlCode, "ptr", InputBuffer, "uint", InputBufferLength, "ptr", OutputBuffer, "uint", OutputBufferLength, RetOutputBufferSizeMarshal, RetOutputBufferSize, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12187,7 +12205,7 @@ class FileSystem {
         LengthReturnedMarshal := LengthReturned is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlQueryKernelEaFile", "ptr", FileObject, "ptr", ReturnedEaData, "uint", Length, "char", ReturnSingleEntry, "ptr", EaList, "uint", EaListLength, EaIndexMarshal, EaIndex, "char", RestartScan, LengthReturnedMarshal, LengthReturned, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12200,7 +12218,7 @@ class FileSystem {
      */
     static FsRtlSetKernelEaFile(FileObject, EaBuffer, Length) {
         result := DllCall("ntoskrnl.exe\FsRtlSetKernelEaFile", "ptr", FileObject, "ptr", EaBuffer, "uint", Length, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12217,7 +12235,7 @@ class FileSystem {
         RetFileInformationSizeMarshal := RetFileInformationSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlQueryInformationFile", "ptr", FileObject, "ptr", FileInformation, "uint", Length, "int", FileInformationClass, RetFileInformationSizeMarshal, RetFileInformationSize, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12231,7 +12249,7 @@ class FileSystem {
         VdlMarshal := Vdl is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\FsRtlQueryCachedVdl", "ptr", FileObject, VdlMarshal, Vdl, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12263,7 +12281,7 @@ class FileSystem {
      */
     static FsRtlSetDriverBacking(_DriverObj, Flags) {
         result := DllCall("ntoskrnl.exe\FsRtlSetDriverBacking", "ptr", _DriverObj, "uint", Flags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12345,7 +12363,7 @@ class FileSystem {
      */
     static CcSetFileSizesEx(FileObject, FileSizes) {
         result := DllCall("ntoskrnl.exe\CcSetFileSizesEx", "ptr", FileObject, "ptr", FileSizes, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12685,7 +12703,7 @@ class FileSystem {
      */
     static CcWaitForCurrentLazyWriterActivity() {
         result := DllCall("ntoskrnl.exe\CcWaitForCurrentLazyWriterActivity", "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13008,7 +13026,7 @@ class FileSystem {
      */
     static CcErrorCallbackRoutine(_Context) {
         result := DllCall("ntoskrnl.exe\CcErrorCallbackRoutine", "ptr", _Context, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13052,7 +13070,7 @@ class FileSystem {
         _HandleMarshal := _Handle is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ksecdd.sys\SspiReinitAsyncContext", _HandleMarshal, _Handle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13859,7 +13877,7 @@ class FileSystem {
         LengthMarshal := Length is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ksecdd.sys\SecMakeSPN", "ptr", ServiceClass, "ptr", ServiceName, "ptr", InstanceName, "ushort", InstancePort, "ptr", Referrer, "ptr", Spn, LengthMarshal, Length, "char", Allocate, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13880,7 +13898,7 @@ class FileSystem {
         LengthMarshal := Length is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ksecdd.sys\SecMakeSPNEx", "ptr", ServiceClass, "ptr", ServiceName, "ptr", InstanceName, "ushort", InstancePort, "ptr", Referrer, "ptr", TargetInfo, "ptr", Spn, LengthMarshal, Length, "char", Allocate, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13902,7 +13920,7 @@ class FileSystem {
         TotalSizeMarshal := TotalSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ksecdd.sys\SecMakeSPNEx2", "ptr", ServiceClass, "ptr", ServiceName, "ptr", InstanceName, "ushort", InstancePort, "ptr", Referrer, "ptr", InTargetInfo, "ptr", Spn, TotalSizeMarshal, TotalSize, "char", Allocate, "char", IsTargetInfoMarshaled, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13922,7 +13940,7 @@ class FileSystem {
         NameUseMarshal := NameUse is VarRef ? "int*" : "ptr"
 
         result := DllCall("ksecdd.sys\SecLookupAccountSid", "ptr", _Sid, NameSizeMarshal, NameSize, "ptr", NameBuffer, DomainSizeMarshal, DomainSize, "ptr", DomainBuffer, NameUseMarshal, NameUse, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13942,7 +13960,7 @@ class FileSystem {
         DomainSizeMarshal := DomainSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ksecdd.sys\SecLookupAccountName", "ptr", Name, SidSizeMarshal, SidSize, "ptr", _Sid, NameUseMarshal, NameUse, DomainSizeMarshal, DomainSize, "ptr", ReferencedDomain, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13958,7 +13976,7 @@ class FileSystem {
         SidSizeMarshal := SidSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ksecdd.sys\SecLookupWellKnownSid", "int", SidType, "ptr", _Sid, "uint", SidBufferSize, SidSizeMarshal, SidSize, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13973,7 +13991,7 @@ class FileSystem {
         UserInformationMarshal := UserInformation is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("SECUR32.dll\GetSecurityUserInfo", "ptr", LogonId, "uint", Flags, UserInformationMarshal, UserInformation, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13984,7 +14002,7 @@ class FileSystem {
      */
     static MapSecurityError(SecStatus) {
         result := DllCall("ksecdd.sys\MapSecurityError", "int", SecStatus, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14003,7 +14021,7 @@ class FileSystem {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwQueryObject", "ptr", _Handle, "int", ObjectInformationClass, "ptr", ObjectInformation, "uint", ObjectInformationLength, ReturnLengthMarshal, ReturnLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14028,7 +14046,7 @@ class FileSystem {
         ApcContextMarshal := ApcContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\ZwNotifyChangeKey", "ptr", KeyHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", IoStatusBlock, "uint", CompletionFilter, "char", WatchTree, "ptr", _Buffer, "uint", BufferSize, "char", Asynchronous, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14043,7 +14061,7 @@ class FileSystem {
      */
     static ZwCreateEvent(EventHandle, DesiredAccess, ObjectAttributes, EventType, InitialState) {
         result := DllCall("ntdll.dll\ZwCreateEvent", "ptr", EventHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "int", EventType, "char", InitialState, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14054,7 +14072,7 @@ class FileSystem {
      */
     static ZwDeleteFile(ObjectAttributes) {
         result := DllCall("ntdll.dll\ZwDeleteFile", "ptr", ObjectAttributes, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14080,7 +14098,7 @@ class FileSystem {
         ApcContextMarshal := ApcContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\ZwQueryDirectoryFile", "ptr", FileHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", IoStatusBlock, "ptr", FileInformation, "uint", Length, "int", FileInformationClass, "char", ReturnSingleEntry, "ptr", FileName, "char", RestartScan, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14105,7 +14123,7 @@ class FileSystem {
         ApcContextMarshal := ApcContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\ZwQueryDirectoryFileEx", "ptr", FileHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", IoStatusBlock, "ptr", FileInformation, "uint", Length, "int", FileInformationClass, "uint", QueryFlags, "ptr", FileName, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14122,7 +14140,7 @@ class FileSystem {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("ntdll.dll\ZwQueryVolumeInformationFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", FsInformation, "uint", Length, "int", FsInformationClass, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14139,7 +14157,7 @@ class FileSystem {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("ntdll.dll\ZwSetVolumeInformationFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", FsInformation, "uint", Length, "int", FsInformationClass, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14164,7 +14182,7 @@ class FileSystem {
         ApcContextMarshal := ApcContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\ZwFsControlFile", "ptr", FileHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", IoStatusBlock, "uint", FsControlCode, "ptr", InputBuffer, "uint", InputBufferLength, "ptr", OutputBuffer, "uint", OutputBufferLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14185,7 +14203,7 @@ class FileSystem {
         TargetProcessHandle := TargetProcessHandle is Win32Handle ? NumGet(TargetProcessHandle, "ptr") : TargetProcessHandle
 
         result := DllCall("ntdll.dll\ZwDuplicateObject", "ptr", SourceProcessHandle, "ptr", SourceHandle, "ptr", TargetProcessHandle, "ptr", TargetHandle, "uint", DesiredAccess, "uint", HandleAttributes, "uint", Options, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14198,7 +14216,7 @@ class FileSystem {
      */
     static ZwOpenDirectoryObject(DirectoryHandle, DesiredAccess, ObjectAttributes) {
         result := DllCall("ntdll.dll\ZwOpenDirectoryObject", "ptr", DirectoryHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14219,7 +14237,7 @@ class FileSystem {
         RegionSizeMarshal := RegionSize is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwAllocateVirtualMemory", "ptr", ProcessHandle, BaseAddressMarshal, BaseAddress, "ptr", ZeroBits, RegionSizeMarshal, RegionSize, "uint", AllocationType, "uint", Protect, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14240,7 +14258,7 @@ class FileSystem {
         RegionSizeMarshal := RegionSize is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwAllocateVirtualMemoryEx", "ptr", ProcessHandle, "ptr", BaseAddress, RegionSizeMarshal, RegionSize, "uint", AllocationType, "uint", PageProtection, "ptr", ExtendedParameters, "uint", ExtendedParameterCount, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14259,7 +14277,7 @@ class FileSystem {
         RegionSizeMarshal := RegionSize is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwFreeVirtualMemory", "ptr", ProcessHandle, BaseAddressMarshal, BaseAddress, RegionSizeMarshal, RegionSize, "uint", FreeType, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14280,7 +14298,7 @@ class FileSystem {
         ReturnLengthMarshal := ReturnLength is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwQueryVirtualMemory", "ptr", ProcessHandle, BaseAddressMarshal, BaseAddress, "int", MemoryInformationClass, "ptr", MemoryInformation, "ptr", MemoryInformationLength, ReturnLengthMarshal, ReturnLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14298,7 +14316,7 @@ class FileSystem {
         ProcessHandle := ProcessHandle is Win32Handle ? NumGet(ProcessHandle, "ptr") : ProcessHandle
 
         result := DllCall("ntdll.dll\ZwSetInformationVirtualMemory", "ptr", ProcessHandle, "int", VmInformationClass, "ptr", NumberOfEntries, "ptr", VirtualAddresses, "ptr", VmInformation, "uint", VmInformationLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14314,7 +14332,7 @@ class FileSystem {
         PreviousStateMarshal := PreviousState is VarRef ? "int*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwSetEvent", "ptr", EventHandle, PreviousStateMarshal, PreviousState, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14333,7 +14351,7 @@ class FileSystem {
         RegionSizeMarshal := RegionSize is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwFlushVirtualMemory", "ptr", ProcessHandle, BaseAddressMarshal, BaseAddress, RegionSizeMarshal, RegionSize, "ptr", IoStatus, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14349,7 +14367,7 @@ class FileSystem {
         ProcessHandle := ProcessHandle is Win32Handle ? NumGet(ProcessHandle, "ptr") : ProcessHandle
 
         result := DllCall("ntdll.dll\ZwOpenProcessTokenEx", "ptr", ProcessHandle, "uint", DesiredAccess, "uint", HandleAttributes, "ptr", TokenHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14366,7 +14384,7 @@ class FileSystem {
         ThreadHandle := ThreadHandle is Win32Handle ? NumGet(ThreadHandle, "ptr") : ThreadHandle
 
         result := DllCall("ntdll.dll\ZwOpenThreadTokenEx", "ptr", ThreadHandle, "uint", DesiredAccess, "char", OpenAsSelf, "uint", HandleAttributes, "ptr", TokenHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14385,7 +14403,7 @@ class FileSystem {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwQueryInformationToken", "ptr", TokenHandle, "int", TokenInformationClass, "ptr", TokenInformation, "uint", TokenInformationLength, ReturnLengthMarshal, ReturnLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14401,7 +14419,7 @@ class FileSystem {
         TokenHandle := TokenHandle is Win32Handle ? NumGet(TokenHandle, "ptr") : TokenHandle
 
         result := DllCall("ntdll.dll\ZwSetInformationToken", "ptr", TokenHandle, "int", TokenInformationClass, "ptr", TokenInformation, "uint", TokenInformationLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14417,7 +14435,7 @@ class FileSystem {
         _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
         result := DllCall("ntdll.dll\ZwSetSecurityObject", "ptr", _Handle, "uint", SecurityInformation, "ptr", _SecurityDescriptor, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14436,7 +14454,7 @@ class FileSystem {
         LengthNeededMarshal := LengthNeeded is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwQuerySecurityObject", "ptr", _Handle, "uint", SecurityInformation, "ptr", _SecurityDescriptor, "uint", Length, LengthNeededMarshal, LengthNeeded, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14463,7 +14481,7 @@ class FileSystem {
         LengthMarshal := Length is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwLockFile", "ptr", FileHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", IoStatusBlock, ByteOffsetMarshal, ByteOffset, LengthMarshal, Length, "uint", Key, "char", FailImmediately, "char", ExclusiveLock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14483,7 +14501,7 @@ class FileSystem {
         LengthMarshal := Length is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwUnlockFile", "ptr", FileHandle, "ptr", IoStatusBlock, ByteOffsetMarshal, ByteOffset, LengthMarshal, Length, "uint", Key, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14504,7 +14522,7 @@ class FileSystem {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("ntdll.dll\ZwQueryQuotaInformationFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", _Buffer, "uint", Length, "char", ReturnSingleEntry, "ptr", SidList, "uint", SidListLength, "ptr", StartSid, "char", RestartScan, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14520,7 +14538,7 @@ class FileSystem {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("ntdll.dll\ZwSetQuotaInformationFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", _Buffer, "uint", Length, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14534,7 +14552,7 @@ class FileSystem {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("ntdll.dll\ZwFlushBuffersFile", "ptr", FileHandle, "ptr", IoStatusBlock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14551,7 +14569,7 @@ class FileSystem {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("ntdll.dll\ZwFlushBuffersFileEx", "ptr", FileHandle, "uint", FLags, "ptr", Parameters, "uint", ParametersSize, "ptr", IoStatusBlock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14574,7 +14592,7 @@ class FileSystem {
         EaIndexMarshal := EaIndex is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwQueryEaFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", _Buffer, "uint", Length, "char", ReturnSingleEntry, "ptr", EaList, "uint", EaListLength, EaIndexMarshal, EaIndex, "char", RestartScan, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14590,7 +14608,7 @@ class FileSystem {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("ntdll.dll\ZwSetEaFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", _Buffer, "uint", Length, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14608,7 +14626,7 @@ class FileSystem {
         ExistingTokenHandle := ExistingTokenHandle is Win32Handle ? NumGet(ExistingTokenHandle, "ptr") : ExistingTokenHandle
 
         result := DllCall("ntdll.dll\ZwDuplicateToken", "ptr", ExistingTokenHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "char", EffectiveOnly, "int", TokenType, "ptr", NewTokenHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14639,7 +14657,7 @@ class FileSystem {
         FilePartMarshal := FilePart is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlDosPathNameToNtPathName_U_WithStatus", "ptr", DosFileName, "ptr", NtFileName, FilePartMarshal, FilePart, "ptr", Reserved, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14652,7 +14670,7 @@ class FileSystem {
      */
     static ZwCreateDirectoryObject(DirectoryHandle, DesiredAccess, ObjectAttributes) {
         result := DllCall("ntdll.dll\ZwCreateDirectoryObject", "ptr", DirectoryHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14664,7 +14682,7 @@ class FileSystem {
      */
     static ZwQueryFullAttributesFile(ObjectAttributes, FileInformation) {
         result := DllCall("ntdll.dll\ZwQueryFullAttributesFile", "ptr", ObjectAttributes, "ptr", FileInformation, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 

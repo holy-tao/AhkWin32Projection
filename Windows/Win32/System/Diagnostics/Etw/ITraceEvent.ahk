@@ -2,10 +2,10 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\EVENT_RECORD.ahk
-#Include .\EVENT_DESCRIPTOR.ahk
-#Include ..\..\Com\IUnknown.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\Com\IUnknown.ahk
+#Include .\EVENT_DESCRIPTOR.ahk
+#Include .\EVENT_RECORD.ahk
 
 /**
  * Provides access to data relating to a specific event.

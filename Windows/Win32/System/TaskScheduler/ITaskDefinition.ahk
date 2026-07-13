@@ -2,13 +2,13 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\IActionCollection.ahk
+#Include .\IPrincipal.ahk
+#Include .\IRegistrationInfo.ahk
 #Include .\ITaskSettings.ahk
 #Include .\ITriggerCollection.ahk
-#Include .\IPrincipal.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\IActionCollection.ahk
-#Include .\IRegistrationInfo.ahk
 
 /**
  * Defines all the components of a task, such as the task settings, triggers, actions, and registration information.

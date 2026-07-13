@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NET_FL_VIRTUAL_INTERFACE_ORIGIN.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\NET_FL_ISOLATION_MODE.ahk
+#Include .\NET_FL_VIRTUAL_INTERFACE_ORIGIN.ahk
 #Include ..\Ndis\NET_LUID_LH.ahk
 #Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
 

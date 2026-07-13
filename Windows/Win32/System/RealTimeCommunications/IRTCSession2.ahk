@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\RTC_SECURITY_TYPE.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\RTC_SECURITY_LEVEL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IRTCSession.ahk
+#Include .\RTC_SECURITY_LEVEL.ahk
+#Include .\RTC_SECURITY_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

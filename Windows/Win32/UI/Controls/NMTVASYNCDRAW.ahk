@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\LPARAM.ahk
-#Include .\NMHDR.ahk
-#Include .\IMAGELISTDRAWPARAMS.ahk
 #Include .\HTREEITEM.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMAGELISTDRAWPARAMS.ahk
+#Include .\NMHDR.ahk
 
 /**
  * Contains an explanation of why the draw of an icon or overlay tree item failed.

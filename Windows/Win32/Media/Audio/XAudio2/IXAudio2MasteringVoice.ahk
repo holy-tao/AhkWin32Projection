@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IXAudio2Voice.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IXAudio2Voice.ahk
 
 /**
  * A mastering voice is used to represent the audio output device.

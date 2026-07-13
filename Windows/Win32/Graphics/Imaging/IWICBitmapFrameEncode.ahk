@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWICColorContext.ahk
-#Include .\WICRect.ahk
-#Include .\IWICBitmapSource.ahk
-#Include ..\..\System\Com\StructuredStorage\IPropertyBag2.ahk
-#Include .\IWICPalette.ahk
-#Include .\IWICMetadataQueryWriter.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWICBitmapSource.ahk
+#Include .\IWICColorContext.ahk
+#Include .\IWICMetadataQueryWriter.ahk
+#Include .\IWICPalette.ahk
+#Include .\WICRect.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\StructuredStorage\IPropertyBag2.ahk
 
 /**
  * Represents an encoder's individual image frames.

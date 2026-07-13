@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VDS_DISK_PROP2.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include .\VDS_DISK_FREE_EXTENT.ahk
+#Include .\VDS_DISK_PROP2.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides a method to retrieve property information for a disk, including the disk's location path.

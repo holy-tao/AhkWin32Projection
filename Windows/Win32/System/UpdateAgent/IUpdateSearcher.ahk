@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUpdateHistoryEntryCollection.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\ServerSelection.ahk
-#Include .\ISearchResult.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\Com\IDispatch.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\ISearchJob.ahk
+#Include .\ISearchResult.ahk
+#Include .\IUpdateHistoryEntryCollection.ahk
+#Include .\ServerSelection.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * Searches for updates on a server. (IUpdateSearcher)

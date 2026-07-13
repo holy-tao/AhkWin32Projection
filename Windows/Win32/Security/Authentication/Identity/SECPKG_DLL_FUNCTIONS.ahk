@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\PLSA_ALLOCATE_LSA_HEAP.ahk
+#Include .\PLSA_FREE_LSA_HEAP.ahk
+#Include .\PLSA_LOCATE_PKG_BY_ID.ahk
+#Include .\PLSA_REGISTER_CALLBACK.ahk
 
 /**
  * The SECPKG_DLL_FUNCTIONS structure contains pointers to the LSA functions that a security package can call while executing in-process with a client/server application.

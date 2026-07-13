@@ -1,5 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PENABLE_VIRTUALIZATION.ahk
+#Include .\PGET_VIRTUAL_DEVICE_DATA.ahk
+#Include .\PGET_VIRTUAL_DEVICE_LOCATION.ahk
+#Include .\PGET_VIRTUAL_DEVICE_RESOURCES.ahk
+#Include .\PGET_VIRTUAL_FUNCTION_PROBED_BARS.ahk
+#Include .\PINTERFACE_DEREFERENCE.ahk
+#Include .\PINTERFACE_REFERENCE.ahk
+#Include .\PSET_VIRTUAL_DEVICE_DATA.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

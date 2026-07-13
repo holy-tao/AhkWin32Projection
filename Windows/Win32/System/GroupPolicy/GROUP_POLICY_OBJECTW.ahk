@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\GROUP_POLICY_OBJECTW.ahk
 #Include .\GPO_LINK.ahk
+#Include .\GROUP_POLICY_OBJECTW.ahk
 
 /**
  * The GROUP_POLICY_OBJECT structure provides information about a GPO in a GPO list. (Unicode)

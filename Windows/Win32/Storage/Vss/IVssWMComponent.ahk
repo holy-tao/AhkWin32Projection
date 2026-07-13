@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IVssWMFiledesc.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IVssWMDependency.ahk
-#Include .\VSS_COMPONENTINFO.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IVssWMDependency.ahk
+#Include .\IVssWMFiledesc.ahk
+#Include .\VSS_COMPONENTINFO.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IVssWMComponent is a C++ (not COM) interface that allows access to component information stored in a Writer Metadata Document.

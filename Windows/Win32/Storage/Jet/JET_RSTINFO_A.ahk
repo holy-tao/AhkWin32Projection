@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\JET_LGPOS.ahk
 #Include .\JET_LOGTIME.ahk
+#Include .\JET_PFNSTATUS.ahk
 #Include .\JET_RSTMAP_A.ahk
 
 /**

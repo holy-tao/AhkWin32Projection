@@ -1,5 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\LPD3DHAL_CONTEXTCREATECB.ahk
+#Include .\LPD3DHAL_CONTEXTDESTROYALLCB.ahk
+#Include .\LPD3DHAL_CONTEXTDESTROYCB.ahk
+#Include .\LPD3DHAL_GETSTATECB.ahk
+#Include .\LPD3DHAL_RENDERPRIMITIVECB.ahk
+#Include .\LPD3DHAL_RENDERSTATECB.ahk
+#Include .\LPD3DHAL_SCENECAPTURECB.ahk
+#Include .\LPD3DHAL_TEXTURECREATECB.ahk
+#Include .\LPD3DHAL_TEXTUREDESTROYCB.ahk
+#Include .\LPD3DHAL_TEXTUREGETSURFCB.ahk
+#Include .\LPD3DHAL_TEXTURESWAPCB.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

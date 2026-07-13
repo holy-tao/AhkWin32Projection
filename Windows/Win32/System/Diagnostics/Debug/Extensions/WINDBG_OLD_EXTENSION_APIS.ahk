@@ -1,5 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
+#Include .\PWINDBG_CHECK_CONTROL_C.ahk
+#Include .\PWINDBG_DISASM.ahk
+#Include .\PWINDBG_GET_EXPRESSION.ahk
+#Include .\PWINDBG_GET_SYMBOL.ahk
+#Include .\PWINDBG_OUTPUT_ROUTINE.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

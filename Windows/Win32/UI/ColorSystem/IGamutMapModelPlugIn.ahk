@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\GamutBoundaryDescription.ahk
 #Include .\IDeviceModelPlugIn.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\JChColorF.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Describes the methods that are defined for the IGamutMapModelPlugIn Component Object Model (COM) interface.

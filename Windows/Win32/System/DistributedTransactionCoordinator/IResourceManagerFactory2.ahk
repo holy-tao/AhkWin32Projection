@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IResourceManagerFactory.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\IResourceManagerFactory.ahk
 #Include .\IResourceManagerSink.ahk
 
 /**

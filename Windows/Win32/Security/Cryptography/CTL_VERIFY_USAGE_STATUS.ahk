@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CTL_CONTEXT.ahk
 #Include .\CERT_CONTEXT.ahk
+#Include .\CTL_CONTEXT.ahk
 
 /**
  * Contains information about a Certificate Trust List (CTL) returned by CertVerifyCTLUsage.

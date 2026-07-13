@@ -1,5 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PIOMMU_DOMAIN_ATTACH_DEVICE.ahk
+#Include .\PIOMMU_DOMAIN_CONFIGURE.ahk
+#Include .\PIOMMU_DOMAIN_CREATE.ahk
+#Include .\PIOMMU_DOMAIN_DELETE.ahk
+#Include .\PIOMMU_DOMAIN_DETACH_DEVICE.ahk
+#Include .\PIOMMU_FLUSH_DOMAIN.ahk
+#Include .\PIOMMU_FLUSH_DOMAIN_VA_LIST.ahk
+#Include .\PIOMMU_MAP_IDENTITY_RANGE.ahk
+#Include .\PIOMMU_MAP_LOGICAL_RANGE.ahk
+#Include .\PIOMMU_QUERY_INPUT_MAPPINGS.ahk
+#Include .\PIOMMU_SET_DEVICE_FAULT_REPORTING.ahk
+#Include .\PIOMMU_UNMAP_IDENTITY_RANGE.ahk
+#Include .\PIOMMU_UNMAP_LOGICAL_RANGE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

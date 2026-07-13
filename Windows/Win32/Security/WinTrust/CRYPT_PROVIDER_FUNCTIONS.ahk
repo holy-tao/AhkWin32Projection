@@ -1,6 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CRYPT_PROVUI_FUNCS.ahk
+#Include .\PFN_CPD_ADD_CERT.ahk
+#Include .\PFN_CPD_ADD_PRIVDATA.ahk
+#Include .\PFN_CPD_ADD_SGNR.ahk
+#Include .\PFN_CPD_ADD_STORE.ahk
+#Include .\PFN_CPD_MEM_ALLOC.ahk
+#Include .\PFN_CPD_MEM_FREE.ahk
+#Include .\PFN_PROVIDER_CERTCHKPOLICY_CALL.ahk
+#Include .\PFN_PROVIDER_CERTTRUST_CALL.ahk
+#Include .\PFN_PROVIDER_CLEANUP_CALL.ahk
+#Include .\PFN_PROVIDER_FINALPOLICY_CALL.ahk
+#Include .\PFN_PROVIDER_INIT_CALL.ahk
+#Include .\PFN_PROVIDER_OBJTRUST_CALL.ahk
+#Include .\PFN_PROVIDER_SIGTRUST_CALL.ahk
+#Include .\PFN_PROVIDER_TESTFINALPOLICY_CALL.ahk
 
 /**
  * Defines the functions used by a cryptographic service provider (CSP) for WinTrust operations.

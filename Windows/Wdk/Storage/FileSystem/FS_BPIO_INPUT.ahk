@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\System\Ioctl\FS_BPIO_OPERATIONS.ahk
 #Include ..\..\..\Win32\System\Ioctl\FS_BPIO_INFLAGS.ahk
+#Include ..\..\..\Win32\System\Ioctl\FS_BPIO_OPERATIONS.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem

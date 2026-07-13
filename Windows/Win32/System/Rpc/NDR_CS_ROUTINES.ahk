@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CS_TAG_GETTING_ROUTINE.ahk
 #Include .\NDR_CS_SIZE_CONVERT_ROUTINES.ahk
 
 /**

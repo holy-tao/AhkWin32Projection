@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PWSTR.ahk
+#Include .\PFN_AUTHZ_COMPUTE_DYNAMIC_GROUPS.ahk
+#Include .\PFN_AUTHZ_DYNAMIC_ACCESS_CHECK.ahk
+#Include .\PFN_AUTHZ_FREE_CENTRAL_ACCESS_POLICY.ahk
+#Include .\PFN_AUTHZ_FREE_DYNAMIC_GROUPS.ahk
+#Include .\PFN_AUTHZ_GET_CENTRAL_ACCESS_POLICY.ahk
 
 /**
  * Defines the initialization information for the resource manager.

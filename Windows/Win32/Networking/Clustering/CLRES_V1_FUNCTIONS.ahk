@@ -1,5 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PARBITRATE_ROUTINE.ahk
+#Include .\PCLOSE_ROUTINE.ahk
+#Include .\PIS_ALIVE_ROUTINE.ahk
+#Include .\PLOOKS_ALIVE_ROUTINE.ahk
+#Include .\POFFLINE_ROUTINE.ahk
+#Include .\PONLINE_ROUTINE.ahk
+#Include .\POPEN_ROUTINE.ahk
+#Include .\PRELEASE_ROUTINE.ahk
+#Include .\PRESOURCE_CONTROL_ROUTINE.ahk
+#Include .\PRESOURCE_TYPE_CONTROL_ROUTINE.ahk
+#Include .\PTERMINATE_ROUTINE.ahk
 
 /**
  * Contains pointers to all Resource API version 1.0 entry points except Startup.

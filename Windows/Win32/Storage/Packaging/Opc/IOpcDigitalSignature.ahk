@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IOpcSignatureCustomObjectEnumerator.ahk
-#Include .\OPC_SIGNATURE_TIME_FORMAT.ahk
-#Include .\IOpcSignaturePartReferenceEnumerator.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\IOpcCertificateEnumerator.ahk
+#Include .\IOpcPartUri.ahk
+#Include .\IOpcSignatureCustomObjectEnumerator.ahk
+#Include .\IOpcSignaturePartReferenceEnumerator.ahk
+#Include .\IOpcSignatureReference.ahk
 #Include .\IOpcSignatureReferenceEnumerator.ahk
 #Include .\IOpcSignatureRelationshipReferenceEnumerator.ahk
 #Include .\OPC_CANONICALIZATION_METHOD.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
-#Include .\IOpcSignatureReference.ahk
-#Include .\IOpcPartUri.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\OPC_SIGNATURE_TIME_FORMAT.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**

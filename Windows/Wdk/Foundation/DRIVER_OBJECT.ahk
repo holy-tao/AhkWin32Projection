@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include ..\..\Win32\Foundation\UNICODE_STRING.ahk
-#Include .\DRIVER_EXTENSION.ahk
-#Include .\FAST_IO_DISPATCH.ahk
 #Include .\DEVICE_OBJECT.ahk
+#Include .\DRIVER_DISPATCH.ahk
+#Include .\DRIVER_EXTENSION.ahk
+#Include .\DRIVER_INITIALIZE.ahk
+#Include .\DRIVER_STARTIO.ahk
+#Include .\DRIVER_UNLOAD.ahk
+#Include .\FAST_IO_DISPATCH.ahk
+#Include ..\..\Win32\Foundation\UNICODE_STRING.ahk
 
 /**
  * @namespace Windows.Wdk.Foundation

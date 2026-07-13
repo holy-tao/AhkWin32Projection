@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include Common\ID2D1SimplifiedGeometrySink.ahk
-#Include Common\D2D_POINT_2F.ahk
 #Include Common\D2D1_BEZIER_SEGMENT.ahk
+#Include Common\D2D_POINT_2F.ahk
+#Include Common\ID2D1SimplifiedGeometrySink.ahk
 #Include .\D2D1_ARC_SEGMENT.ahk
 #Include .\D2D1_QUADRATIC_BEZIER_SEGMENT.ahk
 

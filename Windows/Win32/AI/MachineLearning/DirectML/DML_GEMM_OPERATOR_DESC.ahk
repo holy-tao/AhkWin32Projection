@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\DML_MATRIX_TRANSFORM.ahk
-#Include .\DML_TENSOR_DESC.ahk
 #Include .\DML_OPERATOR_DESC.ahk
+#Include .\DML_TENSOR_DESC.ahk
 
 /**
  * Performs a general matrix multiplication function of the form `Output = FusedActivation(Alpha * TransA(A) x TransB(B) + Beta * C)`, where `x` denotes matrix multiplication, and `*` denotes multiplication with a scalar.

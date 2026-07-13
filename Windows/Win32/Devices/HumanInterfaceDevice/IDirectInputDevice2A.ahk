@@ -1,15 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDirectInputDeviceA.ahk
-#Include .\DIEFFECT.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDirectInputEffect.ahk
+#Include .\DIDEVICEOBJECTDATA.ahk
+#Include .\DIEFFECT.ahk
 #Include .\DIEFFECTINFOA.ahk
 #Include .\DIEFFESCAPE.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\DIDEVICEOBJECTDATA.ahk
+#Include .\IDirectInputDeviceA.ahk
+#Include .\IDirectInputEffect.ahk
+#Include .\LPDIENUMCREATEDEFFECTOBJECTSCALLBACK.ahk
+#Include .\LPDIENUMEFFECTSCALLBACKA.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ScrollAmount.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\ScrollAmount.ahk
 
 /**
  * Provides access to a control that acts as a scrollable container for a collection of child elements.
@@ -118,8 +118,12 @@ class IUIAutomationScrollPattern extends IUnknown {
 
     /**
      * Scrolls the visible region of the content area horizontally and vertically. (IUIAutomationScrollPattern.Scroll)
-     * @param {ScrollAmount} horizontalAmount 
-     * @param {ScrollAmount} verticalAmount 
+     * @param {ScrollAmount} horizontalAmount Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-scrollamount">ScrollAmount</a></b>
+     * 
+     * A value indicating the size of the horizontal scroll increment, or <b>UIA_ScrollPatternNoScroll</b> if the horizontal position is not to be set.
+     * @param {ScrollAmount} verticalAmount Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-scrollamount">ScrollAmount</a></b>
+     * 
+     * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-scrollamount">ScrollAmount</a> enumerated type indicating the size of the vertical scroll increment, or <b>UIA_ScrollPatternNoScroll</b> if the vertical position is not to be set.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

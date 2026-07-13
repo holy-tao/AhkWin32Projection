@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\PCRYPT_DECRYPT_PRIVATE_KEY_FUNC.ahk
+#Include .\PCRYPT_RESOLVE_HCRYPTPROV_FUNC.ahk
 
 /**
  * Contains a PKCS

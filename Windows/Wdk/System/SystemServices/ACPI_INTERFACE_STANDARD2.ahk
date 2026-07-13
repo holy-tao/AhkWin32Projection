@@ -1,5 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PGPE_CLEAR_STATUS2.ahk
+#Include .\PGPE_CONNECT_VECTOR2.ahk
+#Include .\PGPE_DISABLE_EVENT2.ahk
+#Include .\PGPE_DISCONNECT_VECTOR2.ahk
+#Include .\PGPE_ENABLE_EVENT2.ahk
+#Include .\PINTERFACE_DEREFERENCE.ahk
+#Include .\PINTERFACE_REFERENCE.ahk
+#Include .\PREGISTER_FOR_DEVICE_NOTIFICATIONS2.ahk
+#Include .\PUNREGISTER_FOR_DEVICE_NOTIFICATIONS2.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

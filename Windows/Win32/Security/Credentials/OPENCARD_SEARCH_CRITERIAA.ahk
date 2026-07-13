@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\PSTR.ahk
+#Include .\LPOCNCHKPROC.ahk
+#Include .\LPOCNCONNPROCA.ahk
+#Include .\LPOCNDSCPROC.ahk
 
 /**
  * The OPENCARD_SEARCH_CRITERIA structure is used by the SCardUIDlgSelectCard function in order to recognize cards that meet the requirements set forth by the caller. You can, however, call SCardUIDlgSelectCard without using this structure. (ANSI)

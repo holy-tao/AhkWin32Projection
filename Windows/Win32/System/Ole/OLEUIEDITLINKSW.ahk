@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Foundation\HRSRC.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\LPARAM.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\IOleUILinkContainerW.ahk
 #Include .\EDIT_LINKS_FLAGS.ahk
-#Include ..\..\Foundation\HRSRC.ahk
+#Include .\IOleUILinkContainerW.ahk
+#Include .\LPFNOLEUIHOOK.ahk
 
 /**
  * Contains information that the OLE User Interface Library uses to initialize the Edit Links dialog box, and contains space for the library to return information when the dialog box is dismissed. (Unicode)

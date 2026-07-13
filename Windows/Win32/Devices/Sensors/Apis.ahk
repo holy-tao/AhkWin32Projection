@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\FILETIME.ahk
 #Include ..\Properties\DEVPROPTYPE.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\SENSOR_COLLECTION_LIST.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\NTSTATUS.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Foundation\PROPERTYKEY.ahk
 #Include .\SENSOR_PROPERTY_LIST.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Sensors
@@ -2520,7 +2520,7 @@ class Sensors {
         TimeMsMarshal := TimeMs is VarRef ? "uint*" : "ptr"
 
         result := DllCall("SensorsUtilsV2.dll\GetPerformanceTime", TimeMsMarshal, TimeMs, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2545,7 +2545,7 @@ class Sensors {
      */
     static PropKeyFindKeyGetPropVariant(pList, pKey, TypeCheck, pValue) {
         result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetPropVariant", "ptr", pList, "ptr", pKey, "char", TypeCheck, "ptr", pValue, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2559,7 +2559,7 @@ class Sensors {
      */
     static PropKeyFindKeySetPropVariant(pList, pKey, TypeCheck, pValue) {
         result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeySetPropVariant", "ptr", pList, "ptr", pKey, "char", TypeCheck, "ptr", pValue, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2572,7 +2572,7 @@ class Sensors {
      */
     static PropKeyFindKeyGetFileTime(pList, pKey, pRetValue) {
         result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetFileTime", "ptr", pList, "ptr", pKey, "ptr", pRetValue, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2585,7 +2585,7 @@ class Sensors {
      */
     static PropKeyFindKeyGetGuid(pList, pKey, pRetValue) {
         result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetGuid", "ptr", pList, "ptr", pKey, "ptr", pRetValue, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2600,7 +2600,7 @@ class Sensors {
         pRetValueMarshal := pRetValue is VarRef ? "int*" : "ptr"
 
         result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetBool", "ptr", pList, "ptr", pKey, pRetValueMarshal, pRetValue, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2615,7 +2615,7 @@ class Sensors {
         pRetValueMarshal := pRetValue is VarRef ? "uint*" : "ptr"
 
         result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetUlong", "ptr", pList, "ptr", pKey, pRetValueMarshal, pRetValue, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2630,7 +2630,7 @@ class Sensors {
         pRetValueMarshal := pRetValue is VarRef ? "ushort*" : "ptr"
 
         result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetUshort", "ptr", pList, "ptr", pKey, pRetValueMarshal, pRetValue, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2645,7 +2645,7 @@ class Sensors {
         pRetValueMarshal := pRetValue is VarRef ? "float*" : "ptr"
 
         result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetFloat", "ptr", pList, "ptr", pKey, pRetValueMarshal, pRetValue, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2660,7 +2660,7 @@ class Sensors {
         pRetValueMarshal := pRetValue is VarRef ? "double*" : "ptr"
 
         result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetDouble", "ptr", pList, "ptr", pKey, pRetValueMarshal, pRetValue, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2675,7 +2675,7 @@ class Sensors {
         pRetValueMarshal := pRetValue is VarRef ? "int*" : "ptr"
 
         result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetInt32", "ptr", pList, "ptr", pKey, pRetValueMarshal, pRetValue, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2690,7 +2690,7 @@ class Sensors {
         pRetValueMarshal := pRetValue is VarRef ? "int64*" : "ptr"
 
         result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetInt64", "ptr", pList, "ptr", pKey, pRetValueMarshal, pRetValue, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2706,7 +2706,7 @@ class Sensors {
         pRetValueMarshal := pRetValue is VarRef ? "uint*" : "ptr"
 
         result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetNthUlong", "ptr", pList, "ptr", pKey, "uint", Occurrence, pRetValueMarshal, pRetValue, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2722,7 +2722,7 @@ class Sensors {
         pRetValueMarshal := pRetValue is VarRef ? "ushort*" : "ptr"
 
         result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetNthUshort", "ptr", pList, "ptr", pKey, "uint", Occurrence, pRetValueMarshal, pRetValue, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2738,7 +2738,7 @@ class Sensors {
         pRetValueMarshal := pRetValue is VarRef ? "int64*" : "ptr"
 
         result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetNthInt64", "ptr", pList, "ptr", pKey, "uint", Occurrence, pRetValueMarshal, pRetValue, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2791,7 +2791,7 @@ class Sensors {
         RemappedTypeMarshal := RemappedType is VarRef ? "uint*" : "ptr"
 
         result := DllCall("SensorsUtilsV2.dll\PropVariantGetInformation", "ptr", PropVariantValue, PropVariantOffsetMarshal, PropVariantOffset, PropVariantSizeMarshal, PropVariantSize, PropVariantPointerMarshal, PropVariantPointer, RemappedTypeMarshal, RemappedType, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2803,7 +2803,7 @@ class Sensors {
      */
     static PropertiesListCopy(Target, Source) {
         result := DllCall("SensorsUtilsV2.dll\PropertiesListCopy", "ptr", Target, "ptr", Source, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2835,7 +2835,7 @@ class Sensors {
      */
     static CollectionsListCopyAndMarshall(Target, Source) {
         result := DllCall("SensorsUtilsV2.dll\CollectionsListCopyAndMarshall", "ptr", Target, "ptr", Source, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2846,7 +2846,7 @@ class Sensors {
      */
     static CollectionsListMarshall(Target) {
         result := DllCall("SensorsUtilsV2.dll\CollectionsListMarshall", "ptr", Target, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2867,7 +2867,7 @@ class Sensors {
      */
     static CollectionsListUpdateMarshalledPointer(Collection) {
         result := DllCall("SensorsUtilsV2.dll\CollectionsListUpdateMarshalledPointer", "ptr", Collection, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2881,7 +2881,7 @@ class Sensors {
         pBufferMarshal := pBuffer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("SensorsUtilsV2.dll\SerializationBufferAllocate", "uint", SizeInBytes, pBufferMarshal, pBuffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2915,7 +2915,7 @@ class Sensors {
      */
     static CollectionsListSerializeToBuffer(SourceCollection, TargetBufferSizeInBytes, TargetBuffer) {
         result := DllCall("SensorsUtilsV2.dll\CollectionsListSerializeToBuffer", "ptr", SourceCollection, "uint", TargetBufferSizeInBytes, "ptr", TargetBuffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2931,7 +2931,7 @@ class Sensors {
         pTargetBufferMarshal := pTargetBuffer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("SensorsUtilsV2.dll\CollectionsListAllocateBufferAndSerialize", "ptr", SourceCollection, pTargetBufferSizeInBytesMarshal, pTargetBufferSizeInBytes, pTargetBufferMarshal, pTargetBuffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2944,7 +2944,7 @@ class Sensors {
      */
     static CollectionsListDeserializeFromBuffer(SourceBufferSizeInBytes, SourceBuffer, TargetCollection) {
         result := DllCall("SensorsUtilsV2.dll\CollectionsListDeserializeFromBuffer", "uint", SourceBufferSizeInBytes, "ptr", SourceBuffer, "ptr", TargetCollection, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2958,7 +2958,7 @@ class Sensors {
      */
     static SensorCollectionGetAt(Index, pSensorsList, pKey, pValue) {
         result := DllCall("SensorsUtilsV2.dll\SensorCollectionGetAt", "uint", Index, "ptr", pSensorsList, "ptr", pKey, "ptr", pValue, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2992,7 +2992,7 @@ class Sensors {
      */
     static CollectionsListSortSubscribedActivitiesByConfidence(thresholds, pCollection) {
         result := DllCall("SensorsUtilsV2.dll\CollectionsListSortSubscribedActivitiesByConfidence", "ptr", thresholds, "ptr", pCollection, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\IO_SECURITY_CONTEXT.ahk
 #Include ..\..\Foundation\ECP_LIST.ahk
+#Include ..\..\Foundation\IO_SECURITY_CONTEXT.ahk
 #Include ..\..\Foundation\PESILO.ahk
 
 /**

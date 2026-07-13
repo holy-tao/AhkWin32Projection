@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VMRGUID.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Graphics\Gdi\HMONITOR.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Graphics\Gdi\HMONITOR.ahk
+#Include .\VMRGUID.ahk
 
 /**
  * The VMRMONITORINFO structure is used in the IVMRMonitorConfig::GetAvailableMonitors method to set and retrieve information about monitors on the system (VMR-7 only).

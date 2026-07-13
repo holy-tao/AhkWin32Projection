@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\SYNCMGR_SYNC_CONTROL_FLAGS.ahk
-#Include .\ISyncMgrConflict.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\SYNCMGR_UPDATE_REASON.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\ISyncMgrSyncResult.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\SYNCMGR_CONTROL_FLAGS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ISyncMgrConflict.ahk
+#Include .\ISyncMgrSyncResult.ahk
+#Include .\SYNCMGR_CONTROL_FLAGS.ahk
+#Include .\SYNCMGR_SYNC_CONTROL_FLAGS.ahk
+#Include .\SYNCMGR_UPDATE_REASON.ahk
 
 /**
  * Exposes methods that allow an application or handler to start or stop a synchronization, notify Sync Center of changes to the set of handlers or items, or notify of changes to property values.

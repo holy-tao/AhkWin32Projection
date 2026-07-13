@@ -1,5 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PPO_FX_COMPONENT_ACTIVE_CONDITION_CALLBACK.ahk
+#Include .\PPO_FX_COMPONENT_IDLE_CONDITION_CALLBACK.ahk
+#Include .\PPO_FX_COMPONENT_IDLE_STATE_CALLBACK.ahk
+#Include .\PPO_FX_DEVICE_POWER_NOT_REQUIRED_CALLBACK.ahk
+#Include .\PPO_FX_DEVICE_POWER_REQUIRED_CALLBACK.ahk
+#Include .\PPO_FX_POWER_CONTROL_CALLBACK.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

@@ -3,8 +3,8 @@
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\IUPnPDevice.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * The IUPnPDeviceFinderAddCallbackWithInterface interface allows the UPnP framework to communicate to an application

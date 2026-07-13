@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\KSDATAFORMAT.ahk
 #Include .\KSIDENTIFIER.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\SIZE.ahk
-#Include ..\..\Foundation\POINT.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\WINDOW_ACTION_MODIFIERS.ahk
-#Include .\WINDOW_ACTION_KINDS.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\WINDOW_PLACEMENT_STATE.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include .\WINDOW_ACTION_KINDS.ahk
+#Include .\WINDOW_ACTION_MODIFIERS.ahk
+#Include .\WINDOW_PLACEMENT_STATE.ahk
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging

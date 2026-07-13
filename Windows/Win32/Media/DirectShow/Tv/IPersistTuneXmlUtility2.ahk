@@ -2,9 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include .\IPersistTuneXmlUtility.ahk
 #Include .\ITuneRequest.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Defines utility methods for serializing tuning requests (objects that implement the ITuneRequest interface) to XML tuning request strings.

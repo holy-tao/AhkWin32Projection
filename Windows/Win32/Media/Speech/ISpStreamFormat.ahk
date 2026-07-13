@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IStream.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Audio\WAVEFORMATEX.ahk
+#Include ..\..\System\Com\IStream.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech

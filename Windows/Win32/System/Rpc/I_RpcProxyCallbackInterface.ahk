@@ -1,5 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\I_RpcFreeCalloutStateFn.ahk
+#Include .\I_RpcPerformCalloutFn.ahk
+#Include .\I_RpcProxyFilterIfFn.ahk
+#Include .\I_RpcProxyGetClientAddressFn.ahk
+#Include .\I_RpcProxyGetClientSessionAndResourceUUID.ahk
+#Include .\I_RpcProxyGetConnectionTimeoutFn.ahk
+#Include .\I_RpcProxyIsValidMachineFn.ahk
+#Include .\I_RpcProxyUpdatePerfCounterBackendServerFn.ahk
+#Include .\I_RpcProxyUpdatePerfCounterFn.ahk
 
 /**
  * @namespace Windows.Win32.System.Rpc

@@ -1,26 +1,30 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\RO_REGISTRATION_COOKIE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Com\IStream.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\Com\Marshal\IMarshal.ahk
+#Include .\APARTMENT_SHUTDOWN_REGISTRATION_COOKIE.ahk
+#Include .\AgileReferenceOptions.ahk
+#Include .\BSOS_OPTIONS.ahk
+#Include .\DispatcherQueueOptions.ahk
+#Include .\HSTRING.ahk
+#Include .\HSTRING_BUFFER.ahk
+#Include .\HSTRING_HEADER.ahk
 #Include .\IAgileReference.ahk
 #Include .\IApartmentShutdown.ahk
-#Include ..\Com\IStream.ahk
-#Include .\ServerInformation.ahk
-#Include ..\Com\Marshal\IMarshal.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include .\AgileReferenceOptions.ahk
-#Include .\HSTRING.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\APARTMENT_SHUTDOWN_REGISTRATION_COOKIE.ahk
-#Include .\RO_INIT_TYPE.ahk
-#Include .\DispatcherQueueOptions.ahk
 #Include .\IInspectable.ahk
-#Include .\HSTRING_HEADER.ahk
-#Include .\HSTRING_BUFFER.ahk
-#Include .\BSOS_OPTIONS.ahk
 #Include .\IRestrictedErrorInfo.ahk
+#Include .\PFNGETACTIVATIONFACTORY.ahk
+#Include .\PINSPECT_HSTRING_CALLBACK.ahk
+#Include .\PINSPECT_HSTRING_CALLBACK2.ahk
+#Include .\PINSPECT_MEMORY_CALLBACK.ahk
+#Include .\RO_INIT_TYPE.ahk
+#Include .\RO_REGISTRATION_COOKIE.ahk
+#Include .\ServerInformation.ahk
 
 /**
  * @namespace Windows.Win32.System.WinRT
@@ -135,9 +139,9 @@ class WinRT {
 
     /**
      * The HSTRING_UserSize function calculates the wire size of the HSTRING object, and retrieves its handle and data. (HSTRING_UserSize)
-     * @param {Pointer<Integer>} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<HSTRING>} param2 
+     * @param {Pointer<Integer>} param0 TBD
+     * @param {Integer} param1 TBD
+     * @param {Pointer<HSTRING>} param2 TBD
      * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_usersize
      * @since windows8.0
@@ -151,9 +155,9 @@ class WinRT {
 
     /**
      * The HSTRING_UserMarshal function marshals an HSTRING object into the RPC buffer. (HSTRING_UserMarshal)
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HSTRING>} param2 
+     * @param {Pointer<Integer>} param0 TBD
+     * @param {Pointer<Integer>} param1 TBD
+     * @param {Pointer<HSTRING>} param2 TBD
      * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_usermarshal
      * @since windows8.0
@@ -168,9 +172,9 @@ class WinRT {
 
     /**
      * The HSTRING_UserUnmarshal function unmarshals an HSTRING object from the RPC buffer. (HSTRING_UserUnmarshal)
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HSTRING>} param2 
+     * @param {Pointer<Integer>} param0 TBD
+     * @param {Pointer<Integer>} param1 TBD
+     * @param {Pointer<HSTRING>} param2 TBD
      * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
      * 
      * <table>
@@ -214,8 +218,8 @@ class WinRT {
 
     /**
      * The HSTRING_UserFree function frees resources on the server side when called by RPC stub files. (HSTRING_UserFree)
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<HSTRING>} param1 
+     * @param {Pointer<Integer>} param0 TBD
+     * @param {Pointer<HSTRING>} param1 TBD
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_userfree
      * @since windows8.0
@@ -228,9 +232,9 @@ class WinRT {
 
     /**
      * The HSTRING_UserSize64 function calculates the wire size of the HSTRING object, and retrieves its handle and data. (HSTRING_UserSize64)
-     * @param {Pointer<Integer>} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<HSTRING>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Integer} param1 The current buffer offset where the object will be marshaled. The method has to account for any padding needed for the <a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a> object to be properly aligned when it will be marshaled to the buffer.
+     * @param {Pointer<HSTRING>} param2 The string.
      * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_usersize64
      * @since windows8.0
@@ -244,9 +248,9 @@ class WinRT {
 
     /**
      * The HSTRING_UserMarshal64 function marshals an HSTRING object into the RPC buffer. (HSTRING_UserMarshal64)
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HSTRING>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<HSTRING>} param2 The string.
      * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_usermarshal64
      * @since windows8.0
@@ -261,9 +265,9 @@ class WinRT {
 
     /**
      * The HSTRING_UserUnmarshal64 function unmarshals an HSTRING object from the RPC buffer. (HSTRING_UserUnmarshal64)
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HSTRING>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<HSTRING>} param2 The string.
      * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
      * 
      * <table>
@@ -307,8 +311,8 @@ class WinRT {
 
     /**
      * The HSTRING_UserFree64 function frees resources on the server side when called by RPC stub files. (HSTRING_UserFree64)
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<HSTRING>} param1 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<HSTRING>} param1 The string.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_userfree64
      * @since windows8.0

@@ -1,12 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
-#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include .\LPFNPSPCALLBACKA.ahk
+#Include ..\WindowsAndMessaging\DLGPROC.ahk
 #Include ..\WindowsAndMessaging\DLGTEMPLATE.ahk
 #Include ..\WindowsAndMessaging\HICON.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls

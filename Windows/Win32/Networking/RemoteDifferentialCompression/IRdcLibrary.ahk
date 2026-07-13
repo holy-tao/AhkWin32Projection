@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRdcComparator.ahk
-#Include .\IRdcSignatureReader.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\IRdcGeneratorParameters.ahk
-#Include .\IRdcGenerator.ahk
-#Include .\IRdcFileReader.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\GeneratorParametersType.ahk
+#Include .\IRdcComparator.ahk
+#Include .\IRdcFileReader.ahk
+#Include .\IRdcGenerator.ahk
+#Include .\IRdcGeneratorParameters.ahk
+#Include .\IRdcSignatureReader.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Is the primary interface for using RDC.

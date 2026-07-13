@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PFN_DrvGetDriverSetting.ahk
+#Include .\PFN_DrvUpdateUISetting.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

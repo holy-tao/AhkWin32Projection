@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include ..\..\Security\Cryptography\CERT_PUBLIC_KEY_INFO.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\PEER_GROUP_AUTHENTICATION_SCHEME.ahk
+#Include ..\..\Security\Cryptography\CERT_PUBLIC_KEY_INFO.ahk
 
 /**
  * The PEER_INVITATION_INFO structure defines information about an invitation to join a peer group.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Geometry.ahk
 #Include Common\D2D1_FILL_MODE.ahk
+#Include .\ID2D1Geometry.ahk
 
 /**
  * Represents a composite geometry, composed of other ID2D1Geometry objects.

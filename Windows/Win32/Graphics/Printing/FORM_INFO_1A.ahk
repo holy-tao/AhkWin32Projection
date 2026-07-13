@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\SIZE.ahk
 #Include ..\..\Foundation\RECTL.ahk
+#Include ..\..\Foundation\SIZE.ahk
 
 /**
  * The FORM_INFO_1 structure contains information about a print form. The information includes the print forms origin, its name, its dimensions, and the dimensions of its printable area.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\CM_NOTIFY_FILTER_TYPE.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Device notification filter structure.

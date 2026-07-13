@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include .\DNS_CUSTOM_SERVER.ahk
+#Include .\DNS_QUERY_RAW_COMPLETION_ROUTINE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns

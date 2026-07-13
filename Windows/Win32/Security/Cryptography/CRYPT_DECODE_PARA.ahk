@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PFN_CRYPT_ALLOC.ahk
+#Include .\PFN_CRYPT_FREE.ahk
 
 /**
  * Used by the CryptDecodeObjectEx function to provide access to memory allocation and memory freeing callback functions.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DDRAWSURFACE_INT.ahk
 #Include .\ATTACHLIST.ahk
+#Include .\DDRAWI_DDRAWSURFACE_INT.ahk
 #Include .\DDRAWI_DDRAWSURFACE_LCL.ahk
 
 /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PIO_IRP_EXT_PROCESS_TRACKED_OFFSET_CALLBACK.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl

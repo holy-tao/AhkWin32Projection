@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PATHOBJ.ahk
 #Include .\GLYPHBITS.ahk
+#Include .\GLYPHDEF.ahk
+#Include .\PATHOBJ.ahk
 #Include .\POINTQF.ahk
 #Include ..\..\Foundation\RECTL.ahk
-#Include .\GLYPHDEF.ahk
 
 /**
  * The GLYPHDATA structure contains information about an individual glyph.

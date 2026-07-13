@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\Time\TIME_ZONE_INFORMATION.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\Foundation\SYSTEMTIME.ahk
+#Include ..\..\Time\TIME_ZONE_INFORMATION.ahk
 
 /**
  * The TRACE_LOGFILE_HEADER structure contains information about an event tracing session and its events.

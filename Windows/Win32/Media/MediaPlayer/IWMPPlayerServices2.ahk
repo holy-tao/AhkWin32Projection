@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IWMPPlayerServices.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWMPPlayerServices.ahk
 
 /**
  * The IWMPPlayerServices2 interface provides a method used by the host of a remoted Windows Media Player control to manipulate the full mode of the Player.

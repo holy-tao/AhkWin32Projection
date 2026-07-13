@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\WINBIO_IDENTITY.ahk
 #Include .\WINBIO_ANTI_SPOOF_POLICY_ACTION.ahk
+#Include .\WINBIO_IDENTITY.ahk
 
 /**
  * Contains either a default or account-specific antispoofing policy.

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include .\DNS_ADDR_ARRAY.ahk
+#Include .\PDNS_QUERY_COMPLETION_ROUTINE.ahk
 
 /**
  * The DNS_QUERY_REQUEST structure contains the DNS query parameters used in a call to DnsQueryEx.

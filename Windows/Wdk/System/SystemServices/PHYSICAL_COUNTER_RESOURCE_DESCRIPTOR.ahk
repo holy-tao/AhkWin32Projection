@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\PHYSICAL_COUNTER_RESOURCE_DESCRIPTOR_TYPE.ahk
+#Include .\PPHYSICAL_COUNTER_OVERFLOW_HANDLER.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

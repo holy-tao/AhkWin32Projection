@@ -1,5 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WHV_EMULATOR_GET_VIRTUAL_PROCESSOR_REGISTERS_CALLBACK.ahk
+#Include .\WHV_EMULATOR_IO_PORT_CALLBACK.ahk
+#Include .\WHV_EMULATOR_MEMORY_CALLBACK.ahk
+#Include .\WHV_EMULATOR_SET_VIRTUAL_PROCESSOR_REGISTERS_CALLBACK.ahk
+#Include .\WHV_EMULATOR_TRANSLATE_GVA_PAGE_CALLBACK.ahk
 
 /**
  * @namespace Windows.Win32.System.Hypervisor

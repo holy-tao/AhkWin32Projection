@@ -2,9 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\DDMCCOMPBUFFERINFO.ahk
 #Include .\DDPIXELFORMAT.ahk
 #Include .\DDRAWI_DIRECTDRAW_LCL.ahk
-#Include .\DDMCCOMPBUFFERINFO.ahk
+#Include .\LPDDHALMOCOMPCB_GETCOMPBUFFINFO.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

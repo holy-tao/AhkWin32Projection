@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WSDXML_NAME.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents a RelatesTo SOAP envelope header block, as specified by the WS-Addressing specification.

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\DEBUG_VALUE.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include ..\..\..\..\Foundation\PSTR.ahk
-#Include .\DEBUG_REGISTER_DESCRIPTION.ahk
 #Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\..\Foundation\PSTR.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+#Include .\DEBUG_REGISTER_DESCRIPTION.ahk
+#Include .\DEBUG_VALUE.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

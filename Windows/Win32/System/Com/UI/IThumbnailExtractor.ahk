@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Graphics\Gdi\HBITMAP.ahk
-#Include ..\StructuredStorage\IStorage.ahk
-#Include ..\IUnknown.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\IUnknown.ahk
+#Include ..\StructuredStorage\IStorage.ahk
 
 /**
  * @namespace Windows.Win32.System.Com.UI

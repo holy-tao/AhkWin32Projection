@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRichChunk.ahk
-#Include ..\Com\StructuredStorage\PROPVARIANT.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\ICondition.ahk
-#Include .\ISchemaProvider.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ITokenCollection.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\IConditionFactory.ahk
-#Include Common\CONDITION_OPERATION.ahk
-#Include .\INamedEntityCollector.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\Com\StructuredStorage\PROPVARIANT.ahk
+#Include Common\CONDITION_OPERATION.ahk
+#Include .\ICondition.ahk
+#Include .\IConditionFactory.ahk
+#Include .\INamedEntityCollector.ahk
+#Include .\IRichChunk.ahk
+#Include .\ISchemaProvider.ahk
+#Include .\ITokenCollection.ahk
 
 /**
  * Provides methods for handling named entities and generating special conditions.

@@ -1,5 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MI_ProviderFT_AssociatorInstances.ahk
+#Include .\MI_ProviderFT_CreateInstance.ahk
+#Include .\MI_ProviderFT_DeleteInstance.ahk
+#Include .\MI_ProviderFT_DisableIndications.ahk
+#Include .\MI_ProviderFT_EnableIndications.ahk
+#Include .\MI_ProviderFT_EnumerateInstances.ahk
+#Include .\MI_ProviderFT_GetInstance.ahk
+#Include .\MI_ProviderFT_Invoke.ahk
+#Include .\MI_ProviderFT_Load.ahk
+#Include .\MI_ProviderFT_ModifyInstance.ahk
+#Include .\MI_ProviderFT_ReferenceInstances.ahk
+#Include .\MI_ProviderFT_Subscribe.ahk
+#Include .\MI_ProviderFT_Unload.ahk
+#Include .\MI_ProviderFT_Unsubscribe.ahk
 
 /**
  * A support structure used in the MI_ClassDecl and MI_Module structures.

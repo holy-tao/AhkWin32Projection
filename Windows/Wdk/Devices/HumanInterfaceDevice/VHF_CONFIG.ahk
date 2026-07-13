@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\EVT_VHF_ASYNC_OPERATION.ahk
+#Include .\EVT_VHF_CLEANUP.ahk
+#Include .\EVT_VHF_READY_FOR_NEXT_READ_REPORT.ahk
 #Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Include ..\..\..\Win32\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Wdk.Devices.HumanInterfaceDevice

@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
+#Include .\LPFNPSPCALLBACKW.ahk
+#Include ..\WindowsAndMessaging\DLGPROC.ahk
 #Include ..\WindowsAndMessaging\DLGTEMPLATE.ahk
 #Include ..\WindowsAndMessaging\HICON.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The PROPSHEETPAGEW_V3 (Unicode) structure defines a page in a property sheet.

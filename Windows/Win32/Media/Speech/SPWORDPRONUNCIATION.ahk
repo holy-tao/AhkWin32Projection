@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPWORDPRONUNCIATION.ahk
-#Include .\SPPARTOFSPEECH.ahk
 #Include .\SPLEXICONTYPE.ahk
+#Include .\SPPARTOFSPEECH.ahk
+#Include .\SPWORDPRONUNCIATION.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech

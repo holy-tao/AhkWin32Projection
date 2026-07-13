@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\FsrmEventType.ahk
 #Include .\IFsrmAction.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to log an event to the Windows Application event log in response to a quota, file screen, or file management job event.

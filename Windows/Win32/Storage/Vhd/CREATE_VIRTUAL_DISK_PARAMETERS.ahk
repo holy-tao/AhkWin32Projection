@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\VIRTUAL_STORAGE_TYPE.ahk
-#Include .\OPEN_VIRTUAL_DISK_FLAG.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CREATE_VIRTUAL_DISK_VERSION.ahk
+#Include .\OPEN_VIRTUAL_DISK_FLAG.ahk
+#Include .\VIRTUAL_STORAGE_TYPE.ahk
 
 /**
  * Contains virtual hard disk (VHD) creation parameters, providing control over, and information about, the newly created virtual disk.

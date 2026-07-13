@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\FA_ENTRY_TYPE.ahk
-#Include ..\..\..\..\Foundation\PSTR.ahk
 #Include ..\..\..\..\Foundation\BOOL.ahk
 #Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\..\Foundation\PSTR.ahk
 #Include .\DEBUG_FLR_PARAM_TYPE.ahk
+#Include .\FA_ENTRY_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

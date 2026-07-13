@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PFN_CRYPT_XML_DATA_PROVIDER_CLOSE.ahk
+#Include .\PFN_CRYPT_XML_DATA_PROVIDER_READ.ahk
 
 /**
  * Specifies the interface to the XML data provider.

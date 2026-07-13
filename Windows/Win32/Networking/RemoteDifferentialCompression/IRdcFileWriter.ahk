@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRdcFileReader.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IRdcFileReader.ahk
 
 /**
  * Abstract interface to read from and write to a file.

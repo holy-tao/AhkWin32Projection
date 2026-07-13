@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PVIRTUALCHANNELCLOSE.ahk
+#Include .\PVIRTUALCHANNELINIT.ahk
+#Include .\PVIRTUALCHANNELOPEN.ahk
+#Include .\PVIRTUALCHANNELWRITE.ahk
 
 /**
  * Contains pointers to the functions called by a client-side DLL to access virtual channels.

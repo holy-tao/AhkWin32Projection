@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include .\NMHDR.ahk
 #Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\SIZE.ahk
+#Include .\NMHDR.ahk
 
 /**
  * Contains information about a date and time picker (DTP) control callback field. (ANSI)

@@ -1,20 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\WINDBG_EXTENSION_APIS64.ahk
+#Include ..\..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\..\Foundation\FARPROC.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\..\Foundation\PSTR.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+#Include .\DEBUG_BREAKPOINT_PARAMETERS.ahk
 #Include .\DEBUG_EXCEPTION_FILTER_PARAMETERS.ahk
 #Include .\DEBUG_SPECIFIC_FILTER_PARAMETERS.ahk
-#Include .\DEBUG_BREAKPOINT_PARAMETERS.ahk
+#Include .\DEBUG_STACK_FRAME.ahk
+#Include .\DEBUG_VALUE.ahk
+#Include .\IDebugBreakpoint.ahk
 #Include .\IDebugBreakpoint2.ahk
 #Include .\WINDBG_EXTENSION_APIS32.ahk
-#Include ..\..\..\..\Foundation\PWSTR.ahk
-#Include .\DEBUG_VALUE.ahk
-#Include ..\..\..\..\Foundation\HRESULT.ahk
-#Include .\IDebugBreakpoint.ahk
-#Include ..\..\..\..\Foundation\BOOL.ahk
-#Include .\DEBUG_STACK_FRAME.ahk
-#Include ..\..\..\..\Foundation\PSTR.ahk
-#Include ..\..\..\Com\IUnknown.ahk
+#Include .\WINDBG_EXTENSION_APIS64.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

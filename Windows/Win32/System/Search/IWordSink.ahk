@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Storage\IndexServer\WORDREP_BREAK_TYPE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Storage\IndexServer\WORDREP_BREAK_TYPE.ahk
+#Include ..\Com\IUnknown.ahk
 
 /**
  * Handles words identified by word breaks during both index time and query time.

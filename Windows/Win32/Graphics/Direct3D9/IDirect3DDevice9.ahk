@@ -1,56 +1,56 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDirect3D9.ahk
-#Include .\D3DTEXTURESTAGESTATETYPE.ahk
-#Include ..\..\Foundation\POINT.ahk
-#Include .\D3DTRIPATCH_INFO.ahk
-#Include .\D3DFORMAT.ahk
-#Include .\IDirect3DCubeTexture9.ahk
-#Include .\IDirect3DBaseTexture9.ahk
-#Include .\D3DDISPLAYMODE.ahk
-#Include .\IDirect3DVertexBuffer9.ahk
-#Include ..\Gdi\PALETTEENTRY.ahk
-#Include .\IDirect3DQuery9.ahk
-#Include .\D3DMULTISAMPLE_TYPE.ahk
-#Include .\D3DTRANSFORMSTATETYPE.ahk
-#Include .\D3DTEXTUREFILTERTYPE.ahk
-#Include .\D3DMATERIAL9.ahk
-#Include .\IDirect3DStateBlock9.ahk
-#Include .\IDirect3DVertexShader9.ahk
-#Include .\D3DRECT.ahk
-#Include .\IDirect3DVolumeTexture9.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\IDirect3DSwapChain9.ahk
-#Include .\D3DRASTER_STATUS.ahk
-#Include .\D3DSAMPLERSTATETYPE.ahk
-#Include .\D3DRECTPATCH_INFO.ahk
-#Include .\D3DDEVICE_CREATION_PARAMETERS.ahk
-#Include .\D3DSTATEBLOCKTYPE.ahk
-#Include .\D3DPRIMITIVETYPE.ahk
-#Include .\D3DCLIPSTATUS9.ahk
-#Include .\D3DQUERYTYPE.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\D3DPOOL.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\D3DRENDERSTATETYPE.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDirect3DVertexDeclaration9.ahk
-#Include .\D3DCAPS9.ahk
-#Include .\IDirect3DPixelShader9.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\D3DGAMMARAMP.ahk
-#Include .\D3DLIGHT9.ahk
-#Include ..\Gdi\RGNDATA.ahk
-#Include .\IDirect3DSurface9.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include .\D3DPRESENT_PARAMETERS.ahk
-#Include .\IDirect3DTexture9.ahk
-#Include .\D3DVIEWPORT9.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include ..\Direct3D\D3DMATRIX.ahk
 #Include .\D3DBACKBUFFER_TYPE.ahk
-#Include .\IDirect3DIndexBuffer9.ahk
+#Include .\D3DCAPS9.ahk
+#Include .\D3DCLIPSTATUS9.ahk
+#Include .\D3DDEVICE_CREATION_PARAMETERS.ahk
+#Include .\D3DDISPLAYMODE.ahk
+#Include .\D3DFORMAT.ahk
+#Include .\D3DGAMMARAMP.ahk
+#Include .\D3DLIGHT9.ahk
+#Include .\D3DMATERIAL9.ahk
+#Include .\D3DMULTISAMPLE_TYPE.ahk
+#Include .\D3DPOOL.ahk
+#Include .\D3DPRESENT_PARAMETERS.ahk
+#Include .\D3DPRIMITIVETYPE.ahk
+#Include .\D3DQUERYTYPE.ahk
+#Include .\D3DRASTER_STATUS.ahk
+#Include .\D3DRECT.ahk
+#Include .\D3DRECTPATCH_INFO.ahk
+#Include .\D3DRENDERSTATETYPE.ahk
+#Include .\D3DSAMPLERSTATETYPE.ahk
+#Include .\D3DSTATEBLOCKTYPE.ahk
+#Include .\D3DTEXTUREFILTERTYPE.ahk
+#Include .\D3DTEXTURESTAGESTATETYPE.ahk
+#Include .\D3DTRANSFORMSTATETYPE.ahk
+#Include .\D3DTRIPATCH_INFO.ahk
 #Include .\D3DVERTEXELEMENT9.ahk
+#Include .\D3DVIEWPORT9.ahk
+#Include .\IDirect3D9.ahk
+#Include .\IDirect3DBaseTexture9.ahk
+#Include .\IDirect3DCubeTexture9.ahk
+#Include .\IDirect3DIndexBuffer9.ahk
+#Include .\IDirect3DPixelShader9.ahk
+#Include .\IDirect3DQuery9.ahk
+#Include .\IDirect3DStateBlock9.ahk
+#Include .\IDirect3DSurface9.ahk
+#Include .\IDirect3DSwapChain9.ahk
+#Include .\IDirect3DTexture9.ahk
+#Include .\IDirect3DVertexBuffer9.ahk
+#Include .\IDirect3DVertexDeclaration9.ahk
+#Include .\IDirect3DVertexShader9.ahk
+#Include .\IDirect3DVolumeTexture9.ahk
+#Include ..\Gdi\PALETTEENTRY.ahk
+#Include ..\Gdi\RGNDATA.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IDirect3DDevice9 (d3d9.h) applications use the methods of the IDirect3DDevice9 interface to perform DrawPrimitive-based rendering and create resources.
@@ -1802,8 +1802,12 @@ class IDirect3DDevice9 extends IUnknown {
      *                                     wrist_transform)
      * IDirect3DDevice9::DrawPrimitive(hand)
      * ```
-     * @param {D3DTRANSFORMSTATETYPE} param0 
-     * @param {Pointer<D3DMATRIX>} param1 
+     * @param {D3DTRANSFORMSTATETYPE} param0 Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dtransformstatetype">D3DTRANSFORMSTATETYPE</a></b>
+     * 
+     * Member of the <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dtransformstatetype">D3DTRANSFORMSTATETYPE</a> enumerated type, or the <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dts-worldmatrix">D3DTS_WORLDMATRIX</a> macro that identifies which device matrix is to be modified. The most common setting, <b>D3DTS_WORLDMATRIX</b>(0), modifies the world matrix, but you can specify that the method modify the view or projection matrices, if needed.
+     * @param {Pointer<D3DMATRIX>} param1 Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dmatrix">D3DMATRIX</a>*</b>
+     * 
+     * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dmatrix">D3DMATRIX</a> structure that modifies the current transformation.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If the method succeeds, the return value is D3D_OK. D3DERR_INVALIDCALL if one of the arguments is invalid.
@@ -1960,7 +1964,9 @@ class IDirect3DDevice9 extends IUnknown {
      * @param {Integer} Index Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Zero-based index of the set of lighting properties to set. If a set of lighting properties exists at this index, it is overwritten by the new properties specified in pLight.
-     * @param {Pointer<D3DLIGHT9>} param1 
+     * @param {Pointer<D3DLIGHT9>} param1 Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dlight9">D3DLIGHT9</a>*</b>
+     * 
+     * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dlight9">D3DLIGHT9</a> structure, containing the lighting parameters to set.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be D3DERR_INVALIDCALL.
@@ -2020,7 +2026,9 @@ class IDirect3DDevice9 extends IUnknown {
      * @param {Integer} Index Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Zero-based index of the lighting property set to retrieve. This method will fail if a lighting property has not been set for this index by calling the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nf-d3d9helper-idirect3ddevice9-setlight">IDirect3DDevice9::SetLight</a> method.
-     * @param {Pointer<D3DLIGHT9>} param1 
+     * @param {Pointer<D3DLIGHT9>} param1 Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dlight9">D3DLight9</a>*</b>
+     * 
+     * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dlight9">D3DLIGHT9</a> structure that is filled with the retrieved lighting-parameter set.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be D3DERR_INVALIDCALL.
@@ -2845,7 +2853,9 @@ class IDirect3DDevice9 extends IUnknown {
      * The D3DPT_POINTLIST member of the <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dprimitivetype">D3DPRIMITIVETYPE</a> enumerated type is not supported and is not a valid type for this method.
      * 
      * When converting a legacy application to Direct3D 9, you must add a call to either <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9-setfvf">IDirect3DDevice9::SetFVF</a> to use the fixed function pipeline, or <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nf-d3d9helper-idirect3ddevice9-setvertexdeclaration">IDirect3DDevice9::SetVertexDeclaration</a> to use a vertex shader before you make any Draw calls.
-     * @param {D3DPRIMITIVETYPE} param0 
+     * @param {D3DPRIMITIVETYPE} param0 Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dprimitivetype">D3DPRIMITIVETYPE</a></b>
+     * 
+     * Member of the <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dprimitivetype">D3DPRIMITIVETYPE</a> enumerated type, describing the type of primitive to render. D3DPT_POINTLIST is not supported with this method. See Remarks.
      * @param {Integer} BaseVertexIndex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">INT</a></b>
      * 
      * Offset from the start of the vertex buffer to the first vertex. See <a href="https://docs.microsoft.com/windows/desktop/direct3d9/rendering-from-vertex-and-index-buffers">Scenario 4</a>.

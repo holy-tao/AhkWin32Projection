@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\EMR.ahk
 #Include ..\..\Foundation\COLORREF.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include .\EMR.ahk
 #Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
 #Include .\LOGPEN.ahk
-#Include ..\..\Foundation\POINT.ahk
 
 /**
  * The EMRCREATEPEN structure contains members for the CreatePen enhanced metafile record.

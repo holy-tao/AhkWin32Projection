@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISClusNodeNetInterfaces.ahk
-#Include .\CLUSTER_NODE_STATE.ahk
-#Include .\ISClusResGroups.ahk
-#Include .\ISClusProperties.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\CLUSTER_NODE_STATE.ahk
+#Include .\ISClusNodeNetInterfaces.ahk
+#Include .\ISClusProperties.ahk
+#Include .\ISClusResGroups.ahk
 #Include .\ISCluster.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Networking.Clustering

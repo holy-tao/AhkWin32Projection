@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\D3D11_AUTHENTICATED_PROCESS_IDENTIFIER_TYPE.ahk
 #Include .\D3D11_AUTHENTICATED_QUERY_OUTPUT.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\D3D11_OMAC.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains the response to a D3D11_AUTHENTICATED_QUERY_RESTRICTED_SHARED_RESOURCE_PROCESS query.

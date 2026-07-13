@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\BOOLEAN.ahk
-#Include .\DOT11_ERP_PHY_ATTRIBUTES.ahk
-#Include .\DOT11_PHY_TYPE.ahk
-#Include .\DOT11_TEMP_TYPE.ahk
-#Include .\DOT11_SUPPORTED_DATA_RATES_VALUE_V2.ahk
-#Include .\DOT11_DATA_RATE_MAPPING_ENTRY.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
+#Include .\DOT11_DATA_RATE_MAPPING_ENTRY.ahk
 #Include .\DOT11_DIVERSITY_SUPPORT.ahk
-#Include .\DOT11_OFDM_PHY_ATTRIBUTES.ahk
+#Include .\DOT11_ERP_PHY_ATTRIBUTES.ahk
 #Include .\DOT11_HRDSSS_PHY_ATTRIBUTES.ahk
+#Include .\DOT11_OFDM_PHY_ATTRIBUTES.ahk
+#Include .\DOT11_PHY_TYPE.ahk
+#Include .\DOT11_SUPPORTED_DATA_RATES_VALUE_V2.ahk
+#Include .\DOT11_TEMP_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi

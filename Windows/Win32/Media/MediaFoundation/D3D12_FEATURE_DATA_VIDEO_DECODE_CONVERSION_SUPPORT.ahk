@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Dxgi\Common\DXGI_RATIONAL.ahk
-#Include .\D3D12_VIDEO_SCALE_SUPPORT.ahk
-#Include .\D3D12_BITSTREAM_ENCRYPTION_TYPE.ahk
-#Include ..\..\Graphics\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk
-#Include .\D3D12_VIDEO_SIZE_RANGE.ahk
-#Include .\D3D12_VIDEO_SAMPLE.ahk
-#Include .\D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE.ahk
-#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
-#Include .\D3D12_VIDEO_FORMAT.ahk
-#Include .\D3D12_VIDEO_DECODE_CONVERSION_SUPPORT_FLAGS.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_RATIONAL.ahk
+#Include .\D3D12_BITSTREAM_ENCRYPTION_TYPE.ahk
 #Include .\D3D12_VIDEO_DECODE_CONFIGURATION.ahk
+#Include .\D3D12_VIDEO_DECODE_CONVERSION_SUPPORT_FLAGS.ahk
+#Include .\D3D12_VIDEO_FORMAT.ahk
+#Include .\D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE.ahk
+#Include .\D3D12_VIDEO_SAMPLE.ahk
+#Include .\D3D12_VIDEO_SCALE_SUPPORT.ahk
 #Include .\D3D12_VIDEO_SCALE_SUPPORT_FLAGS.ahk
+#Include .\D3D12_VIDEO_SIZE_RANGE.ahk
 
 /**
  * Retrieves the list of supported profiles. (D3D12_FEATURE_DATA_VIDEO_DECODE_CONVERSION_SUPPORT)

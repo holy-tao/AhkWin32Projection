@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IHTMLChangeLog.ahk
-#Include .\IHTMLElement.ahk
-#Include .\IMarkupPointer.ahk
-#Include .\IMarkupContainer.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\IHTMLChangeSink.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IHTMLChangeLog.ahk
+#Include .\IHTMLChangeSink.ahk
+#Include .\IHTMLElement.ahk
+#Include .\IMarkupContainer.ahk
+#Include .\IMarkupPointer.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

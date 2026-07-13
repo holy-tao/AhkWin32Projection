@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_PROCESS_INPUT_STREAM_FLAGS.ahk
-#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
-#Include .\D3D12_VIDEO_PROCESS_REFERENCE_SET.ahk
-#Include .\D3D12_VIDEO_PROCESS_TRANSFORM.ahk
-#Include .\D3D12_VIDEO_PROCESS_INPUT_STREAM.ahk
-#Include .\D3D12_VIDEO_PROCESS_INPUT_STREAM_RATE.ahk
-#Include .\D3D12_VIDEO_PROCESS_ORIENTATION.ahk
-#Include .\D3D12_VIDEO_PROCESS_ALPHA_BLENDING.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
 #Include .\D3D12_VIDEO_FIELD_TYPE.ahk
+#Include .\D3D12_VIDEO_PROCESS_ALPHA_BLENDING.ahk
+#Include .\D3D12_VIDEO_PROCESS_INPUT_STREAM.ahk
+#Include .\D3D12_VIDEO_PROCESS_INPUT_STREAM_FLAGS.ahk
+#Include .\D3D12_VIDEO_PROCESS_INPUT_STREAM_RATE.ahk
+#Include .\D3D12_VIDEO_PROCESS_ORIENTATION.ahk
+#Include .\D3D12_VIDEO_PROCESS_REFERENCE_SET.ahk
+#Include .\D3D12_VIDEO_PROCESS_TRANSFORM.ahk
 
 /**
  * Specifies input stream arguments for an input stream passed to ID3D12VideoProcessCommandList1::ProcessFrames1, which supports changing the field type for each call.

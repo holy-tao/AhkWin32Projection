@@ -1,28 +1,28 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Security\PSID.ahk
-#Include .\NETSETUP_NAME_TYPE.ahk
-#Include .\HLOG.ahk
-#Include .\DSREG_JOIN_INFO.ahk
-#Include .\NETSETUP_JOIN_STATUS.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\FORCE_LEVEL_FLAGS.ahk
-#Include .\NETSETUP_PROVISION.ahk
-#Include .\NET_USER_ENUM_FILTER_FLAGS.ahk
-#Include .\NETSETUP_PROVISIONING_PARAMS.ahk
-#Include .\NET_SERVER_TYPE.ahk
-#Include .\NET_REMOTE_COMPUTER_SUPPORTS_OPTIONS.ahk
-#Include .\MSA_INFO_ACCOUNT_TYPE.ahk
-#Include .\NET_REQUEST_PROVISION_OPTIONS.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include .\NET_VALIDATE_PASSWORD_TYPE.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\NTSTATUS.ahk
-#Include .\NET_JOIN_DOMAIN_JOIN_OPTIONS.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\DSREG_JOIN_INFO.ahk
+#Include .\FORCE_LEVEL_FLAGS.ahk
+#Include .\HLOG.ahk
+#Include .\MSA_INFO_ACCOUNT_TYPE.ahk
+#Include .\NETSETUP_JOIN_STATUS.ahk
+#Include .\NETSETUP_NAME_TYPE.ahk
+#Include .\NETSETUP_PROVISION.ahk
+#Include .\NETSETUP_PROVISIONING_PARAMS.ahk
 #Include .\NET_COMPUTER_NAME_TYPE.ahk
+#Include .\NET_JOIN_DOMAIN_JOIN_OPTIONS.ahk
+#Include .\NET_REMOTE_COMPUTER_SUPPORTS_OPTIONS.ahk
+#Include .\NET_REQUEST_PROVISION_OPTIONS.ahk
+#Include .\NET_SERVER_TYPE.ahk
+#Include .\NET_USER_ENUM_FILTER_FLAGS.ahk
+#Include .\NET_VALIDATE_PASSWORD_TYPE.ahk
+#Include ..\..\Security\PSID.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -15159,7 +15159,7 @@ class NetManagement {
         Password := Password is String ? StrPtr(Password) : Password
 
         result := DllCall("NETAPI32.dll\NetAddServiceAccount", "ptr", ServerName, "ptr", AccountName, "ptr", Password, "uint", Flags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15197,7 +15197,7 @@ class NetManagement {
         AccountName := AccountName is String ? StrPtr(AccountName) : AccountName
 
         result := DllCall("NETAPI32.dll\NetRemoveServiceAccount", "ptr", ServerName, "ptr", AccountName, "uint", Flags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15222,7 +15222,7 @@ class NetManagement {
         AccountsMarshal := Accounts is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("NETAPI32.dll\NetEnumerateServiceAccounts", "ptr", ServerName, "uint", Flags, AccountsCountMarshal, AccountsCount, AccountsMarshal, Accounts, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15244,7 +15244,7 @@ class NetManagement {
         IsServiceMarshal := IsService is VarRef ? "int*" : "ptr"
 
         result := DllCall("NETAPI32.dll\NetIsServiceAccount", "ptr", ServerName, "ptr", AccountName, IsServiceMarshal, IsService, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15264,7 +15264,7 @@ class NetManagement {
         AccountTypeMarshal := AccountType is VarRef ? "int*" : "ptr"
 
         result := DllCall("NETAPI32.dll\NetIsServiceAccount2", "ptr", ServerName, "ptr", AccountName, IsServiceMarshal, IsService, AccountTypeMarshal, AccountType, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15307,7 +15307,7 @@ class NetManagement {
         _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("NETAPI32.dll\NetQueryServiceAccount", "ptr", ServerName, "ptr", AccountName, "uint", InfoLevel, _BufferMarshal, _Buffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 

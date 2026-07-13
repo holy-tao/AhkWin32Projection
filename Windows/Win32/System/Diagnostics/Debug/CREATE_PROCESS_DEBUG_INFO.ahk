@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
+#Include ..\..\Threading\LPTHREAD_START_ROUTINE.ahk
 
 /**
  * Contains process creation information that can be used by a debugger.

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\RTC_BUDDY_SUBSCRIPTION_TYPE.ahk
-#Include .\IRTCEnumPresenceDevices.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\RTC_PRESENCE_PROPERTY.ahk
-#Include .\IRTCEnumGroups.ahk
-#Include .\IRTCProfile2.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IRTCBuddy.ahk
 #Include .\IRTCCollection.ahk
+#Include .\IRTCEnumGroups.ahk
+#Include .\IRTCEnumPresenceDevices.ahk
+#Include .\IRTCProfile2.ahk
+#Include .\RTC_BUDDY_SUBSCRIPTION_TYPE.ahk
+#Include .\RTC_PRESENCE_PROPERTY.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

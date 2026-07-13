@@ -1,6 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HDV_PCI_DEVICE_GET_DETAILS.ahk
+#Include .\HDV_PCI_DEVICE_INITIALIZE.ahk
+#Include .\HDV_PCI_DEVICE_SET_CONFIGURATION.ahk
+#Include .\HDV_PCI_DEVICE_START.ahk
+#Include .\HDV_PCI_DEVICE_STOP.ahk
+#Include .\HDV_PCI_DEVICE_TEARDOWN.ahk
 #Include .\HDV_PCI_INTERFACE_VERSION.ahk
+#Include .\HDV_PCI_READ_CONFIG_SPACE.ahk
+#Include .\HDV_PCI_READ_INTERCEPTED_MEMORY.ahk
+#Include .\HDV_PCI_WRITE_CONFIG_SPACE.ahk
+#Include .\HDV_PCI_WRITE_INTERCEPTED_MEMORY.ahk
 
 /**
  * @namespace Windows.Win32.System.Hypervisor

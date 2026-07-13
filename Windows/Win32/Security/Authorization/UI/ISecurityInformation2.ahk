@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\PSID.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\ACL.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
-#Include ..\..\..\System\Com\IDataObject.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\ACL.ahk
+#Include ..\..\PSID.ahk
+#Include ..\..\..\System\Com\IDataObject.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Enables the access control editor to obtain information from the client that is not provided by the ISecurityInformation interface.

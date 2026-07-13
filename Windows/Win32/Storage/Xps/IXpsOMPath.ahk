@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\XPS_LINE_JOIN.ahk
-#Include .\IXpsOMDashCollection.ahk
-#Include .\IXpsOMGeometry.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\XPS_DASH_CAP.ahk
-#Include .\IXpsOMVisual.ahk
-#Include .\IXpsOMBrush.ahk
-#Include .\XPS_LINE_CAP.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IXpsOMBrush.ahk
+#Include .\IXpsOMDashCollection.ahk
+#Include .\IXpsOMGeometry.ahk
+#Include .\IXpsOMVisual.ahk
+#Include .\XPS_DASH_CAP.ahk
+#Include .\XPS_LINE_CAP.ahk
+#Include .\XPS_LINE_JOIN.ahk
 
 /**
  * Describes a non-text visual item.

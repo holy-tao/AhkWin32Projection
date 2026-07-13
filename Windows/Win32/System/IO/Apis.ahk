@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\OVERLAPPED_ENTRY.ahk
-#Include .\OVERLAPPED.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\LPOVERLAPPED_COMPLETION_ROUTINE.ahk
+#Include .\OVERLAPPED.ahk
+#Include .\OVERLAPPED_ENTRY.ahk
 
 /**
  * @namespace Windows.Win32.System.IO

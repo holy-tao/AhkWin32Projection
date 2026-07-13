@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Geometry.ahk
 #Include .\D2D1_ROUNDED_RECT.ahk
+#Include .\ID2D1Geometry.ahk
 
 /**
  * Describes a rounded rectangle.

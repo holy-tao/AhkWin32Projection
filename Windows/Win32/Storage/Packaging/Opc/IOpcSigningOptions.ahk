@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\IOpcCertificateSet.ahk
 #Include .\IOpcPartUri.ahk
 #Include .\IOpcSignatureCustomObjectSet.ahk
-#Include .\OPC_SIGNATURE_TIME_FORMAT.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\IOpcSignaturePartReferenceSet.ahk
+#Include .\IOpcSignatureReferenceSet.ahk
 #Include .\IOpcSignatureRelationshipReferenceSet.ahk
 #Include .\OPC_CERTIFICATE_EMBEDDING_OPTION.ahk
+#Include .\OPC_SIGNATURE_TIME_FORMAT.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IOpcSignaturePartReferenceSet.ahk
-#Include .\IOpcCertificateSet.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
-#Include .\IOpcSignatureReferenceSet.ahk
 
 /**
  * Provides methods to set and access information required to generate a signature.

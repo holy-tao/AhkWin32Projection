@@ -1,32 +1,32 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionVirtualSurface.ahk
-#Include .\DCOMPOSITION_FRAME_STATISTICS.ahk
-#Include .\IDCompositionTransform.ahk
-#Include .\IDCompositionRotateTransform.ahk
-#Include .\IDCompositionScaleTransform.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\Dxgi\Common\DXGI_ALPHA_MODE.ahk
-#Include .\IDCompositionRectangleClip.ahk
-#Include .\IDCompositionRotateTransform3D.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\IDCompositionSurface.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\IDCompositionTarget.ahk
-#Include .\IDCompositionAnimation.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include .\IDCompositionScaleTransform3D.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDCompositionMatrixTransform3D.ahk
-#Include .\IDCompositionTransform3D.ahk
-#Include .\IDCompositionTranslateTransform3D.ahk
-#Include .\IDCompositionSkewTransform.ahk
-#Include .\IDCompositionMatrixTransform.ahk
-#Include .\IDCompositionVisual.ahk
+#Include .\DCOMPOSITION_FRAME_STATISTICS.ahk
+#Include .\IDCompositionAnimation.ahk
 #Include .\IDCompositionEffectGroup.ahk
+#Include .\IDCompositionMatrixTransform.ahk
+#Include .\IDCompositionMatrixTransform3D.ahk
+#Include .\IDCompositionRectangleClip.ahk
+#Include .\IDCompositionRotateTransform.ahk
+#Include .\IDCompositionRotateTransform3D.ahk
+#Include .\IDCompositionScaleTransform.ahk
+#Include .\IDCompositionScaleTransform3D.ahk
+#Include .\IDCompositionSkewTransform.ahk
+#Include .\IDCompositionSurface.ahk
+#Include .\IDCompositionTarget.ahk
+#Include .\IDCompositionTransform.ahk
+#Include .\IDCompositionTransform3D.ahk
 #Include .\IDCompositionTranslateTransform.ahk
+#Include .\IDCompositionTranslateTransform3D.ahk
+#Include .\IDCompositionVirtualSurface.ahk
+#Include .\IDCompositionVisual.ahk
+#Include ..\Dxgi\Common\DXGI_ALPHA_MODE.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Serves as a factory for all other Microsoft DirectComposition objects and provides methods to control transactional composition. (IDCompositionDevice)

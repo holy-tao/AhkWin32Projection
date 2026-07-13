@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PLOG_FULL_HANDLER_CALLBACK.ahk
+#Include .\PLOG_TAIL_ADVANCE_CALLBACK.ahk
+#Include .\PLOG_UNPINNED_CALLBACK.ahk
 
 /**
  * The LOG_MANAGEMENT_CALLBACKS structure is used to register with the Common Log File System (CLFS) for the callbacks that a client program requires information from.

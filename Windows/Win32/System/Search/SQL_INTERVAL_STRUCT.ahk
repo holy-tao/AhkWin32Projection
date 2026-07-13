@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SQLINTERVAL.ahk
 #Include .\SQL_DAY_SECOND_STRUCT.ahk
 #Include .\SQL_YEAR_MONTH_STRUCT.ahk
-#Include .\SQLINTERVAL.ahk
 
 /**
  * @namespace Windows.Win32.System.Search

@@ -1,5 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\LPNSPCLEANUP.ahk
+#Include .\LPNSPGETSERVICECLASSINFO.ahk
+#Include .\LPNSPINSTALLSERVICECLASS.ahk
+#Include .\LPNSPIOCTL.ahk
+#Include .\LPNSPLOOKUPSERVICEBEGIN.ahk
+#Include .\LPNSPLOOKUPSERVICEEND.ahk
+#Include .\LPNSPLOOKUPSERVICENEXT.ahk
+#Include .\LPNSPREMOVESERVICECLASS.ahk
+#Include .\LPNSPSETSERVICE.ahk
 
 /**
  * Contains information regarding the functions implemented by a namespace service provider version 1 (NSPv1) provider.

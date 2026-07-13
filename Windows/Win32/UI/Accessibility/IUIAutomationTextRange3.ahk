@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 #Include .\IUIAutomationCacheRequest.ahk
+#Include .\IUIAutomationElement.ahk
+#Include .\IUIAutomationElementArray.ahk
 #Include .\IUIAutomationTextRange2.ahk
 #Include .\UIA_TEXTATTRIBUTE_ID.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\IUIAutomationElement.ahk
-#Include ..\..\System\Com\SAFEARRAY.ahk
-#Include .\IUIAutomationElementArray.ahk
 
 /**
  * Extends the IUIAutomationTextRange2 interface to support faster access to the underlying rich text data on a text range.

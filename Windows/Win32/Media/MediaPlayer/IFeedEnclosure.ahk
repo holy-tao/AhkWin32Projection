@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\FEEDS_DOWNLOAD_STATUS.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\FEEDS_DOWNLOAD_ERROR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\FEEDS_DOWNLOAD_ERROR.ahk
+#Include .\FEEDS_DOWNLOAD_STATUS.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer

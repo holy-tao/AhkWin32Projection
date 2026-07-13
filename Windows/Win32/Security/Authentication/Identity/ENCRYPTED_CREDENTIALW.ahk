@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\Credentials\CRED_PERSIST.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\Foundation\FILETIME.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\Credentials\CREDENTIALW.ahk
 #Include ..\..\Credentials\CREDENTIAL_ATTRIBUTEW.ahk
 #Include ..\..\Credentials\CRED_FLAGS.ahk
+#Include ..\..\Credentials\CRED_PERSIST.ahk
 #Include ..\..\Credentials\CRED_TYPE.ahk
 
 /**

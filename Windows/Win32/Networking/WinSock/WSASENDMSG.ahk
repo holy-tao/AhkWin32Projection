@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\LPWSAOVERLAPPED_COMPLETION_ROUTINE.ahk
 #Include .\WSAMSG.ahk
 #Include ..\..\System\IO\OVERLAPPED.ahk
 

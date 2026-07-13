@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\VIEW_OBJECT_ALPHA_MODE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\ISurfacePresenter.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\VIEW_OBJECT_ALPHA_MODE.ahk
 #Include .\VIEW_OBJECT_COMPOSITION_MODE.ahk
 
 /**

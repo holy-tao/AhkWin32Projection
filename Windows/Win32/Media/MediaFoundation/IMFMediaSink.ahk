@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFPresentationClock.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFStreamSink.ahk
-#Include .\IMFMediaType.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFMediaType.ahk
+#Include .\IMFPresentationClock.ahk
+#Include .\IMFStreamSink.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Implemented by media sink objects.

@@ -1,5 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\SpCompleteAuthTokenFn.ahk
+#Include .\SpDeleteContextFn.ahk
+#Include .\SpExportSecurityContextFn.ahk
+#Include .\SpFormatCredentialsFn.ahk
+#Include .\SpGetContextTokenFn.ahk
+#Include .\SpImportSecurityContextFn.ahk
+#Include .\SpInitUserModeContextFn.ahk
+#Include .\SpInstanceInitFn.ahk
+#Include .\SpMakeSignatureFn.ahk
+#Include .\SpMarshalAttributeDataFn.ahk
+#Include .\SpMarshallSupplementalCredsFn.ahk
+#Include .\SpQueryContextAttributesFn.ahk
+#Include .\SpSealMessageFn.ahk
+#Include .\SpUnsealMessageFn.ahk
+#Include .\SpVerifySignatureFn.ahk
 
 /**
  * The SECPKG_USER_FUNCTION_TABLE structure contains pointers to the functions that a security package implements to support executing in process with client/server applications. This structure is provided by the SpUserModeInitialize function.

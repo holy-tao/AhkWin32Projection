@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\POINT.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Contains additional information about the status of an enrollment that is in progress.

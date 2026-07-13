@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\UIA_PATTERN_ID.ahk
-#Include .\TreeScope.ahk
-#Include .\UIA_PROPERTY_ID.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\AutomationElementMode.ahk
 #Include .\IUIAutomationCondition.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\TreeScope.ahk
+#Include .\UIA_PATTERN_ID.ahk
+#Include .\UIA_PROPERTY_ID.ahk
 
 /**
  * Exposes properties and methods of a cache request. Client applications use this interface to specify the properties and control patterns to be cached when a Microsoft UI Automation element is obtained.

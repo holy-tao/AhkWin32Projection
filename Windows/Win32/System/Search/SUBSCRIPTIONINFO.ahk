@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\SUBSCRIPTIONTYPE.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\SUBSCRIPTIONSCHEDULE.ahk
+#Include .\SUBSCRIPTIONTYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.Search

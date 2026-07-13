@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D3D12_LIBRARY_DESC.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ID3D12FunctionReflection.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3D12_LIBRARY_DESC.ahk
+#Include .\ID3D12FunctionReflection.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * A library-reflection interface accesses library info. (ID3D12LibraryReflection)

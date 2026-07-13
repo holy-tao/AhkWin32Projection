@@ -1,5 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PFAXROUTEADDFILE.ahk
+#Include .\PFAXROUTEDELETEFILE.ahk
+#Include .\PFAXROUTEENUMFILES.ahk
+#Include .\PFAXROUTEGETFILE.ahk
+#Include .\PFAXROUTEMODIFYROUTINGDATA.ahk
 
 /**
  * The FAX_ROUTE_CALLBACKROUTINES structure contains pointers to callback functions the fax service provides.

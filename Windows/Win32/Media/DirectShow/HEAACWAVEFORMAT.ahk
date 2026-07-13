@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HEAACWAVEINFO.ahk
 #Include ..\Audio\WAVEFORMATEX.ahk
+#Include .\HEAACWAVEINFO.ahk
 
 /**
  * Contains format data for an AAC or HE-AAC stream that includes AudioSpecificConfig() data.

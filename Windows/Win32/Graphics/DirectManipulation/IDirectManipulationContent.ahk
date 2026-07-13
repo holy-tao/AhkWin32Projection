@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Encapsulates content inside a viewport, where content represents a visual surface clipped inside the viewport.

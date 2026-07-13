@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_HTTP_REDIRECT_CALLBACK.ahk
 
 /**
  * Specifies the callback function and state for controlling the HTTP auto redirection behavior.

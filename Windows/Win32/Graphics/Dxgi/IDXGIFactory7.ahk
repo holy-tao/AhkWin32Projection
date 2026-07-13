@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIFactory6.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDXGIFactory6.ahk
 
 /**
  * This interface enables registration for notifications to detect adapter enumeration state changes.

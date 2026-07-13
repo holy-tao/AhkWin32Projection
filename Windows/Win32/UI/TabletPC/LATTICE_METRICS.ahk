@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\LINE_SEGMENT.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include .\LINE_SEGMENT.ahk
 
 /**
  * Describes the baseline and the midline height.

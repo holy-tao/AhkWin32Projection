@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12GraphicsCommandList6.ahk
 #Include .\D3D12_BARRIER_GROUP.ahk
+#Include .\ID3D12GraphicsCommandList6.ahk
 
 /**
  * TBD

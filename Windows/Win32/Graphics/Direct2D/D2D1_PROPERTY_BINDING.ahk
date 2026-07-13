@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PWSTR.ahk
+#Include .\PD2D1_PROPERTY_GET_FUNCTION.ahk
+#Include .\PD2D1_PROPERTY_SET_FUNCTION.ahk
 
 /**
  * Defines a property binding to a pair of functions which get and set the corresponding property.

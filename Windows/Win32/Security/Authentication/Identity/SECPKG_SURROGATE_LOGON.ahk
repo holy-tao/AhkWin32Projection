@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\SECPKG_SURROGATE_LOGON_ENTRY.ahk
 #Include ..\..\..\Foundation\LUID.ahk
+#Include .\SECPKG_SURROGATE_LOGON_ENTRY.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity

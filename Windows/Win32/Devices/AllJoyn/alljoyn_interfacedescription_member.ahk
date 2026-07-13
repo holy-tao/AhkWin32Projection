@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\alljoyn_messagetype.ahk
 #Include .\alljoyn_interfacedescription.ahk
+#Include .\alljoyn_messagetype.ahk
 #Include ..\..\Foundation\PSTR.ahk
 
 /**

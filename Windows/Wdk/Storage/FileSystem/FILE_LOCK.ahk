@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PCOMPLETE_LOCK_IRP_ROUTINE.ahk
+#Include .\PUNLOCK_ROUTINE.ahk
 #Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
 
 /**

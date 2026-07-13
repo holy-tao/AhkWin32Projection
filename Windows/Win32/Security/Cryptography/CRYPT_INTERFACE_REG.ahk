@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\BCRYPT_TABLE.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include .\BCRYPT_INTERFACE.ahk
+#Include .\BCRYPT_TABLE.ahk
 
 /**
  * Used to contain information about the type of interface supported by a CNG provider.

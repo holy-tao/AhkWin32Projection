@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\WPARAM.ahk
+#Include .\LPWSAOVERLAPPED_COMPLETION_ROUTINE.ahk
 #Include .\WSACOMPLETIONTYPE.ahk
 #Include ..\..\System\IO\OVERLAPPED.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\WPARAM.ahk
 
 /**
  * Specifies completion notification settings for I/O control calls made to a registered namespace.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IADsServiceOperations.ahk
-#Include .\IADsCollection.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IADsCollection.ahk
+#Include .\IADsServiceOperations.ahk
 
 /**
  * The IADsFileServiceOperations interface is a dual interface that inherits from IADsServiceOperations.

@@ -1,5 +1,32 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\ACCEPT_SECURITY_CONTEXT_FN.ahk
+#Include .\ACQUIRE_CREDENTIALS_HANDLE_FN_A.ahk
+#Include .\ADD_CREDENTIALS_FN_A.ahk
+#Include .\APPLY_CONTROL_TOKEN_FN.ahk
+#Include .\CHANGE_PASSWORD_FN_A.ahk
+#Include .\COMPLETE_AUTH_TOKEN_FN.ahk
+#Include .\DECRYPT_MESSAGE_FN.ahk
+#Include .\DELETE_SECURITY_CONTEXT_FN.ahk
+#Include .\ENCRYPT_MESSAGE_FN.ahk
+#Include .\ENUMERATE_SECURITY_PACKAGES_FN_A.ahk
+#Include .\EXPORT_SECURITY_CONTEXT_FN.ahk
+#Include .\FREE_CONTEXT_BUFFER_FN.ahk
+#Include .\FREE_CREDENTIALS_HANDLE_FN.ahk
+#Include .\IMPERSONATE_SECURITY_CONTEXT_FN.ahk
+#Include .\IMPORT_SECURITY_CONTEXT_FN_A.ahk
+#Include .\INITIALIZE_SECURITY_CONTEXT_FN_A.ahk
+#Include .\MAKE_SIGNATURE_FN.ahk
+#Include .\QUERY_CONTEXT_ATTRIBUTES_EX_FN_A.ahk
+#Include .\QUERY_CONTEXT_ATTRIBUTES_FN_A.ahk
+#Include .\QUERY_CREDENTIALS_ATTRIBUTES_EX_FN_A.ahk
+#Include .\QUERY_CREDENTIALS_ATTRIBUTES_FN_A.ahk
+#Include .\QUERY_SECURITY_CONTEXT_TOKEN_FN.ahk
+#Include .\QUERY_SECURITY_PACKAGE_INFO_FN_A.ahk
+#Include .\REVERT_SECURITY_CONTEXT_FN.ahk
+#Include .\SET_CONTEXT_ATTRIBUTES_FN_A.ahk
+#Include .\SET_CREDENTIALS_ATTRIBUTES_FN_A.ahk
+#Include .\VERIFY_SIGNATURE_FN.ahk
 
 /**
  * The SecurityFunctionTable structure is a dispatch table that contains pointers to the functions defined in SSPI. (ANSI)

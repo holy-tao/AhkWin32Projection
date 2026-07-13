@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\LPARAM.ahk
-#Include .\ISpNotifySink.ahk
-#Include .\ISpNotifyCallback.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\WPARAM.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ISpNotifyCallback.ahk
+#Include .\ISpNotifySink.ahk
+#Include .\SPNOTIFYCALLBACK.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech

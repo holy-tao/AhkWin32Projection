@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE.ahk
 #Include .\D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAGS.ahk
+#Include .\D3D12_GPU_BASED_VALIDATION_SHADER_PATCH_MODE.ahk
 
 /**
  * Describes settings used by GPU-Based Validation.

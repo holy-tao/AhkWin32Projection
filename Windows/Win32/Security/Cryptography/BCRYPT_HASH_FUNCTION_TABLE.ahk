@@ -1,6 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\BCRYPT_INTERFACE_VERSION.ahk
+#Include .\BCryptCloseAlgorithmProviderFn.ahk
+#Include .\BCryptCreateHashFn.ahk
+#Include .\BCryptCreateMultiHashFn.ahk
+#Include .\BCryptDestroyHashFn.ahk
+#Include .\BCryptDuplicateHashFn.ahk
+#Include .\BCryptFinishHashFn.ahk
+#Include .\BCryptGetPropertyFn.ahk
+#Include .\BCryptHashDataFn.ahk
+#Include .\BCryptOpenAlgorithmProviderFn.ahk
+#Include .\BCryptProcessMultiOperationsFn.ahk
+#Include .\BCryptSetPropertyFn.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography

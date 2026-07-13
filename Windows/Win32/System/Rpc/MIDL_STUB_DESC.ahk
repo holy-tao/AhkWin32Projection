@@ -1,13 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MALLOC_FREE_STRUCT.ahk
-#Include .\XMIT_ROUTINE_QUINTUPLE.ahk
-#Include .\NDR_CS_ROUTINES.ahk
 #Include .\COMM_FAULT_OFFSETS.ahk
+#Include .\EXPR_EVAL.ahk
 #Include .\GENERIC_BINDING_INFO.ahk
-#Include .\NDR_EXPR_DESC.ahk
 #Include .\GENERIC_BINDING_ROUTINE_PAIR.ahk
+#Include .\MALLOC_FREE_STRUCT.ahk
+#Include .\NDR_CS_ROUTINES.ahk
+#Include .\NDR_EXPR_DESC.ahk
+#Include .\NDR_NOTIFY_ROUTINE.ahk
+#Include .\NDR_RUNDOWN.ahk
+#Include .\PFN_RPC_ALLOCATE.ahk
+#Include .\PFN_RPC_FREE.ahk
 #Include .\USER_MARSHAL_ROUTINE_QUADRUPLE.ahk
+#Include .\XMIT_ROUTINE_QUINTUPLE.ahk
 
 /**
  * The MIDL_STUB_DESC structure is a MIDL-generated structure that contains information about the interface stub regarding RPC calls between the client and server.

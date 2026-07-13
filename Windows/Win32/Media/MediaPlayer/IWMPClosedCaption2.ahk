@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IWMPClosedCaption.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWMPClosedCaption.ahk
 
 /**
  * The IWMPClosedCaption2 interface provides closed captioning methods that supplement the IWMPClosedCaption interface.

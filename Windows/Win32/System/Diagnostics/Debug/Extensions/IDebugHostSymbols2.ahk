@@ -2,9 +2,9 @@
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
-#Include .\IDebugHostSymbols.ahk
-#Include .\IDebugHostSymbol.ahk
 #Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include .\IDebugHostSymbol.ahk
+#Include .\IDebugHostSymbols.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

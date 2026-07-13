@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DUMP_POINTERS_VERSION.ahk
 #Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\DUMP_POINTERS_VERSION.ahk
+#Include .\PDUMP_DEVICE_POWERON_ROUTINE.ahk
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc

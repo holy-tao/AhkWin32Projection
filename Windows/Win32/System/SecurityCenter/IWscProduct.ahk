@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\WSC_SECURITY_SIGNATURE_STATUS.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IDispatch.ahk
 #Include .\WSC_SECURITY_PRODUCT_STATE.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\WSC_SECURITY_SIGNATURE_STATUS.ahk
 
 /**
  * Provides methods for getting product information for an individual provider to interact with Windows Security Center.

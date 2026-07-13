@@ -2,17 +2,17 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISClusResGroups.ahk
-#Include .\ISClusNodes.ahk
-#Include .\ISClusResources.ahk
-#Include .\ISClusNetInterfaces.ahk
-#Include .\ISClusResource.ahk
-#Include .\ISClusResTypes.ahk
-#Include .\ISClusVersion.ahk
-#Include .\ISClusProperties.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ISClusNetInterfaces.ahk
 #Include .\ISClusNetworks.ahk
+#Include .\ISClusNodes.ahk
+#Include .\ISClusProperties.ahk
+#Include .\ISClusResGroups.ahk
+#Include .\ISClusResTypes.ahk
+#Include .\ISClusResource.ahk
+#Include .\ISClusResources.ahk
+#Include .\ISClusVersion.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Networking.Clustering

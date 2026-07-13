@@ -1,5 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\LPFN_RIOCLOSECOMPLETIONQUEUE.ahk
+#Include .\LPFN_RIOCREATECOMPLETIONQUEUE.ahk
+#Include .\LPFN_RIOCREATEREQUESTQUEUE.ahk
+#Include .\LPFN_RIODEQUEUECOMPLETION.ahk
+#Include .\LPFN_RIODEREGISTERBUFFER.ahk
+#Include .\LPFN_RIONOTIFY.ahk
+#Include .\LPFN_RIORECEIVE.ahk
+#Include .\LPFN_RIORECEIVEEX.ahk
+#Include .\LPFN_RIOREGISTERBUFFER.ahk
+#Include .\LPFN_RIORESIZECOMPLETIONQUEUE.ahk
+#Include .\LPFN_RIORESIZEREQUESTQUEUE.ahk
+#Include .\LPFN_RIOSEND.ahk
+#Include .\LPFN_RIOSENDEX.ahk
 
 /**
  * Contains information on the functions that implement the Winsock registered I/O extensions.

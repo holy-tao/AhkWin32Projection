@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IPortableDeviceServiceMethodCallback.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IPortableDeviceValues.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Invokes, or cancels invocation of, a method on a service.

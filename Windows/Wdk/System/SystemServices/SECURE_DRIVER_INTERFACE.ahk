@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PSECURE_DRIVER_PROCESS_DEREFERENCE.ahk
+#Include .\PSECURE_DRIVER_PROCESS_REFERENCE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\DAV_CALLBACK_AUTH_UNP.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DAV_CALLBACK_AUTH_BLOB.ahk
+#Include .\DAV_CALLBACK_AUTH_UNP.ahk
 
 /**
  * Stores user credential information that was retrieved by the DavAuthCallback callback function.

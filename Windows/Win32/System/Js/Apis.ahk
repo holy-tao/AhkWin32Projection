@@ -1,16 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\JsErrorCode.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include .\JsRuntimeAttributes.ahk
-#Include ..\Diagnostics\Debug\ActiveScript\PROFILER_EVENT_MASK.ahk
-#Include .\JsValueType.ahk
-#Include ..\Diagnostics\Debug\ActiveScript\IDebugApplication64.ahk
-#Include .\JsRuntimeVersion.ahk
-#Include ..\Diagnostics\Debug\ActiveScript\IActiveScriptProfilerHeapEnum.ahk
-#Include ..\Diagnostics\Debug\ActiveScript\IActiveScriptProfilerCallback.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Diagnostics\Debug\ActiveScript\IActiveScriptProfilerCallback.ahk
+#Include ..\Diagnostics\Debug\ActiveScript\IActiveScriptProfilerHeapEnum.ahk
+#Include ..\Diagnostics\Debug\ActiveScript\IDebugApplication64.ahk
+#Include ..\Diagnostics\Debug\ActiveScript\PROFILER_EVENT_MASK.ahk
+#Include .\JsBeforeCollectCallback.ahk
+#Include .\JsErrorCode.ahk
+#Include .\JsFinalizeCallback.ahk
+#Include .\JsMemoryAllocationCallback.ahk
+#Include .\JsNativeFunction.ahk
+#Include .\JsRuntimeAttributes.ahk
+#Include .\JsRuntimeVersion.ahk
+#Include .\JsThreadServiceCallback.ahk
+#Include .\JsValueType.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.System.Js

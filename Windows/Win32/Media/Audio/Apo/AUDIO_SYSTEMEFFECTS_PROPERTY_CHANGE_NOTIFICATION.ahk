@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE.ahk
 #Include ..\IMMDevice.ahk
 #Include ..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
-#Include ..\..\..\Foundation\PROPERTYKEY.ahk
 
 /**
  * Represents a system audio effect APO notification.

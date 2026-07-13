@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ID3D12StateObject.ahk
 #Include .\D3D12_EXPORT_DESC.ahk
+#Include .\ID3D12StateObject.ahk
 
 /**
  * A state subobject describing an existing collection that can be included in a state object.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IBackgroundCopyFile3.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IBackgroundCopyFile3.ahk
 
 /**
  * Use this interface to retrieve download statistics for peers and origin servers.

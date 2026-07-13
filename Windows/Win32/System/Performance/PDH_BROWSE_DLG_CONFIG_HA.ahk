@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\CounterPathCallBack.ahk
 #Include .\PDH_HLOG.ahk
 #Include .\PERF_DETAIL.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The PDH_BROWSE_DLG_CONFIG_H structure is used by the PdhBrowseCountersH function to configure the Browse Performance Counters dialog box. (ANSI)

@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\LPD3DHAL_CLEAR2CB.ahk
+#Include .\LPD3DHAL_DRAWPRIMITIVES2CB.ahk
+#Include .\LPD3DHAL_VALIDATETEXTURESTAGESTATECB.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

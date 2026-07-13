@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Com\IUnknown.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\Com\IUnknown.ahk
 
 /**
  * Native interoperation interface that allows creating swapchain surfaces and graphics devices. This is interface is available in C++ only.

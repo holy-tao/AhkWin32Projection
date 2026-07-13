@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VDS_MAINTENANCE_OPERATION.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\VDS_MAINTENANCE_OPERATION.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IVdsMaintenance interface (vdshwprv.h) provides methods for performing maintenance operations on a subsystem, controller, LUN, or drive.

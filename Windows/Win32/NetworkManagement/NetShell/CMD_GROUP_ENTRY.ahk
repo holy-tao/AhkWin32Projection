@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include .\CMD_ENTRY.ahk
+#Include .\PNS_OSVERSIONCHECK.ahk
 
 /**
  * Defines a group of helper commands.

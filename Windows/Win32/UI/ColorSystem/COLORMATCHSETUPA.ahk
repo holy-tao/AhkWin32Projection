@@ -3,6 +3,8 @@
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\PSTR.ahk
+#Include .\PCMSCALLBACKA.ahk
+#Include ..\WindowsAndMessaging\DLGPROC.ahk
 
 /**
  * The **COLORMATCHSETUP** structure contains information that the [**SetupColorMatchingW**](/windows/win32/api/icm/nf-icm-setupcolormatchingw) function uses to initialize the **ColorManagement** dialog box. (ANSI)

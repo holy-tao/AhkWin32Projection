@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\MFSensorDeviceMode.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\MFSensorDeviceMode.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents the activity of a process associated with a sensor.

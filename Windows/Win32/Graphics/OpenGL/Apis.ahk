@@ -1,18 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\HGLRC.ahk
-#Include .\GLUtesselator.ahk
-#Include ..\..\Foundation\COLORREF.ahk
-#Include .\PIXELFORMATDESCRIPTOR.ahk
-#Include ..\Gdi\HDC.ahk
-#Include .\GLYPHMETRICSFLOAT.ahk
-#Include .\LAYERPLANEDESCRIPTOR.ahk
-#Include .\GLUnurbs.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\GLUquadric.ahk
-#Include ..\Gdi\HENHMETAFILE.ahk
+#Include ..\..\Foundation\COLORREF.ahk
+#Include ..\..\Foundation\PROC.ahk
 #Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Gdi\HDC.ahk
+#Include ..\Gdi\HENHMETAFILE.ahk
+#Include .\GLUnurbs.ahk
+#Include .\GLUquadric.ahk
+#Include .\GLUtesselator.ahk
+#Include .\GLYPHMETRICSFLOAT.ahk
+#Include .\HGLRC.ahk
+#Include .\LAYERPLANEDESCRIPTOR.ahk
+#Include .\PIXELFORMATDESCRIPTOR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.OpenGL
@@ -3786,9 +3787,9 @@ class OpenGL {
      * Using the <b>wglCopyContext</b> function, you can synchronize the rendering state of two rendering contexts. You can only copy the rendering state between two rendering contexts within the same process. The rendering contexts must be from the same OpenGL implementation. For example, you can always copy a rendering state between two rendering contexts with identical pixel format in the same process.
      * 
      * You can copy the same state information available only with the <b>glPushAttrib</b> function. You cannot copy some state information, such as pixel pack/unpack state, render mode state, select state, and feedback state. When you call <b>wglCopyContext</b>, make sure that the destination rendering context, <i>hglrcDst</i>, is not current to any thread.
-     * @param {HGLRC} param0 
-     * @param {HGLRC} param1 
-     * @param {Integer} param2 
+     * @param {HGLRC} param0 Specifies the source OpenGL rendering context whose state information is to be copied.
+     * @param {HGLRC} param1 Specifies the destination OpenGL rendering context to which state information is to be copied.
+     * @param {Integer} param2 Specifies which groups of the <i>hglrcSrc</i> rendering state are to be copied to <i>hglrcDst</i>. It contains the bitwise-OR of the same symbolic names that are passed to the <b>glPushAttrib</b> function. You can use GL_ALL_ATTRIB_BITS to copy all the rendering state information.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-wglcopycontext
      * @since windows5.0
@@ -3837,7 +3838,7 @@ class OpenGL {
      * // delete the rendering context  
      * wglDeleteContext (hglrc);
      * ```
-     * @param {HDC} param0 
+     * @param {HDC} param0 Typically named `handleToDeviceContext`. Handle to a device context for which the function creates a suitable OpenGL rendering context.
      * @returns {HGLRC} If the function succeeds, the return value is a valid handle to an OpenGL rendering context.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3866,8 +3867,8 @@ class OpenGL {
      * Before you create a rendering context, set the pixel format of the device context with the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setpixelformat">SetPixelFormat</a> function. You can use a rendering context in a specified layer plane of a window with identical pixel formats only.
      * 
      * With OpenGL applications that use multiple threads, you create a rendering context, select it as the current rendering context of a thread, and make OpenGL calls for the specified thread. When you are finished with the rendering context of the thread, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-wgldeletecontext">wglDeleteContext</a> function.
-     * @param {HDC} param0 
-     * @param {Integer} param1 
+     * @param {HDC} param0 Specifies the device context for a new rendering context.
+     * @param {Integer} param1 Specifies the layer plane to which you want to bind a rendering context. The value 0 identifies the main plane. Positive values of <i>iLayerPlane</i> identify overlay planes, where 1 is the first overlay plane over the main plane, 2 is the second overlay plane over the first overlay plane, and so on. Negative values identify underlay planes, where 1 is the first underlay plane under the main plane, 2 is the second underlay plane under the first underlay plane, and so on. The number of overlay and underlay planes is given in the <b>bReserved</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-pixelformatdescriptor">PIXELFORMATDESCRIPTOR</a> structure.
      * @returns {HGLRC} If the function succeeds, the return value is a handle to an OpenGL rendering context.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3894,7 +3895,7 @@ class OpenGL {
      * It is an error to delete an OpenGL rendering context that is the current context of another thread. However, if a rendering context is the calling thread's current context, the <b>wglDeleteContext</b> function changes the rendering context to being not current before deleting it.
      * 
      * The <b>wglDeleteContext</b> function does not delete the device context associated with the OpenGL rendering context when you call the <b>wglMakeCurrent</b> function. After calling <b>wglDeleteContext</b>, you must call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deletedc">DeleteDC</a> to delete the associated device context.
-     * @param {HGLRC} param0 
+     * @param {HGLRC} param0 Handle to an OpenGL rendering context that the function will delete.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3950,7 +3951,7 @@ class OpenGL {
      * The spelling and the case of the extension function pointed to by <i>lpszProc</i> must be identical to that of a function supported and implemented by OpenGL. Because extension functions are not exported by OpenGL, you must use <b>wglGetProcAddress</b> to get the addresses of vendor-specific extension functions.
      * 
      * The extension function addresses are unique for each pixel format. All rendering contexts of a given pixel format share the same extension function addresses.
-     * @param {PSTR} param0 
+     * @param {PSTR} param0 Points to a <b>null</b>-terminated string that is the name of the extension function. The name of the extension function must be identical to a corresponding function implemented by OpenGL.
      * @returns {Pointer<PROC>} When the function succeeds, the return value is the address of the extension function.
      * 
      * When no current rendering context exists or the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3984,8 +3985,10 @@ class OpenGL {
      * An application can perform multithread drawing by making different rendering contexts current to different threads, supplying each thread with its own rendering context and device context.
      * 
      * If an error occurs, the <b>wglMakeCurrent</b> function makes the thread's current rendering context not current before returning.
-     * @param {HDC} param0 
-     * @param {HGLRC} param1 
+     * @param {HDC} param0 Handle to a device context. Subsequent OpenGL calls made by the calling thread are drawn on the device identified by <i>hdc</i>.
+     * @param {HGLRC} param1 Handle to an OpenGL rendering context that the function sets as the calling thread's rendering context.
+     * 
+     * If <i>hglrc</i> is <b>NULL</b>, the function makes the calling thread's current rendering context no longer current, and releases the device context that is used by the rendering context. In this case, <i>hdc</i> is ignored.
      * @returns {BOOL} When the <b>wglMakeCurrent</b> function succeeds, the return value is <b>TRUE</b>; otherwise the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-wglmakecurrent
      * @since windows5.0
@@ -4015,8 +4018,8 @@ class OpenGL {
      * 
      * <div class="alert"><b>Note</b>  The <b>wglShareLists</b> function is only available with OpenGL version 1.01 or later. To determine the version number of the implementation of OpenGL, call <b>glGetString</b>.</div>
      * <div> </div>
-     * @param {HGLRC} param0 
-     * @param {HGLRC} param1 
+     * @param {HGLRC} param0 Specifies the OpenGL rendering context with which to share display lists.
+     * @param {HGLRC} param1 Specifies the OpenGL rendering context to share display lists with <i>hglrc1</i>. The <i>hglrc2</i> parameter should not contain any existing display lists when <b>wglShareLists</b> is called.
      * @returns {BOOL} When the function succeeds, the return value is <b>TRUE</b>.
      * 
      * When the function fails, the return value is <b>FALSE</b> and the display lists are not shared. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4082,10 +4085,10 @@ class OpenGL {
      * <td>The bitmap for the glyph, as returned by <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getglyphoutlinea">GetGlyphOutline</a> with <i>uFormat</i> equal to 1.</td>
      * </tr>
      * </table>
-     * @param {HDC} param0 
-     * @param {Integer} param1 
-     * @param {Integer} param2 
-     * @param {Integer} param3 
+     * @param {HDC} param0 Specifies the device context whose currently selected font will be used to form the glyph bitmap display lists in the current OpenGL rendering context.
+     * @param {Integer} param1 Specifies the first glyph in the run of glyphs that will be used to form glyph bitmap display lists.
+     * @param {Integer} param2 Specifies the number of glyphs in the run of glyphs that will be used to form glyph bitmap display lists. The function creates <i>count</i> display lists, one for each glyph in the run.
+     * @param {Integer} param3 Specifies a starting display list.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4150,10 +4153,10 @@ class OpenGL {
      * <td>The bitmap for the glyph, as returned by <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getglyphoutlinea">GetGlyphOutline</a> with <i>uFormat</i> equal to 1.</td>
      * </tr>
      * </table>
-     * @param {HDC} param0 
-     * @param {Integer} param1 
-     * @param {Integer} param2 
-     * @param {Integer} param3 
+     * @param {HDC} param0 Specifies the device context whose currently selected font will be used to form the glyph bitmap display lists in the current OpenGL rendering context.
+     * @param {Integer} param1 Specifies the first glyph in the run of glyphs that will be used to form glyph bitmap display lists.
+     * @param {Integer} param2 Specifies the number of glyphs in the run of glyphs that will be used to form glyph bitmap display lists. The function creates <i>count</i> display lists, one for each glyph in the run.
+     * @param {Integer} param3 Specifies a starting display list.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4179,7 +4182,7 @@ class OpenGL {
      * If the current pixel format for the window referenced by the device context does not include a back buffer, this call has no effect and the content of the back buffer is undefined when the function returns.
      * 
      * With multithread applications, flush the drawing commands in any other threads drawing to the same window before calling <b>SwapBuffers</b>.
-     * @param {HDC} param0 
+     * @param {HDC} param0 Specifies a device context. If the current pixel format for the window referenced by this device context includes a back buffer, the function exchanges the front and back buffers.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4219,14 +4222,14 @@ class OpenGL {
      * 
      * <div class="alert"><b>Note</b>  With OpenGL for Windows, you cannot make GDI calls to a device context when a pixel format is double-buffered. You can work around this limitation by using <b>wglUseFontOutlines</b> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-wglusefontbitmapsa">wglUseFontBitmaps</a>, when using double-buffered device contexts.</div>
      * <div> </div>
-     * @param {HDC} param0 
-     * @param {Integer} param1 
-     * @param {Integer} param2 
-     * @param {Integer} param3 
-     * @param {Float} param4 
-     * @param {Float} param5 
-     * @param {Integer} param6 
-     * @param {Pointer<GLYPHMETRICSFLOAT>} param7 
+     * @param {HDC} param0 Specifies the device context with the desired outline font. The outline font of <i>hdc</i> is used to create the display lists in the current rendering context.
+     * @param {Integer} param1 Specifies the first of the set of glyphs that form the font outline display lists.
+     * @param {Integer} param2 Specifies the number of glyphs in the set of glyphs used to form the font outline display lists. The <b>wglUseFontOutlines</b> function creates <i>count</i> display lists, one display list for each glyph in a set of glyphs.
+     * @param {Integer} param3 Specifies a starting display list.
+     * @param {Float} param4 Specifies the maximum chordal deviation from the original outlines. When deviation is zero, the chordal deviation is equivalent to one design unit of the original font. The value of <i>deviation</i> must be equal to or greater than 0.
+     * @param {Float} param5 Specifies how much a font is extruded in the negative <i>z</i> direction. The value must be equal to or greater than 0. When <i>extrusion</i> is 0, the display lists are not extruded.
+     * @param {Integer} param6 Specifies the format, either WGL_FONT_LINES or WGL_FONT_POLYGONS, to use in the display lists. When <i>format</i> is WGL_FONT_LINES, the <b>wglUseFontOutlines</b> function creates fonts with line segments. When <i>format</i> is WGL_FONT_POLYGONS, <b>wglUseFontOutlines</b> creates fonts with polygons.
+     * @param {Pointer<GLYPHMETRICSFLOAT>} param7 Points to an array of <i>count</i><a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-glyphmetricsfloat">GLYPHMETRICSFLOAT</a> structures that is to receive the metrics of the glyphs. When <i>lpgmf</i> is <b>NULL</b>, no glyph metrics are returned.
      * @returns {BOOL} When the function succeeds, the return value is <b>TRUE</b>.
      * 
      * When the function fails, the return value is <b>FALSE</b> and no display lists are generated. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4266,14 +4269,14 @@ class OpenGL {
      * 
      * <div class="alert"><b>Note</b>  With OpenGL for Windows, you cannot make GDI calls to a device context when a pixel format is double-buffered. You can work around this limitation by using <b>wglUseFontOutlines</b> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-wglusefontbitmapsa">wglUseFontBitmaps</a>, when using double-buffered device contexts.</div>
      * <div> </div>
-     * @param {HDC} param0 
-     * @param {Integer} param1 
-     * @param {Integer} param2 
-     * @param {Integer} param3 
-     * @param {Float} param4 
-     * @param {Float} param5 
-     * @param {Integer} param6 
-     * @param {Pointer<GLYPHMETRICSFLOAT>} param7 
+     * @param {HDC} param0 Specifies the device context with the desired outline font. The outline font of <i>hdc</i> is used to create the display lists in the current rendering context.
+     * @param {Integer} param1 Specifies the first of the set of glyphs that form the font outline display lists.
+     * @param {Integer} param2 Specifies the number of glyphs in the set of glyphs used to form the font outline display lists. The <b>wglUseFontOutlines</b> function creates <i>count</i> display lists, one display list for each glyph in a set of glyphs.
+     * @param {Integer} param3 Specifies a starting display list.
+     * @param {Float} param4 Specifies the maximum chordal deviation from the original outlines. When deviation is zero, the chordal deviation is equivalent to one design unit of the original font. The value of <i>deviation</i> must be equal to or greater than 0.
+     * @param {Float} param5 Specifies how much a font is extruded in the negative <i>z</i> direction. The value must be equal to or greater than 0. When <i>extrusion</i> is 0, the display lists are not extruded.
+     * @param {Integer} param6 Specifies the format, either WGL_FONT_LINES or WGL_FONT_POLYGONS, to use in the display lists. When <i>format</i> is WGL_FONT_LINES, the <b>wglUseFontOutlines</b> function creates fonts with line segments. When <i>format</i> is WGL_FONT_POLYGONS, <b>wglUseFontOutlines</b> creates fonts with polygons.
+     * @param {Pointer<GLYPHMETRICSFLOAT>} param7 Points to an array of <i>count</i><a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-glyphmetricsfloat">GLYPHMETRICSFLOAT</a> structures that is to receive the metrics of the glyphs. When <i>lpgmf</i> is <b>NULL</b>, no glyph metrics are returned.
      * @returns {BOOL} When the function succeeds, the return value is <b>TRUE</b>.
      * 
      * When the function fails, the return value is <b>FALSE</b> and no display lists are generated. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4297,11 +4300,11 @@ class OpenGL {
      * The wglDescribeLayerPlane function obtains information about the layer planes of a given pixel format.
      * @remarks
      * The numbering of planes (<i>iLayerPlane</i> ) determines their order. Higher-numbered planes overlay lower-numbered planes.
-     * @param {HDC} param0 
-     * @param {Integer} param1 
-     * @param {Integer} param2 
-     * @param {Integer} param3 
-     * @param {Pointer<LAYERPLANEDESCRIPTOR>} param4 
+     * @param {HDC} param0 Specifies the device context of a window whose layer planes are to be described.
+     * @param {Integer} param1 Specifies which layer planes of a pixel format are being described.
+     * @param {Integer} param2 Specifies the overlay or underlay plane. Positive values of <i>iLayerPlane</i> identify overlay planes, where 1 is the first overlay plane over the main plane, 2 is the second overlay plane over the first overlay plane, and so on. Negative values identify underlay planes, where 1 is the first underlay plane under the main plane, 2 is the second underlay plane under the first underlay plane, and so on. The number of overlay and underlay planes is given in the <b>bReserved</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-pixelformatdescriptor">PIXELFORMATDESCRIPTOR</a> structure.
+     * @param {Integer} param3 Specifies the size, in bytes, of the structure pointed to by <i>plpd</i>. The <b>wglDescribeLayerPlane</b> function stores layer plane data in a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-layerplanedescriptor">LAYERPLANEDESCRIPTOR</a> structure, and stores no more than <i>nBytes</i> of data. Set the value of <i>nBytes</i> to the size of <b>LAYERPLANEDESCRIPTOR</b>.
+     * @param {Pointer<LAYERPLANEDESCRIPTOR>} param4 Points to a <b>LAYERPLANEDESCRIPTOR</b> structure. The <b>wglDescribeLayerPlane</b> function sets the value of the structure's data members. The function stores the number of bytes of data copied to the structure in the <b>nSize</b> member.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. In addition, the <b>wglDescribeLayerPlane</b> function sets the members of the <b>LAYERPLANEDESCRIPTOR</b> structure pointed to by <i>plpd</i> according to the specified layer plane (<i>iLayerPlane</i> ) of the specified pixel format (<i>iPixelFormat</i> ).
      * 
      * If the function fails, the return value is <b>FALSE</b>.
@@ -4323,11 +4326,21 @@ class OpenGL {
      * Use the <b>wglRealizeLayerPalette</b> function to realize the layer palette. Initially the layer palette contains only entries for white.
      * 
      * The <b>wglSetLayerPaletteEntries</b> function doesn't set the palette entries of the main plane palette. To update the main plane palette, use GDI palette functions.
-     * @param {HDC} param0 
-     * @param {Integer} param1 
-     * @param {Integer} param2 
-     * @param {Integer} param3 
-     * @param {Pointer<COLORREF>} param4 
+     * @param {HDC} param0 Type: <b>HDC</b>
+     * 
+     * The device context of a window whose layer palette is to be set.
+     * @param {Integer} param1 Type: <b>int</b>
+     * 
+     * An overlay or underlay plane. Positive values of <i>iLayerPlane</i> identify overlay planes, where 1 is the first overlay plane over the main plane, 2 is the second overlay plane over the first overlay plane, and so on. Negative values identify underlay planes, where 1 is the first underlay plane under the main plane, 2 is the second underlay plane under the first underlay plane, and so on. The number of overlay and underlay planes is given in the <b>bReserved</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-pixelformatdescriptor">PIXELFORMATDESCRIPTOR</a> structure.
+     * @param {Integer} param2 Type: <b>int</b>
+     * 
+     * The first palette entry to be set.
+     * @param {Integer} param3 Type: <b>int</b>
+     * 
+     * The number of palette entries to be set.
+     * @param {Pointer<COLORREF>} param4 Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a>*</b>
+     * 
+     * A pointer to the first member of an array of <i>cEntries</i> structures that contain RGB color information.
      * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the number of entries that were set in the palette in the specified layer plane of the window. If the function fails or no pixel format is selected, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4355,11 +4368,21 @@ class OpenGL {
      * Each color-index layer plane in a window has a palette with a size 2^<i>n</i>, where <i>n</i> is the number of bit planes in the layer plane. You cannot modify the transparent index of a palette.
      * 
      * Use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-wglrealizelayerpalette">wglRealizeLayerPalette</a> function to realize the layer palette. Initially the layer palette contains only entries for white.
-     * @param {HDC} param0 
-     * @param {Integer} param1 
-     * @param {Integer} param2 
-     * @param {Integer} param3 
-     * @param {Pointer<COLORREF>} param4 
+     * @param {HDC} param0 Type: <b>HDC</b>
+     * 
+     * The device context of a window whose layer planes are to be described.
+     * @param {Integer} param1 Type: <b>int</b>
+     * 
+     * The overlay or underlay plane. Positive values of <i>iLayerPlane</i> identify overlay planes, where 1 is the first overlay plane over the main plane, 2 is the second overlay plane over the first overlay plane, and so on. Negative values identify underlay planes, where 1 is the first underlay plane under the main plane, 2 is the second underlay plane under the first underlay plane, and so on. The number of overlay and underlay planes is given in the <b>bReserved</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-pixelformatdescriptor">PIXELFORMATDESCRIPTOR</a> structure.
+     * @param {Integer} param2 Type: <b>int</b>
+     * 
+     * The first palette entry to be retrieved.
+     * @param {Integer} param3 Type: <b>int</b>
+     * 
+     * The number of palette entries to be retrieved.
+     * @param {Pointer<COLORREF>} param4 Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a>*</b>
+     * 
+     * An array of structures that contain palette RGB color values. The array must contain at least as many structures as specified by <i>cEntries</i>.
      * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the number of entries that were set in the palette in the specified layer plane of the window.
@@ -4393,9 +4416,9 @@ class OpenGL {
      * Whenever a window becomes the foreground window, call <b>wglRealizeLayerPalette</b> to realize its layer palettes again, even if the pixel type of the layer plane is RGBA.
      * 
      * Because <b>wglRealizeLayerPalette</b> doesn't realize the palette of the main plane, use GDI palette functions to realize the main plane palette.
-     * @param {HDC} param0 
-     * @param {Integer} param1 
-     * @param {BOOL} param2 
+     * @param {HDC} param0 Specifies the device context of a window whose layer plane palette is to be realized into the physical palette.
+     * @param {Integer} param1 Specifies the overlay or underlay plane. Positive values of <i>iLayerPlane</i> identify overlay planes, where 1 is the first overlay plane over the main plane, 2 is the second overlay plane over the first overlay plane, and so on. Negative values identify underlay planes, where 1 is the first underlay plane under the main plane, 2 is the second underlay plane under the first underlay plane, and so on. The number of overlay and underlay planes is given in the <b>bReserved</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-pixelformatdescriptor">PIXELFORMATDESCRIPTOR</a> structure.
+     * @param {BOOL} param2 Indicates whether the palette is to be realized into the physical palette. When <i>bRealize</i> is <b>TRUE</b>, the palette entries are mapped into the physical palette where available. When <i>bRealize</i> is <b>FALSE</b>, the palette entries for the layer plane of the window are no longer needed and might be released for use by another foreground window.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>, even if <i>bRealize</i> is <b>TRUE</b> and the physical palette is not available. If the function fails or when no pixel format is selected, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-wglrealizelayerpalette
      * @since windows5.0
@@ -4421,7 +4444,7 @@ class OpenGL {
      * Some devices don't support swapping layer planes individually; they swap all layer planes as a group. When the PFD_SWAP_LAYER_BUFFERS flag of the <b>PIXELFORMATDESCRIPTOR</b> structure is set, it indicates that a device can swap individual layer planes and that you can call <b>wglSwapLayerBuffers</b>.
      * 
      * With applications that use multiple threads, before calling <b>wglSwapLayerBuffers</b>, clear all drawing commands in all threads drawing to the same window.
-     * @param {HDC} param0 
+     * @param {HDC} param0 Specifies the device context of a window whose layer plane palette is to be realized into the physical palette.
      * @param {Integer} param1 
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-wglswaplayerbuffers

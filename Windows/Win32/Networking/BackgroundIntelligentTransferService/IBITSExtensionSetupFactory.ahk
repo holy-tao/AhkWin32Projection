@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IBITSExtensionSetup.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IBITSExtensionSetup.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Use the IBITSExtensionSetupFactory interface to get a pointer to the IBITSExtensionSetup interface.

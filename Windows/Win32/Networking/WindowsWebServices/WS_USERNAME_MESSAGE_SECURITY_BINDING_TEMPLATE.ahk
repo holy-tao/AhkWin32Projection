@@ -3,6 +3,7 @@
 #Include .\WS_SECURITY_BINDING_PROPERTIES.ahk
 #Include .\WS_SECURITY_BINDING_PROPERTY.ahk
 #Include .\WS_USERNAME_CREDENTIAL.ahk
+#Include .\WS_VALIDATE_PASSWORD_CALLBACK.ahk
 
 /**
  * The security binding template for specifying the use of an application supplied username / password pair as a direct (i.e., one-shot) security token.

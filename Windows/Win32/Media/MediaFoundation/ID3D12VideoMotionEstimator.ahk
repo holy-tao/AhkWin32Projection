@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D3D12_VIDEO_MOTION_ESTIMATOR_DESC.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Graphics\Direct3D12\ID3D12Pageable.ahk
+#Include .\D3D12_VIDEO_MOTION_ESTIMATOR_DESC.ahk
 
 /**
  * This interface maintains context for video motion estimation operations.

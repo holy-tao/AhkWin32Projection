@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DRIVE_LAYOUT_INFORMATION_MBR.ahk
-#Include .\PARTITION_STYLE.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\DRIVE_LAYOUT_INFORMATION_GPT.ahk
+#Include .\DRIVE_LAYOUT_INFORMATION_MBR.ahk
 #Include .\GPT_ATTRIBUTES.ahk
-#Include .\PARTITION_INFORMATION_MBR.ahk
 #Include .\PARTITION_INFORMATION_EX.ahk
 #Include .\PARTITION_INFORMATION_GPT.ahk
+#Include .\PARTITION_INFORMATION_MBR.ahk
+#Include .\PARTITION_STYLE.ahk
 
 /**
  * Contains extended information about a drive's partitions.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDXGISwapChain3.ahk
-#Include .\DXGI_HDR_METADATA_TYPE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\DXGI_HDR_METADATA_TYPE.ahk
+#Include .\IDXGISwapChain3.ahk
 
 /**
  * This interface exposes a single method for setting video metadata.

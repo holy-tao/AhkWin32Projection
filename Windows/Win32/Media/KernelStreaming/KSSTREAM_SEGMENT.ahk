@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\IKsDataTypeHandler.ahk
 #Include .\IKsInterfaceHandler.ahk
 #Include .\KSIOOPERATION.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

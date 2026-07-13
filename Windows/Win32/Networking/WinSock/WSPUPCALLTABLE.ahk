@@ -1,5 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\LPWPUCLOSEEVENT.ahk
+#Include .\LPWPUCLOSESOCKETHANDLE.ahk
+#Include .\LPWPUCLOSETHREAD.ahk
+#Include .\LPWPUCREATEEVENT.ahk
+#Include .\LPWPUCREATESOCKETHANDLE.ahk
+#Include .\LPWPUFDISSET.ahk
+#Include .\LPWPUGETPROVIDERPATH.ahk
+#Include .\LPWPUMODIFYIFSHANDLE.ahk
+#Include .\LPWPUOPENCURRENTTHREAD.ahk
+#Include .\LPWPUPOSTMESSAGE.ahk
+#Include .\LPWPUQUERYBLOCKINGCALLBACK.ahk
+#Include .\LPWPUQUERYSOCKETHANDLECONTEXT.ahk
+#Include .\LPWPUQUEUEAPC.ahk
+#Include .\LPWPURESETEVENT.ahk
+#Include .\LPWPUSETEVENT.ahk
 
 /**
  * Contains a table of pointers to service provider upcall functions.

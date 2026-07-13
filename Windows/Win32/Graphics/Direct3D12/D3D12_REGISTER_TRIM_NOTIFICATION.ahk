@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_PFN_TRIM_NOTIFICATION_CALLBACK.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

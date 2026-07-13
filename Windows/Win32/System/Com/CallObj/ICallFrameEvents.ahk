@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\IUnknown.ahk
-#Include .\ICallFrame.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\ICallFrame.ahk
+#Include ..\IUnknown.ahk
 
 /**
  * Delivers method call notifications.

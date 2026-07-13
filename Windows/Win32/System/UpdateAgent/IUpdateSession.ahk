@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUpdateSearcher.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IUpdateInstaller.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\Com\IDispatch.ahk
-#Include .\IWebProxy.ahk
 #Include .\IUpdateDownloader.ahk
+#Include .\IUpdateInstaller.ahk
+#Include .\IUpdateSearcher.ahk
+#Include .\IWebProxy.ahk
 
 /**
  * Represents a session in which the caller can perform operations that involve updates. For example, this interface represents sessions in which the caller performs a search, download, installation, or uninstallation operation. (IUpdateSession)

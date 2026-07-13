@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\MFVP_MESSAGE_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IMFClockStateSink.ahk
 #Include .\IMFVideoMediaType.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\MFVP_MESSAGE_TYPE.ahk
 
 /**
  * Represents a video presenter. A video presenter is an object that receives video frames, typically from a video mixer, and presents them in some way, typically by rendering them to the display.

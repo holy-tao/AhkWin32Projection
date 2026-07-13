@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IReferenceTrackerManager.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\Com\IUnknown.ahk
 #Include .\IFindReferenceTargetsCallback.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IReferenceTrackerManager.ahk
 
 /**
  * Defines the interface implemented by the XAML framework for managing XAML object references.

@@ -1,5 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PINTERFACE_DEREFERENCE.ahk
+#Include .\PINTERFACE_REFERENCE.ahk
+#Include .\PNPEM_CONTROL_ENABLE_DISABLE.ahk
+#Include .\PNPEM_CONTROL_QUERY_CONTROL.ahk
+#Include .\PNPEM_CONTROL_QUERY_STANDARD_CAPABILITIES.ahk
+#Include .\PNPEM_CONTROL_SET_STANDARD_CONTROL.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PRTL_UMS_SCHEDULER_ENTRY_POINT.ahk
 
 /**
  * Specifies attributes for a user-mode scheduling (UMS) scheduler thread.

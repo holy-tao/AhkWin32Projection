@@ -1,5 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PIO_CSQ_ACQUIRE_LOCK.ahk
+#Include .\PIO_CSQ_COMPLETE_CANCELED_IRP.ahk
+#Include .\PIO_CSQ_INSERT_IRP.ahk
+#Include .\PIO_CSQ_PEEK_NEXT_IRP.ahk
+#Include .\PIO_CSQ_RELEASE_LOCK.ahk
+#Include .\PIO_CSQ_REMOVE_IRP.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

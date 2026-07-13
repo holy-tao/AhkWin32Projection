@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PCW_REGISTRATION_FLAGS.ahk
-#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
 #Include .\PCW_COUNTER_DESCRIPTOR.ahk
+#Include .\PCW_REGISTRATION_FLAGS.ahk
+#Include .\PPCW_CALLBACK.ahk
+#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

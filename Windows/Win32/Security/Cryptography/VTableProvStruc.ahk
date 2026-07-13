@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PSTR.ahk
+#Include .\CRYPT_RETURN_HWND.ahk
+#Include .\CRYPT_VERIFY_IMAGE_A.ahk
 
 /**
  * Contains pointers to callback functions that can be used by cryptographic service provider (CSP) functions.

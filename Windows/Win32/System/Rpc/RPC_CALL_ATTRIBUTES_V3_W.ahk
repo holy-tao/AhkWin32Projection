@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\RpcCallClientLocality.ahk
-#Include .\RPC_CALL_LOCAL_ADDRESS_V1.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\RPC_CALL_LOCAL_ADDRESS_V1.ahk
+#Include .\RpcCallClientLocality.ahk
 #Include .\RpcCallType.ahk
 
 /**

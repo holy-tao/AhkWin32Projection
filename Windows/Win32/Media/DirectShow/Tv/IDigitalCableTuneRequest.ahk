@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IATSCChannelTuneRequest.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IATSCChannelTuneRequest.ahk
 
 /**
  * The IDigitalCableTuneRequest interface provides methods for tuning to a channel in a digital cable network.

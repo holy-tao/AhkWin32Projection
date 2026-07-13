@@ -1,11 +1,33 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\FDICREATE_CPU_TYPE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\CCAB.ahk
 #Include .\ERF.ahk
 #Include .\FDICABINETINFO.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
+#Include .\FDICREATE_CPU_TYPE.ahk
+#Include .\PFNALLOC.ahk
+#Include .\PFNCLOSE.ahk
+#Include .\PFNFCIALLOC.ahk
+#Include .\PFNFCICLOSE.ahk
+#Include .\PFNFCIDELETE.ahk
+#Include .\PFNFCIFILEPLACED.ahk
+#Include .\PFNFCIFREE.ahk
+#Include .\PFNFCIGETNEXTCABINET.ahk
+#Include .\PFNFCIGETOPENINFO.ahk
+#Include .\PFNFCIGETTEMPFILE.ahk
+#Include .\PFNFCIOPEN.ahk
+#Include .\PFNFCIREAD.ahk
+#Include .\PFNFCISEEK.ahk
+#Include .\PFNFCISTATUS.ahk
+#Include .\PFNFCIWRITE.ahk
+#Include .\PFNFDIDECRYPT.ahk
+#Include .\PFNFDINOTIFY.ahk
+#Include .\PFNFREE.ahk
+#Include .\PFNOPEN.ahk
+#Include .\PFNREAD.ahk
+#Include .\PFNSEEK.ahk
+#Include .\PFNWRITE.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Cabinets

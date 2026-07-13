@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WSD_URI_LIST.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents a node in a linked list of URIs.

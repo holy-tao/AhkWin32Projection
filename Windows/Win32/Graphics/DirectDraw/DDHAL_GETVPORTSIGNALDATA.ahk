@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DDVIDEOPORT_LCL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\DDRAWI_DDVIDEOPORT_LCL.ahk
 #Include .\DDRAWI_DIRECTDRAW_LCL.ahk
+#Include .\LPDDHALVPORTCB_GETSIGNALSTATUS.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

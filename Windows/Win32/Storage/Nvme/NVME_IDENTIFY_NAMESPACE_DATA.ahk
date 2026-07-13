@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NVM_RESERVATION_CAPABILITIES.ahk
 #Include .\NVME_LBA_FORMAT.ahk
+#Include .\NVM_RESERVATION_CAPABILITIES.ahk
 
 /**
  * Contains values that indicate capabilities and settings that are specific to a particular namespace.

@@ -1,36 +1,39 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
-#Include .\IMEMENUITEMINFOW.ahk
-#Include .\HIMC.ahk
-#Include ..\..\..\Graphics\Gdi\LOGFONTW.ahk
-#Include .\COMPOSITIONFORM.ahk
-#Include .\IME_SENTENCE_MODE.ahk
-#Include .\IME_CONVERSION_MODE.ahk
-#Include .\HIMCC.ahk
-#Include .\STYLEBUFW.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
-#Include .\NOTIFY_IME_ACTION.ahk
-#Include .\IMEMENUITEMINFOA.ahk
-#Include .\IME_HOTKEY_IDENTIFIER.ahk
-#Include .\IME_COMPOSITION_STRING.ahk
-#Include .\GET_GUIDE_LINE_TYPE.ahk
-#Include .\SET_COMPOSITION_STRING_TYPE.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
-#Include ..\KeyboardAndMouse\HKL.ahk
-#Include .\INPUTCONTEXT.ahk
-#Include ..\..\..\Foundation\WPARAM.ahk
 #Include ..\..\..\Foundation\HWND.ahk
-#Include .\GET_CONVERSION_LIST_FLAG.ahk
-#Include ..\..\..\Foundation\LRESULT.ahk
 #Include ..\..\..\Foundation\LPARAM.ahk
-#Include .\CANDIDATEFORM.ahk
-#Include .\NOTIFY_IME_INDEX.ahk
+#Include ..\..\..\Foundation\LRESULT.ahk
 #Include ..\..\..\Foundation\POINT.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Foundation\WPARAM.ahk
 #Include ..\..\..\Graphics\Gdi\LOGFONTA.ahk
+#Include ..\..\..\Graphics\Gdi\LOGFONTW.ahk
+#Include .\CANDIDATEFORM.ahk
+#Include .\COMPOSITIONFORM.ahk
+#Include .\GET_CONVERSION_LIST_FLAG.ahk
+#Include .\GET_GUIDE_LINE_TYPE.ahk
+#Include .\HIMC.ahk
+#Include .\HIMCC.ahk
+#Include .\IMCENUMPROC.ahk
+#Include .\IMEMENUITEMINFOA.ahk
+#Include .\IMEMENUITEMINFOW.ahk
+#Include .\IME_COMPOSITION_STRING.ahk
+#Include .\IME_CONVERSION_MODE.ahk
 #Include .\IME_ESCAPE.ahk
+#Include .\IME_HOTKEY_IDENTIFIER.ahk
+#Include .\IME_SENTENCE_MODE.ahk
+#Include .\INPUTCONTEXT.ahk
+#Include .\NOTIFY_IME_ACTION.ahk
+#Include .\NOTIFY_IME_INDEX.ahk
+#Include .\REGISTERWORDENUMPROCA.ahk
+#Include .\REGISTERWORDENUMPROCW.ahk
+#Include .\SET_COMPOSITION_STRING_TYPE.ahk
 #Include .\STYLEBUFA.ahk
+#Include .\STYLEBUFW.ahk
+#Include ..\KeyboardAndMouse\HKL.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
@@ -3450,8 +3453,8 @@ class Ime {
      * If the application calls this function with IACE_CHILDREN, the operating system associates the specified input method context with child windows of the window indicated by <i>hWnd</i>. It associates the input method context only with child windows of the thread that creates <i>hWnd</i>. Any child window that is created after this function has been called will not be affected. Instead, the default input method context will be associated with it.
      * 
      * If the application calls this function with IACE_DEFAULT, the operating system restores the default input method context for the window. In this case, the <i>hIMC</i> parameter is ignored.
-     * @param {HWND} param0 
-     * @param {HIMC} param1 
+     * @param {HWND} param0 Handle to the window to associate with the input context.
+     * @param {HIMC} param1 Handle to the input method context.
      * @param {Integer} param2 
      * @returns {BOOL} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immassociatecontextex
@@ -3728,7 +3731,7 @@ class Ime {
      * 
      * > [!NOTE]
      * > The immdev.h header defines ImmGetGuideLine as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HIMC} param0 
+     * @param {HIMC} param0 Handle to the input context.
      * @param {GET_GUIDE_LINE_TYPE} dwIndex 
      * @param {Integer} lpBuf Pointer to a buffer in which the function retrieves the error message string. This parameter contains <b>NULL</b> if <i>dwIndex</i> is not GGL_STRING or GGL_PRIVATE or if <i>dwBufLen</i> is set to 0.
      * @param {Integer} dwBufLen Size, in bytes, of the output buffer. The application sets this parameter to 0 if the function is to return the buffer size needed to receive the error message string, not including the terminating null character.
@@ -3848,7 +3851,7 @@ class Ime {
      * 
      * > [!NOTE]
      * > The immdev.h header defines ImmGetGuideLine as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HIMC} param0 
+     * @param {HIMC} param0 Handle to the input context.
      * @param {GET_GUIDE_LINE_TYPE} dwIndex 
      * @param {Integer} lpBuf Pointer to a buffer in which the function retrieves the error message string. This parameter contains <b>NULL</b> if <i>dwIndex</i> is not GGL_STRING or GGL_PRIVATE or if <i>dwBufLen</i> is set to 0.
      * @param {Integer} dwBufLen Size, in bytes, of the output buffer. The application sets this parameter to 0 if the function is to return the buffer size needed to receive the error message string, not including the terminating null character.
@@ -3986,9 +3989,9 @@ class Ime {
      * <div class="alert"><b>Note</b>  <b>Beginning with Windows 8:</b> By default, the input switch is set per user instead of per thread. 
      * The Microsoft IME (Japanese) respects the mode globally, and therefore  <b>ImmSetConversionStatus</b> fails when getting focus.</div>
      * <div> </div>
-     * @param {HIMC} param0 
-     * @param {IME_CONVERSION_MODE} param1 
-     * @param {IME_SENTENCE_MODE} param2 
+     * @param {HIMC} param0 Handle to the input context.
+     * @param {IME_CONVERSION_MODE} param1 Conversion mode values. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/ime-conversion-mode-values">IME Conversion Mode Values</a>.
+     * @param {IME_SENTENCE_MODE} param2 Sentence mode values. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/ime-sentence-mode-values">IME Sentence Mode Values</a>.
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immsetconversionstatus
      * @since windows5.1.2600
@@ -4616,12 +4619,12 @@ class Ime {
      * 
      * > [!NOTE]
      * > The immdev.h header defines ImmEnumRegisterWord as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKL} param0 
-     * @param {Pointer<REGISTERWORDENUMPROCA>} param1 
+     * @param {HKL} param0 Input locale identifier.
+     * @param {Pointer<REGISTERWORDENUMPROCA>} param1 Pointer to the callback function. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/imm/nc-imm-registerwordenumproca">EnumRegisterWordProc</a>.
      * @param {PSTR} lpszReading Pointer to the reading string to enumerate. The application sets this parameter to <b>NULL</b> if the function is to enumerate all available reading strings that match the <i>dwStyle</i> and <i>lpszRegister</i> settings.
-     * @param {Integer} param3 
+     * @param {Integer} param3 Style to enumerate. The application specifies 0 if the function is to enumerate all available styles that match the <i>lpszReading</i> and <i>lpszRegister</i> settings.
      * @param {PSTR} lpszRegister Pointer to the register string to enumerate. The application sets this parameter to <b>NULL</b> if the function is to enumerate all register strings that match the <i>lpszReading</i> and <i>dwStyle</i> settings.
-     * @param {Pointer<Void>} param5 
+     * @param {Pointer<Void>} param5 Pointer to application-supplied data. The function passes this data to the callback function.
      * @returns {Integer} Returns the last value returned by the callback function, with the meaning defined by the application. The function returns 0 if it cannot enumerate the register strings.
      * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immenumregisterworda
      * @since windows5.1.2600
@@ -4644,12 +4647,12 @@ class Ime {
      * 
      * > [!NOTE]
      * > The immdev.h header defines ImmEnumRegisterWord as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKL} param0 
-     * @param {Pointer<REGISTERWORDENUMPROCW>} param1 
+     * @param {HKL} param0 Input locale identifier.
+     * @param {Pointer<REGISTERWORDENUMPROCW>} param1 Pointer to the callback function. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/imm/nc-imm-registerwordenumproca">EnumRegisterWordProc</a>.
      * @param {PWSTR} lpszReading Pointer to the reading string to enumerate. The application sets this parameter to <b>NULL</b> if the function is to enumerate all available reading strings that match the <i>dwStyle</i> and <i>lpszRegister</i> settings.
-     * @param {Integer} param3 
+     * @param {Integer} param3 Style to enumerate. The application specifies 0 if the function is to enumerate all available styles that match the <i>lpszReading</i> and <i>lpszRegister</i> settings.
      * @param {PWSTR} lpszRegister Pointer to the register string to enumerate. The application sets this parameter to <b>NULL</b> if the function is to enumerate all register strings that match the <i>lpszReading</i> and <i>dwStyle</i> settings.
-     * @param {Pointer<Void>} param5 
+     * @param {Pointer<Void>} param5 Pointer to application-supplied data. The function passes this data to the callback function.
      * @returns {Integer} Returns the last value returned by the callback function, with the meaning defined by the application. The function returns 0 if it cannot enumerate the register strings.
      * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immenumregisterwordw
      * @since windows5.1.2600
@@ -4705,8 +4708,25 @@ class Ime {
      * @remarks
      * > [!NOTE]
      * > The immdev.h header defines ImmGetImeMenuItems as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HIMC} param0 
-     * @param {Integer} param1 
+     * @param {HIMC} param0 Handle to the input context for the specified menu items.
+     * @param {Integer} param1 Flag specifying menu information options. The following value is defined.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="IGIMIF_RIGHTMENU"></a><a id="igimif_rightmenu"></a><dl>
+     * <dt><b>IGIMIF_RIGHTMENU</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Retrieve the menu items for the context menu, obtained by a right mouse click.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {Integer} param2 
      * @param {Pointer<IMEMENUITEMINFOA>} lpImeParentMenu Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-imemenuiteminfoa">IMEMENUITEMINFO</a> structure in which the function retrieves parent menu information. To retrieve information about the submenu items of this parent menu, the application sets the <b>fType</b> member to MFT_SUBMENU. This parameter contains <b>NULL</b> if the function retrieves only top-level menu items.
      * @param {Integer} lpImeMenu Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-imemenuiteminfoa">IMEMENUITEMINFO</a> structures in which the function retrieves information about the menu items. This parameter contains <b>NULL</b> if the function retrieves the number of registered menu items.
@@ -4727,8 +4747,25 @@ class Ime {
      * @remarks
      * > [!NOTE]
      * > The immdev.h header defines ImmGetImeMenuItems as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HIMC} param0 
-     * @param {Integer} param1 
+     * @param {HIMC} param0 Handle to the input context for the specified menu items.
+     * @param {Integer} param1 Flag specifying menu information options. The following value is defined.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="IGIMIF_RIGHTMENU"></a><a id="igimif_rightmenu"></a><dl>
+     * <dt><b>IGIMIF_RIGHTMENU</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Retrieve the menu items for the context menu, obtained by a right mouse click.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {Integer} param2 
      * @param {Pointer<IMEMENUITEMINFOW>} lpImeParentMenu Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-imemenuiteminfoa">IMEMENUITEMINFO</a> structure in which the function retrieves parent menu information. To retrieve information about the submenu items of this parent menu, the application sets the <b>fType</b> member to MFT_SUBMENU. This parameter contains <b>NULL</b> if the function retrieves only top-level menu items.
      * @param {Integer} lpImeMenu Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-imemenuiteminfoa">IMEMENUITEMINFO</a> structures in which the function retrieves information about the menu items. This parameter contains <b>NULL</b> if the function retrieves the number of registered menu items.

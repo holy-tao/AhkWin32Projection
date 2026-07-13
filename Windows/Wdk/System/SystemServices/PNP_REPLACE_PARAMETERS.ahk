@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\PNP_REPLACE_MEMORY_LIST.ahk
 #Include .\PNP_REPLACE_PROCESSOR_LIST.ahk
+#Include .\PREPLACE_MAP_MEMORY.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

@@ -1,5 +1,35 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\LPWSPACCEPT.ahk
+#Include .\LPWSPADDRESSTOSTRING.ahk
+#Include .\LPWSPASYNCSELECT.ahk
+#Include .\LPWSPBIND.ahk
+#Include .\LPWSPCANCELBLOCKINGCALL.ahk
+#Include .\LPWSPCLEANUP.ahk
+#Include .\LPWSPCLOSESOCKET.ahk
+#Include .\LPWSPCONNECT.ahk
+#Include .\LPWSPDUPLICATESOCKET.ahk
+#Include .\LPWSPENUMNETWORKEVENTS.ahk
+#Include .\LPWSPEVENTSELECT.ahk
+#Include .\LPWSPGETOVERLAPPEDRESULT.ahk
+#Include .\LPWSPGETPEERNAME.ahk
+#Include .\LPWSPGETQOSBYNAME.ahk
+#Include .\LPWSPGETSOCKNAME.ahk
+#Include .\LPWSPGETSOCKOPT.ahk
+#Include .\LPWSPIOCTL.ahk
+#Include .\LPWSPJOINLEAF.ahk
+#Include .\LPWSPLISTEN.ahk
+#Include .\LPWSPRECV.ahk
+#Include .\LPWSPRECVDISCONNECT.ahk
+#Include .\LPWSPRECVFROM.ahk
+#Include .\LPWSPSELECT.ahk
+#Include .\LPWSPSEND.ahk
+#Include .\LPWSPSENDDISCONNECT.ahk
+#Include .\LPWSPSENDTO.ahk
+#Include .\LPWSPSETSOCKOPT.ahk
+#Include .\LPWSPSHUTDOWN.ahk
+#Include .\LPWSPSOCKET.ahk
+#Include .\LPWSPSTRINGTOADDRESS.ahk
 
 /**
  * Contains a table of pointers to service provider functions.

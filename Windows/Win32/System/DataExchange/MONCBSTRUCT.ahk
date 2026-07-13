@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HCONV.ahk
-#Include .\CONVCONTEXT.ahk
-#Include .\HDDEDATA.ahk
 #Include ..\..\Foundation\BOOLEAN.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include .\HSZ.ahk
-#Include ..\..\Security\SECURITY_QUALITY_OF_SERVICE.ahk
 #Include ..\..\Security\SECURITY_IMPERSONATION_LEVEL.ahk
+#Include ..\..\Security\SECURITY_QUALITY_OF_SERVICE.ahk
+#Include .\CONVCONTEXT.ahk
+#Include .\HCONV.ahk
+#Include .\HDDEDATA.ahk
+#Include .\HSZ.ahk
 
 /**
  * Contains information about the current Dynamic Data Exchange (DDE) transaction. A DDE debugging application can use this structure when monitoring transactions that the system passes to the DDE callback functions of other applications.

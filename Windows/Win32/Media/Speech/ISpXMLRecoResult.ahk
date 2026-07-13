@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\SPSEMANTICERRORINFO.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\SPXMLRESULTOPTIONS.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\ISpRecoResult.ahk
+#Include .\SPSEMANTICERRORINFO.ahk
+#Include .\SPXMLRESULTOPTIONS.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\MDL.ahk
+#Include .\PASYNC_READ_COMPLETION_CALLBACK.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem

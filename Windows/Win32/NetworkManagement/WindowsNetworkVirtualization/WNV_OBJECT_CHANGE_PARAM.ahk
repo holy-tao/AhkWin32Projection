@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\IN_ADDR.ahk
-#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
-#Include ..\..\Networking\WinSock\DL_EUI48.ahk
+#Include .\WNV_CA_NOTIFICATION_TYPE.ahk
+#Include .\WNV_CUSTOMER_ADDRESS_CHANGE_PARAM.ahk
+#Include .\WNV_IP_ADDRESS.ahk
 #Include .\WNV_OBJECT_TYPE.ahk
 #Include .\WNV_PROVIDER_ADDRESS_CHANGE_PARAM.ahk
-#Include .\WNV_CA_NOTIFICATION_TYPE.ahk
-#Include ..\..\Networking\WinSock\DL_EI48.ahk
 #Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
+#Include ..\..\Networking\WinSock\DL_EI48.ahk
+#Include ..\..\Networking\WinSock\DL_EUI48.ahk
 #Include ..\..\Networking\WinSock\DL_OUI.ahk
-#Include .\WNV_IP_ADDRESS.ahk
-#Include .\WNV_CUSTOMER_ADDRESS_CHANGE_PARAM.ahk
+#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
+#Include ..\..\Networking\WinSock\IN_ADDR.ahk
 #Include ..\..\Networking\WinSock\NL_DAD_STATE.ahk
 
 /**

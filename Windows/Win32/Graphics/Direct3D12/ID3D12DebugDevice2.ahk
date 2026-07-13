@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12DebugDevice.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include .\D3D12_DEBUG_DEVICE_PARAMETER_TYPE.ahk
+#Include .\ID3D12DebugDevice.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

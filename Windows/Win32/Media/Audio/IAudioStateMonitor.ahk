@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\AudioStateMonitorSoundLevel.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\AudioStateMonitorSoundLevel.ahk
+#Include .\PAudioStateMonitorCallback.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio

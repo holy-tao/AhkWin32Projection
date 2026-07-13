@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IADs.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IADs.ahk
 
 /**
  * The IADsServiceOperations interface is a dual interface that inherits from IADs.

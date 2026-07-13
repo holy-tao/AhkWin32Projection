@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HANDLE_PTR.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\IInkDrawingAttributes.ahk
+#Include ..\..\Foundation\HANDLE_PTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IInkDrawingAttributes.ahk
 
 /**
  * Displays the tablet pen data in real-time as that data is being handled by the RealTimeStylus Class object.

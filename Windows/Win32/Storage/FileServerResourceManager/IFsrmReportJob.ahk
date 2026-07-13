@@ -2,15 +2,15 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\FsrmReportGenerationContext.ahk
+#Include .\FsrmReportRunningStatus.ahk
+#Include .\FsrmReportType.ahk
+#Include .\IFsrmCollection.ahk
 #Include .\IFsrmObject.ahk
 #Include .\IFsrmReport.ahk
-#Include .\FsrmReportRunningStatus.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IFsrmCollection.ahk
-#Include .\FsrmReportGenerationContext.ahk
-#Include .\FsrmReportType.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 
 /**
  * Used to configure a report job.

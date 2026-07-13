@@ -1,223 +1,290 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PEX_RUNDOWN_REF_CACHE_AWARE.ahk
-#Include ..\..\..\Win32\Security\PRIVILEGE_SET.ahk
-#Include ..\..\Foundation\PKTHREAD.ahk
-#Include .\RTL_AVL_TABLE.ahk
-#Include .\KTRIAGE_DUMP_DATA_ARRAY.ahk
-#Include ..\..\..\Win32\System\Kernel\NT_PRODUCT_TYPE.ahk
-#Include ..\..\..\Win32\System\Power\POWER_REQUEST_TYPE.ahk
-#Include ..\..\Foundation\IRP.ahk
-#Include ..\..\Foundation\ERESOURCE.ahk
-#Include ..\..\..\Win32\System\Ioctl\DRIVE_LAYOUT_INFORMATION_EX.ahk
-#Include ..\..\Foundation\VPB.ahk
-#Include .\DEVICE_RELATION_TYPE.ahk
-#Include .\PCW_REGISTRATION_INFORMATION.ahk
-#Include ..\..\..\Win32\System\SystemServices\RESOURCEMANAGER_INFORMATION_CLASS.ahk
-#Include ..\..\..\Win32\Foundation\DEVPROPKEY.ahk
-#Include ..\..\..\Win32\Security\ACL.ahk
-#Include .\CREATE_FILE_TYPE.ahk
-#Include .\DMA_IOMMU_INTERFACE_EX.ahk
-#Include .\POOL_EXTENDED_PARAMETER.ahk
-#Include ..\..\..\Win32\Security\Authentication\Identity\SE_ADT_PARAMETER_TYPE.ahk
-#Include ..\..\..\Win32\Storage\FileSystem\CLS_SCAN_CONTEXT.ahk
-#Include ..\..\..\Win32\System\Kernel\TIMER_TYPE.ahk
-#Include .\MM_SYSTEMSIZE.ahk
-#Include .\CONTROLLER_OBJECT.ahk
-#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
-#Include ..\..\..\Win32\System\Diagnostics\Debug\BUGCHECK_ERROR.ahk
-#Include ..\..\..\Win32\System\SystemInformation\LOGICAL_PROCESSOR_RELATIONSHIP.ahk
-#Include .\WHEA_ERROR_PACKET_V2.ahk
-#Include .\CM_PARTIAL_RESOURCE_DESCRIPTOR.ahk
-#Include ..\..\Foundation\KMUTANT.ahk
-#Include ..\..\..\Win32\System\Diagnostics\Etw\EVENT_DATA_DESCRIPTOR.ahk
-#Include ..\..\Foundation\PPCW_INSTANCE.ahk
-#Include .\IO_REMOVE_LOCK.ahk
-#Include .\EXT_DELETE_PARAMETERS.ahk
-#Include .\IO_CSQ.ahk
-#Include .\CM_RESOURCE_LIST.ahk
-#Include .\IO_DRIVER_CREATE_CONTEXT.ahk
-#Include .\KBUGCHECK_REASON_CALLBACK_RECORD.ahk
-#Include .\XSTATE_SAVE.ahk
-#Include .\WHEA_ERROR_SOURCE_CONFIGURATION.ahk
-#Include ..\..\..\Win32\System\Threading\INIT_ONCE.ahk
-#Include ..\..\..\Win32\System\Kernel\PROCESSOR_NUMBER.ahk
-#Include .\DISK_SIGNATURE.ahk
-#Include .\PARTITION_INFORMATION_CLASS.ahk
-#Include ..\..\Foundation\DRIVER_OBJECT.ahk
-#Include .\WHEA_ERROR_RECORD_HEADER.ahk
-#Include .\TABLE_SEARCH_RESULT.ahk
-#Include .\PHYSICAL_COUNTER_RESOURCE_LIST.ahk
-#Include .\DEVICE_REGISTRY_PROPERTY.ahk
-#Include .\KD_OPTION.ahk
-#Include ..\..\..\Win32\Storage\FileSystem\FILE_SEGMENT_ELEMENT.ahk
-#Include ..\..\Foundation\OBJECT_ATTRIBUTES.ahk
-#Include ..\..\Foundation\PSILO_MONITOR.ahk
-#Include .\PSCREATETHREADNOTIFYTYPE.ahk
-#Include .\IO_RESOURCE_REQUIREMENTS_LIST.ahk
-#Include .\IO_NOTIFICATION_EVENT_CATEGORY.ahk
-#Include .\KDEVICE_QUEUE_ENTRY.ahk
-#Include ..\..\Foundation\PEPROCESS.ahk
-#Include .\DMA_ADAPTER.ahk
-#Include .\POOL_CREATE_EXTENDED_PARAMS.ahk
-#Include ..\..\..\Win32\System\Power\POWER_INFORMATION_LEVEL.ahk
-#Include ..\..\Foundation\PAFFINITY_TOKEN.ahk
-#Include .\KTIMER.ahk
-#Include ..\..\..\Win32\System\Diagnostics\Debug\WHEA_ERROR_SOURCE_STATE.ahk
-#Include ..\..\..\Win32\System\SystemInformation\OSVERSIONINFOW.ahk
-#Include ..\..\..\Win32\System\Diagnostics\Etw\EVENT_DESCRIPTOR.ahk
-#Include .\CLFS_MGMT_CLIENT_REGISTRATION.ahk
-#Include .\POWER_STATE_TYPE.ahk
-#Include .\DRIVER_REGKEY_TYPE.ahk
-#Include ..\..\..\Win32\Devices\Properties\DEVPROPTYPE.ahk
-#Include .\IO_RESOURCE_DESCRIPTOR.ahk
-#Include ..\..\Foundation\FILE_OBJECT.ahk
-#Include .\ZONE_HEADER.ahk
-#Include ..\..\..\Win32\System\SystemInformation\OSVERSIONINFOEXW.ahk
-#Include ..\..\..\Win32\System\Power\DEVICE_POWER_STATE.ahk
-#Include ..\..\..\Win32\System\SystemInformation\GROUP_AFFINITY.ahk
-#Include .\IO_CONTAINER_INFORMATION_CLASS.ahk
-#Include ..\..\Foundation\PCALLBACK_OBJECT.ahk
-#Include .\KLOCK_QUEUE_HANDLE.ahk
-#Include .\RTL_BITMAP.ahk
-#Include .\WHEA_PSHED_PLUGIN_REGISTRATION_PACKET_V2.ahk
-#Include .\DRIVER_DIRECTORY_TYPE.ahk
-#Include ..\..\..\Win32\Storage\FileSystem\CLFS_MGMT_POLICY_TYPE.ahk
-#Include .\PO_FX_COMPONENT_PERF_INFO.ahk
-#Include ..\..\..\Win32\Security\GENERIC_MAPPING.ahk
-#Include ..\..\Foundation\FAST_MUTEX.ahk
-#Include ..\..\..\Win32\Storage\FileSystem\CLS_WRITE_ENTRY.ahk
-#Include ..\..\..\Win32\System\WindowsProgramming\CLIENT_ID.ahk
-#Include ..\..\..\Win32\System\Diagnostics\Etw\REGHANDLE.ahk
-#Include ..\..\..\Win32\System\SystemServices\TRANSACTIONMANAGER_INFORMATION_CLASS.ahk
-#Include ..\..\..\Win32\System\Ioctl\CREATE_DISK.ahk
-#Include ..\..\..\Win32\System\Diagnostics\Debug\WHEA_ERROR_SOURCE_CONFIGURATION_DEVICE_DRIVER.ahk
-#Include .\CONFIGURATION_TYPE.ahk
-#Include .\HARDWARE_COUNTER.ahk
-#Include ..\..\Foundation\KDEVICE_QUEUE.ahk
-#Include .\IO_DISCONNECT_INTERRUPT_PARAMETERS.ahk
-#Include ..\..\..\Win32\System\Diagnostics\Debug\WHEA_ERROR_SOURCE_DESCRIPTOR.ahk
-#Include .\RTL_DYNAMIC_HASH_TABLE_ENTRY.ahk
-#Include ..\..\..\Win32\Storage\IscsiDisc\_ADAPTER_OBJECT.ahk
-#Include .\DEVICE_DESCRIPTION.ahk
-#Include .\RTL_DYNAMIC_HASH_TABLE_CONTEXT.ahk
-#Include .\IO_FOEXT_SILO_PARAMETERS.ahk
-#Include ..\..\Foundation\PETHREAD.ahk
-#Include ..\..\Foundation\KRESOURCEMANAGER.ahk
-#Include ..\..\Foundation\POOL_TYPE.ahk
-#Include ..\..\Foundation\SECURITY_SUBJECT_CONTEXT.ahk
-#Include .\PO_FX_PERF_STATE_CHANGE.ahk
-#Include .\IO_REPORT_INTERRUPT_ACTIVE_STATE_PARAMETERS.ahk
-#Include .\PSCREATEPROCESSNOTIFYTYPE.ahk
-#Include .\IO_ATTRIBUTION_INFORMATION.ahk
-#Include ..\..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk
-#Include ..\..\Foundation\KTM.ahk
-#Include ..\..\..\Win32\System\IO\IO_STATUS_BLOCK.ahk
-#Include .\PO_FX_DEVICE_V1.ahk
-#Include .\LINK_SHARE_ACCESS.ahk
-#Include ..\..\..\Win32\Foundation\LUID.ahk
-#Include ..\..\..\Win32\System\Kernel\EVENT_TYPE.ahk
-#Include ..\..\..\Win32\Security\Authentication\Identity\SE_ADT_PARAMETER_ARRAY.ahk
-#Include .\SILO_MONITOR_REGISTRATION.ahk
-#Include ..\..\..\Win32\Foundation\PWSTR.ahk
-#Include .\CONFIGURATION_INFORMATION.ahk
-#Include ..\..\Foundation\PPCW_BUFFER.ahk
-#Include .\WHEA_ERROR_SEVERITY.ahk
-#Include .\TXN_PARAMETER_BLOCK.ahk
-#Include ..\..\..\Win32\Foundation\PSTR.ahk
-#Include .\OBJECT_HANDLE_INFORMATION.ahk
-#Include .\LOCK_OPERATION.ahk
-#Include ..\..\Storage\FileSystem\FILE_INFORMATION_CLASS.ahk
-#Include .\RTL_QUERY_REGISTRY_TABLE.ahk
-#Include .\KINTERRUPT_MODE.ahk
-#Include ..\..\..\Win32\System\SystemServices\KTMOBJECT_TYPE.ahk
-#Include ..\..\Foundation\POBJECT_TYPE.ahk
-#Include .\KBUGCHECK_CALLBACK_REASON.ahk
-#Include ..\..\..\Win32\Storage\FileSystem\CLFS_CONTEXT_MODE.ahk
-#Include .\POWER_STATE.ahk
-#Include .\BUS_DATA_TYPE.ahk
-#Include ..\..\..\Win32\Security\PSID.ahk
-#Include .\RTL_GENERIC_TABLE.ahk
-#Include .\MEMORY_CACHING_TYPE.ahk
-#Include ..\..\Foundation\PESILO.ahk
-#Include .\WAIT_CONTEXT_BLOCK.ahk
-#Include ..\..\Foundation\PKINTERRUPT.ahk
-#Include .\WORK_QUEUE_TYPE.ahk
-#Include ..\..\..\Win32\System\Ioctl\DRIVE_LAYOUT_INFORMATION.ahk
-#Include ..\..\..\Win32\System\Diagnostics\Etw\EVENT_INFO_CLASS.ahk
-#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
-#Include ..\..\Foundation\PIO_WORKITEM.ahk
-#Include ..\..\Foundation\KDPC.ahk
-#Include .\KSEMAPHORE.ahk
-#Include ..\..\..\Win32\Storage\FileSystem\TRANSACTION_NOTIFICATION.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
-#Include .\RTL_BITMAP_RUN.ahk
-#Include .\WHEA_ERROR_RECORD.ahk
-#Include ..\..\Foundation\PEJOB.ahk
-#Include .\SHARE_ACCESS.ahk
-#Include ..\..\Foundation\PPCW_REGISTRATION.ahk
-#Include ..\..\Foundation\PEX_TIMER.ahk
-#Include ..\..\Foundation\IO_PRIORITY_HINT.ahk
-#Include ..\..\..\Win32\System\Kernel\WAIT_TYPE.ahk
-#Include ..\..\Foundation\RTL_SPLAY_LINKS.ahk
-#Include .\KBUGCHECK_CALLBACK_RECORD.ahk
-#Include .\OB_CALLBACK_REGISTRATION.ahk
-#Include ..\..\..\Win32\Storage\FileSystem\CLFS_IOSTATS_CLASS.ahk
-#Include ..\..\..\Win32\System\Diagnostics\Debug\WHEA_ERROR_SOURCE_TYPE.ahk
-#Include ..\..\Foundation\KTRANSACTION.ahk
-#Include .\COUNTED_REASON_CONTEXT.ahk
-#Include ..\..\Foundation\KENLISTMENT.ahk
-#Include .\INTERFACE_TYPE.ahk
-#Include .\IO_CONNECT_INTERRUPT_PARAMETERS.ahk
-#Include .\DEVICE_DIRECTORY_TYPE.ahk
-#Include .\RTL_DYNAMIC_HASH_TABLE_ENUMERATOR.ahk
-#Include .\IO_CSQ_IRP_CONTEXT.ahk
-#Include ..\..\..\Win32\System\Ioctl\SET_PARTITION_INFORMATION_EX.ahk
-#Include .\PCW_DATA.ahk
-#Include .\HAL_DMA_CRASH_DUMP_REGISTER_TYPE.ahk
-#Include .\BOOTDISK_INFORMATION_LITE.ahk
-#Include ..\..\Foundation\DEVICE_OBJECT.ahk
-#Include .\MM_MDL_PAGE_CONTENTS_STATE.ahk
-#Include .\MM_PHYSICAL_ADDRESS_LIST.ahk
-#Include .\EX_RUNDOWN_REF.ahk
-#Include .\IO_PAGING_PRIORITY.ahk
-#Include ..\..\..\Win32\System\Diagnostics\Debug\WHEA_DRIVER_BUFFER_SET.ahk
-#Include .\RTL_DYNAMIC_HASH_TABLE.ahk
-#Include ..\..\..\Win32\System\SystemServices\TRANSACTION_INFORMATION_CLASS.ahk
-#Include .\DMA_IOMMU_INTERFACE.ahk
-#Include ..\..\..\Win32\System\Kernel\STRING.ahk
-#Include .\SE_IMAGE_VERIFICATION_CALLBACK_TYPE.ahk
-#Include ..\..\Foundation\MDL.ahk
-#Include ..\..\..\Win32\Storage\FileSystem\CLS_LOG_INFORMATION_CLASS.ahk
-#Include ..\..\Foundation\KWAIT_BLOCK.ahk
-#Include .\_EXT_SET_PARAMETERS_V0.ahk
-#Include .\TRACE_INFORMATION_CLASS.ahk
-#Include .\WHEA_EVENT_LOG_ENTRY.ahk
-#Include ..\..\Foundation\WORK_QUEUE_ITEM.ahk
-#Include .\SE_IMAGE_TYPE.ahk
-#Include .\KWAIT_REASON.ahk
-#Include .\TIME_FIELDS.ahk
-#Include .\PHYSICAL_MEMORY_RANGE.ahk
-#Include ..\..\..\Win32\System\Kernel\SUITE_TYPE.ahk
-#Include ..\..\..\Win32\System\SystemServices\ENLISTMENT_INFORMATION_CLASS.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\..\Win32\Storage\FileSystem\CLS_LSN.ahk
-#Include .\IO_CONTAINER_NOTIFICATION_CLASS.ahk
-#Include ..\..\..\Win32\Foundation\CHAR.ahk
-#Include ..\..\..\Win32\Foundation\NTSTATUS.ahk
-#Include .\BOOTDISK_INFORMATION.ahk
-#Include .\STATE_LOCATION_TYPE.ahk
-#Include .\MM_ROTATE_DIRECTION.ahk
-#Include ..\..\..\Win32\System\SystemInformation\RTL_SYSTEM_GLOBAL_DATA_ID.ahk
-#Include ..\..\Foundation\POHANDLE.ahk
-#Include .\EX_POOL_PRIORITY.ahk
+#Include ..\..\Foundation\DEVICE_OBJECT.ahk
+#Include ..\..\Foundation\DRIVER_CANCEL.ahk
+#Include ..\..\Foundation\DRIVER_CONTROL.ahk
+#Include ..\..\Foundation\DRIVER_NOTIFICATION_CALLBACK_ROUTINE.ahk
+#Include ..\..\Foundation\DRIVER_OBJECT.ahk
+#Include ..\..\Foundation\DRIVER_REINITIALIZE.ahk
+#Include ..\..\Foundation\ERESOURCE.ahk
+#Include ..\..\Foundation\FAST_MUTEX.ahk
+#Include ..\..\Foundation\FILE_OBJECT.ahk
+#Include ..\..\Foundation\IO_PRIORITY_HINT.ahk
+#Include ..\..\Foundation\IRP.ahk
+#Include ..\..\Foundation\KDEVICE_QUEUE.ahk
+#Include ..\..\Foundation\KDPC.ahk
+#Include ..\..\Foundation\KENLISTMENT.ahk
 #Include ..\..\Foundation\KEVENT.ahk
+#Include ..\..\Foundation\KMUTANT.ahk
+#Include ..\..\Foundation\KRESOURCEMANAGER.ahk
+#Include ..\..\Foundation\KTM.ahk
+#Include ..\..\Foundation\KTRANSACTION.ahk
+#Include ..\..\Foundation\KWAIT_BLOCK.ahk
+#Include ..\..\Foundation\MDL.ahk
+#Include ..\..\Foundation\OBJECT_ATTRIBUTES.ahk
+#Include ..\..\Foundation\PAFFINITY_TOKEN.ahk
+#Include ..\..\Foundation\PCALLBACK_OBJECT.ahk
+#Include ..\..\Foundation\PEJOB.ahk
+#Include ..\..\Foundation\PEPROCESS.ahk
+#Include ..\..\Foundation\PESILO.ahk
+#Include ..\..\Foundation\PETHREAD.ahk
+#Include ..\..\Foundation\PEX_RUNDOWN_REF_CACHE_AWARE.ahk
+#Include ..\..\Foundation\PEX_TIMER.ahk
+#Include ..\..\Foundation\PFREE_FUNCTION.ahk
+#Include ..\..\Foundation\PIO_COMPLETION_ROUTINE.ahk
+#Include ..\..\Foundation\PIO_WORKITEM.ahk
+#Include ..\..\Foundation\PKDEFERRED_ROUTINE.ahk
+#Include ..\..\Foundation\PKINTERRUPT.ahk
+#Include ..\..\Foundation\PKTHREAD.ahk
+#Include ..\..\Foundation\POBJECT_TYPE.ahk
+#Include ..\..\Foundation\POHANDLE.ahk
+#Include ..\..\Foundation\POOL_TYPE.ahk
+#Include ..\..\Foundation\PPCW_BUFFER.ahk
+#Include ..\..\Foundation\PPCW_INSTANCE.ahk
+#Include ..\..\Foundation\PPCW_REGISTRATION.ahk
+#Include ..\..\Foundation\PSILO_MONITOR.ahk
+#Include ..\..\Foundation\RTL_SPLAY_LINKS.ahk
+#Include ..\..\Foundation\SECURITY_SUBJECT_CONTEXT.ahk
+#Include ..\..\Foundation\VPB.ahk
+#Include ..\..\Foundation\WORK_QUEUE_ITEM.ahk
+#Include ..\..\Storage\FileSystem\FILE_INFORMATION_CLASS.ahk
+#Include .\BOOTDISK_INFORMATION.ahk
+#Include .\BOOTDISK_INFORMATION_LITE.ahk
+#Include .\BUS_DATA_TYPE.ahk
+#Include .\CLFS_MGMT_CLIENT_REGISTRATION.ahk
+#Include .\CM_PARTIAL_RESOURCE_DESCRIPTOR.ahk
+#Include .\CM_RESOURCE_LIST.ahk
+#Include .\CONFIGURATION_INFORMATION.ahk
+#Include .\CONFIGURATION_TYPE.ahk
+#Include .\CONTROLLER_OBJECT.ahk
+#Include .\COUNTED_REASON_CONTEXT.ahk
+#Include .\CREATE_FILE_TYPE.ahk
+#Include .\DEVICE_DESCRIPTION.ahk
+#Include .\DEVICE_DIRECTORY_TYPE.ahk
+#Include .\DEVICE_REGISTRY_PROPERTY.ahk
+#Include .\DEVICE_RELATION_TYPE.ahk
+#Include .\DISK_SIGNATURE.ahk
+#Include .\DMA_ADAPTER.ahk
+#Include .\DMA_IOMMU_INTERFACE.ahk
+#Include .\DMA_IOMMU_INTERFACE_EX.ahk
+#Include .\DRIVER_DIRECTORY_TYPE.ahk
+#Include .\DRIVER_REGKEY_TYPE.ahk
+#Include .\EXT_DELETE_PARAMETERS.ahk
+#Include .\EX_POOL_PRIORITY.ahk
+#Include .\EX_RUNDOWN_REF.ahk
+#Include .\HAL_DMA_CRASH_DUMP_REGISTER_TYPE.ahk
+#Include .\HARDWARE_COUNTER.ahk
+#Include .\INTERFACE_TYPE.ahk
+#Include .\IO_ATTRIBUTION_INFORMATION.ahk
+#Include .\IO_CONNECT_INTERRUPT_PARAMETERS.ahk
+#Include .\IO_CONTAINER_INFORMATION_CLASS.ahk
+#Include .\IO_CONTAINER_NOTIFICATION_CLASS.ahk
+#Include .\IO_CSQ.ahk
+#Include .\IO_CSQ_IRP_CONTEXT.ahk
+#Include .\IO_DISCONNECT_INTERRUPT_PARAMETERS.ahk
+#Include .\IO_DRIVER_CREATE_CONTEXT.ahk
+#Include .\IO_FOEXT_SILO_PARAMETERS.ahk
+#Include .\IO_NOTIFICATION_EVENT_CATEGORY.ahk
+#Include .\IO_PAGING_PRIORITY.ahk
+#Include .\IO_REMOVE_LOCK.ahk
+#Include .\IO_REPORT_INTERRUPT_ACTIVE_STATE_PARAMETERS.ahk
+#Include .\IO_RESOURCE_DESCRIPTOR.ahk
+#Include .\IO_RESOURCE_REQUIREMENTS_LIST.ahk
+#Include .\KBUGCHECK_CALLBACK_REASON.ahk
+#Include .\KBUGCHECK_CALLBACK_RECORD.ahk
+#Include .\KBUGCHECK_REASON_CALLBACK_RECORD.ahk
+#Include .\KDEVICE_QUEUE_ENTRY.ahk
 #Include .\KDPC_IMPORTANCE.ahk
 #Include .\KDPC_WATCHDOG_INFORMATION.ahk
-#Include ..\..\..\Win32\System\SystemInformation\FIRMWARE_TYPE.ahk
-#Include .\PO_THERMAL_REQUEST_TYPE.ahk
+#Include .\KD_OPTION.ahk
+#Include .\KINTERRUPT_MODE.ahk
+#Include .\KLOCK_QUEUE_HANDLE.ahk
+#Include .\KSEMAPHORE.ahk
+#Include .\KTIMER.ahk
+#Include .\KTRIAGE_DUMP_DATA_ARRAY.ahk
+#Include .\KWAIT_REASON.ahk
+#Include .\LINK_SHARE_ACCESS.ahk
+#Include .\LOCK_OPERATION.ahk
+#Include .\MEMORY_CACHING_TYPE.ahk
 #Include .\MM_COPY_ADDRESS.ahk
+#Include .\MM_MDL_PAGE_CONTENTS_STATE.ahk
+#Include .\MM_PHYSICAL_ADDRESS_LIST.ahk
+#Include .\MM_ROTATE_DIRECTION.ahk
+#Include .\MM_SYSTEMSIZE.ahk
+#Include .\OBJECT_HANDLE_INFORMATION.ahk
+#Include .\OB_CALLBACK_REGISTRATION.ahk
+#Include .\PALLOCATE_FUNCTION.ahk
+#Include .\PARTITION_INFORMATION_CLASS.ahk
+#Include .\PBOOT_DRIVER_CALLBACK_FUNCTION.ahk
+#Include .\PBOUND_CALLBACK.ahk
+#Include .\PCALLBACK_FUNCTION.ahk
+#Include .\PCLFS_SET_LOG_SIZE_COMPLETE_CALLBACK.ahk
+#Include .\PCREATE_PROCESS_NOTIFY_ROUTINE.ahk
+#Include .\PCREATE_PROCESS_NOTIFY_ROUTINE_EX.ahk
+#Include .\PCREATE_THREAD_NOTIFY_ROUTINE.ahk
+#Include .\PCW_DATA.ahk
+#Include .\PCW_REGISTRATION_INFORMATION.ahk
+#Include .\PDEBUG_PRINT_CALLBACK.ahk
+#Include .\PDEVICE_CHANGE_COMPLETE_CALLBACK.ahk
+#Include .\PETWENABLECALLBACK.ahk
+#Include .\PEXPAND_STACK_CALLOUT.ahk
+#Include .\PEXT_CALLBACK.ahk
+#Include .\PEX_CALLBACK_FUNCTION.ahk
+#Include .\PFN_IN_USE_PAGE_OFFLINE_NOTIFY.ahk
+#Include .\PFN_WHEA_HIGH_IRQL_LOG_SEL_EVENT_HANDLER.ahk
+#Include .\PHAL_RESET_DISPLAY_PARAMETERS.ahk
+#Include .\PHVL_WHEA_ERROR_NOTIFICATION.ahk
+#Include .\PHYSICAL_COUNTER_RESOURCE_LIST.ahk
+#Include .\PHYSICAL_MEMORY_RANGE.ahk
+#Include .\PIO_CONTAINER_NOTIFICATION_FUNCTION.ahk
+#Include .\PIO_CSQ_ACQUIRE_LOCK.ahk
+#Include .\PIO_CSQ_COMPLETE_CANCELED_IRP.ahk
+#Include .\PIO_CSQ_INSERT_IRP.ahk
+#Include .\PIO_CSQ_INSERT_IRP_EX.ahk
+#Include .\PIO_CSQ_PEEK_NEXT_IRP.ahk
+#Include .\PIO_CSQ_RELEASE_LOCK.ahk
+#Include .\PIO_CSQ_REMOVE_IRP.ahk
+#Include .\PIO_DEVICE_EJECT_CALLBACK.ahk
+#Include .\PIO_PERSISTED_MEMORY_ENUMERATION_CALLBACK.ahk
+#Include .\PIO_QUERY_DEVICE_ROUTINE.ahk
+#Include .\PIO_TIMER_ROUTINE.ahk
+#Include .\PIO_WORKITEM_ROUTINE.ahk
+#Include .\PIO_WORKITEM_ROUTINE_EX.ahk
+#Include .\PKBUGCHECK_CALLBACK_ROUTINE.ahk
+#Include .\PKBUGCHECK_REASON_CALLBACK_ROUTINE.ahk
+#Include .\PKIPI_BROADCAST_WORKER.ahk
+#Include .\PKSERVICE_ROUTINE.ahk
+#Include .\PKSTART_ROUTINE.ahk
+#Include .\PKSYNCHRONIZE_ROUTINE.ahk
+#Include .\PLOAD_IMAGE_NOTIFY_ROUTINE.ahk
+#Include .\PMM_MDL_ROUTINE.ahk
+#Include .\PMM_ROTATE_COPY_CALLBACK_FUNCTION.ahk
+#Include .\PNMI_CALLBACK.ahk
+#Include .\POOL_CREATE_EXTENDED_PARAMS.ahk
+#Include .\POOL_EXTENDED_PARAMETER.ahk
+#Include .\POWER_STATE.ahk
+#Include .\POWER_STATE_TYPE.ahk
+#Include .\PO_FX_COMPONENT_PERF_INFO.ahk
+#Include .\PO_FX_DEVICE_V1.ahk
+#Include .\PO_FX_PERF_STATE_CHANGE.ahk
+#Include .\PO_THERMAL_REQUEST_TYPE.ahk
+#Include .\PPOWER_SETTING_CALLBACK.ahk
+#Include .\PPO_FX_COMPONENT_PERF_STATE_CALLBACK.ahk
+#Include .\PPO_FX_DRIPS_WATCHDOG_CALLBACK.ahk
+#Include .\PPROCESSOR_CALLBACK_FUNCTION.ahk
+#Include .\PREQUEST_POWER_COMPLETE.ahk
+#Include .\PRTL_AVL_ALLOCATE_ROUTINE.ahk
+#Include .\PRTL_AVL_COMPARE_ROUTINE.ahk
+#Include .\PRTL_AVL_FREE_ROUTINE.ahk
+#Include .\PRTL_AVL_MATCH_FUNCTION.ahk
+#Include .\PRTL_GENERIC_ALLOCATE_ROUTINE.ahk
+#Include .\PRTL_GENERIC_COMPARE_ROUTINE.ahk
+#Include .\PRTL_GENERIC_FREE_ROUTINE.ahk
+#Include .\PRTL_RUN_ONCE_INIT_FN.ahk
+#Include .\PSCREATEPROCESSNOTIFYTYPE.ahk
+#Include .\PSCREATETHREADNOTIFYTYPE.ahk
+#Include .\PSE_IMAGE_VERIFICATION_CALLBACK_FUNCTION.ahk
+#Include .\PTM_RM_NOTIFICATION.ahk
+#Include .\RTL_AVL_TABLE.ahk
+#Include .\RTL_BITMAP.ahk
+#Include .\RTL_BITMAP_RUN.ahk
+#Include .\RTL_DYNAMIC_HASH_TABLE.ahk
+#Include .\RTL_DYNAMIC_HASH_TABLE_CONTEXT.ahk
+#Include .\RTL_DYNAMIC_HASH_TABLE_ENTRY.ahk
+#Include .\RTL_DYNAMIC_HASH_TABLE_ENUMERATOR.ahk
+#Include .\RTL_GENERIC_TABLE.ahk
+#Include .\RTL_QUERY_REGISTRY_TABLE.ahk
+#Include .\SE_IMAGE_TYPE.ahk
+#Include .\SE_IMAGE_VERIFICATION_CALLBACK_TYPE.ahk
+#Include .\SHARE_ACCESS.ahk
+#Include .\SILO_CONTEXT_CLEANUP_CALLBACK.ahk
+#Include .\SILO_MONITOR_REGISTRATION.ahk
+#Include .\STATE_LOCATION_TYPE.ahk
+#Include .\TABLE_SEARCH_RESULT.ahk
+#Include .\TIME_FIELDS.ahk
+#Include .\TRACE_INFORMATION_CLASS.ahk
+#Include .\TXN_PARAMETER_BLOCK.ahk
+#Include .\WAIT_CONTEXT_BLOCK.ahk
+#Include .\WHEA_ERROR_PACKET_V2.ahk
+#Include .\WHEA_ERROR_RECORD.ahk
+#Include .\WHEA_ERROR_RECORD_HEADER.ahk
+#Include .\WHEA_ERROR_SEVERITY.ahk
+#Include .\WHEA_ERROR_SOURCE_CONFIGURATION.ahk
+#Include .\WHEA_EVENT_LOG_ENTRY.ahk
+#Include .\WHEA_PSHED_PLUGIN_REGISTRATION_PACKET_V2.ahk
+#Include .\WMI_NOTIFICATION_CALLBACK.ahk
+#Include .\WORK_QUEUE_TYPE.ahk
+#Include .\XSTATE_SAVE.ahk
+#Include .\ZONE_HEADER.ahk
+#Include .\_EXT_SET_PARAMETERS_V0.ahk
+#Include ..\..\..\Win32\Devices\Properties\DEVPROPTYPE.ahk
+#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
+#Include ..\..\..\Win32\Foundation\CHAR.ahk
+#Include ..\..\..\Win32\Foundation\DEVPROPKEY.ahk
+#Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Include ..\..\..\Win32\Foundation\LUID.ahk
+#Include ..\..\..\Win32\Foundation\NTSTATUS.ahk
+#Include ..\..\..\Win32\Foundation\PSTR.ahk
+#Include ..\..\..\Win32\Foundation\PWSTR.ahk
+#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Include ..\..\..\Win32\Security\ACL.ahk
+#Include ..\..\..\Win32\Security\Authentication\Identity\SE_ADT_PARAMETER_ARRAY.ahk
+#Include ..\..\..\Win32\Security\Authentication\Identity\SE_ADT_PARAMETER_TYPE.ahk
+#Include ..\..\..\Win32\Security\GENERIC_MAPPING.ahk
+#Include ..\..\..\Win32\Security\PRIVILEGE_SET.ahk
+#Include ..\..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk
+#Include ..\..\..\Win32\Security\PSID.ahk
+#Include ..\..\..\Win32\Storage\FileSystem\CLFS_CONTEXT_MODE.ahk
+#Include ..\..\..\Win32\Storage\FileSystem\CLFS_IOSTATS_CLASS.ahk
+#Include ..\..\..\Win32\Storage\FileSystem\CLFS_MGMT_POLICY_TYPE.ahk
+#Include ..\..\..\Win32\Storage\FileSystem\CLS_LOG_INFORMATION_CLASS.ahk
+#Include ..\..\..\Win32\Storage\FileSystem\CLS_LSN.ahk
+#Include ..\..\..\Win32\Storage\FileSystem\CLS_SCAN_CONTEXT.ahk
+#Include ..\..\..\Win32\Storage\FileSystem\CLS_WRITE_ENTRY.ahk
+#Include ..\..\..\Win32\Storage\FileSystem\FILE_SEGMENT_ELEMENT.ahk
+#Include ..\..\..\Win32\Storage\FileSystem\TRANSACTION_NOTIFICATION.ahk
+#Include ..\..\..\Win32\Storage\IscsiDisc\_ADAPTER_OBJECT.ahk
+#Include ..\..\..\Win32\System\Diagnostics\Debug\BUGCHECK_ERROR.ahk
+#Include ..\..\..\Win32\System\Diagnostics\Debug\WHEA_DRIVER_BUFFER_SET.ahk
+#Include ..\..\..\Win32\System\Diagnostics\Debug\WHEA_ERROR_SOURCE_CONFIGURATION_DEVICE_DRIVER.ahk
+#Include ..\..\..\Win32\System\Diagnostics\Debug\WHEA_ERROR_SOURCE_DESCRIPTOR.ahk
+#Include ..\..\..\Win32\System\Diagnostics\Debug\WHEA_ERROR_SOURCE_STATE.ahk
+#Include ..\..\..\Win32\System\Diagnostics\Debug\WHEA_ERROR_SOURCE_TYPE.ahk
+#Include ..\..\..\Win32\System\Diagnostics\Etw\EVENT_DATA_DESCRIPTOR.ahk
+#Include ..\..\..\Win32\System\Diagnostics\Etw\EVENT_DESCRIPTOR.ahk
+#Include ..\..\..\Win32\System\Diagnostics\Etw\EVENT_INFO_CLASS.ahk
+#Include ..\..\..\Win32\System\Diagnostics\Etw\REGHANDLE.ahk
+#Include ..\..\..\Win32\System\IO\IO_STATUS_BLOCK.ahk
+#Include ..\..\..\Win32\System\IO\PIO_APC_ROUTINE.ahk
+#Include ..\..\..\Win32\System\Ioctl\CREATE_DISK.ahk
+#Include ..\..\..\Win32\System\Ioctl\DRIVE_LAYOUT_INFORMATION.ahk
+#Include ..\..\..\Win32\System\Ioctl\DRIVE_LAYOUT_INFORMATION_EX.ahk
+#Include ..\..\..\Win32\System\Ioctl\SET_PARTITION_INFORMATION_EX.ahk
+#Include ..\..\..\Win32\System\Kernel\EVENT_TYPE.ahk
+#Include ..\..\..\Win32\System\Kernel\NT_PRODUCT_TYPE.ahk
+#Include ..\..\..\Win32\System\Kernel\PROCESSOR_NUMBER.ahk
+#Include ..\..\..\Win32\System\Kernel\STRING.ahk
+#Include ..\..\..\Win32\System\Kernel\SUITE_TYPE.ahk
+#Include ..\..\..\Win32\System\Kernel\TIMER_TYPE.ahk
+#Include ..\..\..\Win32\System\Kernel\WAIT_TYPE.ahk
+#Include ..\..\..\Win32\System\Power\DEVICE_POWER_STATE.ahk
+#Include ..\..\..\Win32\System\Power\POWER_INFORMATION_LEVEL.ahk
+#Include ..\..\..\Win32\System\Power\POWER_REQUEST_TYPE.ahk
+#Include ..\..\..\Win32\System\SystemInformation\FIRMWARE_TYPE.ahk
+#Include ..\..\..\Win32\System\SystemInformation\GROUP_AFFINITY.ahk
+#Include ..\..\..\Win32\System\SystemInformation\LOGICAL_PROCESSOR_RELATIONSHIP.ahk
+#Include ..\..\..\Win32\System\SystemInformation\OSVERSIONINFOEXW.ahk
+#Include ..\..\..\Win32\System\SystemInformation\OSVERSIONINFOW.ahk
+#Include ..\..\..\Win32\System\SystemInformation\RTL_SYSTEM_GLOBAL_DATA_ID.ahk
+#Include ..\..\..\Win32\System\SystemServices\ENLISTMENT_INFORMATION_CLASS.ahk
+#Include ..\..\..\Win32\System\SystemServices\KTMOBJECT_TYPE.ahk
+#Include ..\..\..\Win32\System\SystemServices\RESOURCEMANAGER_INFORMATION_CLASS.ahk
+#Include ..\..\..\Win32\System\SystemServices\TRANSACTIONMANAGER_INFORMATION_CLASS.ahk
+#Include ..\..\..\Win32\System\SystemServices\TRANSACTION_INFORMATION_CLASS.ahk
+#Include ..\..\..\Win32\System\Threading\INIT_ONCE.ahk
+#Include ..\..\..\Win32\System\WindowsProgramming\CLIENT_ID.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -7765,7 +7832,7 @@ class SystemServices {
      */
     static NtLoadDriver(DriverServiceName) {
         result := DllCall("ntdll.dll\NtLoadDriver", "ptr", DriverServiceName, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7776,7 +7843,7 @@ class SystemServices {
      */
     static NtUnloadDriver(DriverServiceName) {
         result := DllCall("ntdll.dll\NtUnloadDriver", "ptr", DriverServiceName, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7789,7 +7856,7 @@ class SystemServices {
         _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
         result := DllCall("ntdll.dll\NtMakeTemporaryObject", "ptr", _Handle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7805,7 +7872,7 @@ class SystemServices {
      */
     static NtCreateTransactionManager(TmHandle, DesiredAccess, ObjectAttributes, LogFileName, CreateOptions, CommitStrength) {
         result := DllCall("ntdll.dll\NtCreateTransactionManager", "ptr", TmHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "ptr", LogFileName, "uint", CreateOptions, "uint", CommitStrength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7821,7 +7888,7 @@ class SystemServices {
      */
     static NtOpenTransactionManager(TmHandle, DesiredAccess, ObjectAttributes, LogFileName, TmIdentity, OpenOptions) {
         result := DllCall("ntdll.dll\NtOpenTransactionManager", "ptr", TmHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "ptr", LogFileName, "ptr", TmIdentity, "uint", OpenOptions, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7837,7 +7904,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\NtRollforwardTransactionManager", "ptr", TransactionManagerHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7850,7 +7917,7 @@ class SystemServices {
         TransactionManagerHandle := TransactionManagerHandle is Win32Handle ? NumGet(TransactionManagerHandle, "ptr") : TransactionManagerHandle
 
         result := DllCall("ntdll.dll\NtRecoverTransactionManager", "ptr", TransactionManagerHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7869,7 +7936,7 @@ class SystemServices {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\NtEnumerateTransactionObject", "ptr", RootObjectHandle, "int", QueryType, "ptr", ObjectCursor, "uint", ObjectCursorLength, ReturnLengthMarshal, ReturnLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7893,7 +7960,7 @@ class SystemServices {
         TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\NtCreateTransaction", "ptr", TransactionHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "ptr", Uow, "ptr", TmHandle, "uint", CreateOptions, "uint", _IsolationLevel, "uint", IsolationFlags, TimeoutMarshal, Timeout, "ptr", Description, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7912,7 +7979,7 @@ class SystemServices {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\NtQueryInformationTransaction", "ptr", TransactionHandle, "int", TransactionInformationClass, "ptr", TransactionInformation, "uint", TransactionInformationLength, ReturnLengthMarshal, ReturnLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7926,7 +7993,7 @@ class SystemServices {
         TransactionHandle := TransactionHandle is Win32Handle ? NumGet(TransactionHandle, "ptr") : TransactionHandle
 
         result := DllCall("ntdll.dll\NtCommitTransaction", "ptr", TransactionHandle, "char", Wait, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7940,7 +8007,7 @@ class SystemServices {
         TransactionHandle := TransactionHandle is Win32Handle ? NumGet(TransactionHandle, "ptr") : TransactionHandle
 
         result := DllCall("ntdll.dll\NtRollbackTransaction", "ptr", TransactionHandle, "char", Wait, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7953,7 +8020,7 @@ class SystemServices {
         ResourceManagerHandle := ResourceManagerHandle is Win32Handle ? NumGet(ResourceManagerHandle, "ptr") : ResourceManagerHandle
 
         result := DllCall("ntdll.dll\NtRecoverResourceManager", "ptr", ResourceManagerHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7972,7 +8039,7 @@ class SystemServices {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\NtQueryInformationResourceManager", "ptr", ResourceManagerHandle, "int", ResourceManagerInformationClass, "ptr", ResourceManagerInformation, "uint", ResourceManagerInformationLength, ReturnLengthMarshal, ReturnLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7988,7 +8055,7 @@ class SystemServices {
         ResourceManagerHandle := ResourceManagerHandle is Win32Handle ? NumGet(ResourceManagerHandle, "ptr") : ResourceManagerHandle
 
         result := DllCall("ntdll.dll\NtSetInformationResourceManager", "ptr", ResourceManagerHandle, "int", ResourceManagerInformationClass, "ptr", ResourceManagerInformation, "uint", ResourceManagerInformationLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8011,7 +8078,7 @@ class SystemServices {
         EnlistmentKeyMarshal := EnlistmentKey is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\NtCreateEnlistment", "ptr", EnlistmentHandle, "uint", DesiredAccess, "ptr", ResourceManagerHandle, "ptr", TransactionHandle, "ptr", ObjectAttributes, "uint", CreateOptions, "uint", NotificationMask, EnlistmentKeyMarshal, EnlistmentKey, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8027,7 +8094,7 @@ class SystemServices {
         EnlistmentKeyMarshal := EnlistmentKey is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\NtRecoverEnlistment", "ptr", EnlistmentHandle, EnlistmentKeyMarshal, EnlistmentKey, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8043,7 +8110,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\NtPrePrepareEnlistment", "ptr", EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8059,7 +8126,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\NtPrepareEnlistment", "ptr", EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8075,7 +8142,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\NtCommitEnlistment", "ptr", EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8091,7 +8158,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\NtRollbackEnlistment", "ptr", EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8107,7 +8174,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\NtPrePrepareComplete", "ptr", EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8123,7 +8190,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\NtPrepareComplete", "ptr", EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8139,7 +8206,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\NtCommitComplete", "ptr", EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8155,7 +8222,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\NtReadOnlyEnlistment", "ptr", EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8171,7 +8238,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\NtRollbackComplete", "ptr", EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8187,7 +8254,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\NtSinglePhaseReject", "ptr", EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8198,7 +8265,7 @@ class SystemServices {
      */
     static NtDisplayString(_String) {
         result := DllCall("ntdll.dll\NtDisplayString", "ptr", _String, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8213,7 +8280,7 @@ class SystemServices {
      */
     static NtPowerInformation(InformationLevel, InputBuffer, InputBufferLength, OutputBuffer, OutputBufferLength) {
         result := DllCall("ntdll.dll\NtPowerInformation", "int", InformationLevel, "ptr", InputBuffer, "uint", InputBufferLength, "ptr", OutputBuffer, "uint", OutputBufferLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8224,7 +8291,7 @@ class SystemServices {
      */
     static NtAllocateLocallyUniqueId(_Luid) {
         result := DllCall("ntdll.dll\NtAllocateLocallyUniqueId", "ptr", _Luid, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8242,7 +8309,7 @@ class SystemServices {
         SourceHandle := SourceHandle is Win32Handle ? NumGet(SourceHandle, "ptr") : SourceHandle
 
         result := DllCall("ntdll.dll\ZwManagePartition", "ptr", TargetHandle, "ptr", SourceHandle, "int", PartitionInformationClass, "ptr", PartitionInformation, "uint", PartitionInformationLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8261,7 +8328,7 @@ class SystemServices {
         ProtocolInformationMarshal := ProtocolInformation is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\ZwRegisterProtocolAddressInformation", "ptr", ResourceManager, "ptr", ProtocolId, "uint", ProtocolInformationSize, ProtocolInformationMarshal, ProtocolInformation, "uint", CreateOptions, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8273,7 +8340,7 @@ class SystemServices {
      */
     static ZwRenameTransactionManager(LogFileName, ExistingTransactionManagerGuid) {
         result := DllCall("ntdll.dll\ZwRenameTransactionManager", "ptr", LogFileName, "ptr", ExistingTransactionManagerGuid, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8291,7 +8358,7 @@ class SystemServices {
         _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\ZwPropagationComplete", "ptr", ResourceManagerHandle, "uint", RequestCookie, "uint", BufferLength, _BufferMarshal, _Buffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8306,7 +8373,7 @@ class SystemServices {
         ResourceManagerHandle := ResourceManagerHandle is Win32Handle ? NumGet(ResourceManagerHandle, "ptr") : ResourceManagerHandle
 
         result := DllCall("ntdll.dll\ZwPropagationFailed", "ptr", ResourceManagerHandle, "uint", RequestCookie, "int", PropStatus, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8324,7 +8391,7 @@ class SystemServices {
         SourceHandle := SourceHandle is Win32Handle ? NumGet(SourceHandle, "ptr") : SourceHandle
 
         result := DllCall("ntdll.dll\NtManagePartition", "ptr", TargetHandle, "ptr", SourceHandle, "int", PartitionInformationClass, "ptr", PartitionInformation, "uint", PartitionInformationLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8354,7 +8421,7 @@ class SystemServices {
      */
     static RtlIntegerToUnicodeString(Value, Base, _String) {
         result := DllCall("ntdll.dll\RtlIntegerToUnicodeString", "uint", Value, "uint", Base, "ptr", _String, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8367,7 +8434,7 @@ class SystemServices {
      */
     static RtlInt64ToUnicodeString(Value, Base, _String) {
         result := DllCall("ntdll.dll\RtlInt64ToUnicodeString", "uint", Value, "uint", Base, "ptr", _String, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8382,7 +8449,7 @@ class SystemServices {
         ValueMarshal := Value is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlUnicodeStringToInteger", "ptr", _String, "uint", Base, ValueMarshal, Value, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8399,7 +8466,7 @@ class SystemServices {
         EndPointerMarshal := EndPointer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\RtlUnicodeStringToInt64", "ptr", _String, "uint", Base, _NumberMarshal, _Number, EndPointerMarshal, EndPointer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8431,7 +8498,7 @@ class SystemServices {
         EnvironmentMarshal := Environment is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\RtlQueryRegistryValues", "uint", RelativeTo, "ptr", _Path, "ptr", QueryTable, _ContextMarshal, _Context, EnvironmentMarshal, Environment, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8460,7 +8527,7 @@ class SystemServices {
         _ValueName := _ValueName is String ? StrPtr(_ValueName) : _ValueName
 
         result := DllCall("ntdll.dll\RtlWriteRegistryValue", "uint", RelativeTo, "ptr", _Path, "ptr", _ValueName, "uint", ValueType, "ptr", ValueData, "uint", ValueLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8476,7 +8543,7 @@ class SystemServices {
         _ValueName := _ValueName is String ? StrPtr(_ValueName) : _ValueName
 
         result := DllCall("ntdll.dll\RtlDeleteRegistryValue", "uint", RelativeTo, "ptr", _Path, "ptr", _ValueName, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8490,7 +8557,7 @@ class SystemServices {
         _Path := _Path is String ? StrPtr(_Path) : _Path
 
         result := DllCall("ntdll.dll\RtlCreateRegistryKey", "uint", RelativeTo, "ptr", _Path, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8504,7 +8571,7 @@ class SystemServices {
         _Path := _Path is String ? StrPtr(_Path) : _Path
 
         result := DllCall("ntdll.dll\RtlCheckRegistryKey", "uint", RelativeTo, "ptr", _Path, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8518,7 +8585,7 @@ class SystemServices {
         SourceStringMarshal := SourceString is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlInitUTF8StringEx", "ptr", DestinationString, SourceStringMarshal, SourceString, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8584,7 +8651,7 @@ class SystemServices {
         HashValueMarshal := HashValue is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlHashUnicodeString", "ptr", _String, "char", CaseInSensitive, "uint", HashAlgorithm, HashValueMarshal, HashValue, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8606,7 +8673,7 @@ class SystemServices {
      */
     static RtlAppendUnicodeStringToString(Destination, Source) {
         result := DllCall("ntdll.dll\RtlAppendUnicodeStringToString", "ptr", Destination, "ptr", Source, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8620,7 +8687,7 @@ class SystemServices {
         Source := Source is String ? StrPtr(Source) : Source
 
         result := DllCall("ntdll.dll\RtlAppendUnicodeToString", "ptr", Destination, "ptr", Source, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8710,7 +8777,7 @@ class SystemServices {
         UTF8StringActualByteCountMarshal := UTF8StringActualByteCount is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlUnicodeToUTF8N", "ptr", UTF8StringDestination, "uint", UTF8StringMaxByteCount, UTF8StringActualByteCountMarshal, UTF8StringActualByteCount, "ptr", UnicodeStringSource, "uint", UnicodeStringByteCount, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8748,7 +8815,7 @@ class SystemServices {
         UnicodeStringActualByteCountMarshal := UnicodeStringActualByteCount is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlUTF8ToUnicodeN", "ptr", UnicodeStringDestination, "uint", UnicodeStringMaxByteCount, UnicodeStringActualByteCountMarshal, UnicodeStringActualByteCount, "ptr", UTF8StringSource, "uint", UTF8StringByteCount, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8761,7 +8828,7 @@ class SystemServices {
      */
     static RtlUnicodeStringToUTF8String(DestinationString, SourceString, AllocateDestinationString) {
         result := DllCall("ntdll.dll\RtlUnicodeStringToUTF8String", "ptr", DestinationString, "ptr", SourceString, "char", AllocateDestinationString, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8774,7 +8841,7 @@ class SystemServices {
      */
     static RtlUTF8StringToUnicodeString(DestinationString, SourceString, AllocateDestinationString) {
         result := DllCall("ntdll.dll\RtlUTF8StringToUnicodeString", "ptr", DestinationString, "ptr", SourceString, "char", AllocateDestinationString, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8786,7 +8853,7 @@ class SystemServices {
      */
     static RtlStringFromGUID(Guid, GuidString) {
         result := DllCall("ntdll.dll\RtlStringFromGUID", "ptr", Guid, "ptr", GuidString, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8798,7 +8865,7 @@ class SystemServices {
      */
     static RtlGUIDFromString(GuidString, Guid) {
         result := DllCall("ntdll.dll\RtlGUIDFromString", "ptr", GuidString, "ptr", Guid, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8812,7 +8879,7 @@ class SystemServices {
      */
     static RtlGenerateClass5Guid(NamespaceGuid, _Buffer, BufferSize, Guid) {
         result := DllCall("ntoskrnl.exe\RtlGenerateClass5Guid", "ptr", NamespaceGuid, "ptr", _Buffer, "uint", BufferSize, "ptr", Guid, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8931,7 +8998,7 @@ class SystemServices {
      */
     static DbgQueryDebugFilterState(ComponentId, Level) {
         result := DllCall("ntdll.dll\DbgQueryDebugFilterState", "uint", ComponentId, "uint", Level, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8944,7 +9011,7 @@ class SystemServices {
      */
     static DbgSetDebugFilterState(ComponentId, Level, State) {
         result := DllCall("ntdll.dll\DbgSetDebugFilterState", "uint", ComponentId, "uint", Level, "char", State, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8956,7 +9023,7 @@ class SystemServices {
      */
     static DbgSetDebugPrintCallback(DebugPrintCallback, Enable) {
         result := DllCall("ntoskrnl.exe\DbgSetDebugPrintCallback", "ptr", DebugPrintCallback, "char", Enable, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9315,7 +9382,7 @@ class SystemServices {
         _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
         result := DllCall("ntdll.dll\RtlCreateSecurityDescriptor", "ptr", _SecurityDescriptor, "uint", Revision, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9367,7 +9434,7 @@ class SystemServices {
         _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
         result := DllCall("ntdll.dll\RtlSetDaclSecurityDescriptor", "ptr", _SecurityDescriptor, "char", DaclPresent, "ptr", Dacl, "char", DaclDefaulted, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9385,7 +9452,7 @@ class SystemServices {
      */
     static RtlGetVersion(lpVersionInformation) {
         result := DllCall("ntdll.dll\RtlGetVersion", "ptr", lpVersionInformation, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9398,7 +9465,7 @@ class SystemServices {
      */
     static RtlVerifyVersionInfo(VersionInfo, TypeMask, ConditionMask) {
         result := DllCall("ntdll.dll\RtlVerifyVersionInfo", "ptr", VersionInfo, "uint", TypeMask, "uint", ConditionMask, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9434,7 +9501,7 @@ class SystemServices {
      */
     static RtlIoEncodeMemIoResource(Descriptor, Type, Length, Alignment, MinimumAddress, MaximumAddress) {
         result := DllCall("ntdll.dll\RtlIoEncodeMemIoResource", "ptr", Descriptor, "char", Type, "uint", Length, "uint", Alignment, "uint", MinimumAddress, "uint", MaximumAddress, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9448,7 +9515,7 @@ class SystemServices {
      */
     static RtlCmEncodeMemIoResource(Descriptor, Type, Length, Start) {
         result := DllCall("ntdll.dll\RtlCmEncodeMemIoResource", "ptr", Descriptor, "char", Type, "uint", Length, "uint", Start, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9492,7 +9559,7 @@ class SystemServices {
         TargetLengthMarshal := TargetLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlFindClosestEncodableLength", "uint", SourceLength, TargetLengthMarshal, TargetLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9510,7 +9577,7 @@ class SystemServices {
         UntrustedObjectMarshal := UntrustedObject is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlIsUntrustedObject", "ptr", _Handle, _ObjectMarshal, _Object, UntrustedObjectMarshal, UntrustedObject, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9532,7 +9599,7 @@ class SystemServices {
      */
     static NtRenameTransactionManager(LogFileName, ExistingTransactionManagerGuid) {
         result := DllCall("ntdll.dll\NtRenameTransactionManager", "ptr", LogFileName, "ptr", ExistingTransactionManagerGuid, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9551,7 +9618,7 @@ class SystemServices {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\NtQueryInformationTransactionManager", "ptr", TransactionManagerHandle, "int", TransactionManagerInformationClass, "ptr", TransactionManagerInformation, "uint", TransactionManagerInformationLength, ReturnLengthMarshal, ReturnLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9567,7 +9634,7 @@ class SystemServices {
         TmHandle := TmHandle is Win32Handle ? NumGet(TmHandle, "ptr") : TmHandle
 
         result := DllCall("ntdll.dll\NtSetInformationTransactionManager", "ptr", TmHandle, "int", TransactionManagerInformationClass, "ptr", TransactionManagerInformation, "uint", TransactionManagerInformationLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9584,7 +9651,7 @@ class SystemServices {
         TmHandle := TmHandle is Win32Handle ? NumGet(TmHandle, "ptr") : TmHandle
 
         result := DllCall("ntdll.dll\NtOpenTransaction", "ptr", TransactionHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "ptr", Uow, "ptr", TmHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9600,7 +9667,7 @@ class SystemServices {
         TransactionHandle := TransactionHandle is Win32Handle ? NumGet(TransactionHandle, "ptr") : TransactionHandle
 
         result := DllCall("ntdll.dll\NtSetInformationTransaction", "ptr", TransactionHandle, "int", TransactionInformationClass, "ptr", TransactionInformation, "uint", TransactionInformationLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9617,7 +9684,7 @@ class SystemServices {
         ResourceManagerHandle := ResourceManagerHandle is Win32Handle ? NumGet(ResourceManagerHandle, "ptr") : ResourceManagerHandle
 
         result := DllCall("ntdll.dll\NtOpenEnlistment", "ptr", EnlistmentHandle, "uint", DesiredAccess, "ptr", ResourceManagerHandle, "ptr", EnlistmentGuid, "ptr", ObjectAttributes, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9636,7 +9703,7 @@ class SystemServices {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\NtQueryInformationEnlistment", "ptr", EnlistmentHandle, "int", EnlistmentInformationClass, "ptr", EnlistmentInformation, "uint", EnlistmentInformationLength, ReturnLengthMarshal, ReturnLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9652,7 +9719,7 @@ class SystemServices {
         EnlistmentHandle := EnlistmentHandle is Win32Handle ? NumGet(EnlistmentHandle, "ptr") : EnlistmentHandle
 
         result := DllCall("ntdll.dll\NtSetInformationEnlistment", "ptr", EnlistmentHandle, "int", EnlistmentInformationClass, "ptr", EnlistmentInformation, "uint", EnlistmentInformationLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9671,7 +9738,7 @@ class SystemServices {
         TmHandle := TmHandle is Win32Handle ? NumGet(TmHandle, "ptr") : TmHandle
 
         result := DllCall("ntdll.dll\NtCreateResourceManager", "ptr", ResourceManagerHandle, "uint", DesiredAccess, "ptr", TmHandle, "ptr", RmGuid, "ptr", ObjectAttributes, "uint", CreateOptions, "ptr", Description, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9688,7 +9755,7 @@ class SystemServices {
         TmHandle := TmHandle is Win32Handle ? NumGet(TmHandle, "ptr") : TmHandle
 
         result := DllCall("ntdll.dll\NtOpenResourceManager", "ptr", ResourceManagerHandle, "uint", DesiredAccess, "ptr", TmHandle, "ptr", ResourceManagerGuid, "ptr", ObjectAttributes, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9710,7 +9777,7 @@ class SystemServices {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\NtGetNotificationResourceManager", "ptr", ResourceManagerHandle, "ptr", TransactionNotification, "uint", NotificationLength, TimeoutMarshal, Timeout, ReturnLengthMarshal, ReturnLength, "uint", Asynchronous, "ptr", AsynchronousContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9729,7 +9796,7 @@ class SystemServices {
         ProtocolInformationMarshal := ProtocolInformation is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\NtRegisterProtocolAddressInformation", "ptr", ResourceManager, "ptr", ProtocolId, "uint", ProtocolInformationSize, ProtocolInformationMarshal, ProtocolInformation, "uint", CreateOptions, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9747,7 +9814,7 @@ class SystemServices {
         _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\NtPropagationComplete", "ptr", ResourceManagerHandle, "uint", RequestCookie, "uint", BufferLength, _BufferMarshal, _Buffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9762,7 +9829,7 @@ class SystemServices {
         ResourceManagerHandle := ResourceManagerHandle is Win32Handle ? NumGet(ResourceManagerHandle, "ptr") : ResourceManagerHandle
 
         result := DllCall("ntdll.dll\NtPropagationFailed", "ptr", ResourceManagerHandle, "uint", RequestCookie, "int", PropStatus, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9871,7 +9938,7 @@ class SystemServices {
         BufferNeededMarshal := BufferNeeded is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\KeInitializeCrashDumpHeader", "uint", _DumpType, "uint", Flags, "ptr", _Buffer, "uint", BufferSize, BufferNeededMarshal, BufferNeeded, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -10140,7 +10207,7 @@ class SystemServices {
         _IntervalMarshal := _Interval is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\KeDelayExecutionThread", "char", WaitMode, "char", Alertable, _IntervalMarshal, _Interval, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -10188,7 +10255,7 @@ class SystemServices {
      */
     static KeSetTargetProcessorDpcEx(Dpc, ProcNumber) {
         result := DllCall("ntoskrnl.exe\KeSetTargetProcessorDpcEx", "ptr", Dpc, "ptr", ProcNumber, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -10394,7 +10461,7 @@ class SystemServices {
         TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\KeWaitForMultipleObjects", "uint", Count, _ObjectMarshal, _Object, "int", WaitType, "int", WaitReason, "char", WaitMode, "char", Alertable, TimeoutMarshal, Timeout, "ptr", WaitBlockArray, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -10412,7 +10479,7 @@ class SystemServices {
         TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\KeWaitForSingleObject", _ObjectMarshal, _Object, "int", WaitReason, "char", WaitMode, "char", Alertable, TimeoutMarshal, Timeout, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -10556,7 +10623,7 @@ class SystemServices {
      */
     static KeQueryDpcWatchdogInformation(WatchdogInformation) {
         result := DllCall("ntoskrnl.exe\KeQueryDpcWatchdogInformation", "ptr", WatchdogInformation, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -10603,7 +10670,7 @@ class SystemServices {
      */
     static KeInitializeTriageDumpDataArray(KtriageDumpDataArray, _Size) {
         result := DllCall("ntoskrnl.exe\KeInitializeTriageDumpDataArray", "ptr", KtriageDumpDataArray, "uint", _Size, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -10618,7 +10685,7 @@ class SystemServices {
         _AddressMarshal := _Address is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\KeAddTriageDumpDataBlock", "ptr", KtriageDumpDataArray, _AddressMarshal, _Address, "ptr", _Size, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -10669,7 +10736,7 @@ class SystemServices {
         _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\KeDeregisterNmiCallback", _HandleMarshal, _Handle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -10692,7 +10759,7 @@ class SystemServices {
         _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\KeDeregisterBoundCallback", _HandleMarshal, _Handle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -10912,7 +10979,7 @@ class SystemServices {
         LengthMarshal := Length is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\KeQueryLogicalProcessorRelationship", "ptr", ProcessorNumber, "int", RelationshipType, "ptr", Information, LengthMarshal, Length, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -10937,7 +11004,7 @@ class SystemServices {
         GroupAffinitiesRequiredMarshal := GroupAffinitiesRequired is VarRef ? "ushort*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\KeQueryNodeActiveAffinity2", "ushort", NodeNumber, "ptr", GroupAffinities, "ushort", GroupAffinitiesCount, GroupAffinitiesRequiredMarshal, GroupAffinitiesRequired, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11048,7 +11115,7 @@ class SystemServices {
      */
     static KeGetProcessorNumberFromIndex(ProcIndex, ProcNumber) {
         result := DllCall("ntoskrnl.exe\KeGetProcessorNumberFromIndex", "uint", ProcIndex, "ptr", ProcNumber, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11070,7 +11137,7 @@ class SystemServices {
      */
     static KeSaveExtendedProcessorState(Mask, XStateSave) {
         result := DllCall("ntoskrnl.exe\KeSaveExtendedProcessorState", "uint", Mask, "ptr", XStateSave, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11095,7 +11162,7 @@ class SystemServices {
         ConversionErrorMarshal := ConversionError is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\KeConvertAuxiliaryCounterToPerformanceCounter", "uint", AuxiliaryCounterValue, PerformanceCounterValueMarshal, PerformanceCounterValue, ConversionErrorMarshal, ConversionError, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11111,7 +11178,7 @@ class SystemServices {
         ConversionErrorMarshal := ConversionError is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\KeConvertPerformanceCounterToAuxiliaryCounter", "uint", PerformanceCounterValue, AuxiliaryCounterValueMarshal, AuxiliaryCounterValue, ConversionErrorMarshal, ConversionError, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11124,7 +11191,7 @@ class SystemServices {
         AuxiliaryCounterFrequencyMarshal := AuxiliaryCounterFrequency is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\KeQueryAuxiliaryCounterFrequency", AuxiliaryCounterFrequencyMarshal, AuxiliaryCounterFrequency, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11134,7 +11201,7 @@ class SystemServices {
      */
     static KdDisableDebugger() {
         result := DllCall("ntoskrnl.exe\KdDisableDebugger", "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11144,7 +11211,7 @@ class SystemServices {
      */
     static KdEnableDebugger() {
         result := DllCall("ntoskrnl.exe\KdEnableDebugger", "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11173,7 +11240,7 @@ class SystemServices {
         OutBufferNeededMarshal := OutBufferNeeded is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\KdChangeOption", "int", Option, "uint", InBufferBytes, InBufferMarshal, InBuffer, "uint", OutBufferBytes, OutBufferMarshal, OutBuffer, OutBufferNeededMarshal, OutBufferNeeded, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11278,7 +11345,7 @@ class SystemServices {
      */
     static ExCreatePool(Flags, Tag, Params, PoolHandle) {
         result := DllCall("ntoskrnl.exe\ExCreatePool", "uint", Flags, "ptr", Tag, "ptr", Params, "ptr", PoolHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11311,7 +11378,7 @@ class SystemServices {
         _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\ExSecurePoolUpdate", "ptr", SecurePoolHandle, "uint", Tag, AllocationMarshal, Allocation, "ptr", Cookie, "ptr", Offset, "ptr", _Size, _BufferMarshal, _Buffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11487,7 +11554,7 @@ class SystemServices {
      */
     static ExInitializeResourceLite(Resource) {
         result := DllCall("ntoskrnl.exe\ExInitializeResourceLite", "ptr", Resource, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11498,7 +11565,7 @@ class SystemServices {
      */
     static ExReinitializeResourceLite(Resource) {
         result := DllCall("ntoskrnl.exe\ExReinitializeResourceLite", "ptr", Resource, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11645,7 +11712,7 @@ class SystemServices {
      */
     static ExDeleteResourceLite(Resource) {
         result := DllCall("ntoskrnl.exe\ExDeleteResourceLite", "ptr", Resource, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -11815,7 +11882,7 @@ class SystemServices {
         CallbackObjectMarshal := CallbackObject is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\ExCreateCallback", CallbackObjectMarshal, CallbackObject, "ptr", ObjectAttributes, "char", Create, "char", AllowMultipleCallbacks, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12271,7 +12338,7 @@ class SystemServices {
         AttributesMarshal := Attributes is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\ExGetFirmwareEnvironmentVariable", "ptr", VariableName, "ptr", VendorGuid, "ptr", Value, ValueLengthMarshal, ValueLength, AttributesMarshal, Attributes, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12286,7 +12353,7 @@ class SystemServices {
      */
     static ExSetFirmwareEnvironmentVariable(VariableName, VendorGuid, Value, ValueLength, Attributes) {
         result := DllCall("ntoskrnl.exe\ExSetFirmwareEnvironmentVariable", "ptr", VariableName, "ptr", VendorGuid, "ptr", Value, "uint", ValueLength, "uint", Attributes, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12329,7 +12396,7 @@ class SystemServices {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\ExEnumerateSystemFirmwareTables", "uint", FirmwareTableProviderSignature, "ptr", FirmwareTableBuffer, "uint", BufferLength, ReturnLengthMarshal, ReturnLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12346,7 +12413,7 @@ class SystemServices {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\ExGetSystemFirmwareTable", "uint", FirmwareTableProviderSignature, "uint", FirmwareTableID, "ptr", FirmwareTableBuffer, "uint", BufferLength, ReturnLengthMarshal, ReturnLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12362,7 +12429,7 @@ class SystemServices {
         CookieMarshal := Cookie is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\CmRegisterCallback", "ptr", Function, _ContextMarshal, _Context, CookieMarshal, Cookie, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12373,7 +12440,7 @@ class SystemServices {
      */
     static CmUnRegisterCallback(Cookie) {
         result := DllCall("ntoskrnl.exe\CmUnRegisterCallback", "int64", Cookie, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12394,7 +12461,7 @@ class SystemServices {
         CookieMarshal := Cookie is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\CmRegisterCallbackEx", "ptr", Function, "ptr", Altitude, DriverMarshal, Driver, _ContextMarshal, _Context, CookieMarshal, Cookie, "ptr", Reserved, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12426,7 +12493,7 @@ class SystemServices {
         OldContextMarshal := OldContext is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\CmSetCallbackObjectContext", _ObjectMarshal, _Object, CookieMarshal, Cookie, NewContextMarshal, NewContext, OldContextMarshal, OldContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12445,7 +12512,7 @@ class SystemServices {
         ObjectNameMarshal := ObjectName is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\CmCallbackGetKeyObjectID", CookieMarshal, Cookie, _ObjectMarshal, _Object, _ObjectIDMarshal, _ObjectID, ObjectNameMarshal, ObjectName, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12479,7 +12546,7 @@ class SystemServices {
         ObjectNameMarshal := ObjectName is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\CmCallbackGetKeyObjectIDEx", CookieMarshal, Cookie, _ObjectMarshal, _Object, _ObjectIDMarshal, _ObjectID, ObjectNameMarshal, ObjectName, "uint", Flags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12510,7 +12577,7 @@ class SystemServices {
         VerifierFlagsMarshal := VerifierFlags is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\MmIsVerifierEnabled", VerifierFlagsMarshal, VerifierFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12522,7 +12589,7 @@ class SystemServices {
      */
     static MmAddVerifierThunks(ThunkBuffer, ThunkBufferSize) {
         result := DllCall("ntoskrnl.exe\MmAddVerifierThunks", "ptr", ThunkBuffer, "uint", ThunkBufferSize, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12535,7 +12602,7 @@ class SystemServices {
      */
     static MmAddVerifierSpecialThunks(EntryRoutine, ThunkBuffer, ThunkBufferSize) {
         result := DllCall("ntoskrnl.exe\MmAddVerifierSpecialThunks", "ptr", EntryRoutine, "ptr", ThunkBuffer, "uint", ThunkBufferSize, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12603,7 +12670,7 @@ class SystemServices {
         NewMdlMarshal := NewMdl is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\MmAllocateMdlForIoSpace", "ptr", PhysicalAddressList, "ptr", NumberOfEntries, NewMdlMarshal, NewMdl, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12627,7 +12694,7 @@ class SystemServices {
      */
     static MmSetPermanentCacheAttribute(StartAddress, NumberOfBytes, CacheType, Flags) {
         result := DllCall("ntoskrnl.exe\MmSetPermanentCacheAttribute", "int64", StartAddress, "int64", NumberOfBytes, "int", CacheType, "uint", Flags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12654,7 +12721,7 @@ class SystemServices {
         DriverContextMarshal := DriverContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\MmMapMdl", "ptr", MemoryDescriptorList, "uint", Protection, "ptr", DriverRoutine, DriverContextMarshal, DriverContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12670,7 +12737,7 @@ class SystemServices {
         VaMarshal := Va is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\MmMapMemoryDumpMdlEx", VaMarshal, Va, "uint", PageTotal, "ptr", MemoryDumpMdl, "uint", Flags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12693,7 +12760,7 @@ class SystemServices {
      */
     static MmAdvanceMdl(_Mdl, NumberOfBytes) {
         result := DllCall("ntoskrnl.exe\MmAdvanceMdl", "ptr", _Mdl, "uint", NumberOfBytes, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12705,7 +12772,7 @@ class SystemServices {
      */
     static MmProtectMdlSystemAddress(MemoryDescriptorList, NewProtect) {
         result := DllCall("ntoskrnl.exe\MmProtectMdlSystemAddress", "ptr", MemoryDescriptorList, "uint", NewProtect, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -12992,7 +13059,7 @@ class SystemServices {
         BaseAddressMarshal := BaseAddress is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\MmAllocateContiguousMemoryEx", NumberOfBytesMarshal, NumberOfBytes, "int64", LowestAcceptableAddress, "int64", HighestAcceptableAddress, "int64", BoundaryAddressMultiple, "uint", PreferredNode, "uint", Protect, PartitionObjectMarshal, PartitionObject, "uint", Tag, "uint", Flags, BaseAddressMarshal, BaseAddress, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13141,7 +13208,7 @@ class SystemServices {
         AddressWithinSectionMarshal := AddressWithinSection is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\MmProtectDriverSection", AddressWithinSectionMarshal, AddressWithinSection, "ptr", _Size, "uint", Flags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13197,7 +13264,7 @@ class SystemServices {
         ExplicitDescriptor := ExplicitDescriptor is Win32Handle ? NumGet(ExplicitDescriptor, "ptr") : ExplicitDescriptor
 
         result := DllCall("ntoskrnl.exe\SeAssignSecurity", "ptr", ParentDescriptor, "ptr", ExplicitDescriptor, "ptr", NewDescriptor, "char", IsDirectoryObject, "ptr", SubjectContext, "ptr", GenericMapping, "int", PoolType, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13236,7 +13303,7 @@ class SystemServices {
         ExplicitDescriptor := ExplicitDescriptor is Win32Handle ? NumGet(ExplicitDescriptor, "ptr") : ExplicitDescriptor
 
         result := DllCall("ntoskrnl.exe\SeAssignSecurityEx", "ptr", ParentDescriptor, "ptr", ExplicitDescriptor, "ptr", NewDescriptor, "ptr", _ObjectType, "char", IsDirectoryObject, "uint", AutoInheritFlags, "ptr", SubjectContext, "ptr", GenericMapping, "int", PoolType, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13247,7 +13314,7 @@ class SystemServices {
      */
     static SeDeassignSecurity(_SecurityDescriptor) {
         result := DllCall("ntoskrnl.exe\SeDeassignSecurity", "ptr", _SecurityDescriptor, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13288,7 +13355,7 @@ class SystemServices {
         DataMarshal := Data is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\SeSetAuditParameter", "ptr", AuditParameters, "int", Type, "uint", Index, DataMarshal, Data, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13302,7 +13369,7 @@ class SystemServices {
      */
     static SeReportSecurityEvent(Flags, SourceName, UserSid, AuditParameters) {
         result := DllCall("ntoskrnl.exe\SeReportSecurityEvent", "uint", Flags, "ptr", SourceName, "ptr", UserSid, "ptr", AuditParameters, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13333,7 +13400,7 @@ class SystemServices {
         CallbackHandleMarshal := CallbackHandle is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\SeRegisterImageVerificationCallback", "int", _ImageType, "int", CallbackType, "ptr", CallbackFunction, CallbackContextMarshal, CallbackContext, "ptr", Token, CallbackHandleMarshal, CallbackHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13365,7 +13432,7 @@ class SystemServices {
         StartContextMarshal := StartContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PsCreateSystemThread", "ptr", ThreadHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "ptr", ProcessHandle, "ptr", ClientId, "ptr", StartRoutine, StartContextMarshal, StartContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13376,7 +13443,7 @@ class SystemServices {
      */
     static PsTerminateSystemThread(ExitStatus) {
         result := DllCall("ntoskrnl.exe\PsTerminateSystemThread", "int", ExitStatus, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13391,7 +13458,7 @@ class SystemServices {
         ApcRoutineMarshal := ApcRoutine is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PsWrapApcWow64Thread", ApcContextMarshal, ApcContext, ApcRoutineMarshal, ApcRoutine, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13434,7 +13501,7 @@ class SystemServices {
         AffinityTokenMarshal := AffinityToken is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PsAllocateAffinityToken", AffinityTokenMarshal, AffinityToken, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13456,7 +13523,7 @@ class SystemServices {
      */
     static PsSetSystemMultipleGroupAffinityThread(GroupAffinities, GroupCount, AffinityToken) {
         result := DllCall("ntoskrnl.exe\PsSetSystemMultipleGroupAffinityThread", "ptr", GroupAffinities, "ushort", GroupCount, "ptr", AffinityToken, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13493,7 +13560,7 @@ class SystemServices {
         DriverObjectExtensionMarshal := DriverObjectExtension is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoAllocateDriverObjectExtension", "ptr", DriverObject, ClientIdentificationAddressMarshal, ClientIdentificationAddress, "uint", DriverObjectExtensionSize, DriverObjectExtensionMarshal, DriverObjectExtension, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13560,7 +13627,7 @@ class SystemServices {
         AttachedDeviceMarshal := AttachedDevice is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoAttachDevice", "ptr", SourceDevice, "ptr", TargetDevice, AttachedDeviceMarshal, AttachedDevice, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13636,7 +13703,7 @@ class SystemServices {
      */
     static IoGetBootDiskInformation(BootDiskInformation, _Size) {
         result := DllCall("ntoskrnl.exe\IoGetBootDiskInformation", "ptr", BootDiskInformation, "uint", _Size, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13649,7 +13716,7 @@ class SystemServices {
         BootDiskInformationMarshal := BootDiskInformation is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoGetBootDiskInformationLite", BootDiskInformationMarshal, BootDiskInformation, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13680,7 +13747,7 @@ class SystemServices {
      */
     static IofCallDriver(DeviceObject, _Irp) {
         result := DllCall("ntoskrnl.exe\IofCallDriver", "ptr", DeviceObject, "ptr", _Irp, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13705,7 +13772,7 @@ class SystemServices {
      */
     static IoCheckShareAccess(DesiredAccess, DesiredShareAccess, FileObject, ShareAccess, Update) {
         result := DllCall("ntoskrnl.exe\IoCheckShareAccess", "uint", DesiredAccess, "uint", DesiredShareAccess, "ptr", FileObject, "ptr", ShareAccess, "char", Update, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13723,7 +13790,7 @@ class SystemServices {
         WritePermissionMarshal := WritePermission is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoCheckShareAccessEx", "uint", DesiredAccess, "uint", DesiredShareAccess, "ptr", FileObject, "ptr", ShareAccess, "char", Update, WritePermissionMarshal, WritePermission, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13739,7 +13806,7 @@ class SystemServices {
      */
     static IoCheckLinkShareAccess(DesiredAccess, DesiredShareAccess, FileObject, ShareAccess, LinkShareAccess, IoShareAccessFlags) {
         result := DllCall("ntoskrnl.exe\IoCheckLinkShareAccess", "uint", DesiredAccess, "uint", DesiredShareAccess, "ptr", FileObject, "ptr", ShareAccess, "ptr", LinkShareAccess, "uint", IoShareAccessFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13774,7 +13841,7 @@ class SystemServices {
         SpinLockMarshal := SpinLock is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoConnectInterrupt", InterruptObjectMarshal, InterruptObject, "ptr", ServiceRoutine, ServiceContextMarshal, ServiceContext, SpinLockMarshal, SpinLock, "uint", Vector, "char", Irql, "char", SynchronizeIrql, "int", InterruptMode, "char", ShareVector, "ptr", ProcessorEnableMask, "char", FloatingSave, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13785,7 +13852,7 @@ class SystemServices {
      */
     static IoConnectInterruptEx(Parameters) {
         result := DllCall("ntoskrnl.exe\IoConnectInterruptEx", "ptr", Parameters, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13804,7 +13871,7 @@ class SystemServices {
         DeviceObjectMarshal := DeviceObject is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoCreateDevice", "ptr", DriverObject, "uint", DeviceExtensionSize, "ptr", DeviceName, "uint", DeviceType, "uint", DeviceCharacteristics, "char", Exclusive, DeviceObjectMarshal, DeviceObject, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13843,7 +13910,7 @@ class SystemServices {
         InternalParametersMarshal := InternalParameters is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoCreateFile", "ptr", FileHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "ptr", IoStatusBlock, AllocationSizeMarshal, AllocationSize, "uint", FileAttributes, "uint", ShareAccess, "uint", Disposition, "uint", CreateOptions, EaBufferMarshal, EaBuffer, "uint", EaLength, "int", CreateFileType, InternalParametersMarshal, InternalParameters, "uint", Options, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13866,7 +13933,7 @@ class SystemServices {
      */
     static IoCreateSymbolicLink(SymbolicLinkName, DeviceName) {
         result := DllCall("ntoskrnl.exe\IoCreateSymbolicLink", "ptr", SymbolicLinkName, "ptr", DeviceName, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13889,7 +13956,7 @@ class SystemServices {
      */
     static IoCreateUnprotectedSymbolicLink(SymbolicLinkName, DeviceName) {
         result := DllCall("ntoskrnl.exe\IoCreateUnprotectedSymbolicLink", "ptr", SymbolicLinkName, "ptr", DeviceName, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13909,7 +13976,7 @@ class SystemServices {
      */
     static IoDeleteSymbolicLink(SymbolicLinkName) {
         result := DllCall("ntoskrnl.exe\IoDeleteSymbolicLink", "ptr", SymbolicLinkName, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -13966,7 +14033,7 @@ class SystemServices {
      */
     static IoGetAffinityInterrupt(InterruptObject, GroupAffinity) {
         result := DllCall("ntoskrnl.exe\IoGetAffinityInterrupt", "ptr", InterruptObject, "ptr", GroupAffinity, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14033,7 +14100,7 @@ class SystemServices {
         DeviceObjectMarshal := DeviceObject is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoGetDeviceObjectPointer", "ptr", ObjectName, "uint", DesiredAccess, FileObjectMarshal, FileObject, DeviceObjectMarshal, DeviceObject, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14059,7 +14126,7 @@ class SystemServices {
      */
     static IoGetIommuInterface(_Version, InterfaceOut) {
         result := DllCall("ntoskrnl.exe\IoGetIommuInterface", "uint", _Version, "ptr", InterfaceOut, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14072,7 +14139,7 @@ class SystemServices {
      */
     static IoGetIommuInterfaceEx(_Version, Flags, InterfaceOut) {
         result := DllCall("ntoskrnl.exe\IoGetIommuInterfaceEx", "uint", _Version, "uint", Flags, "ptr", InterfaceOut, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14095,7 +14162,7 @@ class SystemServices {
      */
     static IoSynchronousCallDriver(DeviceObject, _Irp) {
         result := DllCall("ntoskrnl.exe\IoSynchronousCallDriver", "ptr", DeviceObject, "ptr", _Irp, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14194,7 +14261,7 @@ class SystemServices {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoInitializeTimer", "ptr", DeviceObject, "ptr", TimerRoutine, _ContextMarshal, _Context, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14215,7 +14282,7 @@ class SystemServices {
      */
     static IoRegisterShutdownNotification(DeviceObject) {
         result := DllCall("ntoskrnl.exe\IoRegisterShutdownNotification", "ptr", DeviceObject, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14226,7 +14293,7 @@ class SystemServices {
      */
     static IoRegisterLastChanceShutdownNotification(DeviceObject) {
         result := DllCall("ntoskrnl.exe\IoRegisterLastChanceShutdownNotification", "ptr", DeviceObject, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14287,7 +14354,7 @@ class SystemServices {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoSetCompletionRoutineEx", "ptr", DeviceObject, "ptr", _Irp, "ptr", CompletionRoutine, _ContextMarshal, _Context, "char", InvokeOnSuccess, "char", InvokeOnError, "char", InvokeOnCancel, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14369,7 +14436,7 @@ class SystemServices {
         TagMarshal := Tag is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoAcquireRemoveLockEx", "ptr", RemoveLock, TagMarshal, Tag, "ptr", _File, "uint", Line, "uint", RemlockSize, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14546,7 +14613,7 @@ class SystemServices {
         StartContextMarshal := StartContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoCreateSystemThread", IoObjectMarshal, IoObject, "ptr", ThreadHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "ptr", ProcessHandle, "ptr", ClientId, "ptr", StartRoutine, StartContextMarshal, StartContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14650,7 +14717,7 @@ class SystemServices {
      */
     static IoWMIRegistrationControl(DeviceObject, Action) {
         result := DllCall("ntoskrnl.exe\IoWMIRegistrationControl", "ptr", DeviceObject, "uint", Action, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14665,7 +14732,7 @@ class SystemServices {
         FirstInstanceIdMarshal := FirstInstanceId is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoWMIAllocateInstanceIds", "ptr", Guid, "uint", InstanceCount, FirstInstanceIdMarshal, FirstInstanceId, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14679,7 +14746,7 @@ class SystemServices {
      */
     static IoWMISuggestInstanceName(PhysicalDeviceObject, SymbolicLinkName, CombineNames, SuggestedInstanceName) {
         result := DllCall("ntoskrnl.exe\IoWMISuggestInstanceName", "ptr", PhysicalDeviceObject, "ptr", SymbolicLinkName, "char", CombineNames, "ptr", SuggestedInstanceName, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14692,7 +14759,7 @@ class SystemServices {
         WnodeEventItemMarshal := WnodeEventItem is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoWMIWriteEvent", WnodeEventItemMarshal, WnodeEventItem, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14707,7 +14774,7 @@ class SystemServices {
         DataBlockObjectMarshal := DataBlockObject is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoWMIOpenBlock", "ptr", Guid, "uint", DesiredAccess, DataBlockObjectMarshal, DataBlockObject, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14723,7 +14790,7 @@ class SystemServices {
         InOutBufferSizeMarshal := InOutBufferSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoWMIQueryAllData", DataBlockObjectMarshal, DataBlockObject, InOutBufferSizeMarshal, InOutBufferSize, "ptr", OutBuffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14740,7 +14807,7 @@ class SystemServices {
         InOutBufferSizeMarshal := InOutBufferSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoWMIQueryAllDataMultiple", DataBlockObjectListMarshal, DataBlockObjectList, "uint", ObjectCount, InOutBufferSizeMarshal, InOutBufferSize, "ptr", OutBuffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14757,7 +14824,7 @@ class SystemServices {
         InOutBufferSizeMarshal := InOutBufferSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoWMIQuerySingleInstance", DataBlockObjectMarshal, DataBlockObject, "ptr", InstanceName, InOutBufferSizeMarshal, InOutBufferSize, "ptr", OutBuffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14775,7 +14842,7 @@ class SystemServices {
         InOutBufferSizeMarshal := InOutBufferSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoWMIQuerySingleInstanceMultiple", DataBlockObjectListMarshal, DataBlockObjectList, "ptr", InstanceNames, "uint", ObjectCount, InOutBufferSizeMarshal, InOutBufferSize, "ptr", OutBuffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14792,7 +14859,7 @@ class SystemServices {
         DataBlockObjectMarshal := DataBlockObject is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoWMISetSingleInstance", DataBlockObjectMarshal, DataBlockObject, "ptr", InstanceName, "uint", _Version, "uint", ValueBufferSize, "ptr", ValueBuffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14810,7 +14877,7 @@ class SystemServices {
         DataBlockObjectMarshal := DataBlockObject is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoWMISetSingleItem", DataBlockObjectMarshal, DataBlockObject, "ptr", InstanceName, "uint", DataItemId, "uint", _Version, "uint", ValueBufferSize, "ptr", ValueBuffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14829,7 +14896,7 @@ class SystemServices {
         OutBufferSizeMarshal := OutBufferSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoWMIExecuteMethod", DataBlockObjectMarshal, DataBlockObject, "ptr", InstanceName, "uint", MethodId, "uint", InBufferSize, OutBufferSizeMarshal, OutBufferSize, "ptr", InOutBuffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14845,7 +14912,7 @@ class SystemServices {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoWMISetNotificationCallback", _ObjectMarshal, _Object, "ptr", Callback, _ContextMarshal, _Context, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14862,7 +14929,7 @@ class SystemServices {
         DataBlockObjectMarshal := DataBlockObject is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoWMIHandleToInstanceName", DataBlockObjectMarshal, DataBlockObject, "ptr", FileHandle, "ptr", InstanceName, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14877,7 +14944,7 @@ class SystemServices {
         DataBlockObjectMarshal := DataBlockObject is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoWMIDeviceObjectToInstanceName", DataBlockObjectMarshal, DataBlockObject, "ptr", DeviceObject, "ptr", InstanceName, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14925,7 +14992,7 @@ class SystemServices {
      */
     static IoCsqInitialize(Csq, CsqInsertIrp, CsqRemoveIrp, CsqPeekNextIrp, CsqAcquireLock, CsqReleaseLock, CsqCompleteCanceledIrp) {
         result := DllCall("ntoskrnl.exe\IoCsqInitialize", "ptr", Csq, "ptr", CsqInsertIrp, "ptr", CsqRemoveIrp, "ptr", CsqPeekNextIrp, "ptr", CsqAcquireLock, "ptr", CsqReleaseLock, "ptr", CsqCompleteCanceledIrp, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14942,7 +15009,7 @@ class SystemServices {
      */
     static IoCsqInitializeEx(Csq, CsqInsertIrp, CsqRemoveIrp, CsqPeekNextIrp, CsqAcquireLock, CsqReleaseLock, CsqCompleteCanceledIrp) {
         result := DllCall("ntoskrnl.exe\IoCsqInitializeEx", "ptr", Csq, "ptr", CsqInsertIrp, "ptr", CsqRemoveIrp, "ptr", CsqPeekNextIrp, "ptr", CsqAcquireLock, "ptr", CsqReleaseLock, "ptr", CsqCompleteCanceledIrp, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -14969,7 +15036,7 @@ class SystemServices {
         InsertContextMarshal := InsertContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoCsqInsertIrpEx", "ptr", Csq, "ptr", _Irp, "ptr", _Context, InsertContextMarshal, InsertContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15005,7 +15072,7 @@ class SystemServices {
      */
     static IoValidateDeviceIoControlAccess(_Irp, RequiredAccess) {
         result := DllCall("ntoskrnl.exe\IoValidateDeviceIoControlAccess", "ptr", _Irp, "uint", RequiredAccess, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15027,7 +15094,7 @@ class SystemServices {
      */
     static IoSetIoPriorityHint(_Irp, PriorityHint) {
         result := DllCall("ntoskrnl.exe\IoSetIoPriorityHint", "ptr", _Irp, "int", PriorityHint, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15044,7 +15111,7 @@ class SystemServices {
         StreamIdentifierMarshal := StreamIdentifier is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoAllocateSfioStreamIdentifier", "ptr", FileObject, "uint", Length, SignatureMarshal, Signature, StreamIdentifierMarshal, StreamIdentifier, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15071,7 +15138,7 @@ class SystemServices {
         SignatureMarshal := Signature is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoFreeSfioStreamIdentifier", "ptr", FileObject, SignatureMarshal, Signature, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15085,7 +15152,7 @@ class SystemServices {
         IoAttributionHandleMarshal := IoAttributionHandle is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoGetIoAttributionHandle", "ptr", _Irp, IoAttributionHandleMarshal, IoAttributionHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15099,7 +15166,7 @@ class SystemServices {
         OpaqueHandleMarshal := OpaqueHandle is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoRecordIoAttribution", OpaqueHandleMarshal, OpaqueHandle, "ptr", AttributionInformation, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15114,7 +15181,7 @@ class SystemServices {
         AttributionSourceMarshal := AttributionSource is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoSetIoAttributionIrp", "ptr", _Irp, AttributionSourceMarshal, AttributionSource, "uint", Flags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15130,7 +15197,7 @@ class SystemServices {
         ContainerObjectMarshal := ContainerObject is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoGetContainerInformation", "int", InformationClass, ContainerObjectMarshal, ContainerObject, "ptr", _Buffer, "uint", BufferLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15147,7 +15214,7 @@ class SystemServices {
         CallbackRegistrationMarshal := CallbackRegistration is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoRegisterContainerNotification", "int", NotificationClass, "ptr", CallbackFunction, "ptr", NotificationInformation, "uint", NotificationInformationLength, CallbackRegistrationMarshal, CallbackRegistration, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15175,7 +15242,7 @@ class SystemServices {
         DataHandleMarshal := DataHandle is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoReserveKsrPersistentMemory", "ptr", DriverObject, "ptr", PhysicalDeviceObject, "ptr", _Size, "uint", Flags, DataHandleMarshal, DataHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15188,7 +15255,7 @@ class SystemServices {
         DataHandleMarshal := DataHandle is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoFreeKsrPersistentMemory", DataHandleMarshal, DataHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15203,7 +15270,7 @@ class SystemServices {
         BufferSizeMarshal := BufferSize is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoQueryKsrPersistentMemorySize", "ptr", DriverObject, "ptr", PhysicalDeviceObject, BufferSizeMarshal, BufferSize, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15219,7 +15286,7 @@ class SystemServices {
         _SizeMarshal := _Size is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoAcquireKsrPersistentMemory", "ptr", DriverObject, "ptr", PhysicalDeviceObject, "ptr", _Buffer, _SizeMarshal, _Size, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15234,7 +15301,7 @@ class SystemServices {
         DataHandleMarshal := DataHandle is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoWriteKsrPersistentMemory", DataHandleMarshal, DataHandle, "ptr", _Buffer, "ptr", _Size, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15251,7 +15318,7 @@ class SystemServices {
         CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoEnumerateKsrPersistentMemoryEx", "ptr", DriverObject, "ptr", PhysicalDeviceObject, "ptr", PhysicalDeviceId, "ptr", Callback, CallbackContextMarshal, CallbackContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15272,7 +15339,7 @@ class SystemServices {
         DataHandleMarshal := DataHandle is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoReserveKsrPersistentMemoryEx", "ptr", DriverObject, "ptr", PhysicalDeviceObject, "ptr", PhysicalDeviceId, DataTagMarshal, DataTag, "uint", DataVersion, "ptr", _Size, "uint", Flags, DataHandleMarshal, DataHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15292,7 +15359,7 @@ class SystemServices {
         BufferSizeMarshal := BufferSize is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoQueryKsrPersistentMemorySizeEx", "ptr", DriverObject, "ptr", PhysicalDeviceObject, "ptr", PhysicalDeviceId, DataTagMarshal, DataTag, DataVersionMarshal, DataVersion, BufferSizeMarshal, BufferSize, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15313,7 +15380,7 @@ class SystemServices {
         _SizeMarshal := _Size is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoAcquireKsrPersistentMemoryEx", "ptr", DriverObject, "ptr", PhysicalDeviceObject, "ptr", PhysicalDeviceId, DataTagMarshal, DataTag, DataVersionMarshal, DataVersion, "ptr", _Buffer, _SizeMarshal, _Size, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15331,7 +15398,7 @@ class SystemServices {
         _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\WmiQueryTraceInformation", "int", TraceInformationClass, "ptr", TraceInformation, "uint", TraceInformationLength, RequiredLengthMarshal, RequiredLength, _BufferMarshal, _Buffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15347,7 +15414,7 @@ class SystemServices {
         CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\EtwRegister", "ptr", ProviderId, "ptr", EnableCallback, CallbackContextMarshal, CallbackContext, "ptr", _RegHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15360,7 +15427,7 @@ class SystemServices {
         _RegHandle := _RegHandle is Win32Handle ? NumGet(_RegHandle, "ptr") : _RegHandle
 
         result := DllCall("ntoskrnl.exe\EtwUnregister", "ptr", _RegHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15376,7 +15443,7 @@ class SystemServices {
         _RegHandle := _RegHandle is Win32Handle ? NumGet(_RegHandle, "ptr") : _RegHandle
 
         result := DllCall("ntoskrnl.exe\EtwSetInformation", "ptr", _RegHandle, "int", InformationClass, "ptr", EventInformation, "uint", InformationLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15415,7 +15482,7 @@ class SystemServices {
      */
     static EtwActivityIdControl(ControlCode, ActivityId) {
         result := DllCall("ntoskrnl.exe\EtwActivityIdControl", "uint", ControlCode, "ptr", ActivityId, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15432,7 +15499,7 @@ class SystemServices {
         _RegHandle := _RegHandle is Win32Handle ? NumGet(_RegHandle, "ptr") : _RegHandle
 
         result := DllCall("ntoskrnl.exe\EtwWrite", "ptr", _RegHandle, "ptr", EventDescriptor, "ptr", ActivityId, "uint", UserDataCount, "ptr", _UserData, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15450,7 +15517,7 @@ class SystemServices {
         _RegHandle := _RegHandle is Win32Handle ? NumGet(_RegHandle, "ptr") : _RegHandle
 
         result := DllCall("ntoskrnl.exe\EtwWriteTransfer", "ptr", _RegHandle, "ptr", EventDescriptor, "ptr", ActivityId, "ptr", RelatedActivityId, "uint", UserDataCount, "ptr", _UserData, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15468,7 +15535,7 @@ class SystemServices {
         _String := _String is String ? StrPtr(_String) : _String
 
         result := DllCall("ntoskrnl.exe\EtwWriteString", "ptr", _RegHandle, "char", Level, "uint", Keyword, "ptr", ActivityId, "ptr", _String, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15488,7 +15555,7 @@ class SystemServices {
         _RegHandle := _RegHandle is Win32Handle ? NumGet(_RegHandle, "ptr") : _RegHandle
 
         result := DllCall("ntoskrnl.exe\EtwWriteEx", "ptr", _RegHandle, "ptr", EventDescriptor, "uint", Filter, "uint", Flags, "ptr", ActivityId, "ptr", RelatedActivityId, "uint", UserDataCount, "ptr", _UserData, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15500,7 +15567,7 @@ class SystemServices {
      */
     static SeEtwWriteKMCveEvent(CveId, AdditionalDetails) {
         result := DllCall("ntoskrnl.exe\SeEtwWriteKMCveEvent", "ptr", CveId, "ptr", AdditionalDetails, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15535,7 +15602,7 @@ class SystemServices {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoRequestDeviceEjectEx", "ptr", PhysicalDeviceObject, "ptr", Callback, _ContextMarshal, _Context, "ptr", DriverObject, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15552,7 +15619,7 @@ class SystemServices {
         ResultLengthMarshal := ResultLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoGetDeviceProperty", "ptr", DeviceObject, "int", DeviceProperty, "uint", BufferLength, "ptr", PropertyBuffer, ResultLengthMarshal, ResultLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15566,7 +15633,7 @@ class SystemServices {
      */
     static IoOpenDeviceRegistryKey(DeviceObject, DevInstKeyType, DesiredAccess, DeviceRegKey) {
         result := DllCall("ntoskrnl.exe\IoOpenDeviceRegistryKey", "ptr", DeviceObject, "uint", DevInstKeyType, "uint", DesiredAccess, "ptr", DeviceRegKey, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15580,7 +15647,7 @@ class SystemServices {
      */
     static IoRegisterDeviceInterface(PhysicalDeviceObject, InterfaceClassGuid, ReferenceString, SymbolicLinkName) {
         result := DllCall("ntoskrnl.exe\IoRegisterDeviceInterface", "ptr", PhysicalDeviceObject, "ptr", InterfaceClassGuid, "ptr", ReferenceString, "ptr", SymbolicLinkName, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15593,7 +15660,7 @@ class SystemServices {
      */
     static IoOpenDeviceInterfaceRegistryKey(SymbolicLinkName, DesiredAccess, DeviceInterfaceRegKey) {
         result := DllCall("ntoskrnl.exe\IoOpenDeviceInterfaceRegistryKey", "ptr", SymbolicLinkName, "uint", DesiredAccess, "ptr", DeviceInterfaceRegKey, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15605,7 +15672,7 @@ class SystemServices {
      */
     static IoSetDeviceInterfaceState(SymbolicLinkName, Enable) {
         result := DllCall("ntoskrnl.exe\IoSetDeviceInterfaceState", "ptr", SymbolicLinkName, "char", Enable, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15621,7 +15688,7 @@ class SystemServices {
         SymbolicLinkListMarshal := SymbolicLinkList is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoGetDeviceInterfaces", "ptr", InterfaceClassGuid, "ptr", PhysicalDeviceObject, "uint", Flags, SymbolicLinkListMarshal, SymbolicLinkList, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15634,7 +15701,7 @@ class SystemServices {
      */
     static IoGetDeviceInterfaceAlias(SymbolicLinkName, AliasInterfaceClassGuid, AliasSymbolicLinkName) {
         result := DllCall("ntoskrnl.exe\IoGetDeviceInterfaceAlias", "ptr", SymbolicLinkName, "ptr", AliasInterfaceClassGuid, "ptr", AliasSymbolicLinkName, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15655,7 +15722,7 @@ class SystemServices {
         NotificationEntryMarshal := NotificationEntry is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoRegisterPlugPlayNotification", "int", EventCategory, "uint", EventCategoryFlags, EventCategoryDataMarshal, EventCategoryData, "ptr", DriverObject, "ptr", CallbackRoutine, _ContextMarshal, _Context, NotificationEntryMarshal, NotificationEntry, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15668,7 +15735,7 @@ class SystemServices {
         NotificationEntryMarshal := NotificationEntry is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoUnregisterPlugPlayNotification", NotificationEntryMarshal, NotificationEntry, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15681,7 +15748,7 @@ class SystemServices {
         NotificationEntryMarshal := NotificationEntry is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoUnregisterPlugPlayNotificationEx", NotificationEntryMarshal, NotificationEntry, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15695,7 +15762,7 @@ class SystemServices {
         NotificationStructureMarshal := NotificationStructure is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoReportTargetDeviceChange", "ptr", PhysicalDeviceObject, NotificationStructureMarshal, NotificationStructure, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15721,7 +15788,7 @@ class SystemServices {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoReportTargetDeviceChangeAsynchronous", "ptr", PhysicalDeviceObject, NotificationStructureMarshal, NotificationStructure, "ptr", Callback, _ContextMarshal, _Context, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15735,7 +15802,7 @@ class SystemServices {
      */
     static IoGetDriverDirectory(DriverObject, DirectoryType, Flags, DriverDirectoryHandle) {
         result := DllCall("ntoskrnl.exe\IoGetDriverDirectory", "ptr", DriverObject, "int", DirectoryType, "uint", Flags, "ptr", DriverDirectoryHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15752,7 +15819,7 @@ class SystemServices {
         ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoGetDeviceDirectory", "ptr", PhysicalDeviceObject, "int", DirectoryType, "uint", Flags, ReservedMarshal, Reserved, "ptr", DeviceDirectoryHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15767,7 +15834,7 @@ class SystemServices {
      */
     static IoOpenDriverRegistryKey(DriverObject, RegKeyType, DesiredAccess, Flags, DriverRegKey) {
         result := DllCall("ntoskrnl.exe\IoOpenDriverRegistryKey", "ptr", DriverObject, "int", RegKeyType, "uint", DesiredAccess, "uint", Flags, "ptr", DriverRegKey, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15784,7 +15851,7 @@ class SystemServices {
      */
     static IoSetDevicePropertyData(Pdo, _PropertyKey, Lcid, Flags, Type, _Size, Data) {
         result := DllCall("ntoskrnl.exe\IoSetDevicePropertyData", "ptr", Pdo, "ptr", _PropertyKey, "uint", Lcid, "uint", Flags, "uint", Type, "uint", _Size, "ptr", Data, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15806,7 +15873,7 @@ class SystemServices {
         TypeMarshal := Type is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoGetDevicePropertyData", "ptr", Pdo, "ptr", _PropertyKey, "uint", Lcid, "uint", Flags, "uint", _Size, "ptr", Data, RequiredSizeMarshal, RequiredSize, TypeMarshal, Type, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15823,7 +15890,7 @@ class SystemServices {
      */
     static IoSetDeviceInterfacePropertyData(SymbolicLinkName, _PropertyKey, Lcid, Flags, Type, _Size, Data) {
         result := DllCall("ntoskrnl.exe\IoSetDeviceInterfacePropertyData", "ptr", SymbolicLinkName, "ptr", _PropertyKey, "uint", Lcid, "uint", Flags, "uint", Type, "uint", _Size, "ptr", Data, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15845,7 +15912,7 @@ class SystemServices {
         TypeMarshal := Type is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoGetDeviceInterfacePropertyData", "ptr", SymbolicLinkName, "ptr", _PropertyKey, "uint", Lcid, "uint", Flags, "uint", _Size, "ptr", Data, RequiredSizeMarshal, RequiredSize, TypeMarshal, Type, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15859,7 +15926,7 @@ class SystemServices {
         NodeNumberMarshal := NodeNumber is VarRef ? "ushort*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoGetDeviceNumaNode", "ptr", Pdo, NodeNumberMarshal, NodeNumber, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15872,7 +15939,7 @@ class SystemServices {
      */
     static IoReplacePartitionUnit(TargetPdo, SparePdo, Flags) {
         result := DllCall("ntoskrnl.exe\IoReplacePartitionUnit", "ptr", TargetPdo, "ptr", SparePdo, "uint", Flags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15954,7 +16021,7 @@ class SystemServices {
         PowerRequestMarshal := PowerRequest is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PoCreatePowerRequest", PowerRequestMarshal, PowerRequest, "ptr", DeviceObject, "ptr", _Context, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15968,7 +16035,7 @@ class SystemServices {
         PowerRequestMarshal := PowerRequest is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PoSetPowerRequest", PowerRequestMarshal, PowerRequest, "int", Type, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -15982,7 +16049,7 @@ class SystemServices {
         PowerRequestMarshal := PowerRequest is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PoClearPowerRequest", PowerRequestMarshal, PowerRequest, "int", Type, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16012,7 +16079,7 @@ class SystemServices {
         _IrpMarshal := _Irp is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PoRequestPowerIrp", "ptr", DeviceObject, "char", MinorFunction, "ptr", PowerState, "ptr", CompletionFunction, _ContextMarshal, _Context, _IrpMarshal, _Irp, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16075,7 +16142,7 @@ class SystemServices {
      */
     static PoCallDriver(DeviceObject, _Irp) {
         result := DllCall("ntoskrnl.exe\PoCallDriver", "ptr", DeviceObject, "ptr", _Irp, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16161,7 +16228,7 @@ class SystemServices {
         _HandleMarshal := _Handle is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PoRegisterPowerSettingCallback", "ptr", DeviceObject, "ptr", SettingGuid, "ptr", Callback, _ContextMarshal, _Context, _HandleMarshal, _Handle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16174,7 +16241,7 @@ class SystemServices {
         _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PoUnregisterPowerSettingCallback", _HandleMarshal, _Handle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16189,7 +16256,7 @@ class SystemServices {
         _HandleMarshal := _Handle is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PoFxRegisterDevice", "ptr", Pdo, "ptr", Device, _HandleMarshal, _Handle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16218,7 +16285,7 @@ class SystemServices {
      */
     static PoFxRegisterCrashdumpDevice(_Handle) {
         result := DllCall("ntoskrnl.exe\PoFxRegisterCrashdumpDevice", "ptr", _Handle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16232,7 +16299,7 @@ class SystemServices {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PoFxPowerOnCrashdumpDevice", "ptr", _Handle, _ContextMarshal, _Context, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16356,7 +16423,7 @@ class SystemServices {
         BytesReturnedMarshal := BytesReturned is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PoFxPowerControl", "ptr", _Handle, "ptr", PowerControlCode, InBufferMarshal, InBuffer, "ptr", InBufferSize, OutBufferMarshal, OutBuffer, "ptr", OutBufferSize, BytesReturnedMarshal, BytesReturned, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16383,7 +16450,7 @@ class SystemServices {
         OutputStateInfoMarshal := OutputStateInfo is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PoFxRegisterComponentPerfStates", "ptr", _Handle, "uint", _Component, "uint", Flags, "ptr", ComponentPerfStateCallback, "ptr", InputStateInfo, OutputStateInfoMarshal, OutputStateInfo, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16431,7 +16498,7 @@ class SystemServices {
         CurrentPerfMarshal := CurrentPerf is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PoFxQueryCurrentComponentPerfState", "ptr", _Handle, "uint", Flags, "uint", _Component, "uint", SetIndex, CurrentPerfMarshal, CurrentPerf, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16443,7 +16510,7 @@ class SystemServices {
      */
     static PoFxSetTargetDripsDevicePowerState(_Handle, TargetState) {
         result := DllCall("ntoskrnl.exe\PoFxSetTargetDripsDevicePowerState", "ptr", _Handle, "int", TargetState, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16469,7 +16536,7 @@ class SystemServices {
         ThermalRequestMarshal := ThermalRequest is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PoCreateThermalRequest", ThermalRequestMarshal, ThermalRequest, "ptr", TargetDeviceObject, "ptr", PolicyDeviceObject, "ptr", _Context, "uint", Flags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16496,7 +16563,7 @@ class SystemServices {
         ThermalRequestMarshal := ThermalRequest is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PoSetThermalPassiveCooling", ThermalRequestMarshal, ThermalRequest, "char", Throttle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16510,7 +16577,7 @@ class SystemServices {
         ThermalRequestMarshal := ThermalRequest is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PoSetThermalActiveCooling", ThermalRequestMarshal, ThermalRequest, "char", Engaged, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16553,7 +16620,7 @@ class SystemServices {
         _ObjectMarshal := _Object is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\ObReferenceObjectByHandle", "ptr", _Handle, "uint", DesiredAccess, "ptr", _ObjectType, "char", AccessMode, _ObjectMarshal, _Object, "ptr", HandleInformation, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16574,7 +16641,7 @@ class SystemServices {
         _ObjectMarshal := _Object is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\ObReferenceObjectByHandleWithTag", "ptr", _Handle, "uint", DesiredAccess, "ptr", _ObjectType, "char", AccessMode, "uint", Tag, _ObjectMarshal, _Object, "ptr", HandleInformation, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16613,7 +16680,7 @@ class SystemServices {
         _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
         result := DllCall("ntoskrnl.exe\ObCloseHandle", "ptr", _Handle, "char", PreviousMode, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16654,7 +16721,7 @@ class SystemServices {
         _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\ObReferenceObjectByPointer", _ObjectMarshal, _Object, "uint", DesiredAccess, "ptr", _ObjectType, "char", AccessMode, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16671,7 +16738,7 @@ class SystemServices {
         _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\ObReferenceObjectByPointerWithTag", _ObjectMarshal, _Object, "uint", DesiredAccess, "ptr", _ObjectType, "char", AccessMode, "uint", Tag, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16735,7 +16802,7 @@ class SystemServices {
         MemoryAllocatedMarshal := MemoryAllocated is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\ObGetObjectSecurity", _ObjectMarshal, _Object, "ptr", _SecurityDescriptor, MemoryAllocatedMarshal, MemoryAllocated, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16761,7 +16828,7 @@ class SystemServices {
         RegistrationHandleMarshal := RegistrationHandle is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\ObRegisterCallbacks", "ptr", CallbackRegistration, RegistrationHandleMarshal, RegistrationHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16804,7 +16871,7 @@ class SystemServices {
         AllocationSizeMarshal := AllocationSize is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwCreateFile", "ptr", FileHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "ptr", IoStatusBlock, AllocationSizeMarshal, AllocationSize, "uint", FileAttributes, "uint", ShareAccess, "uint", CreateDisposition, "uint", CreateOptions, "ptr", EaBuffer, "uint", EaLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16820,7 +16887,7 @@ class SystemServices {
      */
     static ZwOpenFile(FileHandle, DesiredAccess, ObjectAttributes, IoStatusBlock, ShareAccess, OpenOptions) {
         result := DllCall("ntdll.dll\ZwOpenFile", "ptr", FileHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "ptr", IoStatusBlock, "uint", ShareAccess, "uint", OpenOptions, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16831,7 +16898,7 @@ class SystemServices {
      */
     static ZwLoadDriver(DriverServiceName) {
         result := DllCall("ntdll.dll\ZwLoadDriver", "ptr", DriverServiceName, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16842,7 +16909,7 @@ class SystemServices {
      */
     static ZwUnloadDriver(DriverServiceName) {
         result := DllCall("ntdll.dll\ZwUnloadDriver", "ptr", DriverServiceName, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16859,7 +16926,7 @@ class SystemServices {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("ntdll.dll\ZwQueryInformationFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", FileInformation, "uint", Length, "int", FileInformationClass, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16876,7 +16943,7 @@ class SystemServices {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         result := DllCall("ntdll.dll\ZwSetInformationFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", FileInformation, "uint", Length, "int", FileInformationClass, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16902,7 +16969,7 @@ class SystemServices {
         KeyMarshal := Key is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwReadFile", "ptr", FileHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", IoStatusBlock, "ptr", _Buffer, "uint", Length, ByteOffsetMarshal, ByteOffset, KeyMarshal, Key, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16928,7 +16995,7 @@ class SystemServices {
         KeyMarshal := Key is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwWriteFile", "ptr", FileHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", IoStatusBlock, "ptr", _Buffer, "uint", Length, ByteOffsetMarshal, ByteOffset, KeyMarshal, Key, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16941,7 +17008,7 @@ class SystemServices {
         _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
         result := DllCall("ntdll.dll\ZwClose", "ptr", _Handle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16954,7 +17021,7 @@ class SystemServices {
         _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
         result := DllCall("ntdll.dll\ZwMakeTemporaryObject", "ptr", _Handle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16975,7 +17042,7 @@ class SystemServices {
         MaximumSizeMarshal := MaximumSize is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwCreateSection", "ptr", SectionHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, MaximumSizeMarshal, MaximumSize, "uint", SectionPageProtection, "uint", AllocationAttributes, "ptr", FileHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16988,7 +17055,7 @@ class SystemServices {
      */
     static ZwOpenSymbolicLinkObject(LinkHandle, DesiredAccess, ObjectAttributes) {
         result := DllCall("ntdll.dll\ZwOpenSymbolicLinkObject", "ptr", LinkHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17005,7 +17072,7 @@ class SystemServices {
         ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwQuerySymbolicLinkObject", "ptr", LinkHandle, "ptr", LinkTarget, ReturnedLengthMarshal, ReturnedLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17021,7 +17088,7 @@ class SystemServices {
      */
     static ZwCreateTransactionManager(TmHandle, DesiredAccess, ObjectAttributes, LogFileName, CreateOptions, CommitStrength) {
         result := DllCall("ntdll.dll\ZwCreateTransactionManager", "ptr", TmHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "ptr", LogFileName, "uint", CreateOptions, "uint", CommitStrength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17037,7 +17104,7 @@ class SystemServices {
      */
     static ZwOpenTransactionManager(TmHandle, DesiredAccess, ObjectAttributes, LogFileName, TmIdentity, OpenOptions) {
         result := DllCall("ntdll.dll\ZwOpenTransactionManager", "ptr", TmHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "ptr", LogFileName, "ptr", TmIdentity, "uint", OpenOptions, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17053,7 +17120,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwRollforwardTransactionManager", "ptr", TransactionManagerHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17066,7 +17133,7 @@ class SystemServices {
         TransactionManagerHandle := TransactionManagerHandle is Win32Handle ? NumGet(TransactionManagerHandle, "ptr") : TransactionManagerHandle
 
         result := DllCall("ntdll.dll\ZwRecoverTransactionManager", "ptr", TransactionManagerHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17085,7 +17152,7 @@ class SystemServices {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwQueryInformationTransactionManager", "ptr", TransactionManagerHandle, "int", TransactionManagerInformationClass, "ptr", TransactionManagerInformation, "uint", TransactionManagerInformationLength, ReturnLengthMarshal, ReturnLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17103,7 +17170,7 @@ class SystemServices {
         TransactionManagerInformationMarshal := TransactionManagerInformation is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\ZwSetInformationTransactionManager", "ptr", TmHandle, "int", TransactionManagerInformationClass, TransactionManagerInformationMarshal, TransactionManagerInformation, "uint", TransactionManagerInformationLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17122,7 +17189,7 @@ class SystemServices {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwEnumerateTransactionObject", "ptr", RootObjectHandle, "int", QueryType, "ptr", ObjectCursor, "uint", ObjectCursorLength, ReturnLengthMarshal, ReturnLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17146,7 +17213,7 @@ class SystemServices {
         TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwCreateTransaction", "ptr", TransactionHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "ptr", Uow, "ptr", TmHandle, "uint", CreateOptions, "uint", _IsolationLevel, "uint", IsolationFlags, TimeoutMarshal, Timeout, "ptr", Description, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17163,7 +17230,7 @@ class SystemServices {
         TmHandle := TmHandle is Win32Handle ? NumGet(TmHandle, "ptr") : TmHandle
 
         result := DllCall("ntdll.dll\ZwOpenTransaction", "ptr", TransactionHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "ptr", Uow, "ptr", TmHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17182,7 +17249,7 @@ class SystemServices {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwQueryInformationTransaction", "ptr", TransactionHandle, "int", TransactionInformationClass, "ptr", TransactionInformation, "uint", TransactionInformationLength, ReturnLengthMarshal, ReturnLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17200,7 +17267,7 @@ class SystemServices {
         TransactionInformationMarshal := TransactionInformation is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\ZwSetInformationTransaction", "ptr", TransactionHandle, "int", TransactionInformationClass, TransactionInformationMarshal, TransactionInformation, "uint", TransactionInformationLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17214,7 +17281,7 @@ class SystemServices {
         TransactionHandle := TransactionHandle is Win32Handle ? NumGet(TransactionHandle, "ptr") : TransactionHandle
 
         result := DllCall("ntdll.dll\ZwCommitTransaction", "ptr", TransactionHandle, "char", Wait, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17228,7 +17295,7 @@ class SystemServices {
         TransactionHandle := TransactionHandle is Win32Handle ? NumGet(TransactionHandle, "ptr") : TransactionHandle
 
         result := DllCall("ntdll.dll\ZwRollbackTransaction", "ptr", TransactionHandle, "char", Wait, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17247,7 +17314,7 @@ class SystemServices {
         TmHandle := TmHandle is Win32Handle ? NumGet(TmHandle, "ptr") : TmHandle
 
         result := DllCall("ntdll.dll\ZwCreateResourceManager", "ptr", ResourceManagerHandle, "uint", DesiredAccess, "ptr", TmHandle, "ptr", ResourceManagerGuid, "ptr", ObjectAttributes, "uint", CreateOptions, "ptr", Description, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17264,7 +17331,7 @@ class SystemServices {
         TmHandle := TmHandle is Win32Handle ? NumGet(TmHandle, "ptr") : TmHandle
 
         result := DllCall("ntdll.dll\ZwOpenResourceManager", "ptr", ResourceManagerHandle, "uint", DesiredAccess, "ptr", TmHandle, "ptr", ResourceManagerGuid, "ptr", ObjectAttributes, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17277,7 +17344,7 @@ class SystemServices {
         ResourceManagerHandle := ResourceManagerHandle is Win32Handle ? NumGet(ResourceManagerHandle, "ptr") : ResourceManagerHandle
 
         result := DllCall("ntdll.dll\ZwRecoverResourceManager", "ptr", ResourceManagerHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17299,7 +17366,7 @@ class SystemServices {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwGetNotificationResourceManager", "ptr", ResourceManagerHandle, "ptr", TransactionNotification, "uint", NotificationLength, TimeoutMarshal, Timeout, ReturnLengthMarshal, ReturnLength, "uint", Asynchronous, "ptr", AsynchronousContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17318,7 +17385,7 @@ class SystemServices {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwQueryInformationResourceManager", "ptr", ResourceManagerHandle, "int", ResourceManagerInformationClass, "ptr", ResourceManagerInformation, "uint", ResourceManagerInformationLength, ReturnLengthMarshal, ReturnLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17334,7 +17401,7 @@ class SystemServices {
         ResourceManagerHandle := ResourceManagerHandle is Win32Handle ? NumGet(ResourceManagerHandle, "ptr") : ResourceManagerHandle
 
         result := DllCall("ntdll.dll\ZwSetInformationResourceManager", "ptr", ResourceManagerHandle, "int", ResourceManagerInformationClass, "ptr", ResourceManagerInformation, "uint", ResourceManagerInformationLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17357,7 +17424,7 @@ class SystemServices {
         EnlistmentKeyMarshal := EnlistmentKey is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\ZwCreateEnlistment", "ptr", EnlistmentHandle, "uint", DesiredAccess, "ptr", ResourceManagerHandle, "ptr", TransactionHandle, "ptr", ObjectAttributes, "uint", CreateOptions, "uint", NotificationMask, EnlistmentKeyMarshal, EnlistmentKey, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17374,7 +17441,7 @@ class SystemServices {
         RmHandle := RmHandle is Win32Handle ? NumGet(RmHandle, "ptr") : RmHandle
 
         result := DllCall("ntdll.dll\ZwOpenEnlistment", "ptr", EnlistmentHandle, "uint", DesiredAccess, "ptr", RmHandle, "ptr", EnlistmentGuid, "ptr", ObjectAttributes, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17393,7 +17460,7 @@ class SystemServices {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwQueryInformationEnlistment", "ptr", EnlistmentHandle, "int", EnlistmentInformationClass, "ptr", EnlistmentInformation, "uint", EnlistmentInformationLength, ReturnLengthMarshal, ReturnLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17409,7 +17476,7 @@ class SystemServices {
         EnlistmentHandle := EnlistmentHandle is Win32Handle ? NumGet(EnlistmentHandle, "ptr") : EnlistmentHandle
 
         result := DllCall("ntdll.dll\ZwSetInformationEnlistment", "ptr", EnlistmentHandle, "int", EnlistmentInformationClass, "ptr", EnlistmentInformation, "uint", EnlistmentInformationLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17425,7 +17492,7 @@ class SystemServices {
         EnlistmentKeyMarshal := EnlistmentKey is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\ZwRecoverEnlistment", "ptr", EnlistmentHandle, EnlistmentKeyMarshal, EnlistmentKey, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17441,7 +17508,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwPrePrepareEnlistment", "ptr", EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17457,7 +17524,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwPrepareEnlistment", "ptr", EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17473,7 +17540,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwCommitEnlistment", "ptr", EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17489,7 +17556,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwRollbackEnlistment", "ptr", EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17505,7 +17572,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwPrePrepareComplete", "ptr", EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17521,7 +17588,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwPrepareComplete", "ptr", EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17537,7 +17604,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwCommitComplete", "ptr", EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17553,7 +17620,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwReadOnlyEnlistment", "ptr", EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17569,7 +17636,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwRollbackComplete", "ptr", EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17585,7 +17652,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwSinglePhaseReject", "ptr", EnlistmentHandle, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17600,7 +17667,7 @@ class SystemServices {
      */
     static ZwQueryInformationByName(ObjectAttributes, IoStatusBlock, FileInformation, Length, FileInformationClass) {
         result := DllCall("ntdll.dll\ZwQueryInformationByName", "ptr", ObjectAttributes, "ptr", IoStatusBlock, "ptr", FileInformation, "uint", Length, "int", FileInformationClass, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17726,7 +17793,7 @@ class SystemServices {
         ClientCookieMarshal := ClientCookie is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsMgmtRegisterManagedClient", "ptr", LogFile, "ptr", RegistrationData, ClientCookieMarshal, ClientCookie, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17739,7 +17806,7 @@ class SystemServices {
         ClientCookieMarshal := ClientCookie is VarRef ? "ptr" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsMgmtDeregisterManagedClient", ClientCookieMarshal, ClientCookie, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17753,7 +17820,7 @@ class SystemServices {
         ClientMarshal := Client is VarRef ? "ptr" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsMgmtTailAdvanceFailure", ClientMarshal, Client, "int", Reason, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17766,7 +17833,7 @@ class SystemServices {
         ClientMarshal := Client is VarRef ? "ptr" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsMgmtHandleLogFileFull", ClientMarshal, Client, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17779,7 +17846,7 @@ class SystemServices {
      */
     static ClfsMgmtInstallPolicy(LogFile, Policy, PolicyLength) {
         result := DllCall("CLFS.SYS\ClfsMgmtInstallPolicy", "ptr", LogFile, "ptr", Policy, "uint", PolicyLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17795,7 +17862,7 @@ class SystemServices {
         PolicyLengthMarshal := PolicyLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsMgmtQueryPolicy", "ptr", LogFile, "int", PolicyType, "ptr", Policy, PolicyLengthMarshal, PolicyLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17807,7 +17874,7 @@ class SystemServices {
      */
     static ClfsMgmtRemovePolicy(LogFile, PolicyType) {
         result := DllCall("CLFS.SYS\ClfsMgmtRemovePolicy", "ptr", LogFile, "int", PolicyType, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17826,7 +17893,7 @@ class SystemServices {
         CompletionRoutineDataMarshal := CompletionRoutineData is VarRef ? "ptr" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsMgmtSetLogFileSize", "ptr", LogFile, NewSizeInContainersMarshal, NewSizeInContainers, ResultingSizeInContainersMarshal, ResultingSizeInContainers, "ptr", CompletionRoutine, CompletionRoutineDataMarshal, CompletionRoutineData, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17847,7 +17914,7 @@ class SystemServices {
         CompletionRoutineDataMarshal := CompletionRoutineData is VarRef ? "ptr" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsMgmtSetLogFileSizeAsClient", "ptr", LogFile, ClientCookieMarshal, ClientCookie, NewSizeInContainersMarshal, NewSizeInContainers, ResultingSizeInContainersMarshal, ResultingSizeInContainers, "ptr", CompletionRoutine, CompletionRoutineDataMarshal, CompletionRoutineData, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17857,7 +17924,7 @@ class SystemServices {
      */
     static ClfsInitialize() {
         result := DllCall("CLFS.SYS\ClfsInitialize", "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17890,7 +17957,7 @@ class SystemServices {
         pplfoLogMarshal := pplfoLog is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsCreateLogFile", pplfoLogMarshal, pplfoLog, "ptr", puszLogFileName, "uint", fDesiredAccess, "uint", dwShareMode, "ptr", psdLogFile, "uint", fCreateDisposition, "uint", fCreateOptions, "uint", fFlagsAndAttributes, "uint", fLogOptionFlag, "ptr", pvContext, "uint", cbContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17901,7 +17968,7 @@ class SystemServices {
      */
     static ClfsDeleteLogByPointer(plfoLog) {
         result := DllCall("CLFS.SYS\ClfsDeleteLogByPointer", "ptr", plfoLog, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17918,7 +17985,7 @@ class SystemServices {
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsDeleteLogFile", "ptr", puszLogFileName, pvReservedMarshal, pvReserved, "uint", fLogOptionFlag, "ptr", pvContext, "uint", cbContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17933,7 +18000,7 @@ class SystemServices {
         pcbContainerMarshal := pcbContainer is VarRef ? "uint*" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsAddLogContainer", "ptr", plfoLog, pcbContainerMarshal, pcbContainer, "ptr", puszContainerPath, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17949,7 +18016,7 @@ class SystemServices {
         pcbContainerMarshal := pcbContainer is VarRef ? "uint*" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsAddLogContainerSet", "ptr", plfoLog, "ushort", cContainers, pcbContainerMarshal, pcbContainer, "ptr", rguszContainerPath, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17962,7 +18029,7 @@ class SystemServices {
      */
     static ClfsRemoveLogContainer(plfoLog, puszContainerPath, fForce) {
         result := DllCall("CLFS.SYS\ClfsRemoveLogContainer", "ptr", plfoLog, "ptr", puszContainerPath, "char", fForce, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17976,7 +18043,7 @@ class SystemServices {
      */
     static ClfsRemoveLogContainerSet(plfoLog, cContainers, rgwszContainerPath, fForce) {
         result := DllCall("CLFS.SYS\ClfsRemoveLogContainerSet", "ptr", plfoLog, "ushort", cContainers, "ptr", rgwszContainerPath, "char", fForce, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -17988,7 +18055,7 @@ class SystemServices {
      */
     static ClfsSetArchiveTail(plfoLog, plsnArchiveTail) {
         result := DllCall("CLFS.SYS\ClfsSetArchiveTail", "ptr", plfoLog, "ptr", plsnArchiveTail, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18000,7 +18067,7 @@ class SystemServices {
      */
     static ClfsSetEndOfLog(plfoLog, plsnEnd) {
         result := DllCall("CLFS.SYS\ClfsSetEndOfLog", "ptr", plfoLog, "ptr", plsnEnd, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18015,7 +18082,7 @@ class SystemServices {
      */
     static ClfsCreateScanContext(plfoLog, cFromContainer, cContainers, eScanMode, pcxScan) {
         result := DllCall("CLFS.SYS\ClfsCreateScanContext", "ptr", plfoLog, "uint", cFromContainer, "uint", cContainers, "char", eScanMode, "ptr", pcxScan, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18027,7 +18094,7 @@ class SystemServices {
      */
     static ClfsScanLogContainers(pcxScan, eScanMode) {
         result := DllCall("CLFS.SYS\ClfsScanLogContainers", "ptr", pcxScan, "char", eScanMode, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18043,7 +18110,7 @@ class SystemServices {
         pcActualLenContainerNameMarshal := pcActualLenContainerName is VarRef ? "uint*" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsGetContainerName", "ptr", plfoLog, "uint", cidLogicalContainer, "ptr", puszContainerName, pcActualLenContainerNameMarshal, pcActualLenContainerName, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18058,7 +18125,7 @@ class SystemServices {
         pcbInfoBufferMarshal := pcbInfoBuffer is VarRef ? "uint*" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsGetLogFileInformation", "ptr", plfoLog, "ptr", pinfoBuffer, pcbInfoBufferMarshal, pcbInfoBuffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18076,7 +18143,7 @@ class SystemServices {
         pcbInfoBufferMarshal := pcbInfoBuffer is VarRef ? "uint*" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsQueryLogFileInformation", "ptr", plfoLog, "int", eInformationClass, "ptr", pinfoInputBuffer, "uint", cbinfoInputBuffer, "ptr", pinfoBuffer, pcbInfoBufferMarshal, pcbInfoBuffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18090,7 +18157,7 @@ class SystemServices {
      */
     static ClfsSetLogFileInformation(plfoLog, eInformationClass, pinfoBuffer, cbBuffer) {
         result := DllCall("CLFS.SYS\ClfsSetLogFileInformation", "ptr", plfoLog, "int", eInformationClass, "ptr", pinfoBuffer, "uint", cbBuffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18110,7 +18177,7 @@ class SystemServices {
         ppvReadContextMarshal := ppvReadContext is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsReadRestartArea", pvMarshalContextMarshal, pvMarshalContext, ppvRestartBufferMarshal, ppvRestartBuffer, pcbRestartBufferMarshal, pcbRestartBuffer, "ptr", plsn, ppvReadContextMarshal, ppvReadContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18128,7 +18195,7 @@ class SystemServices {
         pcbRestartBufferMarshal := pcbRestartBuffer is VarRef ? "uint*" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsReadPreviousRestartArea", pvReadContextMarshal, pvReadContext, ppvRestartBufferMarshal, ppvRestartBuffer, pcbRestartBufferMarshal, pcbRestartBuffer, "ptr", plsnRestart, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18148,7 +18215,7 @@ class SystemServices {
         pcbWrittenMarshal := pcbWritten is VarRef ? "uint*" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsWriteRestartArea", pvMarshalContextMarshal, pvMarshalContext, "ptr", pvRestartBuffer, "uint", cbRestartBuffer, "ptr", plsnBase, "uint", fFlags, pcbWrittenMarshal, pcbWritten, "ptr", plsnNext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18163,7 +18230,7 @@ class SystemServices {
         pvMarshalContextMarshal := pvMarshalContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsAdvanceLogBase", pvMarshalContextMarshal, pvMarshalContext, "ptr", plsnBase, "uint", fFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18174,7 +18241,7 @@ class SystemServices {
      */
     static ClfsCloseAndResetLogFile(plfoLog) {
         result := DllCall("CLFS.SYS\ClfsCloseAndResetLogFile", "ptr", plfoLog, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18185,7 +18252,7 @@ class SystemServices {
      */
     static ClfsCloseLogFileObject(plfoLog) {
         result := DllCall("CLFS.SYS\ClfsCloseLogFileObject", "ptr", plfoLog, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18205,7 +18272,7 @@ class SystemServices {
         ppvMarshalContextMarshal := ppvMarshalContext is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsCreateMarshallingArea", "ptr", plfoLog, "int", ePoolType, "ptr", pfnAllocBuffer, "ptr", pfnFreeBuffer, "uint", cbMarshallingBuffer, "uint", cMaxWriteBuffers, "uint", cMaxReadBuffers, ppvMarshalContextMarshal, ppvMarshalContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18227,7 +18294,7 @@ class SystemServices {
         ppvMarshalContextMarshal := ppvMarshalContext is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsCreateMarshallingAreaEx", "ptr", plfoLog, "int", ePoolType, "ptr", pfnAllocBuffer, "ptr", pfnFreeBuffer, "uint", cbMarshallingBuffer, "uint", cMaxWriteBuffers, "uint", cMaxReadBuffers, "uint", cAlignmentSize, "uint", fFlags, ppvMarshalContextMarshal, ppvMarshalContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18240,7 +18307,7 @@ class SystemServices {
         pvMarshalContextMarshal := pvMarshalContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsDeleteMarshallingArea", pvMarshalContextMarshal, pvMarshalContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18262,7 +18329,7 @@ class SystemServices {
         rgcbReservationMarshal := rgcbReservation is VarRef ? "int64*" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsReserveAndAppendLog", pvMarshalContextMarshal, pvMarshalContext, "ptr", rgWriteEntries, "uint", cWriteEntries, "ptr", plsnUndoNext, "ptr", plsnPrevious, "uint", cReserveRecords, rgcbReservationMarshal, rgcbReservation, "uint", fFlags, "ptr", plsn, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18285,7 +18352,7 @@ class SystemServices {
         rgcbReservationMarshal := rgcbReservation is VarRef ? "int64*" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsReserveAndAppendLogAligned", pvMarshalContextMarshal, pvMarshalContext, "ptr", rgWriteEntries, "uint", cWriteEntries, "uint", cbEntryAlignment, "ptr", plsnUndoNext, "ptr", plsnPrevious, "uint", cReserveRecords, rgcbReservationMarshal, rgcbReservation, "uint", fFlags, "ptr", plsn, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18303,7 +18370,7 @@ class SystemServices {
         pcbAlignReservationMarshal := pcbAlignReservation is VarRef ? "int64*" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsAlignReservedLog", pvMarshalContextMarshal, pvMarshalContext, "uint", cRecords, rgcbReservationMarshal, rgcbReservation, pcbAlignReservationMarshal, pcbAlignReservation, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18319,7 +18386,7 @@ class SystemServices {
         pcbAdjustmentMarshal := pcbAdjustment is VarRef ? "int64*" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsAllocReservedLog", pvMarshalContextMarshal, pvMarshalContext, "uint", cRecords, pcbAdjustmentMarshal, pcbAdjustment, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18335,7 +18402,7 @@ class SystemServices {
         pcbAdjustmentMarshal := pcbAdjustment is VarRef ? "int64*" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsFreeReservedLog", pvMarshalContextMarshal, pvMarshalContext, "uint", cRecords, pcbAdjustmentMarshal, pcbAdjustment, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18348,7 +18415,7 @@ class SystemServices {
         pvMarshalContextMarshal := pvMarshalContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsFlushBuffers", pvMarshalContextMarshal, pvMarshalContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18363,7 +18430,7 @@ class SystemServices {
         pvMarshalContextMarshal := pvMarshalContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsFlushToLsn", pvMarshalContextMarshal, pvMarshalContext, "ptr", plsnFlush, "ptr", plsnLastFlushed, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18388,7 +18455,7 @@ class SystemServices {
         ppvReadContextMarshal := ppvReadContext is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsReadLogRecord", pvMarshalContextMarshal, pvMarshalContext, "ptr", plsnFirst, "int", peContextMode, ppvReadBufferMarshal, ppvReadBuffer, pcbReadBufferMarshal, pcbReadBuffer, peRecordTypeMarshal, peRecordType, "ptr", plsnUndoNext, "ptr", plsnPrevious, ppvReadContextMarshal, ppvReadContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18411,7 +18478,7 @@ class SystemServices {
         peRecordTypeMarshal := peRecordType is VarRef ? "char*" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsReadNextLogRecord", pvReadContextMarshal, pvReadContext, ppvBufferMarshal, ppvBuffer, pcbBufferMarshal, pcbBuffer, peRecordTypeMarshal, peRecordType, "ptr", plsnUser, "ptr", plsnUndoNext, "ptr", plsnPrevious, "ptr", plsnRecord, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18424,7 +18491,7 @@ class SystemServices {
         pvCursorContextMarshal := pvCursorContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsTerminateReadLog", pvCursorContextMarshal, pvCursorContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18441,7 +18508,7 @@ class SystemServices {
         pcbStatsWrittenMarshal := pcbStatsWritten is VarRef ? "uint*" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsGetIoStatistics", "ptr", plfoLog, "ptr", pvStatsBuffer, "uint", cbStatsBuffer, "int", eStatsClass, pcbStatsWrittenMarshal, pcbStatsWritten, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18478,7 +18545,7 @@ class SystemServices {
         pcbDifferenceMarshal := pcbDifference is VarRef ? "int64*" : "ptr"
 
         result := DllCall("CLFS.SYS\ClfsLsnDifference", "ptr", plsnStart, "ptr", plsnFinish, "uint", cbContainer, "uint", cbMaxBlock, pcbDifferenceMarshal, pcbDifference, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18494,7 +18561,7 @@ class SystemServices {
         TransactionManagerMarshal := TransactionManager is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\TmInitializeTransactionManager", TransactionManagerMarshal, TransactionManager, "ptr", LogFileName, "ptr", TmId, "uint", CreateOptions, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18506,7 +18573,7 @@ class SystemServices {
      */
     static TmRenameTransactionManager(LogFileName, ExistingTransactionManagerGuid) {
         result := DllCall("ntoskrnl.exe\TmRenameTransactionManager", "ptr", LogFileName, "ptr", ExistingTransactionManagerGuid, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18521,7 +18588,7 @@ class SystemServices {
         TargetVirtualClockMarshal := TargetVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\TmRecoverTransactionManager", TmMarshal, Tm, TargetVirtualClockMarshal, TargetVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18535,7 +18602,7 @@ class SystemServices {
         TransactionMarshal := Transaction is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\TmCommitTransaction", TransactionMarshal, Transaction, "char", Wait, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18549,7 +18616,7 @@ class SystemServices {
         TransactionMarshal := Transaction is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\TmRollbackTransaction", TransactionMarshal, Transaction, "char", Wait, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18572,7 +18639,7 @@ class SystemServices {
         EnlistmentKeyMarshal := EnlistmentKey is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\TmCreateEnlistment", "ptr", EnlistmentHandle, "char", PreviousMode, "uint", DesiredAccess, "ptr", ObjectAttributes, ResourceManagerMarshal, ResourceManager, TransactionMarshal, Transaction, "uint", CreateOptions, "uint", NotificationMask, EnlistmentKeyMarshal, EnlistmentKey, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18587,7 +18654,7 @@ class SystemServices {
         EnlistmentKeyMarshal := EnlistmentKey is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\TmRecoverEnlistment", EnlistmentMarshal, Enlistment, EnlistmentKeyMarshal, EnlistmentKey, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18602,7 +18669,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\TmPrePrepareEnlistment", EnlistmentMarshal, Enlistment, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18617,7 +18684,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\TmPrepareEnlistment", EnlistmentMarshal, Enlistment, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18632,7 +18699,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\TmCommitEnlistment", EnlistmentMarshal, Enlistment, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18647,7 +18714,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\TmRollbackEnlistment", EnlistmentMarshal, Enlistment, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18662,7 +18729,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\TmPrePrepareComplete", EnlistmentMarshal, Enlistment, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18677,7 +18744,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\TmPrepareComplete", EnlistmentMarshal, Enlistment, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18692,7 +18759,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\TmReadOnlyEnlistment", EnlistmentMarshal, Enlistment, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18707,7 +18774,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\TmCommitComplete", EnlistmentMarshal, Enlistment, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18722,7 +18789,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\TmRollbackComplete", EnlistmentMarshal, Enlistment, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18737,7 +18804,7 @@ class SystemServices {
         KeyMarshal := Key is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\TmReferenceEnlistmentKey", EnlistmentMarshal, Enlistment, KeyMarshal, Key, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18752,7 +18819,7 @@ class SystemServices {
         LastReferenceMarshal := LastReference is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\TmDereferenceEnlistmentKey", EnlistmentMarshal, Enlistment, LastReferenceMarshal, LastReference, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18767,7 +18834,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\TmSinglePhaseReject", EnlistmentMarshal, Enlistment, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18782,7 +18849,7 @@ class SystemServices {
         TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\TmRequestOutcomeEnlistment", EnlistmentMarshal, Enlistment, TmVirtualClockMarshal, TmVirtualClock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18798,7 +18865,7 @@ class SystemServices {
         RMKeyMarshal := RMKey is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\TmEnableCallbacks", ResourceManagerMarshal, ResourceManager, "ptr", CallbackRoutine, RMKeyMarshal, RMKey, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18811,7 +18878,7 @@ class SystemServices {
         ResourceManagerMarshal := ResourceManager is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\TmRecoverResourceManager", ResourceManagerMarshal, ResourceManager, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18828,7 +18895,7 @@ class SystemServices {
         _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\TmPropagationComplete", ResourceManagerMarshal, ResourceManager, "uint", RequestCookie, "uint", BufferLength, _BufferMarshal, _Buffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18843,7 +18910,7 @@ class SystemServices {
         ResourceManagerMarshal := ResourceManager is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\TmPropagationFailed", ResourceManagerMarshal, ResourceManager, "uint", RequestCookie, "int", _Status, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18881,7 +18948,7 @@ class SystemServices {
         RegistrationMarshal := Registration is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PcwRegister", RegistrationMarshal, Registration, "ptr", Info, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18907,7 +18974,7 @@ class SystemServices {
         InstanceMarshal := Instance is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PcwCreateInstance", InstanceMarshal, Instance, "ptr", Registration, "ptr", Name, "uint", Count, "ptr", Data, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18931,7 +18998,7 @@ class SystemServices {
      */
     static PcwAddInstance(_Buffer, Name, Id, Count, Data) {
         result := DllCall("ntoskrnl.exe\PcwAddInstance", "ptr", _Buffer, "ptr", Name, "uint", Id, "uint", Count, "ptr", Data, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18946,7 +19013,7 @@ class SystemServices {
      */
     static VslCreateSecureSection(_Handle, TargetProcess, _Mdl, DevicePageProtection, Attributes) {
         result := DllCall("ntoskrnl.exe\VslCreateSecureSection", "ptr", _Handle, "ptr", TargetProcess, "ptr", _Mdl, "uint", DevicePageProtection, "uint", Attributes, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18959,7 +19026,7 @@ class SystemServices {
         GlobalHandle := GlobalHandle is Win32Handle ? NumGet(GlobalHandle, "ptr") : GlobalHandle
 
         result := DllCall("ntoskrnl.exe\VslDeleteSecureSection", "ptr", GlobalHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -18985,7 +19052,7 @@ class SystemServices {
         _ContextMarshal := _Context is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlRunOnceExecuteOnce", "ptr", RunOnce, "ptr", InitFn, ParameterMarshal, Parameter, _ContextMarshal, _Context, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -19000,7 +19067,7 @@ class SystemServices {
         _ContextMarshal := _Context is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlRunOnceBeginInitialize", "ptr", RunOnce, "uint", Flags, _ContextMarshal, _Context, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -19015,7 +19082,7 @@ class SystemServices {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\RtlRunOnceComplete", "ptr", RunOnce, "uint", Flags, _ContextMarshal, _Context, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -19760,7 +19827,7 @@ class SystemServices {
      */
     static RtlUpcaseUnicodeString(DestinationString, SourceString, AllocateDestinationString) {
         result := DllCall("ntdll.dll\RtlUpcaseUnicodeString", "ptr", DestinationString, "ptr", SourceString, "char", AllocateDestinationString, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -19783,7 +19850,7 @@ class SystemServices {
         ResultLengthMarshal := ResultLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlQueryRegistryValueWithFallback", "ptr", PrimaryHandle, "ptr", FallbackHandle, "ptr", _ValueName, "uint", ValueLength, ValueTypeMarshal, ValueType, "ptr", ValueData, ResultLengthMarshal, ResultLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -19809,7 +19876,7 @@ class SystemServices {
         VolumeDeviceObjectMarshal := VolumeDeviceObject is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\RtlVolumeDeviceToDosName", VolumeDeviceObjectMarshal, VolumeDeviceObject, "ptr", DosName, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -19916,7 +19983,7 @@ class SystemServices {
         BufferLengthOutMarshal := BufferLengthOut is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlGetPersistedStateLocation", "ptr", SourceID, "ptr", CustomValue, "ptr", DefaultPath, "int", StateLocationType, "ptr", TargetPath, "uint", BufferLengthIn, BufferLengthOutMarshal, BufferLengthOut, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -19929,7 +19996,7 @@ class SystemServices {
         apiSetName := apiSetName is String ? StrPtr(apiSetName) : apiSetName
 
         result := DllCall("ntdll.dll\RtlIsApiSetImplemented", "ptr", apiSetName, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -19990,7 +20057,7 @@ class SystemServices {
         _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\RtlSetSystemGlobalData", "int", DataId, _BufferMarshal, _Buffer, "uint", _Size, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20017,7 +20084,7 @@ class SystemServices {
         ParameterMarshal := Parameter is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\KeExpandKernelStackAndCallout", "ptr", Callout, ParameterMarshal, Parameter, "ptr", _Size, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20035,7 +20102,7 @@ class SystemServices {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\KeExpandKernelStackAndCalloutEx", "ptr", Callout, ParameterMarshal, Parameter, "ptr", _Size, "char", Wait, _ContextMarshal, _Context, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20088,7 +20155,7 @@ class SystemServices {
      */
     static KeSetHardwareCounterConfiguration(CounterArray, Count) {
         result := DllCall("ntoskrnl.exe\KeSetHardwareCounterConfiguration", "ptr", CounterArray, "uint", Count, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20103,7 +20170,7 @@ class SystemServices {
         CountMarshal := Count is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\KeQueryHardwareCounterConfiguration", "ptr", CounterArray, "uint", MaximumCount, CountMarshal, Count, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20135,7 +20202,7 @@ class SystemServices {
         InitialSegmentMarshal := InitialSegment is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\ExInitializeZone", "ptr", Zone, "uint", BlockSize, InitialSegmentMarshal, InitialSegment, "uint", InitialSegmentSize, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20150,7 +20217,7 @@ class SystemServices {
         SegmentMarshal := Segment is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\ExExtendZone", "ptr", Zone, SegmentMarshal, Segment, "uint", SegmentSize, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20167,7 +20234,7 @@ class SystemServices {
         LockMarshal := Lock is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\ExInterlockedExtendZone", "ptr", Zone, SegmentMarshal, Segment, "uint", SegmentSize, LockMarshal, Lock, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20178,7 +20245,7 @@ class SystemServices {
      */
     static ExUuidCreate(Uuid) {
         result := DllCall("ntoskrnl.exe\ExUuidCreate", "ptr", Uuid, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20202,7 +20269,7 @@ class SystemServices {
         PageAddressMarshal := PageAddress is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\MmMapUserAddressesToPage", "ptr", BaseAddress, "ptr", NumberOfBytes, PageAddressMarshal, PageAddress, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20217,7 +20284,7 @@ class SystemServices {
         NumberOfBytesMarshal := NumberOfBytes is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\MmAddPhysicalMemory", StartAddressMarshal, StartAddress, NumberOfBytesMarshal, NumberOfBytes, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20237,7 +20304,7 @@ class SystemServices {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\MmRotatePhysicalView", VirtualAddressMarshal, VirtualAddress, NumberOfBytesMarshal, NumberOfBytes, "ptr", NewMdl, "int", _Direction, "ptr", CopyFunction, _ContextMarshal, _Context, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20252,7 +20319,7 @@ class SystemServices {
         NumberOfBytesMarshal := NumberOfBytes is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\MmRemovePhysicalMemory", StartAddressMarshal, StartAddress, NumberOfBytesMarshal, NumberOfBytes, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20334,7 +20401,7 @@ class SystemServices {
         CacheTypeMarshal := CacheType is VarRef ? "int*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\MmGetCacheAttribute", "int64", PhysicalAddress, CacheTypeMarshal, CacheType, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20352,7 +20419,7 @@ class SystemServices {
         NumberOfBytesTransferredMarshal := NumberOfBytesTransferred is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\MmCopyMemory", TargetAddressMarshal, TargetAddress, "ptr", SourceAddress, "ptr", NumberOfBytes, "uint", Flags, NumberOfBytesTransferredMarshal, NumberOfBytesTransferred, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20367,7 +20434,7 @@ class SystemServices {
         CacheTypeMarshal := CacheType is VarRef ? "int*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\MmGetCacheAttributeEx", "int64", PhysicalAddress, "uint", Flags, CacheTypeMarshal, CacheType, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20490,7 +20557,7 @@ class SystemServices {
         SectionOffsetMarshal := SectionOffset is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\MmMapViewInSystemSpaceEx", _SectionMarshal, _Section, MappedBaseMarshal, MappedBase, ViewSizeMarshal, ViewSize, SectionOffsetMarshal, SectionOffset, "ptr", Flags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20507,7 +20574,7 @@ class SystemServices {
         ViewSizeMarshal := ViewSize is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\MmMapViewInSystemSpace", _SectionMarshal, _Section, MappedBaseMarshal, MappedBase, ViewSizeMarshal, ViewSize, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20520,7 +20587,7 @@ class SystemServices {
         MappedBaseMarshal := MappedBase is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\MmUnmapViewInSystemSpace", MappedBaseMarshal, MappedBase, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20540,7 +20607,7 @@ class SystemServices {
         SectionOffsetMarshal := SectionOffset is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\MmMapViewInSessionSpaceEx", _SectionMarshal, _Section, MappedBaseMarshal, MappedBase, ViewSizeMarshal, ViewSize, SectionOffsetMarshal, SectionOffset, "ptr", Flags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20557,7 +20624,7 @@ class SystemServices {
         ViewSizeMarshal := ViewSize is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\MmMapViewInSessionSpace", _SectionMarshal, _Section, MappedBaseMarshal, MappedBase, ViewSizeMarshal, ViewSize, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20570,7 +20637,7 @@ class SystemServices {
         MappedBaseMarshal := MappedBase is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\MmUnmapViewInSessionSpace", MappedBaseMarshal, MappedBase, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20580,7 +20647,7 @@ class SystemServices {
      */
     static MmCreateMirror() {
         result := DllCall("ntoskrnl.exe\MmCreateMirror", "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20603,7 +20670,7 @@ class SystemServices {
      */
     static PsSetCreateProcessNotifyRoutine(NotifyRoutine, Remove) {
         result := DllCall("ntoskrnl.exe\PsSetCreateProcessNotifyRoutine", "ptr", NotifyRoutine, "char", Remove, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20615,7 +20682,7 @@ class SystemServices {
      */
     static PsSetCreateProcessNotifyRoutineEx(NotifyRoutine, Remove) {
         result := DllCall("ntoskrnl.exe\PsSetCreateProcessNotifyRoutineEx", "ptr", NotifyRoutine, "char", Remove, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20630,7 +20697,7 @@ class SystemServices {
         NotifyInformationMarshal := NotifyInformation is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PsSetCreateProcessNotifyRoutineEx2", "int", NotifyType, NotifyInformationMarshal, NotifyInformation, "char", Remove, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20641,7 +20708,7 @@ class SystemServices {
      */
     static PsSetCreateThreadNotifyRoutine(NotifyRoutine) {
         result := DllCall("ntoskrnl.exe\PsSetCreateThreadNotifyRoutine", "ptr", NotifyRoutine, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20655,7 +20722,7 @@ class SystemServices {
         NotifyInformationMarshal := NotifyInformation is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PsSetCreateThreadNotifyRoutineEx", "int", NotifyType, NotifyInformationMarshal, NotifyInformation, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20666,7 +20733,7 @@ class SystemServices {
      */
     static PsRemoveCreateThreadNotifyRoutine(NotifyRoutine) {
         result := DllCall("ntoskrnl.exe\PsRemoveCreateThreadNotifyRoutine", "ptr", NotifyRoutine, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20677,7 +20744,7 @@ class SystemServices {
      */
     static PsSetLoadImageNotifyRoutine(NotifyRoutine) {
         result := DllCall("ntoskrnl.exe\PsSetLoadImageNotifyRoutine", "ptr", NotifyRoutine, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20689,7 +20756,7 @@ class SystemServices {
      */
     static PsSetLoadImageNotifyRoutineEx(NotifyRoutine, Flags) {
         result := DllCall("ntoskrnl.exe\PsSetLoadImageNotifyRoutineEx", "ptr", NotifyRoutine, "ptr", Flags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20700,7 +20767,7 @@ class SystemServices {
      */
     static PsRemoveLoadImageNotifyRoutine(NotifyRoutine) {
         result := DllCall("ntoskrnl.exe\PsRemoveLoadImageNotifyRoutine", "ptr", NotifyRoutine, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20770,7 +20837,7 @@ class SystemServices {
      */
     static PsGetProcessExitStatus(Process) {
         result := DllCall("ntoskrnl.exe\PsGetProcessExitStatus", "ptr", Process, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20781,7 +20848,7 @@ class SystemServices {
      */
     static PsGetThreadExitStatus(Thread) {
         result := DllCall("ntoskrnl.exe\PsGetThreadExitStatus", "ptr", Thread, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20859,7 +20926,7 @@ class SystemServices {
         SiloMarshal := Silo is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PsGetJobSilo", "ptr", Job, SiloMarshal, Silo, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20873,7 +20940,7 @@ class SystemServices {
         ServerSiloMarshal := ServerSilo is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PsGetJobServerSilo", "ptr", Job, ServerSiloMarshal, ServerSilo, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20968,7 +21035,7 @@ class SystemServices {
      */
     static PsAcquireSiloHardReference(Silo) {
         result := DllCall("ntoskrnl.exe\PsAcquireSiloHardReference", "ptr", Silo, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -20991,7 +21058,7 @@ class SystemServices {
         ReturnedContextSlotMarshal := ReturnedContextSlot is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PsAllocSiloContextSlot", "ptr", Reserved, ReturnedContextSlotMarshal, ReturnedContextSlot, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21002,7 +21069,7 @@ class SystemServices {
      */
     static PsFreeSiloContextSlot(ContextSlot) {
         result := DllCall("ntoskrnl.exe\PsFreeSiloContextSlot", "uint", ContextSlot, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21019,7 +21086,7 @@ class SystemServices {
         ReturnedSiloContextMarshal := ReturnedSiloContext is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PsCreateSiloContext", "ptr", Silo, "uint", _Size, "int", PoolType, "ptr", ContextCleanupCallback, ReturnedSiloContextMarshal, ReturnedSiloContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21034,7 +21101,7 @@ class SystemServices {
         SiloContextMarshal := SiloContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PsInsertSiloContext", "ptr", Silo, "uint", ContextSlot, SiloContextMarshal, SiloContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21051,7 +21118,7 @@ class SystemServices {
         OldSiloContextMarshal := OldSiloContext is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PsReplaceSiloContext", "ptr", Silo, "uint", ContextSlot, NewSiloContextMarshal, NewSiloContext, OldSiloContextMarshal, OldSiloContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21066,7 +21133,7 @@ class SystemServices {
         ReturnedSiloContextMarshal := ReturnedSiloContext is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PsGetSiloContext", "ptr", Silo, "uint", ContextSlot, ReturnedSiloContextMarshal, ReturnedSiloContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21081,7 +21148,7 @@ class SystemServices {
         RemovedSiloContextMarshal := RemovedSiloContext is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PsRemoveSiloContext", "ptr", Silo, "uint", ContextSlot, RemovedSiloContextMarshal, RemovedSiloContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21118,7 +21185,7 @@ class SystemServices {
         SiloContextMarshal := SiloContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PsInsertPermanentSiloContext", "ptr", Silo, "uint", ContextSlot, SiloContextMarshal, SiloContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21130,7 +21197,7 @@ class SystemServices {
      */
     static PsMakeSiloContextPermanent(Silo, ContextSlot) {
         result := DllCall("ntoskrnl.exe\PsMakeSiloContextPermanent", "ptr", Silo, "uint", ContextSlot, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21145,7 +21212,7 @@ class SystemServices {
         ReturnedSiloContextMarshal := ReturnedSiloContext is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PsGetPermanentSiloContext", "ptr", Silo, "uint", ContextSlot, ReturnedSiloContextMarshal, ReturnedSiloContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21159,7 +21226,7 @@ class SystemServices {
         ReturnedMonitorMarshal := ReturnedMonitor is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\PsRegisterSiloMonitor", "ptr", Registration, ReturnedMonitorMarshal, ReturnedMonitor, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21170,7 +21237,7 @@ class SystemServices {
      */
     static PsStartSiloMonitor(_Monitor) {
         result := DllCall("ntoskrnl.exe\PsStartSiloMonitor", "ptr", _Monitor, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21257,7 +21324,7 @@ class SystemServices {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoAllocateAdapterChannel", AdapterObjectMarshal, AdapterObject, "ptr", DeviceObject, "uint", NumberOfMapRegisters, "ptr", ExecutionRoutine, _ContextMarshal, _Context, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21289,7 +21356,7 @@ class SystemServices {
         AllocatedResourcesMarshal := AllocatedResources is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoAssignResources", "ptr", RegistryPath, "ptr", DriverClassName, "ptr", DriverObject, "ptr", DeviceObject, "ptr", RequestedResources, AllocatedResourcesMarshal, AllocatedResources, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21301,7 +21368,7 @@ class SystemServices {
      */
     static IoAttachDeviceByPointer(SourceDevice, TargetDevice) {
         result := DllCall("ntoskrnl.exe\IoAttachDeviceByPointer", "ptr", SourceDevice, "ptr", TargetDevice, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21406,7 +21473,7 @@ class SystemServices {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoQueryDeviceDescription", BusTypeMarshal, BusType, BusNumberMarshal, BusNumber, ControllerTypeMarshal, ControllerType, ControllerNumberMarshal, ControllerNumber, PeripheralTypeMarshal, PeripheralType, PeripheralNumberMarshal, PeripheralNumber, "ptr", CalloutRoutine, _ContextMarshal, _Context, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21486,7 +21553,7 @@ class SystemServices {
         ConflictDetectedMarshal := ConflictDetected is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoReportResourceUsage", "ptr", DriverClassName, "ptr", DriverObject, "ptr", DriverList, "uint", DriverListSize, "ptr", DeviceObject, "ptr", DeviceList, "uint", DeviceListSize, "char", OverrideConflict, ConflictDetectedMarshal, ConflictDetected, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21543,7 +21610,7 @@ class SystemServices {
         PartitionBufferMarshal := PartitionBuffer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoReadPartitionTable", "ptr", DeviceObject, "uint", SectorSize, "char", ReturnRecognizedPartitions, PartitionBufferMarshal, PartitionBuffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21557,7 +21624,7 @@ class SystemServices {
      */
     static IoSetPartitionInformation(DeviceObject, SectorSize, PartitionNumber, PartitionType) {
         result := DllCall("ntoskrnl.exe\IoSetPartitionInformation", "ptr", DeviceObject, "uint", SectorSize, "uint", PartitionNumber, "uint", PartitionType, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21572,7 +21639,7 @@ class SystemServices {
      */
     static IoWritePartitionTable(DeviceObject, SectorSize, SectorsPerTrack, NumberOfHeads, PartitionBuffer) {
         result := DllCall("ntoskrnl.exe\IoWritePartitionTable", "ptr", DeviceObject, "uint", SectorSize, "uint", SectorsPerTrack, "uint", NumberOfHeads, "ptr", PartitionBuffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21584,7 +21651,7 @@ class SystemServices {
      */
     static IoCreateDisk(DeviceObject, Disk) {
         result := DllCall("ntoskrnl.exe\IoCreateDisk", "ptr", DeviceObject, "ptr", Disk, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21598,7 +21665,7 @@ class SystemServices {
         DriveLayoutMarshal := DriveLayout is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoReadPartitionTableEx", "ptr", DeviceObject, DriveLayoutMarshal, DriveLayout, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21610,7 +21677,7 @@ class SystemServices {
      */
     static IoWritePartitionTableEx(DeviceObject, DriveLayout) {
         result := DllCall("ntoskrnl.exe\IoWritePartitionTableEx", "ptr", DeviceObject, "ptr", DriveLayout, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21623,7 +21690,7 @@ class SystemServices {
      */
     static IoSetPartitionInformationEx(DeviceObject, PartitionNumber, PartitionInfo) {
         result := DllCall("ntoskrnl.exe\IoSetPartitionInformationEx", "ptr", DeviceObject, "uint", PartitionNumber, "ptr", PartitionInfo, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21635,7 +21702,7 @@ class SystemServices {
      */
     static IoVerifyPartitionTable(DeviceObject, FixErrors) {
         result := DllCall("ntoskrnl.exe\IoVerifyPartitionTable", "ptr", DeviceObject, "char", FixErrors, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21648,7 +21715,7 @@ class SystemServices {
      */
     static IoReadDiskSignature(DeviceObject, BytesPerSector, Signature) {
         result := DllCall("ntoskrnl.exe\IoReadDiskSignature", "ptr", DeviceObject, "uint", BytesPerSector, "ptr", Signature, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21662,7 +21729,7 @@ class SystemServices {
         VolumeDeviceObjectMarshal := VolumeDeviceObject is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoVolumeDeviceToDosName", VolumeDeviceObjectMarshal, VolumeDeviceObject, "ptr", DosName, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21676,7 +21743,7 @@ class SystemServices {
         VolumeDeviceObjectMarshal := VolumeDeviceObject is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoVolumeDeviceToGuidPath", VolumeDeviceObjectMarshal, VolumeDeviceObject, "ptr", GuidPath, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21690,7 +21757,7 @@ class SystemServices {
         VolumeDeviceObjectMarshal := VolumeDeviceObject is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoVolumeDeviceToGuid", VolumeDeviceObjectMarshal, VolumeDeviceObject, "ptr", Guid, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21702,7 +21769,7 @@ class SystemServices {
      */
     static IoVolumeDeviceNameToGuid(VolumeDeviceName, Guid) {
         result := DllCall("ntoskrnl.exe\IoVolumeDeviceNameToGuid", "ptr", VolumeDeviceName, "ptr", Guid, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21714,7 +21781,7 @@ class SystemServices {
      */
     static IoVolumeDeviceNameToGuidPath(VolumeDeviceName, GuidPath) {
         result := DllCall("ntoskrnl.exe\IoVolumeDeviceNameToGuidPath", "ptr", VolumeDeviceName, "ptr", GuidPath, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21725,7 +21792,7 @@ class SystemServices {
      */
     static IoSetSystemPartition(VolumeNameString) {
         result := DllCall("ntoskrnl.exe\IoSetSystemPartition", "ptr", VolumeNameString, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21755,7 +21822,7 @@ class SystemServices {
         DeviceObjectMarshal := DeviceObject is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoCreateFileSpecifyDeviceObjectHint", "ptr", FileHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "ptr", IoStatusBlock, AllocationSizeMarshal, AllocationSize, "uint", FileAttributes, "uint", ShareAccess, "uint", Disposition, "uint", CreateOptions, EaBufferMarshal, EaBuffer, "uint", EaLength, "int", CreateFileType, InternalParametersMarshal, InternalParameters, "uint", Options, DeviceObjectMarshal, DeviceObject, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21814,7 +21881,7 @@ class SystemServices {
         InternalParametersMarshal := InternalParameters is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoCreateFileEx", "ptr", FileHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "ptr", IoStatusBlock, AllocationSizeMarshal, AllocationSize, "uint", FileAttributes, "uint", ShareAccess, "uint", Disposition, "uint", CreateOptions, EaBufferMarshal, EaBuffer, "uint", EaLength, "int", CreateFileType, InternalParametersMarshal, InternalParameters, "uint", Options, "ptr", DriverContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21828,7 +21895,7 @@ class SystemServices {
         ExtraCreateParameterMarshal := ExtraCreateParameter is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoSetIrpExtraCreateParameter", "ptr", _Irp, ExtraCreateParameterMarshal, ExtraCreateParameter, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21851,7 +21918,7 @@ class SystemServices {
         ExtraCreateParameterMarshal := ExtraCreateParameter is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoGetIrpExtraCreateParameter", "ptr", _Irp, ExtraCreateParameterMarshal, ExtraCreateParameter, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21868,7 +21935,7 @@ class SystemServices {
      */
     static IoQueryInformationByName(ObjectAttributes, IoStatusBlock, FileInformation, Length, FileInformationClass, Options, DriverContext) {
         result := DllCall("ntoskrnl.exe\IoQueryInformationByName", "ptr", ObjectAttributes, "ptr", IoStatusBlock, "ptr", FileInformation, "uint", Length, "int", FileInformationClass, "uint", Options, "ptr", DriverContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21883,7 +21950,7 @@ class SystemServices {
         AttachedToDeviceObjectMarshal := AttachedToDeviceObject is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoAttachDeviceToDeviceStackSafe", "ptr", SourceDevice, "ptr", TargetDevice, AttachedToDeviceObjectMarshal, AttachedToDeviceObject, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21905,7 +21972,7 @@ class SystemServices {
      */
     static IoSetFileOrigin(FileObject, Remote) {
         result := DllCall("ntoskrnl.exe\IoSetFileOrigin", "ptr", FileObject, "char", Remote, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21926,7 +21993,7 @@ class SystemServices {
      */
     static IoSetFileObjectIgnoreSharing(FileObject) {
         result := DllCall("ntoskrnl.exe\IoSetFileObjectIgnoreSharing", "ptr", FileObject, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21972,7 +22039,7 @@ class SystemServices {
      */
     static IoGetActivityIdIrp(_Irp, Guid) {
         result := DllCall("ntoskrnl.exe\IoGetActivityIdIrp", "ptr", _Irp, "ptr", Guid, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21984,7 +22051,7 @@ class SystemServices {
      */
     static IoSetActivityIdIrp(_Irp, Guid) {
         result := DllCall("ntoskrnl.exe\IoSetActivityIdIrp", "ptr", _Irp, "ptr", Guid, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -21999,7 +22066,7 @@ class SystemServices {
         OriginalIdMarshal := OriginalId is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoPropagateActivityIdToThread", "ptr", _Irp, "ptr", PropagatedId, OriginalIdMarshal, OriginalId, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22051,7 +22118,7 @@ class SystemServices {
         ZeroingOffsetMarshal := ZeroingOffset is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoGetFsZeroingOffset", "ptr", _Irp, ZeroingOffsetMarshal, ZeroingOffset, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22062,7 +22129,7 @@ class SystemServices {
      */
     static IoSetFsZeroingOffsetRequired(_Irp) {
         result := DllCall("ntoskrnl.exe\IoSetFsZeroingOffsetRequired", "ptr", _Irp, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22074,7 +22141,7 @@ class SystemServices {
      */
     static IoSetFsZeroingOffset(_Irp, ZeroingOffset) {
         result := DllCall("ntoskrnl.exe\IoSetFsZeroingOffset", "ptr", _Irp, "uint", ZeroingOffset, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22096,7 +22163,7 @@ class SystemServices {
      */
     static IoIncrementKeepAliveCount(FileObject, Process) {
         result := DllCall("ntoskrnl.exe\IoIncrementKeepAliveCount", "ptr", FileObject, "ptr", Process, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22108,7 +22175,7 @@ class SystemServices {
      */
     static IoDecrementKeepAliveCount(FileObject, Process) {
         result := DllCall("ntoskrnl.exe\IoDecrementKeepAliveCount", "ptr", FileObject, "ptr", Process, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22140,7 +22207,7 @@ class SystemServices {
      */
     static IoQueryFullDriverPath(DriverObject, FullPath) {
         result := DllCall("ntoskrnl.exe\IoQueryFullDriverPath", "ptr", DriverObject, "ptr", FullPath, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22160,7 +22227,7 @@ class SystemServices {
         DeviceObjectMarshal := DeviceObject is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoReportDetectedDevice", "ptr", DriverObject, "int", LegacyBusType, "uint", BusNumber, "uint", SlotNumber, "ptr", ResourceList, "ptr", ResourceRequirements, "char", ResourceAssigned, DeviceObjectMarshal, DeviceObject, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22171,7 +22238,7 @@ class SystemServices {
      */
     static IoReportRootDevice(DriverObject) {
         result := DllCall("ntoskrnl.exe\IoReportRootDevice", "ptr", DriverObject, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22190,7 +22257,7 @@ class SystemServices {
         ConflictDetectedMarshal := ConflictDetected is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntoskrnl.exe\IoReportResourceForDetection", "ptr", DriverObject, "ptr", DriverList, "uint", DriverListSize, "ptr", DeviceObject, "ptr", DeviceList, "uint", DeviceListSize, ConflictDetectedMarshal, ConflictDetected, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22219,7 +22286,7 @@ class SystemServices {
         AllocatedResourcesMarshal := AllocatedResources is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("HAL.dll\HalAssignSlotResources", "ptr", RegistryPath, "ptr", DriverClassName, "ptr", DriverObject, "ptr", DeviceObject, "int", BusType, "uint", BusNumber, "uint", SlotNumber, AllocatedResourcesMarshal, AllocatedResources, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22316,7 +22383,7 @@ class SystemServices {
         MapRegistersAvailableMarshal := MapRegistersAvailable is VarRef ? "uint*" : "ptr"
 
         result := DllCall("HAL.dll\HalDmaAllocateCrashDumpRegistersEx", _AdapterMarshal, _Adapter, "uint", NumberOfMapRegisters, "int", Type, MapRegisterBaseMarshal, MapRegisterBase, MapRegistersAvailableMarshal, MapRegistersAvailable, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22330,7 +22397,7 @@ class SystemServices {
         _AdapterMarshal := _Adapter is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("HAL.dll\HalDmaFreeCrashDumpRegistersEx", _AdapterMarshal, _Adapter, "int", Type, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22398,7 +22465,7 @@ class SystemServices {
         AdapterObjectMarshal := AdapterObject is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("HAL.dll\HalAllocateAdapterChannel", AdapterObjectMarshal, AdapterObject, "ptr", Wcb, "uint", NumberOfMapRegisters, "ptr", ExecutionRoutine, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22530,7 +22597,7 @@ class SystemServices {
      */
     static HalAllocateHardwareCounters(GroupAffinty, GroupCount, ResourceList, CounterSetHandle) {
         result := DllCall("HAL.dll\HalAllocateHardwareCounters", "ptr", GroupAffinty, "uint", GroupCount, "ptr", ResourceList, "ptr", CounterSetHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22543,7 +22610,7 @@ class SystemServices {
         CounterSetHandle := CounterSetHandle is Win32Handle ? NumGet(CounterSetHandle, "ptr") : CounterSetHandle
 
         result := DllCall("HAL.dll\HalFreeHardwareCounters", "ptr", CounterSetHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22578,7 +22645,7 @@ class SystemServices {
         ApcContextMarshal := ApcContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\ZwDeviceIoControlFile", "ptr", FileHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", IoStatusBlock, "uint", IoControlCode, "ptr", InputBuffer, "uint", InputBufferLength, "ptr", OutputBuffer, "uint", OutputBufferLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22589,7 +22656,7 @@ class SystemServices {
      */
     static ZwDisplayString(_String) {
         result := DllCall("ntdll.dll\ZwDisplayString", "ptr", _String, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22604,7 +22671,7 @@ class SystemServices {
      */
     static ZwPowerInformation(InformationLevel, InputBuffer, InputBufferLength, OutputBuffer, OutputBufferLength) {
         result := DllCall("ntdll.dll\ZwPowerInformation", "int", InformationLevel, "ptr", InputBuffer, "uint", InputBufferLength, "ptr", OutputBuffer, "uint", OutputBufferLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22615,7 +22682,7 @@ class SystemServices {
      */
     static ZwAllocateLocallyUniqueId(_Luid) {
         result := DllCall("ntdll.dll\ZwAllocateLocallyUniqueId", "ptr", _Luid, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22630,7 +22697,7 @@ class SystemServices {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\WheaAddErrorSourceDeviceDriver", _ContextMarshal, _Context, "ptr", Configuration, "uint", NumberPreallocatedErrorReports, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22646,7 +22713,7 @@ class SystemServices {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\WheaAddErrorSourceDeviceDriverV1", _ContextMarshal, _Context, "ptr", Configuration, "uint", NumBuffersToPreallocate, "uint", MaxDataLength, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22657,7 +22724,7 @@ class SystemServices {
      */
     static WheaRemoveErrorSourceDeviceDriver(ErrorSourceId) {
         result := DllCall("ntoskrnl.exe\WheaRemoveErrorSourceDeviceDriver", "uint", ErrorSourceId, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22676,7 +22743,7 @@ class SystemServices {
         DeviceFriendlyName := DeviceFriendlyName is String ? StrPtr(DeviceFriendlyName) : DeviceFriendlyName
 
         result := DllCall("ntoskrnl.exe\WheaReportHwErrorDeviceDriver", "uint", ErrorSourceId, "ptr", DeviceObject, "ptr", ErrorData, "uint", ErrorDataLength, "ptr", SectionTypeGuid, "int", ErrorSeverity, "ptr", DeviceFriendlyName, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22702,7 +22769,7 @@ class SystemServices {
         ErrorHandleMarshal := ErrorHandle is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\WheaAddHwErrorReportSectionDeviceDriver", ErrorHandleMarshal, ErrorHandle, "uint", SectionDataLength, "ptr", BufferSet, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22715,7 +22782,7 @@ class SystemServices {
         ErrorHandleMarshal := ErrorHandle is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\WheaHwErrorReportAbandonDeviceDriver", ErrorHandleMarshal, ErrorHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22728,7 +22795,7 @@ class SystemServices {
         ErrorHandleMarshal := ErrorHandle is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\WheaHwErrorReportSubmitDeviceDriver", ErrorHandleMarshal, ErrorHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22742,7 +22809,7 @@ class SystemServices {
         ErrorHandleMarshal := ErrorHandle is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\WheaHwErrorReportSetSeverityDeviceDriver", ErrorHandleMarshal, ErrorHandle, "int", ErrorSeverity, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22755,7 +22822,7 @@ class SystemServices {
      */
     static WheaHwErrorReportSetSectionNameDeviceDriver(BufferSet, NameLength, Name) {
         result := DllCall("ntoskrnl.exe\WheaHwErrorReportSetSectionNameDeviceDriver", "ptr", BufferSet, "uint", NameLength, "ptr", Name, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22766,7 +22833,7 @@ class SystemServices {
      */
     static WheaReportHwError(ErrorPacket) {
         result := DllCall("ntoskrnl.exe\WheaReportHwError", "ptr", ErrorPacket, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22780,7 +22847,7 @@ class SystemServices {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\WheaAddErrorSource", "ptr", ErrorSource, _ContextMarshal, _Context, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22791,7 +22858,7 @@ class SystemServices {
      */
     static WheaInitializeRecordHeader(Header) {
         result := DllCall("ntoskrnl.exe\WheaInitializeRecordHeader", "ptr", Header, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22803,7 +22870,7 @@ class SystemServices {
      */
     static WheaConfigureErrorSource(SourceType, Configuration) {
         result := DllCall("ntoskrnl.exe\WheaConfigureErrorSource", "int", SourceType, "ptr", Configuration, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22814,7 +22881,7 @@ class SystemServices {
      */
     static WheaUnconfigureErrorSource(SourceType) {
         result := DllCall("ntoskrnl.exe\WheaUnconfigureErrorSource", "int", SourceType, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22886,7 +22953,7 @@ class SystemServices {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntoskrnl.exe\WheaRegisterInUsePageOfflineNotification", "ptr", Callback, _ContextMarshal, _Context, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22897,7 +22964,7 @@ class SystemServices {
      */
     static WheaUnregisterInUsePageOfflineNotification(Callback) {
         result := DllCall("ntoskrnl.exe\WheaUnregisterInUsePageOfflineNotification", "ptr", Callback, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22917,7 +22984,7 @@ class SystemServices {
      */
     static HvlRegisterWheaErrorNotification(Callback) {
         result := DllCall("ntoskrnl.exe\HvlRegisterWheaErrorNotification", "ptr", Callback, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22928,7 +22995,7 @@ class SystemServices {
      */
     static HvlUnregisterWheaErrorNotification(Callback) {
         result := DllCall("ntoskrnl.exe\HvlUnregisterWheaErrorNotification", "ptr", Callback, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -22969,7 +23036,7 @@ class SystemServices {
      */
     static PshedRegisterPlugin(Packet) {
         result := DllCall("PSHED.dll\PshedRegisterPlugin", "ptr", Packet, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 

@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DDCORECAPS.ahk
-#Include .\DDHAL_DDCALLBACKS.ahk
-#Include .\DDHAL_DDPALETTECALLBACKS.ahk
-#Include .\VIDMEM.ahk
 #Include .\DDHALMODEINFO.ahk
+#Include .\DDHAL_DDCALLBACKS.ahk
+#Include .\DDHAL_DDEXEBUFCALLBACKS.ahk
+#Include .\DDHAL_DDPALETTECALLBACKS.ahk
 #Include .\DDHAL_DDSURFACECALLBACKS.ahk
 #Include .\DDPIXELFORMAT.ahk
 #Include .\DDSCAPS.ahk
-#Include .\DDHAL_DDEXEBUFCALLBACKS.ahk
+#Include .\LPDDHAL_GETDRIVERINFO.ahk
+#Include .\VIDMEM.ahk
 #Include .\VIDMEMINFO.ahk
 
 /**

@@ -2,10 +2,14 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IDirectDraw.ahk
 #Include .\IDirectDrawClipper.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\LPDDENUMCALLBACKA.ahk
+#Include .\LPDDENUMCALLBACKEXA.ahk
+#Include .\LPDDENUMCALLBACKEXW.ahk
+#Include .\LPDDENUMCALLBACKW.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

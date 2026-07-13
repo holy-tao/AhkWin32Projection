@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\VDS_PARTITION_STYLE.ahk
-#Include .\IVdsAsync.ahk
-#Include .\IEnumVdsObject.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\VDS_PACK_PROP.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IEnumVdsObject.ahk
+#Include .\IVdsAsync.ahk
 #Include .\IVdsProvider.ahk
 #Include .\VDS_INPUT_DISK.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Foundation\BOOL.ahk
+#Include .\VDS_PACK_PROP.ahk
+#Include .\VDS_PARTITION_STYLE.ahk
 #Include .\VDS_VOLUME_TYPE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 

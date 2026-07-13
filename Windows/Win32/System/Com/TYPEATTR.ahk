@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\TYPEKIND.ahk
-#Include .\IDLFLAGS.ahk
-#Include ..\Ole\ARRAYDESC.ahk
-#Include ..\Variant\VARENUM.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\TYPEDESC.ahk
 #Include .\IDLDESC.ahk
+#Include .\IDLFLAGS.ahk
+#Include .\TYPEDESC.ahk
+#Include .\TYPEKIND.ahk
+#Include ..\Ole\ARRAYDESC.ahk
+#Include ..\Variant\VARENUM.ahk
 
 /**
  * Contains attributes of a type.

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECTL.ahk
-#Include .\IDirectDrawSurface.ahk
-#Include .\DD_DIRECTDRAW_GLOBAL.ahk
-#Include .\DDCOLORKEY.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\DD_SURFACE_LOCAL.ahk
+#Include ..\..\Foundation\RECTL.ahk
+#Include .\DDCOLORKEY.ahk
 #Include .\DDOVERLAYFX.ahk
+#Include .\DD_DIRECTDRAW_GLOBAL.ahk
+#Include .\DD_SURFACE_LOCAL.ahk
+#Include .\IDirectDrawSurface.ahk
 
 /**
  * The DD_UPDATEOVERLAYDATA structure contains information necessary for updating an overlay surface.

@@ -1,5 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\LPDHCP_CONTROL.ahk
+#Include .\LPDHCP_DELETE_CLIENT.ahk
+#Include .\LPDHCP_DROP_SEND.ahk
+#Include .\LPDHCP_GIVE_ADDRESS.ahk
+#Include .\LPDHCP_HANDLE_OPTIONS.ahk
+#Include .\LPDHCP_NEWPKT.ahk
+#Include .\LPDHCP_PROB.ahk
 
 /**
  * The DHCP_CALLOUT_TABLE structure is used by Microsoft DHCP Server and third-party DLLs to send notification requests for DHCP Server events.

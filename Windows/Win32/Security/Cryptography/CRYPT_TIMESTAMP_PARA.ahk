@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\CERT_EXTENSION.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * Defines additional parameters for the time stamp request.

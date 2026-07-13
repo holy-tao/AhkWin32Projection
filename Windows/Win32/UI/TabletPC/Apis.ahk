@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\HRECOGNIZER.ahk
-#Include .\PACKET_DESCRIPTION.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Graphics\Gdi\XFORM.ahk
 #Include .\CHARACTER_RANGE.ahk
 #Include .\HRECOALT.ahk
-#Include .\HRECOWORDLIST.ahk
 #Include .\HRECOCONTEXT.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\RECO_LATTICE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\HRECOGNIZER.ahk
+#Include .\HRECOWORDLIST.ahk
+#Include .\PACKET_DESCRIPTION.ahk
 #Include .\RECO_ATTRS.ahk
 #Include .\RECO_GUIDE.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Graphics\Gdi\XFORM.ahk
+#Include .\RECO_LATTICE.ahk
 
 /**
  * @namespace Windows.Win32.UI.TabletPC

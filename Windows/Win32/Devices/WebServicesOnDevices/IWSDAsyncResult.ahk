@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWSDAsyncCallback.ahk
 #Include .\IWSDEndpointProxy.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\WSD_EVENT.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\IWSDAsyncCallback.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents an asynchronous operation.

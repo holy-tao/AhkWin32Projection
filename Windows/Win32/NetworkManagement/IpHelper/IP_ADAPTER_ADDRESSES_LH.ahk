@@ -1,24 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include .\IP_ADAPTER_GATEWAY_ADDRESS_LH.ahk
-#Include .\IP_ADAPTER_DNS_SUFFIX.ahk
-#Include ..\Ndis\NET_IF_CONNECTION_TYPE.ahk
-#Include .\IP_ADAPTER_UNICAST_ADDRESS_LH.ahk
-#Include .\IP_ADAPTER_ADDRESSES_LH.ahk
-#Include ..\..\Networking\WinSock\SOCKET_ADDRESS.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\Ndis\NET_LUID_LH.ahk
-#Include .\IP_ADAPTER_MULTICAST_ADDRESS_XP.ahk
-#Include ..\Ndis\TUNNEL_TYPE.ahk
-#Include .\IP_ADAPTER_DNS_SERVER_ADDRESS_XP.ahk
-#Include .\IP_ADAPTER_WINS_SERVER_ADDRESS_LH.ahk
-#Include ..\Ndis\NET_IF_COMPARTMENT_ID.ahk
-#Include .\IP_ADAPTER_PREFIX_XP.ahk
-#Include ..\Ndis\IF_OPER_STATUS.ahk
-#Include .\IP_ADAPTER_ANYCAST_ADDRESS_XP.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IP_ADAPTER_ADDRESSES_LH.ahk
+#Include .\IP_ADAPTER_ANYCAST_ADDRESS_XP.ahk
+#Include .\IP_ADAPTER_DNS_SERVER_ADDRESS_XP.ahk
+#Include .\IP_ADAPTER_DNS_SUFFIX.ahk
+#Include .\IP_ADAPTER_GATEWAY_ADDRESS_LH.ahk
+#Include .\IP_ADAPTER_MULTICAST_ADDRESS_XP.ahk
+#Include .\IP_ADAPTER_PREFIX_XP.ahk
+#Include .\IP_ADAPTER_UNICAST_ADDRESS_LH.ahk
+#Include .\IP_ADAPTER_WINS_SERVER_ADDRESS_LH.ahk
+#Include ..\Ndis\IF_OPER_STATUS.ahk
+#Include ..\Ndis\NET_IF_COMPARTMENT_ID.ahk
+#Include ..\Ndis\NET_IF_CONNECTION_TYPE.ahk
+#Include ..\Ndis\NET_LUID_LH.ahk
+#Include ..\Ndis\TUNNEL_TYPE.ahk
 #Include ..\..\Networking\WinSock\SOCKADDR.ahk
+#Include ..\..\Networking\WinSock\SOCKET_ADDRESS.ahk
 
 /**
  * The IP_ADAPTER_ADDRESSES_LH structure (iptypes.h) is the header node for a linked list of addresses for a particular adapter.

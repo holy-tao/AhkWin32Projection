@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IErrorLog.ahk
-#Include ..\Com\StructuredStorage\IPropertyBag2.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include ..\Com\IPersist.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IErrorLog.ahk
+#Include ..\Com\IPersist.ahk
+#Include ..\Com\StructuredStorage\IPropertyBag2.ahk
 
 /**
  * @namespace Windows.Win32.System.Ole

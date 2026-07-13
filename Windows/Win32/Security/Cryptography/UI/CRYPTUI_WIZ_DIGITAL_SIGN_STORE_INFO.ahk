@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\HCERTSTORE.ahk
+#Include .\PFNCFILTERPROC.ahk
 
 /**
  * Contains information about the certificate store used by the digital signature wizard.

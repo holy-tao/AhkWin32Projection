@@ -1,5 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PINTERFACE_DEREFERENCE.ahk
+#Include .\PINTERFACE_REFERENCE.ahk
+#Include .\PPTM_DEVICE_DISABLE.ahk
+#Include .\PPTM_DEVICE_ENABLE.ahk
+#Include .\PPTM_DEVICE_QUERY_GRANULARITY.ahk
+#Include .\PPTM_DEVICE_QUERY_TIME_SOURCE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

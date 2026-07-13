@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IP_ADDR_STRING.ahk
 #Include .\IP_ADDRESS_STRING.ahk
+#Include .\IP_ADDR_STRING.ahk
 
 /**
  * Represents a node in a linked-list of IPv4 addresses.

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PDD_KERNELCB_SYNCSURFACE.ahk
+#Include .\PDD_KERNELCB_SYNCVIDEOPORT.ahk
 
 /**
  * The DD_KERNELCALLBACKS structure contains entry pointers to the DirectDraw kernel-mode callback functions that the driver supports.

@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IUIAutomationElement4.ahk
 #Include .\UIA_LANDMARKTYPE_ID.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the IUIAutomationElement4 interface to provide access to current and cached landmark data.

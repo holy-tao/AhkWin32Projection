@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWbemServices.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\IWbemContext.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IWbemProviderInitSink.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\IWbemContext.ahk
+#Include .\IWbemProviderInitSink.ahk
+#Include .\IWbemServices.ahk
 
 /**
  * The IWbemProviderInit interface is called by Windows Management to initialize providers. All providers are required to implement IWbemProviderInit.

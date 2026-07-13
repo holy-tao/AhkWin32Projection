@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Gdi\PALETTEENTRY.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\DDRAWI_DDRAWPALETTE_GBL.ahk
 #Include .\DDRAWI_DIRECTDRAW_GBL.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\LPDDHALPALCB_SETENTRIES.ahk
+#Include ..\Gdi\PALETTEENTRY.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

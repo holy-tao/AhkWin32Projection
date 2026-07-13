@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITfDisplayAttributeInfo.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IEnumTfDisplayAttributeInfo.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ITfDisplayAttributeInfo.ahk
 
 /**
  * The ITfDisplayAttributeProvider interface is implemented by a text service and is used by the TSF manager to enumerate and obtain individual display attribute information objects.

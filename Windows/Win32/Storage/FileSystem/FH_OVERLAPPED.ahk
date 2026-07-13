@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\PFN_IO_COMPLETION.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem

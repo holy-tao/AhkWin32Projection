@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\SECURITY_STRING.ahk
+#Include .\SECPKG_CONTEXT_THUNKS.ahk
 #Include .\SECPKG_EXTENDED_INFORMATION_CLASS.ahk
-#Include .\SECPKG_SERIALIZED_OID.ahk
+#Include .\SECPKG_EXTRA_OIDS.ahk
 #Include .\SECPKG_GSS_INFO.ahk
 #Include .\SECPKG_MUTUAL_AUTH_LEVEL.ahk
 #Include .\SECPKG_NEGO2_INFO.ahk
+#Include .\SECPKG_SERIALIZED_OID.ahk
 #Include .\SECPKG_WOW_CLIENT_DLL.ahk
-#Include .\SECPKG_EXTRA_OIDS.ahk
-#Include .\SECPKG_CONTEXT_THUNKS.ahk
+#Include .\SECURITY_STRING.ahk
 
 /**
  * The SECPKG_EXTENDED_INFORMATION structure is used to hold information about optional package capabilities.This structure is used by the SpGetExtendedInformation and SpSetExtendedInformation functions.

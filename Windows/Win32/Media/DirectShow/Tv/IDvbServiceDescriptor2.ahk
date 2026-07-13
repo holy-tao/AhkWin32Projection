@@ -2,9 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IDvbServiceDescriptor.ahk
-#Include .\DVB_STRCONV_MODE.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\DVB_STRCONV_MODE.ahk
+#Include .\IDvbServiceDescriptor.ahk
 
 /**
  * Implements methods that get the string values from fields in a Digital Video Broadcast (DVB) service descriptor. The service descriptor describes the service type, and provides the names of the service provider and the service in text form.

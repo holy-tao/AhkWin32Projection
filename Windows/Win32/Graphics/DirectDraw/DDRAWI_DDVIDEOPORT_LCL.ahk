@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDVIDEOPORTCONNECT.ahk
-#Include .\DDRAWI_DDRAWSURFACE_INT.ahk
-#Include .\DDVIDEOPORTINFO.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DDRAWI_DDVIDEOPORT_INT.ahk
-#Include .\DDVIDEOPORTDESC.ahk
-#Include .\DDPIXELFORMAT.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include .\DDPIXELFORMAT.ahk
+#Include .\DDRAWI_DDRAWSURFACE_INT.ahk
+#Include .\DDRAWI_DDVIDEOPORT_INT.ahk
 #Include .\DDRAWI_DIRECTDRAW_LCL.ahk
+#Include .\DDVIDEOPORTCONNECT.ahk
+#Include .\DDVIDEOPORTDESC.ahk
+#Include .\DDVIDEOPORTINFO.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

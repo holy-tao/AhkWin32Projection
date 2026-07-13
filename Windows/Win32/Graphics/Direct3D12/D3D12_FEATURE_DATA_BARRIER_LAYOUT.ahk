@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_COMMAND_LIST_TYPE.ahk
-#Include .\D3D12_BARRIER_LAYOUT.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include .\D3D12_BARRIER_LAYOUT.ahk
+#Include .\D3D12_COMMAND_LIST_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

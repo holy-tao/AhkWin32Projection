@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Image.ahk
 #Include .\D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES.ahk
+#Include .\ID2D1Image.ahk
 #Include .\ID2D1ImageSource.ahk
 
 /**

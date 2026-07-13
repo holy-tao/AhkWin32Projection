@@ -1,29 +1,29 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VIDMEM.ahk
-#Include .\DDPIXELFORMAT.ahk
-#Include .\DDKERNELCAPS.ahk
-#Include .\DDRAWI_DDRAWPALETTE_INT.ahk
-#Include .\DDHALMODEINFO.ahk
-#Include .\DDCOLORKEY.ahk
-#Include .\HEAPALIASINFO.ahk
-#Include .\VIDMEMINFO.ahk
-#Include .\DBLNODE.ahk
-#Include .\DDVIDEOPORTCAPS.ahk
-#Include .\DDNONLOCALVIDMEMCAPS.ahk
-#Include .\DDRAWI_DDRAWSURFACE_LCL.ahk
-#Include .\DDRAWI_DDMOTIONCOMP_INT.ahk
-#Include .\DDHAL_CALLBACKS.ahk
-#Include .\DDSCAPS.ahk
-#Include .\DDRAWI_DDVIDEOPORT_INT.ahk
-#Include .\DDSCAPSEX.ahk
-#Include .\DDRAWI_DDRAWSURFACE_INT.ahk
-#Include .\DDCORECAPS.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include .\DDRAWI_DIRECTDRAW_LCL.ahk
+#Include .\DBLNODE.ahk
+#Include .\DDCOLORKEY.ahk
+#Include .\DDCORECAPS.ahk
+#Include .\DDHALMODEINFO.ahk
+#Include .\DDHAL_CALLBACKS.ahk
+#Include .\DDKERNELCAPS.ahk
+#Include .\DDNONLOCALVIDMEMCAPS.ahk
+#Include .\DDPIXELFORMAT.ahk
+#Include .\DDRAWI_DDMOTIONCOMP_INT.ahk
 #Include .\DDRAWI_DDRAWCLIPPER_INT.ahk
+#Include .\DDRAWI_DDRAWPALETTE_INT.ahk
+#Include .\DDRAWI_DDRAWSURFACE_INT.ahk
+#Include .\DDRAWI_DDRAWSURFACE_LCL.ahk
+#Include .\DDRAWI_DDVIDEOPORT_INT.ahk
 #Include .\DDRAWI_DIRECTDRAW_GBL.ahk
+#Include .\DDRAWI_DIRECTDRAW_LCL.ahk
+#Include .\DDSCAPS.ahk
+#Include .\DDSCAPSEX.ahk
+#Include .\DDVIDEOPORTCAPS.ahk
+#Include .\HEAPALIASINFO.ahk
 #Include .\PROCESS_LIST.ahk
+#Include .\VIDMEM.ahk
+#Include .\VIDMEMINFO.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

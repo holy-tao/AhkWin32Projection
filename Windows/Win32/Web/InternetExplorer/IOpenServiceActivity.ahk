@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IOpenServiceActivityInput.ahk
-#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
-#Include .\OpenServiceActivityContentType.ahk
-#Include .\IOpenService.ahk
-#Include .\IOpenServiceActivityOutputContext.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
+#Include .\IOpenService.ahk
+#Include .\IOpenServiceActivityInput.ahk
+#Include .\IOpenServiceActivityOutputContext.ahk
+#Include .\OpenServiceActivityContentType.ahk
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer

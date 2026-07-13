@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumItemProperties.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\SUBSCRIPTIONITEMINFO.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IEnumItemProperties.ahk
+#Include .\SUBSCRIPTIONITEMINFO.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.System.Search

@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\PFLT_CONTEXT_ALLOCATE_CALLBACK.ahk
+#Include .\PFLT_CONTEXT_CLEANUP_CALLBACK.ahk
+#Include .\PFLT_CONTEXT_FREE_CALLBACK.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters

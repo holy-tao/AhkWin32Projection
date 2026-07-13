@@ -1,56 +1,58 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include .\PERUSERSECTIONW.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include .\FEATURE_ERROR.ahk
-#Include .\HW_PROFILE_INFOA.ahk
-#Include .\CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG.ahk
-#Include .\WLDP_HOST_INFORMATION.ahk
-#Include ..\..\Foundation\UNICODE_STRING.ahk
-#Include .\FEATURE_STATE_CHANGE_SUBSCRIPTION.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\BOOLEAN.ahk
-#Include .\FEATURE_ENABLED_STATE.ahk
-#Include .\STRTABLEW.ahk
-#Include ..\..\Foundation\NTSTATUS.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include .\CABINFOA.ahk
-#Include ..\Com\IStream.ahk
-#Include ..\..\Graphics\Gdi\RGNDATA.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HGLOBAL.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\Foundation\HLOCAL.ahk
 #Include ..\..\Foundation\HMODULE.ahk
-#Include .\HW_PROFILE_INFOW.ahk
-#Include ..\Kernel\STRING.ahk
-#Include ..\..\Foundation\HGLOBAL.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\WLDP_EXECUTION_POLICY.ahk
-#Include .\WLDP_POLICY_SETTING.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include .\STRTABLEA.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
-#Include .\WLDP_SECURE_SETTING_VALUE_TYPE.ahk
-#Include .\WLDP_DEVICE_SECURITY_INFORMATION.ahk
-#Include .\DCIOFFSCREEN.ahk
-#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include .\WLDP_EXECUTION_EVALUATION_OPTIONS.ahk
-#Include ..\..\Foundation\LRESULT.ahk
-#Include .\IMEPROW.ahk
-#Include .\DCIOVERLAY.ahk
-#Include .\WLDP_WINDOWS_LOCKDOWN_MODE.ahk
 #Include ..\..\Foundation\LPARAM.ahk
-#Include .\WLDP_WINDOWS_LOCKDOWN_RESTRICTION.ahk
-#Include .\DCISURFACEINFO.ahk
-#Include ..\Registry\HKEY.ahk
+#Include ..\..\Foundation\LRESULT.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include .\IMEPROA.ahk
-#Include .\PERUSERSECTIONA.ahk
+#Include ..\..\Foundation\UNICODE_STRING.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
+#Include ..\..\Graphics\Gdi\RGNDATA.ahk
+#Include ..\Com\IStream.ahk
+#Include ..\Kernel\STRING.ahk
+#Include ..\Registry\HKEY.ahk
+#Include .\CABINFOA.ahk
 #Include .\CABINFOW.ahk
-#Include .\HWINWATCH.ahk
+#Include .\CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG.ahk
+#Include .\DCIOFFSCREEN.ahk
+#Include .\DCIOVERLAY.ahk
+#Include .\DCISURFACEINFO.ahk
 #Include .\FEATURE_CHANGE_TIME.ahk
+#Include .\FEATURE_ENABLED_STATE.ahk
+#Include .\FEATURE_ERROR.ahk
+#Include .\FEATURE_STATE_CHANGE_SUBSCRIPTION.ahk
+#Include .\HWINWATCH.ahk
+#Include .\HW_PROFILE_INFOA.ahk
+#Include .\HW_PROFILE_INFOW.ahk
+#Include .\IMEPROA.ahk
+#Include .\IMEPROW.ahk
+#Include .\PERUSERSECTIONA.ahk
+#Include .\PERUSERSECTIONW.ahk
+#Include .\PFEATURE_STATE_CHANGE_CALLBACK.ahk
+#Include .\STRTABLEA.ahk
+#Include .\STRTABLEW.ahk
+#Include .\WINWATCHNOTIFYPROC.ahk
+#Include .\WLDP_DEVICE_SECURITY_INFORMATION.ahk
+#Include .\WLDP_EXECUTION_EVALUATION_OPTIONS.ahk
+#Include .\WLDP_EXECUTION_POLICY.ahk
+#Include .\WLDP_HOST_INFORMATION.ahk
+#Include .\WLDP_POLICY_SETTING.ahk
+#Include .\WLDP_SECURE_SETTING_VALUE_TYPE.ahk
+#Include .\WLDP_WINDOWS_LOCKDOWN_MODE.ahk
+#Include .\WLDP_WINDOWS_LOCKDOWN_RESTRICTION.ahk
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
@@ -7003,7 +7005,7 @@ class WindowsProgramming {
         _SystemTimeMarshal := _SystemTime is VarRef ? "int64*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlLocalTimeToSystemTime", LocalTimeMarshal, LocalTime, _SystemTimeMarshal, _SystemTime, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7115,7 +7117,7 @@ class WindowsProgramming {
         SourceStringMarshal := SourceString is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlInitStringEx", "ptr", DestinationString, SourceStringMarshal, SourceString, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7141,7 +7143,7 @@ class WindowsProgramming {
         SourceStringMarshal := SourceString is VarRef ? "char*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlInitAnsiStringEx", "ptr", DestinationString, SourceStringMarshal, SourceString, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7198,7 +7200,7 @@ class WindowsProgramming {
      */
     static RtlAnsiStringToUnicodeString(DestinationString, SourceString, AllocateDestinationString) {
         result := DllCall("ntdll.dll\RtlAnsiStringToUnicodeString", "ptr", DestinationString, "ptr", SourceString, "char", AllocateDestinationString, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7237,7 +7239,7 @@ class WindowsProgramming {
      */
     static RtlUnicodeStringToAnsiString(DestinationString, SourceString, AllocateDestinationString) {
         result := DllCall("ntdll.dll\RtlUnicodeStringToAnsiString", "ptr", DestinationString, "ptr", SourceString, "char", AllocateDestinationString, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7274,7 +7276,7 @@ class WindowsProgramming {
      */
     static RtlUnicodeStringToOemString(DestinationString, SourceString, AllocateDestinationString) {
         result := DllCall("ntdll.dll\RtlUnicodeStringToOemString", "ptr", DestinationString, "ptr", SourceString, "char", AllocateDestinationString, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7310,7 +7312,7 @@ class WindowsProgramming {
         BytesInMultiByteStringMarshal := BytesInMultiByteString is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlUnicodeToMultiByteSize", BytesInMultiByteStringMarshal, BytesInMultiByteString, "ptr", UnicodeString, "uint", BytesInUnicodeString, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7334,7 +7336,7 @@ class WindowsProgramming {
         ValueMarshal := Value is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ntdll.dll\RtlCharToInteger", _StringMarshal, _String, "uint", Base, ValueMarshal, Value, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 

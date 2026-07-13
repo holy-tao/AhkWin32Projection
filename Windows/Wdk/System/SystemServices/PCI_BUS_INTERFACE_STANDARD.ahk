@@ -1,5 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PINTERFACE_DEREFERENCE.ahk
+#Include .\PINTERFACE_REFERENCE.ahk
+#Include .\PPCI_EXPRESS_WAKE_CONTROL.ahk
+#Include .\PPCI_LINE_TO_PIN.ahk
+#Include .\PPCI_PIN_TO_LINE.ahk
+#Include .\PPCI_PREPARE_MULTISTAGE_RESUME.ahk
+#Include .\PPCI_READ_WRITE_CONFIG.ahk
+#Include .\PPCI_ROOT_BUS_CAPABILITY.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

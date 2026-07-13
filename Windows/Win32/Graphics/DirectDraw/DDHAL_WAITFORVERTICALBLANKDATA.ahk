@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DIRECTDRAW_GBL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\DDRAWI_DIRECTDRAW_GBL.ahk
+#Include .\LPDDHAL_WAITFORVERTICALBLANK.ahk
 
 /**
  * The DD_WAITFORVERTICALBLANKDATA structure contains information necessary to obtain the monitor's vertical blank information. (DDHAL_WAITFORVERTICALBLANKDATA)

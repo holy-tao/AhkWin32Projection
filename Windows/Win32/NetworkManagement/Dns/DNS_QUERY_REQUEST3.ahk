@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include .\DNS_ADDR_ARRAY.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\DNS_CUSTOM_SERVER.ahk
+#Include .\PDNS_QUERY_COMPLETION_ROUTINE.ahk
 
 /**
  * Contains the DNS query parameters used in a call to [DnsQueryEx](/windows/win32/api/windns/nf-windns-dnsqueryex).

@@ -1,5 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PWLX_ASSIGN_SHELL_PROTECTION.ahk
+#Include .\PWLX_CHANGE_PASSWORD_NOTIFY.ahk
+#Include .\PWLX_DIALOG_BOX.ahk
+#Include .\PWLX_DIALOG_BOX_INDIRECT.ahk
+#Include .\PWLX_DIALOG_BOX_INDIRECT_PARAM.ahk
+#Include .\PWLX_DIALOG_BOX_PARAM.ahk
+#Include .\PWLX_MESSAGE_BOX.ahk
+#Include .\PWLX_SAS_NOTIFY.ahk
+#Include .\PWLX_SET_CONTEXT_POINTER.ahk
+#Include .\PWLX_SET_TIMEOUT.ahk
+#Include .\PWLX_SWITCH_DESKTOP_TO_USER.ahk
+#Include .\PWLX_SWITCH_DESKTOP_TO_WINLOGON.ahk
+#Include .\PWLX_USE_CTRL_ALT_DEL.ahk
 
 /**
  * Defines the format of the Winlogon version 1.0 function dispatch table passed to your GINA DLL in the WlxInitialize call.

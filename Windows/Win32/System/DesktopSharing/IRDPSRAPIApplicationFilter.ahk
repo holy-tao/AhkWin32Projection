@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\Com\IDispatch.ahk
 #Include .\IRDPSRAPIApplicationList.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IRDPSRAPIWindowList.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Manages the shared desktop area at the window and process level. Applications can use the enumerators to display lists of objects in the session that can be shared.

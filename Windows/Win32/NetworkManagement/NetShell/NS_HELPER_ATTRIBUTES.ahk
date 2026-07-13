@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\PNS_HELPER_START_FN.ahk
+#Include .\PNS_HELPER_STOP_FN.ahk
 
 /**
  * Provides attributes of a helper.

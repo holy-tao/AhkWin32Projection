@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IGPMGPO2.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IGPMGPO2.ahk
 
 /**
  * @namespace Windows.Win32.System.GroupPolicy

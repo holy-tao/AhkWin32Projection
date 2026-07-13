@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PATCH_INTERLEAVE_MAP.ahk
 #Include ..\..\Foundation\PSTR.ahk
+#Include .\PATCH_INTERLEAVE_MAP.ahk
+#Include .\PPATCH_SYMLOAD_CALLBACK.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing

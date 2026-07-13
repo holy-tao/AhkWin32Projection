@@ -4,6 +4,7 @@
 #Include ..\..\Foundation\HRESULT.ahk
 #Include .\DDPIXELFORMAT.ahk
 #Include .\DDRAWI_DIRECTDRAW_LCL.ahk
+#Include .\LPDDHALMOCOMPCB_GETINTERNALINFO.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

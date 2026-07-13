@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_RESTORATION_TYPE.ahk
 #Include .\D3D12_VIDEO_ENCODER_AV1_RESTORATION_TILESIZE.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_RESTORATION_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation

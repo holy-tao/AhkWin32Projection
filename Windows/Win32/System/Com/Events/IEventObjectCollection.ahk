@@ -2,11 +2,11 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\IDispatch.ahk
-#Include .\IEnumEventObject.ahk
-#Include ..\..\Variant\VARIANT.ahk
-#Include ..\IUnknown.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IEnumEventObject.ahk
+#Include ..\IDispatch.ahk
+#Include ..\IUnknown.ahk
+#Include ..\..\Variant\VARIANT.ahk
 
 /**
  * Manages objects in an event objects collection.

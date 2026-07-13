@@ -2,9 +2,9 @@
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
-#Include .\ScriptDebugPosition.ahk
-#Include ..\..\..\Com\IUnknown.ahk
 #Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+#Include .\ScriptDebugPosition.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

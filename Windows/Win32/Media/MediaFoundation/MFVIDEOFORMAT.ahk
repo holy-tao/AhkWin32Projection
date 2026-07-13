@@ -1,23 +1,23 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\SIZE.ahk
-#Include .\MFVideoTransferMatrix.ahk
-#Include .\MFVideoArea.ahk
-#Include .\MFNominalRange.ahk
-#Include .\MFVideoTransferFunction.ahk
 #Include .\MFARGB.ahk
 #Include .\MFAYUVSample.ahk
-#Include .\MFVideoLighting.ahk
-#Include .\MFVideoInterlaceMode.ahk
-#Include .\MFPaletteEntry.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\MFVideoInfo.ahk
-#Include .\MFVideoCompressedInfo.ahk
-#Include .\MFRatio.ahk
-#Include .\MFVideoSurfaceInfo.ahk
+#Include .\MFNominalRange.ahk
 #Include .\MFOffset.ahk
+#Include .\MFPaletteEntry.ahk
+#Include .\MFRatio.ahk
+#Include .\MFVideoArea.ahk
 #Include .\MFVideoChromaSubsampling.ahk
+#Include .\MFVideoCompressedInfo.ahk
+#Include .\MFVideoInfo.ahk
+#Include .\MFVideoInterlaceMode.ahk
+#Include .\MFVideoLighting.ahk
 #Include .\MFVideoPrimaries.ahk
+#Include .\MFVideoSurfaceInfo.ahk
+#Include .\MFVideoTransferFunction.ahk
+#Include .\MFVideoTransferMatrix.ahk
 
 /**
  * Describes a video format.

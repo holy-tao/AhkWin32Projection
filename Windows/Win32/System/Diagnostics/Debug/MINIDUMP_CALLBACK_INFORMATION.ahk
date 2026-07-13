@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\MINIDUMP_CALLBACK_ROUTINE.ahk
 
 /**
  * Contains a pointer to an optional callback function that can be used by the MiniDumpWriteDump function.

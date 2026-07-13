@@ -1,20 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\UNLOAD_DLL_DEBUG_INFO.ahk
-#Include .\EXIT_THREAD_DEBUG_INFO.ahk
-#Include .\RIP_INFO.ahk
-#Include .\RIP_INFO_TYPE.ahk
-#Include .\EXCEPTION_DEBUG_INFO.ahk
-#Include .\EXIT_PROCESS_DEBUG_INFO.ahk
-#Include .\LOAD_DLL_DEBUG_INFO.ahk
-#Include .\DEBUG_EVENT_CODE.ahk
-#Include .\CREATE_THREAD_DEBUG_INFO.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
-#Include .\EXCEPTION_RECORD.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\..\..\Foundation\NTSTATUS.ahk
-#Include .\OUTPUT_DEBUG_STRING_INFO.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
 #Include .\CREATE_PROCESS_DEBUG_INFO.ahk
+#Include .\CREATE_THREAD_DEBUG_INFO.ahk
+#Include .\DEBUG_EVENT_CODE.ahk
+#Include .\EXCEPTION_DEBUG_INFO.ahk
+#Include .\EXCEPTION_RECORD.ahk
+#Include .\EXIT_PROCESS_DEBUG_INFO.ahk
+#Include .\EXIT_THREAD_DEBUG_INFO.ahk
+#Include .\LOAD_DLL_DEBUG_INFO.ahk
+#Include .\OUTPUT_DEBUG_STRING_INFO.ahk
+#Include .\RIP_INFO.ahk
+#Include .\RIP_INFO_TYPE.ahk
+#Include .\UNLOAD_DLL_DEBUG_INFO.ahk
+#Include ..\..\Threading\LPTHREAD_START_ROUTINE.ahk
 
 /**
  * Describes a debugging event.

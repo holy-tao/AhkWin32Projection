@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmActionEmail.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IFsrmActionEmail.ahk
 
 /**
  * Used to limit the number of expired files listed in the email notification.

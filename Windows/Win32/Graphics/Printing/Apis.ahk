@@ -1,46 +1,47 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include .\PRINTER_OPTIONSW.ahk
-#Include ..\Gdi\DEVMODEW.ahk
-#Include .\IPrintAsyncNotifyChannel.ahk
-#Include .\EPrintXPSJobOperation.ahk
-#Include .\CORE_PRINTER_DRIVERA.ahk
-#Include .\DEVQUERYPRINT_INFO.ahk
-#Include .\PrintPropertyValue.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\PrintAsyncNotifyUserFilter.ahk
-#Include .\ATTRIBUTE_INFO_3.ahk
-#Include .\FINDPRINTERCHANGENOTIFICATION_HANDLE.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\BIDI_RESPONSE_CONTAINER.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\PRINTER_DEFAULTSA.ahk
-#Include .\SHOWUIPARAMS.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\PRINT_EXECUTION_DATA.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include .\PRINTER_NOTIFY_OPTIONS.ahk
-#Include ..\Gdi\HDC.ahk
-#Include .\PrintAsyncNotifyConversationStyle.ahk
-#Include .\CORE_PRINTER_DRIVERW.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DOC_INFO_1W.ahk
-#Include .\IPrintAsyncNotifyCallback.ahk
-#Include .\PRINTER_NOTIFY_INFO.ahk
-#Include .\EPrintXPSJobProgress.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\Gdi\DEVMODEA.ahk
-#Include .\DOC_INFO_1A.ahk
-#Include .\PrintNamedProperty.ahk
-#Include .\PRINTER_DEFAULTSW.ahk
-#Include .\PRINTER_OPTIONSA.ahk
-#Include .\PRINTER_NOTIFY_INFO_DATA.ahk
-#Include .\PRINTER_HANDLE.ahk
 #Include ..\..\Foundation\LPARAM.ahk
-#Include ..\..\Storage\Xps\DOCINFOW.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\Gdi\DEVMODEA.ahk
+#Include ..\Gdi\DEVMODEW.ahk
+#Include ..\Gdi\HDC.ahk
+#Include .\ATTRIBUTE_INFO_3.ahk
+#Include .\BIDI_RESPONSE_CONTAINER.ahk
+#Include .\CORE_PRINTER_DRIVERA.ahk
+#Include .\CORE_PRINTER_DRIVERW.ahk
+#Include .\DEVQUERYPRINT_INFO.ahk
+#Include .\DOC_INFO_1A.ahk
+#Include .\DOC_INFO_1W.ahk
+#Include .\EPrintXPSJobOperation.ahk
+#Include .\EPrintXPSJobProgress.ahk
+#Include .\FINDPRINTERCHANGENOTIFICATION_HANDLE.ahk
+#Include .\IPrintAsyncNotifyCallback.ahk
+#Include .\IPrintAsyncNotifyChannel.ahk
+#Include .\PFNPROPSHEETUI.ahk
+#Include .\PRINTER_DEFAULTSA.ahk
+#Include .\PRINTER_DEFAULTSW.ahk
+#Include .\PRINTER_HANDLE.ahk
+#Include .\PRINTER_NOTIFY_INFO.ahk
+#Include .\PRINTER_NOTIFY_INFO_DATA.ahk
+#Include .\PRINTER_NOTIFY_OPTIONS.ahk
+#Include .\PRINTER_OPTIONSA.ahk
+#Include .\PRINTER_OPTIONSW.ahk
+#Include .\PRINT_EXECUTION_DATA.ahk
+#Include .\PrintAsyncNotifyConversationStyle.ahk
+#Include .\PrintAsyncNotifyUserFilter.ahk
+#Include .\PrintNamedProperty.ahk
+#Include .\PrintPropertyValue.ahk
+#Include .\SHOWUIPARAMS.ahk
+#Include ..\..\Storage\Xps\DOCINFOW.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -13622,7 +13623,7 @@ class Printing {
      * A call to <b>UnRegisterForPrintAsyncNotifications</b> will decrement the reference count of the <i>pCallback</i> object passed to <a href="https://docs.microsoft.com/windows/desktop/api/prnasnot/nf-prnasnot-registerforprintasyncnotifications">RegisterForPrintAsyncNotifications</a>.
      * 
      * After this function succeeds, <i>hRegistrationHandler</i> is invalid and must not be used again.
-     * @param {HANDLE} param0 
+     * @param {HANDLE} param0 The registration handle to be unregistered.
      * @returns {HRESULT} <table>
      * <tr>
      * <th>HRESULT</th>

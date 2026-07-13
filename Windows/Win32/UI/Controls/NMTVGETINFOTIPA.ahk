@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\LPARAM.ahk
-#Include .\NMHDR.ahk
 #Include ..\..\Foundation\PSTR.ahk
 #Include .\HTREEITEM.ahk
+#Include .\NMHDR.ahk
 
 /**
  * Contains and receives tree-view item information needed to display a tooltip for an item. This structure is used with the TVN_GETINFOTIP notification code. (ANSI)

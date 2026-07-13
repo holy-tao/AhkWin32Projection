@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D11View.ahk
 #Include .\D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC.ahk
+#Include .\ID3D11View.ahk
 
 /**
  * Identifies the input surfaces that can be accessed during video processing.

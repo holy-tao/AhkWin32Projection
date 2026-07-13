@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\LPDDHAL_CREATESURFACEEX.ahk
+#Include .\LPDDHAL_DESTROYDDLOCAL.ahk
+#Include .\LPDDHAL_GETDRIVERSTATE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

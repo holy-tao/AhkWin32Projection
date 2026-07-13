@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PERFLIBREQUEST.ahk
+#Include .\PERF_MEM_ALLOC.ahk
+#Include .\PERF_MEM_FREE.ahk
 
 /**
  * Defines provider context information.

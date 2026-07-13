@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\WLAN_INTERFACE_INFO.ahk
 #Include .\WLAN_INTERFACE_STATE.ahk
-#Include ..\..\..\..\Guid.ahk
 
 /**
  * Array of NIC interface information.

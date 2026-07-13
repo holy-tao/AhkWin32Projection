@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IUnknown.ahk
 
 /**
  * The ISurrogate (objidlbase.h) interface is used to dynamically load new DLL servers into an existing surrogate and free the surrogate when it is no longer needed.

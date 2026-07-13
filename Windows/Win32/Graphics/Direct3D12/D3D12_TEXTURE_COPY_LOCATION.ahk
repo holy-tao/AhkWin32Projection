@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ID3D12Resource.ahk
-#Include .\D3D12_TEXTURE_COPY_TYPE.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
-#Include .\D3D12_SUBRESOURCE_FOOTPRINT.ahk
 #Include .\D3D12_PLACED_SUBRESOURCE_FOOTPRINT.ahk
+#Include .\D3D12_SUBRESOURCE_FOOTPRINT.ahk
+#Include .\D3D12_TEXTURE_COPY_TYPE.ahk
+#Include .\ID3D12Resource.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 
 /**
  * Describes a portion of a texture for the purpose of texture copies.

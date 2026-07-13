@@ -3,6 +3,7 @@
 #Include .\DDNTCORECAPS.ahk
 #Include .\DDPIXELFORMAT.ahk
 #Include .\DDSCAPS.ahk
+#Include .\PDD_GETDRIVERINFO.ahk
 #Include .\VIDEOMEMORYINFO.ahk
 
 /**

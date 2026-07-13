@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\FONT_QUALITY.ahk
-#Include .\FONT_OUTPUT_PRECISION.ahk
-#Include .\FONT_CHARSET.ahk
-#Include .\ENUMLOGFONTEXA.ahk
-#Include .\LOGFONTA.ahk
-#Include .\FONT_CLIP_PRECISION.ahk
 #Include .\DESIGNVECTOR.ahk
+#Include .\ENUMLOGFONTEXA.ahk
+#Include .\FONT_CHARSET.ahk
+#Include .\FONT_CLIP_PRECISION.ahk
+#Include .\FONT_OUTPUT_PRECISION.ahk
+#Include .\FONT_QUALITY.ahk
+#Include .\LOGFONTA.ahk
 
 /**
  * The ENUMLOGFONTEXDV structure contains the information used to create a font. (ANSI)

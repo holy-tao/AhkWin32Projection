@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include .\NMTBHOTITEM_FLAGS.ahk
 #Include .\NMHDR.ahk
+#Include .\NMTBHOTITEM_FLAGS.ahk
 
 /**
  * Contains information about the movement of the mouse over a button control.

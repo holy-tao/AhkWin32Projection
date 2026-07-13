@@ -2,9 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\IDispatch.ahk
 #Include ..\IUnknown.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to the event data store.

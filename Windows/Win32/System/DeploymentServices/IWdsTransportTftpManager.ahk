@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IDispatch.ahk
 #Include .\IWdsTransportCollection.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This interface provides a method to retrieve all the clients currently connected to the TFTP server.

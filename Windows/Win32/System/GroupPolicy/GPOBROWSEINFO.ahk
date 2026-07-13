@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\GROUP_POLICY_OBJECT_TYPE.ahk
 #Include .\GROUP_POLICY_HINT_TYPE.ahk
+#Include .\GROUP_POLICY_OBJECT_TYPE.ahk
 
 /**
  * The GPOBROWSEINFO structure contains information that the BrowseForGPO function uses to initialize a GPO browser dialog box. After the user closes the dialog box, the system returns information about the user's actions in this structure.

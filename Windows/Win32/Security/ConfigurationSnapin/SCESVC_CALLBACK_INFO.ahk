@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PFSCE_FREE_INFO.ahk
+#Include .\PFSCE_LOG_INFO.ahk
+#Include .\PFSCE_QUERY_INFO.ahk
+#Include .\PFSCE_SET_INFO.ahk
 
 /**
  * The SCESVC_CALLBACK_INFO structure contains an opaque database handle and callback function pointers to query, set, and free information.

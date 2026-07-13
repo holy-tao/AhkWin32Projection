@@ -1,16 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include .\IO_STACK_LOCATION.ahk
-#Include ..\..\Win32\Foundation\BOOLEAN.ahk
-#Include .\_IORING_OBJECT.ahk
-#Include .\MDL.ahk
-#Include .\IRP.ahk
-#Include .\PETHREAD.ahk
+#Include .\DRIVER_CANCEL.ahk
 #Include .\FILE_OBJECT.ahk
-#Include ..\..\Win32\System\IO\IO_STATUS_BLOCK.ahk
-#Include ..\..\Win32\Foundation\PSTR.ahk
+#Include .\IO_STACK_LOCATION.ahk
+#Include .\IRP.ahk
 #Include .\KEVENT.ahk
+#Include .\MDL.ahk
+#Include .\PETHREAD.ahk
+#Include .\_IORING_OBJECT.ahk
+#Include ..\..\Win32\Foundation\BOOLEAN.ahk
 #Include ..\..\Win32\Foundation\CHAR.ahk
+#Include ..\..\Win32\Foundation\PSTR.ahk
+#Include ..\..\Win32\System\IO\IO_STATUS_BLOCK.ahk
+#Include ..\..\Win32\System\IO\PIO_APC_ROUTINE.ahk
 
 /**
  * @namespace Windows.Wdk.Foundation

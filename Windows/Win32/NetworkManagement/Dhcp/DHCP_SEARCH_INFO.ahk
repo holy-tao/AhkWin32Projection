@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\DHCP_SEARCH_INFO_TYPE.ahk
 #Include .\DHCP_BINARY_DATA.ahk
+#Include .\DHCP_SEARCH_INFO_TYPE.ahk
 
 /**
  * The DHCP_SEARCH_INFO structure defines the DHCP client record data used to search against for particular server operations.

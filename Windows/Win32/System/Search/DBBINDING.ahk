@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Com\ITypeInfo.ahk
-#Include .\DBOBJECT.ahk
 #Include .\DBBINDEXT.ahk
+#Include .\DBOBJECT.ahk
 
 /**
  * @namespace Windows.Win32.System.Search

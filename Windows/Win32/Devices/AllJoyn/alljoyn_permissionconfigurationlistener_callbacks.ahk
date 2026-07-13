@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\alljoyn_permissionconfigurationlistener_endmanagement_ptr.ahk
+#Include .\alljoyn_permissionconfigurationlistener_factoryreset_ptr.ahk
+#Include .\alljoyn_permissionconfigurationlistener_policychanged_ptr.ahk
+#Include .\alljoyn_permissionconfigurationlistener_startmanagement_ptr.ahk
 
 /**
  * @namespace Windows.Win32.Devices.AllJoyn

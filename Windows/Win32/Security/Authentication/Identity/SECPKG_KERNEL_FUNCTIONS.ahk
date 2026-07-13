@@ -1,5 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\PKSEC_CREATE_CONTEXT_LIST.ahk
+#Include .\PKSEC_DEREFERENCE_LIST_ENTRY.ahk
+#Include .\PKSEC_INSERT_LIST_ENTRY.ahk
+#Include .\PKSEC_LOCATE_PKG_BY_ID.ahk
+#Include .\PKSEC_REFERENCE_LIST_ENTRY.ahk
+#Include .\PKSEC_SERIALIZE_SCHANNEL_AUTH_DATA.ahk
+#Include .\PKSEC_SERIALIZE_WINNT_AUTH_DATA.ahk
+#Include .\PLSA_ALLOCATE_LSA_HEAP.ahk
+#Include .\PLSA_FREE_LSA_HEAP.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity

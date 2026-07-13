@@ -1,5 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\KspCompleteTokenFn.ahk
+#Include .\KspDeleteContextFn.ahk
+#Include .\KspGetTokenFn.ahk
+#Include .\KspInitContextFn.ahk
+#Include .\KspInitPackageFn.ahk
+#Include .\KspMakeSignatureFn.ahk
+#Include .\KspMapHandleFn.ahk
+#Include .\KspQueryAttributesFn.ahk
+#Include .\KspSealMessageFn.ahk
+#Include .\KspSerializeAuthDataFn.ahk
+#Include .\KspSetPagingModeFn.ahk
+#Include .\KspUnsealMessageFn.ahk
+#Include .\KspVerifySignatureFn.ahk
+#Include .\SpExportSecurityContextFn.ahk
+#Include .\SpImportSecurityContextFn.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity

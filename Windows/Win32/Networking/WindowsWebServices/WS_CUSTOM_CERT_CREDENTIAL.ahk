@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_CERT_CREDENTIAL.ahk
 #Include .\WS_CERT_CREDENTIAL_TYPE.ahk
+#Include .\WS_CERT_ISSUER_LIST_NOTIFICATION_CALLBACK.ahk
+#Include .\WS_GET_CERT_CALLBACK.ahk
 
 /**
  * The type for specifying a certificate credential that is to be supplied by a callback to the application.

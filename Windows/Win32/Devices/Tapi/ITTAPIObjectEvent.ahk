@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Include .\ITAddress.ahk
 #Include .\ITTAPI.ahk
 #Include .\TAPIOBJECT_EVENT.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\ITAddress.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITTAPIObjectEvent interface contains methods that retrieve the description of TAPI object events.

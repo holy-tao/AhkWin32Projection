@@ -2,8 +2,8 @@
 #Include ..\..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IMalloc.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\System\Com\IMalloc.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc

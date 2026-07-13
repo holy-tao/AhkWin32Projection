@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IDvbLogicalChannelDescriptor.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IDvbLogicalChannelDescriptor.ahk
 
 /**
  * The IDvbLogicalChannelDescriptor2 interface enables the client to get a logical channel descriptor from a DVB stream. The logical channel descriptor may be present in the network information table (NIT).

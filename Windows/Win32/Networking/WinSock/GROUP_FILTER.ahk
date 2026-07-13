@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MULTICAST_MODE_TYPE.ahk
 #Include .\ADDRESS_FAMILY.ahk
+#Include .\MULTICAST_MODE_TYPE.ahk
 #Include .\SOCKADDR_STORAGE.ahk
 
 /**

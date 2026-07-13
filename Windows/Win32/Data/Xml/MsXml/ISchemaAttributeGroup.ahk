@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ISchemaAny.ahk
 #Include .\ISchemaItem.ahk
 #Include .\ISchemaItemCollection.ahk
-#Include .\ISchemaAny.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
 
 /**

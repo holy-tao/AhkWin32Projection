@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PFN_NCRYPT_ALLOC.ahk
+#Include .\PFN_NCRYPT_FREE.ahk
 
 /**
  * Enables you to specify custom functions that can be used to allocate and free data.

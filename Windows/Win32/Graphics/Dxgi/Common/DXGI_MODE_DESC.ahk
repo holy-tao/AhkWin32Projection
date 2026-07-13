@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\DXGI_MODE_SCANLINE_ORDER.ahk
 #Include .\DXGI_FORMAT.ahk
-#Include .\DXGI_RATIONAL.ahk
 #Include .\DXGI_MODE_SCALING.ahk
+#Include .\DXGI_MODE_SCANLINE_ORDER.ahk
+#Include .\DXGI_RATIONAL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Dxgi.Common

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\IInternetProtocolSink.ahk
 #Include ..\IUnknown.ahk
 #Include .\IInternetProtocol.ahk
+#Include .\IInternetProtocolSink.ahk
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon

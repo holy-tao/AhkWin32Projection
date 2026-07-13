@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\PFN_CERT_CHAIN_FIND_BY_ISSUER_CALLBACK.ahk
 
 /**
  * Contains information used in the CertFindChainInStore function to build certificate chains.

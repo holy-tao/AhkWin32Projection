@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMT_DEVICESTATE_TYPE.ahk
 #Include .\D3DKMT_DEVICEEXECUTION_STATE.ahk
+#Include .\D3DKMT_DEVICESTATE_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

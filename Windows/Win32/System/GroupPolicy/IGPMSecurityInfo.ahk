@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IDispatch.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include .\IGPMPermission.ahk
 #Include ..\Ole\IEnumVARIANT.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * The IGPMSecurityInfo interface defines the methods of the GPMSecurityInfo collection. This collection represents a set of policy-related permissions that can be set on a particular object, such as a scope of management (SOM), a GPO, or a WMI filter.

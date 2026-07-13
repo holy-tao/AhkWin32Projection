@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\DBPROPSET.ahk
 #Include ..\..\Storage\IndexServer\DBID.ahk
+#Include .\DBPROPSET.ahk
 
 /**
  * @namespace Windows.Win32.System.Search

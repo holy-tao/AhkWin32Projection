@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_CHAIN_CONTEXT.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\CERT_CHAIN_CONTEXT.ahk
 #Include .\CERT_SIMPLE_CHAIN.ahk
 #Include .\CERT_TRUST_STATUS.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains an array of simple certificate chains and a trust status structure that indicates summary validity data on all of the connected simple chains.

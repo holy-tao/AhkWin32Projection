@@ -1,5 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PREPLACE_BEGIN.ahk
+#Include .\PREPLACE_ENABLE_DISABLE_HARDWARE_QUIESCE.ahk
+#Include .\PREPLACE_END.ahk
+#Include .\PREPLACE_GET_MEMORY_DESTINATION.ahk
+#Include .\PREPLACE_INITIATE_HARDWARE_MIRROR.ahk
+#Include .\PREPLACE_MIRROR_PHYSICAL_MEMORY.ahk
+#Include .\PREPLACE_MIRROR_PLATFORM_MEMORY.ahk
+#Include .\PREPLACE_SET_PROCESSOR_ID.ahk
+#Include .\PREPLACE_SWAP.ahk
+#Include .\PREPLACE_UNLOAD.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

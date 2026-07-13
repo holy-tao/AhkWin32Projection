@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\IShellView.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\ICommDlgBrowser.ahk
+#Include .\IShellView.ahk
 
 /**
  * Extends the capabilities of ICommDlgBrowser. This interface is exposed by the common file dialog boxes when they host a Shell browser. A pointer to ICommDlgBrowser2 can be obtained by calling QueryInterface on the IShellBrowser object.

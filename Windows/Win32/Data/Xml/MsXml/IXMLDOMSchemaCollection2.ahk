@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ISchema.ahk
 #Include .\ISchemaItem.ahk
 #Include .\IXMLDOMNode.ahk
-#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\ISchema.ahk
 #Include .\IXMLDOMSchemaCollection.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml

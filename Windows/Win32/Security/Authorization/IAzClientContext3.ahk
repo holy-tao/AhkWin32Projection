@@ -2,14 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IAzOperations.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IAzBizRuleInterfaces.ahk
-#Include .\IAzTasks.ahk
 #Include .\IAzBizRuleParameters.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IAzClientContext2.ahk
+#Include .\IAzOperations.ahk
+#Include .\IAzTasks.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * Extends the IAzClientContext2 interface.

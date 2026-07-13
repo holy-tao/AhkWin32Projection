@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\FW_DYNAMIC_KEYWORD_ADDRESS0.ahk
-#Include .\FW_DYNAMIC_KEYWORD_ORIGIN_TYPE.ahk
 #Include .\FW_DYNAMIC_KEYWORD_ADDRESS_DATA0.ahk
+#Include .\FW_DYNAMIC_KEYWORD_ORIGIN_TYPE.ahk
 
 /**
  * Holds the data returned to the client when the **Enumeration** APIs are called.

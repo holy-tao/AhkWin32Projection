@@ -2,8 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IMSVidPlayback.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IMSVidPlayback.ahk
 
 /**
  * The IMSVidFilePlayback interface enables the client to specify a local file for playback. It is implemented by the MSVidFilePlaybackDevice object.

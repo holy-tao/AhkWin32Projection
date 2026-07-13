@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\RTC_MESSAGING_USER_STATUS.ahk
-#Include .\RTC_MESSAGING_EVENT_TYPE.ahk
-#Include .\IRTCParticipant.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\IRTCParticipant.ahk
 #Include .\IRTCSession.ahk
+#Include .\RTC_MESSAGING_EVENT_TYPE.ahk
+#Include .\RTC_MESSAGING_USER_STATUS.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

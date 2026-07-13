@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\FORMATETC.ahk
-#Include .\STGMEDIUM.ahk
-#Include .\IUnknown.ahk
-#Include .\IBinding.ahk
-#Include .\BINDINFO.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\BINDINFO.ahk
+#Include .\FORMATETC.ahk
+#Include .\IBinding.ahk
+#Include .\IUnknown.ahk
+#Include .\STGMEDIUM.ahk
 
 /**
  * @namespace Windows.Win32.System.Com

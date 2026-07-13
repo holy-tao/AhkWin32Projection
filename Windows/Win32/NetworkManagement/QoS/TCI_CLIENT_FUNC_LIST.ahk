@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\TCI_ADD_FLOW_COMPLETE_HANDLER.ahk
+#Include .\TCI_DEL_FLOW_COMPLETE_HANDLER.ahk
+#Include .\TCI_MOD_FLOW_COMPLETE_HANDLER.ahk
+#Include .\TCI_NOTIFY_HANDLER.ahk
 
 /**
  * The TCI_CLIENT_FUNC_LIST structure is used by the traffic control interface to register and then access client-callback functions. Each member of TCI_CLIENT_FUNC_LIST is a pointer to the client provided�callback function.

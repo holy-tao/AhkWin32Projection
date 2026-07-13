@@ -2,9 +2,10 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\LPARAM.ahk
 #Include ..\..\..\Foundation\PSTR.ahk
-#Include ..\HCERTSTORE.ahk
-#Include ..\CRYPT_INTEGER_BLOB.ahk
 #Include ..\CERT_CONTEXT.ahk
+#Include ..\CRYPT_INTEGER_BLOB.ahk
+#Include ..\HCERTSTORE.ahk
+#Include .\PFNTRUSTHELPER.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.UI

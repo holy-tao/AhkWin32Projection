@@ -3,6 +3,8 @@
 #Include .\MIDL_STUB_DESC.ahk
 #Include .\MIDL_SYNTAX_INFO.ahk
 #Include .\RPC_SYNTAX_IDENTIFIER.ahk
+#Include .\SERVER_ROUTINE.ahk
+#Include .\STUB_THUNK.ahk
 
 /**
  * @namespace Windows.Win32.System.Rpc

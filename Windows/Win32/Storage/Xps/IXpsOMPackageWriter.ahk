@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Packaging\Opc\IOpcPartUri.ahk
+#Include .\IXpsOMDocumentStructureResource.ahk
 #Include .\IXpsOMImageResource.ahk
+#Include .\IXpsOMPage.ahk
+#Include .\IXpsOMPartUriCollection.ahk
 #Include .\IXpsOMPrintTicketResource.ahk
 #Include .\IXpsOMResource.ahk
-#Include .\IXpsOMPage.ahk
-#Include .\XPS_SIZE.ahk
-#Include .\IXpsOMDocumentStructureResource.ahk
-#Include ..\Packaging\Opc\IOpcPartUri.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include .\IXpsOMStoryFragmentsResource.ahk
-#Include .\IXpsOMPartUriCollection.ahk
 #Include .\IXpsOMSignatureBlockResourceCollection.ahk
+#Include .\IXpsOMStoryFragmentsResource.ahk
+#Include .\XPS_SIZE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**

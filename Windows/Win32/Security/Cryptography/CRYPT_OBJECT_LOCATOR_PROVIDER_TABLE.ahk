@@ -1,5 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE.ahk
+#Include .\PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_IDENTIFIER.ahk
+#Include .\PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_PASSWORD.ahk
+#Include .\PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_GET.ahk
+#Include .\PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_RELEASE.ahk
 
 /**
  * Contains pointers to functions implemented by an object location provider.

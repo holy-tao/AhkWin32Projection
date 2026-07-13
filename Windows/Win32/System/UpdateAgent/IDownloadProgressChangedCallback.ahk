@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IDownloadProgressChangedCallbackArgs.ahk
-#Include .\IDownloadJob.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\IDownloadJob.ahk
+#Include .\IDownloadProgressChangedCallbackArgs.ahk
 
 /**
  * Handles the notification that indicates a change in the progress of an asynchronous download operation.

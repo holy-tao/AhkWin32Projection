@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\IEnumWIA_DEV_CAPS.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumWIA_DEV_CAPS.ahk
 #Include .\IEnumWiaItem.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Each Windows Image Acquisition (WIA) hardware device is represented to an application as a hierarchical tree of IWiaItem objects.

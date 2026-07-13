@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_PROXY_MESSAGE_CALLBACK.ahk
 
 /**
  * Specifies the callback function and state for an application that wishes to associate or inspect headers in an input or an output message respectively.

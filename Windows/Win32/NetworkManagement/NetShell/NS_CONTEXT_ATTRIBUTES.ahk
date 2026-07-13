@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\CMD_GROUP_ENTRY.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CMD_ENTRY.ahk
+#Include .\CMD_GROUP_ENTRY.ahk
+#Include .\PNS_CONTEXT_COMMIT_FN.ahk
+#Include .\PNS_CONTEXT_CONNECT_FN.ahk
+#Include .\PNS_CONTEXT_DUMP_FN.ahk
+#Include .\PNS_OSVERSIONCHECK.ahk
 
 /**
  * Defines attributes of a context.

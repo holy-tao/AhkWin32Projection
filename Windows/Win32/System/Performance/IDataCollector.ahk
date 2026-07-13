@@ -2,13 +2,13 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IValueMap.ahk
-#Include .\IDataCollectorSet.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\AutoPathFormat.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\AutoPathFormat.ahk
 #Include .\DataCollectorType.ahk
+#Include .\IDataCollectorSet.ahk
+#Include .\IValueMap.ahk
 
 /**
  * Sets and retrieves collector properties using XML, specifies the log file name, and retrieves the location of the log file.This interface is an abstract class from which the following data collectors derive:IAlertDataCollectorIApiTracingDataCollectorIConfigurationDataCollectorIPerformanceCounterDataCollectorITraceDataCollector

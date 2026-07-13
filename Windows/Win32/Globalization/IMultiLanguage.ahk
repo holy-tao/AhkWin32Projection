@@ -2,15 +2,15 @@
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
 #Include ..\Foundation\BSTR.ahk
-#Include .\IMLangConvertCharset.ahk
+#Include ..\Foundation\HRESULT.ahk
 #Include ..\Foundation\PWSTR.ahk
-#Include .\MIMECSETINFO.ahk
+#Include .\IEnumCodePage.ahk
+#Include .\IEnumRfc1766.ahk
+#Include .\IMLangConvertCharset.ahk
 #Include .\MIMECPINFO.ahk
+#Include .\MIMECSETINFO.ahk
 #Include .\RFC1766INFO.ahk
 #Include ..\System\Com\IUnknown.ahk
-#Include .\IEnumCodePage.ahk
-#Include ..\Foundation\HRESULT.ahk
-#Include .\IEnumRfc1766.ahk
 
 /**
  * @namespace Windows.Win32.Globalization

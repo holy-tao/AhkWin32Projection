@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWP_BYTE_BLOB.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\FWP_BYTE_BLOB.ahk
 
 /**
  * Stores Internet Protocol Security (IPsec) keying module specific information.

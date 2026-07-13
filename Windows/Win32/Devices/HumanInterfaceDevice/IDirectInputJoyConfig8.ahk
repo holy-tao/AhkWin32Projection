@@ -1,15 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Registry\HKEY.ahk
-#Include .\DIJOYTYPEINFO.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include .\DIJOYCONFIG.ahk
+#Include .\DIJOYTYPEINFO.ahk
 #Include .\DIJOYUSERVALUES.ahk
+#Include .\LPDIJOYTYPECALLBACK.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Registry\HKEY.ahk
 
 /**
  * IDirectInputJoyConfig8 interface contains methods that allow hardware developers who are writing property sheets to write and read information to and from the registry.
@@ -101,8 +102,8 @@ class IDirectInputJoyConfig8 extends IUnknown {
 
     /**
      * The IDirectInputJoyConfig8::SetCooperativeLevel method establishes the cooperation level for the instance of the device. The only cooperative levels supported for the IDirectInputJoyConfig8 interface are DISCL_EXCLUSIVE and DISCL_BACKGROUND.
-     * @param {HWND} param0 
-     * @param {Integer} param1 
+     * @param {HWND} param0 Handle to the window associated with the interface. This parameter must be non-NULL and must be a top-level window. It is an error to destroy the window while it is still associated with an <b>IDirectInputJoyConfig8</b> interface.
+     * @param {Integer} param1 Specifies one of a set of flags that describe the  level of cooperation associated with the device. The value must be DISCL_EXCLUSIVE | DISCL_BACKGROUND.
      * @returns {HRESULT} Returns DI_OK if successful; otherwise, returns the following COM error value (this value is intended to be illustrative and is not necessarily comprehensive): 
      * 
      * <table>
@@ -191,8 +192,8 @@ class IDirectInputJoyConfig8 extends IUnknown {
      * 
      * 
      * ```
-     * @param {Pointer<LPDIJOYTYPECALLBACK>} param0 
-     * @param {Pointer<Void>} param1 
+     * @param {Pointer<LPDIJOYTYPECALLBACK>} param0 Points to an application-defined callback function that receives the DirectInput joystick types. See the Remarks section for the function prototype.
+     * @param {Pointer<Void>} param1 Specifies a 32-bit application-defined value to be passed to the callback function. This value can be any 32-bit value; it is prototyped as an LPVOID for convenience.
      * @returns {HRESULT} Returns DI_OK if successful; otherwise, returns one of the following COM error values: 
      * 
      * <table>
@@ -223,9 +224,9 @@ class IDirectInputJoyConfig8 extends IUnknown {
 
     /**
      * The IDirectInputJoyConfig8::GetTypeInfo method obtains information about a joystick type.
-     * @param {PWSTR} param0 
-     * @param {Pointer<DIJOYTYPEINFO>} param1 
-     * @param {Integer} param2 
+     * @param {PWSTR} param0 Points to the name of the type, previously obtained from a call to <a href="https://docs.microsoft.com/windows/desktop/api/dinputd/nf-dinputd-idirectinputjoyconfig8-enumtypes">IDirectInputJoyConfig8::EnumTypes</a>.
+     * @param {Pointer<DIJOYTYPEINFO>} param1 Points to a structure that receives information about the joystick type. The caller must initialize the <b>dwSize</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dinputd/ns-dinputd-dijoytypeinfo">DIJOYTYPEINFO</a> structure before calling this method.
+     * @param {Integer} param2 Specifies the parts of the DIJOYTYPEINFO structure pointed to by <i>pjti</i> that are to be filled. There may be zero, one, or more of the following:
      * @returns {HRESULT} Returns DI_OK if successful; otherwise, returns one of the following COM error values:
      * 
      * <table>
@@ -267,10 +268,11 @@ class IDirectInputJoyConfig8 extends IUnknown {
 
     /**
      * The IDirectInputJoyConfig8::SetTypeInfo method creates a new joystick type or redefines information about an existing joystick type.
-     * @param {PWSTR} param0 
-     * @param {Pointer<DIJOYTYPEINFO>} param1 
-     * @param {Integer} param2 
-     * @param {PWSTR} param3 
+     * @param {PWSTR} param0 Points to the name of the type. The name of the type cannot exceed MAX_JOYSTRING characters, including the terminating null character. If the type name does not already exist, then it is created. You cannot change the type information for a predefined type. The name cannot begin with a "#" character. Types beginning with "#" are reserved by DirectInput.
+     * @param {Pointer<DIJOYTYPEINFO>} param1 Points to a structure that receives information about the joystick type.
+     * @param {Integer} param2 Specifies the parts of the <a href="https://docs.microsoft.com/windows/desktop/api/dinputd/ns-dinputd-dijoytypeinfo">DIJOYTYPEINFO</a> structure pointed to by <i>pjti</i> that contain values to be set.
+     * @param {PWSTR} param3 If the type name is an OEM type not in VID_xxxx&PID_yyyy format, this parameter will return the name in VID_xxxx&PID_yyyy format that is assigned by Dinput. 
+     * This VID_xxxx&PID_yyyy name should be used in DIJOYCONFIG.wszType field when calling SetConfig.
      * @returns {HRESULT} Returns DI_OK if successful; otherwise, returns one of the following COM error values: 
      * 
      * <table>
@@ -324,7 +326,7 @@ class IDirectInputJoyConfig8 extends IUnknown {
 
     /**
      * The IDirectInputJoyConfig8::DeleteType method removes information about a joystick type. Use this method with caution; it is the caller's responsibility to ensure that no joystick refers to the deleted type.
-     * @param {PWSTR} param0 
+     * @param {PWSTR} param0 Points to the name of the type. The name of the type cannot exceed MAX_PATH characters, including the terminating null character. Also, the name cannot begin with a "#" character. Types beginning with "#" are reserved by DirectInput.
      * @returns {HRESULT} Returns DI_OK if successful; otherwise, returns one of the following COM error values (these values are intended to be illustrative and are not necessarily comprehensive): 
      * 
      * <table>
@@ -366,9 +368,9 @@ class IDirectInputJoyConfig8 extends IUnknown {
 
     /**
      * The IDirectInputJoyConfig8::GetConfig method obtains information about a joystick's configuration.
-     * @param {Integer} param0 
-     * @param {Pointer<DIJOYCONFIG>} param1 
-     * @param {Integer} param2 
+     * @param {Integer} param0 Indicates a joystick identification number. This is a nonnegative integer. To enumerate joysticks, begin with joystick zero and increment the joystick number by one until the function returns DIERR_NOMOREITEMS.
+     * @param {Pointer<DIJOYCONFIG>} param1 Points to a structure that receives information about the joystick configuration. The caller "must" initialize the <b>dwSize</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dinputd/ns-dinputd-dijoyconfig">DIJOYCONFIG</a> structure before calling this method.
+     * @param {Integer} param2 Specifies the members of the structure pointed to by <i>pjc</i> that are to be filled in.  This parameter can be zero, one, or more of the following:
      * @returns {HRESULT} Returns DI_OK if successful; otherwise, returns one of the following COM error values:
      * 
      * <table>
@@ -419,9 +421,9 @@ class IDirectInputJoyConfig8 extends IUnknown {
 
     /**
      * The IDirectInputJoyConfig8::SetConfig method creates or redefines configuration information about a joystick.
-     * @param {Integer} param0 
-     * @param {Pointer<DIJOYCONFIG>} param1 
-     * @param {Integer} param2 
+     * @param {Integer} param0 Indicates a zero-based joystick identification number.
+     * @param {Pointer<DIJOYCONFIG>} param1 Contains information about the joystick.
+     * @param {Integer} param2 Specifies the parts of the <a href="https://docs.microsoft.com/windows/desktop/api/dinputd/ns-dinputd-dijoyconfig">DIJOYCONFIG</a> structure pointed to by <i>pcfg</i> that contain information to be set. There may be zero, one, or more of the following:
      * @returns {HRESULT} Returns DI_OK if successful; otherwise, returns one of the following COM error values:
      * 
      * <table>
@@ -461,7 +463,7 @@ class IDirectInputJoyConfig8 extends IUnknown {
 
     /**
      * The IDirectInputJoyConfig8::DeleteConfig method deletes configuration information about a joystick.
-     * @param {Integer} param0 
+     * @param {Integer} param0 Indicates a zero-based joystick identification number.
      * @returns {HRESULT} Returns DI_OK if successful; otherwise, returns one of the following COM error values (these values are intended to be illustrative and are not necessarily comprehensive): 
      * 
      * <table>
@@ -501,8 +503,8 @@ class IDirectInputJoyConfig8 extends IUnknown {
 
     /**
      * The IDirectInputJoyConfig8::GetUserValues method obtains information about user settings for the joystick.
-     * @param {Pointer<DIJOYUSERVALUES>} param0 
-     * @param {Integer} param1 
+     * @param {Pointer<DIJOYUSERVALUES>} param0 Points to a structure that receives information about the user joystick configuration. The caller must initialize the <b>dwSize</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dinputd/ns-dinputd-dijoyuservalues">DIJOYUSERVALUES</a> structure before calling this method.
+     * @param {Integer} param1 Specifies which members of the DIJOYUSERVALUES structure contain values to be retrieved. There may be zero, one, or more of the following:
      * @returns {HRESULT} Returns DI_OK if successful; otherwise, returns the following COM error value: 
      * 
      * <table>
@@ -531,8 +533,8 @@ class IDirectInputJoyConfig8 extends IUnknown {
 
     /**
      * The IDirectInputJoyConfig8::SetUserValues method sets the user settings for the joystick.
-     * @param {Pointer<DIJOYUSERVALUES>} param0 
-     * @param {Integer} param1 
+     * @param {Pointer<DIJOYUSERVALUES>} param0 Points to a structure that receives information about the new user joystick settings.
+     * @param {Integer} param1 Specifies the parts of the <a href="https://docs.microsoft.com/windows/desktop/api/dinputd/ns-dinputd-dijoyuservalues">DIJOYUSERVALUES</a> structure that contain values to be set.  There may be zero, one, or more of the following:
      * @returns {HRESULT} Returns DI_OK if successful; otherwise, returns one of the following COM error values: 
      * 
      * <table>
@@ -572,8 +574,8 @@ class IDirectInputJoyConfig8 extends IUnknown {
 
     /**
      * The IDirectInputJoyConfig8::AddNewHardware method displays the Add New Hardware dialog box which guides the user through installing a new input device.
-     * @param {HWND} param0 
-     * @param {Pointer<Guid>} param1 
+     * @param {HWND} param0 Handle to the window that functions as the owner window for the user interface.
+     * @param {Pointer<Guid>} param1 GUID that specifies the class of the hardware device to be added. DirectInput comes with the following class GUIDs already defined:
      * @returns {HRESULT} Returns DI_OK if successful; otherwise, returns one of the following COM error values:
      * 
      * <table>
@@ -650,9 +652,9 @@ class IDirectInputJoyConfig8 extends IUnknown {
      * The IDirectInputJoyConfig8::OpenTypeKey method opens the registry key associated with a joystick type.
      * @remarks
      * Control panel applications can use the registry key opened by this method to store per-type persistent information, such as global configuration parameters. Such private information should be kept in a subkey named <b>OEM</b>; do not store private information in the main type key. Control panel applications can also use this key to read configuration information, such as the strings to use for device calibration prompts. The application should use <b>RegCloseKey</b> to close the registry key.
-     * @param {PWSTR} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<HKEY>} param2 
+     * @param {PWSTR} param0 Points to the name of the type. The name of the type cannot exceed MAX_PATH characters, including the terminating null character. The name cannot begin with a "#" character. Types beginning with "#" are reserved by DirectInput.
+     * @param {Integer} param1 Specifies a registry security access mask. This can be any of the values permitted by the <b>RegOpenKeyEx</b> function. If write access is requested, then joystick configuration must first have been acquired. If only read access is requested, then acquisition is not required.
+     * @param {Pointer<HKEY>} param2 Points to the opened registry key, on success.
      * @returns {HRESULT} Returns DI_OK if successful; otherwise, returns one of the following COM error values:
      * 
      * <table>
@@ -707,7 +709,7 @@ class IDirectInputJoyConfig8 extends IUnknown {
      * The IDirectInputJoyConfig8::OpenAppStatusKey method opens the root key of the application status registry keys, and obtains a handle to the key as a return parameter.
      * @remarks
      * The registry key handle returned in the <i>phKey</i> parameter can be used with the standard Win32 registry functions. The Dinputd.h header file defines the following string constants for use in accessing subkeys and named values contained by the application status root key.
-     * @param {Pointer<HKEY>} param0 
+     * @param {Pointer<HKEY>} param0 Points to the address of a variable (of type HKEY) that will contain a registry key handle if the method succeeds. See Remarks for additional usage details.
      * @returns {HRESULT} Returns DI_OK if successful; otherwise, returns one of the following COM error values. The following error codes are intended to be illustrative and not necessarily comprehensive.
      * 
      * <table>

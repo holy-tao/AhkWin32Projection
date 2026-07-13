@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\alljoyn_authlistener_authenticationcomplete_ptr.ahk
+#Include .\alljoyn_authlistener_requestcredentialsasync_ptr.ahk
+#Include .\alljoyn_authlistener_securityviolation_ptr.ahk
+#Include .\alljoyn_authlistener_verifycredentialsasync_ptr.ahk
 
 /**
  * @namespace Windows.Win32.Devices.AllJoyn

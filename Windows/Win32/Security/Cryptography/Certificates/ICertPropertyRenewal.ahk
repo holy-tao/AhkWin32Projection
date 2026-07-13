@@ -2,9 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\EncodingType.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 #Include .\ICertProperty.ahk
 
 /**

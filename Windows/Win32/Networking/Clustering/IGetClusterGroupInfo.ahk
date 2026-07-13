@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\HGROUP.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IGetClusterGroupInfo interface is called by a Failover Cluster Administrator extension to retrieve information about a group.

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include .\DRIVER_ADD_DEVICE.ahk
 #Include .\DRIVER_OBJECT.ahk
 
 /**

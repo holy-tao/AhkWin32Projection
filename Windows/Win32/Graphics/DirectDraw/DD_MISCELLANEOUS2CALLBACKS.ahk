@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PDD_ALPHABLT.ahk
+#Include .\PDD_CREATESURFACEEX.ahk
+#Include .\PDD_DESTROYDDLOCAL.ahk
+#Include .\PDD_GETDRIVERSTATE.ahk
 
 /**
  * The DD_MISCELLANEOUS2CALLBACKS structure is used to return the addresses of miscellaneous callback routines.

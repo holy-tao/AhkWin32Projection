@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SRestriction.ahk
 #Include .\ENTRYID.ahk
+#Include .\LPFNABSDI.ahk
+#Include .\LPFNDISMISS.ahk
+#Include .\SRestriction.ahk
 
 /**
  * Describes the display and behavior of the common address dialog box.

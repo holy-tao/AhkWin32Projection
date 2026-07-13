@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\Input\KeyboardAndMouse\HKL.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\IEnumTfLanguageProfiles.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\IEnumGUID.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Input\KeyboardAndMouse\HKL.ahk
+#Include .\IEnumTfLanguageProfiles.ahk
 
 /**
  * The ITfInputProcessorProfiles interface is implemented by the TSF manager and used by an application or text service to manipulate the language profile of one or more text services.

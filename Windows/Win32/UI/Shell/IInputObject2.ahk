@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include ..\WindowsAndMessaging\MSG.ahk
 #Include .\IInputObject.ahk
+#Include ..\WindowsAndMessaging\MSG.ahk
 
 /**
  * Exposes a method that extends IInputObject by handling global accelerators.

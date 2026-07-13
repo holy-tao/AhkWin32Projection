@@ -1,5 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\LPNSPV2CLEANUP.ahk
+#Include .\LPNSPV2CLIENTSESSIONRUNDOWN.ahk
+#Include .\LPNSPV2LOOKUPSERVICEBEGIN.ahk
+#Include .\LPNSPV2LOOKUPSERVICEEND.ahk
+#Include .\LPNSPV2LOOKUPSERVICENEXTEX.ahk
+#Include .\LPNSPV2SETSERVICEEX.ahk
+#Include .\LPNSPV2STARTUP.ahk
 
 /**
  * Contains information on the functions implemented by a namespace service provider version-2 (NSPv2) provider.

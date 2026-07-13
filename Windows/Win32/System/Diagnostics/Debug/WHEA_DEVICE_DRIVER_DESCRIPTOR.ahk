@@ -3,6 +3,9 @@
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BOOLEAN.ahk
 #Include .\WHEA_ERROR_SOURCE_CONFIGURATION_DD.ahk
+#Include .\WHEA_ERROR_SOURCE_CORRECT_DEVICE_DRIVER.ahk
+#Include .\WHEA_ERROR_SOURCE_INITIALIZE_DEVICE_DRIVER.ahk
+#Include .\WHEA_ERROR_SOURCE_UNINITIALIZE_DEVICE_DRIVER.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug

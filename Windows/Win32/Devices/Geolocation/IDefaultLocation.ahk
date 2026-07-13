@@ -3,8 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ILocationReport.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * IDefaultLocation provides methods used to specify or retrieve the default location.

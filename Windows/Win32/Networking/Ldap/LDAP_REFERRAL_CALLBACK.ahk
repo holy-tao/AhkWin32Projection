@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DEREFERENCECONNECTION.ahk
+#Include .\NOTIFYOFNEWCONNECTION.ahk
+#Include .\QUERYFORCONNECTION.ahk
 
 /**
  * Used to implement external caching of connections.

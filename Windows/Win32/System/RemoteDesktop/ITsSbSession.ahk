@@ -3,10 +3,10 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include .\TSSESSION_STATE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\CLIENT_DISPLAY.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\TSSESSION_STATE.ahk
 
 /**
  * Exposes properties that store information about a user session.

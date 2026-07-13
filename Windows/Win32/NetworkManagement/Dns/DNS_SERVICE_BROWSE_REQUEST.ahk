@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PWSTR.ahk
+#Include .\PDNS_QUERY_COMPLETION_ROUTINE.ahk
+#Include .\PDNS_SERVICE_BROWSE_CALLBACK.ahk
 
 /**
  * Contains the query parameters used in a call to [DnsServiceBrowse](../windns/nf-windns-dnsservicebrowse.md).

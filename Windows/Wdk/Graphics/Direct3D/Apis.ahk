@@ -1,178 +1,178 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D3DKMT_SHAREDPRIMARYUNLOCKNOTIFICATION.ahk
-#Include .\D3DKMT_OPENRESOURCE.ahk
-#Include .\D3DKMT_OPENNTHANDLEFROMNAME.ahk
-#Include .\D3DKMT_QUERYPROTECTEDSESSIONSTATUS.ahk
-#Include .\D3DKMT_EVICT.ahk
-#Include .\D3DKMT_DESTROY_OUTPUTDUPL.ahk
-#Include .\D3DKMT_RELEASEKEYEDMUTEX.ahk
-#Include .\D3DKMT_SETFSEBLOCK.ahk
-#Include .\D3DKMT_QUERYRESOURCEINFO.ahk
-#Include .\D3DKMT_SETVIDPNSOURCEHWPROTECTION.ahk
-#Include .\D3DKMT_WAITFORVERTICALBLANKEVENT2.ahk
-#Include .\D3DKMT_ENUMADAPTERS2.ahk
-#Include .\D3DKMT_WAITFORIDLE.ahk
-#Include .\D3DKMT_SIGNALSYNCHRONIZATIONOBJECT.ahk
-#Include .\D3DKMT_SETSTABLEPOWERSTATE.ahk
-#Include .\D3DDDI_DESTROYPAGINGQUEUE.ahk
-#Include .\D3DKMT_CHANGEVIDEOMEMORYRESERVATION.ahk
-#Include .\D3DKMT_OPENKEYEDMUTEX.ahk
-#Include .\D3DKMT_GETVERTICALBLANKEVENT.ahk
-#Include .\D3DKMT_SETGAMMARAMP.ahk
-#Include .\D3DKMT_OPENADAPTERFROMDEVICENAME.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
-#Include .\D3DKMT_UNREGISTERTRIMNOTIFICATION.ahk
-#Include .\D3DKMT_DESTROYHWQUEUE.ahk
-#Include .\D3DKMT_ACQUIREKEYEDMUTEX2.ahk
-#Include .\D3DKMT_CREATEDEVICE.ahk
-#Include .\D3DKMT_OUTPUTDUPL_GET_POINTER_SHAPE_DATA.ahk
-#Include .\D3DKMT_SIGNALSYNCHRONIZATIONOBJECT2.ahk
-#Include .\D3DKMT_UNLOCK2.ahk
-#Include .\D3DDDI_GETRESOURCEPRESENTPRIVATEDRIVERDATA.ahk
-#Include .\D3DKMT_GETMULTISAMPLEMETHODLIST.ahk
-#Include .\D3DKMT_POLLDISPLAYCHILDREN.ahk
-#Include .\D3DKMT_ADJUSTFULLSCREENGAMMA.ahk
-#Include .\D3DKMT_SETVIDPNSOURCEOWNER1.ahk
-#Include .\D3DKMT_INVALIDATEACTIVEVIDPN.ahk
-#Include .\D3DKMT_OPENSYNCOBJECTFROMNTHANDLE2.ahk
-#Include .\D3DKMT_PRESENT_REDIRECTED.ahk
-#Include .\D3DKMT_OPENADAPTERFROMHDC.ahk
-#Include .\D3DDDI_MAPGPUVIRTUALADDRESS.ahk
-#Include .\D3DKMT_OPENSYNCHRONIZATIONOBJECT.ahk
-#Include .\D3DDDI_MAKERESIDENT.ahk
-#Include .\D3DKMT_QUERYRESOURCEINFOFROMNTHANDLE.ahk
-#Include .\D3DKMT_ACQUIREKEYEDMUTEX.ahk
-#Include ..\..\..\Win32\Foundation\NTSTATUS.ahk
-#Include .\D3DKMT_DESTROYALLOCATION2.ahk
-#Include .\D3DKMT_PRESENT_MULTIPLANE_OVERLAY3.ahk
-#Include .\D3DKMT_SETSYNCREFRESHCOUNTWAITTARGET.ahk
-#Include .\D3DKMT_OPENSYNCOBJECTNTHANDLEFROMNAME.ahk
-#Include .\D3DKMT_CHECKMULTIPLANEOVERLAYSUPPORT2.ahk
-#Include .\D3DKMT_QUERYADAPTERINFO.ahk
-#Include .\D3DKMT_CREATEKEYEDMUTEX2.ahk
-#Include .\D3DKMT_UNLOCK.ahk
-#Include .\D3DKMT_SETCONTEXTINPROCESSSCHEDULINGPRIORITY.ahk
-#Include .\D3DKMT_DESTROYSYNCHRONIZATIONOBJECT.ahk
-#Include .\D3DKMT_GETALLOCATIONPRIORITY.ahk
-#Include .\D3DKMT_GETDISPLAYMODELIST.ahk
-#Include .\D3DKMT_DESTROYHWCONTEXT.ahk
-#Include .\D3DKMT_CHECKSHAREDRESOURCEACCESS.ahk
-#Include .\D3DKMT_GETSHAREDRESOURCEADAPTERLUID.ahk
-#Include .\D3DKMT_OUTPUTDUPL_RELEASE_FRAME.ahk
-#Include .\D3DKMT_QUERYVIDEOMEMORYINFO.ahk
-#Include .\D3DKMT_DESTROYDCFROMMEMORY.ahk
-#Include .\D3DKMT_CHANGESURFACEPOINTER.ahk
-#Include .\D3DKMT_PRESENT.ahk
-#Include .\D3DKMT_SETDISPLAYMODE.ahk
-#Include .\D3DKMT_CREATEOVERLAY.ahk
-#Include .\D3DKMT_OPENADAPTERFROMGDIDISPLAYNAME.ahk
-#Include .\D3DDDI_RESERVEGPUVIRTUALADDRESS.ahk
-#Include .\D3DKMT_GETOVERLAYSTATE.ahk
-#Include .\D3DKMT_CHECKMULTIPLANEOVERLAYSUPPORT.ahk
-#Include .\D3DKMT_UPDATEOVERLAY.ahk
-#Include .\D3DKMT_DESTROYOVERLAY.ahk
-#Include .\D3DKMT_RENDER.ahk
-#Include .\D3DKMT_SETDISPLAYPRIVATEDRIVERFORMAT.ahk
-#Include .\D3DKMT_CLOSEADAPTER.ahk
-#Include .\D3DKMT_RECLAIMALLOCATIONS.ahk
-#Include .\D3DKMT_GETPROCESSDEVICEREMOVALSUPPORT.ahk
-#Include .\D3DKMT_PRESENT_MULTIPLANE_OVERLAY2.ahk
-#Include .\D3DKMT_DESTROYKEYEDMUTEX.ahk
-#Include .\D3DKMT_GETCONTEXTSCHEDULINGPRIORITY.ahk
-#Include .\D3DKMT_RELEASEKEYEDMUTEX2.ahk
-#Include .\D3DKMT_SETALLOCATIONPRIORITY.ahk
-#Include .\D3DKMT_OUTPUTDUPLPRESENTTOHWQUEUE.ahk
-#Include .\D3DKMT_QUERYALLOCATIONRESIDENCY.ahk
-#Include .\D3DKMT_SETVIDPNSOURCEOWNER.ahk
-#Include .\D3DKMT_OPENKEYEDMUTEX2.ahk
-#Include .\D3DKMT_QUERYSTATISTICS.ahk
-#Include .\D3DKMT_GETSHAREDPRIMARYHANDLE.ahk
-#Include .\D3DKMT_QUERYPROTECTEDSESSIONINFOFROMNTHANDLE.ahk
-#Include .\D3DKMT_QUERYFSEBLOCK.ahk
-#Include .\D3DDDI_UPDATEALLOCPROPERTY.ahk
-#Include .\D3DKMT_OPENPROTECTEDSESSIONFROMNTHANDLE.ahk
-#Include .\D3DKMT_FLUSHHEAPTRANSITIONS.ahk
-#Include .\D3DKMT_SUBMITWAITFORSYNCOBJECTSTOHWQUEUE.ahk
-#Include .\D3DKMT_QUERYREMOTEVIDPNSOURCEFROMGDIDISPLAYNAME.ahk
-#Include .\D3DKMT_OPENRESOURCEFROMNTHANDLE.ahk
-#Include .\D3DKMT_TRIMPROCESSCOMMITMENT.ahk
-#Include .\D3DKMT_DESTROYDEVICE.ahk
-#Include .\D3DKMT_CHECKMONITORPOWERSTATE.ahk
-#Include .\D3DKMT_QUERYVIDPNEXCLUSIVEOWNERSHIP.ahk
-#Include .\D3DKMT_WAITFORSYNCHRONIZATIONOBJECTFROMGPU.ahk
-#Include .\D3DKMT_WAITFORSYNCHRONIZATIONOBJECTFROMCPU.ahk
-#Include .\D3DKMT_OPENKEYEDMUTEXFROMNTHANDLE.ahk
-#Include .\D3DKMT_OFFERALLOCATIONS.ahk
-#Include .\D3DKMT_CREATEALLOCATION.ahk
-#Include .\D3DKMT_FREEGPUVIRTUALADDRESS.ahk
-#Include .\D3DKMT_ESCAPE.ahk
-#Include .\D3DKMT_GETRUNTIMEDATA.ahk
-#Include .\D3DKMT_DESTROYPROTECTEDSESSION.ahk
-#Include .\D3DKMT_QUERYCLOCKCALIBRATION.ahk
-#Include .\D3DKMT_GETCONTEXTINPROCESSSCHEDULINGPRIORITY.ahk
-#Include .\D3DKMT_CREATESYNCHRONIZATIONOBJECT2.ahk
-#Include .\D3DKMT_QUERYPROCESSOFFERINFO.ahk
-#Include .\D3DKMT_CREATEPAGINGQUEUE.ahk
-#Include .\D3DKMT_REGISTERTRIMNOTIFICATION.ahk
-#Include .\D3DKMT_OPENSYNCOBJECTFROMNTHANDLE.ahk
-#Include .\D3DKMT_CREATEDCFROMMEMORY.ahk
-#Include .\D3DKMT_LOCK2.ahk
-#Include .\D3DKMT_SUBMITPRESENTTOHWQUEUE.ahk
-#Include .\D3DKMT_INVALIDATECACHE.ahk
-#Include .\D3DKMT_CHECKMULTIPLANEOVERLAYSUPPORT3.ahk
-#Include .\D3DKMT_SUBMITPRESENTBLTTOHWQUEUE.ahk
-#Include ..\..\Foundation\OBJECT_ATTRIBUTES.ahk
-#Include .\D3DKMT_SETCONTEXTSCHEDULINGPRIORITY.ahk
-#Include .\D3DKMT_ENUMADAPTERS.ahk
-#Include .\D3DKMT_CONFIGURESHAREDRESOURCE.ahk
-#Include .\D3DKMT_GETDEVICESTATE.ahk
-#Include .\D3DKMT_SIGNALSYNCHRONIZATIONOBJECTFROMGPU2.ahk
-#Include .\D3DKMT_UPDATEGPUVIRTUALADDRESS.ahk
-#Include .\D3DKMT_SIGNALSYNCHRONIZATIONOBJECTFROMCPU.ahk
-#Include .\D3DKMT_CHECKOCCLUSION.ahk
-#Include .\D3DKMT_WAITFORVERTICALBLANKEVENT.ahk
-#Include .\D3DKMT_OUTPUTDUPL_GET_FRAMEINFO.ahk
-#Include .\D3DKMT_OUTPUTDUPL_METADATA.ahk
-#Include .\D3DKMT_CANCEL_PRESENTS.ahk
-#Include .\D3DKMT_SIGNALSYNCHRONIZATIONOBJECTFROMGPU.ahk
-#Include .\D3DKMT_CREATE_OUTPUTDUPL.ahk
-#Include .\D3DKMT_SCHEDULINGPRIORITYCLASS.ahk
-#Include .\D3DKMT_SET_COLORSPACE_TRANSFORM.ahk
-#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
-#Include .\D3DKMT_GETSCANLINE.ahk
-#Include .\D3DKMT_CREATEKEYEDMUTEX.ahk
-#Include .\D3DKMT_ENUMADAPTERS3.ahk
-#Include .\D3DKMT_LOCK.ahk
-#Include .\D3DKMT_GET_POST_COMPOSITION_CAPS.ahk
-#Include .\D3DKMT_OUTPUTDUPLPRESENT.ahk
-#Include .\D3DKMT_SETVIDPNSOURCEOWNER2.ahk
-#Include .\D3DKMT_CREATECONTEXT.ahk
-#Include .\D3DKMT_SUBMITSIGNALSYNCOBJECTSTOHWQUEUE.ahk
-#Include .\D3DKMT_CREATECONTEXTVIRTUAL.ahk
-#Include .\D3DKMT_CREATEHWQUEUE.ahk
-#Include .\D3DKMT_FLIPOVERLAY.ahk
-#Include .\D3DKMT_GET_MULTIPLANE_OVERLAY_CAPS.ahk
-#Include .\D3DKMT_SETQUEUEDLIMIT.ahk
-#Include .\D3DKMT_WAITFORSYNCHRONIZATIONOBJECT2.ahk
-#Include .\D3DKMT_WAITFORSYNCHRONIZATIONOBJECT.ahk
-#Include .\D3DKMT_DESTROYCONTEXT.ahk
-#Include .\D3DKMT_SETHWPROTECTIONTEARDOWNRECOVERY.ahk
-#Include .\D3DKMT_SUBMITCOMMANDTOHWQUEUE.ahk
-#Include .\D3DKMT_PRESENT_MULTIPLANE_OVERLAY.ahk
-#Include .\D3DKMT_CREATEHWCONTEXT.ahk
-#Include .\D3DKMT_SUBMITCOMMAND.ahk
-#Include .\D3DKMT_CHECKVIDPNEXCLUSIVEOWNERSHIP.ahk
-#Include .\D3DKMT_GETPRESENTHISTORY.ahk
-#Include .\D3DKMT_DESTROYALLOCATION.ahk
-#Include .\D3DKMT_SHAREDPRIMARYLOCKNOTIFICATION.ahk
-#Include .\D3DKMT_RECLAIMALLOCATIONS2.ahk
-#Include .\D3DKMT_CREATEPROTECTEDSESSION.ahk
-#Include .\D3DKMT_MARKDEVICEASERROR.ahk
-#Include .\D3DKMT_CREATESYNCHRONIZATIONOBJECT.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\OBJECT_ATTRIBUTES.ahk
+#Include .\D3DDDI_DESTROYPAGINGQUEUE.ahk
+#Include .\D3DDDI_GETRESOURCEPRESENTPRIVATEDRIVERDATA.ahk
+#Include .\D3DDDI_MAKERESIDENT.ahk
+#Include .\D3DDDI_MAPGPUVIRTUALADDRESS.ahk
+#Include .\D3DDDI_RESERVEGPUVIRTUALADDRESS.ahk
+#Include .\D3DDDI_UPDATEALLOCPROPERTY.ahk
+#Include .\D3DKMT_ACQUIREKEYEDMUTEX.ahk
+#Include .\D3DKMT_ACQUIREKEYEDMUTEX2.ahk
+#Include .\D3DKMT_ADJUSTFULLSCREENGAMMA.ahk
+#Include .\D3DKMT_CANCEL_PRESENTS.ahk
+#Include .\D3DKMT_CHANGESURFACEPOINTER.ahk
+#Include .\D3DKMT_CHANGEVIDEOMEMORYRESERVATION.ahk
+#Include .\D3DKMT_CHECKMONITORPOWERSTATE.ahk
+#Include .\D3DKMT_CHECKMULTIPLANEOVERLAYSUPPORT.ahk
+#Include .\D3DKMT_CHECKMULTIPLANEOVERLAYSUPPORT2.ahk
+#Include .\D3DKMT_CHECKMULTIPLANEOVERLAYSUPPORT3.ahk
+#Include .\D3DKMT_CHECKOCCLUSION.ahk
+#Include .\D3DKMT_CHECKSHAREDRESOURCEACCESS.ahk
+#Include .\D3DKMT_CHECKVIDPNEXCLUSIVEOWNERSHIP.ahk
+#Include .\D3DKMT_CLOSEADAPTER.ahk
+#Include .\D3DKMT_CONFIGURESHAREDRESOURCE.ahk
+#Include .\D3DKMT_CREATEALLOCATION.ahk
+#Include .\D3DKMT_CREATECONTEXT.ahk
+#Include .\D3DKMT_CREATECONTEXTVIRTUAL.ahk
+#Include .\D3DKMT_CREATEDCFROMMEMORY.ahk
+#Include .\D3DKMT_CREATEDEVICE.ahk
+#Include .\D3DKMT_CREATEHWCONTEXT.ahk
+#Include .\D3DKMT_CREATEHWQUEUE.ahk
+#Include .\D3DKMT_CREATEKEYEDMUTEX.ahk
+#Include .\D3DKMT_CREATEKEYEDMUTEX2.ahk
+#Include .\D3DKMT_CREATEOVERLAY.ahk
+#Include .\D3DKMT_CREATEPAGINGQUEUE.ahk
+#Include .\D3DKMT_CREATEPROTECTEDSESSION.ahk
+#Include .\D3DKMT_CREATESYNCHRONIZATIONOBJECT.ahk
+#Include .\D3DKMT_CREATESYNCHRONIZATIONOBJECT2.ahk
+#Include .\D3DKMT_CREATE_OUTPUTDUPL.ahk
+#Include .\D3DKMT_DESTROYALLOCATION.ahk
+#Include .\D3DKMT_DESTROYALLOCATION2.ahk
+#Include .\D3DKMT_DESTROYCONTEXT.ahk
+#Include .\D3DKMT_DESTROYDCFROMMEMORY.ahk
+#Include .\D3DKMT_DESTROYDEVICE.ahk
+#Include .\D3DKMT_DESTROYHWCONTEXT.ahk
+#Include .\D3DKMT_DESTROYHWQUEUE.ahk
+#Include .\D3DKMT_DESTROYKEYEDMUTEX.ahk
+#Include .\D3DKMT_DESTROYOVERLAY.ahk
+#Include .\D3DKMT_DESTROYPROTECTEDSESSION.ahk
+#Include .\D3DKMT_DESTROYSYNCHRONIZATIONOBJECT.ahk
+#Include .\D3DKMT_DESTROY_OUTPUTDUPL.ahk
+#Include .\D3DKMT_ENUMADAPTERS.ahk
+#Include .\D3DKMT_ENUMADAPTERS2.ahk
+#Include .\D3DKMT_ENUMADAPTERS3.ahk
+#Include .\D3DKMT_ESCAPE.ahk
+#Include .\D3DKMT_EVICT.ahk
+#Include .\D3DKMT_FLIPOVERLAY.ahk
+#Include .\D3DKMT_FLUSHHEAPTRANSITIONS.ahk
+#Include .\D3DKMT_FREEGPUVIRTUALADDRESS.ahk
+#Include .\D3DKMT_GETALLOCATIONPRIORITY.ahk
+#Include .\D3DKMT_GETCONTEXTINPROCESSSCHEDULINGPRIORITY.ahk
+#Include .\D3DKMT_GETCONTEXTSCHEDULINGPRIORITY.ahk
+#Include .\D3DKMT_GETDEVICESTATE.ahk
+#Include .\D3DKMT_GETDISPLAYMODELIST.ahk
+#Include .\D3DKMT_GETMULTISAMPLEMETHODLIST.ahk
+#Include .\D3DKMT_GETOVERLAYSTATE.ahk
+#Include .\D3DKMT_GETPRESENTHISTORY.ahk
+#Include .\D3DKMT_GETPROCESSDEVICEREMOVALSUPPORT.ahk
+#Include .\D3DKMT_GETRUNTIMEDATA.ahk
+#Include .\D3DKMT_GETSCANLINE.ahk
+#Include .\D3DKMT_GETSHAREDPRIMARYHANDLE.ahk
+#Include .\D3DKMT_GETSHAREDRESOURCEADAPTERLUID.ahk
+#Include .\D3DKMT_GETVERTICALBLANKEVENT.ahk
+#Include .\D3DKMT_GET_MULTIPLANE_OVERLAY_CAPS.ahk
+#Include .\D3DKMT_GET_POST_COMPOSITION_CAPS.ahk
+#Include .\D3DKMT_INVALIDATEACTIVEVIDPN.ahk
+#Include .\D3DKMT_INVALIDATECACHE.ahk
+#Include .\D3DKMT_LOCK.ahk
+#Include .\D3DKMT_LOCK2.ahk
+#Include .\D3DKMT_MARKDEVICEASERROR.ahk
+#Include .\D3DKMT_OFFERALLOCATIONS.ahk
+#Include .\D3DKMT_OPENADAPTERFROMDEVICENAME.ahk
+#Include .\D3DKMT_OPENADAPTERFROMGDIDISPLAYNAME.ahk
+#Include .\D3DKMT_OPENADAPTERFROMHDC.ahk
 #Include .\D3DKMT_OPENADAPTERFROMLUID.ahk
+#Include .\D3DKMT_OPENKEYEDMUTEX.ahk
+#Include .\D3DKMT_OPENKEYEDMUTEX2.ahk
+#Include .\D3DKMT_OPENKEYEDMUTEXFROMNTHANDLE.ahk
+#Include .\D3DKMT_OPENNTHANDLEFROMNAME.ahk
+#Include .\D3DKMT_OPENPROTECTEDSESSIONFROMNTHANDLE.ahk
+#Include .\D3DKMT_OPENRESOURCE.ahk
+#Include .\D3DKMT_OPENRESOURCEFROMNTHANDLE.ahk
+#Include .\D3DKMT_OPENSYNCHRONIZATIONOBJECT.ahk
+#Include .\D3DKMT_OPENSYNCOBJECTFROMNTHANDLE.ahk
+#Include .\D3DKMT_OPENSYNCOBJECTFROMNTHANDLE2.ahk
+#Include .\D3DKMT_OPENSYNCOBJECTNTHANDLEFROMNAME.ahk
+#Include .\D3DKMT_OUTPUTDUPLPRESENT.ahk
+#Include .\D3DKMT_OUTPUTDUPLPRESENTTOHWQUEUE.ahk
+#Include .\D3DKMT_OUTPUTDUPL_GET_FRAMEINFO.ahk
+#Include .\D3DKMT_OUTPUTDUPL_GET_POINTER_SHAPE_DATA.ahk
+#Include .\D3DKMT_OUTPUTDUPL_METADATA.ahk
+#Include .\D3DKMT_OUTPUTDUPL_RELEASE_FRAME.ahk
+#Include .\D3DKMT_POLLDISPLAYCHILDREN.ahk
+#Include .\D3DKMT_PRESENT.ahk
+#Include .\D3DKMT_PRESENT_MULTIPLANE_OVERLAY.ahk
+#Include .\D3DKMT_PRESENT_MULTIPLANE_OVERLAY2.ahk
+#Include .\D3DKMT_PRESENT_MULTIPLANE_OVERLAY3.ahk
+#Include .\D3DKMT_PRESENT_REDIRECTED.ahk
+#Include .\D3DKMT_QUERYADAPTERINFO.ahk
+#Include .\D3DKMT_QUERYALLOCATIONRESIDENCY.ahk
+#Include .\D3DKMT_QUERYCLOCKCALIBRATION.ahk
+#Include .\D3DKMT_QUERYFSEBLOCK.ahk
+#Include .\D3DKMT_QUERYPROCESSOFFERINFO.ahk
+#Include .\D3DKMT_QUERYPROTECTEDSESSIONINFOFROMNTHANDLE.ahk
+#Include .\D3DKMT_QUERYPROTECTEDSESSIONSTATUS.ahk
+#Include .\D3DKMT_QUERYREMOTEVIDPNSOURCEFROMGDIDISPLAYNAME.ahk
+#Include .\D3DKMT_QUERYRESOURCEINFO.ahk
+#Include .\D3DKMT_QUERYRESOURCEINFOFROMNTHANDLE.ahk
+#Include .\D3DKMT_QUERYSTATISTICS.ahk
+#Include .\D3DKMT_QUERYVIDEOMEMORYINFO.ahk
+#Include .\D3DKMT_QUERYVIDPNEXCLUSIVEOWNERSHIP.ahk
+#Include .\D3DKMT_RECLAIMALLOCATIONS.ahk
+#Include .\D3DKMT_RECLAIMALLOCATIONS2.ahk
+#Include .\D3DKMT_REGISTERTRIMNOTIFICATION.ahk
+#Include .\D3DKMT_RELEASEKEYEDMUTEX.ahk
+#Include .\D3DKMT_RELEASEKEYEDMUTEX2.ahk
+#Include .\D3DKMT_RENDER.ahk
+#Include .\D3DKMT_SCHEDULINGPRIORITYCLASS.ahk
+#Include .\D3DKMT_SETALLOCATIONPRIORITY.ahk
+#Include .\D3DKMT_SETCONTEXTINPROCESSSCHEDULINGPRIORITY.ahk
+#Include .\D3DKMT_SETCONTEXTSCHEDULINGPRIORITY.ahk
+#Include .\D3DKMT_SETDISPLAYMODE.ahk
+#Include .\D3DKMT_SETDISPLAYPRIVATEDRIVERFORMAT.ahk
+#Include .\D3DKMT_SETFSEBLOCK.ahk
+#Include .\D3DKMT_SETGAMMARAMP.ahk
+#Include .\D3DKMT_SETHWPROTECTIONTEARDOWNRECOVERY.ahk
+#Include .\D3DKMT_SETQUEUEDLIMIT.ahk
+#Include .\D3DKMT_SETSTABLEPOWERSTATE.ahk
+#Include .\D3DKMT_SETSYNCREFRESHCOUNTWAITTARGET.ahk
+#Include .\D3DKMT_SETVIDPNSOURCEHWPROTECTION.ahk
+#Include .\D3DKMT_SETVIDPNSOURCEOWNER.ahk
+#Include .\D3DKMT_SETVIDPNSOURCEOWNER1.ahk
+#Include .\D3DKMT_SETVIDPNSOURCEOWNER2.ahk
+#Include .\D3DKMT_SET_COLORSPACE_TRANSFORM.ahk
+#Include .\D3DKMT_SHAREDPRIMARYLOCKNOTIFICATION.ahk
+#Include .\D3DKMT_SHAREDPRIMARYUNLOCKNOTIFICATION.ahk
+#Include .\D3DKMT_SIGNALSYNCHRONIZATIONOBJECT.ahk
+#Include .\D3DKMT_SIGNALSYNCHRONIZATIONOBJECT2.ahk
+#Include .\D3DKMT_SIGNALSYNCHRONIZATIONOBJECTFROMCPU.ahk
+#Include .\D3DKMT_SIGNALSYNCHRONIZATIONOBJECTFROMGPU.ahk
+#Include .\D3DKMT_SIGNALSYNCHRONIZATIONOBJECTFROMGPU2.ahk
+#Include .\D3DKMT_SUBMITCOMMAND.ahk
+#Include .\D3DKMT_SUBMITCOMMANDTOHWQUEUE.ahk
+#Include .\D3DKMT_SUBMITPRESENTBLTTOHWQUEUE.ahk
+#Include .\D3DKMT_SUBMITPRESENTTOHWQUEUE.ahk
+#Include .\D3DKMT_SUBMITSIGNALSYNCOBJECTSTOHWQUEUE.ahk
+#Include .\D3DKMT_SUBMITWAITFORSYNCOBJECTSTOHWQUEUE.ahk
+#Include .\D3DKMT_TRIMPROCESSCOMMITMENT.ahk
+#Include .\D3DKMT_UNLOCK.ahk
+#Include .\D3DKMT_UNLOCK2.ahk
+#Include .\D3DKMT_UNREGISTERTRIMNOTIFICATION.ahk
+#Include .\D3DKMT_UPDATEGPUVIRTUALADDRESS.ahk
+#Include .\D3DKMT_UPDATEOVERLAY.ahk
+#Include .\D3DKMT_WAITFORIDLE.ahk
+#Include .\D3DKMT_WAITFORSYNCHRONIZATIONOBJECT.ahk
+#Include .\D3DKMT_WAITFORSYNCHRONIZATIONOBJECT2.ahk
+#Include .\D3DKMT_WAITFORSYNCHRONIZATIONOBJECTFROMCPU.ahk
+#Include .\D3DKMT_WAITFORSYNCHRONIZATIONOBJECTFROMGPU.ahk
+#Include .\D3DKMT_WAITFORVERTICALBLANKEVENT.ahk
+#Include .\D3DKMT_WAITFORVERTICALBLANKEVENT2.ahk
+#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
+#Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Include ..\..\..\Win32\Foundation\NTSTATUS.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
@@ -2860,7 +2860,7 @@ class Direct3D {
      */
     static D3DKMTCreateAllocation(param0) {
         result := DllCall("GDI32.dll\D3DKMTCreateAllocation", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2871,7 +2871,7 @@ class Direct3D {
      */
     static D3DKMTCreateAllocation2(param0) {
         result := DllCall("GDI32.dll\D3DKMTCreateAllocation2", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2882,7 +2882,7 @@ class Direct3D {
      */
     static D3DKMTQueryResourceInfo(param0) {
         result := DllCall("GDI32.dll\D3DKMTQueryResourceInfo", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2893,7 +2893,7 @@ class Direct3D {
      */
     static D3DKMTQueryResourceInfoFromNtHandle(param0) {
         result := DllCall("GDI32.dll\D3DKMTQueryResourceInfoFromNtHandle", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2910,7 +2910,7 @@ class Direct3D {
         hObjectsMarshal := hObjects is VarRef ? "uint*" : "ptr"
 
         result := DllCall("GDI32.dll\D3DKMTShareObjects", "uint", cObjects, hObjectsMarshal, hObjects, "ptr", pObjectAttributes, "uint", dwDesiredAccess, "ptr", phSharedNtHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2921,7 +2921,7 @@ class Direct3D {
      */
     static D3DKMTOpenNtHandleFromName(param0) {
         result := DllCall("GDI32.dll\D3DKMTOpenNtHandleFromName", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2932,7 +2932,7 @@ class Direct3D {
      */
     static D3DKMTOpenResourceFromNtHandle(param0) {
         result := DllCall("GDI32.dll\D3DKMTOpenResourceFromNtHandle", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2943,7 +2943,7 @@ class Direct3D {
      */
     static D3DKMTOpenSyncObjectFromNtHandle(param0) {
         result := DllCall("GDI32.dll\D3DKMTOpenSyncObjectFromNtHandle", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2954,7 +2954,7 @@ class Direct3D {
      */
     static D3DKMTOpenResource(param0) {
         result := DllCall("GDI32.dll\D3DKMTOpenResource", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2965,7 +2965,7 @@ class Direct3D {
      */
     static D3DKMTOpenResource2(param0) {
         result := DllCall("GDI32.dll\D3DKMTOpenResource2", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2976,7 +2976,7 @@ class Direct3D {
      */
     static D3DKMTDestroyAllocation(param0) {
         result := DllCall("GDI32.dll\D3DKMTDestroyAllocation", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2987,7 +2987,7 @@ class Direct3D {
      */
     static D3DKMTDestroyAllocation2(param0) {
         result := DllCall("GDI32.dll\D3DKMTDestroyAllocation2", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -2998,7 +2998,7 @@ class Direct3D {
      */
     static D3DKMTSetAllocationPriority(param0) {
         result := DllCall("GDI32.dll\D3DKMTSetAllocationPriority", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3009,7 +3009,7 @@ class Direct3D {
      */
     static D3DKMTQueryAllocationResidency(param0) {
         result := DllCall("GDI32.dll\D3DKMTQueryAllocationResidency", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3020,7 +3020,7 @@ class Direct3D {
      */
     static D3DKMTCreateDevice(param0) {
         result := DllCall("GDI32.dll\D3DKMTCreateDevice", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3031,7 +3031,7 @@ class Direct3D {
      */
     static D3DKMTDestroyDevice(param0) {
         result := DllCall("GDI32.dll\D3DKMTDestroyDevice", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3042,7 +3042,7 @@ class Direct3D {
      */
     static D3DKMTCreateContext(param0) {
         result := DllCall("GDI32.dll\D3DKMTCreateContext", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3053,7 +3053,7 @@ class Direct3D {
      */
     static D3DKMTDestroyContext(param0) {
         result := DllCall("GDI32.dll\D3DKMTDestroyContext", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3064,7 +3064,7 @@ class Direct3D {
      */
     static D3DKMTCreateSynchronizationObject(param0) {
         result := DllCall("GDI32.dll\D3DKMTCreateSynchronizationObject", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3075,7 +3075,7 @@ class Direct3D {
      */
     static D3DKMTCreateSynchronizationObject2(param0) {
         result := DllCall("GDI32.dll\D3DKMTCreateSynchronizationObject2", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3086,7 +3086,7 @@ class Direct3D {
      */
     static D3DKMTOpenSynchronizationObject(param0) {
         result := DllCall("GDI32.dll\D3DKMTOpenSynchronizationObject", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3097,7 +3097,7 @@ class Direct3D {
      */
     static D3DKMTDestroySynchronizationObject(param0) {
         result := DllCall("GDI32.dll\D3DKMTDestroySynchronizationObject", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3108,7 +3108,7 @@ class Direct3D {
      */
     static D3DKMTWaitForSynchronizationObject(param0) {
         result := DllCall("GDI32.dll\D3DKMTWaitForSynchronizationObject", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3119,7 +3119,7 @@ class Direct3D {
      */
     static D3DKMTWaitForSynchronizationObject2(param0) {
         result := DllCall("GDI32.dll\D3DKMTWaitForSynchronizationObject2", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3130,7 +3130,7 @@ class Direct3D {
      */
     static D3DKMTSignalSynchronizationObject(param0) {
         result := DllCall("GDI32.dll\D3DKMTSignalSynchronizationObject", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3141,7 +3141,7 @@ class Direct3D {
      */
     static D3DKMTSignalSynchronizationObject2(param0) {
         result := DllCall("GDI32.dll\D3DKMTSignalSynchronizationObject2", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3152,7 +3152,7 @@ class Direct3D {
      */
     static D3DKMTLock(param0) {
         result := DllCall("GDI32.dll\D3DKMTLock", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3163,7 +3163,7 @@ class Direct3D {
      */
     static D3DKMTUnlock(param0) {
         result := DllCall("GDI32.dll\D3DKMTUnlock", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3174,7 +3174,7 @@ class Direct3D {
      */
     static D3DKMTGetDisplayModeList(param0) {
         result := DllCall("GDI32.dll\D3DKMTGetDisplayModeList", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3185,7 +3185,7 @@ class Direct3D {
      */
     static D3DKMTSetDisplayMode(param0) {
         result := DllCall("GDI32.dll\D3DKMTSetDisplayMode", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3196,7 +3196,7 @@ class Direct3D {
      */
     static D3DKMTGetMultisampleMethodList(param0) {
         result := DllCall("GDI32.dll\D3DKMTGetMultisampleMethodList", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3207,7 +3207,7 @@ class Direct3D {
      */
     static D3DKMTPresent(param0) {
         result := DllCall("GDI32.dll\D3DKMTPresent", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3218,7 +3218,7 @@ class Direct3D {
      */
     static D3DKMTRender(param0) {
         result := DllCall("GDI32.dll\D3DKMTRender", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3229,7 +3229,7 @@ class Direct3D {
      */
     static D3DKMTGetRuntimeData(param0) {
         result := DllCall("GDI32.dll\D3DKMTGetRuntimeData", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3240,7 +3240,7 @@ class Direct3D {
      */
     static D3DKMTQueryAdapterInfo(param0) {
         result := DllCall("GDI32.dll\D3DKMTQueryAdapterInfo", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3251,7 +3251,7 @@ class Direct3D {
      */
     static D3DKMTOpenAdapterFromHdc(param0) {
         result := DllCall("GDI32.dll\D3DKMTOpenAdapterFromHdc", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3262,7 +3262,7 @@ class Direct3D {
      */
     static D3DKMTOpenAdapterFromGdiDisplayName(param0) {
         result := DllCall("GDI32.dll\D3DKMTOpenAdapterFromGdiDisplayName", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3273,7 +3273,7 @@ class Direct3D {
      */
     static D3DKMTOpenAdapterFromDeviceName(param0) {
         result := DllCall("GDI32.dll\D3DKMTOpenAdapterFromDeviceName", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3284,7 +3284,7 @@ class Direct3D {
      */
     static D3DKMTCloseAdapter(param0) {
         result := DllCall("GDI32.dll\D3DKMTCloseAdapter", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3295,7 +3295,7 @@ class Direct3D {
      */
     static D3DKMTGetSharedPrimaryHandle(param0) {
         result := DllCall("GDI32.dll\D3DKMTGetSharedPrimaryHandle", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3306,7 +3306,7 @@ class Direct3D {
      */
     static D3DKMTEscape(param0) {
         result := DllCall("GDI32.dll\D3DKMTEscape", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3317,7 +3317,7 @@ class Direct3D {
      */
     static D3DKMTQueryStatistics(param0) {
         result := DllCall("GDI32.dll\D3DKMTQueryStatistics", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3328,7 +3328,7 @@ class Direct3D {
      */
     static D3DKMTSetVidPnSourceOwner(param0) {
         result := DllCall("GDI32.dll\D3DKMTSetVidPnSourceOwner", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3339,7 +3339,7 @@ class Direct3D {
      */
     static D3DKMTGetPresentHistory(param0) {
         result := DllCall("GDI32.dll\D3DKMTGetPresentHistory", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3351,7 +3351,7 @@ class Direct3D {
      */
     static D3DKMTGetPresentQueueEvent(hAdapter, param1) {
         result := DllCall("GDI32.dll\D3DKMTGetPresentQueueEvent", "uint", hAdapter, "ptr", param1, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3362,7 +3362,7 @@ class Direct3D {
      */
     static D3DKMTCreateOverlay(param0) {
         result := DllCall("GDI32.dll\D3DKMTCreateOverlay", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3373,7 +3373,7 @@ class Direct3D {
      */
     static D3DKMTUpdateOverlay(param0) {
         result := DllCall("GDI32.dll\D3DKMTUpdateOverlay", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3384,7 +3384,7 @@ class Direct3D {
      */
     static D3DKMTFlipOverlay(param0) {
         result := DllCall("GDI32.dll\D3DKMTFlipOverlay", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3395,7 +3395,7 @@ class Direct3D {
      */
     static D3DKMTDestroyOverlay(param0) {
         result := DllCall("GDI32.dll\D3DKMTDestroyOverlay", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3406,7 +3406,7 @@ class Direct3D {
      */
     static D3DKMTWaitForVerticalBlankEvent(param0) {
         result := DllCall("GDI32.dll\D3DKMTWaitForVerticalBlankEvent", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3417,7 +3417,7 @@ class Direct3D {
      */
     static D3DKMTSetGammaRamp(param0) {
         result := DllCall("GDI32.dll\D3DKMTSetGammaRamp", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3428,7 +3428,7 @@ class Direct3D {
      */
     static D3DKMTGetDeviceState(param0) {
         result := DllCall("GDI32.dll\D3DKMTGetDeviceState", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3439,7 +3439,7 @@ class Direct3D {
      */
     static D3DKMTCreateDCFromMemory(param0) {
         result := DllCall("GDI32.dll\D3DKMTCreateDCFromMemory", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3450,7 +3450,7 @@ class Direct3D {
      */
     static D3DKMTDestroyDCFromMemory(param0) {
         result := DllCall("GDI32.dll\D3DKMTDestroyDCFromMemory", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3461,7 +3461,7 @@ class Direct3D {
      */
     static D3DKMTSetContextSchedulingPriority(param0) {
         result := DllCall("GDI32.dll\D3DKMTSetContextSchedulingPriority", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3472,7 +3472,7 @@ class Direct3D {
      */
     static D3DKMTGetContextSchedulingPriority(param0) {
         result := DllCall("GDI32.dll\D3DKMTGetContextSchedulingPriority", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3486,7 +3486,7 @@ class Direct3D {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
         result := DllCall("GDI32.dll\D3DKMTSetProcessSchedulingPriorityClass", "ptr", param0, "int", param1, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3502,7 +3502,7 @@ class Direct3D {
         param1Marshal := param1 is VarRef ? "int*" : "ptr"
 
         result := DllCall("GDI32.dll\D3DKMTGetProcessSchedulingPriorityClass", "ptr", param0, param1Marshal, param1, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3515,7 +3515,7 @@ class Direct3D {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
         result := DllCall("GDI32.dll\D3DKMTReleaseProcessVidPnSourceOwners", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3526,7 +3526,7 @@ class Direct3D {
      */
     static D3DKMTGetScanLine(param0) {
         result := DllCall("GDI32.dll\D3DKMTGetScanLine", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3537,7 +3537,7 @@ class Direct3D {
      */
     static D3DKMTChangeSurfacePointer(param0) {
         result := DllCall("GDI32.dll\D3DKMTChangeSurfacePointer", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3548,7 +3548,7 @@ class Direct3D {
      */
     static D3DKMTSetQueuedLimit(param0) {
         result := DllCall("GDI32.dll\D3DKMTSetQueuedLimit", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3559,7 +3559,7 @@ class Direct3D {
      */
     static D3DKMTPollDisplayChildren(param0) {
         result := DllCall("GDI32.dll\D3DKMTPollDisplayChildren", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3570,7 +3570,7 @@ class Direct3D {
      */
     static D3DKMTInvalidateActiveVidPn(param0) {
         result := DllCall("GDI32.dll\D3DKMTInvalidateActiveVidPn", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3581,7 +3581,7 @@ class Direct3D {
      */
     static D3DKMTCheckOcclusion(param0) {
         result := DllCall("GDI32.dll\D3DKMTCheckOcclusion", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3592,7 +3592,7 @@ class Direct3D {
      */
     static D3DKMTWaitForIdle(param0) {
         result := DllCall("GDI32.dll\D3DKMTWaitForIdle", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3603,7 +3603,7 @@ class Direct3D {
      */
     static D3DKMTCheckMonitorPowerState(param0) {
         result := DllCall("GDI32.dll\D3DKMTCheckMonitorPowerState", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3623,7 +3623,7 @@ class Direct3D {
      */
     static D3DKMTCheckVidPnExclusiveOwnership(param0) {
         result := DllCall("GDI32.dll\D3DKMTCheckVidPnExclusiveOwnership", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3634,7 +3634,7 @@ class Direct3D {
      */
     static D3DKMTSetDisplayPrivateDriverFormat(param0) {
         result := DllCall("GDI32.dll\D3DKMTSetDisplayPrivateDriverFormat", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3645,7 +3645,7 @@ class Direct3D {
      */
     static D3DKMTSharedPrimaryLockNotification(param0) {
         result := DllCall("GDI32.dll\D3DKMTSharedPrimaryLockNotification", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3656,7 +3656,7 @@ class Direct3D {
      */
     static D3DKMTSharedPrimaryUnLockNotification(param0) {
         result := DllCall("GDI32.dll\D3DKMTSharedPrimaryUnLockNotification", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3667,7 +3667,7 @@ class Direct3D {
      */
     static D3DKMTCreateKeyedMutex(param0) {
         result := DllCall("GDI32.dll\D3DKMTCreateKeyedMutex", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3678,7 +3678,7 @@ class Direct3D {
      */
     static D3DKMTOpenKeyedMutex(param0) {
         result := DllCall("GDI32.dll\D3DKMTOpenKeyedMutex", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3689,7 +3689,7 @@ class Direct3D {
      */
     static D3DKMTDestroyKeyedMutex(param0) {
         result := DllCall("GDI32.dll\D3DKMTDestroyKeyedMutex", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3700,7 +3700,7 @@ class Direct3D {
      */
     static D3DKMTAcquireKeyedMutex(param0) {
         result := DllCall("GDI32.dll\D3DKMTAcquireKeyedMutex", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3711,7 +3711,7 @@ class Direct3D {
      */
     static D3DKMTReleaseKeyedMutex(param0) {
         result := DllCall("GDI32.dll\D3DKMTReleaseKeyedMutex", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3722,7 +3722,7 @@ class Direct3D {
      */
     static D3DKMTCreateKeyedMutex2(param0) {
         result := DllCall("GDI32.dll\D3DKMTCreateKeyedMutex2", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3733,7 +3733,7 @@ class Direct3D {
      */
     static D3DKMTOpenKeyedMutex2(param0) {
         result := DllCall("GDI32.dll\D3DKMTOpenKeyedMutex2", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3744,7 +3744,7 @@ class Direct3D {
      */
     static D3DKMTAcquireKeyedMutex2(param0) {
         result := DllCall("GDI32.dll\D3DKMTAcquireKeyedMutex2", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3755,7 +3755,7 @@ class Direct3D {
      */
     static D3DKMTReleaseKeyedMutex2(param0) {
         result := DllCall("GDI32.dll\D3DKMTReleaseKeyedMutex2", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3766,7 +3766,7 @@ class Direct3D {
      */
     static D3DKMTConfigureSharedResource(param0) {
         result := DllCall("GDI32.dll\D3DKMTConfigureSharedResource", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3777,7 +3777,7 @@ class Direct3D {
      */
     static D3DKMTGetOverlayState(param0) {
         result := DllCall("GDI32.dll\D3DKMTGetOverlayState", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3788,7 +3788,7 @@ class Direct3D {
      */
     static D3DKMTCheckSharedResourceAccess(param0) {
         result := DllCall("GDI32.dll\D3DKMTCheckSharedResourceAccess", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3799,7 +3799,7 @@ class Direct3D {
      */
     static D3DKMTOfferAllocations(param0) {
         result := DllCall("GDI32.dll\D3DKMTOfferAllocations", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3810,7 +3810,7 @@ class Direct3D {
      */
     static D3DKMTReclaimAllocations(param0) {
         result := DllCall("GDI32.dll\D3DKMTReclaimAllocations", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3821,7 +3821,7 @@ class Direct3D {
      */
     static D3DKMTCreateOutputDupl(param0) {
         result := DllCall("GDI32.dll\D3DKMTCreateOutputDupl", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3832,7 +3832,7 @@ class Direct3D {
      */
     static D3DKMTDestroyOutputDupl(param0) {
         result := DllCall("GDI32.dll\D3DKMTDestroyOutputDupl", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3843,7 +3843,7 @@ class Direct3D {
      */
     static D3DKMTOutputDuplGetFrameInfo(param0) {
         result := DllCall("GDI32.dll\D3DKMTOutputDuplGetFrameInfo", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3854,7 +3854,7 @@ class Direct3D {
      */
     static D3DKMTOutputDuplGetMetaData(param0) {
         result := DllCall("GDI32.dll\D3DKMTOutputDuplGetMetaData", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3865,7 +3865,7 @@ class Direct3D {
      */
     static D3DKMTOutputDuplGetPointerShapeData(param0) {
         result := DllCall("GDI32.dll\D3DKMTOutputDuplGetPointerShapeData", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3876,7 +3876,7 @@ class Direct3D {
      */
     static D3DKMTOutputDuplReleaseFrame(param0) {
         result := DllCall("GDI32.dll\D3DKMTOutputDuplReleaseFrame", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3887,7 +3887,7 @@ class Direct3D {
      */
     static D3DKMTOutputDuplPresent(param0) {
         result := DllCall("GDI32.dll\D3DKMTOutputDuplPresent", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3898,7 +3898,7 @@ class Direct3D {
      */
     static D3DKMTEnumAdapters(param0) {
         result := DllCall("GDI32.dll\D3DKMTEnumAdapters", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3909,7 +3909,7 @@ class Direct3D {
      */
     static D3DKMTEnumAdapters2(param0) {
         result := DllCall("GDI32.dll\D3DKMTEnumAdapters2", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3920,7 +3920,7 @@ class Direct3D {
      */
     static D3DKMTOpenAdapterFromLuid(param0) {
         result := DllCall("GDI32.dll\D3DKMTOpenAdapterFromLuid", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3931,7 +3931,7 @@ class Direct3D {
      */
     static D3DKMTQueryRemoteVidPnSourceFromGdiDisplayName(param0) {
         result := DllCall("GDI32.dll\D3DKMTQueryRemoteVidPnSourceFromGdiDisplayName", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3942,7 +3942,7 @@ class Direct3D {
      */
     static D3DKMTSetVidPnSourceOwner1(param0) {
         result := DllCall("GDI32.dll\D3DKMTSetVidPnSourceOwner1", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3953,7 +3953,7 @@ class Direct3D {
      */
     static D3DKMTWaitForVerticalBlankEvent2(param0) {
         result := DllCall("GDI32.dll\D3DKMTWaitForVerticalBlankEvent2", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3964,7 +3964,7 @@ class Direct3D {
      */
     static D3DKMTSetSyncRefreshCountWaitTarget(param0) {
         result := DllCall("GDI32.dll\D3DKMTSetSyncRefreshCountWaitTarget", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3975,7 +3975,7 @@ class Direct3D {
      */
     static D3DKMTGetDWMVerticalBlankEvent(param0) {
         result := DllCall("GDI32.dll\D3DKMTGetDWMVerticalBlankEvent", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3986,7 +3986,7 @@ class Direct3D {
      */
     static D3DKMTPresentMultiPlaneOverlay(param0) {
         result := DllCall("GDI32.dll\D3DKMTPresentMultiPlaneOverlay", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -3997,7 +3997,7 @@ class Direct3D {
      */
     static D3DKMTGetSharedResourceAdapterLuid(param0) {
         result := DllCall("GDI32.dll\D3DKMTGetSharedResourceAdapterLuid", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4008,7 +4008,7 @@ class Direct3D {
      */
     static D3DKMTCheckMultiPlaneOverlaySupport(param0) {
         result := DllCall("GDI32.dll\D3DKMTCheckMultiPlaneOverlaySupport", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4019,7 +4019,7 @@ class Direct3D {
      */
     static D3DKMTSetContextInProcessSchedulingPriority(param0) {
         result := DllCall("GDI32.dll\D3DKMTSetContextInProcessSchedulingPriority", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4030,7 +4030,7 @@ class Direct3D {
      */
     static D3DKMTGetContextInProcessSchedulingPriority(param0) {
         result := DllCall("GDI32.dll\D3DKMTGetContextInProcessSchedulingPriority", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4041,7 +4041,7 @@ class Direct3D {
      */
     static D3DKMTMakeResident(param0) {
         result := DllCall("GDI32.dll\D3DKMTMakeResident", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4052,7 +4052,7 @@ class Direct3D {
      */
     static D3DKMTEvict(param0) {
         result := DllCall("GDI32.dll\D3DKMTEvict", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4063,7 +4063,7 @@ class Direct3D {
      */
     static D3DKMTWaitForSynchronizationObjectFromCpu(param0) {
         result := DllCall("GDI32.dll\D3DKMTWaitForSynchronizationObjectFromCpu", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4074,7 +4074,7 @@ class Direct3D {
      */
     static D3DKMTSignalSynchronizationObjectFromCpu(param0) {
         result := DllCall("GDI32.dll\D3DKMTSignalSynchronizationObjectFromCpu", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4085,7 +4085,7 @@ class Direct3D {
      */
     static D3DKMTWaitForSynchronizationObjectFromGpu(param0) {
         result := DllCall("GDI32.dll\D3DKMTWaitForSynchronizationObjectFromGpu", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4096,7 +4096,7 @@ class Direct3D {
      */
     static D3DKMTSignalSynchronizationObjectFromGpu(param0) {
         result := DllCall("GDI32.dll\D3DKMTSignalSynchronizationObjectFromGpu", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4107,7 +4107,7 @@ class Direct3D {
      */
     static D3DKMTSignalSynchronizationObjectFromGpu2(param0) {
         result := DllCall("GDI32.dll\D3DKMTSignalSynchronizationObjectFromGpu2", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4118,7 +4118,7 @@ class Direct3D {
      */
     static D3DKMTCreatePagingQueue(param0) {
         result := DllCall("GDI32.dll\D3DKMTCreatePagingQueue", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4129,7 +4129,7 @@ class Direct3D {
      */
     static D3DKMTDestroyPagingQueue(param0) {
         result := DllCall("GDI32.dll\D3DKMTDestroyPagingQueue", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4140,7 +4140,7 @@ class Direct3D {
      */
     static D3DKMTLock2(param0) {
         result := DllCall("GDI32.dll\D3DKMTLock2", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4151,7 +4151,7 @@ class Direct3D {
      */
     static D3DKMTUnlock2(param0) {
         result := DllCall("GDI32.dll\D3DKMTUnlock2", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4162,7 +4162,7 @@ class Direct3D {
      */
     static D3DKMTInvalidateCache(param0) {
         result := DllCall("GDI32.dll\D3DKMTInvalidateCache", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4173,7 +4173,7 @@ class Direct3D {
      */
     static D3DKMTMapGpuVirtualAddress(param0) {
         result := DllCall("GDI32.dll\D3DKMTMapGpuVirtualAddress", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4184,7 +4184,7 @@ class Direct3D {
      */
     static D3DKMTReserveGpuVirtualAddress(param0) {
         result := DllCall("GDI32.dll\D3DKMTReserveGpuVirtualAddress", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4195,7 +4195,7 @@ class Direct3D {
      */
     static D3DKMTFreeGpuVirtualAddress(param0) {
         result := DllCall("GDI32.dll\D3DKMTFreeGpuVirtualAddress", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4206,7 +4206,7 @@ class Direct3D {
      */
     static D3DKMTUpdateGpuVirtualAddress(param0) {
         result := DllCall("GDI32.dll\D3DKMTUpdateGpuVirtualAddress", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4217,7 +4217,7 @@ class Direct3D {
      */
     static D3DKMTGetResourcePresentPrivateDriverData(param0) {
         result := DllCall("GDI32.dll\D3DKMTGetResourcePresentPrivateDriverData", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4228,7 +4228,7 @@ class Direct3D {
      */
     static D3DKMTCreateContextVirtual(param0) {
         result := DllCall("GDI32.dll\D3DKMTCreateContextVirtual", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4239,7 +4239,7 @@ class Direct3D {
      */
     static D3DKMTSubmitCommand(param0) {
         result := DllCall("GDI32.dll\D3DKMTSubmitCommand", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4250,7 +4250,7 @@ class Direct3D {
      */
     static D3DKMTOpenSyncObjectFromNtHandle2(param0) {
         result := DllCall("GDI32.dll\D3DKMTOpenSyncObjectFromNtHandle2", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4261,7 +4261,7 @@ class Direct3D {
      */
     static D3DKMTOpenSyncObjectNtHandleFromName(param0) {
         result := DllCall("GDI32.dll\D3DKMTOpenSyncObjectNtHandleFromName", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4272,7 +4272,7 @@ class Direct3D {
      */
     static D3DKMTQueryVideoMemoryInfo(param0) {
         result := DllCall("GDI32.dll\D3DKMTQueryVideoMemoryInfo", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4283,7 +4283,7 @@ class Direct3D {
      */
     static D3DKMTChangeVideoMemoryReservation(param0) {
         result := DllCall("GDI32.dll\D3DKMTChangeVideoMemoryReservation", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4294,7 +4294,7 @@ class Direct3D {
      */
     static D3DKMTRegisterTrimNotification(param0) {
         result := DllCall("GDI32.dll\D3DKMTRegisterTrimNotification", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4305,7 +4305,7 @@ class Direct3D {
      */
     static D3DKMTUnregisterTrimNotification(param0) {
         result := DllCall("GDI32.dll\D3DKMTUnregisterTrimNotification", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4316,7 +4316,7 @@ class Direct3D {
      */
     static D3DKMTCheckMultiPlaneOverlaySupport2(param0) {
         result := DllCall("GDI32.dll\D3DKMTCheckMultiPlaneOverlaySupport2", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4327,7 +4327,7 @@ class Direct3D {
      */
     static D3DKMTPresentMultiPlaneOverlay2(param0) {
         result := DllCall("GDI32.dll\D3DKMTPresentMultiPlaneOverlay2", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4338,7 +4338,7 @@ class Direct3D {
      */
     static D3DKMTReclaimAllocations2(param0) {
         result := DllCall("GDI32.dll\D3DKMTReclaimAllocations2", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4349,7 +4349,7 @@ class Direct3D {
      */
     static D3DKMTSetStablePowerState(param0) {
         result := DllCall("GDI32.dll\D3DKMTSetStablePowerState", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4360,7 +4360,7 @@ class Direct3D {
      */
     static D3DKMTQueryClockCalibration(param0) {
         result := DllCall("GDI32.dll\D3DKMTQueryClockCalibration", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4371,7 +4371,7 @@ class Direct3D {
      */
     static D3DKMTQueryVidPnExclusiveOwnership(param0) {
         result := DllCall("GDI32.dll\D3DKMTQueryVidPnExclusiveOwnership", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4382,7 +4382,7 @@ class Direct3D {
      */
     static D3DKMTAdjustFullscreenGamma(param0) {
         result := DllCall("GDI32.dll\D3DKMTAdjustFullscreenGamma", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4393,7 +4393,7 @@ class Direct3D {
      */
     static D3DKMTSetVidPnSourceHwProtection(param0) {
         result := DllCall("GDI32.dll\D3DKMTSetVidPnSourceHwProtection", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4404,7 +4404,7 @@ class Direct3D {
      */
     static D3DKMTMarkDeviceAsError(param0) {
         result := DllCall("GDI32.dll\D3DKMTMarkDeviceAsError", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4415,7 +4415,7 @@ class Direct3D {
      */
     static D3DKMTFlushHeapTransitions(param0) {
         result := DllCall("GDI32.dll\D3DKMTFlushHeapTransitions", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4426,7 +4426,7 @@ class Direct3D {
      */
     static D3DKMTSetHwProtectionTeardownRecovery(param0) {
         result := DllCall("GDI32.dll\D3DKMTSetHwProtectionTeardownRecovery", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4437,7 +4437,7 @@ class Direct3D {
      */
     static D3DKMTQueryProcessOfferInfo(param0) {
         result := DllCall("GDI32.dll\D3DKMTQueryProcessOfferInfo", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4448,7 +4448,7 @@ class Direct3D {
      */
     static D3DKMTTrimProcessCommitment(param0) {
         result := DllCall("GDI32.dll\D3DKMTTrimProcessCommitment", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4459,7 +4459,7 @@ class Direct3D {
      */
     static D3DKMTUpdateAllocationProperty(param0) {
         result := DllCall("GDI32.dll\D3DKMTUpdateAllocationProperty", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4470,7 +4470,7 @@ class Direct3D {
      */
     static D3DKMTCheckMultiPlaneOverlaySupport3(param0) {
         result := DllCall("GDI32.dll\D3DKMTCheckMultiPlaneOverlaySupport3", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4481,7 +4481,7 @@ class Direct3D {
      */
     static D3DKMTPresentMultiPlaneOverlay3(param0) {
         result := DllCall("GDI32.dll\D3DKMTPresentMultiPlaneOverlay3", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4492,7 +4492,7 @@ class Direct3D {
      */
     static D3DKMTSetFSEBlock(param0) {
         result := DllCall("GDI32.dll\D3DKMTSetFSEBlock", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4503,7 +4503,7 @@ class Direct3D {
      */
     static D3DKMTQueryFSEBlock(param0) {
         result := DllCall("GDI32.dll\D3DKMTQueryFSEBlock", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4514,7 +4514,7 @@ class Direct3D {
      */
     static D3DKMTCreateHwContext(param0) {
         result := DllCall("GDI32.dll\D3DKMTCreateHwContext", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4525,7 +4525,7 @@ class Direct3D {
      */
     static D3DKMTDestroyHwContext(param0) {
         result := DllCall("GDI32.dll\D3DKMTDestroyHwContext", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4536,7 +4536,7 @@ class Direct3D {
      */
     static D3DKMTCreateHwQueue(param0) {
         result := DllCall("GDI32.dll\D3DKMTCreateHwQueue", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4547,7 +4547,7 @@ class Direct3D {
      */
     static D3DKMTDestroyHwQueue(param0) {
         result := DllCall("GDI32.dll\D3DKMTDestroyHwQueue", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4558,7 +4558,7 @@ class Direct3D {
      */
     static D3DKMTSubmitCommandToHwQueue(param0) {
         result := DllCall("GDI32.dll\D3DKMTSubmitCommandToHwQueue", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4569,7 +4569,7 @@ class Direct3D {
      */
     static D3DKMTSubmitWaitForSyncObjectsToHwQueue(param0) {
         result := DllCall("GDI32.dll\D3DKMTSubmitWaitForSyncObjectsToHwQueue", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4580,7 +4580,7 @@ class Direct3D {
      */
     static D3DKMTSubmitSignalSyncObjectsToHwQueue(param0) {
         result := DllCall("GDI32.dll\D3DKMTSubmitSignalSyncObjectsToHwQueue", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4591,7 +4591,7 @@ class Direct3D {
      */
     static D3DKMTGetAllocationPriority(param0) {
         result := DllCall("GDI32.dll\D3DKMTGetAllocationPriority", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4602,7 +4602,7 @@ class Direct3D {
      */
     static D3DKMTGetMultiPlaneOverlayCaps(param0) {
         result := DllCall("GDI32.dll\D3DKMTGetMultiPlaneOverlayCaps", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4613,7 +4613,7 @@ class Direct3D {
      */
     static D3DKMTGetPostCompositionCaps(param0) {
         result := DllCall("GDI32.dll\D3DKMTGetPostCompositionCaps", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4624,7 +4624,7 @@ class Direct3D {
      */
     static D3DKMTPresentRedirected(param0) {
         result := DllCall("GDI32.dll\D3DKMTPresentRedirected", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4635,7 +4635,7 @@ class Direct3D {
      */
     static D3DKMTSetVidPnSourceOwner2(param0) {
         result := DllCall("GDI32.dll\D3DKMTSetVidPnSourceOwner2", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4646,7 +4646,7 @@ class Direct3D {
      */
     static D3DKMTSetMonitorColorSpaceTransform(param0) {
         result := DllCall("GDI32.dll\D3DKMTSetMonitorColorSpaceTransform", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4657,7 +4657,7 @@ class Direct3D {
      */
     static D3DKMTCreateProtectedSession(param0) {
         result := DllCall("GDI32.dll\D3DKMTCreateProtectedSession", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4668,7 +4668,7 @@ class Direct3D {
      */
     static D3DKMTDestroyProtectedSession(param0) {
         result := DllCall("GDI32.dll\D3DKMTDestroyProtectedSession", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4679,7 +4679,7 @@ class Direct3D {
      */
     static D3DKMTQueryProtectedSessionStatus(param0) {
         result := DllCall("GDI32.dll\D3DKMTQueryProtectedSessionStatus", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4690,7 +4690,7 @@ class Direct3D {
      */
     static D3DKMTQueryProtectedSessionInfoFromNtHandle(param0) {
         result := DllCall("GDI32.dll\D3DKMTQueryProtectedSessionInfoFromNtHandle", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4701,7 +4701,7 @@ class Direct3D {
      */
     static D3DKMTOpenProtectedSessionFromNtHandle(param0) {
         result := DllCall("GDI32.dll\D3DKMTOpenProtectedSessionFromNtHandle", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4712,7 +4712,7 @@ class Direct3D {
      */
     static D3DKMTGetProcessDeviceRemovalSupport(param0) {
         result := DllCall("GDI32.dll\D3DKMTGetProcessDeviceRemovalSupport", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4723,7 +4723,7 @@ class Direct3D {
      */
     static D3DKMTOpenKeyedMutexFromNtHandle(param0) {
         result := DllCall("GDI32.dll\D3DKMTOpenKeyedMutexFromNtHandle", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4734,7 +4734,7 @@ class Direct3D {
      */
     static D3DKMTRegisterVailProcess(param0) {
         result := DllCall("GDI32.dll\D3DKMTRegisterVailProcess", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4745,7 +4745,7 @@ class Direct3D {
      */
     static D3DKMTSubmitPresentBltToHwQueue(param0) {
         result := DllCall("api-ms-win-dx-d3dkmt-l1-1-4.dll\D3DKMTSubmitPresentBltToHwQueue", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4756,7 +4756,7 @@ class Direct3D {
      */
     static D3DKMTSubmitPresentToHwQueue(param0) {
         result := DllCall("api-ms-win-dx-d3dkmt-l1-1-4.dll\D3DKMTSubmitPresentToHwQueue", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4767,7 +4767,7 @@ class Direct3D {
      */
     static D3DKMTOutputDuplPresentToHwQueue(param0) {
         result := DllCall("api-ms-win-dx-d3dkmt-l1-1-4.dll\D3DKMTOutputDuplPresentToHwQueue", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4778,7 +4778,7 @@ class Direct3D {
      */
     static D3DKMTEnumAdapters3(param0) {
         result := DllCall("api-ms-win-dx-d3dkmt-l1-1-6.dll\D3DKMTEnumAdapters3", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -4789,7 +4789,7 @@ class Direct3D {
      */
     static D3DKMTCancelPresents(param0) {
         result := DllCall("GDI32.dll\D3DKMTCancelPresents", "ptr", param0, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 

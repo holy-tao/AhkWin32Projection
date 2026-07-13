@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include .\CRYPT_XML_TRANSFORM_FLAGS.ahk
+#Include .\PFN_CRYPT_XML_CREATE_TRANSFORM.ahk
 
 /**
  * Contains information that is used when applying the data transform.

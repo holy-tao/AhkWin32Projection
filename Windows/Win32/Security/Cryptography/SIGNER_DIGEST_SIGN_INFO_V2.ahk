@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\PFN_AUTHENTICODE_DIGEST_SIGN.ahk
+#Include .\PFN_AUTHENTICODE_DIGEST_SIGN_EX.ahk
 
 /**
  * contains information about digest signing.

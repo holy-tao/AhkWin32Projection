@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ISCSI_UNIQUE_SESSION_ID.ahk
 #Include .\ISCSI_AUTH_TYPES.ahk
+#Include .\ISCSI_UNIQUE_SESSION_ID.ahk
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc

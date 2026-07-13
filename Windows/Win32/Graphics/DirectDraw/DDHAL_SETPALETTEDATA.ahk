@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\DDRAWI_DDRAWPALETTE_GBL.ahk
 #Include .\DDRAWI_DDRAWSURFACE_LCL.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\DDRAWI_DIRECTDRAW_GBL.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\LPDDHALSURFCB_SETPALETTE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

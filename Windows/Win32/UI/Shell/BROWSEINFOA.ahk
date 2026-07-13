@@ -3,6 +3,7 @@
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\PSTR.ahk
+#Include .\BFFCALLBACK.ahk
 #Include Common\ITEMIDLIST.ahk
 
 /**

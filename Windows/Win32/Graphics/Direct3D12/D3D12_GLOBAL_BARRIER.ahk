@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_BARRIER_SYNC.ahk
 #Include .\D3D12_BARRIER_ACCESS.ahk
+#Include .\D3D12_BARRIER_SYNC.ahk
 
 /**
  * Describes a resource memory access barrier. Used by global, texture, and buffer barriers to indicate when resource memory must be made visible for a specific access type.

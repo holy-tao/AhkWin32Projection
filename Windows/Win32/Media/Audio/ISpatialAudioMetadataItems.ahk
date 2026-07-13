@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\SpatialAudioMetadataItemsInfo.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\SpatialAudioMetadataItemsInfo.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents a buffer of spatial audio metadata items.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ONEX_VARIABLE_BLOB.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\ONEX_AUTH_IDENTITY.ahk
+#Include .\ONEX_VARIABLE_BLOB.ahk
 
 /**
  * Contains 802.1X authentication parameters used for 802.1X authentication.

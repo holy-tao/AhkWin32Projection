@@ -1,5 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include .\UTextAccess.ahk
+#Include .\UTextClone.ahk
+#Include .\UTextClose.ahk
+#Include .\UTextCopy.ahk
+#Include .\UTextExtract.ahk
+#Include .\UTextMapNativeIndexToUTF16.ahk
+#Include .\UTextMapOffsetToNative.ahk
+#Include .\UTextNativeLength.ahk
+#Include .\UTextReplace.ahk
 
 /**
  * @namespace Windows.Win32.Globalization

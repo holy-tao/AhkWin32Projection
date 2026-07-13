@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\SAFEARRAY.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IUIAutomationElementArray.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include .\IUIAutomationElementArray.ahk
 
 /**
  * Provides access to information exposed by a UI Automation provider for an element that can be dragged as part of a drag-and-drop operation.

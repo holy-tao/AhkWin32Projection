@@ -2,9 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\ICertEncodeCRLDistInfo.ahk
-#Include .\EncodingType.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\EncodingType.ahk
+#Include .\ICertEncodeCRLDistInfo.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates

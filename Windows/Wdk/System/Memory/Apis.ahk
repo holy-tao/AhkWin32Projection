@@ -23,7 +23,7 @@ class Memory {
      */
     static NtOpenSection(SectionHandle, DesiredAccess, ObjectAttributes) {
         result := DllCall("ntdll.dll\NtOpenSection", "ptr", SectionHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -50,7 +50,7 @@ class Memory {
         ViewSizeMarshal := ViewSize is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntdll.dll\NtMapViewOfSection", "ptr", SectionHandle, "ptr", ProcessHandle, BaseAddressMarshal, BaseAddress, "ptr", ZeroBits, "ptr", CommitSize, SectionOffsetMarshal, SectionOffset, ViewSizeMarshal, ViewSize, "int", InheritDisposition, "uint", AllocationType, "uint", Win32Protect, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -66,7 +66,7 @@ class Memory {
         BaseAddressMarshal := BaseAddress is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\NtUnmapViewOfSection", "ptr", ProcessHandle, BaseAddressMarshal, BaseAddress, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -79,7 +79,7 @@ class Memory {
      */
     static ZwOpenSection(SectionHandle, DesiredAccess, ObjectAttributes) {
         result := DllCall("ntdll.dll\ZwOpenSection", "ptr", SectionHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -106,7 +106,7 @@ class Memory {
         ViewSizeMarshal := ViewSize is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ntdll.dll\ZwMapViewOfSection", "ptr", SectionHandle, "ptr", ProcessHandle, BaseAddressMarshal, BaseAddress, "ptr", ZeroBits, "ptr", CommitSize, SectionOffsetMarshal, SectionOffset, ViewSizeMarshal, ViewSize, "int", InheritDisposition, "uint", AllocationType, "uint", Win32Protect, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -122,7 +122,7 @@ class Memory {
         BaseAddressMarshal := BaseAddress is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ntdll.dll\ZwUnmapViewOfSection", "ptr", ProcessHandle, BaseAddressMarshal, BaseAddress, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 

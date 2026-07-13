@@ -1,5 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PGET_D3COLD_CAPABILITY.ahk
+#Include .\PGET_D3COLD_LAST_TRANSITION_STATUS.ahk
+#Include .\PGET_IDLE_WAKE_INFO.ahk
+#Include .\PINTERFACE_DEREFERENCE.ahk
+#Include .\PINTERFACE_REFERENCE.ahk
+#Include .\PSET_D3COLD_SUPPORT.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

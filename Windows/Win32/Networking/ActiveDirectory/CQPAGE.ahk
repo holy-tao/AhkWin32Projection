@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include .\LPCQPAGEPROC.ahk
+#Include ..\..\UI\WindowsAndMessaging\DLGPROC.ahk
 
 /**
  * Used to define a query page added to a form in the query dialog box with the CQAddPagesProc callback function.

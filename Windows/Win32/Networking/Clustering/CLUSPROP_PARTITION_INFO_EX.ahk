@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\CLUSPROP_SYNTAX.ahk
-#Include .\CLUS_PARTITION_INFO_EX.ahk
 #Include .\CLUSPROP_VALUE.ahk
+#Include .\CLUS_PARTITION_INFO_EX.ahk
 
 /**
  * The CLUSPROP_PARTITION_INFO_EX structure contains information relevant to storage class resources.

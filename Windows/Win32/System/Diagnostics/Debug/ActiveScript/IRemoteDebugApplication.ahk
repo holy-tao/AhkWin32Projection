@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IApplicationDebugger.ahk
-#Include .\IEnumRemoteDebugApplicationThreads.ahk
-#Include .\IRemoteDebugApplicationThread.ahk
-#Include .\ERRORRESUMEACTION.ahk
-#Include .\IEnumDebugExpressionContexts.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\..\Foundation\HRESULT.ahk
-#Include .\IDebugApplicationNode.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 #Include .\BREAKRESUMEACTION.ahk
+#Include .\ERRORRESUMEACTION.ahk
+#Include .\IApplicationDebugger.ahk
+#Include .\IDebugApplicationNode.ahk
+#Include .\IEnumDebugExpressionContexts.ahk
+#Include .\IEnumRemoteDebugApplicationThreads.ahk
+#Include .\IRemoteDebugApplicationThread.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

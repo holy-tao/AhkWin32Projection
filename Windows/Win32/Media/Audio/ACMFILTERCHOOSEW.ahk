@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\LPARAM.ahk
-#Include .\WAVEFILTER.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\Foundation\PWSTR.ahk
+#Include .\ACMFILTERCHOOSEHOOKPROCW.ahk
+#Include .\WAVEFILTER.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio

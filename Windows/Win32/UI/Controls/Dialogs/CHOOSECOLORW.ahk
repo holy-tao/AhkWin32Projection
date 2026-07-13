@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\COLORREF.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\LPARAM.ahk
-#Include .\CHOOSECOLOR_FLAGS.ahk
-#Include ..\..\..\Foundation\COLORREF.ahk
 #Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\CHOOSECOLOR_FLAGS.ahk
+#Include .\LPCCHOOKPROC.ahk
 
 /**
  * The CHOOSECOLORW (Unicode) structure (commdlg.h) contains information the ChooseColor function uses to initialize the Color dialog box.

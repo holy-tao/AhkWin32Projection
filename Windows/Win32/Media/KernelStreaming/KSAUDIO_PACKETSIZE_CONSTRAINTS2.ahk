@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IAzApplication.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IAzApplication.ahk
 #Include .\IAzClientContext2.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * Inherits from the IAzApplication interface and implements additional methods to initialize IAzClientContext2 objects.

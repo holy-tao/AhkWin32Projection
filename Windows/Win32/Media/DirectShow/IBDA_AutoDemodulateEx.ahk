@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IBDA_AutoDemodulate.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IBDA_AutoDemodulate.ahk
 
 /**
  * The IBDA_AutoDemodulateEx interface extends IBDA_AutoDemodulate.

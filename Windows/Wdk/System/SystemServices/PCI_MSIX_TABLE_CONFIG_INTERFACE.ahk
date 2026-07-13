@@ -1,5 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PINTERFACE_DEREFERENCE.ahk
+#Include .\PINTERFACE_REFERENCE.ahk
+#Include .\PPCI_MSIX_GET_ENTRY.ahk
+#Include .\PPCI_MSIX_GET_TABLE_SIZE.ahk
+#Include .\PPCI_MSIX_MASKUNMASK_ENTRY.ahk
+#Include .\PPCI_MSIX_SET_ENTRY.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

@@ -1,5 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PDEVICE_BUS_SPECIFIC_RESET_HANDLER.ahk
+#Include .\PDEVICE_QUERY_BUS_SPECIFIC_RESET_HANDLER.ahk
+#Include .\PDEVICE_RESET_HANDLER.ahk
+#Include .\PGET_DEVICE_RESET_STATUS.ahk
+#Include .\PINTERFACE_DEREFERENCE.ahk
+#Include .\PINTERFACE_REFERENCE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

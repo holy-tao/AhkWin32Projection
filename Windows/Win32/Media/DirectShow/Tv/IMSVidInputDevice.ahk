@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IMSVidDevice.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 
 /**
  * The IMSVidInputDevice interface represents any input device that is recognized by the Video Control, such as a television tuner card.

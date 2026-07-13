@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PFN_CERT_CREATE_CONTEXT_SORT_FUNC.ahk
+#Include .\PFN_CRYPT_FREE.ahk
 
 /**
  * Defines additional values that can be used when calling the CertCreateContext function.

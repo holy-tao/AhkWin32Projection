@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IDispatch.ahk
-#Include .\IGPMResult.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include .\GPMReportType.ahk
 #Include .\GPMStarterGPOType.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IGPMResult.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * The IGPMStarterGPOBackup interface supports methods that allow you to delete GPMStarterGPOBackup objects and to retrieve various properties of GPMStarterGPOBackup objects.

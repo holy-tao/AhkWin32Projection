@@ -1,5 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PDD_VPORTCB_CANCREATEVIDEOPORT.ahk
+#Include .\PDD_VPORTCB_COLORCONTROL.ahk
+#Include .\PDD_VPORTCB_CREATEVIDEOPORT.ahk
+#Include .\PDD_VPORTCB_DESTROYVPORT.ahk
+#Include .\PDD_VPORTCB_FLIP.ahk
+#Include .\PDD_VPORTCB_GETBANDWIDTH.ahk
+#Include .\PDD_VPORTCB_GETFIELD.ahk
+#Include .\PDD_VPORTCB_GETFLIPSTATUS.ahk
+#Include .\PDD_VPORTCB_GETINPUTFORMATS.ahk
+#Include .\PDD_VPORTCB_GETLINE.ahk
+#Include .\PDD_VPORTCB_GETOUTPUTFORMATS.ahk
+#Include .\PDD_VPORTCB_GETSIGNALSTATUS.ahk
+#Include .\PDD_VPORTCB_GETVPORTCONNECT.ahk
+#Include .\PDD_VPORTCB_UPDATE.ahk
+#Include .\PDD_VPORTCB_WAITFORSYNC.ahk
 
 /**
  * The DD_VIDEOPORTCALLBACKS structure contains entry pointers to Microsoft DirectDraw video port extensions (VPE) callback functions that a device driver supports.

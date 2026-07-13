@@ -1,5 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\PLSA_ADD_CREDENTIAL.ahk
+#Include .\PLSA_ALLOCATE_CLIENT_BUFFER.ahk
+#Include .\PLSA_ALLOCATE_LSA_HEAP.ahk
+#Include .\PLSA_COPY_FROM_CLIENT_BUFFER.ahk
+#Include .\PLSA_COPY_TO_CLIENT_BUFFER.ahk
+#Include .\PLSA_CREATE_LOGON_SESSION.ahk
+#Include .\PLSA_DELETE_CREDENTIAL.ahk
+#Include .\PLSA_DELETE_LOGON_SESSION.ahk
+#Include .\PLSA_FREE_CLIENT_BUFFER.ahk
+#Include .\PLSA_FREE_LSA_HEAP.ahk
+#Include .\PLSA_GET_CREDENTIALS.ahk
 
 /**
  * Contains pointers to the Local Security Authority (LSA) functions that Windows authentication packages can call.

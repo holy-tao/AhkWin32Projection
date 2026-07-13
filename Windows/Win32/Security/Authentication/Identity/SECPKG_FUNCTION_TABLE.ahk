@@ -1,5 +1,47 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\LSA_AP_POST_LOGON_USER.ahk
+#Include .\PLSA_AP_CALL_PACKAGE.ahk
+#Include .\PLSA_AP_CALL_PACKAGE_PASSTHROUGH.ahk
+#Include .\PLSA_AP_INITIALIZE_PACKAGE.ahk
+#Include .\PLSA_AP_LOGON_TERMINATED.ahk
+#Include .\PLSA_AP_LOGON_USER.ahk
+#Include .\PLSA_AP_LOGON_USER_EX.ahk
+#Include .\PLSA_AP_LOGON_USER_EX2.ahk
+#Include .\PLSA_AP_LOGON_USER_EX3.ahk
+#Include .\PLSA_AP_POST_LOGON_USER_SURROGATE.ahk
+#Include .\PLSA_AP_PRE_LOGON_USER_SURROGATE.ahk
+#Include .\SpAcceptCredentialsFn.ahk
+#Include .\SpAcceptLsaModeContextFn.ahk
+#Include .\SpAcquireCredentialsHandleFn.ahk
+#Include .\SpAddCredentialsFn.ahk
+#Include .\SpApplyControlTokenFn.ahk
+#Include .\SpChangeAccountPasswordFn.ahk
+#Include .\SpDeleteContextFn.ahk
+#Include .\SpDeleteCredentialsFn.ahk
+#Include .\SpExchangeMetaDataFn.ahk
+#Include .\SpExtractTargetInfoFn.ahk
+#Include .\SpFreeCredentialsHandleFn.ahk
+#Include .\SpGetCredUIContextFn.ahk
+#Include .\SpGetCredentialsFn.ahk
+#Include .\SpGetExtendedInformationFn.ahk
+#Include .\SpGetInfoFn.ahk
+#Include .\SpGetRemoteCredGuardLogonBufferFn.ahk
+#Include .\SpGetRemoteCredGuardSupplementalCredsFn.ahk
+#Include .\SpGetTbalSupplementalCredsFn.ahk
+#Include .\SpGetUserInfoFn.ahk
+#Include .\SpInitLsaModeContextFn.ahk
+#Include .\SpInitializeFn.ahk
+#Include .\SpQueryContextAttributesFn.ahk
+#Include .\SpQueryCredentialsAttributesFn.ahk
+#Include .\SpQueryMetaDataFn.ahk
+#Include .\SpSaveCredentialsFn.ahk
+#Include .\SpSetContextAttributesFn.ahk
+#Include .\SpSetCredentialsAttributesFn.ahk
+#Include .\SpSetExtendedInformationFn.ahk
+#Include .\SpShutdownFn.ahk
+#Include .\SpUpdateCredentialsFn.ahk
+#Include .\SpValidateTargetInfoFn.ahk
 
 /**
  * The SECPKG_FUNCTION_TABLE structure contains pointers to the LSA functions that a security package must implement. The Local Security Authority (LSA) obtains this structure from an SSP/AP DLL when it calls the SpLsaModeInitialize function.

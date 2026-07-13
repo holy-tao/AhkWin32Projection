@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MFT_REGISTER_TYPE_INFO.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\MFT_REGISTER_TYPE_INFO.ahk
 
 /**
  * Contains parameters for the IMFLocalMFTRegistration::RegisterMFTs method.

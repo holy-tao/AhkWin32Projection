@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Security\Authorization\TRUSTEE_W.ahk
-#Include .\DBPROPSET.ahk
-#Include .\DBPROPIDSET.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Security\Authorization\TRUSTEE_W.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\DBPROPIDSET.ahk
+#Include .\DBPROPSET.ahk
 
 /**
  * @namespace Windows.Win32.System.Search

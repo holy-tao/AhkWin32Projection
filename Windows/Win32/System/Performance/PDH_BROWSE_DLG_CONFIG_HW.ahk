@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\PWSTR.ahk
+#Include .\CounterPathCallBack.ahk
 #Include .\PDH_HLOG.ahk
 #Include .\PERF_DETAIL.ahk
 

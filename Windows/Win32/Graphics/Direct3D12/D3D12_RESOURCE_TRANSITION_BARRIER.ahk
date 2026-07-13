@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ID3D12Resource.ahk
 #Include .\D3D12_RESOURCE_STATES.ahk
+#Include .\ID3D12Resource.ahk
 
 /**
  * Describes the transition of subresources between different usages.

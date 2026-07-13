@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\SET_VIRTUAL_DISK_INFO_VERSION.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\SET_VIRTUAL_DISK_INFO_VERSION.ahk
 
 /**
  * Contains virtual hard disk (VHD) information to use when you call the SetVirtualDiskInformation function to set VHD properties.

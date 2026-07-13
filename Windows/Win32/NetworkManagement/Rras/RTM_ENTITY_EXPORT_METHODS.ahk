@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RTM_ENTITY_EXPORT_METHOD.ahk
 
 /**
  * The RTM_ENTITY_EXPORT_METHODS structure contains the set of methods exported by a client.

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include .\IO_COMPLETION_CONTEXT.ahk
-#Include ..\..\Win32\Foundation\BOOLEAN.ahk
+#Include .\DEVICE_OBJECT.ahk
 #Include .\FILE_OBJECT.ahk
+#Include .\IO_COMPLETION_CONTEXT.ahk
 #Include .\SECTION_OBJECT_POINTERS.ahk
 #Include .\VPB.ahk
+#Include ..\..\Win32\Foundation\BOOLEAN.ahk
 #Include ..\..\Win32\Foundation\NTSTATUS.ahk
-#Include .\DEVICE_OBJECT.ahk
 
 /**
  * @namespace Windows.Wdk.Foundation

@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CS_TYPE_FROM_NETCS_ROUTINE.ahk
+#Include .\CS_TYPE_LOCAL_SIZE_ROUTINE.ahk
+#Include .\CS_TYPE_NET_SIZE_ROUTINE.ahk
+#Include .\CS_TYPE_TO_NETCS_ROUTINE.ahk
 
 /**
  * @namespace Windows.Win32.System.Rpc

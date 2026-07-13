@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\EPolicyAction.ahk
-#Include .\EClrUnhandledException.ahk
-#Include .\EClrOperation.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\EClrFailure.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\EClrFailure.ahk
+#Include .\EClrOperation.ahk
+#Include .\EClrUnhandledException.ahk
+#Include .\EPolicyAction.ahk
+#Include ..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.ClrHosting

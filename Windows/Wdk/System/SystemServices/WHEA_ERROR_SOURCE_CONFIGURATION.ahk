@@ -1,5 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WHEA_ERROR_SOURCE_CORRECT.ahk
+#Include .\WHEA_ERROR_SOURCE_CREATE_RECORD.ahk
+#Include .\WHEA_ERROR_SOURCE_INITIALIZE.ahk
+#Include .\WHEA_ERROR_SOURCE_RECOVER.ahk
+#Include .\WHEA_ERROR_SOURCE_UNINITIALIZE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

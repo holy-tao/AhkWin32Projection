@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMDRMReader2.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWMDRMReader2.ahk
 
 /**
  * The IWMDRMReader3 interface enables content transcription by providing a method to get protection systems approved by a license.

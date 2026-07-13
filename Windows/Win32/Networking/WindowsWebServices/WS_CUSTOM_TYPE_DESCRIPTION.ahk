@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_IS_DEFAULT_VALUE_CALLBACK.ahk
+#Include .\WS_READ_TYPE_CALLBACK.ahk
+#Include .\WS_WRITE_TYPE_CALLBACK.ahk
 
 /**
  * Represents a custom mapping between a C data type and an XML element.

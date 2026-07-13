@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PFN_COMPRESS_ALLOCATE.ahk
+#Include .\PFN_COMPRESS_FREE.ahk
 
 /**
  * A structure containing optional memory allocation and deallocation routines.

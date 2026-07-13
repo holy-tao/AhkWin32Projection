@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IErrorInfo.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ImgErrorInfo.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ImgErrorInfo.ahk
+#Include ..\..\System\Com\IErrorInfo.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

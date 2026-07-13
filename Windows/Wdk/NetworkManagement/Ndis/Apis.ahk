@@ -1,24 +1,27 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\NDIS_MINIPORT_TIMER.ahk
-#Include .\NDIS_DMA_DESCRIPTION.ahk
+#Include ..\..\Foundation\DEVICE_OBJECT.ahk
 #Include ..\..\Foundation\MDL.ahk
+#Include .\CO_ADDRESS_FAMILY.ahk
 #Include .\CO_CALL_PARAMETERS.ahk
-#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Include .\CO_SAP.ahk
+#Include .\LOCK_STATE.ahk
+#Include .\NDIS_CALL_MANAGER_CHARACTERISTICS.ahk
+#Include .\NDIS_CONFIGURATION_PARAMETER.ahk
+#Include .\NDIS_DMA_DESCRIPTION.ahk
+#Include .\NDIS_EVENT.ahk
+#Include .\NDIS_MINIPORT_TIMER.ahk
 #Include .\NDIS_PARAMETER_TYPE.ahk
 #Include .\NDIS_RW_LOCK.ahk
-#Include .\CO_ADDRESS_FAMILY.ahk
-#Include .\NDIS_EVENT.ahk
-#Include ..\..\System\SystemServices\CM_RESOURCE_LIST.ahk
-#Include .\NDIS_CONFIGURATION_PARAMETER.ahk
-#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
-#Include .\VAR_STRING.ahk
-#Include .\NDIS_CALL_MANAGER_CHARACTERISTICS.ahk
-#Include .\CO_SAP.ahk
-#Include ..\..\Foundation\DEVICE_OBJECT.ahk
 #Include .\NDIS_TIMER.ahk
-#Include .\LOCK_STATE.ahk
+#Include .\PNDIS_TIMER_FUNCTION.ahk
+#Include .\TDI_PNP_HANDLER.ahk
+#Include .\TDI_REGISTER_CALLBACK.ahk
+#Include .\VAR_STRING.ahk
+#Include ..\..\System\SystemServices\CM_RESOURCE_LIST.ahk
+#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
+#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis

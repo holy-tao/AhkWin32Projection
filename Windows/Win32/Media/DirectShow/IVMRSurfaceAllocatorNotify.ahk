@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\COLORREF.ahk
-#Include .\IVMRSurfaceAllocator.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Graphics\DirectDraw\IDirectDraw7.ahk
 #Include ..\..\Graphics\Gdi\HMONITOR.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IVMRSurfaceAllocator.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IVMRSurfaceAllocatorNotify interface is implemented by the Video Mixing Renderer Filter 7 (VMR-7).

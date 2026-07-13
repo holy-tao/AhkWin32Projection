@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes a method that creates a copy hook handler. (ANSI)

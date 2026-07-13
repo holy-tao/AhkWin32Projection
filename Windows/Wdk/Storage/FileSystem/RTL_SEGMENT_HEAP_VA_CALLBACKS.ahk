@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PALLOCATE_VIRTUAL_MEMORY_EX_CALLBACK.ahk
+#Include .\PFREE_VIRTUAL_MEMORY_EX_CALLBACK.ahk
+#Include .\PQUERY_VIRTUAL_MEMORY_CALLBACK.ahk
 #Include ..\..\..\Win32\Foundation\HANDLE.ahk
 
 /**

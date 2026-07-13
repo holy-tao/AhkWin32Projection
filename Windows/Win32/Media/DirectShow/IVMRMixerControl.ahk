@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\COLORREF.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\NORMALIZEDRECT.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\NORMALIZEDRECT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IVMRMixerControl interface is enables an application to manipulate the incoming video streams on the Video Mixing Renderer Filter 7 (VMR-7).

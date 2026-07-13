@@ -2,13 +2,14 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\COLORREF.ahk
 #Include ..\..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\..\Graphics\Gdi\HDC.ahk
-#Include ..\..\..\Foundation\LPARAM.ahk
 #Include ..\..\..\Foundation\HWND.ahk
-#Include ..\..\..\Graphics\Gdi\LOGFONTA.ahk
-#Include .\CHOOSEFONT_FONT_TYPE.ahk
-#Include .\CHOOSEFONT_FLAGS.ahk
+#Include ..\..\..\Foundation\LPARAM.ahk
 #Include ..\..\..\Foundation\PSTR.ahk
+#Include ..\..\..\Graphics\Gdi\HDC.ahk
+#Include ..\..\..\Graphics\Gdi\LOGFONTA.ahk
+#Include .\CHOOSEFONT_FLAGS.ahk
+#Include .\CHOOSEFONT_FONT_TYPE.ahk
+#Include .\LPCFHOOKPROC.ahk
 
 /**
  * Contains information that the ChooseFont function uses to initialize the Font dialog box. After the user closes the dialog box, the system returns information about the user's selection in this structure. (ANSI)

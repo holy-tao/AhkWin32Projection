@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IUnknown.ahk
 
 /**
  * Specifies a method that retrieves a class object.

@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISpeechRecoResultTimes.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\SPXMLRESULTOPTIONS.ahk
-#Include .\ISpeechRecoContext.ahk
-#Include .\SpeechVoiceSpeakFlags.ahk
-#Include .\ISpeechPhraseAlternates.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\ISpeechPhraseInfo.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\ISpeechAudioFormat.ahk
 #Include .\ISpeechMemoryStream.ahk
+#Include .\ISpeechPhraseAlternates.ahk
+#Include .\ISpeechPhraseInfo.ahk
+#Include .\ISpeechRecoContext.ahk
+#Include .\ISpeechRecoResultTimes.ahk
+#Include .\SPXMLRESULTOPTIONS.ahk
 #Include .\SpeechDiscardType.ahk
+#Include .\SpeechVoiceSpeakFlags.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech

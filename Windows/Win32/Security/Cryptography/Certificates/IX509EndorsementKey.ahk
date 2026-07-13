@@ -2,11 +2,11 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IX509PublicKey.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\EncodingType.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IX509PublicKey.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * X.509 Endorsement Key Interface

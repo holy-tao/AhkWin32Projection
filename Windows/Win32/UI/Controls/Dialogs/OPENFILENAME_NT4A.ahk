@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\LPARAM.ahk
-#Include ..\..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\..\Foundation\PSTR.ahk
+#Include .\LPOFNHOOKPROC.ahk
 
 /**
  * The OPENFILENAME_NT4 structure is identical to OPENFILENAME with _WIN32_WINNT set to 0x0400. (ANSI)

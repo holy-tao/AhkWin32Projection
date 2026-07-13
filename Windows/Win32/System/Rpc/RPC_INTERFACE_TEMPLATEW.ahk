@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\UUID_VECTOR.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\RPC_IF_CALLBACK_FN.ahk
+#Include .\UUID_VECTOR.ahk
 
 /**
  * The RPC_INTERFACE_TEMPLATEW (Unicode) structure (rpcdce.h) defines an RPC interface group server interface.

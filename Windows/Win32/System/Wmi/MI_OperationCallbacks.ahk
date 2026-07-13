@@ -1,5 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MI_OperationCallback_Class.ahk
+#Include .\MI_OperationCallback_Indication.ahk
+#Include .\MI_OperationCallback_Instance.ahk
+#Include .\MI_OperationCallback_PromptUser.ahk
+#Include .\MI_OperationCallback_StreamedParameter.ahk
+#Include .\MI_OperationCallback_WriteError.ahk
+#Include .\MI_OperationCallback_WriteMessage.ahk
+#Include .\MI_OperationCallback_WriteProgress.ahk
 
 /**
  * Structure that holds all callback function pointers for carrying out operations.

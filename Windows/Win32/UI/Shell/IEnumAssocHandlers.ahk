@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IAssocHandler.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes a method that allows enumeration of a collection of handlers associated with particular file name extensions.

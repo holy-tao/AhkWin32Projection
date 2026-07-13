@@ -1,80 +1,81 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\TOKENBINDING_KEY_PARAMETERS_TYPE.ahk
-#Include ..\..\Cryptography\CERT_CONTEXT.ahk
-#Include .\POLICY_DOMAIN_INFORMATION_CLASS.ahk
-#Include ..\..\TOKEN_GROUPS.ahk
-#Include .\LSA_TRANSLATED_SID2.ahk
-#Include ..\..\OBJECT_SECURITY_INFORMATION.ahk
-#Include .\POLICY_NOTIFICATION_INFORMATION_CLASS.ahk
-#Include .\LSA_UNICODE_STRING.ahk
-#Include .\LSA_FOREST_TRUST_RECORD_TYPE.ahk
-#Include .\TRUSTED_DOMAIN_AUTH_INFORMATION.ahk
-#Include .\LSA_STRING.ahk
-#Include .\SecPkgInfoA.ahk
-#Include .\EXTENDED_NAME_FORMAT.ahk
-#Include .\LSA_HANDLE.ahk
-#Include .\SLDATATYPE.ahk
-#Include .\SL_NONGENUINE_UI_OPTIONS.ahk
-#Include .\SLIDTYPE.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
-#Include ..\..\TOKEN_SOURCE.ahk
-#Include .\SchGetExtensionsOptions.ahk
-#Include .\ASC_REQ_FLAGS.ahk
-#Include .\LSA_TRANSLATED_SID.ahk
-#Include ..\..\Cryptography\CRYPT_INTEGER_BLOB.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 #Include ..\..\..\Foundation\BOOLEAN.ahk
-#Include .\POLICY_AUDIT_EVENT_TYPE.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\LUID.ahk
+#Include ..\..\..\Foundation\NTSTATUS.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\ACL.ahk
+#Include .\ASC_REQ_FLAGS.ahk
+#Include .\AUDIT_POLICY_INFORMATION.ahk
+#Include .\CENTRAL_ACCESS_POLICY.ahk
+#Include .\EXPORT_SECURITY_CONTEXT_FLAGS.ahk
+#Include .\EXTENDED_NAME_FORMAT.ahk
+#Include .\ISC_REQ_FLAGS.ahk
+#Include .\LSA_FOREST_TRUST_COLLISION_INFORMATION.ahk
+#Include .\LSA_FOREST_TRUST_INFORMATION.ahk
+#Include .\LSA_FOREST_TRUST_INFORMATION2.ahk
+#Include .\LSA_FOREST_TRUST_RECORD_TYPE.ahk
+#Include .\LSA_HANDLE.ahk
+#Include .\LSA_OBJECT_ATTRIBUTES.ahk
+#Include .\LSA_REFERENCED_DOMAIN_LIST.ahk
+#Include .\LSA_STRING.ahk
+#Include .\LSA_TRANSLATED_NAME.ahk
+#Include .\LSA_TRANSLATED_SID.ahk
+#Include .\LSA_TRANSLATED_SID2.ahk
+#Include .\LSA_UNICODE_STRING.ahk
+#Include .\POLICY_AUDIT_EVENT_TYPE.ahk
+#Include .\POLICY_AUDIT_SID_ARRAY.ahk
+#Include .\POLICY_DOMAIN_INFORMATION_CLASS.ahk
+#Include .\POLICY_INFORMATION_CLASS.ahk
+#Include .\POLICY_NOTIFICATION_INFORMATION_CLASS.ahk
+#Include .\SCH_EXTENSION_DATA.ahk
+#Include .\SECPKG_ATTR.ahk
+#Include .\SECPKG_CRED.ahk
+#Include .\SECURITY_LOGON_SESSION_DATA.ahk
+#Include .\SECURITY_LOGON_TYPE.ahk
+#Include .\SECURITY_PACKAGE_OPTIONS.ahk
+#Include .\SEC_GET_KEY_FN.ahk
+#Include .\SLDATATYPE.ahk
+#Include .\SLIDTYPE.ahk
+#Include .\SLREFERRALTYPE.ahk
+#Include .\SL_ACTIVATION_INFO_HEADER.ahk
+#Include .\SL_GENUINE_STATE.ahk
+#Include .\SL_LICENSING_STATUS.ahk
+#Include .\SL_NONGENUINE_UI_OPTIONS.ahk
+#Include .\SchGetExtensionsOptions.ahk
+#Include .\SecBuffer.ahk
+#Include .\SecBufferDesc.ahk
+#Include .\SecPkgContext_Bindings.ahk
+#Include .\SecPkgInfoA.ahk
+#Include .\SecPkgInfoW.ahk
+#Include .\SecurityFunctionTableA.ahk
+#Include .\SecurityFunctionTableW.ahk
+#Include .\TOKENBINDING_EXTENSION_FORMAT.ahk
+#Include .\TOKENBINDING_KEY_PARAMETERS_TYPE.ahk
+#Include .\TOKENBINDING_KEY_TYPES.ahk
+#Include .\TOKENBINDING_RESULT_DATA.ahk
+#Include .\TOKENBINDING_RESULT_LIST.ahk
+#Include .\TOKENBINDING_TYPE.ahk
+#Include .\TRUSTED_DOMAIN_AUTH_INFORMATION.ahk
 #Include .\TRUSTED_DOMAIN_INFORMATION_EX.ahk
 #Include .\TRUSTED_INFORMATION_CLASS.ahk
-#Include .\SL_LICENSING_STATUS.ahk
-#Include .\SECURITY_LOGON_TYPE.ahk
-#Include .\AUDIT_POLICY_INFORMATION.ahk
-#Include .\SECURITY_PACKAGE_OPTIONS.ahk
-#Include .\TOKENBINDING_EXTENSION_FORMAT.ahk
-#Include .\SECURITY_LOGON_SESSION_DATA.ahk
-#Include ..\..\Credentials\SecHandle.ahk
-#Include .\SecurityFunctionTableA.ahk
-#Include .\SCH_EXTENSION_DATA.ahk
-#Include .\LSA_FOREST_TRUST_INFORMATION2.ahk
 #Include .\X509Certificate.ahk
-#Include ..\..\QUOTA_LIMITS.ahk
-#Include .\TOKENBINDING_TYPE.ahk
-#Include .\EXPORT_SECURITY_CONTEXT_FLAGS.ahk
-#Include ..\..\..\Foundation\LUID.ahk
-#Include .\SecBufferDesc.ahk
-#Include ..\..\PSECURITY_DESCRIPTOR.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
-#Include .\TOKENBINDING_KEY_TYPES.ahk
 #Include ..\..\Credentials\CREDENTIAL_TARGET_INFORMATIONW.ahk
-#Include .\ISC_REQ_FLAGS.ahk
-#Include .\SECPKG_CRED.ahk
-#Include .\SecurityFunctionTableW.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
-#Include .\POLICY_INFORMATION_CLASS.ahk
-#Include .\LSA_REFERENCED_DOMAIN_LIST.ahk
-#Include .\SL_ACTIVATION_INFO_HEADER.ahk
-#Include .\LSA_OBJECT_ATTRIBUTES.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
-#Include ..\..\..\Foundation\NTSTATUS.ahk
-#Include .\SecPkgInfoW.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\SECPKG_ATTR.ahk
-#Include .\POLICY_AUDIT_SID_ARRAY.ahk
-#Include .\SecBuffer.ahk
-#Include .\TOKENBINDING_RESULT_LIST.ahk
-#Include .\LSA_FOREST_TRUST_INFORMATION.ahk
-#Include .\LSA_FOREST_TRUST_COLLISION_INFORMATION.ahk
-#Include .\SL_GENUINE_STATE.ahk
-#Include .\SLREFERRALTYPE.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
-#Include .\SecPkgContext_Bindings.ahk
-#Include .\LSA_TRANSLATED_NAME.ahk
-#Include .\CENTRAL_ACCESS_POLICY.ahk
+#Include ..\..\Credentials\SecHandle.ahk
+#Include ..\..\Cryptography\CERT_CONTEXT.ahk
+#Include ..\..\Cryptography\CRYPT_INTEGER_BLOB.ahk
+#Include ..\..\OBJECT_SECURITY_INFORMATION.ahk
+#Include ..\..\PSECURITY_DESCRIPTOR.ahk
 #Include ..\..\PSID.ahk
-#Include .\TOKENBINDING_RESULT_DATA.ahk
+#Include ..\..\QUOTA_LIMITS.ahk
+#Include ..\..\TOKEN_GROUPS.ahk
+#Include ..\..\TOKEN_SOURCE.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -7383,7 +7384,7 @@ class Identity {
      */
     static RtlEncryptMemory(Memory, MemorySize, OptionFlags) {
         result := DllCall("ADVAPI32.dll\SystemFunction040", "ptr", Memory, "uint", MemorySize, "uint", OptionFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7399,7 +7400,7 @@ class Identity {
      */
     static RtlDecryptMemory(Memory, MemorySize, OptionFlags) {
         result := DllCall("ADVAPI32.dll\SystemFunction041", "ptr", Memory, "uint", MemorySize, "uint", OptionFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7473,7 +7474,7 @@ class Identity {
         SecurityModeMarshal := SecurityMode is VarRef ? "uint*" : "ptr"
 
         result := DllCall("SECUR32.dll\LsaRegisterLogonProcess", "ptr", LogonProcessName, "ptr", LsaHandle, SecurityModeMarshal, SecurityMode, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7894,7 +7895,7 @@ class Identity {
         SubStatusMarshal := SubStatus is VarRef ? "int*" : "ptr"
 
         result := DllCall("SECUR32.dll\LsaLogonUser", "ptr", LsaHandle, "ptr", OriginName, "int", LogonType, "uint", AuthenticationPackage, "ptr", AuthenticationInformation, "uint", AuthenticationInformationLength, "ptr", LocalGroups, "ptr", SourceContext, ProfileBufferMarshal, ProfileBuffer, ProfileBufferLengthMarshal, ProfileBufferLength, "ptr", LogonId, "ptr", Token, "ptr", Quotas, SubStatusMarshal, SubStatus, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -7995,7 +7996,7 @@ class Identity {
         AuthenticationPackageMarshal := AuthenticationPackage is VarRef ? "uint*" : "ptr"
 
         result := DllCall("SECUR32.dll\LsaLookupAuthenticationPackage", "ptr", LsaHandle, "ptr", PackageName, AuthenticationPackageMarshal, AuthenticationPackage, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8020,7 +8021,7 @@ class Identity {
         _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
         result := DllCall("SECUR32.dll\LsaFreeReturnBuffer", _BufferMarshal, _Buffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8124,7 +8125,7 @@ class Identity {
         ProtocolStatusMarshal := ProtocolStatus is VarRef ? "int*" : "ptr"
 
         result := DllCall("SECUR32.dll\LsaCallAuthenticationPackage", "ptr", LsaHandle, "uint", AuthenticationPackage, "ptr", ProtocolSubmitBuffer, "uint", SubmitBufferLength, ProtocolReturnBufferMarshal, ProtocolReturnBuffer, ReturnBufferLengthMarshal, ReturnBufferLength, ProtocolStatusMarshal, ProtocolStatus, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8149,7 +8150,7 @@ class Identity {
         LsaHandle := LsaHandle is Win32Handle ? NumGet(LsaHandle, "ptr") : LsaHandle
 
         result := DllCall("SECUR32.dll\LsaDeregisterLogonProcess", "ptr", LsaHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8178,7 +8179,7 @@ class Identity {
      */
     static LsaConnectUntrusted(LsaHandle) {
         result := DllCall("SECUR32.dll\LsaConnectUntrusted", "ptr", LsaHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8218,7 +8219,7 @@ class Identity {
         _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ADVAPI32.dll\LsaFreeMemory", _BufferMarshal, _Buffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8241,7 +8242,7 @@ class Identity {
         ObjectHandle := ObjectHandle is Win32Handle ? NumGet(ObjectHandle, "ptr") : ObjectHandle
 
         result := DllCall("ADVAPI32.dll\LsaClose", "ptr", ObjectHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8264,7 +8265,7 @@ class Identity {
         LogonSessionListMarshal := LogonSessionList is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("SECUR32.dll\LsaEnumerateLogonSessions", LogonSessionCountMarshal, LogonSessionCount, LogonSessionListMarshal, LogonSessionList, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8289,7 +8290,7 @@ class Identity {
         ppLogonSessionDataMarshal := ppLogonSessionData is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("SECUR32.dll\LsaGetLogonSessionData", "ptr", LogonId, ppLogonSessionDataMarshal, ppLogonSessionData, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8323,7 +8324,7 @@ class Identity {
      */
     static LsaOpenPolicy(SystemName, ObjectAttributes, DesiredAccess, PolicyHandle) {
         result := DllCall("ADVAPI32.dll\LsaOpenPolicy", "ptr", SystemName, "ptr", ObjectAttributes, "uint", DesiredAccess, "ptr", PolicyHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8336,7 +8337,7 @@ class Identity {
      */
     static LsaSetCAPs(CAPDNs, CAPDNCount, Flags) {
         result := DllCall("ADVAPI32.dll\LsaSetCAPs", "ptr", CAPDNs, "uint", CAPDNCount, "uint", Flags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8358,7 +8359,7 @@ class Identity {
         CAPIDCountMarshal := CAPIDCount is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ADVAPI32.dll\LsaGetAppliedCAPIDs", "ptr", SystemName, CAPIDsMarshal, CAPIDs, CAPIDCountMarshal, CAPIDCount, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8380,7 +8381,7 @@ class Identity {
         CAPCountMarshal := CAPCount is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ADVAPI32.dll\LsaQueryCAPs", CAPIDsMarshal, CAPIDs, "uint", CAPIDCount, CAPsMarshal, CAPs, CAPCountMarshal, CAPCount, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8415,7 +8416,7 @@ class Identity {
         _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ADVAPI32.dll\LsaQueryInformationPolicy", "ptr", PolicyHandle, "int", InformationClass, _BufferMarshal, _Buffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8441,7 +8442,7 @@ class Identity {
         _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ADVAPI32.dll\LsaSetInformationPolicy", "ptr", PolicyHandle, "int", InformationClass, _BufferMarshal, _Buffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8512,7 +8513,7 @@ class Identity {
         _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ADVAPI32.dll\LsaQueryDomainInformationPolicy", "ptr", PolicyHandle, "int", InformationClass, _BufferMarshal, _Buffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8583,7 +8584,7 @@ class Identity {
         _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ADVAPI32.dll\LsaSetDomainInformationPolicy", "ptr", PolicyHandle, "int", InformationClass, _BufferMarshal, _Buffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8611,7 +8612,7 @@ class Identity {
         NotificationEventHandle := NotificationEventHandle is Win32Handle ? NumGet(NotificationEventHandle, "ptr") : NotificationEventHandle
 
         result := DllCall("SECUR32.dll\LsaRegisterPolicyChangeNotification", "int", InformationClass, "ptr", NotificationEventHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8636,7 +8637,7 @@ class Identity {
         NotificationEventHandle := NotificationEventHandle is Win32Handle ? NumGet(NotificationEventHandle, "ptr") : NotificationEventHandle
 
         result := DllCall("SECUR32.dll\LsaUnregisterPolicyChangeNotification", "int", InformationClass, "ptr", NotificationEventHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8722,7 +8723,7 @@ class Identity {
         CountReturnedMarshal := CountReturned is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ADVAPI32.dll\LsaEnumerateTrustedDomains", "ptr", PolicyHandle, EnumerationContextMarshal, EnumerationContext, _BufferMarshal, _Buffer, "uint", PreferedMaximumLength, CountReturnedMarshal, CountReturned, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8857,7 +8858,7 @@ class Identity {
         SidsMarshal := Sids is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ADVAPI32.dll\LsaLookupNames", "ptr", PolicyHandle, "uint", Count, "ptr", Names, ReferencedDomainsMarshal, ReferencedDomains, SidsMarshal, Sids, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -8992,7 +8993,7 @@ class Identity {
         SidsMarshal := Sids is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ADVAPI32.dll\LsaLookupNames2", "ptr", PolicyHandle, "uint", Flags, "uint", Count, "ptr", Names, ReferencedDomainsMarshal, ReferencedDomains, SidsMarshal, Sids, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9108,7 +9109,7 @@ class Identity {
         NamesMarshal := Names is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ADVAPI32.dll\LsaLookupSids", "ptr", PolicyHandle, "uint", Count, SidsMarshal, Sids, ReferencedDomainsMarshal, ReferencedDomains, NamesMarshal, Names, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9268,7 +9269,7 @@ class Identity {
         NamesMarshal := Names is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ADVAPI32.dll\LsaLookupSids2", "ptr", PolicyHandle, "uint", LookupOptions, "uint", Count, SidsMarshal, Sids, ReferencedDomainsMarshal, ReferencedDomains, NamesMarshal, Names, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9341,7 +9342,7 @@ class Identity {
         CountReturnedMarshal := CountReturned is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ADVAPI32.dll\LsaEnumerateAccountsWithUserRight", "ptr", PolicyHandle, "ptr", UserRight, _BufferMarshal, _Buffer, CountReturnedMarshal, CountReturned, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9372,7 +9373,7 @@ class Identity {
         CountOfRightsMarshal := CountOfRights is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ADVAPI32.dll\LsaEnumerateAccountRights", "ptr", PolicyHandle, "ptr", AccountSid, UserRightsMarshal, UserRights, CountOfRightsMarshal, CountOfRights, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9423,7 +9424,7 @@ class Identity {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
         result := DllCall("ADVAPI32.dll\LsaAddAccountRights", "ptr", PolicyHandle, "ptr", AccountSid, "ptr", UserRights, "uint", CountOfRights, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9481,7 +9482,7 @@ class Identity {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
         result := DllCall("ADVAPI32.dll\LsaRemoveAccountRights", "ptr", PolicyHandle, "ptr", AccountSid, "char", AllRights, "ptr", UserRights, "uint", CountOfRights, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9543,7 +9544,7 @@ class Identity {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
         result := DllCall("ADVAPI32.dll\LsaOpenTrustedDomainByName", "ptr", PolicyHandle, "ptr", TrustedDomainName, "uint", DesiredAccess, "ptr", TrustedDomainHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9576,7 +9577,7 @@ class Identity {
         _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ADVAPI32.dll\LsaQueryTrustedDomainInfo", "ptr", PolicyHandle, "ptr", TrustedDomainSid, "int", InformationClass, _BufferMarshal, _Buffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9603,7 +9604,7 @@ class Identity {
         _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ADVAPI32.dll\LsaSetTrustedDomainInformation", "ptr", PolicyHandle, "ptr", TrustedDomainSid, "int", InformationClass, _BufferMarshal, _Buffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9626,7 +9627,7 @@ class Identity {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
         result := DllCall("ADVAPI32.dll\LsaDeleteTrustedDomain", "ptr", PolicyHandle, "ptr", TrustedDomainSid, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9691,7 +9692,7 @@ class Identity {
         _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ADVAPI32.dll\LsaQueryTrustedDomainInfoByName", "ptr", PolicyHandle, "ptr", TrustedDomainName, "int", InformationClass, _BufferMarshal, _Buffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9718,7 +9719,7 @@ class Identity {
         _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
         result := DllCall("ADVAPI32.dll\LsaSetTrustedDomainInfoByName", "ptr", PolicyHandle, "ptr", TrustedDomainName, "int", InformationClass, _BufferMarshal, _Buffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9796,7 +9797,7 @@ class Identity {
         CountReturnedMarshal := CountReturned is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ADVAPI32.dll\LsaEnumerateTrustedDomainsEx", "ptr", PolicyHandle, EnumerationContextMarshal, EnumerationContext, _BufferMarshal, _Buffer, "uint", PreferedMaximumLength, CountReturnedMarshal, CountReturned, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9874,7 +9875,7 @@ class Identity {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
         result := DllCall("ADVAPI32.dll\LsaCreateTrustedDomainEx", "ptr", PolicyHandle, "ptr", TrustedDomainInformation, "ptr", AuthenticationInformation, "uint", DesiredAccess, "ptr", TrustedDomainHandle, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -9954,7 +9955,7 @@ class Identity {
         ForestTrustInfoMarshal := ForestTrustInfo is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ADVAPI32.dll\LsaQueryForestTrustInformation", "ptr", PolicyHandle, "ptr", TrustedDomainName, ForestTrustInfoMarshal, ForestTrustInfo, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -10010,7 +10011,7 @@ class Identity {
         CollisionInfoMarshal := CollisionInfo is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ADVAPI32.dll\LsaSetForestTrustInformation", "ptr", PolicyHandle, "ptr", TrustedDomainName, "ptr", ForestTrustInfo, "char", CheckOnly, CollisionInfoMarshal, CollisionInfo, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -10051,7 +10052,7 @@ class Identity {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
         result := DllCall("ADVAPI32.dll\LsaStorePrivateData", "ptr", PolicyHandle, "ptr", KeyName, "ptr", _PrivateData, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -10149,7 +10150,7 @@ class Identity {
         _PrivateDataMarshal := _PrivateData is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ADVAPI32.dll\LsaRetrievePrivateData", "ptr", PolicyHandle, "ptr", KeyName, _PrivateDataMarshal, _PrivateData, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -10180,7 +10181,7 @@ class Identity {
         ForestTrustInfoMarshal := ForestTrustInfo is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ADVAPI32.dll\LsaQueryForestTrustInformation2", "ptr", PolicyHandle, "ptr", TrustedDomainName, "int", HighestRecordType, ForestTrustInfoMarshal, ForestTrustInfo, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -10200,7 +10201,7 @@ class Identity {
         CollisionInfoMarshal := CollisionInfo is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ADVAPI32.dll\LsaSetForestTrustInformation2", "ptr", PolicyHandle, "ptr", TrustedDomainName, "int", HighestRecordType, "ptr", ForestTrustInfo, "char", CheckOnly, CollisionInfoMarshal, CollisionInfo, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16201,7 +16202,7 @@ class Identity {
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall("SECUR32.dll\CredMarshalTargetInfo", "ptr", InTargetInfo, _BufferMarshal, _Buffer, BufferSizeMarshal, BufferSize, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -16218,7 +16219,7 @@ class Identity {
         RetActualSizeMarshal := RetActualSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall("SECUR32.dll\CredUnmarshalTargetInfo", "ptr", _Buffer, "uint", BufferSize, RetTargetInfoMarshal, RetTargetInfo, RetActualSizeMarshal, RetActualSize, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 

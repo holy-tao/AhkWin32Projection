@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_ASYNC_CALLBACK.ahk
 
 /**
  * Used with the Async Model to specify the asynchronous callback and a pointer which will be passed to the asynchronous callback.

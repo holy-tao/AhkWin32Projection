@@ -1,5 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PRJ_CANCEL_COMMAND_CB.ahk
+#Include .\PRJ_END_DIRECTORY_ENUMERATION_CB.ahk
+#Include .\PRJ_GET_DIRECTORY_ENUMERATION_CB.ahk
+#Include .\PRJ_GET_FILE_DATA_CB.ahk
+#Include .\PRJ_GET_PLACEHOLDER_INFO_CB.ahk
+#Include .\PRJ_NOTIFICATION_CB.ahk
+#Include .\PRJ_QUERY_FILE_NAME_CB.ahk
+#Include .\PRJ_START_DIRECTORY_ENUMERATION_CB.ahk
 
 /**
  * A set of callback routines to where the provider stores its implementation of the callback.

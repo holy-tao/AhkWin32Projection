@@ -2,11 +2,11 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\X509HardwareKeyUsageFlags.ahk
-#Include .\IX509PrivateKey.ahk
-#Include .\X509KeyParametersExportType.ahk
-#Include .\EncodingType.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\EncodingType.ahk
+#Include .\IX509PrivateKey.ahk
+#Include .\X509HardwareKeyUsageFlags.ahk
+#Include .\X509KeyParametersExportType.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates

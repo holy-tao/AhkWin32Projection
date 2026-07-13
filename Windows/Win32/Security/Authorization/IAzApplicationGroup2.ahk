@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IAzApplicationGroup.ahk
 #Include .\IAzRoleAssignments.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the IAzApplicationGroup interface by adding support for the BizRule group type.

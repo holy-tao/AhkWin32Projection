@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\PWSTR.ahk
+#Include .\LPOCNCONNPROCW.ahk
 #Include .\OPENCARD_SEARCH_CRITERIAW.ahk
 #Include ..\..\UI\WindowsAndMessaging\HICON.ahk
 

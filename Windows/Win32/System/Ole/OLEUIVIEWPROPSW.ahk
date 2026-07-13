@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\OLEUIOBJECTPROPSW.ahk
 #Include ..\..\Foundation\LPARAM.ahk
+#Include .\LPFNOLEUIHOOK.ahk
+#Include .\OLEUIOBJECTPROPSW.ahk
 #Include .\VIEW_OBJECT_PROPERTIES_FLAGS.ahk
 
 /**

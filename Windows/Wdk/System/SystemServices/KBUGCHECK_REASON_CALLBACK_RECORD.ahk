@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\KBUGCHECK_CALLBACK_REASON.ahk
+#Include .\PKBUGCHECK_REASON_CALLBACK_ROUTINE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\PWSTR.ahk
+#Include .\MBN_ACTIVATION_STATE.ahk
+#Include .\MBN_CONNECTION_MODE.ahk
 #Include .\MBN_VOICE_CALL_STATE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include .\MBN_ACTIVATION_STATE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\MBN_CONNECTION_MODE.ahk
 
 /**
  * Represents the network connectivity of a device.

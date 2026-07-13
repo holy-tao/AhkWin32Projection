@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HCRYPTPROV_LEGACY.ahk
+#Include .\PFN_CRYPT_GET_SIGNER_CERTIFICATE.ahk
 
 /**
  * The CRYPT_VERIFY_MESSAGE_PARA structure contains information needed to verify signed messages.

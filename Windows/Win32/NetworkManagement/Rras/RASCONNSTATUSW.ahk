@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\RASCONNSTATE.ahk
-#Include ..\..\Networking\WinSock\IN_ADDR.ahk
+#Include .\RASCONNSUBSTATE.ahk
 #Include .\RASTUNNELENDPOINT.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
-#Include .\RASCONNSUBSTATE.ahk
+#Include ..\..\Networking\WinSock\IN_ADDR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras

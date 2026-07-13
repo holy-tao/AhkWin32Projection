@@ -2,15 +2,15 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IInstallationJob.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IUpdateCollection.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\IInstallationJob.ahk
 #Include .\IInstallationResult.ahk
+#Include .\IUpdateCollection.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * Installs or uninstalls updates from or onto a computer.

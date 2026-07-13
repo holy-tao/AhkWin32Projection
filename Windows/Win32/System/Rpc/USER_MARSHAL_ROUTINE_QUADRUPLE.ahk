@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\USER_MARSHAL_FREEING_ROUTINE.ahk
+#Include .\USER_MARSHAL_MARSHALLING_ROUTINE.ahk
+#Include .\USER_MARSHAL_SIZING_ROUTINE.ahk
+#Include .\USER_MARSHAL_UNMARSHALLING_ROUTINE.ahk
 
 /**
  * @namespace Windows.Win32.System.Rpc

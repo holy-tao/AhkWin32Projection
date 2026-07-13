@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D3D12_STATE_OBJECT_DESC.ahk
-#Include .\D3D12_PIPELINE_STATE_STREAM_DESC.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\D3D12_COMPILER_CACHE_GROUP_KEY.ahk
+#Include .\D3D12_PIPELINE_STATE_STREAM_DESC.ahk
+#Include .\D3D12_STATE_OBJECT_DESC.ahk
 #Include .\ID3D12CompilerFactoryChild.ahk
 #Include .\ID3D12CompilerStateObject.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

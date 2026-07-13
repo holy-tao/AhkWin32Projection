@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
 #Include .\FIELD_INFO.ahk
+#Include .\PSYM_DUMP_FIELD_CALLBACK.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

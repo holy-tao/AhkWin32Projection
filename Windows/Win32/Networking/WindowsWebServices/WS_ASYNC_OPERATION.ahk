@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_ASYNC_FUNCTION.ahk
 
 /**
  * Used with the WsAsyncExecute to specify the next function to invoke in a series of async operations. (WS_ASYNC_OPERATION)

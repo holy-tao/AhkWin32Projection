@@ -1,5 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include .\UCharIteratorCurrent.ahk
+#Include .\UCharIteratorGetIndex.ahk
+#Include .\UCharIteratorGetState.ahk
+#Include .\UCharIteratorHasNext.ahk
+#Include .\UCharIteratorHasPrevious.ahk
+#Include .\UCharIteratorMove.ahk
+#Include .\UCharIteratorNext.ahk
+#Include .\UCharIteratorPrevious.ahk
+#Include .\UCharIteratorReserved.ahk
+#Include .\UCharIteratorSetState.ahk
 
 /**
  * @namespace Windows.Win32.Globalization

@@ -2,13 +2,13 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\ITfLangBarItem.ahk
-#Include ..\WindowsAndMessaging\HICON.ahk
-#Include .\TfLBIClick.ahk
-#Include .\ITfMenu.ahk
-#Include ..\..\Foundation\POINT.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\POINT.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include .\ITfLangBarItem.ahk
+#Include .\ITfMenu.ahk
+#Include .\TfLBIClick.ahk
+#Include ..\WindowsAndMessaging\HICON.ahk
 
 /**
  * The ITfLangBarItemButton interface is implemented by a language bar button provider and used by the language bar manager to obtain information about a button item on the language bar.

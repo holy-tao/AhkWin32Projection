@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\ITaskTrigger.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\ITaskTrigger.ahk
 
 /**
  * Provides the methods for managing specific work items.

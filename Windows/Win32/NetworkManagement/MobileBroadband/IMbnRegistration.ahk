@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\PWSTR.ahk
+#Include .\MBN_REGISTER_MODE.ahk
 #Include .\MBN_REGISTER_STATE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include .\MBN_REGISTER_MODE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to network registration data.

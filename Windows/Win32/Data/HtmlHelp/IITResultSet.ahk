@@ -3,12 +3,13 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\COLUMNSTATUS.ahk
 #Include .\CProperty.ahk
-#Include .\ROWSTATUS.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\PFNCOLHEAPFREE.ahk
 #Include .\PRIORITY.ahk
+#Include .\ROWSTATUS.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Use this interface in run-time applications to initialize, build, and obtain information about result sets.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include ..\WindowsMediaFormat\INSSBuffer3.ahk
 #Include .\IPin.ahk
+#Include ..\WindowsMediaFormat\INSSBuffer3.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IAMWMBufferPassCallback interface is provided for advanced scenarios in which applications need access to an INSSBuffer3 sample before it is passed downstream for further processing.

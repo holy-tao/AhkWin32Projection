@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ADDRESS_CAPABILITY.ahk
+#Include .\ADDRESS_CAPABILITY_STRING.ahk
+#Include .\IEnumBstr.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include .\ADDRESS_CAPABILITY.ahk
-#Include .\IEnumBstr.ahk
-#Include .\ADDRESS_CAPABILITY_STRING.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITAddressCapabilities interface is used to obtain information about an address's capabilities. It is on the Address object, and an application can access it by calling QueryInterface on the Address object.

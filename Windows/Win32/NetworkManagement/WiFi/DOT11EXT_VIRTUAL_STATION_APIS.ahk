@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DOT11EXT_QUERY_VIRTUAL_STATION_PROPERTIES.ahk
+#Include .\DOT11EXT_RELEASE_VIRTUAL_STATION.ahk
+#Include .\DOT11EXT_REQUEST_VIRTUAL_STATION.ahk
+#Include .\DOT11EXT_SET_VIRTUAL_STATION_AP_PROPERTIES.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi

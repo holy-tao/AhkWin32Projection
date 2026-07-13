@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\CRYPT_XML_CHARSET.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
-#Include .\CRYPT_XML_BLOB.ahk
 #Include .\CRYPT_XML_ALGORITHM.ahk
+#Include .\CRYPT_XML_BLOB.ahk
+#Include .\CRYPT_XML_CHARSET.ahk
 
 /**
  * Contains information used to populate the Reference element.

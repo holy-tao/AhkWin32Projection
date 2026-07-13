@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IMbnDeviceService.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 
 /**
  * Allows for enumerating and retrieving Mobile Broadband device objects on the system.

@@ -2,10 +2,10 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 
 /**
  * Exposes methods that get and set named properties.

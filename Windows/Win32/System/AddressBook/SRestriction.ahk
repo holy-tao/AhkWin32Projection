@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SBitMaskRestriction.ahk
-#Include .\SPropValue.ahk
-#Include .\SComparePropsRestriction.ahk
-#Include .\SSizeRestriction.ahk
 #Include .\SAndRestriction.ahk
-#Include .\SOrRestriction.ahk
-#Include .\SRestriction.ahk
-#Include .\SExistRestriction.ahk
-#Include .\SContentRestriction.ahk
-#Include .\SSubRestriction.ahk
+#Include .\SBitMaskRestriction.ahk
 #Include .\SCommentRestriction.ahk
-#Include .\SPropertyRestriction.ahk
+#Include .\SComparePropsRestriction.ahk
+#Include .\SContentRestriction.ahk
+#Include .\SExistRestriction.ahk
 #Include .\SNotRestriction.ahk
+#Include .\SOrRestriction.ahk
+#Include .\SPropValue.ahk
+#Include .\SPropertyRestriction.ahk
+#Include .\SRestriction.ahk
+#Include .\SSizeRestriction.ahk
+#Include .\SSubRestriction.ahk
 
 /**
  * Describes a filter for limiting the view of a table to particular rows for Outlook 2013 and Outlook 2016.

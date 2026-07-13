@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IHTMLEditDesigner.ahk
-#Include .\ISelectionServices.ahk
-#Include .\IMarkupPointer.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMarkupContainer.ahk
-#Include .\SELECTION_TYPE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IHTMLEditDesigner.ahk
+#Include .\IMarkupContainer.ahk
+#Include .\IMarkupPointer.ahk
+#Include .\ISelectionServices.ahk
+#Include .\SELECTION_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

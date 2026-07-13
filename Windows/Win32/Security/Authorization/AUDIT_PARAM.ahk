@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\AUDIT_IP_ADDRESS.ahk
 #Include .\AUDIT_OBJECT_TYPES.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\..\..\Guid.ahk
 #Include .\AUDIT_PARAM_TYPE.ahk
 #Include ..\SID.ahk
 

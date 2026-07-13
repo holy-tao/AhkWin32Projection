@@ -2,6 +2,12 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
+#Include .\PLSA_REDIRECTED_LOGON_CALLBACK.ahk
+#Include .\PLSA_REDIRECTED_LOGON_CLEANUP_CALLBACK.ahk
+#Include .\PLSA_REDIRECTED_LOGON_GET_LOGON_CREDS.ahk
+#Include .\PLSA_REDIRECTED_LOGON_GET_SID.ahk
+#Include .\PLSA_REDIRECTED_LOGON_GET_SUPP_CREDS.ahk
+#Include .\PLSA_REDIRECTED_LOGON_INIT.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity

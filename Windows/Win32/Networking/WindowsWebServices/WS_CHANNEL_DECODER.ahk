@@ -1,5 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_CREATE_DECODER_CALLBACK.ahk
+#Include .\WS_DECODER_DECODE_CALLBACK.ahk
+#Include .\WS_DECODER_END_CALLBACK.ahk
+#Include .\WS_DECODER_GET_CONTENT_TYPE_CALLBACK.ahk
+#Include .\WS_DECODER_START_CALLBACK.ahk
+#Include .\WS_FREE_DECODER_CALLBACK.ahk
 
 /**
  * A structure that is used to specify a set of callbacks that can transform the content type and encoded bytes of a received message.

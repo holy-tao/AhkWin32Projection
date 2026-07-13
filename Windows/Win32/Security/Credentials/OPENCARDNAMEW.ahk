@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\..\..\Guid.ahk
+#Include .\LPOCNCHKPROC.ahk
+#Include .\LPOCNCONNPROCW.ahk
+#Include .\LPOCNDSCPROC.ahk
 
 /**
  * Contains the information that the GetOpenCardName function uses to initialize a smart card Select Card dialog box. (Unicode)

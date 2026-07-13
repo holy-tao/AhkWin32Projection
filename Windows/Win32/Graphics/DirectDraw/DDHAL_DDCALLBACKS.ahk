@@ -1,5 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\LPDDHAL_CANCREATESURFACE.ahk
+#Include .\LPDDHAL_CREATEPALETTE.ahk
+#Include .\LPDDHAL_CREATESURFACE.ahk
+#Include .\LPDDHAL_DESTROYDRIVER.ahk
+#Include .\LPDDHAL_FLIPTOGDISURFACE.ahk
+#Include .\LPDDHAL_GETSCANLINE.ahk
+#Include .\LPDDHAL_SETCOLORKEY.ahk
+#Include .\LPDDHAL_SETEXCLUSIVEMODE.ahk
+#Include .\LPDDHAL_SETMODE.ahk
+#Include .\LPDDHAL_WAITFORVERTICALBLANK.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

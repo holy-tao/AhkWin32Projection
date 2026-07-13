@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ISubunit.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IConnector.ahk
 #Include .\IPart.ahk
 #Include .\IPartsList.ahk
-#Include .\IConnector.ahk
+#Include .\ISubunit.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IDeviceTopology interface provides access to the topology of an audio device.

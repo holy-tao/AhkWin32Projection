@@ -1,25 +1,27 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\WINHTTP_CURRENT_USER_IE_PROXY_CONFIG.ahk
-#Include .\WINHTTP_PROXY_INFO.ahk
-#Include .\WINHTTP_AUTOPROXY_OPTIONS.ahk
-#Include .\WINHTTP_PROXY_SETTINGS_PARAM.ahk
-#Include .\WINHTTP_EXTENDED_HEADER.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\WINHTTP_PROXY_SETTINGS_TYPE.ahk
-#Include .\WINHTTP_OPEN_REQUEST_FLAGS.ahk
-#Include .\WINHTTP_PROXY_RESULT_EX.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\WINHTTP_WEB_SOCKET_BUFFER_TYPE.ahk
-#Include .\WINHTTP_ACCESS_TYPE.ahk
-#Include .\WIN_HTTP_CREATE_URL_FLAGS.ahk
-#Include .\WINHTTP_PROXY_SETTINGS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
-#Include .\WINHTTP_HEADER_NAME.ahk
-#Include .\WINHTTP_QUERY_CONNECTION_GROUP_RESULT.ahk
-#Include .\WINHTTP_PROXY_RESULT.ahk
 #Include .\URL_COMPONENTS.ahk
+#Include .\WINHTTP_ACCESS_TYPE.ahk
+#Include .\WINHTTP_AUTOPROXY_OPTIONS.ahk
+#Include .\WINHTTP_CURRENT_USER_IE_PROXY_CONFIG.ahk
+#Include .\WINHTTP_EXTENDED_HEADER.ahk
+#Include .\WINHTTP_HEADER_NAME.ahk
+#Include .\WINHTTP_OPEN_REQUEST_FLAGS.ahk
+#Include .\WINHTTP_PROXY_CHANGE_CALLBACK.ahk
+#Include .\WINHTTP_PROXY_INFO.ahk
+#Include .\WINHTTP_PROXY_RESULT.ahk
+#Include .\WINHTTP_PROXY_RESULT_EX.ahk
+#Include .\WINHTTP_PROXY_SETTINGS.ahk
+#Include .\WINHTTP_PROXY_SETTINGS_PARAM.ahk
+#Include .\WINHTTP_PROXY_SETTINGS_TYPE.ahk
+#Include .\WINHTTP_QUERY_CONNECTION_GROUP_RESULT.ahk
+#Include .\WINHTTP_STATUS_CALLBACK.ahk
+#Include .\WINHTTP_WEB_SOCKET_BUFFER_TYPE.ahk
+#Include .\WIN_HTTP_CREATE_URL_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinHttp

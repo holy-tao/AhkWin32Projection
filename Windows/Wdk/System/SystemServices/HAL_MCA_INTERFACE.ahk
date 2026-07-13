@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PHALMCAINTERFACELOCK.ahk
+#Include .\PHALMCAINTERFACEREADREGISTER.ahk
+#Include .\PHALMCAINTERFACEUNLOCK.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

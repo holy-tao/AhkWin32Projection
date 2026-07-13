@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\DIRECTSOUNDDEVICE_DATAFLOW.ahk
 #Include ..\..\..\Foundation\PSTR.ahk
+#Include .\DIRECTSOUNDDEVICE_DATAFLOW.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic

@@ -1,21 +1,23 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\TRANSPORTCLIENT_CALLBACK_ID.ahk
-#Include ..\Registry\HKEY.ahk
-#Include .\WDS_CLI_IMAGE_TYPE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include .\CPU_ARCHITECTURE.ahk
+#Include .\PFN_WdsCliCallback.ahk
+#Include .\PFN_WdsCliTraceFunction.ahk
+#Include .\PXE_ADDRESS.ahk
 #Include .\PXE_DHCPV6_NESTED_RELAY_MESSAGE.ahk
 #Include .\PXE_PROVIDER.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\CPU_ARCHITECTURE.ahk
+#Include .\TRANSPORTCLIENT_CALLBACK_ID.ahk
 #Include .\TRANSPORTPROVIDER_CALLBACK_ID.ahk
-#Include .\WDS_CLI_IMAGE_PARAM_TYPE.ahk
-#Include .\PXE_ADDRESS.ahk
 #Include .\WDS_CLI_CRED.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\WDS_CLI_IMAGE_PARAM_TYPE.ahk
+#Include .\WDS_CLI_IMAGE_TYPE.ahk
 #Include .\WDS_TRANSPORTCLIENT_REQUEST.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include ..\Registry\HKEY.ahk
 
 /**
  * @namespace Windows.Win32.System.DeploymentServices

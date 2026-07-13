@@ -1,5 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PDD_SURFCB_ADDATTACHEDSURFACE.ahk
+#Include .\PDD_SURFCB_BLT.ahk
+#Include .\PDD_SURFCB_DESTROYSURFACE.ahk
+#Include .\PDD_SURFCB_FLIP.ahk
+#Include .\PDD_SURFCB_GETBLTSTATUS.ahk
+#Include .\PDD_SURFCB_GETFLIPSTATUS.ahk
+#Include .\PDD_SURFCB_LOCK.ahk
+#Include .\PDD_SURFCB_SETCLIPLIST.ahk
+#Include .\PDD_SURFCB_SETCOLORKEY.ahk
+#Include .\PDD_SURFCB_SETOVERLAYPOSITION.ahk
+#Include .\PDD_SURFCB_SETPALETTE.ahk
+#Include .\PDD_SURFCB_UNLOCK.ahk
+#Include .\PDD_SURFCB_UPDATEOVERLAY.ahk
 
 /**
  * The DD_SURFACECALLBACKS structure contains entry pointers to the Microsoft DirectDraw surface callback functions that a device driver supports.

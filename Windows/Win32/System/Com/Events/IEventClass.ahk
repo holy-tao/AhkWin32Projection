@@ -2,8 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\IDispatch.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\IDispatch.ahk
 
 /**
  * Associates a class of event objects with the event interface those objects implement.

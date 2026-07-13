@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\ISAXAttributes.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\ISAXLocator.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml

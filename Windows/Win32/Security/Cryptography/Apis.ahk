@@ -1,193 +1,203 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\CRYPT_PROVIDERS.ahk
-#Include .\CERT_REVOCATION_PARA.ahk
-#Include .\BCRYPT_SECRET_HANDLE.ahk
-#Include .\CRYPT_KEY_PARAM_ID.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HMODULE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include .\ALG_ID.ahk
+#Include .\BCRYPTGENRANDOM_FLAGS.ahk
+#Include .\BCRYPT_ALGORITHM_IDENTIFIER.ahk
 #Include .\BCRYPT_ALG_HANDLE.ahk
-#Include .\CERT_OPEN_STORE_FLAGS.ahk
+#Include .\BCRYPT_ASYMMETRIC_ENCRYPTION_FUNCTION_TABLE.ahk
+#Include .\BCRYPT_CIPHER_FUNCTION_TABLE.ahk
+#Include .\BCRYPT_FLAGS.ahk
+#Include .\BCRYPT_HANDLE.ahk
+#Include .\BCRYPT_HASH_FUNCTION_TABLE.ahk
+#Include .\BCRYPT_HASH_HANDLE.ahk
 #Include .\BCRYPT_INTERFACE.ahk
+#Include .\BCRYPT_KEY_DERIVATION_FUNCTION_TABLE.ahk
+#Include .\BCRYPT_KEY_HANDLE.ahk
+#Include .\BCRYPT_MULTI_OPERATION_TYPE.ahk
+#Include .\BCRYPT_OPEN_ALGORITHM_PROVIDER_FLAGS.ahk
+#Include .\BCRYPT_OPERATION.ahk
+#Include .\BCRYPT_PROVIDER_NAME.ahk
+#Include .\BCRYPT_QUERY_PROVIDER_MODE.ahk
+#Include .\BCRYPT_RESOLVE_PROVIDERS_FLAGS.ahk
+#Include .\BCRYPT_RNG_FUNCTION_TABLE.ahk
+#Include .\BCRYPT_SECRET_AGREEMENT_FUNCTION_TABLE.ahk
+#Include .\BCRYPT_SECRET_HANDLE.ahk
 #Include .\BCRYPT_SIGNATURE_FUNCTION_TABLE.ahk
-#Include .\CRYPT_TIMESTAMP_CONTEXT.ahk
+#Include .\BCRYPT_TABLE.ahk
+#Include .\BCryptBufferDesc.ahk
+#Include .\CERT_CHAIN_CONTEXT.ahk
+#Include .\CERT_CHAIN_ENGINE_CONFIG.ahk
+#Include .\CERT_CHAIN_PARA.ahk
+#Include .\CERT_CHAIN_POLICY_PARA.ahk
+#Include .\CERT_CHAIN_POLICY_STATUS.ahk
+#Include .\CERT_CONTEXT.ahk
+#Include .\CERT_CONTROL_STORE_FLAGS.ahk
+#Include .\CERT_CREATE_CONTEXT_PARA.ahk
+#Include .\CERT_CREATE_SELFSIGN_FLAGS.ahk
+#Include .\CERT_EXTENSION.ahk
+#Include .\CERT_EXTENSIONS.ahk
+#Include .\CERT_FIND_CHAIN_IN_STORE_FLAGS.ahk
+#Include .\CERT_FIND_FLAGS.ahk
+#Include .\CERT_FIND_TYPE.ahk
+#Include .\CERT_INFO.ahk
+#Include .\CERT_KEY_SPEC.ahk
+#Include .\CERT_NAME_INFO.ahk
+#Include .\CERT_OPEN_STORE_FLAGS.ahk
+#Include .\CERT_PHYSICAL_STORE_INFO.ahk
+#Include .\CERT_PUBLIC_KEY_INFO.ahk
+#Include .\CERT_QUERY_CONTENT_TYPE.ahk
+#Include .\CERT_QUERY_CONTENT_TYPE_FLAGS.ahk
+#Include .\CERT_QUERY_ENCODING_TYPE.ahk
+#Include .\CERT_QUERY_FORMAT_TYPE.ahk
+#Include .\CERT_QUERY_FORMAT_TYPE_FLAGS.ahk
+#Include .\CERT_QUERY_OBJECT_TYPE.ahk
+#Include .\CERT_RDN.ahk
+#Include .\CERT_RDN_ATTR.ahk
+#Include .\CERT_REVOCATION_PARA.ahk
+#Include .\CERT_REVOCATION_STATUS.ahk
 #Include .\CERT_SELECT_CHAIN_PARA.ahk
-#Include .\CRYPT_VERIFY_CERT_FLAGS.ahk
-#Include .\NCRYPT_SSL_FUNCTION_TABLE.ahk
-#Include .\CRYPT_XML_BLOB.ahk
-#Include .\NCryptProviderName.ahk
-#Include .\NCRYPT_PROV_HANDLE.ahk
+#Include .\CERT_SELECT_CRITERIA.ahk
+#Include .\CERT_SERVER_OCSP_RESPONSE_CONTEXT.ahk
+#Include .\CERT_SERVER_OCSP_RESPONSE_OPEN_PARA.ahk
+#Include .\CERT_STORE_SAVE_AS.ahk
+#Include .\CERT_STORE_SAVE_TO.ahk
+#Include .\CERT_STRING_TYPE.ahk
+#Include .\CERT_STRONG_SIGN_PARA.ahk
+#Include .\CERT_SYSTEM_STORE_INFO.ahk
+#Include .\CMSG_SIGNED_ENCODE_INFO.ahk
+#Include .\CMSG_SIGNER_ENCODE_INFO.ahk
+#Include .\CMSG_STREAM_INFO.ahk
+#Include .\CRL_CONTEXT.ahk
+#Include .\CRL_ENTRY.ahk
+#Include .\CRL_INFO.ahk
+#Include .\CRYPTPROTECT_PROMPTSTRUCT.ahk
+#Include .\CRYPT_ACQUIRE_FLAGS.ahk
+#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include .\CRYPT_ATTRIBUTE.ahk
+#Include .\CRYPT_ATTRIBUTES.ahk
+#Include .\CRYPT_CONTEXTS.ahk
+#Include .\CRYPT_CONTEXT_CONFIG.ahk
+#Include .\CRYPT_CONTEXT_FUNCTIONS.ahk
+#Include .\CRYPT_CONTEXT_FUNCTION_CONFIG.ahk
+#Include .\CRYPT_CONTEXT_FUNCTION_PROVIDERS.ahk
+#Include .\CRYPT_CREDENTIALS.ahk
+#Include .\CRYPT_DECODE_PARA.ahk
+#Include .\CRYPT_DECRYPT_MESSAGE_PARA.ahk
+#Include .\CRYPT_DEFAULT_CONTEXT_FLAGS.ahk
+#Include .\CRYPT_DEFAULT_CONTEXT_TYPE.ahk
+#Include .\CRYPT_ENCODE_OBJECT_FLAGS.ahk
+#Include .\CRYPT_ENCODE_PARA.ahk
+#Include .\CRYPT_ENCRYPT_MESSAGE_PARA.ahk
+#Include .\CRYPT_FIND_FLAGS.ahk
 #Include .\CRYPT_GET_URL_FLAGS.ahk
 #Include .\CRYPT_HASH_MESSAGE_PARA.ahk
-#Include .\HCERTCHAINENGINE.ahk
-#Include .\NCRYPT_KEY_HANDLE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\CRYPT_ENCODE_OBJECT_FLAGS.ahk
-#Include .\BCRYPT_KEY_HANDLE.ahk
-#Include .\CERT_STORE_SAVE_AS.ahk
-#Include .\CRYPT_CONTEXT_FUNCTION_CONFIG.ahk
-#Include ..\..\System\Registry\REG_VALUE_TYPE.ahk
-#Include .\BCRYPT_TABLE.ahk
-#Include .\NCRYPT_SECRET_HANDLE.ahk
-#Include ..\NCRYPT_DESCRIPTOR_HANDLE.ahk
-#Include .\CRYPT_OID_FUNC_ENTRY.ahk
-#Include .\BCRYPT_MULTI_OPERATION_TYPE.ahk
-#Include .\CRYPT_SET_HASH_PARAM.ahk
-#Include .\NCRYPT_ALLOC_PARA.ahk
-#Include .\CRYPT_CONTEXT_CONFIG.ahk
-#Include .\NCRYPT_HANDLE.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\CRYPT_IMPORT_PUBLIC_KEY_FLAGS.ahk
-#Include .\CERT_QUERY_CONTENT_TYPE_FLAGS.ahk
-#Include .\CRYPT_PKCS8_IMPORT_PARAMS.ahk
-#Include .\CRL_INFO.ahk
-#Include .\INFORMATIONCARD_CRYPTO_HANDLE.ahk
-#Include .\CERT_QUERY_CONTENT_TYPE.ahk
-#Include .\CRYPT_SIGN_MESSAGE_PARA.ahk
-#Include .\CERT_STORE_SAVE_TO.ahk
-#Include .\CRYPT_XML_PROPERTY.ahk
-#Include .\BCRYPT_KEY_DERIVATION_FUNCTION_TABLE.ahk
-#Include .\CRYPT_STRING.ahk
-#Include .\CRYPT_KEY_SIGN_MESSAGE_PARA.ahk
-#Include .\CTL_ENTRY.ahk
-#Include .\CRYPT_KEY_VERIFY_MESSAGE_PARA.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
-#Include .\HCRYPTASYNC.ahk
-#Include .\CRYPT_XML_KEYINFO_SPEC.ahk
-#Include ..\NCRYPT_STREAM_HANDLE.ahk
-#Include .\CRYPT_XML_SIGNATURE.ahk
-#Include .\BCRYPT_CIPHER_FUNCTION_TABLE.ahk
-#Include .\POLICY_ELEMENT.ahk
-#Include .\CRYPT_XML_DATA_PROVIDER.ahk
-#Include .\CTL_VERIFY_USAGE_STATUS.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\NTSTATUS.ahk
-#Include .\CERT_CONTROL_STORE_FLAGS.ahk
-#Include .\CRYPT_RETRIEVE_AUX_INFO.ahk
-#Include .\CERT_EXTENSION.ahk
-#Include .\CRYPT_ACQUIRE_FLAGS.ahk
-#Include .\CERT_CHAIN_ENGINE_CONFIG.ahk
-#Include .\CRYPT_DECODE_PARA.ahk
-#Include .\BCRYPT_HANDLE.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\CERT_RDN_ATTR.ahk
-#Include .\BCRYPT_ASYMMETRIC_ENCRYPTION_FUNCTION_TABLE.ahk
-#Include .\CERT_PUBLIC_KEY_INFO.ahk
-#Include .\NCRYPT_PROTECT_STREAM_INFO_EX.ahk
-#Include .\CERT_CHAIN_POLICY_STATUS.ahk
-#Include .\Direction.ahk
-#Include .\CERT_SELECT_CRITERIA.ahk
-#Include .\CRYPT_XML_STATUS.ahk
-#Include .\CERT_INFO.ahk
-#Include .\CRYPT_XML_DOC_CTXT.ahk
-#Include .\CERT_CREATE_CONTEXT_PARA.ahk
-#Include .\CRYPT_CONTEXTS.ahk
-#Include ..\..\Foundation\HMODULE.ahk
-#Include .\HCRYPTPROV_LEGACY.ahk
-#Include .\CERT_QUERY_OBJECT_TYPE.ahk
-#Include .\NCRYPT_KEY_STORAGE_FUNCTION_TABLE.ahk
-#Include .\CRYPT_SET_PROV_PARAM_ID.ahk
-#Include .\BCRYPT_OPERATION.ahk
-#Include .\SIGNER_SIGN_FLAGS.ahk
-#Include .\SIGNER_SIGNATURE_INFO.ahk
-#Include .\CRYPT_XML_KEY_VALUE.ahk
-#Include .\CRYPT_FIND_FLAGS.ahk
-#Include .\CERT_CONTEXT.ahk
-#Include .\CRYPT_XML_CHARSET.ahk
-#Include .\CERT_CHAIN_PARA.ahk
-#Include .\CTL_INFO.ahk
-#Include .\NCRYPT_SSL_ECC_CURVE.ahk
-#Include .\GENERIC_XML_TOKEN.ahk
-#Include .\CERT_NAME_INFO.ahk
-#Include .\CERT_CREATE_SELFSIGN_FLAGS.ahk
-#Include .\CRYPT_XML_ALGORITHM.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include .\CERT_FIND_CHAIN_IN_STORE_FLAGS.ahk
-#Include .\CRYPT_ENCODE_PARA.ahk
-#Include .\CERT_RDN.ahk
-#Include .\CTL_USAGE.ahk
-#Include .\CERT_REVOCATION_STATUS.ahk
-#Include ..\PSID.ahk
-#Include ..\OBJECT_SECURITY_INFORMATION.ahk
-#Include .\CRYPT_XML_ALGORITHM_INFO.ahk
-#Include .\NCRYPT_HASH_HANDLE.ahk
-#Include .\BCRYPT_HASH_HANDLE.ahk
-#Include .\CERT_CHAIN_POLICY_PARA.ahk
-#Include .\CRYPT_KEY_PROV_INFO.ahk
-#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\BCRYPT_SECRET_AGREEMENT_FUNCTION_TABLE.ahk
-#Include .\CRYPT_ATTRIBUTES.ahk
-#Include .\BCryptBufferDesc.ahk
-#Include .\CERT_QUERY_ENCODING_TYPE.ahk
-#Include .\CRYPT_CONTEXT_FUNCTIONS.ahk
-#Include .\CRL_CONTEXT.ahk
-#Include .\CRYPT_XML_OBJECT.ahk
-#Include .\CRYPT_OID_INFO.ahk
-#Include .\CERT_SERVER_OCSP_RESPONSE_OPEN_PARA.ahk
-#Include .\BCRYPT_RESOLVE_PROVIDERS_FLAGS.ahk
-#Include .\CERT_CHAIN_CONTEXT.ahk
-#Include .\BCRYPT_RNG_FUNCTION_TABLE.ahk
-#Include .\CTL_VERIFY_USAGE_PARA.ahk
-#Include .\CERT_STRING_TYPE.ahk
-#Include .\CERT_FIND_FLAGS.ahk
-#Include .\CRYPT_DEFAULT_CONTEXT_FLAGS.ahk
-#Include .\CMSG_SIGNER_ENCODE_INFO.ahk
-#Include .\BCRYPTGENRANDOM_FLAGS.ahk
-#Include .\BCRYPT_PROVIDER_NAME.ahk
-#Include .\CRYPT_MSG_TYPE.ahk
-#Include .\CRYPT_ATTRIBUTE.ahk
-#Include .\CERT_SYSTEM_STORE_INFO.ahk
-#Include .\CERT_QUERY_FORMAT_TYPE.ahk
-#Include .\BCRYPT_OPEN_ALGORITHM_PROVIDER_FLAGS.ahk
-#Include .\PaddingMode.ahk
-#Include .\CRYPT_TIMESTAMP_PARA.ahk
-#Include .\CRYPT_PROVIDER_REFS.ahk
-#Include .\CRYPT_CREDENTIALS.ahk
-#Include .\SIGNER_PROVIDER_INFO.ahk
-#Include .\CRYPT_VERIFY_MESSAGE_PARA.ahk
-#Include .\CRYPT_XML_REFERENCE.ahk
-#Include .\NCRYPT_SSL_CIPHER_SUITE_EX.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\CMSG_STREAM_INFO.ahk
-#Include .\SIGNER_SUBJECT_INFO.ahk
-#Include .\CRYPT_DECRYPT_MESSAGE_PARA.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
-#Include .\CERT_KEY_SPEC.ahk
-#Include .\NCRYPT_SSL_CIPHER_SUITE.ahk
-#Include .\CERT_PHYSICAL_STORE_INFO.ahk
-#Include .\CERT_FIND_TYPE.ahk
-#Include .\NCryptAlgorithmName.ahk
-#Include .\CRL_ENTRY.ahk
+#Include .\CRYPT_KEY_FLAGS.ahk
+#Include .\CRYPT_KEY_PARAM_ID.ahk
+#Include .\CRYPT_KEY_PROV_INFO.ahk
+#Include .\CRYPT_KEY_SIGN_MESSAGE_PARA.ahk
+#Include .\CRYPT_KEY_VERIFY_MESSAGE_PARA.ahk
+#Include .\CRYPT_MSG_TYPE.ahk
+#Include .\CRYPT_OID_FUNC_ENTRY.ahk
+#Include .\CRYPT_OID_INFO.ahk
+#Include .\CRYPT_PKCS8_IMPORT_PARAMS.ahk
+#Include .\CRYPT_PROVIDERS.ahk
+#Include .\CRYPT_PROVIDER_REFS.ahk
 #Include .\CRYPT_PROVIDER_REG.ahk
-#Include .\NCryptKeyName.ahk
+#Include .\CRYPT_RETRIEVE_AUX_INFO.ahk
+#Include .\CRYPT_SET_HASH_PARAM.ahk
+#Include .\CRYPT_SET_PROV_PARAM_ID.ahk
+#Include .\CRYPT_SIGN_MESSAGE_PARA.ahk
+#Include .\CRYPT_STRING.ahk
+#Include .\CRYPT_TIMESTAMP_CONTEXT.ahk
+#Include .\CRYPT_TIMESTAMP_PARA.ahk
+#Include .\CRYPT_VERIFY_CERT_FLAGS.ahk
+#Include .\CRYPT_VERIFY_MESSAGE_PARA.ahk
+#Include .\CRYPT_XML_ALGORITHM.ahk
+#Include .\CRYPT_XML_ALGORITHM_INFO.ahk
+#Include .\CRYPT_XML_BLOB.ahk
+#Include .\CRYPT_XML_CHARSET.ahk
+#Include .\CRYPT_XML_DATA_PROVIDER.ahk
+#Include .\CRYPT_XML_DOC_CTXT.ahk
+#Include .\CRYPT_XML_FLAGS.ahk
+#Include .\CRYPT_XML_KEYINFO_SPEC.ahk
+#Include .\CRYPT_XML_KEY_VALUE.ahk
+#Include .\CRYPT_XML_OBJECT.ahk
+#Include .\CRYPT_XML_PROPERTY.ahk
+#Include .\CRYPT_XML_REFERENCE.ahk
+#Include .\CRYPT_XML_SIGNATURE.ahk
+#Include .\CRYPT_XML_STATUS.ahk
+#Include .\CRYPT_XML_TRANSFORM_CHAIN_CONFIG.ahk
+#Include .\CTL_CONTEXT.ahk
+#Include .\CTL_ENTRY.ahk
+#Include .\CTL_INFO.ahk
+#Include .\CTL_USAGE.ahk
+#Include .\CTL_VERIFY_USAGE_PARA.ahk
+#Include .\CTL_VERIFY_USAGE_STATUS.ahk
+#Include .\Direction.ahk
+#Include .\GENERIC_XML_TOKEN.ahk
+#Include .\HCERTCHAINENGINE.ahk
+#Include .\HCERTSTORE.ahk
+#Include .\HCRYPTASYNC.ahk
+#Include .\HCRYPTPROV_LEGACY.ahk
+#Include .\HCRYPTPROV_OR_NCRYPT_KEY_HANDLE.ahk
+#Include .\INFORMATIONCARD_CRYPTO_HANDLE.ahk
+#Include .\NCRYPT_ALLOC_PARA.ahk
+#Include .\NCRYPT_FLAGS.ahk
+#Include .\NCRYPT_HANDLE.ahk
+#Include .\NCRYPT_HASH_HANDLE.ahk
+#Include .\NCRYPT_KEY_HANDLE.ahk
+#Include .\NCRYPT_KEY_STORAGE_FUNCTION_TABLE.ahk
+#Include .\NCRYPT_OPERATION.ahk
 #Include .\NCRYPT_PROTECT_STREAM_INFO.ahk
-#Include .\CRYPT_DEFAULT_CONTEXT_TYPE.ahk
-#Include .\CERT_STRONG_SIGN_PARA.ahk
+#Include .\NCRYPT_PROTECT_STREAM_INFO_EX.ahk
+#Include .\NCRYPT_PROV_HANDLE.ahk
+#Include .\NCRYPT_SECRET_HANDLE.ahk
+#Include .\NCRYPT_SSL_CIPHER_SUITE.ahk
+#Include .\NCRYPT_SSL_CIPHER_SUITE_EX.ahk
+#Include .\NCRYPT_SSL_ECC_CURVE.ahk
+#Include .\NCRYPT_SSL_FUNCTION_TABLE.ahk
+#Include .\NCryptAlgorithmName.ahk
+#Include .\NCryptKeyName.ahk
+#Include .\NCryptProviderName.ahk
+#Include .\PFN_CERT_ENUM_PHYSICAL_STORE.ahk
+#Include .\PFN_CERT_ENUM_SYSTEM_STORE.ahk
+#Include .\PFN_CERT_ENUM_SYSTEM_STORE_LOCATION.ahk
+#Include .\PFN_CRYPT_ASYNC_PARAM_FREE_FUNC.ahk
+#Include .\PFN_CRYPT_CANCEL_RETRIEVAL.ahk
+#Include .\PFN_CRYPT_ENUM_KEYID_PROP.ahk
+#Include .\PFN_CRYPT_ENUM_OID_FUNC.ahk
+#Include .\PFN_CRYPT_ENUM_OID_INFO.ahk
+#Include .\PFN_CRYPT_XML_ENUM_ALG_INFO.ahk
+#Include .\PFN_CRYPT_XML_WRITE_CALLBACK.ahk
+#Include .\POLICY_ELEMENT.ahk
+#Include .\PaddingMode.ahk
 #Include .\SIGNER_CERT.ahk
 #Include .\SIGNER_CONTEXT.ahk
-#Include .\CERT_SERVER_OCSP_RESPONSE_CONTEXT.ahk
-#Include .\BCRYPT_QUERY_PROVIDER_MODE.ahk
-#Include .\CTL_CONTEXT.ahk
-#Include .\ALG_ID.ahk
-#Include .\SIGNER_TIMESTAMP_FLAGS.ahk
-#Include .\BCRYPT_HASH_FUNCTION_TABLE.ahk
-#Include .\CRYPT_KEY_FLAGS.ahk
-#Include .\CRYPT_ENCRYPT_MESSAGE_PARA.ahk
-#Include .\BCRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include .\NCRYPT_FLAGS.ahk
-#Include .\BCRYPT_FLAGS.ahk
-#Include .\CERT_EXTENSIONS.ahk
-#Include .\HCERTSTORE.ahk
-#Include .\HCRYPTPROV_OR_NCRYPT_KEY_HANDLE.ahk
 #Include .\SIGNER_DIGEST_SIGN_INFO.ahk
-#Include .\NCRYPT_OPERATION.ahk
-#Include .\CRYPT_XML_FLAGS.ahk
-#Include .\CRYPT_CONTEXT_FUNCTION_PROVIDERS.ahk
-#Include .\CERT_QUERY_FORMAT_TYPE_FLAGS.ahk
-#Include .\CRYPTPROTECT_PROMPTSTRUCT.ahk
-#Include .\CMSG_SIGNED_ENCODE_INFO.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\CRYPT_XML_TRANSFORM_CHAIN_CONFIG.ahk
+#Include .\SIGNER_PROVIDER_INFO.ahk
+#Include .\SIGNER_SIGNATURE_INFO.ahk
+#Include .\SIGNER_SIGN_FLAGS.ahk
+#Include .\SIGNER_SUBJECT_INFO.ahk
+#Include .\SIGNER_TIMESTAMP_FLAGS.ahk
+#Include ..\NCRYPT_DESCRIPTOR_HANDLE.ahk
+#Include ..\NCRYPT_STREAM_HANDLE.ahk
+#Include ..\OBJECT_SECURITY_INFORMATION.ahk
+#Include ..\PSID.ahk
+#Include ..\..\System\Registry\REG_VALUE_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -24186,7 +24196,7 @@ class Cryptography {
         pszImplementation := pszImplementation is String ? StrPtr(pszImplementation) : pszImplementation
 
         result := DllCall("bcrypt.dll\BCryptOpenAlgorithmProvider", "ptr", phAlgorithm, "ptr", pszAlgId, "ptr", pszImplementation, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -24252,7 +24262,7 @@ class Cryptography {
         ppAlgListMarshal := ppAlgList is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptEnumAlgorithms", "uint", dwAlgOperations, pAlgCountMarshal, pAlgCount, ppAlgListMarshal, ppAlgList, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -24320,7 +24330,7 @@ class Cryptography {
         ppImplListMarshal := ppImplList is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptEnumProviders", "ptr", pszAlgId, pImplCountMarshal, pImplCount, ppImplListMarshal, ppImplList, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -24416,7 +24426,7 @@ class Cryptography {
         pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptGetProperty", "ptr", hObject, "ptr", pszProperty, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -24496,7 +24506,7 @@ class Cryptography {
         pszProperty := pszProperty is String ? StrPtr(pszProperty) : pszProperty
 
         result := DllCall("bcrypt.dll\BCryptSetProperty", "ptr", hObject, "ptr", pszProperty, "ptr", pbInput, "uint", cbInput, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -24551,7 +24561,7 @@ class Cryptography {
         hAlgorithm := hAlgorithm is Win32Handle ? NumGet(hAlgorithm, "ptr") : hAlgorithm
 
         result := DllCall("bcrypt.dll\BCryptCloseAlgorithmProvider", "ptr", hAlgorithm, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -24658,7 +24668,7 @@ class Cryptography {
         hAlgorithm := hAlgorithm is Win32Handle ? NumGet(hAlgorithm, "ptr") : hAlgorithm
 
         result := DllCall("bcrypt.dll\BCryptGenerateSymmetricKey", "ptr", hAlgorithm, "ptr", phKey, "ptr", pbKeyObject, "uint", cbKeyObject, "ptr", pbSecret, "uint", cbSecret, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -24835,7 +24845,7 @@ class Cryptography {
         hAlgorithm := hAlgorithm is Win32Handle ? NumGet(hAlgorithm, "ptr") : hAlgorithm
 
         result := DllCall("bcrypt.dll\BCryptGenerateKeyPair", "ptr", hAlgorithm, "ptr", phKey, "uint", dwLength, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -24980,7 +24990,7 @@ class Cryptography {
         pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptEncrypt", "ptr", _hKey, "ptr", pbInput, "uint", cbInput, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbIV, "uint", cbIV, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -25132,7 +25142,7 @@ class Cryptography {
         pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptDecrypt", "ptr", _hKey, "ptr", pbInput, "uint", cbInput, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbIV, "uint", cbIV, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -25232,7 +25242,7 @@ class Cryptography {
         pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptExportKey", "ptr", _hKey, "ptr", hExportKey, "ptr", pszBlobType, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -25334,7 +25344,7 @@ class Cryptography {
         pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
 
         result := DllCall("bcrypt.dll\BCryptImportKey", "ptr", hAlgorithm, "ptr", hImportKey, "ptr", pszBlobType, "ptr", phKey, "ptr", pbKeyObject, "uint", cbKeyObject, "ptr", pbInput, "uint", cbInput, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -25434,7 +25444,7 @@ class Cryptography {
         pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
 
         result := DllCall("bcrypt.dll\BCryptImportKeyPair", "ptr", hAlgorithm, "ptr", hImportKey, "ptr", pszBlobType, "ptr", phKey, "ptr", pbInput, "uint", cbInput, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -25515,7 +25525,7 @@ class Cryptography {
         _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
         result := DllCall("bcrypt.dll\BCryptDuplicateKey", "ptr", _hKey, "ptr", phNewKey, "ptr", pbKeyObject, "uint", cbKeyObject, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -25591,7 +25601,7 @@ class Cryptography {
         _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
         result := DllCall("bcrypt.dll\BCryptFinalizeKeyPair", "ptr", _hKey, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -25644,7 +25654,7 @@ class Cryptography {
         _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
         result := DllCall("bcrypt.dll\BCryptDestroyKey", "ptr", _hKey, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -25697,7 +25707,7 @@ class Cryptography {
         hSecret := hSecret is Win32Handle ? NumGet(hSecret, "ptr") : hSecret
 
         result := DllCall("bcrypt.dll\BCryptDestroySecret", "ptr", hSecret, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -25801,7 +25811,7 @@ class Cryptography {
         pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptSignHash", "ptr", _hKey, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -25912,7 +25922,7 @@ class Cryptography {
         pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptVerifySignature", "ptr", _hKey, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbHash, "uint", cbHash, "ptr", pbSignature, "uint", cbSignature, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -25991,7 +26001,7 @@ class Cryptography {
         hPubKey := hPubKey is Win32Handle ? NumGet(hPubKey, "ptr") : hPubKey
 
         result := DllCall("bcrypt.dll\BCryptSecretAgreement", "ptr", hPrivKey, "ptr", hPubKey, "ptr", phAgreedSecret, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -26133,7 +26143,7 @@ class Cryptography {
         pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptDeriveKey", "ptr", hSharedSecret, "ptr", pwszKDF, "ptr", pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -26283,7 +26293,7 @@ class Cryptography {
         pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptKeyDerivation", "ptr", _hKey, "ptr", pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -26400,7 +26410,7 @@ class Cryptography {
         hAlgorithm := hAlgorithm is Win32Handle ? NumGet(hAlgorithm, "ptr") : hAlgorithm
 
         result := DllCall("bcrypt.dll\BCryptCreateHash", "ptr", hAlgorithm, "ptr", phHash, "ptr", pbHashObject, "uint", cbHashObject, "ptr", pbSecret, "uint", cbSecret, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -26469,7 +26479,7 @@ class Cryptography {
         hHash := hHash is Win32Handle ? NumGet(hHash, "ptr") : hHash
 
         result := DllCall("bcrypt.dll\BCryptHashData", "ptr", hHash, "ptr", pbInput, "uint", cbInput, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -26538,7 +26548,7 @@ class Cryptography {
         hHash := hHash is Win32Handle ? NumGet(hHash, "ptr") : hHash
 
         result := DllCall("bcrypt.dll\BCryptFinishHash", "ptr", hHash, "ptr", pbOutput, "uint", cbOutput, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -26592,7 +26602,7 @@ class Cryptography {
         hAlgorithm := hAlgorithm is Win32Handle ? NumGet(hAlgorithm, "ptr") : hAlgorithm
 
         result := DllCall("bcrypt.dll\BCryptCreateMultiHash", "ptr", hAlgorithm, "ptr", phHash, "uint", nHashes, "ptr", pbHashObject, "uint", cbHashObject, "ptr", pbSecret, "uint", cbSecret, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -26625,7 +26635,7 @@ class Cryptography {
         hObject := hObject is Win32Handle ? NumGet(hObject, "ptr") : hObject
 
         result := DllCall("bcrypt.dll\BCryptProcessMultiOperations", "ptr", hObject, "int", operationType, "ptr", pOperations, "uint", cbOperations, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -26708,7 +26718,7 @@ class Cryptography {
         hHash := hHash is Win32Handle ? NumGet(hHash, "ptr") : hHash
 
         result := DllCall("bcrypt.dll\BCryptDuplicateHash", "ptr", hHash, "ptr", phNewHash, "ptr", pbHashObject, "uint", cbHashObject, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -26761,7 +26771,7 @@ class Cryptography {
         hHash := hHash is Win32Handle ? NumGet(hHash, "ptr") : hHash
 
         result := DllCall("bcrypt.dll\BCryptDestroyHash", "ptr", hHash, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -26784,7 +26794,7 @@ class Cryptography {
         hAlgorithm := hAlgorithm is Win32Handle ? NumGet(hAlgorithm, "ptr") : hAlgorithm
 
         result := DllCall("bcrypt.dll\BCryptHash", "ptr", hAlgorithm, "ptr", pbSecret, "uint", cbSecret, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -26892,7 +26902,7 @@ class Cryptography {
         hAlgorithm := hAlgorithm is Win32Handle ? NumGet(hAlgorithm, "ptr") : hAlgorithm
 
         result := DllCall("bcrypt.dll\BCryptGenRandom", "ptr", hAlgorithm, "ptr", pbBuffer, "uint", cbBuffer, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -26974,7 +26984,7 @@ class Cryptography {
         hTargetAlg := hTargetAlg is Win32Handle ? NumGet(hTargetAlg, "ptr") : hTargetAlg
 
         result := DllCall("bcrypt.dll\BCryptDeriveKeyCapi", "ptr", hHash, "ptr", hTargetAlg, "ptr", pbDerivedKey, "uint", cbDerivedKey, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -27061,7 +27071,7 @@ class Cryptography {
         hPrf := hPrf is Win32Handle ? NumGet(hPrf, "ptr") : hPrf
 
         result := DllCall("bcrypt.dll\BCryptDeriveKeyPBKDF2", "ptr", hPrf, "ptr", pbPassword, "uint", cbPassword, "ptr", pbSalt, "uint", cbSalt, "uint", cIterations, "ptr", pbDerivedKey, "uint", cbDerivedKey, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -27084,7 +27094,7 @@ class Cryptography {
         pcbCipherTextMarshal := pcbCipherText is VarRef ? "uint*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptEncapsulate", "ptr", _hKey, "ptr", pbSecretKey, "uint", cbSecretKey, pcbSecretKeyMarshal, pcbSecretKey, "ptr", pbCipherText, "uint", cbCipherText, pcbCipherTextMarshal, pcbCipherText, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -27105,7 +27115,7 @@ class Cryptography {
         pcbSecretKeyMarshal := pcbSecretKey is VarRef ? "uint*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptDecapsulate", "ptr", _hKey, "ptr", pbCipherText, "uint", cbCipherText, "ptr", pbSecretKey, "uint", cbSecretKey, pcbSecretKeyMarshal, pcbSecretKey, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -27195,7 +27205,7 @@ class Cryptography {
         ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptQueryProviderRegistration", "ptr", pszProvider, "uint", dwMode, "uint", dwInterface, pcbBufferMarshal, pcbBuffer, ppBufferMarshal, ppBuffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -27292,7 +27302,7 @@ class Cryptography {
         ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptEnumRegisteredProviders", pcbBufferMarshal, pcbBuffer, ppBufferMarshal, ppBuffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -27356,7 +27366,7 @@ class Cryptography {
         pszContext := pszContext is String ? StrPtr(pszContext) : pszContext
 
         result := DllCall("bcrypt.dll\BCryptCreateContext", "uint", dwTable, "ptr", pszContext, "ptr", pConfig, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -27419,7 +27429,7 @@ class Cryptography {
         pszContext := pszContext is String ? StrPtr(pszContext) : pszContext
 
         result := DllCall("bcrypt.dll\BCryptDeleteContext", "uint", dwTable, "ptr", pszContext, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -27501,7 +27511,7 @@ class Cryptography {
         ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptEnumContexts", "uint", dwTable, pcbBufferMarshal, pcbBuffer, ppBufferMarshal, ppBuffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -27565,7 +27575,7 @@ class Cryptography {
         pszContext := pszContext is String ? StrPtr(pszContext) : pszContext
 
         result := DllCall("bcrypt.dll\BCryptConfigureContext", "uint", dwTable, "ptr", pszContext, "ptr", pConfig, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -27680,7 +27690,7 @@ class Cryptography {
         ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptQueryContextConfiguration", "uint", dwTable, "ptr", pszContext, pcbBufferMarshal, pcbBuffer, ppBufferMarshal, ppBuffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -27760,7 +27770,7 @@ class Cryptography {
         pszFunction := pszFunction is String ? StrPtr(pszFunction) : pszFunction
 
         result := DllCall("bcrypt.dll\BCryptAddContextFunction", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "uint", dwPosition, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -27826,7 +27836,7 @@ class Cryptography {
         pszFunction := pszFunction is String ? StrPtr(pszFunction) : pszFunction
 
         result := DllCall("bcrypt.dll\BCryptRemoveContextFunction", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -27923,7 +27933,7 @@ class Cryptography {
         ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptEnumContextFunctions", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, pcbBufferMarshal, pcbBuffer, ppBufferMarshal, ppBuffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -27990,7 +28000,7 @@ class Cryptography {
         pszFunction := pszFunction is String ? StrPtr(pszFunction) : pszFunction
 
         result := DllCall("bcrypt.dll\BCryptConfigureContextFunction", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "ptr", pConfig, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -28110,7 +28120,7 @@ class Cryptography {
         ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptQueryContextFunctionConfiguration", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, pcbBufferMarshal, pcbBuffer, ppBufferMarshal, ppBuffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -28209,7 +28219,7 @@ class Cryptography {
         ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptEnumContextFunctionProviders", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, pcbBufferMarshal, pcbBuffer, ppBufferMarshal, ppBuffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -28301,7 +28311,7 @@ class Cryptography {
         pszProperty := pszProperty is String ? StrPtr(pszProperty) : pszProperty
 
         result := DllCall("bcrypt.dll\BCryptSetContextFunctionProperty", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "ptr", pszProperty, "uint", cbValue, "ptr", pbValue, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -28402,7 +28412,7 @@ class Cryptography {
         ppbValueMarshal := ppbValue is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptQueryContextFunctionProperty", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "ptr", pszProperty, pcbValueMarshal, pcbValue, ppbValueMarshal, ppbValue, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -28464,7 +28474,7 @@ class Cryptography {
      */
     static BCryptRegisterConfigChangeNotify(phEvent) {
         result := DllCall("bcrypt.dll\BCryptRegisterConfigChangeNotify", "ptr", phEvent, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -28526,7 +28536,7 @@ class Cryptography {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
         result := DllCall("bcrypt.dll\BCryptUnregisterConfigChangeNotify", "ptr", hEvent, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -28619,7 +28629,7 @@ class Cryptography {
         ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptResolveProviders", "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "ptr", pszProvider, "uint", dwMode, "uint", dwFlags, pcbBufferMarshal, pcbBuffer, ppBufferMarshal, ppBuffer, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -28670,7 +28680,7 @@ class Cryptography {
         pfEnabledMarshal := pfEnabled is VarRef ? "char*" : "ptr"
 
         result := DllCall("bcrypt.dll\BCryptGetFipsAlgorithmMode", pfEnabledMarshal, pfEnabled, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -52236,7 +52246,7 @@ class Cryptography {
         ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcryptprimitives.dll\GetCipherInterface", "ptr", pszProviderName, "ptr", pszAlgId, ppFunctionTableMarshal, ppFunctionTable, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -52255,7 +52265,7 @@ class Cryptography {
         ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcryptprimitives.dll\GetHashInterface", "ptr", pszProviderName, "ptr", pszAlgId, ppFunctionTableMarshal, ppFunctionTable, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -52274,7 +52284,7 @@ class Cryptography {
         ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcryptprimitives.dll\GetAsymmetricEncryptionInterface", "ptr", pszProviderName, "ptr", pszAlgId, ppFunctionTableMarshal, ppFunctionTable, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -52293,7 +52303,7 @@ class Cryptography {
         ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcryptprimitives.dll\GetSecretAgreementInterface", "ptr", pszProviderName, "ptr", pszAlgId, ppFunctionTableMarshal, ppFunctionTable, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -52312,7 +52322,7 @@ class Cryptography {
         ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcryptprimitives.dll\GetSignatureInterface", "ptr", pszProviderName, "ptr", pszAlgId, ppFunctionTableMarshal, ppFunctionTable, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -52329,7 +52339,7 @@ class Cryptography {
         ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcryptprimitives.dll\GetRngInterface", "ptr", pszProviderName, ppFunctionTableMarshal, ppFunctionTable, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -52348,7 +52358,7 @@ class Cryptography {
         ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("bcryptprimitives.dll\GetKeyDerivationInterface", "ptr", pszProviderName, "ptr", pszAlgId, ppFunctionTableMarshal, ppFunctionTable, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -52363,7 +52373,7 @@ class Cryptography {
         pszProvider := pszProvider is String ? StrPtr(pszProvider) : pszProvider
 
         result := DllCall("bcrypt.dll\BCryptRegisterProvider", "ptr", pszProvider, "uint", dwFlags, "ptr", pReg, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -52376,7 +52386,7 @@ class Cryptography {
         pszProvider := pszProvider is String ? StrPtr(pszProvider) : pszProvider
 
         result := DllCall("bcrypt.dll\BCryptUnregisterProvider", "ptr", pszProvider, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -52396,7 +52406,7 @@ class Cryptography {
         pszProvider := pszProvider is String ? StrPtr(pszProvider) : pszProvider
 
         result := DllCall("bcrypt.dll\BCryptAddContextFunctionProvider", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "ptr", pszProvider, "uint", dwPosition, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -52415,7 +52425,7 @@ class Cryptography {
         pszProvider := pszProvider is String ? StrPtr(pszProvider) : pszProvider
 
         result := DllCall("bcrypt.dll\BCryptRemoveContextFunctionProvider", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "ptr", pszProvider, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -52437,7 +52447,7 @@ class Cryptography {
         ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ncrypt.dll\GetKeyStorageInterface", "ptr", pszProviderName, ppFunctionTableMarshal, ppFunctionTable, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 
@@ -53547,7 +53557,7 @@ class Cryptography {
         ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ncrypt.dll\GetSChannelInterface", "ptr", pszProviderName, ppFunctionTableMarshal, ppFunctionTable, "uint", dwFlags, "int")
-        NTSTATUS.ThrowIfError(result)
+        NTSTATUS.ThrowIfError(result.value)
         return result
     }
 

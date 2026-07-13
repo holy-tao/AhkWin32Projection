@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\OperationResultCode.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\ICategoryCollection.ahk
 #Include .\IUpdateCollection.ahk
 #Include .\IUpdateExceptionCollection.ahk
-#Include .\ICategoryCollection.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\OperationResultCode.ahk
 
 /**
  * Represents the result of a search.

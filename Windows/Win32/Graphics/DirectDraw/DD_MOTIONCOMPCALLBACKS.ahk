@@ -1,5 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PDD_MOCOMPCB_BEGINFRAME.ahk
+#Include .\PDD_MOCOMPCB_CREATE.ahk
+#Include .\PDD_MOCOMPCB_DESTROY.ahk
+#Include .\PDD_MOCOMPCB_ENDFRAME.ahk
+#Include .\PDD_MOCOMPCB_GETCOMPBUFFINFO.ahk
+#Include .\PDD_MOCOMPCB_GETFORMATS.ahk
+#Include .\PDD_MOCOMPCB_GETGUIDS.ahk
+#Include .\PDD_MOCOMPCB_GETINTERNALINFO.ahk
+#Include .\PDD_MOCOMPCB_QUERYSTATUS.ahk
+#Include .\PDD_MOCOMPCB_RENDER.ahk
 
 /**
  * The DD_MOTIONCOMPCALLBACKS structure contains entry pointers to the motion compensation callback functions that a device driver supports.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WEBAUTHN_HMAC_SECRET_SALT.ahk
 #Include .\WEBAUTHN_CRED_WITH_HMAC_SECRET_SALT.ahk
+#Include .\WEBAUTHN_HMAC_SECRET_SALT.ahk
 
 /**
  * Contains the SALT values for the HMAC secret.

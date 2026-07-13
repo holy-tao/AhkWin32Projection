@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include .\DDRAWI_DIRECTDRAW_LCL.ahk
+#Include .\LPDDHALVPORTCB_GETFLIPSTATUS.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

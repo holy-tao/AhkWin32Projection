@@ -1,14 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Foundation\SYSTEMTIME.ahk
+#Include .\ETW_BUFFER_CONTEXT.ahk
+#Include .\EVENT_TRACE.ahk
+#Include .\EVENT_TRACE_HEADER.ahk
+#Include .\PEVENT_CALLBACK.ahk
+#Include .\PEVENT_RECORD_CALLBACK.ahk
+#Include .\PEVENT_TRACE_BUFFER_CALLBACKA.ahk
 #Include .\TRACE_LOGFILE_HEADER.ahk
 #Include ..\..\Time\TIME_ZONE_INFORMATION.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
-#Include .\EVENT_TRACE_HEADER.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
-#Include ..\..\..\Foundation\SYSTEMTIME.ahk
-#Include .\EVENT_TRACE.ahk
-#Include .\ETW_BUFFER_CONTEXT.ahk
 
 /**
  * The EVENT_TRACE_LOGFILEA (ANSI) structure (evntrace.h) stores information about a trace data source.

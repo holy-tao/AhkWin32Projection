@@ -1,5 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\alljoyn_buslistener_bus_disconnected_ptr.ahk
+#Include .\alljoyn_buslistener_bus_prop_changed_ptr.ahk
+#Include .\alljoyn_buslistener_bus_stopping_ptr.ahk
+#Include .\alljoyn_buslistener_found_advertised_name_ptr.ahk
+#Include .\alljoyn_buslistener_listener_registered_ptr.ahk
+#Include .\alljoyn_buslistener_listener_unregistered_ptr.ahk
+#Include .\alljoyn_buslistener_lost_advertised_name_ptr.ahk
+#Include .\alljoyn_buslistener_name_owner_changed_ptr.ahk
 
 /**
  * @namespace Windows.Win32.Devices.AllJoyn

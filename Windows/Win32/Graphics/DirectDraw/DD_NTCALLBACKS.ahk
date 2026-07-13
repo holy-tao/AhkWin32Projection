@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PDD_FLIPTOGDISURFACE.ahk
+#Include .\PDD_FREEDRIVERMEMORY.ahk
+#Include .\PDD_SETEXCLUSIVEMODE.ahk
 
 /**
  * The DD_NTCALLBACKS structure contains entry pointers to Microsoft Windows 2000 and later Microsoft DirectDraw callback functions that a device driver supports.

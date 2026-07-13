@@ -1,117 +1,131 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\ENUM_DISPLAY_SETTINGS_MODE.ahk
-#Include .\DRAW_CAPTION_FLAGS.ahk
-#Include .\GET_CHARACTER_PLACEMENT_FLAGS.ahk
-#Include .\HGDIOBJ.ahk
-#Include ..\..\Foundation\LPARAM.ahk
-#Include .\GCP_RESULTSA.ahk
-#Include .\RGBQUAD.ahk
-#Include .\TTVALIDATIONTESTSPARAMS.ahk
-#Include .\SYSTEM_PALETTE_USE.ahk
-#Include .\HANDLETABLE.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\PEN_STYLE.ahk
-#Include .\DRAWTEXTPARAMS.ahk
-#Include .\EMBED_FONT_CHARSET.ahk
-#Include .\HENHMETAFILE.ahk
-#Include .\HBRUSH.ahk
-#Include .\ABCFLOAT.ahk
-#Include .\XFORM.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\MONITORINFO.ahk
-#Include .\LOGFONTA.ahk
-#Include .\LOGBRUSH.ahk
-#Include .\BITMAPINFOHEADER.ahk
-#Include .\FONT_LICENSE_PRIVS.ahk
-#Include .\BITMAPINFO.ahk
-#Include .\BITMAP.ahk
-#Include .\EXT_FLOOD_FILL_TYPE.ahk
-#Include .\GCP_RESULTSW.ahk
-#Include .\REDRAW_WINDOW_FLAGS.ahk
-#Include .\ABC.ahk
-#Include .\DEVMODEA.ahk
-#Include .\DC_LAYOUT.ahk
-#Include .\OBJ_TYPE.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include .\DRAW_EDGE_FLAGS.ahk
-#Include .\DRAWEDGE_FLAGS.ahk
-#Include ..\..\Foundation\SIZE.ahk
-#Include .\ENHMETARECORD.ahk
-#Include .\CREATE_FONT_PACKAGE_SUBSET_ENCODING.ahk
-#Include .\GLYPHMETRICS.ahk
-#Include .\DRAW_TEXT_FORMAT.ahk
-#Include .\HDC.ahk
-#Include .\ARC_DIRECTION.ahk
-#Include .\GET_DCX_FLAGS.ahk
-#Include ..\..\Foundation\COLORREF.ahk
-#Include .\PAINTSTRUCT.ahk
-#Include .\POLYTEXTA.ahk
-#Include .\METARECORD.ahk
-#Include .\MONITOR_FROM_FLAGS.ahk
-#Include .\GRAPHICS_MODE.ahk
-#Include .\ENUMLOGFONTEXDVA.ahk
-#Include .\COLORADJUSTMENT.ahk
-#Include .\GET_GLYPH_OUTLINE_FORMAT.ahk
-#Include .\SYS_COLOR_INDEX.ahk
-#Include .\LOGFONTW.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\LOGPEN.ahk
-#Include .\ETO_OPTIONS.ahk
-#Include .\CDS_TYPE.ahk
-#Include ..\..\Foundation\WPARAM.ahk
-#Include .\PALETTEENTRY.ahk
-#Include .\DRAWSTATE_FLAGS.ahk
-#Include .\DISPLAY_DEVICEW.ahk
-#Include .\ENUM_DISPLAY_SETTINGS_FLAGS.ahk
-#Include .\GLYPHSET.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include .\TRIVERTEX.ahk
-#Include .\HFONT.ahk
-#Include .\HMETAFILE.ahk
-#Include .\KERNINGPAIR.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\DIB_USAGE.ahk
-#Include .\HRGN.ahk
-#Include .\TEXTMETRICA.ahk
-#Include .\HDC_MAP_MODE.ahk
-#Include .\TTEMBED_FLAGS.ahk
-#Include .\TEXTMETRICW.ahk
-#Include .\SET_BOUNDS_RECT_FLAGS.ahk
-#Include .\HMONITOR.ahk
-#Include .\TTLOAD_EMBEDDED_FONT_STATUS.ahk
-#Include .\ROP_CODE.ahk
-#Include .\R2_MODE.ahk
-#Include .\DISPLAY_DEVICEA.ahk
+#Include ..\..\Foundation\COLORREF.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HGLOBAL.ahk
-#Include .\CREATE_POLYGON_RGN_MODE.ahk
-#Include .\DEVMODEW.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include .\HPEN.ahk
-#Include .\CREATE_FONT_PACKAGE_SUBSET_PLATFORM.ahk
-#Include .\POLYTEXTW.ahk
-#Include .\RGN_COMBINE_MODE.ahk
-#Include .\TEXT_ALIGN_OPTIONS.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\POINT.ahk
-#Include .\GDI_REGION_TYPE.ahk
-#Include .\MAT2.ahk
-#Include .\DISP_CHANGE.ahk
-#Include .\LOGPALETTE.ahk
-#Include .\STRETCH_BLT_MODE.ahk
-#Include .\HATCH_BRUSH_STYLE.ahk
-#Include .\HPALETTE.ahk
-#Include .\GRADIENT_FILL.ahk
-#Include .\MODIFY_WORLD_TRANSFORM_MODE.ahk
-#Include .\ENUMLOGFONTEXDVW.ahk
-#Include .\HBITMAP.ahk
-#Include .\EMBEDDED_FONT_PRIV_STATUS.ahk
-#Include .\TTVALIDATIONTESTSPARAMSEX.ahk
-#Include .\TTEMBEDINFO.ahk
-#Include .\WGLSWAP.ahk
-#Include .\FONT_RESOURCE_CHARACTERISTICS.ahk
-#Include .\GET_STOCK_OBJECT_FLAGS.ahk
-#Include .\TTLOADINFO.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include ..\..\Foundation\WPARAM.ahk
+#Include .\ABC.ahk
+#Include .\ABCFLOAT.ahk
+#Include .\ARC_DIRECTION.ahk
+#Include .\BITMAP.ahk
+#Include .\BITMAPINFO.ahk
+#Include .\BITMAPINFOHEADER.ahk
 #Include .\BLENDFUNCTION.ahk
+#Include .\CDS_TYPE.ahk
+#Include .\CFP_ALLOCPROC.ahk
+#Include .\CFP_FREEPROC.ahk
+#Include .\CFP_REALLOCPROC.ahk
+#Include .\COLORADJUSTMENT.ahk
+#Include .\CREATE_FONT_PACKAGE_SUBSET_ENCODING.ahk
+#Include .\CREATE_FONT_PACKAGE_SUBSET_PLATFORM.ahk
+#Include .\CREATE_POLYGON_RGN_MODE.ahk
+#Include .\DC_LAYOUT.ahk
+#Include .\DEVMODEA.ahk
+#Include .\DEVMODEW.ahk
+#Include .\DIB_USAGE.ahk
+#Include .\DISPLAY_DEVICEA.ahk
+#Include .\DISPLAY_DEVICEW.ahk
+#Include .\DISP_CHANGE.ahk
+#Include .\DRAWEDGE_FLAGS.ahk
+#Include .\DRAWSTATEPROC.ahk
+#Include .\DRAWSTATE_FLAGS.ahk
+#Include .\DRAWTEXTPARAMS.ahk
+#Include .\DRAW_CAPTION_FLAGS.ahk
+#Include .\DRAW_EDGE_FLAGS.ahk
+#Include .\DRAW_TEXT_FORMAT.ahk
+#Include .\EMBEDDED_FONT_PRIV_STATUS.ahk
+#Include .\EMBED_FONT_CHARSET.ahk
+#Include .\ENHMETARECORD.ahk
+#Include .\ENHMFENUMPROC.ahk
+#Include .\ENUMLOGFONTEXDVA.ahk
+#Include .\ENUMLOGFONTEXDVW.ahk
+#Include .\ENUM_DISPLAY_SETTINGS_FLAGS.ahk
+#Include .\ENUM_DISPLAY_SETTINGS_MODE.ahk
+#Include .\ETO_OPTIONS.ahk
+#Include .\EXT_FLOOD_FILL_TYPE.ahk
+#Include .\FONTENUMPROCA.ahk
+#Include .\FONTENUMPROCW.ahk
+#Include .\FONT_LICENSE_PRIVS.ahk
+#Include .\FONT_RESOURCE_CHARACTERISTICS.ahk
+#Include .\GCP_RESULTSA.ahk
+#Include .\GCP_RESULTSW.ahk
+#Include .\GDI_REGION_TYPE.ahk
+#Include .\GET_CHARACTER_PLACEMENT_FLAGS.ahk
+#Include .\GET_DCX_FLAGS.ahk
+#Include .\GET_GLYPH_OUTLINE_FORMAT.ahk
+#Include .\GET_STOCK_OBJECT_FLAGS.ahk
+#Include .\GLYPHMETRICS.ahk
+#Include .\GLYPHSET.ahk
+#Include .\GOBJENUMPROC.ahk
+#Include .\GRADIENT_FILL.ahk
+#Include .\GRAPHICS_MODE.ahk
+#Include .\GRAYSTRINGPROC.ahk
+#Include .\HANDLETABLE.ahk
+#Include .\HATCH_BRUSH_STYLE.ahk
+#Include .\HBITMAP.ahk
+#Include .\HBRUSH.ahk
+#Include .\HDC.ahk
+#Include .\HDC_MAP_MODE.ahk
+#Include .\HENHMETAFILE.ahk
+#Include .\HFONT.ahk
+#Include .\HGDIOBJ.ahk
+#Include .\HMETAFILE.ahk
+#Include .\HMONITOR.ahk
+#Include .\HPALETTE.ahk
+#Include .\HPEN.ahk
+#Include .\HRGN.ahk
+#Include .\KERNINGPAIR.ahk
+#Include .\LINEDDAPROC.ahk
+#Include .\LOGBRUSH.ahk
+#Include .\LOGFONTA.ahk
+#Include .\LOGFONTW.ahk
+#Include .\LOGPALETTE.ahk
+#Include .\LOGPEN.ahk
+#Include .\MAT2.ahk
+#Include .\METARECORD.ahk
+#Include .\MFENUMPROC.ahk
+#Include .\MODIFY_WORLD_TRANSFORM_MODE.ahk
+#Include .\MONITORENUMPROC.ahk
+#Include .\MONITORINFO.ahk
+#Include .\MONITOR_FROM_FLAGS.ahk
+#Include .\OBJ_TYPE.ahk
+#Include .\PAINTSTRUCT.ahk
+#Include .\PALETTEENTRY.ahk
+#Include .\PEN_STYLE.ahk
+#Include .\POLYTEXTA.ahk
+#Include .\POLYTEXTW.ahk
+#Include .\R2_MODE.ahk
+#Include .\READEMBEDPROC.ahk
+#Include .\REDRAW_WINDOW_FLAGS.ahk
+#Include .\RGBQUAD.ahk
+#Include .\RGN_COMBINE_MODE.ahk
+#Include .\ROP_CODE.ahk
+#Include .\SET_BOUNDS_RECT_FLAGS.ahk
+#Include .\STRETCH_BLT_MODE.ahk
+#Include .\SYSTEM_PALETTE_USE.ahk
+#Include .\SYS_COLOR_INDEX.ahk
+#Include .\TEXTMETRICA.ahk
+#Include .\TEXTMETRICW.ahk
+#Include .\TEXT_ALIGN_OPTIONS.ahk
+#Include .\TRIVERTEX.ahk
+#Include .\TTEMBEDINFO.ahk
+#Include .\TTEMBED_FLAGS.ahk
+#Include .\TTLOADINFO.ahk
+#Include .\TTLOAD_EMBEDDED_FONT_STATUS.ahk
+#Include .\TTVALIDATIONTESTSPARAMS.ahk
+#Include .\TTVALIDATIONTESTSPARAMSEX.ahk
+#Include .\WGLSWAP.ahk
+#Include .\WRITEEMBEDPROC.ahk
+#Include .\XFORM.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
@@ -4283,7 +4297,107 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines AddFontResource as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} param0 
+     * @param {PSTR} param0 A pointer to a null-terminated character string that contains a valid font file name. This parameter can specify any of the following files.
+     * 
+     * <table>
+     * <tr>
+     * <th>File Extension</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id=".fon"></a><a id=".FON"></a><dl>
+     * <dt><b>.fon</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Font resource file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id=".fnt"></a><a id=".FNT"></a><dl>
+     * <dt><b>.fnt</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Raw bitmap font file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id=".ttf"></a><a id=".TTF"></a><dl>
+     * <dt><b>.ttf</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Raw TrueType file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id=".ttc"></a><a id=".TTC"></a><dl>
+     * <dt><b>.ttc</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * East Asian Windows: TrueType font collection.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id=".fot"></a><a id=".FOT"></a><dl>
+     * <dt><b>.fot</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * TrueType resource file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id=".otf"></a><a id=".OTF"></a><dl>
+     * <dt><b>.otf</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * PostScript OpenType font.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id=".mmm"></a><a id=".MMM"></a><dl>
+     * <dt><b>.mmm</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Multiple master Type1 font resource file. It must be used with .pfm and .pfb files.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id=".pfb"></a><a id=".PFB"></a><dl>
+     * <dt><b>.pfb</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Type 1 font bits file. It is used with a .pfm file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id=".pfm"></a><a id=".PFM"></a><dl>
+     * <dt><b>.pfm</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Type 1 font metrics file. It is used with a .pfb file.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * To add a font whose information comes from several resource files, have <i>lpszFileName</i> point to a string with the file names separated by a "|" --for example, abcxxxxx.pfm | abcxxxxx.pfb.
      * @returns {Integer} If the function succeeds, the return value specifies the number of fonts added.
      * 
      * If the function fails, the return value is zero. No extended error information is available.
@@ -4314,7 +4428,107 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines AddFontResource as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} param0 
+     * @param {PWSTR} param0 A pointer to a null-terminated character string that contains a valid font file name. This parameter can specify any of the following files.
+     * 
+     * <table>
+     * <tr>
+     * <th>File Extension</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id=".fon"></a><a id=".FON"></a><dl>
+     * <dt><b>.fon</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Font resource file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id=".fnt"></a><a id=".FNT"></a><dl>
+     * <dt><b>.fnt</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Raw bitmap font file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id=".ttf"></a><a id=".TTF"></a><dl>
+     * <dt><b>.ttf</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Raw TrueType file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id=".ttc"></a><a id=".TTC"></a><dl>
+     * <dt><b>.ttc</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * East Asian Windows: TrueType font collection.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id=".fot"></a><a id=".FOT"></a><dl>
+     * <dt><b>.fot</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * TrueType resource file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id=".otf"></a><a id=".OTF"></a><dl>
+     * <dt><b>.otf</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * PostScript OpenType font.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id=".mmm"></a><a id=".MMM"></a><dl>
+     * <dt><b>.mmm</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Multiple master Type1 font resource file. It must be used with .pfm and .pfb files.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id=".pfb"></a><a id=".PFB"></a><dl>
+     * <dt><b>.pfb</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Type 1 font bits file. It is used with a .pfm file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id=".pfm"></a><a id=".PFM"></a><dl>
+     * <dt><b>.pfm</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Type 1 font metrics file. It is used with a .pfb file.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * To add a font whose information comes from several resource files, have <i>lpszFileName</i> point to a string with the file names separated by a "|" --for example, abcxxxxx.pfm | abcxxxxx.pfb.
      * @returns {Integer} If the function succeeds, the return value specifies the number of fonts added.
      * 
      * If the function fails, the return value is zero. No extended error information is available.
@@ -4765,8 +4979,8 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines CopyMetaFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HMETAFILE} param0 
-     * @param {PSTR} param1 
+     * @param {HMETAFILE} param0 A handle to the source Windows-format metafile.
+     * @param {PSTR} param1 A pointer to the name of the destination file. If this parameter is <b>NULL</b>, the source metafile is copied to memory.
      * @returns {HMETAFILE} If the function succeeds, the return value is a handle to the copy of the Windows-format metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
@@ -4795,8 +5009,8 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines CopyMetaFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HMETAFILE} param0 
-     * @param {PWSTR} param1 
+     * @param {HMETAFILE} param0 A handle to the source Windows-format metafile.
+     * @param {PWSTR} param1 A pointer to the name of the destination file. If this parameter is <b>NULL</b>, the source metafile is copied to memory.
      * @returns {HMETAFILE} If the function succeeds, the return value is a handle to the copy of the Windows-format metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
@@ -10030,7 +10244,9 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines CreateFontIndirectEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<ENUMLOGFONTEXDVA>} param0 
+     * @param {Pointer<ENUMLOGFONTEXDVA>} param0 Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-enumlogfontexdva">ENUMLOGFONTEXDV</a> structure that defines the characteristics of a multiple master font.
+     * 
+     * Note, this function ignores the <b>elfDesignVector</b> member in <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-enumlogfontexdva">ENUMLOGFONTEXDV</a>.
      * @returns {HFONT} If the function succeeds, the return value is the handle to the new <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-enumlogfontexdva">ENUMLOGFONTEXDV</a> structure.
      * 
      * If the function fails, the return value is zero. No extended error information is available.
@@ -10058,7 +10274,9 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines CreateFontIndirectEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<ENUMLOGFONTEXDVW>} param0 
+     * @param {Pointer<ENUMLOGFONTEXDVW>} param0 Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-enumlogfontexdva">ENUMLOGFONTEXDV</a> structure that defines the characteristics of a multiple master font.
+     * 
+     * Note, this function ignores the <b>elfDesignVector</b> member in <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-enumlogfontexdva">ENUMLOGFONTEXDV</a>.
      * @returns {HFONT} If the function succeeds, the return value is the handle to the new <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-enumlogfontexdva">ENUMLOGFONTEXDV</a> structure.
      * 
      * If the function fails, the return value is zero. No extended error information is available.
@@ -16647,8 +16865,8 @@ class Gdi {
      * 
      * <h3><a id="DPI_Virtualization"></a><a id="dpi_virtualization"></a><a id="DPI_VIRTUALIZATION"></a>DPI Virtualization</h3>
      * This API does not participate in DPI virtualization. The input given is always in terms of physical pixels, and is not related to the calling context.
-     * @param {HDC} _hdc 
-     * @param {Pointer<RECT>} lprc 
+     * @param {HDC} _hdc A handle to the device context of the window in which to draw the control.
+     * @param {Pointer<RECT>} lprc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the logical coordinates of the bounding rectangle for frame control.
      * @param {Integer} uType 
      * @param {Integer} uState 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.

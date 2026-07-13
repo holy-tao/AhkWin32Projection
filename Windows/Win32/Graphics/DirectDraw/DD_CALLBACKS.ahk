@@ -1,5 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PDD_CANCREATESURFACE.ahk
+#Include .\PDD_CREATEPALETTE.ahk
+#Include .\PDD_CREATESURFACE.ahk
+#Include .\PDD_DESTROYDRIVER.ahk
+#Include .\PDD_GETSCANLINE.ahk
+#Include .\PDD_MAPMEMORY.ahk
+#Include .\PDD_SETCOLORKEY.ahk
+#Include .\PDD_SETMODE.ahk
+#Include .\PDD_WAITFORVERTICALBLANK.ahk
 
 /**
  * The DD_CALLBACKS structure contains entry pointers to the callback functions that a device driver supports.

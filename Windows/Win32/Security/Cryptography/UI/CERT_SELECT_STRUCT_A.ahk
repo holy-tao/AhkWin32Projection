@@ -1,12 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HINSTANCE.ahk
-#Include ..\CERT_CONTEXT.ahk
-#Include .\CERT_SELECT_STRUCT_FLAGS.ahk
-#Include ..\..\..\Foundation\LPARAM.ahk
 #Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\Foundation\LPARAM.ahk
 #Include ..\..\..\Foundation\PSTR.ahk
+#Include ..\CERT_CONTEXT.ahk
 #Include ..\HCERTSTORE.ahk
+#Include .\CERT_SELECT_STRUCT_FLAGS.ahk
+#Include .\PFNCMFILTERPROC.ahk
+#Include .\PFNCMHOOKPROC.ahk
 
 /**
  * Contains criteria upon which to select certificates that are presented in a certificate selection dialog box. This structure is used in the CertSelectCertificate function. (ANSI)

@@ -1,5 +1,32 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include .\FAST_IO_ACQUIRE_FILE.ahk
+#Include .\FAST_IO_ACQUIRE_FOR_CCFLUSH.ahk
+#Include .\FAST_IO_ACQUIRE_FOR_MOD_WRITE.ahk
+#Include .\FAST_IO_CHECK_IF_POSSIBLE.ahk
+#Include .\FAST_IO_DETACH_DEVICE.ahk
+#Include .\FAST_IO_DEVICE_CONTROL.ahk
+#Include .\FAST_IO_LOCK.ahk
+#Include .\FAST_IO_MDL_READ.ahk
+#Include .\FAST_IO_MDL_READ_COMPLETE.ahk
+#Include .\FAST_IO_MDL_READ_COMPLETE_COMPRESSED.ahk
+#Include .\FAST_IO_MDL_WRITE_COMPLETE.ahk
+#Include .\FAST_IO_MDL_WRITE_COMPLETE_COMPRESSED.ahk
+#Include .\FAST_IO_PREPARE_MDL_WRITE.ahk
+#Include .\FAST_IO_QUERY_BASIC_INFO.ahk
+#Include .\FAST_IO_QUERY_NETWORK_OPEN_INFO.ahk
+#Include .\FAST_IO_QUERY_OPEN.ahk
+#Include .\FAST_IO_QUERY_STANDARD_INFO.ahk
+#Include .\FAST_IO_READ.ahk
+#Include .\FAST_IO_READ_COMPRESSED.ahk
+#Include .\FAST_IO_RELEASE_FILE.ahk
+#Include .\FAST_IO_RELEASE_FOR_CCFLUSH.ahk
+#Include .\FAST_IO_RELEASE_FOR_MOD_WRITE.ahk
+#Include .\FAST_IO_UNLOCK_ALL.ahk
+#Include .\FAST_IO_UNLOCK_ALL_BY_KEY.ahk
+#Include .\FAST_IO_UNLOCK_SINGLE.ahk
+#Include .\FAST_IO_WRITE.ahk
+#Include .\FAST_IO_WRITE_COMPRESSED.ahk
 
 /**
  * @namespace Windows.Wdk.Foundation

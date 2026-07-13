@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DMA_DES.ahk
 #Include .\DD_FLAGS.ahk
+#Include .\DMA_DES.ahk
 #Include .\DMA_RANGE.ahk
 
 /**

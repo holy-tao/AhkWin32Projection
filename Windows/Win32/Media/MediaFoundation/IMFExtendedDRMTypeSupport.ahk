@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\MF_MEDIA_ENGINE_CANPLAY.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\MF_MEDIA_ENGINE_CANPLAY.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides methods for querying whether a specified content type is supported for a specified key system.

@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\FsrmTemplateApplyOptions.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\FsrmCommitOptions.ahk
+#Include .\FsrmTemplateApplyOptions.ahk
 #Include .\IFsrmDerivedObjectsResult.ahk
 #Include .\IFsrmQuotaBase.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to configure templates from which new quota objects can be derived.

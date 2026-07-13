@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\CHAR.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Storage\IndexServer\DBID.ahk
+#Include ..\Com\CY.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\Com\SAFEARRAY.ahk
 #Include ..\Ole\IRecordInfo.ahk
 #Include ..\Variant\VARENUM.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Variant\VARIANT.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Com\CY.ahk
-#Include ..\Com\SAFEARRAY.ahk
-#Include ..\..\Storage\IndexServer\DBID.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\CHAR.ahk
 
 /**
  * @namespace Windows.Win32.System.Search

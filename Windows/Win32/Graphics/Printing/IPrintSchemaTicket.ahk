@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IPrintSchemaElement.ahk
-#Include .\IPrintSchemaCapabilities.ahk
-#Include .\IPrintSchemaFeature.ahk
-#Include .\IPrintSchemaAsyncOperation.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IPrintSchemaAsyncOperation.ahk
+#Include .\IPrintSchemaCapabilities.ahk
+#Include .\IPrintSchemaElement.ahk
+#Include .\IPrintSchemaFeature.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HDEV.ahk
 #Include .\DHPDEV.ahk
+#Include .\FREEOBJPROC.ahk
+#Include .\HDEV.ahk
 
 /**
  * The DRIVEROBJ structure is used to track a resource, allocated by a driver, that requires use GDI services.

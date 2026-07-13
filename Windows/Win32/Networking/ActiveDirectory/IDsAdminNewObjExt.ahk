@@ -1,16 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDsAdminNewObj.ahk
-#Include .\IADsContainer.ahk
-#Include .\IADs.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include .\DSA_NEWOBJ_DISPINFO.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IADs.ahk
+#Include .\IADsContainer.ahk
+#Include .\IDsAdminNewObj.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\UI\Controls\LPFNSVADDPROPSHEETPAGE.ahk
 
 /**
  * The IDsAdminNewObjExt interface is implemented by an object creation wizard extension.

@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\IOfflineFilesItem.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IOfflineFilesItem.ahk
 
 /**
  * Represents a file item in the Offline Files cache.

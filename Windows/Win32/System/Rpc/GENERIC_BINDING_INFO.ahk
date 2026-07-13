@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\GENERIC_BINDING_ROUTINE.ahk
+#Include .\GENERIC_UNBIND_ROUTINE.ahk
 
 /**
  * @namespace Windows.Win32.System.Rpc

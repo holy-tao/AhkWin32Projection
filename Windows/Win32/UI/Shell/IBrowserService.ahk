@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Ole\IOleInPlaceSite.ahk
-#Include ..\..\System\Com\IBindCtx.ahk
-#Include Common\ITEMIDLIST.ahk
-#Include .\BNSTATE.ahk
-#Include ..\..\Graphics\Gdi\HPALETTE.ahk
-#Include .\ITravelLog.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\ShellWindowTypeConstants.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IShellView.ahk
-#Include ..\..\System\Ole\IOleObject.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Graphics\Gdi\HPALETTE.ahk
+#Include ..\..\System\Com\IBindCtx.ahk
 #Include ..\..\System\Com\IStream.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Ole\IOleInPlaceSite.ahk
+#Include ..\..\System\Ole\IOleObject.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\BNSTATE.ahk
+#Include Common\ITEMIDLIST.ahk
+#Include .\IShellView.ahk
+#Include .\ITravelLog.ahk
+#Include .\ShellWindowTypeConstants.ahk
 
 /**
  * Deprecated. (IBrowserService)

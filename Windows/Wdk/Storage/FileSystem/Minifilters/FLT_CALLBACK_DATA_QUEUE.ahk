@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\PFLT_INSTANCE.ahk
 #Include .\FLT_CALLBACK_DATA_QUEUE_FLAGS.ahk
+#Include .\PFLT_CALLBACK_DATA_QUEUE_ACQUIRE.ahk
+#Include .\PFLT_CALLBACK_DATA_QUEUE_COMPLETE_CANCELED_IO.ahk
+#Include .\PFLT_CALLBACK_DATA_QUEUE_INSERT_IO.ahk
+#Include .\PFLT_CALLBACK_DATA_QUEUE_PEEK_NEXT_IO.ahk
+#Include .\PFLT_CALLBACK_DATA_QUEUE_RELEASE.ahk
+#Include .\PFLT_CALLBACK_DATA_QUEUE_REMOVE_IO.ahk
+#Include .\PFLT_INSTANCE.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters

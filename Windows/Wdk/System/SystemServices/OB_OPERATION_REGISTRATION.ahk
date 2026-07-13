@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\POBJECT_TYPE.ahk
+#Include .\POB_POST_OPERATION_CALLBACK.ahk
+#Include .\POB_PRE_OPERATION_CALLBACK.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

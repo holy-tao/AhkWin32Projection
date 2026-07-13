@@ -1,5 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CryptXmlDllCloseDigest.ahk
+#Include .\CryptXmlDllCreateDigest.ahk
+#Include .\CryptXmlDllDigestData.ahk
+#Include .\CryptXmlDllEncodeAlgorithm.ahk
+#Include .\CryptXmlDllFinalizeDigest.ahk
+#Include .\CryptXmlDllGetAlgorithmInfo.ahk
+#Include .\CryptXmlDllSignData.ahk
+#Include .\CryptXmlDllVerifySignature.ahk
 
 /**
  * Exposes the implemented CryptXML functions.

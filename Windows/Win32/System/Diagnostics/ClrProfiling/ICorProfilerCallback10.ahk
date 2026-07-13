@@ -2,8 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ICorProfilerCallback9.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\ICorProfilerCallback9.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling

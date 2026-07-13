@@ -1,6 +1,35 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\BCRYPT_INTERFACE_VERSION.ahk
+#Include .\NCryptCreateClaimFn.ahk
+#Include .\NCryptCreatePersistedKeyFn.ahk
+#Include .\NCryptDecryptFn.ahk
+#Include .\NCryptDeleteKeyFn.ahk
+#Include .\NCryptDeriveKeyFn.ahk
+#Include .\NCryptEncryptFn.ahk
+#Include .\NCryptEnumAlgorithmsFn.ahk
+#Include .\NCryptEnumKeysFn.ahk
+#Include .\NCryptExportKeyFn.ahk
+#Include .\NCryptFinalizeKeyFn.ahk
+#Include .\NCryptFreeBufferFn.ahk
+#Include .\NCryptFreeKeyFn.ahk
+#Include .\NCryptFreeProviderFn.ahk
+#Include .\NCryptFreeSecretFn.ahk
+#Include .\NCryptGetKeyPropertyFn.ahk
+#Include .\NCryptGetProviderPropertyFn.ahk
+#Include .\NCryptImportKeyFn.ahk
+#Include .\NCryptIsAlgSupportedFn.ahk
+#Include .\NCryptKeyDerivationFn.ahk
+#Include .\NCryptNotifyChangeKeyFn.ahk
+#Include .\NCryptOpenKeyFn.ahk
+#Include .\NCryptOpenStorageProviderFn.ahk
+#Include .\NCryptPromptUserFn.ahk
+#Include .\NCryptSecretAgreementFn.ahk
+#Include .\NCryptSetKeyPropertyFn.ahk
+#Include .\NCryptSetProviderPropertyFn.ahk
+#Include .\NCryptSignHashFn.ahk
+#Include .\NCryptVerifyClaimFn.ahk
+#Include .\NCryptVerifySignatureFn.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography

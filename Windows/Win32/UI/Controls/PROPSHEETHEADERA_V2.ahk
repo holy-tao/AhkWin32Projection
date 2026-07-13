@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Graphics\Gdi\HPALETTE.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\Graphics\Gdi\HPALETTE.ahk
 #Include .\HPROPSHEETPAGE.ahk
+#Include .\PFNPROPSHEETCALLBACK.ahk
 #Include .\PROPSHEETPAGEA.ahk
 #Include ..\WindowsAndMessaging\HICON.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The PROPSHEETHEADERA_V2 (ANSI) structure defines the frame and pages of a property sheet.

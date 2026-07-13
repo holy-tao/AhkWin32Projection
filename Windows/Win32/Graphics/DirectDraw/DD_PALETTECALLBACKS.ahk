@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PDD_PALCB_DESTROYPALETTE.ahk
+#Include .\PDD_PALCB_SETENTRIES.ahk
 
 /**
  * The DD_PALETTECALLBACKS structure contains entry pointers to the DirectDraw palette callback functions that a device driver supports.

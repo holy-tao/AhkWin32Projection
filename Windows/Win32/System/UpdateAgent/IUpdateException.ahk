@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IDispatch.ahk
 #Include .\UpdateExceptionContext.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents info about the aspects of search results returned in the ISearchResult object that were incomplete.

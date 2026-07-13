@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\WRDS_LISTENER_SETTING_LEVEL.ahk
-#Include .\WRDS_LISTENER_SETTINGS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\IWRdsProtocolListenerCallback.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\WRDS_LISTENER_SETTINGS.ahk
+#Include .\WRDS_LISTENER_SETTING_LEVEL.ahk
 
 /**
  * Exposes methods that request that the protocol start and stop listening for client connection requests.

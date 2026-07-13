@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PINTERFACE_DEREFERENCE.ahk
+#Include .\PINTERFACE_REFERENCE.ahk
+#Include .\PPCI_IS_DEVICE_PRESENT.ahk
+#Include .\PPCI_IS_DEVICE_PRESENT_EX.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

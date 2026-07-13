@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IAudioVolumeDuckNotification.ahk
-#Include .\IAudioSessionEnumerator.ahk
-#Include .\IAudioSessionNotification.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\IAudioSessionManager.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IAudioSessionEnumerator.ahk
+#Include .\IAudioSessionManager.ahk
+#Include .\IAudioSessionNotification.ahk
+#Include .\IAudioVolumeDuckNotification.ahk
 
 /**
  * The IAudioSessionManager2 interface enables an application to manage submixes for the audio device.

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\UIAutomationType.ahk
-#Include .\UIAutomationParameter.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\UIAutomationParameter.ahk
+#Include .\UIAutomationType.ahk
 
 /**
  * Represents a control pattern object. The client API wrapper uses this interface to implement all property and method calls in terms of the GetProperty and CallMethod methods.
@@ -43,7 +43,9 @@ class IUIAutomationPatternInstance extends IUnknown {
      * @param {BOOL} cached Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if the property should be retrieved from the cache, otherwise <b>FALSE</b>.
-     * @param {UIAutomationType} type 
+     * @param {UIAutomationType} type Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-uiautomationtype">UIAutomationType</a></b>
+     * 
+     * A value indicating the data type of the property.
      * @returns {Void} Type: <b>void*</b>
      * 
      * Receives the value of the property.

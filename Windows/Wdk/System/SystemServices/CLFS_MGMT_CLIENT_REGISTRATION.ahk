@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PCLFS_CLIENT_ADVANCE_TAIL_CALLBACK.ahk
+#Include .\PCLFS_CLIENT_LFF_HANDLER_COMPLETE_CALLBACK.ahk
+#Include .\PCLFS_CLIENT_LOG_UNPINNED_CALLBACK.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

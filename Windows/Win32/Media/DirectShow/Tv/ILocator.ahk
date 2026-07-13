@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\ModulationType.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\BinaryConvolutionCodeRate.ahk
 #Include ..\FECMethod.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\ModulationType.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * The ILocator interface is implemented (through derived interfaces such as IATSCLocator) on Locator objects that contain tuning information about the tuning space.

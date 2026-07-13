@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\pluginResource.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\pluginResource.ahk
 
 /**
  * Exposes properties and methods that provide information about resources available to users of RemoteApp and Desktop Connections.

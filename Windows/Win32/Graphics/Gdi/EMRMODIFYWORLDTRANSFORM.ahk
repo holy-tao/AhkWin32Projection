@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
 #Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
-#Include .\XFORM.ahk
 #Include .\MODIFY_WORLD_TRANSFORM_MODE.ahk
+#Include .\XFORM.ahk
 
 /**
  * The EMRMODIFYWORLDTRANSFORM structure contains members for the ModifyWorldTransform enhanced metafile record.

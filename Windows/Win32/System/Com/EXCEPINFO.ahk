@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\LPEXCEPFINO_DEFERRED_FILLIN.ahk
 
 /**
  * Describes an exception that occurred during IDispatch::Invoke.

@@ -2,13 +2,13 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\ISignerCertificate.ahk
-#Include .\X509RequestInheritOptions.ahk
-#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IX509CertificateRequest.ahk
-#Include .\EncodingType.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\EncodingType.ahk
+#Include .\ISignerCertificate.ahk
+#Include .\IX509CertificateRequest.ahk
 #Include .\X509CertificateEnrollmentContext.ahk
+#Include .\X509RequestInheritOptions.ahk
 
 /**
  * The IX509CertificateRequestPkcs7 interface represents a PKCS

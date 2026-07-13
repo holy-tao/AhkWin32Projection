@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\KS_FRAMING_ITEM.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\KS_FRAMING_RANGE_WEIGHTED.ahk
-#Include .\KS_FRAMING_RANGE.ahk
 #Include .\KS_COMPRESSION.ahk
+#Include .\KS_FRAMING_ITEM.ahk
+#Include .\KS_FRAMING_RANGE.ahk
+#Include .\KS_FRAMING_RANGE_WEIGHTED.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\alljoyn_keystorelistener_acquireexclusivelock_ptr.ahk
+#Include .\alljoyn_keystorelistener_loadrequest_ptr.ahk
+#Include .\alljoyn_keystorelistener_releaseexclusivelock_ptr.ahk
+#Include .\alljoyn_keystorelistener_storerequest_ptr.ahk
 
 /**
  * @namespace Windows.Win32.Devices.AllJoyn

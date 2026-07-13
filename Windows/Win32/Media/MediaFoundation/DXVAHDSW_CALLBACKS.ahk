@@ -1,5 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PDXVAHDSW_CreateDevice.ahk
+#Include .\PDXVAHDSW_CreateVideoProcessor.ahk
+#Include .\PDXVAHDSW_DestroyDevice.ahk
+#Include .\PDXVAHDSW_DestroyVideoProcessor.ahk
+#Include .\PDXVAHDSW_GetVideoProcessBltStatePrivate.ahk
+#Include .\PDXVAHDSW_GetVideoProcessStreamStatePrivate.ahk
+#Include .\PDXVAHDSW_GetVideoProcessorCaps.ahk
+#Include .\PDXVAHDSW_GetVideoProcessorCustomRates.ahk
+#Include .\PDXVAHDSW_GetVideoProcessorDeviceCaps.ahk
+#Include .\PDXVAHDSW_GetVideoProcessorFilterRange.ahk
+#Include .\PDXVAHDSW_GetVideoProcessorInputFormats.ahk
+#Include .\PDXVAHDSW_GetVideoProcessorOutputFormats.ahk
+#Include .\PDXVAHDSW_ProposeVideoPrivateFormat.ahk
+#Include .\PDXVAHDSW_SetVideoProcessBltState.ahk
+#Include .\PDXVAHDSW_SetVideoProcessStreamState.ahk
+#Include .\PDXVAHDSW_VideoProcessBltHD.ahk
 
 /**
  * Contains pointers to functions implemented by a software plug-in for Microsoft DirectX Video Acceleration High Definition (DXVA-HD).

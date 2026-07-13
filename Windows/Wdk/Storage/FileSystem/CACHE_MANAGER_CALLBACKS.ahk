@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PACQUIRE_FOR_LAZY_WRITE.ahk
+#Include .\PACQUIRE_FOR_READ_AHEAD.ahk
+#Include .\PRELEASE_FROM_LAZY_WRITE.ahk
+#Include .\PRELEASE_FROM_READ_AHEAD.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem

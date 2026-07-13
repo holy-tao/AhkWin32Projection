@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IVdsAsync.ahk
-#Include .\VDS_FILE_SYSTEM_PROP.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IVdsAsync.ahk
 #Include .\VDS_FILE_SYSTEM_FORMAT_SUPPORT_PROP.ahk
+#Include .\VDS_FILE_SYSTEM_PROP.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides methods to perform file system management operations on partitions.
