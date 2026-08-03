@@ -2,9 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include .\IMSVidOutputDevice.ahk
 #Include .\MSVidSinkStreams.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IMSVidGenericSink interface represents a generic output device that supports streaming output. It is implemented by the MSVidGenericSink object.

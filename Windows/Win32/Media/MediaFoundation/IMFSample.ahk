@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IMFAttributes.ahk
 #Include .\IMFMediaBuffer.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a media sample, which is a container object for media data.

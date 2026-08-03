@@ -2,11 +2,11 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IX509PrivateKey.ahk
-#Include .\IX509Attribute.ahk
-#Include .\IObjectId.ahk
-#Include .\EncodingType.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\EncodingType.ahk
+#Include .\IObjectId.ahk
+#Include .\IX509Attribute.ahk
+#Include .\IX509PrivateKey.ahk
 
 /**
  * Represents an attribute that contains an encrypted private key to be archived by a certification authority.

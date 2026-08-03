@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\IShellItem.ahk
-#Include .\IFileDialog.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include PropertiesSystem\IPropertyStore.ahk
-#Include PropertiesSystem\IPropertyDescriptionList.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\IFileDialog.ahk
 #Include .\IFileOperationProgressSink.ahk
+#Include .\IShellItem.ahk
+#Include PropertiesSystem\IPropertyDescriptionList.ahk
+#Include PropertiesSystem\IPropertyStore.ahk
 
 /**
  * Extends the IFileDialog interface by adding methods specific to the save dialog, which include those that provide support for the collection of metadata to be persisted with the file.

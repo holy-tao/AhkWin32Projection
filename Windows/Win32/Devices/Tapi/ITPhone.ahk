@@ -1,23 +1,23 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\PHONE_BUTTON_FUNCTION.ahk
-#Include .\PHONE_HOOK_SWITCH_DEVICE.ahk
-#Include .\PHONE_LAMP_MODE.ahk
-#Include .\PHONECAPS_STRING.ahk
-#Include .\PHONE_PRIVILEGE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ITAddress.ahk
-#Include .\PHONECAPS_BUFFER.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\PHONECAPS_LONG.ahk
-#Include .\PHONE_HOOK_SWITCH_STATE.ahk
-#Include .\PHONE_BUTTON_MODE.ahk
 #Include .\IEnumAddress.ahk
 #Include .\IEnumTerminal.ahk
+#Include .\ITAddress.ahk
+#Include .\PHONECAPS_BUFFER.ahk
+#Include .\PHONECAPS_LONG.ahk
+#Include .\PHONECAPS_STRING.ahk
+#Include .\PHONE_BUTTON_FUNCTION.ahk
+#Include .\PHONE_BUTTON_MODE.ahk
 #Include .\PHONE_BUTTON_STATE.ahk
+#Include .\PHONE_HOOK_SWITCH_DEVICE.ahk
+#Include .\PHONE_HOOK_SWITCH_STATE.ahk
+#Include .\PHONE_LAMP_MODE.ahk
+#Include .\PHONE_PRIVILEGE.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * The ITPhone interface is the main interface for the new Phone objects in the TAPI 3.1 object model.

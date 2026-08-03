@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\ATTRIBUTE_TYPE.ahk
+#Include .\DIAG_SOCKADDR.ahk
 #Include .\LIFE_TIME.ahk
 #Include .\OCTET_STRING.ahk
-#Include .\ATTRIBUTE_TYPE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\DIAG_SOCKADDR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The HELPER_ATTRIBUTE structure contains all NDF supported data types.

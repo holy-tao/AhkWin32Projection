@@ -2,8 +2,8 @@
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IDebugHostExtensibility2.ahk
 #Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include .\IDebugHostExtensibility2.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

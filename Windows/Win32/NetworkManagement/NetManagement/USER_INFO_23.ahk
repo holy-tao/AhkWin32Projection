@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\PSID.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include .\USER_ACCOUNT_FLAGS.ahk
+#Include ..\..\Security\PSID.ahk
 
 /**
  * Contains information about a user account, including the account name, the user's full name, a comment associated with the account, and the user's security identifier (SID).

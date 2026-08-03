@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\TOKEN_ELEVATION_TYPE.ahk
-#Include ..\..\Security\PSID.ahk
-#Include ..\..\Security\TOKEN_TYPE.ahk
-#Include ..\..\Security\SID_AND_ATTRIBUTES.ahk
-#Include ..\..\Security\SECURITY_IMPERSONATION_LEVEL.ahk
-#Include ..\..\Security\TOKEN_ELEVATION.ahk
 #Include ..\..\Foundation\LUID.ahk
+#Include ..\..\Security\PSID.ahk
+#Include ..\..\Security\SECURITY_IMPERSONATION_LEVEL.ahk
+#Include ..\..\Security\SID_AND_ATTRIBUTES.ahk
+#Include ..\..\Security\TOKEN_ELEVATION.ahk
+#Include ..\..\Security\TOKEN_ELEVATION_TYPE.ahk
+#Include ..\..\Security\TOKEN_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.SystemServices

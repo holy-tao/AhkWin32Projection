@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWbemContext.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\IWbemContext.ahk
 
 /**
  * The IWbemShutdown interface indicates to the provider that an instance of an object is ready to be discarded. The provider can use this call to release resources that it is referencing currently.

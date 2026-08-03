@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSTER_IP_ENTRY.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\BOOLEAN.ahk
-#Include .\CLUSTER_MGMT_POINT_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\CLUSTER_IP_ENTRY.ahk
 #Include .\CLUSTER_MGMT_POINT_RESTYPE.ahk
+#Include .\CLUSTER_MGMT_POINT_TYPE.ahk
 
 /**
  * Defines the initial cluster configuration.

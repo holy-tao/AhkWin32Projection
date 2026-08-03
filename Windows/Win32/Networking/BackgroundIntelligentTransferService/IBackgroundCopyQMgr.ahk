@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IBackgroundCopyGroup.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IBackgroundCopyGroup.ahk
 #Include .\IEnumBackgroundCopyGroups.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Use the IBackgroundCopyQMgr interface to create a new group, retrieve an existing group, or enumerate all groups in the queue. A group contains a download job.

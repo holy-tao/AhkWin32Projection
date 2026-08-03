@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_PROTOCOLS.ahk
 #Include .\USB_NODE_CONNECTION_INFORMATION_EX_V2_FLAGS.ahk
+#Include .\USB_PROTOCOLS.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb

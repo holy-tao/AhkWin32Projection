@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D11_VIDEO_DECODER_HISTOGRAM_COMPONENT_FLAGS.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 #Include .\D3D11_VIDEO_DECODER_DESC.ahk
+#Include .\D3D11_VIDEO_DECODER_HISTOGRAM_COMPONENT_FLAGS.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 
 /**
  * Provides data for calls to ID3D11VideoDevice2::CheckFeatureSupport when the feature specified is D3D11_FEATURE_VIDEO_DECODER_HISTOGRAM.

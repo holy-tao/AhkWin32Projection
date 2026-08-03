@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IComponentTypes.ahk
+#Include .\ILocator.ahk
+#Include .\ITuneRequest.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\System\Com\IEnumGUID.ahk
 #Include ..\..\..\System\Com\IEnumMoniker.ahk
-#Include .\ITuneRequest.ahk
-#Include .\IComponentTypes.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
-#Include .\ILocator.ahk
 
 /**
  * The ITuningSpace interface provides the common functionality for all network-specific tuning spaces.

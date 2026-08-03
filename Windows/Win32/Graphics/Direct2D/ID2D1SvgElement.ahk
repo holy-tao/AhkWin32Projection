@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\D2D1_SVG_ATTRIBUTE_POD_TYPE.ahk
 #Include .\D2D1_SVG_ATTRIBUTE_STRING_TYPE.ahk
-#Include .\ID2D1SvgDocument.ahk
 #Include .\ID2D1Resource.ahk
-#Include ..\..\..\..\Guid.ahk
 #Include .\ID2D1SvgAttribute.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Foundation\BOOL.ahk
+#Include .\ID2D1SvgDocument.ahk
 
 /**
  * Interface for all SVG elements.

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12StateObject.ahk
-#Include .\D3D12_PROTECTED_RESOURCE_SESSION_DESC1.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D3D12_STATE_OBJECT_DESC.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3D12_PROTECTED_RESOURCE_SESSION_DESC1.ahk
+#Include .\D3D12_STATE_OBJECT_DESC.ahk
 #Include .\ID3D12Device6.ahk
+#Include .\ID3D12StateObject.ahk
 
 /**
  * Represents a virtual adapter. This interface extends [ID3D12Device6](../d3d12/nn-d3d12-id3d12device6.md).

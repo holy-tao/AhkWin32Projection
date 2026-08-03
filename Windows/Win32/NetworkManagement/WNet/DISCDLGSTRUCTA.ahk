@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include .\DISCDLGSTRUCT_FLAGS.ahk
 #Include ..\..\Foundation\PSTR.ahk
+#Include .\DISCDLGSTRUCT_FLAGS.ahk
 
 /**
  * Used in the WNetDisconnectDialog1 function. The structure contains required information for the disconnect attempt. (ANSI)

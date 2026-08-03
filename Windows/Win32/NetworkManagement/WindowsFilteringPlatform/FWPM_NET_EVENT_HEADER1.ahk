@@ -3,10 +3,10 @@
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\FWP_AF.ahk
 #Include .\FWP_BYTE_ARRAY16.ahk
-#Include ..\..\Security\SID.ahk
-#Include .\FWP_BYTE_BLOB.ahk
 #Include .\FWP_BYTE_ARRAY6.ahk
+#Include .\FWP_BYTE_BLOB.ahk
 #Include .\FWP_IP_VERSION.ahk
+#Include ..\..\Security\SID.ahk
 
 /**
  * Information common to all events. Reserved.

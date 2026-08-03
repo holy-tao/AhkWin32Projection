@@ -2,9 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IEnumSTATPROPSETSTG.ahk
-#Include ..\IUnknown.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\IUnknown.ahk
+#Include .\IEnumSTATPROPSETSTG.ahk
 #Include .\IPropertyStorage.ahk
 
 /**

@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\KSNODE_CREATE.ahk
-#Include ..\MediaFoundation\AM_MEDIA_TYPE.ahk
-#Include ..\..\Foundation\DEVPROPKEY.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\KSMULTIPLE_ITEM.ahk
-#Include .\KSDATAFORMAT.ahk
-#Include .\KSPIN_CONNECT.ahk
-#Include .\KSCLOCK_CREATE.ahk
+#Include ..\..\Foundation\DEVPROPKEY.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include .\KSALLOCATOR_FRAMING.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\KSALLOCATOR_FRAMING.ahk
+#Include .\KSCLOCK_CREATE.ahk
+#Include .\KSDATAFORMAT.ahk
+#Include .\KSMULTIPLE_ITEM.ahk
+#Include .\KSNODE_CREATE.ahk
+#Include .\KSPIN_CONNECT.ahk
+#Include ..\MediaFoundation\AM_MEDIA_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

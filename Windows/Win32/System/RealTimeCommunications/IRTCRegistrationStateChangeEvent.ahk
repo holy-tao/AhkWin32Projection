@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRTCProfile.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\RTC_REGISTRATION_STATE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\IRTCProfile.ahk
+#Include .\RTC_REGISTRATION_STATE.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

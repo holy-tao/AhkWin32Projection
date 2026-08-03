@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
-#Include .\RASENTRY_DIAL_MODE.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\RASIPADDR.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include .\IKEV2_ID_PAYLOAD_TYPE.ahk
+#Include .\RASENTRY_DIAL_MODE.ahk
+#Include .\RASIPADDR.ahk
+#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras

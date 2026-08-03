@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12VideoDecoderHeap.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID3D12VideoDecoderHeap.ahk
 
 /**
  * The ID3D12VideoDecoderHeap1 interface (d3d12video.h) inherits from ID3D12VideoDecoderHeap and introduces support for protected resources.

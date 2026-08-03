@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\SAFEARRAY.ahk
-#Include .\IFsrmPipelineModuleImplementation.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IFsrmCollection.ahk
+#Include .\IFsrmPipelineModuleImplementation.ahk
 #Include .\IFsrmPropertyBag.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * Classifier modules implement this interface. FSRM calls the module's implementation when it runs classification.

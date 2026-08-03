@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IWSDiscoveredService.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Is implemented by the client program to receive callback notifications from IWSDiscoveryProvider.

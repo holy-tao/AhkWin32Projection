@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\SysmonDataType.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.System.Performance

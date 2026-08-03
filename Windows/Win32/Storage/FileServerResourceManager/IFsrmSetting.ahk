@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\FsrmActionType.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\FsrmActionType.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Used to configure FSRM.

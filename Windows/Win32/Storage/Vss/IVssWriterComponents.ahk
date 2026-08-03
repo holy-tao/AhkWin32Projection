@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IVssComponent.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IVssComponent.ahk
 
 /**
  * Contains methods used to obtain and modify component information.

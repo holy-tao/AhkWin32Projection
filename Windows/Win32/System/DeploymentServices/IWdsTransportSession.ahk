@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IWdsTransportContent.ahk
-#Include .\IWdsTransportCollection.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\IWdsTransportCollection.ahk
+#Include .\IWdsTransportContent.ahk
 
 /**
  * Represents an active transport session on the WDS transport server.

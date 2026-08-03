@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IWCContextMenuCallback interface is called by a Failover Cluster Administrator extension to add items to a Failover Cluster Administrator context menu.

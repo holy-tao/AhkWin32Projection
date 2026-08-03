@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\PRINTER_HANDLE.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\Gdi\DEVMODEA.ahk
-#Include .\SHIMOPTS.ahk
 #Include ..\..\Data\Xml\MsXml\IXMLDOMDocument2.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Gdi\DEVMODEA.ahk
+#Include .\PRINTER_HANDLE.ahk
+#Include .\SHIMOPTS.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

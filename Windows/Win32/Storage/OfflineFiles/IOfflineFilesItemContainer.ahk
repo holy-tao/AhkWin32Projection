@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IOfflineFilesItemFilter.ahk
-#Include .\IEnumOfflineFilesItems.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IEnumOfflineFilesItems.ahk
+#Include .\IOfflineFilesItemFilter.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Used to access item enumeration functionality in the Offline Files cache.

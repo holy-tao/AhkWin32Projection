@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IMFMediaEngineSrcElements.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFMediaEngineSrcElements.ahk
 
 /**
  * Extends the IMFMediaEngineSrcElements interface to provide additional capabilities.

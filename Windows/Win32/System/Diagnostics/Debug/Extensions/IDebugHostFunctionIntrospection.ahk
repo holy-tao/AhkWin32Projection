@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IDebugHostSymbolEnumerator.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
-#Include .\Location.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 #Include .\IDebugHostFunctionLocalDetailsEnumerator.ahk
-#Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include .\IDebugHostSymbolEnumerator.ahk
+#Include .\Location.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

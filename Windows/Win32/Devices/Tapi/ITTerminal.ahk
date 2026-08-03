@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\TERMINAL_DIRECTION.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include .\TERMINAL_STATE.ahk
 #Include .\TERMINAL_TYPE.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITTerminal interface is the base interface for a Terminal object.

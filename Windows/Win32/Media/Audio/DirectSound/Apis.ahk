@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IDirectSound8.ahk
-#Include .\IDirectSound.ahk
-#Include .\DSCBUFFERDESC.ahk
-#Include .\DSBUFFERDESC.ahk
-#Include .\IDirectSoundCapture.ahk
-#Include .\IDirectSoundFullDuplex.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\HWND.ahk
-#Include .\IDirectSoundCaptureBuffer8.ahk
-#Include .\IDirectSoundBuffer8.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include .\DSBUFFERDESC.ahk
+#Include .\DSCBUFFERDESC.ahk
+#Include .\IDirectSound.ahk
+#Include .\IDirectSound8.ahk
+#Include .\IDirectSoundBuffer8.ahk
+#Include .\IDirectSoundCapture.ahk
+#Include .\IDirectSoundCaptureBuffer8.ahk
+#Include .\IDirectSoundFullDuplex.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**

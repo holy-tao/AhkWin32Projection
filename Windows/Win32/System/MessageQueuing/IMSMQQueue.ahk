@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IDispatch.ahk
 #Include .\IMSMQEvent.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include .\IMSMQQueueInfo.ahk
 #Include .\IMSMQMessage.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMSMQQueueInfo.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing

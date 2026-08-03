@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include .\AGENTHANDLER_EVENT.ahk
 #Include .\ITAgentHandler.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITAgentHandlerEvent interface (tapi3cc.h) contains methods that retrieve the description of agent handler events.

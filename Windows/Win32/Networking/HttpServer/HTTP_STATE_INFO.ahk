@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_PROPERTY_FLAGS.ahk
 #Include .\HTTP_ENABLED_STATE.ahk
+#Include .\HTTP_PROPERTY_FLAGS.ahk
 
 /**
  * Used to enable or disable a Server Session or URL Group.

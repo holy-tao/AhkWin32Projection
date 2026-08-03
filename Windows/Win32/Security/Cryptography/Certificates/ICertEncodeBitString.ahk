@@ -2,8 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Provides methods for handling bit strings used in certificate extensions.

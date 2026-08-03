@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\MBN_PROVIDER.ahk
 #Include .\MBN_CELLULAR_CLASS.ahk
+#Include .\MBN_PROVIDER.ahk
 
 /**
  * The MBN_PROVIDER2 structure represents a network service provider. It is used by many of the provider-specific methods of the IMbnMultiCarrier interface and provides an extension to MBN_PROVIDER to support multi-carrier.

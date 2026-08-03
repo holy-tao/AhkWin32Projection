@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IPersistFolder.ahk
-#Include Common\ITEMIDLIST.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include Common\ITEMIDLIST.ahk
+#Include .\IPersistFolder.ahk
 
 /**
  * Exposes methods that obtain information from Shell folder objects.

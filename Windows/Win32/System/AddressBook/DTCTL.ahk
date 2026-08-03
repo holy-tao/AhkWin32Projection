@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DTBLLBX.ahk
+#Include .\DTBLBUTTON.ahk
+#Include .\DTBLCHECKBOX.ahk
+#Include .\DTBLCOMBOBOX.ahk
 #Include .\DTBLDDLBX.ahk
-#Include .\DTBLMVLISTBOX.ahk
 #Include .\DTBLEDIT.ahk
 #Include .\DTBLGROUPBOX.ahk
-#Include .\DTBLCOMBOBOX.ahk
-#Include .\DTBLPAGE.ahk
-#Include .\DTBLMVDDLBX.ahk
 #Include .\DTBLLABEL.ahk
-#Include .\DTBLCHECKBOX.ahk
+#Include .\DTBLLBX.ahk
+#Include .\DTBLMVDDLBX.ahk
+#Include .\DTBLMVLISTBOX.ahk
+#Include .\DTBLPAGE.ahk
 #Include .\DTBLRADIOBUTTON.ahk
-#Include .\DTBLBUTTON.ahk
 
 /**
  * Describes a control that will be used in a dialog box built from a display table.

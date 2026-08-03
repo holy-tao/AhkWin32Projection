@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidStreamBufferSinkEvent3.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IMSVidStreamBufferSinkEvent3.ahk
 
 /**
  * The IMSVidStreamBufferSinkEvent4 interface receives events from the MSVidStreamBufferSink object.

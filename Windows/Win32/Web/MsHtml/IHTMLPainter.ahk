@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\HTML_PAINTER_INFO.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Foundation\SIZE.ahk
 #Include ..\..\Graphics\Gdi\HDC.ahk
-#Include ..\..\Foundation\POINT.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\HTML_PAINTER_INFO.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

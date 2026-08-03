@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Use the IEnumBackgroundCopyGroups interface to enumerate the list of groups in the download queue. To get an IEnumBackgroundCopyGroups interface pointer, call the IBackgroundCopyQMgr::EnumGroups method.

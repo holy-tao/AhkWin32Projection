@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\System\Com\IDataObject.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Ole\IDropTarget.ahk
 #Include ..\..\System\Ole\IOleCommandTarget.ahk
-#Include ..\..\UI\WindowsAndMessaging\MSG.ahk
-#Include ..\..\System\Ole\IOleInPlaceFrame.ahk
-#Include ..\..\System\Com\IDataObject.ahk
-#Include ..\..\Foundation\POINT.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Ole\IOleInPlaceActiveObject.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include .\DOCHOSTUIINFO.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Ole\IOleInPlaceFrame.ahk
 #Include ..\..\System\Ole\IOleInPlaceUIWindow.ahk
+#Include ..\..\UI\WindowsAndMessaging\MSG.ahk
+#Include .\DOCHOSTUIINFO.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

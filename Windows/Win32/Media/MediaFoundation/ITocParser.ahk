@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\TOC_POS_TYPE.ahk
-#Include .\ITocCollection.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IToc.ahk
+#Include .\ITocCollection.ahk
+#Include .\TOC_POS_TYPE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The ITocParser interface represents a TOC Parser object. It provides methods for storing tables of contents in a video file and retrieving tables of contents from a video file.
@@ -72,7 +72,7 @@ class ITocParser extends IUnknown {
 
     /**
      * The GetTocCount method retrieves the number of tables of contents, of a specified position type, in the TOC Parser object.
-     * @param {TOC_POS_TYPE} enumTocPosType 
+     * @param {TOC_POS_TYPE} enumTocPosType A member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmcodecdsp/ne-wmcodecdsp-toc_pos_type">TOC_POS_TYPE</a> enumeration that specifies the <a href="https://docs.microsoft.com/windows/desktop/medfound/the-position-type-of-a-table-of-contents">position type</a> of the tables of contents to be counted.
      * @param {Pointer<Integer>} pdwTocCount Pointer to a <b>DWORD</b> that receives the number of tables of contents.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -104,7 +104,7 @@ class ITocParser extends IUnknown {
 
     /**
      * The GetTocByIndex method retrieves a table of contents, specified by an index, from the TOC Parser object.
-     * @param {TOC_POS_TYPE} enumTocPosType 
+     * @param {TOC_POS_TYPE} enumTocPosType A member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmcodecdsp/ne-wmcodecdsp-toc_pos_type">TOC_POS_TYPE</a> enumeration that specifies the <a href="https://docs.microsoft.com/windows/desktop/medfound/the-position-type-of-a-table-of-contents">position type</a> of the table of contents to be retrieved.
      * @param {Integer} dwTocIndex The index of the table of contents to be retrieved.
      * @returns {IToc} Pointer to a variable that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmcodecdsp/nn-wmcodecdsp-itoc">IToc</a> interface that represents the retrieved table of contents.
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocparser-gettocbyindex
@@ -118,7 +118,7 @@ class ITocParser extends IUnknown {
      * The GetTocByType retrieves all tables of contents of a specified type from the TOC Parser object.
      * @remarks
      * You might want to design several different type of tables of contents. In that case, you can distinguish between types by creating a <b>GUID</b> that represents each type. You can identify a table of contents as a particular type by setting the <b>guidType</b> member of a <a href="https://docs.microsoft.com/windows/desktop/api/wmcodecdsp/ns-wmcodecdsp-toc_descriptor">TOC_DESCRIPTOR</a> structure and then passing the <b>TOC_DESCRIPTOR</b> structure to <a href="https://docs.microsoft.com/windows/desktop/api/wmcodecdsp/nf-wmcodecdsp-itoc-setdescriptor">IToc::SetDescriptor</a>.
-     * @param {TOC_POS_TYPE} enumTocPosType 
+     * @param {TOC_POS_TYPE} enumTocPosType A member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmcodecdsp/ne-wmcodecdsp-toc_pos_type">TOC_POS_TYPE</a> enumeration that specifies the <a href="https://docs.microsoft.com/windows/desktop/medfound/the-position-type-of-a-table-of-contents">position type</a> of the table of contents to be retrieved.
      * @param {Guid} guidTocType A globally unique identifier (<b>GUID</b>) that specifies the type of table of contents to retrieve. See Remarks.
      * @returns {ITocCollection} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmcodecdsp/nn-wmcodecdsp-itoccollection">ITocCollection</a> interface that represents the collection of retrieved tables of contents.
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocparser-gettocbytype
@@ -130,7 +130,7 @@ class ITocParser extends IUnknown {
 
     /**
      * The AddToc method adds a table of contents to the TOC Parser object and assigns an index to the added table of contents.
-     * @param {TOC_POS_TYPE} enumTocPosType 
+     * @param {TOC_POS_TYPE} enumTocPosType A member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmcodecdsp/ne-wmcodecdsp-toc_pos_type">TOC_POS_TYPE</a> enumeration that specifies the <a href="https://docs.microsoft.com/windows/desktop/medfound/the-position-type-of-a-table-of-contents">position type</a> of the table of contents to be added.
      * @param {IToc} pToc Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmcodecdsp/nn-wmcodecdsp-itoc">IToc</a> interface that represents the table of contents to be added.
      * @param {Pointer<Integer>} pdwTocIndex Pointer to a <b>DWORD</b> that receives the index of the added table of contents.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -163,7 +163,7 @@ class ITocParser extends IUnknown {
 
     /**
      * The RemoveTocByIndex method removes a table of contents, specified by an index, from the TOC Parser object.
-     * @param {TOC_POS_TYPE} enumTocPosType 
+     * @param {TOC_POS_TYPE} enumTocPosType A member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmcodecdsp/ne-wmcodecdsp-toc_pos_type">TOC_POS_TYPE</a> enumeration that specifies the <a href="https://docs.microsoft.com/windows/desktop/medfound/the-position-type-of-a-table-of-contents">position type</a> of the table of contents to be removed.
      * @param {Integer} dwTocIndex The index of the table of contents to be removed.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -195,7 +195,7 @@ class ITocParser extends IUnknown {
      * The RemoveTocByType method removes all tables of contents of a specified type from the TOC Parser object.
      * @remarks
      * You might want to design several different type of tables of contents. In that case, you can distinguish between types by creating a <b>GUID</b> that represents each type. You can identify a table of contents as a particular type by setting the <b>guidType</b> member of a <a href="https://docs.microsoft.com/windows/desktop/api/wmcodecdsp/ns-wmcodecdsp-toc_descriptor">TOC_DESCRIPTOR</a> structure and then passing the <b>TOC_DESCRIPTOR</b> structure to <a href="https://docs.microsoft.com/windows/desktop/api/wmcodecdsp/nf-wmcodecdsp-itoc-setdescriptor">IToc::SetDescriptor</a>.
-     * @param {TOC_POS_TYPE} enumTocPosType 
+     * @param {TOC_POS_TYPE} enumTocPosType A member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmcodecdsp/ne-wmcodecdsp-toc_pos_type">TOC_POS_TYPE</a> enumeration that specifies the <a href="https://docs.microsoft.com/windows/desktop/medfound/the-position-type-of-a-table-of-contents">position type</a> of the tables of contents to be removed.
      * @param {Guid} guidTocType A globally unique identifier (<b>GUID</b>) that specifies the type of table of contents to removed. See Remarks.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 

@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DWRITE_SCRIPT_ANALYSIS.ahk
-#Include .\DWRITE_GLYPH_OFFSET.ahk
-#Include .\IDWriteFontFace.ahk
-#Include .\DWRITE_JUSTIFICATION_OPPORTUNITY.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\DWRITE_SCRIPT_PROPERTIES.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\IDWriteTextAnalysisSource1.ahk
-#Include .\DWRITE_MATRIX.ahk
-#Include .\IDWriteTextAnalysisSink1.ahk
-#Include .\IDWriteTextAnalyzer.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\DWRITE_SHAPING_GLYPH_PROPERTIES.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DWRITE_BASELINE.ahk
+#Include .\DWRITE_GLYPH_OFFSET.ahk
 #Include .\DWRITE_GLYPH_ORIENTATION_ANGLE.ahk
+#Include .\DWRITE_JUSTIFICATION_OPPORTUNITY.ahk
+#Include .\DWRITE_MATRIX.ahk
+#Include .\DWRITE_SCRIPT_ANALYSIS.ahk
+#Include .\DWRITE_SCRIPT_PROPERTIES.ahk
+#Include .\DWRITE_SHAPING_GLYPH_PROPERTIES.ahk
+#Include .\IDWriteFontFace.ahk
+#Include .\IDWriteTextAnalysisSink1.ahk
+#Include .\IDWriteTextAnalysisSource1.ahk
+#Include .\IDWriteTextAnalyzer.ahk
 
 /**
  * Analyzes various text properties for complex script processing. (IDWriteTextAnalyzer1)

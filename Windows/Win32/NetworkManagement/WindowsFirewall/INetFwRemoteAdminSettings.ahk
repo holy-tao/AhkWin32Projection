@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\NET_FW_SCOPE.ahk
-#Include .\NET_FW_IP_VERSION.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\NET_FW_IP_VERSION.ahk
+#Include .\NET_FW_SCOPE.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The INetFwRemoteAdminSettings interface provides access to the settings that control remote administration.

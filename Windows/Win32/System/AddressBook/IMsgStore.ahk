@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMessage.ahk
-#Include .\IMAPIAdviseSink.ahk
-#Include .\IMAPITable.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include .\ENTRYID.ahk
-#Include .\NOTIFICATION.ahk
+#Include .\IMAPIAdviseSink.ahk
 #Include .\IMAPIProp.ahk
+#Include .\IMAPITable.ahk
+#Include .\IMessage.ahk
+#Include .\NOTIFICATION.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**

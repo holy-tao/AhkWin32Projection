@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWPM_SUBLAYER_ENUM_TEMPLATE0.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\FWPM_SUBLAYER_ENUM_TEMPLATE0.ahk
 #Include .\FWPM_SUBSCRIPTION_FLAGS.ahk
 
 /**

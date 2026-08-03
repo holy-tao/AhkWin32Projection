@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_BITSTREAM_ENCRYPTION_TYPE.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_BITSTREAM_ENCRYPTION_TYPE.ahk
 #Include .\D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE.ahk
 
 /**

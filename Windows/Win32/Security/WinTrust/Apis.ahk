@@ -1,24 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\CRYPT_PROVIDER_DATA.ahk
-#Include .\CRYPT_REGISTER_ACTIONID.ahk
-#Include .\WINTRUST_GET_DEFAULT_FOR_USAGE_ACTION.ahk
-#Include .\CRYPT_PROVIDER_DEFUSAGE.ahk
-#Include .\WINTRUST_DATA.ahk
-#Include .\CRYPT_PROVIDER_REGDEFUSAGE.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\CRYPT_PROVIDER_FUNCTIONS.ahk
-#Include .\CRYPT_PROVIDER_SGNR.ahk
-#Include ..\Cryptography\CERT_INFO.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\WINTRUST_POLICY_FLAGS.ahk
-#Include .\CRYPT_PROVIDER_PRIVDATA.ahk
-#Include .\CRYPT_PROVIDER_CERT.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\PSTR.ahk
+#Include ..\Cryptography\CERT_INFO.ahk
+#Include .\CRYPT_PROVIDER_CERT.ahk
+#Include .\CRYPT_PROVIDER_DATA.ahk
+#Include .\CRYPT_PROVIDER_DEFUSAGE.ahk
+#Include .\CRYPT_PROVIDER_FUNCTIONS.ahk
+#Include .\CRYPT_PROVIDER_PRIVDATA.ahk
+#Include .\CRYPT_PROVIDER_REGDEFUSAGE.ahk
+#Include .\CRYPT_PROVIDER_SGNR.ahk
+#Include .\CRYPT_REGISTER_ACTIONID.ahk
+#Include .\WINTRUST_DATA.ahk
+#Include .\WINTRUST_GET_DEFAULT_FOR_USAGE_ACTION.ahk
+#Include .\WINTRUST_POLICY_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.Security.WinTrust

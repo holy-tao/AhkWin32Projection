@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\IFrameworkInputPaneHandler.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IFrameworkInputPaneHandler.ahk
 
 /**
  * Provides methods that enable apps to be informed of state changes and location for the input pane.

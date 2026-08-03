@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMAPIProp.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IAttach.ahk
-#Include .\IMAPITable.ahk
-#Include .\ADRLIST.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ADRLIST.ahk
+#Include .\IAttach.ahk
 #Include .\IMAPIProgress.ahk
+#Include .\IMAPIProp.ahk
+#Include .\IMAPITable.ahk
 
 /**
  * Manages messages, attachments, and recipients. Read-only properties are set by the provider when a client calls a message's IMAPIProp::SaveChanges method.

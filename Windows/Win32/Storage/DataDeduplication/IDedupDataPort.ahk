@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DedupDataPortVolumeStatus.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DedupDataPortRequestStatus.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\DedupStreamEntry.ahk
+#Include .\DedupChunk.ahk
+#Include .\DedupDataPortRequestStatus.ahk
+#Include .\DedupDataPortVolumeStatus.ahk
 #Include .\DedupHash.ahk
 #Include .\DedupStream.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\DedupStreamEntry.ahk
 #Include ..\..\System\Com\IStream.ahk
-#Include .\DedupChunk.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Storage.DataDeduplication

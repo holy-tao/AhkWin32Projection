@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\SimilarityData.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IFindSimilarResults.ahk
+#Include .\IRdcFileWriter.ahk
+#Include .\ISimilarityReportProgress.ahk
 #Include .\ISimilarityTraitsMapping.ahk
 #Include .\RdcCreatedTables.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\IRdcFileWriter.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include .\IFindSimilarResults.ahk
+#Include .\SimilarityData.ahk
 #Include .\SimilarityFileId.ahk
-#Include .\ISimilarityReportProgress.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**

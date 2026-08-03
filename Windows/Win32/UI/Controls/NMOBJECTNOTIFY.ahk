@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\NMHDR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\NMHDR.ahk
 
 /**
  * Contains information used with the TBN_GETOBJECT, TCN_GETOBJECT, and PSN_GETOBJECT notification codes.

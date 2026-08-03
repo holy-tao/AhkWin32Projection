@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\DEVICEDIALOGDATA2.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\UI\WindowsAndMessaging\HICON.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWiaUIExtension2 interface provides methods that replace the default, system-supplied user interface with a custom user interface, and that provide a custom device icon.

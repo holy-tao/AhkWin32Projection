@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\STORAGE_DEPENDENCY_INFO_TYPE_1.ahk
-#Include .\VIRTUAL_STORAGE_TYPE.ahk
-#Include .\STORAGE_DEPENDENCY_INFO_VERSION.ahk
-#Include .\STORAGE_DEPENDENCY_INFO_TYPE_2.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DEPENDENT_DISK_FLAG.ahk
+#Include .\STORAGE_DEPENDENCY_INFO_TYPE_1.ahk
+#Include .\STORAGE_DEPENDENCY_INFO_TYPE_2.ahk
+#Include .\STORAGE_DEPENDENCY_INFO_VERSION.ahk
+#Include .\VIRTUAL_STORAGE_TYPE.ahk
 
 /**
  * Contains virtual hard disk (VHD) storage dependency information.

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IX509PolicyServerUrl.ahk
 #Include .\PolicyServerUrlFlags.ahk
+#Include .\X509CertificateEnrollmentContext.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IX509PolicyServerUrl.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
-#Include .\X509CertificateEnrollmentContext.ahk
 
 /**
  * The IX509PolicyServerListManager interface defines the following methods and properties that enable you to manage a collection of IX509PolicyServerUrl objects.

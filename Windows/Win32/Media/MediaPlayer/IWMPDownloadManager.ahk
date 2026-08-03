@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IWMPDownloadCollection.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWMPDownloadCollection.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer

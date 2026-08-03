@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IORING_VERSION.ahk
 #Include .\IORING_FEATURE_FLAGS.ahk
+#Include .\IORING_VERSION.ahk
 
 /**
  * Represents the IORING API capabilities.

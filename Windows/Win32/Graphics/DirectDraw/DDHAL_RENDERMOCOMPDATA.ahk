@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DDMOTIONCOMP_LCL.ahk
-#Include .\DDMCBUFFERINFO.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\DDMCBUFFERINFO.ahk
+#Include .\DDRAWI_DDMOTIONCOMP_LCL.ahk
 #Include .\DDRAWI_DIRECTDRAW_LCL.ahk
 
 /**

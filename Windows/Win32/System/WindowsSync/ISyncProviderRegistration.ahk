@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\IEnumSyncProviderConfigUIInfos.ahk
 #Include .\IEnumSyncProviderInfos.ahk
+#Include .\IRegisteredSyncProvider.ahk
 #Include .\ISyncProviderConfigUI.ahk
+#Include .\ISyncProviderConfigUIInfo.ahk
 #Include .\ISyncProviderInfo.ahk
+#Include .\ISyncRegistrationChange.ahk
 #Include .\SyncProviderConfigUIConfiguration.ahk
 #Include .\SyncProviderConfiguration.ahk
-#Include .\ISyncProviderConfigUIInfo.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\IRegisteredSyncProvider.ahk
-#Include .\IEnumSyncProviderConfigUIInfos.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ISyncRegistrationChange.ahk
 
 /**
  * Represents synchronization provider registration.

@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WINBIO_ENGINE_INTERFACE.ahk
 #Include .\WINBIO_FRAMEWORK_INTERFACE.ahk
-#Include .\WINIBIO_ENGINE_CONTEXT.ahk
-#Include .\WINIBIO_SENSOR_CONTEXT.ahk
 #Include .\WINBIO_SENSOR_INTERFACE.ahk
 #Include .\WINBIO_STORAGE_INTERFACE.ahk
+#Include .\WINIBIO_ENGINE_CONTEXT.ahk
+#Include .\WINIBIO_SENSOR_CONTEXT.ahk
 #Include .\WINIBIO_STORAGE_CONTEXT.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 

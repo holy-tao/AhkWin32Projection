@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\StructuredStorage\IPropertyBag2.ahk
-#Include .\IWICMetadataWriter.ahk
-#Include .\IWICMetadataQueryReader.ahk
-#Include .\IWICMetadataQueryWriter.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\IWICMetadataBlockWriter.ahk
 #Include .\IWICImagingFactory.ahk
 #Include .\IWICMetadataBlockReader.ahk
+#Include .\IWICMetadataBlockWriter.ahk
+#Include .\IWICMetadataQueryReader.ahk
+#Include .\IWICMetadataQueryWriter.ahk
 #Include .\IWICMetadataReader.ahk
+#Include .\IWICMetadataWriter.ahk
 #Include ..\..\System\Com\IStream.ahk
+#Include ..\..\System\Com\StructuredStorage\IPropertyBag2.ahk
 #Include ..\..\System\Com\StructuredStorage\PROPBAG2.ahk
 
 /**

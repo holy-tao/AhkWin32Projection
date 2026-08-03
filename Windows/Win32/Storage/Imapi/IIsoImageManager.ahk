@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\IStream.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Use this interface to verify if an existing .iso file contains a valid file system for burning.

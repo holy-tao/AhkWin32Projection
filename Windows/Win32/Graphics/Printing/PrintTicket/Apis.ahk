@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
-#Include .\EDefaultDevmodeType.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\HPTPROVIDER.ahk
-#Include .\EPrintTicketScope.ahk
-#Include ..\..\..\System\Com\IStream.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\Gdi\DEVMODEA.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\EDefaultDevmodeType.ahk
+#Include .\EPrintTicketScope.ahk
+#Include .\HPTPROVIDER.ahk
+#Include ..\..\..\System\Com\IStream.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing.PrintTicket

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include .\TBBUTTON.ahk
-#Include .\NMHDR.ahk
 #Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include .\NMHDR.ahk
+#Include .\TBBUTTON.ahk
 
 /**
  * Contains information used to process toolbar notification codes. This structure supersedes the TBNOTIFY structure. (ANSI)

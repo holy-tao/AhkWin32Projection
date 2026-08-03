@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ZONEATTRIBUTES.ahk
-#Include .\IInternetZoneManagerEx.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IInternetZoneManagerEx.ahk
+#Include .\ZONEATTRIBUTES.ahk
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon

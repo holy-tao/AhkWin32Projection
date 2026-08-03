@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\DIACTIONFORMATW.ahk
 #Include .\DICONFIGUREDEVICESPARAMSW.ahk
 #Include .\IDirectInputDevice8W.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\DIACTIONFORMATW.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**

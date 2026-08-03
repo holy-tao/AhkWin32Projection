@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\ContextInfo.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ContextInfo.ahk
 
 /**
  * Provides additional information about an object's context, supplementing the information that is available through the ContextInfo interface.

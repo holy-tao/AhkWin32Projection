@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IShellLinkDual.ahk
-#Include .\FolderItem.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\FolderItem.ahk
+#Include .\IShellLinkDual.ahk
 
 /**
  * Extends the ShellLinkObject object and supports one additional property.

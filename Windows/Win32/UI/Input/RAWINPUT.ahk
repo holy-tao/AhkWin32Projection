@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\WPARAM.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include .\RAWKEYBOARD.ahk
-#Include .\RAWHID.ahk
+#Include ..\..\Foundation\WPARAM.ahk
 #Include .\MOUSE_STATE.ahk
-#Include .\RAWMOUSE.ahk
+#Include .\RAWHID.ahk
 #Include .\RAWINPUTHEADER.ahk
+#Include .\RAWKEYBOARD.ahk
+#Include .\RAWMOUSE.ahk
 
 /**
  * Contains the raw input from a device.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DRMID.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Used by DRMCreateBoundLicense to bind to a license.

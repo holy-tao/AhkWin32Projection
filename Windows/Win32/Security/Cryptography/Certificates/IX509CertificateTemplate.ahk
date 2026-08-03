@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\EnrollmentTemplateProperty.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\EnrollmentTemplateProperty.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 
 /**
  * The IX509CertificateTemplate interface represents a certificate request template. It can be used to initialize an IX509CertificateTemplateWritable interface.

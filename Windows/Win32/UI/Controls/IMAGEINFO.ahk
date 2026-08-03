@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
  * Contains information about an image in an image list. This structure is used with the IImageList::GetImageInfo function. (IMAGEINFO)

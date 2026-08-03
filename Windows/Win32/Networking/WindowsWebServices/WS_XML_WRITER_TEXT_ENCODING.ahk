@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_CHARSET.ahk
 #Include .\WS_XML_WRITER_ENCODING.ahk
 #Include .\WS_XML_WRITER_ENCODING_TYPE.ahk
-#Include .\WS_CHARSET.ahk
 
 /**
  * Indicates that the reader should emit bytes as textual xml.

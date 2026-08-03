@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\ITrigger.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ITrigger.ahk
 
 /**
  * Represents a trigger that starts a task when a user logs on.

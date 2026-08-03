@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IMFSample.ahk
 #Include .\IMFCollection.ahk
+#Include .\IMFSample.ahk
 
 /**
  * Contains information about an output buffer for a Media Foundation transform. This structure is used in the IMFTransform::ProcessOutput method.

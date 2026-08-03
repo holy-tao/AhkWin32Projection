@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IRawElementProviderSimple.ahk
 
 /**

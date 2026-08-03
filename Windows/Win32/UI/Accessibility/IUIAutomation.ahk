@@ -1,32 +1,32 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\PropertyConditionFlags.ahk
-#Include .\UIA_PROPERTY_ID.ahk
-#Include .\IUIAutomationEventHandler.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IAccessible.ahk
 #Include .\IUIAutomationCacheRequest.ahk
-#Include .\TreeScope.ahk
-#Include .\IUIAutomationPropertyChangedEventHandler.ahk
-#Include .\IUIAutomationStructureChangedEventHandler.ahk
-#Include ..\..\Foundation\POINT.ahk
-#Include .\IUIAutomationProxyFactoryMapping.ahk
-#Include .\UIA_EVENT_ID.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\IUIAutomationFocusChangedEventHandler.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\IUIAutomationElement.ahk
-#Include .\IUIAutomationTreeWalker.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\..\System\Com\SAFEARRAY.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include .\IUIAutomationProxyFactoryEntry.ahk
-#Include .\UIA_PATTERN_ID.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IUIAutomationProxyFactory.ahk
 #Include .\IUIAutomationCondition.ahk
+#Include .\IUIAutomationElement.ahk
+#Include .\IUIAutomationEventHandler.ahk
+#Include .\IUIAutomationFocusChangedEventHandler.ahk
+#Include .\IUIAutomationPropertyChangedEventHandler.ahk
+#Include .\IUIAutomationProxyFactory.ahk
+#Include .\IUIAutomationProxyFactoryEntry.ahk
+#Include .\IUIAutomationProxyFactoryMapping.ahk
+#Include .\IUIAutomationStructureChangedEventHandler.ahk
+#Include .\IUIAutomationTreeWalker.ahk
+#Include .\PropertyConditionFlags.ahk
+#Include .\TreeScope.ahk
+#Include .\UIA_EVENT_ID.ahk
+#Include .\UIA_PATTERN_ID.ahk
+#Include .\UIA_PROPERTY_ID.ahk
 
 /**
  * Exposes methods that enable Microsoft UI Automation client applications to discover, access, and filter UI Automation elements.
@@ -451,7 +451,9 @@ class IUIAutomation extends IUnknown {
      * @param {VARIANT} value Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a></b>
      * 
      * The property value.
-     * @param {PropertyConditionFlags} flags 
+     * @param {PropertyConditionFlags} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-propertyconditionflags">PropertyConditionFlags</a></b>
+     * 
+     * The attributes of the condition. Use <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-propertyconditionflags">PropertyConditionFlags_IgnoreCase</a> to create a property condition that is not case-sensitive
      * @returns {IUIAutomationCondition} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>**</b>
      * 
      * Receives a pointer to the new condition.
@@ -606,7 +608,9 @@ class IUIAutomation extends IUnknown {
      * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the UI Automation element to associate with the event handler.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope</a></b>
+     * 
+     * The scope of events to be handled; that is, whether they are on the element itself, or on its ancestors and descendants.
      * @param {IUIAutomationCacheRequest} cacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
      * 
      * A pointer to a cache request, or <b>NULL</b> if no caching is wanted.
@@ -664,7 +668,9 @@ class IUIAutomation extends IUnknown {
      * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the UI Automation element associated with the event handler.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope</a></b>
+     * 
+     * The scope of events to be handled; that is, whether they are on the element itself, or on its ancestors and children.
      * @param {IUIAutomationCacheRequest} cacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
      * 
      * A pointer to a cache request, or <b>NULL</b> if no caching is wanted.
@@ -699,7 +705,9 @@ class IUIAutomation extends IUnknown {
      * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the UI Automation element associated with the event handler.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope</a></b>
+     * 
+     * The scope of events to be handled; that is, whether they are on the element itself, or on its ancestors and children.
      * @param {IUIAutomationCacheRequest} cacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
      * 
      * A pointer to a cache request, or <b>NULL</b> if no caching is wanted.
@@ -752,7 +760,9 @@ class IUIAutomation extends IUnknown {
      * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the UI Automation element associated with the event handler.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope</a></b>
+     * 
+     * The scope of events to be handled; that is, whether they are on the element itself, or on its ancestors and descendants.
      * @param {IUIAutomationCacheRequest} cacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
      * 
      * A pointer to a cache request, or <b>NULL</b> if no caching is wanted.

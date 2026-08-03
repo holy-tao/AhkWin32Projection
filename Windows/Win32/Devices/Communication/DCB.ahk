@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DCB_PARITY.ahk
-#Include ..\..\Foundation\CHAR.ahk
 #Include .\DCB_STOP_BITS.ahk
+#Include ..\..\Foundation\CHAR.ahk
 
 /**
  * Defines the control setting for a serial communications device.

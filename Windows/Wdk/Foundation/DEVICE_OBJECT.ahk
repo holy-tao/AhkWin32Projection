@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include .\DRIVER_OBJECT.ahk
 #Include .\DEVOBJ_EXTENSION.ahk
+#Include .\DRIVER_OBJECT.ahk
+#Include .\IRP.ahk
+#Include .\PIO_TIMER.ahk
 #Include .\VPB.ahk
 #Include ..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk
-#Include .\PIO_TIMER.ahk
-#Include .\DEVICE_OBJECT.ahk
-#Include .\IRP.ahk
 
 /**
  * @namespace Windows.Wdk.Foundation

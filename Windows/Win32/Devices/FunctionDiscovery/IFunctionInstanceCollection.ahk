@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IFunctionInstance.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a group of IFunctionInstance objects returned as the result of a query or get instance request.

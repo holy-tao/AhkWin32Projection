@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumItemIds.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\SYNC_FILTER_CHANGE.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\IEnumItemIds.ahk
 #Include .\ISyncKnowledge.ahk
+#Include .\SYNC_FILTER_CHANGE.ahk
 
 /**
  * @namespace Windows.Win32.System.WindowsSync

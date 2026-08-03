@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IVssAsync.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include ..\VirtualDiskService\VDS_LUN_INFORMATION.ahk
+#Include .\IVssAsync.ahk
 #Include .\IVssHardwareSnapshotProvider.ahk
 
 /**

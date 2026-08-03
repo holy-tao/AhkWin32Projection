@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontFace5.ahk
-#Include .\DWRITE_FONT_FAMILY_MODEL.ahk
-#Include .\IDWriteLocalizedStrings.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\DWRITE_FONT_FAMILY_MODEL.ahk
+#Include .\IDWriteFontFace5.ahk
+#Include .\IDWriteLocalizedStrings.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectWrite

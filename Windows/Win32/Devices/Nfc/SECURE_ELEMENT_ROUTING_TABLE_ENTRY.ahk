@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SECURE_ELEMENT_TECH_ROUTING_INFO.ahk
-#Include .\SECURE_ELEMENT_ROUTING_TYPE.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\SECURE_ELEMENT_PROTO_ROUTING_INFO.ahk
 #Include .\SECURE_ELEMENT_AID_ROUTING_INFO.ahk
+#Include .\SECURE_ELEMENT_PROTO_ROUTING_INFO.ahk
+#Include .\SECURE_ELEMENT_ROUTING_TYPE.ahk
+#Include .\SECURE_ELEMENT_TECH_ROUTING_INFO.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Nfc

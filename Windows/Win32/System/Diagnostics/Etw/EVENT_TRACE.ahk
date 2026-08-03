@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\EVENT_TRACE_HEADER.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\ETW_BUFFER_CONTEXT.ahk
+#Include .\EVENT_TRACE_HEADER.ahk
 
 /**
  * The EVENT_TRACE structure is used to deliver event information to an event trace consumer.

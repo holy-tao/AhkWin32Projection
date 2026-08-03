@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITransactionResourceAsync.ahk
-#Include .\ITransaction.ahk
-#Include .\XACTSTAT.ahk
-#Include .\ITransactionEnlistmentAsync.ahk
-#Include .\IResourceManager.ahk
-#Include .\XID.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include .\BOID.ahk
+#Include .\IResourceManager.ahk
+#Include .\ITransaction.ahk
+#Include .\ITransactionEnlistmentAsync.ahk
+#Include .\ITransactionResourceAsync.ahk
+#Include .\XACTSTAT.ahk
+#Include .\XID.ahk
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator

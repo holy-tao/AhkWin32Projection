@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFByteStream.ahk
-#Include .\IMFAttributes.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFAttributes.ahk
+#Include .\IMFByteStream.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Creates a proxy to a byte stream. (IMFByteStreamProxyClassFactory)

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\KS_H264VIDEOINFO.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\KSDATAFORMAT.ahk
+#Include .\KS_H264VIDEOINFO.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

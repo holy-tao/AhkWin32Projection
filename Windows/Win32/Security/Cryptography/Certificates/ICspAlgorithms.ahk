@@ -2,11 +2,11 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\ICspAlgorithm.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IObjectId.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\ICspAlgorithm.ahk
+#Include .\IObjectId.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * The ICspAlgorithms interface defines the following methods and properties that manage a collection of ICspAlgorithm objects.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DRT_DATA.ahk
 #Include .\DRT_MATCH_TYPE.ahk
 #Include .\DRT_REGISTRATION.ahk
-#Include .\DRT_DATA.ahk
 
 /**
  * DRT_SEARCH_RESULT.

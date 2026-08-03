@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDataObject.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\IComponent.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Com\IDataObject.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IComponent.ahk
 
 /**
  * The IPropertySheetProvider interface implements Windows property sheets as COM objects.

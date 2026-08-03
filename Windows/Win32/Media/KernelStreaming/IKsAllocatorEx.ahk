@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IKsAllocator.ahk
-#Include .\ALLOCATOR_PROPERTIES_EX.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\ALLOCATOR_PROPERTIES_EX.ahk
+#Include .\IKsAllocator.ahk
 #Include .\IKsPin.ahk
 
 /**

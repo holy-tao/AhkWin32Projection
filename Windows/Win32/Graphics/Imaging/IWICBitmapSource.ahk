@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IWICPalette.ahk
 #Include .\WICRect.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods that refers to a source from which pixels are retrieved, but cannot be written back to.

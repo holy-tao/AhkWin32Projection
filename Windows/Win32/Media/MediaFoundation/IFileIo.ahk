@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\FILE_ACCESSMODE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\SEEK_ORIGIN.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\FILE_OPENMODE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\FILE_ACCESSMODE.ahk
+#Include .\FILE_OPENMODE.ahk
+#Include .\SEEK_ORIGIN.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation

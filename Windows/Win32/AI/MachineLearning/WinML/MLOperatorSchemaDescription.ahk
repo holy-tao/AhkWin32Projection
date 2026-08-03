@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MLOperatorEdgeTypeConstraint.ahk
 #Include .\MLOperatorAttribute.ahk
-#Include .\MLOperatorSchemaEdgeDescription.ahk
 #Include .\MLOperatorAttributeNameValue.ahk
+#Include .\MLOperatorEdgeTypeConstraint.ahk
+#Include .\MLOperatorSchemaEdgeDescription.ahk
 #Include ..\..\..\Foundation\PSTR.ahk
 
 /**

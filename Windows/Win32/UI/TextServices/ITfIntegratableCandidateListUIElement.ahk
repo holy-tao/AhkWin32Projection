@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\TfIntegratableCandidateListSelectionStyle.ahk
-#Include ..\..\Foundation\WPARAM.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\LPARAM.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\WPARAM.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\TfIntegratableCandidateListSelectionStyle.ahk
 
 /**
  * Enables text services and Input Method Editors (IMEs) to adjust UI-less mode behavior.

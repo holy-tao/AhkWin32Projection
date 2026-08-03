@@ -2,12 +2,12 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\ObjectIdGroupId.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include .\AlgorithmFlags.ahk
 #Include .\CERTENROLL_OBJECTID.ahk
+#Include .\ObjectIdGroupId.ahk
 #Include .\ObjectIdPublicKeyFlags.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Represents an object identifier (OID).

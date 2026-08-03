@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include .\NMHDR.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include .\NMHDR.ahk
 
 /**
  * Contains information used to handle an RBN_SPLITTERDRAG notification code.

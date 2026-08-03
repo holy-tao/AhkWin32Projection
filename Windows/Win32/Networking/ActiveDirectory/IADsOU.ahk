@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IADs.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IADs.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * Used to manage organizationalUnit objects.

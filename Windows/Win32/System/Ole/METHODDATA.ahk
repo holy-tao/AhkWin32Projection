@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Com\CALLCONV.ahk
-#Include ..\Variant\VARENUM.ahk
 #Include .\PARAMDATA.ahk
+#Include ..\Variant\VARENUM.ahk
 
 /**
  * Describes a method or property.

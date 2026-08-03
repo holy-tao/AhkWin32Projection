@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\TP_CALLBACK_PRIORITY.ahk
 #Include .\PTP_CLEANUP_GROUP.ahk
 #Include .\PTP_POOL.ahk
+#Include .\TP_CALLBACK_PRIORITY.ahk
 
 /**
  * @namespace Windows.Win32.System.Threading

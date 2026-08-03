@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMediaSample.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMediaSample.ahk
 
 /**
  * The IMediaSample2 interface sets and retrieves properties on media samples.This interface inherits the IMediaSample interface.

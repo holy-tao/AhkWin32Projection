@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D3D_SHADER_CACHE_TARGET_FLAGS.ahk
-#Include ..\..\System\Services\SC_HANDLE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\D3D_SHADER_CACHE_APPLICATION_DESC.ahk
-#Include .\ID3DShaderCacheApplication.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\D3D_SHADER_CACHE_APPLICATION_DESC.ahk
 #Include .\D3D_SHADER_CACHE_COMPILER_PROPERTIES.ahk
+#Include .\D3D_SHADER_CACHE_TARGET_FLAGS.ahk
+#Include .\ID3DShaderCacheApplication.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Services\SC_HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D

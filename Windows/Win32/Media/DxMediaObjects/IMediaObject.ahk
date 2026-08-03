@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMediaBuffer.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\DMO_MEDIA_TYPE.ahk
 #Include .\DMO_OUTPUT_DATA_BUFFER.ahk
+#Include .\IMediaBuffer.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IMediaObject interface provides methods for manipulating a Microsoft DirectX Media Object (DMO).

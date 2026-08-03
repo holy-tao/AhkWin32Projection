@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\FolderItem.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell

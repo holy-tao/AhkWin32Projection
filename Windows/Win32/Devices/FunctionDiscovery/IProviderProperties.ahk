@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IFunctionInstance.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\PROPERTYKEY.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 
 /**
  * Is optionally implemented by discovery providers to directly create and manage their own property store.

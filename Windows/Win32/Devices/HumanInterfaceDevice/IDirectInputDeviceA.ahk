@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DIDEVCAPS.ahk
-#Include .\DIPROPHEADER.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\DIDEVICEINSTANCEA.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\DIDATAFORMAT.ahk
+#Include .\DIDEVCAPS.ahk
+#Include .\DIDEVICEINSTANCEA.ahk
 #Include .\DIDEVICEOBJECTDATA.ahk
 #Include .\DIDEVICEOBJECTINSTANCEA.ahk
+#Include .\DIPROPHEADER.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include .\DIDATAFORMAT.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice

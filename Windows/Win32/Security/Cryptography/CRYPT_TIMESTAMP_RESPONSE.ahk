@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\CRYPT_TIMESTAMP_RESPONSE_STATUS.ahk
 #Include .\CRYPT_BIT_BLOB.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\CRYPT_TIMESTAMP_RESPONSE_STATUS.ahk
 
 /**
  * Is used internally to encapsulate an Abstract Syntax Notation One (ASN.1) Distinguished Encoding Rules (DER) encoded response.

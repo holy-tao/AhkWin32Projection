@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\LVFINDINFOW.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\POINT.ahk
 #Include ..\..\Foundation\PWSTR.ahk
+#Include .\LVFINDINFOW.ahk
 #Include .\LVFINDINFOW_FLAGS.ahk
 #Include .\NMHDR.ahk
-#Include ..\..\Foundation\POINT.ahk
 
 /**
  * Contains information the owner needs to find items requested by a virtual list-view control. This structure is used with the LVN_ODFINDITEM notification code. (Unicode)

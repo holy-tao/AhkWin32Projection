@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DS_REPL_OP_TYPE.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\DS_REPL_OP_TYPE.ahk
 
 /**
  * The DS_REPL_OPW_BLOB structure describes a replication task currently executing or pending execution.

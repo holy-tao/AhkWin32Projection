@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods that create and destroy bands and specify their availability.

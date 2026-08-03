@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D3D11_RLDO_FLAGS.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ID3D11DeviceContext.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3D11_RLDO_FLAGS.ahk
+#Include .\ID3D11DeviceContext.ahk
 #Include ..\Dxgi\IDXGISwapChain.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * A debug interface controls debug settings, validates pipeline state and can only be used if the debug layer is turned on. (ID3D11Debug)

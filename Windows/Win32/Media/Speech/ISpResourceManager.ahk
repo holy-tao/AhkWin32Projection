@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\IServiceProvider.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IServiceProvider.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech

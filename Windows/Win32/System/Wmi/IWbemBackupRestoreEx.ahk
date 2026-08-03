@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWbemBackupRestore.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWbemBackupRestore.ahk
 
 /**
  * The IWbemBackupRestoreEx interface backs up and restores the contents of the repository.

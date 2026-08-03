@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IOleContainer.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IBindCtx.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Com\IBindCtx.ahk
+#Include .\IOleContainer.ahk
 
 /**
  * Used by item monikers when they are bound to the objects they identify.

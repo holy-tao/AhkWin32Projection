@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISCPSecureExchange.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\WMDMRIGHTS.ahk
-#Include .\IMDSPStorageGlobals.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IMDSPStorageGlobals.ahk
+#Include .\ISCPSecureExchange.ahk
+#Include .\WMDMRIGHTS.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The ISCPSecureQuery interface is queried by Windows Media Device Manager to determine ownership of secured content.

@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\NMHDR.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include .\NMHDR.ahk
 
 /**
  * Carries information used to describe and handle a DTN_WMKEYDOWN notification code. (Unicode)

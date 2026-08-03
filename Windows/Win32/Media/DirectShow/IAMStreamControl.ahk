@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\AM_STREAM_INFO.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\AM_STREAM_INFO.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IAMStreamControl interface controls individual streams on a filter.

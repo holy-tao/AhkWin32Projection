@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\MSCEPSetupProperty.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Defines functionality to install and uninstall a Network Device Enrollment Service (NDES) role on a Certificate Services computer.

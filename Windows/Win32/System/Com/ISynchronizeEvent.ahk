@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include .\ISynchronizeHandle.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ISynchronizeHandle.ahk
 
 /**
  * The ISynchronizeEvent (objidlbase.h) interface assigns an event handle to a synchronization object.

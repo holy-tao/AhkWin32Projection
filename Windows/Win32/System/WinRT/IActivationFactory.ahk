@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IInspectable.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IInspectable.ahk
 
 /**
  * Enables classes to be activated by the Windows Runtime.

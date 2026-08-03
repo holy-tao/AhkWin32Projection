@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\LPARAM.ahk
-#Include .\TVITEMEXW_CHILDREN.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include .\HTREEITEM.ahk
+#Include .\TVITEMEXW_CHILDREN.ahk
 #Include .\TVITEM_MASK.ahk
 
 /**

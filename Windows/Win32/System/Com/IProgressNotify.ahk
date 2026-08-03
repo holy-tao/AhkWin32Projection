@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IUnknown.ahk
 
 /**
  * Enables applications and other objects to receive notifications of changes in the progress of a downloading operation.

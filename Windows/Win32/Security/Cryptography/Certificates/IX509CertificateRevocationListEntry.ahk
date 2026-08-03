@@ -2,12 +2,12 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\CRLRevocationReason.ahk
-#Include .\IX509Extensions.ahk
-#Include .\EncodingType.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\CRLRevocationReason.ahk
+#Include .\EncodingType.ahk
 #Include .\IObjectIds.ahk
+#Include .\IX509Extensions.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates

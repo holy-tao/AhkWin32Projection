@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\WDSTRANSPORT_DISCONNECT_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IDispatch.ahk
 #Include .\IWdsTransportSession.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\WDSTRANSPORT_DISCONNECT_TYPE.ahk
 
 /**
  * Represents a WDS client that is joined to a transport session on a WDS transport server.

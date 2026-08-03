@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmPipelineModuleImplementation.ahk
-#Include .\IFsrmCollection.ahk
-#Include .\IFsrmPropertyBag.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IFsrmCollection.ahk
+#Include .\IFsrmPipelineModuleImplementation.ahk
+#Include .\IFsrmPropertyBag.ahk
 
 /**
  * Storage modules implement this interface.

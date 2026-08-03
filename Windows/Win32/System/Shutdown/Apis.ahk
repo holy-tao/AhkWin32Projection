@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\SHUTDOWN_FLAGS.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include .\SHUTDOWN_REASON.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\EXIT_WINDOWS_FLAGS.ahk
+#Include .\SHUTDOWN_FLAGS.ahk
+#Include .\SHUTDOWN_REASON.ahk
 
 /**
  * @namespace Windows.Win32.System.Shutdown

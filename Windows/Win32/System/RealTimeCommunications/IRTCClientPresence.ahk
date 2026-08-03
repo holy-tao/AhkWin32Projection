@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRTCProfile.ahk
-#Include .\IRTCEnumBuddies.ahk
-#Include .\RTC_OFFER_WATCHER_MODE.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IRTCEnumWatchers.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\RTC_PRESENCE_STATUS.ahk
-#Include .\RTC_PRIVACY_MODE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\Com\IUnknown.ahk
-#Include .\IRTCWatcher.ahk
 #Include .\IRTCBuddy.ahk
 #Include .\IRTCCollection.ahk
+#Include .\IRTCEnumBuddies.ahk
+#Include .\IRTCEnumWatchers.ahk
+#Include .\IRTCProfile.ahk
+#Include .\IRTCWatcher.ahk
+#Include .\RTC_OFFER_WATCHER_MODE.ahk
+#Include .\RTC_PRESENCE_STATUS.ahk
+#Include .\RTC_PRIVACY_MODE.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\WMPDeviceStatus.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\WMPDeviceStatus.ahk
 #Include .\WMPSyncState.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IWMPSyncDevice interface represents a device to which Windows Media Player 10 or later can copy digital media files.

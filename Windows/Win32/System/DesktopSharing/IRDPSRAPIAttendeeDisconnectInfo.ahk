@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IRDPSRAPIAttendee.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\ATTENDEE_DISCONNECT_REASON.ahk
+#Include .\IRDPSRAPIAttendee.ahk
 
 /**
  * Contains information about the reason an attendee disconnected.

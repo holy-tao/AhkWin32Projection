@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\InPlaceState.ahk
-#Include .\PanelInputArea.ahk
-#Include .\ITextInputPanelEventSink.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\CorrectionMode.ahk
-#Include .\InteractionMode.ahk
-#Include .\InPlaceDirection.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\CorrectionPosition.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\CorrectionMode.ahk
+#Include .\CorrectionPosition.ahk
+#Include .\ITextInputPanelEventSink.ahk
+#Include .\InPlaceDirection.ahk
+#Include .\InPlaceState.ahk
+#Include .\InteractionMode.ahk
+#Include .\PanelInputArea.ahk
 
 /**
  * Provides control of appearance and behavior of the Tablet PC Input Panel.

@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\WTS_SESSION_ID.ahk
-#Include .\IWRdsProtocolShadowConnection.ahk
-#Include .\IWRdsProtocolLicenseConnection.ahk
-#Include .\WTS_CLIENT_DATA.ahk
-#Include .\WTS_USER_CREDENTIAL.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\WTS_PROTOCOL_STATUS.ahk
-#Include .\IWRdsProtocolLogonErrorRedirector.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\WRDS_CONNECTION_SETTINGS.ahk
-#Include .\WTS_PROPERTY_VALUE.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HANDLE_PTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IWRdsProtocolLicenseConnection.ahk
+#Include .\IWRdsProtocolLogonErrorRedirector.ahk
+#Include .\IWRdsProtocolShadowConnection.ahk
+#Include .\WRDS_CONNECTION_SETTINGS.ahk
+#Include .\WTS_CLIENT_DATA.ahk
+#Include .\WTS_PROPERTY_VALUE.ahk
+#Include .\WTS_PROTOCOL_STATUS.ahk
+#Include .\WTS_SESSION_ID.ahk
+#Include .\WTS_USER_CREDENTIAL.ahk
 
 /**
  * Exposes methods called by the Remote Desktop Services service to configure a client connection.

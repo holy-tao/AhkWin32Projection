@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IWindowsMediaLibrarySharingDevice.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWindowsMediaLibrarySharingDevice.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IWindowsMediaLibrarySharingDevices.

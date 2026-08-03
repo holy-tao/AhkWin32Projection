@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\IPropertyDescription.ahk
 #Include .\PROPDESC_COLUMNINDEX_TYPE.ahk
 #Include .\PROPDESC_SEARCHINFO_FLAGS.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes search-related information for a property.

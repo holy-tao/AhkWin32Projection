@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\StructuredStorage\IPropertyBag.ahk
 #Include .\IPersistQuery.ahk
+#Include ..\..\System\Com\StructuredStorage\IPropertyBag.ahk
 
 /**
  * Used with the ICommonQuery::OpenQueryWindow method to initialize the directory service query dialog box.

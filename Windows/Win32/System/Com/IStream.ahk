@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\STREAM_SEEK.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\ISequentialStream.ahk
 #Include .\STATSTG.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\STREAM_SEEK.ahk
 
 /**
  * The IStream interface lets you read and write data to stream objects.

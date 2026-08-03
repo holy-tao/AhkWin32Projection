@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WMIREGGUIDW.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\WMIREGGUIDW.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw

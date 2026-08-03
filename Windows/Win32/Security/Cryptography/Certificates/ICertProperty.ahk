@@ -2,11 +2,11 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\EncodingType.ahk
-#Include .\CERTENROLL_PROPERTYID.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\CERTENROLL_PROPERTYID.ahk
+#Include .\EncodingType.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Can be used to associate an external property with a certificate.

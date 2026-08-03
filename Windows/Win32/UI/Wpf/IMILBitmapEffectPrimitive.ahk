@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Graphics\Imaging\IWICBitmapSource.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\Graphics\Dwm\MilMatrix3x2D.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\IMILBitmapEffectRenderContext.ahk
-#Include .\MilRectD.ahk
+#Include ..\..\Graphics\Imaging\IWICBitmapSource.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMILBitmapEffectRenderContext.ahk
 #Include .\MilPoint2D.ahk
+#Include .\MilRectD.ahk
 
 /**
  * Exposes methods that create a bitmap effect's output. This interface must be implemented to create third party Windows Presentation Foundation (WPF) bitmap effects.

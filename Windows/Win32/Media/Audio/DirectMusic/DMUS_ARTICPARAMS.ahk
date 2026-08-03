@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\DMUS_PEGPARAMS.ahk
-#Include .\DMUS_VEGPARAMS.ahk
 #Include .\DMUS_LFOPARAMS.ahk
 #Include .\DMUS_MSCPARAMS.ahk
+#Include .\DMUS_PEGPARAMS.ahk
+#Include .\DMUS_VEGPARAMS.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic

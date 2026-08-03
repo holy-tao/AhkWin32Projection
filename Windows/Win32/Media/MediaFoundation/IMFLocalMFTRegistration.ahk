@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\MFT_REGISTRATION_INFO.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\MFT_REGISTRATION_INFO.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Registers Media Foundation transforms (MFTs) in the caller's process.

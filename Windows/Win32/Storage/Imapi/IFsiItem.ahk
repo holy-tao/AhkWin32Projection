@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\FsiFileSystems.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\FsiFileSystems.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Base interface containing properties common to both file and directory items.

@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\InkDivisionType.ahk
-#Include .\IInkTransform.ahk
-#Include .\IInkStrokes.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\IInkStrokes.ahk
+#Include .\IInkTransform.ahk
+#Include .\InkDivisionType.ahk
 
 /**
  * Represents a single structural element within an IInkDivisionResult object.

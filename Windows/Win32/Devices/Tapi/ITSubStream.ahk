@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IEnumTerminal.ahk
 #Include .\ITStream.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\ITTerminal.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * An ITSubStream is a component of an ITStream, and gives an application finer control over the media streaming.

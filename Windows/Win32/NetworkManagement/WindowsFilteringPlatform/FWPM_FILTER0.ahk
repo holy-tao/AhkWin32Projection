@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWP_VALUE0.ahk
-#Include .\FWPM_ACTION0.ahk
-#Include .\FWP_DATA_TYPE.ahk
-#Include .\FWP_BYTE_ARRAY16.ahk
-#Include .\FWP_TOKEN_INFORMATION.ahk
-#Include .\FWPM_FILTER_FLAGS.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Security\SID.ahk
-#Include .\FWPM_FILTER_CONDITION0.ahk
+#Include .\FWPM_ACTION0.ahk
 #Include .\FWPM_DISPLAY_DATA0.ahk
-#Include .\FWP_BYTE_BLOB.ahk
+#Include .\FWPM_FILTER_CONDITION0.ahk
+#Include .\FWPM_FILTER_FLAGS.ahk
 #Include .\FWP_ACTION_TYPE.ahk
+#Include .\FWP_BYTE_ARRAY16.ahk
 #Include .\FWP_BYTE_ARRAY6.ahk
+#Include .\FWP_BYTE_BLOB.ahk
+#Include .\FWP_DATA_TYPE.ahk
+#Include .\FWP_TOKEN_INFORMATION.ahk
+#Include .\FWP_VALUE0.ahk
+#Include ..\..\Security\SID.ahk
 
 /**
  * Stores the state associated with a filter.

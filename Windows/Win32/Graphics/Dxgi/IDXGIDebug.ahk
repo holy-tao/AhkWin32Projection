@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\DXGI_DEBUG_RLO_FLAGS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This interface controls debug settings, and can only be used if the debug layer is turned on.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\System\Kernel\NT_PRODUCT_TYPE.ahk
-#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
 #Include .\ALTERNATIVE_ARCHITECTURE_TYPE.ahk
+#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
+#Include ..\..\..\Win32\System\Kernel\NT_PRODUCT_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

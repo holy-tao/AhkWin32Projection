@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\OFFLINEFILES_ITEM_TYPE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents a single item in the Offline Files cache.

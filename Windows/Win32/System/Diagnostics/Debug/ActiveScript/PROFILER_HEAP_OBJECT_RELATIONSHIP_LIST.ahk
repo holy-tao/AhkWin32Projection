@@ -2,9 +2,9 @@
 #Include ..\..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\..\Foundation\PWSTR.ahk
-#Include .\PROFILER_RELATIONSHIP_INFO.ahk
 #Include .\PROFILER_HEAP_OBJECT_RELATIONSHIP.ahk
 #Include .\PROFILER_PROPERTY_TYPE_SUBSTRING_INFO.ahk
+#Include .\PROFILER_RELATIONSHIP_INFO.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

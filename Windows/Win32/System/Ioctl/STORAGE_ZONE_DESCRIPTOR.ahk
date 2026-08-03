@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_ZONE_CONDITION.ahk
 #Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\STORAGE_ZONE_CONDITION.ahk
 #Include .\STORAGE_ZONE_TYPES.ahk
 
 /**

@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\LPARAM.ahk
-#Include .\NMHDR.ahk
 #Include .\HTREEITEM.ahk
+#Include .\NMHDR.ahk
 
 /**
  * Contains information on a tree-view item change. This structure is sent with the TVN_ITEMCHANGED and TVN_ITEMCHANGING notifications.

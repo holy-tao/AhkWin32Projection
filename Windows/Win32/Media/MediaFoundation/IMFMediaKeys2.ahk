@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFMediaKeys.ahk
-#Include .\IMFMediaKeySessionNotify2.ahk
-#Include .\IMFMediaKeySession2.ahk
-#Include .\MF_MEDIAKEYSESSION_TYPE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFMediaKeySession2.ahk
+#Include .\IMFMediaKeySessionNotify2.ahk
+#Include .\IMFMediaKeys.ahk
+#Include .\MF_MEDIAKEYSESSION_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation

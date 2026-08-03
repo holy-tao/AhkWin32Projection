@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Direct3D\D3D_FEATURE_LEVEL.ahk
 #Include ..\Direct3D\ID3DBlob.ahk
 #Include .\D3D12_ROOT_SIGNATURE_DESC.ahk
-#Include ..\..\..\..\Guid.ahk
 #Include .\D3D12_VERSIONED_ROOT_SIGNATURE_DESC.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include .\D3D_ROOT_SIGNATURE_VERSION.ahk
-#Include ..\Direct3D\D3D_FEATURE_LEVEL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

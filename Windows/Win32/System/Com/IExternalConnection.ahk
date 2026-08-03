@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include .\IUnknown.ahk
 
 /**
  * The IExternalConnection (objidlbase.h) interface manages a server object's count of marshaled, or external, connections.

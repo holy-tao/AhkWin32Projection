@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISensor.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\ISensor.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents a collection of sensors, such as all the sensors connected to a computer.

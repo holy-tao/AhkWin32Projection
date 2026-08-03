@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Handle.ahk
-#Include .\NTSTATUS.ahk
-#Include .\HANDLE.ahk
-#Include .\WIN32_ERROR.ahk
-#Include .\HGLOBAL.ahk
-#Include .\PWSTR.ahk
-#Include .\HRESULT.ahk
-#Include .\BSTR.ahk
-#Include .\HLOCAL.ahk
-#Include .\DUPLICATE_HANDLE_OPTIONS.ahk
-#Include .\HMODULE.ahk
 #Include .\BOOL.ahk
-#Include .\PSTR.ahk
+#Include .\BSTR.ahk
+#Include .\DUPLICATE_HANDLE_OPTIONS.ahk
+#Include .\HANDLE.ahk
 #Include .\HANDLE_FLAGS.ahk
+#Include .\HGLOBAL.ahk
+#Include .\HLOCAL.ahk
+#Include .\HMODULE.ahk
+#Include .\HRESULT.ahk
+#Include .\NTSTATUS.ahk
+#Include .\PSTR.ahk
+#Include .\PWSTR.ahk
+#Include .\WIN32_ERROR.ahk
 
 /**
  * @namespace Windows.Win32.Foundation

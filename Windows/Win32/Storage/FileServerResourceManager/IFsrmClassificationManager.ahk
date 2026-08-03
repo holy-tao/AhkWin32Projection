@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmRule.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\FsrmEnumOptions.ahk
+#Include .\FsrmGetFilePropertyOptions.ahk
+#Include .\FsrmPipelineModuleType.ahk
 #Include .\FsrmReportGenerationContext.ahk
-#Include .\IFsrmProperty.ahk
 #Include .\FsrmReportRunningStatus.ahk
 #Include .\FsrmRuleType.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\System\Com\SAFEARRAY.ahk
-#Include .\FsrmPipelineModuleType.ahk
-#Include .\FsrmGetFilePropertyOptions.ahk
-#Include .\IFsrmPropertyDefinition.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IFsrmCollection.ahk
-#Include .\FsrmEnumOptions.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IFsrmPipelineModuleDefinition.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IFsrmProperty.ahk
+#Include .\IFsrmPropertyDefinition.ahk
+#Include .\IFsrmRule.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 
 /**
  * Manages file classification. Use this interface to define properties to use in classification, add classification rules for classifying files, define classification and storage modules, and enable classification reporting. (IFsrmClassificationManager)

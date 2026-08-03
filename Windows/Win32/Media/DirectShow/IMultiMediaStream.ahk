@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMediaStream.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\STREAM_STATE.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\MMSSF_GET_INFORMATION_FLAGS.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMediaStream.ahk
+#Include .\MMSSF_GET_INFORMATION_FLAGS.ahk
+#Include .\STREAM_STATE.ahk
 #Include .\STREAM_TYPE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Note  This interface is deprecated.

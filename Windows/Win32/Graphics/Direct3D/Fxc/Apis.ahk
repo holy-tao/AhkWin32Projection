@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
-#Include ..\..\Direct3D11\ID3D11Module.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\D3D_SHADER_MACRO.ahk
+#Include .\D3D_BLOB_PART.ahk
 #Include .\D3D_SHADER_DATA.ahk
 #Include ..\ID3DBlob.ahk
+#Include ..\ID3DInclude.ahk
 #Include ..\..\Direct3D10\ID3D10Effect.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\Direct3D11\ID3D11FunctionLinkingGraph.ahk
 #Include ..\..\Direct3D11\ID3D11Linker.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
-#Include ..\D3D_SHADER_MACRO.ahk
-#Include ..\ID3DInclude.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
-#Include .\D3D_BLOB_PART.ahk
+#Include ..\..\Direct3D11\ID3D11Module.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Fxc

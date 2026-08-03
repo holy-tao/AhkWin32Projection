@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\SAFEARRAY.ahk
-#Include .\FsrmAccountType.ahk
-#Include .\IFsrmObject.ahk
-#Include .\FsrmPipelineModuleType.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\FsrmAccountType.ahk
+#Include .\FsrmPipelineModuleType.ahk
+#Include .\IFsrmObject.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 
 /**
  * Defines a module that is used to classify files or store and retrieve properties from files.

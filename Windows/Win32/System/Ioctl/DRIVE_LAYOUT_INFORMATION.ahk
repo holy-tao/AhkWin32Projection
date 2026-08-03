@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PARTITION_INFORMATION.ahk
 #Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\PARTITION_INFORMATION.ahk
 
 /**
  * Contains information about the partitions of a drive.

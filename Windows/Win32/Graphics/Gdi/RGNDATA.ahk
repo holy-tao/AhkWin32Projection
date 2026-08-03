@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\RGNDATAHEADER.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include .\RGNDATAHEADER.ahk
 
 /**
  * The RGNDATA structure contains a header and an array of rectangles that compose a region. The rectangles are sorted top to bottom, left to right. They do not overlap.

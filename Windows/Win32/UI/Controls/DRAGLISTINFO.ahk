@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DRAGLISTINFO_NOTIFICATION_FLAGS.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include .\DRAGLISTINFO_NOTIFICATION_FLAGS.ahk
 
 /**
  * Contains information about a drag event. The pointer to DRAGLISTINFO is passed as the lParam parameter of the drag list message.

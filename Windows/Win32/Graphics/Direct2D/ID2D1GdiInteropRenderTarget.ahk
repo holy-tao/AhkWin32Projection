@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Gdi\HDC.ahk
-#Include .\D2D1_DC_INITIALIZE_MODE.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include .\D2D1_DC_INITIALIZE_MODE.ahk
+#Include ..\Gdi\HDC.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides access to a device context that can accept GDI drawing commands.

@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\Node.ahk
+#Include .\Properties.ahk
 #Include .\ScopeNamespace.ahk
 #Include .\SnapIns.ahk
 #Include .\View.ahk
-#Include .\_DocumentMode.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include .\Views.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\Properties.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\_Application.ahk
-#Include .\Node.ahk
+#Include .\_DocumentMode.ahk
 
 /**
  * @namespace Windows.Win32.System.Mmc

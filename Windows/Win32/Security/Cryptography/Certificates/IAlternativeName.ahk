@@ -2,12 +2,12 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\AlternativeNameType.ahk
-#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IObjectId.ahk
-#Include .\EncodingType.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\AlternativeNameType.ahk
+#Include .\EncodingType.ahk
+#Include .\IObjectId.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Is used by an IX509ExtensionAlternativeNames object to represent an instance of an AlternativeNames extension.

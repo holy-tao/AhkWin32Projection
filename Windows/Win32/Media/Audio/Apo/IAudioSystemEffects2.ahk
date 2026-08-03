@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IAudioSystemEffects.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IAudioSystemEffects.ahk
 
 /**
  * The IAudioSystemEffects2 interface was introduced with Windows 8.1 for retrieving information about the processing objects in a given mode.

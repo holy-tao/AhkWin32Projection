@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\PROPERTYKEY.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 
 /**
  * Provides methods used to retrieve certain properties of an individual user included in a logon or credential UI.

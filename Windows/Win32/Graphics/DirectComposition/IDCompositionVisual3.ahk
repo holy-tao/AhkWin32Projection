@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionVisualDebug.ahk
-#Include .\DCOMPOSITION_DEPTH_MODE.ahk
-#Include ..\Direct2D\Common\D2D_MATRIX_4X4_F.ahk
-#Include .\IDCompositionAnimation.ahk
-#Include .\IDCompositionTransform3D.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Direct2D\Common\D2D_MATRIX_4X4_F.ahk
+#Include .\DCOMPOSITION_DEPTH_MODE.ahk
+#Include .\IDCompositionAnimation.ahk
+#Include .\IDCompositionTransform3D.ahk
+#Include .\IDCompositionVisualDebug.ahk
 
 /**
  * Represents one DirectComposition visual in a visual tree. (IDCompositionVisual3)

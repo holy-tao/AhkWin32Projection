@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\TOKEN_VALUE.ahk
-#Include .\NS_HELPER_ATTRIBUTES.ahk
-#Include .\NS_CONTEXT_ATTRIBUTES.ahk
-#Include .\TAG_TYPE.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\NS_CONTEXT_ATTRIBUTES.ahk
+#Include .\NS_HELPER_ATTRIBUTES.ahk
+#Include .\TAG_TYPE.ahk
+#Include .\TOKEN_VALUE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetShell

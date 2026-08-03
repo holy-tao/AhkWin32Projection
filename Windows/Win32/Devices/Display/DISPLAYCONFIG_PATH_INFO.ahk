@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\LUID.ahk
-#Include .\DISPLAYCONFIG_RATIONAL.ahk
-#Include .\DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY.ahk
-#Include .\DISPLAYCONFIG_PATH_TARGET_INFO.ahk
-#Include .\DISPLAYCONFIG_SCANLINE_ORDERING.ahk
-#Include .\DISPLAYCONFIG_ROTATION.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\DISPLAYCONFIG_PATH_SOURCE_INFO.ahk
+#Include .\DISPLAYCONFIG_PATH_TARGET_INFO.ahk
+#Include .\DISPLAYCONFIG_RATIONAL.ahk
+#Include .\DISPLAYCONFIG_ROTATION.ahk
 #Include .\DISPLAYCONFIG_SCALING.ahk
+#Include .\DISPLAYCONFIG_SCANLINE_ORDERING.ahk
+#Include .\DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\LUID.ahk
 
 /**
  * The DISPLAYCONFIG_PATH_INFO structure is used to describe a single path from a target to a source.

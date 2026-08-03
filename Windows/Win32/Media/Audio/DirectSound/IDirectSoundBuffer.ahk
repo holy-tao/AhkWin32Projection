@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IDirectSound.ahk
-#Include .\DSBCAPS.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\DSBUFFERDESC.ahk
-#Include ..\WAVEFORMATEX.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\DSBCAPS.ahk
+#Include .\DSBUFFERDESC.ahk
+#Include .\IDirectSound.ahk
+#Include ..\WAVEFORMATEX.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound

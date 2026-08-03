@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ISensor.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\SensorState.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The callback interface for receiving sensor manager events.

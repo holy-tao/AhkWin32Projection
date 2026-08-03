@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\SIZE.ahk
 #Include .\KSDATAFORMAT.ahk
-#Include .\KS_VIDEO_STREAM_CONFIG_CAPS.ahk
-#Include ..\..\..\..\Guid.ahk
 #Include .\KS_H264VIDEOINFO.ahk
-#Include ..\..\Foundation\BOOL.ahk
+#Include .\KS_VIDEO_STREAM_CONFIG_CAPS.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

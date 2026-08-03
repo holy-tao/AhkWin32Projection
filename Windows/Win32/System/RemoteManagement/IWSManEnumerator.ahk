@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\Com\IDispatch.ahk
 
 /**
  * Represents a stream of results returned from operations such as a WS-Management protocol WS-Enumeration:Enumerate operation.

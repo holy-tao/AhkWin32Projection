@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\InstallationRebootBehavior.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\InstallationImpact.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\InstallationImpact.ahk
+#Include .\InstallationRebootBehavior.ahk
 
 /**
  * Represents the installation and uninstallation options of an update.

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IDxcValidator.ahk
-#Include .\IDxcOperationResult.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include .\DxcBuffer.ahk
 #Include .\IDxcBlob.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IDxcOperationResult.ahk
+#Include .\IDxcValidator.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc

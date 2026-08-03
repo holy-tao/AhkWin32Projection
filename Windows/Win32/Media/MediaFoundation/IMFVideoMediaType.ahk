@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\MFVIDEOFORMAT.ahk
-#Include .\IMFMediaType.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFMediaType.ahk
+#Include .\MFVIDEOFORMAT.ahk
 
 /**
  * Represents a description of a video format.

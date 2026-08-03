@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\EncodingType.ahk
+#Include .\ICspInformations.ahk
+#Include .\ICspStatus.ahk
+#Include .\IObjectId.ahk
+#Include .\IX509PublicKey.ahk
+#Include .\X509KeySpec.ahk
+#Include .\X509PrivateKeyExportFlags.ahk
+#Include .\X509PrivateKeyProtection.ahk
+#Include .\X509PrivateKeyUsageFlags.ahk
 #Include .\X509PrivateKeyVerify.ahk
 #Include .\X509ProviderType.ahk
-#Include .\X509PrivateKeyUsageFlags.ahk
-#Include .\ICspInformations.ahk
-#Include .\IX509PublicKey.ahk
-#Include .\X509PrivateKeyExportFlags.ahk
-#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IObjectId.ahk
-#Include .\X509KeySpec.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\X509PrivateKeyProtection.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\ICspStatus.ahk
-#Include .\EncodingType.ahk
 
 /**
  * Represents an asymmetric private key that can be used for encryption, signing, and key agreement.

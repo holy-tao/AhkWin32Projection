@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISdo.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ISdo.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer

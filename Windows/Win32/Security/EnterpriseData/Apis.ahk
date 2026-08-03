@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\_SRP_REQUEST.ahk
-#Include ..\..\Foundation\NTSTATUS.ahk
-#Include ..\..\Storage\Packaging\Appx\PACKAGE_ID.ahk
-#Include .\SRPHOSTING_TYPE.ahk
-#Include .\HTHREAD_NETWORK_CONTEXT.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\ENTERPRISE_DATA_POLICIES.ahk
 #Include .\FILE_UNPROTECT_OPTIONS.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\HTHREAD_NETWORK_CONTEXT.ahk
+#Include .\SRPHOSTING_TYPE.ahk
 #Include .\SRPHOSTING_VERSION.ahk
-#Include ..\..\Foundation\BOOL.ahk
+#Include .\_SRP_REQUEST.ahk
+#Include ..\..\Storage\Packaging\Appx\PACKAGE_ID.ahk
 
 /**
  * @namespace Windows.Win32.Security.EnterpriseData

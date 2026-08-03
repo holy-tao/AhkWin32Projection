@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Direct3D9\D3DFORMAT.ahk
 #Include .\DXVA2_SampleFormat.ahk
 #Include .\OPM_RANDOM_NUMBER.ahk
-#Include ..\..\Graphics\Direct3D9\D3DFORMAT.ahk
 
 /**
  * Contains the result of an OPM_GET_ACTUAL_OUTPUT_FORMAT query in Output Protection Manager (OPM).

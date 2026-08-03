@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\OperationResultCode.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IDispatch.ahk
 #Include .\IStringCollection.ahk
-#Include .\UpdateOperation.ahk
-#Include .\ServerSelection.ahk
 #Include .\IUpdateIdentity.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\OperationResultCode.ahk
+#Include .\ServerSelection.ahk
+#Include .\UpdateOperation.ahk
 
 /**
  * Represents the recorded history of an update. (IUpdateHistoryEntry)

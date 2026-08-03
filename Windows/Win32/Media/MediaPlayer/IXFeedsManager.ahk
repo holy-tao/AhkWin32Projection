@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\FEEDS_BACKGROUNDSYNC_STATUS.ahk
-#Include .\FEEDS_BACKGROUNDSYNC_ACTION.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\FEEDS_BACKGROUNDSYNC_ACTION.ahk
+#Include .\FEEDS_BACKGROUNDSYNC_STATUS.ahk
 #Include ..\..\System\Com\IStream.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 

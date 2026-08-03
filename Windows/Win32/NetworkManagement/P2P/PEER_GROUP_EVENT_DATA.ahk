@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PEER_MEMBER_CHANGE_TYPE.ahk
-#Include .\PEER_GROUP_EVENT_TYPE.ahk
-#Include .\PEER_RECORD_CHANGE_TYPE.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\PEER_GROUP_STATUS.ahk
-#Include .\PEER_CONNECTION_STATUS.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\PEER_EVENT_CONNECTION_CHANGE_DATA.ahk
-#Include .\PEER_EVENT_RECORD_CHANGE_DATA.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\PEER_CONNECTION_STATUS.ahk
 #Include .\PEER_DATA.ahk
+#Include .\PEER_EVENT_CONNECTION_CHANGE_DATA.ahk
 #Include .\PEER_EVENT_INCOMING_DATA.ahk
 #Include .\PEER_EVENT_MEMBER_CHANGE_DATA.ahk
+#Include .\PEER_EVENT_RECORD_CHANGE_DATA.ahk
+#Include .\PEER_GROUP_EVENT_TYPE.ahk
+#Include .\PEER_GROUP_STATUS.ahk
+#Include .\PEER_MEMBER_CHANGE_TYPE.ahk
+#Include .\PEER_RECORD_CHANGE_TYPE.ahk
 
 /**
  * The PEER_GROUP_EVENT_DATA structure (p2p.h) contains information about a specific peer group event that has occurred.

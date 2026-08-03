@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IWMPPlaylist.ahk
-#Include .\IWMPMediaCollection.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IWMPMediaCollection.ahk
+#Include .\IWMPPlaylist.ahk
 #Include .\IWMPQuery.ahk
 #Include .\IWMPStringCollection.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWMPMediaCollection2 interface provides methods that supplement the IWMPMediaCollection interface.

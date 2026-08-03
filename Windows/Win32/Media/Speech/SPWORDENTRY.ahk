@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPWORDHANDLE.ahk
 #Include ..\..\Foundation\PWSTR.ahk
+#Include .\SPWORDHANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech

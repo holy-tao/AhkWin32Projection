@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\LICINFO.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\Com\IClassFactory.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IClassFactory.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\LICINFO.ahk
 
 /**
  * Enables a class factory object, in any sort of object server, to control object creation through licensing.

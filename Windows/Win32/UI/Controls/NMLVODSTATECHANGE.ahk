@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include .\NMHDR.ahk
 #Include .\LIST_VIEW_ITEM_STATE_FLAGS.ahk
+#Include .\NMHDR.ahk
 
 /**
  * Structure that contains information for use in processing the LVN_ODSTATECHANGED notification code.

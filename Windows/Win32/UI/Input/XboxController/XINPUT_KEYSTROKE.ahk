@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\XINPUT_VIRTUAL_KEY.ahk
 #Include .\XINPUT_KEYSTROKE_FLAGS.ahk
+#Include .\XINPUT_VIRTUAL_KEY.ahk
 
 /**
  * Specifies keystroke data returned by XInputGetKeystroke.

@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\FEEDS_EVENTS_MASK.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\FEEDS_EVENTS_SCOPE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\FEEDS_EVENTS_MASK.ahk
+#Include .\FEEDS_EVENTS_SCOPE.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer

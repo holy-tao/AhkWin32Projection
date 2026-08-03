@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\RASEAPINFO.ahk
-#Include .\RASDEVSPECIFICINFO.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\RASDEVSPECIFICINFO.ahk
+#Include .\RASEAPINFO.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras

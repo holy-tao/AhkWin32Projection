@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMDocument.ahk
-#Include .\IXpsOMPrintTicketResource.ahk
-#Include .\IXpsOMStoryFragmentsResource.ahk
-#Include .\IXpsOMPage.ahk
-#Include .\IXpsOMImageResource.ahk
-#Include .\XPS_SIZE.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IXpsOMDocument.ahk
+#Include .\IXpsOMImageResource.ahk
 #Include .\IXpsOMNameCollection.ahk
+#Include .\IXpsOMPage.ahk
 #Include .\IXpsOMPartResources.ahk
+#Include .\IXpsOMPrintTicketResource.ahk
+#Include .\IXpsOMStoryFragmentsResource.ahk
+#Include .\XPS_SIZE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Enables virtualization of pages in an XPS document.

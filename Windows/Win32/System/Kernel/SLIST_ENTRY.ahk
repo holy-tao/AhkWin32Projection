@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SLIST_ENTRY.ahk
 
 /**
  * Represents an item in a singly linked list. (SLIST_ENTRY)

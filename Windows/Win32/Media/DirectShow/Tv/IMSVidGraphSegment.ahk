@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidGraphSegmentContainer.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\MSVidSegmentType.ahk
-#Include ..\IEnumFilters.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\System\Com\IPersist.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\IEnumFilters.ahk
+#Include .\IMSVidGraphSegmentContainer.ahk
+#Include .\MSVidSegmentType.ahk
+#Include ..\..\..\System\Com\IPersist.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv

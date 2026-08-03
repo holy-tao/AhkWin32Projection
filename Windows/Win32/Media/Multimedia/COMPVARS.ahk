@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HIC.ahk
 #Include ..\..\Graphics\Gdi\BITMAPINFO.ahk
+#Include .\HIC.ahk
 
 /**
  * The COMPVARS structure describes compressor settings for functions such as ICCompressorChoose, ICSeqCompressFrame, and ICCompressorFree.

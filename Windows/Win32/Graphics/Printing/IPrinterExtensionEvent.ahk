@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IPrinterExtensionEventArgs.ahk
-#Include .\IPrinterExtensionContextCollection.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IPrinterExtensionContextCollection.ahk
+#Include .\IPrinterExtensionEventArgs.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

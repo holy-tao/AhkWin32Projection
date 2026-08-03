@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\SAFEARRAY.ahk
-#Include .\IFsrmAction.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IFsrmAction.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 
 /**
  * Used to generate a report in response to a quota or file screen event.

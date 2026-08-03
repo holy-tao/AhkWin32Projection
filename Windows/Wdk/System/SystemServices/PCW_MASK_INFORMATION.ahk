@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\KEVENT.ahk
-#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
-#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
 #Include ..\..\Foundation\PPCW_BUFFER.ahk
+#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
+#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

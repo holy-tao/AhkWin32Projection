@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IDVBTLocator.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IDVBTLocator.ahk
 
 /**
  * Gets or sets tuning information for a Digital Video Broadcast - Second Generation Terrestrial (DVB-T2) network.

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\INVOKEKIND.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include .\ICreateTypeInfo.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Com\INVOKEKIND.ahk
+#Include .\ICreateTypeInfo.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * Provides the tools for creating and administering the type information defined through the type description. (ICreateTypeInfo2)

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\WM_AETYPE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include .\WM_ADDRESS_ACCESSENTRY.ahk
+#Include .\WM_AETYPE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IWMAddressAccess interface controls IP access lists on the writer network sink object.

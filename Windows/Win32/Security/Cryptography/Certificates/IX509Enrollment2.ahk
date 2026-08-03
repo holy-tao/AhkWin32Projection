@@ -2,15 +2,15 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\PolicyServerUrlFlags.ahk
-#Include .\X509EnrollmentAuthFlags.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\EncodingType.ahk
+#Include .\IX509CertificateTemplate.ahk
+#Include .\IX509Enrollment.ahk
 #Include .\IX509EnrollmentPolicyServer.ahk
 #Include .\InstallResponseRestrictionFlags.ahk
-#Include .\IX509CertificateTemplate.ahk
-#Include .\EncodingType.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\PolicyServerUrlFlags.ahk
 #Include .\X509CertificateEnrollmentContext.ahk
-#Include .\IX509Enrollment.ahk
+#Include .\X509EnrollmentAuthFlags.ahk
 
 /**
  * The IX509Enrollment2 interface enables you to enroll in a certificate hierarchy and install a certificate response.

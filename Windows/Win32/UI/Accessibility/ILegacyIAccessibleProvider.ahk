@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\SAFEARRAY.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\IAccessible.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include .\IAccessible.ahk
 
 /**
  * Enables Microsoft UI Automation clients to access the underlying IAccessible implementation of Microsoft Active Accessibility elements.

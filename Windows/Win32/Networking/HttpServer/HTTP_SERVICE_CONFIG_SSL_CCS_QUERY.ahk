@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_SERVICE_CONFIG_SSL_CCS_KEY.ahk
 #Include .\HTTP_SERVICE_CONFIG_QUERY_TYPE.ahk
+#Include .\HTTP_SERVICE_CONFIG_SSL_CCS_KEY.ahk
 #Include ..\WinSock\ADDRESS_FAMILY.ahk
 #Include ..\WinSock\SOCKADDR_STORAGE.ahk
 

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWP_IP_VERSION.ahk
 #Include .\FWP_DIRECTION.ahk
+#Include .\FWP_IP_VERSION.ahk
 
 /**
  * Contains information that describes an IPsec DoS Protection drop event.

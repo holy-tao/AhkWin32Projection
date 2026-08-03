@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\IUnknown.ahk
 #Include .\REMSECURITY_ATTRIBUTES.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon

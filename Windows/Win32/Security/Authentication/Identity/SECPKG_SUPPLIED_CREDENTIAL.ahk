@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\SECPKG_SHORT_VECTOR.ahk
 #Include .\SECPKG_BYTE_VECTOR.ahk
+#Include .\SECPKG_SHORT_VECTOR.ahk
 
 /**
  * Specifies the supplied credentials.

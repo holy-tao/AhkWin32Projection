@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IDataModelScript.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
-#Include .\IModelObject.ahk
-#Include ..\..\..\..\Foundation\PWSTR.ahk
-#Include .\ScriptDebugPosition.ahk
-#Include .\IDataModelScriptDebugVariableSetEnumerator.ahk
-#Include ..\..\..\Com\IUnknown.ahk
 #Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+#Include .\IDataModelScript.ahk
+#Include .\IDataModelScriptDebugVariableSetEnumerator.ahk
+#Include .\IModelObject.ahk
+#Include .\ScriptDebugPosition.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

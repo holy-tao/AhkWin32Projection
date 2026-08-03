@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IRTCSession.ahk
 #Include .\RTC_SESSION_STATE.ahk
 

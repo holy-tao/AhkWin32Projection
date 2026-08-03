@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\LPARAM.ahk
-#Include .\NMHDR.ahk
 #Include ..\..\Foundation\PSTR.ahk
+#Include .\NMHDR.ahk
 #Include .\NMLVGETINFOTIP_FLAGS.ahk
 
 /**

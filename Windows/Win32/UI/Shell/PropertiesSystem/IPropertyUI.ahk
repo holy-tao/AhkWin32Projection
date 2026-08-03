@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\PROPERTYUI_FORMAT_FLAGS.ahk
-#Include ..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
-#Include .\PROPERTYUI_NAME_FLAGS.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include .\PROPERTYUI_FLAGS.ahk
+#Include .\PROPERTYUI_FORMAT_FLAGS.ahk
+#Include .\PROPERTYUI_NAME_FLAGS.ahk
 
 /**
  * Developers should use IPropertyDescription instead. (IPropertyUI)

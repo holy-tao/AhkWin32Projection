@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\FILESETINFO.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\FILESETINFO.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Use the IBackgroundCopyJob1 interface to add files to the job and retrieve the job's status.

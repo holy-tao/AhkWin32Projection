@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\CameraUIControlCaptureMode.ahk
-#Include .\CameraUIControlVideoFormat.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\Com\SAFEARRAY.ahk
+#Include .\CameraUIControlCaptureMode.ahk
 #Include .\CameraUIControlLinearSelectionMode.ahk
 #Include .\CameraUIControlMode.ahk
-#Include ..\Com\SAFEARRAY.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ICameraUIControlEventCallback.ahk
-#Include .\CameraUIControlViewType.ahk
 #Include .\CameraUIControlPhotoFormat.ahk
+#Include .\CameraUIControlVideoFormat.ahk
+#Include .\CameraUIControlViewType.ahk
+#Include .\ICameraUIControlEventCallback.ahk
 
 /**
  * Enables a user interface control for a camera device..

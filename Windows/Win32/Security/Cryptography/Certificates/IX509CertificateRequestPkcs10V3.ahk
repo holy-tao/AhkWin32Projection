@@ -2,12 +2,12 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\EncodingType.ahk
+#Include .\IObjectId.ahk
 #Include .\IX509CertificateRequestPkcs10V2.ahk
 #Include .\IX509NameValuePairs.ahk
-#Include .\IObjectId.ahk
-#Include .\EncodingType.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IX509CertificateRequestPkcs10V3 interface represents a PKCS

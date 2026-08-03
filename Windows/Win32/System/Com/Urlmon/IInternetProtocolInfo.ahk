@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\QUERYOPTION.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\IUnknown.ahk
 #Include .\PARSEACTION.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\QUERYOPTION.ahk
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon

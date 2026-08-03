@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\WM_AETYPE.ahk
-#Include .\IWMAddressAccess.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWMAddressAccess.ahk
+#Include .\WM_AETYPE.ahk
 
 /**
  * The IWMAddressAccess2 interface controls IP access lists on the writer network sink object.

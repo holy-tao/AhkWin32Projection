@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Registry\HKEY.ahk
-#Include .\MONITORREG.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\MONITORREG.ahk
+#Include ..\..\System\Registry\HKEY.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

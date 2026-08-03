@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLIENT_ID.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\CLIENT_ID.ahk
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming

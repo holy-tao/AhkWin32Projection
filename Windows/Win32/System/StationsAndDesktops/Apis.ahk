@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\BROADCAST_SYSTEM_MESSAGE_FLAGS.ahk
-#Include .\BSMINFO.ahk
-#Include .\BROADCAST_SYSTEM_MESSAGE_INFO.ahk
-#Include ..\..\Foundation\WPARAM.ahk
-#Include .\USER_OBJECT_INFORMATION_INDEX.ahk
-#Include ..\..\Graphics\Gdi\DEVMODEW.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
-#Include ..\..\Foundation\LPARAM.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Graphics\Gdi\DEVMODEA.ahk
-#Include .\DESKTOP_ACCESS_FLAGS.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\HWINSTA.ahk
-#Include .\DESKTOP_CONTROL_FLAGS.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\WPARAM.ahk
+#Include ..\..\Graphics\Gdi\DEVMODEA.ahk
+#Include ..\..\Graphics\Gdi\DEVMODEW.ahk
+#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
+#Include .\BROADCAST_SYSTEM_MESSAGE_FLAGS.ahk
+#Include .\BROADCAST_SYSTEM_MESSAGE_INFO.ahk
+#Include .\BSMINFO.ahk
+#Include .\DESKTOP_ACCESS_FLAGS.ahk
+#Include .\DESKTOP_CONTROL_FLAGS.ahk
 #Include .\HDESK.ahk
+#Include .\HWINSTA.ahk
+#Include .\USER_OBJECT_INFORMATION_INDEX.ahk
 
 /**
  * @namespace Windows.Win32.System.StationsAndDesktops

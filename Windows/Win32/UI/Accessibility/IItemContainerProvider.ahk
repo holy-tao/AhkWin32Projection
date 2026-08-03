@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\UIA_PROPERTY_ID.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IRawElementProviderSimple.ahk
+#Include .\UIA_PROPERTY_ID.ahk
 
 /**
  * Provides access to controls that act as containers of other controls, such as a virtual list-view.

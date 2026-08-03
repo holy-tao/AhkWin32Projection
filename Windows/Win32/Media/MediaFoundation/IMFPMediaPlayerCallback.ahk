@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\MFP_EVENT_HEADER.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Callback interface for the IMFPMediaPlayer interface.

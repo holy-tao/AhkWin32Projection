@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12DeviceChild.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D3D12_PROTECTED_SESSION_STATUS.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3D12_PROTECTED_SESSION_STATUS.ahk
+#Include .\ID3D12DeviceChild.ahk
 
 /**
  * Offers base functionality that allows for a consistent way to monitor the validity of a session across the different types of sessions.

@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IATSC_VCT.ahk
-#Include .\IATSC_ETT.ahk
-#Include .\ISCTE_EAS.ahk
-#Include .\IATSC_STT.ahk
-#Include .\ITSDT.ahk
-#Include .\IATSC_EIT.ahk
-#Include .\IATSC_MGT.ahk
-#Include .\IPAT.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
-#Include .\ICAT.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IATSC_EIT.ahk
+#Include .\IATSC_ETT.ahk
+#Include .\IATSC_MGT.ahk
+#Include .\IATSC_STT.ahk
+#Include .\IATSC_VCT.ahk
+#Include .\ICAT.ahk
+#Include .\IPAT.ahk
 #Include .\IPMT.ahk
+#Include .\ISCTE_EAS.ahk
+#Include .\ITSDT.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**

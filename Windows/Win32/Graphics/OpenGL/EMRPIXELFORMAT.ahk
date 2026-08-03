@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PFD_FLAGS.ahk
 #Include ..\Gdi\EMR.ahk
 #Include ..\Gdi\ENHANCED_METAFILE_RECORD_TYPE.ahk
+#Include .\PFD_FLAGS.ahk
 #Include .\PFD_PIXEL_TYPE.ahk
 #Include .\PIXELFORMATDESCRIPTOR.ahk
 

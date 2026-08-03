@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE.ahk
 #Include .\HTTP_SERVICE_CONFIG_QUERY_TYPE.ahk
-#Include ..\WinSock\ADDRESS_FAMILY.ahk
 #Include .\HTTP_SERVICE_CONFIG_SSL_KEY_EX.ahk
+#Include .\HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE.ahk
+#Include ..\WinSock\ADDRESS_FAMILY.ahk
 #Include ..\WinSock\SOCKADDR_STORAGE.ahk
 
 /**

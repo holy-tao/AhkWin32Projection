@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\SYNC_VERSION.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\SYNC_RANGE.ahk
-#Include .\IReplicaKeyMap.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\IReplicaKeyMap.ahk
+#Include .\SYNC_RANGE.ahk
+#Include .\SYNC_VERSION.ahk
 
 /**
  * Represents knowledge that a replica has about its item store.

@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include .\IOleUILinkContainerA.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IOleUILinkContainerA.ahk
 
 /**
  * An extension of the IOleUILinkContainer interface. It returns the time that an object was last updated, which is link information that IOleUILinkContainer does not provide. (ANSI)

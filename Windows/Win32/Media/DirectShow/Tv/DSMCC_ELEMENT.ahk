@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\DSMCC_ELEMENT.ahk
 
 /**
  * The DSMCC_ELEMENT structure contains information from a DSM-CC element.

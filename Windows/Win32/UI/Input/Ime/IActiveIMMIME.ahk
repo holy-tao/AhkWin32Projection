@@ -1,34 +1,34 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
-#Include .\IMEMENUITEMINFOW.ahk
-#Include .\HIMC.ahk
-#Include ..\..\..\Graphics\Gdi\LOGFONTW.ahk
-#Include .\COMPOSITIONFORM.ahk
-#Include .\HIMCC.ahk
-#Include .\STYLEBUFW.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
-#Include .\IMEMENUITEMINFOA.ahk
-#Include .\IEnumRegisterWordW.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
-#Include .\REGISTERWORDW.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
-#Include ..\KeyboardAndMouse\HKL.ahk
-#Include .\INPUTCONTEXT.ahk
-#Include ..\..\..\Foundation\WPARAM.ahk
-#Include .\IEnumRegisterWordA.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Foundation\HWND.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\Foundation\LRESULT.ahk
-#Include .\REGISTERWORDA.ahk
-#Include .\CANDIDATEFORM.ahk
 #Include ..\..\..\Foundation\LPARAM.ahk
-#Include ..\..\..\Graphics\Gdi\LOGFONTA.ahk
+#Include ..\..\..\Foundation\LRESULT.ahk
 #Include ..\..\..\Foundation\POINT.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Foundation\WPARAM.ahk
+#Include ..\..\..\Graphics\Gdi\LOGFONTA.ahk
+#Include ..\..\..\Graphics\Gdi\LOGFONTW.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\CANDIDATEFORM.ahk
 #Include .\CANDIDATELIST.ahk
+#Include .\COMPOSITIONFORM.ahk
+#Include .\HIMC.ahk
+#Include .\HIMCC.ahk
 #Include .\IEnumInputContext.ahk
+#Include .\IEnumRegisterWordA.ahk
+#Include .\IEnumRegisterWordW.ahk
+#Include .\IMEMENUITEMINFOA.ahk
+#Include .\IMEMENUITEMINFOW.ahk
+#Include .\INPUTCONTEXT.ahk
+#Include .\REGISTERWORDA.ahk
+#Include .\REGISTERWORDW.ahk
 #Include .\STYLEBUFA.ahk
+#Include .\STYLEBUFW.ahk
+#Include ..\KeyboardAndMouse\HKL.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime

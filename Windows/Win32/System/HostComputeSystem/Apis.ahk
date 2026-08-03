@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Security\SECURITY_DESCRIPTOR.ahk
+#Include .\HCS_CREATE_OPTIONS.ahk
+#Include .\HCS_EVENT_OPTIONS.ahk
+#Include .\HCS_OPERATION.ahk
 #Include .\HCS_OPERATION_OPTIONS.ahk
 #Include .\HCS_OPERATION_TYPE.ahk
-#Include .\HCS_EVENT_OPTIONS.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\HCS_CREATE_OPTIONS.ahk
 #Include .\HCS_PROCESS.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\HCS_OPERATION.ahk
-#Include .\HCS_RESOURCE_TYPE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Security\SECURITY_DESCRIPTOR.ahk
 #Include .\HCS_PROCESS_INFORMATION.ahk
+#Include .\HCS_RESOURCE_TYPE.ahk
 #Include .\HCS_SYSTEM.ahk
 
 /**

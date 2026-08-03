@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\CTRL_LEVEL.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IRDPSRAPIFrameBuffer.ahk
-#Include .\IRDPSRAPITransportStream.ahk
-#Include .\IRDPSRAPIAttendee.ahk
-#Include .\IRDPSRAPISharingSession.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\CTRL_LEVEL.ahk
+#Include .\IRDPSRAPIAttendee.ahk
+#Include .\IRDPSRAPIFrameBuffer.ahk
+#Include .\IRDPSRAPISharingSession.ahk
+#Include .\IRDPSRAPITransportStream.ahk
 
 /**
  * The main object that an application must create to start a collaboration session. (IRDPSRAPISharingSession2)

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMProfile.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWMProfile.ahk
 
 /**
  * The IWMProfile2 interface exposes the globally unique identifier for a system profile.

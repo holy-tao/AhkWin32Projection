@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include .\IMSMQQueue2.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\IMSMQQueue2.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing

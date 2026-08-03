@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include .\NMHDR.ahk
 #Include .\MONTH_CALDENDAR_MESSAGES_VIEW.ahk
+#Include .\NMHDR.ahk
 
 /**
  * Stores information required to process the MCN_VIEWCHANGE notification code.

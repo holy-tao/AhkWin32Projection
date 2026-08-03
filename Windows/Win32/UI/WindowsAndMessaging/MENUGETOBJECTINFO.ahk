@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MENUGETOBJECTINFO_FLAGS.ahk
 #Include .\HMENU.ahk
+#Include .\MENUGETOBJECTINFO_FLAGS.ahk
 
 /**
  * Contains information about the menu that the mouse cursor is on.

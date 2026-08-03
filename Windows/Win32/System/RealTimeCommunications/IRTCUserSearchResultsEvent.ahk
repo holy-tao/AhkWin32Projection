@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRTCEnumUserSearchResults.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IRTCUserSearchQuery.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\Com\IDispatch.ahk
-#Include .\IRTCProfile2.ahk
 #Include .\IRTCCollection.ahk
+#Include .\IRTCEnumUserSearchResults.ahk
+#Include .\IRTCProfile2.ahk
+#Include .\IRTCUserSearchQuery.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

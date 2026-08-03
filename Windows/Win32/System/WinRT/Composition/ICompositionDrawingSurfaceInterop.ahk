@@ -2,11 +2,11 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Com\IUnknown.ahk
-#Include ..\..\..\Foundation\SIZE.ahk
-#Include ..\..\..\Foundation\POINT.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\POINT.ahk
 #Include ..\..\..\Foundation\RECT.ahk
+#Include ..\..\..\Foundation\SIZE.ahk
+#Include ..\..\Com\IUnknown.ahk
 
 /**
  * Native interoperation interface that allows drawing on a surface object using a RECT to define the area to draw into. This interface is available in C++ only.

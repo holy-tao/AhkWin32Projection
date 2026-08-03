@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\ISyncProvider.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents information about which provider caused synchronization to fail.

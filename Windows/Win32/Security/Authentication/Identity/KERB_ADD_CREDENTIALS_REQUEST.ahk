@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\LUID.ahk
 #Include ..\..\..\Foundation\PWSTR.ahk
-#Include .\LSA_UNICODE_STRING.ahk
 #Include .\KERB_PROTOCOL_MESSAGE_TYPE.ahk
 #Include .\KERB_REQUEST_FLAGS.ahk
-#Include ..\..\..\Foundation\LUID.ahk
+#Include .\LSA_UNICODE_STRING.ahk
 
 /**
  * Specifies a message to add, remove, or replace an extra server credential for a logon session.

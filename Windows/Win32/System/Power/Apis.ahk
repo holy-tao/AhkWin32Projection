@@ -1,35 +1,35 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\SYSTEM_POWER_CAPABILITIES.ahk
-#Include ..\Registry\REG_SAM_FLAGS.ahk
-#Include .\POWER_INFORMATION_LEVEL.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\BOOLEAN.ahk
-#Include ..\Threading\REASON_CONTEXT.ahk
+#Include ..\..\Foundation\DEVPROPKEY.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\NTSTATUS.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\DEVPROPKEY.ahk
-#Include .\MACHINE_PROCESSOR_POWER_POLICY.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\POWER_REQUEST_TYPE.ahk
-#Include .\HPOWERNOTIFY.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\POWER_PLATFORM_ROLE.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\WIN32_ERROR.ahk
-#Include .\POWER_POLICY.ahk
 #Include .\ADMINISTRATOR_POWER_POLICY.ahk
+#Include .\EXECUTION_STATE.ahk
 #Include .\GLOBAL_POWER_POLICY.ahk
-#Include ..\..\..\..\Guid.ahk
+#Include .\HPOWERNOTIFY.ahk
+#Include .\LATENCY_TIME.ahk
+#Include .\MACHINE_PROCESSOR_POWER_POLICY.ahk
+#Include .\POWER_DATA_ACCESSOR.ahk
+#Include .\POWER_INFORMATION_LEVEL.ahk
+#Include .\POWER_PLATFORM_ROLE.ahk
+#Include .\POWER_PLATFORM_ROLE_VERSION.ahk
+#Include .\POWER_POLICY.ahk
+#Include .\POWER_REQUEST_TYPE.ahk
+#Include .\SYSTEM_POWER_CAPABILITIES.ahk
 #Include .\SYSTEM_POWER_STATUS.ahk
 #Include .\THERMAL_EVENT.ahk
-#Include .\POWER_DATA_ACCESSOR.ahk
-#Include .\POWER_PLATFORM_ROLE_VERSION.ahk
-#Include ..\..\Foundation\LPARAM.ahk
-#Include ..\..\UI\WindowsAndMessaging\REGISTER_NOTIFICATION_FLAGS.ahk
-#Include .\LATENCY_TIME.ahk
 #Include ..\Registry\HKEY.ahk
-#Include .\EXECUTION_STATE.ahk
+#Include ..\Registry\REG_SAM_FLAGS.ahk
+#Include ..\Threading\REASON_CONTEXT.ahk
+#Include ..\..\UI\WindowsAndMessaging\REGISTER_NOTIFICATION_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.System.Power

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IVssExamineWriterMetadataEx.ahk
 #Include .\IVssWMFiledesc.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Defines methods to retrieve version information and other basic information for a specific writer instance.

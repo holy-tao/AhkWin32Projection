@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\SPWORDLIST.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\PWSTR.ahk
+#Include .\SPPARTOFSPEECH.ahk
+#Include .\SPWORDLIST.ahk
 #Include .\SPWORDPRONUNCIATIONLIST.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include .\SPPARTOFSPEECH.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech

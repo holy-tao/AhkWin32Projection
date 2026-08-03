@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISyncFilterInfo.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ISyncFilterInfo.ahk
 
 /**
  * Represents a filter that can be used to control which change units are included for items in an ISyncChangeBatch object.

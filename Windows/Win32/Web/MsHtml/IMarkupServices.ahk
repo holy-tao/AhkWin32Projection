@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ELEMENT_TAG_ID.ahk
-#Include .\IHTMLTxtRange.ahk
-#Include ..\..\Foundation\HGLOBAL.ahk
-#Include .\IHTMLElement.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HGLOBAL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\ELEMENT_TAG_ID.ahk
+#Include .\IHTMLElement.ahk
+#Include .\IHTMLTxtRange.ahk
 #Include .\IMarkupContainer.ahk
 #Include .\IMarkupPointer.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

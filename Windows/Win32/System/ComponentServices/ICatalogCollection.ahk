@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\SAFEARRAY.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\Com\SAFEARRAY.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * Represents any collection in the COM+ catalog. ICatalogCollection enables you to enumerate, add, remove, and retrieve items in a collection and to access related collections.

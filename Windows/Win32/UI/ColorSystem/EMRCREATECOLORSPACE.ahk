@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Gdi\CIEXYZ.ahk
+#Include ..\..\Graphics\Gdi\CIEXYZTRIPLE.ahk
 #Include ..\..\Graphics\Gdi\EMR.ahk
 #Include ..\..\Graphics\Gdi\ENHANCED_METAFILE_RECORD_TYPE.ahk
-#Include ..\..\Graphics\Gdi\CIEXYZ.ahk
 #Include .\LCSCSTYPE.ahk
-#Include ..\..\Graphics\Gdi\CIEXYZTRIPLE.ahk
 #Include .\LOGCOLORSPACEA.ahk
 
 /**

@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\StructuredStorage\IEnumSTATPROPSTG.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
-#Include ..\..\System\Com\IStream.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include ..\..\System\Com\StructuredStorage\STATPROPSETSTG.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPSPEC.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\StructuredStorage\IEnumSTATPROPSTG.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPSPEC.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\System\Com\StructuredStorage\STATPROPSETSTG.ahk
 
 /**
  * The IWiaPropertyStorage interface is used to access information about the IWiaItem object's properties. Applications must query an item to obtain its IWiaPropertyStorage interface.

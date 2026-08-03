@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRL_ENTRY.ahk
-#Include .\CRL_CONTEXT.ahk
 #Include .\CERT_CHAIN_CONTEXT.ahk
+#Include .\CRL_CONTEXT.ahk
+#Include .\CRL_ENTRY.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography

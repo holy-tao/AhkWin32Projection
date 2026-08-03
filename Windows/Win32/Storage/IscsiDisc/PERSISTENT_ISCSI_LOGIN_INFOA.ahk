@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\ISCSI_AUTH_TYPES.ahk
+#Include .\ISCSI_DIGEST_TYPES.ahk
 #Include .\ISCSI_LOGIN_OPTIONS.ahk
 #Include .\ISCSI_TARGET_MAPPINGA.ahk
-#Include .\ISCSI_AUTH_TYPES.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
-#Include .\ISCSI_DIGEST_TYPES.ahk
 #Include .\ISCSI_TARGET_PORTALA.ahk
 
 /**

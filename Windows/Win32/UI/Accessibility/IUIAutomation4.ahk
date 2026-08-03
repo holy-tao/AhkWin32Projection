@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IUIAutomation3.ahk
+#Include .\IUIAutomationCacheRequest.ahk
+#Include .\IUIAutomationChangesEventHandler.ahk
 #Include .\IUIAutomationElement.ahk
 #Include .\TreeScope.ahk
-#Include .\IUIAutomationChangesEventHandler.ahk
-#Include .\IUIAutomationCacheRequest.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the IUIAutomation3 interface to expose additional methods for controlling Microsoft UI Automation functionality.
@@ -41,7 +41,9 @@ class IUIAutomation4 extends IUIAutomation3 {
      * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the UI Automation element associated with the event handler.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope</a></b>
+     * 
+     * The scope of events to be handled; that is, whether they are on the element itself, or on its ancestors and descendants.
      * @param {Pointer<Integer>} changeTypes Type: <b>int*</b>
      * 
      * A pointer to a list of integers that indicate the change types the event represents.

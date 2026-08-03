@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IMarkupPointer.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\SELECTION_TYPE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMarkupPointer.ahk
+#Include .\SELECTION_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

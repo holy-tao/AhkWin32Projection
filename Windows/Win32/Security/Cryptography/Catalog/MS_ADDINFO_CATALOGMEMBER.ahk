@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\CRYPTCATSTORE.ahk
 #Include .\CRYPTCATMEMBER.ahk
+#Include .\CRYPTCATSTORE.ahk
 
 /**
  * Provides additional information for catalog member subject types.

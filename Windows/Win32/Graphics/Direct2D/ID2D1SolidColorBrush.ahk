@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Brush.ahk
 #Include Common\D2D1_COLOR_F.ahk
+#Include .\ID2D1Brush.ahk
 
 /**
  * Paints an area with a solid color.

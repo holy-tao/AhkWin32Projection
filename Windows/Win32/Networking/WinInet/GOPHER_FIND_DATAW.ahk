@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\GOPHER_TYPE.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\GOPHER_TYPE.ahk
 
 /**
  * Contains information retrieved by the GopherFindFirstFile and InternetFindNextFile functions. (Unicode)

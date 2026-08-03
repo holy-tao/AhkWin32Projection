@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1SvgPaint.ahk
-#Include .\D2D1_SVG_PAINT_TYPE.ahk
-#Include Common\D2D_SIZE_F.ahk
-#Include Common\D2D_POINT_2F.ahk
-#Include .\D2D1_SVG_LENGTH.ahk
-#Include ..\..\System\Com\IStream.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\PWSTR.ahk
+#Include Common\D2D1_COLOR_F.ahk
+#Include Common\D2D_POINT_2F.ahk
+#Include Common\D2D_SIZE_F.ahk
+#Include .\D2D1_SVG_LENGTH.ahk
+#Include .\D2D1_SVG_PAINT_TYPE.ahk
+#Include .\D2D1_SVG_PATH_COMMAND.ahk
+#Include .\ID2D1Resource.ahk
+#Include .\ID2D1SvgElement.ahk
+#Include .\ID2D1SvgPaint.ahk
+#Include .\ID2D1SvgPathData.ahk
 #Include .\ID2D1SvgPointCollection.ahk
 #Include .\ID2D1SvgStrokeDashArray.ahk
-#Include Common\D2D1_COLOR_F.ahk
-#Include .\D2D1_SVG_PATH_COMMAND.ahk
-#Include .\ID2D1SvgElement.ahk
-#Include .\ID2D1Resource.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\ID2D1SvgPathData.ahk
+#Include ..\..\System\Com\IStream.ahk
 
 /**
  * Represents an SVG document.

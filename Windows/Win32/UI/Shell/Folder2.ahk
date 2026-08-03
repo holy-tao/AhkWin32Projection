@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\Folder.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\FolderItem.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\Folder.ahk
+#Include .\FolderItem.ahk
 
 /**
  * Extends the Folder object to support offline folders.

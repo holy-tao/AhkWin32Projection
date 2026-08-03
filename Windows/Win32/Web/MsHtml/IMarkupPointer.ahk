@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\MARKUP_CONTEXT_TYPE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\ELEMENT_ADJACENCY.ahk
 #Include .\IHTMLDocument2.ahk
 #Include .\IHTMLElement.ahk
-#Include .\ELEMENT_ADJACENCY.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\IMarkupContainer.ahk
+#Include .\MARKUP_CONTEXT_TYPE.ahk
 #Include .\MOVEUNIT_ACTION.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\POINTER_GRAVITY.ahk
 
 /**
@@ -260,7 +260,9 @@ class IMarkupPointer extends IUnknown {
      * If you create a <b>Find</b> dialog box, you must also use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-isdialogmessagea">IsDialogMessage</a> function in the main message loop of your application to ensure that the dialog box correctly processes keyboard input, such as the TAB and ESC keys. <b>IsDialogMessage</b> returns a value that indicates whether the <b>Find</b> dialog box processed the message.
      * 
      * You can provide an <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nc-commdlg-lpfrhookproc">FRHookProc</a> hook procedure for a <b>Find</b> dialog box. The hook procedure can process messages sent to the dialog box. To enable a hook procedure, set the <b>FR_ENABLEHOOK</b> flag in the  <b>Flags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/ns-commdlg-findreplacea">FINDREPLACE</a> structure and specify the address of the hook procedure in the  <b>lpfnHook</b> member.
-     * @param {PWSTR} pchFindText 
+     * @param {PWSTR} pchFindText Type: <b>LPFINDREPLACE</b>
+     * 
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/ns-commdlg-findreplacea">FINDREPLACE</a> structure that contains information used to initialize the dialog box. The dialog box uses this structure to send information about the user's input to your application. For more information, see the following Remarks section.
      * @param {Integer} dwFlags 
      * @param {IMarkupPointer} pIEndMatch 
      * @param {IMarkupPointer} pIEndSearch 

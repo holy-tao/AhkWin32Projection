@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
 #Include .\FAULT_INFORMATION_ARCH.ahk
+#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

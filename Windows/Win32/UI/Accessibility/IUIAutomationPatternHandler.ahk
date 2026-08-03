@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\UIAutomationParameter.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IUIAutomationPatternInstance.ahk
+#Include .\UIAutomationParameter.ahk
 
 /**
  * Returns a client API wrapper object and to unmarshal property and method requests to an actual provider instance.

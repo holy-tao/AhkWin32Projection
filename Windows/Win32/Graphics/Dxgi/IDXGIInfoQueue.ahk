@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DXGI_INFO_QUEUE_MESSAGE_CATEGORY.ahk
-#Include .\DXGI_INFO_QUEUE_FILTER.ahk
-#Include .\DXGI_INFO_QUEUE_MESSAGE_SEVERITY.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\PSTR.ahk
+#Include .\DXGI_INFO_QUEUE_FILTER.ahk
+#Include .\DXGI_INFO_QUEUE_MESSAGE_CATEGORY.ahk
+#Include .\DXGI_INFO_QUEUE_MESSAGE_SEVERITY.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**

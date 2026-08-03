@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWICBitmapSource.ahk
-#Include .\WICSectionAccessLevel.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\IWICMetadataWriter.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IWICBitmap.ahk
+#Include .\IWICBitmapSource.ahk
+#Include .\IWICMetadataWriter.ahk
+#Include .\WICSectionAccessLevel.ahk
 #Include ..\..\System\Com\IStream.ahk
 
 /**

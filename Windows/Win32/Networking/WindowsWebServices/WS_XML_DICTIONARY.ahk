@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\WS_XML_STRING.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include .\WS_XML_STRING.ahk
 
 /**
  * Represents a set of unique strings. This information is used by the binary encoding to write a more compact xml document.

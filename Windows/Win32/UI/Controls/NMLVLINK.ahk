@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\LIST_ITEM_FLAGS.ahk
+#Include .\LIST_ITEM_STATE_FLAGS.ahk
 #Include .\LITEM.ahk
 #Include .\NMHDR.ahk
-#Include .\LIST_ITEM_STATE_FLAGS.ahk
 
 /**
  * Contains information about an LVN_LINKCLICK notification code.

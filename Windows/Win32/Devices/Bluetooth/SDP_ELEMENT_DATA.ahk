@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SDP_SPECIFICTYPE.ahk
-#Include .\SDP_LARGE_INTEGER_16.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SDP_LARGE_INTEGER_16.ahk
+#Include .\SDP_SPECIFICTYPE.ahk
 #Include .\SDP_TYPE.ahk
-#Include ..\..\Foundation\CHAR.ahk
 #Include .\SDP_ULARGE_INTEGER_16.ahk
+#Include ..\..\Foundation\CHAR.ahk
 
 /**
  * The SDP_ELEMENT_DATA structure stores SDP element data.

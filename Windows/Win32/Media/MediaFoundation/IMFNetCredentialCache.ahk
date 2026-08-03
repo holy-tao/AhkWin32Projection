@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFNetCredential.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IMFNetCredential.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Gets credentials from the credential cache.

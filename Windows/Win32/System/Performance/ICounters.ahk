@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DICounterItem.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\DICounterItem.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.System.Performance

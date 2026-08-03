@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IWorkspace2.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include .\IWorkspace2.ahk
 
 /**
  * Exposes methods that provide information about a connection in RemoteApp and Desktop Connection, and adds the ability to retrieve or set a claims token.

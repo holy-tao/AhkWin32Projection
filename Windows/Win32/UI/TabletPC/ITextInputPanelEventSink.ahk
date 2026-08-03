@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\InPlaceState.ahk
-#Include ..\..\System\Com\SAFEARRAY.ahk
-#Include .\PanelInputArea.ahk
-#Include .\CorrectionMode.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include .\CorrectionMode.ahk
+#Include .\InPlaceState.ahk
+#Include .\PanelInputArea.ahk
 
 /**
  * Defines methods that handle the ITextInputPanel Interface events.

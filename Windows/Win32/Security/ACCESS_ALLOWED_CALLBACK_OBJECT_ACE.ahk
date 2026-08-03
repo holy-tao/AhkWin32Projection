@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include .\SYSTEM_AUDIT_OBJECT_ACE_FLAGS.ahk
 #Include ..\..\..\Guid.ahk
 #Include .\ACE_HEADER.ahk
+#Include .\SYSTEM_AUDIT_OBJECT_ACE_FLAGS.ahk
 
 /**
  * Defines an access control entry (ACE) that controls allowed access to an object, property set, or property.

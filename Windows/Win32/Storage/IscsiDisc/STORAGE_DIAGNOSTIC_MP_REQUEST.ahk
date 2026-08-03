@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\MP_STORAGE_DIAGNOSTIC_LEVEL.ahk
 #Include .\MP_STORAGE_DIAGNOSTIC_TARGET_TYPE.ahk
-#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc

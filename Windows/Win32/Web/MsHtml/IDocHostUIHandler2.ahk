@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDocHostUIHandler.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IDocHostUIHandler.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

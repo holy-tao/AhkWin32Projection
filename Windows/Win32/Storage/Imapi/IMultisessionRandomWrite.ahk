@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMultisession.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMultisession.ahk
 
 /**
  * Use this interface to retrieve information about the current state of media allowing random writes and not supporting the concept of physical sessions.

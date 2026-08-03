@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Com\IUnknown.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\Com\IUnknown.ahk
 
 /**
  * A native interoperation interface that allows getting and setting the graphics device. This is interface is available in C++ only.

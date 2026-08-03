@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include Common\ITEMIDLIST.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include Common\ITEMIDLIST.ahk
 
 /**
  * Stores position information for an item. Used with message SFVM_SETITEMPOS.

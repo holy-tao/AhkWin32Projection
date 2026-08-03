@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Graphics\Direct2D\Common\D2D_RECT_F.ahk
 #Include ..\..\..\Foundation\BOOLEAN.ahk
 #Include ..\..\..\Graphics\Direct2D\Common\D2D_COLOR_F.ahk
+#Include ..\..\..\Graphics\Direct2D\Common\D2D_RECT_F.ahk
 
 /**
  * Represents a set of properties for outputting a single page of a Portable Document Format (PDF) file.

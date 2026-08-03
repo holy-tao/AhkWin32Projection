@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Storage\IndexServer\FULLPROPSPEC.ahk
 #Include ..\Com\StructuredStorage\PROPSPEC.ahk
 #Include ..\Com\StructuredStorage\PROPSPEC_KIND.ahk
-#Include ..\..\Storage\IndexServer\FULLPROPSPEC.ahk
 
 /**
  * @namespace Windows.Win32.System.Search

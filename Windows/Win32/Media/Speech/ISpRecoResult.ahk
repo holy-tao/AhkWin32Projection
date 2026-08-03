@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISpPhraseAlt.ahk
-#Include ..\Audio\WAVEFORMATEX.ahk
-#Include .\ISpStreamFormat.ahk
-#Include .\ISpRecoContext.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Audio\WAVEFORMATEX.ahk
+#Include .\ISpPhrase.ahk
+#Include .\ISpPhraseAlt.ahk
+#Include .\ISpRecoContext.ahk
+#Include .\ISpStreamFormat.ahk
 #Include .\SPRECORESULTTIMES.ahk
 #Include .\SPSERIALIZEDRESULT.ahk
-#Include .\ISpPhrase.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech

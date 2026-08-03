@@ -2,9 +2,9 @@
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
-#Include .\IModelObject.ahk
-#Include ..\..\..\Com\IUnknown.ahk
 #Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+#Include .\IModelObject.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

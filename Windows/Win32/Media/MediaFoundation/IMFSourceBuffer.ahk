@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFMediaTimeRange.ahk
-#Include .\IMFByteStream.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFByteStream.ahk
+#Include .\IMFMediaTimeRange.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents a buffer which contains media data for a IMFMediaSourceExtension.

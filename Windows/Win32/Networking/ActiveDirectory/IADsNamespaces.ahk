@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IADs.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IADs.ahk
 
 /**
  * The IADsNamespaces interface is implemented by the ADs provider and is used for managing namespace objects.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SR_RESOURCE_TYPE_REPLICATED_DISK.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\SR_REPLICATED_DISK_TYPE.ahk
+#Include .\SR_RESOURCE_TYPE_REPLICATED_DISK.ahk
 
 /**
  * Describes a retrieved set of replicated disks.

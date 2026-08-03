@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\EnrollmentCAProperty.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\EnrollmentCAProperty.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 
 /**
  * The ICertificationAuthority interface represents a single certification authority. A collection of certification authorities is represented by the ICertificationAuthorities interface.

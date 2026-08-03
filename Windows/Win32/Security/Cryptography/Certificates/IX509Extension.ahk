@@ -2,11 +2,11 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IObjectId.ahk
-#Include .\EncodingType.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\EncodingType.ahk
+#Include .\IObjectId.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Can be used to define an extension for a certificate request.

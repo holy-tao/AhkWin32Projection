@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IWbemObjectSink.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Variant\VARIANT.ahk
 #Include .\IWbemClassObject.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWbemObjectSink.ahk
 
 /**
  * @namespace Windows.Win32.System.Wmi

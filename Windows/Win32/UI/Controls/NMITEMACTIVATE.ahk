@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\LPARAM.ahk
-#Include .\NMHDR.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include .\NMHDR.ahk
 
 /**
  * Contains information about an LVN_ITEMACTIVATE notification code.

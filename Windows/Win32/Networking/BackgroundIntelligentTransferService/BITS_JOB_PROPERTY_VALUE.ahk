@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\BG_AUTH_TARGET.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include .\BG_AUTH_TARGET.ahk
 
 /**
  * Provides the property value of the BITS job based on the value of the BITS_JOB_PROPERTY_ID enumeration.

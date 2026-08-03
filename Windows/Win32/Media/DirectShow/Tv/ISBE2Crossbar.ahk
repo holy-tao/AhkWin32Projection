@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\ISBE2EnumStream.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
-#Include .\ISBE2MediaTypeProfile.ahk
 #Include ..\IPin.ahk
+#Include .\ISBE2EnumStream.ahk
+#Include .\ISBE2MediaTypeProfile.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Defines crossbar functionality for a Stream Buffer Engine (SBE) version 2 (SBE2) Stream Buffer Source filter.

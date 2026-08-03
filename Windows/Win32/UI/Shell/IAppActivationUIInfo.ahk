@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Graphics\Gdi\HMONITOR.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\POINT.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Graphics\Gdi\HMONITOR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell

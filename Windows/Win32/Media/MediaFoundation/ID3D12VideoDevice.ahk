@@ -2,13 +2,13 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D3D12_VIDEO_DECODER_DESC.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC.ahk
-#Include .\D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC.ahk
-#Include .\D3D12_FEATURE_VIDEO.ahk
-#Include .\D3D12_VIDEO_DECODER_HEAP_DESC.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3D12_FEATURE_VIDEO.ahk
+#Include .\D3D12_VIDEO_DECODER_DESC.ahk
+#Include .\D3D12_VIDEO_DECODER_HEAP_DESC.ahk
+#Include .\D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC.ahk
+#Include .\D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides video decoding and processing capabilities of a Microsoft Direct3D 12 device including the ability to query video capabilities and instantiating video decoders and processors.

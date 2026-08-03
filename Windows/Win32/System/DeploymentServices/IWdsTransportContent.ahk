@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IWdsTransportNamespace.ahk
-#Include .\IWdsTransportCollection.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\IWdsTransportCollection.ahk
+#Include .\IWdsTransportNamespace.ahk
 
 /**
  * Represents content being transmitted under a namespace over one or more sessions.

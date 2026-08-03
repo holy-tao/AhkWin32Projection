@@ -1,138 +1,138 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IHlinkBrowseContext.ahk
-#Include .\SHQUERYRBINFO.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\LPARAM.ahk
-#Include .\LIBRARYMANAGEDIALOGOPTIONS.ahk
-#Include .\IEnumAssocHandlers.ahk
-#Include ..\..\System\Com\IMoniker.ahk
-#Include .\IShellItem.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\CSFV.ahk
-#Include ..\WindowsAndMessaging\HICON.ahk
-#Include .\CABINETSTATE.ahk
-#Include ..\..\System\Com\IStream.ahk
-#Include .\GPFIDL_FLAGS.ahk
-#Include .\SHELL_AUTOCOMPLETE_FLAGS.ahk
-#Include .\IHlink.ahk
-#Include .\PATHCCH_OPTIONS.ahk
-#Include .\SSF_MASK.ahk
-#Include .\QITAB.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\QUERY_USER_NOTIFICATION_STATE.ahk
-#Include .\SHFOLDERCUSTOMSETTINGS.ahk
-#Include .\SHGDFIL_FORMAT.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\ASSOC_FILTER.ahk
-#Include ..\..\System\Com\IConnectionPoint.ahk
-#Include .\IShellItemArray.ahk
-#Include .\APPBARDATA.ahk
-#Include .\ASSOCIATIONELEMENT.ahk
-#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
-#Include .\SHFMT_ID.ahk
-#Include ..\..\System\Ole\IDropSource.ahk
-#Include .\BROWSEINFOA.ahk
-#Include .\SHREGENUM_FLAGS.ahk
-#Include .\SHREGDEL_FLAGS.ahk
-#Include ..\..\Storage\FileSystem\FILE_FLAGS_AND_ATTRIBUTES.ahk
-#Include .\SHGLOBALCOUNTER.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\WindowsAndMessaging\HMENU.ahk
-#Include .\NOTIFY_ICON_MESSAGE.ahk
-#Include .\KNOWN_FOLDER_FLAG.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\DATAOBJ_GET_ITEM_FLAGS.ahk
-#Include .\IFileOperationProgressSink.ahk
-#Include .\SHELLFLAGSTATE.ahk
-#Include .\PROFILEINFOW.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\Apis.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\CHAR.ahk
 #Include ..\..\Foundation\COLORREF.ahk
-#Include .\IFileOperation.ahk
-#Include Common\DEVICE_SCALE_FACTOR.ahk
-#Include ..\Controls\HIMAGELIST.ahk
-#Include .\IHlinkFrame.ahk
-#Include ..\..\System\Com\IDataObject.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\LRESULT.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\WIN32_ERROR.ahk
+#Include ..\..\Foundation\WPARAM.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
+#Include ..\..\Graphics\Gdi\HMONITOR.ahk
+#Include ..\..\Graphics\Gdi\HPALETTE.ahk
+#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
+#Include ..\..\Storage\FileSystem\FILE_FLAGS_AND_ATTRIBUTES.ahk
+#Include ..\..\System\Com\Apis.ahk
 #Include ..\..\System\Com\FORMATETC.ahk
-#Include .\SIGDN.ahk
-#Include .\SHSTOCKICONID.ahk
-#Include Common\STRRET.ahk
+#Include ..\..\System\Com\IBindCtx.ahk
+#Include ..\..\System\Com\IBindStatusCallback.ahk
+#Include ..\..\System\Com\IConnectionPoint.ahk
+#Include ..\..\System\Com\IDataObject.ahk
+#Include ..\..\System\Com\IEnumFORMATETC.ahk
 #Include ..\..\System\Com\IMalloc.ahk
+#Include ..\..\System\Com\IMoniker.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\StructuredStorage\IStorage.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\System\Com\Urlmon\SOFTDISTINFO.ahk
+#Include ..\..\System\LibraryLoader\Apis.ahk
+#Include ..\..\System\Ole\DROPEFFECT.ahk
+#Include ..\..\System\Ole\IDropSource.ahk
+#Include ..\..\System\Registry\HKEY.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\Controls\HIMAGELIST.ahk
+#Include .\APPBARDATA.ahk
+#Include .\ASSOCF.ahk
+#Include .\ASSOCIATIONELEMENT.ahk
+#Include .\ASSOCKEY.ahk
+#Include .\ASSOCSTR.ahk
+#Include .\ASSOC_FILTER.ahk
+#Include .\AUTO_SCROLL_DATA.ahk
+#Include .\BROWSEINFOA.ahk
+#Include .\BROWSEINFOW.ahk
+#Include .\CABINETSTATE.ahk
+#Include .\CSFV.ahk
+#Include Common\DEVICE_SCALE_FACTOR.ahk
+#Include Common\ITEMIDLIST.ahk
+#Include Common\PERCEIVED.ahk
+#Include Common\SHITEMID.ahk
+#Include Common\STRRET.ahk
+#Include .\DATAOBJ_GET_ITEM_FLAGS.ahk
+#Include .\DEFCONTEXTMENU.ahk
+#Include .\DISPLAY_DEVICE_TYPE.ahk
+#Include .\GPFIDL_FLAGS.ahk
+#Include .\HDROP.ahk
+#Include .\HPSXA.ahk
+#Include .\IContextMenu.ahk
+#Include .\IEnumAssocHandlers.ahk
+#Include .\IFileOperation.ahk
+#Include .\IFileOperationProgressSink.ahk
+#Include .\IHlink.ahk
+#Include .\IHlinkBrowseContext.ahk
+#Include .\IHlinkFrame.ahk
+#Include .\IHlinkSite.ahk
+#Include .\IShellBrowser.ahk
+#Include .\IShellFolder.ahk
+#Include .\IShellItem.ahk
+#Include .\IShellItemArray.ahk
+#Include .\IShellView.ahk
+#Include .\KNOWN_FOLDER_FLAG.ahk
+#Include .\LIBRARYMANAGEDIALOGOPTIONS.ahk
+#Include .\MM_FLAGS.ahk
+#Include .\NOTIFYICONDATAA.ahk
+#Include .\NOTIFYICONDATAW.ahk
+#Include .\NOTIFYICONIDENTIFIER.ahk
+#Include .\NOTIFY_ICON_MESSAGE.ahk
+#Include .\OPENASINFO.ahk
+#Include .\OS.ahk
+#Include .\PAPPCONSTRAIN_REGISTRATION.ahk
+#Include .\PAPPSTATE_REGISTRATION.ahk
+#Include .\PARSEDURLA.ahk
+#Include .\PARSEDURLW.ahk
+#Include .\PATHCCH_OPTIONS.ahk
+#Include .\PROFILEINFOA.ahk
+#Include .\PROFILEINFOW.ahk
+#Include .\QITAB.ahk
+#Include .\QUERY_USER_NOTIFICATION_STATE.ahk
 #Include .\RESTRICTIONS.ahk
 #Include .\SCNRT_STATUS.ahk
-#Include .\SHCREATEPROCESSINFOW.ahk
-#Include ..\..\System\Registry\HKEY.ahk
-#Include ..\..\System\Com\StructuredStorage\IStorage.ahk
-#Include .\PROFILEINFOA.ahk
-#Include .\SHGFI_FLAGS.ahk
-#Include .\AUTO_SCROLL_DATA.ahk
-#Include Common\SHITEMID.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include .\NOTIFYICONDATAA.ahk
-#Include .\IShellView.ahk
-#Include ..\..\Foundation\WPARAM.ahk
-#Include .\IHlinkSite.ahk
-#Include .\ASSOCKEY.ahk
-#Include ..\..\Foundation\LRESULT.ahk
-#Include .\ASSOCF.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include .\HDROP.ahk
-#Include .\MM_FLAGS.ahk
-#Include .\SHELLEXECUTEINFOW.ahk
-#Include .\SFV_CREATE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\BROWSEINFOW.ahk
 #Include .\SFBS_FLAGS.ahk
-#Include ..\..\System\Com\IEnumFORMATETC.ahk
-#Include ..\..\Foundation\PROPERTYKEY.ahk
-#Include .\URLIS.ahk
-#Include ..\..\Graphics\Gdi\HMONITOR.ahk
-#Include .\PARSEDURLW.ahk
-#Include .\SHSTOCKICONINFO.ahk
-#Include .\ASSOCSTR.ahk
-#Include .\DISPLAY_DEVICE_TYPE.ahk
+#Include .\SFV_CREATE.ahk
 #Include .\SHCNF_FLAGS.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\WindowsAndMessaging\MESSAGEBOX_STYLE.ahk
 #Include .\SHCNRF_SOURCE.ahk
-#Include ..\..\Foundation\CHAR.ahk
-#Include ..\..\Foundation\POINT.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
-#Include .\IShellFolder.ahk
-#Include ..\..\System\Com\Urlmon\SOFTDISTINFO.ahk
-#Include .\SHELL_UI_COMPONENT.ahk
-#Include .\NOTIFYICONDATAW.ahk
+#Include .\SHCREATEPROCESSINFOW.ahk
 #Include .\SHChangeNotifyEntry.ahk
-#Include .\DEFCONTEXTMENU.ahk
-#Include ..\..\Graphics\Gdi\HPALETTE.ahk
-#Include .\SHFILEOPSTRUCTW.ahk
 #Include .\SHELLEXECUTEINFOA.ahk
-#Include ..\..\Foundation\WIN32_ERROR.ahk
-#Include .\IContextMenu.ahk
-#Include .\SHGSI_FLAGS.ahk
-#Include ..\..\System\Com\IBindCtx.ahk
-#Include .\HPSXA.ahk
-#Include Common\PERCEIVED.ahk
+#Include .\SHELLEXECUTEINFOW.ahk
+#Include .\SHELLFLAGSTATE.ahk
 #Include .\SHELLSTATEA.ahk
-#Include .\OS.ahk
-#Include .\PAPPSTATE_REGISTRATION.ahk
-#Include ..\..\System\Com\IBindStatusCallback.ahk
-#Include ..\..\System\Ole\DROPEFFECT.ahk
-#Include Common\ITEMIDLIST.ahk
-#Include .\OPENASINFO.ahk
-#Include ..\WindowsAndMessaging\SHOW_WINDOW_CMD.ahk
-#Include .\PAPPCONSTRAIN_REGISTRATION.ahk
+#Include .\SHELL_AUTOCOMPLETE_FLAGS.ahk
+#Include .\SHELL_UI_COMPONENT.ahk
 #Include .\SHFILEOPSTRUCTA.ahk
-#Include .\IShellBrowser.ahk
-#Include .\PARSEDURLA.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\NOTIFYICONIDENTIFIER.ahk
-#Include ..\..\System\LibraryLoader\Apis.ahk
-#Include ..\..\Foundation\Apis.ahk
-#Include ..\..\System\Com\Apis.ahk
+#Include .\SHFILEOPSTRUCTW.ahk
+#Include .\SHFMT_ID.ahk
+#Include .\SHFOLDERCUSTOMSETTINGS.ahk
+#Include .\SHGDFIL_FORMAT.ahk
+#Include .\SHGFI_FLAGS.ahk
+#Include .\SHGLOBALCOUNTER.ahk
+#Include .\SHGSI_FLAGS.ahk
+#Include .\SHQUERYRBINFO.ahk
+#Include .\SHREGDEL_FLAGS.ahk
+#Include .\SHREGENUM_FLAGS.ahk
+#Include .\SHSTOCKICONID.ahk
+#Include .\SHSTOCKICONINFO.ahk
+#Include .\SIGDN.ahk
+#Include .\SSF_MASK.ahk
+#Include .\URLIS.ahk
+#Include ..\WindowsAndMessaging\HICON.ahk
+#Include ..\WindowsAndMessaging\HMENU.ahk
+#Include ..\WindowsAndMessaging\MESSAGEBOX_STYLE.ahk
+#Include ..\WindowsAndMessaging\SHOW_WINDOW_CMD.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -8188,7 +8188,7 @@ class Shell {
         hModule := LibraryLoader.LoadLibraryW("SHELL32.dll")
         procAddr := LibraryLoader.GetProcAddress(hModule, 660)
 
-        result := DllCall(procAddr, "int", fRestoreCache, "int")
+        result := DllCall(procAddr.value, "int", fRestoreCache, "int")
 
         Foundation.FreeLibrary(hModule)
 
@@ -9242,8 +9242,12 @@ class Shell {
      * Associates a Help context identifier with the specified window.
      * @remarks
      * If a child window does not have a Help context identifier, it inherits the identifier of its parent window. Likewise, if an owned window does not have a Help context identifier, it inherits the identifier of its owner window. This inheritance of Help context identifiers allows an application to set just one identifier for a dialog box and all of its controls.
-     * @param {HWND} param0 
-     * @param {Integer} param1 
+     * @param {HWND} param0 Type: <b>HWND</b>
+     * 
+     * A handle to the window with which to associate the Help context identifier.
+     * @param {Integer} param1 Type: <b>DWORD</b>
+     * 
+     * The Help context identifier.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if successful, or zero otherwise.
@@ -9267,7 +9271,9 @@ class Shell {
 
     /**
      * Retrieves the Help context identifier, if any, associated with the specified window.
-     * @param {HWND} param0 
+     * @param {HWND} param0 Type: <b>HWND</b>
+     * 
+     * A handle to the window for which the Help context identifier is to be retrieved.
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * Returns the Help context identifier if the window has one, or zero otherwise.
@@ -9285,8 +9291,12 @@ class Shell {
      * Associates a Help context identifier with a menu.
      * @remarks
      * All items in the menu share this identifier. Help context identifiers can't be attached to individual menu items.
-     * @param {HMENU} param0 
-     * @param {Integer} param1 
+     * @param {HMENU} param0 Type: <b>HMENU</b>
+     * 
+     * A handle to the menu with which to associate the Help context identifier.
+     * @param {Integer} param1 Type: <b>DWORD</b>
+     * 
+     * The help context identifier.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if successful, or zero otherwise.
@@ -9310,7 +9320,9 @@ class Shell {
 
     /**
      * Retrieves the Help context identifier associated with the specified menu.
-     * @param {HMENU} param0 
+     * @param {HMENU} param0 Type: <b>HMENU</b>
+     * 
+     * A handle to the menu for which the Help context identifier is to be retrieved.
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * Returns the Help context identifier if the menu has one, or zero otherwise.
@@ -15608,7 +15620,7 @@ class Shell {
 
     /**
      * Retrieves the dots per inch (dpi) occupied by a SHELL_UI_COMPONENT based on the current scale factor and PROCESS_DPI_AWARENESS.
-     * @param {SHELL_UI_COMPONENT} param0 
+     * @param {SHELL_UI_COMPONENT} param0 The type of shell component.
      * @returns {Integer} The DPI required for an icon of this type.
      * @see https://learn.microsoft.com/windows/win32/api/shellscalingapi/nf-shellscalingapi-getdpiforshelluicomponent
      * @since windows8.1

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_PROPERTY_FLAGS.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include .\HTTP_LOGGING_ROLLOVER_TYPE.ahk
-#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 #Include .\HTTP_LOGGING_TYPE.ahk
+#Include .\HTTP_PROPERTY_FLAGS.ahk
+#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 
 /**
  * Used to enable server side logging on a URL Group or on a server session.

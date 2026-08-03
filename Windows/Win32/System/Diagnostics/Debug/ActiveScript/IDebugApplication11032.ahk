@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IRemoteDebugApplication110.ahk
-#Include .\IDebugThreadCall32.ahk
 #Include ..\..\..\..\Foundation\HANDLE.ahk
 #Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include .\IDebugThreadCall32.ahk
+#Include .\IRemoteDebugApplication110.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

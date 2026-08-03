@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\BUCKETCATEGORIZE.ahk
-#Include ..\Com\StructuredStorage\PROPVARIANT.ahk
-#Include .\RANGECATEGORIZE.ahk
 #Include ..\..\Storage\IndexServer\FULLPROPSPEC.ahk
+#Include ..\Com\StructuredStorage\PROPVARIANT.ahk
+#Include .\BUCKETCATEGORIZE.ahk
 #Include .\COLUMNSET.ahk
+#Include .\RANGECATEGORIZE.ahk
 
 /**
  * @namespace Windows.Win32.System.Search

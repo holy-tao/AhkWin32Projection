@@ -2,11 +2,11 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\EnrollmentSelectionStatus.ahk
-#Include .\EnrollmentEnrollStatus.ahk
-#Include .\EnrollmentDisplayStatus.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\EnrollmentDisplayStatus.ahk
+#Include .\EnrollmentEnrollStatus.ahk
+#Include .\EnrollmentSelectionStatus.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * The IX509EnrollmentStatus interface can be used to specify or retrieve detailed error information about a certificate enrollment transaction.

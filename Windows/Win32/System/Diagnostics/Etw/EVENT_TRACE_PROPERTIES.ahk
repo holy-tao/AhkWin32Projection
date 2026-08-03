@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WNODE_HEADER.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\EVENT_TRACE_FLAG.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
+#Include .\EVENT_TRACE_FLAG.ahk
+#Include .\WNODE_HEADER.ahk
 
 /**
  * The EVENT_TRACE_PROPERTIES structure contains information about an event tracing session and is used with APIs such as StartTrace and ControlTrace.

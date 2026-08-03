@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ITuneRequest.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\ITuneRequest.ahk
 
 /**
  * The IChannelTuneRequest interface is implemented on tuning request objects that support channel numbers, including analog TV and ATSC.

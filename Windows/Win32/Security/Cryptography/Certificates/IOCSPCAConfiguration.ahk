@@ -2,10 +2,10 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
-#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a set of definitions that enable an Online Certificate Status Protocol (OCSP) service to respond to a certificate status request for a specific certification authority (CA).

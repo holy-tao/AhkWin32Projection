@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12RootSignature.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID3D12RootSignature.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

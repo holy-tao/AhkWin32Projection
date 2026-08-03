@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\PROPERTYKEY.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
 #Include .\IUrlAccessor3.ahk
 
 /**

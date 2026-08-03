@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\DISPPARAMS.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\ITypeInfo.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\DISPPARAMS.ahk
 #Include ..\..\System\Com\EXCEPINFO.ahk
+#Include ..\..\System\Com\ITypeInfo.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.Networking.ActiveDirectory

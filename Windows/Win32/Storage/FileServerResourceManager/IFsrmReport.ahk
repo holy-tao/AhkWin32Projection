@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\FsrmReportFilter.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\FsrmReportType.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\FsrmReportFilter.ahk
+#Include .\FsrmReportType.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * Used to configure the description and filters for a single report.

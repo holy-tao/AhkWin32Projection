@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\AUDIO_DUCKING_OPTIONS.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\AUDIO_DUCKING_OPTIONS.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides a method, SetDuckingOptionsForCurrentStream, that allows an app to specify that the system shouldn't duck the audio of other streams when the app's audio render stream is active.

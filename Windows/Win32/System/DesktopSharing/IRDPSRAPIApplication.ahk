@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IRDPSRAPIWindowList.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\IRDPSRAPIWindowList.ahk
 
 /**
  * Groups the sharable windows within a process. Each application object contains a list of window objects. If an application object is shared, all its windows are shared.

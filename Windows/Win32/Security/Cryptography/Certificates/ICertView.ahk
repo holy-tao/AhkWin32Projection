@@ -2,14 +2,14 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\CERT_VIEW_COLUMN_INDEX.ahk
-#Include .\IEnumCERTVIEWCOLUMN.ahk
-#Include .\CERT_VIEW_SEEK_OPERATOR_FLAGS.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
-#Include .\IEnumCERTVIEWROW.ahk
-#Include .\CVRC_COLUMN.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\CERT_VIEW_COLUMN_INDEX.ahk
+#Include .\CERT_VIEW_SEEK_OPERATOR_FLAGS.ahk
+#Include .\CVRC_COLUMN.ahk
+#Include .\IEnumCERTVIEWCOLUMN.ahk
+#Include .\IEnumCERTVIEWROW.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 
 /**
  * Allows properly authorized clients to create a customized or complete view of the Certificate Services database.

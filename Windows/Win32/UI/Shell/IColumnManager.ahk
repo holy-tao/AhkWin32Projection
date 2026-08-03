@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\CM_ENUM_FLAGS.ahk
-#Include .\CM_COLUMNINFO.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\CM_COLUMNINFO.ahk
+#Include .\CM_ENUM_FLAGS.ahk
 
 /**
  * Exposes methods that enable inspection and manipulation of columns in the Windows Explorer Details view. Each column is referenced by a PROPERTYKEY structure, which names a property.

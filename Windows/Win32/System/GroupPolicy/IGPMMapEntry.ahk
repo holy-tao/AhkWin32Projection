@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\GPMEntryType.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IDispatch.ahk
 #Include .\GPMDestinationOption.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\GPMEntryType.ahk
 
 /**
  * The IGPMMapEntry interface provides access to a map entry.

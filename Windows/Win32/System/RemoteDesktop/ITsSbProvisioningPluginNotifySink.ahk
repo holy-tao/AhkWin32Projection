@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\VM_HOST_NOTIFY_STATUS.ahk
 #Include .\VM_NOTIFY_ENTRY.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\VM_NOTIFY_STATUS.ahk
 #Include .\VM_NOTIFY_INFO.ahk
+#Include .\VM_NOTIFY_STATUS.ahk
 
 /**
  * Exposes methods that notify Remote Desktop Connection Broker (RD Connection Broker) about the provisioning of virtual machines.

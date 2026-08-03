@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\MilRectD.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMILBitmapEffect.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\MilRectD.ahk
 
 /**
  * Exposes methods that define an effect event.

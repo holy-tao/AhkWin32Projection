@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\FILTER_VOLUME_INFORMATION_CLASS.ahk
-#Include .\HFILTER_INSTANCE.ahk
-#Include .\FILTER_INFORMATION_CLASS.ahk
-#Include .\INSTANCE_INFORMATION_CLASS.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\HFILTER.ahk
-#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
-#Include ..\..\System\IO\OVERLAPPED.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
+#Include .\FILTER_INFORMATION_CLASS.ahk
+#Include .\FILTER_VOLUME_INFORMATION_CLASS.ahk
+#Include .\HFILTER.ahk
+#Include .\HFILTER_INSTANCE.ahk
+#Include .\INSTANCE_INFORMATION_CLASS.ahk
+#Include ..\..\System\IO\OVERLAPPED.ahk
 
 /**
  * @namespace Windows.Win32.Storage.InstallableFileSystems

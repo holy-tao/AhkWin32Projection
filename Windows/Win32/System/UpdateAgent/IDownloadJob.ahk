@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\IDownloadProgress.ahk
 #Include .\IUpdateCollection.ahk
 #Include ..\Variant\VARIANT.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IDownloadProgress.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains properties and methods that are available to a download operation.

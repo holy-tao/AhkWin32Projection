@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\SAFEARRAY.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\Com\SAFEARRAY.ahk
 
 /**
  * Retrieves information about an assembly when using managed code in the .NET Framework common language runtime.

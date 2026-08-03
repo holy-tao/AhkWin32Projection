@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IDispatch.ahk
 #Include .\TASK_ACTION_TYPE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides the common properties inherited by all action objects.

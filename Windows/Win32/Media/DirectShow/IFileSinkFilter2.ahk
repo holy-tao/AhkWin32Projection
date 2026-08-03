@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFileSinkFilter.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IFileSinkFilter.ahk
 
 /**
  * The IFileSinkFilter2 interface extends the IFileSinkFilter interface.

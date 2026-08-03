@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\IPin.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * The IBDA_TIF_REGISTRATION interface is exposed by the BDA Network Provider.

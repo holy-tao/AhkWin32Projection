@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ECC_CURVE_TYPE_ENUM.ahk
 #Include .\ECC_CURVE_ALG_ID_ENUM.ahk
+#Include .\ECC_CURVE_TYPE_ENUM.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography

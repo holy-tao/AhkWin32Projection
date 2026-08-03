@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WINTRUST_SIGNATURE_SETTINGS_FLAGS.ahk
 #Include ..\Cryptography\CERT_STRONG_SIGN_PARA.ahk
+#Include .\WINTRUST_SIGNATURE_SETTINGS_FLAGS.ahk
 
 /**
  * Can be used to specify the signatures on a file.

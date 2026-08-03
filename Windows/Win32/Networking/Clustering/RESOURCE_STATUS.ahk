@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSTER_RESOURCE_STATE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\CLUSTER_RESOURCE_STATE.ahk
 
 /**
  * Contains information about a resource that is being brought online or taken offline. This structure is used as a parameter to the callback function SetResourceStatus.

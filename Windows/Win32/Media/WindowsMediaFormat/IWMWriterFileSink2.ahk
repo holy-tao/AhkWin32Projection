@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\IWMWriterFileSink.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWMWriterFileSink.ahk
 
 /**
  * The IWMWriterFileSink2 interface provides extended management of a file sink.This interface can be obtained by calling the QueryInterface method of an IWMWriterFileSink interface.

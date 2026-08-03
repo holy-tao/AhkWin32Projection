@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\COMPOSITION_FRAME_STATS.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionVisual.ahk
-#Include .\COMPOSITION_TARGET_ID.ahk
-#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
-#Include ..\Dxgi\IDXGIDevice.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\COMPOSITION_TARGET_STATS.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\COMPOSITION_FRAME_ID_TYPE.ahk
+#Include .\COMPOSITION_FRAME_STATS.ahk
+#Include .\COMPOSITION_TARGET_ID.ahk
+#Include .\COMPOSITION_TARGET_STATS.ahk
+#Include .\IDCompositionVisual.ahk
+#Include ..\Dxgi\IDXGIDevice.ahk
+#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectComposition

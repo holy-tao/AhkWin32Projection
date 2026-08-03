@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPSEMANTICERRORINFO.ahk
-#Include .\SPPHRASERULE.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\SPPHRASEREPLACEMENT.ahk
-#Include .\SPPHRASE_50.ahk
-#Include .\SPPHRASEPROPERTY.ahk
 #Include .\SPPHRASEELEMENT.ahk
+#Include .\SPPHRASEPROPERTY.ahk
+#Include .\SPPHRASEREPLACEMENT.ahk
+#Include .\SPPHRASERULE.ahk
+#Include .\SPPHRASE_50.ahk
+#Include .\SPSEMANTICERRORINFO.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech

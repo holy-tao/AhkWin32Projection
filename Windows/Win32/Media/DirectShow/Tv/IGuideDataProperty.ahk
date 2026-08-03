@@ -2,9 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 
 /**
  * The IGuideDataProperty interface represents the name, value, and language of a property associated with a service, program or schedule entry object.

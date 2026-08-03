@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\METADATA_HANDLE_INFO.ahk
 #Include .\METADATA_RECORD.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SETUP_DI_REMOVE_DEVICE_SCOPE.ahk
 #Include .\DI_FUNCTION.ahk
+#Include .\SETUP_DI_REMOVE_DEVICE_SCOPE.ahk
 #Include .\SP_CLASSINSTALL_HEADER.ahk
 
 /**

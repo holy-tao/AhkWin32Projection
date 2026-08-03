@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\TF_LANGBARITEMINFO.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITfLangBarItem interface is implemented by a language bar item provider and used by the language bar manager to obtain detailed information about the language bar item.

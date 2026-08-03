@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DXGI_MEMORY_SEGMENT_GROUP.ahk
-#Include .\DXGI_QUERY_VIDEO_MEMORY_INFO.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\DXGI_MEMORY_SEGMENT_GROUP.ahk
+#Include .\DXGI_QUERY_VIDEO_MEMORY_INFO.ahk
 #Include .\IDXGIAdapter2.ahk
 
 /**

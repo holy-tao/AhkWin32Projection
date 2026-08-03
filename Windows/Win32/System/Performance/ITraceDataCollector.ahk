@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\StreamMode.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\ITraceDataProviderCollection.ahk
-#Include .\IDataCollector.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\ClockType.ahk
+#Include .\IDataCollector.ahk
+#Include .\ITraceDataProviderCollection.ahk
+#Include .\StreamMode.ahk
 
 /**
  * Collects trace events from registered providers.This interface defines the trace session.

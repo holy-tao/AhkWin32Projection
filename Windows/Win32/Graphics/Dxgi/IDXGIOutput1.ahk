@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIOutput.ahk
-#Include .\DXGI_ENUM_MODES.ahk
-#Include .\IDXGIResource.ahk
-#Include .\IDXGIOutputDuplication.ahk
-#Include Common\DXGI_FORMAT.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include Common\DXGI_FORMAT.ahk
+#Include .\DXGI_ENUM_MODES.ahk
 #Include .\DXGI_MODE_DESC1.ahk
+#Include .\IDXGIOutput.ahk
+#Include .\IDXGIOutputDuplication.ahk
+#Include .\IDXGIResource.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**

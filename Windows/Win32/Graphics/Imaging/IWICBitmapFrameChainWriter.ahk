@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\StructuredStorage\IPropertyBag2.ahk
-#Include .\IWICBitmapFrameEncode.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\WICBitmapChainType.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWICBitmapFrameEncode.ahk
+#Include .\WICBitmapChainType.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\StructuredStorage\IPropertyBag2.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Imaging

@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIObject.ahk
-#Include Common\DXGI_GAMMA_CONTROL.ahk
-#Include Common\DXGI_FORMAT.ahk
-#Include Common\DXGI_MODE_DESC.ahk
-#Include .\DXGI_OUTPUT_DESC.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include Common\DXGI_GAMMA_CONTROL_CAPABILITIES.ahk
-#Include .\IDXGISurface.ahk
-#Include .\DXGI_FRAME_STATISTICS.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include Common\DXGI_FORMAT.ahk
+#Include Common\DXGI_GAMMA_CONTROL.ahk
+#Include Common\DXGI_GAMMA_CONTROL_CAPABILITIES.ahk
+#Include Common\DXGI_MODE_DESC.ahk
 #Include .\DXGI_ENUM_MODES.ahk
+#Include .\DXGI_FRAME_STATISTICS.ahk
+#Include .\DXGI_OUTPUT_DESC.ahk
+#Include .\IDXGIObject.ahk
+#Include .\IDXGISurface.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * An IDXGIOutput interface represents an adapter output (such as a monitor).

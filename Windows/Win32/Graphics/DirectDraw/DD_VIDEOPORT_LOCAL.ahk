@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDVIDEOPORTCONNECT.ahk
-#Include .\DDVIDEOPORTINFO.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DDVIDEOPORTDESC.ahk
-#Include .\DDPIXELFORMAT.ahk
-#Include .\DD_SURFACE_INT.ahk
-#Include .\DD_DIRECTDRAW_LOCAL.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include .\DDPIXELFORMAT.ahk
+#Include .\DDVIDEOPORTCONNECT.ahk
+#Include .\DDVIDEOPORTDESC.ahk
+#Include .\DDVIDEOPORTINFO.ahk
+#Include .\DD_DIRECTDRAW_LOCAL.ahk
+#Include .\DD_SURFACE_INT.ahk
 
 /**
  * The DD_VIDEOPORT_LOCAL structure contains video port extensions (VPE)-related data that is unique to an individual Microsoft DirectDraw VPE object.

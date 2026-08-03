@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\IDataObject.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IDataObject.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IDsAdminNotifyHandler interface is implemented by an Active Directory administrative notification handler.

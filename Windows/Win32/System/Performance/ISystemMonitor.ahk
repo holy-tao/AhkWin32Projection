@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ICounterItem.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\ReportValueTypeConstants.ahk
-#Include ..\Ole\IFontDisp.ahk
-#Include .\DisplayTypeConstants.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\ILogFiles.ahk
-#Include .\ICounters.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\Ole\IFontDisp.ahk
 #Include .\DataSourceTypeConstants.ahk
+#Include .\DisplayTypeConstants.ahk
+#Include .\ICounterItem.ahk
+#Include .\ICounters.ahk
+#Include .\ILogFiles.ahk
+#Include .\ReportValueTypeConstants.ahk
 
 /**
  * @namespace Windows.Win32.System.Performance

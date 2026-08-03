@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWPM_CHANGE_TYPE.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\FWPM_CHANGE_TYPE.ahk
 
 /**
  * Specifies a change notification dispatched to subscribers.

@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IDispatch.ahk
 #Include ..\Variant\VARIANT.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides the methods needed to configure the connection settings for the Remote Desktop Protocol (RDP) app container client control.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\CREDENTIAL_PROVIDER_CREDENTIAL_FIELD_OPTIONS.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides a method that enables the credential provider framework to determine whether you've made a customization to a field's option in a logon or credential UI.

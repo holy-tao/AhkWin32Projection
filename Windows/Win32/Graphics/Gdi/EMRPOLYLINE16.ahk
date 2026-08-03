@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\POINTS.ahk
+#Include ..\..\Foundation\RECTL.ahk
 #Include .\EMR.ahk
 #Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
-#Include ..\..\Foundation\RECTL.ahk
-#Include ..\..\Foundation\POINTS.ahk
 
 /**
  * The EMRPOLYLINE16, EMRPOLYBEZIER16, EMRPOLYGON16, EMRPOLYBEZIERTO16, and EMRPOLYLINETO16 structures contain members for the Polyline, PolyBezier, Polygon, PolyBezierTo, and PolylineTo enhanced metafile records.

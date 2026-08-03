@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\SECURITY_QUALITY_OF_SERVICE.ahk
 #Include ..\..\Foundation\BOOLEAN.ahk
 #Include ..\..\Security\SECURITY_IMPERSONATION_LEVEL.ahk
+#Include ..\..\Security\SECURITY_QUALITY_OF_SERVICE.ahk
 
 /**
  * Contains information supplied by a Dynamic Data Exchange (DDE) client application. The information is useful for specialized or cross-language DDE conversations.

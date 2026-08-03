@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\DEVPROPKEY.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Properties\DEVPROPTYPE.ahk
+#Include ..\..\Foundation\DEVPROPKEY.ahk
 
 /**
  * @namespace Windows.Win32.Devices.DeviceQuery

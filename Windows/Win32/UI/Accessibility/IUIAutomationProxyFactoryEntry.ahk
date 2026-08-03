@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\UIA_PROPERTY_ID.ahk
-#Include .\UIA_EVENT_ID.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\SAFEARRAY.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 #Include .\IUIAutomationProxyFactory.ahk
+#Include .\UIA_EVENT_ID.ahk
+#Include .\UIA_PROPERTY_ID.ahk
 
 /**
  * Represents a proxy factory in the table maintained by Microsoft UI Automation, and exposes properties and methods that can be used by client applications to interact with IUIAutomationProxyFactory objects.

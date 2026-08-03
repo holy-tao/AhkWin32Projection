@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWICComponentInfo.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWICFormatConverter.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWICComponentInfo.ahk
+#Include .\IWICFormatConverter.ahk
 
 /**
  * Exposes methods that provide information about a pixel format converter.

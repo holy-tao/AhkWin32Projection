@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\PolicyServerUrlFlags.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\X509EnrollmentAuthFlags.ahk
-#Include .\PolicyServerUrlPropertyID.ahk
-#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\PolicyServerUrlFlags.ahk
+#Include .\PolicyServerUrlPropertyID.ahk
 #Include .\X509CertificateEnrollmentContext.ahk
+#Include .\X509EnrollmentAuthFlags.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * The IX509PolicyServerUrl interface can be used to set or retrieve property values associated with the certificate enrollment policy (CEP) server and to update associated registry values.

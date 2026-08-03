@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1ResourceTexture.ahk
-#Include .\ID2D1RenderInfo.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID2D1RenderInfo.ahk
+#Include .\ID2D1ResourceTexture.ahk
 
 /**
  * Enables specification of information for a compute-shader rendering pass.

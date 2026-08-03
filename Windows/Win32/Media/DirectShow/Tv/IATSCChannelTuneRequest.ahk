@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IChannelTuneRequest.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IChannelTuneRequest.ahk
 
 /**
  * The IATSCChannelTuneRequest interface provides methods for tuning to a channel in an ATSC network. The ATSCChannelTuneRequest object implements this interface.

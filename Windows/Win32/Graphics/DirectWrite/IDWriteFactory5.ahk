@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFactory4.ahk
-#Include .\IDWriteFontSetBuilder1.ahk
-#Include .\IDWriteFontFileStream.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\IDWriteRemoteFontFileLoader.ahk
-#Include .\DWRITE_CONTAINER_TYPE.ahk
-#Include .\IDWriteInMemoryFontFileLoader.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\DWRITE_CONTAINER_TYPE.ahk
+#Include .\IDWriteFactory4.ahk
+#Include .\IDWriteFontFileStream.ahk
+#Include .\IDWriteFontSetBuilder1.ahk
+#Include .\IDWriteInMemoryFontFileLoader.ahk
+#Include .\IDWriteRemoteFontFileLoader.ahk
 
 /**
  * The root factory interface for all DirectWrite objects. (IDWriteFactory5)

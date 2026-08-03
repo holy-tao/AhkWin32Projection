@@ -1,59 +1,59 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\PSTR.ahk
-#Include .\RASENTRYNAMEW.ahk
-#Include .\RASDEVINFOW.ahk
-#Include .\MPRAPI_OBJECT_HEADER.ahk
-#Include .\MGM_ENUM_TYPES.ahk
-#Include .\MPR_IF_CUSTOMINFOEX2.ahk
-#Include .\MPR_SERVER_EX1.ahk
-#Include .\RASAUTODIALENTRYW.ahk
-#Include .\RTM_ENTITY_METHOD_INPUT.ahk
-#Include .\RAS_UPDATE_CONNECTION.ahk
-#Include .\RTM_DEST_INFO.ahk
-#Include .\RASENTRYDLGA.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include ..\IpHelper\MIB_IPMCAST_MFE.ahk
-#Include .\RASDIALPARAMSW.ahk
-#Include .\RASDIALDLG.ahk
-#Include .\RTM_ENTITY_METHOD_OUTPUT.ahk
-#Include .\RASSUBENTRYA.ahk
-#Include .\RTM_REGN_PROFILE.ahk
-#Include .\RTM_ENTITY_INFO.ahk
-#Include .\RASEAPUSERIDENTITYW.ahk
-#Include .\RAS_PROJECTION_INFO.ahk
 #Include .\HRASCONN.ahk
-#Include .\RAS_STATS.ahk
+#Include .\MGM_ENUM_TYPES.ahk
+#Include .\MPRAPI_OBJECT_HEADER.ahk
+#Include .\MPR_IF_CUSTOMINFOEX2.ahk
+#Include .\MPR_SERVER_EX1.ahk
 #Include .\MPR_SERVER_SET_CONFIG_EX1.ahk
-#Include .\RASCTRYINFO.ahk
-#Include .\RAS_CONNECTION_EX.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\RTM_NEXTHOP_INFO.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include .\RASENTRYW.ahk
-#Include .\RASCONNSTATUSW.ahk
-#Include .\RASDEVINFOA.ahk
-#Include .\RTM_NET_ADDRESS.ahk
-#Include .\RASCONNSTATUSA.ahk
-#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
-#Include .\RASENTRYDLGW.ahk
-#Include .\RASPROJECTION.ahk
-#Include .\RASEAPUSERIDENTITYA.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\RTM_ROUTE_INFO.ahk
-#Include .\RTM_ENTITY_EXPORT_METHODS.ahk
-#Include .\RASDIALEXTENSIONS.ahk
-#Include .\RASPBDLGW.ahk
 #Include .\RASAUTODIALENTRYA.ahk
-#Include .\RASCREDENTIALSW.ahk
-#Include .\RASENTRYA.ahk
-#Include .\RASDIALPARAMSA.ahk
-#Include .\RASPBDLGA.ahk
-#Include .\ROUTING_PROTOCOL_CONFIG.ahk
-#Include .\RASUPDATECONN.ahk
-#Include .\RASSUBENTRYW.ahk
+#Include .\RASAUTODIALENTRYW.ahk
+#Include .\RASCONNSTATUSA.ahk
+#Include .\RASCONNSTATUSW.ahk
 #Include .\RASCREDENTIALSA.ahk
+#Include .\RASCREDENTIALSW.ahk
+#Include .\RASCTRYINFO.ahk
+#Include .\RASDEVINFOA.ahk
+#Include .\RASDEVINFOW.ahk
+#Include .\RASDIALDLG.ahk
+#Include .\RASDIALEXTENSIONS.ahk
+#Include .\RASDIALPARAMSA.ahk
+#Include .\RASDIALPARAMSW.ahk
+#Include .\RASEAPUSERIDENTITYA.ahk
+#Include .\RASEAPUSERIDENTITYW.ahk
+#Include .\RASENTRYA.ahk
+#Include .\RASENTRYDLGA.ahk
+#Include .\RASENTRYDLGW.ahk
 #Include .\RASENTRYNAMEA.ahk
+#Include .\RASENTRYNAMEW.ahk
+#Include .\RASENTRYW.ahk
+#Include .\RASPBDLGA.ahk
+#Include .\RASPBDLGW.ahk
+#Include .\RASPROJECTION.ahk
+#Include .\RASSUBENTRYA.ahk
+#Include .\RASSUBENTRYW.ahk
+#Include .\RASUPDATECONN.ahk
+#Include .\RAS_CONNECTION_EX.ahk
+#Include .\RAS_PROJECTION_INFO.ahk
+#Include .\RAS_STATS.ahk
+#Include .\RAS_UPDATE_CONNECTION.ahk
+#Include .\ROUTING_PROTOCOL_CONFIG.ahk
+#Include .\RTM_DEST_INFO.ahk
+#Include .\RTM_ENTITY_EXPORT_METHODS.ahk
+#Include .\RTM_ENTITY_INFO.ahk
+#Include .\RTM_ENTITY_METHOD_INPUT.ahk
+#Include .\RTM_ENTITY_METHOD_OUTPUT.ahk
+#Include .\RTM_NET_ADDRESS.ahk
+#Include .\RTM_NEXTHOP_INFO.ahk
+#Include .\RTM_REGN_PROFILE.ahk
+#Include .\RTM_ROUTE_INFO.ahk
+#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
@@ -3737,12 +3737,57 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasDial as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<RASDIALEXTENSIONS>} param0 
-     * @param {PSTR} param1 
-     * @param {Pointer<RASDIALPARAMSA>} param2 
+     * @param {Pointer<RASDIALEXTENSIONS>} param0 Pointer to a 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377029(v=vs.85)">RASDIALEXTENSIONS</a> structure that specifies a set of 
+     * <b>RasDial</b> extended features to enable. Set this parameter to <b>NULL</b> if there is not a need to enable these features.
+     * @param {PSTR} param1 Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
+     * @param {Pointer<RASDIALPARAMSA>} param2 Pointer to a 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure that specifies calling parameters for the RAS connection. Use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetentrydialparamsa">RasGetEntryDialParams</a> function to retrieve a copy of this structure for a particular phone-book entry. 
+     * 
+     * 
+     * 
+     * 
+     * The caller must set the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure's <b>dwSize</b> member to sizeof(<b>RASDIALPARAMS</b>) to identify the version of the structure being passed.
+     * 
+     * If the <b>szPhoneNumber</b> member of the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure is an empty string, 
+     * <b>RasDial</b> uses the phone number stored in the phone-book entry.
      * @param {Integer} param3 
-     * @param {Pointer<Void>} param4 
-     * @param {Pointer<HRASCONN>} param5 
+     * @param {Pointer<Void>} param4 Specifies a window handle or a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nc-ras-rasdialfunc">RasDialFunc</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nc-ras-rasdialfunc1">RasDialFunc1</a>, or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nc-ras-rasdialfunc2">RasDialFunc2</a> callback function to receive 
+     * <b>RasDial</b> event notifications. The <i>dwNotifierType</i> parameter specifies the nature of <i>lpvNotifier</i>. Please refer to its description preceding for further detail. 
+     * 
+     * 
+     * 
+     * 
+     * If this parameter is not <b>NULL</b>, 
+     * <b>RasDial</b> sends the window a message, or calls the callback function, for each 
+     * <b>RasDial</b> event. Additionally, the 
+     * <b>RasDial</b> call operates asynchronously: 
+     * <b>RasDial</b> returns immediately, before the connection is established, and communicates its progress via the window or callback function.
+     * 
+     * If <i>lpvNotifier</i> is <b>NULL</b>, the 
+     * <b>RasDial</b> call operates synchronously: 
+     * <b>RasDial</b> does not return until the connection attempt has completed successfully or failed.
+     * 
+     * If <i>lpvNotifier</i> is not <b>NULL</b>, notifications to the window or callback function can occur at any time after the initial call to 
+     * <b>RasDial</b>. Notifications end when one of the following events occurs:
+     * 
+     * <ul>
+     * <li>The connection is established. In other words, the RAS connection state is RASCS_Connected.</li>
+     * <li>The connection fails. In other words, <i>dwError</i> is nonzero.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rashangupa">RasHangUp</a> is called on the connection.</li>
+     * </ul>
+     * The callback notifications are made in the context of a thread captured during the initial call to 
+     * <b>RasDial</b>.
+     * @param {Pointer<HRASCONN>} param5 Pointer to a variable of type <b>HRASCONN</b>. Set the <b>HRASCONN</b> variable to <b>NULL</b> before calling 
+     * <b>RasDial</b>. If 
+     * <b>RasDial</b> succeeds, it stores a handle to the RAS connection into <i>*lphRasConn</i>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b> and a handle to the RAS connection is returned in the variable pointed to by <i>lphRasConn</i>.
      * 
      * If the function fails, the return value is from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -3826,12 +3871,57 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasDial as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<RASDIALEXTENSIONS>} param0 
-     * @param {PWSTR} param1 
-     * @param {Pointer<RASDIALPARAMSW>} param2 
+     * @param {Pointer<RASDIALEXTENSIONS>} param0 Pointer to a 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377029(v=vs.85)">RASDIALEXTENSIONS</a> structure that specifies a set of 
+     * <b>RasDial</b> extended features to enable. Set this parameter to <b>NULL</b> if there is not a need to enable these features.
+     * @param {PWSTR} param1 Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
+     * @param {Pointer<RASDIALPARAMSW>} param2 Pointer to a 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure that specifies calling parameters for the RAS connection. Use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetentrydialparamsa">RasGetEntryDialParams</a> function to retrieve a copy of this structure for a particular phone-book entry. 
+     * 
+     * 
+     * 
+     * 
+     * The caller must set the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure's <b>dwSize</b> member to sizeof(<b>RASDIALPARAMS</b>) to identify the version of the structure being passed.
+     * 
+     * If the <b>szPhoneNumber</b> member of the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure is an empty string, 
+     * <b>RasDial</b> uses the phone number stored in the phone-book entry.
      * @param {Integer} param3 
-     * @param {Pointer<Void>} param4 
-     * @param {Pointer<HRASCONN>} param5 
+     * @param {Pointer<Void>} param4 Specifies a window handle or a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nc-ras-rasdialfunc">RasDialFunc</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nc-ras-rasdialfunc1">RasDialFunc1</a>, or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nc-ras-rasdialfunc2">RasDialFunc2</a> callback function to receive 
+     * <b>RasDial</b> event notifications. The <i>dwNotifierType</i> parameter specifies the nature of <i>lpvNotifier</i>. Please refer to its description preceding for further detail. 
+     * 
+     * 
+     * 
+     * 
+     * If this parameter is not <b>NULL</b>, 
+     * <b>RasDial</b> sends the window a message, or calls the callback function, for each 
+     * <b>RasDial</b> event. Additionally, the 
+     * <b>RasDial</b> call operates asynchronously: 
+     * <b>RasDial</b> returns immediately, before the connection is established, and communicates its progress via the window or callback function.
+     * 
+     * If <i>lpvNotifier</i> is <b>NULL</b>, the 
+     * <b>RasDial</b> call operates synchronously: 
+     * <b>RasDial</b> does not return until the connection attempt has completed successfully or failed.
+     * 
+     * If <i>lpvNotifier</i> is not <b>NULL</b>, notifications to the window or callback function can occur at any time after the initial call to 
+     * <b>RasDial</b>. Notifications end when one of the following events occurs:
+     * 
+     * <ul>
+     * <li>The connection is established. In other words, the RAS connection state is RASCS_Connected.</li>
+     * <li>The connection fails. In other words, <i>dwError</i> is nonzero.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rashangupa">RasHangUp</a> is called on the connection.</li>
+     * </ul>
+     * The callback notifications are made in the context of a thread captured during the initial call to 
+     * <b>RasDial</b>.
+     * @param {Pointer<HRASCONN>} param5 Pointer to a variable of type <b>HRASCONN</b>. Set the <b>HRASCONN</b> variable to <b>NULL</b> before calling 
+     * <b>RasDial</b>. If 
+     * <b>RasDial</b> succeeds, it stores a handle to the RAS connection into <i>*lphRasConn</i>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b> and a handle to the RAS connection is returned in the variable pointed to by <i>lphRasConn</i>.
      * 
      * If the function fails, the return value is from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -3856,9 +3946,28 @@ class Rras {
      * 
      * 
      * ```cpp
-     * @param {Integer} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<Integer>} param2 
+     * @param {Integer} param0 Pointer to a buffer that receives, on output, an array of 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376725(v=vs.85)">RASCONN</a> structures, one for each RAS connection. 
+     * 
+     * 
+     * 
+     * 
+     * On input, an application must set the <b>dwSize</b> member of the first 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376725(v=vs.85)">RASCONN</a> structure in the buffer to sizeof(<b>RASCONN</b>) in order to identify the version of the structure being passed.
+     * @param {Pointer<Integer>} param1 Pointer to a variable that, on input, contains the size, in bytes, of the buffer specified by <i>lprasconn</i>. 
+     * 
+     * 
+     * 
+     * 
+     * On output, the function sets this variable to the number of bytes required to enumerate the RAS connections.
+     * 
+     * <div class="alert"><b>Note</b>  <p class="note">To determine the required buffer size, call 
+     * <b>RasEnumConnections</b> with <i>lprasconn</i> set to <b>NULL</b>. The variable pointed to by <i>lpcb</i> should be set to zero. The function will return the required buffer size in <i>lpcb</i> and an error code of <b>ERROR_BUFFER_TOO_SMALL</b>.
+     * 
+     * </div>
+     * <div> </div>
+     * @param {Pointer<Integer>} param2 Pointer to a variable that receives the number of 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376725(v=vs.85)">RASCONN</a> structures written to the buffer specified by <i>lprasconn</i>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -3900,9 +4009,28 @@ class Rras {
      * 
      * 
      * ```cpp
-     * @param {Integer} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<Integer>} param2 
+     * @param {Integer} param0 Pointer to a buffer that receives, on output, an array of 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376725(v=vs.85)">RASCONN</a> structures, one for each RAS connection. 
+     * 
+     * 
+     * 
+     * 
+     * On input, an application must set the <b>dwSize</b> member of the first 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376725(v=vs.85)">RASCONN</a> structure in the buffer to sizeof(<b>RASCONN</b>) in order to identify the version of the structure being passed.
+     * @param {Pointer<Integer>} param1 Pointer to a variable that, on input, contains the size, in bytes, of the buffer specified by <i>lprasconn</i>. 
+     * 
+     * 
+     * 
+     * 
+     * On output, the function sets this variable to the number of bytes required to enumerate the RAS connections.
+     * 
+     * <div class="alert"><b>Note</b>  <p class="note">To determine the required buffer size, call 
+     * <b>RasEnumConnections</b> with <i>lprasconn</i> set to <b>NULL</b>. The variable pointed to by <i>lpcb</i> should be set to zero. The function will return the required buffer size in <i>lpcb</i> and an error code of <b>ERROR_BUFFER_TOO_SMALL</b>.
+     * 
+     * </div>
+     * <div> </div>
+     * @param {Pointer<Integer>} param2 Pointer to a variable that receives the number of 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376725(v=vs.85)">RASCONN</a> structures written to the buffer specified by <i>lprasconn</i>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -3945,11 +4073,29 @@ class Rras {
      * 
      * 
      * ```cpp
-     * @param {PSTR} param0 
-     * @param {PSTR} param1 
-     * @param {Pointer<RASENTRYNAMEA>} param2 
-     * @param {Pointer<Integer>} param3 
-     * @param {Pointer<Integer>} param4 
+     * @param {PSTR} param0 Reserved; must be <b>NULL</b>.
+     * @param {PSTR} param1 Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
+     * 
+     * If this parameter is <b>NULL</b>, the entries are enumerated from all the remote access phone-book files in the AllUsers profile and the user's profile.
+     * @param {Pointer<RASENTRYNAMEA>} param2 Pointer to a buffer that, on output, receives an array of 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377267(v=vs.85)">RASENTRYNAME</a> structures, one for each phone-book entry. 
+     * 
+     * 
+     * 
+     * 
+     * On input, an application must set the <b>dwSize</b> member of the first 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377267(v=vs.85)">RASENTRYNAME</a> structure in the buffer to sizeof(<b>RASENTRYNAME</b>) in order to identify the version of the structure being passed.
+     * @param {Pointer<Integer>} param3 Pointer to a variable that, on input, contains the size, in bytes, of the buffer specified by <i>lprasentryname</i>. 
+     * 
+     * 
+     * 
+     * 
+     * Pointer to a variable that, on output, contains the size, in bytes, of the array of 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377267(v=vs.85)">RASENTRYNAME</a> structures required for the phone-book entries.
+     * 
+     * <b>Windows Vista or later:  </b>To determine the required buffer size, call 
+     * <b>RasEnumEntries</b> with <i>lprasentryname</i> set to <b>NULL</b>. The variable pointed to by <i>lpcb</i> should be set to zero. The function will return the required buffer size in <i>lpcb</i> and an error code of <b>ERROR_BUFFER_TOO_SMALL</b>.
+     * @param {Pointer<Integer>} param4 Pointer to a variable that receives to the number of phone-book entries written to the buffer specified by <i>lprasentryname</i>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4022,11 +4168,29 @@ class Rras {
      * 
      * 
      * ```cpp
-     * @param {PWSTR} param0 
-     * @param {PWSTR} param1 
-     * @param {Pointer<RASENTRYNAMEW>} param2 
-     * @param {Pointer<Integer>} param3 
-     * @param {Pointer<Integer>} param4 
+     * @param {PWSTR} param0 Reserved; must be <b>NULL</b>.
+     * @param {PWSTR} param1 Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
+     * 
+     * If this parameter is <b>NULL</b>, the entries are enumerated from all the remote access phone-book files in the AllUsers profile and the user's profile.
+     * @param {Pointer<RASENTRYNAMEW>} param2 Pointer to a buffer that, on output, receives an array of 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377267(v=vs.85)">RASENTRYNAME</a> structures, one for each phone-book entry. 
+     * 
+     * 
+     * 
+     * 
+     * On input, an application must set the <b>dwSize</b> member of the first 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377267(v=vs.85)">RASENTRYNAME</a> structure in the buffer to sizeof(<b>RASENTRYNAME</b>) in order to identify the version of the structure being passed.
+     * @param {Pointer<Integer>} param3 Pointer to a variable that, on input, contains the size, in bytes, of the buffer specified by <i>lprasentryname</i>. 
+     * 
+     * 
+     * 
+     * 
+     * Pointer to a variable that, on output, contains the size, in bytes, of the array of 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377267(v=vs.85)">RASENTRYNAME</a> structures required for the phone-book entries.
+     * 
+     * <b>Windows Vista or later:  </b>To determine the required buffer size, call 
+     * <b>RasEnumEntries</b> with <i>lprasentryname</i> set to <b>NULL</b>. The variable pointed to by <i>lpcb</i> should be set to zero. The function will return the required buffer size in <i>lpcb</i> and an error code of <b>ERROR_BUFFER_TOO_SMALL</b>.
+     * @param {Pointer<Integer>} param4 Pointer to a variable that receives to the number of phone-book entries written to the buffer specified by <i>lprasentryname</i>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4105,8 +4269,16 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasGetConnectStatus as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HRASCONN} param0 
-     * @param {Pointer<RASCONNSTATUSA>} param1 
+     * @param {HRASCONN} param0 Specifies the remote access connection for which to retrieve the status. This handle must have been obtained from 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a>.
+     * @param {Pointer<RASCONNSTATUSA>} param1 Pointer to the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376728(v=vs.85)">RASCONNSTATUS</a> structure that, on output, receives the status information. 
+     * 
+     * 
+     * 
+     * 
+     * On input, set the <b>dwSize</b> member of the structure to sizeof(<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376728(v=vs.85)">RASCONNSTATUS</a>) in order to identify the version of the structure being passed.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4154,8 +4326,16 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasGetConnectStatus as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HRASCONN} param0 
-     * @param {Pointer<RASCONNSTATUSW>} param1 
+     * @param {HRASCONN} param0 Specifies the remote access connection for which to retrieve the status. This handle must have been obtained from 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a>.
+     * @param {Pointer<RASCONNSTATUSW>} param1 Pointer to the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376728(v=vs.85)">RASCONNSTATUS</a> structure that, on output, receives the status information. 
+     * 
+     * 
+     * 
+     * 
+     * On input, set the <b>dwSize</b> member of the structure to sizeof(<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376728(v=vs.85)">RASCONNSTATUS</a>) in order to identify the version of the structure being passed.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4297,7 +4477,9 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasHangUp as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HRASCONN} param0 
+     * @param {HRASCONN} param0 Specifies the remote access connection to terminate. This is a handle returned from a previous call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4357,7 +4539,9 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasHangUp as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HRASCONN} param0 
+     * @param {HRASCONN} param0 Specifies the remote access connection to terminate. This is a handle returned from a previous call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4407,10 +4591,137 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasGetProjectionInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HRASCONN} param0 
-     * @param {RASPROJECTION} param1 
-     * @param {Pointer<Void>} param2 
-     * @param {Pointer<Integer>} param3 
+     * @param {HRASCONN} param0 Handle to the remote access connection of interest. An application obtains a RAS connection handle from the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> function.
+     * @param {RASPROJECTION} param1 Specifies the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377648(v=vs.85)">RASPROJECTION</a> enumerated type value that identifies the protocol of interest.
+     * @param {Pointer<Void>} param2 Pointer to a buffer that receives the information specified by the <i>rasprojection</i> parameter. The information is in a structure appropriate to the <i>rasprojection</i> value. 
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>rasprojection value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="RASP_Amb"></a><a id="rasp_amb"></a><a id="RASP_AMB"></a><dl>
+     * <dt><b>RASP_Amb</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376720(v=vs.85)">RASAMB</a>
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  Supported on Windows 2000 or earlier.</div>
+     * <div> </div>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="RASP_PppCcp"></a><a id="rasp_pppccp"></a><a id="RASP_PPPCCP"></a><dl>
+     * <dt><b>RASP_PppCcp</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377620(v=vs.85)">RASPPPCCP</a>
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  Supported on Windows 2000 or later.</div>
+     * <div> </div>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="RASP_PppIp"></a><a id="rasp_pppip"></a><a id="RASP_PPPIP"></a><dl>
+     * <dt><b>RASP_PppIp</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377634(v=vs.85)">RASPPPIP</a>
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="RASP_PppIpv6"></a><a id="rasp_pppipv6"></a><a id="RASP_PPPIPV6"></a><dl>
+     * <dt><b>RASP_PppIpv6</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa816540(v=vs.85)">RASPPPIPV6</a>
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  Supported on Windows Vista or later.</div>
+     * <div> </div>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="RASP_PppIpx"></a><a id="rasp_pppipx"></a><a id="RASP_PPPIPX"></a><dl>
+     * <dt><b>RASP_PppIpx</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377623(v=vs.85)">RASPPPIPX</a>
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  Not supported on 64-bit Microsoft Windows.</div>
+     * <div> </div>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="RASP_PppLcp"></a><a id="rasp_ppplcp"></a><a id="RASP_PPPLCP"></a><dl>
+     * <dt><b>RASP_PppLcp</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377638(v=vs.85)">RASPPPLCP</a>
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  Supported on Windows 2000 or later.</div>
+     * <div> </div>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="RASP_PppNbf"></a><a id="rasp_pppnbf"></a><a id="RASP_PPPNBF"></a><dl>
+     * <dt><b>RASP_PppNbf</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377642(v=vs.85)">RASPPPNBF</a>
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  Supported on Windows 2000 or earlier.</div>
+     * <div> </div>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="RASP_Slip"></a><a id="rasp_slip"></a><a id="RASP_SLIP"></a><dl>
+     * <dt><b>RASP_Slip</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377836(v=vs.85)">RASPSLIP</a>
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  Supported on Windows Server 2003 or earlier.</div>
+     * <div> </div>
+     * </td>
+     * </tr>
+     * </table>
+     * @param {Pointer<Integer>} param3 Pointer to a variable that, on input, specifies the size, in bytes, of the buffer pointed to by <i>lpprojection</i>. 
+     * 
+     * 
+     * 
+     * 
+     * On output, this variable receives the size, in bytes, of the <i>lpprojection</i> buffer.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4507,10 +4818,137 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasGetProjectionInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HRASCONN} param0 
-     * @param {RASPROJECTION} param1 
-     * @param {Pointer<Void>} param2 
-     * @param {Pointer<Integer>} param3 
+     * @param {HRASCONN} param0 Handle to the remote access connection of interest. An application obtains a RAS connection handle from the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> function.
+     * @param {RASPROJECTION} param1 Specifies the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377648(v=vs.85)">RASPROJECTION</a> enumerated type value that identifies the protocol of interest.
+     * @param {Pointer<Void>} param2 Pointer to a buffer that receives the information specified by the <i>rasprojection</i> parameter. The information is in a structure appropriate to the <i>rasprojection</i> value. 
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>rasprojection value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="RASP_Amb"></a><a id="rasp_amb"></a><a id="RASP_AMB"></a><dl>
+     * <dt><b>RASP_Amb</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376720(v=vs.85)">RASAMB</a>
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  Supported on Windows 2000 or earlier.</div>
+     * <div> </div>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="RASP_PppCcp"></a><a id="rasp_pppccp"></a><a id="RASP_PPPCCP"></a><dl>
+     * <dt><b>RASP_PppCcp</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377620(v=vs.85)">RASPPPCCP</a>
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  Supported on Windows 2000 or later.</div>
+     * <div> </div>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="RASP_PppIp"></a><a id="rasp_pppip"></a><a id="RASP_PPPIP"></a><dl>
+     * <dt><b>RASP_PppIp</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377634(v=vs.85)">RASPPPIP</a>
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="RASP_PppIpv6"></a><a id="rasp_pppipv6"></a><a id="RASP_PPPIPV6"></a><dl>
+     * <dt><b>RASP_PppIpv6</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa816540(v=vs.85)">RASPPPIPV6</a>
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  Supported on Windows Vista or later.</div>
+     * <div> </div>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="RASP_PppIpx"></a><a id="rasp_pppipx"></a><a id="RASP_PPPIPX"></a><dl>
+     * <dt><b>RASP_PppIpx</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377623(v=vs.85)">RASPPPIPX</a>
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  Not supported on 64-bit Microsoft Windows.</div>
+     * <div> </div>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="RASP_PppLcp"></a><a id="rasp_ppplcp"></a><a id="RASP_PPPLCP"></a><dl>
+     * <dt><b>RASP_PppLcp</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377638(v=vs.85)">RASPPPLCP</a>
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  Supported on Windows 2000 or later.</div>
+     * <div> </div>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="RASP_PppNbf"></a><a id="rasp_pppnbf"></a><a id="RASP_PPPNBF"></a><dl>
+     * <dt><b>RASP_PppNbf</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377642(v=vs.85)">RASPPPNBF</a>
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  Supported on Windows 2000 or earlier.</div>
+     * <div> </div>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="RASP_Slip"></a><a id="rasp_slip"></a><a id="RASP_SLIP"></a><dl>
+     * <dt><b>RASP_Slip</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377836(v=vs.85)">RASPSLIP</a>
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  Supported on Windows Server 2003 or earlier.</div>
+     * <div> </div>
+     * </td>
+     * </tr>
+     * </table>
+     * @param {Pointer<Integer>} param3 Pointer to a variable that, on input, specifies the size, in bytes, of the buffer pointed to by <i>lpprojection</i>. 
+     * 
+     * 
+     * 
+     * 
+     * On output, this variable receives the size, in bytes, of the <i>lpprojection</i> buffer.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4605,8 +5043,8 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasCreatePhonebookEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} param0 
-     * @param {PSTR} param1 
+     * @param {HWND} param0 Handle to the parent window of the dialog box.
+     * @param {PSTR} param1 Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4655,8 +5093,8 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasCreatePhonebookEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} param0 
-     * @param {PWSTR} param1 
+     * @param {HWND} param0 Handle to the parent window of the dialog box.
+     * @param {PWSTR} param1 Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4704,9 +5142,9 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasEditPhonebookEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} param0 
-     * @param {PSTR} param1 
-     * @param {PSTR} param2 
+     * @param {HWND} param0 Handle to the parent window of the dialog box.
+     * @param {PSTR} param1 Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the<b> Dial-Up Networking</b> dialog box.
+     * @param {PSTR} param2 Pointer to a null-terminated string that specifies the name of an existing entry in the phone-book file.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4777,9 +5215,9 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasEditPhonebookEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} param0 
-     * @param {PWSTR} param1 
-     * @param {PWSTR} param2 
+     * @param {HWND} param0 Handle to the parent window of the dialog box.
+     * @param {PWSTR} param1 Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the<b> Dial-Up Networking</b> dialog box.
+     * @param {PWSTR} param2 Pointer to a null-terminated string that specifies the name of an existing entry in the phone-book file.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4854,9 +5292,127 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasSetEntryDialParams as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} param0 
-     * @param {Pointer<RASDIALPARAMSA>} param1 
-     * @param {BOOL} param2 
+     * @param {PSTR} param0 Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box. 
+     * 
+     * 
+     * 
+     * 						
+     * 
+     * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+     * @param {Pointer<RASDIALPARAMSA>} param1 Pointer to the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure that specifies the connection parameters to be associated with the phone-book entry. 
+     * <b>RasSetEntryDialParams</b> uses the structure's members as follows. 
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Member</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="dwSize"></a><a id="dwsize"></a><a id="DWSIZE"></a><dl>
+     * <dt><b><b>dwSize</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Must specify the size of (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a>) to identify the version of the structure.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="szEntryName"></a><a id="szentryname"></a><a id="SZENTRYNAME"></a><dl>
+     * <dt><b><b>szEntryName</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A null-terminated string that identifies the phone-book entry to set parameters for.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="szPhoneNumber"></a><a id="szphonenumber"></a><a id="SZPHONENUMBER"></a><dl>
+     * <dt><b><b>szPhoneNumber</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not used. Set to <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="szCallbackNumber"></a><a id="szcallbacknumber"></a><a id="SZCALLBACKNUMBER"></a><dl>
+     * <dt><b><b>szCallbackNumber</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A null-terminated string that contains the callback phone number. If <b>szCallbackNumber</b> is an empty string ( "" ), the callback number is not changed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="szUserName"></a><a id="szusername"></a><a id="SZUSERNAME"></a><dl>
+     * <dt><b><b>szUserName</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A null-terminated string that contains the logon name of the user associated with this entry. If <b>szUserName</b> is an empty string, the user name is not changed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="szPassword"></a><a id="szpassword"></a><a id="SZPASSWORD"></a><dl>
+     * <dt><b><b>szPassword</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A null-terminated string that contains the password for the user specified by <b>szUserName</b>. If <b>szUserName</b> is an empty string, the password is not changed. If <b>szPassword</b> is an empty string and <i>fRemovePassword</i> is <b>FALSE</b>, the password is set to the empty string. If <i>fRemovePassword</i> is <b>TRUE</b>, the password stored in this phone-book entry for the user specified by <b>szUserName</b> is removed regardless of the contents of the <b>szPassword</b> string. 
+     * 
+     * 
+     * 
+     * 
+     * <b>Windows NT 4.0:  </b>The password is changed to the string specified by <b>szPassword</b> regardless of whether <b>szUserName</b> is an empty string.
+     * 
+     * <b>Windows XP/2000:  </b>If <b>szPassword</b> contains the password handle returned by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetcredentialsa">RasGetCredentials</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetentrydialparamsa">RasGetEntryDialParams</a>, 
+     * <b>RasSetEntryDialParams</b> returns successfully without changing any currently saved password.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="szDomain"></a><a id="szdomain"></a><a id="SZDOMAIN"></a><dl>
+     * <dt><b><b>szDomain</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A null-terminated string that contains the name of the domain on which to log on. If <b>szDomain</b> is an empty string, the domain name is not changed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="dwSubEntry"></a><a id="dwsubentry"></a><a id="DWSUBENTRY"></a><dl>
+     * <dt><b><b>dwSubEntry</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Specifies the (one-based) index of the initial subentry to dial when establishing the connection.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="dwCallbackId"></a><a id="dwcallbackid"></a><a id="DWCALLBACKID"></a><dl>
+     * <dt><b><b>dwCallbackId</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Specifies an application-defined value that RAS passes to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nc-ras-rasdialfunc2">RasDialFunc2</a> callback function.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @param {BOOL} param2 Specifies whether to remove the phone-book entry's stored password for the user indicated by <i>lprasdialparams</i>-&gt;<b>szUserName</b>. If <i>fRemovePassword</i> is <b>TRUE</b>, the password is removed. Setting fRemovePassword to <b>TRUE</b> is equivalent to checking the "Unsave Password" check box in Dial-Up Networking. When setting the password or other properties of a phone book entry, set <i>fRemovePassword</i> to <b>FALSE</b>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4929,9 +5485,127 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasSetEntryDialParams as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} param0 
-     * @param {Pointer<RASDIALPARAMSW>} param1 
-     * @param {BOOL} param2 
+     * @param {PWSTR} param0 Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box. 
+     * 
+     * 
+     * 
+     * 						
+     * 
+     * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+     * @param {Pointer<RASDIALPARAMSW>} param1 Pointer to the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure that specifies the connection parameters to be associated with the phone-book entry. 
+     * <b>RasSetEntryDialParams</b> uses the structure's members as follows. 
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Member</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="dwSize"></a><a id="dwsize"></a><a id="DWSIZE"></a><dl>
+     * <dt><b><b>dwSize</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Must specify the size of (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a>) to identify the version of the structure.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="szEntryName"></a><a id="szentryname"></a><a id="SZENTRYNAME"></a><dl>
+     * <dt><b><b>szEntryName</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A null-terminated string that identifies the phone-book entry to set parameters for.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="szPhoneNumber"></a><a id="szphonenumber"></a><a id="SZPHONENUMBER"></a><dl>
+     * <dt><b><b>szPhoneNumber</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not used. Set to <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="szCallbackNumber"></a><a id="szcallbacknumber"></a><a id="SZCALLBACKNUMBER"></a><dl>
+     * <dt><b><b>szCallbackNumber</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A null-terminated string that contains the callback phone number. If <b>szCallbackNumber</b> is an empty string ( "" ), the callback number is not changed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="szUserName"></a><a id="szusername"></a><a id="SZUSERNAME"></a><dl>
+     * <dt><b><b>szUserName</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A null-terminated string that contains the logon name of the user associated with this entry. If <b>szUserName</b> is an empty string, the user name is not changed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="szPassword"></a><a id="szpassword"></a><a id="SZPASSWORD"></a><dl>
+     * <dt><b><b>szPassword</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A null-terminated string that contains the password for the user specified by <b>szUserName</b>. If <b>szUserName</b> is an empty string, the password is not changed. If <b>szPassword</b> is an empty string and <i>fRemovePassword</i> is <b>FALSE</b>, the password is set to the empty string. If <i>fRemovePassword</i> is <b>TRUE</b>, the password stored in this phone-book entry for the user specified by <b>szUserName</b> is removed regardless of the contents of the <b>szPassword</b> string. 
+     * 
+     * 
+     * 
+     * 
+     * <b>Windows NT 4.0:  </b>The password is changed to the string specified by <b>szPassword</b> regardless of whether <b>szUserName</b> is an empty string.
+     * 
+     * <b>Windows XP/2000:  </b>If <b>szPassword</b> contains the password handle returned by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetcredentialsa">RasGetCredentials</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetentrydialparamsa">RasGetEntryDialParams</a>, 
+     * <b>RasSetEntryDialParams</b> returns successfully without changing any currently saved password.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="szDomain"></a><a id="szdomain"></a><a id="SZDOMAIN"></a><dl>
+     * <dt><b><b>szDomain</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A null-terminated string that contains the name of the domain on which to log on. If <b>szDomain</b> is an empty string, the domain name is not changed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="dwSubEntry"></a><a id="dwsubentry"></a><a id="DWSUBENTRY"></a><dl>
+     * <dt><b><b>dwSubEntry</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Specifies the (one-based) index of the initial subentry to dial when establishing the connection.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="dwCallbackId"></a><a id="dwcallbackid"></a><a id="DWCALLBACKID"></a><dl>
+     * <dt><b><b>dwCallbackId</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Specifies an application-defined value that RAS passes to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nc-ras-rasdialfunc2">RasDialFunc2</a> callback function.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @param {BOOL} param2 Specifies whether to remove the phone-book entry's stored password for the user indicated by <i>lprasdialparams</i>-&gt;<b>szUserName</b>. If <i>fRemovePassword</i> is <b>TRUE</b>, the password is removed. Setting fRemovePassword to <b>TRUE</b> is equivalent to checking the "Unsave Password" check box in Dial-Up Networking. When setting the password or other properties of a phone book entry, set <i>fRemovePassword</i> to <b>FALSE</b>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4990,9 +5664,42 @@ class Rras {
      * @remarks
      * > [!NOTE]
      * > The ras.h header defines RasGetEntryDialParams as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} param0 
-     * @param {Pointer<RASDIALPARAMSA>} param1 
-     * @param {Pointer<BOOL>} param2 
+     * @param {PSTR} param0 Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <i>Dial-Up Networking</i> dialog box. 
+     * 
+     * 
+     * 
+     * 
+     * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+     * @param {Pointer<RASDIALPARAMSA>} param1 Pointer to a 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure. 
+     * 
+     * 
+     * 
+     * 
+     * On input, the <b>dwSize</b> member specifies the size of the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure, and the <b>szEntryName</b> member specifies a valid phone-book entry.
+     * 
+     * On output, the structure receives the connection parameters associated with the specified phone-book entry.
+     * 
+     * Note that the <b>szPhoneNumber</b> member of the structure does not receive the phone number associated with the phone-book entry. To get the phone number associated with a phone-book entry, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetentrypropertiesa">RasGetEntryProperties</a> function. If <b>szPhoneNumber</b> is an empty string in the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure passed to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a>, 
+     * <b>RasDial</b> uses the phone number stored in the phone-book entry.
+     * 
+     * The <b>szPassword</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure does not return the actual password. Instead,  <b>szPassword</b>  contains a handle to the saved password. Substitute this handle for the saved password in subsequent calls to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rassetentrydialparamsa">RasSetEntryDialParams</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a>. When presented with this handle, 
+     * <b>RasDial</b>  retrieves and uses the saved password. The value of this handle may change in future versions of the operating system; do not develop code that depends on the contents or format of this value.
+     * 
+     * <b>Windows NT and Windows Me/98/95:  </b>Secure password feature not supported.
+     * @param {Pointer<BOOL>} param2 Pointer to a flag that indicates whether the function retrieved the password associated with the user name for the phone-book entry. The <i>lpfPassword</i> parameter is <b>TRUE</b> if the system has saved a password for the specified entry. If the system has no password saved for this entry, <i>lpfPassword</i> is <b>FALSE</b>. 
+     * 
+     * 
+     * 
+     * 
+     * <b>Windows NT and Windows Me/98/95:  </b>The function sets this flag to <b>TRUE</b> if the user's password was returned in the <b>szPassword</b> member of the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure pointed to by <i>lprasdialparams</i>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -5053,9 +5760,42 @@ class Rras {
      * @remarks
      * > [!NOTE]
      * > The ras.h header defines RasGetEntryDialParams as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} param0 
-     * @param {Pointer<RASDIALPARAMSW>} param1 
-     * @param {Pointer<BOOL>} param2 
+     * @param {PWSTR} param0 Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <i>Dial-Up Networking</i> dialog box. 
+     * 
+     * 
+     * 
+     * 
+     * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+     * @param {Pointer<RASDIALPARAMSW>} param1 Pointer to a 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure. 
+     * 
+     * 
+     * 
+     * 
+     * On input, the <b>dwSize</b> member specifies the size of the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure, and the <b>szEntryName</b> member specifies a valid phone-book entry.
+     * 
+     * On output, the structure receives the connection parameters associated with the specified phone-book entry.
+     * 
+     * Note that the <b>szPhoneNumber</b> member of the structure does not receive the phone number associated with the phone-book entry. To get the phone number associated with a phone-book entry, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetentrypropertiesa">RasGetEntryProperties</a> function. If <b>szPhoneNumber</b> is an empty string in the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure passed to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a>, 
+     * <b>RasDial</b> uses the phone number stored in the phone-book entry.
+     * 
+     * The <b>szPassword</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure does not return the actual password. Instead,  <b>szPassword</b>  contains a handle to the saved password. Substitute this handle for the saved password in subsequent calls to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rassetentrydialparamsa">RasSetEntryDialParams</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a>. When presented with this handle, 
+     * <b>RasDial</b>  retrieves and uses the saved password. The value of this handle may change in future versions of the operating system; do not develop code that depends on the contents or format of this value.
+     * 
+     * <b>Windows NT and Windows Me/98/95:  </b>Secure password feature not supported.
+     * @param {Pointer<BOOL>} param2 Pointer to a flag that indicates whether the function retrieved the password associated with the user name for the phone-book entry. The <i>lpfPassword</i> parameter is <b>TRUE</b> if the system has saved a password for the specified entry. If the system has no password saved for this entry, <i>lpfPassword</i> is <b>FALSE</b>. 
+     * 
+     * 
+     * 
+     * 
+     * <b>Windows NT and Windows Me/98/95:  </b>The function sets this flag to <b>TRUE</b> if the user's password was returned in the <b>szPassword</b> member of the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure pointed to by <i>lprasdialparams</i>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -5120,9 +5860,23 @@ class Rras {
      * 
      * 
      * ```cpp
-     * @param {Pointer<RASDEVINFOA>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<Integer>} param2 
+     * @param {Pointer<RASDEVINFOA>} param0 Pointer to a buffer that receives an array of 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377001(v=vs.85)">RASDEVINFO</a> structures, one for each RAS-capable device. Before calling the function, set the <b>dwSize</b> member of the first 
+     * <b>RASDEVINFO</b> structure in the buffer to sizeof(<b>RASDEVINFO</b>) to identify the version of the structure.
+     * @param {Pointer<Integer>} param1 Pointer to a variable that, on input, contains the size, in bytes, of the <i>lpRasDevInfo</i> buffer. 
+     * 
+     * 
+     * 
+     * 
+     * On output, the function sets this variable to the number of bytes required to enumerate the devices.
+     * 
+     * <div class="alert"><b>Note</b>  <p class="note">To determine the required buffer size, call 
+     * <b>RasEnumDevices</b> with <i>lpRasDevInfo</i> set to <b>NULL</b>. The variable pointed to by <i>lpcb</i> should be set to zero. The function will return the required buffer size in <i>lpcb</i> and an error code of <b>ERROR_BUFFER_TOO_SMALL</b>.
+     * 
+     * </div>
+     * <div> </div>
+     * @param {Pointer<Integer>} param2 Pointer to a variable that receives the number of 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377001(v=vs.85)">RASDEVINFO</a> structures written to the <i>lpRasDevInfo</i> buffer.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -5198,9 +5952,23 @@ class Rras {
      * 
      * 
      * ```cpp
-     * @param {Pointer<RASDEVINFOW>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<Integer>} param2 
+     * @param {Pointer<RASDEVINFOW>} param0 Pointer to a buffer that receives an array of 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377001(v=vs.85)">RASDEVINFO</a> structures, one for each RAS-capable device. Before calling the function, set the <b>dwSize</b> member of the first 
+     * <b>RASDEVINFO</b> structure in the buffer to sizeof(<b>RASDEVINFO</b>) to identify the version of the structure.
+     * @param {Pointer<Integer>} param1 Pointer to a variable that, on input, contains the size, in bytes, of the <i>lpRasDevInfo</i> buffer. 
+     * 
+     * 
+     * 
+     * 
+     * On output, the function sets this variable to the number of bytes required to enumerate the devices.
+     * 
+     * <div class="alert"><b>Note</b>  <p class="note">To determine the required buffer size, call 
+     * <b>RasEnumDevices</b> with <i>lpRasDevInfo</i> set to <b>NULL</b>. The variable pointed to by <i>lpcb</i> should be set to zero. The function will return the required buffer size in <i>lpcb</i> and an error code of <b>ERROR_BUFFER_TOO_SMALL</b>.
+     * 
+     * </div>
+     * <div> </div>
+     * @param {Pointer<Integer>} param2 Pointer to a variable that receives the number of 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377001(v=vs.85)">RASDEVINFO</a> structures written to the <i>lpRasDevInfo</i> buffer.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -5281,8 +6049,21 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasGetCountryInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<RASCTRYINFO>} param0 
-     * @param {Pointer<Integer>} param1 
+     * @param {Pointer<RASCTRYINFO>} param0 Pointer to a 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376731(v=vs.85)">RASCTRYINFO</a> structure that, on output, receives the country/region-specific dialing information followed by additional bytes for a country/region description string. 
+     * 
+     * 
+     * 
+     * 
+     * On input, set the <b>dwSize</b> member of the structure to sizeof(<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376731(v=vs.85)">RASCTRYINFO</a>) to identify the version of the structure. Also, set the <b>dwCountryId</b> member to the TAPI country/region identifier of the country/region for which to get information.
+     * 
+     * Allocate at least 256 bytes for the buffer.
+     * @param {Pointer<Integer>} param1 Pointer to a variable that, on input, specifies the size, in bytes, of the buffer pointed to by the <i>lpRasCtryInfo</i> parameter. 
+     * 
+     * 
+     * 
+     * 
+     * On output, this variable receives the number of bytes required.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -5361,8 +6142,21 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasGetCountryInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<RASCTRYINFO>} param0 
-     * @param {Pointer<Integer>} param1 
+     * @param {Pointer<RASCTRYINFO>} param0 Pointer to a 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376731(v=vs.85)">RASCTRYINFO</a> structure that, on output, receives the country/region-specific dialing information followed by additional bytes for a country/region description string. 
+     * 
+     * 
+     * 
+     * 
+     * On input, set the <b>dwSize</b> member of the structure to sizeof(<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376731(v=vs.85)">RASCTRYINFO</a>) to identify the version of the structure. Also, set the <b>dwCountryId</b> member to the TAPI country/region identifier of the country/region for which to get information.
+     * 
+     * Allocate at least 256 bytes for the buffer.
+     * @param {Pointer<Integer>} param1 Pointer to a variable that, on input, specifies the size, in bytes, of the buffer pointed to by the <i>lpRasCtryInfo</i> parameter. 
+     * 
+     * 
+     * 
+     * 
+     * On output, this variable receives the number of bytes required.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -5432,12 +6226,58 @@ class Rras {
      * @remarks
      * > [!NOTE]
      * > The ras.h header defines RasGetEntryProperties as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} param0 
-     * @param {PSTR} param1 
-     * @param {Pointer<RASENTRYA>} param2 
-     * @param {Pointer<Integer>} param3 
-     * @param {Pointer<Integer>} param4 
-     * @param {Pointer<Integer>} param5 
+     * @param {PSTR} param0 Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box. 
+     * 
+     * 
+     * 
+     * 
+     * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+     * @param {PSTR} param1 Pointer to a <b>null</b>-terminated string that specifies an existing entry name. If an empty string is specified, the function returns default values in the buffers pointed to by the <i>lpRasEntry</i> and <i>lpbDeviceInfo</i> parameters.
+     * @param {Pointer<RASENTRYA>} param2 Pointer to a 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a> structure followed by additional bytes for the alternate phone number list, if there is one. 
+     * 
+     * 
+     * 
+     * 
+     * On output, the structure receives the connection data associated with the phone-book entry specified by the <i>lpszEntry</i> parameter.
+     * 
+     * On input, set the <b>dwSize</b> member of the structure to sizeof(<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a>) to identify the version of the structure.
+     * 
+     * This parameter can be <b>NULL</b>.
+     * 
+     * <b>Windows Me/98 and Windows 95 OSR2:  </b>The 
+     * Microsoft Layer for Unicode does not support <b>dwAlternateOffset</b> in 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a>.
+     * @param {Pointer<Integer>} param3 Pointer to a variable that, on input, specifies the size, in bytes, of the <i>lpRasEntry</i> buffer. 
+     * 
+     * 
+     * 
+     * 
+     * On output, this variable receives the number of bytes required.
+     * 
+     * This parameter can be <b>NULL</b> if the <i>lpRasEntry</i> parameter is <b>NULL</b>.
+     * 
+     * To determine the required buffer size, call 
+     * <b>RasGetEntryProperties</b> with <i>lpRasEntry</i> set to <b>NULL</b> and <i>*lpdwEntryInfoSize</i> set to zero. The function returns the required buffer size in <i>*lpdwEntryInfoSize</i>.
+     * @param {Pointer<Integer>} param4 This parameter is no longer used. The calling function should set this parameter to <b>NULL</b>.
+     * 
+     * <b>Windows Me/98/95:  </b>Pointer to a buffer that receives device-specific configuration information. Do not directly manipulate this opaque TAPI device information. For more information about TAPI device configuration, see the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetdevconfig">lineGetDevConfig</a> function in the TAPI Programmer's Reference in the Platform SDK. 
+     * 
+     * 
+     * This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} param5 This parameter is unused. The calling function should set this parameter to <b>NULL</b>.
+     * 						
+     * 
+     * <b>Windows Me/98/95:  </b>Pointer to a variable that, on input, specifies the size, in bytes, of the buffer specified by the <i>lpbDeviceInfo</i> parameter. 
+     * 
+     * 
+     * On output, this variable receives the number of bytes required.
+     * 
+     * This parameter can be <b>NULL</b> if the <i>lpbDeviceInfo</i> parameter s <b>NULL</b>.
+     * 
+     * To determine the required buffer size, call 
+     * <b>RasGetEntryProperties</b> with <i>lpbDeviceInfo</i> set to <b>NULL</b> and <i>*lpdwDeviceInfoSize</i> set to zero. The function returns the required buffer size in <i>*lpdwDeviceInfoSize</i>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -5523,12 +6363,58 @@ class Rras {
      * @remarks
      * > [!NOTE]
      * > The ras.h header defines RasGetEntryProperties as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} param0 
-     * @param {PWSTR} param1 
-     * @param {Pointer<RASENTRYW>} param2 
-     * @param {Pointer<Integer>} param3 
-     * @param {Pointer<Integer>} param4 
-     * @param {Pointer<Integer>} param5 
+     * @param {PWSTR} param0 Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box. 
+     * 
+     * 
+     * 
+     * 
+     * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+     * @param {PWSTR} param1 Pointer to a <b>null</b>-terminated string that specifies an existing entry name. If an empty string is specified, the function returns default values in the buffers pointed to by the <i>lpRasEntry</i> and <i>lpbDeviceInfo</i> parameters.
+     * @param {Pointer<RASENTRYW>} param2 Pointer to a 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a> structure followed by additional bytes for the alternate phone number list, if there is one. 
+     * 
+     * 
+     * 
+     * 
+     * On output, the structure receives the connection data associated with the phone-book entry specified by the <i>lpszEntry</i> parameter.
+     * 
+     * On input, set the <b>dwSize</b> member of the structure to sizeof(<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a>) to identify the version of the structure.
+     * 
+     * This parameter can be <b>NULL</b>.
+     * 
+     * <b>Windows Me/98 and Windows 95 OSR2:  </b>The 
+     * Microsoft Layer for Unicode does not support <b>dwAlternateOffset</b> in 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a>.
+     * @param {Pointer<Integer>} param3 Pointer to a variable that, on input, specifies the size, in bytes, of the <i>lpRasEntry</i> buffer. 
+     * 
+     * 
+     * 
+     * 
+     * On output, this variable receives the number of bytes required.
+     * 
+     * This parameter can be <b>NULL</b> if the <i>lpRasEntry</i> parameter is <b>NULL</b>.
+     * 
+     * To determine the required buffer size, call 
+     * <b>RasGetEntryProperties</b> with <i>lpRasEntry</i> set to <b>NULL</b> and <i>*lpdwEntryInfoSize</i> set to zero. The function returns the required buffer size in <i>*lpdwEntryInfoSize</i>.
+     * @param {Pointer<Integer>} param4 This parameter is no longer used. The calling function should set this parameter to <b>NULL</b>.
+     * 
+     * <b>Windows Me/98/95:  </b>Pointer to a buffer that receives device-specific configuration information. Do not directly manipulate this opaque TAPI device information. For more information about TAPI device configuration, see the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetdevconfig">lineGetDevConfig</a> function in the TAPI Programmer's Reference in the Platform SDK. 
+     * 
+     * 
+     * This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} param5 This parameter is unused. The calling function should set this parameter to <b>NULL</b>.
+     * 						
+     * 
+     * <b>Windows Me/98/95:  </b>Pointer to a variable that, on input, specifies the size, in bytes, of the buffer specified by the <i>lpbDeviceInfo</i> parameter. 
+     * 
+     * 
+     * On output, this variable receives the number of bytes required.
+     * 
+     * This parameter can be <b>NULL</b> if the <i>lpbDeviceInfo</i> parameter s <b>NULL</b>.
+     * 
+     * To determine the required buffer size, call 
+     * <b>RasGetEntryProperties</b> with <i>lpbDeviceInfo</i> set to <b>NULL</b> and <i>*lpdwDeviceInfoSize</i> set to zero. The function returns the required buffer size in <i>*lpdwDeviceInfoSize</i>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -5634,12 +6520,63 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasSetEntryProperties as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} param0 
-     * @param {PSTR} param1 
-     * @param {Pointer<RASENTRYA>} param2 
-     * @param {Integer} param3 
-     * @param {Pointer<Integer>} param4 
-     * @param {Integer} param5 
+     * @param {PSTR} param0 Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. 
+     *       If this parameter is <b>NULL</b>, the function uses the current default phone-book file. 
+     *       The default phone-book file is the one selected by the user in the <b>User Preferences</b> 
+     *       property sheet of the <b>Dial-Up Networking</b> dialog box.
+     * @param {PSTR} param1 Pointer to a null-terminated string that specifies an entry name.
+     * 
+     * If the entry name matches an existing entry, 
+     *        <b>RasSetEntryProperties</b> modifies the properties 
+     *        of that entry.
+     * 
+     * If the entry name does not match an existing entry, 
+     *        <b>RasSetEntryProperties</b> creates a new 
+     *        phone-book entry. For new entries, call the 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasvalidateentrynamea">RasValidateEntryName</a> function to validate the 
+     *        entry name before calling 
+     *        <b>RasSetEntryProperties</b>.
+     * @param {Pointer<RASENTRYA>} param2 Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a> structure that specifies the 
+     *        new connection data to be associated with the phone-book entry indicated by the 
+     *        <i>lpszEntry</i> parameter.
+     * 
+     * The caller must provide values for the following members in the 
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a> structure.
+     * 
+     * <ul>
+     * <li><b>dwSize</b></li>
+     * <li><b>szLocalPhoneNumber</b></li>
+     * <li><b>szDeviceName</b></li>
+     * <li><b>szDeviceType</b></li>
+     * <li><b>dwFramingProtocol</b></li>
+     * <li><b>dwfOptions</b></li>
+     * <li><b>dwType</b></li>
+     * </ul>
+     * <b>Windows XP or later:  </b><b>dwType</b> is supported.
+     * 
+     * If values are not provided for these members, 
+     *        <b>RasSetEntryProperties</b> fails with 
+     *        <b>ERROR_INVALID_PARAMETER</b>.
+     * 
+     * The structure might be followed by an array of null-terminated alternate phone number strings. The last 
+     *        string is terminated by two consecutive null characters. The <b>dwAlternateOffset</b> 
+     *        member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a> structure contains the offset to 
+     *        the first string.
+     * @param {Integer} param3 Specifies the size, in bytes, of the buffer identified by the <i>lpRasEntry</i> 
+     *       parameter.
+     * @param {Pointer<Integer>} param4 Pointer to a buffer that specifies device-specific configuration information. This is opaque TAPI device 
+     *       configuration information. For more information about TAPI device configuration, see the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetdevconfig">lineGetDevConfig</a> function in 
+     *       <a href="https://docs.microsoft.com/windows/desktop/Tapi/telephony-application-programming-interfaces">Telephony Application Programming Interfaces (TAPI)</a> 
+     *       in the Platform SDK.
+     *       
+     * 
+     * <b>Windows XP:  </b>This parameter is unused. The calling function should set this parameter to 
+     *         <b>NULL</b>.
+     * @param {Integer} param5 Specifies the size, in bytes, of the <i>lpbDeviceInfo</i> buffer.
+     *       
+     * 
+     * <b>Windows XP:  </b>This parameter is unused. The calling function should set this parameter to zero.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from 
@@ -5737,12 +6674,63 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasSetEntryProperties as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} param0 
-     * @param {PWSTR} param1 
-     * @param {Pointer<RASENTRYW>} param2 
-     * @param {Integer} param3 
-     * @param {Pointer<Integer>} param4 
-     * @param {Integer} param5 
+     * @param {PWSTR} param0 Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. 
+     *       If this parameter is <b>NULL</b>, the function uses the current default phone-book file. 
+     *       The default phone-book file is the one selected by the user in the <b>User Preferences</b> 
+     *       property sheet of the <b>Dial-Up Networking</b> dialog box.
+     * @param {PWSTR} param1 Pointer to a null-terminated string that specifies an entry name.
+     * 
+     * If the entry name matches an existing entry, 
+     *        <b>RasSetEntryProperties</b> modifies the properties 
+     *        of that entry.
+     * 
+     * If the entry name does not match an existing entry, 
+     *        <b>RasSetEntryProperties</b> creates a new 
+     *        phone-book entry. For new entries, call the 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasvalidateentrynamea">RasValidateEntryName</a> function to validate the 
+     *        entry name before calling 
+     *        <b>RasSetEntryProperties</b>.
+     * @param {Pointer<RASENTRYW>} param2 Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a> structure that specifies the 
+     *        new connection data to be associated with the phone-book entry indicated by the 
+     *        <i>lpszEntry</i> parameter.
+     * 
+     * The caller must provide values for the following members in the 
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a> structure.
+     * 
+     * <ul>
+     * <li><b>dwSize</b></li>
+     * <li><b>szLocalPhoneNumber</b></li>
+     * <li><b>szDeviceName</b></li>
+     * <li><b>szDeviceType</b></li>
+     * <li><b>dwFramingProtocol</b></li>
+     * <li><b>dwfOptions</b></li>
+     * <li><b>dwType</b></li>
+     * </ul>
+     * <b>Windows XP or later:  </b><b>dwType</b> is supported.
+     * 
+     * If values are not provided for these members, 
+     *        <b>RasSetEntryProperties</b> fails with 
+     *        <b>ERROR_INVALID_PARAMETER</b>.
+     * 
+     * The structure might be followed by an array of null-terminated alternate phone number strings. The last 
+     *        string is terminated by two consecutive null characters. The <b>dwAlternateOffset</b> 
+     *        member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a> structure contains the offset to 
+     *        the first string.
+     * @param {Integer} param3 Specifies the size, in bytes, of the buffer identified by the <i>lpRasEntry</i> 
+     *       parameter.
+     * @param {Pointer<Integer>} param4 Pointer to a buffer that specifies device-specific configuration information. This is opaque TAPI device 
+     *       configuration information. For more information about TAPI device configuration, see the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetdevconfig">lineGetDevConfig</a> function in 
+     *       <a href="https://docs.microsoft.com/windows/desktop/Tapi/telephony-application-programming-interfaces">Telephony Application Programming Interfaces (TAPI)</a> 
+     *       in the Platform SDK.
+     *       
+     * 
+     * <b>Windows XP:  </b>This parameter is unused. The calling function should set this parameter to 
+     *         <b>NULL</b>.
+     * @param {Integer} param5 Specifies the size, in bytes, of the <i>lpbDeviceInfo</i> buffer.
+     *       
+     * 
+     * <b>Windows XP:  </b>This parameter is unused. The calling function should set this parameter to zero.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from 
@@ -5831,9 +6819,14 @@ class Rras {
      * 
      * 
      * ```cpp
-     * @param {PSTR} param0 
-     * @param {PSTR} param1 
-     * @param {PSTR} param2 
+     * @param {PSTR} param0 Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
+     * 						
+     * 
+     * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+     * @param {PSTR} param1 Pointer to a null-terminated string that specifies an existing entry name.
+     * @param {PSTR} param2 Pointer to a null-terminated string that specifies the new entry name. Before calling 
+     * <b>RasRenameEntry</b>, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasvalidateentrynamea">RasValidateEntryName</a> function to validate the new entry name.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -5916,9 +6909,14 @@ class Rras {
      * 
      * 
      * ```cpp
-     * @param {PWSTR} param0 
-     * @param {PWSTR} param1 
-     * @param {PWSTR} param2 
+     * @param {PWSTR} param0 Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
+     * 						
+     * 
+     * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+     * @param {PWSTR} param1 Pointer to a null-terminated string that specifies an existing entry name.
+     * @param {PWSTR} param2 Pointer to a null-terminated string that specifies the new entry name. Before calling 
+     * <b>RasRenameEntry</b>, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasvalidateentrynamea">RasValidateEntryName</a> function to validate the new entry name.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -5992,8 +6990,13 @@ class Rras {
      * 
      * 
      * ```cpp
-     * @param {PSTR} param0 
-     * @param {PSTR} param1 
+     * @param {PSTR} param0 Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box. 
+     * 
+     * 
+     * 
+     * 
+     * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+     * @param {PSTR} param1 Pointer to a null-terminated string that specifies the name of an existing entry to be deleted.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -6045,8 +7048,13 @@ class Rras {
      * 
      * 
      * ```cpp
-     * @param {PWSTR} param0 
-     * @param {PWSTR} param1 
+     * @param {PWSTR} param0 Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box. 
+     * 
+     * 
+     * 
+     * 
+     * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+     * @param {PWSTR} param1 Pointer to a null-terminated string that specifies the name of an existing entry to be deleted.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -6098,8 +7106,108 @@ class Rras {
      * 
      * 
      * ```cpp
-     * @param {PSTR} param0 
-     * @param {PSTR} param1 
+     * @param {PSTR} param0 A pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. 
+     * 
+     * 
+     * 
+     * 
+     * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+     * @param {PSTR} param1 Pointer to a null-terminated string that specifies an entry name. 
+     * 
+     * 
+     * 
+     * 
+     * The following characters are not allowed in an entry name.
+     * 
+     * <table>
+     * <tr>
+     * <th>Character</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="_"></a><dl>
+     * <dt><b>|</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * vertical bar
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="_"></a><dl>
+     * <dt><b>&gt;</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * greater than symbol
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="_"></a><dl>
+     * <dt><b>&lt;</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * less than symbol
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="__"></a><dl>
+     * <dt><b>? </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * question mark
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="_"></a><dl>
+     * <dt><b>*</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * asterisk
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="_"></a><dl>
+     * <dt><b>\</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * backward slash
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="_"></a><dl>
+     * <dt><b>/</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * forward slash
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="__"></a><dl>
+     * <dt><b>: </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * colon
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * <b>Windows 2000 or later:  </b>The entry name cannot begin with a period (".").
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -6161,8 +7269,108 @@ class Rras {
      * 
      * 
      * ```cpp
-     * @param {PWSTR} param0 
-     * @param {PWSTR} param1 
+     * @param {PWSTR} param0 A pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. 
+     * 
+     * 
+     * 
+     * 
+     * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+     * @param {PWSTR} param1 Pointer to a null-terminated string that specifies an entry name. 
+     * 
+     * 
+     * 
+     * 
+     * The following characters are not allowed in an entry name.
+     * 
+     * <table>
+     * <tr>
+     * <th>Character</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="_"></a><dl>
+     * <dt><b>|</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * vertical bar
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="_"></a><dl>
+     * <dt><b>&gt;</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * greater than symbol
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="_"></a><dl>
+     * <dt><b>&lt;</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * less than symbol
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="__"></a><dl>
+     * <dt><b>? </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * question mark
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="_"></a><dl>
+     * <dt><b>*</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * asterisk
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="_"></a><dl>
+     * <dt><b>\</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * backward slash
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="_"></a><dl>
+     * <dt><b>/</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * forward slash
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="__"></a><dl>
+     * <dt><b>: </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * colon
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * <b>Windows 2000 or later:  </b>The entry name cannot begin with a period (".").
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -6232,8 +7440,11 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasConnectionNotification as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HRASCONN} param0 
-     * @param {HANDLE} param1 
+     * @param {HRASCONN} param0 A handle to the RAS connection that receives the notifications. This can be a handle returned by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> function. If this parameter is <b>INVALID_HANDLE_VALUE</b>, notifications are received for all RAS connections on the local client.
+     * @param {HANDLE} param1 Specifies the handle of an event object. Use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventa">CreateEvent</a> function to create an event object.
      * @param {Integer} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -6264,8 +7475,11 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasConnectionNotification as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HRASCONN} param0 
-     * @param {HANDLE} param1 
+     * @param {HRASCONN} param0 A handle to the RAS connection that receives the notifications. This can be a handle returned by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> function. If this parameter is <b>INVALID_HANDLE_VALUE</b>, notifications are received for all RAS connections on the local client.
+     * @param {HANDLE} param1 Specifies the handle of an event object. Use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventa">CreateEvent</a> function to create an event object.
      * @param {Integer} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -6302,9 +7516,10 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasGetSubEntryHandle as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HRASCONN} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<HRASCONN>} param2 
+     * @param {HRASCONN} param0 Specifies the <b>HRASCONN</b> connection handle returned by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> function for a multilink phone-book entry.
+     * @param {Integer} param1 Specifies a valid subentry index for the phone-book entry.
+     * @param {Pointer<HRASCONN>} param2 Pointer to the <b>HRASCONN</b> variable that receives a connection handle that represents the subentry connection.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -6379,9 +7594,10 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasGetSubEntryHandle as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HRASCONN} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<HRASCONN>} param2 
+     * @param {HRASCONN} param0 Specifies the <b>HRASCONN</b> connection handle returned by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> function for a multilink phone-book entry.
+     * @param {Integer} param1 Specifies a valid subentry index for the phone-book entry.
+     * @param {Pointer<HRASCONN>} param2 Pointer to the <b>HRASCONN</b> variable that receives a connection handle that represents the subentry connection.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -6468,9 +7684,15 @@ class Rras {
      * 
      * 
      * ```cpp
-     * @param {PSTR} param0 
-     * @param {PSTR} param1 
-     * @param {Pointer<RASCREDENTIALSA>} param2 
+     * @param {PSTR} param0 Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
+     * @param {PSTR} param1 Pointer to a <b>null</b>-terminated string that specifies the name of a phone-book entry.
+     * @param {Pointer<RASCREDENTIALSA>} param2 Pointer to the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a> structure that, on output, receives the user credentials associated with the specified phone-book entry. 
+     * 
+     * 
+     * 
+     * 
+     * On input, set the <b>dwSize</b> member of the structure to sizeof(<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a>), and set the <b>dwMask</b> member to indicate the credential information to retrieve. When the function returns, <b>dwMask</b> indicates the members that were successfully retrieved.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -6570,9 +7792,15 @@ class Rras {
      * 
      * 
      * ```cpp
-     * @param {PWSTR} param0 
-     * @param {PWSTR} param1 
-     * @param {Pointer<RASCREDENTIALSW>} param2 
+     * @param {PWSTR} param0 Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
+     * @param {PWSTR} param1 Pointer to a <b>null</b>-terminated string that specifies the name of a phone-book entry.
+     * @param {Pointer<RASCREDENTIALSW>} param2 Pointer to the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a> structure that, on output, receives the user credentials associated with the specified phone-book entry. 
+     * 
+     * 
+     * 
+     * 
+     * On input, set the <b>dwSize</b> member of the structure to sizeof(<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a>), and set the <b>dwMask</b> member to indicate the credential information to retrieve. When the function returns, <b>dwMask</b> indicates the members that were successfully retrieved.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -6699,10 +7927,26 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasSetCredentials as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} param0 
-     * @param {PSTR} param1 
-     * @param {Pointer<RASCREDENTIALSA>} param2 
-     * @param {BOOL} param3 
+     * @param {PSTR} param0 A pointer to a null-terminated string that specifies the full path and file name of a phone-book 
+     *       (PBK) file. If this parameter is <b>NULL</b>, the function uses the current 
+     *       default phone-book file. The default phone-book file is the one selected by the user in the 
+     *       <b>User Preferences</b> property sheet of the 
+     *       <b>Dial-Up Networking</b> dialog box.
+     * @param {PSTR} param1 A pointer to a null-terminated string that specifies the name of a phone-book entry.
+     * @param {Pointer<RASCREDENTIALSA>} param2 A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a> structure that 
+     *       specifies the user credentials to set for the specified phone-book entry. Before calling 
+     *       <b>RasSetCredentials</b>, set the 
+     *       <b>dwSize</b> member of the structure to 
+     *       <c>sizeof(RASCREDENTIALS)</c> and set the <b>dwMask</b> 
+     *       member to indicate the credential information to be set.
+     * @param {BOOL} param3 A value that specifies whether 
+     *       <b>RasSetCredentials</b> clears existing credentials by 
+     *       setting them to the empty string, "". If this flag is <b>TRUE</b>, the 
+     *       <b>dwMask</b> member of the 
+     *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a> structure indicates which 
+     *       credentials that the function sets to the empty string. If this flag is <b>FALSE</b>, the 
+     *       function sets the indicated credentials according to the contents of their corresponding 
+     *       <b>RASCREDENTIALS</b> members.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from 
@@ -6827,10 +8071,26 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasSetCredentials as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} param0 
-     * @param {PWSTR} param1 
-     * @param {Pointer<RASCREDENTIALSW>} param2 
-     * @param {BOOL} param3 
+     * @param {PWSTR} param0 A pointer to a null-terminated string that specifies the full path and file name of a phone-book 
+     *       (PBK) file. If this parameter is <b>NULL</b>, the function uses the current 
+     *       default phone-book file. The default phone-book file is the one selected by the user in the 
+     *       <b>User Preferences</b> property sheet of the 
+     *       <b>Dial-Up Networking</b> dialog box.
+     * @param {PWSTR} param1 A pointer to a null-terminated string that specifies the name of a phone-book entry.
+     * @param {Pointer<RASCREDENTIALSW>} param2 A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a> structure that 
+     *       specifies the user credentials to set for the specified phone-book entry. Before calling 
+     *       <b>RasSetCredentials</b>, set the 
+     *       <b>dwSize</b> member of the structure to 
+     *       <c>sizeof(RASCREDENTIALS)</c> and set the <b>dwMask</b> 
+     *       member to indicate the credential information to be set.
+     * @param {BOOL} param3 A value that specifies whether 
+     *       <b>RasSetCredentials</b> clears existing credentials by 
+     *       setting them to the empty string, "". If this flag is <b>TRUE</b>, the 
+     *       <b>dwMask</b> member of the 
+     *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a> structure indicates which 
+     *       credentials that the function sets to the empty string. If this flag is <b>FALSE</b>, the 
+     *       function sets the indicated credentials according to the contents of their corresponding 
+     *       <b>RASCREDENTIALS</b> members.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from 
@@ -6910,13 +8170,36 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasGetSubEntryProperties as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} param0 
-     * @param {PSTR} param1 
-     * @param {Integer} param2 
-     * @param {Pointer<RASSUBENTRYA>} param3 
-     * @param {Pointer<Integer>} param4 
-     * @param {Pointer<Integer>} param5 
-     * @param {Pointer<Integer>} param6 
+     * @param {PSTR} param0 Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box. 
+     * 
+     * 
+     * 
+     * 
+     * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+     * @param {PSTR} param1 Pointer to a <b>null</b>-terminated string that specifies the name of an existing entry in the phone book.
+     * @param {Integer} param2 Specifies the one-based index of the subentry.
+     * @param {Pointer<RASSUBENTRYA>} param3 Pointer to the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377839(v=vs.85)">RASSUBENTRY</a> structure followed by additional bytes for the alternate phone number list, if there is one. 
+     * 
+     * 
+     * 
+     * 
+     * On output, the structure receives information about the specified subentry.
+     * 
+     * On input, the <b>dwSize</b> member specifies the size of the structure. The size identifies the version of the structure. Obtain this size using sizeof(<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377839(v=vs.85)">RASSUBENTRY</a>).
+     * 
+     * This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} param4 Pointer to a variable that specifies, on input, the size, in bytes, of the <i>lpRasSubEntry</i> buffer. 
+     * 
+     * 
+     * 
+     * 
+     * On output, the variable receives the number of bytes returned, or the number of bytes required if the buffer is too small.
+     * 
+     * This parameter can be <b>NULL</b> if <i>lpRasSubEntry</i> is <b>NULL</b>.
+     * @param {Pointer<Integer>} param5 Pointer to a TAPI device configuration block. This parameter is currently unused. The caller should pass <b>NULL</b> for this parameter. For more information about TAPI device configuration blocks, see the function 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetdevconfig">lineGetDevConfig</a>.
+     * @param {Pointer<Integer>} param6 Pointer to a <b>DWORD</b> that specifies the size of the TAPI device configuration block. This parameter is currently unused. The caller should pass <b>NULL</b> for this parameter.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -7012,13 +8295,36 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasGetSubEntryProperties as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} param0 
-     * @param {PWSTR} param1 
-     * @param {Integer} param2 
-     * @param {Pointer<RASSUBENTRYW>} param3 
-     * @param {Pointer<Integer>} param4 
-     * @param {Pointer<Integer>} param5 
-     * @param {Pointer<Integer>} param6 
+     * @param {PWSTR} param0 Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box. 
+     * 
+     * 
+     * 
+     * 
+     * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+     * @param {PWSTR} param1 Pointer to a <b>null</b>-terminated string that specifies the name of an existing entry in the phone book.
+     * @param {Integer} param2 Specifies the one-based index of the subentry.
+     * @param {Pointer<RASSUBENTRYW>} param3 Pointer to the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377839(v=vs.85)">RASSUBENTRY</a> structure followed by additional bytes for the alternate phone number list, if there is one. 
+     * 
+     * 
+     * 
+     * 
+     * On output, the structure receives information about the specified subentry.
+     * 
+     * On input, the <b>dwSize</b> member specifies the size of the structure. The size identifies the version of the structure. Obtain this size using sizeof(<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377839(v=vs.85)">RASSUBENTRY</a>).
+     * 
+     * This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} param4 Pointer to a variable that specifies, on input, the size, in bytes, of the <i>lpRasSubEntry</i> buffer. 
+     * 
+     * 
+     * 
+     * 
+     * On output, the variable receives the number of bytes returned, or the number of bytes required if the buffer is too small.
+     * 
+     * This parameter can be <b>NULL</b> if <i>lpRasSubEntry</i> is <b>NULL</b>.
+     * @param {Pointer<Integer>} param5 Pointer to a TAPI device configuration block. This parameter is currently unused. The caller should pass <b>NULL</b> for this parameter. For more information about TAPI device configuration blocks, see the function 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetdevconfig">lineGetDevConfig</a>.
+     * @param {Pointer<Integer>} param6 Pointer to a <b>DWORD</b> that specifies the size of the TAPI device configuration block. This parameter is currently unused. The caller should pass <b>NULL</b> for this parameter.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -7114,13 +8420,26 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasSetSubEntryProperties as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} param0 
-     * @param {PSTR} param1 
-     * @param {Integer} param2 
-     * @param {Pointer<RASSUBENTRYA>} param3 
-     * @param {Integer} param4 
-     * @param {Pointer<Integer>} param5 
-     * @param {Integer} param6 
+     * @param {PSTR} param0 Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box. 
+     * 
+     * 
+     * 
+     * 
+     * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+     * @param {PSTR} param1 Pointer to a <b>null</b>-terminated string that specifies the name of an existing entry in the phone book.
+     * @param {Integer} param2 Specifies the one-based index of the subentry. If the index matches an existing subentry index, the function changes the properties of that subentry. If the index does not match an existing index, the function creates a new subentry.
+     * @param {Pointer<RASSUBENTRYA>} param3 Pointer to the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377839(v=vs.85)">RASSUBENTRY</a> structure that specifies the data for the subentry. 
+     * 
+     * 
+     * 
+     * 
+     * The structure might be followed by an array of <b>null</b>-terminated alternate phone number strings. The last string is terminated by two consecutive <b>null</b> characters. The <b>dwAlternateOffset</b> member of the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377839(v=vs.85)">RASSUBENTRY</a> structure contains the offset to the first string.
+     * @param {Integer} param4 Specifies the size, in bytes, of the <i>lpRasSubEntry</i> buffer.
+     * @param {Pointer<Integer>} param5 Pointer to a TAPI device configuration block. This parameter is currently unused. The caller should pass <b>NULL</b> for this parameter. For more information about TAPI device configuration blocks, see the function 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetdevconfig">lineGetDevConfig</a>.
+     * @param {Integer} param6 Specifies the size of the TAPI device configuration block. This parameter is currently unused. The caller should pass zero for this parameter.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -7203,13 +8522,26 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasSetSubEntryProperties as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} param0 
-     * @param {PWSTR} param1 
-     * @param {Integer} param2 
-     * @param {Pointer<RASSUBENTRYW>} param3 
-     * @param {Integer} param4 
-     * @param {Pointer<Integer>} param5 
-     * @param {Integer} param6 
+     * @param {PWSTR} param0 Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box. 
+     * 
+     * 
+     * 
+     * 
+     * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+     * @param {PWSTR} param1 Pointer to a <b>null</b>-terminated string that specifies the name of an existing entry in the phone book.
+     * @param {Integer} param2 Specifies the one-based index of the subentry. If the index matches an existing subentry index, the function changes the properties of that subentry. If the index does not match an existing index, the function creates a new subentry.
+     * @param {Pointer<RASSUBENTRYW>} param3 Pointer to the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377839(v=vs.85)">RASSUBENTRY</a> structure that specifies the data for the subentry. 
+     * 
+     * 
+     * 
+     * 
+     * The structure might be followed by an array of <b>null</b>-terminated alternate phone number strings. The last string is terminated by two consecutive <b>null</b> characters. The <b>dwAlternateOffset</b> member of the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377839(v=vs.85)">RASSUBENTRY</a> structure contains the offset to the first string.
+     * @param {Integer} param4 Specifies the size, in bytes, of the <i>lpRasSubEntry</i> buffer.
+     * @param {Pointer<Integer>} param5 Pointer to a TAPI device configuration block. This parameter is currently unused. The caller should pass <b>NULL</b> for this parameter. For more information about TAPI device configuration blocks, see the function 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetdevconfig">lineGetDevConfig</a>.
+     * @param {Integer} param6 Specifies the size of the TAPI device configuration block. This parameter is currently unused. The caller should pass zero for this parameter.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -7322,11 +8654,28 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasGetAutodialAddress as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<RASAUTODIALENTRYA>} param2 
-     * @param {Pointer<Integer>} param3 
-     * @param {Pointer<Integer>} param4 
+     * @param {PSTR} param0 Pointer to a <b>null</b>-terminated string that specifies the address for which information is requested. This can be an IP address, Internet host name ("www.microsoft.com"), or NetBIOS name ("products1").
+     * 
+     * If this parameter is <b>NULL</b>, the function retrieves the default Internet connection. The function returns the per-user default Internet connection if one is configured. Otherwise, the function returns the global default Internet connection. If no default Internet connections are configured, the function returns zero for the <i>lpdwcbAutoDialEntries</i> and <i>lpdwcAutoDialEntries</i> parameters.
+     * @param {Pointer<Integer>} param1 Reserved; must be <b>NULL</b>.
+     * @param {Pointer<RASAUTODIALENTRYA>} param2 Pointer to a buffer that, on output, receives an array of 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376721(v=vs.85)">RASAUTODIALENTRY</a> structures, one for each AutoDial entry associated with the address specified by the <i>lpszAddress</i> parameter. 
+     * 
+     * 
+     * 
+     * 
+     * On input, set the <b>dwSize</b> member of the first 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376721(v=vs.85)">RASAUTODIALENTRY</a> structure in the buffer to sizeof(RASAUTODIALENTRY) to identify the version of the structure.
+     * 
+     * If <i>lpAutoDialEntries</i> is <b>NULL</b>, 
+     * <b>RasGetAutodialAddress</b> sets the <i>lpdwcbAutoDialEntries</i> and <i>lpdwcAutoDialEntries</i> parameters to indicate the required buffer size, in bytes, and the number of AutoDial entries.
+     * @param {Pointer<Integer>} param3 Pointer to a variable that, on input, specifies the size, in bytes, of the <i>lpAutoDialEntries</i> buffer. 
+     * 
+     * 
+     * 
+     * 
+     * On output, this variable receives the number of bytes returned, or the number of bytes required if the buffer is too small.
+     * @param {Pointer<Integer>} param4 Pointer to a variable that receives the number of structure elements returned in the <i>lpAutoDialEntries</i> buffer.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -7419,11 +8768,28 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasGetAutodialAddress as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<RASAUTODIALENTRYW>} param2 
-     * @param {Pointer<Integer>} param3 
-     * @param {Pointer<Integer>} param4 
+     * @param {PWSTR} param0 Pointer to a <b>null</b>-terminated string that specifies the address for which information is requested. This can be an IP address, Internet host name ("www.microsoft.com"), or NetBIOS name ("products1").
+     * 
+     * If this parameter is <b>NULL</b>, the function retrieves the default Internet connection. The function returns the per-user default Internet connection if one is configured. Otherwise, the function returns the global default Internet connection. If no default Internet connections are configured, the function returns zero for the <i>lpdwcbAutoDialEntries</i> and <i>lpdwcAutoDialEntries</i> parameters.
+     * @param {Pointer<Integer>} param1 Reserved; must be <b>NULL</b>.
+     * @param {Pointer<RASAUTODIALENTRYW>} param2 Pointer to a buffer that, on output, receives an array of 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376721(v=vs.85)">RASAUTODIALENTRY</a> structures, one for each AutoDial entry associated with the address specified by the <i>lpszAddress</i> parameter. 
+     * 
+     * 
+     * 
+     * 
+     * On input, set the <b>dwSize</b> member of the first 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376721(v=vs.85)">RASAUTODIALENTRY</a> structure in the buffer to sizeof(RASAUTODIALENTRY) to identify the version of the structure.
+     * 
+     * If <i>lpAutoDialEntries</i> is <b>NULL</b>, 
+     * <b>RasGetAutodialAddress</b> sets the <i>lpdwcbAutoDialEntries</i> and <i>lpdwcAutoDialEntries</i> parameters to indicate the required buffer size, in bytes, and the number of AutoDial entries.
+     * @param {Pointer<Integer>} param3 Pointer to a variable that, on input, specifies the size, in bytes, of the <i>lpAutoDialEntries</i> buffer. 
+     * 
+     * 
+     * 
+     * 
+     * On output, this variable receives the number of bytes returned, or the number of bytes required if the buffer is too small.
+     * @param {Pointer<Integer>} param4 Pointer to a variable that receives the number of structure elements returned in the <i>lpAutoDialEntries</i> buffer.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -7502,11 +8868,19 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasSetAutodialAddress as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<RASAUTODIALENTRYA>} param2 
-     * @param {Integer} param3 
-     * @param {Integer} param4 
+     * @param {PSTR} param0 Pointer to a <b>null</b>-terminated string that specifies the address to add, delete, or modify. This address can be an IP address, Internet host name ("www.microsoft.com"), or NetBIOS name ("products1"). 
+     * 
+     * 
+     * 
+     * 
+     * If this parameter is <b>NULL</b>, the function sets the default Internet connection (see Remarks). If this parameter points to a zero-length string, the function deletes the default Internet connection.
+     * @param {Integer} param1 Reserved; must be zero.
+     * @param {Pointer<RASAUTODIALENTRYA>} param2 Pointer to an array of one or more 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376721(v=vs.85)">RASAUTODIALENTRY</a> structures to be associated with the <i>lpszAddress</i> address. If <i>lpAutoDialEntries</i> is <b>NULL</b> and <i>dwcbAutoDialEntries</i> is zero, 
+     * <b>RasSetAutodialAddress</b> deletes all structures associated with <i>lpszAddress</i> from the mapping database.
+     * @param {Integer} param3 Specifies the size, in bytes, of the <i>lpAutoDialEntries</i> buffer.
+     * @param {Integer} param4 Specifies the number of 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376721(v=vs.85)">RASAUTODIALENTRY</a> structures in the <i>lpAutoDialEntries</i> buffer.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -7592,11 +8966,19 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasSetAutodialAddress as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<RASAUTODIALENTRYW>} param2 
-     * @param {Integer} param3 
-     * @param {Integer} param4 
+     * @param {PWSTR} param0 Pointer to a <b>null</b>-terminated string that specifies the address to add, delete, or modify. This address can be an IP address, Internet host name ("www.microsoft.com"), or NetBIOS name ("products1"). 
+     * 
+     * 
+     * 
+     * 
+     * If this parameter is <b>NULL</b>, the function sets the default Internet connection (see Remarks). If this parameter points to a zero-length string, the function deletes the default Internet connection.
+     * @param {Integer} param1 Reserved; must be zero.
+     * @param {Pointer<RASAUTODIALENTRYW>} param2 Pointer to an array of one or more 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376721(v=vs.85)">RASAUTODIALENTRY</a> structures to be associated with the <i>lpszAddress</i> address. If <i>lpAutoDialEntries</i> is <b>NULL</b> and <i>dwcbAutoDialEntries</i> is zero, 
+     * <b>RasSetAutodialAddress</b> deletes all structures associated with <i>lpszAddress</i> from the mapping database.
+     * @param {Integer} param3 Specifies the size, in bytes, of the <i>lpAutoDialEntries</i> buffer.
+     * @param {Integer} param4 Specifies the number of 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376721(v=vs.85)">RASAUTODIALENTRY</a> structures in the <i>lpAutoDialEntries</i> buffer.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -7796,8 +9178,8 @@ class Rras {
      * @remarks
      * > [!NOTE]
      * > The ras.h header defines RasGetAutodialEnable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} param0 
-     * @param {Pointer<BOOL>} param1 
+     * @param {Integer} param0 Specifies the identifier of a TAPI dialing location.
+     * @param {Pointer<BOOL>} param1 Pointer to a BOOL variable that receives a nonzero value if AutoDial is enabled for the specified dialing location, or zero if it is not enabled.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -7816,8 +9198,8 @@ class Rras {
      * @remarks
      * > [!NOTE]
      * > The ras.h header defines RasGetAutodialEnable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} param0 
-     * @param {Pointer<BOOL>} param1 
+     * @param {Integer} param0 Specifies the identifier of a TAPI dialing location.
+     * @param {Pointer<BOOL>} param1 Pointer to a BOOL variable that receives a nonzero value if AutoDial is enabled for the specified dialing location, or zero if it is not enabled.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -7836,8 +9218,8 @@ class Rras {
      * @remarks
      * > [!NOTE]
      * > The ras.h header defines RasSetAutodialEnable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} param0 
-     * @param {BOOL} param1 
+     * @param {Integer} param0 Specifies the identifier of a TAPI dialing location.
+     * @param {BOOL} param1 Specifies <b>TRUE</b> to enable AutoDial for the dialing location indicated by the <i>dwDialingLocation</i> parameter. Specifies <b>FALSE</b> to disable it.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is a non-zero error code from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -7854,8 +9236,8 @@ class Rras {
      * @remarks
      * > [!NOTE]
      * > The ras.h header defines RasSetAutodialEnable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} param0 
-     * @param {BOOL} param1 
+     * @param {Integer} param0 Specifies the identifier of a TAPI dialing location.
+     * @param {BOOL} param1 Specifies <b>TRUE</b> to enable AutoDial for the dialing location indicated by the <i>dwDialingLocation</i> parameter. Specifies <b>FALSE</b> to disable it.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is a non-zero error code from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -7873,8 +9255,15 @@ class Rras {
      * > [!NOTE]
      * > The ras.h header defines RasGetAutodialParam as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} param0 
-     * @param {Pointer<Void>} param1 
-     * @param {Pointer<Integer>} param2 
+     * @param {Pointer<Void>} param1 Pointer to a buffer that receives the value for the specified parameter.
+     * @param {Pointer<Integer>} param2 Pointer to a <b>DWORD</b> value. 
+     * 
+     * 
+     * 
+     * 
+     * On input, set this value to indicate the size, in bytes, of the <i>lpvValue</i> buffer.
+     * 
+     * On output, this value indicates the actual size of the value written to the buffer.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -7924,8 +9313,15 @@ class Rras {
      * > [!NOTE]
      * > The ras.h header defines RasGetAutodialParam as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} param0 
-     * @param {Pointer<Void>} param1 
-     * @param {Pointer<Integer>} param2 
+     * @param {Pointer<Void>} param1 Pointer to a buffer that receives the value for the specified parameter.
+     * @param {Pointer<Integer>} param2 Pointer to a <b>DWORD</b> value. 
+     * 
+     * 
+     * 
+     * 
+     * On input, set this value to indicate the size, in bytes, of the <i>lpvValue</i> buffer.
+     * 
+     * On output, this value indicates the actual size of the value written to the buffer.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -7975,8 +9371,8 @@ class Rras {
      * > [!NOTE]
      * > The ras.h header defines RasSetAutodialParam as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} param0 
-     * @param {Pointer<Void>} param1 
-     * @param {Integer} param2 
+     * @param {Pointer<Void>} param1 Pointer to a buffer that contains the new value for the specified parameter.
+     * @param {Integer} param2 Specifies the size, in bytes, of the value in the <i>lpvValue</i> buffer.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -8025,8 +9421,8 @@ class Rras {
      * > [!NOTE]
      * > The ras.h header defines RasSetAutodialParam as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} param0 
-     * @param {Pointer<Void>} param1 
-     * @param {Integer} param2 
+     * @param {Pointer<Void>} param1 Pointer to a buffer that contains the new value for the specified parameter.
+     * @param {Integer} param2 Specifies the size, in bytes, of the value in the <i>lpvValue</i> buffer.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -8083,10 +9479,14 @@ class Rras {
 
     /**
      * The RasInvokeEapUI function displays a custom user interface to obtain Extensible Authentication Protocol (EAP) information from the user.
-     * @param {HRASCONN} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<RASDIALEXTENSIONS>} param2 
-     * @param {HWND} param3 
+     * @param {HRASCONN} param0 Handle to the connection returned by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a>.
+     * @param {Integer} param1 Specifies the subentry returned in the callback.
+     * @param {Pointer<RASDIALEXTENSIONS>} param2 Pointer to the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377029(v=vs.85)">RASDIALEXTENSIONS</a> structure. This structure should be the same as that passed to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> when restarting from a paused state. Ensure that the <b>dwSize</b> member of the 
+     * <b>RASDIALEXTENSIONS</b> structure specifies the size of the structure. Obtain the size using sizeof(<b>RASDIALEXTENSIONS</b>). This parameter cannot be <b>NULL</b>.
+     * @param {HWND} param3 Handle to the parent window to use when displaying the EAP user interface.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.

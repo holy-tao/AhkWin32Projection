@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IAppxBundleManifestOptionalBundleInfoEnumerator.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IAppxBundleManifestOptionalBundleInfoEnumerator.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides a read-only object model for manifests of bundle packages. (IAppxBundleManifestReader2)

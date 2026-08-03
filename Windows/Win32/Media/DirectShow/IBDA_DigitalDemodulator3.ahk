@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IBDA_DigitalDemodulator2.ahk
-#Include .\BDA_SIGNAL_TIMEOUTS.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\BDA_SIGNAL_TIMEOUTS.ahk
+#Include .\IBDA_DigitalDemodulator2.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow

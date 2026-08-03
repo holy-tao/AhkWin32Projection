@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\PWSTR.ahk
+#Include .\DEVICE_STATE.ahk
+#Include .\EDataFlow.ahk
+#Include .\ERole.ahk
 #Include .\IMMDevice.ahk
 #Include .\IMMDeviceCollection.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\EDataFlow.ahk
 #Include .\IMMNotificationClient.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\ERole.ahk
-#Include .\DEVICE_STATE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IMMDeviceEnumerator interface provides methods for enumerating multimedia device resources.

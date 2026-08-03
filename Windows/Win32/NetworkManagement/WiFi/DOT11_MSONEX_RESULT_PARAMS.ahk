@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ONEX_REASON_CODE.ahk
-#Include .\ONEX_AUTH_STATUS.ahk
 #Include .\DOT11_EAP_RESULT.ahk
+#Include .\ONEX_AUTH_STATUS.ahk
+#Include .\ONEX_REASON_CODE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi

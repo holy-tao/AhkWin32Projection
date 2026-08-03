@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IMsmErrors.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IMsmDependencies.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMsmErrors.ahk
+#Include ..\Com\IDispatch.ahk
 
 /**
  * The IMsmMerge interface and the IMsmMerge2 interface provide interfaces to the Merge object.

@@ -2,17 +2,17 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IWSDAddress.ahk
-#Include .\WSD_HOST_METADATA.ahk
-#Include .\WSDXML_NAME.ahk
-#Include .\IWSDEndpointProxy.ahk
 #Include .\IWSDAsyncResult.ahk
+#Include .\IWSDEndpointProxy.ahk
 #Include .\IWSDServiceProxy.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWSDXMLContext.ahk
+#Include .\WSDXML_NAME.ahk
+#Include .\WSD_HOST_METADATA.ahk
 #Include .\WSD_METADATA_SECTION_LIST.ahk
 #Include .\WSD_THIS_DEVICE_METADATA.ahk
-#Include .\IWSDXMLContext.ahk
 #Include .\WSD_THIS_MODEL_METADATA.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**

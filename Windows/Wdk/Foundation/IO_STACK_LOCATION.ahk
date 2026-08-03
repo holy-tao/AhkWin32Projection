@@ -1,34 +1,34 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include .\IO_SECURITY_CONTEXT.ahk
-#Include ..\System\SystemServices\DEVICE_TEXT_TYPE.ahk
-#Include ..\..\Win32\System\Power\POWER_ACTION.ahk
-#Include ..\System\SystemServices\POWER_SEQUENCE.ahk
+#Include ..\..\..\Guid.ahk
+#Include .\DEVICE_OBJECT.ahk
 #Include .\FILE_OBJECT.ahk
-#Include ..\System\SystemServices\CM_RESOURCE_LIST.ahk
-#Include ..\System\SystemServices\NAMED_PIPE_CREATE_PARAMETERS.ahk
+#Include .\IO_SECURITY_CONTEXT.ahk
+#Include .\VPB.ahk
+#Include .\_SCSI_REQUEST_BLOCK.ahk
 #Include ..\Storage\FileSystem\FILE_GET_QUOTA_INFORMATION.ahk
+#Include ..\Storage\FileSystem\FILE_INFORMATION_CLASS.ahk
+#Include ..\Storage\FileSystem\FS_INFORMATION_CLASS.ahk
+#Include ..\System\SystemServices\BUS_QUERY_ID_TYPE.ahk
+#Include ..\System\SystemServices\CM_RESOURCE_LIST.ahk
+#Include ..\System\SystemServices\DEVICE_CAPABILITIES.ahk
+#Include ..\System\SystemServices\DEVICE_RELATION_TYPE.ahk
+#Include ..\System\SystemServices\DEVICE_TEXT_TYPE.ahk
+#Include ..\System\SystemServices\DEVICE_USAGE_NOTIFICATION_TYPE.ahk
+#Include ..\System\SystemServices\DIRECTORY_NOTIFY_INFORMATION_CLASS.ahk
+#Include ..\System\SystemServices\INTERFACE.ahk
 #Include ..\System\SystemServices\IO_RESOURCE_REQUIREMENTS_LIST.ahk
 #Include ..\System\SystemServices\MAILSLOT_CREATE_PARAMETERS.ahk
-#Include ..\..\Win32\Foundation\BOOLEAN.ahk
-#Include .\VPB.ahk
-#Include ..\Storage\FileSystem\FS_INFORMATION_CLASS.ahk
-#Include ..\System\SystemServices\DEVICE_RELATION_TYPE.ahk
+#Include ..\System\SystemServices\NAMED_PIPE_CREATE_PARAMETERS.ahk
+#Include ..\System\SystemServices\POWER_SEQUENCE.ahk
 #Include ..\System\SystemServices\POWER_STATE_TYPE.ahk
-#Include ..\System\SystemServices\DIRECTORY_NOTIFY_INFORMATION_CLASS.ahk
-#Include ..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk
-#Include .\DEVICE_OBJECT.ahk
-#Include .\_SCSI_REQUEST_BLOCK.ahk
-#Include ..\System\SystemServices\DEVICE_USAGE_NOTIFICATION_TYPE.ahk
-#Include ..\..\..\Guid.ahk
-#Include ..\..\Win32\System\Power\SYSTEM_POWER_STATE.ahk
+#Include ..\..\Win32\Foundation\BOOLEAN.ahk
 #Include ..\..\Win32\Foundation\HANDLE.ahk
-#Include ..\Storage\FileSystem\FILE_INFORMATION_CLASS.ahk
 #Include ..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Include ..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk
 #Include ..\..\Win32\Security\PSID.ahk
-#Include ..\System\SystemServices\BUS_QUERY_ID_TYPE.ahk
-#Include ..\System\SystemServices\DEVICE_CAPABILITIES.ahk
-#Include ..\System\SystemServices\INTERFACE.ahk
+#Include ..\..\Win32\System\Power\POWER_ACTION.ahk
+#Include ..\..\Win32\System\Power\SYSTEM_POWER_STATE.ahk
 
 /**
  * @namespace Windows.Wdk.Foundation

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IUpdateService.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\IUpdateService.ahk
 
 /**
  * Represents a list of IUpdateService interfaces.

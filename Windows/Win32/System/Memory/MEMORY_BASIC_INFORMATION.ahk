@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VIRTUAL_ALLOCATION_TYPE.ahk
 #Include .\PAGE_PROTECTION_FLAGS.ahk
 #Include .\PAGE_TYPE.ahk
+#Include .\VIRTUAL_ALLOCATION_TYPE.ahk
 
 /**
  * Contains information about a range of pages in the virtual address space of a process.

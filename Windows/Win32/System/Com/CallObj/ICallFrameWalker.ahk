@@ -2,9 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\IUnknown.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\IUnknown.ahk
 
 /**
  * Walks a stack frame looking for interesting values.

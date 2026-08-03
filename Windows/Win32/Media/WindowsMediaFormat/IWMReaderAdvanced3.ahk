@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IWMReaderAdvanced2.ahk
 #Include .\WMT_OFFSET_FORMAT.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWMReaderAdvanced3 interface provides additional functionality to the reader object.

@@ -2,14 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\COLORREF.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Foundation\SIZE.ahk
+#Include .\DWRITE_GLYPH_RUN.ahk
+#Include .\DWRITE_MATRIX.ahk
 #Include .\DWRITE_MEASURING_MODE.ahk
 #Include .\IDWriteRenderingParams.ahk
-#Include .\DWRITE_GLYPH_RUN.ahk
 #Include ..\Gdi\HDC.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\DWRITE_MATRIX.ahk
-#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**

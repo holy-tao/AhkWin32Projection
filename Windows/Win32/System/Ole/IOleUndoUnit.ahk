@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IOleUndoManager.ahk
-#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\IOleUndoManager.ahk
 
 /**
  * Serves as the main interface on an undo unit. An undo unit encapsulates the information necessary to undo or redo a single action.

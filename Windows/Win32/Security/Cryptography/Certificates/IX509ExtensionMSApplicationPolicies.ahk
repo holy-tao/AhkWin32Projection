@@ -2,10 +2,10 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IX509Extension.ahk
-#Include .\EncodingType.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\EncodingType.ahk
 #Include .\ICertificatePolicies.ahk
+#Include .\IX509Extension.ahk
 
 /**
  * Enables you to specify a collection of object identifiers (OIDs) that indicate how a certificate can be used by an application.

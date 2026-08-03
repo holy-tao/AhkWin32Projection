@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Registry\HKEY.ahk
-#Include .\ASSOCF.ahk
-#Include .\ASSOCSTR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\ASSOCDATA.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\ASSOCENUM.ahk
-#Include .\ASSOCKEY.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Registry\HKEY.ahk
+#Include .\ASSOCDATA.ahk
+#Include .\ASSOCENUM.ahk
+#Include .\ASSOCF.ahk
+#Include .\ASSOCKEY.ahk
+#Include .\ASSOCSTR.ahk
 
 /**
  * Exposes methods that simplify the process of retrieving information stored in the registry in association with defining a file type or protocol and associating it with an application.

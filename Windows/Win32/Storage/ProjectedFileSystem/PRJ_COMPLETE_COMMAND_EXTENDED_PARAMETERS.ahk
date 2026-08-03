@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\PRJ_COMPLETE_COMMAND_TYPE.ahk
-#Include .\PRJ_NOTIFY_TYPES.ahk
 #Include .\PRJ_DIR_ENTRY_BUFFER_HANDLE.ahk
+#Include .\PRJ_NOTIFY_TYPES.ahk
 
 /**
  * Specifies parameters required for completing certain callbacks.

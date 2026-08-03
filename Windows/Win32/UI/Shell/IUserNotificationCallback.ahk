@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\POINT.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes a method for the handling of a mouse click or shortcut menu access in a notification balloon. Used with IUserNotification2::Show.

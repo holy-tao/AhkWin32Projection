@@ -2,11 +2,11 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include .\DSCBUFFERDESC.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\DSCCAPS.ahk
 #Include .\IDirectSoundCaptureBuffer.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound

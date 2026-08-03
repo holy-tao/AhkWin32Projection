@@ -2,15 +2,15 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISpeechPhraseReplacements.ahk
-#Include .\ISpeechPhraseElements.ahk
-#Include .\ISpeechPhraseRule.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\ISpeechPhraseProperties.ahk
-#Include .\SpeechDisplayAttributes.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\ISpeechPhraseElements.ahk
+#Include .\ISpeechPhraseProperties.ahk
+#Include .\ISpeechPhraseReplacements.ahk
+#Include .\ISpeechPhraseRule.ahk
+#Include .\SpeechDisplayAttributes.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech

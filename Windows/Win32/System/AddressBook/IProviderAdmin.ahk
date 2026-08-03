@@ -2,13 +2,13 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IMAPITable.ahk
 #Include .\IProfSect.ahk
-#Include ..\Com\IUnknown.ahk
+#Include .\MAPIERROR.ahk
 #Include .\MAPIUID.ahk
 #Include .\SPropValue.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\MAPIERROR.ahk
+#Include ..\Com\IUnknown.ahk
 
 /**
  * Describes the properties and vtable order of members for IProviderAdmin IUnknown, which works with service providers in a message service.

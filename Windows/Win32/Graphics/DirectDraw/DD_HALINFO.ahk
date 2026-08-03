@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DDNTCORECAPS.ahk
-#Include .\DD_D3DBUFCALLBACKS.ahk
 #Include .\DDPIXELFORMAT.ahk
 #Include .\DDSCAPS.ahk
+#Include .\DD_D3DBUFCALLBACKS.ahk
 #Include .\VIDEOMEMORYINFO.ahk
 
 /**

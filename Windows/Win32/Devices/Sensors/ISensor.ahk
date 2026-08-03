@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISensorEvents.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\SensorState.ahk
-#Include ..\PortableDevices\IPortableDeviceKeyCollection.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\PortableDevices\IPortableDeviceKeyCollection.ahk
 #Include ..\PortableDevices\IPortableDeviceValues.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\ISensorDataReport.ahk
+#Include .\ISensorEvents.ahk
+#Include .\SensorState.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 
 /**
  * Represents a sensor.

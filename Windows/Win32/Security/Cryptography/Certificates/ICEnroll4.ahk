@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\CERT_CREATE_REQUEST_FLAGS.ahk
-#Include .\XEKL_KEYSPEC.ahk
-#Include .\PENDING_REQUEST_DESIRED_PROPERTY.ahk
-#Include .\ADDED_CERT_TYPE.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\ICEnroll3.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\ADDED_CERT_TYPE.ahk
+#Include .\CERT_CREATE_REQUEST_FLAGS.ahk
+#Include .\ICEnroll3.ahk
+#Include .\PENDING_REQUEST_DESIRED_PROPERTY.ahk
 #Include .\XEKL_KEYSIZE.ahk
+#Include .\XEKL_KEYSPEC.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 
 /**
  * The ICEnroll4 interface is one of several interfaces that represent the Certificate Enrollment Control.
