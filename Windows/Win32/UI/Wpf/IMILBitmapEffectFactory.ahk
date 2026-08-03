@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMILBitmapEffectRenderContext.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMILBitmapEffect.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMILBitmapEffectRenderContext.ahk
 
 /**
  * Exposes methods used to create Windows Presentation Foundation (WPF) Microsoft Win32 bitmap effect objects.

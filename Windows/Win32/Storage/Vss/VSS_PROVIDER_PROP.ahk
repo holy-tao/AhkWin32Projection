@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VSS_PROVIDER_TYPE.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VSS_PROVIDER_TYPE.ahk
 
 /**
  * Specifies shadow copy provider properties.

@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\IItemEnumerator.ahk
 #Include .\WcmDataType.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\WcmSettingType.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\WcmRestrictionFacets.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\WcmSettingType.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * Navigates the settings tree, retrieves the metadata for a particular setting, and retrieves or modify its value.

@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFaxRecipient.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Include .\FAX_JOB_EXTENDED_STATUS_ENUM.ahk
 #Include .\FAX_JOB_OPERATIONS_ENUM.ahk
 #Include .\FAX_JOB_STATUS_ENUM.ahk
 #Include .\FAX_PRIORITY_TYPE_ENUM.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\FAX_RECEIPT_TYPE_ENUM.ahk
-#Include .\FAX_JOB_EXTENDED_STATUS_ENUM.ahk
+#Include .\IFaxRecipient.ahk
 #Include .\IFaxSender.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IFaxOutgoingJob interface describes an object that is used by a fax client application to retrieve information about an outgoing fax job in a fax server's queue.

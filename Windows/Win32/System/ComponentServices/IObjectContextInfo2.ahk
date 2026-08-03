@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IObjectContextInfo.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IObjectContextInfo.ahk
 
 /**
  * Provides additional information about an object's context. This interface extends the IObjectContextInfo interface.

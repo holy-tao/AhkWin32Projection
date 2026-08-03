@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\WindowsAndMessaging\HICON.ahk
-#Include .\HPROPSHEETPAGE.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\Graphics\Gdi\HPALETTE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include .\PROPSHEETPAGEW.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\Graphics\Gdi\HPALETTE.ahk
+#Include .\HPROPSHEETPAGE.ahk
+#Include .\PROPSHEETPAGEW.ahk
+#Include ..\WindowsAndMessaging\HICON.ahk
 
 /**
  * The PROPSHEETHEADERW_V2 (Unicode) structure defines the frame and pages of a property sheet.

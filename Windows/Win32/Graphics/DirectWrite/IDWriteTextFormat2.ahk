@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteTextFormat1.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include .\DWRITE_LINE_SPACING.ahk
+#Include .\IDWriteTextFormat1.ahk
 
 /**
  * Describes the font and paragraph properties used to format text, and it describes locale information. | IDWriteTextFormat2 interface

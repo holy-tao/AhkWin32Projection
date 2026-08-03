@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\APOInitSystemEffects3.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include .\APOInitBaseStruct.ahk
+#Include .\APOInitSystemEffects3.ahk
+#Include .\APO_REFERENCE_STREAM_PROPERTIES.ahk
 #Include ..\IMMDeviceCollection.ahk
 #Include ..\..\..\System\Com\IServiceProvider.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
 #Include ..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
-#Include .\APOInitBaseStruct.ahk
-#Include .\APO_REFERENCE_STREAM_PROPERTIES.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.Apo

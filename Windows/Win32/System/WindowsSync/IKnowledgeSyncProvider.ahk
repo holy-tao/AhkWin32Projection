@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\SYNC_PROVIDER_ROLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\CONFLICT_RESOLUTION_POLICY.ahk
+#Include .\ISyncCallback.ahk
 #Include .\ISyncChangeBatch.ahk
-#Include .\SYNC_SESSION_STATISTICS.ahk
+#Include .\ISyncFullEnumerationChangeBatch.ahk
 #Include .\ISyncKnowledge.ahk
 #Include .\ISyncProvider.ahk
-#Include .\ISyncCallback.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\CONFLICT_RESOLUTION_POLICY.ahk
-#Include ..\Com\IUnknown.ahk
 #Include .\ISyncSessionState.ahk
-#Include .\ISyncFullEnumerationChangeBatch.ahk
+#Include .\SYNC_PROVIDER_ROLE.ahk
+#Include .\SYNC_SESSION_STATISTICS.ahk
 
 /**
  * Represents a synchronization provider that uses knowledge to perform synchronization.

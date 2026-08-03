@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SR_RESOURCE_TYPE_DISK_INFO.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\SR_DISK_REPLICATION_ELIGIBLE.ahk
+#Include .\SR_RESOURCE_TYPE_DISK_INFO.ahk
 
 /**
  * Describes a set of data disks retrieved by a resource type control code operation for storage replication.

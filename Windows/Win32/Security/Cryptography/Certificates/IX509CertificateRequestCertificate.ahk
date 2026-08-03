@@ -2,12 +2,12 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\ISignerCertificate.ahk
-#Include .\IX509PublicKey.ahk
-#Include .\IX509CertificateRequestPkcs10.ahk
-#Include .\IX500DistinguishedName.ahk
-#Include .\EncodingType.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\EncodingType.ahk
+#Include .\ISignerCertificate.ahk
+#Include .\IX500DistinguishedName.ahk
+#Include .\IX509CertificateRequestPkcs10.ahk
+#Include .\IX509PublicKey.ahk
 
 /**
  * The IX509CertificateRequestCertificate interface represents a request object for a self-generated certificate, enabling you to create a certificate directly without going through a registration or certification authority.

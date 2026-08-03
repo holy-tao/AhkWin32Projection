@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\DirectWrite\IDWriteRenderingParams.ahk
 #Include .\D2D1_DRAWING_STATE_DESCRIPTION.ahk
 #Include .\ID2D1Resource.ahk
+#Include ..\DirectWrite\IDWriteRenderingParams.ahk
 
 /**
  * Represents the drawing state of a render target:\_the antialiasing mode, transform, tags, and text-rendering options.

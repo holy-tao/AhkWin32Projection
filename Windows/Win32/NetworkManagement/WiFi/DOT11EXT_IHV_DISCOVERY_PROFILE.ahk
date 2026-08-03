@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\DOT11EXT_IHV_SECURITY_PROFILE.ahk
-#Include .\DOT11EXT_IHV_CONNECTIVITY_PROFILE.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\DOT11EXT_IHV_CONNECTIVITY_PROFILE.ahk
+#Include .\DOT11EXT_IHV_SECURITY_PROFILE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi

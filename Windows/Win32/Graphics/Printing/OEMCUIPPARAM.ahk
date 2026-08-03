@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\OEMUIOBJ.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\OPTITEM.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Gdi\DEVMODEA.ahk
+#Include .\OEMUIOBJ.ahk
+#Include .\OPTITEM.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IP_ADDR_STRING.ahk
 #Include .\IP_ADDRESS_STRING.ahk
+#Include .\IP_ADDR_STRING.ahk
 
 /**
  * The IP_PER_ADAPTER_INFO structure contains information specific to a particular adapter.

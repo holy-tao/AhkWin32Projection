@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ITsSbEnvironment.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ITsSbLoadBalanceResult.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\ITsSbSession.ahk
-#Include .\ITsSbClientConnectionPropertySet.ahk
-#Include .\RD_FARM_TYPE.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\ITsSbClientConnectionPropertySet.ahk
+#Include .\ITsSbEnvironment.ahk
+#Include .\ITsSbLoadBalanceResult.ahk
+#Include .\ITsSbSession.ahk
+#Include .\RD_FARM_TYPE.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * Exposes methods and properties that store state information about an incoming connection request from a Remote Desktop Connection (RDC) client.

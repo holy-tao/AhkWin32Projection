@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DHCP_OPTION_DATA_TYPE.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\DWORD_DWORD.ahk
 #Include .\DHCP_BINARY_DATA.ahk
+#Include .\DHCP_OPTION_DATA_TYPE.ahk
+#Include .\DWORD_DWORD.ahk
 
 /**
  * The DHCP_OPTION_DATA_ELEMENT structure defines a data element present (either singly or as a member of an array) within a DHCP_OPTION_DATA structure.

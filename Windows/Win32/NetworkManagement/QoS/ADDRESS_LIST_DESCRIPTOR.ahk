@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Ndis\NETWORK_ADDRESS_LIST.ahk
 #Include ..\Ndis\NETWORK_ADDRESS.ahk
+#Include ..\Ndis\NETWORK_ADDRESS_LIST.ahk
 
 /**
  * The ADDRESS_LIST_DESCRIPTOR structure provides network address descriptor information for a given interface.

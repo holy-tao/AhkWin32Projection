@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\FWPM_SUBSCRIPTION_FLAGS.ahk
 #Include .\FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0.ahk
+#Include .\FWPM_SUBSCRIPTION_FLAGS.ahk
 
 /**
  * Used to subscribe for change notifications. (FWPM_PROVIDER_CONTEXT_SUBSCRIPTION0)

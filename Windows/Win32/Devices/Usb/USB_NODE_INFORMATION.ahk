@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_HUB_INFORMATION.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
-#Include .\USB_HUB_NODE.ahk
 #Include .\USB_HUB_DESCRIPTOR.ahk
+#Include .\USB_HUB_INFORMATION.ahk
+#Include .\USB_HUB_NODE.ahk
 #Include .\USB_MI_PARENT_INFORMATION.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include ..\WindowsAndMessaging\DLGTEMPLATE.ahk
 #Include ..\WindowsAndMessaging\HICON.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The PROPSHEETPAGEA_V3 (ANSI) structure defines a page in a property sheet.

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISpeechLexiconPronunciations.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\SpeechLexiconType.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\SpeechPartOfSpeech.ahk
-#Include .\ISpeechLexiconWords.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ISpeechLexiconPronunciations.ahk
+#Include .\ISpeechLexiconWords.ahk
+#Include .\SpeechLexiconType.ahk
+#Include .\SpeechPartOfSpeech.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\OLEUIOBJECTPROPSW.ahk
 #Include ..\..\Foundation\LPARAM.ahk
+#Include .\OLEUIOBJECTPROPSW.ahk
 
 /**
  * Contains information that is used to initialize the Link tab of the Object Properties dialog box. (Unicode)

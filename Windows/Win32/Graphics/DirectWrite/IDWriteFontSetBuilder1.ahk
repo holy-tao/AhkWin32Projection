@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontSetBuilder.ahk
-#Include .\IDWriteFontFile.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDWriteFontFile.ahk
+#Include .\IDWriteFontSetBuilder.ahk
 
 /**
  * Contains methods for building a font set. (IDWriteFontSetBuilder1)

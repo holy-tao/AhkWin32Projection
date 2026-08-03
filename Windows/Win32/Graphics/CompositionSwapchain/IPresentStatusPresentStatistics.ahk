@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\PresentStatus.ahk
 #Include .\IPresentStatistics.ahk
+#Include .\PresentStatus.ahk
 
 /**
  * Describes how a present was processed during a DWM-composed frame.

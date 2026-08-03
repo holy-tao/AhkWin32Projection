@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISpRecognizer.ahk
-#Include .\ISpRecoResult.ahk
-#Include .\SPBOOKMARKOPTIONS.ahk
-#Include ..\Audio\WAVEFORMATEX.ahk
-#Include .\ISpVoice.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Audio\WAVEFORMATEX.ahk
 #Include .\ISpEventSource.ahk
 #Include .\ISpRecoGrammar.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\SPSERIALIZEDRESULT.ahk
-#Include .\SPRECOCONTEXTSTATUS.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include .\SPCONTEXTSTATE.ahk
+#Include .\ISpRecoResult.ahk
+#Include .\ISpRecognizer.ahk
+#Include .\ISpVoice.ahk
 #Include .\SPAUDIOOPTIONS.ahk
+#Include .\SPBOOKMARKOPTIONS.ahk
+#Include .\SPCONTEXTSTATE.ahk
+#Include .\SPRECOCONTEXTSTATUS.ahk
+#Include .\SPSERIALIZEDRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech

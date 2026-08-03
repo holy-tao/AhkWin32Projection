@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\FILE_STORAGE_TIER_REGION.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\FILE_STORAGE_TIER_REGION.ahk
 
 /**
  * Contains information for one or more regions.

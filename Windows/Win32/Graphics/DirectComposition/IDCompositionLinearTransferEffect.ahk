@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionFilterEffect.ahk
-#Include .\IDCompositionAnimation.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDCompositionAnimation.ahk
+#Include .\IDCompositionFilterEffect.ahk
 
 /**
  * The linear transfer effect is used to map the color intensities of an image using a linear function created from a list of values you provide for each channel.

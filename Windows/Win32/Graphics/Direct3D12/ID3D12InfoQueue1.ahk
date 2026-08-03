@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12InfoQueue.ahk
-#Include .\D3D12_MESSAGE_CALLBACK_FLAGS.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3D12_MESSAGE_CALLBACK_FLAGS.ahk
+#Include .\ID3D12InfoQueue.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

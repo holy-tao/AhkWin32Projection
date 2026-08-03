@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXGI_OUTDUPL_POINTER_POSITION.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include .\DXGI_OUTDUPL_POINTER_POSITION.ahk
 
 /**
  * The DXGI_OUTDUPL_FRAME_INFO structure describes the current desktop image.

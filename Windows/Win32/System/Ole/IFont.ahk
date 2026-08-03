@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Graphics\Gdi\HFONT.ahk
 #Include ..\..\Graphics\Gdi\TEXTMETRICW.ahk
 #Include ..\Com\CY.ahk
 #Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides a wrapper around a Windows font object.

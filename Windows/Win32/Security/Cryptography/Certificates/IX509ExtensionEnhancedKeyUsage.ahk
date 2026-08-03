@@ -2,10 +2,10 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IX509Extension.ahk
-#Include .\EncodingType.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\EncodingType.ahk
 #Include .\IObjectIds.ahk
+#Include .\IX509Extension.ahk
 
 /**
  * Can be used to define a collection of object identifiers (OIDs) that identify the intended uses of the public key contained in the certificate.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SRow.ahk
 #Include .\SPropValue.ahk
+#Include .\SRow.ahk
 
 /**
  * Contains an array of SRow structures. Each SRow structure describes a row from a table.

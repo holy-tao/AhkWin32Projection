@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Registry\HKEY.ahk
-#Include .\DIJOYTYPEINFO.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include .\DIJOYCONFIG.ahk
+#Include .\DIJOYTYPEINFO.ahk
 #Include .\DIJOYUSERVALUES.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Registry\HKEY.ahk
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
@@ -213,9 +213,9 @@ class IDirectInputJoyConfig extends IUnknown {
 
     /**
      * The IDirectInputJoyConfig8::OpenConfigKey method opens IDirectInputJoyConfig the registry key associated with a joystick configuration.
-     * @param {Integer} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<HKEY>} param2 
+     * @param {Integer} param0 Indicates a zero-based joystick identification number.
+     * @param {Integer} param1 Specifies a registry security access mask. This can be any of the values permitted by the <b>RegOpenKeyEx</b> function. If write access is requested, then joystick configuration must first be acquired. If only read access is requested, then acquisition is not required. At least one access mask must be specified.
+     * @param {Pointer<HKEY>} param2 Points to the opened registry key on success.
      * @returns {HRESULT} Returns DI_OK if successful; otherwise, returns one of the following COM error values: 
      * 
      * <table>

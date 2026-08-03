@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPSEC_DOSP_OPTIONS0.ahk
-#Include .\IPSEC_KEYING_POLICY1.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\FWPM_PROVIDER_CONTEXT_TYPE.ahk
 #Include .\FWPM_CLASSIFY_OPTIONS0.ahk
-#Include .\IKEEXT_POLICY2.ahk
 #Include .\FWPM_DISPLAY_DATA0.ahk
+#Include .\FWPM_PROVIDER_CONTEXT_TYPE.ahk
 #Include .\FWP_BYTE_BLOB.ahk
+#Include .\IKEEXT_POLICY2.ahk
+#Include .\IPSEC_DOSP_OPTIONS0.ahk
+#Include .\IPSEC_KEYING_POLICY1.ahk
 #Include .\IPSEC_TRANSPORT_POLICY2.ahk
 #Include .\IPSEC_TUNNEL_POLICY2.ahk
 

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\IDXGIResource.ahk
-#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
-#Include .\IDXGISurface2.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IDXGIResource.ahk
+#Include .\IDXGISurface2.ahk
+#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
 
 /**
  * An IDXGIResource1 interface extends the IDXGIResource interface by adding support for creating a subresource surface object and for creating a handle to a shared resource.

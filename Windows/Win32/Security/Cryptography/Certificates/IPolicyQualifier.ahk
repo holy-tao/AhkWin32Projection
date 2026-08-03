@@ -2,11 +2,11 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IObjectId.ahk
-#Include .\EncodingType.ahk
-#Include .\PolicyQualifierType.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\EncodingType.ahk
+#Include .\IObjectId.ahk
+#Include .\PolicyQualifierType.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Represents a qualifier that can be associated with a certificate policy.

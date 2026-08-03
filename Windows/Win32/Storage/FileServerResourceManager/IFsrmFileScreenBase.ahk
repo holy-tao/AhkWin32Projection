@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\FsrmActionType.ahk
+#Include .\IFsrmAction.ahk
+#Include .\IFsrmCollection.ahk
 #Include .\IFsrmMutableCollection.ahk
 #Include .\IFsrmObject.ahk
-#Include .\FsrmActionType.ahk
-#Include .\IFsrmCollection.ahk
-#Include .\IFsrmAction.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Base class for all file screen interfaces.

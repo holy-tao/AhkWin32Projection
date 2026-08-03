@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUpdateHistoryEntry.ahk
-#Include .\ICategoryCollection.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ICategoryCollection.ahk
+#Include .\IUpdateHistoryEntry.ahk
 
 /**
  * Represents the recorded history of an update. (IUpdateHistoryEntry2)

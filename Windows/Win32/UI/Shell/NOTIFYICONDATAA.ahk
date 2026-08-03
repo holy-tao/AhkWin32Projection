@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NOTIFY_ICON_STATE.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\NOTIFY_ICON_INFOTIP_FLAGS.ahk
-#Include ..\WindowsAndMessaging\HICON.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NOTIFY_ICON_DATA_FLAGS.ahk
+#Include .\NOTIFY_ICON_INFOTIP_FLAGS.ahk
+#Include .\NOTIFY_ICON_STATE.ahk
+#Include ..\WindowsAndMessaging\HICON.ahk
 
 /**
  * Contains information that the system needs to display notifications in the notification area. Used by Shell_NotifyIcon. (ANSI)

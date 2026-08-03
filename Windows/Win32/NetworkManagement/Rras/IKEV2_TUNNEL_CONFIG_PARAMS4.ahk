@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MPR_CERT_EKU.ahk
 #Include .\ROUTER_CUSTOM_IKEv2_POLICY0.ahk
 #Include ..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk
-#Include .\MPR_CERT_EKU.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras

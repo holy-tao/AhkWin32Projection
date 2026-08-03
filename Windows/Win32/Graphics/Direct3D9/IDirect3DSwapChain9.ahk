@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D3DPRESENT_PARAMETERS.ahk
-#Include .\D3DBACKBUFFER_TYPE.ahk
-#Include .\IDirect3DSurface9.ahk
-#Include .\IDirect3DDevice9.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\D3DRASTER_STATUS.ahk
-#Include ..\Gdi\RGNDATA.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include .\D3DBACKBUFFER_TYPE.ahk
 #Include .\D3DDISPLAYMODE.ahk
+#Include .\D3DPRESENT_PARAMETERS.ahk
+#Include .\D3DRASTER_STATUS.ahk
+#Include .\IDirect3DDevice9.ahk
+#Include .\IDirect3DSurface9.ahk
+#Include ..\Gdi\RGNDATA.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**

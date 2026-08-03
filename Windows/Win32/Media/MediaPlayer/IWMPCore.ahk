@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\WMPOpenState.ahk
-#Include .\IWMPError.ahk
-#Include .\WMPPlayState.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IWMPCdromCollection.ahk
+#Include .\IWMPClosedCaption.ahk
+#Include .\IWMPControls.ahk
+#Include .\IWMPError.ahk
+#Include .\IWMPMedia.ahk
+#Include .\IWMPMediaCollection.ahk
 #Include .\IWMPNetwork.ahk
 #Include .\IWMPPlaylist.ahk
-#Include .\IWMPClosedCaption.ahk
-#Include .\IWMPMediaCollection.ahk
-#Include .\IWMPSettings.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IWMPMedia.ahk
-#Include .\IWMPCdromCollection.ahk
-#Include .\IWMPControls.ahk
 #Include .\IWMPPlaylistCollection.ahk
+#Include .\IWMPSettings.ahk
+#Include .\WMPOpenState.ahk
+#Include .\WMPPlayState.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IWMPCore interface is the root interface for the Windows Media Player control. It can be used to retrieve pointers to other interfaces supported by the control and to access some basic features.

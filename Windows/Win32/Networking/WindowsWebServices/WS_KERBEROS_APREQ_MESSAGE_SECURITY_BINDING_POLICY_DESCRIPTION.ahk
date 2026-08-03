@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_MESSAGE_SECURITY_USAGE.ahk
 #Include .\WS_SECURITY_BINDING_PROPERTIES.ahk
 #Include .\WS_SECURITY_BINDING_PROPERTY.ahk
-#Include .\WS_MESSAGE_SECURITY_USAGE.ahk
 
 /**
  * This type description is used with template APIs to describe the templates generated accordingly to input policy setting. (WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION)

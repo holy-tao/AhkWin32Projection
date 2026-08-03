@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Packaging\Opc\IOpcSignatureCustomObjectEnumerator.ahk
-#Include ..\Packaging\Opc\OPC_SIGNATURE_TIME_FORMAT.ahk
-#Include ..\Packaging\Opc\IOpcCertificateEnumerator.ahk
-#Include .\XPS_SIGN_POLICY.ahk
-#Include ..\Packaging\Opc\IOpcSignatureReferenceEnumerator.ahk
-#Include .\XPS_SIGNATURE_STATUS.ahk
-#Include ..\..\Security\Cryptography\CERT_CONTEXT.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\Packaging\Opc\IOpcPartUri.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Security\Cryptography\CERT_CONTEXT.ahk
+#Include ..\Packaging\Opc\IOpcCertificateEnumerator.ahk
+#Include ..\Packaging\Opc\IOpcPartUri.ahk
+#Include ..\Packaging\Opc\IOpcSignatureCustomObjectEnumerator.ahk
+#Include ..\Packaging\Opc\IOpcSignatureReferenceEnumerator.ahk
+#Include ..\Packaging\Opc\OPC_SIGNATURE_TIME_FORMAT.ahk
+#Include .\XPS_SIGNATURE_STATUS.ahk
+#Include .\XPS_SIGN_POLICY.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**

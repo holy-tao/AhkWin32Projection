@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\RTC_AUDIO_DEVICE.ahk
-#Include .\RTC_VIDEO_DEVICE.ahk
-#Include .\IRTCProfile.ahk
-#Include .\RTC_DTMF.ahk
-#Include .\RTC_T120_APPLET.ahk
-#Include .\RTC_SESSION_TYPE.ahk
-#Include .\RTC_LISTEN_MODE.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\RTC_RING_TYPE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IRTCSession.ahk
-#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\Media\DirectShow\IVideoWindow.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\IRTCProfile.ahk
+#Include .\IRTCSession.ahk
+#Include .\RTC_AUDIO_DEVICE.ahk
+#Include .\RTC_DTMF.ahk
+#Include .\RTC_LISTEN_MODE.ahk
+#Include .\RTC_RING_TYPE.ahk
+#Include .\RTC_SESSION_TYPE.ahk
+#Include .\RTC_T120_APPLET.ahk
+#Include .\RTC_VIDEO_DEVICE.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

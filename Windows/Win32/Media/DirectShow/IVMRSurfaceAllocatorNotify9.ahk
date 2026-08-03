@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DDevice9.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
 #Include ..\..\Graphics\Gdi\HMONITOR.ahk
 #Include .\IVMRSurfaceAllocator9.ahk
-#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
-#Include ..\..\Graphics\Direct3D9\IDirect3DDevice9.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include .\VMR9AllocationInfo.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 

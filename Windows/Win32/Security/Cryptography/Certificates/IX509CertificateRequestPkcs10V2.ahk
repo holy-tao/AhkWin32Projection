@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509EnrollmentPolicyServer.ahk
-#Include .\IX509PublicKey.ahk
-#Include .\IX509CertificateRequestPkcs10.ahk
-#Include .\IX509PrivateKey.ahk
-#Include .\IX509CertificateTemplate.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IX509CertificateRequestPkcs10.ahk
+#Include .\IX509CertificateTemplate.ahk
+#Include .\IX509EnrollmentPolicyServer.ahk
+#Include .\IX509PrivateKey.ahk
+#Include .\IX509PublicKey.ahk
 #Include .\X509CertificateEnrollmentContext.ahk
 
 /**

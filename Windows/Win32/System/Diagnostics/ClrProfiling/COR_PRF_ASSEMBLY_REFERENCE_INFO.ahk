@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\WinRT\Metadata\ASSEMBLYMETADATA.ahk
 #Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\WinRT\Metadata\ASSEMBLYMETADATA.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling

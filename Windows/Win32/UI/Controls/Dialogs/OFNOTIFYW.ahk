@@ -2,8 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\PWSTR.ahk
-#Include ..\NMHDR.ahk
 #Include .\OPENFILENAMEW.ahk
+#Include ..\NMHDR.ahk
 
 /**
  * Contains information about a WM_NOTIFY message sent to an OFNHookProc hook procedure for an Open or Save As dialog box. The lParam parameter of the WM_NOTIFY message is a pointer to an OFNOTIFY structure. (Unicode)

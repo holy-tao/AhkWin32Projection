@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include .\SAFER_IDENTIFICATION_TYPES.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\SAFER_IDENTIFICATION_HEADER.ahk
+#Include .\SAFER_IDENTIFICATION_TYPES.ahk
 
 /**
  * Represents a path identification rule.

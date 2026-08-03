@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include ..\..\Win32\Security\SECURITY_QUALITY_OF_SERVICE.ahk
 #Include .\ACCESS_STATE.ahk
+#Include ..\..\Win32\Security\SECURITY_QUALITY_OF_SERVICE.ahk
 
 /**
  * @namespace Windows.Wdk.Foundation

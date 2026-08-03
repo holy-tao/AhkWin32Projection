@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MPE_ELEMENT.ahk
 
 /**
  * The MPE_ELEMENT structure contains information from a multi-protocol encapsulation (MPE) element.

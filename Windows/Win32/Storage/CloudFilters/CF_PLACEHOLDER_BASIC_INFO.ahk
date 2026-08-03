@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CF_PIN_STATE.ahk
 #Include .\CF_IN_SYNC_STATE.ahk
+#Include .\CF_PIN_STATE.ahk
 
 /**
  * Basic placeholder information.

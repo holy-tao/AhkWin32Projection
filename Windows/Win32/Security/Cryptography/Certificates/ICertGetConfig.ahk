@@ -2,9 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\CERT_GET_CONFIG_FLAGS.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\CERT_GET_CONFIG_FLAGS.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Provides functionality for retrieving the public configuration data (specified during client setup) for a Certificate Services server.

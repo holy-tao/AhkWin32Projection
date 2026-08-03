@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\POINTFX.ahk
 #Include .\FIXED.ahk
+#Include .\POINTFX.ahk
 
 /**
  * The TTPOLYCURVE structure contains information about a curve in the outline of a TrueType character.

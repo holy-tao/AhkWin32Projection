@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\WIN32_ERROR.ahk
-#Include .\RM_UNIQUE_PROCESS.ahk
-#Include .\RM_PROCESS_INFO.ahk
 #Include .\RM_FILTER_ACTION.ahk
+#Include .\RM_PROCESS_INFO.ahk
+#Include .\RM_UNIQUE_PROCESS.ahk
 
 /**
  * @namespace Windows.Win32.System.RestartManager

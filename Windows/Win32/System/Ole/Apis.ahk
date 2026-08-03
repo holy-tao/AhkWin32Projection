@@ -1,109 +1,109 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\VARCMP.ahk
-#Include .\EMBDHLP_FLAGS.ahk
-#Include .\OLEUICHANGESOURCEA.ahk
-#Include ..\Com\STGMEDIUM.ahk
-#Include .\IOleClientSite.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\OLEUIEDITLINKSA.ahk
-#Include ..\Com\IMoniker.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
-#Include ..\Com\IStream.ahk
-#Include .\VARFORMAT_GROUP.ahk
-#Include .\OLEUIEDITLINKSW.ahk
-#Include ..\..\Foundation\DECIMAL.ahk
-#Include .\VARFORMAT_FIRST_WEEK.ahk
-#Include .\LOAD_PICTURE_FLAGS.ahk
-#Include .\OLEUICONVERTW.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\REGKIND.ahk
-#Include .\FONTDESC.ahk
-#Include .\OLECREATE.ahk
-#Include .\VARFORMAT_NAMED_FORMAT.ahk
-#Include .\ICreateTypeLib2.ahk
-#Include .\OLEUICHANGEICONW.ahk
-#Include ..\Com\CY.ahk
-#Include ..\Com\SYSKIND.ahk
-#Include .\NUMPARSE.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\..\UI\WindowsAndMessaging\HCURSOR.ahk
-#Include .\OLEUIOBJECTPROPSW.ahk
-#Include .\INTERFACEDATA.ahk
-#Include ..\..\UI\WindowsAndMessaging\HACCEL.ahk
-#Include ..\Com\StructuredStorage\IPersistStorage.ahk
-#Include .\ACTIVEOBJECT_FLAGS.ahk
-#Include .\IDropSource.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include .\OLEUICHANGEICONA.ahk
-#Include .\PICTDESC.ahk
-#Include ..\..\UI\WindowsAndMessaging\HMENU.ahk
-#Include .\OLEUIBUSYA.ahk
-#Include .\OLEINPLACEFRAMEINFO.ahk
-#Include ..\Com\CALLCONV.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
-#Include ..\..\Foundation\COLORREF.ahk
-#Include .\VARFORMAT_FIRST_DAY.ahk
-#Include .\ICreateTypeLib.ahk
-#Include ..\Com\SAFEARRAYBOUND.ahk
-#Include ..\Com\DVTARGETDEVICE.ahk
-#Include .\VARFORMAT_PARENTHESES.ahk
-#Include ..\Variant\VARENUM.ahk
-#Include ..\Com\IDataObject.ahk
-#Include ..\Com\FORMATETC.ahk
-#Include .\IRecordInfo.ahk
-#Include ..\Com\DISPPARAMS.ahk
-#Include .\OLEUIINSERTOBJECTW.ahk
-#Include ..\Com\StructuredStorage\IStorage.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\Com\IPersistStream.ahk
-#Include ..\Com\CUSTDATA.ahk
-#Include ..\Com\EXCEPINFO.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Graphics\Gdi\HRGN.ahk
-#Include .\IOleInPlaceActiveObject.ahk
-#Include ..\Com\ITypeInfo.ahk
-#Include ..\Com\IEnumFORMATETC.ahk
-#Include .\OLEUICHANGESOURCEW.ahk
-#Include .\OCPFIPARAMS.ahk
-#Include ..\..\Foundation\HGLOBAL.ahk
-#Include .\OLEMENUGROUPWIDTHS.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\IOleUILinkContainerA.ahk
-#Include .\IOleObject.ahk
 #Include ..\..\Foundation\CHAR.ahk
-#Include .\OLEUICONVERTA.ahk
-#Include .\OLEUIINSERTOBJECTA.ahk
-#Include .\OLEUIPASTESPECIALA.ahk
-#Include ..\..\UI\WindowsAndMessaging\MSG.ahk
-#Include .\CLIPBOARD_FORMAT.ahk
-#Include .\IOleAdviseHolder.ahk
-#Include .\IDropTarget.ahk
-#Include ..\..\Graphics\Gdi\HPALETTE.ahk
-#Include ..\Com\ITypeLib.ahk
-#Include ..\Memory\GLOBAL_ALLOC_FLAGS.ahk
-#Include .\IEnumOLEVERB.ahk
-#Include ..\Com\IAdviseSink.ahk
-#Include .\OLEUIBUSYW.ahk
-#Include ..\Com\IClassFactory.ahk
-#Include ..\Com\StructuredStorage\OLESTREAM.ahk
-#Include ..\Com\SAFEARRAY.ahk
-#Include .\ICreateErrorInfo.ahk
-#Include .\IOleUILinkContainerW.ahk
-#Include .\DROPEFFECT.ahk
-#Include .\OLEUIOBJECTPROPSA.ahk
-#Include .\IOleInPlaceFrame.ahk
-#Include .\OLEUIPASTESPECIALW.ahk
-#Include .\VARFORMAT_LEADING_DIGIT.ahk
-#Include .\UDATE.ahk
+#Include ..\..\Foundation\COLORREF.ahk
+#Include ..\..\Foundation\DECIMAL.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HGLOBAL.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
+#Include ..\..\Graphics\Gdi\HPALETTE.ahk
+#Include ..\..\Graphics\Gdi\HRGN.ahk
+#Include ..\Com\CALLCONV.ahk
+#Include ..\Com\CUSTDATA.ahk
+#Include ..\Com\CY.ahk
+#Include ..\Com\DISPPARAMS.ahk
+#Include ..\Com\DVTARGETDEVICE.ahk
+#Include ..\Com\EXCEPINFO.ahk
+#Include ..\Com\FORMATETC.ahk
+#Include ..\Com\IAdviseSink.ahk
+#Include ..\Com\IClassFactory.ahk
+#Include ..\Com\IDataObject.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\Com\IEnumFORMATETC.ahk
+#Include ..\Com\IMoniker.ahk
+#Include ..\Com\IPersistStream.ahk
+#Include ..\Com\IStream.ahk
+#Include ..\Com\ITypeInfo.ahk
+#Include ..\Com\ITypeLib.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\Com\SAFEARRAY.ahk
+#Include ..\Com\SAFEARRAYBOUND.ahk
+#Include ..\Com\STGMEDIUM.ahk
+#Include ..\Com\SYSKIND.ahk
+#Include ..\Com\StructuredStorage\IPersistStorage.ahk
+#Include ..\Com\StructuredStorage\IStorage.ahk
+#Include ..\Com\StructuredStorage\OLESTREAM.ahk
+#Include ..\Memory\GLOBAL_ALLOC_FLAGS.ahk
+#Include .\ACTIVEOBJECT_FLAGS.ahk
+#Include .\CLIPBOARD_FORMAT.ahk
+#Include .\DROPEFFECT.ahk
+#Include .\EMBDHLP_FLAGS.ahk
+#Include .\FONTDESC.ahk
+#Include .\ICreateErrorInfo.ahk
+#Include .\ICreateTypeLib.ahk
+#Include .\ICreateTypeLib2.ahk
+#Include .\IDropSource.ahk
+#Include .\IDropTarget.ahk
+#Include .\IEnumOLEVERB.ahk
+#Include .\INTERFACEDATA.ahk
+#Include .\IOleAdviseHolder.ahk
+#Include .\IOleClientSite.ahk
+#Include .\IOleInPlaceActiveObject.ahk
+#Include .\IOleInPlaceFrame.ahk
+#Include .\IOleObject.ahk
+#Include .\IOleUILinkContainerA.ahk
+#Include .\IOleUILinkContainerW.ahk
+#Include .\IRecordInfo.ahk
+#Include .\LOAD_PICTURE_FLAGS.ahk
+#Include .\NUMPARSE.ahk
+#Include .\OCPFIPARAMS.ahk
+#Include .\OLECREATE.ahk
+#Include .\OLEINPLACEFRAMEINFO.ahk
+#Include .\OLEMENUGROUPWIDTHS.ahk
+#Include .\OLEUIBUSYA.ahk
+#Include .\OLEUIBUSYW.ahk
+#Include .\OLEUICHANGEICONA.ahk
+#Include .\OLEUICHANGEICONW.ahk
+#Include .\OLEUICHANGESOURCEA.ahk
+#Include .\OLEUICHANGESOURCEW.ahk
+#Include .\OLEUICONVERTA.ahk
+#Include .\OLEUICONVERTW.ahk
+#Include .\OLEUIEDITLINKSA.ahk
+#Include .\OLEUIEDITLINKSW.ahk
+#Include .\OLEUIINSERTOBJECTA.ahk
+#Include .\OLEUIINSERTOBJECTW.ahk
+#Include .\OLEUIOBJECTPROPSA.ahk
+#Include .\OLEUIOBJECTPROPSW.ahk
+#Include .\OLEUIPASTESPECIALA.ahk
+#Include .\OLEUIPASTESPECIALW.ahk
+#Include .\PICTDESC.ahk
+#Include .\REGKIND.ahk
+#Include .\UDATE.ahk
+#Include .\VARCMP.ahk
+#Include .\VARFORMAT_FIRST_DAY.ahk
+#Include .\VARFORMAT_FIRST_WEEK.ahk
+#Include .\VARFORMAT_GROUP.ahk
+#Include .\VARFORMAT_LEADING_DIGIT.ahk
+#Include .\VARFORMAT_NAMED_FORMAT.ahk
+#Include .\VARFORMAT_PARENTHESES.ahk
+#Include ..\Variant\VARENUM.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\..\UI\WindowsAndMessaging\HACCEL.ahk
+#Include ..\..\UI\WindowsAndMessaging\HCURSOR.ahk
+#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
+#Include ..\..\UI\WindowsAndMessaging\HMENU.ahk
+#Include ..\..\UI\WindowsAndMessaging\MSG.ahk
 
 /**
  * @namespace Windows.Win32.System.Ole
@@ -17997,7 +17997,7 @@ class Ole {
      * 
      * > [!NOTE]
      * > The oledlg.h header defines OLEUIINSERTOBJECT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<OLEUIINSERTOBJECTW>} param0 
+     * @param {Pointer<OLEUIINSERTOBJECTW>} param0 Pointer to the in-out <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuiinsertobjecta">OLEUIINSERTOBJECT</a> structure for this dialog box.
      * @returns {Integer} Standard Success/Error Definitions
      * 
      * 
@@ -18416,7 +18416,7 @@ class Ole {
      * 
      * > [!NOTE]
      * > The oledlg.h header defines OLEUIINSERTOBJECT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<OLEUIINSERTOBJECTA>} param0 
+     * @param {Pointer<OLEUIINSERTOBJECTA>} param0 Pointer to the in-out <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuiinsertobjecta">OLEUIINSERTOBJECT</a> structure for this dialog box.
      * @returns {Integer} Standard Success/Error Definitions
      * 
      * 
@@ -18831,7 +18831,7 @@ class Ole {
      * 
      * > [!NOTE]
      * > The oledlg.h header defines OLEUIPASTESPECIAL as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<OLEUIPASTESPECIALW>} param0 
+     * @param {Pointer<OLEUIPASTESPECIALW>} param0 A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuipastespeciala">OLEUIPASTESPECIAL</a> structure.
      * @returns {Integer} Standard Success/Error Definitions
      * 
      * 
@@ -19227,7 +19227,7 @@ class Ole {
      * 
      * > [!NOTE]
      * > The oledlg.h header defines OLEUIPASTESPECIAL as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<OLEUIPASTESPECIALA>} param0 
+     * @param {Pointer<OLEUIPASTESPECIALA>} param0 A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuipastespeciala">OLEUIPASTESPECIAL</a> structure.
      * @returns {Integer} Standard Success/Error Definitions
      * 
      * 
@@ -19590,7 +19590,7 @@ class Ole {
      * @remarks
      * > [!NOTE]
      * > The oledlg.h header defines OLEUIEDITLINKS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<OLEUIEDITLINKSW>} param0 
+     * @param {Pointer<OLEUIEDITLINKSW>} param0 Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuieditlinksa">OLEUIEDITLINKS</a> structure that contains information used to initialize the dialog box.
      * @returns {Integer} Standard Success/Error Definitions
      * 
      * 
@@ -19895,7 +19895,7 @@ class Ole {
      * @remarks
      * > [!NOTE]
      * > The oledlg.h header defines OLEUIEDITLINKS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<OLEUIEDITLINKSA>} param0 
+     * @param {Pointer<OLEUIEDITLINKSA>} param0 Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuieditlinksa">OLEUIEDITLINKS</a> structure that contains information used to initialize the dialog box.
      * @returns {Integer} Standard Success/Error Definitions
      * 
      * 
@@ -20207,7 +20207,7 @@ class Ole {
      * 
      * > [!NOTE]
      * > The oledlg.h header defines OLEUICHANGEICON as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<OLEUICHANGEICONW>} param0 
+     * @param {Pointer<OLEUICHANGEICONW>} param0 Pointer to the In/Out [OLEUICHANGEICON](./nf-oledlg-oleuichangeicona.md) structure for this dialog box.
      * @returns {Integer} Standard Success/Error Definitions
      * 
      * 
@@ -20552,7 +20552,7 @@ class Ole {
      * 
      * > [!NOTE]
      * > The oledlg.h header defines OLEUICHANGEICON as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<OLEUICHANGEICONA>} param0 
+     * @param {Pointer<OLEUICHANGEICONA>} param0 Pointer to the In/Out [OLEUICHANGEICON]() structure for this dialog box.
      * @returns {Integer} Standard Success/Error Definitions
      * 
      * 
@@ -20903,7 +20903,7 @@ class Ole {
      * 
      * > [!NOTE]
      * > The oledlg.h header defines OLEUICONVERT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<OLEUICONVERTW>} param0 
+     * @param {Pointer<OLEUICONVERTW>} param0 Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuiconverta">OLEUICONVERT</a> structure that contains information used to initialize the dialog box.
      * @returns {Integer} Standard Success/Error Definitions
      * 
      * 
@@ -21265,7 +21265,7 @@ class Ole {
      * 
      * > [!NOTE]
      * > The oledlg.h header defines OLEUICONVERT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<OLEUICONVERTA>} param0 
+     * @param {Pointer<OLEUICONVERTA>} param0 Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuiconverta">OLEUICONVERT</a> structure that contains information used to initialize the dialog box.
      * @returns {Integer} Standard Success/Error Definitions
      * 
      * 
@@ -21641,7 +21641,7 @@ class Ole {
      * 
      * > [!NOTE]
      * > The oledlg.h header defines OLEUIBUSY as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<OLEUIBUSYW>} param0 
+     * @param {Pointer<OLEUIBUSYW>} param0 Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuibusya">OLEUIBUSY</a> structure that contains information used to initialize the dialog box.
      * @returns {Integer} This function returns the following values:
      * 
      * 
@@ -22024,7 +22024,7 @@ class Ole {
      * 
      * > [!NOTE]
      * > The oledlg.h header defines OLEUIBUSY as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<OLEUIBUSYA>} param0 
+     * @param {Pointer<OLEUIBUSYA>} param0 Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuibusya">OLEUIBUSY</a> structure that contains information used to initialize the dialog box.
      * @returns {Integer} This function returns the following values:
      * 
      * 
@@ -22407,7 +22407,7 @@ class Ole {
      * 
      * > [!NOTE]
      * > The oledlg.h header defines OLEUICHANGESOURCE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<OLEUICHANGESOURCEW>} param0 
+     * @param {Pointer<OLEUICHANGESOURCEW>} param0 Pointer to the in-out <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuichangesourcea">OLEUICHANGESOURCE</a> structure for this dialog box.
      * @returns {Integer} Standard Success/Error Definitions
      * 
      * 
@@ -22785,7 +22785,7 @@ class Ole {
      * 
      * > [!NOTE]
      * > The oledlg.h header defines OLEUICHANGESOURCE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<OLEUICHANGESOURCEA>} param0 
+     * @param {Pointer<OLEUICHANGESOURCEA>} param0 Pointer to the in-out <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuichangesourcea">OLEUICHANGESOURCE</a> structure for this dialog box.
      * @returns {Integer} Standard Success/Error Definitions
      * 
      * 
@@ -23162,7 +23162,7 @@ class Ole {
      * 
      * > [!NOTE]
      * > The oledlg.h header defines OleUIObjectProperties as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<OLEUIOBJECTPROPSW>} param0 
+     * @param {Pointer<OLEUIOBJECTPROPSW>} param0 Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuiobjectpropsa">OLEUIOBJECTPROPS</a> structure.
      * @returns {Integer} Standard Success/Error Definitions
      * 
      * 
@@ -23698,7 +23698,7 @@ class Ole {
      * 
      * > [!NOTE]
      * > The oledlg.h header defines OleUIObjectProperties as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<OLEUIOBJECTPROPSA>} param0 
+     * @param {Pointer<OLEUIOBJECTPROPSA>} param0 Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuiobjectpropsa">OLEUIOBJECTPROPS</a> structure.
      * @returns {Integer} Standard Success/Error Definitions
      * 
      * 

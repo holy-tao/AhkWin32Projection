@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\IUIAutomationCondition.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IUIAutomationCondition.ahk
 
 /**
  * Represents a condition that can be either TRUE (selects all elements) or FALSE (selects no elements).

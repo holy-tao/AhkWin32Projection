@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\STREAM_SEEK.ahk
-#Include .\IPrinterScriptableSequentialStream.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IPrinterScriptableSequentialStream.ahk
+#Include ..\..\System\Com\STREAM_SEEK.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

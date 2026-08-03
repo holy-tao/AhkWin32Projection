@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\DML_TENSOR_DESC.ahk
 #Include .\DML_INTERPOLATION_MODE.ahk
+#Include .\DML_TENSOR_DESC.ahk
 
 /**
  * Resamples elements from the source to the destination tensor, using the scale factors to compute the destination tensor size. You can use a linear or nearest-neighbor interpolation mode. (DML_RESAMPLE_OPERATOR_DESC)

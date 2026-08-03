@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk
-#Include .\SSTP_CERT_INFO.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include .\SSTP_CERT_INFO.ahk
+#Include ..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * Used to get and set the device configuration for Secure Socket Tunneling Protocol (SSTP) on a RAS Server.

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumDMO.ahk
-#Include .\DMO_MEDIA_TYPE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DMO_PARTIAL_MEDIATYPE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\DMO_MEDIA_TYPE.ahk
+#Include .\DMO_PARTIAL_MEDIATYPE.ahk
+#Include .\IEnumDMO.ahk
 
 /**
  * @namespace Windows.Win32.Media.DxMediaObjects

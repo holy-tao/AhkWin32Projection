@@ -1,24 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509PublicKey.ahk
-#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IObjectIds.ahk
-#Include .\IObjectId.ahk
-#Include .\X509KeySpec.ahk
-#Include .\IX509Extensions.ahk
-#Include .\ICryptAttributes.ahk
-#Include .\X509RequestInheritOptions.ahk
-#Include .\Pkcs10AllowedSignatureTypes.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IX509CertificateRequest.ahk
-#Include .\ICspStatuses.ahk
-#Include .\IX509SignatureInformation.ahk
-#Include .\IX500DistinguishedName.ahk
-#Include .\IX509PrivateKey.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\EncodingType.ahk
+#Include .\ICryptAttributes.ahk
+#Include .\ICspStatuses.ahk
+#Include .\IObjectId.ahk
+#Include .\IObjectIds.ahk
+#Include .\IX500DistinguishedName.ahk
+#Include .\IX509CertificateRequest.ahk
+#Include .\IX509Extensions.ahk
+#Include .\IX509PrivateKey.ahk
+#Include .\IX509PublicKey.ahk
+#Include .\IX509SignatureInformation.ahk
+#Include .\Pkcs10AllowedSignatureTypes.ahk
 #Include .\X509CertificateEnrollmentContext.ahk
+#Include .\X509KeySpec.ahk
+#Include .\X509RequestInheritOptions.ahk
 
 /**
  * The IX509CertificateRequestPkcs10 interface represents a PKCS

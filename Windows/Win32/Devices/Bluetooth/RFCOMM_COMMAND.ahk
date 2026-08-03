@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\RFCOMM_RLS_DATA.ahk
 #Include .\RFCOMM_MSC_DATA.ahk
+#Include .\RFCOMM_RLS_DATA.ahk
 #Include .\RFCOMM_RPN_DATA.ahk
 
 /**

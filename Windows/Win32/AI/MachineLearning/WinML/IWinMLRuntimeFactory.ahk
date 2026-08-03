@@ -3,8 +3,8 @@
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\IWinMLRuntime.ahk
 #Include .\WINML_RUNTIME_TYPE.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents the factory that creates the WinML runtime for model loading and evaluation.

@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\IPersist.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IPersist.ahk
 
 /**
  * @namespace Windows.Win32.System.Com

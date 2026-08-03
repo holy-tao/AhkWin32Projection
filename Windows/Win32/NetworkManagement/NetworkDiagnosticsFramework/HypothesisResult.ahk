@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include .\DIAGNOSIS_STATUS.ahk
-#Include .\HYPOTHESIS.ahk
 #Include .\HELPER_ATTRIBUTE.ahk
+#Include .\HYPOTHESIS.ahk
 
 /**
  * Contains information about a hypothesis returned from a helper class.

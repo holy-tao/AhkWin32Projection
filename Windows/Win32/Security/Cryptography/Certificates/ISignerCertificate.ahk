@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\X509PrivateKeyVerify.ahk
-#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IX509SignatureInformation.ahk
-#Include .\IX509PrivateKey.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\EncodingType.ahk
+#Include .\IX509PrivateKey.ahk
+#Include .\IX509SignatureInformation.ahk
+#Include .\X509PrivateKeyVerify.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Represents a signing certificate that enables you to sign a certificate request.

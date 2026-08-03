@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IFsrmMutableCollection.ahk
 #Include .\IFsrmObject.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to configure an exception that excludes the specified files from the file screening process.

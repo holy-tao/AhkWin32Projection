@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IFaxOutgoingJob.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\FAX_SCHEDULE_TYPE_ENUM.ahk
+#Include .\IFaxOutgoingJob.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 
 /**
  * Describes an object that is used by a fax client application to retrieve information about an outgoing fax job in a fax server's queue.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IShellFolder.ahk
-#Include .\FOLDERVIEWMODE.ahk
 #Include Common\ITEMIDLIST.ahk
+#Include .\FOLDERVIEWMODE.ahk
+#Include .\IShellFolder.ahk
 #Include .\IShellView.ahk
 
 /**

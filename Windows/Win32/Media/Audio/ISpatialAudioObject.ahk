@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISpatialAudioObjectBase.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ISpatialAudioObjectBase.ahk
 
 /**
  * Represents an object that provides audio data to be rendered from a position in 3D space, relative to the user.

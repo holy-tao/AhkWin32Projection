@@ -2,14 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\Com\SAFEARRAY.ahk
-#Include .\ITsSbTarget.ahk
 #Include .\ITsSbEnvironment.ahk
+#Include .\ITsSbSession.ahk
+#Include .\ITsSbTarget.ahk
 #Include .\TSSESSION_STATE.ahk
 #Include ..\Variant\VARIANT.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ITsSbSession.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that query for target computers, sessions, environments, and farms that have been added to the Remote Desktop Connection Broker (RD Connection Broker) store.

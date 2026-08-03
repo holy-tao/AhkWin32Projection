@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\IMAGE_COR_ILMETHOD_TINY.ahk
 #Include .\IMAGE_COR_ILMETHOD_FAT.ahk
+#Include .\IMAGE_COR_ILMETHOD_TINY.ahk
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata

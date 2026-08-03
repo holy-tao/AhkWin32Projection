@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D11_MESSAGE_CATEGORY.ahk
-#Include .\D3D11_MESSAGE_SEVERITY.ahk
 #Include .\D3D11_MESSAGE_ID.ahk
+#Include .\D3D11_MESSAGE_SEVERITY.ahk
 
 /**
  * A debug message in the Information Queue. (D3D11_MESSAGE)

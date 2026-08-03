@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Gdi\PALETTEENTRY.ahk
-#Include .\DDCAPS_DX7.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\IDirectDrawSurface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\DDSCAPS.ahk
-#Include .\IDirectDrawClipper.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDirectDrawPalette.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\DDCAPS_DX7.ahk
+#Include .\DDSCAPS.ahk
 #Include .\DDSURFACEDESC.ahk
+#Include .\IDirectDrawClipper.ahk
+#Include .\IDirectDrawPalette.ahk
+#Include .\IDirectDrawSurface.ahk
+#Include ..\Gdi\PALETTEENTRY.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

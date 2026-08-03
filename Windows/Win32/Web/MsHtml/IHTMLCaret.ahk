@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\IMarkupPointer.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDisplayPointer.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\CARET_DIRECTION.ahk
-#Include ..\..\Foundation\POINT.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\CARET_DIRECTION.ahk
+#Include .\IDisplayPointer.ahk
+#Include .\IMarkupPointer.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

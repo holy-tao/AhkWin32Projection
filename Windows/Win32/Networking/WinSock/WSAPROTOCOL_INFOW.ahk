@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSAPROTOCOLCHAIN.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WSAPROTOCOLCHAIN.ahk
 
 /**
  * Used to store or retrieve complete information for a given protocol. (Unicode)

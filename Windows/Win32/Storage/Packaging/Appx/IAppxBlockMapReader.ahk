@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IAppxBlockMapFilesEnumerator.ahk
-#Include .\IAppxBlockMapFile.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\IAppxBlockMapFile.ahk
+#Include .\IAppxBlockMapFilesEnumerator.ahk
 #Include ..\..\..\System\Com\IStream.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\System\Com\IUri.ahk
 
 /**

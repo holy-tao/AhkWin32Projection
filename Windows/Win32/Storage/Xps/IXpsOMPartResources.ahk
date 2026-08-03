@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMFontResourceCollection.ahk
-#Include .\IXpsOMColorProfileResourceCollection.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IXpsOMImageResourceCollection.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IXpsOMColorProfileResourceCollection.ahk
+#Include .\IXpsOMFontResourceCollection.ahk
+#Include .\IXpsOMImageResourceCollection.ahk
 #Include .\IXpsOMRemoteDictionaryResourceCollection.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides access to all shared, part-based resources of the XPS document.

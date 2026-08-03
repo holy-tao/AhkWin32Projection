@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRTCBuddyGroup.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\RTC_GROUP_EVENT_TYPE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IRTCBuddy2.ahk
+#Include .\IRTCBuddyGroup.ahk
+#Include .\RTC_GROUP_EVENT_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

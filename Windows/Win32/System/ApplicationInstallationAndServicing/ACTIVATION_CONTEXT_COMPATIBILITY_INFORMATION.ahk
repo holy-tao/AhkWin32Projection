@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\COMPATIBILITY_CONTEXT_ELEMENT.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ACTCTX_COMPATIBILITY_ELEMENT_TYPE.ahk
+#Include .\COMPATIBILITY_CONTEXT_ELEMENT.ahk
 
 /**
  * The ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION structure is used by the QueryActCtxW function.

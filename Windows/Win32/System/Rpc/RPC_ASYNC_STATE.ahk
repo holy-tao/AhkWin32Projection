@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\IO\OVERLAPPED.ahk
 #Include .\RPC_ASYNC_EVENT.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\RPC_ASYNC_NOTIFICATION_INFO.ahk
 #Include .\RPC_NOTIFICATION_TYPES.ahk
 

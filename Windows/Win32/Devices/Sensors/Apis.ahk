@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\FILETIME.ahk
 #Include ..\Properties\DEVPROPTYPE.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\SENSOR_COLLECTION_LIST.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\NTSTATUS.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Foundation\PROPERTYKEY.ahk
 #Include .\SENSOR_PROPERTY_LIST.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Sensors

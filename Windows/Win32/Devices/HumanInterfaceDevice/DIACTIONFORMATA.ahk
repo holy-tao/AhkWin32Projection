@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DIACTIONA.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DIACTIONA.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice

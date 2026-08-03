@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\Com\StructuredStorage\IStorage.ahk
-#Include ..\..\Foundation\LPARAM.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\FORMATETC.ahk
-#Include .\IOleClientSite.ahk
-#Include .\INSERT_OBJECT_FLAGS.ahk
 #Include ..\..\Foundation\HGLOBAL.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\Foundation\HRSRC.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Com\FORMATETC.ahk
+#Include ..\Com\StructuredStorage\IStorage.ahk
+#Include .\INSERT_OBJECT_FLAGS.ahk
+#Include .\IOleClientSite.ahk
 
 /**
  * Contains information that the OLE User Interface Library uses to initialize the Insert Object dialog box, and space for the library to return information when the dialog box is dismissed. (Unicode)

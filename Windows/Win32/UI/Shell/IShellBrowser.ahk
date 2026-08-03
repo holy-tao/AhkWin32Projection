@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Ole\IOleWindow.ahk
-#Include ..\WindowsAndMessaging\HMENU.ahk
-#Include ..\..\System\Ole\OLEMENUGROUPWIDTHS.ahk
-#Include ..\..\Foundation\WPARAM.ahk
-#Include Common\ITEMIDLIST.ahk
-#Include ..\WindowsAndMessaging\MSG.ahk
-#Include ..\..\Foundation\LPARAM.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\IShellView.ahk
-#Include ..\..\Foundation\LRESULT.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\LRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\WPARAM.ahk
 #Include ..\..\System\Com\IStream.ahk
+#Include ..\..\System\Ole\IOleWindow.ahk
+#Include ..\..\System\Ole\OLEMENUGROUPWIDTHS.ahk
 #Include ..\Controls\TBBUTTON.ahk
+#Include Common\ITEMIDLIST.ahk
+#Include .\IShellView.ahk
+#Include ..\WindowsAndMessaging\HMENU.ahk
+#Include ..\WindowsAndMessaging\MSG.ahk
 
 /**
  * Implemented by hosts of Shell views (objects that implement IShellView). Exposes methods that provide services for the view it is hosting and other objects that run in the context of the Explorer window.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IUnknown.ahk
 #Include .\RPCOPT_PROPERTIES.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IRpcOptions (objidlbase.h) interface enables callers to set or query the values of various properties that control how COM handles remote procedure calls (RPC).

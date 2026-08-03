@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\SPVPRIORITY.ahk
-#Include .\SPVOICESTATUS.ahk
-#Include .\ISpStreamFormat.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include .\SPEVENTENUM.ahk
-#Include .\ISpObjectToken.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include .\ISpEventSource.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Foundation\BOOL.ahk
+#Include .\ISpObjectToken.ahk
+#Include .\ISpStreamFormat.ahk
+#Include .\SPEVENTENUM.ahk
+#Include .\SPVOICESTATUS.ahk
+#Include .\SPVPRIORITY.ahk
 #Include ..\..\System\Com\IStream.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 

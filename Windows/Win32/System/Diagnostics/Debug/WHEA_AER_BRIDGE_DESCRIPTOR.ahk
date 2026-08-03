@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WHEA_PCI_SLOT_NUMBER.ahk
 #Include ..\..\..\Foundation\BOOLEAN.ahk
 #Include .\AER_BRIDGE_DESCRIPTOR_FLAGS.ahk
+#Include .\WHEA_PCI_SLOT_NUMBER.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug

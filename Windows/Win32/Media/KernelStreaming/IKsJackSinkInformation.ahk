@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\KSJACK_SINK_INFORMATION.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\KSJACK_SINK_INFORMATION.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IKsJackSinkInformation interface provides access to jack sink information if the jack is supported by the hardware.

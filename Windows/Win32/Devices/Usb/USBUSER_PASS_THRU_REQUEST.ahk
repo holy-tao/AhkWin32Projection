@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\USB_USER_ERROR_CODE.ahk
 #Include .\USBUSER_REQUEST_HEADER.ahk
 #Include .\USB_PASS_THRU_PARAMETERS.ahk
+#Include .\USB_USER_ERROR_CODE.ahk
 
 /**
  * The USBUSER_PASS_THRU_REQUEST structure is used in conjunction with the IOCTL_USB_USER_REQUEST I/O control request to send a vendor-specific command to the host controller miniport driver.

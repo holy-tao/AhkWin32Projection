@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\USBFN_BUS_SPEED.ahk
-#Include .\BM_REQUEST_TYPE.ahk
-#Include .\USB_DEFAULT_PIPE_SETUP_PACKET.ahk
-#Include .\USBFN_PORT_TYPE.ahk
-#Include .\USBFN_EVENT.ahk
 #Include .\ALTERNATE_INTERFACE.ahk
+#Include .\BM_REQUEST_TYPE.ahk
+#Include .\USBFN_BUS_SPEED.ahk
+#Include .\USBFN_EVENT.ahk
+#Include .\USBFN_PORT_TYPE.ahk
+#Include .\USB_DEFAULT_PIPE_SETUP_PACKET.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb

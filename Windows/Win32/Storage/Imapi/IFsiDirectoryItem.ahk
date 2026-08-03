@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IEnumFsiItems.ahk
 #Include .\IFsiItem.ahk
 #Include ..\..\System\Com\IStream.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\System\Ole\IEnumVARIANT.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\IEnumFsiItems.ahk
 
 /**
  * Use this interface to add items to or remove items from the file-system image.

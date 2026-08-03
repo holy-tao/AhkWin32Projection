@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_OPERATOR_DESC.ahk
 #Include .\DML_TENSOR_DESC.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
-#Include .\DML_OPERATOR_DESC.ahk
 
 /**
  * Performs a mean variance normalization function on the input tensor. This operator will calculate the mean and variance of the input tensor to perform normalization. (DML_MEAN_VARIANCE_NORMALIZATION1_OPERATOR_DESC)

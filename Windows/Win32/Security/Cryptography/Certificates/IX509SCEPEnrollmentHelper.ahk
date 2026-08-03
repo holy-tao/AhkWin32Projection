@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\X509SCEPProcessMessageFlags.ahk
-#Include .\IX509SCEPEnrollment.ahk
-#Include .\X509SCEPDisposition.ahk
-#Include .\IX509CertificateRequestPkcs10.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IX509CertificateRequestPkcs10.ahk
+#Include .\IX509SCEPEnrollment.ahk
 #Include .\X509CertificateEnrollmentContext.ahk
+#Include .\X509SCEPDisposition.ahk
+#Include .\X509SCEPProcessMessageFlags.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates

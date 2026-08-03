@@ -2,11 +2,11 @@
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\..\Foundation\PWSTR.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include ..\..\..\Com\ITypeInfo.ahk
-#Include .\IScriptEntry.ahk
 #Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Com\ITypeInfo.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+#Include .\IScriptEntry.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

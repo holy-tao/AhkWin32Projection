@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IKeyStore.ahk
-#Include ..\..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+#Include .\IDebugHostContext.ahk
+#Include .\IDebugHostType.ahk
 #Include .\IKeyEnumerator.ahk
+#Include .\IKeyStore.ahk
 #Include .\IRawEnumerator.ahk
 #Include .\Location.ahk
-#Include ..\..\..\Variant\VARIANT.ahk
-#Include .\IDebugHostType.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include .\ModelObjectKind.ahk
 #Include .\SymbolKind.ahk
 #Include ..\..\..\Variant\VARENUM.ahk
-#Include .\ModelObjectKind.ahk
-#Include .\IDebugHostContext.ahk
+#Include ..\..\..\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

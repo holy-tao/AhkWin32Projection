@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DEVICEDUMP_SUBSECTION_POINTER.ahk
-#Include .\DEVICEDUMP_STRUCTURE_VERSION.ahk
 #Include .\DEVICEDUMP_SECTION_HEADER.ahk
+#Include .\DEVICEDUMP_STRUCTURE_VERSION.ahk
+#Include .\DEVICEDUMP_SUBSECTION_POINTER.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl

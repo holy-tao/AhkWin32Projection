@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WINHTTP_PROXY_NETWORKING_KEY.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\WINHTTP_PROXY_NETWORKING_KEY.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinHttp

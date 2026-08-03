@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\WDSTRANSPORT_NAMESPACE_TYPE.ahk
-#Include .\IWdsTransportCollection.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\IWdsTransportCollection.ahk
+#Include .\WDSTRANSPORT_NAMESPACE_TYPE.ahk
 
 /**
  * Represents a namespace on a WDS transport server.

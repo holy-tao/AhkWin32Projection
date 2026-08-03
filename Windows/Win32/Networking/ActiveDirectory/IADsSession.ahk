@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IADs.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IADs.ahk
 
 /**
  * The IADsSession interface is a dual interface that inherits from IADs. It is designed to represent an active session for file service across a network.

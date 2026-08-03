@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_RESOURCE_DIMENSION.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
-#Include ..\Dxgi\Common\DXGI_SAMPLE_DESC.ahk
 #Include .\D3D12_MIP_REGION.ahk
+#Include .\D3D12_RESOURCE_DIMENSION.ahk
 #Include .\D3D12_RESOURCE_FLAGS.ahk
 #Include .\D3D12_TEXTURE_LAYOUT.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include ..\Dxgi\Common\DXGI_SAMPLE_DESC.ahk
 
 /**
  * Describes a resource, such as a texture, including a mip region. This structure is used in several methods.

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\VSC_VK.ahk
+#Include .\DEADKEY.ahk
+#Include .\LIGATURE1.ahk
+#Include .\MODIFIERS.ahk
 #Include .\VK_TO_WCHAR_TABLE.ahk
 #Include .\VSC_LPWSTR.ahk
-#Include .\MODIFIERS.ahk
-#Include .\LIGATURE1.ahk
-#Include .\DEADKEY.ahk
+#Include .\VSC_VK.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse

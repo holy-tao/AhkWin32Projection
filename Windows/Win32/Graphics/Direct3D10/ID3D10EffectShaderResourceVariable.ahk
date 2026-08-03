@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\ID3D10ShaderResourceView.ahk
 #Include .\ID3D10EffectVariable.ahk
+#Include .\ID3D10ShaderResourceView.ahk
 
 /**
  * A shader-resource interface accesses a shader resource.

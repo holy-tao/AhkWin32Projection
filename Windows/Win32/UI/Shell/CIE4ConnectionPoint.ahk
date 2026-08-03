@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IConnectionPoint.ahk
-#Include ..\..\System\Com\DISPPARAMS.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include Common\ITEMIDLIST.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\DISPPARAMS.ahk
+#Include ..\..\System\Com\IConnectionPoint.ahk
+#Include Common\ITEMIDLIST.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell

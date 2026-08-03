@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include .\HDESK.ahk
 #Include ..\..\Foundation\LUID.ahk
+#Include .\HDESK.ahk
 
 /**
  * Contains information about a window that denied a request from BroadcastSystemMessageEx.

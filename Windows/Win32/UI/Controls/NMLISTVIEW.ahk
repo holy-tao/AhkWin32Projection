@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\LPARAM.ahk
-#Include .\NMHDR.ahk
 #Include ..\..\Foundation\POINT.ahk
 #Include .\LIST_VIEW_ITEM_FLAGS.ahk
+#Include .\NMHDR.ahk
 
 /**
  * Contains information about a list-view notification message. This structure is the same as the NM_LISTVIEW structure but has been renamed to fit standard naming conventions.

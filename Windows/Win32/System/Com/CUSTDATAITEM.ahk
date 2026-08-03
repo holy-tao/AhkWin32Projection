@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\CHAR.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\CY.ahk
+#Include .\IDispatch.ahk
+#Include .\IUnknown.ahk
+#Include .\SAFEARRAY.ahk
 #Include ..\Ole\IRecordInfo.ahk
 #Include ..\Variant\VARENUM.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include ..\..\..\..\Guid.ahk
 #Include ..\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IDispatch.ahk
-#Include .\CY.ahk
-#Include .\SAFEARRAY.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include .\IUnknown.ahk
-#Include ..\..\Foundation\CHAR.ahk
 
 /**
  * Represents a custom data item.

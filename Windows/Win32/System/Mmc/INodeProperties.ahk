@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\Com\IDataObject.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IDataObject.ahk
+#Include ..\Com\IUnknown.ahk
 
 /**
  * The INodeProperties interface retrieves text-only properties for a node.

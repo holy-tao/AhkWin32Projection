@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\Gdi\HDC.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDirectDraw.ahk
-#Include .\DDSCAPS2.ahk
-#Include .\DDCOLORKEY.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\DDBLTBATCH.ahk
-#Include .\DDPIXELFORMAT.ahk
-#Include .\DDOVERLAYFX.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include .\DDSURFACEDESC2.ahk
-#Include .\IDirectDrawClipper.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDirectDrawPalette.ahk
+#Include .\DDBLTBATCH.ahk
 #Include .\DDBLTFX.ahk
+#Include .\DDCOLORKEY.ahk
+#Include .\DDOVERLAYFX.ahk
+#Include .\DDPIXELFORMAT.ahk
+#Include .\DDSCAPS2.ahk
+#Include .\DDSURFACEDESC2.ahk
+#Include .\IDirectDraw.ahk
+#Include .\IDirectDrawClipper.ahk
+#Include .\IDirectDrawPalette.ahk
+#Include ..\Gdi\HDC.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

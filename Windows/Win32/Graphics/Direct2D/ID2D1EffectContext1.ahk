@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1EffectContext.ahk
-#Include .\D2D1_BUFFER_PRECISION.ahk
-#Include .\ID2D1LookupTable3D.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\D2D1_BUFFER_PRECISION.ahk
+#Include .\ID2D1EffectContext.ahk
+#Include .\ID2D1LookupTable3D.ahk
 
 /**
  * Provides factory methods and other state management for effect and transform authors. (ID2D1EffectContext1)

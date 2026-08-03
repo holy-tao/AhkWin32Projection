@@ -2,13 +2,13 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISClusDisks.ahk
-#Include .\ISCluster.ahk
-#Include .\ISClusResTypePossibleOwnerNodes.ahk
-#Include .\ISClusProperties.ahk
-#Include .\ISClusResTypeResources.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ISClusDisks.ahk
+#Include .\ISClusProperties.ahk
+#Include .\ISClusResTypePossibleOwnerNodes.ahk
+#Include .\ISClusResTypeResources.ahk
+#Include .\ISCluster.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Networking.Clustering

@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIFactory3.ahk
-#Include ..\..\Foundation\LUID.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\LUID.ahk
+#Include .\IDXGIFactory3.ahk
 
 /**
  * Enables creating Microsoft DirectX Graphics Infrastructure (DXGI) objects. (IDXGIFactory4)

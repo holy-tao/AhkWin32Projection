@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IHTMLDocument2.ahk
+#Include .\IHTMLEventObj.ahk
+#Include .\IHTMLFramesCollection2.ahk
+#Include .\IHTMLImageElementFactory.ahk
+#Include .\IHTMLLocation.ahk
 #Include .\IHTMLOptionElementFactory.ahk
 #Include .\IHTMLScreen.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IOmHistory.ahk
-#Include .\IHTMLDocument2.ahk
-#Include .\IHTMLImageElementFactory.ahk
 #Include .\IOmNavigator.ahk
-#Include .\IHTMLEventObj.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IHTMLFramesCollection2.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IHTMLLocation.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

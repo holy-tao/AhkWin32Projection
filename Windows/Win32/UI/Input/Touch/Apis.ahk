@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
-#Include .\GESTURECONFIG.ahk
-#Include .\HGESTUREINFO.ahk
-#Include .\GESTUREINFO.ahk
-#Include ..\..\..\Foundation\HWND.ahk
-#Include .\HTOUCHINPUT.ahk
-#Include .\TOUCHINPUT.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include .\GESTURECONFIG.ahk
+#Include .\GESTUREINFO.ahk
+#Include .\HGESTUREINFO.ahk
+#Include .\HTOUCHINPUT.ahk
 #Include .\REGISTER_TOUCH_WINDOW_FLAGS.ahk
+#Include .\TOUCHINPUT.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.Touch

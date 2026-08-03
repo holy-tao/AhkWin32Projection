@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IWMPStringCollection.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * The IWMPStringCollection2 interface provides methods that supplement the IWMPStringCollection interface.

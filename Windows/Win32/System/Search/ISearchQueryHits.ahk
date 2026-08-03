@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Storage\IndexServer\FILTERREGION.ahk
+#Include ..\..\Storage\IndexServer\IFilter.ahk
 #Include ..\Com\IMoniker.ahk
 #Include ..\Com\IUnknown.ahk
-#Include ..\..\Storage\IndexServer\IFilter.ahk
 
 /**
  * @namespace Windows.Win32.System.Search

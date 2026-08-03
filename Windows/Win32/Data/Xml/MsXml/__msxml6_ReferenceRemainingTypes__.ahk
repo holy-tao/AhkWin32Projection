@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\DOMNodeType.ahk
-#Include .\SERVERXMLHTTP_OPTION.ahk
-#Include .\SCHEMAPROCESSCONTENTS.ahk
-#Include .\SCHEMAWHITESPACE.ahk
-#Include .\SCHEMAUSE.ahk
-#Include .\SCHEMADERIVATIONMETHOD.ahk
 #Include .\SCHEMACONTENTTYPE.ahk
+#Include .\SCHEMADERIVATIONMETHOD.ahk
+#Include .\SCHEMAPROCESSCONTENTS.ahk
 #Include .\SCHEMATYPEVARIETY.ahk
+#Include .\SCHEMAUSE.ahk
+#Include .\SCHEMAWHITESPACE.ahk
+#Include .\SERVERXMLHTTP_OPTION.ahk
+#Include .\SOMITEMTYPE.ahk
 #Include .\SXH_PROXY_SETTING.ahk
 #Include .\SXH_SERVER_CERT_OPTION.ahk
-#Include .\SOMITEMTYPE.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml

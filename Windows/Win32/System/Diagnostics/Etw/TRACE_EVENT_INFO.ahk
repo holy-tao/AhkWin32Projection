@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include .\DECODING_SOURCE.ahk
+#Include .\EVENT_DESCRIPTOR.ahk
+#Include .\EVENT_PROPERTY_INFO.ahk
 #Include .\PROPERTY_FLAGS.ahk
 #Include .\TEMPLATE_FLAGS.ahk
-#Include .\EVENT_PROPERTY_INFO.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\EVENT_DESCRIPTOR.ahk
-#Include .\DECODING_SOURCE.ahk
 
 /**
  * Defines the information about the event.

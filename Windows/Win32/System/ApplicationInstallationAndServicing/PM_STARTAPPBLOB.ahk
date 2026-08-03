@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\PM_APPLICATION_STATE.ahk
-#Include .\PM_APPLICATION_INSTALL_TYPE.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\PM_APPLICATION_INSTALL_TYPE.ahk
+#Include .\PM_APPLICATION_STATE.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing

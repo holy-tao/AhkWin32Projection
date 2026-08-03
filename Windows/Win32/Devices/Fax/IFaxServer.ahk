@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFaxDevices.ahk
-#Include .\IFaxInboundRouting.ahk
+#Include .\FAX_SERVER_APIVERSION_ENUM.ahk
+#Include .\FAX_SERVER_EVENTS_TYPE_ENUM.ahk
 #Include .\IFaxActivity.ahk
+#Include .\IFaxDeviceProviders.ahk
+#Include .\IFaxDevices.ahk
+#Include .\IFaxFolders.ahk
+#Include .\IFaxInboundRouting.ahk
+#Include .\IFaxLoggingOptions.ahk
+#Include .\IFaxOutboundRouting.ahk
 #Include .\IFaxReceiptOptions.ahk
 #Include .\IFaxSecurity.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IFaxFolders.ahk
-#Include .\FAX_SERVER_EVENTS_TYPE_ENUM.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\FAX_SERVER_APIVERSION_ENUM.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\System\Com\IDispatch.ahk
-#Include .\IFaxDeviceProviders.ahk
-#Include .\IFaxOutboundRouting.ahk
-#Include .\IFaxLoggingOptions.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * The IFaxServer interface describes a messaging collection that is used by a fax client application to manage a connection to the fax service.

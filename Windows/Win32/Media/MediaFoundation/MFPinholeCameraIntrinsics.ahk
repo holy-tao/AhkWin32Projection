@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\MFCameraIntrinsic_DistortionModel.ahk
 #Include .\MFCameraIntrinsic_PinholeCameraModel.ahk
-#Include .\MF_FLOAT2.ahk
 #Include .\MFPinholeCameraIntrinsic_IntrinsicModel.ahk
+#Include .\MF_FLOAT2.ahk
 
 /**
  * Contains zero or 1 pinhole camera intrinsic models that describe how to project a 3D point in physical world onto the 2D image frame of a camera.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IHTMLEditServices.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\IDisplayPointer.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDisplayPointer.ahk
+#Include .\IHTMLEditServices.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

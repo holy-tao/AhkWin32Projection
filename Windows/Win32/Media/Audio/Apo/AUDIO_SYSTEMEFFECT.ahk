@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\AUDIO_SYSTEMEFFECT_STATE.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
+#Include .\AUDIO_SYSTEMEFFECT_STATE.ahk
 
 /**
  * Represents a System Effects Audio Processing Object (sAPO) audio effect.

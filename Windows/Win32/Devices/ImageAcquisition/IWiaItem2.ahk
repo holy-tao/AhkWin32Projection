@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\IWiaPreview.ahk
-#Include .\IEnumWIA_DEV_CAPS.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumWIA_DEV_CAPS.ahk
 #Include .\IEnumWiaItem2.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IWiaPreview.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IWiaItem2 interface provides applications with the same functionality as the IWiaItem interface (the ability to query devices to discover their capabilities, to access data transfer interfaces and item properties, and to control the device).

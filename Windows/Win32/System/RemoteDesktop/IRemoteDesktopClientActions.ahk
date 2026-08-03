@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\RemoteActionType.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\SnapshotFormatType.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\SnapshotEncodingType.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\RemoteActionType.ahk
+#Include .\SnapshotEncodingType.ahk
+#Include .\SnapshotFormatType.ahk
 
 /**
  * Provides the methods used to interact with the Remote Desktop Protocol (RDP) app container client control.

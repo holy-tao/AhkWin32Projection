@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Ole\OLECMDF.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include ..\..\System\Ole\READYSTATE.ahk
-#Include ..\..\System\Ole\OLECMDEXECOPT.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\System\Ole\OLECMDEXECOPT.ahk
+#Include ..\..\System\Ole\OLECMDF.ahk
 #Include ..\..\System\Ole\OLECMDID.ahk
+#Include ..\..\System\Ole\READYSTATE.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IWebBrowserApp.ahk
 
 /**

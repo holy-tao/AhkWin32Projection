@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HistogramGrid.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include .\HistogramGrid.ahk
 
 /**
  * The HistogramHeader structure describes the blob format for MF_CAPTURE_METADATA_HISTOGRAM.

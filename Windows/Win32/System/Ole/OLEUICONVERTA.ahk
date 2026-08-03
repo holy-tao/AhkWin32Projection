@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\UI_CONVERT_FLAGS.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HGLOBAL.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Foundation\HRSRC.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\LPARAM.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\HGLOBAL.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\HRSRC.ahk
+#Include .\UI_CONVERT_FLAGS.ahk
 
 /**
  * Contains information that the OLE User Interface Library uses to initialize the Convert dialog box, and space for the library to return information when the dialog box is dismissed. (ANSI)

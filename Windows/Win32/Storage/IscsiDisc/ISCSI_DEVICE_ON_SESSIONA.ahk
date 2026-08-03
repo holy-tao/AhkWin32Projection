@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Ioctl\STORAGE_DEVICE_NUMBER.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\SCSI_ADDRESS.ahk
+#Include ..\..\System\Ioctl\STORAGE_DEVICE_NUMBER.ahk
 
 /**
  * ISCSI_DEVICE_ON_SESSION structure specifies multiple methods for identifying a device associated with an iSCSI login session. (ANSI)

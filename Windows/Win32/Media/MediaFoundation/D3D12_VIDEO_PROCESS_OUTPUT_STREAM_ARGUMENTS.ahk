@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_PROCESS_OUTPUT_STREAM.ahk
-#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
+#Include .\D3D12_VIDEO_PROCESS_OUTPUT_STREAM.ahk
 
 /**
  * Specifies output stream arguments for the output passed to ID3D12VideoCommandList::ProcessFrames.

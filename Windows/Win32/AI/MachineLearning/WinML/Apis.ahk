@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
-#Include .\IWinMLRuntime.ahk
 #Include .\IMLOperatorRegistry.ahk
+#Include .\IWinMLRuntime.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
 
 /**

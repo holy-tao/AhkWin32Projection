@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWICBitmapDecoder.ahk
-#Include ..\..\System\Com\IStream.ahk
-#Include .\IWICBitmapCodecInfo.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWICBitmapCodecInfo.ahk
+#Include .\IWICBitmapDecoder.ahk
+#Include ..\..\System\Com\IStream.ahk
 
 /**
  * Exposes methods that provide information about a decoder.

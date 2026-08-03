@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DHCP_FAILOVER_SERVER.ahk
-#Include .\FSM_STATE.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include .\DHCP_FAILOVER_MODE.ahk
+#Include .\DHCP_FAILOVER_SERVER.ahk
 #Include .\DHCP_IP_ARRAY.ahk
+#Include .\FSM_STATE.ahk
 
 /**
  * The DHCP_FAILOVER_RELATIONSHIP structure defines information about a DHCPv4 server failover relationship.

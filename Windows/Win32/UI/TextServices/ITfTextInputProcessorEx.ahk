@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITfThreadMgr.ahk
-#Include .\ITfTextInputProcessor.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ITfTextInputProcessor.ahk
+#Include .\ITfThreadMgr.ahk
 
 /**
  * The ITfTextInputProcessorEx interface is implemented by a text service and used by the TSF manager to activate and deactivate the text service.

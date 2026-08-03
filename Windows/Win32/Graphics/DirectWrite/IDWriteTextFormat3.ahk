@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DWRITE_FONT_AXIS_VALUE.ahk
-#Include .\DWRITE_AUTOMATIC_FONT_AXES.ahk
-#Include .\IDWriteTextFormat2.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\DWRITE_AUTOMATIC_FONT_AXES.ahk
+#Include .\DWRITE_FONT_AXIS_VALUE.ahk
+#Include .\IDWriteTextFormat2.ahk
 
 /**
  * Describes the font and paragraph properties used to format text, and it describes locale information. (IDWriteTextFormat3)

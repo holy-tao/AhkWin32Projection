@@ -1,11 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\ID3D12CommandQueue.ahk
-#Include .\D3D12_AUTO_BREADCRUMB_NODE1.ahk
-#Include .\ID3D12GraphicsCommandList.ahk
 #Include .\D3D12_AUTO_BREADCRUMB_OP.ahk
 #Include .\D3D12_DRED_BREADCRUMB_CONTEXT.ahk
+#Include .\ID3D12CommandQueue.ahk
+#Include .\ID3D12GraphicsCommandList.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

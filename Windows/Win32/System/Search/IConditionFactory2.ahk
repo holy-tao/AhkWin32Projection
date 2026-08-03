@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\UI\Shell\Common\IObjectArray.ahk
-#Include .\IRichChunk.ahk
-#Include ..\Com\StructuredStorage\PROPVARIANT.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\ICondition.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\STRUCTURED_QUERY_RESOLVE_OPTION.ahk
-#Include .\CONDITION_CREATION_OPTIONS.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\IConditionFactory.ahk
-#Include Common\CONDITION_OPERATION.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
-#Include ..\..\Foundation\PROPERTYKEY.ahk
-#Include Common\CONDITION_TYPE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include ..\Com\StructuredStorage\PROPVARIANT.ahk
+#Include .\CONDITION_CREATION_OPTIONS.ahk
+#Include Common\CONDITION_OPERATION.ahk
+#Include Common\CONDITION_TYPE.ahk
+#Include .\ICondition.ahk
+#Include .\IConditionFactory.ahk
+#Include .\IRichChunk.ahk
+#Include .\STRUCTURED_QUERY_RESOLVE_OPTION.ahk
+#Include ..\..\UI\Shell\Common\IObjectArray.ahk
 
 /**
  * Extends the functionality of IConditionFactory. IConditionFactory2 provides methods for creating or resolving a condition tree that was obtained by parsing a query string.

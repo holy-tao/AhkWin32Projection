@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\EVENT_HEADER.ahk
-#Include .\EVENT_DESCRIPTOR.ahk
 #Include .\ETW_BUFFER_CONTEXT.ahk
+#Include .\EVENT_DESCRIPTOR.ahk
+#Include .\EVENT_HEADER.ahk
 #Include .\EVENT_HEADER_EXTENDED_DATA_ITEM.ahk
 
 /**

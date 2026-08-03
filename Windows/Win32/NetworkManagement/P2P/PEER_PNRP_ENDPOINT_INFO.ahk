@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR.ahk
 #Include .\PEER_DATA.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR.ahk
 
 /**
  * Contains the IP addresses and data associated with a peer endpoint.

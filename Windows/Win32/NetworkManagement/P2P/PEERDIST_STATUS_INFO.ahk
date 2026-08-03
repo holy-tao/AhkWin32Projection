@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PEERDIST_STATUS.ahk
 #Include .\PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_VALUE.ahk
+#Include .\PEERDIST_STATUS.ahk
 
 /**
  * The PEERDIST_STATUS_INFO structure contains information about the current status and capabilities of the BranchCache service on the local computer.

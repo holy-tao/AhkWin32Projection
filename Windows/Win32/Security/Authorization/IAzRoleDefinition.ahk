@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IAzTask.ahk
-#Include .\IAzRoleDefinitions.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IAzRoleAssignments.ahk
+#Include .\IAzRoleDefinitions.ahk
+#Include .\IAzTask.ahk
 
 /**
  * Represents one or more IAzRoleDefinition, IAzTask, and IAzOperation objects that specify a set of operations.

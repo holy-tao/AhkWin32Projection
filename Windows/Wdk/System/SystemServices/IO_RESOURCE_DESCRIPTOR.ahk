@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IRQ_PRIORITY.ahk
 #Include .\IRQ_DEVICE_POLICY.ahk
+#Include .\IRQ_PRIORITY.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

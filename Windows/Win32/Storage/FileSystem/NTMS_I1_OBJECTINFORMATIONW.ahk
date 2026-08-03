@@ -1,24 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include .\FILE_DEVICE_TYPE.ahk
+#Include .\NTMS_CHANGERINFORMATIONW.ahk
+#Include .\NTMS_CHANGERTYPEINFORMATIONW.ahk
+#Include .\NTMS_DRIVEINFORMATIONW.ahk
 #Include .\NTMS_DRIVETYPEINFORMATIONW.ahk
 #Include .\NTMS_I1_LIBRARYINFORMATION.ahk
 #Include .\NTMS_I1_LIBREQUESTINFORMATIONW.ahk
-#Include .\NTMS_CHANGERTYPEINFORMATIONW.ahk
-#Include .\NTMS_DRIVEINFORMATIONW.ahk
 #Include .\NTMS_I1_OPREQUESTINFORMATIONW.ahk
+#Include .\NTMS_I1_PARTITIONINFORMATIONW.ahk
+#Include .\NTMS_I1_PMIDINFORMATIONW.ahk
+#Include .\NTMS_IEDOORINFORMATION.ahk
 #Include .\NTMS_IEPORTINFORMATION.ahk
 #Include .\NTMS_LMIDINFORMATION.ahk
-#Include .\NTMS_MEDIATYPEINFORMATION.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\FILE_DEVICE_TYPE.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include .\NTMS_STORAGESLOTINFORMATION.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
-#Include .\NTMS_I1_PMIDINFORMATIONW.ahk
-#Include .\NTMS_CHANGERINFORMATIONW.ahk
 #Include .\NTMS_MEDIAPOOLINFORMATION.ahk
-#Include .\NTMS_I1_PARTITIONINFORMATIONW.ahk
-#Include .\NTMS_IEDOORINFORMATION.ahk
+#Include .\NTMS_MEDIATYPEINFORMATION.ahk
+#Include .\NTMS_STORAGESLOTINFORMATION.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem

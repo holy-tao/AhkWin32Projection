@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\VM_PATCH_INFO.ahk
-#Include .\ITsSbPlugin.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ITsSbPlugin.ahk
 #Include .\ITsSbProvisioningPluginNotifySink.ahk
+#Include .\VM_PATCH_INFO.ahk
 
 /**
  * Exposes methods that create and maintain virtual machines.

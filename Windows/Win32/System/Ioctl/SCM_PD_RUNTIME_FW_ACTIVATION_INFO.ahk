@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SCM_PD_LAST_FW_ACTIVATION_STATUS.ahk
 #Include .\SCM_PD_FIRMWARE_ACTIVATION_STATE.ahk
+#Include .\SCM_PD_LAST_FW_ACTIVATION_STATUS.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl

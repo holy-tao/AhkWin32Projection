@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1TransformNode.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include .\ID2D1TransformNode.ahk
 
 /**
  * A support transform for effects to modify the output rectangle of the previous effect or bitmap.

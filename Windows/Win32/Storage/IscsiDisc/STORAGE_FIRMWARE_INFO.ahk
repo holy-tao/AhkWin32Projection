@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_FIRMWARE_SLOT_INFO.ahk
 #Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\STORAGE_FIRMWARE_SLOT_INFO.ahk
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc

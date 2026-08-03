@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DEFAULT_FOLDER_MENU_RESTRICTIONS.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Registry\HKEY.ahk
 #Include Common\ITEMIDLIST.ahk
-#Include .\IShellFolder.ahk
+#Include .\DEFAULT_FOLDER_MENU_RESTRICTIONS.ahk
 #Include .\IContextMenuCB.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IShellFolder.ahk
 
 /**
  * Provides methods used to get and set shortcut menu information. This information is the same as that provided to SHCreateDefaultContextMenu through the DEFCONTEXTMENU structure.

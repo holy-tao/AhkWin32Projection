@@ -1,23 +1,23 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IXMLDOMDocumentFragment.ahk
-#Include .\IXMLDOMComment.ahk
-#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IXMLDOMNode.ahk
-#Include .\IXMLDOMParseError.ahk
-#Include .\IXMLDOMEntityReference.ahk
-#Include .\IXMLDOMCDATASection.ahk
-#Include .\IXMLDOMNodeList.ahk
 #Include .\IXMLDOMAttribute.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IXMLDOMProcessingInstruction.ahk
+#Include .\IXMLDOMCDATASection.ahk
+#Include .\IXMLDOMComment.ahk
+#Include .\IXMLDOMDocumentFragment.ahk
 #Include .\IXMLDOMDocumentType.ahk
-#Include .\IXMLDOMImplementation.ahk
 #Include .\IXMLDOMElement.ahk
+#Include .\IXMLDOMEntityReference.ahk
+#Include .\IXMLDOMImplementation.ahk
+#Include .\IXMLDOMNode.ahk
+#Include .\IXMLDOMNodeList.ahk
+#Include .\IXMLDOMParseError.ahk
+#Include .\IXMLDOMProcessingInstruction.ahk
 #Include .\IXMLDOMText.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml

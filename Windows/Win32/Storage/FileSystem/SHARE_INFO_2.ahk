@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\SHARE_TYPE.ahk
 #Include .\SHARE_INFO_PERMISSIONS.ahk
+#Include .\SHARE_TYPE.ahk
 
 /**
  * Contains information about the shared resource, including name of the resource, type and permissions, and the number of current connections.

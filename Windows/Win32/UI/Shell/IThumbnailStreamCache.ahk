@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\SIZE.ahk
 #Include ..\..\System\Com\IStream.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\ThumbnailStreamCacheOptions.ahk
-#Include ..\..\Foundation\SIZE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Gets or sets the thumbnail stream. This interface is for internal use only and can only be called by the photos application.

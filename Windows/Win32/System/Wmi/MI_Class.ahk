@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MI_ClassFT.ahk
 #Include .\MI_ClassDecl.ahk
+#Include .\MI_ClassFT.ahk
 
 /**
  * Represents the schema of an instance.

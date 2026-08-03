@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC.ahk
-#Include .\D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include .\D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC.ahk
+#Include .\D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation

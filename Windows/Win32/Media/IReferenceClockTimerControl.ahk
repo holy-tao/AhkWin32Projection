@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
-#Include ..\System\Com\IUnknown.ahk
 #Include ..\Foundation\HRESULT.ahk
+#Include ..\System\Com\IUnknown.ahk
 
 /**
  * The IReferenceClockTimerControl interface changes the timer period used by a reference clock. This interface is exposed by the DirectShow System Reference Clock.

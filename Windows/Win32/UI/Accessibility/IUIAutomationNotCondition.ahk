@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomationCondition.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IUIAutomationCondition.ahk
 
 /**
  * Represents a condition that is the negative of another condition.

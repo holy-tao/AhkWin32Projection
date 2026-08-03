@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
-#Include ..\..\System\SystemServices\DMA_WIDTH.ahk
 #Include ..\..\System\SystemServices\DMA_SPEED.ahk
+#Include ..\..\System\SystemServices\DMA_WIDTH.ahk
+#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis

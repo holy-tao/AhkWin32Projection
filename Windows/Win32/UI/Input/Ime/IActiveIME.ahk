@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\Foundation\LRESULT.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\CANDIDATELIST.ahk
 #Include .\HIMC.ahk
 #Include .\IEnumRegisterWordW.ahk
-#Include ..\..\..\Foundation\HWND.ahk
-#Include ..\KeyboardAndMouse\HKL.ahk
-#Include .\REGISTERWORDW.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\IMEINFO.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\REGISTERWORDW.ahk
 #Include .\STYLEBUFW.ahk
-#Include ..\..\..\Foundation\LRESULT.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
-#Include .\CANDIDATELIST.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\KeyboardAndMouse\HKL.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime

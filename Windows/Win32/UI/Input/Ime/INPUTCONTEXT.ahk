@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\HIMCC.ahk
-#Include ..\..\..\Graphics\Gdi\LOGFONTW.ahk
-#Include ..\..\..\Foundation\POINT.ahk
-#Include ..\..\..\Graphics\Gdi\FONT_QUALITY.ahk
-#Include ..\..\..\Foundation\HWND.ahk
-#Include .\CANDIDATEFORM.ahk
-#Include ..\..\..\Graphics\Gdi\LOGFONTA.ahk
-#Include .\COMPOSITIONFORM.ahk
-#Include ..\..\..\Foundation\RECT.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
-#Include ..\..\..\Graphics\Gdi\FONT_CLIP_PRECISION.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\Foundation\POINT.ahk
+#Include ..\..\..\Foundation\RECT.ahk
 #Include ..\..\..\Graphics\Gdi\FONT_CHARSET.ahk
+#Include ..\..\..\Graphics\Gdi\FONT_CLIP_PRECISION.ahk
 #Include ..\..\..\Graphics\Gdi\FONT_OUTPUT_PRECISION.ahk
+#Include ..\..\..\Graphics\Gdi\FONT_QUALITY.ahk
+#Include ..\..\..\Graphics\Gdi\LOGFONTA.ahk
+#Include ..\..\..\Graphics\Gdi\LOGFONTW.ahk
+#Include .\CANDIDATEFORM.ahk
+#Include .\COMPOSITIONFORM.ahk
+#Include .\HIMCC.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime

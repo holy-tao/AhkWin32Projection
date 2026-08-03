@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\KERB_CRYPTO_KEY_TYPE.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
-#Include .\LSA_UNICODE_STRING.ahk
-#Include .\KERB_PROTOCOL_MESSAGE_TYPE.ahk
-#Include ..\..\Credentials\SecHandle.ahk
 #Include ..\..\..\Foundation\LUID.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\KERB_CRYPTO_KEY_TYPE.ahk
+#Include .\KERB_PROTOCOL_MESSAGE_TYPE.ahk
+#Include .\LSA_UNICODE_STRING.ahk
+#Include ..\..\Credentials\SecHandle.ahk
 
 /**
  * Contains information used to retrieve a ticket.

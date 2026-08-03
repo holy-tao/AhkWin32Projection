@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HCD_STAT_COUNTERS.ahk
 #Include .\HCD_ISO_STAT_COUNTERS.ahk
+#Include .\HCD_STAT_COUNTERS.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb

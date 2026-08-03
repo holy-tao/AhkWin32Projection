@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IShellFolderViewDual2.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IShellFolderViewDual2.ahk
 
 /**
  * Exposes methods that modify the current folder view.

@@ -1,24 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Input\Ime\HIMC.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\COLORREF.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\POINT.ahk
+#Include ..\..\..\Foundation\RECT.ahk
+#Include ..\..\..\Foundation\SIZE.ahk
 #Include ..\..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\..\Graphics\Gdi\HDC.ahk
-#Include .\TXTBACKSTYLE.ahk
-#Include ..\..\..\Foundation\COLORREF.ahk
-#Include ..\..\WindowsAndMessaging\SCROLL_WINDOW_FLAGS.ahk
-#Include ..\..\..\Graphics\Gdi\SYS_COLOR_INDEX.ahk
-#Include ..\..\WindowsAndMessaging\SCROLLBAR_CONSTANTS.ahk
-#Include .\PARAFORMAT.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\WindowsAndMessaging\HCURSOR.ahk
-#Include .\CHARFORMATW.ahk
-#Include ..\..\..\Foundation\SIZE.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
-#Include ..\..\..\Foundation\POINT.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Graphics\Gdi\HRGN.ahk
-#Include ..\..\..\Foundation\RECT.ahk
+#Include ..\..\..\Graphics\Gdi\SYS_COLOR_INDEX.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\CHARFORMATW.ahk
+#Include .\PARAFORMAT.ahk
+#Include .\TXTBACKSTYLE.ahk
+#Include ..\..\Input\Ime\HIMC.ahk
+#Include ..\..\WindowsAndMessaging\HCURSOR.ahk
+#Include ..\..\WindowsAndMessaging\SCROLLBAR_CONSTANTS.ahk
+#Include ..\..\WindowsAndMessaging\SCROLL_WINDOW_FLAGS.ahk
 
 /**
  * The ITextHost interface is used by a text services object to obtain text host services.

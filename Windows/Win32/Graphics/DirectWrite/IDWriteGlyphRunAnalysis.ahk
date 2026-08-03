@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteRenderingParams.ahk
-#Include .\DWRITE_TEXTURE_TYPE.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include .\DWRITE_TEXTURE_TYPE.ahk
+#Include .\IDWriteRenderingParams.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Contains low-level information used to render a glyph run.

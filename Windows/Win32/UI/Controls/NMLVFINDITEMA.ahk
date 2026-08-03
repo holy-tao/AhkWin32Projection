@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\LPARAM.ahk
-#Include .\LVFINDINFOW_FLAGS.ahk
-#Include .\NMHDR.ahk
+#Include ..\..\Foundation\POINT.ahk
 #Include ..\..\Foundation\PSTR.ahk
 #Include .\LVFINDINFOA.ahk
-#Include ..\..\Foundation\POINT.ahk
+#Include .\LVFINDINFOW_FLAGS.ahk
+#Include .\NMHDR.ahk
 
 /**
  * Contains information the owner needs to find items requested by a virtual list-view control. This structure is used with the LVN_ODFINDITEM notification code. (ANSI)

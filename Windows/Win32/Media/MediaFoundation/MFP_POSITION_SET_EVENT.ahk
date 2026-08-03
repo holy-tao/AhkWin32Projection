@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IMFPMediaItem.ahk
-#Include .\MFP_EVENT_TYPE.ahk
 #Include .\IMFPMediaPlayer.ahk
 #Include .\MFP_EVENT_HEADER.ahk
-#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Include .\MFP_EVENT_TYPE.ahk
 #Include .\MFP_MEDIAPLAYER_STATE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 
 /**
  * Event structure for the MFP_EVENT_TYPE_POSITION_SET event.

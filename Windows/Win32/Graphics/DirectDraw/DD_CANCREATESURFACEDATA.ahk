@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DD_DIRECTDRAW_GLOBAL.ahk
-#Include .\DDSURFACEDESC.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\DDSURFACEDESC.ahk
+#Include .\DD_DIRECTDRAW_GLOBAL.ahk
 
 /**
  * The DD_CANCREATESURFACEDATA structure contains information necessary to indicate whether a surface--in the case of CanCreateD3DBuffer, a buffer--can be created.

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
-#Include .\UPDATE_LAYERED_WINDOW_FLAGS.ahk
 #Include ..\..\Foundation\COLORREF.ahk
-#Include ..\..\Graphics\Gdi\BLENDFUNCTION.ahk
-#Include ..\..\Foundation\SIZE.ahk
 #Include ..\..\Foundation\POINT.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include ..\..\Graphics\Gdi\BLENDFUNCTION.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
+#Include .\UPDATE_LAYERED_WINDOW_FLAGS.ahk
 
 /**
  * Used by UpdateLayeredWindowIndirect to provide position, size, shape, content, and translucency information for a layered window.

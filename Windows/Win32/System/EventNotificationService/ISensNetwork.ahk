@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\SENS_QOCINFO.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\SENS_CONNECTION_TYPE.ahk
+#Include .\SENS_QOCINFO.ahk
 
 /**
  * The ISensNetwork interface handles network events fired by the System Event Notification Service (SENS).

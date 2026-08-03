@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\WbemImpersonationLevelEnum.ahk
-#Include .\ISWbemPrivilegeSet.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\WbemAuthenticationLevelEnum.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\ISWbemPrivilegeSet.ahk
+#Include .\WbemAuthenticationLevelEnum.ahk
+#Include .\WbemImpersonationLevelEnum.ahk
 
 /**
  * @namespace Windows.Win32.System.Wmi

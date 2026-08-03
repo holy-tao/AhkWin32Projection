@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISyncCallback.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ISyncCallback.ahk
 
 /**
  * Represents additional application callbacks that are used to notify the application of synchronization events.

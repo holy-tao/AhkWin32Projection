@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ADDRINFOEX5.ahk
-#Include .\SOCKADDR.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\ADDRINFOEX5.ahk
 #Include .\ADDRINFO_DNS_SERVER.ahk
+#Include .\SOCKADDR.ahk
 
 /**
  * Used by the <a href="/windows/win32/api/ws2tcpip/nf-ws2tcpip-getaddrinfoexw">GetAddrInfoExW</a> function to hold host address information when a specific network interface has been requested. (ADDRINFOEX6)

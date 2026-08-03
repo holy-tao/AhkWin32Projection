@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDR_USER_MARSHAL_INFO_LEVEL1.ahk
 #Include ..\Com\IRpcChannelBuffer.ahk
+#Include .\NDR_USER_MARSHAL_INFO_LEVEL1.ahk
 
 /**
  * The NDR_USER_MARSHAL_INFO structure holds information about the state of an RPC call that can be passed to wire_marshal and user_marshal helper functions.

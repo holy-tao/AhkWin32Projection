@@ -2,8 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
-#Include .\IDesktopWindowXamlSourceNative.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IDesktopWindowXamlSourceNative.ahk
 #Include ..\..\..\UI\WindowsAndMessaging\MSG.ahk
 
 /**

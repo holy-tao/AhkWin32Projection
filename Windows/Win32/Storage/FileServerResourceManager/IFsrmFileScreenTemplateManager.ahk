@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IFsrmFileScreenTemplate.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\FsrmEnumOptions.ahk
 #Include .\IFsrmCommittableCollection.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IFsrmFileScreenTemplate.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * Used to manage file screen templates.

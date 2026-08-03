@@ -1,85 +1,85 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include ..\..\Foundation\SIZE.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\Graphics\Gdi\DRAW_TEXT_FORMAT.ahk
-#Include .\_LI_METRIC.ahk
-#Include ..\..\Graphics\Gdi\DRAW_EDGE_FLAGS.ahk
-#Include .\COLORMAP.ahk
-#Include .\INITCOMMONCONTROLSEX.ahk
-#Include .\COMBOBOXINFO.ahk
-#Include ..\..\Graphics\Gdi\LOGFONTW.ahk
-#Include ..\WindowsAndMessaging\SCROLLBAR_CONSTANTS.ahk
-#Include .\BP_BUFFERFORMAT.ahk
-#Include .\WINDOWTHEMEATTRIBUTETYPE.ahk
-#Include .\HIMAGELIST.ahk
-#Include .\PROPSHEETHEADERW_V2.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\WindowsAndMessaging\SCROLLINFO.ahk
-#Include .\TASKDIALOG_COMMON_BUTTON_FLAGS.ahk
-#Include ..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk
-#Include .\IMAGE_LIST_DRAW_STYLE.ahk
-#Include ..\..\Graphics\Gdi\TEXTMETRICW.ahk
-#Include ..\..\System\Com\IStream.ahk
-#Include .\PROPSHEETPAGEW.ahk
-#Include .\TA_PROPERTY.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\FEEDBACK_TYPE.ahk
-#Include .\HIT_TEST_BACKGROUND_OPTIONS.ahk
-#Include .\IMAGE_LIST_WRITE_STREAM_FLAGS.ahk
-#Include .\DTBGOPTS.ahk
-#Include ..\Input\Pointer\POINTER_FEEDBACK_MODE.ahk
-#Include .\BP_PAINTPARAMS.ahk
-#Include .\IMAGE_LIST_COPY_FLAGS.ahk
-#Include .\TOUCH_HIT_TESTING_PROXIMITY_EVALUATION.ahk
-#Include ..\..\Graphics\Gdi\HBRUSH.ahk
-#Include .\HDPA.ahk
-#Include .\WSB_PROP.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\IMAGELIST_CREATION_FLAGS.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\ENABLE_SCROLL_BAR_ARROWS.ahk
-#Include .\OPEN_THEME_DATA_FLAGS.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
-#Include .\THEMESIZE.ahk
-#Include .\BP_ANIMATIONPARAMS.ahk
+#Include ..\..\Foundation\COLORREF.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\LRESULT.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\SIZE.ahk
 #Include ..\..\Foundation\WPARAM.ahk
 #Include ..\..\Graphics\Gdi\DRAWEDGE_FLAGS.ahk
-#Include ..\Input\Pointer\HSYNTHETICPOINTERDEVICE.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Graphics\Gdi\HRGN.ahk
-#Include .\SET_THEME_APP_PROPERTIES_FLAGS.ahk
-#Include .\TBBUTTON.ahk
+#Include ..\..\Graphics\Gdi\DRAW_EDGE_FLAGS.ahk
+#Include ..\..\Graphics\Gdi\DRAW_TEXT_FORMAT.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
-#Include .\MARGINS.ahk
-#Include .\HTHEME.ahk
-#Include ..\WindowsAndMessaging\IMAGE_FLAGS.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\PROPSHEETHEADERA_V2.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMAGELISTDRAWPARAMS.ahk
-#Include .\IMAGEINFO.ahk
-#Include ..\..\Foundation\LRESULT.ahk
-#Include .\PROPERTYORIGIN.ahk
-#Include .\DLG_BUTTON_CHECK_STATE.ahk
-#Include .\TOUCH_HIT_TESTING_INPUT.ahk
-#Include .\DRAW_THEME_PARENT_BACKGROUND_FLAGS.ahk
-#Include ..\WindowsAndMessaging\HMENU.ahk
-#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Graphics\Gdi\HBRUSH.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
+#Include ..\..\Graphics\Gdi\HRGN.ahk
+#Include ..\..\Graphics\Gdi\LOGFONTW.ahk
 #Include ..\..\Graphics\Gdi\RGBQUAD.ahk
-#Include .\PROPSHEETPAGEA.ahk
+#Include ..\..\Graphics\Gdi\TEXTMETRICW.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\BP_ANIMATIONPARAMS.ahk
+#Include .\BP_BUFFERFORMAT.ahk
+#Include .\BP_PAINTPARAMS.ahk
+#Include .\COLORMAP.ahk
+#Include .\COMBOBOXINFO.ahk
+#Include .\DLG_BUTTON_CHECK_STATE.ahk
 #Include .\DLG_DIR_LIST_FILE_TYPE.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\TASKDIALOGCONFIG.ahk
-#Include ..\..\Foundation\COLORREF.ahk
-#Include ..\..\Foundation\POINT.ahk
-#Include .\GET_THEME_BITMAP_FLAGS.ahk
+#Include .\DRAW_THEME_PARENT_BACKGROUND_FLAGS.ahk
+#Include .\DTBGOPTS.ahk
 #Include .\DTTOPTS.ahk
-#Include ..\WindowsAndMessaging\HICON.ahk
+#Include .\ENABLE_SCROLL_BAR_ARROWS.ahk
+#Include .\FEEDBACK_TYPE.ahk
+#Include .\GET_THEME_BITMAP_FLAGS.ahk
+#Include .\HDPA.ahk
 #Include .\HDSA.ahk
+#Include .\HIMAGELIST.ahk
+#Include .\HIT_TEST_BACKGROUND_OPTIONS.ahk
 #Include .\HPROPSHEETPAGE.ahk
+#Include .\HTHEME.ahk
+#Include .\IMAGEINFO.ahk
+#Include .\IMAGELISTDRAWPARAMS.ahk
+#Include .\IMAGELIST_CREATION_FLAGS.ahk
+#Include .\IMAGE_LIST_COPY_FLAGS.ahk
+#Include .\IMAGE_LIST_DRAW_STYLE.ahk
+#Include .\IMAGE_LIST_WRITE_STREAM_FLAGS.ahk
+#Include .\INITCOMMONCONTROLSEX.ahk
 #Include .\INTLIST.ahk
+#Include .\MARGINS.ahk
+#Include .\OPEN_THEME_DATA_FLAGS.ahk
+#Include .\PROPERTYORIGIN.ahk
+#Include .\PROPSHEETHEADERA_V2.ahk
+#Include .\PROPSHEETHEADERW_V2.ahk
+#Include .\PROPSHEETPAGEA.ahk
+#Include .\PROPSHEETPAGEW.ahk
+#Include .\SET_THEME_APP_PROPERTIES_FLAGS.ahk
+#Include .\TASKDIALOGCONFIG.ahk
+#Include .\TASKDIALOG_COMMON_BUTTON_FLAGS.ahk
+#Include .\TA_PROPERTY.ahk
+#Include .\TBBUTTON.ahk
+#Include .\THEMESIZE.ahk
+#Include .\TOUCH_HIT_TESTING_INPUT.ahk
+#Include .\TOUCH_HIT_TESTING_PROXIMITY_EVALUATION.ahk
+#Include .\WINDOWTHEMEATTRIBUTETYPE.ahk
+#Include .\WSB_PROP.ahk
+#Include .\_LI_METRIC.ahk
+#Include ..\Input\Pointer\HSYNTHETICPOINTERDEVICE.ahk
+#Include ..\Input\Pointer\POINTER_FEEDBACK_MODE.ahk
+#Include ..\WindowsAndMessaging\HICON.ahk
+#Include ..\WindowsAndMessaging\HMENU.ahk
+#Include ..\WindowsAndMessaging\IMAGE_FLAGS.ahk
+#Include ..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk
+#Include ..\WindowsAndMessaging\SCROLLBAR_CONSTANTS.ahk
+#Include ..\WindowsAndMessaging\SCROLLINFO.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls
@@ -10935,7 +10935,9 @@ class Controls {
 
     /**
      * Destroys a property sheet page. An application must call this function for pages that have not been passed to the PropertySheet function.
-     * @param {HPROPSHEETPAGE} param0 
+     * @param {HPROPSHEETPAGE} param0 Type: <b>HPROPSHEETPAGE</b>
+     * 
+     * Handle to the property sheet page to delete.
      * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
@@ -10970,7 +10972,9 @@ class Controls {
      * 
      * > [!NOTE]
      * > The prsht.h header defines PropertySheet as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PROPSHEETHEADERA_V2>} param0 
+     * @param {Pointer<PROPSHEETHEADERA_V2>} param0 Type: <b>LPCPROPSHEETHEADER</b>
+     * 
+     * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetheadera_v2">PROPSHEETHEADER</a> structure that defines the frame and pages of a property sheet.
      * @returns {Pointer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">INT_PTR</a></b>
      * 
      * For modal property sheets, the return value is as follows:
@@ -11060,7 +11064,9 @@ class Controls {
      * 
      * > [!NOTE]
      * > The prsht.h header defines PropertySheet as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PROPSHEETHEADERW_V2>} param0 
+     * @param {Pointer<PROPSHEETHEADERW_V2>} param0 Type: <b>LPCPROPSHEETHEADER</b>
+     * 
+     * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetheadera_v2">PROPSHEETHEADER</a> structure that defines the frame and pages of a property sheet.
      * @returns {Pointer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">INT_PTR</a></b>
      * 
      * For modal property sheets, the return value is as follows:
@@ -14130,9 +14136,11 @@ class Controls {
      * @remarks
      * <div class="alert"><b>Note</b>  Flat scroll bar functions are implemented in Comctl32.dll versions 4.71 through 5.82. Comctl32.dll versions 6.00 and higher do not support flat scroll bars.</div>
      * <div> </div>
-     * @param {HWND} param0 
-     * @param {Integer} param1 
-     * @param {Integer} param2 
+     * @param {HWND} param0 Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * A handle to the window that contains the flat scroll bar. This window handle must have been passed previously in a call to <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-initializeflatsb">InitializeFlatSB</a>.
+     * @param {Integer} param1 Type: <b>int</b>
+     * @param {Integer} param2 Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if the scroll bar changes, or zero otherwise.
@@ -14151,9 +14159,13 @@ class Controls {
      * @remarks
      * <div class="alert"><b>Note</b>  Flat scroll bar functions are implemented in Comctl32.dll versions 4.71 through 5.82. Comctl32.dll versions 6.00 and higher do not support flat scroll bars.</div>
      * <div> </div>
-     * @param {HWND} param0 
+     * @param {HWND} param0 Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * A handle to the window that contains the flat scroll bar. This window handle must have been passed previously in a call to <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-initializeflatsb">InitializeFlatSB</a>.
      * @param {SCROLLBAR_CONSTANTS} code Type: <b>int</b>
-     * @param {BOOL} param2 
+     * @param {BOOL} param2 Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * 
+     * Specifies whether the scroll bar should be shown or hidden. If this parameter is nonzero, the scroll bar will be shown; if it is zero, the scroll bar will be hidden.
      * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
@@ -14172,10 +14184,16 @@ class Controls {
      * @remarks
      * <div class="alert"><b>Note</b>  Flat scroll bar functions are implemented in Comctl32.dll versions 4.71 through 5.82. Comctl32.dll versions 6.00 and higher do not support flat scroll bars.</div>
      * <div> </div>
-     * @param {HWND} param0 
+     * @param {HWND} param0 Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * A handle to the window that contains the flat scroll bar. This window handle must have been passed previously in a call to <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-initializeflatsb">InitializeFlatSB</a>.
      * @param {SCROLLBAR_CONSTANTS} code Type: <b>int</b>
-     * @param {Pointer<Integer>} param2 
-     * @param {Pointer<Integer>} param3 
+     * @param {Pointer<Integer>} param2 Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPINT</a></b>
+     * 
+     * A pointer to an INT value that receives the minimum scroll range value.
+     * @param {Pointer<Integer>} param3 Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPINT</a></b>
+     * 
+     * A pointer to an INT value that receives the maximum scroll range value.
      * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
@@ -14197,9 +14215,11 @@ class Controls {
      * @remarks
      * <div class="alert"><b>Note</b>  Flat scroll bar functions are implemented in Comctl32.dll versions 4.71 through 5.82. Comctl32.dll versions 6.00 and higher do not support flat scroll bars.</div>
      * <div> </div>
-     * @param {HWND} param0 
+     * @param {HWND} param0 Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * A handle to the window that contains the flat scroll bar. This window handle must have been passed previously in a call to <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-initializeflatsb">InitializeFlatSB</a>.
      * @param {SCROLLBAR_CONSTANTS} code Type: <b>int</b>
-     * @param {Pointer<SCROLLINFO>} param2 
+     * @param {Pointer<SCROLLINFO>} param2 Type: <b>LPSCROLLINFO</b>
      * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
@@ -14218,7 +14238,9 @@ class Controls {
      * @remarks
      * <div class="alert"><b>Note</b>  Flat scroll bar functions are implemented in Comctl32.dll versions 4.71 through 5.82. Comctl32.dll versions 6.00 and higher do not support flat scroll bars.</div>
      * <div> </div>
-     * @param {HWND} param0 
+     * @param {HWND} param0 Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * A handle to the window that contains the flat scroll bar. This window handle must have been passed previously in a call to <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-initializeflatsb">InitializeFlatSB</a>.
      * @param {SCROLLBAR_CONSTANTS} code Type: <b>int</b>
      * @returns {Integer} Type: <b>int</b>
      * 
@@ -14238,11 +14260,16 @@ class Controls {
      * @remarks
      * <div class="alert"><b>Note</b>  Flat scroll bar functions are implemented in Comctl32.dll versions 4.71 through 5.82. Comctl32.dll versions 6.00 and higher do not support flat scroll bars.</div>
      * <div> </div>
-     * @param {HWND} param0 
+     * @param {HWND} param0 Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * A handle to the window that contains the flat scroll bar. This window handle must have been passed previously in a call to <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-initializeflatsb">InitializeFlatSB</a>.
      * @param {WSB_PROP} propIndex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The parameter that determines what
-     * @param {Pointer<Integer>} param2 
+     * @param {Pointer<Integer>} param2 Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPINT</a></b>
+     * 
+     * A pointer to an <b>int</b> that receives the requested data. This parameter depends on the flag passed in 
+     * 					<i>index</i>.
      * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise. If 
@@ -14264,7 +14291,9 @@ class Controls {
      * @remarks
      * <div class="alert"><b>Note</b>  Flat scroll bar functions are implemented in Comctl32.dll versions 4.71 through 5.82. Comctl32.dll versions 6.00 and higher do not support flat scroll bars.</div>
      * <div> </div>
-     * @param {HWND} param0 
+     * @param {HWND} param0 Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * A handle to the window that contains the flat scroll bar. This window handle must have been passed previously in a call to <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-initializeflatsb">InitializeFlatSB</a>.
      * @param {SCROLLBAR_CONSTANTS} code Type: <b>int</b>
      * @param {Integer} pos Type: <b>int</b>
      * 
@@ -14290,7 +14319,9 @@ class Controls {
      * @remarks
      * <div class="alert"><b>Note</b>  Flat scroll bar functions are implemented in Comctl32.dll versions 4.71 through 5.82. Comctl32.dll versions 6.00 and higher do not support flat scroll bars.</div>
      * <div> </div>
-     * @param {HWND} param0 
+     * @param {HWND} param0 Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * A handle to the window that contains the flat scroll bar. This window handle must have been passed previously in a call to <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-initializeflatsb">InitializeFlatSB</a>.
      * @param {SCROLLBAR_CONSTANTS} code Type: <b>int</b>
      * @param {Pointer<SCROLLINFO>} psi Type: <b>LPSCROLLINFO</b>
      * 
@@ -14316,7 +14347,9 @@ class Controls {
      * @remarks
      * <div class="alert"><b>Note</b>  Flat scroll bar functions are implemented in Comctl32.dll versions 4.71 through 5.82. Comctl32.dll versions 6.00 and higher do not support flat scroll bars.</div>
      * <div> </div>
-     * @param {HWND} param0 
+     * @param {HWND} param0 Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * A handle to the window that contains the flat scroll bar. This window handle must have been passed previously in a call to <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-initializeflatsb">InitializeFlatSB</a>.
      * @param {SCROLLBAR_CONSTANTS} code Type: <b>int</b>
      * @param {Integer} min Type: <b>int</b>
      * 
@@ -14345,7 +14378,9 @@ class Controls {
      * @remarks
      * <div class="alert"><b>Note</b>  Flat scroll bar functions are implemented in Comctl32.dll versions 4.71 through 5.82. Comctl32.dll versions 6.00 and higher do not support flat scroll bars.</div>
      * <div> </div>
-     * @param {HWND} param0 
+     * @param {HWND} param0 Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * A handle to the window that contains the flat scroll bar. This window handle must have been passed previously in a call to <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-initializeflatsb">InitializeFlatSB</a>.
      * @param {Integer} index Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Determines what
@@ -14353,7 +14388,9 @@ class Controls {
      * 
      * A new value to set. This parameter depends on the flag passed in 
      * 					<i>index</i>.
-     * @param {BOOL} param3 
+     * @param {BOOL} param3 Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * 
+     * Specifies whether the scroll bar should be redrawn immediately to reflect the change. If this parameter is <b>TRUE</b>, the scroll bar is redrawn; if it is <b>FALSE</b>, the scroll bar is not redrawn.
      * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
@@ -14374,7 +14411,9 @@ class Controls {
      * 
      * <div class="alert"><b>Note</b>  Flat scroll bar functions are implemented in Comctl32.dll versions 4.71 through 5.82. Comctl32.dll versions 6.00 and higher do not support flat scroll bars.</div>
      * <div> </div>
-     * @param {HWND} param0 
+     * @param {HWND} param0 Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * A handle to the window that will receive flat scroll bars.
      * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
@@ -14393,7 +14432,9 @@ class Controls {
      * @remarks
      * <div class="alert"><b>Note</b>  Flat scroll bar functions are implemented in Comctl32.dll versions 4.71 through 5.82. Comctl32.dll versions 6.00 and higher do not support flat scroll bars.</div>
      * <div> </div>
-     * @param {HWND} param0 
+     * @param {HWND} param0 Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * A handle to the window with the flat scroll bars that will be uninitialized.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns one of the following values. 
@@ -15199,7 +15240,9 @@ class Controls {
      * @param {Pointer<RECT>} prc Type: <b>LPCRECT</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the rectangle used for the part drawing destination. This parameter may be set to <b>NULL</b>.
-     * @param {THEMESIZE} eSize 
+     * @param {THEMESIZE} eSize Type: <b>THEMESIZE</b>
+     * 
+     * Enumerated type that specifies the type of size to retrieve. See <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/ne-uxtheme-themesize">THEMESIZE</a> for a list of type values.
      * @param {Pointer<SIZE>} psz Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that receives the dimensions of the specified part.
@@ -15963,7 +16006,9 @@ class Controls {
      * @param {Integer} iPropId Type: <b>int</b>
      * 
      * Value of type <b>int</b> that specifies the property to retrieve. You may use any of the property values from Vssym32.h. These values are described in the reference pages for the functions that use them. For instance, the <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-getthemeint">GetThemeInt</a> function uses the TMT_BORDERSIZE value. See the <a href="https://docs.microsoft.com/windows/desktop/Controls/uxctl-ref">Visual Styles Reference</a> for a list of functions.
-     * @returns {PROPERTYORIGIN} 
+     * @returns {PROPERTYORIGIN} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/ne-uxtheme-propertyorigin">PROPERTYORIGIN</a>*</b>
+     * 
+     * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/ne-uxtheme-propertyorigin">PROPERTYORIGIN</a> enumerated type that indicates where the property was or was not found.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemepropertyorigin
      * @since windows6.0.6000
      */
@@ -16865,7 +16910,26 @@ class Controls {
      * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Handle to a window to apply changes to.
-     * @param {WINDOWTHEMEATTRIBUTETYPE} eAttribute 
+     * @param {WINDOWTHEMEATTRIBUTETYPE} eAttribute Type: <b>enum WINDOWTHEMEATTRIBUTETYPE</b>
+     * 
+     * Value of type <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/ne-uxtheme-windowthemeattributetype">WINDOWTHEMEATTRIBUTETYPE</a> that specifies the type of attribute to set. The value of this parameter determines the type of data that should be passed in the <i>pvAttribute</i> parameter. Can be the following value.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="WTA_NONCLIENT"></a><a id="wta_nonclient"></a><dl>
+     * <dt><b>WTA_NONCLIENT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Specifies non-client related attributes. <i>pvAttribute</i> must be a pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/ns-uxtheme-wta_options">WTA_OPTIONS</a>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {Integer} pvAttribute Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PVOID</a></b>
      * 
      * A pointer that specifies attributes to set. Type is determined by the value of the <i>eAttribute</i> value.

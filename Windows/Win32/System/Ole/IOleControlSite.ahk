@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\POINTL.ahk
 #Include ..\Com\IDispatch.ahk
-#Include .\KEYMODIFIERS.ahk
 #Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\BOOL.ahk
+#Include .\KEYMODIFIERS.ahk
 #Include .\POINTF.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\UI\WindowsAndMessaging\MSG.ahk
 
 /**

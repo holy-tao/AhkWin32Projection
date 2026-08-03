@@ -2,8 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\IXMLDOMNamedNodeMap.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IXMLDOMNode.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
 
 /**

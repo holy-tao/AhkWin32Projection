@@ -1,27 +1,27 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include .\HIDP_VALUE_CAPS.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\HIDD_ATTRIBUTES.ahk
+#Include .\HIDP_BUTTON_ARRAY_DATA.ahk
 #Include .\HIDP_BUTTON_CAPS.ahk
 #Include .\HIDP_CAPS.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\HIDP_DATA.ahk
-#Include ..\..\Foundation\NTSTATUS.ahk
-#Include ..\..\Foundation\DEVPROPKEY.ahk
 #Include .\HIDP_EXTENDED_ATTRIBUTES.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\PHIDP_PREPARSED_DATA.ahk
-#Include .\HIDD_ATTRIBUTES.ahk
-#Include .\HIDP_KEYBOARD_MODIFIER_STATE.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\USAGE_AND_PAGE.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\HIDP_LINK_COLLECTION_NODE.ahk
 #Include .\HIDP_KEYBOARD_DIRECTION.ahk
+#Include .\HIDP_KEYBOARD_MODIFIER_STATE.ahk
+#Include .\HIDP_LINK_COLLECTION_NODE.ahk
 #Include .\HIDP_REPORT_TYPE.ahk
-#Include .\HIDP_BUTTON_ARRAY_DATA.ahk
+#Include .\HIDP_VALUE_CAPS.ahk
+#Include .\PHIDP_PREPARSED_DATA.ahk
+#Include .\USAGE_AND_PAGE.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include ..\..\Foundation\DEVPROPKEY.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice

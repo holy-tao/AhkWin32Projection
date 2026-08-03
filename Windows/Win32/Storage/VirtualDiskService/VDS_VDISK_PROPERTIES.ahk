@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\VDS_VDISK_STATE.ahk
-#Include ..\Vhd\VIRTUAL_STORAGE_TYPE.ahk
-#Include ..\Vhd\DEPENDENT_DISK_FLAG.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Vhd\DEPENDENT_DISK_FLAG.ahk
+#Include ..\Vhd\VIRTUAL_STORAGE_TYPE.ahk
+#Include .\VDS_VDISK_STATE.ahk
 
 /**
  * Defines the properties of a virtual disk.

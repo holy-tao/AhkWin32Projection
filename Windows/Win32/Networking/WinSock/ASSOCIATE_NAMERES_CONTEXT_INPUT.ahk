@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\TRANSPORT_SETTING_ID.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\TRANSPORT_SETTING_ID.ahk
 
 /**
  * Contains the transport setting ID and handle to a fully qualified domain name.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SEC_WINNT_AUTH_IDENTITY_W.ahk
 #Include .\RPC_SECURITY_QOS.ahk
+#Include .\SEC_WINNT_AUTH_IDENTITY_W.ahk
 
 /**
  * Contains the basic security options with which to create an RPC binding handle. (Unicode)

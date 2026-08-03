@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\KSCAMERA_PROFILE_CONCURRENCYINFO.ahk
 #Include .\KSCAMERA_PROFILE_INFO.ahk
 #Include .\KSCAMERA_PROFILE_PININFO.ahk
-#Include .\KSCAMERA_PROFILE_CONCURRENCYINFO.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

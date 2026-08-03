@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\DNS_RECORD_FLAGS.ahk
+#Include .\DNS_HEADER_EXT.ahk
 #Include .\DNS_OPT_DATA.ahk
 #Include .\DNS_RECORDW.ahk
-#Include .\DNS_HEADER_EXT.ahk
+#Include .\DNS_RECORD_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns

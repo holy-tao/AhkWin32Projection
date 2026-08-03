@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IUpdateException.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IUpdateException.ahk
 
 /**
  * Encapsulates the exception that is thrown when an invalid license is detected for a product.

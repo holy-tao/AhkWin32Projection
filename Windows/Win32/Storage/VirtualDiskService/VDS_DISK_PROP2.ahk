@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_HEALTH.ahk
-#Include .\VDS_STORAGE_BUS_TYPE.ahk
-#Include .\VDS_DISK_STATUS.ahk
-#Include .\VDS_DISK_OFFLINE_REASON.ahk
-#Include .\VDS_LUN_RESERVE_MODE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\VDS_DISK_OFFLINE_REASON.ahk
+#Include .\VDS_DISK_STATUS.ahk
+#Include .\VDS_HEALTH.ahk
+#Include .\VDS_LUN_RESERVE_MODE.ahk
 #Include .\VDS_PARTITION_STYLE.ahk
+#Include .\VDS_STORAGE_BUS_TYPE.ahk
 
 /**
  * Defines the properties of a disk object. This structure is identical to the VDS_DISK_PROP structure, except that it also includes the location path and, if the disk is offline, the reason why it is offline.

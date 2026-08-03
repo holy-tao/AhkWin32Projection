@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IFsrmCollection.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IFsrmCollection.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * Used to manage a collection of FSRM objects that can have objects added to or removed from the collection.

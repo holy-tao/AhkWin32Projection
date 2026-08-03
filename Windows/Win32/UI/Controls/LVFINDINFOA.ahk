@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\LPARAM.ahk
-#Include .\LVFINDINFOW_FLAGS.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\LVFINDINFOW_FLAGS.ahk
 
 /**
  * Contains information used when searching for a list-view item. This structure is identical to LV_FINDINFO but has been renamed to fit standard naming conventions. (ANSI)

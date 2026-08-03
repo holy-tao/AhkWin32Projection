@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDownloadResult.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IUpdateCollection.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include .\DownloadPriority.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\Com\IDispatch.ahk
-#Include .\IDownloadJob.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\DownloadPriority.ahk
+#Include .\IDownloadJob.ahk
+#Include .\IDownloadResult.ahk
+#Include .\IUpdateCollection.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * Downloads updates from the server.

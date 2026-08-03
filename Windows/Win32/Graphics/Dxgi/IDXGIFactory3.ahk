@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIFactory2.ahk
 #Include .\DXGI_CREATE_FACTORY_FLAGS.ahk
+#Include .\IDXGIFactory2.ahk
 
 /**
  * Enables creating Microsoft DirectX Graphics Infrastructure (DXGI) objects. (IDXGIFactory3)

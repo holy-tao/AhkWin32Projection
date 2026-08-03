@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DSAFIPSVERSION_ENUM.ahk
 #Include .\BCRYPT_DSA_MAGIC.ahk
+#Include .\DSAFIPSVERSION_ENUM.ahk
 #Include .\HASHALGORITHM_ENUM.ahk
 
 /**

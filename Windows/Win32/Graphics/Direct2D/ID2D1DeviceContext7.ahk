@@ -2,13 +2,13 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include Common\D2D_POINT_2F.ahk
-#Include ..\DirectWrite\DWRITE_GLYPH_RUN_DESCRIPTION.ahk
+#Include .\D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION.ahk
 #Include .\ID2D1Brush.ahk
 #Include .\ID2D1DeviceContext6.ahk
-#Include ..\DirectWrite\DWRITE_GLYPH_RUN.ahk
-#Include ..\DirectWrite\DWRITE_MEASURING_MODE.ahk
 #Include .\ID2D1SvgGlyphStyle.ahk
-#Include .\D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION.ahk
+#Include ..\DirectWrite\DWRITE_GLYPH_RUN.ahk
+#Include ..\DirectWrite\DWRITE_GLYPH_RUN_DESCRIPTION.ahk
+#Include ..\DirectWrite\DWRITE_MEASURING_MODE.ahk
 #Include ..\DirectWrite\DWRITE_PAINT_FEATURE_LEVEL.ahk
 
 /**

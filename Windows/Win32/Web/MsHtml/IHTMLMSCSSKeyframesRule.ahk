@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\IHTMLMSCSSKeyframeRule.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IHTMLStyleSheetRulesCollection.ahk
 
 /**

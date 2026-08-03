@@ -2,20 +2,20 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include ..\Gdi\HDC.ahk
-#Include .\IDirectDraw.ahk
-#Include .\DDCOLORKEY.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\DDBLTBATCH.ahk
-#Include .\DDPIXELFORMAT.ahk
-#Include .\DDOVERLAYFX.ahk
-#Include .\DDSCAPS.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include .\IDirectDrawClipper.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDirectDrawPalette.ahk
-#Include .\DDSURFACEDESC.ahk
+#Include .\DDBLTBATCH.ahk
 #Include .\DDBLTFX.ahk
+#Include .\DDCOLORKEY.ahk
+#Include .\DDOVERLAYFX.ahk
+#Include .\DDPIXELFORMAT.ahk
+#Include .\DDSCAPS.ahk
+#Include .\DDSURFACEDESC.ahk
+#Include .\IDirectDraw.ahk
+#Include .\IDirectDrawClipper.ahk
+#Include .\IDirectDrawPalette.ahk
+#Include ..\Gdi\HDC.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

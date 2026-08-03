@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1TransformNode.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include .\ID2D1TransformNode.ahk
 
 /**
  * Instructs the effect-rendering system to offset an input bitmap without inserting a rendering pass.

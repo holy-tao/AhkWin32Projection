@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include .\IWMPMedia2.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * The IWMPMedia3 interface provides methods that supplement the IWMPMedia2 interface.

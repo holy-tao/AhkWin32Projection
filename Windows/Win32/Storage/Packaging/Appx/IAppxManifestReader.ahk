@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IAppxManifestPackageId.ahk
-#Include .\IAppxManifestResourcesEnumerator.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\APPX_CAPABILITIES.ahk
-#Include .\IAppxManifestProperties.ahk
-#Include .\IAppxManifestPackageDependenciesEnumerator.ahk
 #Include .\IAppxManifestApplicationsEnumerator.ahk
 #Include .\IAppxManifestDeviceCapabilitiesEnumerator.ahk
+#Include .\IAppxManifestPackageDependenciesEnumerator.ahk
+#Include .\IAppxManifestPackageId.ahk
+#Include .\IAppxManifestProperties.ahk
+#Include .\IAppxManifestResourcesEnumerator.ahk
 #Include ..\..\..\System\Com\IStream.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 

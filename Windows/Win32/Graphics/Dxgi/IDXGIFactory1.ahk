@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIAdapter1.ahk
-#Include .\IDXGIFactory.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDXGIAdapter1.ahk
+#Include .\IDXGIFactory.ahk
 
 /**
  * The IDXGIFactory1 interface implements methods for generating DXGI objects.

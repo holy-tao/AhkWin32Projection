@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\REPARSE_DATA_BUFFER.ahk
 #Include .\FILE_TIMESTAMPS.ahk
+#Include .\REPARSE_DATA_BUFFER.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem

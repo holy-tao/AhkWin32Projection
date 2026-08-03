@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\INetFwOpenPort.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\NET_FW_IP_PROTOCOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\INetFwOpenPort.ahk
+#Include .\NET_FW_IP_PROTOCOL.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The INetFwOpenPorts interface is a standard Automation collection interface.

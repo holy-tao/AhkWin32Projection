@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\IServiceCall.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to call the batch work that is submitted through the activity created by CoCreateActivity.

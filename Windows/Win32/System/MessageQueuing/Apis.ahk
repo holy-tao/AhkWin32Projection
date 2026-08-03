@@ -1,23 +1,23 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\IO\OVERLAPPED.ahk
-#Include .\MQQUEUEPROPS.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\MQPRIVATEPROPS.ahk
-#Include .\MQMSGPROPS.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\MQCOLUMNSET.ahk
-#Include ..\..\Security\OBJECT_SECURITY_INFORMATION.ahk
-#Include ..\DistributedTransactionCoordinator\ITransaction.ahk
-#Include .\MQRESTRICTION.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\MQSORTSET.ahk
-#Include ..\Com\StructuredStorage\PROPVARIANT.ahk
-#Include .\MQQMPROPS.ahk
-#Include .\MQMGMTPROPS.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Security\OBJECT_SECURITY_INFORMATION.ahk
 #Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
+#Include ..\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\DistributedTransactionCoordinator\ITransaction.ahk
+#Include ..\IO\OVERLAPPED.ahk
+#Include .\MQCOLUMNSET.ahk
+#Include .\MQMGMTPROPS.ahk
+#Include .\MQMSGPROPS.ahk
+#Include .\MQPRIVATEPROPS.ahk
+#Include .\MQQMPROPS.ahk
+#Include .\MQQUEUEPROPS.ahk
+#Include .\MQRESTRICTION.ahk
+#Include .\MQSORTSET.ahk
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing

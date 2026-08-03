@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\DEBUG_SYMBOL_ENTRY.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\..\Foundation\PSTR.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Com\IUnknown.ahk
 #Include .\DEBUG_MODULE_AND_ID.ahk
+#Include .\DEBUG_MODULE_PARAMETERS.ahk
+#Include .\DEBUG_OFFSET_REGION.ahk
+#Include .\DEBUG_STACK_FRAME.ahk
+#Include .\DEBUG_STACK_FRAME_EX.ahk
+#Include .\DEBUG_SYMBOL_ENTRY.ahk
 #Include .\DEBUG_SYMBOL_SOURCE_ENTRY.ahk
 #Include .\IDebugSymbolGroup.ahk
-#Include .\DEBUG_STACK_FRAME_EX.ahk
-#Include .\DEBUG_OFFSET_REGION.ahk
 #Include .\IDebugSymbolGroup2.ahk
-#Include ..\..\..\..\Foundation\PWSTR.ahk
-#Include ..\..\..\..\Foundation\HRESULT.ahk
-#Include .\DEBUG_MODULE_PARAMETERS.ahk
-#Include .\DEBUG_STACK_FRAME.ahk
-#Include ..\..\..\..\Foundation\PSTR.ahk
-#Include ..\..\..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

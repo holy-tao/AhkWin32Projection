@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFSample.ahk
-#Include .\ASF_STATUSFLAGS.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFMediaBuffer.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ASF_STATUSFLAGS.ahk
 #Include .\IMFASFContentInfo.ahk
+#Include .\IMFMediaBuffer.ahk
+#Include .\IMFSample.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides methods to read data from an Advanced Systems Format (ASF) file.

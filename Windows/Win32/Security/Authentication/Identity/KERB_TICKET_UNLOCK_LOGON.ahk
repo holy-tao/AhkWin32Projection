@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\KERB_TICKET_LOGON.ahk
-#Include .\KERB_LOGON_SUBMIT_TYPE.ahk
 #Include ..\..\..\Foundation\LUID.ahk
+#Include .\KERB_LOGON_SUBMIT_TYPE.ahk
+#Include .\KERB_TICKET_LOGON.ahk
 
 /**
  * Contains information to unlock a workstation.

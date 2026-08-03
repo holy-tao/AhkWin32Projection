@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ICLRTask.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ICLRTask.ahk
 
 /**
  * @namespace Windows.Win32.System.ClrHosting

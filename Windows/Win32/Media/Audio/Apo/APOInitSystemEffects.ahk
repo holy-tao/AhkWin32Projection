@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\APOInitBaseStruct.ahk
 #Include ..\IMMDeviceCollection.ahk
 #Include ..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
-#Include .\APOInitBaseStruct.ahk
 
 /**
  * The APOInitSystemEffects structure gets passed to the system effects APO for initialization.

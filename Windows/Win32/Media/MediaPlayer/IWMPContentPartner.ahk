@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\WMPContextMenuInfo.ahk
-#Include ..\..\System\Com\BLOB.ahk
-#Include .\WMPPartnerNotification.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IWMPContentContainerList.ahk
 #Include .\IWMPContentPartnerCallback.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include .\WMPContextMenuInfo.ahk
+#Include .\WMPPartnerNotification.ahk
 #Include .\WMPStreamingType.ahk
-#Include .\WMPTemplateSize.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\WMPTaskType.ahk
+#Include .\WMPTemplateSize.ahk
+#Include ..\..\System\Com\BLOB.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * Note  This section describes functionality designed for use by online stores.

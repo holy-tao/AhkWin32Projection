@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\ITfFunction.ahk
-#Include .\ITfCandidateList.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ITfCandidateList.ahk
+#Include .\ITfFunction.ahk
 
 /**
  * Enables an integrated search experience in an Input Method Editor (IME).

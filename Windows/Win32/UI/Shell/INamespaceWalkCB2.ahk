@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\INamespaceWalkCB.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\INamespaceWalkCB.ahk
 
 /**
  * Extends INamespaceWalkCB with a method that is required in order to complete a namespace walk. This method removes data collected during the walk.

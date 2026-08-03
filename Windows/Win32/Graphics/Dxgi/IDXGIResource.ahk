@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DXGI_RESOURCE_PRIORITY.ahk
-#Include .\IDXGIDeviceSubObject.ahk
-#Include .\DXGI_USAGE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\DXGI_RESOURCE_PRIORITY.ahk
+#Include .\DXGI_USAGE.ahk
+#Include .\IDXGIDeviceSubObject.ahk
 
 /**
  * An IDXGIResource interface allows resource sharing and identifies the memory that a resource resides in.

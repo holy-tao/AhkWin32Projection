@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NVME_RESERVATION_REPORT_STATUS_HEADER.ahk
 #Include .\NVME_REGISTERED_CONTROLLER_EXTENDED_DATA.ahk
+#Include .\NVME_RESERVATION_REPORT_STATUS_HEADER.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Nvme

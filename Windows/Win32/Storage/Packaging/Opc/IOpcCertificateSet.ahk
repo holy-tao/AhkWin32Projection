@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IOpcCertificateEnumerator.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Security\Cryptography\CERT_CONTEXT.ahk
+#Include .\IOpcCertificateEnumerator.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * An unordered set of certificates to be used with a signature.

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\AMCOPPStatusInput.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\AMCOPPCommand.ahk
 #Include .\AMCOPPSignature.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\AMCOPPStatusInput.ahk
 #Include .\AMCOPPStatusOutput.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IAMCertifiedOutputProtection interface sends Certified Output Protection Protocol (COPP) messages to the graphics driver.

@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\DMUS_PORTCAPS.ahk
+#Include .\DMUS_PORTPARAMS8.ahk
 #Include .\DMUS_SYNTHSTATS.ahk
 #Include .\IDirectMusicSynthSink.ahk
-#Include .\DMUS_PORTCAPS.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\IReferenceClock.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
-#Include .\DMUS_PORTPARAMS8.ahk
 #Include ..\WAVEFORMATEX.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\IReferenceClock.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * The IDirectMusicSynth interface is used by DirectMusic to communicate with user-mode synthesizers.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\EFS_RPC_BLOB.ahk
 #Include .\ENCRYPTION_CERTIFICATE.ahk
 #Include .\ENCRYPTION_CERTIFICATE_HASH_LIST.ahk
-#Include .\EFS_RPC_BLOB.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem

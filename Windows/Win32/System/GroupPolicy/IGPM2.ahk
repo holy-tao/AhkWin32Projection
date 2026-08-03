@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IGPMBackupDirEx.ahk
-#Include .\IGPM.ahk
-#Include .\GPMBackupType.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\GPMBackupType.ahk
+#Include .\IGPM.ahk
+#Include .\IGPMBackupDirEx.ahk
 
 /**
  * The IGPM2 interface extends the GPMBackupDir and InitializeReporting methods of the IGPM interface of the Group Policy Management Console (GPMC).

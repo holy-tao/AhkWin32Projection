@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include .\BIND_OPTS2.ahk
 #Include .\BIND_OPTS.ahk
+#Include .\BIND_OPTS2.ahk
 #Include .\COSERVERINFO.ahk
 
 /**

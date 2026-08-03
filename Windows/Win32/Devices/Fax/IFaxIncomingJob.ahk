@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Include .\FAX_JOB_EXTENDED_STATUS_ENUM.ahk
 #Include .\FAX_JOB_OPERATIONS_ENUM.ahk
 #Include .\FAX_JOB_STATUS_ENUM.ahk
 #Include .\FAX_JOB_TYPE_ENUM.ahk
-#Include .\FAX_JOB_EXTENDED_STATUS_ENUM.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IFaxIncomingJob interface is used by a fax client application to retrieve information about an incoming fax job in a fax server's queue.

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\VARENUM.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\VARIANT.ahk
-#Include .\PSTIME_FLAGS.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include .\PSTIME_FLAGS.ahk
+#Include .\VARENUM.ahk
+#Include .\VARIANT.ahk
 #Include .\VAR_CHANGE_FLAGS.ahk
 
 /**
@@ -23,9 +23,9 @@ class Variant {
 ;@region Methods
     /**
      * Calculates the wire size of the VARIANT object, and gets its handle and data. (VARIANT_UserSize)
-     * @param {Pointer<Integer>} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<VARIANT>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Integer} param1 The current buffer offset where the object will be marshaled. The method has to account for any padding needed for the object to be properly aligned when it will be marshaled to the buffer.
+     * @param {Pointer<VARIANT>} param2 The object.
      * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-variant_usersize
      */
@@ -38,9 +38,9 @@ class Variant {
 
     /**
      * Marshals a VARIANT object into the RPC buffer. (VARIANT_UserMarshal)
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<VARIANT>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<VARIANT>} param2 The object.
      * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
      * 
      * 
@@ -112,9 +112,9 @@ class Variant {
 
     /**
      * Unmarshals a VARIANT object from the RPC buffer. (VARIANT_UserUnmarshal)
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<VARIANT>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<VARIANT>} param2 The object.
      * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
      * 
      * <table>
@@ -195,8 +195,8 @@ class Variant {
 
     /**
      * Frees resources on the server side when called by RPC stub files. (VARIANT_UserFree)
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<VARIANT>} param1 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<VARIANT>} param1 The object.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-variant_userfree
      */
@@ -208,9 +208,9 @@ class Variant {
 
     /**
      * Calculates the wire size of the VARIANT object, and gets its handle and data. (VARIANT_UserSize64)
-     * @param {Pointer<Integer>} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<VARIANT>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Integer} param1 The current buffer offset where the object will be marshaled. The method has to account for any padding needed for the object to be properly aligned when it will be marshaled to the buffer.
+     * @param {Pointer<VARIANT>} param2 The object.
      * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-variant_usersize64
      * @since windows5.1.2600
@@ -224,9 +224,9 @@ class Variant {
 
     /**
      * Marshals a VARIANT object into the RPC buffer. (VARIANT_UserMarshal64)
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<VARIANT>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<VARIANT>} param2 The object.
      * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
      * 
      * 
@@ -299,9 +299,9 @@ class Variant {
 
     /**
      * Unmarshals a VARIANT object from the RPC buffer. (VARIANT_UserUnmarshal64)
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<VARIANT>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<VARIANT>} param2 The object.
      * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
      * 
      * <table>
@@ -383,8 +383,8 @@ class Variant {
 
     /**
      * Frees resources on the server side when called by RPC stub files. (VARIANT_UserFree64)
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<VARIANT>} param1 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<VARIANT>} param1 The object.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-variant_userfree64
      * @since windows5.1.2600

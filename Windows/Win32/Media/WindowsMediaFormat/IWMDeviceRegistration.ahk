@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IWMRegisteredDevice.ahk
-#Include .\DRM_VAL16.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\DRM_VAL16.ahk
+#Include .\IWMRegisteredDevice.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IWMDeviceRegistration interface registers playback devices for secure data delivery.You can create a device registration object and retrieve a pointer to its IWMDeviceRegistration interface by calling the WMCreateDeviceRegistration function.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\AUTHZ_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE.ahk
 #Include .\AUTHZ_SECURITY_ATTRIBUTE_FLAGS.ahk
 #Include .\AUTHZ_SECURITY_ATTRIBUTE_FQBN_VALUE.ahk
+#Include .\AUTHZ_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE.ahk
 
 /**
  * Defines a security attribute that can be associated with an authorization context.

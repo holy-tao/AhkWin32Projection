@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IOpcPartUri.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
-#Include .\OPC_CANONICALIZATION_METHOD.ahk
-#Include .\IOpcSignaturePartReference.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\IOpcPartUri.ahk
+#Include .\IOpcSignaturePartReference.ahk
 #Include .\IOpcSignaturePartReferenceEnumerator.ahk
+#Include .\OPC_CANONICALIZATION_METHOD.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * An unordered set of IOpcSignaturePartReference interface pointers that represent references to parts to be signed.

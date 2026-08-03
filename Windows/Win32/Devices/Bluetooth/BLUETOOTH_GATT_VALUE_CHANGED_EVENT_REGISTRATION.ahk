@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\BTH_LE_GATT_CHARACTERISTIC.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\BTH_LE_GATT_CHARACTERISTIC.ahk
 #Include .\BTH_LE_UUID.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * The BLUETOOTH_GATT_VALUE_CHANGED_EVENT_REGISTRATION structure describes one or more characteristics that have changed.

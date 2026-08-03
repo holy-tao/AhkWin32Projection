@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\FILEOPENDIALOGOPTIONS.ahk
-#Include .\IShellItem.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\FDAP.ahk
-#Include .\IShellItemFilter.ahk
-#Include .\IModalWindow.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include Common\COMDLG_FILTERSPEC.ahk
+#Include .\FDAP.ahk
+#Include .\FILEOPENDIALOGOPTIONS.ahk
 #Include .\IFileDialogEvents.ahk
+#Include .\IModalWindow.ahk
+#Include .\IShellItem.ahk
+#Include .\IShellItemFilter.ahk
 
 /**
  * Exposes methods that initialize, show, and get results from the common file dialog.

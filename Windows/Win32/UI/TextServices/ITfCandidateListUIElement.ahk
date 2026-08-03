@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\ITfDocumentMgr.ahk
 #Include .\ITfUIElement.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITfCandidateListUIElement interface is implemented by a text service that has the candidate list UI.

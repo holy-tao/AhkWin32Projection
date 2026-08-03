@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PNRP_REGISTERED_ID_STATE.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR.ahk
+#Include .\PNRP_REGISTERED_ID_STATE.ahk
 #Include .\PNRP_RESOLVE_CRITERIA.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR.ahk
 #Include ..\..\Networking\WinSock\SOCKET_ADDRESS.ahk
 
 /**

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\WLAN_HOSTED_NETWORK_PEER_STATE.ahk
-#Include .\WLAN_HOSTED_NETWORK_STATE.ahk
 #Include .\DOT11_PHY_TYPE.ahk
 #Include .\WLAN_HOSTED_NETWORK_PEER_AUTH_STATE.ahk
+#Include .\WLAN_HOSTED_NETWORK_PEER_STATE.ahk
+#Include .\WLAN_HOSTED_NETWORK_STATE.ahk
 
 /**
  * Contains information about the status of the wireless Hosted Network.

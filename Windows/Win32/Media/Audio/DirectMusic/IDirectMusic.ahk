@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\DirectSound\IDirectSound.ahk
-#Include .\IDirectMusicPort.ahk
-#Include ..\..\..\Foundation\HWND.ahk
-#Include .\IDirectMusicBuffer.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\DMUS_BUFFERDESC.ahk
-#Include .\DMUS_PORTCAPS.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\IReferenceClock.ahk
-#Include .\DMUS_CLOCKINFO8.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
-#Include .\DMUS_PORTPARAMS8.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include .\DMUS_BUFFERDESC.ahk
+#Include .\DMUS_CLOCKINFO8.ahk
+#Include .\DMUS_PORTCAPS.ahk
+#Include .\DMUS_PORTPARAMS8.ahk
+#Include .\IDirectMusicBuffer.ahk
+#Include .\IDirectMusicPort.ahk
+#Include ..\DirectSound\IDirectSound.ahk
+#Include ..\..\IReferenceClock.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic

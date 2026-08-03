@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\Direct3D\D3D_FEATURE_LEVEL.ahk
 #Include ..\Direct3D\D3D_PRIMITIVE.ahk
 #Include .\D3D11_SHADER_DESC.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include .\D3D11_SIGNATURE_PARAMETER_DESC.ahk
-#Include .\ID3D11ShaderReflectionVariable.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include .\ID3D11ShaderReflectionConstantBuffer.ahk
 #Include .\D3D11_SHADER_INPUT_BIND_DESC.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\Direct3D\D3D_FEATURE_LEVEL.ahk
+#Include .\D3D11_SIGNATURE_PARAMETER_DESC.ahk
+#Include .\ID3D11ShaderReflectionConstantBuffer.ahk
+#Include .\ID3D11ShaderReflectionVariable.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * A shader-reflection interface accesses shader information. (ID3D11ShaderReflection)
@@ -331,7 +331,9 @@ class ID3D11ShaderReflection extends IUnknown {
      * Gets the minimum feature level. (ID3D11ShaderReflection.GetMinFeatureLevel)
      * @remarks
      * This method's interface is hosted in the out-of-box DLL D3DCompiler_xx.dll.
-     * @returns {D3D_FEATURE_LEVEL} 
+     * @returns {D3D_FEATURE_LEVEL} Type: [out] <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level">D3D_FEATURE_LEVEL</a>*</b>
+     * 
+     * A pointer to one of the enumerated values in <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level">D3D_FEATURE_LEVEL</a>, which represents the minimum feature level.
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getminfeaturelevel
      */
     GetMinFeatureLevel() {

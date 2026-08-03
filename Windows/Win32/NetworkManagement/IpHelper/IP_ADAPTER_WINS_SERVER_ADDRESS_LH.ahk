@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Networking\WinSock\SOCKADDR.ahk
 #Include ..\..\Networking\WinSock\SOCKET_ADDRESS.ahk
-#Include .\IP_ADAPTER_WINS_SERVER_ADDRESS_LH.ahk
 
 /**
  * Stores a single Windows Internet Name Service (WINS) server address in a linked list of WINS server addresses for a particular adapter.

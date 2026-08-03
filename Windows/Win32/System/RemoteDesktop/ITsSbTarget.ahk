@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\TARGET_STATE.ahk
-#Include .\ITsSbTargetPropertySet.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\ITsSbTargetPropertySet.ahk
+#Include .\TARGET_STATE.ahk
 #Include .\TSSD_ConnectionPoint.ahk
 
 /**

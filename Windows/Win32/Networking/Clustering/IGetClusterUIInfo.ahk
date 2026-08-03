@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Graphics\Gdi\HFONT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\UI\WindowsAndMessaging\HICON.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Called by a Failover Cluster Administrator extension to retrieve information about Failover Cluster Administrator's user interface.

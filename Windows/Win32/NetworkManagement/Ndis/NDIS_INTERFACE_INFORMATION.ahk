@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\BOOLEAN.ahk
-#Include .\NET_IF_MEDIA_DUPLEX_STATE.ahk
-#Include .\NET_IF_MEDIA_CONNECT_STATE.ahk
 #Include .\NET_IF_COMPARTMENT_ID.ahk
+#Include .\NET_IF_MEDIA_CONNECT_STATE.ahk
+#Include .\NET_IF_MEDIA_DUPLEX_STATE.ahk
 #Include .\NET_IF_OPER_STATUS.ahk
 
 /**

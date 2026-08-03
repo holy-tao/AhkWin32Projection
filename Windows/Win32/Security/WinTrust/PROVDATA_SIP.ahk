@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Cryptography\Sip\SIP_INDIRECT_DATA.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Cryptography\Sip\SIP_DISPATCH_INFO.ahk
+#Include ..\Cryptography\Sip\SIP_INDIRECT_DATA.ahk
 #Include ..\Cryptography\Sip\SIP_SUBJECTINFO.ahk
 
 /**

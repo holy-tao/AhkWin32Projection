@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IMFCdmSuspendNotify.ahk
 #Include .\IMFMediaKeySession.ahk
 #Include .\IMFMediaKeySessionNotify.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a media keys used for decrypting media data using a Digital Rights Management (DRM) key system.

@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
-#Include .\MIMECSETINFO.ahk
-#Include .\RFC1766INFO.ahk
-#Include .\IEnumCodePage.ahk
-#Include .\MIMECPINFO.ahk
-#Include .\IMLangConvertCharset.ahk
+#Include ..\Foundation\BSTR.ahk
+#Include ..\Foundation\HRESULT.ahk
 #Include ..\Foundation\HWND.ahk
 #Include ..\Foundation\PWSTR.ahk
-#Include .\IEnumScript.ahk
-#Include .\MIMECONTF.ahk
-#Include ..\Foundation\HRESULT.ahk
-#Include ..\Foundation\BSTR.ahk
 #Include .\DetectEncodingInfo.ahk
+#Include .\IEnumCodePage.ahk
 #Include .\IEnumRfc1766.ahk
-#Include ..\System\Com\IUnknown.ahk
+#Include .\IEnumScript.ahk
+#Include .\IMLangConvertCharset.ahk
+#Include .\MIMECONTF.ahk
+#Include .\MIMECPINFO.ahk
+#Include .\MIMECSETINFO.ahk
+#Include .\RFC1766INFO.ahk
 #Include ..\System\Com\IStream.ahk
+#Include ..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Globalization

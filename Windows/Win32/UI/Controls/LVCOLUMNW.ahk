@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\LVCOLUMNW_MASK.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include .\LVCOLUMNW_FORMAT.ahk
+#Include .\LVCOLUMNW_MASK.ahk
 
 /**
  * Contains information about a column in report view. This structure is used both for creating and manipulating columns. This structure supersedes the LV_COLUMN structure. (Unicode)

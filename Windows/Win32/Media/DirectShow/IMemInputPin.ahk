@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMemAllocator.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMediaSample.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include .\ALLOCATOR_PROPERTIES.ahk
+#Include .\IMediaSample.ahk
+#Include .\IMemAllocator.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IMemInputPin interface delivers media data to an input pin.

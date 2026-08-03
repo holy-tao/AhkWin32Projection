@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHEA_EVENT_LOG_ENTRY_TYPE.ahk
 #Include .\WHEA_EVENT_LOG_ENTRY_ID.ahk
+#Include .\WHEA_EVENT_LOG_ENTRY_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

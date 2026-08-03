@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_ROOT_PARAMETER1.ahk
-#Include .\D3D12_STATIC_SAMPLER_DESC.ahk
 #Include .\D3D12_ROOT_SIGNATURE_FLAGS.ahk
+#Include .\D3D12_STATIC_SAMPLER_DESC.ahk
 
 /**
  * Describes the layout of a root signature version 1.1.

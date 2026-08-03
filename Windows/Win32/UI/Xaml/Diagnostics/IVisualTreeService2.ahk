@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\RenderTargetBitmapOptions.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\IBitmapData.ahk
 #Include .\IVisualTreeService.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\RenderTargetBitmapOptions.ahk
 
 /**
  * Represents additional capabilities of an IVisualTreeService object.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMoniker.ahk
 #Include .\FORMATETC.ahk
-#Include .\STGMEDIUM.ahk
+#Include .\IMoniker.ahk
 #Include .\IUnknown.ahk
+#Include .\STGMEDIUM.ahk
 
 /**
  * Enables containers and other objects to receive notifications of data changes, view changes, and compound-document changes occurring in objects of interest.

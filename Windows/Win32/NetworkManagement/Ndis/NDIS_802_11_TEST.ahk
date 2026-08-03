@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_802_11_AUTHENTICATION_REQUEST.ahk
 #Include .\NDIS_802_11_AUTHENTICATION_EVENT.ahk
+#Include .\NDIS_802_11_AUTHENTICATION_REQUEST.ahk
 #Include .\NDIS_802_11_STATUS_INDICATION.ahk
 #Include .\NDIS_802_11_STATUS_TYPE.ahk
 

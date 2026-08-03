@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\DWRITE_FONT_AXIS_VALUE.ahk
+#Include .\DWRITE_FONT_FAMILY_MODEL.ahk
+#Include .\DWRITE_FONT_SIMULATIONS.ahk
 #Include .\IDWriteFactory5.ahk
+#Include .\IDWriteFontCollection.ahk
+#Include .\IDWriteFontCollection2.ahk
+#Include .\IDWriteFontFaceReference1.ahk
+#Include .\IDWriteFontFile.ahk
+#Include .\IDWriteFontResource.ahk
 #Include .\IDWriteFontSet.ahk
 #Include .\IDWriteFontSet1.ahk
 #Include .\IDWriteFontSetBuilder2.ahk
-#Include .\IDWriteFontCollection.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\DWRITE_FONT_AXIS_VALUE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\IDWriteFontCollection2.ahk
-#Include .\IDWriteFontResource.ahk
-#Include .\IDWriteFontFile.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include .\IDWriteFontFaceReference1.ahk
-#Include .\DWRITE_FONT_SIMULATIONS.ahk
-#Include .\DWRITE_FONT_FAMILY_MODEL.ahk
 #Include .\IDWriteTextFormat3.ahk
 
 /**

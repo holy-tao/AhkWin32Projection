@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Input\KeyboardAndMouse\HKL.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Input\KeyboardAndMouse\HKL.ahk
 
 /**
  * This structure contains data for the input processor profile.

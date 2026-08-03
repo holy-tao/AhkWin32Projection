@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IUnknown.ahk
 #Include ..\DistributedTransactionCoordinator\ITransaction.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Creates an object that is enlisted within a manual transaction.

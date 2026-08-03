@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Audio\DirectSound\IDirectSound.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\Audio\DirectSound\IDirectSoundBuffer.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\Audio\DirectSound\IDirectSound.ahk
+#Include ..\Audio\DirectSound\IDirectSoundBuffer.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IAMDirectSound interface specifies which window has focus for controlling DirectSound audio playback.
@@ -99,8 +99,25 @@ class IAMDirectSound extends IUnknown {
 
     /**
      * The SetFocusWindow method specifies a window to handle sound playback.
-     * @param {HWND} param0 
-     * @param {BOOL} param1 
+     * @param {HWND} param0 Specifies a handle to the window. If this value is <b>NULL</b>, the sound will not be associated with any window.
+     * @param {BOOL} param1 Specifies whether to mix the sound when the window loses focus.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td><b>TRUE</b></td>
+     * <td>The sound is audible when the window loses focus.</td>
+     * </tr>
+     * <tr>
+     * <td><b>FALSE</b></td>
+     * <td>The sound is not audible when the window loses focus.</td>
+     * </tr>
+     * </table>
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/amaudio/nf-amaudio-iamdirectsound-setfocuswindow
      */
@@ -113,7 +130,7 @@ class IAMDirectSound extends IUnknown {
 
     /**
      * The GetFocusWindow method retrieves the window that is handling sound playback.
-     * @param {Pointer<HWND>} param0 
+     * @param {Pointer<HWND>} param0 Pointer to a variable that receives a handle to the window. If sound playback is not associated with a window, the returned value is <b>NULL</b>.
      * @param {Pointer<BOOL>} param1 
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 

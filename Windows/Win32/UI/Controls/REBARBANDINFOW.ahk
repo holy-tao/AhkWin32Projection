@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\LPARAM.ahk
-#Include ..\..\Foundation\COLORREF.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
  * Contains information that defines a band in a rebar control. (Unicode)

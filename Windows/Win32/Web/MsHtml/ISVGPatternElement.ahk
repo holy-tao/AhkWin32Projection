@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISVGAnimatedLength.ahk
-#Include .\ISVGAnimatedEnumeration.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\ISVGAnimatedEnumeration.ahk
+#Include .\ISVGAnimatedLength.ahk
 #Include .\ISVGAnimatedTransformList.ahk
 
 /**

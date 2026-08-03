@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\UI_ANIMATION_TIMER_CLIENT_STATUS.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Defines a method for handling events related to changes in timer client status.

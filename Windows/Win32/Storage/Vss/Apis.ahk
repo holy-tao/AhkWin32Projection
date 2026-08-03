@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IVssBackupComponents.ahk
 #Include .\IVssExamineWriterMetadata.ahk
 #Include .\IVssExpressWriter.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\VSS_SNAPSHOT_PROP.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include .\IVssBackupComponents.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Vss

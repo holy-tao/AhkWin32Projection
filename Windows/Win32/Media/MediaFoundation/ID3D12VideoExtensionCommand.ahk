@@ -3,8 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\D3D12_VIDEO_EXTENSION_COMMAND_DESC.ahk
 #Include ..\..\Graphics\Direct3D12\ID3D12Pageable.ahk
+#Include .\D3D12_VIDEO_EXTENSION_COMMAND_DESC.ahk
 
 /**
  * A reference counted object representing the video extension command.

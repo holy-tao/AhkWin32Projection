@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IAppxManifestPackageId.ahk
-#Include .\APPX_PACKAGE_ARCHITECTURE2.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\APPX_PACKAGE_ARCHITECTURE2.ahk
+#Include .\IAppxManifestPackageId.ahk
 
 /**
  * Provides access to the app package identity.

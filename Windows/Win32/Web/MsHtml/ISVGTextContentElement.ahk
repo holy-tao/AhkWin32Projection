@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISVGRect.ahk
+#Include .\ISVGAnimatedEnumeration.ahk
 #Include .\ISVGAnimatedLength.ahk
 #Include .\ISVGPoint.ahk
-#Include .\ISVGAnimatedEnumeration.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ISVGRect.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

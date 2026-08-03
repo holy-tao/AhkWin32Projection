@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISyncChangeBatchBase.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ISyncChangeBatchBase.ahk
 #Include .\ISyncKnowledge.ahk
 
 /**

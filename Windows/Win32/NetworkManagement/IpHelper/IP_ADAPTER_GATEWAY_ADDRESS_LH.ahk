@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Networking\WinSock\SOCKADDR.ahk
 #Include ..\..\Networking\WinSock\SOCKET_ADDRESS.ahk
-#Include .\IP_ADAPTER_GATEWAY_ADDRESS_LH.ahk
 
 /**
  * Stores a single gateway address in a linked list of gateway addresses for a particular adapter.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\XSAVE_FORMAT.ahk
 #Include .\CONTEXT_FLAGS.ahk
 #Include .\M128A.ahk
+#Include .\XSAVE_FORMAT.ahk
 
 /**
  * Contains processor-specific register data. The system uses CONTEXT structures to perform various internal operations. (CONTEXT)

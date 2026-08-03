@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\TfActiveSelEnd.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\ITfRange.ahk
 #Include .\TF_SELECTIONSTYLE.ahk
-#Include ..\..\Foundation\BOOL.ahk
+#Include .\TfActiveSelEnd.ahk
 
 /**
  * The TF_SELECTION structure contains text selection data.

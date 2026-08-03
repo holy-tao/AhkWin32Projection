@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IWMPDownloadItem.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWMPDownloadItem.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer

@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\OSPRW.ahk
-#Include .\OLEDBSimpleProviderListener.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include .\OSPFIND.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\OSPCOMP.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\OSPFORMAT.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\OLEDBSimpleProviderListener.ahk
+#Include .\OSPCOMP.ahk
+#Include .\OSPFIND.ahk
+#Include .\OSPFORMAT.ahk
+#Include .\OSPRW.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.System.Search

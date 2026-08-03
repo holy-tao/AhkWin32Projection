@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IWICBitmapSource.ahk
 #Include .\WICBitmapInterpolationMode.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a resized version of the input bitmap using a resampling or filtering algorithm.

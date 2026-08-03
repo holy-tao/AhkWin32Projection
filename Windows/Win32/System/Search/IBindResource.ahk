@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IAuthenticate.ahk
-#Include .\DBIMPLICITSESSION.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Com\IAuthenticate.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\DBIMPLICITSESSION.ahk
 
 /**
  * @namespace Windows.Win32.System.Search

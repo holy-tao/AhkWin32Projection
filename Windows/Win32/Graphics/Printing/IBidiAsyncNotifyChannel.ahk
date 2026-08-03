@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IPrintAsyncNotifyChannel.ahk
-#Include .\IPrintAsyncCookie.ahk
-#Include .\IPrintAsyncNotifyDataObject.ahk
-#Include .\IAsyncGetSendNotificationCookie.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IAsyncGetSendNotificationCookie.ahk
+#Include .\IPrintAsyncCookie.ahk
+#Include .\IPrintAsyncNotifyChannel.ahk
+#Include .\IPrintAsyncNotifyDataObject.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

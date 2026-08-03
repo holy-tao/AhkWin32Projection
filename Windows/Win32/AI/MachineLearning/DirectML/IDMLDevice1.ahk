@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include .\DML_EXECUTION_FLAGS.ahk
 #Include .\DML_GRAPH_DESC.ahk
 #Include .\IDMLDevice.ahk
-#Include .\DML_EXECUTION_FLAGS.ahk
-#Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
 
 /**

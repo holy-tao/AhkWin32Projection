@@ -2,13 +2,13 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\Com\IDispatch.ahk
 #Include .\IIdleSettings.ahk
-#Include .\TASK_INSTANCES_POLICY.ahk
-#Include .\TASK_COMPATIBILITY.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\INetworkSettings.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\TASK_COMPATIBILITY.ahk
+#Include .\TASK_INSTANCES_POLICY.ahk
 
 /**
  * Provides the settings that the Task Scheduler service uses to perform the task.

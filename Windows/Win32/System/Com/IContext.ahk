@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include .\IEnumContextProps.ahk
+#Include .\IUnknown.ahk
 
 /**
  * The IContext (objidlbase.h) interface supports setting COM+ context properties.

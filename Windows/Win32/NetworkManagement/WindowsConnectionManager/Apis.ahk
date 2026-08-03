@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\WCM_PROPERTY.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\NET_INTERFACE_CONTEXT_TABLE.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\WCM_PROFILE_INFO_LIST.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\NET_INTERFACE_CONTEXT_TABLE.ahk
+#Include .\WCM_PROFILE_INFO_LIST.ahk
+#Include .\WCM_PROPERTY.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectionManager

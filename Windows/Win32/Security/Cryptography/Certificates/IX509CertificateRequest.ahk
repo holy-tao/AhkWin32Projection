@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ICspInformations.ahk
-#Include .\X509RequestType.ahk
-#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IObjectId.ahk
-#Include .\RequestClientInfoClientId.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\EncodingType.ahk
+#Include .\ICspInformations.ahk
+#Include .\IObjectId.ahk
 #Include .\InnerRequestLevel.ahk
+#Include .\RequestClientInfoClientId.ahk
 #Include .\X509CertificateEnrollmentContext.ahk
+#Include .\X509RequestType.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * The IX509CertificateRequest interface represents an abstract base certificate request that identifies methods and properties common to and inherited by each of the request objects implemented by the Certificate Enrollment API.

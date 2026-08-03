@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMDSPDevice.ahk
-#Include ..\..\System\Ole\ISpecifyPropertyPages.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Audio\WAVEFORMATEX.ahk
+#Include .\IMDSPDevice.ahk
 #Include .\IMDSPStorage.ahk
+#Include .\WMFILECAPABILITIES.ahk
 #Include ..\MediaFoundation\VIDEOINFOHEADER.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include .\WMFILECAPABILITIES.ahk
-#Include ..\Audio\WAVEFORMATEX.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Ole\ISpecifyPropertyPages.ahk
 
 /**
  * The IMDSPDevice2 interface extends IMDSPDevice by getting extended formats, getting Plug and Play (PnP) device names, enabling the use of property pages, and making it possible to get a pointer to a storage medium from its name.

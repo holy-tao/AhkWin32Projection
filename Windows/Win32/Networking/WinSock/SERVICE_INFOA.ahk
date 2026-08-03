@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Com\BLOB.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\SERVICE_ADDRESSES.ahk
-#Include .\RESOURCE_DISPLAY_TYPE.ahk
 #Include ..\..\Foundation\PSTR.ahk
+#Include .\RESOURCE_DISPLAY_TYPE.ahk
+#Include .\SERVICE_ADDRESSES.ahk
+#Include ..\..\System\Com\BLOB.ahk
 
 /**
  * Contains information about a network service or a network service type. (ANSI)

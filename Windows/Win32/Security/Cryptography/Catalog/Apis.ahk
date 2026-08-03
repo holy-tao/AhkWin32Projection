@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
-#Include .\CRYPTCATATTRIBUTE.ahk
-#Include .\CATALOG_INFO.ahk
-#Include .\CRYPTCAT_OPEN_FLAGS.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
-#Include .\CRYPTCAT_VERSION.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
-#Include .\CRYPTCATMEMBER.ahk
-#Include ..\CERT_STRONG_SIGN_PARA.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
-#Include .\CRYPTCATSTORE.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\CERT_STRONG_SIGN_PARA.ahk
+#Include .\CATALOG_INFO.ahk
+#Include .\CRYPTCATATTRIBUTE.ahk
 #Include .\CRYPTCATCDF.ahk
+#Include .\CRYPTCATMEMBER.ahk
+#Include .\CRYPTCATSTORE.ahk
+#Include .\CRYPTCAT_OPEN_FLAGS.ahk
+#Include .\CRYPTCAT_VERSION.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Catalog

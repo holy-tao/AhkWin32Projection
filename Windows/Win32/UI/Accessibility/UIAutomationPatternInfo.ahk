@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\UIAutomationMethodInfo.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\UIAutomationPropertyInfo.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IUIAutomationPatternHandler.ahk
 #Include .\UIAutomationEventInfo.ahk
+#Include .\UIAutomationMethodInfo.ahk
+#Include .\UIAutomationPropertyInfo.ahk
 
 /**
  * Contains information about a custom control pattern.

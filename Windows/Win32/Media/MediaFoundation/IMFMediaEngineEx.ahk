@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\MF_MEDIA_ENGINE_S3D_PACKING_MODE.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
-#Include .\MFVideoNormalizedRect.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFByteStream.ahk
-#Include .\MF_MEDIA_ENGINE_STATISTIC.ahk
-#Include .\IMFMediaEngine.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\MF_MEDIA_ENGINE_SEEK_MODE.ahk
-#Include .\MF3DVideoOutputType.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\MFARGB.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include .\IMFByteStream.ahk
+#Include .\IMFMediaEngine.ahk
+#Include .\MF3DVideoOutputType.ahk
+#Include .\MFARGB.ahk
+#Include .\MFVideoNormalizedRect.ahk
+#Include .\MF_MEDIA_ENGINE_S3D_PACKING_MODE.ahk
+#Include .\MF_MEDIA_ENGINE_SEEK_MODE.ahk
+#Include .\MF_MEDIA_ENGINE_STATISTIC.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 
 /**
  * Extends the IMFMediaEngine interface.

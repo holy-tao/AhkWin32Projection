@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DWRITE_FACTORY_TYPE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\DWRITE_FACTORY_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectWrite

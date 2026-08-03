@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSTOPOLOGY_CONNECTION.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\KSTOPOLOGY_CONNECTION.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

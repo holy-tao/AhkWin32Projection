@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ID2D1Effect.ahk
 #Include Common\D2D_RECT_F.ahk
+#Include .\ID2D1Effect.ahk
 
 /**
  * Describes features of an effect.

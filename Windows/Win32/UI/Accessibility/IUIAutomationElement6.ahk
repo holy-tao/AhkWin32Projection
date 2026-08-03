@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IUIAutomationElement5.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IUIAutomationElement5.ahk
 
 /**
  * Extends the IUIAutomationElement5 interface to provide access to current and cached full descriptions.

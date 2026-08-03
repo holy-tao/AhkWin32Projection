@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDiagnosticsScriptEngineSite.ahk
-#Include .\IDiagnosticsScriptEngine.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IDiagnosticsScriptEngine.ahk
+#Include .\IDiagnosticsScriptEngineSite.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

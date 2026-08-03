@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 #Include .\ADDRESS64.ahk
 #Include .\ADDRESS_MODE.ahk
 #Include .\KDHELP64.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Represents a stack frame. (STACKFRAME64)

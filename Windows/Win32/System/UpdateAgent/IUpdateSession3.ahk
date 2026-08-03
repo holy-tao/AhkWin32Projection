@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IUpdateServiceManager2.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include .\IUpdateHistoryEntryCollection.ahk
+#Include .\IUpdateServiceManager2.ahk
 #Include .\IUpdateSession2.ahk
 
 /**

@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12Device.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\D3D12_MULTIPLE_FENCE_WAIT_FLAGS.ahk
 #Include .\D3D12_RESIDENCY_PRIORITY.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Include .\ID3D12Device.ahk
 #Include .\ID3D12Fence.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include .\ID3D12Pageable.ahk
 
 /**

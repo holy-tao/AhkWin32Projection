@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDot11AdHocInterface.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDot11AdHocInterface.ahk
 #Include .\IDot11AdHocNetwork.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Defines the notifications supported by the IDot11AdHocManager interface.

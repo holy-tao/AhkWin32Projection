@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Com\TYPEDESC.ahk
 #Include ..\Com\SAFEARRAYBOUND.ahk
+#Include ..\Com\TYPEDESC.ahk
 #Include ..\Variant\VARENUM.ahk
-#Include .\ARRAYDESC.ahk
 
 /**
  * Describes an array, its element type, and its dimension.

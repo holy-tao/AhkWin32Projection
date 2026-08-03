@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMReaderAllocatorEx.ahk
-#Include .\WMT_TIMECODE_EXTENSION_DATA.ahk
-#Include .\IWMSyncReader.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWMReaderAllocatorEx.ahk
+#Include .\IWMSyncReader.ahk
+#Include .\WMT_TIMECODE_EXTENSION_DATA.ahk
 
 /**
  * The IWMSyncReader2 interface provides advanced features for the synchronous reader.

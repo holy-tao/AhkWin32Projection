@@ -4,8 +4,8 @@
 #Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include .\COMBOBOXEXITEMW.ahk
-#Include .\NMHDR.ahk
 #Include .\COMBOBOX_EX_ITEM_FLAGS.ahk
+#Include .\NMHDR.ahk
 
 /**
  * Contains information specific to ComboBoxEx items for use with notification codes. (Unicode)

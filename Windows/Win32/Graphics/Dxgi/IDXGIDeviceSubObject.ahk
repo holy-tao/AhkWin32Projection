@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIObject.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDXGIObject.ahk
 
 /**
  * Inherited from objects that are tied to the device so that they can retrieve a pointer to it.

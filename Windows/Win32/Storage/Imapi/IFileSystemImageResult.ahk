@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IProgressItems.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\IStream.ahk
-#Include .\IProgressItems.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Use this interface to get information about the burn image, the image data stream, and progress information.

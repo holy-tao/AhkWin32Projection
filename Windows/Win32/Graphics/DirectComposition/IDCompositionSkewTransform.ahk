@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionTransform.ahk
-#Include .\IDCompositionAnimation.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDCompositionAnimation.ahk
+#Include .\IDCompositionTransform.ahk
 
 /**
  * Represents a 2D transformation that affects the skew of a visual along the x-axis and y-axis. The coordinate system is skewed around the specified center point.

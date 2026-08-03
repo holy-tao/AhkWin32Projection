@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IPhotoAcquireProgressCB.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IPhotoAcquireItem.ahk
+#Include .\IPhotoAcquireProgressCB.ahk
+#Include .\IPhotoAcquireSettings.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\UI\WindowsAndMessaging\HICON.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include .\IPhotoAcquireSettings.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IPhotoAcquireSource interface is used for acquisition of items from a device.

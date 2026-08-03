@@ -1,54 +1,54 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\TreeScope.ahk
-#Include .\UiaCacheRequest.ahk
-#Include ..\..\Foundation\POINT.ahk
-#Include .\ACC_UTILITY_STATE_FLAGS.ahk
-#Include ..\..\Foundation\LRESULT.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\HMODULE.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include .\HUIANODE.ahk
-#Include .\UiaChangeInfo.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\LPARAM.ahk
-#Include .\NormalizeState.ahk
-#Include .\ITextRangeProvider.ahk
-#Include .\AsyncContentLoadedState.ahk
-#Include .\UiaCondition.ahk
-#Include .\HUIATEXTRANGE.ahk
-#Include .\UiaFindParams.ahk
-#Include ..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk
-#Include .\StructureChangeType.ahk
-#Include .\TextPatternRangeEndpoint.ahk
-#Include .\UIA_EVENT_ID.ahk
+#Include ..\..\Foundation\LRESULT.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\UiaPoint.ahk
-#Include .\SupportedTextSelection.ahk
-#Include .\HUIAEVENT.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include .\AutomationIdentifierType.ahk
-#Include .\SynchronizedInputType.ahk
-#Include .\DockPosition.ahk
-#Include .\UIA_PROPERTY_ID.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\NotificationProcessing.ahk
 #Include ..\..\Foundation\WPARAM.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include .\NavigateDirection.ahk
-#Include .\TextUnit.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ScrollAmount.ahk
+#Include .\ACC_UTILITY_STATE_FLAGS.ahk
+#Include .\AsyncContentLoadedState.ahk
+#Include .\AutomationIdentifierType.ahk
+#Include .\DockPosition.ahk
+#Include .\HUIAEVENT.ahk
+#Include .\HUIANODE.ahk
 #Include .\HUIAPATTERNOBJECT.ahk
-#Include .\TextEditChangeType.ahk
-#Include .\NotificationKind.ahk
+#Include .\HUIATEXTRANGE.ahk
+#Include .\HWINEVENTHOOK.ahk
 #Include .\IAccessible.ahk
 #Include .\IRawElementProviderSimple.ahk
+#Include .\ITextRangeProvider.ahk
+#Include .\NavigateDirection.ahk
+#Include .\NormalizeState.ahk
+#Include .\NotificationKind.ahk
+#Include .\NotificationProcessing.ahk
+#Include .\ScrollAmount.ahk
+#Include .\StructureChangeType.ahk
+#Include .\SupportedTextSelection.ahk
+#Include .\SynchronizedInputType.ahk
+#Include .\TextEditChangeType.ahk
+#Include .\TextPatternRangeEndpoint.ahk
+#Include .\TextUnit.ahk
+#Include .\TreeScope.ahk
+#Include .\UIA_EVENT_ID.ahk
+#Include .\UIA_PROPERTY_ID.ahk
+#Include .\UiaCacheRequest.ahk
+#Include .\UiaChangeInfo.ahk
+#Include .\UiaCondition.ahk
+#Include .\UiaFindParams.ahk
+#Include .\UiaPoint.ahk
 #Include .\WindowVisualState.ahk
-#Include ..\..\System\Com\SAFEARRAY.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\HWINEVENTHOOK.ahk
+#Include ..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.UI.Accessibility
@@ -2819,7 +2819,9 @@ class Accessibility {
 
     /**
      * Retrieves the window handle that corresponds to a particular instance of an IAccessible interface.
-     * @param {IAccessible} param0 
+     * @param {IAccessible} param0 Type: <b>IAccessible*</b>
+     * 
+     * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface whose corresponding window handle will be retrieved. This parameter must not be <b>NULL</b>.
      * @returns {HWND} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a>*</b>
      * 
      * Address of a variable that receives a handle to the window containing the object specified in <i>pacc</i>. If this value is <b>NULL</b> after the call, the object is not contained within a window; for example, the mouse pointer is not contained within a window.
