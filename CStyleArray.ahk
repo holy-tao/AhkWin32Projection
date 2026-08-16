@@ -167,41 +167,36 @@ class CStyleArrayList extends Win32Struct {
      *          in 2-variable mode, the first is the index
      * @see https://www.autohotkey.com/docs/v2/lib/Enumerator.htm
      */
-    __Enum(numberOfVars){
+    __Enum(numberOfVars := 1){
         if(numberOfVars != 1 && numberOfVars != 2)
             throw MethodError("Enumeration only supports 1 or 2 variables")
 
-        return numberOfVars == 1? _Enumerator1 : _Enumerator2
+        itemIndex := 0
+        Result := (numberOfVars == 1) ? _Enumerator1 : _Enumerator2
+        ObjSetBase(Result, Enumerator.Prototype)
+        return Result
         
         /**
          * 1-variable enumerator
          */
         _Enumerator1(&item){
-            static index := 1
-
-            if(index > this.length){
-                index := 1
-                return false
+            if (++itemIndex <= this.Length){
+                item := this[itemIndex]
+                return true
             }
-
-            item := this[index++]
-            return true
+            return false
         }
 
         /**
          * 2-variable enumerator.
          */
-        _Enumerator2(&index, &item){
-            static enumIndex := 1
-
-            if(enumIndex > this.length){
-                enumIndex := 1
-                return false
+        _Enumerator2(&outIndex, &item){
+            if (++itemIndex <= this.Length){
+                outIndex := itemIndex
+                item := this[itemIndex]
+                return true
             }
-            
-            index := enumIndex
-            item := this[enumIndex++]
-            return true
+            return false
         }
     }
 
