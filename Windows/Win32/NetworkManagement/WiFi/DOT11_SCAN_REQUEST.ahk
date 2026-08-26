@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_BSS_TYPE.ahk
-#Include .\DOT11_SSID.ahk
 #Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\DOT11_BSS_TYPE.ahk
 #Include .\DOT11_SCAN_TYPE.ahk
+#Include .\DOT11_SSID.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi

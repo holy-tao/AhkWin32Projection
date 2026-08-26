@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1PathGeometry1.ahk
-#Include .\D2D1_SVG_PATH_COMMAND.ahk
-#Include Common\D2D1_FILL_MODE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include Common\D2D1_FILL_MODE.ahk
+#Include .\D2D1_SVG_PATH_COMMAND.ahk
+#Include .\ID2D1PathGeometry1.ahk
 #Include .\ID2D1SvgAttribute.ahk
 
 /**

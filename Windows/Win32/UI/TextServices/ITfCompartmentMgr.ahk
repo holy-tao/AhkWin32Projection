@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Com\IEnumGUID.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\ITfCompartment.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITfCompartmentMgr interface is implemented by the TSF manager and used by clients (applications and text services) to obtain and manipulate TSF compartments.

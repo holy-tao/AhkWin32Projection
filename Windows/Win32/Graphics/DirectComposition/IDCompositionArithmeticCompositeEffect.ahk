@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionFilterEffect.ahk
-#Include .\IDCompositionAnimation.ahk
-#Include ..\Direct2D\Common\D2D_VECTOR_4F.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Direct2D\Common\D2D_VECTOR_4F.ahk
+#Include .\IDCompositionAnimation.ahk
+#Include .\IDCompositionFilterEffect.ahk
 
 /**
  * The arithmetic composite effect is used to combine 2 images using a weighted sum of pixels from the input images. (IDCompositionArithmeticCompositeEffect)

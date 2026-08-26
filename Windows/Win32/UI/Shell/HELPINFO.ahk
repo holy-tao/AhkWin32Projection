@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HELP_INFO_TYPE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include .\HELP_INFO_TYPE.ahk
 
 /**
  * Contains information about an item for which context-sensitive help has been requested.

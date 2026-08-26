@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Packaging\Opc\IOpcPartUri.ahk
-#Include ..\..\System\Com\IStream.ahk
 #Include .\IXpsOMResource.ahk
 #Include .\XPS_IMAGE_TYPE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IStream.ahk
 
 /**
  * Provides an IStream interface to an image resource.

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFaxOutgoingArchive.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IFaxIncomingArchive.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IFaxIncomingQueue.ahk
+#Include .\IFaxOutgoingArchive.ahk
 #Include .\IFaxOutgoingQueue.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IFaxFolders interface defines a configuration object used by a fax client application to access the folders, queued jobs, and archived messages on a fax server.

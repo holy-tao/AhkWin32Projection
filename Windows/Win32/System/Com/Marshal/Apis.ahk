@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
-#Include ..\..\..\UI\WindowsAndMessaging\HMENU.ahk
-#Include ..\..\..\UI\WindowsAndMessaging\HACCEL.ahk
-#Include ..\..\..\UI\WindowsAndMessaging\HICON.ahk
-#Include .\IMarshal.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HGLOBAL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\..\Graphics\Gdi\HPALETTE.ahk
-#Include ..\..\..\Foundation\HGLOBAL.ahk
-#Include ..\STGMEDIUM.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\HWND.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\SAFEARRAY.ahk
-#Include ..\IUnknown.ahk
 #Include ..\IStream.ahk
-#Include ..\..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\IUnknown.ahk
+#Include .\IMarshal.ahk
+#Include ..\SAFEARRAY.ahk
+#Include ..\STGMEDIUM.ahk
+#Include ..\..\..\UI\WindowsAndMessaging\HACCEL.ahk
+#Include ..\..\..\UI\WindowsAndMessaging\HICON.ahk
+#Include ..\..\..\UI\WindowsAndMessaging\HMENU.ahk
 
 /**
  * @namespace Windows.Win32.System.Com.Marshal
@@ -28,9 +28,9 @@ class Marshal {
 ;@region Methods
     /**
      * Calculates the wire size of the BSTR object, and gets its handle and data. (BSTR_UserSize)
-     * @param {Pointer<Integer>} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<BSTR>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Integer} param1 The current buffer offset where the object will be marshaled. The method has to account for any padding needed for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a> object to be properly aligned when it will be marshaled to the buffer.
+     * @param {Pointer<BSTR>} param2 The object.
      * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-bstr_usersize
      */
@@ -43,9 +43,9 @@ class Marshal {
 
     /**
      * Marshals a BSTR object into the RPC buffer. (BSTR_UserMarshal)
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<BSTR>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<BSTR>} param2 The object.
      * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-bstr_usermarshal
      */
@@ -59,9 +59,9 @@ class Marshal {
 
     /**
      * Unmarshals a BSTR object from the RPC buffer. (BSTR_UserUnmarshal)
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<BSTR>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<BSTR>} param2 The object.
      * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
      * 
      * <table>
@@ -104,8 +104,8 @@ class Marshal {
 
     /**
      * Frees resources on the server side when called by RPC stub files. (BSTR_UserFree)
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<BSTR>} param1 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<BSTR>} param1 The object.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-bstr_userfree
      */
@@ -117,9 +117,9 @@ class Marshal {
 
     /**
      * The HWND_UserSize function (oleidl.h) calculates the wire size of the HWND object and gets its handle and data.
-     * @param {Pointer<Integer>} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<HWND>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Integer} param1 The current buffer offset where the object will be marshaled. The method has to account for any padding needed for the HWND object to be properly aligned when it will be marshaled to the buffer.
+     * @param {Pointer<HWND>} param2 The object.
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_usersize
      */
@@ -132,9 +132,9 @@ class Marshal {
 
     /**
      * The HWND_UserMarshal function (oleidl.h) marshals a HWND object into the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HWND>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<HWND>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_usermarshal
      */
@@ -148,9 +148,9 @@ class Marshal {
 
     /**
      * The HWND_UserUnmarshal function (oleidl.h) unmarshals a HWND object from the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HWND>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<HWND>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_userunmarshal
      */
@@ -164,8 +164,8 @@ class Marshal {
 
     /**
      * The HWND_UserFree function (oleidl.h) frees resources on the server side when called by RPC stub files.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<HWND>} param1 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<HWND>} param1 The object.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_userfree
      */
@@ -177,9 +177,9 @@ class Marshal {
 
     /**
      * Calculates the wire size of the BSTR object, and gets its handle and data. (BSTR_UserSize64)
-     * @param {Pointer<Integer>} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<BSTR>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Integer} param1 The current buffer offset where the object will be marshaled. The method has to account for any padding needed for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a> object to be properly aligned when it will be marshaled to the buffer.
+     * @param {Pointer<BSTR>} param2 The object.
      * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-bstr_usersize64
      * @since windows5.1.2600
@@ -193,9 +193,9 @@ class Marshal {
 
     /**
      * Marshals a BSTR object into the RPC buffer. (BSTR_UserMarshal64)
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<BSTR>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<BSTR>} param2 The object.
      * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-bstr_usermarshal64
      * @since windows5.1.2600
@@ -210,9 +210,9 @@ class Marshal {
 
     /**
      * Unmarshals a BSTR object from the RPC buffer. (BSTR_UserUnmarshal64)
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<BSTR>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<BSTR>} param2 The object.
      * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
      * 
      * <table>
@@ -256,8 +256,8 @@ class Marshal {
 
     /**
      * Frees resources on the server side when called by RPC stub files. (BSTR_UserFree64)
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<BSTR>} param1 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<BSTR>} param1 The object.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-bstr_userfree64
      * @since windows5.1.2600
@@ -270,9 +270,9 @@ class Marshal {
 
     /**
      * The HWND_UserSize64 function (oleidl.h) calculates the wire size of the HWND object and gets its handle and data.
-     * @param {Pointer<Integer>} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<HWND>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Integer} param1 The current buffer offset where the object will be marshaled. The method has to account for any padding needed for the HWND object to be properly aligned when it will be marshaled to the buffer.
+     * @param {Pointer<HWND>} param2 The object.
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_usersize64
      */
@@ -285,9 +285,9 @@ class Marshal {
 
     /**
      * The HWND_UserMarshal64 function (oleidl.h) marshals a HWND object into the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HWND>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<HWND>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_usermarshal64
      */
@@ -301,9 +301,9 @@ class Marshal {
 
     /**
      * The HWND_UserUnmarshal64 function (oleidl.h) unmarshals a HWND object from the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HWND>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<HWND>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_userunmarshal64
      */
@@ -317,8 +317,8 @@ class Marshal {
 
     /**
      * The HWND_UserFree64 function (oleidl.h) frees resources on the server side when called by RPC stub files.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<HWND>} param1 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<HWND>} param1 The object.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_userfree64
      */
@@ -330,9 +330,9 @@ class Marshal {
 
     /**
      * The CLIPFORMAT_UserSize function (oleidl.h) calculates the wire size of the CLIPFORMAT object and gets its handle and data.
-     * @param {Pointer<Integer>} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<Integer>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Integer} param1 The current buffer offset where the object will be marshaled. The method has to account for any padding needed for the CLIPFORMAT object to be properly aligned when it will be marshaled to the buffer.
+     * @param {Pointer<Integer>} param2 The object.
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_usersize
      */
@@ -346,9 +346,9 @@ class Marshal {
 
     /**
      * The CLIPFORMAT_UserMarshal function (oleidl.h) marshals a CLIPFORMAT object into the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<Integer>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<Integer>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_usermarshal
      */
@@ -363,9 +363,9 @@ class Marshal {
 
     /**
      * The CLIPFORMAT_UserUnmarshal function (oleidl.h) unmarshals a CLIPFORMAT object from the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<Integer>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<Integer>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_userunmarshal
      */
@@ -380,8 +380,8 @@ class Marshal {
 
     /**
      * The CLIPFORMAT_UserFree function (oleidl.h) frees resources on the server side when called by RPC stub files.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The object.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_userfree
      */
@@ -394,9 +394,9 @@ class Marshal {
 
     /**
      * Calculates the wire size of the HBITMAP object and gets its handle and data.
-     * @param {Pointer<Integer>} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<HBITMAP>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Integer} param1 The current buffer offset where the object will be marshaled. The method has to account for any padding needed for the HBITMAP object to be properly aligned when it will be marshaled to the buffer.
+     * @param {Pointer<HBITMAP>} param2 The object.
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_usersize
      */
@@ -409,9 +409,9 @@ class Marshal {
 
     /**
      * Marshals an HBITMAP object into the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HBITMAP>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<HBITMAP>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_usermarshal
      */
@@ -425,9 +425,9 @@ class Marshal {
 
     /**
      * Unmarshals an HBITMAP object from the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HBITMAP>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<HBITMAP>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_userunmarshal
      */
@@ -441,8 +441,8 @@ class Marshal {
 
     /**
      * Frees resources on the server side when called by RPC stub files.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<HBITMAP>} param1 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<HBITMAP>} param1 The object.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_userfree
      */
@@ -454,9 +454,9 @@ class Marshal {
 
     /**
      * The HDC_UserSize function (oleidl.h) calculates the wire size of the HDC object and gets its handle and data.
-     * @param {Pointer<Integer>} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<HDC>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Integer} param1 The current buffer offset where the object will be marshaled. The method has to account for any padding needed for the HDC object to be properly aligned when it will be marshaled to the buffer.
+     * @param {Pointer<HDC>} param2 The object.
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_usersize
      */
@@ -469,9 +469,9 @@ class Marshal {
 
     /**
      * The HDC_UserMarshal function (oleidl.h) marshals a HDC object into the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HDC>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<HDC>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_usermarshal
      */
@@ -485,9 +485,9 @@ class Marshal {
 
     /**
      * The HDC_UserUnmarshal function (oleidl.h) unmarshals a HDC object from the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HDC>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<HDC>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_userunmarshal
      */
@@ -501,8 +501,8 @@ class Marshal {
 
     /**
      * The HDC_UserFree function (oleidl.h) frees resources on the server side when called by RPC stub files.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<HDC>} param1 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<HDC>} param1 The object.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_userfree
      */
@@ -630,9 +630,9 @@ class Marshal {
 
     /**
      * The STGMEDIUM_UserSize function (oleidl.h) calculates the wire size of the STGMEDIUM object and gets its handle and data.
-     * @param {Pointer<Integer>} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<STGMEDIUM>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Integer} param1 The current buffer offset where the object will be marshaled. The method has to account for any padding needed for the STGMEDIUM object to be properly aligned when it will be marshaled to the buffer.
+     * @param {Pointer<STGMEDIUM>} param2 The object.
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_usersize
      */
@@ -645,9 +645,9 @@ class Marshal {
 
     /**
      * The STGMEDIUM_UserMarshal function (oleidl.h) marshals a STGMEDIUM object into the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<STGMEDIUM>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<STGMEDIUM>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_usermarshal
      */
@@ -661,9 +661,9 @@ class Marshal {
 
     /**
      * The STGMEDIUM_UserUnmarshal function (oleidl.h) unmarshals a STGMEDIUM object from the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<STGMEDIUM>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<STGMEDIUM>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_userunmarshal
      */
@@ -677,8 +677,8 @@ class Marshal {
 
     /**
      * The STGMEDIUM_UserFree function (oleidl.h) frees resources on the server side when called by RPC stub files.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<STGMEDIUM>} param1 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<STGMEDIUM>} param1 The object.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_userfree
      */
@@ -690,9 +690,9 @@ class Marshal {
 
     /**
      * The CLIPFORMAT_UserSize64 function (oleidl.h) calculates the wire size of the CLIPFORMAT object and gets its handle and data.
-     * @param {Pointer<Integer>} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<Integer>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Integer} param1 The current buffer offset where the object will be marshaled. The method has to account for any padding needed for the CLIPFORMAT object to be properly aligned when it will be marshaled to the buffer.
+     * @param {Pointer<Integer>} param2 The object.
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_usersize64
      */
@@ -706,9 +706,9 @@ class Marshal {
 
     /**
      * The CLIPFORMAT_UserMarshal64 function (oleidl.h) marshals a CLIPFORMAT object into the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<Integer>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<Integer>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_usermarshal64
      */
@@ -723,9 +723,9 @@ class Marshal {
 
     /**
      * The CLIPFORMAT_UserUnmarshal64 function (oleidl.h) unmarshals a CLIPFORMAT object from the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<Integer>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<Integer>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_userunmarshal64
      */
@@ -740,8 +740,8 @@ class Marshal {
 
     /**
      * The CLIPFORMAT_UserFree64 function (oleidl.h) frees resources on the server side when called by RPC stub files.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The object.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_userfree64
      */
@@ -754,9 +754,9 @@ class Marshal {
 
     /**
      * Calculates the wire size of the HBITMAP object and gets its handle and data.
-     * @param {Pointer<Integer>} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<HBITMAP>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Integer} param1 The current buffer offset where the object will be marshaled. The method has to account for any padding needed for the HBITMAP object to be properly aligned when it will be marshaled to the buffer.
+     * @param {Pointer<HBITMAP>} param2 The object.
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_usersize64
      */
@@ -769,9 +769,9 @@ class Marshal {
 
     /**
      * Marshals an HBITMAP object into the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HBITMAP>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<HBITMAP>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_usermarshal64
      */
@@ -785,9 +785,9 @@ class Marshal {
 
     /**
      * Unmarshals an HBITMAP object from the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HBITMAP>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<HBITMAP>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_userunmarshal64
      */
@@ -801,8 +801,8 @@ class Marshal {
 
     /**
      * Frees resources on the server side when called by RPC stub files.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<HBITMAP>} param1 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<HBITMAP>} param1 The object.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_userfree64
      */
@@ -814,9 +814,9 @@ class Marshal {
 
     /**
      * The HDC_UserSize64 function (oleidl.h) calculates the wire size of the HDC object and gets its handle and data.
-     * @param {Pointer<Integer>} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<HDC>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Integer} param1 The current buffer offset where the object will be marshaled. The method has to account for any padding needed for the HDC object to be properly aligned when it will be marshaled to the buffer.
+     * @param {Pointer<HDC>} param2 The object.
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_usersize64
      */
@@ -829,9 +829,9 @@ class Marshal {
 
     /**
      * The HDC_UserMarshal64 function (oleidl.h) marshals a HDC object into the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HDC>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<HDC>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_usermarshal64
      */
@@ -845,9 +845,9 @@ class Marshal {
 
     /**
      * The HDC_UserUnmarshal64 function (oleidl.h) unmarshals a HDC object from the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HDC>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<HDC>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_userunmarshal64
      */
@@ -861,8 +861,8 @@ class Marshal {
 
     /**
      * The HDC_UserFree64 function (oleidl.h) frees resources on the server side when called by RPC stub files.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<HDC>} param1 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<HDC>} param1 The object.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_userfree64
      */
@@ -990,9 +990,9 @@ class Marshal {
 
     /**
      * The STGMEDIUM_UserSize64 function (oleidl.h) calculates the wire size of the STGMEDIUM object and gets its handle and data.
-     * @param {Pointer<Integer>} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<STGMEDIUM>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Integer} param1 The current buffer offset where the object will be marshaled. The method has to account for any padding needed for the STGMEDIUM object to be properly aligned when it will be marshaled to the buffer.
+     * @param {Pointer<STGMEDIUM>} param2 The object.
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_usersize64
      */
@@ -1005,9 +1005,9 @@ class Marshal {
 
     /**
      * The STGMEDIUM_UserMarshal64 function (oleidl.h) marshals a STGMEDIUM object into the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<STGMEDIUM>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<STGMEDIUM>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_usermarshal64
      */
@@ -1021,9 +1021,9 @@ class Marshal {
 
     /**
      * The STGMEDIUM_UserUnmarshal64 function (oleidl.h) unmarshals a STGMEDIUM object from the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<STGMEDIUM>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<STGMEDIUM>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_userunmarshal64
      */
@@ -1037,8 +1037,8 @@ class Marshal {
 
     /**
      * The STGMEDIUM_UserFree64 function (oleidl.h) frees resources on the server side when called by RPC stub files.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<STGMEDIUM>} param1 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<STGMEDIUM>} param1 The object.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_userfree64
      */
@@ -1468,9 +1468,9 @@ class Marshal {
 
     /**
      * Calculates the wire size of the SAFEARRAY object, and gets its handle and data. (LPSAFEARRAY_UserSize)
-     * @param {Pointer<Integer>} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<Pointer<SAFEARRAY>>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Integer} param1 Sets the buffer offset so that the <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> object is properly aligned when it is marshaled to the buffer.
+     * @param {Pointer<Pointer<SAFEARRAY>>} param2 The safe array that contains the data to marshal.
      * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-lpsafearray_usersize
      */
@@ -1484,9 +1484,9 @@ class Marshal {
 
     /**
      * Marshals data from the specified SAFEARRAY object to the user's RPC buffer on the client or server side. (LPSAFEARRAY_UserMarshal)
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<Pointer<SAFEARRAY>>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry. The function aligns the buffer pointer, marshals the data, and returns the new buffer position, which is the address of the first byte after the marshaled object.
+     * @param {Pointer<Pointer<SAFEARRAY>>} param2 The safe array that contains the data to marshal.
      * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
      * 
      * 
@@ -1548,9 +1548,9 @@ class Marshal {
 
     /**
      * Unmarshals a SAFEARRAY object from the RPC buffer. (LPSAFEARRAY_UserUnmarshal)
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<Pointer<SAFEARRAY>>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry. The function aligns the buffer pointer, marshals the data, and returns the new buffer position, which is the address of the first byte after the marshaled object.
+     * @param {Pointer<Pointer<SAFEARRAY>>} param2 Receives the safe array that contains the data.
      * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
      * 
      * <table>
@@ -1633,8 +1633,8 @@ class Marshal {
 
     /**
      * Frees resources on the server side when called by RPC stub files. (LPSAFEARRAY_UserFree)
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Pointer<SAFEARRAY>>} param1 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Pointer<SAFEARRAY>>} param1 The safe array to free.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-lpsafearray_userfree
      */
@@ -1647,9 +1647,9 @@ class Marshal {
 
     /**
      * Calculates the wire size of the SAFEARRAY object, and gets its handle and data. (LPSAFEARRAY_UserSize64)
-     * @param {Pointer<Integer>} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<Pointer<SAFEARRAY>>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Integer} param1 Sets the buffer offset so that the <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> object is properly aligned when it is marshaled to the buffer.
+     * @param {Pointer<Pointer<SAFEARRAY>>} param2 The safe array that contains the data to marshal.
      * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-lpsafearray_usersize64
      * @since windows5.1.2600
@@ -1664,9 +1664,9 @@ class Marshal {
 
     /**
      * Marshals data from the specified SAFEARRAY object to the user's RPC buffer on the client or server side. (LPSAFEARRAY_UserMarshal64)
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<Pointer<SAFEARRAY>>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry. The function aligns the buffer pointer, marshals the data, and returns the new buffer position, which is the address of the first byte after the marshaled object.
+     * @param {Pointer<Pointer<SAFEARRAY>>} param2 The safe array that contains the data to marshal.
      * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
      * 
      * 
@@ -1729,9 +1729,9 @@ class Marshal {
 
     /**
      * Unmarshals a SAFEARRAY object from the RPC buffer. (LPSAFEARRAY_UserUnmarshal64)
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<Pointer<SAFEARRAY>>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry. The function aligns the buffer pointer, marshals the data, and returns the new buffer position, which is the address of the first byte after the marshaled object.
+     * @param {Pointer<Pointer<SAFEARRAY>>} param2 Receives the safe array that contains the data.
      * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
      * 
      * <table>
@@ -1815,8 +1815,8 @@ class Marshal {
 
     /**
      * Frees resources on the server side when called by RPC stub files. (LPSAFEARRAY_UserFree64)
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Pointer<SAFEARRAY>>} param1 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Pointer<SAFEARRAY>>} param1 The safe array to free.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-lpsafearray_userfree64
      * @since windows5.1.2600
@@ -1830,9 +1830,9 @@ class Marshal {
 
     /**
      * The HACCEL_UserSize function (oleidl.h) calculates the wire size of the HACCEL object and gets its handle and data.
-     * @param {Pointer<Integer>} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<HACCEL>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Integer} param1 The current buffer offset where the object will be marshaled. The method has to account for any padding needed for the HACCEL object to be properly aligned when it will be marshaled to the buffer.
+     * @param {Pointer<HACCEL>} param2 The object.
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_usersize
      */
@@ -1845,9 +1845,9 @@ class Marshal {
 
     /**
      * Marshals a HACCEL into the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HACCEL>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<HACCEL>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_usermarshal
      */
@@ -1861,9 +1861,9 @@ class Marshal {
 
     /**
      * The HACCEL_UserUnmarshal function (oleidl.h) unmarshals a HACCEL object from the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HACCEL>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<HACCEL>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_userunmarshal
      */
@@ -1877,8 +1877,8 @@ class Marshal {
 
     /**
      * The HACCEL_UserFree function (oleidl.h) frees resources on the server side when called by RPC stub files.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<HACCEL>} param1 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<HACCEL>} param1 The object.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_userfree
      */
@@ -1890,9 +1890,9 @@ class Marshal {
 
     /**
      * The HGLOBAL_UserSize function (oleidl.h) calculates the wire size of the HGLOBAL object and gets its handle and data.
-     * @param {Pointer<Integer>} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<HGLOBAL>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Integer} param1 The current buffer offset where the object will be marshaled. The method has to account for any padding needed for the HGLOBAL object to be properly aligned when it will be marshaled to the buffer.
+     * @param {Pointer<HGLOBAL>} param2 The object.
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_usersize
      */
@@ -1905,9 +1905,9 @@ class Marshal {
 
     /**
      * Marshals a HGLOBAL into the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HGLOBAL>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<HGLOBAL>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_usermarshal
      */
@@ -1921,9 +1921,9 @@ class Marshal {
 
     /**
      * The HGLOBAL_UserUnmarshal function (oleidl.h) unmarshals a HGLOBAL object from the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HGLOBAL>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<HGLOBAL>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_userunmarshal
      */
@@ -1937,8 +1937,8 @@ class Marshal {
 
     /**
      * The HGLOBAL_UserFree function (oleidl.h) frees resources on the server side when called by RPC stub files.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<HGLOBAL>} param1 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<HGLOBAL>} param1 The object.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_userfree
      */
@@ -1964,9 +1964,9 @@ class Marshal {
 
     /**
      * The HMENU_UserMarshal function (oleidl.h) marshals a HMENU into the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HMENU>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<HMENU>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hmenu_usermarshal
      */
@@ -1980,9 +1980,9 @@ class Marshal {
 
     /**
      * The HMENU_UserUnmarshal function (oleidl.h) unmarshals a HMENU object from the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HMENU>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<HMENU>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hmenu_userunmarshal
      */
@@ -1996,8 +1996,8 @@ class Marshal {
 
     /**
      * The HMENU_UserFree function (oleidl.h) frees resources on the server side when called by RPC stub files.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<HMENU>} param1 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<HMENU>} param1 The object.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hmenu_userfree
      */
@@ -2009,9 +2009,9 @@ class Marshal {
 
     /**
      * The HACCEL_UserSize64 function (oaild.h) calculates the wire size of the HACCEL object and gets its handle and data.
-     * @param {Pointer<Integer>} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<HACCEL>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Integer} param1 The current buffer offset where the object will be marshaled. The method has to account for any padding needed for the HACCEL object to be properly aligned when it will be marshaled to the buffer.
+     * @param {Pointer<HACCEL>} param2 The object.
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_usersize64
      */
@@ -2024,9 +2024,9 @@ class Marshal {
 
     /**
      * Marshals a HACCEL object into the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HACCEL>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<HACCEL>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_usermarshal64
      */
@@ -2040,9 +2040,9 @@ class Marshal {
 
     /**
      * The HACCEL_UserUnmarshal64 function (oleidl.h) unmarshals a HACCEL object from the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HACCEL>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<HACCEL>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_userunmarshal64
      */
@@ -2056,8 +2056,8 @@ class Marshal {
 
     /**
      * The HACCEL_UserFree64 function (oleidl.h) frees resources on the server side when called by RPC stub files.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<HACCEL>} param1 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<HACCEL>} param1 The object.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_userfree64
      */
@@ -2069,9 +2069,9 @@ class Marshal {
 
     /**
      * The HGLOBAL_UserSize64 function (oleidl.h) calculates the wire size of the HGLOBAL object and gets its handle and data.
-     * @param {Pointer<Integer>} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<HGLOBAL>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Integer} param1 The current buffer offset where the object will be marshaled. The method has to account for any padding needed for the HGLOBAL object to be properly aligned when it will be marshaled to the buffer.
+     * @param {Pointer<HGLOBAL>} param2 The object.
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_usersize64
      */
@@ -2084,9 +2084,9 @@ class Marshal {
 
     /**
      * Marshals a HGLOBAL object into the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HGLOBAL>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<HGLOBAL>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_usermarshal64
      */
@@ -2100,9 +2100,9 @@ class Marshal {
 
     /**
      * The HGLOBAL_UserUnmarshal64 function (oleidl.h) unmarshals a HGLOBAL object from the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HGLOBAL>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<HGLOBAL>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_userunmarshal64
      */
@@ -2116,8 +2116,8 @@ class Marshal {
 
     /**
      * The HGLOBAL_UserFree64 function (oleidl.h) frees resources on the server side when called by RPC stub files.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<HGLOBAL>} param1 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<HGLOBAL>} param1 The object.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_userfree64
      */
@@ -2129,9 +2129,9 @@ class Marshal {
 
     /**
      * The HMENU_UserSize64 function (oleidl.h) calculates the wire size of the HMENU object and gets its handle and data.
-     * @param {Pointer<Integer>} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<HMENU>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Integer} param1 The current buffer offset where the object will be marshaled. The method has to account for any padding needed for the HMENU object to be properly aligned when it will be marshaled to the buffer.
+     * @param {Pointer<HMENU>} param2 The object.
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hmenu_usersize64
      */
@@ -2144,9 +2144,9 @@ class Marshal {
 
     /**
      * The HMENU_UserMarshal64 function (oleidl.h) marshals a HMENU into the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HMENU>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<HMENU>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hmenu_usermarshal64
      */
@@ -2160,9 +2160,9 @@ class Marshal {
 
     /**
      * The HMENU_UserUnmarshal64 function (oleidl.h) unmarshals a HMENU object from the RPC buffer.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HMENU>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<HMENU>} param2 The object.
      * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hmenu_userunmarshal64
      */
@@ -2176,8 +2176,8 @@ class Marshal {
 
     /**
      * The HMENU_UserFree64 function (oleidl.h) frees resources on the server side when called by RPC stub files.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<HMENU>} param1 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<HMENU>} param1 The object.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hmenu_userfree64
      */
@@ -2189,9 +2189,9 @@ class Marshal {
 
     /**
      * Calculates the wire size of the HPALETTE object and gets its handle and data. (HPALETTE_UserSize)
-     * @param {Pointer<Integer>} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<HPALETTE>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Integer} param1 The current buffer offset where the object will be marshaled. The method has to account for any padding needed for the HPALETTE object to be properly aligned when it will be marshaled to the buffer.
+     * @param {Pointer<HPALETTE>} param2 The object.
      * @returns {Integer} A LONG value expressing the size of the object.
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_usersize
      */
@@ -2204,9 +2204,9 @@ class Marshal {
 
     /**
      * Marshals an HPALETTE object into the RPC buffer. (HPALETTE_UserMarshal)
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HPALETTE>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<HPALETTE>} param2 The object.
      * @returns {Pointer<Integer>} A pointer to an unsigned character array.
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_usermarshal
      */
@@ -2220,9 +2220,9 @@ class Marshal {
 
     /**
      * Unmarshals an HPALETTE object from the RPC buffer. (HPALETTE_UserUnmarshal)
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HPALETTE>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<HPALETTE>} param2 The object.
      * @returns {Pointer<Integer>} A pointer to an unsigned character array.
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_userunmarshal
      */
@@ -2236,8 +2236,8 @@ class Marshal {
 
     /**
      * Frees resources on the server side when called by RPC stub files (HPALETTE_UserFree).
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<HPALETTE>} param1 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<HPALETTE>} param1 The object.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_userfree
      */
@@ -2249,9 +2249,9 @@ class Marshal {
 
     /**
      * Calculates the wire size of the HPALETTE object and gets its handle and data. (HPALETTE_UserSize64)
-     * @param {Pointer<Integer>} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<HPALETTE>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Integer} param1 The current buffer offset where the object will be marshaled. The method has to account for any padding needed for the HPALETTE object to be properly aligned when it will be marshaled to the buffer.
+     * @param {Pointer<HPALETTE>} param2 The object.
      * @returns {Integer} A LONG value expressing the size of the object.
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_usersize64
      */
@@ -2264,9 +2264,9 @@ class Marshal {
 
     /**
      * Marshals an HPALETTE object into the RPC buffer. (HPALETTE_UserMarshal64)
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HPALETTE>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<HPALETTE>} param2 The object.
      * @returns {Pointer<Integer>} A pointer to an unsigned character array.
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_usermarshal64
      */
@@ -2280,9 +2280,9 @@ class Marshal {
 
     /**
      * Unmarshals an HPALETTE object from the RPC buffer. (HPALETTE_UserUnmarshal64)
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<HPALETTE>} param2 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+     * @param {Pointer<HPALETTE>} param2 The object.
      * @returns {Pointer<Integer>} A pointer to an unsigned character array.
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_userunmarshal64
      */
@@ -2296,8 +2296,8 @@ class Marshal {
 
     /**
      * Frees resources on the server side when called by RPC stub files. (HPALETTE_UserFree64)
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<HPALETTE>} param1 
+     * @param {Pointer<Integer>} param0 The data used by RPC.
+     * @param {Pointer<HPALETTE>} param1 The object.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_userfree64
      */

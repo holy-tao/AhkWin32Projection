@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ADDRESS_EVENT.ahk
+#Include .\ITAddress.ahk
 #Include .\ITTerminal.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\ITAddress.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITAddressEvent interface contains methods that retrieve the description of address events.

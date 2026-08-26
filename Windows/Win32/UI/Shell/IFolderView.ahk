@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\POINT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include Common\ITEMIDLIST.ahk
-#Include ..\..\Foundation\POINT.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that retrieve information about a folder's display options, select specified items in that folder, and set the folder's view mode. (IFolderView)

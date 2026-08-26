@@ -2,13 +2,13 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include .\ITextRange.ahk
 #Include .\ITextSelection.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include .\ITextStoryRanges.ahk
 #Include .\tomConstants.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITextDocument interface is the Text Object Model (TOM) top-level interface, which retrieves the active selection and range objects for any story in the document�whether active or not.

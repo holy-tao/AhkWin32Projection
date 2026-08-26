@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Graphics\Direct3D12\D3D12_COMMAND_LIST_SUPPORT_FLAGS.ahk
 
 /**

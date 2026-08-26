@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SINGLE_LIST_ENTRY.ahk
 
 /**
  * A SINGLE_LIST_ENTRY structure describes an entry in a singly linked list, or serves as the header for such a list.

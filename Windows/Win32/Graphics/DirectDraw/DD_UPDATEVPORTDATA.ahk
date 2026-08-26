@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDVIDEOPORTINFO.ahk
-#Include .\DD_VIDEOPORT_LOCAL.ahk
-#Include .\DD_SURFACE_INT.ahk
-#Include .\DD_DIRECTDRAW_LOCAL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\DDVIDEOPORTINFO.ahk
+#Include .\DD_DIRECTDRAW_LOCAL.ahk
+#Include .\DD_SURFACE_INT.ahk
+#Include .\DD_VIDEOPORT_LOCAL.ahk
 
 /**
  * The DD_UPDATEVPORTDATA structure contains the information required to start, stop, and change the video port extensions (VPE) object.

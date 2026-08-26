@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\TILE_TEMPLATE_TYPE.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\PM_STARTTILE_TYPE.ahk
-#Include .\PM_INVOCATIONINFO.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\PM_INVOCATIONINFO.ahk
+#Include .\PM_STARTTILE_TYPE.ahk
+#Include .\TILE_TEMPLATE_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing

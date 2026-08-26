@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IADsMembers.ahk
-#Include .\IADs.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IADs.ahk
+#Include .\IADsMembers.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * The IADsUser interface is a dual interface that inherits from IADs.

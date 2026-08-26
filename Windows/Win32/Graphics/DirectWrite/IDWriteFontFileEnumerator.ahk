@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontFile.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDWriteFontFile.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Encapsulates a collection of font files. The font system uses this interface to enumerate font files when building a font collection.

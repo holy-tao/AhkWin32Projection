@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D11_VPIV_DIMENSION.ahk
 #Include .\D3D11_TEX2D_VPIV.ahk
+#Include .\D3D11_VPIV_DIMENSION.ahk
 
 /**
  * Describes a video processor input view.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MESSAGEBOX_PARAMS.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\MESSAGEBOX_PARAMS.ahk
 #Include .\UI_TYPE.ahk
 
 /**

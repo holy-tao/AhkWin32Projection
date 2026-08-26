@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\INetSharingConfiguration.ahk
-#Include .\INetSharingPrivateConnectionCollection.ahk
-#Include .\INetSharingPublicConnectionCollection.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\INetConnection.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\INetSharingEveryConnectionCollection.ahk
-#Include .\SHARINGCONNECTION_ENUM_FLAGS.ahk
 #Include .\INetConnectionProps.ahk
+#Include .\INetSharingConfiguration.ahk
+#Include .\INetSharingEveryConnectionCollection.ahk
+#Include .\INetSharingPrivateConnectionCollection.ahk
+#Include .\INetSharingPublicConnectionCollection.ahk
+#Include .\SHARINGCONNECTION_ENUM_FLAGS.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The INetSharingManager interface is the primary interface for the Manager object. INetSharingManager provides methods to determine if sharing is installed, to manage port mappings, and to obtain enumeration interfaces for public and private connections.

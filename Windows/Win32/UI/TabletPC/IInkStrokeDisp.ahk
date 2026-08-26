@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IInkTransform.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IInkDisp.ahk
 #Include .\IInkDrawingAttributes.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IInkExtendedProperties.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IInkStrokes.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\InkBoundingBoxMode.ahk
 #Include .\IInkRectangle.ahk
+#Include .\IInkStrokes.ahk
+#Include .\IInkTransform.ahk
+#Include .\InkBoundingBoxMode.ahk
 #Include .\TabletPropertyMetricUnit.ahk
 
 /**

@@ -2,17 +2,17 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\FsrmReportFilter.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\FsrmEnumOptions.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IFsrmReportJob.ahk
-#Include .\IFsrmCollection.ahk
-#Include .\FsrmReportGenerationContext.ahk
-#Include .\FsrmReportType.ahk
-#Include .\FsrmReportLimit.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\FsrmEnumOptions.ahk
+#Include .\FsrmReportFilter.ahk
+#Include .\FsrmReportGenerationContext.ahk
+#Include .\FsrmReportLimit.ahk
+#Include .\FsrmReportType.ahk
+#Include .\IFsrmCollection.ahk
+#Include .\IFsrmReportJob.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * Used to manage report jobs.

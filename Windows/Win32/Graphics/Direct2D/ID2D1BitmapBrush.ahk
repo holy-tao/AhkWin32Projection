@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\D2D1_BITMAP_INTERPOLATION_MODE.ahk
-#Include .\ID2D1Brush.ahk
 #Include .\D2D1_EXTEND_MODE.ahk
 #Include .\ID2D1Bitmap.ahk
+#Include .\ID2D1Brush.ahk
 
 /**
  * Paints an area with a bitmap. (ID2D1BitmapBrush)

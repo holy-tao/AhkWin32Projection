@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ROUTER_CONNECTION_STATE.ahk
-#Include .\MPR_INTERFACE_DIAL_MODE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\MPR_VS.ahk
-#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
-#Include .\ROUTER_INTERFACE_TYPE.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\MPR_ET.ahk
+#Include .\MPR_INTERFACE_DIAL_MODE.ahk
+#Include .\MPR_VS.ahk
+#Include .\ROUTER_CONNECTION_STATE.ahk
+#Include .\ROUTER_INTERFACE_TYPE.ahk
+#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
 
 /**
  * Contains data for a router demand-dial interface. (MPR_INTERFACE_3)

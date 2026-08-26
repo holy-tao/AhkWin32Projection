@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IWebWizardHost.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWebWizardHost.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell

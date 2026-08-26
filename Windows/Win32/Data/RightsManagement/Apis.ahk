@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\DRMSECURITYPROVIDERTYPE.ahk
-#Include .\DRMTIMETYPE.ahk
 #Include .\DRMATTESTTYPE.ahk
+#Include .\DRMBOUNDLICENSEPARAMS.ahk
+#Include .\DRMENCODINGTYPE.ahk
 #Include .\DRMGLOBALOPTIONS.ahk
 #Include .\DRMID.ahk
-#Include .\DRMBOUNDLICENSEPARAMS.ahk
+#Include .\DRMSECURITYPROVIDERTYPE.ahk
+#Include .\DRMSPECTYPE.ahk
+#Include .\DRMTIMETYPE.ahk
 #Include .\DRM_ACTSERV_INFO.ahk
-#Include .\DRMENCODINGTYPE.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include .\DRM_CLIENT_VERSION_INFO.ahk
 #Include .\DRM_USAGEPOLICY_TYPE.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\DRMSPECTYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**

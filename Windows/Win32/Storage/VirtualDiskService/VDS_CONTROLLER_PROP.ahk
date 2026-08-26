@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_HEALTH.ahk
-#Include .\VDS_CONTROLLER_STATUS.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\VDS_CONTROLLER_STATUS.ahk
+#Include .\VDS_HEALTH.ahk
 
 /**
  * The VDS_CONTROLLER_PROP structure (vdshwprv.h) defines the properties of a controller object.

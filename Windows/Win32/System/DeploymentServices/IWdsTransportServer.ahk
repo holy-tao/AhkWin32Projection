@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IWdsTransportConfigurationManager.ahk
 #Include .\IWdsTransportNamespaceManager.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\WDSTRANSPORT_DISCONNECT_TYPE.ahk
 #Include .\IWdsTransportSetupManager.ahk
+#Include .\WDSTRANSPORT_DISCONNECT_TYPE.ahk
 
 /**
  * Represents a WDS transport server. A WDS client can use an object of this interface to manage setup, configuration, and namespace tasks on the server.

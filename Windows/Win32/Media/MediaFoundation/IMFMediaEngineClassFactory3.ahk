@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IMFMediaKeySystemAccess.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation

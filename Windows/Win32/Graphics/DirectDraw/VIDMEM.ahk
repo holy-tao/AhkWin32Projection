@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VMEMHEAP.ahk
 #Include .\DDSCAPS.ahk
+#Include .\VMEMHEAP.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

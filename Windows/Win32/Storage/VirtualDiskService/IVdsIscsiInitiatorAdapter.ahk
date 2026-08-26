@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IVdsAsync.ahk
-#Include .\IEnumVdsObject.ahk
-#Include .\VDS_ISCSI_AUTH_TYPE.ahk
-#Include .\VDS_ISCSI_LOGIN_TYPE.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IEnumVdsObject.ahk
+#Include .\IVdsAsync.ahk
+#Include .\VDS_ISCSI_AUTH_TYPE.ahk
 #Include .\VDS_ISCSI_INITIATOR_ADAPTER_PROP.ahk
+#Include .\VDS_ISCSI_LOGIN_TYPE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**

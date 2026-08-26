@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DD_DIRECTDRAW_GLOBAL.ahk
-#Include .\DDSCAPS.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\DDSCAPS.ahk
+#Include .\DD_DIRECTDRAW_GLOBAL.ahk
 
 /**
  * The DD_GETAVAILDRIVERMEMORYDATA structure contains the information needed by the driver to query and return the amount of free memory.

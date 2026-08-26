@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\..\Foundation\PWSTR.ahk
-#Include ..\..\..\..\Web\MsHtml\IHTMLWindow2.ahk
-#Include ..\..\..\Com\IUnknown.ahk
 #Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+#Include ..\..\..\..\Web\MsHtml\IHTMLWindow2.ahk
 
 /**
  * Enables a debugging or authoring app to receive notification of navigation events.

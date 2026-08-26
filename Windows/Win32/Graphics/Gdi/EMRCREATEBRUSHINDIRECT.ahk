@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\EMR.ahk
 #Include ..\..\Foundation\COLORREF.ahk
+#Include .\BRUSH_STYLE.ahk
+#Include .\EMR.ahk
 #Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
 #Include .\LOGBRUSH32.ahk
-#Include .\BRUSH_STYLE.ahk
 
 /**
  * The EMRCREATEBRUSHINDIRECT structure contains members for the CreateBrushIndirect enhanced metafile record.

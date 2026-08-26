@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Gdi\PALETTEENTRY.ahk
-#Include .\IDirectDrawSurface7.ahk
-#Include .\DDCAPS_DX7.ahk
-#Include ..\..\Foundation\SIZE.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\Gdi\HDC.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\DDSCAPS2.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include .\DDCAPS_DX7.ahk
+#Include .\DDDEVICEIDENTIFIER2.ahk
+#Include .\DDSCAPS2.ahk
 #Include .\DDSURFACEDESC2.ahk
 #Include .\IDirectDrawClipper.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include .\DDDEVICEIDENTIFIER2.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDirectDrawPalette.ahk
+#Include .\IDirectDrawSurface7.ahk
+#Include ..\Gdi\HDC.ahk
+#Include ..\Gdi\PALETTEENTRY.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Applications use the methods of the IDirectDraw7 interface to create DirectDraw objects and work with system-level variables. This section is a reference to the methods of the IDirectDraw7 interface.
@@ -158,9 +158,9 @@ class IDirectDraw7 extends IUnknown {
      * The DirectDrawClipper object can be attached to a DirectDrawSurface and used during <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-blt">IDirectDrawSurface7::Blt</a>, <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-bltbatch">IDirectDrawSurface7::BltBatch</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-updateoverlay">IDirectDrawSurface7::UpdateOverlay</a> operations.
      * 
      * To create a DirectDrawClipper object that is not owned by a specific DirectDraw object, use the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-directdrawcreateclipper">DirectDrawCreateClipper</a> function.
-     * @param {Integer} param0 
-     * @param {IUnknown} param2 
-     * @returns {IDirectDrawClipper} 
+     * @param {Integer} param0 Currently not used and must be set to 0.
+     * @param {IUnknown} param2 Allows for future compatibility with COM aggregation features. Currently this method returns an error if this parameter is not NULL.
+     * @returns {IDirectDrawClipper} Address of a variable to be set to a valid <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nn-ddraw-idirectdrawclipper">IDirectDrawClipper</a> interface pointer if the call succeeds.
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-createclipper
      */
     CreateClipper(param0, param2) {
@@ -170,10 +170,10 @@ class IDirectDraw7 extends IUnknown {
 
     /**
      * Creates a DirectDrawPalette object for this DirectDraw object.
-     * @param {Integer} param0 
-     * @param {Pointer<PALETTEENTRY>} param1 
-     * @param {IUnknown} param3 
-     * @returns {IDirectDrawPalette} 
+     * @param {Integer} param0 This value consists of one or more of the following flags:
+     * @param {Pointer<PALETTEENTRY>} param1 Address of an array of 2, 4, 16, or 256 <a href="https://docs.microsoft.com/previous-versions/dd162769(v=vs.85)">PALETTEENTRY</a> structures to initialize the DirectDrawPalette object.
+     * @param {IUnknown} param3 Allows for future compatibility with COM aggregation features. Currently, this method returns an error if this parameter is not NULL.
+     * @returns {IDirectDrawPalette} Address of a variable to be set to a valid <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nn-ddraw-idirectdrawpalette">IDirectDrawPalette</a> interface pointer if the call succeeds.
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-createpalette
      */
     CreatePalette(param0, param1, param3) {
@@ -183,9 +183,9 @@ class IDirectDraw7 extends IUnknown {
 
     /**
      * Creates a DirectDrawSurface object for this DirectDraw object.
-     * @param {Pointer<DDSURFACEDESC2>} param0 
-     * @param {IUnknown} param2 
-     * @returns {IDirectDrawSurface7} 
+     * @param {Pointer<DDSURFACEDESC2>} param0 Address of a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550340(v=vs.85)">DDSURFACEDESC2</a> structure that describes the requested surface. Set any unused members of the <b>DDSURFACEDESC2</b> structure to 0 before calling this method. A <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550292(v=vs.85)">DDSCAPS2</a> structure is a member of <b>DDSURFACEDESC2</b>.
+     * @param {IUnknown} param2 Allows for future compatibility with COM aggregation features. Currently, this method returns an error if this parameter is not NULL.
+     * @returns {IDirectDrawSurface7} Address of a variable to be set to a valid <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nn-ddraw-idirectdrawsurface7">IDirectDrawSurface7</a> interface pointer if the call succeeds.
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-createsurface
      */
     CreateSurface(param0, param2) {
@@ -197,8 +197,8 @@ class IDirectDraw7 extends IUnknown {
      * Duplicates a DirectDrawSurface object.
      * @remarks
      * <b>DuplicateSurface</b> creates a new DirectDrawSurface object that points to the same surface memory as an existing DirectDrawSurface object. This duplicate can be used just like the original object. The surface memory is released after the last object referring to it is released. A primary surface, 3-D surface, or implicitly created surface cannot be duplicated.
-     * @param {IDirectDrawSurface7} param0 
-     * @returns {IDirectDrawSurface7} 
+     * @param {IDirectDrawSurface7} param0 Address of the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nn-ddraw-idirectdrawsurface7">IDirectDrawSurface7</a> interface for the surface to be duplicated.
+     * @returns {IDirectDrawSurface7} Address of a variable to contain an <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nn-ddraw-idirectdrawsurface7">IDirectDrawSurface7</a> interface pointer for the newly duplicated DirectDrawSurface object.
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-duplicatesurface
      */
     DuplicateSurface(param0) {
@@ -214,10 +214,10 @@ class IDirectDraw7 extends IUnknown {
      * 
      * 
      * <b>IDirectDraw7::EnumDisplayModes</b> differs from its counterparts in former interfaces in that it accepts the address of an <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nc-ddraw-lpddenummodescallback2">EnumModesCallback2</a> function as a parameter, rather than an <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nc-ddraw-lpddenummodescallback">EnumModesCallback</a> function.
-     * @param {Integer} param0 
-     * @param {Pointer<DDSURFACEDESC2>} param1 
-     * @param {Pointer<Void>} param2 
-     * @param {Pointer<LPDDENUMMODESCALLBACK2>} param3 
+     * @param {Integer} param0 This value consists of one or more of the following flags:
+     * @param {Pointer<DDSURFACEDESC2>} param1 Address of a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550340(v=vs.85)">DDSURFACEDESC2</a> structure to be checked against available modes. If the value of this parameter is NULL, all modes are enumerated.
+     * @param {Pointer<Void>} param2 Address of an application-defined structure to be passed to each enumeration member.
+     * @param {Pointer<LPDDENUMMODESCALLBACK2>} param3 Address of the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nc-ddraw-lpddenummodescallback2">EnumModesCallback2</a> function that the enumeration procedure calls every time a match is found.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -247,10 +247,12 @@ class IDirectDraw7 extends IUnknown {
      * 
      * 
      * This method differs from its counterparts in previous interface versions in that it accepts a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nc-ddraw-lpddenumsurfacescallback7">EnumSurfacesCallback7</a> function, rather than an <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nc-ddraw-lpddenumsurfacescallback">EnumSurfacesCallback</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nc-ddraw-lpddenumsurfacescallback2">EnumSurfacesCallback2</a> function.
-     * @param {Integer} param0 
-     * @param {Pointer<DDSURFACEDESC2>} param1 
-     * @param {Pointer<Void>} param2 
-     * @param {Pointer<LPDDENUMSURFACESCALLBACK7>} param3 
+     * @param {Integer} param0 A combination of one search type flag and one matching flag. The search type flag determines how the method searches for matching surfaces; you can search for surfaces that can be created using the description in the <i>lpDDSD2</i> parameter or for existing surfaces that already match that description. The matching flag determines whether the method enumerates all surfaces, only those that match, or only those that do not match the description in the <i>lpDDSD2</i> parameter.
+     * 
+     * <b>Search type flags</b>
+     * @param {Pointer<DDSURFACEDESC2>} param1 Address of a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550340(v=vs.85)">DDSURFACEDESC2</a> structure that defines the surface of interest. This parameter can be NULL if <i>dwFlags</i> includes the DDENUMSURFACES_ALL flag.
+     * @param {Pointer<Void>} param2 Address of an application-defined structure to be passed to each enumeration member.
+     * @param {Pointer<LPDDENUMSURFACESCALLBACK7>} param3 Address of the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nc-ddraw-lpddenumsurfacescallback7">EnumSurfacesCallback7</a> function that the enumeration procedure calls every time a match is found.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -298,8 +300,8 @@ class IDirectDraw7 extends IUnknown {
 
     /**
      * Retrieves the capabilities of the device driver for the hardware and the hardware emulation layer (HEL).
-     * @param {Pointer<DDCAPS_DX7>} param0 
-     * @param {Pointer<DDCAPS_DX7>} param1 
+     * @param {Pointer<DDCAPS_DX7>} param0 A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/ns-ddraw-ddcaps_dx3">DDCAPS</a> structure that receives the capabilities of the hardware, as reported by the device driver. Set this parameter to NULL if you do not want to retrieve device driver capabilities.
+     * @param {Pointer<DDCAPS_DX7>} param1 A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/ns-ddraw-ddcaps_dx3">DDCAPS</a> structure that receives the capabilities of the HEL. Set this parameter to NULL if you do not want to retrieve HEL capabilities.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -322,7 +324,7 @@ class IDirectDraw7 extends IUnknown {
      * Retrieves the current display mode.
      * @remarks
      * An application should not save the information that <b>GetDisplayMode</b> returns to restore the display mode on clean-up. The application should instead use the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdraw7-restoredisplaymode">IDirectDraw7::RestoreDisplayMode</a> method to restore the mode on clean-up, thus avoiding mode-setting conflicts that could arise in a multiprocess environment.
-     * @param {Pointer<DDSURFACEDESC2>} param0 
+     * @param {Pointer<DDSURFACEDESC2>} param0 A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550340(v=vs.85)">DDSURFACEDESC2</a> structure that receives a description of the current surface.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * If it fails, the method can return one of the following error values:
@@ -341,8 +343,8 @@ class IDirectDraw7 extends IUnknown {
 
     /**
      * Retrieves the four-character codes (FOURCC) that are supported by the DirectDraw object. This method can also retrieve the number of codes that are supported.
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
+     * @param {Pointer<Integer>} param0 A pointer to a variable that contains the number of entries that the array specified by <i>lpCodes</i> can hold. If the number of entries is too small to accommodate all the codes, <i>lpNumCodes</i> is set to the required number, and the array specified by <i>lpCodes</i> is filled with all that fits.
+     * @param {Pointer<Integer>} param1 An array of variables to be filled with FOURCCs that are supported by this DirectDraw object. If you specify NULL, <i>lpNumCodes</i> is set to the number of supported FOURCCs, and the method returns.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -365,7 +367,7 @@ class IDirectDraw7 extends IUnknown {
 
     /**
      * Retrieves the DirectDrawSurface object that currently represents the surface memory that GDI is treating as the primary surface.
-     * @returns {IDirectDrawSurface7} 
+     * @returns {IDirectDrawSurface7} Address of a variable to be filled with a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nn-ddraw-idirectdrawsurface7">IDirectDrawSurface7</a> interface for the surface that currently controls the GDI's primary surface memory.
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-getgdisurface
      */
     GetGDISurface() {
@@ -375,7 +377,7 @@ class IDirectDraw7 extends IUnknown {
 
     /**
      * Retrieves the frequency of the monitor that the DirectDraw object controls.
-     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param0 A pointer to a variable that receives the monitor frequency, in Hertz (Hz).
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * If it fails, the method can return one of the following error values:
@@ -398,7 +400,7 @@ class IDirectDraw7 extends IUnknown {
      * Retrieves the scan line that is currently being drawn on the monitor.
      * @remarks
      * Scan lines are reported as zero-based integers. The returned scan line value is in the range from 0 through n, where 0 is the first visible scan line on the screen and n is the last visible scan line, plus any scan lines that occur during the vertical blank period. So, in a case where an application is running at a resolution of 640×480 and there are 12 scan lines during vblank, the values returned by this method range from 0 through 491.
-     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param0 A pointer to a variable that receives the scan line that the display is currently drawing.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * If it fails, the method can return one of the following error values:
@@ -422,7 +424,7 @@ class IDirectDraw7 extends IUnknown {
      * Retrieves the status of the vertical blank.
      * @remarks
      * To synchronize with the vertical blank, use the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdraw7-waitforverticalblank">IDirectDraw7::WaitForVerticalBlank</a> method.
-     * @param {Pointer<BOOL>} param0 
+     * @param {Pointer<BOOL>} param0 A pointer to a variable that receives the status of the vertical blank. This parameter is TRUE if a vertical blank is occurring, and FALSE otherwise.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * If it fails, the method can return one of the following error values:
@@ -442,7 +444,7 @@ class IDirectDraw7 extends IUnknown {
 
     /**
      * Initializes a DirectDraw object that was created by using the CoCreateInstance COM function.
-     * @param {Pointer<Guid>} param0 
+     * @param {Pointer<Guid>} param0 A pointer to the globally unique identifier (GUID) that this method uses as the DirectDraw interface identifier.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * If it fails, the method can return one of the following error values:
@@ -512,8 +514,8 @@ class IDirectDraw7 extends IUnknown {
      * HWND hwndTop = AfxGetMainWnd()->GetSafeHwnd();
      * 
      * ```
-     * @param {HWND} param0 
-     * @param {Integer} param1 
+     * @param {HWND} param0 Window handle used for the application. Set to the calling application's top-level window handle (not a handle for any child windows created by the top-level window). This parameter can be NULL when the DDSCL_NORMAL flag is specified in the <i>dwFlags</i> parameter.
+     * @param {Integer} param1 This value consists of one or more of the following flags:
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -547,11 +549,11 @@ class IDirectDraw7 extends IUnknown {
      * 
      * 
      * As part of the prior-version <b>IDirectDraw</b> interface, this method did not include the <i>dwRefreshRate</i> and <i>dwFlags</i> parameters.
-     * @param {Integer} param0 
-     * @param {Integer} param1 
-     * @param {Integer} param2 
-     * @param {Integer} param3 
-     * @param {Integer} param4 
+     * @param {Integer} param0 Width of the new display mode.
+     * @param {Integer} param1 Height of the new display mode.
+     * @param {Integer} param2 Bits per pixel (bpp) of the new display mode.
+     * @param {Integer} param3 Refresh rate of the new display mode. Set this value to 0 to request the default refresh rate for the driver.
+     * @param {Integer} param4 This value consists of flags that describe additional options. Currently, the only valid flag is DDSDM_STANDARDVGAMODE, which causes the method to set Mode 13, instead of Mode X 320x200x8 mode. If you are setting another resolution, bit depth, or a Mode X mode, do not use this flag; instead, set the parameter to 0.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -579,8 +581,8 @@ class IDirectDraw7 extends IUnknown {
 
     /**
      * Helps the application synchronize itself with the vertical-blank interval.
-     * @param {Integer} param0 
-     * @param {HANDLE} param1 
+     * @param {Integer} param0 One of the following flags that indicates how long to wait for the vertical blank:
+     * @param {HANDLE} param1 Handle of the event to be triggered when the vertical blank begins. This parameter is not currently used.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -640,9 +642,9 @@ class IDirectDraw7 extends IUnknown {
      * 
      * 
      * <b>GetAvailableVidMem</b> was not implemented in the previous DirectX IDirectDraw interface version.
-     * @param {Pointer<DDSCAPS2>} param0 
-     * @param {Pointer<Integer>} param1 
-     * @param {Pointer<Integer>} param2 
+     * @param {Pointer<DDSCAPS2>} param0 A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550292(v=vs.85)">DDSCAPS2</a> structure that indicates the hardware capabilities of the proposed surface.
+     * @param {Pointer<Integer>} param1 A pointer to a variable that receives the total amount of display memory available, in bytes. The value received reflects the total video memory, minus the video memory required for the primary surface and any private caches that the display driver reserves.
+     * @param {Pointer<Integer>} param2 A pointer to a variable that receives the amount of display memory currently free that can be allocated for a surface that matches the capabilities specified by the structure at <i>lpDDSCaps2</i>.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -669,8 +671,8 @@ class IDirectDraw7 extends IUnknown {
      * Retrieves the IDirectDrawSurface7 interface for a surface, based on its GDI device context handle.
      * @remarks
      * This method succeeds only for device context handles that identify surfaces already associated with the DirectDraw object.
-     * @param {HDC} param0 
-     * @returns {IDirectDrawSurface7} 
+     * @param {HDC} param0 Handle of a display device context.
+     * @returns {IDirectDrawSurface7} Address of a variable to be filled with a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nn-ddraw-idirectdrawsurface7">IDirectDrawSurface7</a> interface for the surface if the call succeeds.
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-getsurfacefromdc
      */
     GetSurfaceFromDC(param0) {
@@ -724,8 +726,8 @@ class IDirectDraw7 extends IUnknown {
 
     /**
      * Obtains information about the device driver. This method can be used, with caution, to recognize specific hardware installations to implement workarounds for poor driver or chipset behavior.
-     * @param {Pointer<DDDEVICEIDENTIFIER2>} param0 
-     * @param {Integer} param1 
+     * @param {Pointer<DDDEVICEIDENTIFIER2>} param0 A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/ns-ddraw-dddeviceidentifier2">DDDEVICEIDENTIFIER2</a> structure that receives information about the driver.
+     * @param {Integer} param1 This value consists of flags that specify options. The following flag is the only defined flag:
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -758,9 +760,9 @@ class IDirectDraw7 extends IUnknown {
      * 
      * 
      * The test does not guarantee to display only the resolutions in the array described by the <i>lpModesToTest</i> and <i>dwNumEntries</i> parameters. For example, the 640×480 resolution is used to obtain a maximum viewable refresh rate for the 320×200 resolution.
-     * @param {Pointer<SIZE>} param0 
-     * @param {Integer} param1 
-     * @param {Integer} param2 
+     * @param {Pointer<SIZE>} param0 An array of SIZE elements that describe, in terms of screen resolutions, the modes that should be tested.
+     * @param {Integer} param1 The number of elements in the array that the  <i>lpModesToTest</i> parameter specifies.
+     * @param {Integer} param2 Flags that specify options for starting a test. The only flag value that is currently valid is DDSMT_ISTESTREQUIRED. When this flag is specified, <b>StartModeTest</b> does not initiate a test, but instead returns a value that indicates whether it is possible or necessary to test the resolutions that the <i>lpModesToTest</i> and <i>dwNumEntries</i> parameters identify.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -800,8 +802,8 @@ class IDirectDraw7 extends IUnknown {
      * 
      * 
      * When the test is initiated, or whenever a mode is passed or failed, DirectDraw begins a 15 second timeout. An application can monitor the time remaining without passing or failing the current mode by calling <b>EvaluateMode</b> with a value of 0 for the dwFlags argument. Note that DirectDraw only changes modes or terminates the test when <b>EvaluateMode</b> is called. However, if an application calls <b>EvaluateMode</b> after the timeout period has elapsed, the current mode fails, regardless of the value passed to the <i>dwFlags</i> parameter.
-     * @param {Integer} param0 
-     * @param {Pointer<Integer>} param1 
+     * @param {Integer} param0 One of the following flags that indicate the status of the mode being tested:
+     * @param {Pointer<Integer>} param1 A pointer to a variable that receives a value that denotes the seconds that remain before the current mode is failed automatically unless it is explicitly passed or failed.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 

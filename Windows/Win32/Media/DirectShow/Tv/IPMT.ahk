@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\MPE_ELEMENT.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
-#Include .\IMpeg2Data.ahk
-#Include .\ISectionList.ahk
-#Include .\IGenericDescriptor.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
 #Include .\DSMCC_ELEMENT.ahk
+#Include .\IGenericDescriptor.ahk
+#Include .\IMpeg2Data.ahk
+#Include .\ISectionList.ahk
+#Include .\MPE_ELEMENT.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * The IPMT interface enables the client to get information from a program map table (PMT).

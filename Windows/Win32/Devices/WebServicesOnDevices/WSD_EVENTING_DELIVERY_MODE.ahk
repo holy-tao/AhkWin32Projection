@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WSD_EVENTING_DELIVERY_MODE_PUSH.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents the delivery mode used in a WS-Eventing Subscribe message.

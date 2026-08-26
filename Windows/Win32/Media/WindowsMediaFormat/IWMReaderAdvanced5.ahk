@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMReaderAdvanced4.ahk
-#Include .\IWMPlayerHook.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWMPlayerHook.ahk
+#Include .\IWMReaderAdvanced4.ahk
 
 /**
  * The IWMReaderAdvanced5 interface enables you to associate a player-hook callback interface with the reader object.An IWMReaderAdvanced5 interface exists for every reader object.

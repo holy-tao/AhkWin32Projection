@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\SAFEARRAY.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\RDV_TASK_STATUS.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\Com\SAFEARRAY.ahk
+#Include .\RDV_TASK_STATUS.ahk
 
 /**
  * Exposes properties that the Remote Desktop Connection Broker uses to set a plugin’s queue.

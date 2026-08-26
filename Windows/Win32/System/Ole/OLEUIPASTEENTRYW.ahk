@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Com\DVTARGETDEVICE.ahk
 #Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Com\DVTARGETDEVICE.ahk
 #Include ..\Com\FORMATETC.ahk
 
 /**

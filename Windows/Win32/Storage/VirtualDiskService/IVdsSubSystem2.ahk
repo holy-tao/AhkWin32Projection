@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IVdsAsync.ahk
 #Include .\IVdsDrive.ahk
-#Include .\VDS_SUB_SYSTEM_PROP2.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include .\VDS_HINTS2.ahk
 #Include .\VDS_LUN_TYPE.ahk
+#Include .\VDS_SUB_SYSTEM_PROP2.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**

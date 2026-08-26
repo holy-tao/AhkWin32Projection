@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\APO_CONNECTION_PROPERTY.ahk
 #Include .\APO_BUFFER_FLAGS.ahk
+#Include .\APO_CONNECTION_PROPERTY.ahk
 
 /**
  * Contains the dynamically changing connection properties. Version two of this structure introduces a time stamp that can be used to synchronize an auxiliary reference stream initialized with IApoAuxiliaryInputConfiguration.

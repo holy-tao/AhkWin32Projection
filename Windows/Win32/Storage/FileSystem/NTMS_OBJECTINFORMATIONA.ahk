@@ -1,25 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NTMS_IEPORTINFORMATION.ahk
-#Include .\NTMS_LMIDINFORMATION.ahk
-#Include .\NTMS_PMIDINFORMATIONA.ahk
-#Include .\NTMS_DRIVEINFORMATIONA.ahk
-#Include .\NTMS_CHANGERINFORMATIONA.ahk
-#Include .\NTMS_MEDIATYPEINFORMATION.ahk
-#Include .\NTMS_PARTITIONINFORMATIONA.ahk
-#Include .\NTMS_OPREQUESTINFORMATIONA.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include .\FILE_DEVICE_TYPE.ahk
+#Include .\NTMS_CHANGERINFORMATIONA.ahk
 #Include .\NTMS_CHANGERTYPEINFORMATIONA.ahk
 #Include .\NTMS_COMPUTERINFORMATION.ahk
-#Include .\NTMS_LIBREQUESTINFORMATIONA.ahk
-#Include .\FILE_DEVICE_TYPE.ahk
-#Include .\NTMS_LIBRARYINFORMATION.ahk
-#Include ..\..\Foundation\BOOL.ahk
+#Include .\NTMS_DRIVEINFORMATIONA.ahk
 #Include .\NTMS_DRIVETYPEINFORMATIONA.ahk
-#Include .\NTMS_STORAGESLOTINFORMATION.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
-#Include .\NTMS_MEDIAPOOLINFORMATION.ahk
 #Include .\NTMS_IEDOORINFORMATION.ahk
+#Include .\NTMS_IEPORTINFORMATION.ahk
+#Include .\NTMS_LIBRARYINFORMATION.ahk
+#Include .\NTMS_LIBREQUESTINFORMATIONA.ahk
+#Include .\NTMS_LMIDINFORMATION.ahk
+#Include .\NTMS_MEDIAPOOLINFORMATION.ahk
+#Include .\NTMS_MEDIATYPEINFORMATION.ahk
+#Include .\NTMS_OPREQUESTINFORMATIONA.ahk
+#Include .\NTMS_PARTITIONINFORMATIONA.ahk
+#Include .\NTMS_PMIDINFORMATIONA.ahk
+#Include .\NTMS_STORAGESLOTINFORMATION.ahk
 
 /**
  * The NTMS_OBJECTINFORMATION structure defines the properties that an application can get and set for RSM devices, media and system controls (such as libraries, drives, media, operator requests). This is the common structure of objects in the RSM database. (ANSI)

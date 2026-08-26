@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BOOLEAN.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IMAPI_FEATURE_PAGE_TYPE.ahk
+#Include .\IMAPI_MODE_PAGE_REQUEST_TYPE.ahk
 #Include .\IMAPI_MODE_PAGE_TYPE.ahk
 #Include .\IMAPI_PROFILE_TYPE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\IMAPI_MODE_PAGE_REQUEST_TYPE.ahk
 #Include .\IMAPI_READ_TRACK_ADDRESS_TYPE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 

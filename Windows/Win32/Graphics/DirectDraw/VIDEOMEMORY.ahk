@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VMEMHEAP.ahk
 #Include .\DDSCAPS.ahk
+#Include .\VMEMHEAP.ahk
 
 /**
  * The VIDEOMEMORY structure allows the driver to manage its display memory into heaps.

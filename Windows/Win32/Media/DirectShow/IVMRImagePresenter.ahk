@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VMRPRESENTATIONINFO.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\VMRPRESENTATIONINFO.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IVMRImagePresenter interface is implemented by the default Allocator-Presenter for the Video Mixing Renderer Filter 7 (VMR-7).

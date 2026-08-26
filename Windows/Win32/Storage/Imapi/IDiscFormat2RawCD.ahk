@@ -2,14 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\SAFEARRAY.ahk
-#Include ..\..\System\Com\IStream.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IDiscFormat2.ahk
+#Include .\IDiscRecorder2.ahk
 #Include .\IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE.ahk
 #Include .\IMAPI_MEDIA_PHYSICAL_TYPE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\IDiscRecorder2.ahk
-#Include .\IDiscFormat2.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 
 /**
  * Use this interface to write raw images to a disc device using Disc At Once (DAO) mode (also known as uninterrupted recording).

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_DECODE_SUPPORT_FLAGS.ahk
-#Include .\D3D12_BITSTREAM_ENCRYPTION_TYPE.ahk
-#Include .\D3D12_VIDEO_DECODE_CONFIGURATION_FLAGS.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
-#Include .\D3D12_VIDEO_DECODE_CONFIGURATION.ahk
-#Include .\D3D12_VIDEO_DECODE_TIER.ahk
 #Include ..\..\Graphics\Dxgi\Common\DXGI_RATIONAL.ahk
+#Include .\D3D12_BITSTREAM_ENCRYPTION_TYPE.ahk
+#Include .\D3D12_VIDEO_DECODE_CONFIGURATION.ahk
+#Include .\D3D12_VIDEO_DECODE_CONFIGURATION_FLAGS.ahk
+#Include .\D3D12_VIDEO_DECODE_SUPPORT_FLAGS.ahk
+#Include .\D3D12_VIDEO_DECODE_TIER.ahk
 #Include .\D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE.ahk
 
 /**

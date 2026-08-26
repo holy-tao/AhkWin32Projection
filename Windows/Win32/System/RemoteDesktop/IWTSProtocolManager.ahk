@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\WTS_SESSION_ID.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\WTS_SERVICE_STATE.ahk
-#Include .\IWTSProtocolListener.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\IWTSProtocolListener.ahk
+#Include .\WTS_SERVICE_STATE.ahk
+#Include .\WTS_SESSION_ID.ahk
 
 /**
  * IWTSProtocolManager is no longer available. Instead, use IWRdsProtocolManager.

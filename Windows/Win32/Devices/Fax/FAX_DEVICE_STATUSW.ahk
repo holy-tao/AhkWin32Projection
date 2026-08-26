@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The FAX_DEVICE_STATUS structure contains information about the current status of a fax device. (Unicode)

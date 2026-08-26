@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_IPADDRESS.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\VDS_ISCSI_PORTAL_STATUS.ahk
+#Include .\VDS_IPADDRESS.ahk
 #Include .\VDS_IPADDRESS_TYPE.ahk
+#Include .\VDS_ISCSI_PORTAL_STATUS.ahk
 
 /**
  * The VDS_ISCSI_PORTAL_PROP structure (vdshwprv.h) defines the properties of an iSCSI portal.

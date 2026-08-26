@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMediaStream.ahk
-#Include .\IAudioStreamSample.ahk
-#Include .\IAudioData.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Audio\WAVEFORMATEX.ahk
+#Include .\IAudioData.ahk
+#Include .\IAudioStreamSample.ahk
+#Include .\IMediaStream.ahk
 
 /**
  * Note  This interface is deprecated.

@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISyncMgrSynchronizeCallback.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\ISyncMgrEnumItems.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\SYNCMGRHANDLERINFO.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ISyncMgrEnumItems.ahk
+#Include .\ISyncMgrSynchronizeCallback.ahk
+#Include .\SYNCMGRHANDLERINFO.ahk
 
 /**
  * Exposes methods that enable the registered application or service to receive notifications from the synchronization manager.

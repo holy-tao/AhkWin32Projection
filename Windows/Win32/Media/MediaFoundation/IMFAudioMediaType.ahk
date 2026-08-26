@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFMediaType.ahk
 #Include ..\Audio\WAVEFORMATEX.ahk
+#Include .\IMFMediaType.ahk
 
 /**
  * IMFAudioMediaType is no longer available for use as of Windows 7.

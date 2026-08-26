@@ -1,24 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISClusResDependents.ahk
-#Include .\ISClusCryptoKeys.ahk
-#Include .\CLUSTER_RESOURCE_CLASS.ahk
-#Include .\ISClusResPossibleOwnerNodes.ahk
-#Include .\ISClusNode.ahk
-#Include .\ISClusResType.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\ISClusRegistryKeys.ahk
-#Include .\ISCluster.ahk
-#Include .\ISClusProperties.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\ISClusResDependencies.ahk
-#Include .\CLUS_FLAGS.ahk
-#Include .\CLUSTER_RESOURCE_STATE.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\CLUSTER_RESOURCE_CLASS.ahk
+#Include .\CLUSTER_RESOURCE_STATE.ahk
+#Include .\CLUS_FLAGS.ahk
+#Include .\ISClusCryptoKeys.ahk
 #Include .\ISClusDisk.ahk
+#Include .\ISClusNode.ahk
+#Include .\ISClusProperties.ahk
+#Include .\ISClusRegistryKeys.ahk
+#Include .\ISClusResDependencies.ahk
+#Include .\ISClusResDependents.ahk
 #Include .\ISClusResGroup.ahk
+#Include .\ISClusResPossibleOwnerNodes.ahk
+#Include .\ISClusResType.ahk
+#Include .\ISCluster.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 
 /**

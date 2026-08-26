@@ -1,23 +1,23 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IVssAsync.ahk
+#Include .\IVssEnumObject.ahk
 #Include .\IVssExamineWriterMetadata.ahk
 #Include .\IVssWriterComponentsExt.ahk
-#Include .\VSS_OBJECT_TYPE.ahk
-#Include .\IVssEnumObject.ahk
-#Include .\VSS_FILE_RESTORE_STATUS.ahk
 #Include .\VSS_BACKUP_TYPE.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\VSS_SNAPSHOT_PROP.ahk
 #Include .\VSS_COMPONENT_TYPE.ahk
-#Include .\VSS_WRITER_STATE.ahk
-#Include .\IVssAsync.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\VSS_FILE_RESTORE_STATUS.ahk
+#Include .\VSS_OBJECT_TYPE.ahk
 #Include .\VSS_RESTORE_TYPE.ahk
+#Include .\VSS_SNAPSHOT_PROP.ahk
+#Include .\VSS_WRITER_STATE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IVssBackupComponents interface is used by a requester to poll writers about file status and to run backup/restore operations.

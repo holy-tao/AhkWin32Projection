@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IOleWindow.ahk
-#Include .\IOleInPlaceUIWindow.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\UI\WindowsAndMessaging\MSG.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include .\IOleInPlaceUIWindow.ahk
+#Include .\IOleWindow.ahk
+#Include ..\..\UI\WindowsAndMessaging\MSG.ahk
 
 /**
  * Provides a direct channel of communication between an in-place object and the associated application's outer-most frame window and the document window within the application that contains the embedded object.

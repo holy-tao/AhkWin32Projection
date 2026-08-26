@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IUpdateCollection.ahk
-#Include .\ICategoryCollection.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\ICategoryCollection.ahk
 #Include .\IImageInformation.ahk
+#Include .\IUpdateCollection.ahk
 
 /**
  * Represents the category to which an update belongs.

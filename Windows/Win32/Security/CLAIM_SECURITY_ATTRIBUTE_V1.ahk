@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include .\CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE.ahk
 #Include ..\Foundation\PWSTR.ahk
 #Include .\CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE.ahk
+#Include .\CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE.ahk
 #Include .\CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE.ahk
 
 /**

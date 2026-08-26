@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSB_OB_STATUS_ENTRY.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WSB_OB_STATUS_ENTRY.ahk
 
 /**
  * Contains information to update the cloud backup provider status in the Windows Server Backup MMC snap-in.

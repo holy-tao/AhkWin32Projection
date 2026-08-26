@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\Com\SAFEARRAY.ahk
 #Include .\IWorkspace.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes additional methods that provide information about a connection in RemoteApp and Desktop Connection.

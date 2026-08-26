@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFaxServer.ahk
-#Include .\FAX_RECEIPT_TYPE_ENUM.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\FAX_SCHEDULE_TYPE_ENUM.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IFaxRecipients.ahk
 #Include .\FAX_COVERPAGE_TYPE_ENUM.ahk
 #Include .\FAX_PRIORITY_TYPE_ENUM.ahk
+#Include .\FAX_RECEIPT_TYPE_ENUM.ahk
+#Include .\FAX_SCHEDULE_TYPE_ENUM.ahk
+#Include .\IFaxRecipients.ahk
 #Include .\IFaxSender.ahk
+#Include .\IFaxServer.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * The IFaxDocument interface defines a messaging object used by a fax client application to compose a fax document and submit it to the fax service for processing.

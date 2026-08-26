@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include Common\DXGI_FORMAT.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDXGIOutput4.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include Common\DXGI_FORMAT.ahk
+#Include .\IDXGIOutput4.ahk
 #Include .\IDXGIOutputDuplication.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents an adapter output (such as a monitor). The IDXGIOutput5 interface exposes a single method to specify a list of supported formats for fullscreen surfaces.

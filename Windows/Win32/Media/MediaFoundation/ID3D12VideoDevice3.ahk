@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D3D12_VIDEO_ENCODER_HEAP_DESC.ahk
-#Include .\D3D12_VIDEO_ENCODER_DESC.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12VideoDevice2.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3D12_VIDEO_ENCODER_DESC.ahk
+#Include .\D3D12_VIDEO_ENCODER_HEAP_DESC.ahk
+#Include .\ID3D12VideoDevice2.ahk
 
 /**
  * Extends the ID3D12VideoDevice interface to add support video encoding capabilities.

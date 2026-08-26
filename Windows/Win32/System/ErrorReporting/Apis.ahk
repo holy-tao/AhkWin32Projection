@@ -1,32 +1,32 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include .\WER_FAULT_REPORTING.ahk
-#Include .\HREPORT.ahk
-#Include .\WER_EXCEPTION_INFORMATION.ahk
-#Include .\WER_REPORT_METADATA_V2.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\WER_REGISTER_FILE_TYPE.ahk
-#Include ..\Diagnostics\Debug\EXCEPTION_POINTERS.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\REPORT_STORE_TYPES.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\WER_CONSENT.ahk
-#Include .\HREPORTSTORE.ahk
-#Include .\WER_FILE.ahk
-#Include .\WER_SUBMIT_RESULT.ahk
-#Include .\WER_REPORT_METADATA_V1.ahk
-#Include .\WER_DUMP_CUSTOM_OPTIONS.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include .\WER_REPORT_TYPE.ahk
-#Include .\WER_SUBMIT_FLAGS.ahk
-#Include .\WER_DUMP_TYPE.ahk
-#Include .\WER_REPORT_UI.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Diagnostics\Debug\EXCEPTION_POINTERS.ahk
 #Include .\EFaultRepRetVal.ahk
-#Include .\WER_REPORT_INFORMATION.ahk
-#Include .\WER_REPORT_METADATA_V3.ahk
+#Include .\HREPORT.ahk
+#Include .\HREPORTSTORE.ahk
+#Include .\REPORT_STORE_TYPES.ahk
+#Include .\WER_CONSENT.ahk
+#Include .\WER_DUMP_CUSTOM_OPTIONS.ahk
+#Include .\WER_DUMP_TYPE.ahk
+#Include .\WER_EXCEPTION_INFORMATION.ahk
+#Include .\WER_FAULT_REPORTING.ahk
+#Include .\WER_FILE.ahk
 #Include .\WER_FILE_TYPE.ahk
+#Include .\WER_REGISTER_FILE_TYPE.ahk
+#Include .\WER_REPORT_INFORMATION.ahk
+#Include .\WER_REPORT_METADATA_V1.ahk
+#Include .\WER_REPORT_METADATA_V2.ahk
+#Include .\WER_REPORT_METADATA_V3.ahk
+#Include .\WER_REPORT_TYPE.ahk
+#Include .\WER_REPORT_UI.ahk
+#Include .\WER_SUBMIT_FLAGS.ahk
+#Include .\WER_SUBMIT_RESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.ErrorReporting

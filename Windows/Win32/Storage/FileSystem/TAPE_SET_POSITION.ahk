@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\TAPE_POSITION_METHOD.ahk
 #Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\TAPE_POSITION_METHOD.ahk
 
 /**
  * Describes how and where to position the tape.

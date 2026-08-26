@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\TS_TEXTCHANGE.ahk
-#Include .\TEXT_STORE_TEXT_CHANGE_FLAGS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\TEXT_STORE_LOCK_FLAGS.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\TEXT_STORE_TEXT_CHANGE_FLAGS.ahk
+#Include .\TS_TEXTCHANGE.ahk
 #Include .\TsLayoutCode.ahk
 
 /**

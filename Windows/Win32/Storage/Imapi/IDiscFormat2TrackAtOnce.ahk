@@ -2,13 +2,13 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\SAFEARRAY.ahk
-#Include ..\..\System\Com\IStream.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IMAPI_MEDIA_PHYSICAL_TYPE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\IDiscRecorder2.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IDiscFormat2.ahk
+#Include .\IDiscRecorder2.ahk
+#Include .\IMAPI_MEDIA_PHYSICAL_TYPE.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 
 /**
  * Use this interface to write audio to blank CD-R or CD-RW media in Track-At-Once mode.

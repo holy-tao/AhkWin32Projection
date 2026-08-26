@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMAPI_CD_TRACK_DIGITAL_COPY_SETTING.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IMAPI_CD_SECTOR_TYPE.ahk
+#Include .\IMAPI_CD_TRACK_DIGITAL_COPY_SETTING.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\SAFEARRAY.ahk
-#Include .\IMAPI_CD_SECTOR_TYPE.ahk
 
 /**
  * Use this interface to track per-track properties that are applied to CD media.

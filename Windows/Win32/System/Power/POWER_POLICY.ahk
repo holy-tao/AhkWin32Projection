@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\POWER_ACTION_POLICY.ahk
-#Include .\USER_POWER_POLICY.ahk
 #Include ..\..\Foundation\BOOLEAN.ahk
-#Include .\POWER_ACTION_POLICY_EVENT_CODE.ahk
-#Include .\POWER_ACTION.ahk
-#Include .\SYSTEM_POWER_STATE.ahk
 #Include .\MACHINE_POWER_POLICY.ahk
+#Include .\POWER_ACTION.ahk
+#Include .\POWER_ACTION_POLICY.ahk
+#Include .\POWER_ACTION_POLICY_EVENT_CODE.ahk
+#Include .\SYSTEM_POWER_STATE.ahk
+#Include .\USER_POWER_POLICY.ahk
 
 /**
  * Contains power policy settings that are unique to each power scheme.

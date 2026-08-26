@@ -2,10 +2,10 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IMSVidOutputDevice.ahk
 #Include .\IMSVidStreamBufferRecordingControl.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IMSVidOutputDevice.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IMSVidStreamBufferSink interface represents the Stream Buffer Sink filter within the Video Control.

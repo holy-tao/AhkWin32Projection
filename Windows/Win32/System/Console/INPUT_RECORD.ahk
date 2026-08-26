@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\CHAR.ahk
 #Include .\COORD.ahk
-#Include .\MOUSE_EVENT_RECORD.ahk
-#Include .\MENU_EVENT_RECORD.ahk
 #Include .\FOCUS_EVENT_RECORD.ahk
 #Include .\KEY_EVENT_RECORD.ahk
-#Include ..\..\Foundation\BOOL.ahk
+#Include .\MENU_EVENT_RECORD.ahk
+#Include .\MOUSE_EVENT_RECORD.ahk
 #Include .\WINDOW_BUFFER_SIZE_RECORD.ahk
-#Include ..\..\Foundation\CHAR.ahk
 
 /**
  * See reference information about the INPUT_RECORD structure, which describes an input event in the console input buffer.

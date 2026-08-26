@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NFC_SNEP_REQUEST_TYPE.ahk
 #Include .\NFC_DATA_BUFFER.ahk
+#Include .\NFC_SNEP_REQUEST_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Nfc

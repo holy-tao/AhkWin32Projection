@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMClientConnections.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IWMClientConnections.ahk
 
 /**
  * The IWMClientConnections2 interface retrieves advanced client information.The writer network sink object exposes this interface.

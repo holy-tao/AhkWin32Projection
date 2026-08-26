@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWICBitmapFrameDecode.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\WICBitmapChainType.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWICBitmapFrameDecode.ahk
+#Include .\WICBitmapChainType.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Imaging

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IWMPContentContainer.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWMPContentContainer.ahk
 #Include .\WMPTransactionType.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Note  This section describes functionality designed for use by online stores.

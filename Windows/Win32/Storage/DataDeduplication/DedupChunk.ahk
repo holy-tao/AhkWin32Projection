@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DedupHash.ahk
 #Include .\DedupChunkFlags.ahk
+#Include .\DedupHash.ahk
 
 /**
  * @namespace Windows.Win32.Storage.DataDeduplication

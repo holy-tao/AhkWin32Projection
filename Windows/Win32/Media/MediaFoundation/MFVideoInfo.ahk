@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MFOffset.ahk
-#Include .\MFVideoInterlaceMode.ahk
-#Include .\MFVideoTransferMatrix.ahk
-#Include .\MFVideoPrimaries.ahk
-#Include .\MFVideoArea.ahk
 #Include ..\..\Foundation\SIZE.ahk
 #Include .\MFNominalRange.ahk
-#Include .\MFVideoLighting.ahk
+#Include .\MFOffset.ahk
 #Include .\MFRatio.ahk
-#Include .\MFVideoTransferFunction.ahk
+#Include .\MFVideoArea.ahk
 #Include .\MFVideoChromaSubsampling.ahk
+#Include .\MFVideoInterlaceMode.ahk
+#Include .\MFVideoLighting.ahk
+#Include .\MFVideoPrimaries.ahk
+#Include .\MFVideoTransferFunction.ahk
+#Include .\MFVideoTransferMatrix.ahk
 
 /**
  * Contains video format information that applies to both compressed and uncompressed formats.This structure is used in the MFVIDEOFORMAT structure.

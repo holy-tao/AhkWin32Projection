@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC_AV1_PICTURE_CONTROL_SUPPORT.ahk
 #Include .\D3D12_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT_H264.ahk
 #Include .\D3D12_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT_HEVC.ahk
-#Include .\D3D12_VIDEO_ENCODER_CODEC_AV1_PICTURE_CONTROL_SUPPORT.ahk
 
 /**
  * Represents picture control support structure for multiple codecs.

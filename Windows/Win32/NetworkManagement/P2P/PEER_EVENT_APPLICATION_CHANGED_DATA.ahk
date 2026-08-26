@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PEER_ENDPOINT.ahk
-#Include .\PEER_CONTACT.ahk
-#Include .\PEER_CHANGE_TYPE.ahk
 #Include .\PEER_APPLICATION.ahk
+#Include .\PEER_CHANGE_TYPE.ahk
+#Include .\PEER_CONTACT.ahk
+#Include .\PEER_ENDPOINT.ahk
 
 /**
  * The PEER_EVENT_APPLICATION_CHANGED_DATA structure contains information returned when a PEER_EVENT_ENDPOINT_APPLICATION_CHANGED or PEER_EVENT_MY_APPLICATION_CHANGED event is raised on a peer participating in a peer collaboration network.

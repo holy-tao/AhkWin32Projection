@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\MediaFoundation\AM_MEDIA_TYPE.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\ComponentCategory.ahk
+#Include ..\..\MediaFoundation\AM_MEDIA_TYPE.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * The IComponentType interface is implemented on ComponentType objects, and contains methods for setting and retrieving various properties for a Component.

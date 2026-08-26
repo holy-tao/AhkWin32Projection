@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\SpatialAudioMetadataCopyMode.ahk
-#Include .\ISpatialAudioMetadataItems.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ISpatialAudioMetadataItems.ahk
+#Include .\SpatialAudioMetadataCopyMode.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides methods for copying all or subsets of metadata items from a source SpatialAudioMetadataItems into a destination SpatialAudioMetadataItems.

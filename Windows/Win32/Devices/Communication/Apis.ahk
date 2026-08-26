@@ -2,22 +2,22 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\CLEAR_COMM_ERROR_FLAGS.ahk
-#Include .\COMSTAT.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\COMMCONFIG.ahk
-#Include .\PURGE_COMM_FLAGS.ahk
+#Include .\COMMPROP.ahk
+#Include .\COMMTIMEOUTS.ahk
+#Include .\COMM_EVENT_MASK.ahk
+#Include .\COMSTAT.ahk
+#Include .\DCB.ahk
 #Include .\ESCAPE_COMM_FUNCTION.ahk
+#Include .\MODEM_STATUS_FLAGS.ahk
+#Include .\PURGE_COMM_FLAGS.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\CHAR.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\IO\OVERLAPPED.ahk
-#Include .\COMMTIMEOUTS.ahk
-#Include .\DCB.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include .\COMMPROP.ahk
-#Include .\COMM_EVENT_MASK.ahk
-#Include .\MODEM_STATUS_FLAGS.ahk
-#Include ..\..\Foundation\CHAR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Communication

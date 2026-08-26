@@ -2,12 +2,12 @@
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\Com\TYPEDESC.ahk
-#Include ..\..\..\..\Foundation\PWSTR.ahk
-#Include ..\..\..\Variant\VARIANT.ahk
-#Include ..\..\..\Com\IUnknown.ahk
 #Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+#Include ..\..\..\Com\TYPEDESC.ahk
 #Include ..\..\..\Variant\VARENUM.ahk
+#Include ..\..\..\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

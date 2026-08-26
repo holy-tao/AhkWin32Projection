@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IFaxAccountIncomingArchive.ahk
 #Include .\IFaxAccountIncomingQueue.ahk
 #Include .\IFaxAccountOutgoingArchive.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IFaxAccountOutgoingQueue.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Provides access to the incoming and outgoing fax queues and fax archives.

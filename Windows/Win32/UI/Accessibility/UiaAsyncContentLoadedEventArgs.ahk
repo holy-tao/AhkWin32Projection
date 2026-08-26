@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\EventArgsType.ahk
 #Include .\AsyncContentLoadedState.ahk
+#Include .\EventArgsType.ahk
 
 /**
  * Note  This structure is deprecated.  Contains information about an event raised when content is being asynchronously loaded by a UI element.

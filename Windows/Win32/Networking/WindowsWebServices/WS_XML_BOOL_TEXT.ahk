@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\WS_XML_TEXT.ahk
 #Include .\WS_XML_TEXT_TYPE.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * A Boolean value that represents the text &quot;true&quot; or &quot;false&quot;.

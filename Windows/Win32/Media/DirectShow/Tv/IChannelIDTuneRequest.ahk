@@ -2,8 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\ITuneRequest.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\ITuneRequest.ahk
 
 /**
  * Implements methods that support channel requests using a string identifier.

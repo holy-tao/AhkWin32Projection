@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509PrivateKey.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
 #Include .\ICertProperty.ahk
+#Include .\IX509PrivateKey.ahk
 
 /**
  * Represents a certificate property that contains information about a private key.

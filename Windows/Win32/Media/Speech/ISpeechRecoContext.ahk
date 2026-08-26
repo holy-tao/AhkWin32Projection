@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\SpeechInterference.ahk
-#Include .\ISpeechVoice.ahk
-#Include .\SpeechRecoEvents.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\SpeechRecoContextState.ahk
+#Include .\ISpeechAudioFormat.ahk
+#Include .\ISpeechRecoGrammar.ahk
 #Include .\ISpeechRecoResult.ahk
 #Include .\ISpeechRecognizer.ahk
-#Include .\SpeechRetainedAudioOptions.ahk
-#Include .\ISpeechRecoGrammar.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISpeechAudioFormat.ahk
+#Include .\ISpeechVoice.ahk
 #Include .\SpeechBookmarkOptions.ahk
+#Include .\SpeechInterference.ahk
+#Include .\SpeechRecoContextState.ahk
+#Include .\SpeechRecoEvents.ahk
+#Include .\SpeechRetainedAudioOptions.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech

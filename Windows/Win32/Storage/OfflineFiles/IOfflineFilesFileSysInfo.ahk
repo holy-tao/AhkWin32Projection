@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\OFFLINEFILES_ITEM_COPY.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents the standard information associated with a file system item in the Offline Files cache.

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumWIA_DEV_INFO.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IEnumWIA_DEV_INFO.ahk
 #Include .\IWiaEventCallback.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IWiaItem2.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IWiaDevMgr2 interface is used to create and manage image acquisition devices and to register to receive device events.

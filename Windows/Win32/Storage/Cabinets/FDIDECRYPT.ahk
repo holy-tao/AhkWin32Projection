@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\FDIDECRYPTTYPE.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include .\FDIDECRYPTTYPE.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Cabinets

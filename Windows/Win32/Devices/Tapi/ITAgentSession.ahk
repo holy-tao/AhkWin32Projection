@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ITAgent.ahk
 #Include .\AGENT_SESSION_STATE.ahk
-#Include ..\..\System\Com\CY.ahk
 #Include .\ITACDGroup.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include .\ITAddress.ahk
+#Include .\ITAgent.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\CY.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITAgentSession interface (tapi3cc.h) handles agent session, which represent an association between an agent, group, and address.

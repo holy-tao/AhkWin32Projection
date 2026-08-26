@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\FolderItemVerbs.ahk
 #Include .\FolderItems2.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the FolderItems2 object. This object supports an additional method and property.

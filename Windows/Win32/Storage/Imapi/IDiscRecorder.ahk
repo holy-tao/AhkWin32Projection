@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\MEDIA_TYPES.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\DISC_RECORDER_STATE_FLAGS.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\RECORDER_TYPES.ahk
-#Include .\MEDIA_FLAGS.ahk
-#Include ..\..\System\Com\StructuredStorage\IPropertyStorage.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\DISC_RECORDER_STATE_FLAGS.ahk
+#Include .\MEDIA_FLAGS.ahk
+#Include .\MEDIA_TYPES.ahk
+#Include .\RECORDER_TYPES.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\StructuredStorage\IPropertyStorage.ahk
 
 /**
  * The IDiscRecorder interface enables access to a single disc recorder device, labeled the active disc recorder. An IMAPI object such as MSDiscMasterObj maintains an active disc recorder.

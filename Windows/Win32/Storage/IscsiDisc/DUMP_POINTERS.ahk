@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\_ADAPTER_OBJECT.ahk
 #Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\_ADAPTER_OBJECT.ahk
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc

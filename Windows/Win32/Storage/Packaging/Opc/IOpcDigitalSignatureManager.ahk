@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IOpcSigningOptions.ahk
-#Include .\IOpcDigitalSignature.ahk
-#Include .\IOpcPartUri.ahk
-#Include .\IOpcDigitalSignatureEnumerator.ahk
-#Include .\OPC_SIGNATURE_VALIDATION_RESULT.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Security\Cryptography\CERT_CONTEXT.ahk
+#Include .\IOpcDigitalSignature.ahk
+#Include .\IOpcDigitalSignatureEnumerator.ahk
+#Include .\IOpcPartUri.ahk
+#Include .\IOpcSigningOptions.ahk
+#Include .\OPC_SIGNATURE_VALIDATION_RESULT.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides access to Packaging Digital Signature Interfaces for a package that is represented by Packaging API objects.

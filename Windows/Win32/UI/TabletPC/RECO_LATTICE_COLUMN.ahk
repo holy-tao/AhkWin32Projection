@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RECO_LATTICE_ELEMENT.ahk
 #Include .\RECO_LATTICE_PROPERTIES.ahk
 #Include .\RECO_LATTICE_PROPERTY.ahk
-#Include .\RECO_LATTICE_ELEMENT.ahk
 
 /**
  * Represents a column in the lattice.

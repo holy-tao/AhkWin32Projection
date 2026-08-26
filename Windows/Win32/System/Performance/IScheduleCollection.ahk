@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IDispatch.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\ISchedule.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * Manages a collection of Schedule objects.To get this interface, access the IDataCollectorSet::Schedules property.

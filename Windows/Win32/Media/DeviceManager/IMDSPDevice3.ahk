@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\PWSTR.ahk
+#Include .\IMDSPDevice2.ahk
 #Include .\IMDSPStorage.ahk
-#Include .\WMDM_FORMAT_CAPABILITY.ahk
 #Include .\WMDM_FIND_SCOPE.ahk
 #Include .\WMDM_FORMATCODE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\IMDSPDevice2.ahk
+#Include .\WMDM_FORMAT_CAPABILITY.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 
 /**
  * The IMDSPDevice3 interface must be supported for devices that expect to synchronize with Windows Media Player.

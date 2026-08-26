@@ -2,9 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\APPLETIDLIST.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IImeSpecifyApplets interface specifies methods called from the IImePad interface object to emulate the IImePadApplet interface.

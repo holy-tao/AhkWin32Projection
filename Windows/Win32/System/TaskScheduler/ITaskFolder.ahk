@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRegisteredTaskCollection.ahk
-#Include .\ITaskFolderCollection.ahk
-#Include .\IRegisteredTask.ahk
-#Include .\TASK_LOGON_TYPE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\IRegisteredTask.ahk
+#Include .\IRegisteredTaskCollection.ahk
 #Include .\ITaskDefinition.ahk
+#Include .\ITaskFolderCollection.ahk
+#Include .\TASK_LOGON_TYPE.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * Provides the methods that are used to register (create) tasks in the folder, remove tasks from the folder, and create or remove subfolders from the folder.

@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\ISpeechGrammarRules.ahk
 #Include .\ISpeechRecoContext.ahk
-#Include .\SpeechWordPronounceable.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\SpeechGrammarState.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ISpeechTextSelectionInformation.ahk
-#Include .\SpeechRuleState.ahk
+#Include .\SpeechGrammarState.ahk
 #Include .\SpeechLoadOption.ahk
+#Include .\SpeechRuleState.ahk
+#Include .\SpeechWordPronounceable.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech

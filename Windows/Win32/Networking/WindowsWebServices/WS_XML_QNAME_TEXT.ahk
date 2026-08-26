@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_XML_STRING.ahk
 #Include .\WS_XML_TEXT.ahk
 #Include .\WS_XML_TEXT_TYPE.ahk
-#Include .\WS_XML_STRING.ahk
 
 /**
  * Represents a qname formatted as the text &quot;prefix:localName&quot;

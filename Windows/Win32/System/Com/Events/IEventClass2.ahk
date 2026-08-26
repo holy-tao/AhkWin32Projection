@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IEventClass.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IEventClass.ahk
 
 /**
  * Used to set and obtain data on event class objects. This interface extends the IEventClass interface.

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\TASKDIALOG_COMMON_BUTTON_FLAGS.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\TASKDIALOG_FLAGS.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\WindowsAndMessaging\HICON.ahk
 #Include .\TASKDIALOG_BUTTON.ahk
+#Include .\TASKDIALOG_COMMON_BUTTON_FLAGS.ahk
+#Include .\TASKDIALOG_FLAGS.ahk
+#Include ..\WindowsAndMessaging\HICON.ahk
 
 /**
  * The TASKDIALOGCONFIG structure contains information used to display a task dialog. The TaskDialogIndirect function uses this structure.

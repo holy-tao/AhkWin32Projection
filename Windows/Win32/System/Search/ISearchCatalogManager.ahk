@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISearchQueryHelper.ahk
-#Include ..\Com\StructuredStorage\PROPVARIANT.ahk
-#Include .\ISearchPersistentItemsChangedSink.ahk
-#Include .\ISearchCrawlScopeManager.ahk
-#Include .\ISearchViewChangedSink.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\ISearchNotifyInlineSite.ahk
-#Include ..\Com\IEnumString.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\CatalogPausedReason.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Com\IEnumString.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\Com\StructuredStorage\PROPVARIANT.ahk
+#Include .\CatalogPausedReason.ahk
 #Include .\CatalogStatus.ahk
+#Include .\ISearchCrawlScopeManager.ahk
+#Include .\ISearchNotifyInlineSite.ahk
+#Include .\ISearchPersistentItemsChangedSink.ahk
+#Include .\ISearchQueryHelper.ahk
+#Include .\ISearchViewChangedSink.ahk
 
 /**
  * Provides methods to manage a search catalog for purposes such as re-indexing or setting timeouts.

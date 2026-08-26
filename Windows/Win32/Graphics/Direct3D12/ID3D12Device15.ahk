@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D3D12_SHADER_RESOURCE_VIEW_DESC.ahk
-#Include .\ID3D12QueryHeap.ahk
-#Include .\D3D12_QUERY_HEAP_DESC.ahk
-#Include .\D3D12_CPU_DESCRIPTOR_HANDLE.ahk
-#Include .\D3D12_SAMPLER_DESC2.ahk
-#Include .\D3D12_CONSTANT_BUFFER_VIEW_DESC.ahk
-#Include .\ID3D12Device14.ahk
-#Include .\D3D12_REGISTER_TRIM_NOTIFICATION.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D3D12_QUERY_HEAP_FLAGS.ahk
-#Include .\D3D12_RENDER_TARGET_VIEW_DESC.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\D3D12_QUERY_TYPE.ahk
-#Include .\ID3D12Resource.ahk
+#Include .\D3D12_CONSTANT_BUFFER_VIEW_DESC.ahk
+#Include .\D3D12_CPU_DESCRIPTOR_HANDLE.ahk
 #Include .\D3D12_DEPTH_STENCIL_VIEW_DESC.ahk
+#Include .\D3D12_QUERY_HEAP_DESC.ahk
+#Include .\D3D12_QUERY_HEAP_FLAGS.ahk
+#Include .\D3D12_QUERY_TYPE.ahk
+#Include .\D3D12_REGISTER_TRIM_NOTIFICATION.ahk
+#Include .\D3D12_RENDER_TARGET_VIEW_DESC.ahk
+#Include .\D3D12_SAMPLER_DESC2.ahk
+#Include .\D3D12_SHADER_RESOURCE_VIEW_DESC.ahk
 #Include .\D3D12_UNORDERED_ACCESS_VIEW_DESC.ahk
+#Include .\ID3D12Device14.ahk
+#Include .\ID3D12QueryHeap.ahk
+#Include .\ID3D12Resource.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

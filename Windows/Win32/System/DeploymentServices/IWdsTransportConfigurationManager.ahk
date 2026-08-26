@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWdsTransportDiagnosticsPolicy.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\IWdsTransportDiagnosticsPolicy.ahk
 #Include .\IWdsTransportServicePolicy.ahk
 #Include .\WDSTRANSPORT_SERVICE_NOTIFICATION.ahk
 

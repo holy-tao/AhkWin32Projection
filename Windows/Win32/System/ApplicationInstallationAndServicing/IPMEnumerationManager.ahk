@@ -1,27 +1,27 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IPMBackgroundServiceAgentInfo.ahk
-#Include .\IPMApplicationInfoEnumerator.ahk
-#Include .\IPMTaskInfo.ahk
-#Include .\IPMBackgroundWorkerInfoEnumerator.ahk
-#Include .\PM_LIVETILE_RECURRENCE_TYPE.ahk
-#Include .\PM_ENUM_FILTER.ahk
-#Include .\IPMApplicationInfo.ahk
-#Include .\IPMBackgroundServiceAgentInfoEnumerator.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IPMLiveTileJobInfoEnumerator.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\PM_LOGO_SIZE.ahk
-#Include .\IPMExtensionInfoEnumerator.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IPMApplicationInfo.ahk
+#Include .\IPMApplicationInfoEnumerator.ahk
+#Include .\IPMBackgroundServiceAgentInfo.ahk
+#Include .\IPMBackgroundServiceAgentInfoEnumerator.ahk
+#Include .\IPMBackgroundWorkerInfoEnumerator.ahk
+#Include .\IPMExtensionInfoEnumerator.ahk
 #Include .\IPMLiveTileJobInfo.ahk
-#Include .\IPMTileInfo.ahk
-#Include .\PM_STARTTILEBLOB.ahk
+#Include .\IPMLiveTileJobInfoEnumerator.ahk
+#Include .\IPMTaskInfo.ahk
 #Include .\IPMTaskInfoEnumerator.ahk
+#Include .\IPMTileInfo.ahk
 #Include .\IPMTileInfoEnumerator.ahk
+#Include .\PM_ENUM_FILTER.ahk
+#Include .\PM_LIVETILE_RECURRENCE_TYPE.ahk
+#Include .\PM_LOGO_SIZE.ahk
 #Include .\PM_STARTAPPBLOB.ahk
+#Include .\PM_STARTTILEBLOB.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**

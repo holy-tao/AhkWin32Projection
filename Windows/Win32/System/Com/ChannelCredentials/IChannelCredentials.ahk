@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\IDispatch.ahk
 #Include ..\..\Variant\VARIANT.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Com.ChannelCredentials

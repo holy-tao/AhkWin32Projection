@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\WAVEFORMATEX.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\WAVEFORMATEX.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides a list of supported audio formats. The most preferred format is first in the list. Get a reference to this interface by calling ISpatialAudioClient::GetSupportedAudioObjectFormatEnumerator.

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumSyncChanges.ahk
-#Include .\SYNC_VERSION.ahk
-#Include .\ISyncKnowledge.ahk
-#Include .\ISyncChangeBuilder.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\IForgottenKnowledge.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IEnumSyncChanges.ahk
+#Include .\IForgottenKnowledge.ahk
+#Include .\ISyncChangeBuilder.ahk
+#Include .\ISyncKnowledge.ahk
+#Include .\SYNC_VERSION.ahk
 
 /**
  * Represents metadata for a set of changes. (ISyncChangeBatchBase)

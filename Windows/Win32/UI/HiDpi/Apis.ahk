@@ -1,24 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include ..\WindowsAndMessaging\SYSTEM_METRICS_INDEX.ahk
-#Include .\DPI_AWARENESS_CONTEXT.ahk
-#Include .\MONITOR_DPI_TYPE.ahk
-#Include .\DIALOG_DPI_CHANGE_BEHAVIORS.ahk
-#Include ..\..\Graphics\Gdi\HMONITOR.ahk
-#Include .\DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\POINT.ahk
-#Include ..\WindowsAndMessaging\WINDOW_STYLE.ahk
-#Include .\DPI_HOSTING_BEHAVIOR.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\PROCESS_DPI_AWARENESS.ahk
-#Include ..\WindowsAndMessaging\WINDOW_EX_STYLE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\DPI_AWARENESS.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Graphics\Gdi\HMONITOR.ahk
 #Include ..\Controls\HTHEME.ahk
+#Include .\DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS.ahk
+#Include .\DIALOG_DPI_CHANGE_BEHAVIORS.ahk
+#Include .\DPI_AWARENESS.ahk
+#Include .\DPI_AWARENESS_CONTEXT.ahk
+#Include .\DPI_HOSTING_BEHAVIOR.ahk
+#Include .\MONITOR_DPI_TYPE.ahk
+#Include .\PROCESS_DPI_AWARENESS.ahk
+#Include ..\WindowsAndMessaging\SYSTEM_METRICS_INDEX.ahk
+#Include ..\WindowsAndMessaging\WINDOW_EX_STYLE.ahk
+#Include ..\WindowsAndMessaging\WINDOW_STYLE.ahk
 
 /**
  * @namespace Windows.Win32.UI.HiDpi

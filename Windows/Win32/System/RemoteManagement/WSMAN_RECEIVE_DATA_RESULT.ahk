@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSMAN_DATA.ahk
 #Include ..\..\Foundation\PWSTR.ahk
+#Include .\WSMAN_DATA.ahk
 #Include .\WSMAN_DATA_BINARY.ahk
 #Include .\WSMAN_DATA_TEXT.ahk
 #Include .\WSManDataType.ahk

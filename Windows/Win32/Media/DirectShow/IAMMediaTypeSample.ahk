@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\MediaFoundation\AM_MEDIA_TYPE.ahk
-#Include .\IStreamSample.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IStreamSample.ahk
+#Include ..\MediaFoundation\AM_MEDIA_TYPE.ahk
 
 /**
  * Note  This interface is deprecated.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include .\CKCL_DATA.ahk
 #Include ..\..\..\..\Foundation\HANDLE.ahk
+#Include .\CKCL_DATA.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

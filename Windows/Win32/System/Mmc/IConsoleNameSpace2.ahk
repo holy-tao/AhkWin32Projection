@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IConsoleNameSpace.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IConsoleNameSpace.ahk
 
 /**
  * The IConsoleNameSpace2 interface is introduced in MMC 1.1.

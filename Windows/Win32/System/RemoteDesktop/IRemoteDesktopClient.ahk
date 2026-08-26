@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IDispatch.ahk
 #Include .\IRemoteDesktopClientActions.ahk
-#Include .\IRemoteDesktopClientTouchPointer.ahk
 #Include .\IRemoteDesktopClientSettings.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IRemoteDesktopClientTouchPointer.ahk
 
 /**
  * Provides methods and properties used to configure and use the Remote Desktop Protocol (RDP) app container client control.

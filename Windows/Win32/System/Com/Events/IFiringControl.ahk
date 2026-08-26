@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\IDispatch.ahk
-#Include .\IEventSubscription.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IEventSubscription.ahk
+#Include ..\IDispatch.ahk
 
 /**
  * Fires an event to a single subscription.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12Device1.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D3D12_PIPELINE_STATE_STREAM_DESC.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3D12_PIPELINE_STATE_STREAM_DESC.ahk
+#Include .\ID3D12Device1.ahk
 
 /**
  * Represents a virtual adapter. This interface extends ID3D12Device1 to create pipeline state objects from pipeline state stream descriptions.

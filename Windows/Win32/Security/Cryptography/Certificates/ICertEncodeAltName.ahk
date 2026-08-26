@@ -2,9 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
 #Include .\CERT_ALT_NAME.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Provides methods for handling alternate names used in certificate extensions.

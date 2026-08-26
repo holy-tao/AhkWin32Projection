@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\WTS_LICENSE_CAPABILITIES.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods used by the Remote Desktop Services service to perform the licensing handshake during a connection sequence.

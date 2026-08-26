@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\HTML_PAINT_DRAW_INFO.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\POINT.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Graphics\Gdi\HRGN.ahk
+#Include ..\..\Foundation\POINT.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Graphics\Gdi\HRGN.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\HTML_PAINT_DRAW_INFO.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

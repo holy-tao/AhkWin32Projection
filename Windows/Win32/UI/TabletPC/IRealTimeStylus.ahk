@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IStylusSyncPlugin.ahk
-#Include .\IStylusAsyncPlugin.ahk
-#Include .\IInkTablet.ahk
-#Include .\IInkCursors.ahk
-#Include .\IInkCursor.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\PACKET_PROPERTY.ahk
-#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HANDLE_PTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IInkCursor.ahk
+#Include .\IInkCursors.ahk
+#Include .\IInkTablet.ahk
+#Include .\IStylusAsyncPlugin.ahk
+#Include .\IStylusSyncPlugin.ahk
+#Include .\PACKET_PROPERTY.ahk
 #Include .\StylusQueue.ahk
 
 /**

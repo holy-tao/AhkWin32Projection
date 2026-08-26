@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MetafileType.ahk
+#Include ..\..\Foundation\RECTL.ahk
+#Include ..\..\Foundation\SIZE.ahk
 #Include ..\Gdi\METAHEADER.ahk
 #Include .\ENHMETAHEADER3.ahk
-#Include ..\..\Foundation\SIZE.ahk
-#Include ..\..\Foundation\RECTL.ahk
+#Include .\MetafileType.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus

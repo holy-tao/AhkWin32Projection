@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Console\CHAR_INFO.ahk
 #Include .\FONT_IMAGE_INFO.ahk
-#Include ..\..\System\Console\COORD.ahk
 #Include ..\..\Foundation\CHAR.ahk
+#Include ..\..\System\Console\CHAR_INFO.ahk
+#Include ..\..\System\Console\COORD.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display

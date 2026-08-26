@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\HDEVNOTIFY.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\HDEVNOTIFY.ahk
 
 /**
  * Contains information about a file system handle.

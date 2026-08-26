@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\USER_PRIV.ahk
-#Include .\USER_ACCOUNT_FLAGS.ahk
 #Include .\AF_OP.ahk
+#Include .\USER_ACCOUNT_FLAGS.ahk
+#Include .\USER_PRIV.ahk
 
 /**
  * The USER_INFO_22 structure contains information about a user account, including the account name, privilege level, the path to the user's home directory, a one-way encrypted LAN Manager 2.x-compatible password, and other user-related network statistics.

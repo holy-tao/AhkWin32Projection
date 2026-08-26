@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IAudioMediaType.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
 #Include .\APO_REG_PROPERTIES.ahk
+#Include .\IAudioMediaType.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * System Effects Audio Processing Objects (sAPOs) are typically used in or called from real-time process threads.

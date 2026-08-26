@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IUnknown.ahk
 
 /**
  * The IPipeLong (objidlbase.h) interface transfers data of the long integer type (which is 32 bits wide).

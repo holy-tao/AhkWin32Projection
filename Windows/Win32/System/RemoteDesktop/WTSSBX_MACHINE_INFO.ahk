@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WTSSBX_ADDRESS_FAMILY.ahk
 #Include .\WTSSBX_IP_ADDRESS.ahk
-#Include .\WTSSBX_MACHINE_DRAIN.ahk
 #Include .\WTSSBX_MACHINE_CONNECT_INFO.ahk
-#Include .\WTSSBX_MACHINE_STATE.ahk
+#Include .\WTSSBX_MACHINE_DRAIN.ahk
 #Include .\WTSSBX_MACHINE_SESSION_MODE.ahk
+#Include .\WTSSBX_MACHINE_STATE.ahk
 
 /**
  * Contains information about a computer and its current state.

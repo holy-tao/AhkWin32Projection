@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMDMMetaData.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include .\IMDSPStorage2.ahk
+#Include .\IWMDMMetaData.ahk
 
 /**
  * The IMDSPStorage3 interface extends IMDSPStorage2 by supporting metadata.

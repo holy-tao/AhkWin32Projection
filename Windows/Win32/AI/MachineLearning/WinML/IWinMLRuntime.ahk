@@ -2,11 +2,11 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\IWinMLEvaluationContext.ahk
+#Include .\IWinMLModel.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\Graphics\Direct3D12\ID3D12Device.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
-#Include .\IWinMLModel.ahk
 
 /**
  * Represents the runtime to load and evaluate a WinML model.

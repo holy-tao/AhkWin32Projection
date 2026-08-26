@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\RTC_REGISTRATION_STATE.ahk
-#Include .\RTC_PROVIDER_URI.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\RTC_PROVIDER_URI.ahk
+#Include .\RTC_REGISTRATION_STATE.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

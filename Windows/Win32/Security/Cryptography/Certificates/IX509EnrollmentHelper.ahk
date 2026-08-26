@@ -2,13 +2,13 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\PolicyServerUrlFlags.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\X509EnrollmentAuthFlags.ahk
-#Include .\WebEnrollmentFlags.ahk
-#Include .\EncodingType.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\EncodingType.ahk
+#Include .\PolicyServerUrlFlags.ahk
+#Include .\WebEnrollmentFlags.ahk
 #Include .\X509CertificateEnrollmentContext.ahk
+#Include .\X509EnrollmentAuthFlags.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * The IX509EnrollmentHelper interface defines methods that enable a web application to enroll a certificate, store policy server credentials in the credential cache, and register policy servers and enrollment servers.

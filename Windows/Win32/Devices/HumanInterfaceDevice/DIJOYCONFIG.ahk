@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\JOYPOS.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\JOYREGHWSETTINGS.ahk
+#Include .\JOYPOS.ahk
 #Include .\JOYRANGE.ahk
-#Include .\JOYREGHWVALUES.ahk
 #Include .\JOYREGHWCONFIG.ahk
+#Include .\JOYREGHWSETTINGS.ahk
+#Include .\JOYREGHWVALUES.ahk
 
 /**
  * The DIJOYCONFIG structure contains information about a joystick's configuration.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\TIMECODE_SAMPLE.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\TIMECODE.ahk
 #Include .\KSIDENTIFIER.ahk
+#Include ..\TIMECODE.ahk
+#Include ..\TIMECODE_SAMPLE.ahk
 #Include ..\TIMECODE_SAMPLE_FLAGS.ahk
 
 /**

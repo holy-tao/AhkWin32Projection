@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\IMMDeviceCollection.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
-#Include ..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 #Include .\APOInitBaseStruct.ahk
+#Include ..\IMMDeviceCollection.ahk
+#Include ..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 
 /**
  * The APOInitSystemEffects2 structure was introduced with Windows 8.1, to make it possible to provide additional initialization context to the audio processing object (APO) for initialization.

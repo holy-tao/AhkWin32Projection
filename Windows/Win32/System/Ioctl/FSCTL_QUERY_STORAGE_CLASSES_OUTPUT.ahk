@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\FILE_STORAGE_TIER_CLASS.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\FILE_STORAGE_TIER.ahk
-#Include .\FILE_STORAGE_TIER_MEDIA_TYPE.ahk
+#Include .\FILE_STORAGE_TIER_CLASS.ahk
 #Include .\FILE_STORAGE_TIER_FLAGS.ahk
+#Include .\FILE_STORAGE_TIER_MEDIA_TYPE.ahk
 
 /**
  * Contains information for all tiers of a specific volume.

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IFsiFileItem2.ahk
-#Include ..\..\System\Ole\IEnumVARIANT.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include .\IEnumFsiItems.ahk
+#Include .\IFsiFileItem2.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Ole\IEnumVARIANT.ahk
 
 /**
  * Use this interface to enumerate the named streams associated with a file in a file system image.

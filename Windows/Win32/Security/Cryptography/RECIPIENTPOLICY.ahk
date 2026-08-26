@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\ENDPOINTADDRESS.ahk
 #Include .\CLAIMLIST.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\ENDPOINTADDRESS.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography

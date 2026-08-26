@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\RPC_VERSION.ahk
-#Include .\RPC_PROTSEQ_ENDPOINT.ahk
 #Include .\RPC_DISPATCH_TABLE.ahk
+#Include .\RPC_PROTSEQ_ENDPOINT.ahk
 #Include .\RPC_SYNTAX_IDENTIFIER.ahk
+#Include .\RPC_VERSION.ahk
 
 /**
  * The RPC_CLIENT_INTERFACE structure is part of the private interface between the run-time libraries and the stubs. Most distributed applications that use Microsoft RPC do not need this structure.

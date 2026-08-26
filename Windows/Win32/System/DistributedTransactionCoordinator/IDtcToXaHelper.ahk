@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\XID.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ITransaction.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\ITransaction.ahk
+#Include .\XID.ahk
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator

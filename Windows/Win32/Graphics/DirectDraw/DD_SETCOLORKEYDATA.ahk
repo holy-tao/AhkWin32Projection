@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DD_SURFACE_LOCAL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\DDCOLORKEY.ahk
 #Include .\DD_DIRECTDRAW_GLOBAL.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\DD_SURFACE_LOCAL.ahk
 
 /**
  * The DD_SETCOLORKEYDATA structure contains information necessary to set the color key value for the specified surface.

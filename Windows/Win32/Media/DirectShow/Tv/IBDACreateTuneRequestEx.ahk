@@ -2,9 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\ITuneRequest.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\ITuneRequest.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Implements the CreateTuneRequestEx method, which creates a new tuning request for a tuning space.

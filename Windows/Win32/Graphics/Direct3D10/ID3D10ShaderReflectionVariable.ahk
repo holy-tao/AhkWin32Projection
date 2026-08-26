@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\D3D10_SHADER_VARIABLE_DESC.ahk
 #Include .\ID3D10ShaderReflectionType.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This shader-reflection interface provides access to a variable. (ID3D10ShaderReflectionVariable)

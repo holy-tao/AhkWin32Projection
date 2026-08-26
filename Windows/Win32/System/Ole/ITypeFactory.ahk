@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\Com\ITypeInfo.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\ITypeInfo.ahk
+#Include ..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.Ole

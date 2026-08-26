@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\LDAP_BERVAL.ahk
 #Include ..\..\Foundation\PSTR.ahk
+#Include .\LDAP_BERVAL.ahk
 
 /**
  * Holds data required to perform a modification operation. (ANSI)

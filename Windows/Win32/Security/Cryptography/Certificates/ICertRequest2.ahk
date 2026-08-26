@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\CERT_PROPERTY_TYPE.ahk
-#Include .\ICertRequest.ahk
-#Include .\CERT_REQUEST_OUT_TYPE.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\FULL_RESPONSE_PROPERTY_ID.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\CERT_PROPERTY_TYPE.ahk
+#Include .\CERT_REQUEST_OUT_TYPE.ahk
 #Include .\CR_DISP.ahk
+#Include .\FULL_RESPONSE_PROPERTY_ID.ahk
+#Include .\ICertRequest.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 
 /**
  * Provide communications between a client or intermediary application and Certificate Services. (ICertRequest2)

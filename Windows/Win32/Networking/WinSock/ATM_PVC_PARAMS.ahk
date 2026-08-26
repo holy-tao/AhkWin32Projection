@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSABUF.ahk
-#Include .\QOS.ahk
 #Include ..\..\Foundation\PSTR.ahk
-#Include .\FLOWSPEC.ahk
 #Include .\ATM_CONNECTION_ID.ahk
+#Include .\FLOWSPEC.ahk
+#Include .\QOS.ahk
+#Include .\WSABUF.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock

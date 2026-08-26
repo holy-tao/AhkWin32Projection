@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IWdsTransportServer.ahk
 #Include .\IWdsTransportTftpManager.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This interface inherits from the IWdsTransportServer interface and extends it. It is available beginning with Windows Server 2012.

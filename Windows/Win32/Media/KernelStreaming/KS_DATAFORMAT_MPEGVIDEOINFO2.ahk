@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\KS_VIDEOINFOHEADER2.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include .\KSDATAFORMAT.ahk
 #Include .\KS_BITMAPINFOHEADER.ahk
 #Include .\KS_MPEGVIDEOINFO2.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Include .\KS_VIDEOINFOHEADER2.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

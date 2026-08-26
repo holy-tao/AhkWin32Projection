@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMAPIProp.ahk
-#Include .\IMAPIContainer.ahk
-#Include .\FlagList.ahk
-#Include .\SBinaryArray.ahk
-#Include .\ADRLIST.ahk
-#Include .\SPropTagArray.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ADRLIST.ahk
+#Include .\FlagList.ahk
+#Include .\IMAPIContainer.ahk
 #Include .\IMAPIProgress.ahk
+#Include .\IMAPIProp.ahk
+#Include .\SBinaryArray.ahk
+#Include .\SPropTagArray.ahk
 
 /**
  * Do not use. This interface is used to provide access to distribution lists in modifiable address book containers. The interface provides methods to create, copy, and delete distribution lists, in addition to performing name resolution.

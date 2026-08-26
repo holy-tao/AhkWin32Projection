@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include .\GAMING_DEVICE_VENDOR_ID.ahk
 #Include .\GAMING_DEVICE_DEVICE_ID.ahk
+#Include .\GAMING_DEVICE_VENDOR_ID.ahk
 
 /**
  * Contains information about the device that the game is running on.

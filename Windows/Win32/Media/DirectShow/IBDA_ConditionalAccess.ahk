@@ -2,15 +2,15 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\UICloseReasonType.ahk
-#Include .\SmartCardAssociationType.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\EALocationCodeType.ahk
 #Include .\EntitlementType.ahk
 #Include .\SmartCardApplication.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\SmartCardAssociationType.ahk
 #Include .\SmartCardStatusType.ahk
+#Include .\UICloseReasonType.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IBDA_ConditionalAccess interface provides conditional access to program content.

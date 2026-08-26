@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\SPAUDIOSTATUS.ahk
 #Include .\SPAUDIOSTATE.ahk
+#Include .\SPAUDIOSTATUS.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech

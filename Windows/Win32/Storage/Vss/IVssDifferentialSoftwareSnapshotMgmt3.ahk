@@ -4,8 +4,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include .\IVssDifferentialSoftwareSnapshotMgmt2.ahk
-#Include .\VSS_VOLUME_PROTECTION_INFO.ahk
 #Include .\VSS_PROTECTION_LEVEL.ahk
+#Include .\VSS_VOLUME_PROTECTION_INFO.ahk
 
 /**
  * Defines methods that allow applications to use the shadow copy protection feature of VSS.

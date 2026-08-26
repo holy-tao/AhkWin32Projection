@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IPart.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IPart.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IPartsList interface represents a list of parts, each of which is an object with an IPart interface that represents a connector or subunit.

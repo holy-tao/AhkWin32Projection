@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ISpatialAudioObjectRenderStreamNotify.ahk
-#Include .\AudioObjectType.ahk
-#Include .\AUDIO_STREAM_CATEGORY.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\AUDIO_STREAM_CATEGORY.ahk
+#Include .\AudioObjectType.ahk
+#Include .\ISpatialAudioObjectRenderStreamNotify.ahk
 #Include .\WAVEFORMATEX.ahk
 
 /**

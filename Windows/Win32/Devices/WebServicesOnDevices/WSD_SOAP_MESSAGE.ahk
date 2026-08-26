@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSDXML_NAME.ahk
-#Include .\WSD_ENDPOINT_REFERENCE.ahk
-#Include .\WSDXML_TYPE.ahk
 #Include .\WSDXML_ELEMENT.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\WSD_SOAP_HEADER.ahk
-#Include .\WSD_HEADER_RELATESTO.ahk
+#Include .\WSDXML_NAME.ahk
+#Include .\WSDXML_TYPE.ahk
 #Include .\WSD_APP_SEQUENCE.ahk
+#Include .\WSD_ENDPOINT_REFERENCE.ahk
+#Include .\WSD_HEADER_RELATESTO.ahk
+#Include .\WSD_SOAP_HEADER.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The contents of a WSD SOAP message.

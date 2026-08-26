@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITfKeyEventSink.ahk
-#Include .\TF_PRESERVEDKEY.ahk
-#Include ..\..\Foundation\WPARAM.ahk
-#Include .\ITfContext.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\WPARAM.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ITfContext.ahk
+#Include .\ITfKeyEventSink.ahk
+#Include .\TF_PRESERVEDKEY.ahk
 
 /**
  * The ITfKeystrokeMgr interface is implemented by the TSF manager and used by applications and text services to interact with the keyboard manager.

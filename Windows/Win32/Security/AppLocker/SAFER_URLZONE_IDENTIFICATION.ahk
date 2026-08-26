@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include .\SAFER_IDENTIFICATION_TYPES.ahk
 #Include .\SAFER_IDENTIFICATION_HEADER.ahk
+#Include .\SAFER_IDENTIFICATION_TYPES.ahk
 
 /**
  * Represents a URL zone identification rule.

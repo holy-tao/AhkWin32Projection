@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomationSelectionPattern.ahk
-#Include .\IUIAutomationElement.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IUIAutomationElement.ahk
+#Include .\IUIAutomationSelectionPattern.ahk
 
 /**
  * Extends the IUIAutomationSelectionPattern interface to provide information about selected items.

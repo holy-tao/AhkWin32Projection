@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\COORD.ahk
 #Include .\CONSOLE_CHARACTER_ATTRIBUTES.ahk
+#Include .\COORD.ahk
 #Include .\SMALL_RECT.ahk
 
 /**

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WSDXML_ELEMENT.ahk
 #Include .\WSD_ENDPOINT_REFERENCE.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\WSDXML_ELEMENT.ahk
 
 /**
  * Represents a section of metadata in a generic form.

@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Networking\WinSock\SOCKADDR.ahk
 #Include ..\..\Networking\WinSock\SOCKET_ADDRESS.ahk
-#Include .\IP_ADAPTER_PREFIX_XP.ahk
 
 /**
  * Stores an IP address prefix.I

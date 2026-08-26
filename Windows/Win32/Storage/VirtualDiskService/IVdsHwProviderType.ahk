@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VDS_HWPROVIDER_TYPE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\VDS_HWPROVIDER_TYPE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IVdsHwProviderType interface (vdshwprv.h) provides a method to retrieve the type of hardware provider.

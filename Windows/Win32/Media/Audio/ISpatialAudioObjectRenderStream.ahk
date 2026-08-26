@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\AudioObjectType.ahk
-#Include .\ISpatialAudioObjectRenderStreamBase.ahk
-#Include .\ISpatialAudioObject.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\AudioObjectType.ahk
+#Include .\ISpatialAudioObject.ahk
+#Include .\ISpatialAudioObjectRenderStreamBase.ahk
 
 /**
  * Provides methods for controlling a spatial audio object render stream, including starting, stopping, and resetting the stream.

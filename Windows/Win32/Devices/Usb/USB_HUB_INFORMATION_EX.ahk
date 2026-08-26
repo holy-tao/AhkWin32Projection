@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_HUB_DESCRIPTOR.ahk
 #Include .\USB_30_HUB_DESCRIPTOR.ahk
+#Include .\USB_HUB_DESCRIPTOR.ahk
 #Include .\USB_HUB_TYPE.ahk
 
 /**

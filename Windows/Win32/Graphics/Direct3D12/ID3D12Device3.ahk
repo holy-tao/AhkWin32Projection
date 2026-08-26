@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12Device2.ahk
-#Include .\D3D12_RESIDENCY_FLAGS.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include .\ID3D12Fence.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3D12_RESIDENCY_FLAGS.ahk
+#Include .\ID3D12Device2.ahk
+#Include .\ID3D12Fence.ahk
 #Include .\ID3D12Pageable.ahk
 
 /**

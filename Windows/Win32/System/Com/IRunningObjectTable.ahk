@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMoniker.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include .\IEnumMoniker.ahk
-#Include .\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IEnumMoniker.ahk
+#Include .\IMoniker.ahk
+#Include .\IUnknown.ahk
 #Include .\ROT_FLAGS.ahk
 
 /**

@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\SAFEARRAY.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IDataCollector.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\Com\SAFEARRAY.ahk
+#Include .\IDataCollector.ahk
 
 /**
  * Collects computer settings at the time of collection.

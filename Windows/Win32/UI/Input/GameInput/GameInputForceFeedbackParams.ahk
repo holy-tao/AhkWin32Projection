@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\GameInputForceFeedbackConditionParams.ahk
+#Include .\GameInputForceFeedbackConstantParams.ahk
+#Include .\GameInputForceFeedbackEffectKind.ahk
+#Include .\GameInputForceFeedbackEnvelope.ahk
 #Include .\GameInputForceFeedbackMagnitude.ahk
 #Include .\GameInputForceFeedbackPeriodicParams.ahk
-#Include .\GameInputForceFeedbackConditionParams.ahk
-#Include .\GameInputForceFeedbackEffectKind.ahk
 #Include .\GameInputForceFeedbackRampParams.ahk
-#Include .\GameInputForceFeedbackEnvelope.ahk
-#Include .\GameInputForceFeedbackConstantParams.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput

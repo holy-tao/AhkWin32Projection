@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\IMMDevice.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\IMMDevice.ahk
 
 /**
  * Represents an audio microphone boost APO notification.

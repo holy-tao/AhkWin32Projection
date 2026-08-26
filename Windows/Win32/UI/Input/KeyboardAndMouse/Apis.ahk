@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
-#Include .\ACTIVATE_KEYBOARD_LAYOUT_FLAGS.ahk
-#Include .\MAP_VIRTUAL_KEY_TYPE.ahk
-#Include .\INPUT.ahk
-#Include .\MOUSEMOVEPOINT.ahk
-#Include ..\..\..\Foundation\POINT.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
-#Include ..\..\..\Foundation\HWND.ahk
-#Include .\HOT_KEY_MODIFIERS.ahk
-#Include .\MOUSE_EVENT_FLAGS.ahk
-#Include .\GET_MOUSE_MOVE_POINTS_EX_RESOLUTION.ahk
-#Include .\TRACKMOUSEEVENT.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
-#Include .\KEYBD_EVENT_FLAGS.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
-#Include .\HKL.ahk
-#Include .\LASTINPUTINFO.ahk
 #Include ..\..\..\Foundation\CHAR.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\Foundation\POINT.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\ACTIVATE_KEYBOARD_LAYOUT_FLAGS.ahk
+#Include .\GET_MOUSE_MOVE_POINTS_EX_RESOLUTION.ahk
+#Include .\HKL.ahk
+#Include .\HOT_KEY_MODIFIERS.ahk
+#Include .\INPUT.ahk
+#Include .\KEYBD_EVENT_FLAGS.ahk
+#Include .\LASTINPUTINFO.ahk
+#Include .\MAP_VIRTUAL_KEY_TYPE.ahk
+#Include .\MOUSEMOVEPOINT.ahk
+#Include .\MOUSE_EVENT_FLAGS.ahk
+#Include .\TRACKMOUSEEVENT.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
@@ -1371,7 +1371,9 @@ class KeyboardAndMouse {
      * Sets the double-click time for the mouse.
      * @remarks
      * The <b>SetDoubleClickTime</b> function alters the double-click time for all windows in the system.
-     * @param {Integer} param0 
+     * @param {Integer} param0 Type: <b>UINT</b>
+     * 
+     * The number of milliseconds that may occur between the first and second clicks of a double-click. If this parameter is set to 0, the system uses the default double-click time of 500 milliseconds. If this parameter value is greater than 5000 milliseconds, the system sets the value to 5000 milliseconds.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.

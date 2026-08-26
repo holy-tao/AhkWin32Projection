@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IFsrmQuotaManager.ahk
-#Include .\FsrmEnumOptions.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\FsrmEnumOptions.ahk
+#Include .\IFsrmQuotaManager.ahk
 
 /**
  * Used to manage quotas, extended version.

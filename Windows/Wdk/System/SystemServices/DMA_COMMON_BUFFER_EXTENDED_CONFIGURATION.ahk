@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION_TYPE.ahk
 #Include .\DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION_ACCESS_TYPE.ahk
+#Include .\DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

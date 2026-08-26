@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\PPP_ATCP_INFO.ahk
+#Include .\PPP_CCP_INFO.ahk
 #Include .\PPP_INFO_2.ahk
 #Include .\PPP_IPCP_INFO2.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\PPP_NBFCP_INFO.ahk
-#Include .\PPP_CCP_INFO.ahk
-#Include .\PPP_ATCP_INFO.ahk
-#Include .\ROUTER_INTERFACE_TYPE.ahk
-#Include .\PPP_LCP_INFO_AUTH_DATA.ahk
-#Include .\PPP_LCP_INFO.ahk
-#Include .\PPP_LCP.ahk
 #Include .\PPP_IPXCP_INFO.ahk
+#Include .\PPP_LCP.ahk
+#Include .\PPP_LCP_INFO.ahk
+#Include .\PPP_LCP_INFO_AUTH_DATA.ahk
+#Include .\PPP_NBFCP_INFO.ahk
+#Include .\ROUTER_INTERFACE_TYPE.ahk
 
 /**
  * The RAS_CONNECTION_2 structure contains information for a connection, including the Globally Unique Identifier (GUID) that identifies the connection.

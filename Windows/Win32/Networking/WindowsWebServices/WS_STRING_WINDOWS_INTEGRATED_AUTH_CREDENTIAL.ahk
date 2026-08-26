@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WS_STRING.ahk
 #Include .\WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL_TYPE.ahk
 
 /**

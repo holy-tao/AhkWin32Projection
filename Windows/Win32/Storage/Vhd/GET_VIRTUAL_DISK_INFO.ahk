@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\VIRTUAL_STORAGE_TYPE.ahk
-#Include .\GET_VIRTUAL_DISK_INFO_VERSION.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include .\GET_VIRTUAL_DISK_INFO_VERSION.ahk
+#Include .\VIRTUAL_STORAGE_TYPE.ahk
 
 /**
  * Contains virtual hard disk (VHD) information.

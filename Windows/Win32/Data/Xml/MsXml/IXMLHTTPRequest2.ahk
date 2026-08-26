@@ -2,12 +2,12 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\IXMLHTTPRequest2Callback.ahk
+#Include .\XHR_COOKIE.ahk
 #Include .\XHR_PROPERTY.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\System\Com\ISequentialStream.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\XHR_COOKIE.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides the methods and properties needed to configure and send HTTP requests and use callbacks to receive notifications during HTTP response processing. Note  This interface is supported on Windows Phone 8.1.  .

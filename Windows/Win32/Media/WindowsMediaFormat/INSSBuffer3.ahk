@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\INSSBuffer2.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\INSSBuffer2.ahk
 
 /**
  * The INSSBuffer3 interface enhances the INSSBuffer interface by adding the ability to set and retrieve single properties for a sample.

@@ -2,8 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\ISchemaItem.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml

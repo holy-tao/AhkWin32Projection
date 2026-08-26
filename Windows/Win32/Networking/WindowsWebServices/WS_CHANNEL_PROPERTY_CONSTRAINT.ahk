@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_CHANNEL_PROPERTY_ID.ahk
 #Include .\WS_CHANNEL_PROPERTY.ahk
+#Include .\WS_CHANNEL_PROPERTY_ID.ahk
 
 /**
  * Specifies constraints for a particular channel property.

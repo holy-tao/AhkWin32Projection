@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\ISWbemProperty.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\WbemCimtypeEnum.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\ISWbemProperty.ahk
+#Include .\WbemCimtypeEnum.ahk
 
 /**
  * @namespace Windows.Win32.System.Wmi

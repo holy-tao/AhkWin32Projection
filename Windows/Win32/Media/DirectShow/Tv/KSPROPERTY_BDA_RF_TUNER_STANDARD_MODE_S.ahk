@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\KernelStreaming\KSP_NODE.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\KernelStreaming\KSIDENTIFIER.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\KernelStreaming\KSIDENTIFIER.ahk
+#Include ..\..\KernelStreaming\KSP_NODE.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv

@@ -1,40 +1,40 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include .\SecHandle.ahk
-#Include .\CREDENTIALW.ahk
-#Include .\OPENCARDNAMEA.ahk
-#Include .\KeyCredentialManagerInfo.ahk
-#Include .\CREDUI_INFOA.ahk
-#Include .\CRED_TYPE.ahk
-#Include .\CREDUI_FLAGS.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\CRED_PROTECTION_TYPE.ahk
-#Include .\CREDENTIALA.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\SCARD_READERSTATEW.ahk
-#Include .\KeyCredentialManagerOperationErrorStates.ahk
-#Include .\CRED_MARSHAL_TYPE.ahk
-#Include .\KeyCredentialManagerOperationType.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\CRED_ENUMERATE_FLAGS.ahk
-#Include .\CREDUI_INFOW.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\WIN32_ERROR.ahk
-#Include .\OPENCARDNAME_EXA.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\CREDENTIAL_TARGET_INFORMATIONA.ahk
-#Include .\SCARD_ATRMASK.ahk
-#Include .\CREDUIWIN_FLAGS.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\WIN32_ERROR.ahk
+#Include .\CREDENTIALA.ahk
+#Include .\CREDENTIALW.ahk
+#Include .\CREDENTIAL_TARGET_INFORMATIONA.ahk
 #Include .\CREDENTIAL_TARGET_INFORMATIONW.ahk
-#Include .\SCARD_IO_REQUEST.ahk
-#Include .\SCARD_SCOPE.ahk
+#Include .\CREDUIWIN_FLAGS.ahk
+#Include .\CREDUI_FLAGS.ahk
+#Include .\CREDUI_INFOA.ahk
+#Include .\CREDUI_INFOW.ahk
+#Include .\CRED_ENUMERATE_FLAGS.ahk
+#Include .\CRED_MARSHAL_TYPE.ahk
 #Include .\CRED_PACK_FLAGS.ahk
-#Include .\SCARD_READERSTATEA.ahk
+#Include .\CRED_PROTECTION_TYPE.ahk
+#Include .\CRED_TYPE.ahk
+#Include .\KeyCredentialManagerInfo.ahk
+#Include .\KeyCredentialManagerOperationErrorStates.ahk
+#Include .\KeyCredentialManagerOperationType.ahk
+#Include .\OPENCARDNAMEA.ahk
 #Include .\OPENCARDNAMEW.ahk
+#Include .\OPENCARDNAME_EXA.ahk
 #Include .\OPENCARDNAME_EXW.ahk
+#Include .\SCARD_ATRMASK.ahk
+#Include .\SCARD_IO_REQUEST.ahk
+#Include .\SCARD_READERSTATEA.ahk
+#Include .\SCARD_READERSTATEW.ahk
+#Include .\SCARD_SCOPE.ahk
+#Include .\SecHandle.ahk
 
 /**
  * @namespace Windows.Win32.Security.Credentials
@@ -9508,7 +9508,8 @@ class Credentials {
      * 
      * This function replaces 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-getopencardnamea">GetOpenCardName</a>. The <b>GetOpenCardName</b> function is maintained for backward compatibility with version 1.0 of the Microsoft Smart Card Base Components.
-     * @param {Pointer<OPENCARDNAME_EXA>} param0 
+     * @param {Pointer<OPENCARDNAME_EXA>} param0 Pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/ns-winscard-opencardname_exa">OPENCARDNAME_EX</a> structure for the <b>Select Card</b> dialog box.
      * @returns {Integer} If the function successfully displays the 
      * 						<b>Select Card</b> dialog box, the return value is SCARD_S_SUCCESS.
      * 
@@ -9567,7 +9568,8 @@ class Credentials {
      * 
      * This function replaces 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-getopencardnamea">GetOpenCardName</a>. The <b>GetOpenCardName</b> function is maintained for backward compatibility with version 1.0 of the Microsoft Smart Card Base Components.
-     * @param {Pointer<OPENCARDNAME_EXW>} param0 
+     * @param {Pointer<OPENCARDNAME_EXW>} param0 Pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/ns-winscard-opencardname_exa">OPENCARDNAME_EX</a> structure for the <b>Select Card</b> dialog box.
      * @returns {Integer} If the function successfully displays the 
      * 						<b>Select Card</b> dialog box, the return value is SCARD_S_SUCCESS.
      * 
@@ -9586,7 +9588,8 @@ class Credentials {
      * @remarks
      * > [!NOTE]
      * > The winscard.h header defines GetOpenCardName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<OPENCARDNAMEA>} param0 
+     * @param {Pointer<OPENCARDNAMEA>} param0 A pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/ns-winscard-opencardnamea">OPENCARDNAME</a> structure for the "select card" dialog box.
      * @returns {Integer} The function returns different values depending on whether it succeeds or fails.
      * 						
      * 						
@@ -9634,7 +9637,8 @@ class Credentials {
      * @remarks
      * > [!NOTE]
      * > The winscard.h header defines GetOpenCardName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<OPENCARDNAMEW>} param0 
+     * @param {Pointer<OPENCARDNAMEW>} param0 A pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/ns-winscard-opencardnamea">OPENCARDNAME</a> structure for the "select card" dialog box.
      * @returns {Integer} The function returns different values depending on whether it succeeds or fails.
      * 						
      * 						

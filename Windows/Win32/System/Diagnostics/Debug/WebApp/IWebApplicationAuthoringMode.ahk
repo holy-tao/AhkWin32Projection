@@ -2,8 +2,8 @@
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\Com\IServiceProvider.ahk
 #Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Com\IServiceProvider.ahk
 
 /**
  * Provides the full local path to the authoring binary to be loaded into the WWAHost process.

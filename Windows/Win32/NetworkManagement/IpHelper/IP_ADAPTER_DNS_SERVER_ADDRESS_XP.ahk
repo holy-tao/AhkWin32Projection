@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Networking\WinSock\SOCKADDR.ahk
 #Include ..\..\Networking\WinSock\SOCKET_ADDRESS.ahk
-#Include .\IP_ADAPTER_DNS_SERVER_ADDRESS_XP.ahk
 
 /**
  * The IP_ADAPTER_DNS_SERVER_ADDRESS structure stores a single DNS server address in a linked list of DNS server addresses for a particular adapter.

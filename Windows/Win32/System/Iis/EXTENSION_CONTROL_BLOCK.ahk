@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HCONN.ahk
 #Include ..\..\Foundation\PSTR.ahk
+#Include .\HCONN.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis

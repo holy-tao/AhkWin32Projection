@@ -2,8 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\ICertConfig.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\ICertConfig.ahk
 
 /**
  * Provide functionality for retrieving the public configuration data (specified during client setup) for a Certificate Services server.

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include .\DVB_STRCONV_MODE.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Implements methods that get data from an Integrated Services Digital Broadcasting (ISDB) download content descriptor.

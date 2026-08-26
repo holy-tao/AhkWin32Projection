@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\IMoniker.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\IBindCtx.ahk
-#Include ..\IUnknown.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\IBindCtx.ahk
+#Include ..\IMoniker.ahk
+#Include ..\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon

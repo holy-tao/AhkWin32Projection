@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\IOpcRelationship.ahk
 #Include .\IOpcRelationshipEnumerator.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
 #Include .\OPC_URI_TARGET_MODE.ahk
 #Include ..\..\..\System\Com\IStream.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk

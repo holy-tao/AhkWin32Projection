@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\NTSTATUS.ahk
-#Include .\CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE.ahk
-#Include .\CREDENTIAL_PROVIDER_GET_SERIALIZATION_RESPONSE.ahk
-#Include .\CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION.ahk
-#Include .\CREDENTIAL_PROVIDER_STATUS_ICON.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\CREDENTIAL_PROVIDER_FIELD_STATE.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ICredentialProviderCredentialEvents.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION.ahk
+#Include .\CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE.ahk
+#Include .\CREDENTIAL_PROVIDER_FIELD_STATE.ahk
+#Include .\CREDENTIAL_PROVIDER_GET_SERIALIZATION_RESPONSE.ahk
+#Include .\CREDENTIAL_PROVIDER_STATUS_ICON.ahk
+#Include .\ICredentialProviderCredentialEvents.ahk
 
 /**
  * Exposes methods that enable the handling of a credential.

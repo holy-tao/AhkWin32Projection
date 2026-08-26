@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Ndis\NET_LUID_LH.ahk
-#Include .\NET_FL_ISOLATION_MODE.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BOOLEAN.ahk
-#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
 #Include .\MIB_FL_VIRTUAL_INTERFACE_ROW.ahk
+#Include .\NET_FL_ISOLATION_MODE.ahk
 #Include .\NET_FL_VIRTUAL_INTERFACE_ORIGIN.ahk
+#Include ..\Ndis\NET_LUID_LH.ahk
+#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper

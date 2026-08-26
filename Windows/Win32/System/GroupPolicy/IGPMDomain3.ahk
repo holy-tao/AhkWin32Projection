@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IGPMResult.ahk
-#Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\GPMReportType.ahk
 #Include .\IGPMDomain2.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IGPMResult.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.System.GroupPolicy

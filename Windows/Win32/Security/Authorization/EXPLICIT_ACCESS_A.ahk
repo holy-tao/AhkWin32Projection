@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\TRUSTEE_FORM.ahk
-#Include .\TRUSTEE_A.ahk
 #Include ..\..\Foundation\PSTR.ahk
-#Include .\ACCESS_MODE.ahk
-#Include .\TRUSTEE_TYPE.ahk
 #Include ..\ACE_FLAGS.ahk
+#Include .\ACCESS_MODE.ahk
 #Include .\MULTIPLE_TRUSTEE_OPERATION.ahk
+#Include .\TRUSTEE_A.ahk
+#Include .\TRUSTEE_FORM.ahk
+#Include .\TRUSTEE_TYPE.ahk
 
 /**
  * Defines access control information for a specified trustee. (ANSI)

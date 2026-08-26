@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\DEVPROPCOMPKEY.ahk
+#Include .\DEVPROPSTORE.ahk
+#Include .\DEVPROPTYPE.ahk
 #Include ..\..\Foundation\DEVPROPKEY.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\DEVPROPTYPE.ahk
-#Include .\DEVPROPSTORE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Properties

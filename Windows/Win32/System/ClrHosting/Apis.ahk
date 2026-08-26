@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\HOST_TYPE.ahk
-#Include .\CLSID_RESOLUTION_FLAGS.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\Threading\PROCESS_INFORMATION.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\Com\IStream.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\Foundation\HMODULE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\CLSID_RESOLUTION_FLAGS.ahk
+#Include .\HOST_TYPE.ahk
+#Include ..\Com\IStream.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\Threading\PROCESS_INFORMATION.ahk
 
 /**
  * @namespace Windows.Win32.System.ClrHosting

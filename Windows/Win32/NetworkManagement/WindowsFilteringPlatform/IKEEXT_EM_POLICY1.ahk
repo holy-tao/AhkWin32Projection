@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IKEEXT_AUTHENTICATION_METHOD1.ahk
 #Include .\IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE.ahk
+#Include .\IKEEXT_AUTHENTICATION_METHOD1.ahk
 
 /**
  * Is used to store AuthIP's extended mode negotiation policy. (IKEEXT_EM_POLICY1)

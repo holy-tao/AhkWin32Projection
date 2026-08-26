@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * A switch-to-reference interface (see the switch-to-reference layer) enables an application to switch between a hardware and software device.

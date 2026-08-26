@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\InkCursorButtonState.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents general information about a button on a tablet pointing and selecting device.

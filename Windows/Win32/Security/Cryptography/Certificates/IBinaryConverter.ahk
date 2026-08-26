@@ -2,10 +2,10 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\EncodingType.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
-#Include .\EncodingType.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains general methods that enable you to create a Unicode-encoded string from a byte array, create a byte array from a Unicode-encoded string, and modify the type of Unicode encoding applied to a string.

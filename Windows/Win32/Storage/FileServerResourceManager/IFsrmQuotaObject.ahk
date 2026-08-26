@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IFsrmQuotaBase.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Base class for the quota and automatic quota interfaces.

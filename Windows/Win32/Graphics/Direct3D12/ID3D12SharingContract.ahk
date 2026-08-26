@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12Resource.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\ID3D12Fence.ahk
+#Include .\ID3D12Resource.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Part of a contract between D3D11On12 diagnostic layers and graphics diagnostics tools.

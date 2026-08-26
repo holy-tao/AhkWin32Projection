@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PPP_INFO_3.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\PPP_IPCP_INFO2.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\RAS_QUARANTINE_STATE.ahk
-#Include .\PPP_IPV6_CP_INFO.ahk
-#Include .\PPP_NBFCP_INFO.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\PPP_CCP_INFO.ahk
-#Include .\ROUTER_INTERFACE_TYPE.ahk
+#Include .\PPP_INFO_3.ahk
+#Include .\PPP_IPCP_INFO2.ahk
+#Include .\PPP_IPV6_CP_INFO.ahk
+#Include .\PPP_LCP.ahk
 #Include .\PPP_LCP_INFO.ahk
 #Include .\PPP_LCP_INFO_AUTH_DATA.ahk
-#Include .\PPP_LCP.ahk
+#Include .\PPP_NBFCP_INFO.ahk
+#Include .\RAS_QUARANTINE_STATE.ahk
+#Include .\ROUTER_INTERFACE_TYPE.ahk
 
 /**
  * The RAS_CONNECTION_3 structure contains information for the connection, including the Globally Unique Identifier (GUID) that identifies the connection and the quarantine state of the connection.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MPRAPI_OBJECT_HEADER.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\MPRAPI_OBJECT_HEADER.ahk
 
 /**
  * Used for enabling clients to bypass Point-to-Point (PPP) authentication during Secure Socket Tunneling Protocol (SSTP) connection establishment.

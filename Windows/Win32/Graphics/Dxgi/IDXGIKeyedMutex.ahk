@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIDeviceSubObject.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDXGIDeviceSubObject.ahk
 
 /**
  * Represents a keyed mutex, which allows exclusive access to a shared resource that is used by multiple devices.

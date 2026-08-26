@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IDispatch.ahk
 #Include ..\Variant\VARIANT.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides the administrative information that can be used to describe the task.

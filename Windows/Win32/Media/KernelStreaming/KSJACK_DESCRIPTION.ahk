@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\EPcxConnectionType.ahk
+#Include .\EPcxGenLocation.ahk
 #Include .\EPcxGeoLocation.ahk
 #Include .\EPxcPortConnection.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include .\EPcxGenLocation.ahk
 
 /**
  * The KSJACK_DESCRIPTION structure describes an audio jack.

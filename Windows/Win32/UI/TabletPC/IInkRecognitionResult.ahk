@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IInkRecognitionAlternate.ahk
-#Include .\InkRecognitionConfidence.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\IInkRecognitionAlternate.ahk
 #Include .\IInkRecognitionAlternates.ahk
 #Include .\IInkStrokes.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\InkRecognitionConfidence.ahk
 
 /**
  * Represents the result of the recognition. The results of recognizing handwritten ink are returned in an IInkRecognitionResult object.

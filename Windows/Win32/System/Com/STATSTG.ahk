@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\STGM.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\STGM.ahk
 
 /**
  * Contains statistical data about an open storage, stream, or byte-array object.

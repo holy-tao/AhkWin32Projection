@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\COLORSPACE_TRANSFORM_TYPE.ahk
-#Include .\COLORSPACE_TRANSFORM_STAGE_CONTROL.ahk
 #Include .\COLORSPACE_TRANSFORM_3x4.ahk
-#Include .\GAMMA_RAMP_DXGI_1.ahk
-#Include .\GAMMA_RAMP_RGB256x3x16.ahk
 #Include .\COLORSPACE_TRANSFORM_MATRIX_V2.ahk
+#Include .\COLORSPACE_TRANSFORM_STAGE_CONTROL.ahk
+#Include .\COLORSPACE_TRANSFORM_TYPE.ahk
+#Include .\GAMMA_RAMP_DXGI_1.ahk
 #Include .\GAMMA_RAMP_RGB.ahk
+#Include .\GAMMA_RAMP_RGB256x3x16.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display

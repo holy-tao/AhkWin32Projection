@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFAttributes.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFAttributes.ahk
 
 /**
  * Encapsulates information about an output protection system and its corresponding configuration data.

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\PolicyServerUrlFlags.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\X509EnrollmentAuthFlags.ahk
-#Include .\EnrollmentPolicyServerPropertyFlags.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\EnrollmentPolicyServerPropertyFlags.ahk
 #Include .\ICertProperty.ahk
+#Include .\PolicyServerUrlFlags.ahk
+#Include .\X509EnrollmentAuthFlags.ahk
 
 /**
  * Represents an external certificate property that contains information about a certificate enrollment policy (CEP) server and a certificate enrollment server (CES).

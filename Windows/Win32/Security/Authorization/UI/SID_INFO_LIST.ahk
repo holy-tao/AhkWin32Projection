@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\PSID.ahk
 #Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\SID_INFO.ahk
+#Include ..\..\PSID.ahk
 
 /**
  * Contains a list of SID_INFO structures.

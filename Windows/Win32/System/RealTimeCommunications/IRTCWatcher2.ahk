@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\RTC_ACE_SCOPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IRTCProfile2.ahk
 #Include .\IRTCWatcher.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\RTC_ACE_SCOPE.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

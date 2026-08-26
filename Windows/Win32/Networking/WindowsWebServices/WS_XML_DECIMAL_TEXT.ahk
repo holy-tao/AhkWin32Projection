@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\DECIMAL.ahk
 #Include .\WS_XML_TEXT.ahk
 #Include .\WS_XML_TEXT_TYPE.ahk
-#Include ..\..\Foundation\DECIMAL.ahk
 
 /**
  * Represents a 12 byte fixed point value.

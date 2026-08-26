@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\NET_FW_SCOPE.ahk
-#Include .\NET_FW_IP_VERSION.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\NET_FW_IP_PROTOCOL.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\NET_FW_IP_VERSION.ahk
+#Include .\NET_FW_SCOPE.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The INetFwOpenPort interface provides access to the properties of a port that has been opened in the firewall.

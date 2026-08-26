@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\IMMDevice.ahk
 #Include .\AUDIO_VOLUME_NOTIFICATION_DATA2.ahk
+#Include ..\IMMDevice.ahk
 
 /**
  * Represents an audio endpoint volume change APO notification. This is an updated version of AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION that provides additional information in about the volume change event.

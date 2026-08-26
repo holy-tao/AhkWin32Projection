@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\IDispatch.ahk
-#Include .\IEventObjectCollection.ahk
-#Include ..\..\Variant\VARIANT.ahk
-#Include ..\IUnknown.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IEventObjectCollection.ahk
+#Include ..\IDispatch.ahk
+#Include ..\IUnknown.ahk
+#Include ..\..\Variant\VARIANT.ahk
 
 /**
  * Specifies information about the relationship between an event subscriber and an event to which it is subscribing. It is used by publisher filters.

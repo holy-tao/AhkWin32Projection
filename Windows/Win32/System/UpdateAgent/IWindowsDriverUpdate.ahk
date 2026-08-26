@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IUpdate.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IUpdate.ahk
 
 /**
  * Contains the properties and the methods that are available only from a Windows driver update.

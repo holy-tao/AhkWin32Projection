@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\RPC_HTTP_TRANSPORT_CREDENTIALS_W.ahk
-#Include .\RPC_C_AUTHN_INFO_TYPE.ahk
 #Include ..\Com\RPC_C_IMP_LEVEL.ahk
-#Include .\RPC_C_QOS_IDENTITY.ahk
+#Include .\RPC_C_AUTHN_INFO_TYPE.ahk
 #Include .\RPC_C_QOS_CAPABILITIES.ahk
+#Include .\RPC_C_QOS_IDENTITY.ahk
+#Include .\RPC_HTTP_TRANSPORT_CREDENTIALS_W.ahk
 
 /**
  * The RPC_SECURITY_QOS_V5 structure defines version 5 security quality-of-service settings on a binding handle. See Remarks for version availability on Windows editions. (Unicode)

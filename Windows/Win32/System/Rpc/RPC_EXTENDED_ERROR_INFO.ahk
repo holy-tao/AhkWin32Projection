@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
 #Include .\BinaryParam.ahk
 #Include .\ExtendedErrorParamTypes.ahk
 #Include .\RPC_EE_INFO_PARAM.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
  * The RPC_EXTENDED_ERROR_INFO structure is used to store extended error information.

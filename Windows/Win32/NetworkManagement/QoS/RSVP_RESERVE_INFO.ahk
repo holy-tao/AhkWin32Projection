@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\RSVP_POLICY_INFO.ahk
-#Include .\QOS_OBJECT_HDR.ahk
 #Include .\FLOWDESCRIPTOR.ahk
+#Include .\QOS_OBJECT_HDR.ahk
+#Include .\RSVP_POLICY_INFO.ahk
 
 /**
  * The QOS object RSVP_RESERVE_INFO, through the ProviderSpecific buffer, enables RSVP behavior for a given flow to be specified or modified at a granular level, and enables default RSVP style settings for a flow to be overridden.

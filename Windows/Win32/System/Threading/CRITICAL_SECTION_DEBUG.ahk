@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRITICAL_SECTION.ahk
 #Include ..\Kernel\LIST_ENTRY.ahk
+#Include .\CRITICAL_SECTION.ahk
 
 /**
  * @namespace Windows.Win32.System.Threading

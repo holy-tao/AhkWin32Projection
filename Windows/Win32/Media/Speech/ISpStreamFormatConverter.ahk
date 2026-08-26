@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISpStreamFormat.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include ..\Audio\WAVEFORMATEX.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Audio\WAVEFORMATEX.ahk
+#Include .\ISpStreamFormat.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech

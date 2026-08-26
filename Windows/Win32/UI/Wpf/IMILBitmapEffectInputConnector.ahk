@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMILBitmapEffectOutputConnector.ahk
-#Include .\IMILBitmapEffectConnector.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMILBitmapEffectConnector.ahk
+#Include .\IMILBitmapEffectOutputConnector.ahk
 
 /**
  * Exposes methods that define an input connect.

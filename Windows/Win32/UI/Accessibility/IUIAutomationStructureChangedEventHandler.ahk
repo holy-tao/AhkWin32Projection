@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\SAFEARRAY.ahk
 #Include .\IUIAutomationElement.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\StructureChangeType.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes a method to handle events that occur when the Microsoft UI Automation tree structure is changed.
@@ -45,7 +45,9 @@ class IUIAutomationStructureChangedEventHandler extends IUnknown {
      * @param {IUIAutomationElement} sender Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the element that raised the event.
-     * @param {StructureChangeType} _changeType 
+     * @param {StructureChangeType} _changeType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-structurechangetype">StructureChangeType</a></b>
+     * 
+     * A value indicating the type of tree structure change that took place.
      * @param {Pointer<SAFEARRAY>} runtimeId Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>*</b>
      * 
      * Receives the runtime identifier of the element. This parameter is used only when <i>changeType</i> is <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-structurechangetype">StructureChangeType_ChildRemoved</a>; it is <b>NULL</b> for all other structure-change events.

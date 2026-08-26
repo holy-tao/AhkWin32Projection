@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDot11AdHocSecuritySettings.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDot11AdHocInterface.ahk
 #Include ..\..\Foundation\BOOLEAN.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DOT11_ADHOC_NETWORK_CONNECTION_STATUS.ahk
+#Include .\IDot11AdHocInterface.ahk
+#Include .\IDot11AdHocSecuritySettings.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents an available ad hoc network destination within connection range.

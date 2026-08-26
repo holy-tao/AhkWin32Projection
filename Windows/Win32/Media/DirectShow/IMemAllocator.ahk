@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMediaSample.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include .\ALLOCATOR_PROPERTIES.ahk
+#Include .\IMediaSample.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IMemAllocator interface allocates media samples, for moving data between pins.This interface is used by pins that share allocators, when the input pin exposes the IMemInputPin interface.

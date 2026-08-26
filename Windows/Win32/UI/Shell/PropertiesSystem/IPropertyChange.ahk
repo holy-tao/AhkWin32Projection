@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include .\IObjectWithPropertyKey.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes a method that encapsulates a change to a single property.

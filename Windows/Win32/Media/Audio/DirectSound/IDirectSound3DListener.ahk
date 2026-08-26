@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\DS3DLISTENER.ahk
-#Include ..\..\..\Graphics\Direct3D\D3DVECTOR.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Graphics\Direct3D\D3DVECTOR.ahk
+#Include .\DS3DLISTENER.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound

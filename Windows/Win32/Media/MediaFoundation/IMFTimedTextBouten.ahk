@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\MF_TIMED_TEXT_BOUTEN_TYPE.ahk
-#Include .\MF_TIMED_TEXT_BOUTEN_POSITION.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\MFARGB.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\MFARGB.ahk
+#Include .\MF_TIMED_TEXT_BOUTEN_POSITION.ahk
+#Include .\MF_TIMED_TEXT_BOUTEN_TYPE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation

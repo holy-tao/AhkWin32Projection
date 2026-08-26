@@ -2,16 +2,16 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\PFXExportOptions.ahk
-#Include .\IX509EnrollmentStatus.ahk
-#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IX509NameValuePairs.ahk
-#Include .\IX509CertificateRequest.ahk
-#Include .\InstallResponseRestrictionFlags.ahk
-#Include .\EncodingType.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\EncodingType.ahk
+#Include .\IX509CertificateRequest.ahk
+#Include .\IX509EnrollmentStatus.ahk
+#Include .\IX509NameValuePairs.ahk
+#Include .\InstallResponseRestrictionFlags.ahk
+#Include .\PFXExportOptions.ahk
 #Include .\X509CertificateEnrollmentContext.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Represents the top level object and enables you to enroll in a certificate hierarchy and install a certificate response.

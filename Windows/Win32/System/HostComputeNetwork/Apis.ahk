@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\HCN_PORT_PROTOCOL.ahk
-#Include .\HCN_PORT_ACCESS.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\HCN_PORT_RANGE_RESERVATION.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\HCN_PORT_ACCESS.ahk
+#Include .\HCN_PORT_PROTOCOL.ahk
 #Include .\HCN_PORT_RANGE_ENTRY.ahk
+#Include .\HCN_PORT_RANGE_RESERVATION.ahk
 
 /**
  * @namespace Windows.Win32.System.HostComputeNetwork

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PRJ_CALLBACK_DATA_FLAGS.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\PRJ_PLACEHOLDER_VERSION_INFO.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\PRJ_CALLBACK_DATA_FLAGS.ahk
 #Include .\PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT.ahk
+#Include .\PRJ_PLACEHOLDER_VERSION_INFO.ahk
 
 /**
  * Defines the standard information passed to a provider for every operation callback.

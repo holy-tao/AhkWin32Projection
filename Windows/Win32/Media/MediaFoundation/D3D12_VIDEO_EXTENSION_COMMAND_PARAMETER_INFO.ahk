@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_TYPE.ahk
 #Include .\D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_FLAGS.ahk
+#Include .\D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_TYPE.ahk
 
 /**
  * Describes a video extension command parameter.

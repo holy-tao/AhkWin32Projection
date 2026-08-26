@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MINIDUMP_MEMORY_DESCRIPTOR.ahk
 #Include .\MINIDUMP_LOCATION_DESCRIPTOR.ahk
+#Include .\MINIDUMP_MEMORY_DESCRIPTOR.ahk
 
 /**
  * Contains extended information for a specific thread.

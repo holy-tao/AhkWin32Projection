@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\GameInputSwitchPosition.ahk
-#Include .\IGameInputDevice.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\GameInputArcadeStickState.ahk
 #Include .\GameInputFlightStickState.ahk
 #Include .\GameInputGamepadState.ahk
-#Include .\GameInputRacingWheelState.ahk
 #Include .\GameInputKeyState.ahk
-#Include .\GameInputArcadeStickState.ahk
 #Include .\GameInputKind.ahk
 #Include .\GameInputMotionState.ahk
 #Include .\GameInputMouseState.ahk
+#Include .\GameInputRacingWheelState.ahk
+#Include .\GameInputSwitchPosition.ahk
 #Include .\GameInputTouchState.ahk
-#Include .\IGameInputRawDeviceReport.ahk
 #Include .\GameInputUiNavigationState.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IGameInputDevice.ahk
+#Include .\IGameInputRawDeviceReport.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput

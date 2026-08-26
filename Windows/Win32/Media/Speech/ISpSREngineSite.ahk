@@ -1,24 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\SPTRANSITIONPROPERTY.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\SPRECOCONTEXTHANDLE.ahk
-#Include .\SPSTATEINFO.ahk
-#Include .\SPWORDHANDLE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\SPWORDINFOOPT.ahk
-#Include .\SPWORDENTRY.ahk
-#Include .\SPRULEHANDLE.ahk
-#Include .\SPPARSEINFO.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\ISpPhraseBuilder.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\SPRULEINFOOPT.ahk
 #Include .\SPEVENT.ahk
-#Include .\SPSTATEHANDLE.ahk
+#Include .\SPPARSEINFO.ahk
+#Include .\SPRECOCONTEXTHANDLE.ahk
 #Include .\SPRECORESULTINFO.ahk
 #Include .\SPRULEENTRY.ahk
+#Include .\SPRULEHANDLE.ahk
+#Include .\SPRULEINFOOPT.ahk
+#Include .\SPSTATEHANDLE.ahk
+#Include .\SPSTATEINFO.ahk
 #Include .\SPTRANSITIONID.ahk
+#Include .\SPTRANSITIONPROPERTY.ahk
+#Include .\SPWORDENTRY.ahk
+#Include .\SPWORDHANDLE.ahk
+#Include .\SPWORDINFOOPT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech

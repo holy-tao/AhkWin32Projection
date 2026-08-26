@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISyncMgrSessionCreator.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\ISyncMgrHandlerInfo.ahk
+#Include .\ISyncMgrSessionCreator.ahk
 #Include .\SYNCMGR_HANDLER_CAPABILITIES.ahk
 #Include .\SYNCMGR_HANDLER_POLICIES.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\ISyncMgrHandlerInfo.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods that make up the primary interface implemented by a sync handler.

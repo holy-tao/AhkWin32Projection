@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\LIST_VIEW_GROUP_STATE_FLAGS.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\LVGROUP_MASK.ahk
 #Include .\LIST_VIEW_GROUP_ALIGN_FLAGS.ahk
+#Include .\LIST_VIEW_GROUP_STATE_FLAGS.ahk
+#Include .\LVGROUP_MASK.ahk
 
 /**
  * Used to set and retrieve groups.

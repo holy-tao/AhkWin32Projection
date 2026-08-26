@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include .\EAP_METHOD_TYPE.ahk
-#Include .\EAP_METHOD_INFO.ahk
 #Include .\EAP_TYPE.ahk
 
 /**

@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWICColorContext.ahk
-#Include .\IWICBitmapSource.ahk
-#Include .\IWICPalette.ahk
-#Include .\IWICMetadataQueryReader.ahk
-#Include .\WICDecodeOptions.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\IWICBitmapFrameDecode.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\IStream.ahk
 #Include .\IWICBitmapDecoderInfo.ahk
+#Include .\IWICBitmapFrameDecode.ahk
+#Include .\IWICBitmapSource.ahk
+#Include .\IWICColorContext.ahk
+#Include .\IWICMetadataQueryReader.ahk
+#Include .\IWICPalette.ahk
+#Include .\WICDecodeOptions.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods that represent a decoder.

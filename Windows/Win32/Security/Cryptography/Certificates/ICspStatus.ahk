@@ -2,11 +2,11 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\ICspAlgorithm.ahk
-#Include .\IX509EnrollmentStatus.ahk
-#Include .\ICspInformation.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\ICspAlgorithm.ahk
+#Include .\ICspInformation.ahk
+#Include .\IX509EnrollmentStatus.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Contains information about a cryptographic provider/algorithm pair. (ICspStatus)

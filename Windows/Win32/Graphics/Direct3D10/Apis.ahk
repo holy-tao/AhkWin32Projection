@@ -1,26 +1,26 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D10Device.ahk
-#Include .\ID3D10Device1.ahk
-#Include .\ID3D10EffectPool.ahk
-#Include .\D3D10_STATE_BLOCK_MASK.ahk
-#Include ..\Direct3D\ID3DBlob.ahk
-#Include .\ID3D10Effect.ahk
-#Include .\ID3D10ShaderReflection.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HMODULE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include ..\Dxgi\IDXGISwapChain.ahk
-#Include ..\Dxgi\DXGI_SWAP_CHAIN_DESC.ahk
-#Include ..\Dxgi\IDXGIAdapter.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\Direct3D\D3D_SHADER_MACRO.ahk
+#Include ..\Direct3D\ID3DBlob.ahk
+#Include ..\Direct3D\ID3DInclude.ahk
 #Include .\D3D10_DEVICE_STATE_TYPES.ahk
 #Include .\D3D10_DRIVER_TYPE.ahk
-#Include ..\Direct3D\D3D_SHADER_MACRO.ahk
-#Include ..\Direct3D\ID3DInclude.ahk
-#Include ..\..\Foundation\HMODULE.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3D10_FEATURE_LEVEL1.ahk
-#Include ..\..\Foundation\PSTR.ahk
+#Include .\D3D10_STATE_BLOCK_MASK.ahk
+#Include .\ID3D10Device.ahk
+#Include .\ID3D10Device1.ahk
+#Include .\ID3D10Effect.ahk
+#Include .\ID3D10EffectPool.ahk
+#Include .\ID3D10ShaderReflection.ahk
 #Include .\ID3D10StateBlock.ahk
+#Include ..\Dxgi\DXGI_SWAP_CHAIN_DESC.ahk
+#Include ..\Dxgi\IDXGIAdapter.ahk
+#Include ..\Dxgi\IDXGISwapChain.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D10

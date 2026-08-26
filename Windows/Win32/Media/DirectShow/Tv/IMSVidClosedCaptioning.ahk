@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidFeature.ahk
-#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IMSVidFeature.ahk
 
 /**
  * The IMSVidClosedCaptioning interface enables or disables closed captions.

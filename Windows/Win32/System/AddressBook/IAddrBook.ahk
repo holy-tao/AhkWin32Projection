@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMAPIProp.ahk
-#Include .\ADRENTRY.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ENTRYID.ahk
-#Include .\ADRPARM.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IMAPIAdviseSink.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ADRENTRY.ahk
 #Include .\ADRLIST.ahk
+#Include .\ADRPARM.ahk
+#Include .\ENTRYID.ahk
+#Include .\IMAPIAdviseSink.ahk
+#Include .\IMAPIProp.ahk
 #Include .\SPropTagArray.ahk
 #Include .\SPropValue.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include .\SRowSet.ahk
+#Include ..\Com\IUnknown.ahk
 
 /**
  * Do not use. (IAddrBook)

@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IWbemServices.ahk
-#Include .\IWbemContext.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\IWbemContext.ahk
+#Include .\IWbemServices.ahk
 
 /**
  * @namespace Windows.Win32.System.Wmi

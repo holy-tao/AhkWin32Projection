@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MFOffset.ahk
 #Include ..\..\Foundation\SIZE.ahk
+#Include .\MFOffset.ahk
 
 /**
  * Specifies a rectangular area within a video frame.

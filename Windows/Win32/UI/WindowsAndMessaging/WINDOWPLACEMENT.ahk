@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WINDOWPLACEMENT_FLAGS.ahk
 #Include ..\..\Foundation\POINT.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include .\WINDOWPLACEMENT_FLAGS.ahk
 
 /**
  * Contains information about the placement of a window on the screen.

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IMFNetCredential.ahk
-#Include .\MFP_MEDIAPLAYER_STATE.ahk
-#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
-#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IMFNetCredential.ahk
+#Include .\IMFPMediaPlayer.ahk
 #Include .\MFP_EVENT_HEADER.ahk
 #Include .\MFP_EVENT_TYPE.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include .\IMFPMediaPlayer.ahk
+#Include .\MFP_MEDIAPLAYER_STATE.ahk
+#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 
 /**
  * Event structure for the MFP_EVENT_TYPE_ACQUIRE_USER_CREDENTIAL event.

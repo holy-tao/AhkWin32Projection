@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\USB_CHARGER_PORT.ahk
 #Include .\BATTERY_CHARGING_SOURCE_TYPE.ahk
+#Include .\USB_CHARGER_PORT.ahk
 
 /**
  * @namespace Windows.Win32.System.Power

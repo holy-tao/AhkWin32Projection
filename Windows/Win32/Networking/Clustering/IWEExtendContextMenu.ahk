@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IWCContextMenuCallback.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWCContextMenuCallback.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Implement the IWEExtendContextMenu interface to extend a Failover Cluster Administrator context menu for a cluster object.

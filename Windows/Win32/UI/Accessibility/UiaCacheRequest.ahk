@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\UiaCondition.ahk
-#Include .\TreeScope.ahk
 #Include .\AutomationElementMode.ahk
+#Include .\TreeScope.ahk
+#Include .\UiaCondition.ahk
 
 /**
  * Note  This structure is deprecated.  Contains information about a request to cache data about UI Automation elements.

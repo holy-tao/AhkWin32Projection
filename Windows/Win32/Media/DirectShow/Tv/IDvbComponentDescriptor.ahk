@@ -2,9 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include .\DVB_STRCONV_MODE.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Identifies the type of a Digital Video Broadcast (DVB) component stream and provides a text description of the component stream.

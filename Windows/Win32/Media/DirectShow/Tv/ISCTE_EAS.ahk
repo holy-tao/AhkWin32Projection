@@ -2,11 +2,11 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IGenericDescriptor.ahk
 #Include .\IMpeg2Data.ahk
 #Include .\ISectionList.ahk
-#Include .\IGenericDescriptor.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * The ISCTE_EAS interface enables the client to get data from an ATSC emergency alert message (EAS) table.

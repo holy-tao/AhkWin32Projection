@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDirectDraw.ahk
 #Include ..\Gdi\PALETTEENTRY.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDirectDraw.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Applications use the methods of the IDirectDrawPalette interface to create DirectDrawPalette objects and work with system-level variables. This section is a reference to the methods of this interface.
@@ -73,7 +73,7 @@ class IDirectDrawPalette extends IUnknown {
 
     /**
      * Retrieves the capabilities of the palette object.
-     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param0 A pointer to a variable that receives a value from the <b>dwPalCaps</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/ns-ddraw-ddcaps_dx3">DDCAPS</a> structure that defines palette capabilities. This value consists of one or more of the following flags.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * If it fails, the method can return one of the following error values:
@@ -93,10 +93,10 @@ class IDirectDrawPalette extends IUnknown {
 
     /**
      * Retrieves palette values from a DirectDrawPalette object.
-     * @param {Integer} param0 
-     * @param {Integer} param1 
-     * @param {Integer} param2 
-     * @param {Pointer<PALETTEENTRY>} param3 
+     * @param {Integer} param0 Currently not used and must be set to 0.
+     * @param {Integer} param1 Start of the entries to be retrieved sequentially.
+     * @param {Integer} param2 Number of palette entries that can fit in the array that <i>lpEntries</i> specifies. The colors of the palette entries are returned in sequence, from the value of the <i>dwStartingEntry</i> parameter through the value of the <i>dwCount</i> parameter minus 1. (These parameters are set by <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawpalette-setentries">IDirectDrawPalette::SetEntries</a>.)
+     * @param {Pointer<PALETTEENTRY>} param3 An array of <a href="https://docs.microsoft.com/previous-versions/dd162769(v=vs.85)">PALETTEENTRY</a> structures that receives the palette entries from the DirectDrawPalette object. The palette entries are 1 byte each if the DDPCAPS_8BITENTRIES flag is set, and 4 bytes otherwise. Each field is a color description.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -117,9 +117,9 @@ class IDirectDrawPalette extends IUnknown {
 
     /**
      * Initializes the DirectDrawPalette object.
-     * @param {IDirectDraw} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<PALETTEENTRY>} param2 
+     * @param {IDirectDraw} param0 A pointer to the DirectDraw object to associate with the DirectDrawPalette object.
+     * @param {Integer} param1 Currently not used and must be set to 0.
+     * @param {Pointer<PALETTEENTRY>} param2 Currently not used and must be set to NULL.
      * @returns {HRESULT} This method returns DDERR_ALREADYINITIALIZED.
      * 
      * This method is provided for compliance with the Component Object Model (COM). Because the DirectDrawPalette object is initialized when it is created, this method always returns DDERR_ALREADYINITIALIZED.
@@ -132,10 +132,10 @@ class IDirectDrawPalette extends IUnknown {
 
     /**
      * Changes entries in a DirectDrawPalette object immediately.
-     * @param {Integer} param0 
-     * @param {Integer} param1 
-     * @param {Integer} param2 
-     * @param {Pointer<PALETTEENTRY>} param3 
+     * @param {Integer} param0 Currently not used and must be set to 0.
+     * @param {Integer} param1 First entry to be set.
+     * @param {Integer} param2 Number of palette entries to be changed.
+     * @param {Pointer<PALETTEENTRY>} param3 An array of <a href="https://docs.microsoft.com/previous-versions/dd162769(v=vs.85)">PALETTEENTRY</a> structures that contains the palette entries that <b>SetEntries</b> uses to change the DirectDrawPalette object. The palette entries are 1 byte each if the DDPCAPS_8BITENTRIES flag is set, and 4 bytes otherwise. Each field is a color description.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\AUDCLNT_STREAMOPTIONS.ahk
 #Include .\AUDIO_STREAM_CATEGORY.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The AudioClientProperties structure (audioclient.h) is used to set the parameters that describe the properties of the client's audio stream.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\PWSTR.ahk
-#Include .\LSA_UNICODE_STRING.ahk
 #Include .\KERB_TICKET_FLAGS.ahk
+#Include .\LSA_UNICODE_STRING.ahk
 
 /**
  * Contains information about a cached Kerberos ticket. The Kerberos ticket is defined in Internet RFC 4120. For more information, see http://www.ietf.org.

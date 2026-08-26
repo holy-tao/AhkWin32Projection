@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IUIAutomationElement.ahk
 #Include .\NotificationKind.ahk
 #Include .\NotificationProcessing.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes a method to handle Microsoft UI Automation notification events.
@@ -41,8 +41,8 @@ class IUIAutomationNotificationEventHandler extends IUnknown {
      * @remarks
      * This method is implemented by the application to handle events that it has subscribed to by calling <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation5-addnotificationeventhandler">AddNotificationEventHandler</a>.
      * @param {IUIAutomationElement} sender A pointer to the element that raised the event.
-     * @param {NotificationKind} _notificationKind 
-     * @param {NotificationProcessing} _notificationProcessing 
+     * @param {NotificationKind} _notificationKind The type of notification.
+     * @param {NotificationProcessing} _notificationProcessing Indicates how to process notifications.
      * @param {BSTR} displayString A string to display in the notification message.
      * @param {BSTR} activityId A unique non-localized string to identify an action or group of actions. This is used to pass additional information to the event handler.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

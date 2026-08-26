@@ -1,25 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ScrollBarsConstants.ahk
-#Include ..\..\System\Ole\OLE_HANDLE.ahk
-#Include .\InkEditStatus.ahk
-#Include .\IInkDrawingAttributes.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include ..\..\System\Ole\IFontDisp.ahk
-#Include .\InkMousePointer.ahk
-#Include .\InkDisplayMode.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\InkMode.ahk
-#Include .\BorderStyleConstants.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\System\Com\IDispatch.ahk
-#Include .\AppearanceConstants.ahk
-#Include .\IInkRecognizer.ahk
+#Include ..\..\System\Ole\IFontDisp.ahk
 #Include ..\..\System\Ole\IPictureDisp.ahk
+#Include ..\..\System\Ole\OLE_HANDLE.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\AppearanceConstants.ahk
+#Include .\BorderStyleConstants.ahk
+#Include .\IInkDrawingAttributes.ahk
+#Include .\IInkRecognizer.ahk
 #Include .\InkApplicationGesture.ahk
+#Include .\InkDisplayMode.ahk
+#Include .\InkEditStatus.ahk
 #Include .\InkInsertMode.ahk
+#Include .\InkMode.ahk
+#Include .\InkMousePointer.ahk
+#Include .\ScrollBarsConstants.ahk
 
 /**
  * . (IInkEdit)

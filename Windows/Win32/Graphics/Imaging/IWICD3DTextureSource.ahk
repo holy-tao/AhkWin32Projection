@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\WICBitmapTransformOptions.ahk
-#Include ..\..\System\Com\StructuredStorage\IPropertyBag2.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\WICRect.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\WICBitmapTransformOptions.ahk
+#Include .\WICRect.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\StructuredStorage\IPropertyBag2.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Imaging

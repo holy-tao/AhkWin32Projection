@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSD_DURATION.ahk
 #Include .\WSD_DATETIME.ahk
+#Include .\WSD_DURATION.ahk
 
 /**
  * Represents the expiration time of a WS-Eventing message.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DS_REPSYNCALL_EVENT.ahk
 #Include .\DS_REPSYNCALL_ERRINFOW.ahk
+#Include .\DS_REPSYNCALL_EVENT.ahk
 #Include .\DS_REPSYNCALL_SYNCW.ahk
 
 /**

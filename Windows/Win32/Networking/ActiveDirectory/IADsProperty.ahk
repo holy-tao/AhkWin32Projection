@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IADsCollection.ahk
-#Include .\IADs.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IADs.ahk
+#Include .\IADsCollection.ahk
 
 /**
  * The IADsProperty interface is designed to manage a single attribute definition for a schema class object.

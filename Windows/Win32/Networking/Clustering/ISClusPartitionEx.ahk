@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\ISClusPartition.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ISClusPartition.ahk
 
 /**
  * Provides extended information about a partition on a Physical Disk resource.

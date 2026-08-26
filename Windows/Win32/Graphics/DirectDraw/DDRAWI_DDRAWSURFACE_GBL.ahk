@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\ACCESSRECTLIST.ahk
-#Include .\VMEMHEAP.ahk
 #Include .\DDPIXELFORMAT.ahk
 #Include .\DDRAWI_DIRECTDRAW_GBL.ahk
+#Include .\VMEMHEAP.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\FTP_PROCESS_STATUS.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\POST_PROCESS_PARAMETERS.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\FTP_PROCESS_STATUS.ahk
+#Include .\POST_PROCESS_PARAMETERS.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis

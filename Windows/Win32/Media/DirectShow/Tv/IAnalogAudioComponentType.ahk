@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IComponentType.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\TVAudioMode.ahk
+#Include .\IComponentType.ahk
 
 /**
  * The IAnalogAudioComponentType interface provides methods for accessing the analog audio mode.

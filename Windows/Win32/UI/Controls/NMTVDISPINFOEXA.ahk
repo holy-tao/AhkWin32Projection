@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\LPARAM.ahk
-#Include .\TVITEMEXW_CHILDREN.ahk
-#Include .\TVITEMEXA.ahk
-#Include .\NMHDR.ahk
 #Include ..\..\Foundation\PSTR.ahk
 #Include .\HTREEITEM.ahk
+#Include .\NMHDR.ahk
+#Include .\TVITEMEXA.ahk
+#Include .\TVITEMEXW_CHILDREN.ahk
 #Include .\TVITEM_MASK.ahk
 
 /**

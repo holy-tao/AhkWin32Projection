@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\JET_TUPLELIMITS.ahk
-#Include .\JET_SPACEHINTS.ahk
 #Include .\JET_CONDITIONALCOLUMN_W.ahk
+#Include .\JET_SPACEHINTS.ahk
+#Include .\JET_TUPLELIMITS.ahk
 #Include .\JET_UNICODEINDEX.ahk
 
 /**

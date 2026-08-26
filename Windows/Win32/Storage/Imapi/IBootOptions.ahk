@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\EmulationType.ahk
+#Include .\PlatformId.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\IStream.ahk
-#Include .\PlatformId.ahk
-#Include .\EmulationType.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Use this interface to specify the boot image to add to the optical disc. A boot image contains one or more sectors of code used to start the computer.

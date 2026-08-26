@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMDSPDevice.ahk
-#Include .\IWMDMProgress3.ahk
-#Include .\ISCPSecureExchange2.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMDSPDevice.ahk
+#Include .\ISCPSecureExchange2.ahk
+#Include .\IWMDMProgress3.ahk
 
 /**
  * The ISCPSecureExchange3 interface extends ISCPSecureExchange2 by providing improved data exchange performance, and a transfer-complete callback method.

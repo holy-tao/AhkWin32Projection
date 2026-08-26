@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\ICspInformation.ahk
-#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\ISmimeCapability.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\ICspInformation.ahk
+#Include .\ISmimeCapability.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Defines the following methods and properties to manage a collection of ISmimeCapability objects.

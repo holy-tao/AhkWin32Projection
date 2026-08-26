@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\TYPEATTR.ahk
-#Include .\FUNCDESC.ahk
-#Include .\DISPPARAMS.ahk
-#Include .\IMPLTYPEFLAGS.ahk
-#Include .\VARDESC.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\INVOKEKIND.ahk
-#Include .\ITypeLib.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DISPATCH_FLAGS.ahk
-#Include .\IUnknown.ahk
+#Include .\DISPPARAMS.ahk
 #Include .\EXCEPINFO.ahk
+#Include .\FUNCDESC.ahk
+#Include .\IMPLTYPEFLAGS.ahk
+#Include .\INVOKEKIND.ahk
 #Include .\ITypeComp.ahk
+#Include .\ITypeLib.ahk
+#Include .\IUnknown.ahk
+#Include .\TYPEATTR.ahk
+#Include .\VARDESC.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * Used for reading information about objects. (ITypeInfo)

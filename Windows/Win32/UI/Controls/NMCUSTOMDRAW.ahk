@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
-#Include .\NMCUSTOMDRAW_DRAW_STATE_FLAGS.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include .\NMCUSTOMDRAW_DRAW_STAGE.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
+#Include .\NMCUSTOMDRAW_DRAW_STAGE.ahk
+#Include .\NMCUSTOMDRAW_DRAW_STATE_FLAGS.ahk
+#Include .\NMHDR.ahk
 
 /**
  * Contains information specific to an NM_CUSTOMDRAW notification code.

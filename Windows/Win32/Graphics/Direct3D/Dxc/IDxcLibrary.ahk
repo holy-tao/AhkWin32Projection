@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IMalloc.ahk
-#Include .\IDxcBlobEncoding.ahk
-#Include .\DXC_CP.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
-#Include .\IDxcIncludeHandler.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\DXC_CP.ahk
 #Include .\IDxcBlob.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IDxcBlobEncoding.ahk
+#Include .\IDxcIncludeHandler.ahk
+#Include ..\..\..\System\Com\IMalloc.ahk
 #Include ..\..\..\System\Com\IStream.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc

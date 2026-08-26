@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\IKEV2_PROJECTION_INFO.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\PROJECTION_INFO.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\RAS_QUARANTINE_STATE.ahk
-#Include .\RAS_FLAGS.ahk
-#Include .\ROUTER_INTERFACE_TYPE.ahk
-#Include .\PPP_LCP_INFO_AUTH_DATA.ahk
-#Include .\PPP_LCP.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\IKEV2_PROJECTION_INFO.ahk
 #Include .\MPRAPI_OBJECT_HEADER.ahk
+#Include .\PPP_LCP.ahk
+#Include .\PPP_LCP_INFO_AUTH_DATA.ahk
 #Include .\PPP_PROJECTION_INFO.ahk
+#Include .\PROJECTION_INFO.ahk
+#Include .\RAS_FLAGS.ahk
+#Include .\RAS_QUARANTINE_STATE.ahk
+#Include .\ROUTER_INTERFACE_TYPE.ahk
 
 /**
  * Contains specific information for the connection that includes:\_the user name, domain, and Globally Unique Identifier (GUID) associated with the connection, its Network Access Protection (NAP) quarantine state, its packet statistics, as well as its Point-to-Point(PPP) and Internet Key Exchange version 2 (IKEv2) related information.

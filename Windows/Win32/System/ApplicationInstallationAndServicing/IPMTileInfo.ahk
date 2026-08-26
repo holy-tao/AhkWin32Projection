@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\TILE_TEMPLATE_TYPE.ahk
-#Include .\IPMTilePropertyEnumerator.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\PM_STARTTILE_TYPE.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\PM_TILE_SIZE.ahk
-#Include .\PM_TILE_HUBTYPE.ahk
-#Include .\IPMTilePropertyInfo.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IPMTilePropertyEnumerator.ahk
+#Include .\IPMTilePropertyInfo.ahk
 #Include .\PM_STARTTILEBLOB.ahk
+#Include .\PM_STARTTILE_TYPE.ahk
+#Include .\PM_TILE_HUBTYPE.ahk
+#Include .\PM_TILE_SIZE.ahk
+#Include .\TILE_TEMPLATE_TYPE.ahk
+#Include ..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ISCSI_UNIQUE_SESSION_ID.ahk
-#Include .\ISCSI_CONNECTION_INFOA.ahk
 #Include ..\..\Foundation\PSTR.ahk
+#Include .\ISCSI_CONNECTION_INFOA.ahk
+#Include .\ISCSI_UNIQUE_SESSION_ID.ahk
 
 /**
  * ISCSI_SESSION_INFO. (ANSI)

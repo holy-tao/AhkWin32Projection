@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WLAN_PHY_RADIO_STATE.ahk
 #Include .\DOT11_RADIO_STATE.ahk
+#Include .\WLAN_PHY_RADIO_STATE.ahk
 
 /**
  * Specifies the radio state on a list of physical layer (PHY) types.

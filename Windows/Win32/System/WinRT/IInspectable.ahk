@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\TrustLevel.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\HSTRING.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\TrustLevel.ahk
 
 /**
  * Provides functionality required for all Windows Runtime classes.

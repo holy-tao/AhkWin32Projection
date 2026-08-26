@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDtcToXaHelper.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\IDtcToXaHelper.ahk
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator

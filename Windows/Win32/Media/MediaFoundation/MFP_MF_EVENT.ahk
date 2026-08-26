@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IMFPMediaItem.ahk
-#Include .\IMFMediaEvent.ahk
-#Include .\MFP_MEDIAPLAYER_STATE.ahk
-#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFMediaEvent.ahk
+#Include .\IMFPMediaItem.ahk
+#Include .\IMFPMediaPlayer.ahk
 #Include .\MFP_EVENT_HEADER.ahk
 #Include .\MFP_EVENT_TYPE.ahk
-#Include .\IMFPMediaPlayer.ahk
+#Include .\MFP_MEDIAPLAYER_STATE.ahk
+#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 
 /**
  * Event structure for the MFP_EVENT_TYPE_MF event.

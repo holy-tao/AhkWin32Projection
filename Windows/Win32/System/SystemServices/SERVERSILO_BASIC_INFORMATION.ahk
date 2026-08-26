@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SERVERSILO_STATE.ahk
 #Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\SERVERSILO_STATE.ahk
 
 /**
  * @namespace Windows.Win32.System.SystemServices

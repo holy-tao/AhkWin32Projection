@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITableDefinition.ahk
-#Include .\DBCONSTRAINTDESC.ahk
-#Include .\DBPROPSET.ahk
-#Include .\DBCOLUMNDESC.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Storage\IndexServer\DBID.ahk
+#Include .\DBCOLUMNDESC.ahk
+#Include .\DBCONSTRAINTDESC.ahk
+#Include .\DBPROPSET.ahk
+#Include .\ITableDefinition.ahk
 
 /**
  * @namespace Windows.Win32.System.Search

@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\IReferenceClock.ahk
-#Include .\IDirectMusicBuffer.ahk
-#Include ..\WAVEFORMATEX.ahk
-#Include .\IDirectMusicDownloadedInstrument.ahk
-#Include ..\DirectSound\IDirectSound.ahk
-#Include .\DMUS_PORTCAPS.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
-#Include .\IDirectMusicInstrument.ahk
-#Include ..\..\..\System\IO\OVERLAPPED.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
-#Include ..\DirectSound\IDirectSoundBuffer.ahk
-#Include .\DMUS_NOTERANGE.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\DMUS_NOTERANGE.ahk
+#Include .\DMUS_PORTCAPS.ahk
 #Include .\DMUS_SYNTHSTATS.ahk
+#Include .\IDirectMusicBuffer.ahk
+#Include .\IDirectMusicDownloadedInstrument.ahk
+#Include .\IDirectMusicInstrument.ahk
+#Include ..\DirectSound\IDirectSound.ahk
+#Include ..\DirectSound\IDirectSoundBuffer.ahk
+#Include ..\WAVEFORMATEX.ahk
+#Include ..\..\IReferenceClock.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\System\IO\OVERLAPPED.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic

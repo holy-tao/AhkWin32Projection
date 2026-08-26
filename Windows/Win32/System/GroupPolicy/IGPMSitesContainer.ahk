@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\IGPMSOM.ahk
 #Include .\IGPMSOMCollection.ahk
 #Include .\IGPMSearchCriteria.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\IGPMSOM.ahk
 
 /**
  * The IGPMSitesContainer interface provides the methods required to access the scope of management (SOM) objects that represent sites in a forest.

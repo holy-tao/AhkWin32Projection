@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionFilterEffect.ahk
-#Include ..\Direct2D\Common\D2D1_BLEND_MODE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Direct2D\Common\D2D1_BLEND_MODE.ahk
+#Include .\IDCompositionFilterEffect.ahk
 
 /**
  * The Blend Effect is used to combine 2 images.

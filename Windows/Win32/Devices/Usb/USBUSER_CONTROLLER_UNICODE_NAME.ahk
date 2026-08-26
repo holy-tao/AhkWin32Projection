@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_USER_ERROR_CODE.ahk
 #Include .\USBUSER_REQUEST_HEADER.ahk
 #Include .\USB_UNICODE_NAME.ahk
+#Include .\USB_USER_ERROR_CODE.ahk
 
 /**
  * The USBUSER_CONTROLLER_UNICODE_NAME structure is used in conjunction with the IOCTL_USB_USER_REQUEST I/O control request to retrieve the USB host controller driverkey name.

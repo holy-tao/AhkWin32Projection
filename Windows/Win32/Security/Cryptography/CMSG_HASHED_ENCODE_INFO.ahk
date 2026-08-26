@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HCRYPTPROV_LEGACY.ahk
-#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 #Include ..\..\Foundation\PSTR.ahk
+#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\HCRYPTPROV_LEGACY.ahk
 
 /**
  * Used with hashed messages. It is passed to the CryptMsgOpenToEncode function if the CryptMsgOpenToEncode function's dwMsgType parameter is CMSG_ENVELOPED.

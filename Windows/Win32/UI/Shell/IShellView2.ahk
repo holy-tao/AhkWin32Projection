@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include Common\ITEMIDLIST.ahk
-#Include ..\..\Foundation\POINT.ahk
-#Include .\SV2CVW2_PARAMS.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include Common\ITEMIDLIST.ahk
 #Include .\IShellView.ahk
+#Include .\SV2CVW2_PARAMS.ahk
 
 /**
  * Extends the capabilities of IShellView.

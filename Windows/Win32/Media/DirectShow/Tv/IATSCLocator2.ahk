@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IATSCLocator.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IATSCLocator.ahk
 
 /**
  * The IATASCLocator2 interface enables the network provider to determine the physical channel, transport stream ID, and program number of an ATSC transmission.

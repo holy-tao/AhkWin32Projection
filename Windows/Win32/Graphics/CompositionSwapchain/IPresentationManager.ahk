@@ -2,14 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\PresentStatisticsKind.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\SystemInterruptTime.ahk
-#Include .\IPresentStatistics.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\IPresentationSurface.ahk
+#Include .\IPresentStatistics.ahk
 #Include .\IPresentationBuffer.ahk
+#Include .\IPresentationSurface.ahk
+#Include .\PresentStatisticsKind.ahk
+#Include .\SystemInterruptTime.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Defines methods for managing presentation.

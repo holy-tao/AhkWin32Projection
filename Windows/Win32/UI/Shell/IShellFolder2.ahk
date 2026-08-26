@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include Common\SHELLDETAILS.ahk
-#Include Common\ITEMIDLIST.ahk
-#Include .\IShellFolder.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PROPERTYKEY.ahk
-#Include .\IEnumExtraSearch.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include Common\ITEMIDLIST.ahk
 #Include Common\SHCOLSTATE.ahk
+#Include Common\SHELLDETAILS.ahk
+#Include .\IEnumExtraSearch.ahk
+#Include .\IShellFolder.ahk
 
 /**
  * Extends the capabilities of IShellFolder. Its methods provide a variety of information about the contents of a Shell folder.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MENUITEMTEMPLATEHEADER.ahk
 #Include .\MENUEX_TEMPLATE_HEADER.ahk
-#Include .\MENUITEMTEMPLATE.ahk
 #Include .\MENUEX_TEMPLATE_ITEM.ahk
+#Include .\MENUITEMTEMPLATE.ahk
+#Include .\MENUITEMTEMPLATEHEADER.ahk
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging

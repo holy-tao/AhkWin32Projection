@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
+#Include ..\Foundation\HRESULT.ahk
 #Include ..\Foundation\PWSTR.ahk
-#Include ..\System\Com\IUnknown.ahk
-#Include ..\System\Com\IEnumString.ahk
+#Include .\IEnumSpellingError.ahk
 #Include .\IOptionDescription.ahk
 #Include .\ISpellCheckerChangedEventHandler.ahk
-#Include .\IEnumSpellingError.ahk
-#Include ..\Foundation\HRESULT.ahk
+#Include ..\System\Com\IEnumString.ahk
+#Include ..\System\Com\IUnknown.ahk
 
 /**
  * Represents a particular spell checker for a particular language.

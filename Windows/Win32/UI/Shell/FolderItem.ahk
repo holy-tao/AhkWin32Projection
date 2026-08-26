@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\FolderItemVerbs.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents an item in a Shell folder. This object contains properties and methods that allow you to retrieve information about the item.

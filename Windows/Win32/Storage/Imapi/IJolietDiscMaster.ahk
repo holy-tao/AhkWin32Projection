@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\StructuredStorage\IStorage.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\StructuredStorage\IPropertyStorage.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\StructuredStorage\IStorage.ahk
 
 /**
  * The IJolietDiscMaster interface enables the staging of a CD data disc.

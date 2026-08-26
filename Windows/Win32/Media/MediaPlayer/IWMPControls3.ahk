@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IWMPControls2.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWMPControls2.ahk
 
 /**
  * The IWMPControls3 interface provides methods that supplement the IWMPControls2 interface.

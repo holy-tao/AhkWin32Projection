@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUS_PARTITION_INFO_EX2.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\CLUSPROP_PARTITION_INFO_EX.ahk
 #Include .\CLUSPROP_SYNTAX.ahk
-#Include .\CLUS_PARTITION_INFO_EX.ahk
 #Include .\CLUSPROP_VALUE.ahk
+#Include .\CLUS_PARTITION_INFO_EX.ahk
+#Include .\CLUS_PARTITION_INFO_EX2.ahk
 
 /**
  * A value list entry that contains partition information for a storage class resource. This structure is as a input, and a as a return value for the CLUSCTL_RESOURCE_STORAGE_GET_DISK_INFO_EX2 control code.

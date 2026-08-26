@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\NETCON_MEDIATYPE.ahk
 #Include .\NETCON_STATUS.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Use the INetConnectionProps interface to retrieve the properties for a connection.

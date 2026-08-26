@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\INTERACTION_ID.ahk
-#Include .\MANIPULATION_TRANSFORM.ahk
-#Include .\INTERACTION_ARGUMENTS_CROSS_SLIDE.ahk
-#Include .\INTERACTION_FLAGS.ahk
 #Include .\CROSS_SLIDE_FLAGS.ahk
-#Include .\MANIPULATION_VELOCITY.ahk
+#Include .\INTERACTION_ARGUMENTS_CROSS_SLIDE.ahk
 #Include .\INTERACTION_ARGUMENTS_MANIPULATION.ahk
 #Include .\INTERACTION_ARGUMENTS_TAP.ahk
-#Include ..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk
+#Include .\INTERACTION_FLAGS.ahk
+#Include .\INTERACTION_ID.ahk
 #Include .\MANIPULATION_RAILS_STATE.ahk
+#Include .\MANIPULATION_TRANSFORM.ahk
+#Include .\MANIPULATION_VELOCITY.ahk
+#Include ..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.UI.InteractionContext

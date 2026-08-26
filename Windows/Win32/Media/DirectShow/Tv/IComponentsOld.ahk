@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IComponents.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IComponent.ahk
-#Include .\IEnumComponents.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
-#Include ..\..\..\System\Ole\IEnumVARIANT.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IComponent.ahk
+#Include .\IComponents.ahk
+#Include .\IEnumComponents.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\System\Ole\IEnumVARIANT.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv

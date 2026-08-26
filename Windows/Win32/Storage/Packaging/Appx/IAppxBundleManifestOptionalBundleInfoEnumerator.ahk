@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IAppxBundleManifestOptionalBundleInfo.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IAppxBundleManifestOptionalBundleInfo.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Enumerates the optional bundle information from a bundle.

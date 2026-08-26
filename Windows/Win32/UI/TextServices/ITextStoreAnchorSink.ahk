@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\TEXT_STORE_LOCK_FLAGS.ahk
-#Include .\TEXT_STORE_CHANGE_FLAGS.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\TsLayoutCode.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IAnchor.ahk
+#Include .\TEXT_STORE_CHANGE_FLAGS.ahk
+#Include .\TEXT_STORE_LOCK_FLAGS.ahk
+#Include .\TsLayoutCode.ahk
 
 /**
  * The ITextStoreAnchorSink interface is implemented by the TSF manager and is used by an anchor-based application to notify the manager when certain events occur. The manager installs this advise sink by calling ITextStoreAnchor::AdviseSink.

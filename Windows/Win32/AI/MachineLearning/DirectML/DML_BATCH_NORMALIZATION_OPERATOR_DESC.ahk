@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_OPERATOR_DESC.ahk
 #Include .\DML_TENSOR_DESC.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
-#Include .\DML_OPERATOR_DESC.ahk
 
 /**
  * The DML_BATCH_NORMALIZATION_OPERATOR_DESC structure (directml.h) performs a batch normalization on the input.

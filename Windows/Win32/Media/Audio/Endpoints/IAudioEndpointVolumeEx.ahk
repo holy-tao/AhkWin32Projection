@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IAudioEndpointVolume.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IAudioEndpointVolume.ahk
 
 /**
  * The IAudioEndpointVolumeEx interface provides volume controls on the audio stream to or from a device endpoint.

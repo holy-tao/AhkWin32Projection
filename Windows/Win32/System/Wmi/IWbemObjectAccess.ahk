@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include .\IWbemClassObject.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to the methods and properties of an object.

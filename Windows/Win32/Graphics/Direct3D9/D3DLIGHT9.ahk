@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Direct3D\D3DVECTOR.ahk
 #Include .\D3DCOLORVALUE.ahk
 #Include .\D3DLIGHTTYPE.ahk
-#Include ..\Direct3D\D3DVECTOR.ahk
 
 /**
  * Defines a set of lighting properties.

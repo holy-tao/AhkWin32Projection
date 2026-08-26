@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_USER_ERROR_CODE.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\USBUSER_REQUEST_HEADER.ahk
 #Include .\USB_BUS_STATISTICS_0.ahk
+#Include .\USB_USER_ERROR_CODE.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * The USBUSER_BUS_STATISTICS_0_REQUEST structure is used with the IOCTL_USB_USER_REQUEST I/O control request to retrieve bus statistics.

@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\D3D12_WORK_GRAPH_MEMORY_REQUIREMENTS.ahk
 #Include .\D3D12_NODE_ID.ahk
+#Include .\D3D12_WORK_GRAPH_MEMORY_REQUIREMENTS.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

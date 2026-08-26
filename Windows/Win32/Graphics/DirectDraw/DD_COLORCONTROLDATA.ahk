@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DD_SURFACE_LOCAL.ahk
-#Include .\DD_DIRECTDRAW_GLOBAL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include .\DDCOLORCONTROL.ahk
+#Include .\DD_DIRECTDRAW_GLOBAL.ahk
+#Include .\DD_SURFACE_LOCAL.ahk
 
 /**
  * The DD_COLORCONTROLDATA structure contains the color control information for the specified overlay.

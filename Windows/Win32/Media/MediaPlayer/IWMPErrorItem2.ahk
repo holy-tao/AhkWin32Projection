@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMPErrorItem.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWMPErrorItem.ahk
 
 /**
  * The IWMPErrorItem2 interface provides a method that supplements the IWMPErrorItem interface.

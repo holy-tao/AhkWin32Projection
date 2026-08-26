@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\CODEBASEHOLD.ahk
-#Include ..\IBindCtx.ahk
-#Include .\SOFTDISTINFO.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Data\Xml\MsXml\IXMLElement.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\IBindCtx.ahk
 #Include ..\IUnknown.ahk
+#Include .\CODEBASEHOLD.ahk
+#Include .\SOFTDISTINFO.ahk
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon

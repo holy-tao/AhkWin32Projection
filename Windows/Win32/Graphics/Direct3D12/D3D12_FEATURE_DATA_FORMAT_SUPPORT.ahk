@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_FORMAT_SUPPORT1.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 #Include .\D3D12_FORMAT_SUPPORT2.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 
 /**
  * Describes which resources are supported by the current graphics driver for a given format. (D3D12_FEATURE_DATA_FORMAT_SUPPORT)

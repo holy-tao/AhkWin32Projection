@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\WPARAM.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\WPARAM.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The ITfLangBarEventSink interface is implemented by an application or text service and used by the language bar to supply notifications of certain events that occur in the language bar.

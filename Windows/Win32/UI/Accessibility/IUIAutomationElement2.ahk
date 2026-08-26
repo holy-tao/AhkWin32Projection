@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IUIAutomationElement.ahk
 #Include .\IUIAutomationElementArray.ahk
 #Include .\LiveSetting.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the IUIAutomationElement interface.

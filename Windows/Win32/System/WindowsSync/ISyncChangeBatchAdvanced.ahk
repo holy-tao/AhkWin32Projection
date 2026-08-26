@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISyncFilterInfo.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\ISyncChangeBatch.ahk
+#Include .\ISyncFilterInfo.ahk
 
 /**
  * Represents additional information about a set of changes.

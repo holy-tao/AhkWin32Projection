@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\IRangeException.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Enumerates range exceptions that are stored in a knowledge object.

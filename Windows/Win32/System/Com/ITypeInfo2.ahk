@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\TYPEKIND.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\CUSTDATA.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\CUSTDATA.ahk
 #Include .\INVOKEKIND.ahk
 #Include .\ITypeInfo.ahk
+#Include .\TYPEKIND.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * Used for reading information about objects. (ITypeInfo2)

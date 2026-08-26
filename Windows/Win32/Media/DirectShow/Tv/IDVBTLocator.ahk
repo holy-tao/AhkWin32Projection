@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IDigitalLocator.ahk
-#Include ..\TransmissionMode.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\BinaryConvolutionCodeRate.ahk
 #Include ..\FECMethod.ahk
-#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
-#Include ..\HierarchyAlpha.ahk
 #Include ..\GuardInterval.ahk
+#Include ..\HierarchyAlpha.ahk
+#Include ..\TransmissionMode.ahk
+#Include .\IDigitalLocator.ahk
 
 /**
  * The IDVBTLocator interface is implemented on the DVBTLocator object.

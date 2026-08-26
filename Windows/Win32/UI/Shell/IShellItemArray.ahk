@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include PropertiesSystem\GETPROPERTYSTOREFLAGS.ahk
-#Include .\IEnumShellItems.ahk
-#Include .\SIATTRIBFLAGS.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\SystemServices\SFGAO_FLAGS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
 #Include ..\..\System\Com\IBindCtx.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\SystemServices\SFGAO_FLAGS.ahk
+#Include .\IEnumShellItems.ahk
 #Include .\IShellItem.ahk
-#Include ..\..\Foundation\PROPERTYKEY.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include PropertiesSystem\GETPROPERTYSTOREFLAGS.ahk
+#Include .\SIATTRIBFLAGS.ahk
 
 /**
  * Exposes methods that create and manipulate Shell item arrays.

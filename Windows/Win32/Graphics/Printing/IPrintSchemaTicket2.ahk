@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IPrintSchemaParameterInitializer.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IPrintSchemaParameterInitializer.ahk
 #Include .\IPrintSchemaTicket.ahk
 
 /**

@@ -3,9 +3,9 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BOOLEAN.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include .\VDS_LUN_INFORMATION.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides methods to uninstall basic and dynamic disks.

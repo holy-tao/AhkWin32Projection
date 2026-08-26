@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MI_DatetimeA.ahk
 #Include .\MI_Datetime.ahk
+#Include .\MI_DatetimeA.ahk
 
 /**
  * Represents a property inside an MI_Instance structure. (MI_DatetimeAField)

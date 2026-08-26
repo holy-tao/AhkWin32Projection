@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include .\UConverter.ahk
 #Include ..\Foundation\PSTR.ahk
+#Include .\UConverter.ahk
 
 /**
  * @namespace Windows.Win32.Globalization

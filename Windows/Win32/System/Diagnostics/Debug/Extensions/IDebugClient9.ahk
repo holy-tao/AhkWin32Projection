@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IDebugEventCallbacksWide.ahk
-#Include .\IDebugClient.ahk
-#Include .\IDebugInputCallbacks.ahk
-#Include .\IDebugEventContextCallbacks.ahk
-#Include .\IDebugOutputCallbacksWide.ahk
-#Include ..\..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Foundation\HRESULT.ahk
-#Include .\IDebugOutputCallbacks.ahk
-#Include .\IDebugEventCallbacks.ahk
 #Include ..\..\..\..\Foundation\PSTR.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\Com\IUnknown.ahk
+#Include .\IDebugClient.ahk
+#Include .\IDebugEventCallbacks.ahk
+#Include .\IDebugEventCallbacksWide.ahk
+#Include .\IDebugEventContextCallbacks.ahk
+#Include .\IDebugInputCallbacks.ahk
+#Include .\IDebugOutputCallbacks.ahk
+#Include .\IDebugOutputCallbacksWide.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

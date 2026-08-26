@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFTimedTextBouten.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFTimedTextRuby.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFTimedTextBouten.ahk
+#Include .\IMFTimedTextRuby.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation

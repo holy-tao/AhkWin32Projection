@@ -1,23 +1,23 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Data\Xml\MsXml\IXMLDOMDocument2.ahk
+#Include ..\..\Data\Xml\MsXml\IXMLDOMNode.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\EAP_ATTRIBUTES.ahk
+#Include .\EAP_CONFIG_INPUT_FIELD_ARRAY.ahk
+#Include .\EAP_ERROR.ahk
 #Include .\EAP_INTERACTIVE_UI_DATA.ahk
 #Include .\EAP_METHOD_INFO_ARRAY.ahk
-#Include ..\..\Data\Xml\MsXml\IXMLDOMDocument2.ahk
 #Include .\EAP_METHOD_PROPERTY_ARRAY.ahk
-#Include .\EAP_CONFIG_INPUT_FIELD_ARRAY.ahk
-#Include ..\..\Data\Xml\MsXml\IXMLDOMNode.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\EapHostPeerMethodResult.ahk
 #Include .\EAP_METHOD_TYPE.ahk
-#Include .\EAP_ERROR.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include .\EAP_ATTRIBUTES.ahk
-#Include .\EapHostPeerMethodResultReason.ahk
 #Include .\EapHostPeerAuthParams.ahk
+#Include .\EapHostPeerMethodResult.ahk
+#Include .\EapHostPeerMethodResultReason.ahk
 #Include .\EapHostPeerResponseAction.ahk
 
 /**

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
-#Include .\ID3D11DeviceChild.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\ID3D11DeviceChild.ahk
+#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
 
 /**
  * Represents a fence, an object used for synchronization of the CPU and one or more GPUs. (ID3D11Fence)

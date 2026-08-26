@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D11Device1.ahk
-#Include .\D3D11_SUBRESOURCE_TILING.ahk
-#Include .\D3D11_PACKED_MIP_DESC.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
-#Include .\ID3D11Resource.ahk
-#Include .\ID3D11DeviceContext2.ahk
-#Include .\D3D11_TILE_SHAPE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3D11_PACKED_MIP_DESC.ahk
+#Include .\D3D11_SUBRESOURCE_TILING.ahk
+#Include .\D3D11_TILE_SHAPE.ahk
+#Include .\ID3D11Device1.ahk
+#Include .\ID3D11DeviceContext2.ahk
+#Include .\ID3D11Resource.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 
 /**
  * The device interface represents a virtual adapter; it is used to create resources. ID3D11Device2 adds new methods to those in ID3D11Device1.

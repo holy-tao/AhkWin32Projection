@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\X509EnrollmentPolicyLoadOption.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\ICertificationAuthorities.ahk
-#Include .\X509EnrollmentPolicyExportFlags.ahk
-#Include .\X509EnrollmentAuthFlags.ahk
 #Include .\IObjectIds.ahk
 #Include .\IX509CertificateTemplate.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IX509CertificateTemplates.ahk
 #Include .\X509CertificateEnrollmentContext.ahk
+#Include .\X509EnrollmentAuthFlags.ahk
+#Include .\X509EnrollmentPolicyExportFlags.ahk
+#Include .\X509EnrollmentPolicyLoadOption.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 
 /**
  * The IX509EnrollmentPolicyServer interface represents a certificate enrollment policy (CEP) server.

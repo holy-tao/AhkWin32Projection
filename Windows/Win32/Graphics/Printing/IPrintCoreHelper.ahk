@@ -2,13 +2,13 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Gdi\DEVMODEA.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\PRINT_FEATURE_OPTION.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

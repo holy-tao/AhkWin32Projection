@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\VDS_DRIVE_STATUS.ahk
 #Include .\VDS_HEALTH.ahk
 #Include .\VDS_STORAGE_BUS_TYPE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\VDS_DRIVE_STATUS.ahk
 
 /**
  * The VDS_DRIVE_PROP2 structure (vdshwprv.h) defines the properties of a drive object.

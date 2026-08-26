@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\VSS_RESTOREMETHOD_ENUM.ahk
-#Include ..\..\Data\Xml\MsXml\IXMLDOMDocument.ahk
-#Include .\VSS_USAGE_TYPE.ahk
-#Include .\VSS_SOURCE_TYPE.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IVssWMComponent.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Data\Xml\MsXml\IXMLDOMDocument.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IVssWMComponent.ahk
+#Include .\IVssWMFiledesc.ahk
+#Include .\VSS_RESTOREMETHOD_ENUM.ahk
+#Include .\VSS_SOURCE_TYPE.ahk
+#Include .\VSS_USAGE_TYPE.ahk
 #Include .\VSS_WRITERRESTORE_ENUM.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include .\IVssWMFiledesc.ahk
 
 /**
  * The IVssExamineWriterMetadata interface is a C++ (not COM) interface that allows a requester to examine the metadata of a specific writer instance.

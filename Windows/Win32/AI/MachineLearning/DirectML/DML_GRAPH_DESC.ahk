@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\DML_GRAPH_NODE_DESC.ahk
 #Include .\DML_GRAPH_EDGE_DESC.ahk
+#Include .\DML_GRAPH_NODE_DESC.ahk
 
 /**
  * Describes a graph of DirectML operators used to compile a combined, optimized operator.

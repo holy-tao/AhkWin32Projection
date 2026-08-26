@@ -2,13 +2,13 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\IEnumWbemClassObject.ahk
 #Include .\IWbemCallResult.ahk
-#Include .\IWbemObjectSink.ahk
-#Include .\IWbemContext.ahk
 #Include .\IWbemClassObject.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWbemContext.ahk
+#Include .\IWbemObjectSink.ahk
 #Include .\WBEM_GENERIC_FLAG_TYPE.ahk
 
 /**

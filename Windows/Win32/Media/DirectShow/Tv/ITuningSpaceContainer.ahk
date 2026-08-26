@@ -2,14 +2,14 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ITuningSpaces.ahk
-#Include ..\..\..\System\Ole\IEnumVARIANT.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include .\IEnumTuningSpaces.ahk
 #Include .\ITuningSpace.ahk
+#Include .\ITuningSpaces.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\System\Ole\IEnumVARIANT.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 
 /**
  * The ITuningSpaceContainer interface is implemented on the SystemTuningSpaces object.

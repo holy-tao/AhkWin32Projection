@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\_URB_HEADER.ahk
 #Include .\USBD_INTERFACE_INFORMATION.ahk
-#Include .\USBD_PIPE_TYPE.ahk
 #Include .\USBD_PIPE_INFORMATION.ahk
+#Include .\USBD_PIPE_TYPE.ahk
+#Include .\_URB_HEADER.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb

@@ -2,9 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
 #Include .\CERT_ALT_NAME.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Provides methods for handling certificate revocation list (CRL) distribution information arrays used in certificate extensions.

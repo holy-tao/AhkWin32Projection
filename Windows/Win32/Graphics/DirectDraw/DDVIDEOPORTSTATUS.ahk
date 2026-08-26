@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDVIDEOPORTCONNECT.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include .\DDVIDEOPORTCONNECT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

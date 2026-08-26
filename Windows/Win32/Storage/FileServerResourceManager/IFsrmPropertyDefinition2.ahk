@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IFsrmPropertyDefinition.ahk
-#Include .\IFsrmCollection.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IFsrmCollection.ahk
+#Include .\IFsrmPropertyDefinition.ahk
 
 /**
  * Defines a property that you want to use to classify files. (IFsrmPropertyDefinition2)

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMGeometry.ahk
-#Include .\XPS_SEGMENT_TYPE.ahk
-#Include .\XPS_SEGMENT_STROKE_PATTERN.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\XPS_POINT.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IXpsOMGeometry.ahk
+#Include .\XPS_POINT.ahk
+#Include .\XPS_SEGMENT_STROKE_PATTERN.ahk
+#Include .\XPS_SEGMENT_TYPE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Describes one portion of the path or clipping region that is specified by an IXpsOMGeometry interface.

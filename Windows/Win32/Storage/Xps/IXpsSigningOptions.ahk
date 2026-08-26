@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Packaging\Opc\OPC_SIGNATURE_TIME_FORMAT.ahk
-#Include .\XPS_SIGN_POLICY.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\Packaging\Opc\IOpcPartUri.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Packaging\Opc\IOpcCertificateSet.ahk
+#Include ..\Packaging\Opc\IOpcPartUri.ahk
 #Include ..\Packaging\Opc\IOpcSignatureCustomObjectSet.ahk
 #Include ..\Packaging\Opc\IOpcSignatureReferenceSet.ahk
-#Include ..\Packaging\Opc\IOpcCertificateSet.ahk
+#Include ..\Packaging\Opc\OPC_SIGNATURE_TIME_FORMAT.ahk
 #Include .\XPS_SIGN_FLAGS.ahk
+#Include .\XPS_SIGN_POLICY.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**

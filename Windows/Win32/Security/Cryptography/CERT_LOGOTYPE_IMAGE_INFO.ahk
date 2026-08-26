@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_LOGOTYPE_IMAGE_INFO_TYPE.ahk
-#Include .\CERT_LOGOTYPE_CHOICE.ahk
 #Include ..\..\Foundation\PWSTR.ahk
+#Include .\CERT_LOGOTYPE_CHOICE.ahk
+#Include .\CERT_LOGOTYPE_IMAGE_INFO_TYPE.ahk
 
 /**
  * Contains more detailed information about an image logotype.

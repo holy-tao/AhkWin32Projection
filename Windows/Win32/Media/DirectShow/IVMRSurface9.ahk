@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IVMRSurface9 interface is implemented on the media samples used by the Video Mixing Renderer Filter 9.

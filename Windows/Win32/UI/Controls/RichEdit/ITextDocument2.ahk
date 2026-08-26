@@ -2,18 +2,18 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\ITextRange2.ahk
-#Include .\ITextDisplays.ahk
-#Include .\ITextStory.ahk
-#Include .\ITextSelection2.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\tomConstants.ahk
-#Include .\ITextPara2.ahk
-#Include .\ITextStoryRanges2.ahk
-#Include .\ITextFont2.ahk
-#Include .\ITextDocument.ahk
-#Include .\ITextStrings.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\ITextDisplays.ahk
+#Include .\ITextDocument.ahk
+#Include .\ITextFont2.ahk
+#Include .\ITextPara2.ahk
+#Include .\ITextRange2.ahk
+#Include .\ITextSelection2.ahk
+#Include .\ITextStory.ahk
+#Include .\ITextStoryRanges2.ahk
+#Include .\ITextStrings.ahk
+#Include .\tomConstants.ahk
 
 /**
  * Extends the ITextDocument interface, adding methods that enable the Input Method Editor (IME) to drive the rich edit control, and methods to retrieve other interfaces such as ITextDisplays, ITextRange2, ITextFont2, ITextPara2, and so on.

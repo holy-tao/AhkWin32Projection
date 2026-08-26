@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISpeechDataKey.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISpeechObjectTokens.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\SpeechDataKeyLocation.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\ISpeechDataKey.ahk
+#Include .\ISpeechObjectTokens.ahk
+#Include .\SpeechDataKeyLocation.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech

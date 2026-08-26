@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Win32\System\Diagnostics\Debug\XSAVE_AREA.ahk
-#Include .\XSTATE_SAVE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

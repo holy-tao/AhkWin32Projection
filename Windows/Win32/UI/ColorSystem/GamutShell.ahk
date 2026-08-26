@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\JabColorF.ahk
 #Include .\GamutShellTriangle.ahk
+#Include .\JabColorF.ahk
 
 /**
  * Contains information that defines a gamut shell, which is represented by a list of indexed triangles. The vertex buffer contains the vertices data.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\FWP_BYTE_ARRAY6.ahk
 #Include .\FWP_BYTE_BLOB.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information that describes a MAC layer drop failure.

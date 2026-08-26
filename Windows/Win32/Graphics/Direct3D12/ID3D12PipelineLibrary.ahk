@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12DeviceChild.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\D3D12_GRAPHICS_PIPELINE_STATE_DESC.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D3D12_COMPUTE_PIPELINE_STATE_DESC.ahk
-#Include .\ID3D12PipelineState.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\D3D12_COMPUTE_PIPELINE_STATE_DESC.ahk
+#Include .\D3D12_GRAPHICS_PIPELINE_STATE_DESC.ahk
+#Include .\ID3D12DeviceChild.ahk
+#Include .\ID3D12PipelineState.ahk
 
 /**
  * Manages a pipeline library, in particular loading and retrieving individual PSOs.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\IXpsOMVisual.ahk
-#Include .\IXpsOMTileBrush.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IXpsOMTileBrush.ahk
+#Include .\IXpsOMVisual.ahk
 
 /**
  * A brush that uses a visual element as a source.

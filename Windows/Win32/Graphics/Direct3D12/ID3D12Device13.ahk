@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12Device12.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID3D12Device12.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

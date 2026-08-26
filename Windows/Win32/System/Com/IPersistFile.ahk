@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\STGM.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\IPersist.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IPersist.ahk
+#Include .\STGM.ahk
 
 /**
  * Enables an object to be loaded from or saved to a disk file, rather than a storage object or stream.

@@ -2,13 +2,13 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IVisualTreeServiceCallback.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\CollectionElementValue.ahk
 #Include .\EnumType.ahk
+#Include .\IVisualTreeServiceCallback.ahk
 #Include .\PropertyChainSource.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\PropertyChainValue.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides methods to manage a XAML visual tree.

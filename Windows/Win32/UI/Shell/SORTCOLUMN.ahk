@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\SORTDIRECTION.ahk
 #Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include .\SORTDIRECTION.ahk
 
 /**
  * Stores information about how to sort a column that is displayed in the folder view.

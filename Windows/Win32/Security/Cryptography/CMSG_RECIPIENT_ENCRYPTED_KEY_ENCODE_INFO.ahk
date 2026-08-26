@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include .\CERT_ID_OPTION.ahk
 #Include .\CERT_ID.ahk
-#Include .\CRYPT_BIT_BLOB.ahk
+#Include .\CERT_ID_OPTION.ahk
 #Include .\CERT_ISSUER_SERIAL_NUMBER.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ATTRIBUTE_TYPE_VALUE.ahk
+#Include .\CRYPT_BIT_BLOB.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * Contains information on a message receiver used to decrypt the session key needed to decrypt the message contents.

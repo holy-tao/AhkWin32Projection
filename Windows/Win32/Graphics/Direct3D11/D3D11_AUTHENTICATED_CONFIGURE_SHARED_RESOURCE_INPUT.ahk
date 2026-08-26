@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D3D11_AUTHENTICATED_PROCESS_IDENTIFIER_TYPE.ahk
-#Include .\D3D11_AUTHENTICATED_CONFIGURE_INPUT.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\D3D11_AUTHENTICATED_CONFIGURE_INPUT.ahk
+#Include .\D3D11_AUTHENTICATED_PROCESS_IDENTIFIER_TYPE.ahk
 #Include .\D3D11_OMAC.ahk
 
 /**

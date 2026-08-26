@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\DirectDraw\IDirectDrawSurface7.ahk
-#Include ..\..\Foundation\SIZE.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include ..\..\Graphics\DirectDraw\IDirectDrawSurface7.ahk
 
 /**
  * The VMRPRESENTATIONINFO structure is used in the IVMRImagePresenter::PresentImage method (VMR-7 only).

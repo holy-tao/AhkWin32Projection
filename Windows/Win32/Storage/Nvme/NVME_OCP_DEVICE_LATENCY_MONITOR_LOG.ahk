@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ACTIVE_LATENCY_CONFIGURATION.ahk
-#Include .\LATENCY_STAMP_UNITS.ahk
-#Include .\DEBUG_BIT_FIELD.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ACTIVE_LATENCY_CONFIGURATION.ahk
 #Include .\BUCKET_COUNTER.ahk
+#Include .\DEBUG_BIT_FIELD.ahk
 #Include .\LATENCY_MONITOR_FEATURE_STATUS.ahk
-#Include .\MEASURED_LATENCY.ahk
 #Include .\LATENCY_STAMP.ahk
+#Include .\LATENCY_STAMP_UNITS.ahk
+#Include .\MEASURED_LATENCY.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Nvme

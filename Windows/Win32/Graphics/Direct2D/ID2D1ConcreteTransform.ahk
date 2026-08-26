@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1TransformNode.ahk
-#Include .\D2D1_CHANNEL_DEPTH.ahk
-#Include .\D2D1_BUFFER_PRECISION.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\D2D1_BUFFER_PRECISION.ahk
+#Include .\D2D1_CHANNEL_DEPTH.ahk
+#Include .\ID2D1TransformNode.ahk
 
 /**
  * Represents the set of transforms implemented by the effect-rendering system, which provides fixed-functionality.

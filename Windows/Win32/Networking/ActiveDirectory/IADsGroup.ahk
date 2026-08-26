@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IADsMembers.ahk
-#Include .\IADs.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IADs.ahk
+#Include .\IADsMembers.ahk
 
 /**
  * Manages group membership data in a directory service.

@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IHTMLStyleSheet.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IHTMLElement.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IHTMLFramesCollection2.ahk
-#Include .\IHTMLStyleSheetsCollection.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\System\Com\IDispatch.ahk
-#Include .\IHTMLDocument.ahk
-#Include .\IHTMLWindow2.ahk
 #Include ..\..\System\Com\SAFEARRAY.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IHTMLDocument.ahk
+#Include .\IHTMLElement.ahk
 #Include .\IHTMLElementCollection.ahk
+#Include .\IHTMLFramesCollection2.ahk
 #Include .\IHTMLLocation.ahk
 #Include .\IHTMLSelectionObject.ahk
+#Include .\IHTMLStyleSheet.ahk
+#Include .\IHTMLStyleSheetsCollection.ahk
+#Include .\IHTMLWindow2.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

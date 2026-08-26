@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\SAFEARRAY.ahk
 #Include .\IAction.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include .\ITaskNamedValueCollection.ahk
 
 /**

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IWICImageEncoder.ahk
-#Include ..\IWICImagingFactory.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\Direct2D\ID2D1Device.ahk
+#Include .\IWICImageEncoder.ahk
+#Include ..\IWICImagingFactory.ahk
 
 /**
  * An extension of the WIC factory interface that includes the ability to create an IWICImageEncoder.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IInstallationProgressChangedCallbackArgs.ahk
-#Include .\IInstallationJob.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\IInstallationJob.ahk
+#Include .\IInstallationProgressChangedCallbackArgs.ahk
 
 /**
  * Defines the Invoke method that handles the notification about the on-going progress of an asynchronous installation or uninstallation.

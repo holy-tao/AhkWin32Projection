@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IAzScopes.ahk
-#Include .\IAzTasks.ahk
-#Include .\IAzOperation.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IAzApplicationGroup.ahk
+#Include .\IAzApplicationGroups.ahk
+#Include .\IAzClientContext.ahk
+#Include .\IAzOperation.ahk
+#Include .\IAzOperations.ahk
 #Include .\IAzRole.ahk
 #Include .\IAzRoles.ahk
-#Include .\IAzClientContext.ahk
 #Include .\IAzScope.ahk
-#Include .\IAzApplicationGroups.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include .\IAzOperations.ahk
+#Include .\IAzScopes.ahk
 #Include .\IAzTask.ahk
+#Include .\IAzTasks.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * Defines an installed instance of an application. An IAzApplication object is created when an application is installed.

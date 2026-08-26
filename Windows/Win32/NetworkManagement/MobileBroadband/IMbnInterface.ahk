@@ -2,15 +2,15 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\SAFEARRAY.ahk
-#Include .\MBN_PROVIDER.ahk
-#Include .\IMbnConnection.ahk
-#Include .\MBN_INTERFACE_CAPS.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMbnSubscriberInformation.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IMbnConnection.ahk
+#Include .\IMbnSubscriberInformation.ahk
+#Include .\MBN_INTERFACE_CAPS.ahk
+#Include .\MBN_PROVIDER.ahk
 #Include .\MBN_READY_STATE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 
 /**
  * Represents a Mobile Broadband device.

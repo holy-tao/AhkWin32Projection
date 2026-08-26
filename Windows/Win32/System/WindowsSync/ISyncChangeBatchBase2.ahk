@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\ISyncChangeBatchBase.ahk
 #Include .\SYNC_SERIALIZATION_VERSION.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents additional capabilities of an ISyncChangeBatchBase object.

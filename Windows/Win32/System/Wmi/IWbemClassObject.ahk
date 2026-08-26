@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWbemQualifierSet.ahk
-#Include .\WBEM_CONDITION_FLAG_TYPE.ahk
-#Include .\WBEM_COMPARISON_FLAG.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\SAFEARRAY.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\Com\SAFEARRAY.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include .\IWbemQualifierSet.ahk
+#Include .\WBEM_COMPARISON_FLAG.ahk
+#Include .\WBEM_CONDITION_FLAG_TYPE.ahk
 
 /**
  * Contains and manipulates both class definitions and class object instances.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ScrollAmount.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\ScrollAmount.ahk
 
 /**
  * Provides access to controls that act as scrollable containers for a collection of child objects.
@@ -79,8 +79,12 @@ class IScrollProvider extends IUnknown {
 
     /**
      * Scrolls the visible region of the content area horizontally and vertically. (IScrollProvider.Scroll)
-     * @param {ScrollAmount} horizontalAmount 
-     * @param {ScrollAmount} verticalAmount 
+     * @param {ScrollAmount} horizontalAmount Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-scrollamount">ScrollAmount</a></b>
+     * 
+     * The horizontal scrolling increment that is specific to the control.
+     * @param {ScrollAmount} verticalAmount Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-scrollamount">ScrollAmount</a></b>
+     * 
+     * The vertical scrolling increment that is specific to the control.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

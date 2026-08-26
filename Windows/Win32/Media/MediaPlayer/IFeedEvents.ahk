@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\FEEDS_DOWNLOAD_ERROR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\FEEDS_DOWNLOAD_ERROR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer

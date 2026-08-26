@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\SEC_APPLICATION_PROTOCOL_NEGOTIATION_STATUS.ahk
 #Include .\SEC_APPLICATION_PROTOCOL_NEGOTIATION_EXT.ahk
+#Include .\SEC_APPLICATION_PROTOCOL_NEGOTIATION_STATUS.ahk
 
 /**
  * Contains information about the application protocol of the security context.

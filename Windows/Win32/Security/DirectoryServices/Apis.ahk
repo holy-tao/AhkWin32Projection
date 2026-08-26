@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\LPARAM.ahk
-#Include ..\Authorization\UI\ISecurityInformation.ahk
 #Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Authorization\UI\ISecurityInformation.ahk
 #Include ..\..\UI\Controls\HPROPSHEETPAGE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Security.DirectoryServices

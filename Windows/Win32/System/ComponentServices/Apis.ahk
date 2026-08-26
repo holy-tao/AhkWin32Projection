@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\APTTYPE.ahk
 #Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IDispenserManager.ahk
 
 /**
@@ -422,7 +422,7 @@ class ComponentServices {
 
     /**
      * Retrieves the dispenser manager's IDispenserManager interface.
-     * @returns {IDispenserManager} 
+     * @returns {IDispenserManager} A pointer to the location that receives the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-idispensermanager">IDispenserManager</a> interface pointer.
      * @see https://learn.microsoft.com/windows/win32/api/mtxdm/nf-mtxdm-getdispensermanager
      * @since windows5.0
      */

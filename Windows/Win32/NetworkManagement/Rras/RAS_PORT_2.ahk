@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\RAS_HARDWARE_CONDITION.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\RAS_HARDWARE_CONDITION.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras

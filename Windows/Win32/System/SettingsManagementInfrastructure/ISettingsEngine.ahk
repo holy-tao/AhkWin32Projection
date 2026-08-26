@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Com\IStream.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\IItemEnumerator.ahk
+#Include .\ISettingsContext.ahk
+#Include .\ISettingsIdentity.ahk
 #Include .\ISettingsNamespace.ahk
 #Include .\ITargetInfo.ahk
 #Include .\WcmNamespaceAccess.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\ISettingsIdentity.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\WcmNamespaceEnumerationFlags.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\WcmUserStatus.ahk
-#Include ..\Com\IStream.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ISettingsContext.ahk
-#Include .\IItemEnumerator.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * The central interface for opening namespaces and controlling how they are opened.

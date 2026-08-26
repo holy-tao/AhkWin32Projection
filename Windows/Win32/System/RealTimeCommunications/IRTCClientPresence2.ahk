@@ -1,23 +1,23 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\RTC_BUDDY_SUBSCRIPTION_TYPE.ahk
-#Include .\RTC_WATCHER_MATCH_MODE.ahk
-#Include .\IRTCWatcher2.ahk
-#Include .\RTC_WATCHER_STATE.ahk
-#Include .\IRTCBuddy2.ahk
-#Include .\IRTCProfile.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IRTCBuddyGroup.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\RTC_PRESENCE_STATUS.ahk
-#Include .\RTC_PRESENCE_PROPERTY.ahk
-#Include .\RTC_ACE_SCOPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IRTCBuddy2.ahk
+#Include .\IRTCBuddyGroup.ahk
 #Include .\IRTCClientPresence.ahk
-#Include .\IRTCEnumGroups.ahk
 #Include .\IRTCCollection.ahk
+#Include .\IRTCEnumGroups.ahk
+#Include .\IRTCProfile.ahk
+#Include .\IRTCWatcher2.ahk
+#Include .\RTC_ACE_SCOPE.ahk
+#Include .\RTC_BUDDY_SUBSCRIPTION_TYPE.ahk
+#Include .\RTC_PRESENCE_PROPERTY.ahk
+#Include .\RTC_PRESENCE_STATUS.ahk
+#Include .\RTC_WATCHER_MATCH_MODE.ahk
+#Include .\RTC_WATCHER_STATE.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include ..\Graphics\Gdi\NEWTEXTMETRICA.ahk
 #Include .\FONTSIGNATURE.ahk
+#Include ..\Graphics\Gdi\NEWTEXTMETRICA.ahk
 #Include ..\Graphics\Gdi\TMPF_FLAGS.ahk
 
 /**

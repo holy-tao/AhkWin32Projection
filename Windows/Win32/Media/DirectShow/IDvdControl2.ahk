@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DVD_RELATIVE_BUTTON.ahk
-#Include .\DVD_MENU_ID.ahk
-#Include .\IDvdCmd.ahk
-#Include .\DVD_HMSF_TIMECODE.ahk
-#Include .\DVD_OPTION_FLAG.ahk
-#Include ..\..\Foundation\POINT.ahk
-#Include .\DVD_AUDIO_LANG_EXT.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\IDvdState.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\DVD_AUDIO_LANG_EXT.ahk
+#Include .\DVD_HMSF_TIMECODE.ahk
+#Include .\DVD_MENU_ID.ahk
+#Include .\DVD_OPTION_FLAG.ahk
+#Include .\DVD_RELATIVE_BUTTON.ahk
 #Include .\DVD_SUBPICTURE_LANG_EXT.ahk
+#Include .\IDvdCmd.ahk
+#Include .\IDvdState.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**

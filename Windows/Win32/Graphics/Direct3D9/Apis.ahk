@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDirect3D9Ex.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\IDirect3D9.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IDirect3D9.ahk
+#Include .\IDirect3D9Ex.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
@@ -3642,7 +3642,10 @@ class Direct3D9 {
      * @param {Integer} SDKVersion Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The value of this parameter should be <b>D3D_SDK_VERSION</b>. See Remarks.
-     * @returns {IDirect3D9Ex} 
+     * @returns {IDirect3D9Ex} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nn-d3d9-idirect3d9ex">IDirect3D9Ex</a>**</b>
+     * 
+     * Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nn-d3d9-idirect3d9ex">IDirect3D9Ex</a> interface, representing the
+     *           created <b>IDirect3D9Ex</b> object. If the function fails, <b>NULL</b> is inserted here.
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-direct3dcreate9ex
      */
     static Direct3DCreate9Ex(SDKVersion) {

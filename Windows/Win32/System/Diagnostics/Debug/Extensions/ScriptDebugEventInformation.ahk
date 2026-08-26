@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include .\ScriptDebugPosition.ahk
 #Include .\ScriptDebugEvent.ahk
+#Include .\ScriptDebugPosition.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

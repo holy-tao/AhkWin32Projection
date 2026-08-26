@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IAnalogTVTuningSpace.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IAnalogTVTuningSpace.ahk
 
 /**
  * The IATSCTuningSpace interface is implemented on ATSCTuningSpace objects, which represent any tuning space with an ATSC network type.

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMDMMetaData.ahk
-#Include .\WMDM_STORAGE_ENUM_MODE.ahk
-#Include .\WMDMMetadataView.ahk
-#Include .\IWMDMStorage2.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWMDMMetaData.ahk
+#Include .\IWMDMStorage2.ahk
+#Include .\WMDMMetadataView.ahk
+#Include .\WMDM_STORAGE_ENUM_MODE.ahk
 
 /**
  * The IWMDMStorage3 interface extends IWMDMStorage2 by exposing metadata.

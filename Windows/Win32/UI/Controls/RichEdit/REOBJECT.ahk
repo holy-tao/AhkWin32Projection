@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\REOBJECT_FLAGS.ahk
-#Include ..\..\..\System\Com\StructuredStorage\IStorage.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Ole\IOleClientSite.ahk
 #Include ..\..\..\Foundation\SIZE.ahk
+#Include ..\..\..\System\Com\StructuredStorage\IStorage.ahk
+#Include ..\..\..\System\Ole\IOleClientSite.ahk
 #Include ..\..\..\System\Ole\IOleObject.ahk
+#Include .\REOBJECT_FLAGS.ahk
 
 /**
  * Contains information about an OLE or image object in a rich edit control.

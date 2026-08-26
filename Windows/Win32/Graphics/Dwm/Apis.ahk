@@ -1,25 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include ..\..\Foundation\SIZE.ahk
-#Include .\DWM_THUMBNAIL_PROPERTIES.ahk
-#Include .\DWMTRANSITION_OWNEDWINDOW_TARGET.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\DWM_TAB_WINDOW_REQUIREMENTS.ahk
-#Include .\DWM_PRESENT_PARAMETERS.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include .\MilMatrix3x2D.ahk
-#Include .\DWM_BLURBEHIND.ahk
-#Include ..\..\Foundation\WPARAM.ahk
-#Include .\DWM_TIMING_INFO.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\LRESULT.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include ..\..\Foundation\WPARAM.ahk
+#Include .\DWMTRANSITION_OWNEDWINDOW_TARGET.ahk
+#Include .\DWM_BLURBEHIND.ahk
+#Include .\DWM_PRESENT_PARAMETERS.ahk
+#Include .\DWM_SHOWCONTACT.ahk
+#Include .\DWM_TAB_WINDOW_REQUIREMENTS.ahk
+#Include .\DWM_THUMBNAIL_PROPERTIES.ahk
+#Include .\DWM_TIMING_INFO.ahk
+#Include .\GESTURE_TYPE.ahk
+#Include .\MilMatrix3x2D.ahk
 #Include ..\Gdi\HBITMAP.ahk
 #Include ..\..\UI\Controls\MARGINS.ahk
-#Include .\GESTURE_TYPE.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\DWM_SHOWCONTACT.ahk
-#Include ..\..\Foundation\LRESULT.ahk
-#Include ..\..\Foundation\LPARAM.ahk
-#Include ..\..\Foundation\POINT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Dwm
@@ -592,7 +592,7 @@ class Dwm {
     /**
      * Coordinates the animations of tool windows with the Desktop Window Manager (DWM).
      * @param {HWND} _hwnd Handle to the window.
-     * @param {DWMTRANSITION_OWNEDWINDOW_TARGET} target 
+     * @param {DWMTRANSITION_OWNEDWINDOW_TARGET} target The target.
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmtransitionownedwindow
      * @since windows8.0
@@ -606,7 +606,7 @@ class Dwm {
 
     /**
      * Notifies Desktop Window Manager (DWM) that a touch contact has been recognized as a gesture, and that DWM should draw feedback for that gesture.
-     * @param {GESTURE_TYPE} gt 
+     * @param {GESTURE_TYPE} gt The type of gesture, specified as one of the <a href="https://docs.microsoft.com/windows/desktop/api/dwmapi/ne-dwmapi-gesture_type">GESTURE_TYPE</a> values.
      * @param {Integer} cContacts The number of contact points.
      * @param {Pointer<Integer>} pdwPointerID The pointer ID.
      * @param {Pointer<POINT>} pPoints The points.
@@ -640,7 +640,7 @@ class Dwm {
      * @remarks
      * It is safe to call this function on the UI thread.
      * @param {Integer} dwPointerID The pointer ID of the contact. Each touch or pen contact is given a unique ID when it is detected.
-     * @param {DWM_SHOWCONTACT} eShowContact 
+     * @param {DWM_SHOWCONTACT} eShowContact One or more of the following DWM_SHOWCONTACT visualizations that DWM should show for this contact.
      * @returns {HRESULT} If <i>dwPointerID</i> does not match that of a contact currently present on the screen, this function returns E_INVALIDARG; otherwise, it returns S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmshowcontact
      * @since windows8.0
@@ -653,7 +653,7 @@ class Dwm {
     /**
      * This function was part of an experimental feature that was never implemented in Windows. It has no effect and should not be used.
      * @param {HWND} appWindow This parameter is not used.
-     * @returns {DWM_TAB_WINDOW_REQUIREMENTS} 
+     * @returns {DWM_TAB_WINDOW_REQUIREMENTS} This parameter is not used.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmgetunmettabrequirements
      * @since windows10.0.17134
      */

@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\WinRT\Metadata\CorElementType.ahk
-#Include .\IMethodMalloc.ahk
-#Include .\COR_DEBUG_IL_TO_NATIVE_MAP.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
-#Include .\COR_IL_MAP.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\Com\IUnknown.ahk
+#Include .\COR_DEBUG_IL_TO_NATIVE_MAP.ahk
+#Include .\COR_IL_MAP.ahk
+#Include .\IMethodMalloc.ahk
+#Include ..\..\WinRT\Metadata\CorElementType.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling

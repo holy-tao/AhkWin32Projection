@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_HEALTH.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\VDS_LUN_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\VDS_HEALTH.ahk
 #Include .\VDS_LUN_STATUS.ahk
+#Include .\VDS_LUN_TYPE.ahk
 #Include .\VDS_TRANSITION_STATE.ahk
 
 /**

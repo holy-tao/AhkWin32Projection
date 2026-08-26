@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_HEALTH.ahk
-#Include .\VDS_VOLUME_PLEX_STATUS.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\VDS_VOLUME_PLEX_TYPE.ahk
+#Include .\VDS_HEALTH.ahk
 #Include .\VDS_TRANSITION_STATE.ahk
+#Include .\VDS_VOLUME_PLEX_STATUS.ahk
+#Include .\VDS_VOLUME_PLEX_TYPE.ahk
 
 /**
  * Defines the properties of a volume plex object.

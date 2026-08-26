@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\DXGI_DECODE_SWAP_CHAIN_DESC.ahk
 #Include .\DXGI_SWAP_CHAIN_DESC1.ahk
-#Include .\IDXGIResource.ahk
+#Include .\IDXGIDecodeSwapChain.ahk
 #Include .\IDXGIOutput.ahk
+#Include .\IDXGIResource.ahk
 #Include .\IDXGISwapChain1.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDXGIDecodeSwapChain.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\DXGI_DECODE_SWAP_CHAIN_DESC.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Creates swap chains for desktop media apps that use DirectComposition surfaces to decode and display video.

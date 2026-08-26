@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MFP_EVENT_TYPE.ahk
-#Include .\IMFPMediaPlayer.ahk
-#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
-#Include .\MFP_MEDIAPLAYER_STATE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFPMediaPlayer.ahk
+#Include .\MFP_EVENT_TYPE.ahk
+#Include .\MFP_MEDIAPLAYER_STATE.ahk
+#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 
 /**
  * Contains information that is common to every type of MFPlay event.

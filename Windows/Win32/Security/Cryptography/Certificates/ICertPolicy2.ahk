@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ICertPolicy.ahk
-#Include .\ICertManageModule.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\ICertManageModule.ahk
+#Include .\ICertPolicy.ahk
 
 /**
  * Provide communications between the Certificate Services server engine and the policy module.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IDMLDispatchable.ahk
 #Include .\IDMLCompiledOperator.ahk
+#Include .\IDMLDispatchable.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
 
 /**

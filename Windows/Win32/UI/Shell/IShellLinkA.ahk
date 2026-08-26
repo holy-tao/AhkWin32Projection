@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\WindowsAndMessaging\SHOW_WINDOW_CMD.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Storage\FileSystem\WIN32_FIND_DATAA.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include Common\ITEMIDLIST.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\WindowsAndMessaging\SHOW_WINDOW_CMD.ahk
 
 /**
  * Exposes methods that create, modify, and resolve Shell links. (ANSI)

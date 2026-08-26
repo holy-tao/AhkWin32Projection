@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDirect3DDevice9.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDirect3DDevice9.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IDirect3DVertexShader9 (d3d9.h) interface is used by applications to encapsulate the functionality of a vertex shader.
@@ -54,7 +54,9 @@ class IDirect3DVertexShader9 extends IUnknown {
 
     /**
      * The IDirect3DVertexShader9::GetFunction (d3d9.h) method gets a pointer to the shader data.
-     * @param {Pointer<Void>} param0 
+     * @param {Pointer<Void>} param0 Type: <b>void*</b>
+     * 
+     * Pointer to a buffer that contains the shader data. The application needs to allocate enough room for this.
      * @param {Pointer<Integer>} pSizeOfData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
      * 
      * Size of the data, in bytes. To get the buffer size that is needed to retrieve the data, set pData = <b>NULL</b> when calling GetFunction. Then call GetFunction with the returned size, to get the buffer data.

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ADS_OCTET_LIST.ahk
 
 /**
  * The ADS_OCTET_LIST structure is an ADSI representation of an ordered sequence of single-byte strings.

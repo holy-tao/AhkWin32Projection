@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The WINTRUST_FILE_INFO structure is used when calling WinVerifyTrust to verify an individual file.

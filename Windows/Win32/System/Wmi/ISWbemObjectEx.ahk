@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\WbemObjectTextFormatEnum.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\ISWbemPropertySet.ahk
-#Include .\ISWbemObject.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\ISWbemObject.ahk
+#Include .\ISWbemPropertySet.ahk
+#Include .\WbemObjectTextFormatEnum.ahk
 
 /**
  * @namespace Windows.Win32.System.Wmi

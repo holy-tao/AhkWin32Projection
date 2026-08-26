@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include Common\ITEMIDLIST.ahk
-#Include .\KNOWNFOLDER_DEFINITION.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\FFFP_MODE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include Common\ITEMIDLIST.ahk
+#Include .\FFFP_MODE.ahk
 #Include .\IKnownFolder.ahk
+#Include .\KNOWNFOLDER_DEFINITION.ahk
 
 /**
  * Exposes methods that create, enumerate or manage existing known folders.

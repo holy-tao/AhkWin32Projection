@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_DATETIME.ahk
+#Include .\WS_DATETIME_FORMAT.ahk
 #Include .\WS_XML_TEXT.ahk
 #Include .\WS_XML_TEXT_TYPE.ahk
-#Include .\WS_DATETIME_FORMAT.ahk
-#Include .\WS_DATETIME.ahk
 
 /**
  * Represents a datetime formatted as an xsd:dateTime.

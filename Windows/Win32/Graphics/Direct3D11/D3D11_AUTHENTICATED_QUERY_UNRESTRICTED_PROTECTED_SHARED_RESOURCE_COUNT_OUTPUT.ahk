@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D3D11_AUTHENTICATED_QUERY_OUTPUT.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include .\D3D11_OMAC.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3D11_AUTHENTICATED_QUERY_OUTPUT.ahk
+#Include .\D3D11_OMAC.ahk
 
 /**
  * Contains the response to a D3D11_AUTHENTICATED_QUERY_UNRESTRICTED_PROTECTED_SHARED_RESOURCE_COUNT query.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWdsTransportNamespaceScheduledCast.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWdsTransportNamespaceScheduledCast.ahk
 
 /**
  * An administrator can specify criteria that starts transmission on an object of an IWdsTransportNamespaceScheduledCastAutoStart interface automatically. Applications can continue to join sessions of the namespace object until these criteria are reached.

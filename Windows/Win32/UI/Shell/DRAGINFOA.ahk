@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell

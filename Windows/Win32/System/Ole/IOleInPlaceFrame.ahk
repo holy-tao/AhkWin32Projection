@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\UI\WindowsAndMessaging\HMENU.ahk
-#Include .\OLEMENUGROUPWIDTHS.ahk
-#Include ..\..\UI\WindowsAndMessaging\MSG.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IOleInPlaceUIWindow.ahk
+#Include .\OLEMENUGROUPWIDTHS.ahk
+#Include ..\..\UI\WindowsAndMessaging\HMENU.ahk
+#Include ..\..\UI\WindowsAndMessaging\MSG.ahk
 
 /**
  * Controls the container's top-level frame window.

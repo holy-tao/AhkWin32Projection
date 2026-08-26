@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WCM_PROFILE_INFO.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\WCM_MEDIA_TYPE.ahk
+#Include .\WCM_PROFILE_INFO.ahk
 
 /**
  * Contains a list of profiles in preferred order.

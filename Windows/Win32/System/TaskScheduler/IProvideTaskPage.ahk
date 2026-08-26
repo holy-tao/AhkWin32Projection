@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\TASKPAGE.ahk
-#Include ..\..\UI\Controls\HPROPSHEETPAGE.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\TASKPAGE.ahk
+#Include ..\..\UI\Controls\HPROPSHEETPAGE.ahk
 
 /**
  * Provides the methods to access the property sheet settings of a task.

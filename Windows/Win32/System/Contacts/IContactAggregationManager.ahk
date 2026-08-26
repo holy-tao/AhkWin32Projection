@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\CONTACT_AGGREGATION_COLLECTION_OPTIONS.ahk
-#Include .\IContactAggregationAggregateCollection.ahk
-#Include .\IContactAggregationContactCollection.ahk
-#Include .\IContactAggregationGroupCollection.ahk
-#Include .\IContactAggregationAggregate.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\CONTACT_AGGREGATION_CREATE_OR_OPEN_OPTIONS.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\IContactAggregationServerPersonCollection.ahk
-#Include .\IContactAggregationGroup.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\CONTACT_AGGREGATION_COLLECTION_OPTIONS.ahk
+#Include .\CONTACT_AGGREGATION_CREATE_OR_OPEN_OPTIONS.ahk
+#Include .\IContactAggregationAggregate.ahk
+#Include .\IContactAggregationAggregateCollection.ahk
 #Include .\IContactAggregationContact.ahk
+#Include .\IContactAggregationContactCollection.ahk
+#Include .\IContactAggregationGroup.ahk
+#Include .\IContactAggregationGroupCollection.ahk
+#Include .\IContactAggregationLink.ahk
 #Include .\IContactAggregationLinkCollection.ahk
 #Include .\IContactAggregationServerPerson.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IContactAggregationLink.ahk
+#Include .\IContactAggregationServerPersonCollection.ahk
 
 /**
  * @namespace Windows.Win32.System.Contacts

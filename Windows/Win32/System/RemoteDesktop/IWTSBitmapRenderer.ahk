@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\BITMAP_RENDERER_STATISTICS.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used by a dynamic virtual channel plug-in to render bitmaps.

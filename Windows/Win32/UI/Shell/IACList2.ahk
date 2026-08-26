@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IACList.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IACList.ahk
 
 /**
  * Extends the IACList interface to enable clients of an autocomplete object to retrieve and set option flags.

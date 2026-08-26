@@ -2,10 +2,10 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\EncodingType.ahk
 #Include .\IX509Attribute.ahk
 #Include .\RequestClientInfoClientId.ahk
-#Include .\EncodingType.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents an attribute that can be used to identify the client that generated a certificate request.

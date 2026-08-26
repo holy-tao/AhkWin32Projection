@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\WPARAM.ahk
-#Include .\ITfContext.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\LPARAM.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\WPARAM.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ITfContext.ahk
 
 /**
  * The ITfKeyEventSink interface is implemented by a text service to receive keyboard and focus event notifications. To install this event sink, call ITfKeystrokeMgr::AdviseKeyEventSink.

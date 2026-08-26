@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\UIA_PROPERTY_ID.ahk
-#Include .\IUIAutomationNotificationEventHandler.ahk
-#Include .\IUIAutomationEventHandler.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IUIAutomationActiveTextPositionChangedEventHandler.ahk
 #Include .\IUIAutomationCacheRequest.ahk
-#Include .\TreeScope.ahk
+#Include .\IUIAutomationChangesEventHandler.ahk
+#Include .\IUIAutomationEventHandler.ahk
+#Include .\IUIAutomationNotificationEventHandler.ahk
 #Include .\IUIAutomationPropertyChangedEventHandler.ahk
 #Include .\IUIAutomationStructureChangedEventHandler.ahk
-#Include .\UIA_EVENT_ID.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\IUIAutomationActiveTextPositionChangedEventHandler.ahk
-#Include .\IUIAutomationChangesEventHandler.ahk
 #Include .\IUIAutomationTextEditTextChangedEventHandler.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\TextEditChangeType.ahk
+#Include .\TreeScope.ahk
+#Include .\UIA_EVENT_ID.ahk
+#Include .\UIA_PROPERTY_ID.ahk
 
 /**
  * Exposes methods for adding one or more events to a collection for bulk registration through the CreateEventHandlerGroup and AddEventHandlerGroup methods defined in IUIAutomation6.
@@ -63,7 +63,7 @@ class IUIAutomationEventHandlerGroup extends IUnknown {
      * Similarly, activating a new page URI (with a fragment identifier: (<c>&lt;a href=”www.blah.com#C4”&gt;Jump to Chapter 4&lt;/a&gt;</c>)) loads the new page and jumps to the specified bookmark, but leaves the UI Automation clients   at the top of the page.
      * 
      * For editable text elements, such as <a href="https://docs.microsoft.com/windows/desktop/controls/edit-controls">Edit</a> and <a href="https://docs.microsoft.com/windows/desktop/controls/rich-edit-controls">Rich Edit</a> controls,  you can listen for a SelectionChanged event.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope The scope of events to be handled; that is, whether they are on the element itself, or on its ancestors and descendants.
      * @param {IUIAutomationCacheRequest} cacheRequest A pointer to a cache request, or <b>NULL</b> if no caching is wanted.
      * @param {IUIAutomationActiveTextPositionChangedEventHandler} handler A pointer to the object that handles the active text position changed event.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -77,7 +77,7 @@ class IUIAutomationEventHandlerGroup extends IUnknown {
     /**
      * Registers a method that handles Microsoft UI Automation events.
      * @param {UIA_EVENT_ID} eventId The identifier of the event that the method handles. For a list of event IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-event-ids">Event Identifiers</a>.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope The scope of events to be handled; that is, whether they are on the element itself, or on its ancestors and descendants.
      * @param {IUIAutomationCacheRequest} cacheRequest A pointer to a cache request, or <b>NULL</b> if no caching is wanted.
      * @param {IUIAutomationEventHandler} handler A pointer to the object that handles the event.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -92,7 +92,7 @@ class IUIAutomationEventHandlerGroup extends IUnknown {
      * Registers a method that handles change events.
      * @remarks
      * Before implementing an event handler, you should be familiar with the threading issues described in <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-threading">Understanding Threading Issues</a>.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope The scope of events to be handled; that is, whether they are on the element itself, or on its ancestors and descendants.
      * @param {Pointer<Integer>} changeTypes A pointer to a list of integers that indicate the change types the event represents.
      * @param {Integer} changesCount The number of changes that occurred in this event.
      * @param {IUIAutomationCacheRequest} cacheRequest A pointer to a cache request, or <b>NULL</b> if no caching is wanted.
@@ -111,7 +111,7 @@ class IUIAutomationEventHandlerGroup extends IUnknown {
      * Registers a method that handles notification events.
      * @remarks
      * Before implementing an event handler, you should be familiar with the threading issues described in <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-threading">Understanding Threading Issues</a>.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope The scope of events to be handled; that is, whether they are on the element itself, or on its ancestors and descendants.
      * @param {IUIAutomationCacheRequest} cacheRequest A pointer to a cache request, or <b>NULL</b> if no caching is wanted.
      * @param {IUIAutomationNotificationEventHandler} handler A pointer to the object that handles the notification event.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -126,7 +126,7 @@ class IUIAutomationEventHandlerGroup extends IUnknown {
      * Registers a method that handles a property-changed event.
      * @remarks
      * Before implementing an event handler, you should be familiar with the threading issues described in <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-threading">Understanding Threading Issues</a>.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope The scope of events to be handled; that is, whether they are on the element itself, or on its ancestors and children.
      * @param {IUIAutomationCacheRequest} cacheRequest A pointer to a cache request, or <b>NULL</b> if no caching is wanted.
      * @param {IUIAutomationPropertyChangedEventHandler} handler A pointer to the object that handles the event.
      * @param {Pointer<UIA_PROPERTY_ID>} propertyArray A pointer to the UI Automation properties of interest. For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
@@ -145,7 +145,7 @@ class IUIAutomationEventHandlerGroup extends IUnknown {
      * Registers a method that handles structure-changed events.
      * @remarks
      * Before implementing an event handler, you should be familiar with the threading issues described in <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-threading">Understanding Threading Issues</a>.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope The scope of events to be handled; that is, whether they are on the element itself, or on its ancestors and descendants.
      * @param {IUIAutomationCacheRequest} cacheRequest A pointer to a cache request, or <b>NULL</b> if no caching is wanted.
      * @param {IUIAutomationStructureChangedEventHandler} handler A pointer to the object that handles the structure-changed event.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -160,8 +160,8 @@ class IUIAutomationEventHandlerGroup extends IUnknown {
      * Registers a method that handles programmatic text-edit events.
      * @remarks
      * Before implementing an event handler, you should be familiar with the threading issues described in <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-threading">Understanding Threading Issues</a>.
-     * @param {TreeScope} scope 
-     * @param {TextEditChangeType} _textEditChangeType 
+     * @param {TreeScope} scope The scope of events to be handled; that is, whether they are on the element itself, or on its ancestors and descendants.
+     * @param {TextEditChangeType} _textEditChangeType The specific change type to listen for. Clients register for each text-edit change type separately, so that the UI Automation system can check for registered listeners at run-time and avoid raising events for particular text-edit changes when there are no listeners.
      * @param {IUIAutomationCacheRequest} cacheRequest A pointer to a cache request, or <b>NULL</b> if no caching is wanted.
      * @param {IUIAutomationTextEditTextChangedEventHandler} handler A pointer to the object that handles the programmatic text-edit event.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

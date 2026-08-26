@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IWindowsMediaLibrarySharingDeviceProperty.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWindowsMediaLibrarySharingDeviceProperty.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IWindowsMediaLibrarySharingDeviceProperties interface defines methods that provide access to the collection of all properties for an individual media device.

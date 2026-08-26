@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\ITrigger.ahk
 #Include .\TASK_SESSION_STATE_CHANGE_TYPE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Triggers tasks for console connect or disconnect, remote connect or disconnect, or workstation lock or unlock notifications.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\DEVICE_OBJECT.ahk
+#Include ..\..\Foundation\PKINTERRUPT.ahk
 #Include .\IO_INTERRUPT_MESSAGE_INFO.ahk
 #Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
-#Include ..\..\Foundation\PKINTERRUPT.ahk
-#Include ..\..\Foundation\DEVICE_OBJECT.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CERT_ALT_NAME_ENTRY.ahk
 #Include .\CERT_ALT_NAME_INFO.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
-#Include .\CERT_ALT_NAME_ENTRY.ahk
 
 /**
  * The CERT_AUTHORITY_KEY_ID2_INFO structure identifies the key used to sign a certificate or CRL.

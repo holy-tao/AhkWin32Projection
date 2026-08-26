@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE.ahk
 
 /**
  * Retrieves the supported number of parameters for the specified parameter stage.

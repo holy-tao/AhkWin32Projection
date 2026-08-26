@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\PSS_OBJECT_TYPE.ahk
-#Include .\PSS_HANDLE_FLAGS.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 #Include ..\..\..\Foundation\FILETIME.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\..\..\Foundation\PWSTR.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
+#Include .\PSS_HANDLE_FLAGS.ahk
+#Include .\PSS_OBJECT_TYPE.ahk
 
 /**
  * Holds information about a handle returned by PssWalkSnapshot.

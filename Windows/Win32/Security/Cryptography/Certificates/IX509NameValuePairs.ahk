@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IX509NameValuePair.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IX509NameValuePair.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IX509NameValuePairs interface defines the following methods and properties to manage a collection of IX509NameValuePair objects.

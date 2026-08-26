@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D10Resource.ahk
 #Include .\ID3D10DeviceChild.ahk
+#Include .\ID3D10Resource.ahk
 
 /**
  * A view interface specifies the parts of a resource the pipeline can access during rendering (see view).

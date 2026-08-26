@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12VideoDevice3.ahk
-#Include .\D3D12_VIDEO_ENCODER_HEAP_DESC1.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3D12_VIDEO_ENCODER_HEAP_DESC1.ahk
+#Include .\ID3D12VideoDevice3.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation

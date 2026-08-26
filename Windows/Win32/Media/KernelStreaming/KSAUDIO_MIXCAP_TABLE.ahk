@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSAUDIO_MIX_CAPS.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include .\KSAUDIO_MIX_CAPS.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

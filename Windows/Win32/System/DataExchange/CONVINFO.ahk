@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HCONV.ahk
-#Include .\CONVCONTEXT.ahk
 #Include ..\..\Foundation\BOOLEAN.ahk
-#Include .\CONVINFO_CONVERSATION_STATE.ahk
-#Include .\DDE_CLIENT_TRANSACTION_TYPE.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include .\CONVINFO_STATUS.ahk
-#Include .\HSZ.ahk
-#Include .\HCONVLIST.ahk
-#Include ..\..\Security\SECURITY_QUALITY_OF_SERVICE.ahk
 #Include ..\..\Security\SECURITY_IMPERSONATION_LEVEL.ahk
+#Include ..\..\Security\SECURITY_QUALITY_OF_SERVICE.ahk
+#Include .\CONVCONTEXT.ahk
+#Include .\CONVINFO_CONVERSATION_STATE.ahk
+#Include .\CONVINFO_STATUS.ahk
+#Include .\DDE_CLIENT_TRANSACTION_TYPE.ahk
+#Include .\HCONV.ahk
+#Include .\HCONVLIST.ahk
+#Include .\HSZ.ahk
 
 /**
  * Contains information about a Dynamic Data Exchange (DDE) conversation.

@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IDispatch.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\IAction.ahk
 #Include .\TASK_ACTION_TYPE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * Contains the actions that are performed by the task.

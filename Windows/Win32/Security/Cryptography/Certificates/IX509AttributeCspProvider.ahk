@@ -2,10 +2,10 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\EncodingType.ahk
 #Include .\IX509Attribute.ahk
 #Include .\X509KeySpec.ahk
-#Include .\EncodingType.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents an attribute that identifies the cryptographic provider used by the entity requesting the certificate.

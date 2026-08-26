@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\ITsSbTaskInfo.ahk
-#Include .\ITsSbPlugin.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ITsSbPlugin.ahk
+#Include .\ITsSbTaskInfo.ahk
 #Include .\ITsSbTaskPluginNotifySink.ahk
 
 /**

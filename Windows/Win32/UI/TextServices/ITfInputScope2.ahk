@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITfInputScope.ahk
-#Include ..\..\System\Com\IEnumString.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IEnumString.ahk
+#Include .\ITfInputScope.ahk
 
 /**
  * The ITfInputScope2 interface is used by the text input processors to get the IEnumString interface pointer and this IEnumString interface enumerates the word list that the application specified for this context.

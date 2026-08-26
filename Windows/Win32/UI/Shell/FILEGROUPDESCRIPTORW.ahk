@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\POINTL.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include .\FILEDESCRIPTORW.ahk
+#Include ..\..\Foundation\POINTL.ahk
 #Include ..\..\Foundation\SIZE.ahk
+#Include .\FILEDESCRIPTORW.ahk
 
 /**
  * Defines the CF_FILEGROUPDESCRIPTOR clipboard format. (Unicode)

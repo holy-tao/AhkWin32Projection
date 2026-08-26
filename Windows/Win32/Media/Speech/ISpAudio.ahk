@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\SPAUDIOBUFFERINFO.ahk
-#Include .\SPAUDIOSTATUS.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISpStreamFormat.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include ..\Audio\WAVEFORMATEX.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Audio\WAVEFORMATEX.ahk
+#Include .\ISpStreamFormat.ahk
+#Include .\SPAUDIOBUFFERINFO.ahk
 #Include .\SPAUDIOSTATE.ahk
+#Include .\SPAUDIOSTATUS.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech

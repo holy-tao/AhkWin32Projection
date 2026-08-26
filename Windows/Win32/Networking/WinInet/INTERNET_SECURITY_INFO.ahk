@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Security\Authentication\Identity\SEC_CHANNEL_BINDINGS.ahk
+#Include ..\..\Security\Authentication\Identity\SecPkgContext_Bindings.ahk
 #Include ..\..\Security\Authentication\Identity\SecPkgContext_CipherInfo.ahk
+#Include ..\..\Security\Authentication\Identity\SecPkgContext_ConnectionInfo.ahk
 #Include ..\..\Security\Cryptography\ALG_ID.ahk
 #Include ..\..\Security\Cryptography\CERT_CHAIN_CONTEXT.ahk
-#Include ..\..\Security\Authentication\Identity\SecPkgContext_Bindings.ahk
-#Include ..\..\Security\Authentication\Identity\SecPkgContext_ConnectionInfo.ahk
-#Include ..\..\Security\Authentication\Identity\SEC_CHANNEL_BINDINGS.ahk
 #Include ..\..\Security\Cryptography\CERT_CONTEXT.ahk
 
 /**

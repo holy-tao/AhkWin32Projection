@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IDispatch.ahk
 #Include .\TASK_LOGON_TYPE.ahk
 #Include .\TASK_RUNLEVEL_TYPE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides the security credentials for a principal.

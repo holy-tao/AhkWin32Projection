@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\STI_DEVICE_INFORMATIONW.ahk
-#Include .\STINOTIFY.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IStiDevice.ahk
+#Include .\STINOTIFY.ahk
+#Include .\STI_DEVICE_INFORMATIONW.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Fax

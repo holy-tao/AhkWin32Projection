@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMResource.ahk
-#Include .\IXpsOMDictionary.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IXpsOMDictionary.ahk
+#Include .\IXpsOMResource.ahk
 
 /**
  * Provides an interface that enables pages in an XPS package to share resources.

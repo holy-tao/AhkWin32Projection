@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWindowsDriverUpdate.ahk
-#Include .\IStringCollection.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IStringCollection.ahk
+#Include .\IWindowsDriverUpdate.ahk
 
 /**
  * Contains the properties and methods that are available only from a Windows driver update. (IWindowsDriverUpdate2)

@@ -1,23 +1,23 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidVideoRenderer.ahk
-#Include .\IMSVidAudioRendererDevices.ahk
-#Include .\IMSVidInputDevice.ahk
-#Include .\IMSVidVideoRendererDevices.ahk
-#Include .\IMSVidOutputDevices.ahk
-#Include .\IMSVidFeatures.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
-#Include .\DisplaySizeList.ahk
-#Include .\IMSVidAudioRenderer.ahk
-#Include .\MSVidCtlStateList.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Foundation\HWND.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IMSVidInputDevices.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\DisplaySizeList.ahk
+#Include .\IMSVidAudioRenderer.ahk
+#Include .\IMSVidAudioRendererDevices.ahk
+#Include .\IMSVidFeatures.ahk
+#Include .\IMSVidInputDevice.ahk
+#Include .\IMSVidInputDevices.ahk
+#Include .\IMSVidOutputDevices.ahk
+#Include .\IMSVidVideoRenderer.ahk
+#Include .\IMSVidVideoRendererDevices.ahk
+#Include .\MSVidCtlStateList.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 
 /**
  * The IMSVidCtl interface is the main interface for the Video Control.

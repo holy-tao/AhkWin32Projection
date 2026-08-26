@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ITuningSpace.ahk
-#Include ..\TunerInputType.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\TunerInputType.ahk
+#Include .\ITuningSpace.ahk
 
 /**
  * The IAnalogTVTuningSpace interface provides methods for getting and setting parameters associated with analog TV tuning spaces. The Video Control uses these methods when building and controlling a WDM Analog TV filter graph.

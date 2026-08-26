@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ISurfaceImageSourceNative.ahk
-#Include .\IVirtualSurfaceUpdatesCallbackNative.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Foundation\RECT.ahk
+#Include .\ISurfaceImageSourceNative.ahk
+#Include .\IVirtualSurfaceUpdatesCallbackNative.ahk
 
 /**
  * Provides the implementation of a large (greater than the screen size) shared surface for DirectX drawing.

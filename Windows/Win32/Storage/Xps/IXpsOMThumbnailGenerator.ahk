@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Packaging\Opc\IOpcPartUri.ahk
-#Include .\IXpsOMPage.ahk
-#Include .\IXpsOMImageResource.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\XPS_THUMBNAIL_SIZE.ahk
-#Include .\XPS_IMAGE_TYPE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Packaging\Opc\IOpcPartUri.ahk
+#Include .\IXpsOMImageResource.ahk
+#Include .\IXpsOMPage.ahk
+#Include .\XPS_IMAGE_TYPE.ahk
+#Include .\XPS_THUMBNAIL_SIZE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Generates a thumbnail image resource.

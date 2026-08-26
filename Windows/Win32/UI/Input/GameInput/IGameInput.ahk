@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IGameInputReading.ahk
-#Include .\GameInputDeviceStatus.ahk
-#Include .\IGameInputDevice.ahk
-#Include .\GameInputKind.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
-#Include .\IGameInputDispatcher.ahk
-#Include .\GameInputFocusPolicy.ahk
 #Include ..\..\..\Foundation\APP_LOCAL_DEVICE_ID.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
-#Include .\GameInputEnumerationKind.ahk
-#Include .\GameInputSystemButtons.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\GameInputDeviceStatus.ahk
+#Include .\GameInputEnumerationKind.ahk
+#Include .\GameInputFocusPolicy.ahk
+#Include .\GameInputKind.ahk
+#Include .\GameInputSystemButtons.ahk
+#Include .\IGameInputDevice.ahk
+#Include .\IGameInputDispatcher.ahk
+#Include .\IGameInputReading.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput

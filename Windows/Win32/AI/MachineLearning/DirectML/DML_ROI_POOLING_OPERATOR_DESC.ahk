@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\DML_TENSOR_DESC.ahk
 #Include .\DML_SIZE_2D.ahk
+#Include .\DML_TENSOR_DESC.ahk
 
 /**
  * Performs a MaxPool function across the input tensor (according to regions of interest, or ROIs).

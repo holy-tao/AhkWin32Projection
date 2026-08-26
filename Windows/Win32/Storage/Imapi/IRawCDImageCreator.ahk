@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRawCDImageTrackInfo.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Com\SAFEARRAY.ahk
-#Include ..\..\System\Com\IStream.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IMAPI_CD_SECTOR_TYPE.ahk
 #Include .\IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE.ahk
+#Include .\IRawCDImageTrackInfo.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 
 /**
  * Use this interface to create a RAW CD image for use in writing to CD media in Disc-at-Once (DAO) mode. Images created with this interface can be written to CD media using the IDiscFormat2RawCD interface.

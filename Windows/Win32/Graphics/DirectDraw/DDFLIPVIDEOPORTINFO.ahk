@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDVIDEOPORTDATA.ahk
 #Include .\DDSURFACEDATA.ahk
+#Include .\DDVIDEOPORTDATA.ahk
 
 /**
  * The DDFLIPVIDEOPORTINFO structure contains the video port extensions (VPE) object and surface information.

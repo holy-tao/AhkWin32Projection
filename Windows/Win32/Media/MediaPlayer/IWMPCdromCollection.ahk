@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IWMPCdrom.ahk
 #Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWMPCdromCollection interface provides a way to organize and access a collection of CD or DVD drives.

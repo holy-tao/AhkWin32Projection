@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IDispatch.ahk
-#Include .\RTC_SECURITY_TYPE.ahk
+#Include .\IRTCSession2.ahk
 #Include .\RTC_REINVITE_STATE.ahk
 #Include .\RTC_SECURITY_LEVEL.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\IRTCSession2.ahk
+#Include .\RTC_SECURITY_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

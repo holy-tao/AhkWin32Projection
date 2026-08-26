@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\NMHDR.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include .\NMHDR.ahk
 
 /**
  * Contains information specific to an edit operation that has taken place in a date and time picker (DTP) control. This message is used with the DTN_USERSTRING notification code. (Unicode)

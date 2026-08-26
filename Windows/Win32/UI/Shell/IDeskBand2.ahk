@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\IDeskBand.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDeskBand.ahk
 
 /**
  * Exposes methods to enable and query translucency effects in a deskband object.

@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IMFAttributes.ahk
 #Include .\IMFMediaType.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Configures the settings of a stream in an ASF file.

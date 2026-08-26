@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\smiOID.ahk
 #Include .\smiCNTR64.ahk
 #Include .\smiOCTETS.ahk
+#Include .\smiOID.ahk
 
 /**
  * The WinSNMP smiVALUE structure describes the value associated with a variable name in a variable binding entry.

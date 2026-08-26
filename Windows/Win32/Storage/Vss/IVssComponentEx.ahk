@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\VSS_ROLLFORWARD_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include .\IVssComponent.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\VSS_ROLLFORWARD_TYPE.ahk
 
 /**
  * Defines additional methods for examining and modifying information about components contained in a requester's Backup Components Document.

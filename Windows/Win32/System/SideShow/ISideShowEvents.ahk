@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISideShowContent.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\ISideShowCapabilities.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ISideShowContent.ahk
 
 /**
  * @namespace Windows.Win32.System.SideShow

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMDT_VIDPN_PRESENT_PATH_SCALING.ahk
 #Include .\D3DKMDT_VIDPN_PRESENT_PATH_ROTATION.ahk
+#Include .\D3DKMDT_VIDPN_PRESENT_PATH_SCALING.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

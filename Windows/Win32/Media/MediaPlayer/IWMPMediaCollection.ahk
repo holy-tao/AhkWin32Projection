@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IWMPPlaylist.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IWMPStringCollection.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IWMPMedia.ahk
+#Include .\IWMPPlaylist.ahk
+#Include .\IWMPStringCollection.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IWMPMediaCollection interface provides methods that can be used to organize a large collection of media items.

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\FWP_BYTE_ARRAY16.ahk
 #Include .\FWP_BYTE_ARRAY6.ahk
 #Include .\FWP_BYTE_BLOB.ahk
-#Include .\FWP_TOKEN_INFORMATION.ahk
-#Include .\FWP_BYTE_ARRAY16.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\FWP_DATA_TYPE.ahk
+#Include .\FWP_TOKEN_INFORMATION.ahk
 #Include ..\..\Security\SID.ahk
 
 /**

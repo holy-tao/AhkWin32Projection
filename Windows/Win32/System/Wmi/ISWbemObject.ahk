@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISWbemObjectSet.ahk
-#Include .\ISWbemMethodSet.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\ISWbemObjectPath.ahk
-#Include .\ISWbemPropertySet.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\Com\IDispatch.ahk
-#Include .\ISWbemSecurity.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include .\ISWbemMethodSet.ahk
+#Include .\ISWbemObjectPath.ahk
+#Include .\ISWbemObjectSet.ahk
+#Include .\ISWbemPropertySet.ahk
 #Include .\ISWbemQualifierSet.ahk
+#Include .\ISWbemSecurity.ahk
 
 /**
  * @namespace Windows.Win32.System.Wmi

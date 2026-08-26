@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITTAPI.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\ITBasicCallControl.ahk
-#Include .\ITForwardInformation.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ADDRESS_STATE.ahk
 #Include .\IEnumCall.ahk
+#Include .\ITBasicCallControl.ahk
+#Include .\ITForwardInformation.ahk
+#Include .\ITTAPI.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * The ITAddress interface is the base interface for the Address object. Applications use this interface to get information about and use the Address object.

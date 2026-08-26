@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MMC_TASK_DISPLAY_BITMAP.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\MMC_TASK_DISPLAY_SYMBOL.ahk
-#Include .\MMC_TASK_DISPLAY_OBJECT.ahk
-#Include .\MMC_TASK_DISPLAY_TYPE.ahk
 #Include .\MMC_ACTION_TYPE.ahk
+#Include .\MMC_TASK_DISPLAY_BITMAP.ahk
+#Include .\MMC_TASK_DISPLAY_OBJECT.ahk
+#Include .\MMC_TASK_DISPLAY_SYMBOL.ahk
+#Include .\MMC_TASK_DISPLAY_TYPE.ahk
 
 /**
  * The MMC_TASK structure is introduced in MMC 1.1.

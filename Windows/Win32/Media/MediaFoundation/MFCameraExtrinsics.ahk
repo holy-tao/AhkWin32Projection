@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MF_FLOAT3.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\MF_QUATERNION.ahk
 #Include .\MFCameraExtrinsic_CalibratedTransform.ahk
+#Include .\MF_FLOAT3.ahk
+#Include .\MF_QUATERNION.ahk
 
 /**
  * Describes the location of a camera relative to other cameras or an established external reference.

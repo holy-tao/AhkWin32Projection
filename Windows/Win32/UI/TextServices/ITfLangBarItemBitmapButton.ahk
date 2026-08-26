@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\ITfLangBarItem.ahk
-#Include .\TfLBIClick.ahk
-#Include ..\..\Foundation\SIZE.ahk
-#Include .\ITfMenu.ahk
-#Include ..\..\Foundation\POINT.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\POINT.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include .\ITfLangBarItem.ahk
+#Include .\ITfMenu.ahk
+#Include .\TfLBIClick.ahk
 
 /**
  * The ITfLangBarItemBitmapButton interface is implemented by a language bar bitmap button provider and is used by the language bar manager to obtain information specific to a bitmap button item on the language bar.

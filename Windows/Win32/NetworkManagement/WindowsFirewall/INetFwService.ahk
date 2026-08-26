@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\NET_FW_IP_VERSION.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\INetFwOpenPorts.ahk
+#Include .\NET_FW_IP_VERSION.ahk
 #Include .\NET_FW_SCOPE.ahk
 #Include .\NET_FW_SERVICE_TYPE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\INetFwOpenPorts.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**

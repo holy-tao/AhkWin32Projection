@@ -2,12 +2,12 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\X509SCEPDisposition.ahk
-#Include .\IX509SCEPEnrollment.ahk
-#Include .\X509SCEPProcessMessageFlags.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include .\DelayRetryAction.ahk
 #Include .\EncodingType.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IX509SCEPEnrollment.ahk
+#Include .\X509SCEPDisposition.ahk
+#Include .\X509SCEPProcessMessageFlags.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates

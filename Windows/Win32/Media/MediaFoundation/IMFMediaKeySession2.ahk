@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IMFMediaKeySession.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\MFMediaKeyStatus.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFMediaKeySession.ahk
+#Include .\MFMediaKeyStatus.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation

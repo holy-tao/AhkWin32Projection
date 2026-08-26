@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IOleParentUndoUnit.ahk
-#Include .\IEnumOleUndoUnits.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IOleUndoUnit.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IEnumOleUndoUnits.ahk
+#Include .\IOleParentUndoUnit.ahk
+#Include .\IOleUndoUnit.ahk
 
 /**
  * The IOleUndoManager interface enables containers to implement multi-level undo and redo operations for actions that occur within contained controls.

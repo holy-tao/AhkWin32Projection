@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ITuner.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\ITuner.ahk
 
 /**
  * The IScanningTuner interface is implemented on the BDA Network Provider filter.

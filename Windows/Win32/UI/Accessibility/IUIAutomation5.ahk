@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IUIAutomation4.ahk
+#Include .\IUIAutomationCacheRequest.ahk
 #Include .\IUIAutomationElement.ahk
 #Include .\IUIAutomationNotificationEventHandler.ahk
 #Include .\TreeScope.ahk
-#Include .\IUIAutomationCacheRequest.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the IUIAutomation4 interface to expose additional methods for controlling Microsoft UI Automation functionality.
@@ -39,7 +39,9 @@ class IUIAutomation5 extends IUIAutomation4 {
      * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the UI Automation element associated with the event handler.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope</a></b>
+     * 
+     * The scope of events to be handled; that is, whether they are on the element itself, or on its ancestors and descendants.
      * @param {IUIAutomationCacheRequest} cacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
      * 
      * A pointer to a cache request, or <b>NULL</b> if no caching is wanted.

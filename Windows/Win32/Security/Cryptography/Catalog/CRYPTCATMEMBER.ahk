@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\Sip\SIP_INDIRECT_DATA.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\CRYPT_INTEGER_BLOB.ahk
+#Include ..\Sip\SIP_INDIRECT_DATA.ahk
 
 /**
  * The CRYPTCATMEMBER structure provides information about a catalog member. This structure is used by the CryptCATGetMemberInfo and CryptCATEnumerateAttr functions.

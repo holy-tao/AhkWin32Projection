@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IHTMLElement.ahk
-#Include .\IHTMLDOMChildrenCollection.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\IHTMLDOMChildrenCollection.ahk
+#Include .\IHTMLElement.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

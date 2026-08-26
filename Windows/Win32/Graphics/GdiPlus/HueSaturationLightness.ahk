@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\Effect.ahk
-#Include .\CGpEffect.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include .\CGpEffect.ahk
+#Include .\Effect.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus

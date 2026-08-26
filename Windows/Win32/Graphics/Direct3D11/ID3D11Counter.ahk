@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D11Asynchronous.ahk
 #Include .\D3D11_COUNTER_DESC.ahk
+#Include .\ID3D11Asynchronous.ahk
 
 /**
  * This interface encapsulates methods for measuring GPU performance. (ID3D11Counter)

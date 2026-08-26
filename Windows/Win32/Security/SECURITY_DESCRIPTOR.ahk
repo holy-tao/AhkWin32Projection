@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include .\SECURITY_DESCRIPTOR_CONTROL.ahk
-#Include .\PSID.ahk
 #Include .\ACL.ahk
+#Include .\PSID.ahk
+#Include .\SECURITY_DESCRIPTOR_CONTROL.ahk
 
 /**
  * Contains the security information associated with an object.

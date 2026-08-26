@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\DXC_CP.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
-#Include .\IDxcBlob.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\DXC_CP.ahk
+#Include .\IDxcBlob.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc

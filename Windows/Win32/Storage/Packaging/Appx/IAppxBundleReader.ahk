@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IAppxFile.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
-#Include .\IAppxBundleManifestReader.ahk
-#Include .\IAppxFilesEnumerator.ahk
-#Include .\APPX_BUNDLE_FOOTPRINT_FILE_TYPE.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\APPX_BUNDLE_FOOTPRINT_FILE_TYPE.ahk
 #Include .\IAppxBlockMapReader.ahk
+#Include .\IAppxBundleManifestReader.ahk
+#Include .\IAppxFile.ahk
+#Include .\IAppxFilesEnumerator.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides a read-only object model for bundle packages.

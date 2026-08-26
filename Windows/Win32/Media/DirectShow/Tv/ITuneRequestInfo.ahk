@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\ITuneRequest.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\ITuneRequest.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * The ITuneRequestInfo interface is implemented on the BDA MPEG2 Transport Information Filter (TIF) and is used by the Network Provider.

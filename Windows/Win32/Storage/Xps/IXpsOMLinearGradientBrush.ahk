@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\XPS_POINT.ahk
 #Include .\IXpsOMGradientBrush.ahk
+#Include .\XPS_POINT.ahk
 
 /**
  * Specifies a linear gradient, which is the color gradient along a vector.

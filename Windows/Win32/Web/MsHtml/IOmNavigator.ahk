@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\IHTMLMimeTypesCollection.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IHTMLOpsProfile.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IHTMLPluginsCollection.ahk
 
 /**

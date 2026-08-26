@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\ITfUIElement.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ITfUIElement.ahk
 
 /**
  * The ITfToolTipUIElement interface is implemented by a text service that wants to show a tooltip on its UI.

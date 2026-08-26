@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\EContextType.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\IHostSecurityContext.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\EContextType.ahk
+#Include .\IHostSecurityContext.ahk
+#Include ..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.ClrHosting

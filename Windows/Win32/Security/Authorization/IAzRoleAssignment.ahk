@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IAzRole.ahk
-#Include .\IAzScope.ahk
-#Include .\IAzRoleDefinitions.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IAzRole.ahk
+#Include .\IAzRoleDefinitions.ahk
+#Include .\IAzScope.ahk
 
 /**
  * Represents a role to which users and groups can be assigned.

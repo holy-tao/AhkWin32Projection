@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IWdsTransportCacheable.ahk
-#Include .\WDSTRANSPORT_IP_ADDRESS_TYPE.ahk
-#Include .\WDSTRANSPORT_IP_ADDRESS_SOURCE_TYPE.ahk
-#Include .\WDSTRANSPORT_NETWORK_PROFILE_TYPE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWdsTransportCacheable.ahk
+#Include .\WDSTRANSPORT_IP_ADDRESS_SOURCE_TYPE.ahk
+#Include .\WDSTRANSPORT_IP_ADDRESS_TYPE.ahk
+#Include .\WDSTRANSPORT_NETWORK_PROFILE_TYPE.ahk
 
 /**
  * Represents the service policy part of the WDS transport server's configuration.

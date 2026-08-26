@@ -2,10 +2,10 @@
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
-#Include ..\IDebugProperty.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 #Include .\IDebugExpressionCallBack.ahk
-#Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include ..\IDebugProperty.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

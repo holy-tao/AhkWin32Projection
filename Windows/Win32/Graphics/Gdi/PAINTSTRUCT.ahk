@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HDC.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include .\HDC.ahk
 
 /**
  * The PAINTSTRUCT structure contains information for an application. This information can be used to paint the client area of a window owned by that application.

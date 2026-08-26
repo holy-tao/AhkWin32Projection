@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFaxServer.ahk
-#Include .\IFaxSecurity2.ahk
+#Include .\IFaxAccount.ahk
 #Include .\IFaxAccountSet.ahk
 #Include .\IFaxConfiguration.ahk
-#Include .\IFaxAccount.ahk
+#Include .\IFaxSecurity2.ahk
+#Include .\IFaxServer.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 
 /**

@@ -2,10 +2,10 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\X509KeyUsageFlags.ahk
-#Include .\IX509Extension.ahk
-#Include .\EncodingType.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\EncodingType.ahk
+#Include .\IX509Extension.ahk
+#Include .\X509KeyUsageFlags.ahk
 
 /**
  * Can be used to define restrictions on the operations that can be performed by the public key contained in the certificate.

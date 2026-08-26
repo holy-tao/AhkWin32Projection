@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include Common\STRRET.ahk
 #Include Common\ITEMIDLIST.ahk
+#Include Common\STRRET.ahk
 
 /**
  * Contains detail information for a Shell folder item. Used with the SFVM_GETDETAILSOF notification.

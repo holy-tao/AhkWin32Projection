@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\FsrmTemplateApplyOptions.ahk
-#Include .\FsrmCommitOptions.ahk
-#Include .\IFsrmDerivedObjectsResult.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\FsrmCommitOptions.ahk
+#Include .\FsrmTemplateApplyOptions.ahk
+#Include .\IFsrmDerivedObjectsResult.ahk
 #Include .\IFsrmFileScreenBase.ahk
 
 /**

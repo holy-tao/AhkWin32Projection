@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\LabCOLOR.ahk
-#Include .\RGBCOLOR.ahk
-#Include .\NAMEDCOLOR.ahk
-#Include .\GENERIC3CHANNEL.ahk
 #Include .\CMYKCOLOR.ahk
-#Include .\YxyCOLOR.ahk
-#Include .\HiFiCOLOR.ahk
+#Include .\GENERIC3CHANNEL.ahk
 #Include .\GRAYCOLOR.ahk
+#Include .\HiFiCOLOR.ahk
+#Include .\LabCOLOR.ahk
+#Include .\NAMEDCOLOR.ahk
+#Include .\RGBCOLOR.ahk
 #Include .\XYZCOLOR.ahk
+#Include .\YxyCOLOR.ahk
 
 /**
  * Description of the COLOR union.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\COPYFILE2_MESSAGE_TYPE.ahk
-#Include .\COPYFILE2_COPY_PHASE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\COPYFILE2_COPY_PHASE.ahk
+#Include .\COPYFILE2_MESSAGE_TYPE.ahk
 
 /**
  * Passed to the CopyFile2ProgressRoutine callback function with information about a pending copy operation.

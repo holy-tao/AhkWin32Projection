@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\Foundation\COLORREF.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\Com\IUnknown.ahk
 #Include ..\..\UI\WindowsAndMessaging\HICON.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ISnapinAbout interface enables the console to get copyright and version information from a snap-in. The console also uses this interface to obtain images for the static folder from the snap-in.

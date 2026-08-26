@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include .\WINSAT_ASSESSMENT_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IProvideWinSATAssessmentInfo.ahk
 #Include .\WINSAT_ASSESSMENT_STATE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\WINSAT_ASSESSMENT_TYPE.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * Gets information about the results of an assessment, for example, the base score and the date that the assessment was run.

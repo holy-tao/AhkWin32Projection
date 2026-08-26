@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\NSTCSTYLE2.ahk
-#Include .\INameSpaceTreeControl.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\INameSpaceTreeControl.ahk
+#Include .\NSTCSTYLE2.ahk
 
 /**
  * Extends the INameSpaceTreeControl interface by providing methods that get and set the display styles of treeview controls for use with Shell namespace items.

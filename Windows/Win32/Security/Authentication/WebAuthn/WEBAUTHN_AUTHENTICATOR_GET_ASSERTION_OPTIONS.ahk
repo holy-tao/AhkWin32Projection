@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WEBAUTHN_EXTENSIONS.ahk
-#Include .\WEBAUTHN_CREDENTIALS.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\WEBAUTHN_CREDENTIAL.ahk
-#Include .\CTAPCBOR_HYBRID_STORAGE_LINKED_DATA.ahk
-#Include .\WEBAUTHN_CREDENTIAL_LIST.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\CTAPCBOR_HYBRID_STORAGE_LINKED_DATA.ahk
+#Include .\WEBAUTHN_CREDENTIAL.ahk
+#Include .\WEBAUTHN_CREDENTIALS.ahk
+#Include .\WEBAUTHN_CREDENTIAL_LIST.ahk
 #Include .\WEBAUTHN_EXTENSION.ahk
+#Include .\WEBAUTHN_EXTENSIONS.ahk
 #Include .\WEBAUTHN_HMAC_SECRET_SALT_VALUES.ahk
 
 /**

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Include .\CALL_MEDIA_EVENT.ahk
+#Include .\CALL_MEDIA_EVENT_CAUSE.ahk
 #Include .\ITCallInfo.ahk
 #Include .\ITStream.ahk
-#Include .\CALL_MEDIA_EVENT.ahk
 #Include .\ITTerminal.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\CALL_MEDIA_EVENT_CAUSE.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITCallMediaEvent interface contains methods that retrieve the description of media events.

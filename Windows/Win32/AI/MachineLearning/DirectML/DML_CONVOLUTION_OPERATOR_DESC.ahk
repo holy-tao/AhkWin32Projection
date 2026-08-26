@@ -2,8 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\DML_CONVOLUTION_DIRECTION.ahk
 #Include .\DML_CONVOLUTION_MODE.ahk
-#Include .\DML_TENSOR_DESC.ahk
 #Include .\DML_OPERATOR_DESC.ahk
+#Include .\DML_TENSOR_DESC.ahk
 
 /**
  * Performs a convolution of the *FilterTensor* with the *InputTensor*. This operator supports a number of standard convolution configurations.

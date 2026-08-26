@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\LPARAM.ahk
-#Include ..\..\Foundation\WPARAM.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\WPARAM.ahk
 
 /**
  * Contains message information from a thread's message queue.

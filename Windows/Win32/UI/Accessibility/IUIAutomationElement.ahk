@@ -1,24 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\UIA_PROPERTY_ID.ahk
-#Include .\UIA_CONTROLTYPE_ID.ahk
-#Include .\IUIAutomationCacheRequest.ahk
-#Include .\TreeScope.ahk
-#Include ..\..\Foundation\POINT.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\OrientationType.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\POINT.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include ..\..\System\Com\SAFEARRAY.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include .\IUIAutomationElementArray.ahk
-#Include .\UIA_PATTERN_ID.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IUIAutomationCacheRequest.ahk
 #Include .\IUIAutomationCondition.ahk
+#Include .\IUIAutomationElementArray.ahk
+#Include .\OrientationType.ahk
+#Include .\TreeScope.ahk
+#Include .\UIA_CONTROLTYPE_ID.ahk
+#Include .\UIA_PATTERN_ID.ahk
+#Include .\UIA_PROPERTY_ID.ahk
 
 /**
  * Exposes methods and properties for a UI Automation element, which represents a UI item.
@@ -534,7 +534,9 @@ class IUIAutomationElement extends IUnknown {
      * If your client application might try to find elements in its own user interface, you must make all UI Automation calls on a separate thread.
      * 
      * This function ignores elements in the raw tree. Call <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-findfirstbuildcache">FindFirstBuildCache</a> to search the raw tree by specifying the appropriate <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope</a> on the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a> passed to that function.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope</a></b>
+     * 
+     * A combination of values specifying the scope of the search.
      * @param {IUIAutomationCondition} condition Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>*</b>
      * 
      * A pointer to a condition that represents the criteria to match.
@@ -558,7 +560,9 @@ class IUIAutomationElement extends IUnknown {
      * When searching for top-level windows on the desktop, be sure to specify <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope_Children</a> in the <i>scope</i> parameter, not <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope_Descendants</a>. A search through the entire subtree of the desktop could iterate through thousands of items and lead to a stack overflow.
      * 
      * If your client application might try to find elements in its own user interface, you must make all UI Automation calls on a separate thread.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope</a></b>
+     * 
+     * A combination of values specifying the scope of the search.
      * @param {IUIAutomationCondition} condition Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>*</b>
      * 
      * A pointer to a condition that represents the criteria to match.
@@ -584,7 +588,9 @@ class IUIAutomationElement extends IUnknown {
      * If your client application might try to find elements in its own user interface, you must make all UI Automation calls on a separate thread.
      * 
      * To search the raw tree, specify the appropriate <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope</a> in the <i>cacheRequest</i> parameter.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope</a></b>
+     * 
+     * A combination of values specifying the scope of the search.
      * @param {IUIAutomationCondition} condition Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>*</b>
      * 
      * A pointer to a condition that represents the criteria to match.
@@ -611,7 +617,9 @@ class IUIAutomationElement extends IUnknown {
      * When searching for top-level windows on the desktop, be sure to specify <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope_Children</a> in the <i>scope</i> parameter, not <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope_Descendants</a>. A search through the entire subtree of the desktop could iterate through thousands of items and lead to a stack overflow.
      * 
      * If your client application might try to find elements in its own user interface, you must make all UI Automation calls on a separate thread.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope</a></b>
+     * 
+     * A combination of values specifying the scope of the search.
      * @param {IUIAutomationCondition} condition Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>*</b>
      * 
      * A pointer to a condition that represents the criteria to match.

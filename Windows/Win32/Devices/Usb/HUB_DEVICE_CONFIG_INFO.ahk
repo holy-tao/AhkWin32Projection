@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\USB_HUB_CAP_FLAGS.ahk
 #Include .\USB_HUB_DEVICE_UXD_SETTINGS.ahk
 #Include .\USB_ID_STRING.ahk
-#Include .\USB_HUB_CAP_FLAGS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb

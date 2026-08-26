@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\STARTUPINFOW_FLAGS.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\STARTUPINFOW_FLAGS.ahk
 
 /**
  * Specifies the window station, desktop, standard handles, and appearance of the main window for a process at creation time. (ANSI)

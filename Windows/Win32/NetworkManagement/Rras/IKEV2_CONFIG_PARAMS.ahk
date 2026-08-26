@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ROUTER_CUSTOM_IKEv2_POLICY0.ahk
 #Include .\IKEV2_TUNNEL_CONFIG_PARAMS4.ahk
-#Include ..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk
 #Include .\MPR_CERT_EKU.ahk
+#Include .\ROUTER_CUSTOM_IKEv2_POLICY0.ahk
+#Include ..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * Used to get or set parameters for Internet Key Exchange version 2 (IKEv2) devices (RFC 4306).

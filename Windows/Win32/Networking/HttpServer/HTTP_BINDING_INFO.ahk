@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_PROPERTY_FLAGS.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\HTTP_PROPERTY_FLAGS.ahk
 
 /**
  * Used to associate a URL Group with a request queue.

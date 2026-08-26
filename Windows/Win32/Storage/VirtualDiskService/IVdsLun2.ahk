@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include .\VDS_HINTS2.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IVdsLun2 interface (vdshwprv.h) provides methods for applying and querying logical unit number (LUN) hints.

@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DBCOLUMNACCESS.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Storage\IndexServer\DBID.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\DBCOLUMNACCESS.ahk
 
 /**
  * @namespace Windows.Win32.System.Search

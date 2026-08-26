@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D_OMAC.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT.ahk
+#Include .\D3D_OMAC.ahk
 
 /**
  * Contains the response to a D3DAUTHENTICATEDQUERY\_OUTPUTIDCOUNT query.

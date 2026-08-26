@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IHTMLElement.ahk
-#Include .\IEventTarget.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IHTMLWindow2.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\IEventTarget.ahk
+#Include .\IHTMLElement.ahk
+#Include .\IHTMLWindow2.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

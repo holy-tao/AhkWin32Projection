@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\GPMReportType.ahk
 #Include .\IGPMResult.ahk
 #Include ..\Variant\VARIANT.ahk
-#Include .\GPMReportType.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IGPMBackup interface supports methods that allow you to delete GPMBackup objects and to retrieve various properties of GPMBackup objects.

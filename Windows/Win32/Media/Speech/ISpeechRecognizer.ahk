@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\ISpeechObjectToken.ahk
-#Include .\ISpeechRecognizerStatus.ahk
-#Include .\ISpeechRecoContext.ahk
-#Include .\ISpeechObjectTokens.ahk
-#Include .\SpeechRecognizerState.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\ISpeechBaseStream.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\ISpeechAudioFormat.ahk
+#Include .\ISpeechBaseStream.ahk
+#Include .\ISpeechObjectToken.ahk
+#Include .\ISpeechObjectTokens.ahk
+#Include .\ISpeechRecoContext.ahk
+#Include .\ISpeechRecognizerStatus.ahk
 #Include .\SpeechFormatType.ahk
+#Include .\SpeechRecognizerState.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech

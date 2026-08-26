@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\SIZE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods that request a thumbnail image from a Shell folder.

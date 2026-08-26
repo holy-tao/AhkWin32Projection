@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include .\LIST_VIEW_BACKGROUND_IMAGE_FLAGS.ahk
 
 /**

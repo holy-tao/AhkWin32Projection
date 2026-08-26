@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12Debug.ahk
-#Include .\D3D12_GPU_BASED_VALIDATION_FLAGS.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include .\D3D12_GPU_BASED_VALIDATION_FLAGS.ahk
+#Include .\ID3D12Debug.ahk
 
 /**
  * Adds configurable levels of GPU-based validation to the debug layer. (ID3D12Debug3)

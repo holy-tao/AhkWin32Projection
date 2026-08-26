@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IOpcDigitalSignatureManager.ahk
-#Include .\OPC_READ_FLAGS.ahk
-#Include ..\..\..\Security\SECURITY_ATTRIBUTES.ahk
-#Include .\OPC_STREAM_IO_MODE.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
-#Include .\IOpcPartUri.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Security\SECURITY_ATTRIBUTES.ahk
+#Include .\IOpcDigitalSignatureManager.ahk
 #Include .\IOpcPackage.ahk
-#Include .\OPC_WRITE_FLAGS.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\System\Com\IStream.ahk
+#Include .\IOpcPartUri.ahk
 #Include .\IOpcUri.ahk
+#Include .\OPC_READ_FLAGS.ahk
+#Include .\OPC_STREAM_IO_MODE.ahk
+#Include .\OPC_WRITE_FLAGS.ahk
+#Include ..\..\..\System\Com\IStream.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Creates Packaging API objects and provides support for saving and loading packages.

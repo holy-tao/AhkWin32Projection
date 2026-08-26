@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMReaderAdvanced.ahk
-#Include .\WMT_PLAY_MODE.ahk
-#Include .\IWMReaderCallback.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\WMT_ATTR_DATATYPE.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IWMReaderAdvanced.ahk
+#Include .\IWMReaderCallback.ahk
+#Include .\WMT_ATTR_DATATYPE.ahk
+#Include .\WMT_PLAY_MODE.ahk
 #Include ..\..\System\Com\IStream.ahk
 
 /**

@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IDispatch.ahk
 #Include .\TASK_STATE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides the methods to get information from and control a running task.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWTSProtocolConnection.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IWTSProtocolConnectionCallback.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\IWTSProtocolConnection.ahk
+#Include .\IWTSProtocolConnectionCallback.ahk
 
 /**
  * IWTSProtocolListenerCallback is no longer available. Instead, use IWRdsProtocolListenerCallback.

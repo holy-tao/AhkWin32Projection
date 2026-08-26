@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\UIA_ANNOTATIONTYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IRawElementProviderSimple.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\UIA_ANNOTATIONTYPE.ahk
 
 /**
  * Exposes the properties of an annotation in a document.

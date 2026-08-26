@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IFaxOutgoingMessage.ahk
 #Include .\FAX_RECEIPT_TYPE_ENUM.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IFaxOutgoingMessage.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 
 /**
  * Used by a fax client application to retrieve information about a sent fax message in the archive of outbound faxes.

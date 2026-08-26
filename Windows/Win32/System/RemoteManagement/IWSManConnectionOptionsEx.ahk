@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IWSManConnectionOptions.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWSManConnectionOptions.ahk
 
 /**
  * The IWSManConnectionOptionsEx object is passed to the IWSMan::CreateSession method to provide the thumbprint of the client certificate used for authentication.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISyncMgrUIOperation.ahk
-#Include .\ISyncMgrEvent.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ISyncMgrEvent.ahk
+#Include .\ISyncMgrUIOperation.ahk
 
 /**
  * Provides a method that is called when event links are clicked in the sync results folder.

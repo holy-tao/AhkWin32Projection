@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\TS_SELECTIONSTYLE.ahk
 #Include .\TsActiveSelEnd.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The TS_SELECTION_ACP structure contains ACP-based text selection data.

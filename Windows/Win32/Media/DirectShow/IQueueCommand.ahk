@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IDeferredCommand.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * The IQueueCommand interface queues a command for processing at a designated time.

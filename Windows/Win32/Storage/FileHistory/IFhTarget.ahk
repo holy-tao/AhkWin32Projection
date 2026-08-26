@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\FH_TARGET_PROPERTY_TYPE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\FH_TARGET_PROPERTY_TYPE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IFhTarget interface allows client applications to read numeric and string properties of a File History backup target.

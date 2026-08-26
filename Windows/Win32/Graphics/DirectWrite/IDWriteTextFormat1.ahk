@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteTextFormat.ahk
-#Include .\DWRITE_VERTICAL_GLYPH_ORIENTATION.ahk
-#Include .\IDWriteFontFallback.ahk
-#Include .\DWRITE_OPTICAL_ALIGNMENT.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\DWRITE_OPTICAL_ALIGNMENT.ahk
+#Include .\DWRITE_VERTICAL_GLYPH_ORIENTATION.ahk
+#Include .\IDWriteFontFallback.ahk
+#Include .\IDWriteTextFormat.ahk
 
 /**
  * Describes the font and paragraph properties used to format text, and it describes locale information. | IDWriteTextFormat1 interface

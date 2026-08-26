@@ -1,25 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\Storage\FileSystem\WIN32_FIND_DATAA.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\System\Com\IStream.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Graphics\DirectDraw\IDirectDrawSurface.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\System\Threading\PROCESS_INFORMATION.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMapMIMEToCLSID.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Graphics\DirectDraw\IDirectDrawSurface.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\Graphics\Gdi\RGBQUAD.ahk
-#Include ..\..\System\Registry\HKEY.ahk
+#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
 #Include ..\..\Storage\FileSystem\GET_FILEEX_INFO_LEVELS.ahk
+#Include ..\..\Storage\FileSystem\WIN32_FIND_DATAA.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Registry\HKEY.ahk
+#Include ..\..\System\Threading\PROCESS_INFORMATION.ahk
+#Include .\IMapMIMEToCLSID.ahk
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer

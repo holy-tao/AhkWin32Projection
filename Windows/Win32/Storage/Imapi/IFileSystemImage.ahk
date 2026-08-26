@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFsiFileItem.ahk
-#Include .\IDiscRecorder2.ahk
-#Include .\IFileSystemImageResult.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IFsiDirectoryItem.ahk
 #Include .\FsiFileSystems.ahk
 #Include .\FsiItemType.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include .\IBootOptions.ahk
+#Include .\IDiscRecorder2.ahk
+#Include .\IFileSystemImageResult.ahk
+#Include .\IFsiDirectoryItem.ahk
+#Include .\IFsiFileItem.ahk
+#Include .\IMAPI_MEDIA_PHYSICAL_TYPE.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\SAFEARRAY.ahk
-#Include .\IBootOptions.ahk
-#Include .\IMAPI_MEDIA_PHYSICAL_TYPE.ahk
 
 /**
  * Use this interface to build a file system image, set session parameter, and import or export an image.

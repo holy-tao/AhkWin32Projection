@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\COLORREF.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DXVA2_ValueRange.ahk
-#Include .\DXVA2_Fixed32.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\DXVA2_ProcAmpValues.ahk
-#Include .\DXVA2_VideoProcessorCaps.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\DXVA2_Fixed32.ahk
+#Include .\DXVA2_ProcAmpValues.ahk
+#Include .\DXVA2_ValueRange.ahk
+#Include .\DXVA2_VideoProcessorCaps.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Controls video processing in the Enhanced Video Renderer (EVR).

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D10_MESSAGE_CATEGORY.ahk
-#Include .\D3D10_MESSAGE_SEVERITY.ahk
 #Include .\D3D10_MESSAGE_ID.ahk
+#Include .\D3D10_MESSAGE_SEVERITY.ahk
 
 /**
  * Allow or deny certain types of messages to pass through a filter. (D3D10_INFO_QUEUE_FILTER_DESC)

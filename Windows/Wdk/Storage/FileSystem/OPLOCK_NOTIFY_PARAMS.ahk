@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\IRP.ahk
 #Include .\OPLOCK_NOTIFY_REASON.ahk
 #Include ..\..\..\Win32\Foundation\NTSTATUS.ahk
-#Include ..\..\Foundation\IRP.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem

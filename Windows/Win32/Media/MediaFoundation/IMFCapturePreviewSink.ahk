@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFCaptureEngineOnSampleCallback.ahk
-#Include .\MFVideoNormalizedRect.ahk
-#Include .\IMFCaptureSink.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\COLORREF.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\BOOL.ahk
+#Include .\IMFCaptureEngineOnSampleCallback.ahk
+#Include .\IMFCaptureSink.ahk
 #Include .\IMFMediaSink.ahk
+#Include .\MFVideoNormalizedRect.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\DMUS_CLOCKTYPE.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\DMUS_CLOCKTYPE.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic

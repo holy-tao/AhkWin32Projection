@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include .\IExtractImage.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IExtractImage.ahk
 
 /**
  * Extends the capabilities of IExtractImage.

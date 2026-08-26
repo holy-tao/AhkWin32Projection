@@ -3,12 +3,12 @@
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\Foundation\COLORREF.ahk
-#Include .\ITextSelection.ahk
-#Include .\ITextFont.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\ITextPara.ahk
-#Include .\ITextDocument.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\ITextDocument.ahk
+#Include .\ITextFont.ahk
+#Include .\ITextPara.ahk
+#Include .\ITextSelection.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls.RichEdit

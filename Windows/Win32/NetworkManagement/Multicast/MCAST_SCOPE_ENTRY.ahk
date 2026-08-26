@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\UNICODE_STRING.ahk
-#Include .\MCAST_SCOPE_CTX.ahk
 #Include .\IPNG_ADDRESS.ahk
+#Include .\MCAST_SCOPE_CTX.ahk
 
 /**
  * The MCAST_SCOPE_ENTRY structure provides a complete set of information about a given multicast scope.

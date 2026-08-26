@@ -1,25 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IActiveScriptSite.ahk
-#Include .\IDebugStackFrameSniffer.ahk
-#Include .\IDebugAsyncOperation.ahk
-#Include .\IDebugThreadCall32.ahk
-#Include .\IRemoteDebugApplicationThread.ahk
+#Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Com\IUnknown.ahk
 #Include .\BREAKREASON.ahk
+#Include .\BREAKRESUMEACTION.ahk
 #Include .\ERRORRESUMEACTION.ahk
 #Include .\IActiveScriptErrorDebug.ahk
-#Include .\IDebugApplicationThread.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\..\Foundation\PWSTR.ahk
-#Include ..\..\..\..\Foundation\HRESULT.ahk
-#Include .\IRemoteDebugApplication.ahk
+#Include .\IActiveScriptSite.ahk
 #Include .\IDebugApplicationNode.ahk
-#Include ..\..\..\..\Foundation\BOOL.ahk
-#Include .\IProvideExpressionContexts.ahk
+#Include .\IDebugApplicationThread.ahk
+#Include .\IDebugAsyncOperation.ahk
+#Include .\IDebugStackFrameSniffer.ahk
 #Include .\IDebugSyncOperation.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include .\BREAKRESUMEACTION.ahk
+#Include .\IDebugThreadCall32.ahk
+#Include .\IProvideExpressionContexts.ahk
+#Include .\IRemoteDebugApplication.ahk
+#Include .\IRemoteDebugApplicationThread.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

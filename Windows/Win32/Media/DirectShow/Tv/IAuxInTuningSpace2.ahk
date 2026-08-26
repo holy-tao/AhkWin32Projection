@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IAuxInTuningSpace.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IAuxInTuningSpace.ahk
 
 /**
  * This topic applies to Windows XP Media Center Edition 2004 and later.

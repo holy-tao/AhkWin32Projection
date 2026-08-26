@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Win32\System\Kernel\STRING.ahk
-#Include .\PREFIX_TABLE_ENTRY.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem

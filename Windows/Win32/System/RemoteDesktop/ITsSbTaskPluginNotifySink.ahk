@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\SAFEARRAY.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include .\RDV_TASK_STATUS.ahk
-#Include .\ITsSbBaseNotifySink.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\SAFEARRAY.ahk
+#Include .\ITsSbBaseNotifySink.ahk
+#Include .\RDV_TASK_STATUS.ahk
 
 /**
  * Exposes methods that report status and error messages about tasks to Remote Desktop Connection Broker (RD Connection Broker).

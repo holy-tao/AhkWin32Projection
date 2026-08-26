@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMWriterNetworkSink.ahk
-#Include .\IWMWriter.ahk
-#Include .\IWMWriterFileSink.ahk
-#Include .\IWMReader.ahk
-#Include .\IWMWriterPushSink.ahk
-#Include .\IWMIndexer.ahk
-#Include .\IWMSyncReader.ahk
-#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IWMIndexer.ahk
 #Include .\IWMLicenseBackup.ahk
 #Include .\IWMMetadataEditor.ahk
 #Include .\IWMProfileManager.ahk
-#Include ..\..\Foundation\BOOL.ahk
+#Include .\IWMReader.ahk
+#Include .\IWMSyncReader.ahk
+#Include .\IWMWriter.ahk
+#Include .\IWMWriterFileSink.ahk
+#Include .\IWMWriterNetworkSink.ahk
+#Include .\IWMWriterPushSink.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**

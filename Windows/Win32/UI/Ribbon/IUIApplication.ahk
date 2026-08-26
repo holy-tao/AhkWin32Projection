@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\UI_VIEWTYPE.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\UI_VIEWVERB.ahk
-#Include .\UI_COMMANDTYPE.ahk
-#Include .\IUICommandHandler.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IUICommandHandler.ahk
+#Include .\UI_COMMANDTYPE.ahk
+#Include .\UI_VIEWTYPE.ahk
+#Include .\UI_VIEWVERB.ahk
 
 /**
  * The IUIApplication interface is implemented by the application and defines the callback entry-point methods for the Windows Ribbon framework.

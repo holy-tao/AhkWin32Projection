@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_HEALTH.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VDS_HEALTH.ahk
+#Include .\VDS_LUN_PLEX_STATUS.ahk
 #Include .\VDS_LUN_PLEX_TYPE.ahk
 #Include .\VDS_TRANSITION_STATE.ahk
-#Include .\VDS_LUN_PLEX_STATUS.ahk
 
 /**
  * The VDS_LUN_PLEX_PROP structure (vdshwprv.h) defines the properties of a LUN plex object.

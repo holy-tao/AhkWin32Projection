@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSTER_RESOURCE_STATE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\CLUSTER_RESOURCE_STATE.ahk
 
 /**
  * @namespace Windows.Win32.Networking.Clustering

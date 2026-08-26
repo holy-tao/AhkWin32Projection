@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IMsmStrings.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMsmStrings.ahk
+#Include ..\Com\IDispatch.ahk
 
 /**
  * The IMsmGetFiles interface enables the client to retrieve the files needed in a particular language of the module.

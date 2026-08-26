@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\BLUETOOTH_ADDRESS.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
-#Include .\BLUETOOTH_ADDRESS.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Bluetooth

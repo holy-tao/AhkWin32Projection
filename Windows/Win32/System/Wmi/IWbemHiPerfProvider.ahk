@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWbemContext.ahk
-#Include .\IWbemObjectAccess.ahk
-#Include .\IWbemHiPerfEnum.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\IWbemObjectSink.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IWbemContext.ahk
+#Include .\IWbemHiPerfEnum.ahk
+#Include .\IWbemObjectAccess.ahk
+#Include .\IWbemObjectSink.ahk
 #Include .\IWbemRefresher.ahk
 #Include .\IWbemServices.ahk
 

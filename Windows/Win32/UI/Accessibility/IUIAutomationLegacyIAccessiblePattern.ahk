@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\IAccessible.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IUIAutomationElementArray.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IAccessible.ahk
+#Include .\IUIAutomationElementArray.ahk
 
 /**
  * Exposes methods and properties that enable Microsoft UI Automation clients to retrieve UI information from Microsoft Active Accessibility (MSAA) servers.

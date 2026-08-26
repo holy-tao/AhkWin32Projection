@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IComponents.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\ITuningSpace.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IComponents.ahk
 #Include .\ILocator.ahk
+#Include .\ITuningSpace.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITuneRequest interface is the base interface for all tune requests.

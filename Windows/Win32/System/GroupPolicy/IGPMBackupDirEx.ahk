@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IDispatch.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include .\GPMBackupType.ahk
 #Include .\IGPMSearchCriteria.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * The IGPMBackupDirEx interface supports methods that allow you to query GPMBackup, GPMBackupCollection, GPMStarterGPOBackup, and GPMStarterGPOBackupCollection objects when you are using the Group Policy Management Console (GPMC) interfaces.

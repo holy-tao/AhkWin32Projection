@@ -2,8 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\LPARAM.ahk
-#Include ..\NMHDR.ahk
 #Include ..\..\..\Foundation\WPARAM.ahk
+#Include ..\NMHDR.ahk
 
 /**
  * Contains information about a keyboard or mouse event. A rich edit control sends this structure to its parent window as part of an EN_MSGFILTER notification code, enabling the parent to change the message or prevent it from being processed.

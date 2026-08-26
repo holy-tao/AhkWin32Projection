@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\IN_ADDR.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
+#Include ..\..\Networking\WinSock\IN_ADDR.ahk
 
 /**
  * Defines an IP address object.

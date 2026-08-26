@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D2D1_GAMMA.ahk
-#Include .\D2D1_EXTEND_MODE.ahk
-#Include .\ID2D1Resource.ahk
 #Include Common\D2D1_GRADIENT_STOP.ahk
+#Include .\D2D1_EXTEND_MODE.ahk
+#Include .\D2D1_GAMMA.ahk
+#Include .\ID2D1Resource.ahk
 
 /**
  * Represents a collection of D2D1_GRADIENT_STOP objects for linear and radial gradient brushes.

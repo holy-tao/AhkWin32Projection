@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFASFStreamPrioritization.ahk
-#Include .\IMFASFStreamConfig.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFASFMutualExclusion.ahk
+#Include .\IMFASFStreamConfig.ahk
+#Include .\IMFASFStreamPrioritization.ahk
 #Include .\IMFAttributes.ahk
 #Include .\IMFMediaType.ahk
-#Include .\IMFASFMutualExclusion.ahk
 
 /**
  * Manages an Advanced Systems Format (ASF) profile.

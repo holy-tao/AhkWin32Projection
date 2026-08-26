@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomation5.ahk
-#Include .\IUIAutomationEventHandlerGroup.ahk
-#Include .\IUIAutomationElement.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\CoalesceEventsOptions.ahk
-#Include .\TreeScope.ahk
+#Include .\ConnectionRecoveryBehaviorOptions.ahk
+#Include .\IUIAutomation5.ahk
 #Include .\IUIAutomationActiveTextPositionChangedEventHandler.ahk
 #Include .\IUIAutomationCacheRequest.ahk
-#Include .\ConnectionRecoveryBehaviorOptions.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IUIAutomationElement.ahk
+#Include .\IUIAutomationEventHandlerGroup.ahk
+#Include .\TreeScope.ahk
 
 /**
  * Extends the IUIAutomation5 interface to expose additional methods for controlling Microsoft UI Automation functionality.
@@ -193,7 +193,7 @@ class IUIAutomation6 extends IUIAutomation5 {
      * 
      * It is possible for an event to be delivered to an event handler after the handler has been unsubscribed, if the event is received simultaneously with the request to unsubscribe the event. The best practice is to follow the Component Object Model (COM) standard and avoid destroying the event handler object until its reference count has reached zero. Destroying an event handler immediately after unsubscribing for events may result in an access violation if an event is delivered late.
      * @param {IUIAutomationElement} element A pointer to the UI Automation element associated with the event handler.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope The scope of events to be handled; that is, whether they are on the element itself, or on its ancestors and descendants.
      * @param {IUIAutomationCacheRequest} cacheRequest A pointer to a cache request, or NULL if no caching is wanted.
      * @param {IUIAutomationActiveTextPositionChangedEventHandler} handler A pointer to the object that handles the active text position changed event.
      * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.

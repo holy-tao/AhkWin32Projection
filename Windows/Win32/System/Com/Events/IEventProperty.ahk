@@ -2,9 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\IDispatch.ahk
 #Include ..\..\Variant\VARIANT.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Associates a named event property with its value.

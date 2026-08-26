@@ -2,13 +2,13 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\SAFEARRAY.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\FsrmFileStreamingInterfaceType.ahk
 #Include .\FsrmFileStreamingMode.ahk
 #Include .\IFsrmProperty.ahk
-#Include .\FsrmFileStreamingInterfaceType.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * Contains the classification properties for a file.

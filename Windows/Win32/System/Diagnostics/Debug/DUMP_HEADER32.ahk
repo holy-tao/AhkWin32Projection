@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\NTSTATUS.ahk
+#Include .\DUMP_FILE_ATTRIBUTES.ahk
 #Include .\EXCEPTION_RECORD32.ahk
 #Include .\PHYSICAL_MEMORY_DESCRIPTOR32.ahk
 #Include .\PHYSICAL_MEMORY_RUN32.ahk
-#Include .\DUMP_FILE_ATTRIBUTES.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSJACK_SINK_CONNECTIONTYPE.ahk
-#Include ..\..\Foundation\LUID.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\LUID.ahk
+#Include .\KSJACK_SINK_CONNECTIONTYPE.ahk
 
 /**
  * The KSJACK_SINK_INFORMATION structure stores information about an audio jack sink.

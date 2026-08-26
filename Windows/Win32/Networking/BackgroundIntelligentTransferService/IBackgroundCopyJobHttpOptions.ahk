@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\BG_CERT_STORE_LOCATION.ahk
 #Include ..\..\System\Com\Apis.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Use this interface to specify client certificates for certificate-based client authentication and custom headers for HTTP requests.

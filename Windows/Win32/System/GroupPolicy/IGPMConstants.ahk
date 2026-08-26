@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\GPMEntryType.ahk
-#Include .\GPMSOMType.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\GPMSearchProperty.ahk
-#Include .\GPMDestinationOption.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\GPMDestinationOption.ahk
+#Include .\GPMEntryType.ahk
 #Include .\GPMPermissionType.ahk
 #Include .\GPMRSOPMode.ahk
 #Include .\GPMReportType.ahk
+#Include .\GPMSOMType.ahk
 #Include .\GPMSearchOperation.ahk
+#Include .\GPMSearchProperty.ahk
 
 /**
  * The IGPMConstants interface supports methods that retrieve the value of multiple Group Policy Management Console (GPMC) constants. To create a GPMConstants object, call the IGPM::GetConstants method.

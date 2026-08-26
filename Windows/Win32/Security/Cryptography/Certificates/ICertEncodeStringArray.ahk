@@ -2,9 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\CERT_RDN_ATTR_VALUE_TYPE.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\CERT_RDN_ATTR_VALUE_TYPE.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Provides methods for handling string arrays used in certificate extensions.

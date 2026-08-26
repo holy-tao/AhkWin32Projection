@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\APPLICATION_VIEW_SIZE_PREFERENCE.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\APPLICATION_VIEW_SIZE_PREFERENCE.ahk
 
 /**
  * Provides a method for retrieving the preferred view size for a new application window.

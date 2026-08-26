@@ -3,9 +3,9 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IFunctionInstance.ahk
 #Include .\SystemVisibilityFlags.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Is implemented by a discovery provider to enable a client program to add and remove function instances.

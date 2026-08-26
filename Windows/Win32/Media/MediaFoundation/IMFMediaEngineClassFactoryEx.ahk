@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IMFMediaKeys.ahk
-#Include .\IMFMediaEngineClassFactory.ahk
-#Include .\IMFMediaSourceExtension.ahk
-#Include .\IMFAttributes.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFAttributes.ahk
+#Include .\IMFMediaEngineClassFactory.ahk
+#Include .\IMFMediaKeys.ahk
+#Include .\IMFMediaSourceExtension.ahk
 
 /**
  * Extension for the IMFMediaEngineClassFactory interface.

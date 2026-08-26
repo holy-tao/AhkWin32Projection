@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMDT_VIDEO_SIGNAL_STANDARD.ahk
 #Include .\D3DDDI_VIDEO_SIGNAL_SCANLINE_ORDERING.ahk
+#Include .\D3DKMDT_VIDEO_SIGNAL_STANDARD.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

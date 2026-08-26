@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IShellItemArray.ahk
-#Include .\IFileDialog.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IFileDialog.ahk
+#Include .\IShellItemArray.ahk
 
 /**
  * Extends the IFileDialog interface by adding methods specific to the open dialog.

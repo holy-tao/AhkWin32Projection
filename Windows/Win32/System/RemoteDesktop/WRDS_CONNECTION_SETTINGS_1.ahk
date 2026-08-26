@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WRDS_LISTENER_SETTING_LEVEL.ahk
-#Include .\WRDS_LISTENER_SETTING.ahk
-#Include .\WRDS_LISTENER_SETTINGS_1.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\WTS_TIME_ZONE_INFORMATION.ahk
-#Include .\WTS_SYSTEMTIME.ahk
-#Include .\WTS_SOCKADDR.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\WRDS_LISTENER_SETTING.ahk
 #Include .\WRDS_LISTENER_SETTINGS.ahk
+#Include .\WRDS_LISTENER_SETTINGS_1.ahk
+#Include .\WRDS_LISTENER_SETTING_LEVEL.ahk
+#Include .\WTS_SOCKADDR.ahk
+#Include .\WTS_SYSTEMTIME.ahk
+#Include .\WTS_TIME_ZONE_INFORMATION.ahk
 
 /**
  * Contains connection setting information for a remote session. (WRDS_CONNECTION_SETTINGS_1)

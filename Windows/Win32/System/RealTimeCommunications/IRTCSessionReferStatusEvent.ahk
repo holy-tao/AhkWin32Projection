@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\RTC_SESSION_REFER_STATUS.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IRTCSession2.ahk
+#Include .\RTC_SESSION_REFER_STATUS.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

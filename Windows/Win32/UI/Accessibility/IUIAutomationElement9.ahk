@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\IUIAutomationElement8.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IUIAutomationElement8.ahk
 
 /**
  * Extends the IUIAutomationElement8 interface.

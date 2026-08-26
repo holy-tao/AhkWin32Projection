@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D2D1_BUFFER_PRECISION.ahk
 #Include Common\D2D_SIZE_U.ahk
+#Include .\D2D1_BUFFER_PRECISION.ahk
 
 /**
  * Describes limitations to be applied to an imaging effect renderer.

@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\LPARAM.ahk
-#Include .\NMHDR.ahk
 #Include ..\..\Foundation\PSTR.ahk
+#Include .\NMHDR.ahk
 
 /**
  * Contains and receives infotip information for a toolbar item. This structure is used with the TBN_GETINFOTIP notification code. (ANSI)

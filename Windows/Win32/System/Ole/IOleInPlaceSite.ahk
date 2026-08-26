@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IOleWindow.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Foundation\SIZE.ahk
 #Include .\IOleInPlaceFrame.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\OLEINPLACEFRAMEINFO.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\IOleInPlaceUIWindow.ahk
+#Include .\IOleWindow.ahk
+#Include .\OLEINPLACEFRAMEINFO.ahk
 
 /**
  * Manages the interaction between the container and the object's in-place client site. Recall that the client site is the display site for embedded objects, and provides position and conceptual information about the object.

@@ -2,13 +2,13 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITfLangBarItem.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IEnumTfLangBarItems.ahk
-#Include .\TF_LANGBARITEMINFO.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ITfLangBarItem.ahk
 #Include .\ITfLangBarItemSink.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Include .\TF_LANGBARITEMINFO.ahk
 
 /**
  * The ITfLangBarItemMgr interface is implemented by the language bar and used by a text service to manage items in the language bar.

@@ -2,9 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\IESEvent.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\IESEvent.ahk
 
 /**
  * Gets information from a FileExpiryDate event.

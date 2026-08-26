@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WINBIO_STORAGE_SCHEMA.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
-#Include .\WINBIO_PRESENCE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\WINBIO_EVENT.ahk
-#Include .\WINBIO_BIR.ahk
-#Include .\WINBIO_COMPONENT.ahk
-#Include .\WINBIO_EXTENDED_UNIT_STATUS.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\WINBIO_IDENTITY.ahk
-#Include .\WINBIO_PROTECTION_POLICY.ahk
+#Include .\WINBIO_BIR.ahk
 #Include .\WINBIO_BSP_SCHEMA.ahk
+#Include .\WINBIO_COMPONENT.ahk
+#Include .\WINBIO_EVENT.ahk
+#Include .\WINBIO_EXTENDED_UNIT_STATUS.ahk
+#Include .\WINBIO_IDENTITY.ahk
+#Include .\WINBIO_PRESENCE.ahk
+#Include .\WINBIO_PROTECTION_POLICY.ahk
+#Include .\WINBIO_STORAGE_SCHEMA.ahk
 #Include .\WINBIO_UNIT_SCHEMA.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains the results of an asynchronous operation.

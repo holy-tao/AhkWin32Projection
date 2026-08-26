@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEVRFilterConfig.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IEVRFilterConfig.ahk
 
 /**
  * Configures the DirectShow Enhanced Video Renderer (EVR) filter.

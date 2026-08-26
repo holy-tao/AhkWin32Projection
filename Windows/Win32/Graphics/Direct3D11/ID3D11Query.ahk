@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D11Asynchronous.ahk
 #Include .\D3D11_QUERY_DESC.ahk
+#Include .\ID3D11Asynchronous.ahk
 
 /**
  * A query interface queries information from the GPU. (ID3D11Query)

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\POINTL.ahk
-#Include .\POINTE.ahk
 #Include .\FD_XFORM.ahk
+#Include .\POINTE.ahk
+#Include ..\..\Foundation\POINTL.ahk
 
 /**
  * The FD_DEVICEMETRICS structure is used to provide device-specific font information to GDI if the iMode parameter of the driver-supplied DrvQueryFontData function is QFD_MAXEXTENTS.

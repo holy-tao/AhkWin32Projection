@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\COLORREF.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Foundation\LRESULT.ahk
-#Include .\NSTCCUSTOMDRAW.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\NSTCCUSTOMDRAW.ahk
 
 /**
  * Exposes methods that enable the user to draw a custom namespace tree control and its items.

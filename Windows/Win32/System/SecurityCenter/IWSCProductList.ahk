@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IDispatch.ahk
 #Include .\IWscProduct.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides methods to collect product information for the selected type of providers installed on the computer.

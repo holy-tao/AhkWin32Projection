@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\FIRMWARE_ACTIVATION_HISTORY_ENTRY.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\FIRMWARE_ACTIVATION_HISTORY_ENTRY.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Nvme

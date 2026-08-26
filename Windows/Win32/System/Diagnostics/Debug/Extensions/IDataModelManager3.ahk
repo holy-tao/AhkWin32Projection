@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IFilteredNamespacePropertyToken.ahk
-#Include .\INamedModelsEnumerator.ahk
-#Include .\IDataModelManager2.ahk
-#Include ..\..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include .\IDataModelManager2.ahk
+#Include .\IFilteredNamespacePropertyToken.ahk
 #Include .\IKeyStore.ahk
-#Include .\IModelObject.ahk
 #Include .\IModelMethod.ahk
+#Include .\IModelObject.ahk
+#Include .\INamedModelsEnumerator.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

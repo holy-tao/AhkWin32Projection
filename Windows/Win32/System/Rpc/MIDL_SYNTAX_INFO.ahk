@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\RPC_VERSION.ahk
 #Include .\MIDL_INTERFACE_METHOD_PROPERTIES.ahk
 #Include .\RPC_DISPATCH_TABLE.ahk
 #Include .\RPC_SYNTAX_IDENTIFIER.ahk
+#Include .\RPC_VERSION.ahk
 
 /**
  * @namespace Windows.Win32.System.Rpc

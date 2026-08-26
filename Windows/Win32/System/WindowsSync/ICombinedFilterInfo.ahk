@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISyncFilterInfo.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include .\FILTER_COMBINATION_TYPE.ahk
+#Include .\ISyncFilterInfo.ahk
 
 /**
  * @namespace Windows.Win32.System.WindowsSync

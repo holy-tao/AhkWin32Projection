@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\Time\TIME_ZONE_INFORMATION.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\SYSTEMTIME.ahk
+#Include ..\..\Time\TIME_ZONE_INFORMATION.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw

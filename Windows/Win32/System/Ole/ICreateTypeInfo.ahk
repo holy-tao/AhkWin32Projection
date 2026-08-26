@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\FUNCDESC.ahk
-#Include ..\Com\IMPLTYPEFLAGS.ahk
-#Include ..\Com\VARDESC.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\ITypeInfo.ahk
-#Include ..\Com\TYPEDESC.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Com\FUNCDESC.ahk
 #Include ..\Com\IDLDESC.ahk
+#Include ..\Com\IMPLTYPEFLAGS.ahk
+#Include ..\Com\ITypeInfo.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\Com\TYPEDESC.ahk
+#Include ..\Com\VARDESC.ahk
 
 /**
  * Provides the tools for creating and administering the type information defined through the type description. (ICreateTypeInfo)

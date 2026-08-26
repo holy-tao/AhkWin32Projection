@@ -2,13 +2,13 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IDedupDataPort.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\DedupChunkingAlgorithm.ahk
 #Include .\DedupCompressionAlgorithm.ahk
-#Include .\DedupHashingAlgorithm.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\DedupDataPortVolumeStatus.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\DedupHashingAlgorithm.ahk
+#Include .\IDedupDataPort.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Storage.DataDeduplication

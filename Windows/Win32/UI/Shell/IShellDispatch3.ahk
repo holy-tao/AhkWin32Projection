@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IShellDispatch2.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the IShellDispatch2 object.

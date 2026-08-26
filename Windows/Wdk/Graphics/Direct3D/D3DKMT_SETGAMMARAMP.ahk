@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DDDI_GAMMA_RAMP_DXGI_1.ahk
 #Include .\D3DDDI_GAMMARAMP_TYPE.ahk
+#Include .\D3DDDI_GAMMA_RAMP_DXGI_1.ahk
 #Include .\D3DDDI_GAMMA_RAMP_RGB256x3x16.ahk
 
 /**

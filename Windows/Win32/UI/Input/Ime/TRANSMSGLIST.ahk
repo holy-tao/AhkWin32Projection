@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\LPARAM.ahk
-#Include .\TRANSMSG.ahk
 #Include ..\..\..\Foundation\WPARAM.ahk
+#Include .\TRANSMSG.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime

@@ -2,18 +2,18 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IX509SignatureInformation.ahk
-#Include .\ICryptAttributes.ahk
-#Include .\IX509CertificateRequestPkcs7.ahk
-#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IX509NameValuePairs.ahk
-#Include .\IX509CertificateRequest.ahk
-#Include .\ISignerCertificates.ahk
-#Include .\IX509Extensions.ahk
-#Include .\IObjectId.ahk
-#Include .\EncodingType.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\EncodingType.ahk
+#Include .\ICryptAttributes.ahk
+#Include .\IObjectId.ahk
 #Include .\IObjectIds.ahk
+#Include .\ISignerCertificates.ahk
+#Include .\IX509CertificateRequest.ahk
+#Include .\IX509CertificateRequestPkcs7.ahk
+#Include .\IX509Extensions.ahk
+#Include .\IX509NameValuePairs.ahk
+#Include .\IX509SignatureInformation.ahk
 
 /**
  * Represents a CMC (Certificate Management Message over CMS) certificate request.

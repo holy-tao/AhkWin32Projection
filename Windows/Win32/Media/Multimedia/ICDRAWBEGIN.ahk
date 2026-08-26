@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Graphics\Gdi\HPALETTE.ahk
 #Include ..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
+#Include ..\..\Graphics\Gdi\HPALETTE.ahk
 
 /**
  * The ICDRAWBEGIN structure contains decompression parameters used with the ICM_DRAW_BEGIN message.

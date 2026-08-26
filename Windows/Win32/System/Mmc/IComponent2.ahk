@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IDispatch.ahk
 #Include .\DATA_OBJECT_TYPES.ahk
-#Include .\RESULT_VIEW_TYPE_INFO.ahk
 #Include .\IComponent.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\RESULT_VIEW_TYPE_INFO.ahk
 
 /**
  * The IComponent2 interface, implemented by snap-ins, is introduced in MMC 2.0 and supersedes the IComponent interface.

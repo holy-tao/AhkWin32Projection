@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\DEDUP_CONTAINER_EXTENT.ahk
-#Include .\DDP_FILE_EXTENT.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\DDP_FILE_EXTENT.ahk
+#Include .\DEDUP_CONTAINER_EXTENT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * A callback interface, implemented by backup applications, that enables Data Deduplication to read content from metadata and container files residing in a backup store and optionally improve restore efficiency.

@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IShellItemArray.ahk
-#Include .\IShellItem.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\POINT.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IShellItem.ahk
+#Include .\IShellItemArray.ahk
 #Include .\IShellItemFilter.ahk
 #Include .\NSTCGNI.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods used to view and manipulate nodes in a tree of Shell items.

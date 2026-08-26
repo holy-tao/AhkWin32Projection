@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\_ExportListOptions.ahk
-#Include .\Columns.ahk
-#Include .\Frame.ahk
-#Include .\Document.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include .\ContextMenu.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\_ListViewMode.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\Columns.ahk
+#Include .\ContextMenu.ahk
+#Include .\Document.ahk
+#Include .\Frame.ahk
 #Include .\Node.ahk
 #Include .\Nodes.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\_ExportListOptions.ahk
+#Include .\_ListViewMode.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * The View object represents a result set obtained when processing a query using the OpenView method of the Database object.

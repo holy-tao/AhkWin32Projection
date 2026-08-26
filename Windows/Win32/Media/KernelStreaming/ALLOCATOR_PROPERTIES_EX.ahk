@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PIPE_DIMENSIONS.ahk
-#Include .\KS_FRAMING_RANGE_WEIGHTED.ahk
-#Include .\IKsAllocatorEx.ahk
-#Include .\KS_FRAMING_RANGE.ahk
-#Include .\PIPE_STATE.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\PIPE_ALLOCATOR_PLACE.ahk
-#Include .\PIPE_TERMINATION.ahk
-#Include .\KS_LogicalMemoryType.ahk
+#Include .\IKsAllocatorEx.ahk
 #Include .\KS_COMPRESSION.ahk
+#Include .\KS_FRAMING_RANGE.ahk
+#Include .\KS_FRAMING_RANGE_WEIGHTED.ahk
+#Include .\KS_LogicalMemoryType.ahk
+#Include .\PIPE_ALLOCATOR_PLACE.ahk
+#Include .\PIPE_DIMENSIONS.ahk
+#Include .\PIPE_STATE.ahk
+#Include .\PIPE_TERMINATION.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

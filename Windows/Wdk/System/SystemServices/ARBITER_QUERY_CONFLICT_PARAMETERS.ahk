@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IO_RESOURCE_DESCRIPTOR.ahk
-#Include .\ARBITER_CONFLICT_INFO.ahk
 #Include ..\..\Foundation\DEVICE_OBJECT.ahk
+#Include .\ARBITER_CONFLICT_INFO.ahk
+#Include .\IO_RESOURCE_DESCRIPTOR.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

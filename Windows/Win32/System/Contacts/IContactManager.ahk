@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IContact.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IContact.ahk
 #Include .\IContactCollection.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Do not use. Used for retrieving a contact, based on a contact ID string.

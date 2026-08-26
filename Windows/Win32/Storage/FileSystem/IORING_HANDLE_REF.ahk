@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IORING_REF_KIND.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\IORING_REF_KIND.ahk
 
 /**
  * Represents a reference to a file handle used in an I/O ring operation.

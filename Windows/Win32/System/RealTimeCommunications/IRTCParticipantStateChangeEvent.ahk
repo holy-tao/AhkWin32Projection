@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\RTC_PARTICIPANT_STATE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IRTCParticipant.ahk
+#Include .\RTC_PARTICIPANT_STATE.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

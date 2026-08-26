@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISearchCatalogManager.ahk
-#Include ..\Com\StructuredStorage\PROPVARIANT.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\PROXY_ACCESS.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\Com\StructuredStorage\PROPVARIANT.ahk
+#Include .\ISearchCatalogManager.ahk
+#Include .\PROXY_ACCESS.ahk
 
 /**
  * Provides methods for controlling the Search service. This interface manages settings and objects that affect the search engine across catalogs.

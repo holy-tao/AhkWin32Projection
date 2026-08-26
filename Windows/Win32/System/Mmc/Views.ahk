@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IDispatch.ahk
-#Include .\_ViewOptions.ahk
-#Include .\View.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\Node.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\View.ahk
+#Include .\_ViewOptions.ahk
 
 /**
  * @namespace Windows.Win32.System.Mmc

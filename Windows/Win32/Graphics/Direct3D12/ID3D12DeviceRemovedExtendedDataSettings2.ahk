@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12DeviceRemovedExtendedDataSettings1.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include .\ID3D12DeviceRemovedExtendedDataSettings1.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

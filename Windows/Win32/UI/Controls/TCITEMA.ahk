@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\LPARAM.ahk
-#Include .\TCITEMHEADERA_MASK.ahk
 #Include ..\..\Foundation\PSTR.ahk
 #Include .\TAB_CONTROL_ITEM_STATE.ahk
+#Include .\TCITEMHEADERA_MASK.ahk
 
 /**
  * Specifies or receives the attributes of a tab item. It is used with the TCM_INSERTITEM, TCM_GETITEM, and TCM_SETITEM messages. This structure supersedes the TC_ITEM structure. (ANSI)

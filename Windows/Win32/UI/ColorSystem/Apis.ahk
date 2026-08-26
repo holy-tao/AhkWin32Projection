@@ -1,37 +1,37 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include .\ENUMTYPEA.ahk
-#Include ..\..\Graphics\Gdi\RGBTRIPLE.ahk
-#Include ..\..\Foundation\LUID.ahk
-#Include .\PROFILE.ahk
-#Include .\LOGCOLORSPACEW.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\COLORPROFILETYPE.ahk
-#Include .\HCOLORSPACE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\COLOR_MATCH_TO_TARGET_ACTION.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\COLOR.ahk
-#Include .\COLORMATCHSETUPA.ahk
-#Include .\ICM_COMMAND.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
-#Include .\WCS_PROFILE_MANAGEMENT_SCOPE.ahk
-#Include .\COLORTYPE.ahk
-#Include .\ICM_MODE.ahk
-#Include .\COLORDATATYPE.ahk
-#Include .\ENUMTYPEW.ahk
-#Include .\COLORPROFILESUBTYPE.ahk
-#Include .\NAMED_PROFILE_INFO.ahk
+#Include ..\..\Foundation\COLORREF.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\LUID.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
+#Include ..\..\Graphics\Gdi\HPALETTE.ahk
+#Include ..\..\Graphics\Gdi\RGBTRIPLE.ahk
 #Include .\BMFORMAT.ahk
+#Include .\COLOR.ahk
+#Include .\COLORDATATYPE.ahk
+#Include .\COLORMATCHSETUPA.ahk
+#Include .\COLORMATCHSETUPW.ahk
+#Include .\COLORPROFILESUBTYPE.ahk
+#Include .\COLORPROFILETYPE.ahk
+#Include .\COLORTYPE.ahk
+#Include .\COLOR_MATCH_TO_TARGET_ACTION.ahk
+#Include .\ENUMTYPEA.ahk
+#Include .\ENUMTYPEW.ahk
+#Include .\HCOLORSPACE.ahk
+#Include .\ICM_COMMAND.ahk
+#Include .\ICM_MODE.ahk
+#Include .\LOGCOLORSPACEA.ahk
+#Include .\LOGCOLORSPACEW.ahk
+#Include .\NAMED_PROFILE_INFO.ahk
+#Include .\PROFILE.ahk
 #Include .\PROFILEHEADER.ahk
 #Include .\WCS_DEVICE_CAPABILITIES_TYPE.ahk
-#Include ..\..\Foundation\COLORREF.ahk
-#Include .\LOGCOLORSPACEA.ahk
-#Include .\COLORMATCHSETUPW.ahk
-#Include ..\..\Graphics\Gdi\HPALETTE.ahk
+#Include .\WCS_PROFILE_MANAGEMENT_SCOPE.ahk
 
 /**
  * @namespace Windows.Win32.UI.ColorSystem
@@ -1949,7 +1949,13 @@ class ColorSystem {
     /**
      * Retrieves various information about the color management module (CMM) that created the specified color transform.
      * @param {Pointer} hColorTransform Identifies the transform for which to find CMM information.
-     * @param {Integer} param1 
+     * @param {Integer} param1 Specifies the information to be retrieved. This parameter can take one of the following constant values.
+     * 
+     * | Value | Meaning |
+     * |-|-|
+     * | <span id="CMM_WIN_VERSION"></span><span id="cmm_win_version"></span><dl> <dt>**CMM\_WIN\_VERSION**</dt> </dl> | Retrieves the version of Windows targeted by the color management module (CMM).<br/> |
+     * | <span id="CMM_DLL_VERSION"></span><span id="cmm_dll_version"></span><dl> <dt>**CMM\_DLL\_VERSION**</dt> </dl> | Retrieves the version number of the CMM.<br/> |
+     * | <span id="CMM_IDENT"></span><span id="cmm_ident"></span><dl> <dt>**CMM\_IDENT**</dt> </dl> | Retrieves the CMM signature registered with the International Color Consortium (ICC).<br/> |
      * @returns {Integer} If this function succeeds, the return value is the information specified in *dwInfo.*
      * 
      * If this function fails, the return value is zero.

@@ -2,11 +2,11 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\CR_DISP.ahk
-#Include .\X509EnrollmentAuthFlags.ahk
-#Include .\ICertRequest2.ahk
-#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\CR_DISP.ahk
+#Include .\ICertRequest2.ahk
+#Include .\X509EnrollmentAuthFlags.ahk
 
 /**
  * Provide communications between a client or intermediary application and Certificate Services. (ICertRequest3)

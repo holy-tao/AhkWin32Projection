@@ -2,10 +2,10 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IScanningTuner.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\ILocator.ahk
+#Include .\IScanningTuner.ahk
 
 /**
  * This topic applies to Windows Vista.

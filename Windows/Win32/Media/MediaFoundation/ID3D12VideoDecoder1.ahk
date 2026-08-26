@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12VideoDecoder.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID3D12VideoDecoder.ahk
 
 /**
  * Represents a Direct3D 12 video decoder that contains resolution-independent resources and state for performing the decode operation. Adds support for protected resources.

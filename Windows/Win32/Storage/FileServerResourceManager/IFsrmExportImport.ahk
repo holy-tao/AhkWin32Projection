@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IFsrmCommittableCollection.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IFsrmCommittableCollection.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to export and import FSRM objects.

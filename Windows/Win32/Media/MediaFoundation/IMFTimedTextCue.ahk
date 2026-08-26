@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFTimedTextFormattedText.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\IMFTimedTextStyle.ahk
-#Include .\IMFTimedTextRegion.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFTimedTextBinary.ahk
-#Include .\MF_TIMED_TEXT_TRACK_KIND.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IMFTimedTextBinary.ahk
+#Include .\IMFTimedTextFormattedText.ahk
+#Include .\IMFTimedTextRegion.ahk
+#Include .\IMFTimedTextStyle.ahk
+#Include .\MF_TIMED_TEXT_TRACK_KIND.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents the timed-text-cue object.

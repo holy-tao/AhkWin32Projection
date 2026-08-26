@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_PARTITION_INFO_MBR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\VDS_PARTITION_INFO_GPT.ahk
 #Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\VDS_PARTITION_INFO_GPT.ahk
+#Include .\VDS_PARTITION_INFO_MBR.ahk
 #Include .\VDS_PARTITION_STYLE.ahk
 
 /**

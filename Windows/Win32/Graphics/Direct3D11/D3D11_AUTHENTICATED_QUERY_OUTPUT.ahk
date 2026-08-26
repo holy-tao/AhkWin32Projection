@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include .\D3D11_OMAC.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3D11_OMAC.ahk
 
 /**
  * Contains a response from the ID3D11VideoContext::QueryAuthenticatedChannel method.

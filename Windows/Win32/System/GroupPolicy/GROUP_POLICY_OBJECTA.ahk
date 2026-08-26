@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\LPARAM.ahk
-#Include .\GROUP_POLICY_OBJECTA.ahk
-#Include .\GPO_LINK.ahk
 #Include ..\..\Foundation\PSTR.ahk
+#Include .\GPO_LINK.ahk
 
 /**
  * The GROUP_POLICY_OBJECT structure provides information about a GPO in a GPO list. (ANSI)

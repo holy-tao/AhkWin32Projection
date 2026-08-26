@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\VIRTUAL_STORAGE_TYPE.ahk
 #Include .\DEPENDENT_DISK_FLAG.ahk
+#Include .\VIRTUAL_STORAGE_TYPE.ahk
 
 /**
  * Contains virtual hard disk (VHD) storage dependency information for type 1.

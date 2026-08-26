@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1GradientStopCollection.ahk
-#Include .\D2D1_BUFFER_PRECISION.ahk
 #Include Common\D2D1_GRADIENT_STOP.ahk
-#Include .\D2D1_COLOR_SPACE.ahk
+#Include .\D2D1_BUFFER_PRECISION.ahk
 #Include .\D2D1_COLOR_INTERPOLATION_MODE.ahk
+#Include .\D2D1_COLOR_SPACE.ahk
+#Include .\ID2D1GradientStopCollection.ahk
 
 /**
  * Represents a collection of D2D1_GRADIENT_STOP objects for linear and radial gradient brushes. It provides get methods for all the new parameters added to the gradient stop collection.

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontFileStream.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteAsyncResult.ahk
-#Include .\DWRITE_FILE_FRAGMENT.ahk
-#Include .\DWRITE_LOCALITY.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\DWRITE_FILE_FRAGMENT.ahk
+#Include .\DWRITE_LOCALITY.ahk
+#Include .\IDWriteAsyncResult.ahk
+#Include .\IDWriteFontFileStream.ahk
 
 /**
  * Represents a font file stream, parts of which may be non-local.

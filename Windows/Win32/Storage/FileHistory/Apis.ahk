@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\FH_SERVICE_PIPE_HANDLE.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\FH_SERVICE_PIPE_HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileHistory

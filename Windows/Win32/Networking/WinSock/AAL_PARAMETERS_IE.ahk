@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\AALUSER_PARAMETERS.ahk
 #Include .\AAL5_PARAMETERS.ahk
+#Include .\AALUSER_PARAMETERS.ahk
 #Include .\AAL_TYPE.ahk
 
 /**

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IDataModelScript.ahk
-#Include .\ScriptExecutionKind.ahk
-#Include .\IModelObject.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include .\ScriptDebugEventInformation.ahk
 #Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+#Include .\IDataModelScript.ahk
+#Include .\IModelObject.ahk
+#Include .\ScriptDebugEventInformation.ahk
+#Include .\ScriptExecutionKind.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

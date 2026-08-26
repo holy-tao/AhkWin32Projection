@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_SERVICE_BINDING_TYPE.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include .\HTTP_SERVICE_BINDING_BASE.ahk
+#Include .\HTTP_SERVICE_BINDING_TYPE.ahk
 
 /**
  * HTTP_SERVICE_BINDING_W.

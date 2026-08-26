@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
-#Include ..\Gdi\DEVMODEA.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include ..\Gdi\DEVMODEA.ahk
+#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 
 /**
  * The JOB\_INFO\_2 structure describes a full set of values associated with a job.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MI_Qualifier.ahk
 #Include .\MI_PropertyDecl.ahk
+#Include .\MI_Qualifier.ahk
 
 /**
  * Contains properties common to the MI_ClassDecl and MI_PropertyDecl structures.

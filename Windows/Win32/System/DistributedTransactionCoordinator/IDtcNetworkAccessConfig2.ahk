@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDtcNetworkAccessConfig.ahk
-#Include .\AUTHENTICATION_LEVEL.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\AUTHENTICATION_LEVEL.ahk
+#Include .\IDtcNetworkAccessConfig.ahk
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator

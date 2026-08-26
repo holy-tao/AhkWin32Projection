@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumSpObjectTokens.ahk
-#Include .\ISpObjectToken.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\ISpDataKey.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IEnumSpObjectTokens.ahk
+#Include .\ISpDataKey.ahk
+#Include .\ISpObjectToken.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech

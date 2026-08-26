@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWPM_APPC_NETWORK_CAPABILITY_TYPE.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include .\FWPM_APPC_NETWORK_CAPABILITY_TYPE.ahk
 
 /**
  * Contains information about network traffic allowed in relation to an app container network capability.

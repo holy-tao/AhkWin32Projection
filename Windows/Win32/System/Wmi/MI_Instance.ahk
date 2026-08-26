@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MI_InstanceFT.ahk
 #Include .\MI_ClassDecl.ahk
+#Include .\MI_InstanceFT.ahk
 
 /**
  * This structure represents a CIM instance. This object should not be accessed directly. Instead, the MI_Instance_* functions should be used.

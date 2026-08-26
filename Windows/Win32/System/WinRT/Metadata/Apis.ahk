@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ROPARAMIIDHANDLE.ahk
-#Include .\IMetaDataDispenserEx.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
-#Include ..\HSTRING.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
-#Include .\IMetaDataImport2.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\HSTRING.ahk
+#Include .\IMetaDataDispenserEx.ahk
+#Include .\IMetaDataImport2.ahk
 #Include .\IRoMetaDataLocator.ahk
+#Include .\ROPARAMIIDHANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata

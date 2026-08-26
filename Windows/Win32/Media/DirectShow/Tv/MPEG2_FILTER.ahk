@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\DSMCC_FILTER_OPTIONS.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
 #Include .\ATSC_FILTER_OPTIONS.ahk
+#Include .\DSMCC_FILTER_OPTIONS.ahk
 
 /**
  * The MPEG2_FILTER structure specifies criteria for matching MPEG-2 section headers.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CERT_PRIVATE_KEY_VALIDITY.ahk
 #Include .\CRYPT_BIT_BLOB.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
-#Include .\CERT_PRIVATE_KEY_VALIDITY.ahk
 
 /**
  * The CERT_KEY_ATTRIBUTES_INFO structure contains optional additional information about the public key being certified.

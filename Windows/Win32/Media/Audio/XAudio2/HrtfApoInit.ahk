@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\HrtfDistanceDecay.ahk
 #Include .\HrtfDirectivity.ahk
+#Include .\HrtfDistanceDecay.ahk
 
 /**
  * Specifies parameters used to initialize HRTF spatial audio.

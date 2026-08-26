@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMReaderAdvanced5.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWMReaderAdvanced5.ahk
 
 /**
  * The IWMReaderAdvanced6 interface enables sample protection.An IWMReaderAdvanced6 interface exists for every reader object.

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ICorProfilerFunctionEnum.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
-#Include .\ICorProfilerModuleEnum.ahk
-#Include .\COR_PRF_FUNCTION_ARGUMENT_INFO.ahk
-#Include .\ICorProfilerInfo2.ahk
-#Include .\COR_PRF_FUNCTION_ARGUMENT_RANGE.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\COR_PRF_FUNCTION_ARGUMENT_INFO.ahk
+#Include .\COR_PRF_FUNCTION_ARGUMENT_RANGE.ahk
 #Include .\COR_PRF_RUNTIME_TYPE.ahk
+#Include .\ICorProfilerFunctionEnum.ahk
+#Include .\ICorProfilerInfo2.ahk
+#Include .\ICorProfilerModuleEnum.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling

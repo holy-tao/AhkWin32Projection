@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\SCHEMACONTENTTYPE.ahk
+#Include .\ISchemaAny.ahk
 #Include .\ISchemaItemCollection.ahk
 #Include .\ISchemaModelGroup.ahk
-#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\ISchemaAny.ahk
 #Include .\ISchemaType.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\SCHEMACONTENTTYPE.ahk
 #Include .\SCHEMADERIVATIONMETHOD.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml

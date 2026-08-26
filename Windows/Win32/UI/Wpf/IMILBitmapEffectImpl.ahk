@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\MilRectD.ahk
-#Include .\IMILBitmapEffectRenderContext.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMILBitmapEffectOutputConnector.ahk
-#Include ..\..\Graphics\Imaging\IWICBitmapSource.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Graphics\Imaging\IWICBitmapSource.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMILBitmapEffectGroup.ahk
+#Include .\IMILBitmapEffectOutputConnector.ahk
+#Include .\IMILBitmapEffectRenderContext.ahk
+#Include .\MilRectD.ahk
 
 /**
  * Exposes methods that define an an out IMILBitmapEffect object.

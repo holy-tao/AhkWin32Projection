@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IFsrmFileManagementJob.ahk
-#Include ..\..\System\Com\SAFEARRAY.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\FsrmEnumOptions.ahk
 #Include .\IFsrmCollection.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IFsrmFileManagementJob.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 
 /**
  * Used to manage file management jobs.

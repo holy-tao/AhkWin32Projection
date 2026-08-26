@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include .\EAP_METHOD_TYPE.ahk
-#Include ..\..\..\..\Guid.ahk
 #Include .\EAP_TYPE.ahk
 
 /**

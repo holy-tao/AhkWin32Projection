@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\VDS_INTERCONNECT.ahk
 #Include .\VDS_STORAGE_BUS_TYPE.ahk
 #Include .\VDS_STORAGE_DEVICE_ID_DESCRIPTOR.ahk
 #Include .\VDS_STORAGE_IDENTIFIER.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\VDS_INTERCONNECT.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Defines information about a LUN or disk. Applications can use this structure to uniquely identify a LUN at all times.

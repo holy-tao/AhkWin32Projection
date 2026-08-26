@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ExtendedIsolationState.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include .\IsolationState.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CountedString.ahk
+#Include .\ExtendedIsolationState.ahk
+#Include .\IsolationState.ahk
 
 /**
  * Defines the extended isolation status of the machine or the connection.

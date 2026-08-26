@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WNV_OBJECT_HEADER.ahk
 #Include .\WNV_NOTIFICATION_TYPE.ahk
+#Include .\WNV_OBJECT_HEADER.ahk
 
 /**
  * Specifies the version, notification type, and the buffer location in a WnvRequestNotification function call.

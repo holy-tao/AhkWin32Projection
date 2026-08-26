@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\GameInputForceFeedbackParams.ahk
-#Include .\GameInputFeedbackEffectState.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\GameInputFeedbackEffectState.ahk
+#Include .\GameInputForceFeedbackParams.ahk
 #Include .\IGameInputDevice.ahk
 
 /**

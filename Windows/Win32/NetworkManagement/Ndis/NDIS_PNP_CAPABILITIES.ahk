@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_PM_WAKE_UP_CAPABILITIES.ahk
 #Include .\NDIS_DEVICE_POWER_STATE.ahk
+#Include .\NDIS_PM_WAKE_UP_CAPABILITIES.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis

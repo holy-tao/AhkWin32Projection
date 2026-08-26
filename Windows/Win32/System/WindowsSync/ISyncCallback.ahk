@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\SYNC_FULL_ENUMERATION_ACTION.ahk
-#Include .\SYNC_PROVIDER_ROLE.ahk
-#Include .\ISyncChange.ahk
-#Include .\SYNC_PROGRESS_STAGE.ahk
-#Include .\IRecoverableError.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\IChangeConflict.ahk
+#Include .\IRecoverableError.ahk
+#Include .\ISyncChange.ahk
+#Include .\SYNC_FULL_ENUMERATION_ACTION.ahk
+#Include .\SYNC_PROGRESS_STAGE.ahk
+#Include .\SYNC_PROVIDER_ROLE.ahk
 
 /**
  * Represents application callbacks that are used to notify the application of synchronization events.

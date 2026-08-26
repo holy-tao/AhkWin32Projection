@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IInkTablet.ahk
-#Include .\IInkCursorButtons.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IInkDrawingAttributes.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\IInkCursorButtons.ahk
+#Include .\IInkDrawingAttributes.ahk
+#Include .\IInkTablet.ahk
 
 /**
  * Represents general information about the tablet cursor.

@@ -2,13 +2,13 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IStream.ahk
-#Include .\ITextSelection.ahk
-#Include .\ITextRow.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\ITextPara2.ahk
-#Include .\ITextFont2.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\System\Com\IStream.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\ITextFont2.ahk
+#Include .\ITextPara2.ahk
+#Include .\ITextRow.ahk
+#Include .\ITextSelection.ahk
 
 /**
  * The ITextRange2 interface is derived from ITextRange, and its objects are powerful editing and data-binding tools that enable a program to select text in a story and then examine or change that text.

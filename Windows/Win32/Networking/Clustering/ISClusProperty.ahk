@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\CLUSTER_PROPERTY_FORMAT.ahk
+#Include .\CLUSTER_PROPERTY_TYPE.ahk
 #Include .\ISClusPropertyValues.ahk
 #Include ..\..\System\Com\IDispatch.ahk
-#Include .\CLUSTER_PROPERTY_TYPE.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include .\CLUSTER_PROPERTY_FORMAT.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Networking.Clustering

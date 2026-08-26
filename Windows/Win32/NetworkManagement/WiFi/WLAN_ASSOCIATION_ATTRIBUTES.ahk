@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DOT11_BSS_TYPE.ahk
-#Include .\DOT11_SSID.ahk
 #Include .\DOT11_PHY_TYPE.ahk
+#Include .\DOT11_SSID.ahk
 
 /**
  * Contains association attributes for a connection.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WLAN_QOS_CAPABILITIES.ahk
-#Include .\WLAN_CONNECTION_QOS_INFO.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include .\WLAN_CONNECTION_QOS_INFO.ahk
+#Include .\WLAN_QOS_CAPABILITIES.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi

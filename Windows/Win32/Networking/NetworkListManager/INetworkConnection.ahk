@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\NLM_CONNECTIVITY.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\INetwork.ahk
+#Include .\NLM_CONNECTIVITY.ahk
 #Include .\NLM_DOMAIN_TYPE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The INetworkConnection interface represents a single network connection.

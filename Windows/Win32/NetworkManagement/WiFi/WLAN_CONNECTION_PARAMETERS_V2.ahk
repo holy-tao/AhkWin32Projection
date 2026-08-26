@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\DOT11_ACCESSNETWORKOPTIONS.ahk
 #Include .\DOT11_BSSID_LIST.ahk
 #Include .\DOT11_BSS_TYPE.ahk
 #Include .\DOT11_SSID.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\DOT11_ACCESSNETWORKOPTIONS.ahk
 #Include .\WLAN_CONNECTION_MODE.ahk
 
 /**

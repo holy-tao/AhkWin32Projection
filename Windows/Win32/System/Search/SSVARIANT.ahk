@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DB_NUMERIC.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\DBOBJECT.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\DBTIMESTAMP.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\Com\CY.ahk
 #Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\PSTR.ahk
+#Include .\DBOBJECT.ahk
+#Include .\DBTIMESTAMP.ahk
+#Include .\DB_NUMERIC.ahk
 
 /**
  * @namespace Windows.Win32.System.Search

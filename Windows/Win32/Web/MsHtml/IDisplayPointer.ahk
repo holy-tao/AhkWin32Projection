@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IHTMLElement.ahk
-#Include ..\..\Foundation\POINT.ahk
-#Include .\ILineInfo.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\DISPLAY_GRAVITY.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\DISPLAY_MOVEUNIT.ahk
-#Include .\IMarkupPointer.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\POINT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\COORD_SYSTEM.ahk
+#Include .\DISPLAY_GRAVITY.ahk
+#Include .\DISPLAY_MOVEUNIT.ahk
+#Include .\IHTMLElement.ahk
+#Include .\ILineInfo.ahk
+#Include .\IMarkupPointer.ahk
 #Include .\POINTER_GRAVITY.ahk
 
 /**

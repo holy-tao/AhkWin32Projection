@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MODEM_SPEAKER_VOLUME.ahk
 #Include .\MODEMSETTINGS_SPEAKER_MODE.ahk
+#Include .\MODEM_SPEAKER_VOLUME.ahk
 
 /**
  * Contains information about a modem's configuration.

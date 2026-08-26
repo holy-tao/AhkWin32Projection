@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PWSTR.ahk
+#Include .\UI_EVENTLOCATION.ahk
 #Include .\UI_EVENTPARAMS_COMMAND.ahk
 #Include .\UI_EVENTTYPE.ahk
-#Include .\UI_EVENTLOCATION.ahk
 
 /**
  * Contains information about a Ribbon event.

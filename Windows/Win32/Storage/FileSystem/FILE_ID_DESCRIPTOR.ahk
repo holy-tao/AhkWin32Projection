@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\FILE_ID_TYPE.ahk
 #Include .\FILE_ID_128.ahk
+#Include .\FILE_ID_TYPE.ahk
 
 /**
  * Specifies the type of ID that is being used.

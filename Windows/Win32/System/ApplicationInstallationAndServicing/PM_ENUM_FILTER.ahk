@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PM_TILE_HUBTYPE.ahk
-#Include .\PM_APPTASKTYPE.ahk
-#Include .\PM_BWTASKID.ahk
-#Include .\PM_APP_GENRE.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\PM_APPLICATION_HUBTYPE.ahk
-#Include .\PM_TASK_TYPE.ahk
-#Include .\PM_EXTENSIONCONSUMER.ahk
+#Include .\PM_APPTASKTYPE.ahk
+#Include .\PM_APP_GENRE.ahk
 #Include .\PM_BSATASKID.ahk
+#Include .\PM_BWTASKID.ahk
+#Include .\PM_EXTENSIONCONSUMER.ahk
+#Include .\PM_TASK_TYPE.ahk
+#Include .\PM_TILE_HUBTYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing

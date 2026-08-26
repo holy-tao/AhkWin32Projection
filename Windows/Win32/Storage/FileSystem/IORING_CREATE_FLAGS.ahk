@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IORING_CREATE_REQUIRED_FLAGS.ahk
 #Include .\IORING_CREATE_ADVISORY_FLAGS.ahk
+#Include .\IORING_CREATE_REQUIRED_FLAGS.ahk
 
 /**
  * Specifies flags for creating an I/O ring with a call to CreateIoRing.

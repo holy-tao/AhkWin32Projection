@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
-#Include .\SW_DEVICE_CREATE_INFO.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\HSWDEVICE.ahk
+#Include .\SW_DEVICE_CREATE_INFO.ahk
 #Include .\SW_DEVICE_LIFETIME.ahk
 #Include ..\..\Properties\DEVPROPERTY.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
-#Include .\HSWDEVICE.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Enumeration.Pnp

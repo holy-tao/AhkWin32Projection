@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\Com\IUnknown.ahk
 #Include .\IReferenceTrackerHost.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Defines the interface for a XAML object reference manager. Implement this interface to manage instances of IReferenceTracker on XAML objects.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D10DeviceChild.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID3D10DeviceChild.ahk
 
 /**
  * This interface encapsulates methods for retrieving data from the GPU asynchronously. (ID3D10Asynchronous)

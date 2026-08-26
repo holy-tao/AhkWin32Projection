@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\INetFwRule2.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\INetFwRule2.ahk
 
 /**
  * Allows an application or service to access all the properties of INetFwRule2 and to provide access to the requirements of app containers.

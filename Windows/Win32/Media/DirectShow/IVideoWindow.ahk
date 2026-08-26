@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\UI\WindowsAndMessaging\SHOW_WINDOW_CMD.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include .\OA_BOOL.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\UI\WindowsAndMessaging\SHOW_WINDOW_CMD.ahk
 
 /**
  * The IVideoWindow interface sets properties on the video window.

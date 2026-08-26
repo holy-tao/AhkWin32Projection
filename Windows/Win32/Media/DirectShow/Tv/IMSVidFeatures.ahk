@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IMSVidFeature.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
-#Include ..\..\..\System\Ole\IEnumVARIANT.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IMSVidFeature.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\System\Ole\IEnumVARIANT.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 
 /**
  * The IMSVidFeatures interface represents a collection of Video Control features.

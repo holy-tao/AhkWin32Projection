@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Registry\HKEY.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\Registry\HKEY.ahk
 
 /**
  * This structure is used by the WdsTransportProviderInitialize callback function. (WDS_TRANSPORTPROVIDER_INIT_PARAMS)

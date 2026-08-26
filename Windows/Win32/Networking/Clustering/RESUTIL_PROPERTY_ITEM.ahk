@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\RESUTIL_LARGEINT_DATA.ahk
-#Include .\RESUTIL_ULARGEINT_DATA.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include .\RESUTIL_FILETIME_DATA.ahk
+#Include .\RESUTIL_LARGEINT_DATA.ahk
+#Include .\RESUTIL_ULARGEINT_DATA.ahk
 
 /**
  * Contains information about a cluster object property. An array of RESUTIL_PROPERTY_ITEM structures forms a property table which can be used in property operations.

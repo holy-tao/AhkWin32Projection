@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Registry\HKEY.ahk
-#Include .\STI_USD_CAPS.ahk
-#Include .\STI_DIAG.ahk
-#Include .\STINOTIFY.ahk
 #Include .\IStiDeviceControl.ahk
+#Include .\STINOTIFY.ahk
+#Include .\STI_DEVICE_STATUS.ahk
+#Include .\STI_DIAG.ahk
+#Include .\STI_USD_CAPS.ahk
+#Include .\_ERROR_INFOW.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\IO\OVERLAPPED.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\STI_DEVICE_STATUS.ahk
-#Include .\_ERROR_INFOW.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Registry\HKEY.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Fax

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\BITMAP.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\BITMAP.ahk
 #Include .\BITMAPINFOHEADER.ahk
 
 /**

@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\CALLINFO_LONG.ahk
-#Include .\ITCallHub.ahk
 #Include .\CALLINFO_BUFFER.ahk
-#Include .\CALL_STATE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ITAddress.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\CALL_PRIVILEGE.ahk
+#Include .\CALLINFO_LONG.ahk
 #Include .\CALLINFO_STRING.ahk
+#Include .\CALL_PRIVILEGE.ahk
+#Include .\CALL_STATE.ahk
+#Include .\ITAddress.ahk
+#Include .\ITCallHub.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * The ITCallInfo interface gets and sets a variety of information concerning a Call object. The ITAddress::get_Calls and IEnumCall::Next methods create the ITCallInfo interface.

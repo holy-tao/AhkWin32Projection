@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDR64_BOGUS_ARRAY_HEADER_FORMAT.ahk
 #Include .\NDR64_ARRAY_FLAGS.ahk
+#Include .\NDR64_BOGUS_ARRAY_HEADER_FORMAT.ahk
 
 /**
  * @namespace Windows.Win32.System.Rpc

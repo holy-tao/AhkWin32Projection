@@ -2,13 +2,13 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\AlgorithmFlags.ahk
+#Include .\AlgorithmOperationFlags.ahk
 #Include .\AlgorithmType.ahk
 #Include .\IObjectId.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
-#Include .\AlgorithmOperationFlags.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Represents an algorithm implemented by a cryptographic provider.

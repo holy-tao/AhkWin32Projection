@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\DISPPARAMS.ahk
-#Include .\FDEX_PROP_FLAGS.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\DISPPARAMS.ahk
+#Include ..\Com\EXCEPINFO.ahk
 #Include ..\Com\IDispatch.ahk
 #Include ..\Com\IServiceProvider.ahk
 #Include ..\Com\IUnknown.ahk
-#Include ..\Com\EXCEPINFO.ahk
+#Include .\FDEX_PROP_FLAGS.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.System.Ole

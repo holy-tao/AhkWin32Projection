@@ -3,8 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDirectInputA.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice

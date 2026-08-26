@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IOverlayNotify.ahk
-#Include ..\..\Graphics\Gdi\HMONITOR.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Graphics\Gdi\HMONITOR.ahk
+#Include .\IOverlayNotify.ahk
 
 /**
  * The IOverlayNotify2 interface derives from the IOverlayNotify interface.

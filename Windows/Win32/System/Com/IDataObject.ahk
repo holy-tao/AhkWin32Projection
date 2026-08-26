@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumSTATDATA.ahk
-#Include .\FORMATETC.ahk
-#Include .\STGMEDIUM.ahk
-#Include .\IUnknown.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\IEnumFORMATETC.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\FORMATETC.ahk
 #Include .\IAdviseSink.ahk
+#Include .\IEnumFORMATETC.ahk
+#Include .\IEnumSTATDATA.ahk
+#Include .\IUnknown.ahk
+#Include .\STGMEDIUM.ahk
 
 /**
  * Enables data transfer and notification of changes in data.

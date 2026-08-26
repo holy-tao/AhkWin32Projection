@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_SHADER_BYTECODE.ahk
 #Include .\D3D12_EXPORT_DESC.ahk
+#Include .\D3D12_SHADER_BYTECODE.ahk
 
 /**
  * Describes a DXIL library state subobject that can be included in a state object.

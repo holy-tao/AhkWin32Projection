@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFactory.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDWriteFactory.ahk
 #Include .\IDWriteFontFileEnumerator.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Used to construct a collection of fonts given a particular type of key.

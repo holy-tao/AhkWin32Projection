@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\OLEUIGNRLPROPSW.ahk
 #Include .\IOleUILinkInfoW.ahk
+#Include .\IOleUIObjInfoW.ahk
+#Include .\OBJECT_PROPERTIES_FLAGS.ahk
+#Include .\OLEUIGNRLPROPSW.ahk
 #Include .\OLEUILINKPROPSW.ahk
 #Include .\OLEUIVIEWPROPSW.ahk
-#Include .\OBJECT_PROPERTIES_FLAGS.ahk
-#Include .\IOleUIObjInfoW.ahk
 #Include ..\..\UI\Controls\PROPSHEETHEADERW_V2.ahk
 
 /**

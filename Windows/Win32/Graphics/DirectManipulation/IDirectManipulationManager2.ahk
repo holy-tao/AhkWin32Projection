@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDirectManipulationManager.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDirectManipulationManager.ahk
 
 /**
  * Extends the IDirectManipulationManager interface that provides access to all the Direct Manipulation features and APIs available to the client application.

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\BYTE_BLOB.ahk
-#Include ..\SystemServices\userHMETAFILEPICT.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include ..\SystemServices\userHGLOBAL.ahk
+#Include .\BYTE_BLOB.ahk
 #Include .\GDI_OBJECT.ahk
-#Include ..\SystemServices\userHENHMETAFILE.ahk
 #Include .\IUnknown.ahk
+#Include ..\SystemServices\userHENHMETAFILE.ahk
+#Include ..\SystemServices\userHGLOBAL.ahk
+#Include ..\SystemServices\userHMETAFILEPICT.ahk
 
 /**
  * @namespace Windows.Win32.System.Com

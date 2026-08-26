@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_RESOURCE_DIMENSION.ahk
-#Include .\D3D12_CPU_PAGE_PROPERTY.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
-#Include .\D3D12_HEAP_TYPE.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include .\D3D12_CPU_PAGE_PROPERTY.ahk
 #Include .\D3D12_HEAP_PROPERTIES.ahk
+#Include .\D3D12_HEAP_TYPE.ahk
 #Include .\D3D12_MEMORY_POOL.ahk
+#Include .\D3D12_RESOURCE_DIMENSION.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

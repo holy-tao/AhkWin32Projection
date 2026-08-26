@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFMediaType.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFMediaType.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Gets and sets media types on an object, such as a media source or media sink.

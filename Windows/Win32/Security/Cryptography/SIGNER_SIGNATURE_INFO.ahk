@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\ALG_ID.ahk
-#Include .\SIGNER_ATTR_AUTHCODE.ahk
 #Include .\CRYPT_ATTRIBUTES.ahk
+#Include .\SIGNER_ATTR_AUTHCODE.ahk
 #Include .\SIGNER_SIGNATURE_ATTRIBUTE_CHOICE.ahk
 
 /**

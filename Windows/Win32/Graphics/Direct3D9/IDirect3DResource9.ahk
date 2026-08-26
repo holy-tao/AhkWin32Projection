@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDirect3DDevice9.ahk
-#Include .\D3DRESOURCETYPE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3DRESOURCETYPE.ahk
+#Include .\IDirect3DDevice9.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IDirect3DResource9 (d3d9.h) interface is used by applications to query and prepare resources.

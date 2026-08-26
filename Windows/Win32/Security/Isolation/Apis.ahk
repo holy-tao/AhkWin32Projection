@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include ..\..\System\Registry\HKEY.ahk
-#Include ..\PSID.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\SID_AND_ATTRIBUTES.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\PSID.ahk
+#Include ..\SID_AND_ATTRIBUTES.ahk
+#Include ..\..\System\Registry\HKEY.ahk
 
 /**
  * @namespace Windows.Win32.Security.Isolation

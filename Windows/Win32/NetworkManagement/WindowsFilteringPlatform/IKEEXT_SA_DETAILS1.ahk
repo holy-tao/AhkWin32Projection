@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IKEEXT_COOKIE_PAIR0.ahk
-#Include .\IPSEC_V4_UDP_ENCAPSULATION0.ahk
-#Include .\IKEEXT_TRAFFIC0.ahk
-#Include .\IKEEXT_CIPHER_ALGORITHM0.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\FWP_BYTE_BLOB.ahk
+#Include .\FWP_IP_VERSION.ahk
+#Include .\IKEEXT_CIPHER_ALGORITHM0.ahk
+#Include .\IKEEXT_CIPHER_TYPE.ahk
+#Include .\IKEEXT_COOKIE_PAIR0.ahk
+#Include .\IKEEXT_CREDENTIALS1.ahk
 #Include .\IKEEXT_CREDENTIAL_PAIR1.ahk
-#Include .\IKEEXT_KEY_MODULE_TYPE.ahk
 #Include .\IKEEXT_DH_GROUP.ahk
 #Include .\IKEEXT_INTEGRITY_ALGORITHM0.ahk
-#Include .\IKEEXT_PROPOSAL0.ahk
-#Include .\IKEEXT_CREDENTIALS1.ahk
-#Include .\FWP_BYTE_BLOB.ahk
 #Include .\IKEEXT_INTEGRITY_TYPE.ahk
-#Include .\FWP_IP_VERSION.ahk
-#Include .\IKEEXT_CIPHER_TYPE.ahk
+#Include .\IKEEXT_KEY_MODULE_TYPE.ahk
+#Include .\IKEEXT_PROPOSAL0.ahk
+#Include .\IKEEXT_TRAFFIC0.ahk
+#Include .\IPSEC_V4_UDP_ENCAPSULATION0.ahk
 
 /**
  * Is used to store information returned when enumerating IKE, AuthIP, and IKEv2 security associations (SAs). (IKEEXT_SA_DETAILS1)

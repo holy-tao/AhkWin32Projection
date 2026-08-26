@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_TIER.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\STORAGE_TIER.ahk
 #Include .\STORAGE_TIER_CLASS.ahk
 #Include .\STORAGE_TIER_MEDIA_TYPE.ahk
 

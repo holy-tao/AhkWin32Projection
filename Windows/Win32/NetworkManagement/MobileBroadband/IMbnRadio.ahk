@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\MBN_RADIO.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\MBN_RADIO.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IMbnRadio interface is used to query and update the radio state of Mobile Broadband devices.

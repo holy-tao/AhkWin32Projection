@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\BlackInformation.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\XYZColorF.ahk
-#Include .\PrimaryXYZColors.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\BlackInformation.ahk
 #Include .\GamutShellTriangle.ahk
+#Include .\PrimaryXYZColors.ahk
+#Include .\XYZColorF.ahk
 
 /**
  * Describes the methods that are defined for the IDeviceModelPlugIn Component Object Model (COM) interface.

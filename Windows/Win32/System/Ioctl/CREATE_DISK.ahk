@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CREATE_DISK_MBR.ahk
-#Include .\PARTITION_STYLE.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\CREATE_DISK_GPT.ahk
+#Include .\CREATE_DISK_MBR.ahk
+#Include .\PARTITION_STYLE.ahk
 
 /**
  * Contains information that the IOCTL_DISK_CREATE_DISK control code uses to initialize GUID partition table (GPT), master boot record (MBR), or raw disks.

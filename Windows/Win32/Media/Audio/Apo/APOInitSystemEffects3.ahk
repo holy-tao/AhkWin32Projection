@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include .\APOInitBaseStruct.ahk
 #Include ..\IMMDeviceCollection.ahk
 #Include ..\..\..\System\Com\IServiceProvider.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
 #Include ..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
-#Include .\APOInitBaseStruct.ahk
 
 /**
  * Provides APO initialization parameters, extending APOInitSystemEffects2 to add the ability to specify a service provider for logging.

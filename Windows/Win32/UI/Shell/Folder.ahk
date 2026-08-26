@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\FolderItem.ahk
 #Include .\FolderItems.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a Shell folder. This object contains properties and methods that allow you to retrieve information about the folder.

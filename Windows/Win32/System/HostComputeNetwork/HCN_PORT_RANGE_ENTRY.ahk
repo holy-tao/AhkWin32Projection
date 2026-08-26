@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HCN_PORT_PROTOCOL.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\HCN_PORT_PROTOCOL.ahk
 
 /**
  * HCN_PORT_RANGE_ENTRY

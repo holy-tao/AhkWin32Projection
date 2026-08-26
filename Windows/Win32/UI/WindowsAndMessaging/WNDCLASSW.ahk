@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\HBRUSH.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
-#Include .\HICON.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Graphics\Gdi\HBRUSH.ahk
 #Include .\HCURSOR.ahk
+#Include .\HICON.ahk
 #Include .\WNDCLASS_STYLES.ahk
 
 /**

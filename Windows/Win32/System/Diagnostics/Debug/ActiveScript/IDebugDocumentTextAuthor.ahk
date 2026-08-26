@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\..\Foundation\PWSTR.ahk
 #Include .\IDebugDocumentText.ahk
-#Include ..\..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -71,7 +71,9 @@ class IDebugDocumentTextAuthor extends IDebugDocumentText {
      * 
      * > [!NOTE]
      * > The commdlg.h header defines ReplaceText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} cCharacterPosition 
+     * @param {Integer} cCharacterPosition Type: <b>LPFINDREPLACE</b>
+     * 
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/ns-commdlg-findreplacea">FINDREPLACE</a> structure that contains information used to initialize the dialog box. The dialog box uses this structure to send information about the user's input to your application. For more information, see the following Remarks section.
      * @param {Integer} cNumToReplace 
      * @param {PWSTR} pcharText 
      * @returns {HRESULT} Type: <b>HWND</b>

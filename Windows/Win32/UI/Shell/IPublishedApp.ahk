@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IShellApp.ahk
-#Include .\PUBAPPINFO.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include .\IShellApp.ahk
+#Include .\PUBAPPINFO.ahk
 
 /**
  * Exposes methods that represent applications to Add/Remove Programs in Control Panel.

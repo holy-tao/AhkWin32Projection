@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\CallingConventionKind.ahk
-#Include .\ArrayDimension.ahk
 #Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include .\ArrayDimension.ahk
+#Include .\CallingConventionKind.ahk
+#Include .\IDebugHostSymbol.ahk
 #Include .\IntrinsicKind.ahk
 #Include .\PointerKind.ahk
-#Include .\IDebugHostSymbol.ahk
 #Include .\TypeKind.ahk
 
 /**

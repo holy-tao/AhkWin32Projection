@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\IInkRectangle.ahk
 #Include .\TabletHardwareCapabilities.ahk
 #Include .\TabletPropertyMetricUnit.ahk
-#Include .\IInkRectangle.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents the digitizer device of Tablet PC that receives tablet device messages or events.

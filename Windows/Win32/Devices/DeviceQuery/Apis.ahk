@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include .\DEVPROP_FILTER_EXPRESSION.ahk
-#Include ..\Properties\DEVPROPERTY.ahk
 #Include .\DEV_OBJECT.ahk
-#Include .\HDEVQUERY.ahk
-#Include ..\Properties\DEVPROPSTORE.ahk
 #Include .\DEV_OBJECT_TYPE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\Properties\DEVPROPCOMPKEY.ahk
 #Include .\DEV_QUERY_PARAMETER.ahk
+#Include .\HDEVQUERY.ahk
+#Include ..\Properties\DEVPROPCOMPKEY.ahk
+#Include ..\Properties\DEVPROPERTY.ahk
+#Include ..\Properties\DEVPROPSTORE.ahk
 #Include ..\..\Foundation\DEVPROPKEY.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.DeviceQuery

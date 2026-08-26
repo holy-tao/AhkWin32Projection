@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1ConcreteTransform.ahk
 #Include .\D2D1_BLEND_DESCRIPTION.ahk
+#Include .\ID2D1ConcreteTransform.ahk
 
 /**
  * Provides methods to allow a blend operation to be inserted into a transform graph.

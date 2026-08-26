@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\LOCATION_REPORT_STATUS.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ILocationReport.ahk
 #Include .\ILocationEvents.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\ILocationReport.ahk
+#Include .\LOCATION_REPORT_STATUS.ahk
 #Include ..\Sensors\LOCATION_DESIRED_ACCURACY.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides methods used to manage location reports, event registration, and sensor permissions.
@@ -287,7 +287,7 @@ class ILocation extends IUnknown {
     /**
      * Retrieves the current requested accuracy setting.
      * @param {Pointer<Guid>} reportType <b>REFIID</b> that specifies the report type for which to get the requested accuracy.
-     * @returns {LOCATION_DESIRED_ACCURACY} 
+     * @returns {LOCATION_DESIRED_ACCURACY} The address of a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd756639(v=vs.85)">LOCATION_DESIRED_ACCURACY</a> that receives the accuracy value. If the report is not registered, this will be set to <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocation-getdesiredaccuracy
      */
     GetDesiredAccuracy(reportType) {
@@ -298,7 +298,7 @@ class ILocation extends IUnknown {
     /**
      * Specifies the accuracy to be used.
      * @param {Pointer<Guid>} reportType <b>REFIID</b> that specifies the report type for which to set the accuracy to be used.
-     * @param {LOCATION_DESIRED_ACCURACY} desiredAccuracy 
+     * @param {LOCATION_DESIRED_ACCURACY} desiredAccuracy <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd756639(v=vs.85)">LOCATION_DESIRED_ACCURACY</a> value that specifies the accuracy to be used.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>

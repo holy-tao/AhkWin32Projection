@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIDeviceSubObject.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include Common\DXGI_MODE_DESC.ahk
-#Include Common\DXGI_FORMAT.ahk
-#Include .\IDXGIOutput.ahk
-#Include .\DXGI_PRESENT.ahk
-#Include .\DXGI_FRAME_STATISTICS.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include Common\DXGI_FORMAT.ahk
+#Include Common\DXGI_MODE_DESC.ahk
+#Include .\DXGI_FRAME_STATISTICS.ahk
+#Include .\DXGI_PRESENT.ahk
 #Include .\DXGI_SWAP_CHAIN_DESC.ahk
+#Include .\IDXGIDeviceSubObject.ahk
+#Include .\IDXGIOutput.ahk
 
 /**
  * An IDXGISwapChain interface implements one or more surfaces for storing rendered data before presenting it to an output.

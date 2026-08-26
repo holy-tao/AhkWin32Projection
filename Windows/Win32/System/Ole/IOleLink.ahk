@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\Com\IMoniker.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IBindCtx.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Com\IBindCtx.ahk
+#Include ..\Com\IMoniker.ahk
+#Include ..\Com\IUnknown.ahk
 
 /**
  * Enables a linked object to provide its container with functions pertaining to linking.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\PSID.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\USER_PRIV.ahk
-#Include .\USER_ACCOUNT_FLAGS.ahk
 #Include .\AF_OP.ahk
+#Include .\USER_ACCOUNT_FLAGS.ahk
+#Include .\USER_PRIV.ahk
+#Include ..\..\Security\PSID.ahk
 
 /**
  * The USER_INFO_4 structure contains information about a user account, including the account name, password data, privilege level, the path to the user's home directory, security identifier (SID), and other user-related network statistics.

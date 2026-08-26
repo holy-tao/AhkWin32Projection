@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ShellWindowTypeConstants.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ShellWindowFindWindowOptions.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\ShellWindowFindWindowOptions.ahk
+#Include .\ShellWindowTypeConstants.ahk
 
 /**
  * Provides access to the collection of open Shell windows.

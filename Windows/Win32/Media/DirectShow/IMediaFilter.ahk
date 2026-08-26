@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\FILTER_STATE.ahk
 #Include ..\IReferenceClock.ahk
 #Include ..\..\System\Com\IPersist.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IMediaFilter interface controls the streaming state of a filter.All DirectShow filters implement this interface.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\MMC_CONTROL_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\IExtendControlbar.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\MMC_CONTROL_TYPE.ahk
 
 /**
  * The IControlbar interface provides a way to create toolbars and other controls.

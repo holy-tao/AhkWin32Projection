@@ -2,18 +2,18 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IDOMProcessingInstruction.ahk
+#Include .\IHTMLDOMAttribute.ahk
 #Include .\IHTMLDOMNode.ahk
+#Include .\IHTMLDOMNode3.ahk
 #Include .\IHTMLElement.ahk
 #Include .\IHTMLElementCollection.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IHTMLDOMNode3.ahk
-#Include .\IHTMLWindow2.ahk
-#Include .\IDOMProcessingInstruction.ahk
 #Include .\IHTMLSelection.ahk
-#Include .\IHTMLDOMAttribute.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IHTMLWindow2.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

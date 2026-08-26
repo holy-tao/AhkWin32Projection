@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The SERVER_INFO_503 structure is obsolete. The structure contains information about the specified server.

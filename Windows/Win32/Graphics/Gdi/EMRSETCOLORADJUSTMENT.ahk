@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\COLORADJUSTMENT.ahk
 #Include .\EMR.ahk
 #Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
-#Include .\COLORADJUSTMENT.ahk
 
 /**
  * The EMRSETCOLORADJUSTMENT structure contains members for the SetColorAdjustment enhanced metafile record.

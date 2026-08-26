@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDirect3DDevice9.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDirect3DDevice9.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IDirect3DStateBlock9 (d3d9.h) interface is used by applications to encapsulate render states.

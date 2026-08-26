@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER_POSTAMBLE_TYPE.ahk
 #Include .\D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER.ahk
+#Include .\D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER_POSTAMBLE_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

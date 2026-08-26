@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Diagnostics\Etw\EVENT_TRACE_HEADER.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\System\Diagnostics\Etw\EVENT_TRACE_HEADER.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow

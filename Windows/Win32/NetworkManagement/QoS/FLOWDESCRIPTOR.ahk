@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\FLOWSPEC.ahk
 #Include .\RSVP_FILTERSPEC.ahk
+#Include ..\..\Networking\WinSock\FLOWSPEC.ahk
 
 /**
  * The FLOWDESCRIPTOR structure specifies one or more filters for a given FLOWSPEC.

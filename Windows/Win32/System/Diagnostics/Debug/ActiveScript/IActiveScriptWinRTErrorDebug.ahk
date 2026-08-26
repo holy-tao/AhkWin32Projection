@@ -2,8 +2,8 @@
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
-#Include .\IActiveScriptError.ahk
 #Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include .\IActiveScriptError.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

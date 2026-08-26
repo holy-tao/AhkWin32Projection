@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontFace3.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include .\DWRITE_GLYPH_IMAGE_DATA.ahk
 #Include .\DWRITE_GLYPH_IMAGE_FORMATS.ahk
+#Include .\IDWriteFontFace3.ahk
 
 /**
  * Contains font face type, appropriate file references, and face identification data. (IDWriteFontFace4)

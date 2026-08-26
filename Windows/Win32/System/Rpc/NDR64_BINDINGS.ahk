@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\NDR64_BIND_CONTEXT.ahk
 #Include .\NDR64_BIND_GENERIC.ahk
 #Include .\NDR64_BIND_PRIMITIVE.ahk
-#Include .\NDR64_BIND_CONTEXT.ahk
 
 /**
  * @namespace Windows.Win32.System.Rpc

@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\RENDEZVOUS_SESSION_STATE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that send data about the session and that can terminate it.

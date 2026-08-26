@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IPrinterExtensionAsyncOperation.ahk
-#Include .\IPrinterQueueView.ahk
-#Include .\IPrinterBidiSetRequestCallback.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IPrinterBidiSetRequestCallback.ahk
+#Include .\IPrinterExtensionAsyncOperation.ahk
 #Include .\IPrinterQueue.ahk
+#Include .\IPrinterQueueView.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

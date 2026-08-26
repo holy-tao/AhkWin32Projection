@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFunctionInstance.ahk
-#Include .\SystemVisibilityFlags.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\IFunctionInstanceCollectionQuery.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\IFunctionDiscoveryNotification.ahk
+#Include .\IFunctionInstance.ahk
 #Include .\IFunctionInstanceCollection.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IFunctionInstanceCollectionQuery.ahk
 #Include .\IFunctionInstanceQuery.ahk
+#Include .\SystemVisibilityFlags.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * This interface is used by client programs to discover function instances, get the default function instance for a category, and create advanced Function Discovery query objects that enable registering Function Discovery defaults, among other things.

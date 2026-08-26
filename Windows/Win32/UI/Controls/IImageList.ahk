@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMAGE_LIST_ITEM_FLAGS.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\COLORREF.ahk
-#Include ..\WindowsAndMessaging\HICON.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMAGEINFO.ahk
 #Include .\IMAGELISTDRAWPARAMS.ahk
-#Include ..\..\Foundation\POINT.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include .\IMAGE_LIST_ITEM_FLAGS.ahk
+#Include ..\WindowsAndMessaging\HICON.ahk
 
 /**
  * Exposes methods that manipulate and interact with image lists.

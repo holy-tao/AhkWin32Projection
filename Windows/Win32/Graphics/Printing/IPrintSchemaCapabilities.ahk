@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IPrintSchemaElement.ahk
-#Include .\IPrintSchemaOptionCollection.ahk
 #Include .\IPrintSchemaFeature.ahk
 #Include .\IPrintSchemaOption.ahk
+#Include .\IPrintSchemaOptionCollection.ahk
 #Include .\IPrintSchemaPageImageableSize.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

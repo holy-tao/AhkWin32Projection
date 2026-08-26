@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPSEC_DOSP_FLAGS.ahk
 #Include .\FWP_V6_ADDR_AND_MASK.ahk
+#Include .\IPSEC_DOSP_FLAGS.ahk
 
 /**
  * Used to store configuration parameters for IPsec DoS Protection.

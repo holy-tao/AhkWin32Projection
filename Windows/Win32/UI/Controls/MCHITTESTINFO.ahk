@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MCHITTESTINFO_HIT_FLAGS.ahk
 #Include ..\..\Foundation\POINT.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include .\MCHITTESTINFO_HIT_FLAGS.ahk
 
 /**
  * Carries information specific to hit-testing points for a month calendar control. This structure is used with the MCM_HITTEST message and the corresponding MonthCal_HitTest macro.

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumNetworkConnections.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\NLM_CONNECTIVITY.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IEnumNetworkConnections.ahk
+#Include .\NLM_CONNECTIVITY.ahk
 #Include .\NLM_DOMAIN_TYPE.ahk
 #Include .\NLM_NETWORK_CATEGORY.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The INetwork interface represents a network on the local machine. It can also represent a collection of network connections with a similar network signature.

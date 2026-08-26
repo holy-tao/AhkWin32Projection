@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDropTarget.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\LPARAM.ahk
-#Include .\IOleInPlaceObject.ahk
 #Include ..\..\Foundation\LRESULT.ahk
 #Include ..\..\Foundation\WPARAM.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDropTarget.ahk
+#Include .\IOleInPlaceObject.ahk
 
 /**
  * Enables a windowless object to process window messages and participate in drag and drop operations. It is derived from and extends the IOleInPlaceObject interface.

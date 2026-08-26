@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\ITSGAuthenticateUserSink.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that authenticate users for Remote Desktop Gateway (RD Gateway).

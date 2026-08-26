@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMbnDeviceServicesContext.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMbnDeviceServicesContext.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides access to IMbnDeviceServicesContext objects and Mobile Broadband device service notifications.

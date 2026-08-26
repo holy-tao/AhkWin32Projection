@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IScheduleCollection.ahk
-#Include .\DataCollectorSetStatus.ahk
-#Include .\IValueMap.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IDataCollectorCollection.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\Com\IDispatch.ahk
-#Include .\AutoPathFormat.ahk
 #Include ..\Com\SAFEARRAY.ahk
+#Include .\AutoPathFormat.ahk
 #Include .\CommitMode.ahk
+#Include .\DataCollectorSetStatus.ahk
+#Include .\IDataCollectorCollection.ahk
 #Include .\IDataManager.ahk
+#Include .\IScheduleCollection.ahk
+#Include .\IValueMap.ahk
 
 /**
  * Manages the configuration information that is common to all data collector objects in the set; adds and removes data collectors from the set; and starts data collection. This is the primary PLA interface that you use.

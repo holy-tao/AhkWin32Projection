@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WSDXML_ELEMENT.ahk
 #Include .\WSD_ENDPOINT_REFERENCE.ahk
 #Include .\WSD_EVENTING_EXPIRES.ahk
-#Include .\WSDXML_ELEMENT.ahk
 
 /**
  * Represents a WS-Eventing Subscribe response message.

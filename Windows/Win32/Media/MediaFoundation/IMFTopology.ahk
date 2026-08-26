@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFAttributes.ahk
 #Include .\IMFCollection.ahk
 #Include .\IMFTopologyNode.ahk
-#Include .\IMFAttributes.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a topology. A topology describes a collection of media sources, sinks, and transforms that are connected in a certain order.

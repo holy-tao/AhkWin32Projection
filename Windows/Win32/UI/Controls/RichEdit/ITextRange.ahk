@@ -2,13 +2,13 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\ITextFont.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\tomConstants.ahk
-#Include .\ITextPara.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include .\ITextFont.ahk
+#Include .\ITextPara.ahk
+#Include .\tomConstants.ahk
 
 /**
  * The ITextRange objects are powerful editing and data-binding tools that allow a program to select text in a story and then examine or change that text.

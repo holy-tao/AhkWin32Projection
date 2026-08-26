@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\LPARAM.ahk
-#Include .\NMHDR.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include .\NMHDR.ahk
 
 /**
  * Contains information used in handling the RBN_CHEVRONPUSHED notification code.

@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\ISystemMonitor.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\SysmonFileType.ahk
 #Include .\SysmonBatchReason.ahk
+#Include .\SysmonFileType.ahk
 
 /**
  * @namespace Windows.Win32.System.Performance

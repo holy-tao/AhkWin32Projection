@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHV_NOTIFICATION_PORT_TYPE.ahk
 #Include .\WHV_DOORBELL_MATCH_DATA.ahk
+#Include .\WHV_NOTIFICATION_PORT_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.Hypervisor

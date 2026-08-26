@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IShellItemArray.ahk
-#Include Common\ITEMIDLIST.ahk
-#Include ..\..\System\Search\ICondition.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\PROPERTYKEY.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\SORTCOLUMN.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Search\ICondition.ahk
+#Include Common\ITEMIDLIST.ahk
 #Include .\FOLDERLOGICALVIEWMODE.ahk
+#Include .\IShellItemArray.ahk
+#Include .\SORTCOLUMN.ahk
 
 /**
  * Exposes methods that create and modify search folders.

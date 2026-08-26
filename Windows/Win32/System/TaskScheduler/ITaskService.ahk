@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITaskFolder.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IRunningTaskCollection.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\IRunningTaskCollection.ahk
 #Include .\ITaskDefinition.ahk
+#Include .\ITaskFolder.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * Provides access to the Task Scheduler service for managing registered tasks.

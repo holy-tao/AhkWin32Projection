@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CM_CDMASK.ahk
 #Include .\CM_CDFLAGS.ahk
+#Include .\CM_CDMASK.ahk
 
 /**
  * The CONFLICT_DETAILS structure is used as a parameter to the CM_Get_Resource_Conflict_Details function. (ANSI)

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IEnumCERTVIEWATTRIBUTE.ahk
 #Include .\IEnumCERTVIEWCOLUMN.ahk
 #Include .\IEnumCERTVIEWEXTENSION.ahk
-#Include .\IEnumCERTVIEWATTRIBUTE.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Represents a row-enumeration sequence that contains the data in the rows of the Certificate Services view, allowing further access to the columns, attributes, and extensions associated with each row.

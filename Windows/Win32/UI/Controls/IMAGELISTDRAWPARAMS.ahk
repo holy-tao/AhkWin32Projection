@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Foundation\COLORREF.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
 #Include .\HIMAGELIST.ahk
 
 /**

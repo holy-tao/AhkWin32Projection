@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\AddressBook\IMessage.ahk
-#Include ..\..\System\Com\IMalloc.ahk
-#Include ..\..\System\AddressBook\SPropProblemArray.ahk
-#Include ..\..\System\Com\StructuredStorage\IStorage.ahk
-#Include ..\..\System\AddressBook\SPropTagArray.ahk
-#Include .\LPMSGSESS.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\LPMSGSESS.ahk
 #Include .\SPropAttrArray.ahk
+#Include ..\..\System\AddressBook\IMessage.ahk
+#Include ..\..\System\AddressBook\SPropProblemArray.ahk
+#Include ..\..\System\AddressBook\SPropTagArray.ahk
+#Include ..\..\System\Com\IMalloc.ahk
+#Include ..\..\System\Com\StructuredStorage\IStorage.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Imapi

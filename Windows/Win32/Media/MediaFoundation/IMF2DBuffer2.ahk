@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\MF2DBuffer_LockFlags.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include .\IMF2DBuffer.ahk
+#Include .\MF2DBuffer_LockFlags.ahk
 
 /**
  * Represents a buffer that contains a two-dimensional surface, such as a video frame. (IMF2DBuffer2)

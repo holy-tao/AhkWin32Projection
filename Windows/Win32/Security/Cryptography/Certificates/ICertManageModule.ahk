@@ -2,9 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Provided to retrieve information about a Certificate Services Policy or Exit module.

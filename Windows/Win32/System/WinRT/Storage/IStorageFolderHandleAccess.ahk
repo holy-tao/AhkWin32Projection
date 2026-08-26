@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\HANDLE_ACCESS_OPTIONS.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
-#Include .\HANDLE_SHARING_OPTIONS.ahk
-#Include .\HANDLE_CREATION_OPTIONS.ahk
-#Include ..\..\Com\IUnknown.ahk
-#Include .\IOplockBreakingHandler.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
-#Include .\HANDLE_OPTIONS.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\Com\IUnknown.ahk
+#Include .\HANDLE_ACCESS_OPTIONS.ahk
+#Include .\HANDLE_CREATION_OPTIONS.ahk
+#Include .\HANDLE_OPTIONS.ahk
+#Include .\HANDLE_SHARING_OPTIONS.ahk
+#Include .\IOplockBreakingHandler.ahk
 
 /**
  * Provides access to the operating system handle of a storage folder.

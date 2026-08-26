@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\VER_PLATFORM.ahk
 #Include .\CPU_INFORMATION.ahk
+#Include .\VER_PLATFORM.ahk
 #Include ..\..\SystemInformation\PROCESSOR_ARCHITECTURE.ahk
 
 /**

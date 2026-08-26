@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IDispatch.ahk
-#Include ..\..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\SCRIPTTHREADSTATE.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Com\EXCEPINFO.ahk
+#Include ..\..\..\Com\IDispatch.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 #Include .\IActiveScriptSite.ahk
 #Include .\SCRIPTSTATE.ahk
-#Include ..\..\..\..\Foundation\HRESULT.ahk
-#Include ..\..\..\Com\EXCEPINFO.ahk
+#Include .\SCRIPTTHREADSTATE.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

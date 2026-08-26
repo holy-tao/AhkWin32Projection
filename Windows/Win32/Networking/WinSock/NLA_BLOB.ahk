@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NLA_CONNECTIVITY_TYPE.ahk
 #Include .\NLA_BLOB_DATA_TYPE.ahk
+#Include .\NLA_CONNECTIVITY_TYPE.ahk
 #Include .\NLA_INTERNET.ahk
 
 /**

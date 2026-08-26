@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include .\WSMAN_ENVIRONMENT_VARIABLE_SET.ahk
-#Include .\WSMAN_STREAM_ID_SET.ahk
 #Include .\WSMAN_SHELL_STARTUP_INFO_V10.ahk
+#Include .\WSMAN_STREAM_ID_SET.ahk
 
 /**
  * The WSMAN_SHELL_STARTUP_INFO_V11 (wsman.h) structure defines the shell startup parameters to be used with the WSManCreateShell function.

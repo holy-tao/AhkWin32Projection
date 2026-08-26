@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IAppxManifestReader.ahk
-#Include .\IAppxManifestQualifiedResourcesEnumerator.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IAppxManifestQualifiedResourcesEnumerator.ahk
+#Include .\IAppxManifestReader.ahk
 
 /**
  * Represents an object model of the package manifest that provides methods to access manifest elements and attributes. (IAppxManifestReader2)

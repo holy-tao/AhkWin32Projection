@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\AudioSessionState.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BOOL.ahk
-#Include .\AudioSessionDisconnectReason.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\AudioSessionDisconnectReason.ahk
+#Include .\AudioSessionState.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IAudioSessionEvents interface provides notifications of session-related events such as changes in the volume level, display name, and session state.

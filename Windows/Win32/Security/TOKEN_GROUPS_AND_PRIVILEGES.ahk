@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include ..\Foundation\LUID.ahk
 #Include .\LUID_AND_ATTRIBUTES.ahk
 #Include .\SID_AND_ATTRIBUTES.ahk
-#Include ..\Foundation\LUID.ahk
 
 /**
  * Contains information about the group security identifiers (SIDs) and privileges in an access token.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY.ahk
 #Include ..\..\Storage\Vhd\VIRTUAL_STORAGE_TYPE.ahk
+#Include .\STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY.ahk
 #Include .\STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY.ahk
 
 /**

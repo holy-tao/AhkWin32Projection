@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionVisual2.ahk
-#Include ..\Direct2D\Common\D2D1_COLOR_F.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Direct2D\Common\D2D1_COLOR_F.ahk
+#Include .\IDCompositionVisual2.ahk
 
 /**
  * Represents a debug visual.

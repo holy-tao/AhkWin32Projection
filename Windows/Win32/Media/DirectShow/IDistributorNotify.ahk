@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\IReferenceClock.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\IReferenceClock.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IDistributorNotify interface enables a plug-in distributor to be notified when the filter graph changes.Applications never use this interface.

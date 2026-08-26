@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
-#Include .\IMLangString.ahk
-#Include ..\Foundation\PSTR.ahk
-#Include .\IMLangStringBufA.ahk
 #Include ..\Foundation\HRESULT.ahk
+#Include ..\Foundation\PSTR.ahk
+#Include .\IMLangString.ahk
+#Include .\IMLangStringBufA.ahk
 
 /**
  * @namespace Windows.Win32.Globalization

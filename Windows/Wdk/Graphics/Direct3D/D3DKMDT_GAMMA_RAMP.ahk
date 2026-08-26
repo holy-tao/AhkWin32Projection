@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DDDI_GAMMARAMP_TYPE.ahk
 #Include .\D3DDDI_GAMMA_RAMP_DXGI_1.ahk
+#Include .\D3DDDI_GAMMA_RAMP_RGB256x3x16.ahk
 #Include .\D3DKMDT_3x4_COLORSPACE_TRANSFORM.ahk
 #Include .\D3DKMDT_COLORSPACE_TRANSFORM_MATRIX_V2.ahk
-#Include .\D3DDDI_GAMMARAMP_TYPE.ahk
-#Include .\D3DDDI_GAMMA_RAMP_RGB256x3x16.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

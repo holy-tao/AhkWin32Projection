@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFCollection.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFAttributes.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFAttributes.ahk
+#Include .\IMFCollection.ahk
 #Include .\IMFDeviceTransform.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The interface implemented by sensor transforms to allow the media pipeline to query requirements of the sensor transform and to create a runtime instance of the sensor transform.

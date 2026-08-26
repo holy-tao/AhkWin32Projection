@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Direct3D9\D3DPOOL.ahk
 #Include ..\..\Graphics\Direct3D9\D3DFORMAT.ahk
+#Include ..\..\Graphics\Direct3D9\D3DPOOL.ahk
 
 /**
  * Specifies the requirements for compressed surfaces for DirectX Video Acceleration (DXVA).

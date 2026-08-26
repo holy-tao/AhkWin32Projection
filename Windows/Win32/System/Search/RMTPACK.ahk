@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
-#Include ..\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\Com\ISequentialStream.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.System.Search

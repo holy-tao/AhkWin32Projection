@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\D3D12_VIDEO_DECODE_INPUT_STREAM_ARGUMENTS.ahk
-#Include .\ID3D12VideoDecoder.ahk
 #Include .\D3D12_VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS1.ahk
 #Include .\ID3D12VideoDecodeCommandList.ahk
+#Include .\ID3D12VideoDecoder.ahk
 
 /**
  * Encapsulates a list of graphics commands for video decoding. This interface inherits from ID3D12VideoDecodeCommandList and adds support for video decode histograms.

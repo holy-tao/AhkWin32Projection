@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_RAYTRACING_OPACITY_MICROMAP_HISTOGRAM_ENTRY.ahk
 #Include .\D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE.ahk
+#Include .\D3D12_RAYTRACING_OPACITY_MICROMAP_HISTOGRAM_ENTRY.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

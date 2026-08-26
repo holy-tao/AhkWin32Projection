@@ -2,18 +2,18 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IDispatch.ahk
 #Include .\IGPMBackup.ahk
-#Include .\IGPMResult.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include .\IGPMGPOCollection.ahk
 #Include .\IGPMGPO.ahk
+#Include .\IGPMGPOCollection.ahk
+#Include .\IGPMResult.ahk
+#Include .\IGPMSOM.ahk
 #Include .\IGPMSOMCollection.ahk
-#Include .\IGPMWMIFilterCollection.ahk
 #Include .\IGPMSearchCriteria.ahk
 #Include .\IGPMWMIFilter.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\IGPMSOM.ahk
+#Include .\IGPMWMIFilterCollection.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * Represents a given domain and supports methods that allow you to query scope of management (SOM) objects, create, restore and query GPOs, and create and query WMI filters when you are using the Group Policy Management Console (GPMC) interfaces.

@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\WindowsMediaLibrarySharingDeviceAuthorizationStatus.ahk
-#Include .\IWindowsMediaLibrarySharingDeviceProperties.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWindowsMediaLibrarySharingDeviceProperties.ahk
+#Include .\WindowsMediaLibrarySharingDeviceAuthorizationStatus.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IWindowsMediaLibrarySharingDevice interface defines methods that provide access to an individual media device on the home network.

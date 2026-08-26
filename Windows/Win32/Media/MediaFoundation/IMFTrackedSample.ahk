@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include .\IMFAsyncCallback.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Tracks the reference counts on a video media sample.

@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\NMHDR.ahk
 #Include ..\..\Foundation\SIZE.ahk
+#Include .\NMHDR.ahk
 
 /**
  * Contains information about a date and time picker (DTP) control callback field. (Unicode)

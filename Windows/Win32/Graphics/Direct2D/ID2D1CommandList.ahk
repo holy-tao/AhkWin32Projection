@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Image.ahk
-#Include .\ID2D1CommandSink.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID2D1CommandSink.ahk
+#Include .\ID2D1Image.ahk
 
 /**
  * Represents a sequence of commands that can be recorded and played back.

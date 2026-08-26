@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IWMPPlaylist.ahk
-#Include .\IWMPCore2.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWMPCore2.ahk
 #Include .\IWMPMedia.ahk
+#Include .\IWMPPlaylist.ahk
 
 /**
  * The IWMPCore3 interface provides methods that supplement the IWMPCore2 interface.

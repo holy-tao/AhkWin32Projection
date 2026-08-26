@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D2D1_PRINT_FONT_SUBSET_MODE.ahk
 #Include .\D2D1_COLOR_SPACE.ahk
+#Include .\D2D1_PRINT_FONT_SUBSET_MODE.ahk
 
 /**
  * The creation properties for a ID2D1PrintControl object.

@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\INTERACTION_STATE.ahk
-#Include ..\Input\Pointer\POINTER_INFO.ahk
-#Include .\INTERACTION_CONTEXT_PROPERTY.ahk
-#Include .\HINTERACTIONCONTEXT.ahk
-#Include .\MOUSE_WHEEL_PARAMETER.ahk
-#Include .\INTERACTION_CONTEXT_CONFIGURATION.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\CROSS_SLIDE_THRESHOLD.ahk
-#Include .\TAP_PARAMETER.ahk
+#Include ..\Input\Pointer\POINTER_INFO.ahk
 #Include .\CROSS_SLIDE_PARAMETER.ahk
-#Include .\TRANSLATION_PARAMETER.ahk
+#Include .\CROSS_SLIDE_THRESHOLD.ahk
+#Include .\HINTERACTIONCONTEXT.ahk
 #Include .\HOLD_PARAMETER.ahk
 #Include .\INERTIA_PARAMETER.ahk
+#Include .\INTERACTION_CONTEXT_CONFIGURATION.ahk
+#Include .\INTERACTION_CONTEXT_PROPERTY.ahk
+#Include .\INTERACTION_STATE.ahk
+#Include .\MOUSE_WHEEL_PARAMETER.ahk
+#Include .\TAP_PARAMETER.ahk
+#Include .\TRANSLATION_PARAMETER.ahk
 
 /**
  * @namespace Windows.Win32.UI.InteractionContext

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMoniker.ahk
 #Include .\FORMATETC.ahk
-#Include .\STGMEDIUM.ahk
+#Include .\IMoniker.ahk
 #Include .\IUnknown.ahk
+#Include .\STGMEDIUM.ahk
 
 /**
  * @namespace Windows.Win32.System.Com

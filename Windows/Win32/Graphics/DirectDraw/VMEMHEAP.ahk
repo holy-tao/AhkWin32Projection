@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HEAPALIGNMENT.ahk
-#Include .\DDSCAPSEX.ahk
-#Include .\DDSCAPS.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\DDSCAPS.ahk
+#Include .\DDSCAPSEX.ahk
+#Include .\HEAPALIGNMENT.ahk
 #Include .\SURFACEALIGNMENT.ahk
 
 /**

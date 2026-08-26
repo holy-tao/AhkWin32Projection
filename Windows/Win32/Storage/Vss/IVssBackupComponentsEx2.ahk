@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IVssBackupComponentsEx.ahk
-#Include .\VSS_ROLLFORWARD_TYPE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IVssAsync.ahk
-#Include .\VSS_COMPONENT_TYPE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IVssAsync.ahk
+#Include .\IVssBackupComponentsEx.ahk
+#Include .\VSS_COMPONENT_TYPE.ahk
+#Include .\VSS_ROLLFORWARD_TYPE.ahk
 
 /**
  * Defines additional methods that requesters can use to run backup and restore operations.

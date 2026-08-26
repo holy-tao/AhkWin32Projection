@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HRESULT.ahk
 #Include .\ALLOCATOR_PROPERTIES.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IAMBufferNegotiation interface requests the number of buffers for a filter to create and size of each buffer.

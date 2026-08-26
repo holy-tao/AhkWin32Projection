@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Com\BLOB.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\System\Com\BLOB.ahk
 
 /**
  * Contains all registration information for a namespace provider. (WSANAMESPACE_INFOEXW)

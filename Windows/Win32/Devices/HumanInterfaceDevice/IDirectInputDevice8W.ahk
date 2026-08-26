@@ -1,26 +1,26 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DIFILEEFFECT.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include .\DIDEVICEOBJECTINSTANCEW.ahk
-#Include .\DIDEVICEOBJECTDATA.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\DIACTIONFORMATW.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DIDATAFORMAT.ahk
-#Include .\DIEFFECTINFOW.ahk
 #Include .\DIDEVCAPS.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\DIPROPHEADER.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\DIDEVICEIMAGEINFOHEADERW.ahk
 #Include .\DIDEVICEINSTANCEW.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDirectInputEffect.ahk
+#Include .\DIDEVICEOBJECTDATA.ahk
+#Include .\DIDEVICEOBJECTINSTANCEW.ahk
 #Include .\DIEFFECT.ahk
+#Include .\DIEFFECTINFOW.ahk
 #Include .\DIEFFESCAPE.ahk
+#Include .\DIFILEEFFECT.ahk
+#Include .\DIPROPHEADER.ahk
+#Include .\IDirectInputEffect.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice

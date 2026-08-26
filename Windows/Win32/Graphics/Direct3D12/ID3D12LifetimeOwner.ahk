@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\D3D12_LIFETIME_STATE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents an application-defined callback used for being notified of lifetime changes of an object.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_SECURITY_PROPERTY_CONSTRAINT.ahk
 #Include .\WS_SECURITY_BINDING_CONSTRAINT.ahk
+#Include .\WS_SECURITY_PROPERTY_CONSTRAINT.ahk
 
 /**
  * This structure specifies the security related constraints as part of WS_POLICY_CONSTRAINTS.

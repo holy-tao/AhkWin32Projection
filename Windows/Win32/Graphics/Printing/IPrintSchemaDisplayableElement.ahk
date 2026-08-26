@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IPrintSchemaElement.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IPrintSchemaElement.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

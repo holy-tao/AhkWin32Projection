@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\LPARAM.ahk
-#Include .\NMHDR.ahk
-#Include .\COMBOBOXEXITEMA.ahk
 #Include ..\..\Foundation\PSTR.ahk
+#Include .\COMBOBOXEXITEMA.ahk
 #Include .\COMBOBOX_EX_ITEM_FLAGS.ahk
+#Include .\NMHDR.ahk
 
 /**
  * Contains information specific to ComboBoxEx items for use with notification codes. (ANSI)

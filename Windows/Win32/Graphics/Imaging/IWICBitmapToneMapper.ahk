@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWICBitmapSource.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWICBitmapSource.ahk
 #Include .\WICBitmapToneMappingMode.ahk
 
 /**

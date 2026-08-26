@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IMAPI_MEDIA_PHYSICAL_TYPE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
-#Include .\IDiscRecorder2.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IDiscFormat2.ahk
+#Include .\IDiscRecorder2.ahk
+#Include .\IMAPI_MEDIA_PHYSICAL_TYPE.ahk
 
 /**
  * Use this interface to erase data from a disc.

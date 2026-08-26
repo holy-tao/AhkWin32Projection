@@ -3,13 +3,13 @@
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\DOMNodeType.ahk
 #Include .\IXMLDOMDocument.ahk
-#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IXMLDOMNodeList.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IXMLDOMNamedNodeMap.ahk
+#Include .\IXMLDOMNodeList.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml

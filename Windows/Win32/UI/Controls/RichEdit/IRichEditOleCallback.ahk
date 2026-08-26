@@ -1,23 +1,23 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\WindowsAndMessaging\HMENU.ahk
-#Include .\CHARRANGE.ahk
-#Include ..\..\..\System\Com\StructuredStorage\IStorage.ahk
-#Include ..\..\..\System\SystemServices\RECO_FLAGS.ahk
-#Include ..\..\..\System\Ole\IOleInPlaceFrame.ahk
-#Include ..\..\..\System\Com\IDataObject.ahk
-#Include ..\..\..\Foundation\HGLOBAL.ahk
-#Include ..\..\..\System\SystemServices\MODIFIERKEYS_FLAGS.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Ole\DROPEFFECT.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
-#Include ..\..\..\System\Ole\OLEINPLACEFRAMEINFO.ahk
-#Include ..\..\..\System\Ole\IOleObject.ahk
 #Include ..\..\..\Foundation\BOOL.ahk
-#Include .\RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE.ahk
+#Include ..\..\..\Foundation\HGLOBAL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\System\Com\IDataObject.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\System\Com\StructuredStorage\IStorage.ahk
+#Include ..\..\..\System\Ole\DROPEFFECT.ahk
+#Include ..\..\..\System\Ole\IOleInPlaceFrame.ahk
 #Include ..\..\..\System\Ole\IOleInPlaceUIWindow.ahk
+#Include ..\..\..\System\Ole\IOleObject.ahk
+#Include ..\..\..\System\Ole\OLEINPLACEFRAMEINFO.ahk
+#Include ..\..\..\System\SystemServices\MODIFIERKEYS_FLAGS.ahk
+#Include ..\..\..\System\SystemServices\RECO_FLAGS.ahk
+#Include .\CHARRANGE.ahk
+#Include .\RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE.ahk
+#Include ..\..\WindowsAndMessaging\HMENU.ahk
 
 /**
  * The IRichEditOleCallback interface is used by a rich text edit control to retrieve OLE-related information from its client.

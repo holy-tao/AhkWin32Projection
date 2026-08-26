@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\OFFLOAD_OPERATION_E.ahk
 #Include .\OFFLOAD_ALGO_INFO.ahk
+#Include .\OFFLOAD_OPERATION_E.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis

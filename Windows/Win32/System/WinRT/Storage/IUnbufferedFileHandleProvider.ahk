@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IUnbufferedFileHandleOplockCallback.ahk
-#Include ..\..\Com\IUnknown.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\Com\IUnknown.ahk
+#Include .\IUnbufferedFileHandleOplockCallback.ahk
 
 /**
  * Provides access to handles from a random-access byte stream that the StorageFile.OpenAsync method created.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DISPATCHERQUEUE_THREAD_TYPE.ahk
 #Include .\DISPATCHERQUEUE_THREAD_APARTMENTTYPE.ahk
+#Include .\DISPATCHERQUEUE_THREAD_TYPE.ahk
 
 /**
  * Specifies the threading and apartment type for a new DispatcherQueueController.

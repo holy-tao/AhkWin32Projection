@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\COLORREF.ahk
-#Include .\IShellFolder.ahk
 #Include Common\ITEMIDLIST.ahk
+#Include .\IShellFolder.ahk
 
 /**
  * Contains information about a folder band. This structure is used with the IShellFolderBand::GetBandInfoSFB and IShellFolderBand::SetBandInfoSFB methods.

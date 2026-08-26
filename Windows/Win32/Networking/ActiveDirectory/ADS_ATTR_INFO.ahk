@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ADSVALUE.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include .\ADSTYPE.ahk
+#Include .\ADSVALUE.ahk
 
 /**
  * Used to contain one or more attribute values for use with the IDirectoryObject::CreateDSObject, IDirectoryObject::GetObjectAttributes, or IDirectoryObject::SetObjectAttributes method.

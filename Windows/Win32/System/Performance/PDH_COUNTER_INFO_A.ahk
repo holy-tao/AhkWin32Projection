@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PDH_DATA_ITEM_PATH_ELEMENTS_A.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\PSTR.ahk
 #Include .\PDH_COUNTER_PATH_ELEMENTS_A.ahk
+#Include .\PDH_DATA_ITEM_PATH_ELEMENTS_A.ahk
 
 /**
  * The PDH_COUNTER_INFO structure contains information describing the properties of a counter. This information also includes the counter path. (ANSI)

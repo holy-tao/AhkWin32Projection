@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\BINARY_CONTAINER.ahk
-#Include .\BIDI_RESPONSE_DATA.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\PWSTR.ahk
 #Include .\BIDI_DATA.ahk
-#Include ..\..\Foundation\BOOL.ahk
+#Include .\BIDI_RESPONSE_DATA.ahk
+#Include .\BINARY_CONTAINER.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

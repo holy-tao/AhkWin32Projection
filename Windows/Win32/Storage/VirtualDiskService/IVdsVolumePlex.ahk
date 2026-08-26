@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IVdsAsync.ahk
+#Include .\IVdsVolume.ahk
+#Include .\VDS_DISK_EXTENT.ahk
 #Include .\VDS_INPUT_DISK.ahk
 #Include .\VDS_VOLUME_PLEX_PROP.ahk
-#Include .\VDS_DISK_EXTENT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include .\IVdsAsync.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\IVdsVolume.ahk
 
 /**
  * Provides methods for maintaining volume plexes.

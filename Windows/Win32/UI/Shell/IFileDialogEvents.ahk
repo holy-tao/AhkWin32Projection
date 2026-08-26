@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\FDE_OVERWRITE_RESPONSE.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IShellItem.ahk
-#Include .\IFileDialog.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\FDE_OVERWRITE_RESPONSE.ahk
 #Include .\FDE_SHAREVIOLATION_RESPONSE.ahk
+#Include .\IFileDialog.ahk
+#Include .\IShellItem.ahk
 
 /**
  * Exposes methods that allow notification of events within a common file dialog.

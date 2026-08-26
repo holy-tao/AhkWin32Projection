@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\TBBUTTON.ahk
-#Include .\NMHDR.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include .\NMHDR.ahk
+#Include .\TBBUTTON.ahk
 
 /**
  * Contains information used to process toolbar notification codes. This structure supersedes the TBNOTIFY structure. (Unicode)

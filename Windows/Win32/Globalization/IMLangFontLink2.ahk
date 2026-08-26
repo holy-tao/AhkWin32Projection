@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
-#Include ..\Graphics\Gdi\HDC.ahk
-#Include .\IMLangCodePages.ahk
-#Include ..\Graphics\Gdi\HFONT.ahk
-#Include .\UNICODERANGE.ahk
 #Include ..\Foundation\HRESULT.ahk
+#Include .\IMLangCodePages.ahk
 #Include .\SCRIPTFONTINFO.ahk
+#Include .\UNICODERANGE.ahk
+#Include ..\Graphics\Gdi\HDC.ahk
+#Include ..\Graphics\Gdi\HFONT.ahk
 
 /**
  * @namespace Windows.Win32.Globalization

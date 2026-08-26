@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IWMPSettings.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWMPSettings2 interface provides methods that supplement the IWMPSettings interface.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFClock.ahk
-#Include .\IMFPresentationTimeSource.ahk
-#Include .\IMFClockStateSink.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFClock.ahk
+#Include .\IMFClockStateSink.ahk
+#Include .\IMFPresentationTimeSource.ahk
 
 /**
  * Represents a presentation clock, which is used to schedule when samples are rendered and to synchronize multiple streams.

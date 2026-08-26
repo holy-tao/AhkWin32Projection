@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\BOOLEAN.ahk
-#Include .\CLUSTER_MGMT_POINT_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CLUSTER_MGMT_POINT_RESTYPE.ahk
+#Include .\CLUSTER_MGMT_POINT_TYPE.ahk
 
 /**
  * Describes a cluster name resource and domain credentials used by the CreateClusterNameAccount function to add a cluster to a domain. PCREATE_CLUSTER_NAME_ACCOUNT defines a pointer to this structure.

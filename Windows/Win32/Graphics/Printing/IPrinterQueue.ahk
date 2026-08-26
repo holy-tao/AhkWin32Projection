@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IPrinterPropertyBag.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\PRINTER_HANDLE.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IPrinterPropertyBag.ahk
+#Include .\PRINTER_HANDLE.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

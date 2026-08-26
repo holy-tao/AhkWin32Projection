@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\IEnumDirectoryObject.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ITDirectoryObject.ahk
-#Include .\DIRECTORY_TYPE.ahk
 #Include .\DIRECTORY_OBJECT_TYPE.ahk
+#Include .\DIRECTORY_TYPE.ahk
+#Include .\IEnumDirectoryObject.ahk
+#Include .\ITDirectoryObject.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * The ITDirectory interface is exposed by the Directory object, which corresponds to a particular directory.

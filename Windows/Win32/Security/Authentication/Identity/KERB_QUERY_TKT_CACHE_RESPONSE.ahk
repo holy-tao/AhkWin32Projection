@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\PWSTR.ahk
-#Include .\LSA_UNICODE_STRING.ahk
 #Include .\KERB_PROTOCOL_MESSAGE_TYPE.ahk
 #Include .\KERB_TICKET_CACHE_INFO.ahk
 #Include .\KERB_TICKET_FLAGS.ahk
+#Include .\LSA_UNICODE_STRING.ahk
 
 /**
  * Contains the results of querying the ticket cache.

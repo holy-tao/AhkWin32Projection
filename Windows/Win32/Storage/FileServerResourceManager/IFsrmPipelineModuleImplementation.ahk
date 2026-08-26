@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IFsrmPipelineModuleDefinition.ahk
-#Include .\IFsrmPipelineModuleConnector.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IFsrmPipelineModuleConnector.ahk
+#Include .\IFsrmPipelineModuleDefinition.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Abstract interface for IFsrmClassifierModuleImplementation and IFsrmStorageModuleImplementation.

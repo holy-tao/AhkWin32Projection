@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\MBN_MSG_STATUS.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\SAFEARRAY.ahk
-#Include .\MBN_SMS_CDMA_ENCODING.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\MBN_SMS_CDMA_LANG.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\MBN_MSG_STATUS.ahk
+#Include .\MBN_SMS_CDMA_ENCODING.ahk
+#Include .\MBN_SMS_CDMA_LANG.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 
 /**
  * A collection of properties that represent a CDMA format SMS message read from the device memory.

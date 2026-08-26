@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\CLUSTER_RESOURCE_CREATE_FLAGS.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ISClusResource.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\CLUSTER_RESOURCE_CREATE_FLAGS.ahk
+#Include .\ISClusResource.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.Networking.Clustering

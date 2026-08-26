@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\AMVPDIMINFO.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include .\AMVPDIMINFO.ahk
 
 /**
  * The AMVPDATAINFO structure specifies the data-specific characteristics of the VP input stream.

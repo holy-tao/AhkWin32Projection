@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\ISchemaItem.ahk
 #Include .\ISchemaItemCollection.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include .\ISchemaStringCollection.ahk
-#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
-#Include .\SCHEMAWHITESPACE.ahk
-#Include ..\..\..\Foundation\HRESULT.ahk
-#Include .\SCHEMATYPEVARIETY.ahk
 #Include .\SCHEMADERIVATIONMETHOD.ahk
+#Include .\SCHEMATYPEVARIETY.ahk
+#Include .\SCHEMAWHITESPACE.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml

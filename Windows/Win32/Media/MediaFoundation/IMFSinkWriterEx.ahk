@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFSinkWriter.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFTransform.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFSinkWriter.ahk
+#Include .\IMFTransform.ahk
 
 /**
  * Extends the IMFSinkWriter interface.

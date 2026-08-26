@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\WindowsAndMessaging\HMENU.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\AnnoScope.ahk
 #Include .\IAccPropServer.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\WindowsAndMessaging\HMENU.ahk
 
 /**
  * Exposes methods for annotating accessible elements and for manipulating identity strings.

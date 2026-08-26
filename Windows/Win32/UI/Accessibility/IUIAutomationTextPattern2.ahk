@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomationTextPattern.ahk
-#Include .\IUIAutomationTextRange.ahk
-#Include .\IUIAutomationElement.ahk
 #Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IUIAutomationElement.ahk
+#Include .\IUIAutomationTextPattern.ahk
+#Include .\IUIAutomationTextRange.ahk
 
 /**
  * Extends the IUIAutomationTextPattern interface.

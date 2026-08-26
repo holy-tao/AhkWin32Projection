@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\CRYPT_KEY_PROV_PARAM.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_KEY_FLAGS.ahk
 #Include .\CRYPT_KEY_PROV_INFO.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\CRYPT_KEY_PROV_PARAM.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography

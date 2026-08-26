@@ -2,11 +2,11 @@
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\..\Foundation\PWSTR.ahk
-#Include .\Location.ahk
-#Include .\IDebugHostType.ahk
-#Include .\IDebugHostSymbol.ahk
 #Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include .\IDebugHostSymbol.ahk
+#Include .\IDebugHostType.ahk
+#Include .\Location.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

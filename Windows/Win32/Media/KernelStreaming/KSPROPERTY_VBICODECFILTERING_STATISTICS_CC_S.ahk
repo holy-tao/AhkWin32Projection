@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VBICODECFILTERING_STATISTICS_CC.ahk
-#Include .\VBICODECFILTERING_STATISTICS_COMMON.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\KSIDENTIFIER.ahk
+#Include .\VBICODECFILTERING_STATISTICS_CC.ahk
+#Include .\VBICODECFILTERING_STATISTICS_COMMON.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

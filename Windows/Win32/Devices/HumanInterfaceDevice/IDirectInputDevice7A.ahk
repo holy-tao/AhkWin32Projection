@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDirectInputDevice2A.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\DIFILEEFFECT.ahk
+#Include .\IDirectInputDevice2A.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice

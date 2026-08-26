@@ -2,9 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWICColorContext.ahk
-#Include .\IWICBitmapSource.ahk
 #Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWICBitmapSource.ahk
+#Include .\IWICColorContext.ahk
 
 /**
  * Exposes methods that transforms an IWICBitmapSource from one color context to another.

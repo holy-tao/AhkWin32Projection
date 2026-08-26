@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\VIRTUAL_KEY.ahk
 #Include .\KEYBD_EVENT_FLAGS.ahk
+#Include .\VIRTUAL_KEY.ahk
 
 /**
  * Contains information about a simulated keyboard event.

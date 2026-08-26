@@ -1,34 +1,34 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\IO_SECURITY_CONTEXT.ahk
-#Include ..\..\..\System\SystemServices\DEVICE_TEXT_TYPE.ahk
-#Include ..\..\..\Foundation\PEPROCESS.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\DEVICE_OBJECT.ahk
+#Include ..\..\..\Foundation\ERESOURCE.ahk
 #Include ..\..\..\Foundation\FILE_OBJECT.ahk
-#Include ..\..\..\System\SystemServices\CM_RESOURCE_LIST.ahk
-#Include ..\FILE_GET_QUOTA_INFORMATION.ahk
-#Include ..\..\..\System\SystemServices\IO_RESOURCE_REQUIREMENTS_LIST.ahk
-#Include ..\..\..\..\Win32\Foundation\BOOLEAN.ahk
+#Include ..\..\..\Foundation\IO_SECURITY_CONTEXT.ahk
+#Include ..\..\..\Foundation\IRP.ahk
+#Include ..\..\..\Foundation\MDL.ahk
+#Include ..\..\..\Foundation\PEPROCESS.ahk
 #Include ..\..\..\Foundation\VPB.ahk
+#Include ..\FILE_GET_QUOTA_INFORMATION.ahk
+#Include ..\FILE_INFORMATION_CLASS.ahk
+#Include ..\FILE_NETWORK_OPEN_INFORMATION.ahk
+#Include ..\FS_FILTER_SECTION_SYNC_OUTPUT.ahk
 #Include ..\FS_FILTER_SECTION_SYNC_TYPE.ahk
 #Include ..\FS_INFORMATION_CLASS.ahk
-#Include ..\..\..\System\SystemServices\DEVICE_RELATION_TYPE.ahk
-#Include ..\..\..\System\SystemServices\DIRECTORY_NOTIFY_INFORMATION_CLASS.ahk
-#Include ..\..\..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk
-#Include ..\..\..\Foundation\DEVICE_OBJECT.ahk
-#Include ..\..\..\Foundation\MDL.ahk
-#Include ..\..\..\Foundation\IRP.ahk
-#Include ..\FILE_NETWORK_OPEN_INFORMATION.ahk
-#Include ..\..\..\System\SystemServices\DEVICE_USAGE_NOTIFICATION_TYPE.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\..\Win32\Foundation\HANDLE.ahk
-#Include ..\FILE_INFORMATION_CLASS.ahk
-#Include ..\..\..\..\Win32\Foundation\UNICODE_STRING.ahk
-#Include ..\..\..\..\Win32\Security\PSID.ahk
-#Include ..\..\..\Foundation\ERESOURCE.ahk
-#Include ..\FS_FILTER_SECTION_SYNC_OUTPUT.ahk
 #Include ..\..\..\System\SystemServices\BUS_QUERY_ID_TYPE.ahk
+#Include ..\..\..\System\SystemServices\CM_RESOURCE_LIST.ahk
 #Include ..\..\..\System\SystemServices\DEVICE_CAPABILITIES.ahk
+#Include ..\..\..\System\SystemServices\DEVICE_RELATION_TYPE.ahk
+#Include ..\..\..\System\SystemServices\DEVICE_TEXT_TYPE.ahk
+#Include ..\..\..\System\SystemServices\DEVICE_USAGE_NOTIFICATION_TYPE.ahk
+#Include ..\..\..\System\SystemServices\DIRECTORY_NOTIFY_INFORMATION_CLASS.ahk
 #Include ..\..\..\System\SystemServices\INTERFACE.ahk
+#Include ..\..\..\System\SystemServices\IO_RESOURCE_REQUIREMENTS_LIST.ahk
+#Include ..\..\..\..\Win32\Foundation\BOOLEAN.ahk
+#Include ..\..\..\..\Win32\Foundation\HANDLE.ahk
+#Include ..\..\..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Include ..\..\..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk
+#Include ..\..\..\..\Win32\Security\PSID.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters

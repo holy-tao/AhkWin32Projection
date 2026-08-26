@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\VSS_USAGE_TYPE.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IVssExamineWriterMetadata.ahk
 #Include .\VSS_SOURCE_TYPE.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\VSS_USAGE_TYPE.ahk
 
 /**
  * Provides a method to retrieve the writer instance name and other basic information for a specific writer instance.

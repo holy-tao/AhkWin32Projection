@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include .\INTERNET_PER_CONN.ahk
 #Include ..\..\Foundation\PSTR.ahk
+#Include .\INTERNET_PER_CONN.ahk
 
 /**
  * Contains the value of an option. (ANSI)

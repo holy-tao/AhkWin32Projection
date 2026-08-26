@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMT_QUERYSTATISTICS_TYPE.ahk
 #Include .\D3DKMT_MEMORY_SEGMENT_GROUP.ahk
+#Include .\D3DKMT_QUERYSTATISTICS_TYPE.ahk
 #Include ..\..\..\Win32\Foundation\HANDLE.ahk
 
 /**

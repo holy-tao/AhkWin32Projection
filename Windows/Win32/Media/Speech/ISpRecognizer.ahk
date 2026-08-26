@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Audio\WAVEFORMATEX.ahk
-#Include .\ISpStreamFormat.ahk
-#Include .\ISpRecoContext.ahk
-#Include .\ISpProperties.ahk
-#Include .\ISpObjectToken.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\HRESULT.ahk
-#Include .\SPSTREAMFORMATTYPE.ahk
-#Include .\SPRECOGNIZERSTATUS.ahk
+#Include ..\Audio\WAVEFORMATEX.ahk
+#Include .\ISpObjectToken.ahk
 #Include .\ISpPhrase.ahk
-#Include ..\..\Foundation\BOOL.ahk
+#Include .\ISpProperties.ahk
+#Include .\ISpRecoContext.ahk
+#Include .\ISpStreamFormat.ahk
+#Include .\SPRECOGNIZERSTATUS.ahk
 #Include .\SPRECOSTATE.ahk
+#Include .\SPSTREAMFORMATTYPE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**

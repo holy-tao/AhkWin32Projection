@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\IUpdateService.ahk
 #Include .\IUpdateServiceCollection.ahk
 #Include ..\Variant\VARIANT.ahk
-#Include .\IUpdateService.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Adds or removes the registration of the update service with Windows Update Agent or Automatic Updates. (IUpdateServiceManager)

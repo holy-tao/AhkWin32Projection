@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\INetCfgComponent.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\OBO_TOKEN_TYPE.ahk
 #Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\INetCfgComponent.ahk
+#Include .\OBO_TOKEN_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement

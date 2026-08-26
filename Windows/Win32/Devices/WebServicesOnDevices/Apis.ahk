@@ -1,23 +1,23 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include .\IWSDAddress.ahk
-#Include .\WSDXML_NAME.ahk
-#Include .\IWSDDeviceProxy.ahk
-#Include .\WSD_SOAP_FAULT.ahk
-#Include .\IWSDUdpMessageParameters.ahk
-#Include .\IWSDiscoveryProvider.ahk
-#Include .\WSDXML_ELEMENT.ahk
-#Include .\IWSDOutboundAttachment.ahk
-#Include .\IWSDHttpMessageParameters.ahk
-#Include .\WSD_CONFIG_PARAM.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include .\IWSDiscoveryPublisher.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IWSDDeviceHost.ahk
-#Include .\IWSDUdpAddress.ahk
-#Include .\IWSDXMLContext.ahk
-#Include .\WSD_LOCALIZED_STRING_LIST.ahk
+#Include .\IWSDDeviceProxy.ahk
 #Include .\IWSDHttpAddress.ahk
+#Include .\IWSDHttpMessageParameters.ahk
+#Include .\IWSDOutboundAttachment.ahk
+#Include .\IWSDUdpAddress.ahk
+#Include .\IWSDUdpMessageParameters.ahk
+#Include .\IWSDXMLContext.ahk
+#Include .\IWSDiscoveryProvider.ahk
+#Include .\IWSDiscoveryPublisher.ahk
+#Include .\WSDXML_ELEMENT.ahk
+#Include .\WSDXML_NAME.ahk
+#Include .\WSD_CONFIG_PARAM.ahk
+#Include .\WSD_LOCALIZED_STRING_LIST.ahk
+#Include .\WSD_SOAP_FAULT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.WebServicesOnDevices

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPSEC_TOKEN_TYPE.ahk
-#Include .\IPSEC_TOKEN_PRINCIPAL.ahk
 #Include .\IPSEC_TOKEN_MODE.ahk
+#Include .\IPSEC_TOKEN_PRINCIPAL.ahk
+#Include .\IPSEC_TOKEN_TYPE.ahk
 
 /**
  * Various information about an IPsec-specific access token.

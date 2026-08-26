@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IDirectSoundBuffer.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\DSEFFECTDESC.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\DSEFFECTDESC.ahk
+#Include .\IDirectSoundBuffer.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound

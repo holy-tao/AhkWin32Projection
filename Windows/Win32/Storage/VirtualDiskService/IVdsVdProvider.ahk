@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IVdsDisk.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\PWSTR.ahk
-#Include .\VDS_CREATE_VDISK_PARAMETERS.ahk
-#Include .\IVdsVDisk.ahk
+#Include ..\Vhd\CREATE_VIRTUAL_DISK_FLAG.ahk
 #Include ..\Vhd\VIRTUAL_STORAGE_TYPE.ahk
 #Include .\IEnumVdsObject.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IVdsAsync.ahk
-#Include ..\Vhd\CREATE_VIRTUAL_DISK_FLAG.ahk
-#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IVdsDisk.ahk
+#Include .\IVdsVDisk.ahk
+#Include .\VDS_CREATE_VDISK_PARAMETERS.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Defines methods for creating and managing virtual disks.

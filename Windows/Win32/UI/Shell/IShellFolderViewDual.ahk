@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
-#Include .\Folder.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include .\Folder.ahk
 #Include .\FolderItem.ahk
 #Include .\FolderItems.ahk
-#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that modify the view and select items in the current folder. (IShellFolderViewDual)

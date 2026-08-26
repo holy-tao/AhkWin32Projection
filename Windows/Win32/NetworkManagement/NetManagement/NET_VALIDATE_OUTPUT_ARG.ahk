@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NET_VALIDATE_PERSISTED_FIELDS.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\NET_VALIDATE_PASSWORD_HASH.ahk
+#Include .\NET_VALIDATE_PERSISTED_FIELDS.ahk
 
 /**
  * The NET_VALIDATE_OUTPUT_ARG structure contains information about persistent password-related data that has changed since the user's last logon as well as the result of the function's password validation check.

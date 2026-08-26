@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DRENDERSTATETYPE.ahk
 #Include .\D3DLIGHTSTATETYPE.ahk
+#Include .\D3DRENDERSTATETYPE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
