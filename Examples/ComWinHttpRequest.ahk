@@ -1,15 +1,8 @@
-#Requires AutoHotkey v2.0
+#Requires AutoHotkey v2.1-alpha.30
 
-#Include ../Windows/Win32/Networking/WinHttp/IWinHttpRequest.ahk
-#Include ../Windows/Win32/Networking/WinHttp/IWinHttpRequestEvents.ahk
-#Include ../Windows/Win32/System/Variant/VARIANT.ahk
-#Include ../Windows/Win32/System/Variant/VARENUM.ahk
-#Include ../Windows/Win32/System/Com/CLSCTX.ahk
-#Include ../Windows/Win32/System/Com/IConnectionPointContainer.ahk
-#Include ../Windows/Win32/System/Com/IConnectionPoint.ahk
-#Include ../Windows/Win32/System/Com/SAFEARRAY.ahk
-#Include ../Windows/Win32/System/Com/Apis.ahk
-#Include ../Windows/Win32/System/Ole/Apis.ahk
+#Import "../Windows/Win32/Networking/WinHttp/IWinHttpRequestEvents.ahk" { IWinHttpRequestEvents }
+#Import "../Windows/Win32/System/Com/IConnectionPointContainer.ahk" { IConnectionPointContainer }
+#Import "../Windows/Win32/Foundation/BSTR.ahk" { BSTR }
 
 /*
 Demonstrates the process of creating and using a COM intrerface, as well as the process of
@@ -18,7 +11,7 @@ implementing an interface of your own
 
 done := false
 
-; Create the WinHttpRequest object
+; Create the WinHttpRequest object -- it's easier to start with AHK's native COM interop
 whr := ComObject("WinHttp.WinHttpRequest.5.1")
 
 ; Create an event handler
@@ -31,7 +24,7 @@ containerPtr := ComObjQuery(whr, String(IConnectionPointContainer.IID))
 container := IConnectionPointContainer(containerPtr.ptr)
 
 connectionPoint := container.FindConnectionPoint(IWinHttpRequestEvents.IID)
-pdwCookie := connectionPoint.Advise(eventSinkInterface.ptr)
+connectionPoint.Advise(eventSinkInterface.ptr)
 
 ; Send the request
 whr.Open("GET", "https://www.autohotkey.com", true)
@@ -43,6 +36,18 @@ while(!done){
     Sleep(100)
 }
 
+; Don't forget to clean up! Note that we must be careful about the order in which resources are
+; disposed of. If the WinHttpRequest were disposed of before the IWinHttpRequestEvents, it would
+; try to call Release() on an AHK object that no longer exists, and our script would crash.
+
+; It's also generally not safe to do this in callbacks; e.g. if we disposed of the event sink in
+; OnDone, we'd be freeing its callbacks *while inside a callback*, causing unpredictable but
+; generally undesireable behavior.
+connectionPoint := unset
+container := unset
+whr := unset
+eventSinkInterface.Dispose()
+
 OnDone(request){
     MsgBox(request.responseText)
 
@@ -50,30 +55,27 @@ OnDone(request){
 }
 
 ;https://learn.microsoft.com/en-us/windows/win32/winhttp/iwinhttprequestevents-interface
-class WinHttpRequestEventSink{
+class WinHttpRequestEventSink {
     doneCallback := (*) => MsgBox("done!")
 
     ;https://learn.microsoft.com/en-us/windows/win32/winhttp/iwinhttprequestevents-onerror
-    OnError(vTbl, errorNumber, errorDescription){
-        desc := BSTR({Value: errorDescription})
+    OnError(_vtbl, errorNumber, errorDescription){
+        desc := BSTR(errorDescription)
         throw Error(Format("(0x{1:0X}) {2}", errorNumber, String(desc)))
     }
 
     ;https://learn.microsoft.com/en-us/windows/win32/winhttp/iwinhttprequestevents-onresponsedataavailable
-    OnResponseDataAvailable(vTbl, data){
+    OnResponseDataAvailable(_vtbl, data){
         ; Streaming is hard
     }
 
     ;https://learn.microsoft.com/en-us/windows/win32/winhttp/iwinhttprequestevents-onresponsestart
-    OnResponseStart(vTbl, status, contentType){
-        ; status is legacy and doesn't actually reflect the HTTP status - though once this event fires
-        ; we can grab it from the WinHttpRequest object itself
-        contentType := BSTR({Value: contentType})
-        try FileAppend(Format("Content type: {1}`n", String(contentType)), "*")
+    OnResponseStart(_vtbl, status, contentType){
+        try FileAppend(Format("{1} {2}`n", status, BSTR(contentType).ToString()), "*")
     }
 
     ;https://learn.microsoft.com/en-us/windows/win32/winhttp/iwinhttprequestevents-onresponsefinished
-    OnResponseFinished(vTbl){
+    OnResponseFinished(_vtbl){
         this.doneCallback.Call()
     }
 }

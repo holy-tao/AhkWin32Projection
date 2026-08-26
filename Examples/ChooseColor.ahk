@@ -1,12 +1,10 @@
-#Requires AutoHotkey v2.0
+#Requires AutoHotkey v2.1-alpha.30
 
-#Include  ..\CStyleArray.ahk
-#Include ..\Windows\Win32\UI\Controls\Dialogs\Apis.ahk
-#Include ..\Windows\Win32\UI\Controls\Dialogs\CHOOSECOLORW.ahk
-#Include ..\Windows\Win32\UI\Controls\Dialogs\CHOOSECOLOR_FLAGS.ahk
-#Include ..\Windows\Win32\Foundation\COLORREF.ahk
+#Import "..\Windows\Win32\UI\Controls\Dialogs\Apis" { ChooseColorW }
+#Import "..\Windows\Win32\UI\Controls\Dialogs" { CHOOSECOLORW as ChooseColorOpts, CHOOSECOLOR_FLAGS }
+#Import "..\Windows\Win32\Foundation\COLORREF" { COLORREF }
 
-;Demonstrates a color picker as well as the use of CStyleArrayList
+;Demonstrates a simple color picker using a struct some of the built-in UI functions
 
 stdout := FileOpen("*", "w")
 
@@ -17,27 +15,27 @@ btn.Move(60, 60)
 btn.OnEvent("Click", ChangeGuiColor)
 
 ;Set up the palette with some starting colors
-palette := CStyleArrayList(Primitive, "UInt", 16)
+palette := COLORREF[16]()
 
 palette[1] := 0x000000FF    ;Red
 palette[2] := 0x0000FF00    ;Green
 palette[3] := 0x00FF0000    ;Blue
 
 ;Set up CHOOSECOLORW options
-chooseColor := CHOOSECOLORW()
-chooseColor.lStructSize := CHOOSECOLORW.sizeof
+chooseColor := ChooseColorOpts()
+chooseColor.lStructSize := ObjGetDataSize(chooseColor)
 chooseColor.hwndOwner.value := mainGui.Hwnd
 chooseColor.rgbResult := 0x00F9F9F9
-chooseColor.lpCustColors := palette.ptr
+chooseColor.lpCustColors := palette[1]
 chooseColor.flags := CHOOSECOLOR_FLAGS.CC_RGBINIT | CHOOSECOLOR_FLAGS.CC_SOLIDCOLOR
 
 mainGui.Show("w200 h200")
 
 ChangeGuiColor(*){
-    result := Dialogs.ChooseColorW(chooseColor)
+    result := ChooseColorW(chooseColor)
     
     if(result != 0){
-        colorStr := COLORREF.ToRGBString(chooseColor.rgbResult)
+        colorStr := chooseColor.rgbResult.ToRGBString()
 
         mainGui.BackColor := colorStr
         btn.Opt("Background" . colorStr)

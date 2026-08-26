@@ -1,11 +1,18 @@
-#Include <AhkWin32Projection\Windows\Win32\Devices\DeviceAndDriverInstallation\Apis>
-#Include <AhkWin32Projection\Windows\Win32\Devices\DeviceAndDriverInstallation\SP_DEVICE_INTERFACE_DATA>
-#Include <AhkWin32Projection\Windows\Win32\Devices\DeviceAndDriverInstallation\SP_DEVINFO_DATA>
-#Include <AhkWin32Projection\Windows\Win32\Devices\DeviceAndDriverInstallation\SETUP_DI_GET_CLASS_DEVS_FLAGS>
-#Include <AhkWin32Projection\Windows\Win32\Devices\DeviceAndDriverInstallation\SETUP_DI_REGISTRY_PROPERTY>
+#Requires AutoHotkey v2.1-alpha.30
 
-#Include <AhkWin32Projection\Windows\Win32\Devices\Usb\Apis>
-#Include <AhkWin32Projection\Windows\Win32\Devices\Usb\USB_DEVICE_DESCRIPTOR>
+#Import "..\Windows\Win32\Devices\DeviceAndDriverInstallation" {
+    SetupDiGetClassDevsW,
+    SetupDiEnumDeviceInterfaces,
+    SetupDiEnumDeviceInfo,
+    SetupDiGetDeviceInterfaceDetailW,
+    SetupDiGetDeviceRegistryPropertyW,
+    SP_DEVICE_INTERFACE_DATA,
+    SP_DEVINFO_DATA,
+    SETUP_DI_GET_CLASS_DEVS_FLAGS,
+    SETUP_DI_REGISTRY_PROPERTY
+}
+
+#Import "..\Windows\Win32\Devices\Usb\Constants" { GUID_DEVINTERFACE_USB_DEVICE }
 
 #DllLoad setupapi.dll
 
@@ -21,8 +28,7 @@
  */
 
 ; GUID_DEVINTERFACE_USB_DEVICE means enumerate all devices
-; devInfo is an HDEVINFO handle; will clean itself up
-devInfo := DeviceAndDriverInstallation.SetupDiGetClassDevsW(Usb.GUID_DEVINTERFACE_USB_DEVICE, 0, 0, 
+devInfo := SetupDiGetClassDevsW(GUID_DEVINTERFACE_USB_DEVICE, 0, 0, 
     SETUP_DI_GET_CLASS_DEVS_FLAGS.DIGCF_DEVICEINTERFACE | SETUP_DI_GET_CLASS_DEVS_FLAGS.DIGCF_PRESENT)
 
 ; Allocate structs to receive device data
@@ -34,8 +40,8 @@ devData := SP_DEVINFO_DATA()
 idx := 0
 while(true) {
     try {
-        DeviceAndDriverInstallation.SetupDiEnumDeviceInterfaces(devInfo, 0, Usb.GUID_DEVINTERFACE_USB_DEVICE, idx, devInterfaceData)
-        DeviceAndDriverInstallation.SetupDiEnumDeviceInfo(devInfo, idx, devData)
+        SetupDiEnumDeviceInterfaces(devInfo, 0, GUID_DEVINTERFACE_USB_DEVICE, idx, devInterfaceData)
+        SetupDiEnumDeviceInfo(devInfo, idx, devData)
 
         idx++
     }
@@ -50,18 +56,17 @@ while(true) {
     ; SP_DEVICE_INTERFACE_DETAIL_DATA_W is a variable-size struct with two members, a cbSize and a string
     ; Note - will throw (Sets LastError) if size is too small, but populates dwSize. More robust check would be to
     ; catch OSErrors and ignore if Number = 122 (See GetDeviceProperty)
-    try DeviceAndDriverInstallation.SetupDiGetDeviceInterfaceDetailW(devInfo, devInterfaceData, 0, 0, &dwSize := -1, 0)
+    try SetupDiGetDeviceInterfaceDetailW(devInfo, devInterfaceData, 0, 0, &dwSize := -1, 0)
 
-    devDetailData := Buffer(dwSize, 0)
+    devDetailData := Buffer(dwSize + 8, 0)
     NumPut("uint", 8, devDetailData, 0)
 
-    DeviceAndDriverInstallation.SetupDiGetDeviceInterfaceDetailW(devInfo, devInterfaceData, devDetailData, dwSize, 0, 0)
+    SetupDiGetDeviceInterfaceDetailW(devInfo, devInterfaceData, devDetailData.Ptr, dwSize, 0, 0)
     devicePath := StrGet(devDetailData.Ptr + 4, , "UTF-16")
 
     ; Alternately, pull registry properties:
     friendlyName := GetDeviceProperty(devInfo, devData, SETUP_DI_REGISTRY_PROPERTY.SPDRP_FRIENDLYNAME)
     mfg := GetDeviceProperty(devInfo, devData, SETUP_DI_REGISTRY_PROPERTY.SPDRP_MFG)
-
 
     FileAppend(devicePath . "`n", "*")
     FileAppend(Format("`tFriendly Name: '{1}'`n", friendlyName), "*")
@@ -70,7 +75,8 @@ while(true) {
 
 GetDeviceProperty(devInfo, devData, prop) {
     try {
-        DeviceAndDriverInstallation.SetupDiGetDeviceRegistryPropertyW(devInfo, devData, prop, 0, 0, 0, &dwSize := 0)
+        ; Try preflight to populate dwSize
+        SetupDiGetDeviceRegistryPropertyW(devInfo, devData, prop, 0, 0, 0, &dwSize := 0)
     }
     catch OSError as err {
         ; 13 is ERR_INVALID_DATA, indicates that the property doesn't exist for this device
@@ -83,6 +89,6 @@ GetDeviceProperty(devInfo, devData, prop) {
     }
 
     propBuf := Buffer(dwSize, 0)
-    DeviceAndDriverInstallation.SetupDiGetDeviceRegistryPropertyW(devInfo, devData, prop, 0, propBuf, dwSize, 0)
+    SetupDiGetDeviceRegistryPropertyW(devInfo, devData, prop, 0, propBuf.ptr, dwSize, 0)
     return StrGet(propBuf, , "UTF-16")
 }

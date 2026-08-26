@@ -1,20 +1,19 @@
 #Requires AutoHotkey v2.0
 
-#Include ..\Windows\Win32\Graphics\Gdi\Apis.ahk
-#Include ..\Windows\Win32\Graphics\Gdi\DISPLAY_DEVICEW.ahk
+#Import "..\Windows\Win32\Graphics\Gdi" { EnumDisplayDevicesW, DISPLAY_DEVICEW }
 
 stdout := FileOpen("*", "w")
 
 deviceNum := 0
 deviceInfo := DISPLAY_DEVICEW()
-deviceInfo.cb := DISPLAY_DEVICEW.sizeof
+deviceInfo.cb := ObjGetDataSize(deviceInfo)
 
-while(Gdi.EnumDisplayDevicesW(0, deviceNum++, deviceInfo, 0)) {
-    deviceName := deviceInfo.DeviceName
-    deviceDesc := deviceInfo.DeviceString
+while(EnumDisplayDevicesW(0, deviceNum++, deviceInfo, 0)) {
+    deviceName := String(deviceInfo.DeviceName)
+    deviceDesc := String(deviceInfo.DeviceString)
 
     ; Get device display name
-    Gdi.EnumDisplayDevicesW(deviceName, 0, deviceInfo, 0)
+    EnumDisplayDevicesW(deviceName, 0, deviceInfo, 0)
 
-    stdout.WriteLine(Format("{1}: {2} - {3}", deviceName, deviceDesc, deviceInfo.DeviceString))
+    stdout.WriteLine(Format("{1}: {2} - {3}", deviceName, deviceDesc, String(deviceInfo.DeviceString)))
 }
